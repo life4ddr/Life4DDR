@@ -23,7 +23,7 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:background="@color/colorAccent"/>
 
-        <ImageView
+        <com.perrigogames.life4trials.view.RankImageView
             android:id="@+id/image_desired_rank"
             android:layout_width="32dp"
             android:layout_height="32dp"

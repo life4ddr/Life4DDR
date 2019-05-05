@@ -1,11 +1,8 @@
 package com.perrigogames.life4trials.view
 
 import android.content.Context
-import android.graphics.BitmapFactory
-import android.graphics.drawable.BitmapDrawable
 import android.os.Build
 import android.util.AttributeSet
-import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
@@ -33,19 +30,9 @@ class SongView @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
         song?.let {
             text_song_title.text = it.name
             text_song_difficulty.setDifficulty(it.difficultyClass, it.difficultyNumber)
-            if (result != null) {
-                text_song_result.text = resources.getString(R.string.difficulty_string_format, result!!.score.toString(), result!!.exScore)
-
-                val bitmap = BitmapFactory.decodeFile(result!!.photoPath, BitmapFactory.Options().apply {
-                    outWidth = 128
-                    outHeight = 128
-                })
-                image_photo.visibility = View.VISIBLE
-                image_photo.setImageDrawable(BitmapDrawable(resources, bitmap))
-            } else {
-                text_song_result.text = ""
-                image_photo.visibility = View.GONE
-            }
+            image_photo.path = result?.photoPath
+            text_song_result.text = result?.let { r ->
+                resources.getString(R.string.difficulty_string_format, r.score.toString(), r.exScore) }
 
             Glide.with(this).load(it.url).into(image_song_jacket)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {

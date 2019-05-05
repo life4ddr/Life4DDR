@@ -13,12 +13,22 @@ data class GoalSet(val rank: TrialRank,
                    val miss: Int? = null,
                    @Json(name="ex_missing") val exMissing: Int? = null): Serializable {
 
+    fun generateSingleGoalString(res: Resources, trial: Trial) = StringBuilder().apply {
+        generateGoalStrings(res, trial).forEach { s ->
+            append("$s\n")
+        }
+    }.toString()
+
     fun generateGoalStrings(res: Resources, trial: Trial): List<String> = mutableListOf<String>().also { list ->
         generateSpecificScoreGoalStrings(res, trial, list)
         generateScoreGoalStrings(res, list)
         miss?.let { list.add(res.getString(R.string.misses_count, it)) }
         judge?.let { list.add(res.getString(R.string.bad_judgments_count, it)) }
-        exMissing?.let { list.add(res.getString(R.string.missing_ex_count, it, trial.total_ex - it)) }
+        exMissing?.let { missing ->
+            list.add(trial.total_ex.let { total ->
+                res.getString(R.string.missing_ex_count_threshold, missing, total - missing) }
+                ?: res.getString(R.string.missing_ex_count))
+        }
         if (list.size == 0) {
             list.add(res.getString(R.string.pass_the_trial))
         }

@@ -33,7 +33,7 @@
 
         <activity android:name=".activity.TrialDetailsActivity" />
         <activity android:name=".activity.SongEntryActivity" />
-        <activity android:name=".activity.SongSubmissionActivity" />
+        <activity android:name=".activity.TrialSubmissionActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

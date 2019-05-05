@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.content_song_entry.*
 class SongEntryActivity: AppCompatActivity() {
 
     val result: SongResult? get() =
-        intent?.extras?.getSerializable(ARG_RESULT) as SongResult
+        intent?.extras?.getSerializable(ARG_RESULT) as? SongResult
 
     val song: Song? get() =
         intent?.extras?.getSerializable(ARG_SONG) as? Song
@@ -31,6 +31,11 @@ class SongEntryActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.content_song_entry)
+
+        if (result == null) {
+            finish()
+            return
+        }
 
         val bitmap = BitmapFactory.decodeFile(result!!.photoPath)
         image_photo.setImageDrawable(BitmapDrawable(resources, bitmap))
@@ -78,7 +83,7 @@ class SongEntryActivity: AppCompatActivity() {
     }
 
     private fun retakePhoto() {
-        setResult(STATUS_RETAKE)
+        setResult(RESULT_RETAKE)
         finish()
     }
 
@@ -89,7 +94,7 @@ class SongEntryActivity: AppCompatActivity() {
     }
 
     companion object {
-        const val STATUS_RETAKE = 101
+        const val RESULT_RETAKE = 101
 
         const val ARG_RESULT = "ARG_RESULT"
         const val ARG_SONG = "ARG_SONG"

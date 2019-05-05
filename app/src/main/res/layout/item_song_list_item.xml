@@ -15,7 +15,8 @@
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:background="@color/colorAccent"/>
+        android:contentDescription="@string/jacket_artwork_for_song"
+        tools:background="@color/colorAccent" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/text_song_title"
@@ -47,15 +48,16 @@
         android:id="@+id/text_song_result"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/content_padding_med"
         android:layout_marginRight="@dimen/content_padding_med"
         android:layout_marginBottom="@dimen/content_padding_med"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/text_song_title"
-        tools:text="995,365  (1266 EX)"/>
+        tools:text="995,365  (1266 EX)" />
 
-    <ImageView
+    <com.perrigogames.life4trials.view.PathImageView
         android:id="@+id/image_photo"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -65,7 +67,7 @@
         app:layout_constraintDimensionRatio="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="visible"
-        tools:background="@color/colorAccent"/>
+        tools:background="@color/colorAccent"
+        tools:visibility="visible"/>
 
 </com.perrigogames.life4trials.view.SongView>

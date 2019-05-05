@@ -10,8 +10,8 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import com.perrigogames.life4trials.BuildConfig
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.data.SongResult
 import com.perrigogames.life4trials.data.Trial
@@ -45,12 +45,23 @@ class TrialDetailsActivity: AppCompatActivity() {
         }
     }
 
-    private var currentResult get() = currentIndex?.let { trialSession.results[it] }
-    set(v) {
-        currentIndex?.let { trialSession.results[it] = v!! }
-    }
+    private fun songViewForIndex(index: Int?) = when(index) {
+        0 -> include_trial_1
+        1 -> include_trial_2
+        2 -> include_trial_3
+        3 -> include_trial_4
+        else -> null
+    } as? SongView
 
-    private val currentSongView get() = songForIndex(currentIndex)
+    private inline fun forEachSongView(block: (Int, SongView) -> Unit) = (0..3).forEach { idx -> block(idx, songViewForIndex(idx)!!) }
+
+    private var currentResult: SongResult?
+        get() = currentIndex?.let { trialSession.results[it] }
+        set(v) {
+            currentIndex?.let { trialSession.results[it] = v }
+        }
+
+    private val currentSongView get() = songViewForIndex(currentIndex)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -90,16 +101,6 @@ class TrialDetailsActivity: AppCompatActivity() {
         }
     }
 
-    private fun songForIndex(index: Int?) = when(index) {
-        0 -> include_trial_1
-        1 -> include_trial_2
-        2 -> include_trial_3
-        3 -> include_trial_4
-        else -> null
-    } as? SongView
-
-    private inline fun forEachSongView(block: (Int, SongView) -> Unit) = (0..3).forEach { idx -> block(idx, songForIndex(idx)!!) }
-
     private fun onSongClicked(index: Int) {
         currentIndex = index
         if (currentResult != null) {
@@ -115,17 +116,8 @@ class TrialDetailsActivity: AppCompatActivity() {
 
     private fun setRank(rank: TrialRank) = trial?.let { t ->
         trialSession.goalRank = rank
-        image_desired_rank.setImageDrawable(ContextCompat.getDrawable(this, rank.drawableRes))
-        StringBuilder().let { builder ->
-            t.goals.forEach { goalSet ->
-                if (goalSet.rank == trialSession.goalRank) {
-                    goalSet.generateGoalStrings(resources, t).forEach { s ->
-                        builder.append("$s\n")
-                    }
-                }
-            }
-            text_goals_content.text = builder.toString()
-        }
+        image_desired_rank.rank = rank
+        text_goals_content.text = trialSession.goalSet?.generateSingleGoalString(resources, t)
     }
 
     private fun updateSongs() {
@@ -150,7 +142,11 @@ class TrialDetailsActivity: AppCompatActivity() {
                 } catch (ex: IOException) {
                     null // Error occurred while creating the File
                 }?.also {
-                    currentResult = SongResult(trial!!.songs[currentIndex!!], it.absolutePath)
+                    if (currentIndex != null) {
+                        currentResult = SongResult(trial!!.songs[currentIndex!!], it.absolutePath)
+                    } else {
+                        trialSession.finalPhoto = it.absolutePath
+                    }
                     val photoURI: Uri = FileProvider.getUriForFile(this, "com.perrigogames.fileprovider", it)
                     intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
                     startActivityForResult(intent, intentFlag)
@@ -167,8 +163,8 @@ class TrialDetailsActivity: AppCompatActivity() {
     }
 
     private fun startSubmitActivity() {
-        Intent(this, SongEntryActivity::class.java).also { i ->
-            i.putExtra(SongSubmissionActivity.ARG_SESSION, trialSession)
+        Intent(this, TrialSubmissionActivity::class.java).also { i ->
+            i.putExtra(TrialSubmissionActivity.ARG_SESSION, trialSession)
             startActivityForResult(i, FLAG_SCORE_ENTER)
         }
         finish()
@@ -188,23 +184,38 @@ class TrialDetailsActivity: AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == FLAG_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            currentResult!!.photoPath
-            startEditActivity(currentResult!!)
+        if (requestCode == FLAG_IMAGE_CAPTURE) when (resultCode) {
+            RESULT_OK -> {
+                currentResult!!.photoPath
+                if (BuildConfig.DEBUG) {
+                    onEntryFinished(currentResult!!)
+                } else {
+                    startEditActivity(currentResult!!)
+                }
+            }
+            RESULT_CANCELED -> onEntryCancelled()
         } else if (requestCode == FLAG_IMAGE_CAPTURE_FINAL && resultCode == RESULT_OK) {
             startSubmitActivity()
         } else if (requestCode == FLAG_SCORE_ENTER) when (resultCode) {
             RESULT_OK -> {
-                songForIndex(currentIndex!!)?.let {
-                    currentResult = data!!.getSerializableExtra(SongEntryActivity.RESULT_DATA) as SongResult
-                    it.result = currentResult
-                    updateSongs()
-                    modified = true
-                    currentIndex = null
-                }
+                onEntryFinished(data!!.getSerializableExtra(SongEntryActivity.RESULT_DATA) as? SongResult)
             }
-            SongEntryActivity.STATUS_RETAKE -> startCameraActivity(FLAG_IMAGE_CAPTURE)
+            SongEntryActivity.RESULT_RETAKE -> startCameraActivity(FLAG_IMAGE_CAPTURE)
+            RESULT_CANCELED -> onEntryCancelled()
         }
+    }
+
+    private fun onEntryFinished(result: SongResult?) {
+        currentResult = result
+        currentSongView?.result = currentResult
+        updateSongs()
+        modified = true
+        currentIndex = null
+    }
+
+    private fun onEntryCancelled() {
+        currentResult = null
+        currentIndex = null
     }
 
     companion object {

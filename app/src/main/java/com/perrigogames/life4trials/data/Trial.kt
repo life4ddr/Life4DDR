@@ -22,6 +22,8 @@ data class Trial(val name: String,
                  val jacket_dir: String,
                  val jacket_name: String? = null): Serializable {
 
+    fun goalSet(rank: TrialRank): GoalSet? = goals.find { it.rank == rank }
+
     fun jacketUrl(resources: Resources) =
         resources.getString(
             R.string.url_trial_jacket_base,

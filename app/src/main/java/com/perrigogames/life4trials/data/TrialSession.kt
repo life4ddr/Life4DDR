@@ -23,6 +23,9 @@ data class TrialSession(val trial: Trial,
         result = 31 * result + results.contentHashCode()
         return result
     }
+
+    val goalSet: GoalSet?
+        get() = trial.goalSet(goalRank)
 }
 
 data class SongResult(var song: Song,
