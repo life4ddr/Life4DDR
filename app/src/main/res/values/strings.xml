@@ -1,9 +1,13 @@
 <resources>
     <string name="app_name">Life4 Trials</string>
+
+    <!-- Settings Strings -->
     <string name="action_settings">Settings</string>
     <string name="action_list_view">List View</string>
     <string name="action_grid_view">Grid View</string>
+    <string name="action_clear_rank_data">Clear Rank Data</string>
 
+    <!-- Goal Strings -->
     <string name="score_songs">• Score %s on at least %d songs.</string>
     <string name="aaa_songs">• AAA at least %d songs.</string>
     <string name="score_specific_song">• Score %s on %s.</string>
@@ -38,9 +42,13 @@
     <string name="submit_dialog_rank_confirmation">Did you pass all requirements for %s rank?</string>
     <string name="submit_dialog_content">Photos are saved to your SD card\'s Pictures/Life4 folder. These photos can be uploaded to Life4\'s Trial Submission Page manually.</string>
 
+    <string name="confirm_erase_data">Are you sure you want to clear all saved rank data?</string>
+
+    <!-- Format Strings -->
     <string name="difficulty_string_format">"%s (%d)"</string>
     <string name="score_string_format">"%d (%d EX)"</string>
 
+    <!-- Short/Common Strings -->
     <string name="goals">Goals:</string>
     <string name="are_you_sure">Are you sure?</string>
     <string name="finalize">Finalize</string>
@@ -55,10 +63,17 @@
         <item>songs</item>
     </array>
 
+    <!-- URLs -->
     <string name="url_trial_jacket_base">https://life4ddr.com/wp-content/uploads/%s/%s.jpg</string>
     <string name="url_trial_jacket_sized">https://life4ddr.com/wp-content/uploads/%s/%s-%dx%d.jpg</string>
 
+    <!-- Content descriptions -->
     <string name="jacket_artwork_for_trial">jacket artwork for trial</string>
     <string name="jacket_artwork_for_song">jacket artwork for song</string>
     <string name="rank_image">rank image</string>
+    <string name="camera_icon">camera icon</string>
+
+    <array name="credits">
+        <item>Camera icon by https://www.flaticon.com/authors/daniel-bruce from www.flaticon.com</item>
+    </array>
 </resources>

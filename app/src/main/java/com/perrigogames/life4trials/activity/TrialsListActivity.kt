@@ -3,28 +3,32 @@ package com.perrigogames.life4trials.activity
 import android.content.Intent
 import android.graphics.Rect
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import android.util.DisplayMetrics
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.perrigogames.life4trials.Life4Application
 import com.perrigogames.life4trials.R
+import com.perrigogames.life4trials.TrialsAdapter
 import com.perrigogames.life4trials.data.Trial
 import com.perrigogames.life4trials.data.TrialData
-import com.perrigogames.life4trials.TrialsAdapter
+import com.perrigogames.life4trials.event.SavedRankUpdatedEvent
 import com.perrigogames.life4trials.util.DataUtil
+import com.perrigogames.life4trials.util.SharedPrefsUtils
 import com.perrigogames.life4trials.util.loadRawString
-
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
-import android.util.DisplayMetrics
-
+import org.greenrobot.eventbus.Subscribe
 
 class TrialsListActivity : AppCompatActivity() {
 
-    private var data: TrialData? = null
+    private lateinit var data: TrialData
+    private lateinit var adapter: TrialsAdapter
 
     private val useGrid: Boolean get() = intent?.extras?.getBoolean(EXTRA_GRID, true) ?: true
 
@@ -33,7 +37,7 @@ class TrialsListActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        data = DataUtil.moshi.adapter(TrialData::class.java).fromJson(loadRawString(R.raw.trials))
+        data = DataUtil.moshi.adapter(TrialData::class.java).fromJson(loadRawString(R.raw.trials))!!
         if (useGrid) {
             createTiledAdapter()
         } else {
@@ -41,15 +45,30 @@ class TrialsListActivity : AppCompatActivity() {
         }
     }
 
+    override fun onAttachedToWindow() {
+        super.onAttachedToWindow()
+        Life4Application.eventBus.register(this)
+    }
+
+    override fun onDetachedFromWindow() {
+        super.onDetachedFromWindow()
+        Life4Application.eventBus.unregister(this)
+    }
+
+    @Subscribe
+    fun onRankUpdated(event: SavedRankUpdatedEvent) {
+        adapter.notifyItemChanged(data.trials.indexOf(event.trial))
+    }
+
     private fun createListAdapter() {
-        recycler_trials_list.adapter =
-            TrialsAdapter(this, data!!.trials, false, this::onTrialSelected)
+        adapter = TrialsAdapter(this, data.trials, false, this::onTrialSelected)
+        recycler_trials_list.adapter = adapter
         recycler_trials_list.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
     }
 
     private fun createTiledAdapter() {
-        recycler_trials_list.adapter =
-            TrialsAdapter(this, data!!.trials, true, this::onTrialSelected)
+        adapter = TrialsAdapter(this, data.trials, true, this::onTrialSelected)
+        recycler_trials_list.adapter = adapter
         recycler_trials_list.addItemDecoration(object: RecyclerView.ItemDecoration() {
             override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
                 super.getItemOffsets(outRect, view, parent, state)
@@ -77,9 +96,6 @@ class TrialsListActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
             R.id.action_settings -> true
             R.id.action_list_view -> {
@@ -90,16 +106,29 @@ class TrialsListActivity : AppCompatActivity() {
                 restartActivity(true)
                 true
             }
+            R.id.action_clear_rank_data -> {
+                clearRankData()
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
 
-    private fun restartActivity(grid: Boolean) {
+    private fun restartActivity(grid: Boolean = useGrid) {
+        intent.putExtra(EXTRA_GRID, grid)
+        recreate()
+    }
 
-        finish()
-        startActivity(Intent(this, TrialsListActivity::class.java).apply {
-            putExtra(EXTRA_GRID, grid)
-        })
+    private fun clearRankData() {
+        AlertDialog.Builder(this)
+            .setTitle(R.string.are_you_sure)
+            .setMessage(R.string.confirm_erase_data)
+            .setPositiveButton(R.string.yes) { _, _ ->
+                SharedPrefsUtils.clearRanks(this)
+                restartActivity()
+            }
+            .setNegativeButton(R.string.no, null)
+            .show()
     }
 
     companion object {

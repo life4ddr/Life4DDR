@@ -30,9 +30,11 @@ class SongView @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
         song?.let {
             text_song_title.text = it.name
             text_song_difficulty.setDifficulty(it.difficultyClass, it.difficultyNumber)
-            image_photo.path = result?.photoPath
             text_song_result.text = result?.let { r ->
                 resources.getString(R.string.difficulty_string_format, r.score.toString(), r.exScore) }
+
+            val tintColor = if (result?.photoPath != null) R.color.colorPrimary else R.color.gray
+            image_photo_icon.setColorFilter(ContextCompat.getColor(context, tintColor))
 
             Glide.with(this).load(it.url).into(image_song_jacket)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {

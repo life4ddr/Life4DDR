@@ -3,8 +3,10 @@ package com.perrigogames.life4trials.activity
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.perrigogames.life4trials.Life4Application
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.data.TrialSession
+import com.perrigogames.life4trials.event.SavedRankUpdatedEvent
 import com.perrigogames.life4trials.util.SharedPrefsUtils
 import kotlinx.android.synthetic.main.content_trial_submission.*
 
@@ -45,6 +47,7 @@ class TrialSubmissionActivity: AppCompatActivity() {
     private fun submitRankAndFinish(passed: Boolean) {
         if (passed) {
             SharedPrefsUtils.setRankForTrial(this, session!!.trial, session!!.goalRank)
+            Life4Application.eventBus.post(SavedRankUpdatedEvent(session!!.trial))
         }
 
         AlertDialog.Builder(this)
