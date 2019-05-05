@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#FF0971</color>
+
+    <color name="difficultyBeginner">#1fc6db</color>
+    <color name="difficultyBasic">#f59e23</color>
+    <color name="difficultyDifficult">#f54558</color>
+    <color name="difficultyExpert">#2cc945</color>
+    <color name="difficultyChallenge">#4444FF</color>
+</resources>

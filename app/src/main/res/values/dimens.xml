@@ -1,0 +1,7 @@
+<resources>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="content_padding_small">4dp</dimen>
+    <dimen name="content_padding_med">8dp</dimen>
+    <dimen name="content_padding_large">16dp</dimen>
+    <dimen name="trial_details_main_thumb_size">200dp</dimen>
+</resources>

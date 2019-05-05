@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.perrigogames.life4trials.view.TrialItemView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="100dp">
+
+    <ImageView
+        android:id="@+id/image_trial_jacket"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="@dimen/content_padding_med"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:background="@color/colorAccent"/>
+
+    <TextView
+        android:id="@+id/text_trial_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/content_padding_med"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@id/image_trial_jacket"
+        app:layout_constraintEnd_toStartOf="@id/text_trial_difficulty"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Clockwork"/>
+
+    <TextView
+        android:id="@+id/text_trial_difficulty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/content_padding_med"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@id/text_trial_title"
+        app:layout_constraintTop_toTopOf="@id/text_trial_title"
+        app:layout_constraintBottom_toBottomOf="@id/text_trial_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="17"/>
+
+    <ImageView
+        android:id="@+id/image_badge_highest"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:visibility="gone"
+        tools:background="@color/colorPrimary"
+        app:layout_constraintTop_toTopOf="@id/image_trial_jacket"
+        app:layout_constraintEnd_toEndOf="@id/image_trial_jacket"/>
+
+    <ImageView
+        android:id="@+id/image_badge_1"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_margin="@dimen/content_padding_med"
+        android:visibility="gone"
+        tools:background="@color/colorAccent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/image_badge_2"/>
+
+    <ImageView
+        android:id="@+id/image_badge_2"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_margin="@dimen/content_padding_med"
+        android:visibility="gone"
+        tools:background="@color/colorAccent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/image_badge_3"/>
+
+    <ImageView
+        android:id="@+id/image_badge_3"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_margin="@dimen/content_padding_med"
+        android:visibility="gone"
+        tools:background="@color/colorAccent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/image_badge_4"/>
+
+    <ImageView
+        android:id="@+id/image_badge_4"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_margin="@dimen/content_padding_med"
+        android:visibility="gone"
+        tools:background="@color/colorAccent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/image_badge_5"/>
+
+    <ImageView
+        android:id="@+id/image_badge_5"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_margin="@dimen/content_padding_med"
+        android:visibility="gone"
+        tools:background="@color/colorAccent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</com.perrigogames.life4trials.view.TrialItemView>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.perrigogames.life4trials.view.SongView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="100dp">
+
+    <ImageView
+        android:id="@+id/image_song_jacket"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="@dimen/content_padding_med"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:background="@color/colorAccent"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/text_song_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/content_padding_med"
+        android:lines="1"
+        android:textSize="20sp"
+        app:autoSizeMinTextSize="10sp"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/image_song_jacket"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Rising Fire Hawk"/>
+
+    <com.perrigogames.life4trials.view.DifficultyTextView
+        android:id="@+id/text_song_difficulty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/text_song_result"
+        app:layout_constraintStart_toStartOf="@id/text_song_title"
+        app:layout_constraintTop_toBottomOf="@id/text_song_title"
+        tools:text="CHALLENGE 17"
+        tools:textColor="#4444ff"/>
+
+    <TextView
+        android:id="@+id/text_song_result"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/content_padding_med"
+        android:layout_marginBottom="@dimen/content_padding_med"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/text_song_title"
+        tools:text="995,365  (1266 EX)"/>
+
+    <ImageView
+        android:id="@+id/image_photo"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="@dimen/content_padding_med"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible"
+        tools:background="@color/colorAccent"/>
+
+</com.perrigogames.life4trials.view.SongView>
