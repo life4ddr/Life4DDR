@@ -41,6 +41,10 @@
     <string name="finalize">Finalize</string>
     <string name="rank_preferences_key">rank_preferences</string>
 
+    <string name="jacket_artwork_for_trial">jacket artwork for trial</string>
+    <string name="jacket_artwork_for_song">jacket artwork for song</string>
+    <string name="rank_image">rank image</string>
+
     <array name="song_plural">
         <item>song</item>
         <item>songs</item>

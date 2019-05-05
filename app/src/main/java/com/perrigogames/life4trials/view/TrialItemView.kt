@@ -9,7 +9,6 @@ import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.data.Trial
 import com.perrigogames.life4trials.data.TrialRank
@@ -24,20 +23,16 @@ class TrialItemView @JvmOverloads constructor(context: Context, attrs: Attribute
     var trial: Trial? = null
         set(v) {
             field = v
+            (view_trial_jacket as TrialJacketView).trial = v
             update()
         }
 
-    fun update() {
-        text_trial_title.text = trial?.name
-        text_trial_difficulty.text = trial?.difficulty?.toString()
-
+    private fun update() {
         image_badge_1.visibility = GONE
         image_badge_2.visibility = GONE
         image_badge_3.visibility = GONE
         image_badge_4.visibility = GONE
         image_badge_5.visibility = GONE
-
-        Glide.with(this).load(trial?.jacketUrl(resources, 350)).into(image_trial_jacket)
     }
 
     fun setupRankList(rank: TrialRank?) = trial?.let { t ->
@@ -58,12 +53,7 @@ class TrialItemView @JvmOverloads constructor(context: Context, attrs: Attribute
     }
 
     fun setupHighestRank(rank: TrialRank?) {
-        if (rank != null) {
-            image_badge_highest.visibility = View.VISIBLE
-            setupRank(image_badge_highest, rank, rank)
-        } else {
-            image_badge_highest.visibility = View.GONE
-        }
+        (view_trial_jacket as TrialJacketView).rank = rank
     }
 
     private fun setupRank(imageView: ImageView, rank: TrialRank, target: TrialRank? = null) {

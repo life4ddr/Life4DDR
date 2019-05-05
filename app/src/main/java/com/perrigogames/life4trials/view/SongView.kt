@@ -11,6 +11,7 @@ import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.data.Song
+import com.perrigogames.life4trials.data.SongResult
 import kotlinx.android.synthetic.main.item_song_list_item.view.*
 
 class SongView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
@@ -22,28 +23,7 @@ class SongView @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
             update()
         }
 
-    var photoPath: String? = null
-        set(v) {
-            field = v
-            if (v != null) {
-                val bitmap = BitmapFactory.decodeFile(v, BitmapFactory.Options().apply {
-                    outWidth = 128
-                    outHeight = 128
-                })
-                image_photo.visibility = View.VISIBLE
-                image_photo.setImageDrawable(BitmapDrawable(resources, bitmap))
-            } else {
-                image_photo.visibility = View.GONE
-            }
-        }
-
-    var score: Int = -1
-        set(v) {
-            field = v
-            update()
-        }
-
-    var ex: Int = -1
+    var result: SongResult? = null
         set(v) {
             field = v
             update()
@@ -53,9 +33,19 @@ class SongView @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
         song?.let {
             text_song_title.text = it.name
             text_song_difficulty.setDifficulty(it.difficultyClass, it.difficultyNumber)
-            text_song_result.text = if (score > 0 && ex > 0) {
-                resources.getString(R.string.difficulty_string_format, score.toString(), ex)
-            } else ""
+            if (result != null) {
+                text_song_result.text = resources.getString(R.string.difficulty_string_format, result!!.score.toString(), result!!.exScore)
+
+                val bitmap = BitmapFactory.decodeFile(result!!.photoPath, BitmapFactory.Options().apply {
+                    outWidth = 128
+                    outHeight = 128
+                })
+                image_photo.visibility = View.VISIBLE
+                image_photo.setImageDrawable(BitmapDrawable(resources, bitmap))
+            } else {
+                text_song_result.text = ""
+                image_photo.visibility = View.GONE
+            }
 
             Glide.with(this).load(it.url).into(image_song_jacket)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.perrigogames.life4trials.view.TrialJacketView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/image_trial_jacket"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/content_padding_med"
+        android:contentDescription="@string/jacket_artwork_for_trial"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:background="@color/colorAccent"
+        tools:layout_width="300dp" />
+
+    <TextView
+        android:id="@+id/text_trial_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/content_padding_med"
+        android:textSize="24sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/image_trial_jacket"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="@id/image_trial_jacket"
+        tools:text="Clockwork"
+        tools:visibility="visible"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/text_trial_difficulty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/content_padding_med"
+        android:background="#66ffffff"
+        android:paddingStart="@dimen/content_padding_med"
+        android:paddingTop="@dimen/content_padding_small"
+        android:paddingEnd="@dimen/content_padding_med"
+        android:paddingBottom="@dimen/content_padding_small"
+        android:textColor="@android:color/primary_text_light"
+        android:textSize="24sp"
+        app:layout_constraintLeft_toLeftOf="@id/image_trial_jacket"
+        app:layout_constraintTop_toTopOf="@id/image_trial_jacket"
+        tools:text="17"/>
+
+    <ImageView
+        android:id="@+id/image_badge_highest"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:contentDescription="@string/rank_image"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@id/image_trial_jacket"
+        app:layout_constraintTop_toTopOf="@id/image_trial_jacket"
+        tools:background="@color/colorPrimary"/>
+</com.perrigogames.life4trials.view.TrialJacketView>

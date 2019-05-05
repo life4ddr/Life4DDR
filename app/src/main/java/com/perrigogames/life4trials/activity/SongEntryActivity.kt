@@ -6,21 +6,21 @@ import android.content.Intent
 import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
-import android.text.Editable
 import android.text.SpannableStringBuilder
 import androidx.appcompat.app.AppCompatActivity
 import com.perrigogames.life4trials.BuildConfig
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.data.GoalSet
 import com.perrigogames.life4trials.data.Song
+import com.perrigogames.life4trials.data.SongResult
 import com.perrigogames.life4trials.util.DataUtil
 import kotlinx.android.synthetic.main.content_song_entry.*
 
 
 class SongEntryActivity: AppCompatActivity() {
 
-    val photoPath: String? get() =
-        intent?.extras?.getString(ARG_PHOTO_PATH)
+    val result: SongResult? get() =
+        intent?.extras?.getSerializable(ARG_RESULT) as SongResult
 
     val song: Song? get() =
         intent?.extras?.getSerializable(ARG_SONG) as? Song
@@ -28,26 +28,20 @@ class SongEntryActivity: AppCompatActivity() {
     val goalSet: GoalSet? get() =
         intent?.extras?.getSerializable(ARG_GOAL_SET) as? GoalSet
 
-    val score: Int get() =
-        intent?.extras?.getInt(ARG_SCORE, -1) ?: -1
-
-    val ex: Int get() =
-        intent?.extras?.getInt(ARG_EX, -1) ?: -1
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.content_song_entry)
 
-        val bitmap = BitmapFactory.decodeFile(photoPath)
+        val bitmap = BitmapFactory.decodeFile(result!!.photoPath)
         image_photo.setImageDrawable(BitmapDrawable(resources, bitmap))
         button_retake.setOnClickListener { retakePhoto() }
         button_done.setOnClickListener { completeEntry() }
 
-        if (score >= 0) {
-            field_score.text = SpannableStringBuilder(score.toString())
+        if (result!!.score != null) {
+            field_score.text = SpannableStringBuilder(result!!.score.toString())
         }
-        if (ex >= 0) {
-            field_ex.text = SpannableStringBuilder(ex.toString())
+        if (result!!.exScore != null) {
+            field_ex.text = SpannableStringBuilder(result!!.exScore.toString())
         }
     }
 
@@ -69,8 +63,7 @@ class SongEntryActivity: AppCompatActivity() {
             }
         } else {
             setResult(Activity.RESULT_OK, Intent().apply {
-                putExtra(RESULT_SCORE, score)
-                putExtra(RESULT_EX, ex)
+                putExtra(RESULT_DATA, result)
             })
             finish()
         }
@@ -90,7 +83,7 @@ class SongEntryActivity: AppCompatActivity() {
     }
 
     private fun cancel() {
-        DataUtil.deleteExternalStoragePublicPicture(photoPath!!)
+        DataUtil.deleteExternalStoragePublicPicture(result!!.photoPath)
         setResult(Activity.RESULT_CANCELED)
         finish()
     }
@@ -98,13 +91,10 @@ class SongEntryActivity: AppCompatActivity() {
     companion object {
         const val STATUS_RETAKE = 101
 
-        const val ARG_PHOTO_PATH = "ARG_PHOTO_PATH"
+        const val ARG_RESULT = "ARG_RESULT"
         const val ARG_SONG = "ARG_SONG"
         const val ARG_GOAL_SET = "ARG_GOAL_SET"
-        const val ARG_SCORE = "ARG_SCORE"
-        const val ARG_EX = "ARG_EX"
 
-        const val RESULT_SCORE = "RESULT_SCORE"
-        const val RESULT_EX = "RESULT_EX"
+        const val RESULT_DATA = "RESULT_DATA"
     }
 }
