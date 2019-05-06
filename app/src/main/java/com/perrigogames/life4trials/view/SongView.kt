@@ -28,14 +28,14 @@ class SongView @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
             update()
         }
 
-    fun update() {
+    private fun update() {
         song?.let {
             text_song_title.text = it.name
             text_song_difficulty.setDifficulty(it.difficultyClass, it.difficultyNumber)
 
             text_song_result.text = result?.let { r ->
                 val scoreString = DecimalFormat("#,###,###").format(r.score)
-                resources.getString(R.string.difficulty_string_format, scoreString, r.exScore)
+                resources.getString(R.string.score_string_format, scoreString, r.exScore)
             }
 
             val tintColor = if (result?.photoPath != null) R.color.colorPrimary else R.color.gray

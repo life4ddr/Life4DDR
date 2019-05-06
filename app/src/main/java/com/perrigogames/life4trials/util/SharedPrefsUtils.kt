@@ -28,4 +28,7 @@ object SharedPrefsUtils {
 
     private fun rankPrefs(c: Context) =
         c.getSharedPreferences(c.resources.getString(R.string.rank_preferences_key), Context.MODE_PRIVATE)
+
+    private fun userPrefs(c: Context) =
+        c.getSharedPreferences(c.resources.getString(R.string.user_preferences_key), Context.MODE_PRIVATE)
 }

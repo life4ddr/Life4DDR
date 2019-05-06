@@ -30,13 +30,9 @@ data class GoalSet(val rank: TrialRank,
     fun generateGoalStrings(res: Resources, trial: Trial): List<String> = mutableListOf<String>().also { list ->
         generateSpecificScoreGoalStrings(res, trial, list)
         generateScoreGoalStrings(res, list)
-        miss?.let { list.add(res.getString(R.string.misses_count, it)) }
-        judge?.let { list.add(res.getString(R.string.bad_judgments_count, it)) }
-        exMissing?.let { missing ->
-            list.add(trial.total_ex.let { total ->
-                res.getString(R.string.missing_ex_count_threshold, missing, total - missing) }
-                ?: res.getString(R.string.missing_ex_count))
-        }
+        miss?.let { list.add(missesString(res, it)) }
+        judge?.let { list.add(badJudgementsString(res, it)) }
+        exMissing?.let { list.add(exScoreString(res, it, trial.total_ex)) }
         if (list.size == 0) {
             list.add(res.getString(R.string.pass_the_trial))
         }
@@ -82,18 +78,17 @@ data class GoalSet(val rank: TrialRank,
             val minimumScore = scoreSort.last()
 
             if (scoreCounts.size == 1) {
-                if (allSongs) {
-                    strings.add(onEveryString(res, minimumScore))
-                } else {
-                    strings.add(onCountString(res, minimumScore, scoreCounts[minimumScore]!!))
-                }
+                strings.add(when {
+                    allSongs -> onEveryString(res, minimumScore)
+                    else ->onCountString(res, minimumScore, scoreCounts[minimumScore]!!)
+                })
             } else {
-                scoreCounts.keys.sortedDescending().forEach { score ->
-                    if (score == minimumScore && allSongs) {
-                        strings.add(onRemainderString(res, score))
-                    } else {
-                        strings.add(onCountString(res, score, scoreCounts[score]!!))
-                    }
+                scoreCounts.keys.sortedDescending().forEachIndexed { index, score ->
+                    strings.add(when {
+                        score == minimumScore && allSongs -> onRemainderString(res, score)
+                        index == 0 -> onCountString(res, score, scoreCounts[score]!!)
+                        else -> onCountOtherString(res, score, scoreCounts[score]!!)
+                    })
                 }
             }
         }
@@ -109,6 +104,10 @@ data class GoalSet(val rank: TrialRank,
         if (score == AAA_SCORE) res.getString(R.string.aaa_songs, count)
         else res.getString(R.string.score_songs, scoreString(score), count)
 
+    private fun onCountOtherString(res: Resources, score: Int, count: Int) =
+        if (score == AAA_SCORE) res.getString(R.string.aaa_other_songs, count)
+        else res.getString(R.string.score_other_songs, scoreString(score), count)
+
     private fun onEveryString(res: Resources, score: Int) =
         if (score == AAA_SCORE) res.getString(R.string.aaa_every_song)
         else res.getString(R.string.score_every_song, scoreString(score))
@@ -116,6 +115,20 @@ data class GoalSet(val rank: TrialRank,
     private fun onRemainderString(res: Resources, score: Int) =
         if (score == AAA_SCORE) res.getString(R.string.aaa_on_remainder)
         else res.getString(R.string.score_on_remainder, scoreString(score))
+
+    private fun badJudgementsString(res: Resources, bad: Int) =
+        if (bad == 0) res.getString(R.string.no_bad_judgments)
+        else res.getString(R.string.bad_judgments_count, bad)
+
+    private fun exScoreString(res: Resources, bad: Int, total: Int?) = when {
+        bad == 0 -> res.getString(R.string.no_missing_ex)
+        total != null -> res.getString(R.string.missing_ex_count_threshold, bad, total - bad)
+        else -> res.getString(R.string.missing_ex_count, bad)
+    }
+
+    private fun missesString(res: Resources, misses: Int) =
+        if (misses == 0) res.getString(R.string.no_misses)
+        else res.getString(R.string.misses_count, misses)
 
     enum class GoalType {
         SCORE, EX, BAD_JUDGEMENT, MISS
