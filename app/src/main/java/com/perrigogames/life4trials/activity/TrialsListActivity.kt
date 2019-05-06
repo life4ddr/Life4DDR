@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.perrigogames.life4trials.BuildConfig
 import com.perrigogames.life4trials.Life4Application
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.TrialsAdapter
@@ -38,6 +39,11 @@ class TrialsListActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         data = DataUtil.moshi.adapter(TrialData::class.java).fromJson(loadRawString(R.raw.trials))!!
+        if (BuildConfig.DEBUG) {
+            val debugData: TrialData = DataUtil.moshi.adapter(TrialData::class.java).fromJson(loadRawString(R.raw.trials_debug))!!
+            data = TrialData(data.trials + debugData.trials)
+        }
+
         if (useGrid) {
             createTiledAdapter()
         } else {
