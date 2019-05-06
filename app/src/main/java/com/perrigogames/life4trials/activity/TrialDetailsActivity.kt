@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
@@ -19,6 +20,7 @@ import com.perrigogames.life4trials.data.TrialRank
 import com.perrigogames.life4trials.data.TrialSession
 import com.perrigogames.life4trials.util.DataUtil
 import com.perrigogames.life4trials.util.PermissionUtils.FLAG_PERMISSION_REQUEST
+import com.perrigogames.life4trials.util.SharedPrefsUtils
 import com.perrigogames.life4trials.util.askForPhotoPermissions
 import com.perrigogames.life4trials.view.SongView
 import com.perrigogames.life4trials.view.TrialJacketView
@@ -27,11 +29,12 @@ import java.io.IOException
 
 class TrialDetailsActivity: AppCompatActivity() {
 
-    private val trial: Trial? by lazy {
+    private val trial: Trial by lazy {
         intent.extras?.getSerializable(ARG_TRIAL) as Trial
     }
     private val initialRank: TrialRank by lazy {
-        intent.extras?.getInt(ARG_INITIAL_RANK)?.let { TrialRank.values()[it] } ?: TrialRank.SILVER
+        SharedPrefsUtils.getRankForTrial(this, trial)?.next
+            ?: (intent.extras?.getInt(ARG_INITIAL_RANK)?.let { TrialRank.values()[it] } ?: TrialRank.SILVER)
     }
 
     private lateinit var trialSession: TrialSession
@@ -40,7 +43,7 @@ class TrialDetailsActivity: AppCompatActivity() {
 
     private val availableRanks: Array<TrialRank> by lazy {
         TrialRank.values().let { ranks ->
-            val targetRank = trial?.goals?.get(0)?.rank ?: TrialRank.SILVER
+            val targetRank = trial.goals[0].rank
             ranks.copyOfRange(targetRank.ordinal, ranks.size)
         }
     }
@@ -67,8 +70,9 @@ class TrialDetailsActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.content_trial_details)
 
-        trialSession = TrialSession(trial!!, initialRank)
+        trialSession = TrialSession(trial, initialRank)
         spinner_desired_rank.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, availableRanks)
+        spinner_desired_rank.setSelection(availableRanks.indexOf(initialRank))
         spinner_desired_rank.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) = Unit
 
@@ -80,7 +84,7 @@ class TrialDetailsActivity: AppCompatActivity() {
         button_finalize.isEnabled = false
         button_finalize.setOnClickListener { onFinalizeClick() }
 
-        trial?.let { t ->
+        trial.let { t ->
             (view_trial_jacket as TrialJacketView).trial = t
             forEachSongView { idx, view ->
                 view.song = t.songs[idx]
@@ -114,10 +118,10 @@ class TrialDetailsActivity: AppCompatActivity() {
         startCameraActivity(FLAG_IMAGE_CAPTURE_FINAL)
     }
 
-    private fun setRank(rank: TrialRank) = trial?.let { t ->
+    private fun setRank(rank: TrialRank) {
         trialSession.goalRank = rank
         image_desired_rank.rank = rank
-        text_goals_content.text = trialSession.goalSet?.generateSingleGoalString(resources, t)
+        text_goals_content.text = trialSession.goalSet?.generateSingleGoalString(resources, trial)
     }
 
     private fun updateSongs() {
@@ -138,12 +142,16 @@ class TrialDetailsActivity: AppCompatActivity() {
         Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { intent ->
             intent.resolveActivity(packageManager)?.also {
                 try { // Create the File where the photo should go
-                    DataUtil.createImageFile()
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                        DataUtil.createImageFile(resources.configuration.locales[0])
+                    } else {
+                        DataUtil.createImageFile(resources.configuration.locale)
+                    }
                 } catch (ex: IOException) {
                     null // Error occurred while creating the File
                 }?.also {
                     if (currentIndex != null) {
-                        currentResult = SongResult(trial!!.songs[currentIndex!!], it.absolutePath)
+                        currentResult = SongResult(trial.songs[currentIndex!!], it.absolutePath)
                     } else {
                         trialSession.finalPhoto = it.absolutePath
                     }
@@ -186,9 +194,14 @@ class TrialDetailsActivity: AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == FLAG_IMAGE_CAPTURE) when (resultCode) {
             RESULT_OK -> {
-                currentResult!!.photoPath
                 if (BuildConfig.DEBUG) {
-                    onEntryFinished(currentResult!!)
+                    currentResult!!.let { result ->
+                        result.score = (Math.random() * 70000).toInt() + 930000
+                        result.exScore = (Math.random() * 1024).toInt()
+                        result.misses = (Math.random() * 6).toInt()
+                        result.badJudges = result.misses!! + (Math.random() * 14).toInt()
+                        onEntryFinished(result)
+                    }
                 } else {
                     startEditActivity(currentResult!!)
                 }
@@ -197,9 +210,7 @@ class TrialDetailsActivity: AppCompatActivity() {
         } else if (requestCode == FLAG_IMAGE_CAPTURE_FINAL && resultCode == RESULT_OK) {
             startSubmitActivity()
         } else if (requestCode == FLAG_SCORE_ENTER) when (resultCode) {
-            RESULT_OK -> {
-                onEntryFinished(data!!.getSerializableExtra(SongEntryActivity.RESULT_DATA) as? SongResult)
-            }
+            RESULT_OK -> onEntryFinished(data!!.getSerializableExtra(SongEntryActivity.RESULT_DATA) as? SongResult)
             SongEntryActivity.RESULT_RETAKE -> startCameraActivity(FLAG_IMAGE_CAPTURE)
             RESULT_CANCELED -> onEntryCancelled()
         }

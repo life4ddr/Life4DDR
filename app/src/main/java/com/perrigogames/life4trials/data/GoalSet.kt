@@ -13,6 +13,14 @@ data class GoalSet(val rank: TrialRank,
                    val miss: Int? = null,
                    @Json(name="ex_missing") val exMissing: Int? = null): Serializable {
 
+    val goalTypes: List<GoalType>
+        get() = mutableListOf<GoalType>().apply {
+            if (score != null || scoreIndexed != null) add(GoalType.SCORE)
+            if (exMissing != null) add(GoalType.EX)
+            if (judge != null) add(GoalType.BAD_JUDGEMENT)
+            if (miss != null) add(GoalType.MISS)
+        }
+
     fun generateSingleGoalString(res: Resources, trial: Trial) = StringBuilder().apply {
         generateGoalStrings(res, trial).forEach { s ->
             append("$s\n")
@@ -73,10 +81,6 @@ data class GoalSet(val rank: TrialRank,
             val allSongs = scoreSort.size == TrialData.TRIAL_LENGTH
             val minimumScore = scoreSort.last()
 
-            //DEBUG
-//            out.add("${scoreSort.map { scoreString(it) }}, " +
-//                    "${scoreCounts.map { "${scoreString(it.key)}->${it.value}" }}, ${scoreString(minimumScore)}")
-
             if (scoreCounts.size == 1) {
                 if (allSongs) {
                     strings.add(onEveryString(res, minimumScore))
@@ -112,4 +116,8 @@ data class GoalSet(val rank: TrialRank,
     private fun onRemainderString(res: Resources, score: Int) =
         if (score == AAA_SCORE) res.getString(R.string.aaa_on_remainder)
         else res.getString(R.string.score_on_remainder, scoreString(score))
+
+    enum class GoalType {
+        SCORE, EX, BAD_JUDGEMENT, MISS
+    }
 }
