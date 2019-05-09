@@ -10,6 +10,9 @@ import com.perrigogames.life4trials.event.SavedRankUpdatedEvent
 import com.perrigogames.life4trials.util.SharedPrefsUtils
 import kotlinx.android.synthetic.main.content_trial_submission.*
 
+/**
+ * Activity for confirming all of the photos taken for the
+ */
 class TrialSubmissionActivity: AppCompatActivity() {
 
     private val session: TrialSession?

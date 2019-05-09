@@ -41,6 +41,8 @@
             android:screenOrientation="portrait" />
         <activity android:name=".activity.TrialSubmissionActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".activity.GoogleDriveActivity"
+            android:screenOrientation="portrait"/>
 
         <provider
             android:name="androidx.core.content.FileProvider"

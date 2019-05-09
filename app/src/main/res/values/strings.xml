@@ -93,6 +93,7 @@
     <string name="status_user_cancelled">User Cancelled</string>
     <string name="status_error">We found a problem: %1$s</string>
     <string name="not_open_file">Could not open file</string>
+    <string name="action_drive">Google Drive</string>
 
     <array name="credits">
         <item>Camera icon by https://www.flaticon.com/authors/daniel-bruce from www.flaticon.com</item>

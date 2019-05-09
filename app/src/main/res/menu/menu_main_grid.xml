@@ -15,4 +15,8 @@
         android:orderInCategory="190"
         android:title="@string/action_clear_rank_data"
         app:showAsAction="never"/>
+    <item android:id="@+id/action_drive"
+        android:orderInCategory="191"
+        android:title="@string/action_drive"
+        app:showAsAction="never"/>
 </menu>

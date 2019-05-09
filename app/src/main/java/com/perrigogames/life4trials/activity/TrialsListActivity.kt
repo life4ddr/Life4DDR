@@ -26,6 +26,10 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import org.greenrobot.eventbus.Subscribe
 
+/**
+ * Activity for presenting the list of trials to the user. Tapping on a trial will open
+ * an associated [TrialDetailsActivity].
+ */
 class TrialsListActivity : AppCompatActivity() {
 
     private lateinit var data: TrialData
@@ -114,6 +118,10 @@ class TrialsListActivity : AppCompatActivity() {
             }
             R.id.action_clear_rank_data -> {
                 clearRankData()
+                true
+            }
+            R.id.action_drive -> {
+                startActivity(Intent(this, GoogleDriveActivity::class.java))
                 true
             }
             else -> super.onOptionsItemSelected(item)
