@@ -27,7 +27,7 @@
         android:textSize="20sp"
         app:autoSizeMinTextSize="10sp"
         app:autoSizeTextType="uniform"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/image_photo_icon"
         app:layout_constraintStart_toEndOf="@id/image_song_jacket"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Rising Fire Hawk"/>

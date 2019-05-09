@@ -32,9 +32,9 @@ class TrialDetailsActivity: AppCompatActivity() {
     private val trial: Trial by lazy {
         intent.extras?.getSerializable(ARG_TRIAL) as Trial
     }
-    private val initialRank: TrialRank by lazy {
-        SharedPrefsUtils.getRankForTrial(this, trial)?.next
-            ?: (intent.extras?.getInt(ARG_INITIAL_RANK)?.let { TrialRank.values()[it] } ?: TrialRank.SILVER)
+    private val storedRank: TrialRank? get() = SharedPrefsUtils.getRankForTrial(this, trial)
+    private val initialRank: TrialRank by lazy { storedRank?.next
+        ?: (intent.extras?.getInt(ARG_INITIAL_RANK)?.let { TrialRank.values()[it] } ?: TrialRank.SILVER)
     }
 
     private lateinit var trialSession: TrialSession
@@ -78,7 +78,10 @@ class TrialDetailsActivity: AppCompatActivity() {
         button_finalize.setOnClickListener { onFinalizeClick() }
 
         trial.let { t ->
-            (view_trial_jacket as TrialJacketView).trial = t
+            (view_trial_jacket as TrialJacketView).let { jacket ->
+                jacket.trial = t
+                jacket.rank = storedRank
+            }
             forEachSongView { idx, view ->
                 view.song = t.songs[idx]
                 view.setOnClickListener { onSongClicked(idx) }
