@@ -1,7 +1,12 @@
 package com.perrigogames.life4trials.util
 
+import android.content.ContentResolver
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Environment
+import android.provider.MediaStore
+import android.widget.ImageView
 import androidx.annotation.RawRes
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -35,6 +40,42 @@ object DataUtil {
         val path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
         return File(path, name).exists()
     }
+
+    fun createScaledBitmap(path: String, targetW: Int, targetH: Int): Bitmap? {
+        val bmOptions = BitmapFactory.Options().apply {
+            // Get the dimensions of the bitmap
+            inJustDecodeBounds = true
+            BitmapFactory.decodeFile(path, this)
+            val photoW: Int = outWidth
+            val photoH: Int = outHeight
+
+            // Determine how much to scale down the image
+            val scaleFactor: Int = Math.min(photoW / targetW, photoH / targetH)
+
+            // Decode the image file into a Bitmap sized to fill the View
+            inJustDecodeBounds = false
+            inSampleSize = scaleFactor
+            inPurgeable = true
+        }
+        return BitmapFactory.decodeFile(path, bmOptions)
+    }
+
+    fun scaleSavedImage(path: String, targetW: Int, targetH: Int, contentResolver: ContentResolver): Boolean {
+        try {
+            val file = File(path)
+            val pictureBitmap = createScaledBitmap(path, targetW, targetH) ?: return false
+            FileOutputStream(file).use {
+                pictureBitmap.compress(Bitmap.CompressFormat.JPEG, 85, it)
+                it.flush()
+                it.close()
+            }
+
+            MediaStore.Images.Media.insertImage(contentResolver, file.absolutePath, file.name, file.name)
+        } catch (e: Exception) {
+            return false
+        }
+        return true
+    }
 }
 
 fun Context.loadRawString(@RawRes res: Int): String {
@@ -49,4 +90,13 @@ fun Context.loadRawString(@RawRes res: Int): String {
         }
     }
     return writer.toString()
+}
+
+fun ImageView.setScaledBitmapFromFile(path: String,
+                                      targetW: Int = this.width,
+                                      targetH: Int = this.height) {
+
+    DataUtil.createScaledBitmap(path, targetW, targetH)?.also { bitmap ->
+        this.setImageBitmap(bitmap)
+    }
 }

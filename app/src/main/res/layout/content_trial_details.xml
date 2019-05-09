@@ -67,7 +67,7 @@
             tools:text="- Get 950,000 points on each song\n- Get over 1000 EX Points\n- Get less than 7 total misses"/>
 
         <include
-            android:id="@+id/include_trial_1"
+            android:id="@+id/include_song_1"
             layout="@layout/item_song_list_item"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -77,34 +77,34 @@
             app:layout_constraintTop_toBottomOf="@id/text_goals_content"/>
 
         <include
-            android:id="@+id/include_trial_2"
+            android:id="@+id/include_song_2"
             layout="@layout/item_song_list_item"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/content_padding_med"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/include_trial_1"/>
+            app:layout_constraintTop_toBottomOf="@id/include_song_1"/>
 
         <include
-            android:id="@+id/include_trial_3"
+            android:id="@+id/include_song_3"
             layout="@layout/item_song_list_item"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/content_padding_med"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/include_trial_2"/>
+            app:layout_constraintTop_toBottomOf="@id/include_song_2"/>
 
         <include
-            android:id="@+id/include_trial_4"
+            android:id="@+id/include_song_4"
             layout="@layout/item_song_list_item"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/content_padding_med"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/include_trial_3"/>
+            app:layout_constraintTop_toBottomOf="@id/include_song_3"/>
 
         <Button
             android:id="@+id/button_finalize"
@@ -115,7 +115,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/include_trial_4"/>
+            app:layout_constraintTop_toBottomOf="@id/include_song_4"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

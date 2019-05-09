@@ -58,9 +58,9 @@
     <TextView
         android:id="@+id/text_song_1"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginTop="@dimen/content_padding_med"
-        app:layout_constraintBottom_toTopOf="@id/barrier"
+        app:layout_constraintBottom_toBottomOf="@id/barrier"
         app:layout_constraintEnd_toEndOf="@id/image_song_1"
         app:layout_constraintStart_toStartOf="@id/image_song_1"
         app:layout_constraintTop_toBottomOf="@id/image_song_1"
@@ -83,7 +83,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/content_padding_med"
-        app:layout_constraintBottom_toTopOf="@id/barrier"
+        app:layout_constraintBottom_toBottomOf="@id/barrier"
         app:layout_constraintEnd_toEndOf="@id/image_song_2"
         app:layout_constraintStart_toStartOf="@id/image_song_2"
         app:layout_constraintTop_toBottomOf="@id/image_song_2"
@@ -106,7 +106,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/content_padding_med"
-        app:layout_constraintBottom_toTopOf="@id/barrier"
+        app:layout_constraintBottom_toBottomOf="@id/barrier"
         app:layout_constraintEnd_toEndOf="@id/image_song_3"
         app:layout_constraintStart_toStartOf="@id/image_song_3"
         app:layout_constraintTop_toBottomOf="@id/image_song_3"
@@ -129,7 +129,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/content_padding_med"
-        app:layout_constraintBottom_toTopOf="@id/barrier"
+        app:layout_constraintBottom_toBottomOf="@id/barrier"
         app:layout_constraintEnd_toEndOf="@id/image_song_4"
         app:layout_constraintStart_toStartOf="@id/image_song_4"
         app:layout_constraintTop_toBottomOf="@id/image_song_4"
@@ -139,7 +139,7 @@
         android:id="@+id/barrier"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:barrierDirection="top"
+        app:barrierDirection="bottom"
         app:constraint_referenced_ids="text_song_1,text_song_2,text_song_3,text_song_4"/>
 
     <com.perrigogames.life4trials.view.RankImageView
@@ -147,30 +147,26 @@
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_marginTop="@dimen/content_padding_large"
-        app:layout_constraintEnd_toStartOf="@id/text_desired_rank"
+        app:layout_constraintEnd_toStartOf="@id/spinner_desired_rank"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/barrier"
-        tools:src="@drawable/amethyst_3" />
+        tools:src="@drawable/silver_3" />
 
-    <TextView
-        android:id="@+id/text_desired_rank"
+    <Spinner
+        android:id="@+id/spinner_desired_rank"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/content_padding_med"
-        android:layout_marginLeft="@dimen/content_padding_med"
-        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@id/image_desired_rank"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/image_desired_rank"
-        app:layout_constraintTop_toTopOf="@id/image_desired_rank"
-        tools:text="AMETHYST" />
+        app:layout_constraintTop_toTopOf="@id/image_desired_rank" />
 
     <TextView
         android:id="@+id/text_goals"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/content_padding_med"
+        android:layout_margin="@dimen/content_padding_med"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/image_desired_rank" />
@@ -179,7 +175,6 @@
         android:id="@+id/button_submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/content_padding_large"
         android:text="@string/submit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

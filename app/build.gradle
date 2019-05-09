@@ -59,9 +59,9 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlin_coroutine_version"
 
     // Google Drive
-    implementation 'com.google.android.gms:play-services-auth:16.0.1'
-    implementation 'com.google.android.gms:play-services-drive:16.1.0'
-    implementation 'com.google.api-client:google-api-client:1.28.0'
+//    implementation 'com.google.android.gms:play-services-auth:16.0.1'
+//    implementation 'com.google.android.gms:play-services-drive:16.1.0'
+//    implementation 'com.google.api-client:google-api-client:1.28.0'
 
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
 

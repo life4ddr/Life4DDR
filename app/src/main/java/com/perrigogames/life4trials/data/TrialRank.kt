@@ -18,4 +18,10 @@ enum class TrialRank(@DrawableRes val drawableRes: Int) {
         COBALT -> AMETHYST
         AMETHYST -> AMETHYST
     }
+
+    /**
+     * Generates a list of this and all [TrialRank]s that are higher than this.
+     */
+    val andUp: Array<TrialRank>
+        get() = values().let { it.copyOfRange(this.ordinal, it.size) }
 }

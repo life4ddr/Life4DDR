@@ -6,6 +6,9 @@ data class TrialSession(val trial: Trial,
                         var goalRank: TrialRank,
                         val results: Array<SongResult?> = arrayOfNulls(TrialData.TRIAL_LENGTH),
                         var finalPhoto: String? = null): Serializable {
+
+    val availableRanks: Array<TrialRank> = trial.goals[0].rank.andUp
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false

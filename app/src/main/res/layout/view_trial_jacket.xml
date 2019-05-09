@@ -18,7 +18,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:background="@color/colorAccent"
-        tools:layout_width="300dp" />
+        tools:layout_width="200dp" />
 
     <TextView
         android:id="@+id/text_trial_title"
@@ -39,10 +39,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/content_padding_med"
         android:background="#66ffffff"
-        android:paddingStart="@dimen/content_padding_med"
-        android:paddingTop="@dimen/content_padding_small"
-        android:paddingEnd="@dimen/content_padding_med"
-        android:paddingBottom="@dimen/content_padding_small"
+        android:paddingStart="@dimen/content_padding_small"
+        android:paddingEnd="@dimen/content_padding_small"
         android:textColor="@android:color/primary_text_light"
         android:textSize="24sp"
         app:layout_constraintLeft_toLeftOf="@id/image_trial_jacket"
@@ -53,9 +51,11 @@
         android:id="@+id/image_badge_highest"
         android:layout_width="32dp"
         android:layout_height="32dp"
+        android:layout_margin="@dimen/content_padding_med"
         android:contentDescription="@string/rank_image"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="@id/image_trial_jacket"
         app:layout_constraintTop_toTopOf="@id/image_trial_jacket"
-        tools:background="@color/colorPrimary"/>
+        tools:src="@drawable/silver_3"
+        tools:visibility="visible"/>
 </com.perrigogames.life4trials.view.TrialJacketView>

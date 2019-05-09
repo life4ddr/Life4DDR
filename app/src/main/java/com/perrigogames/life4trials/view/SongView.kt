@@ -34,8 +34,7 @@ class SongView @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
             text_song_difficulty.setDifficulty(it.difficultyClass, it.difficultyNumber)
 
             text_song_result.text = result?.let { r ->
-                val scoreString = DecimalFormat("#,###,###").format(r.score)
-                resources.getString(R.string.score_string_format, scoreString, r.exScore)
+                resources.getString(R.string.score_string_format, r.score?.longNumberString(), r.exScore)
             }
 
             val tintColor = if (result?.photoPath != null) R.color.colorPrimary else R.color.gray
@@ -48,3 +47,5 @@ class SongView @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
         }
     }
 }
+
+fun Int.longNumberString(): String = DecimalFormat("#,###,###").format(this)

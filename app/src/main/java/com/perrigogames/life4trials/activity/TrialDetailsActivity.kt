@@ -41,18 +41,11 @@ class TrialDetailsActivity: AppCompatActivity() {
     private var currentIndex: Int? = null
     private var modified = false
 
-    private val availableRanks: Array<TrialRank> by lazy {
-        TrialRank.values().let { ranks ->
-            val targetRank = trial.goals[0].rank
-            ranks.copyOfRange(targetRank.ordinal, ranks.size)
-        }
-    }
-
     private fun songViewForIndex(index: Int?) = when(index) {
-        0 -> include_trial_1
-        1 -> include_trial_2
-        2 -> include_trial_3
-        3 -> include_trial_4
+        0 -> include_song_1
+        1 -> include_song_2
+        2 -> include_song_3
+        3 -> include_song_4
         else -> null
     } as? SongView
 
@@ -71,13 +64,13 @@ class TrialDetailsActivity: AppCompatActivity() {
         setContentView(R.layout.content_trial_details)
 
         trialSession = TrialSession(trial, initialRank)
-        spinner_desired_rank.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, availableRanks)
-        spinner_desired_rank.setSelection(availableRanks.indexOf(initialRank))
+        spinner_desired_rank.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, trialSession.availableRanks)
+        spinner_desired_rank.setSelection(trialSession.availableRanks.indexOf(initialRank))
         spinner_desired_rank.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) = Unit
 
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                setRank(availableRanks[position])
+                setRank(trialSession.availableRanks[position])
             }
         }
 
@@ -194,6 +187,7 @@ class TrialDetailsActivity: AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == FLAG_IMAGE_CAPTURE) when (resultCode) {
             RESULT_OK -> {
+                DataUtil.scaleSavedImage(currentResult!!.photoPath, 1080, 1080, contentResolver)
                 if (BuildConfig.DEBUG) {
                     currentResult!!.let { result ->
                         result.score = (Math.random() * 70000).toInt() + 930000
@@ -208,6 +202,7 @@ class TrialDetailsActivity: AppCompatActivity() {
             }
             RESULT_CANCELED -> onEntryCancelled()
         } else if (requestCode == FLAG_IMAGE_CAPTURE_FINAL && resultCode == RESULT_OK) {
+            DataUtil.scaleSavedImage(trialSession.finalPhoto!!, 1080, 1080, contentResolver)
             startSubmitActivity()
         } else if (requestCode == FLAG_SCORE_ENTER) when (resultCode) {
             RESULT_OK -> onEntryFinished(data!!.getSerializableExtra(SongEntryActivity.RESULT_DATA) as? SongResult)
