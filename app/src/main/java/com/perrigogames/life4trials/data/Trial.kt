@@ -1,8 +1,6 @@
 package com.perrigogames.life4trials.data
 
 import android.content.res.Resources
-import androidx.annotation.ColorRes
-import androidx.annotation.DrawableRes
 import com.perrigogames.life4trials.R
 import com.squareup.moshi.Json
 import java.io.Serializable
@@ -40,26 +38,3 @@ data class Song(val name: String,
                 @Json(name="difficulty_class") val difficultyClass: DifficultyClass,
                 val url: String? = null): Serializable
 
-enum class TrialRank(@DrawableRes val drawableRes: Int) {
-    @Json(name="silver") SILVER(R.drawable.silver_3),
-    @Json(name="gold") GOLD(R.drawable.gold_3),
-    @Json(name="diamond") DIAMOND(R.drawable.diamond_3),
-    @Json(name="cobalt") COBALT(R.drawable.cobalt_3),
-    @Json(name="amethyst") AMETHYST(R.drawable.amethyst_3);
-
-    val next get() = when(this) {
-        SILVER -> GOLD
-        GOLD -> DIAMOND
-        DIAMOND -> COBALT
-        COBALT -> AMETHYST
-        AMETHYST -> AMETHYST
-    }
-}
-
-enum class DifficultyClass(@ColorRes val colorRes: Int) {
-    @Json(name="beginner") BEGINNER(R.color.difficultyBeginner),
-    @Json(name="basic") BASIC(R.color.difficultyBasic),
-    @Json(name="difficult") DIFFICULT(R.color.difficultyDifficult),
-    @Json(name="expert") EXPERT(R.color.difficultyExpert),
-    @Json(name="challenge") CHALLENGE(R.color.difficultyChallenge)
-}
