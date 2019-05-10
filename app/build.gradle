@@ -11,6 +11,14 @@ ext {
 }
 
 android {
+    signingConfigs {
+        upload {
+            storeFile file('C:\\Users\\Corey\\Development\\keystores\\upload-keystore.jks')
+            keyPassword 'FlOnG9T#0sNe41bXjKtVJi75Y'
+            storePassword 'Ndb%TJQfsJ5c8%qLHP4QEG%Y@'
+            keyAlias = 'upload'
+        }
+    }
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.perrigogames.life4trials"

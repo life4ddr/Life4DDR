@@ -85,6 +85,14 @@ class TrialSubmissionActivity: AppCompatActivity() {
         })
     }
 
+    override fun onBackPressed() {
+        android.app.AlertDialog.Builder(this).setTitle(R.string.are_you_sure)
+            .setMessage(R.string.trial_not_saved)
+            .setNegativeButton(R.string.cancel, null)
+            .setPositiveButton(R.string.okay) { _, _ -> finish() }
+            .show()
+    }
+
     private fun setRank(rank: TrialRank) {
         session.goalRank = rank
         image_desired_rank.rank = rank

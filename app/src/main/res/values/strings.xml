@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Life4 Trials</string>
+    <string name="app_name">LIFE4 Trials</string>
 
     <!-- Settings Strings -->
     <string name="action_settings">Settings</string>
@@ -30,27 +30,34 @@
     <string name="score">Score</string>
     <string name="ex_score">EX Score</string>
     <string name="misses">Misses</string>
+
     <string name="use_photo">Use Photo</string>
+    <string name="take_photo">Take Photo</string>
     <string name="retake_photo">Retake Photo</string>
+    <string name="add_gallery">Add from Gallery</string>
+    <string name="replace_gallery">Replace from Gallery</string>
+    <string name="edit_details">Edit Details</string>
+    <string name="must_enter_number">Must enter a number</string>
 
     <string name="camera_permission_title">Camera Permission</string>
-    <string name="camera_permission_description_popup">This app needs your permission to use the camera to take Life4 verification photos. Please grant permission to use the camera on the next popup.</string>
-    <string name="camera_permission_description_redirect">This app needs your permission to use the camera to take Life4 verification photos. Would you like to open your permission settings and grant this permission?</string>
+    <string name="camera_permission_description_popup">This app needs your permission to use the camera to take LIFE4 verification photos. Please grant permission to use the camera on the next popup.</string>
+    <string name="camera_permission_description_redirect">This app needs your permission to use the camera to take LIFE4 verification photos. Would you like to open your permission settings and grant this permission?</string>
 
     <string name="trial_close_confirmation">The progress made in this trial will not be saved.</string>
     <string name="camera_close_confirmation">This photo will not be saved.</string>
-    <string name="must_enter_number">Must enter a number</string>
 
     <string name="confirm_trial_title">Confirm Trial Submission</string>
     <string name="submit_dialog_title">Submit Scores</string>
     <string name="submit_dialog_rank_confirmation">Did you pass all requirements for %s rank?</string>
-    <string name="submit_dialog_content">Photos are saved to your SD card\'s Pictures/Life4 folder. These photos can be uploaded to Life4\'s Trial Submission Page manually.</string>
+    <string name="submit_dialog_content">Photos are saved to your SD card\'s Pictures/LIFE4 folder. These photos can be uploaded to Life4\'s Trial Submission Page manually.</string>
+    <string name="trial_not_saved">This trial has not been saved!</string>
 
     <string name="confirm_erase_data">Are you sure you want to clear all saved rank data?</string>
 
     <!-- SharedPreferences Keys -->
     <string name="rank_preferences_key">rank_preferences</string>
     <string name="user_preferences_key">user_preferences</string>
+    <string name="tutorial_preferences_key">tutorial_preferences</string>
     <string name="data_preferences_key">data_preferences</string>
 
     <!-- Format Strings -->
@@ -68,6 +75,14 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
 
+    <!-- Welcome/FTUE -->
+    <string name="welcome_to_life4">Welcome to LIFE4!</string>
+    <string name="welcome_to_life4_trials">Welcome to LIFE4 Trials!</string>
+    <string name="life4_trials_tagline">A new way to participate in LIFE4</string>
+    <string name="life4_trials_description">Trials are a new way to participate in LIFE4. Playing a Trial involves playing a predetermined set of 4 songs</string>
+
+    <string name="life4_trials_long_description">LIFE4 Trials are a new way for DDR players to participate in LIFE4 events outside of the core ranking system. We wanted to give players a chance to test their skills and compare their scores without having to complete full folders or grind out a ton of songs. In addition to consistency and stamina, Trials will also test players’ Marvelous Attack (MA) in order to achieve the highest ranks.\n\nEach Trial consists of 4 songs, grouped together by a common theme (title, skillset, etc), which will need to be played together in order in a single set (including extra stage). Trials will vary in difficulty, but the goals required for each will shift, allowing top-tier players to focus on MA on easier Trials to achieve higher rankings, while also letting newer players focus on passing more difficult songs on the more challenging Trials.\n\nPlayers can earn Trial Ranks by achieving a specific set of requirements for each Trial. The requirements for each Trial Rank are roughly aligned with the same skill goals at each respective level of the core LIFE4 ranking system. A Silver Trial Rank may be earned by simply clearing all of the songs in a Trial, for example, but a Cobalt Trial Rank may require the player to PFC every song, or score under a certain amount of total missing EX. (Some of the more difficult Trials may not include lower-tier Trial Ranks as there may not always be a comparable skill level.)\n\nAre you ready to take on the Trials?</string>
+
     <array name="song_plural">
         <item>song</item>
         <item>songs</item>
@@ -82,6 +97,7 @@
     <string name="jacket_artwork_for_song">jacket artwork for song</string>
     <string name="rank_image">rank image</string>
     <string name="camera_icon">camera icon</string>
+    <string name="life4_logo">Life4 logo</string>
 
     <!-- Google Drive -->
     <string name="source_google_drive">Google Drive</string>

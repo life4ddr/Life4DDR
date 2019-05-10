@@ -26,7 +26,7 @@ object DataUtil {
     @Throws(IOException::class)
     fun createImageFile(locale: Locale): File {
         val timestamp: String = SimpleDateFormat("yyyyMMdd_HHmmss", locale).format(Date())
-        val storageDir = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "Life4")
+        val storageDir = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "LIFE4")
         storageDir.mkdirs()
         return File.createTempFile("JPEG_${timestamp}_", ".jpg", storageDir)
     }
@@ -55,6 +55,7 @@ object DataUtil {
             // Decode the image file into a Bitmap sized to fill the View
             inJustDecodeBounds = false
             inSampleSize = scaleFactor
+            @Suppress("DEPRECATION")
             inPurgeable = true
         }
         return BitmapFactory.decodeFile(path, bmOptions)

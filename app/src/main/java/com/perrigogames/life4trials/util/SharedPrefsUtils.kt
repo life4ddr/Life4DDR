@@ -19,8 +19,19 @@ object SharedPrefsUtils {
         }
     }
 
-    fun clearRanks(c: Context) {
-        return with (rankPrefs(c).edit()) {
+    fun clearRanks(c: Context) = with (rankPrefs(c).edit()) {
+        clear()
+        apply()
+    }
+
+    fun finishTutorial(c: Context, tutorial: String) {
+        return with (tutorialPrefs(c).edit()) {
+            putBoolean(tutorial, true)
+        }
+    }
+
+    fun clearTutorials(c: Context) {
+        return with (tutorialPrefs(c).edit()) {
             clear()
             apply()
         }
@@ -28,6 +39,9 @@ object SharedPrefsUtils {
 
     private fun rankPrefs(c: Context) =
         c.getSharedPreferences(c.resources.getString(R.string.rank_preferences_key), Context.MODE_PRIVATE)
+
+    private fun tutorialPrefs(c: Context) =
+        c.getSharedPreferences(c.resources.getString(R.string.tutorial_preferences_key), Context.MODE_PRIVATE)
 
     private fun userPrefs(c: Context) =
         c.getSharedPreferences(c.resources.getString(R.string.user_preferences_key), Context.MODE_PRIVATE)

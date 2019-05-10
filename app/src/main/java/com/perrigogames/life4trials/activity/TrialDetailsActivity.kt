@@ -7,6 +7,8 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.view.ContextMenu
+import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -25,6 +27,7 @@ import com.perrigogames.life4trials.util.askForPhotoPermissions
 import com.perrigogames.life4trials.view.SongView
 import com.perrigogames.life4trials.view.TrialJacketView
 import kotlinx.android.synthetic.main.content_trial_details.*
+import java.io.File
 import java.io.IOException
 
 class TrialDetailsActivity: AppCompatActivity() {
@@ -40,6 +43,7 @@ class TrialDetailsActivity: AppCompatActivity() {
     private lateinit var trialSession: TrialSession
     private var currentIndex: Int? = null
     private var modified = false
+    private var isNewEntry = false
 
     private fun songViewForIndex(index: Int?) = when(index) {
         0 -> include_song_1
@@ -83,8 +87,10 @@ class TrialDetailsActivity: AppCompatActivity() {
                 jacket.rank = storedRank
             }
             forEachSongView { idx, view ->
+                view.tag = idx
                 view.song = t.songs[idx]
                 view.setOnClickListener { onSongClicked(idx) }
+                registerForContextMenu(view)
             }
         }
     }
@@ -101,11 +107,22 @@ class TrialDetailsActivity: AppCompatActivity() {
         }
     }
 
+    override fun onCreateContextMenu(menu: ContextMenu?, v: View?, menuInfo: ContextMenu.ContextMenuInfo?) {
+        super.onCreateContextMenu(menu, v, menuInfo)
+        if (v is SongView) {
+            val idx = v.tag as Int
+            currentIndex = idx
+            val menuRes = if (trialSession.results[idx]?.photoPath != null) R.menu.menu_song_replace else R.menu.menu_song_add
+            menuInflater.inflate(menuRes, menu)
+        }
+    }
+
     private fun onSongClicked(index: Int) {
         currentIndex = index
         if (currentResult != null) {
-            startEditActivity(currentResult!!)
+            startEditActivity(currentIndex!!)
         } else {
+            isNewEntry = true
             startCameraActivity(FLAG_IMAGE_CAPTURE)
         }
     }
@@ -138,16 +155,17 @@ class TrialDetailsActivity: AppCompatActivity() {
         Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { intent ->
             intent.resolveActivity(packageManager)?.also {
                 try { // Create the File where the photo should go
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        DataUtil.createImageFile(resources.configuration.locales[0])
-                    } else {
-                        DataUtil.createImageFile(resources.configuration.locale)
+                    @Suppress("DEPRECATION")
+                    when {
+                        currentResult?.photoPath != null -> File(currentResult!!.photoPath)
+                        Build.VERSION.SDK_INT >= Build.VERSION_CODES.N -> DataUtil.createImageFile(resources.configuration.locales[0])
+                        else -> DataUtil.createImageFile(resources.configuration.locale)
                     }
                 } catch (ex: IOException) {
                     null // Error occurred while creating the File
                 }?.also {
                     if (currentIndex != null) {
-                        currentResult = SongResult(trial.songs[currentIndex!!], it.absolutePath)
+                        currentResult = currentResult ?: SongResult(trial.songs[currentIndex!!], it.absolutePath)
                     } else {
                         trialSession.finalPhoto = it.absolutePath
                     }
@@ -159,9 +177,9 @@ class TrialDetailsActivity: AppCompatActivity() {
         }
     }
 
-    private fun startEditActivity(result: SongResult) {
+    private fun startEditActivity(index: Int) {
         Intent(this, SongEntryActivity::class.java).also { i ->
-            i.putExtra(SongEntryActivity.ARG_RESULT, result)
+            i.putExtra(SongEntryActivity.ARG_RESULT, trialSession.results[index])
             startActivityForResult(i, FLAG_SCORE_ENTER)
         }
     }
@@ -188,29 +206,57 @@ class TrialDetailsActivity: AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == FLAG_IMAGE_CAPTURE) when (resultCode) {
-            RESULT_OK -> {
-                DataUtil.scaleSavedImage(currentResult!!.photoPath, 1080, 1080, contentResolver)
-                if (BuildConfig.DEBUG) {
-                    currentResult!!.let { result ->
-                        result.score = (Math.random() * 70000).toInt() + 930000
-                        result.exScore = (Math.random() * 1024).toInt()
-                        result.misses = (Math.random() * 6).toInt()
-                        result.badJudges = result.misses!! + (Math.random() * 14).toInt()
-                        onEntryFinished(result)
+        when(requestCode) {
+            FLAG_IMAGE_CAPTURE,
+            FLAG_IMAGE_RECAPTURE -> when (resultCode) {
+                RESULT_OK -> {
+                    DataUtil.scaleSavedImage(currentResult!!.photoPath, 1080, 1080, contentResolver)
+                    if (BuildConfig.DEBUG) {
+                        currentResult!!.let { result ->
+                            result.score = (Math.random() * 70000).toInt() + 930000
+                            result.exScore = (Math.random() * 1024).toInt()
+                            result.misses = (Math.random() * 6).toInt()
+                            result.badJudges = result.misses!! + (Math.random() * 14).toInt()
+                            onEntryFinished(result)
+                        }
+                    } else {
+                        startEditActivity(currentIndex!!)
                     }
-                } else {
-                    startEditActivity(currentResult!!)
+                }
+                RESULT_CANCELED -> onEntryCancelled()
+            }
+            FLAG_IMAGE_CAPTURE_FINAL -> when (resultCode) {
+                RESULT_OK -> {
+                    DataUtil.scaleSavedImage(trialSession.finalPhoto!!, 1080, 1080, contentResolver)
+                    startSubmitActivity()
                 }
             }
-            RESULT_CANCELED -> onEntryCancelled()
-        } else if (requestCode == FLAG_IMAGE_CAPTURE_FINAL && resultCode == RESULT_OK) {
-            DataUtil.scaleSavedImage(trialSession.finalPhoto!!, 1080, 1080, contentResolver)
-            startSubmitActivity()
-        } else if (requestCode == FLAG_SCORE_ENTER) when (resultCode) {
-            RESULT_OK -> onEntryFinished(data!!.getSerializableExtra(SongEntryActivity.RESULT_DATA) as? SongResult)
-            SongEntryActivity.RESULT_RETAKE -> startCameraActivity(FLAG_IMAGE_CAPTURE)
-            RESULT_CANCELED -> onEntryCancelled()
+            FLAG_SCORE_ENTER -> when (resultCode) {
+                RESULT_OK -> onEntryFinished(data!!.getSerializableExtra(SongEntryActivity.RESULT_DATA) as? SongResult)
+                SongEntryActivity.RESULT_RETAKE -> startCameraActivity(if (isNewEntry) FLAG_IMAGE_CAPTURE else FLAG_IMAGE_RECAPTURE)
+                RESULT_CANCELED -> onEntryCancelled()
+            }
+        }
+    }
+
+    override fun onContextItemSelected(item: MenuItem?): Boolean {
+        return when(item?.itemId) {
+            R.id.action_gallery -> {
+                //TODO select photos from device
+                true
+            }
+            R.id.action_camera -> {
+                startCameraActivity(if (isNewEntry) FLAG_IMAGE_CAPTURE else FLAG_IMAGE_RECAPTURE)
+                true
+            }
+            R.id.action_edit -> {
+                startEditActivity(currentIndex!!)
+                true
+            }
+            else -> {
+                currentIndex = null
+                false
+            }
         }
     }
 
@@ -220,19 +266,24 @@ class TrialDetailsActivity: AppCompatActivity() {
         updateSongs()
         modified = true
         currentIndex = null
+        isNewEntry = false
     }
 
     private fun onEntryCancelled() {
-        currentResult = null
+        if (isNewEntry) {
+            currentResult = null
+        }
         currentIndex = null
+        isNewEntry = false
     }
 
     companion object {
         const val ARG_TRIAL = "ARG_TRIAL"
         const val ARG_INITIAL_RANK = "ARG_INITIAL_RANK"
 
-        const val FLAG_IMAGE_CAPTURE = 1
-        const val FLAG_IMAGE_CAPTURE_FINAL = 2
-        const val FLAG_SCORE_ENTER = 3
+        const val FLAG_IMAGE_CAPTURE = 1 // capturing for a new song
+        const val FLAG_IMAGE_RECAPTURE = 2 // retaking a picture for a song that already exists
+        const val FLAG_IMAGE_CAPTURE_FINAL = 3 // capturing the final score screen
+        const val FLAG_SCORE_ENTER = 4 // to enter the score screen
     }
 }
