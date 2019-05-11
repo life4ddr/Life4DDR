@@ -1,17 +1,17 @@
 package com.perrigogames.life4trials.data
 
 import android.content.res.Resources
+import com.google.gson.annotations.SerializedName
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.data.TrialData.Companion.AAA_SCORE
-import com.squareup.moshi.Json
 import java.io.Serializable
 
 data class GoalSet(val rank: TrialRank,
                    val score: List<Int>? = null,
-                   @Json(name="score_indexed") val scoreIndexed: List<Int>? = null,
+                   @SerializedName("score_indexed") val scoreIndexed: List<Int>? = null,
                    val judge: Int? = null,
                    val miss: Int? = null,
-                   @Json(name="ex_missing") val exMissing: Int? = null): Serializable {
+                   @SerializedName("ex_missing") val exMissing: Int? = null): Serializable {
 
     val goalTypes: List<GoalType>
         get() = mutableListOf<GoalType>().apply {

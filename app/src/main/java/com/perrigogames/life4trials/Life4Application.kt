@@ -6,7 +6,7 @@ import com.perrigogames.life4trials.api.DriveAPI
 import okhttp3.OkHttpClient
 import org.greenrobot.eventbus.EventBus
 import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 
 class Life4Application: Application() {
 
@@ -16,7 +16,7 @@ class Life4Application: Application() {
         fun retrofit() : Retrofit = Retrofit.Builder()
             .client(OkHttpClient().newBuilder().build())
             .baseUrl("https://www.googleapis.com/drive/v2/")
-            .addConverterFactory(MoshiConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .build()
 

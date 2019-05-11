@@ -108,6 +108,7 @@
     <string name="status_logged_in">Logged In</string>
     <string name="status_user_cancelled">User Cancelled</string>
     <string name="status_error">We found a problem: %1$s</string>
+    <string name="get_files">Get Files</string>
     <string name="not_open_file">Could not open file</string>
     <string name="action_drive">Google Drive</string>
 

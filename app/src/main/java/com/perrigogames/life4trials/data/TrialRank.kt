@@ -1,15 +1,16 @@
 package com.perrigogames.life4trials.data
 
 import androidx.annotation.DrawableRes
+import com.google.gson.annotations.SerializedName
 import com.perrigogames.life4trials.R
-import com.squareup.moshi.Json
+import java.io.Serializable
 
-enum class TrialRank(@DrawableRes val drawableRes: Int) {
-    @Json(name="silver") SILVER(R.drawable.silver_3),
-    @Json(name="gold") GOLD(R.drawable.gold_3),
-    @Json(name="diamond") DIAMOND(R.drawable.diamond_3),
-    @Json(name="cobalt") COBALT(R.drawable.cobalt_3),
-    @Json(name="amethyst") AMETHYST(R.drawable.amethyst_3);
+enum class TrialRank(@DrawableRes val drawableRes: Int): Serializable {
+    @SerializedName("silver") SILVER(R.drawable.silver_3),
+    @SerializedName("gold") GOLD(R.drawable.gold_3),
+    @SerializedName("diamond") DIAMOND(R.drawable.diamond_3),
+    @SerializedName("cobalt") COBALT(R.drawable.cobalt_3),
+    @SerializedName("amethyst") AMETHYST(R.drawable.amethyst_3);
 
     val next get() = when(this) {
         SILVER -> GOLD

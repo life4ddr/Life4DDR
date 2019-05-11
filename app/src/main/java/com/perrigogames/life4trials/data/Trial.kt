@@ -1,8 +1,8 @@
 package com.perrigogames.life4trials.data
 
 import android.content.res.Resources
+import com.google.gson.annotations.SerializedName
 import com.perrigogames.life4trials.R
-import com.squareup.moshi.Json
 import java.io.Serializable
 
 data class TrialData(val trials: List<Trial>): Serializable {
@@ -34,7 +34,7 @@ data class Trial(val name: String,
 }
 
 data class Song(val name: String,
-                @Json(name="difficulty") val difficultyNumber: Int,
-                @Json(name="difficulty_class") val difficultyClass: DifficultyClass,
+                @SerializedName("difficulty") val difficultyNumber: Int,
+                @SerializedName("difficulty_class") val difficultyClass: DifficultyClass,
                 val url: String? = null): Serializable
 

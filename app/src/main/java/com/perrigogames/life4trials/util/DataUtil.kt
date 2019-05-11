@@ -8,8 +8,8 @@ import android.os.Environment
 import android.provider.MediaStore
 import android.widget.ImageView
 import androidx.annotation.RawRes
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import java.io.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -17,10 +17,8 @@ import java.util.*
 
 object DataUtil {
 
-    val moshi: Moshi by lazy {
-        Moshi.Builder()
-            .add(KotlinJsonAdapterFactory())
-            .build()
+    val gson: Gson by lazy {
+        GsonBuilder().create()
     }
 
     @Throws(IOException::class)

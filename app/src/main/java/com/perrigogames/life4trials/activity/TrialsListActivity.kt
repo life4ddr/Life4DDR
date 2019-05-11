@@ -42,9 +42,9 @@ class TrialsListActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        data = DataUtil.moshi.adapter(TrialData::class.java).fromJson(loadRawString(R.raw.trials))!!
+        data = DataUtil.gson.fromJson(loadRawString(R.raw.trials), TrialData::class.java)!!
         if (BuildConfig.DEBUG) {
-            val debugData: TrialData = DataUtil.moshi.adapter(TrialData::class.java).fromJson(loadRawString(R.raw.trials_debug))!!
+            val debugData: TrialData = DataUtil.gson.fromJson(loadRawString(R.raw.trials_debug), TrialData::class.java)!!
             data = TrialData(data.trials + debugData.trials)
         }
 
