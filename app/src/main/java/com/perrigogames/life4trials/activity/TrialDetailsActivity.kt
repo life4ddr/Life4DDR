@@ -169,7 +169,8 @@ class TrialDetailsActivity: AppCompatActivity() {
                     } else {
                         trialSession.finalPhoto = it.absolutePath
                     }
-                    val photoURI: Uri = FileProvider.getUriForFile(this, "com.perrigogames.fileprovider", it)
+                    val providerName = if (BuildConfig.DEBUG) "com.perrigogames.fileprovider.debug" else "com.perrigogames.fileprovider"
+                    val photoURI: Uri = FileProvider.getUriForFile(this, providerName, it)
                     intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
                     startActivityForResult(intent, intentFlag)
                 }

@@ -17,6 +17,12 @@ android {
             storePassword 'Ndb%TJQfsJ5c8%qLHP4QEG%Y@'
             keyAlias = 'upload'
         }
+        debug {
+            storeFile file('C:\\Users\\Corey\\Development\\keystores\\debug-keystore.jks')
+            keyPassword '9RA8qJW#hT^gI@T3UW0k$L3@W#'
+            storePassword '!R35qX!&$P6wuEOI%lm6y&lAyq'
+            keyAlias = 'debug'
+        }
     }
     compileSdkVersion 28
     defaultConfig {
@@ -33,6 +39,13 @@ android {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.upload
+            manifestPlaceholders = [providerName:"com.perrigogames.fileprovider"]
+        }
+        debug {
+            applicationIdSuffix ".debug"
+            signingConfig signingConfigs.debug
+            manifestPlaceholders = [providerName:"com.perrigogames.fileprovider.debug"]
         }
     }
     compileOptions {

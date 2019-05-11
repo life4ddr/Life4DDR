@@ -100,8 +100,9 @@ class TrialsListActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(if (useGrid) R.menu.menu_main_grid else R.menu.menu_main_list, menu)
+        menuInflater.inflate(R.menu.menu_main, menu)
+        menu.findItem(R.id.action_grid_view).isVisible = !useGrid
+        menu.findItem(R.id.action_list_view).isVisible = useGrid
         return true
     }
 
