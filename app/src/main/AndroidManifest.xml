@@ -20,9 +20,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup">
-        <activity
-            android:name=".activity.SettingsActivity"
-            android:label="@string/title_activity_settings"></activity>
         <activity android:name=".activity.Life4DescriptionActivity" />
         <activity
             android:name=".activity.TrialsListActivity"
@@ -48,6 +45,9 @@
         <activity
             android:name=".activity.GoogleDriveActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.SettingsActivity"
+            android:label="@string/title_activity_settings" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

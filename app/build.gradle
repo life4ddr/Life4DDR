@@ -1,12 +1,14 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 ext {
     play_services_version = "15.0.1"
     retrofit2_version = "2.5.0"
     okhttp3_version = "3.12.0"
     kotlin_coroutine_version = "1.0.1"
+    dagger2_version = "2.22"
 }
 
 android {
@@ -102,10 +104,16 @@ dependencies {
         exclude group: 'org.apache.httpcomponents'
     }
 
+    // Dagger2
+    implementation "com.google.dagger:dagger-android:$dagger2_version"
+    implementation "com.google.dagger:dagger-android-support:$dagger2_version"
+    kapt "com.google.dagger:dagger-compiler:$dagger2_version"
+    kapt "com.google.dagger:dagger-android-processor:$dagger2_version"
+
     implementation group: 'com.google.guava', name: 'guava', version: '27.0.1-android'
 
     implementation 'androidx.preference:preference:1.1.0-alpha05'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
+    kapt 'com.github.bumptech.glide:compiler:4.9.0'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0-alpha05'

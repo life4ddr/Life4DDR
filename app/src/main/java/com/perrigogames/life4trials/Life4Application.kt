@@ -19,7 +19,5 @@ class Life4Application: Application() {
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .build()
-
-        val driveAPI : DriveAPI = retrofit().create(DriveAPI::class.java)
     }
 }
