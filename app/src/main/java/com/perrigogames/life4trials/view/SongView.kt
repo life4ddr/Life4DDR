@@ -37,7 +37,7 @@ class SongView @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
                 resources.getString(R.string.score_string_format, r.score?.longNumberString(), r.exScore)
             }
 
-            val tintColor = if (result?.photoPath != null) R.color.colorPrimary else R.color.gray
+            val tintColor = if (result?.photoUriString != null) R.color.colorPrimary else R.color.gray
             image_photo_icon.setColorFilter(ContextCompat.getColor(context, tintColor))
 
             Glide.with(this).load(it.url).into(image_song_jacket)

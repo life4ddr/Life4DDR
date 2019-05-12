@@ -23,6 +23,32 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:background="@color/colorAccent"/>
 
+        <Button
+            android:id="@+id/button_navigate_previous"
+            android:layout_width="@dimen/size_detail_nav_debug"
+            android:layout_height="@dimen/size_detail_nav_debug"
+            android:onClick="navigationButtonClicked"
+            android:text="@string/arrow_left"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/view_trial_jacket"
+            app:layout_constraintEnd_toStartOf="@id/view_trial_jacket"
+            app:layout_constraintTop_toTopOf="@id/view_trial_jacket"
+            tools:visibility="visible"/>
+
+        <Button
+            android:id="@+id/button_navigate_next"
+            android:layout_width="@dimen/size_detail_nav_debug"
+            android:layout_height="@dimen/size_detail_nav_debug"
+            android:onClick="navigationButtonClicked"
+            android:text="@string/arrow_right"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/view_trial_jacket"
+            app:layout_constraintStart_toEndOf="@id/view_trial_jacket"
+            app:layout_constraintTop_toTopOf="@id/view_trial_jacket"
+            tools:visibility="visible"/>
+
         <com.perrigogames.life4trials.view.RankImageView
             android:id="@+id/image_desired_rank"
             android:layout_width="32dp"

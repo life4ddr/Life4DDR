@@ -2,12 +2,10 @@ package com.perrigogames.life4trials.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.preference.Preference
-import androidx.preference.PreferenceCategory
-import androidx.preference.PreferenceFragmentCompat
-import androidx.preference.SwitchPreference
+import androidx.preference.*
 import com.perrigogames.life4trials.BuildConfig
 import com.perrigogames.life4trials.R
+import com.perrigogames.life4trials.data.TrialRank
 
 class SettingsActivity : AppCompatActivity() {
 
@@ -26,12 +24,12 @@ class SettingsActivity : AppCompatActivity() {
             val screen = preferenceManager.createPreferenceScreen(context)
 
             PreferenceCategory(context).apply {
-                key = "notifications_category"
-                title = "Notifications"
+                key = "trial_details"
+                title = "Trial Details"
                 screen.addPreference(this)
                 addPreference(SwitchPreference(context).apply {
-                    key = "notifications"
-                    title = "Enable message notifications"
+                    key = KEY_DETAILS_PHOTO_SELECT
+                    title = "Use photo picker"
                 })
             }
 
@@ -47,13 +45,55 @@ class SettingsActivity : AppCompatActivity() {
             }
 
             if (BuildConfig.DEBUG) {
-                screen.addPreference(PreferenceCategory(context).apply {
-                    key = "debug_rank_category"
-                    title = "(D) Ranks"
-                })
+                PreferenceCategory(context).apply {
+                    key = "debug_flags_category"
+                    title = "Debug Flags*"
+                    screen.addPreference(this)
+                    addPreference(SwitchPreference(context).apply {
+                        key = KEY_DEBUG_DETAILS_EASY_NAV
+                        title = "Easy Details Navigation"
+                        summary = "Apply buttons to the Details page to allow jumping to next/previous Trial"
+                    })
+                    addPreference(SwitchPreference(context).apply {
+                        key = KEY_DEBUG_DETAILS_DISPLAY_ALL_RANKS
+                        title = "Display all ranks"
+                        summary = "Show all the ranks one after the other on the Details screen"
+                    })
+                    addPreference(SwitchPreference(context).apply {
+                        key = KEY_DEBUG_BYPASS_CAMERA
+                        title = "Bypass camera"
+                        summary = "Use a generic image instead of launching the Camera"
+                    })
+                    addPreference(SwitchPreference(context).apply {
+                        key = KEY_DEBUG_BYPASS_STAT_ENTRY
+                        title = "Bypass stats entry"
+                        summary = "Use random score values when entering a new photo"
+                    })
+                }
+                PreferenceCategory(context).apply {
+                    key = "debug_ranks_category"
+                    title = "Debug Ranks*"
+                    screen.addPreference(this)
+                    (1..4).forEach { idx ->
+                        addPreference(DropDownPreference(context).apply {
+                            key = "rank_$idx"
+                            title = "Rank $idx"
+                            entryValues = TrialRank.values().map { it.toString() }.toTypedArray()
+                        })
+                    }
+                }
             }
 
             preferenceScreen = screen
         }
+    }
+
+    companion object {
+        const val KEY_DETAILS_PHOTO_SELECT = "KEY_DETAILS_PHOTO_SELECT"
+
+        const val KEY_DEBUG_DETAILS_EASY_NAV = "dden"
+        const val KEY_DEBUG_DETAILS_DISPLAY_ALL_RANKS = "dddar"
+        const val KEY_DEBUG_BYPASS_STAT_ENTRY = "dbse"
+        const val KEY_DEBUG_BYPASS_CAMERA = "dbc"
     }
 }

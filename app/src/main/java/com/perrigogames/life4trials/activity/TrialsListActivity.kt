@@ -12,16 +12,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.perrigogames.life4trials.BuildConfig
 import com.perrigogames.life4trials.Life4Application
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.TrialsAdapter
-import com.perrigogames.life4trials.data.Trial
 import com.perrigogames.life4trials.data.TrialData
 import com.perrigogames.life4trials.event.SavedRankUpdatedEvent
-import com.perrigogames.life4trials.util.DataUtil
 import com.perrigogames.life4trials.util.SharedPrefsUtils
-import com.perrigogames.life4trials.util.loadRawString
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import org.greenrobot.eventbus.Subscribe
@@ -32,7 +28,8 @@ import org.greenrobot.eventbus.Subscribe
  */
 class TrialsListActivity : AppCompatActivity() {
 
-    private lateinit var data: TrialData
+    private val data: TrialData get() = (application as Life4Application).trialData
+
     private lateinit var adapter: TrialsAdapter
 
     private val useGrid: Boolean get() = intent?.extras?.getBoolean(EXTRA_GRID, true) ?: true
@@ -41,12 +38,6 @@ class TrialsListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
-
-        data = DataUtil.gson.fromJson(loadRawString(R.raw.trials), TrialData::class.java)!!
-        if (BuildConfig.DEBUG) {
-            val debugData: TrialData = DataUtil.gson.fromJson(loadRawString(R.raw.trials_debug), TrialData::class.java)!!
-            data = TrialData(data.trials + debugData.trials)
-        }
 
         if (useGrid) {
             createTiledAdapter()
@@ -93,10 +84,8 @@ class TrialsListActivity : AppCompatActivity() {
             if (displayMetrics.widthPixels > displayMetrics.heightPixels) 4 else 2)
     }
 
-    private fun onTrialSelected(trial: Trial) {
-        startActivity(Intent(this, TrialDetailsActivity::class.java).apply {
-            putExtra(TrialDetailsActivity.ARG_TRIAL, trial)
-        })
+    private fun onTrialSelected(idx: Int) {
+        startActivity(TrialDetailsActivity.intent(this, idx))
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

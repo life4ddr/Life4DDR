@@ -3,22 +3,18 @@ package com.perrigogames.life4trials.activity
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
-import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
+import android.provider.MediaStore
 import android.text.Editable
 import android.text.SpannableStringBuilder
 import android.text.TextWatcher
-import android.text.method.KeyListener
-import android.view.KeyEvent
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.perrigogames.life4trials.BuildConfig
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.data.GoalSet
 import com.perrigogames.life4trials.data.Song
 import com.perrigogames.life4trials.data.SongResult
-import com.perrigogames.life4trials.util.DataUtil
 import kotlinx.android.synthetic.main.content_song_entry.*
 
 
@@ -50,7 +46,7 @@ class SongEntryActivity: AppCompatActivity() {
         setContentView(R.layout.content_song_entry)
 
         val res = result?.let {
-            val bitmap = BitmapFactory.decodeFile(it.photoPath)
+            val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, it.photoUri)
             image_photo.setImageDrawable(BitmapDrawable(resources, bitmap))
             button_retake.setOnClickListener { retakePhoto() }
             button_done.setOnClickListener { completeEntry() }
@@ -118,7 +114,8 @@ class SongEntryActivity: AppCompatActivity() {
     }
 
     private fun cancel() {
-        DataUtil.deleteExternalStoragePublicPicture(result!!.photoPath)
+//        DataUtil.deleteExternalStoragePublicPicture(result!!.photoPath)
+        //TODO delete old photo if it's from the camera
         setResult(Activity.RESULT_CANCELED)
         finish()
     }
