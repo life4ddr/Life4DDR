@@ -114,8 +114,6 @@ class SongEntryActivity: AppCompatActivity() {
     }
 
     private fun cancel() {
-//        DataUtil.deleteExternalStoragePublicPicture(result!!.photoPath)
-        //TODO delete old photo if it's from the camera
         setResult(Activity.RESULT_CANCELED)
         finish()
     }
