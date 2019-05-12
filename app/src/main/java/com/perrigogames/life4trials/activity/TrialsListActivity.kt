@@ -125,6 +125,12 @@ class TrialsListActivity : AppCompatActivity() {
                 startActivity(Intent(this, GoogleDriveActivity::class.java))
                 true
             }
+            R.id.action_import -> {
+                true
+            }
+            R.id.action_export -> {
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }

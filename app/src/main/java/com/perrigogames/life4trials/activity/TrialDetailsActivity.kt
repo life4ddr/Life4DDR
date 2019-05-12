@@ -139,8 +139,9 @@ class TrialDetailsActivity: AppCompatActivity() {
 
     private fun updateSongs() {
         button_finalize.isEnabled = true
-        forEachSongView { _, songView ->
-            if (songView.result == null) {
+        forEachSongView { idx, songView ->
+            songView.result = trialSession.results[idx]
+            if (trialSession.results[idx] == null) {
                 button_finalize.isEnabled = false
                 return@forEachSongView
             }
@@ -169,8 +170,7 @@ class TrialDetailsActivity: AppCompatActivity() {
                     } else {
                         trialSession.finalPhoto = it.absolutePath
                     }
-                    val providerName = if (BuildConfig.DEBUG) "com.perrigogames.fileprovider.debug" else "com.perrigogames.fileprovider"
-                    val photoURI: Uri = FileProvider.getUriForFile(this, providerName, it)
+                    val photoURI: Uri = FileProvider.getUriForFile(this, getString(R.string.file_provider_name), it)
                     intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
                     startActivityForResult(intent, intentFlag)
                 }
@@ -212,7 +212,7 @@ class TrialDetailsActivity: AppCompatActivity() {
             FLAG_IMAGE_RECAPTURE -> when (resultCode) {
                 RESULT_OK -> {
                     DataUtil.scaleSavedImage(currentResult!!.photoPath, 1080, 1080, contentResolver)
-                    if (BuildConfig.DEBUG) {
+                    if (BuildConfig.DEBUG && false) {
                         currentResult!!.let { result ->
                             result.score = (Math.random() * 70000).toInt() + 930000
                             result.exScore = (Math.random() * 1024).toInt()
@@ -263,7 +263,6 @@ class TrialDetailsActivity: AppCompatActivity() {
 
     private fun onEntryFinished(result: SongResult?) {
         currentResult = result
-        currentSongView?.result = currentResult
         updateSongs()
         modified = true
         currentIndex = null

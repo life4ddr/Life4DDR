@@ -6,7 +6,12 @@ import android.content.Intent
 import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
+import android.text.Editable
 import android.text.SpannableStringBuilder
+import android.text.TextWatcher
+import android.text.method.KeyListener
+import android.view.KeyEvent
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.perrigogames.life4trials.BuildConfig
 import com.perrigogames.life4trials.R
@@ -28,25 +33,39 @@ class SongEntryActivity: AppCompatActivity() {
     val goalSet: GoalSet? get() =
         intent?.extras?.getSerializable(ARG_GOAL_SET) as? GoalSet
 
+    val newEntry: Boolean get() = result?.score == null
+    var modified: Boolean = false
+
+    private val textWatcher = object: TextWatcher {
+        override fun afterTextChanged(s: Editable?) {
+            modified = true
+        }
+
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) = Unit
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.content_song_entry)
 
-        if (result == null) {
+        val res = result?.let {
+            val bitmap = BitmapFactory.decodeFile(it.photoPath)
+            image_photo.setImageDrawable(BitmapDrawable(resources, bitmap))
+            button_retake.setOnClickListener { retakePhoto() }
+            button_done.setOnClickListener { completeEntry() }
+
+            if (it.score != null) {
+                field_score.text = SpannableStringBuilder(it.score.toString())
+            }
+            if (it.exScore != null) {
+                field_ex.text = SpannableStringBuilder(it.exScore.toString())
+            }
+            field_score.addTextChangedListener(textWatcher)
+            field_ex.addTextChangedListener(textWatcher)
+        }
+        if (res == null) {
             finish()
-            return
-        }
-
-        val bitmap = BitmapFactory.decodeFile(result!!.photoPath)
-        image_photo.setImageDrawable(BitmapDrawable(resources, bitmap))
-        button_retake.setOnClickListener { retakePhoto() }
-        button_done.setOnClickListener { completeEntry() }
-
-        if (result!!.score != null) {
-            field_score.text = SpannableStringBuilder(result!!.score.toString())
-        }
-        if (result!!.exScore != null) {
-            field_ex.text = SpannableStringBuilder(result!!.exScore.toString())
         }
     }
 
@@ -68,18 +87,29 @@ class SongEntryActivity: AppCompatActivity() {
             }
         } else {
             setResult(Activity.RESULT_OK, Intent().apply {
-                putExtra(RESULT_DATA, result)
+                putExtra(RESULT_DATA, result!!.also {
+                    it.score = score
+                    it.exScore = ex
+                })
             })
             finish()
         }
     }
 
     override fun onBackPressed() {
-        AlertDialog.Builder(this).setTitle(R.string.are_you_sure)
-            .setMessage(R.string.camera_close_confirmation)
-            .setNegativeButton(R.string.cancel, null)
-            .setPositiveButton(R.string.okay) { _, _ -> cancel() }
-            .show()
+        if (newEntry || modified) {
+            AlertDialog.Builder(this).setTitle(R.string.are_you_sure)
+                .setMessage(when {
+                    newEntry -> R.string.photo_save_confirmation
+                    modified -> R.string.details_save_confirmation
+                    else -> R.string.no // why?
+                })
+                .setNegativeButton(R.string.cancel, null)
+                .setPositiveButton(R.string.okay) { _, _ -> cancel() }
+                .show()
+        } else {
+            cancel()
+        }
     }
 
     private fun retakePhoto() {

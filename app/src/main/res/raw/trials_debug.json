@@ -28,9 +28,9 @@
 			"total_ex": 10000,
 			"jacket_dir": "2019/03",
 			"songs": [
-				{ "name": "AAAAAAAAAA", "difficulty": 18, "difficulty_class": "challenge", "url": ""},
-				{ "name": "BBBBBBBBBB", "difficulty": 19, "difficulty_class": "challenge", "url": ""},
-				{ "name": "CCCCCCCCCC", "difficulty": 20, "difficulty_class": "challenge", "url": ""},
+				{ "name": "AAAAAAAAAA", "difficulty": 18, "difficulty_class": "beginner", "url": ""},
+				{ "name": "BBBBBBBBBB", "difficulty": 19, "difficulty_class": "basic", "url": ""},
+				{ "name": "CCCCCCCCCC", "difficulty": 20, "difficulty_class": "difficult", "url": ""},
 				{ "name": "DDDDDDDDDD", "difficulty": 21, "difficulty_class": "challenge", "url": "" }
 			]
 		}

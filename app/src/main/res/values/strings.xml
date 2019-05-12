@@ -1,11 +1,16 @@
 <resources>
     <string name="app_name">LIFE4 Trials</string>
 
+    <string name="file_provider_name">com.perrigogames.fileprovider</string>
+
     <!-- Settings Strings -->
     <string name="action_settings">Settings</string>
     <string name="action_list_view">List View</string>
     <string name="action_grid_view">Grid View</string>
     <string name="action_clear_rank_data">Clear Rank Data</string>
+    <string name="action_drive">Google Drive</string>
+    <string name="action_export">Export Ranks</string>
+    <string name="action_import">Import Ranks</string>
 
     <!-- Goal Strings -->
     <string name="score_songs">• Score %s on at least %d songs.</string>
@@ -44,7 +49,8 @@
     <string name="camera_permission_description_redirect">This app needs your permission to use the camera to take LIFE4 verification photos. Would you like to open your permission settings and grant this permission?</string>
 
     <string name="trial_close_confirmation">The progress made in this trial will not be saved.</string>
-    <string name="camera_close_confirmation">This photo will not be saved.</string>
+    <string name="photo_save_confirmation">This photo will not be saved.</string>
+    <string name="details_save_confirmation">Your changes will not be saved.</string>
 
     <string name="confirm_trial_title">Confirm Trial Submission</string>
     <string name="submit_dialog_title">Submit Scores</string>
@@ -110,9 +116,23 @@
     <string name="status_error">We found a problem: %1$s</string>
     <string name="get_files">Get Files</string>
     <string name="not_open_file">Could not open file</string>
-    <string name="action_drive">Google Drive</string>
 
     <array name="credits">
         <item>Camera icon by https://www.flaticon.com/authors/daniel-bruce from www.flaticon.com</item>
     </array>
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails</string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
 </resources>

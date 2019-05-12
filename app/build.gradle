@@ -40,12 +40,12 @@ android {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.upload
-            manifestPlaceholders = [providerName:"com.perrigogames.fileprovider"]
+            manifestPlaceholders = [providerName: "com.perrigogames.fileprovider"]
         }
         debug {
             applicationIdSuffix ".debug"
             signingConfig signingConfigs.debug
-            manifestPlaceholders = [providerName:"com.perrigogames.fileprovider.debug"]
+            manifestPlaceholders = [providerName: "com.perrigogames.fileprovider.debug"]
         }
     }
     compileOptions {
@@ -104,6 +104,7 @@ dependencies {
 
     implementation group: 'com.google.guava', name: 'guava', version: '27.0.1-android'
 
+    implementation 'androidx.preference:preference:1.1.0-alpha05'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
 
     testImplementation 'junit:junit:4.12'

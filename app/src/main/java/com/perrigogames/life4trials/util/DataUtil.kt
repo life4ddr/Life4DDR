@@ -65,11 +65,20 @@ object DataUtil {
             val pictureBitmap = createScaledBitmap(path, targetW, targetH) ?: return false
             FileOutputStream(file).use {
                 pictureBitmap.compress(Bitmap.CompressFormat.JPEG, 85, it)
-                it.flush()
-                it.close()
             }
 
             MediaStore.Images.Media.insertImage(contentResolver, file.absolutePath, file.name, file.name)
+        } catch (e: Exception) {
+            return false
+        }
+        return true
+    }
+
+    fun saveString(context: Context, path: String, content: String): Boolean {
+        try {
+            OutputStreamWriter(context.openFileOutput(path, Context.MODE_PRIVATE)).use {
+                it.write(content)
+            }
         } catch (e: Exception) {
             return false
         }
