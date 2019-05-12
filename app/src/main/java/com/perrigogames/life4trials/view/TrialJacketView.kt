@@ -19,7 +19,13 @@ class TrialJacketView @JvmOverloads constructor(context: Context, attrs: Attribu
             text_trial_title.text = v?.name
             text_trial_difficulty.text = v?.difficulty?.toString()
             if (v != null) {
-                Glide.with(this).load(v.jacketUrl(resources, 350)).into(image_trial_jacket)
+                if (v.shouldShowTitle) {
+                    text_trial_title.visibility = View.VISIBLE
+                    image_trial_jacket.setImageDrawable(null)
+                } else {
+                    text_trial_title.visibility = View.GONE
+                    Glide.with(this).load(v.jacketUrl(resources, 350)).into(image_trial_jacket)
+                }
             }
         }
 

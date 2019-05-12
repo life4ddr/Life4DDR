@@ -17,7 +17,7 @@ data class Trial(val name: String,
                  val goals: List<GoalSet>,
                  val total_ex: Int,
                  val songs: List<Song>,
-                 val jacket_dir: String,
+                 val jacket_dir: String? = null,
                  val jacket_name: String? = null): Serializable {
 
     fun goalSet(rank: TrialRank): GoalSet? = goals.find { it.rank == rank }
@@ -31,6 +31,8 @@ data class Trial(val name: String,
         resources.getString(
             R.string.url_trial_jacket_sized,
             jacket_dir, (jacket_name ?: name.toLowerCase()), size, size)
+
+    val shouldShowTitle get() = jacket_dir == null && jacket_name == null
 }
 
 data class Song(val name: String,

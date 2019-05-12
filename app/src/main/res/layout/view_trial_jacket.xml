@@ -12,12 +12,12 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="@dimen/content_padding_med"
+        android:background="@color/colorAccent"
         android:contentDescription="@string/jacket_artwork_for_trial"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:background="@color/colorAccent"
         tools:layout_width="200dp" />
 
     <TextView

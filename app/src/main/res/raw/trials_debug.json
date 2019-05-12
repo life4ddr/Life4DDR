@@ -1,7 +1,7 @@
 {
 	"trials": [
 		{
-			"name": "Origin",
+			"name": "Debug",
 			"difficulty": 20,
 			"goals": [
 				{
@@ -26,7 +26,6 @@
 				}
 			],
 			"total_ex": 10000,
-			"jacket_dir": "2019/03",
 			"songs": [
 				{ "name": "AAAAAAAAAA", "difficulty": 18, "difficulty_class": "beginner", "url": ""},
 				{ "name": "BBBBBBBBBB", "difficulty": 19, "difficulty_class": "basic", "url": ""},
