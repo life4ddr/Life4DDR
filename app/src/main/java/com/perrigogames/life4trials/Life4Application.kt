@@ -2,7 +2,6 @@ package com.perrigogames.life4trials
 
 import android.app.Application
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
-import com.perrigogames.life4trials.api.DriveAPI
 import okhttp3.OkHttpClient
 import org.greenrobot.eventbus.EventBus
 import retrofit2.Retrofit
