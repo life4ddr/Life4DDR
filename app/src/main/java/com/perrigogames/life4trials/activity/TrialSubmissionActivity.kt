@@ -122,7 +122,9 @@ class TrialSubmissionActivity: AppCompatActivity() {
             .setMessage(R.string.submit_dialog_prompt)
             .setNegativeButton(R.string.no) { _, _ -> finish() }
             .setPositiveButton(R.string.yes) { _, _ -> startActivity(
-                Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.url_submission_form)))) }
+                Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.url_submission_form))))
+                finish()
+            }
             .show()
     }
 

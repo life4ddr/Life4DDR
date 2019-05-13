@@ -90,8 +90,8 @@ class TrialsListActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
-        menu.findItem(R.id.action_grid_view).isVisible = !useGrid
-        menu.findItem(R.id.action_list_view).isVisible = useGrid
+//        menu.findItem(R.id.action_grid_view).isVisible = !useGrid
+//        menu.findItem(R.id.action_list_view).isVisible = useGrid
         return true
     }
 

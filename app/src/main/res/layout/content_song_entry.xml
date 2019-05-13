@@ -6,16 +6,27 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/image_photo"
+    <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_margin="@dimen/content_padding_med"
         app:layout_constraintBottom_toTopOf="@id/barrier"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:background="@color/colorAccent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/image_photo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scaleType="fitStart"
+                tools:background="@color/colorAccent"
+                tools:layout_height="500dp"/>
+        </FrameLayout>
+    </ScrollView>
 
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/barrier"
@@ -52,6 +63,7 @@
         android:id="@+id/button_retake"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/content_padding_med"
         android:layout_marginRight="@dimen/content_padding_med"
         android:layout_marginBottom="@dimen/content_padding_med"
         android:text="@string/retake_photo"

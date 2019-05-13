@@ -109,6 +109,7 @@
     <string name="rank_image">rank image</string>
     <string name="camera_icon">camera icon</string>
     <string name="life4_logo">Life4 logo</string>
+    <string name="icon">icon</string>
 
     <!-- Google Drive -->
     <string name="source_google_drive">Google Drive</string>
@@ -123,7 +124,7 @@
     <string name="not_open_file">Could not open file</string>
 
     <array name="credits">
-        <item>Camera icon by https://www.flaticon.com/authors/daniel-bruce from www.flaticon.com</item>
+        <item>Camera icon and Folder icon by https://www.flaticon.com/authors/daniel-bruce from www.flaticon.com</item>
     </array>
     <string name="title_activity_settings">Settings</string>
 

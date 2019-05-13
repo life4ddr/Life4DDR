@@ -2,6 +2,7 @@ package com.perrigogames.life4trials.activity
 
 import android.app.Activity
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
@@ -9,6 +10,7 @@ import android.provider.MediaStore
 import android.text.Editable
 import android.text.SpannableStringBuilder
 import android.text.TextWatcher
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import com.perrigogames.life4trials.BuildConfig
 import com.perrigogames.life4trials.R
@@ -59,6 +61,11 @@ class SongEntryActivity: AppCompatActivity() {
             }
             field_score.addTextChangedListener(textWatcher)
             field_ex.addTextChangedListener(textWatcher)
+
+            if (field_score.requestFocus()) {
+                (getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager)
+                    .showSoftInput(field_score, InputMethodManager.SHOW_IMPLICIT)
+            }
         }
         if (res == null) {
             finish()

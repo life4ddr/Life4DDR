@@ -38,7 +38,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.SongEntryActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".activity.TrialSubmissionActivity"
             android:screenOrientation="portrait" />
