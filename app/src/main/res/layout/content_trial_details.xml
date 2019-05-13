@@ -23,6 +23,32 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:background="@color/colorAccent"/>
 
+        <Button
+            android:id="@+id/button_navigate_previous"
+            android:layout_width="@dimen/size_detail_nav_debug"
+            android:layout_height="@dimen/size_detail_nav_debug"
+            android:onClick="navigationButtonClicked"
+            android:text="@string/arrow_left"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/view_trial_jacket"
+            app:layout_constraintEnd_toStartOf="@id/view_trial_jacket"
+            app:layout_constraintTop_toTopOf="@id/view_trial_jacket"
+            tools:visibility="visible"/>
+
+        <Button
+            android:id="@+id/button_navigate_next"
+            android:layout_width="@dimen/size_detail_nav_debug"
+            android:layout_height="@dimen/size_detail_nav_debug"
+            android:onClick="navigationButtonClicked"
+            android:text="@string/arrow_right"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/view_trial_jacket"
+            app:layout_constraintStart_toEndOf="@id/view_trial_jacket"
+            app:layout_constraintTop_toTopOf="@id/view_trial_jacket"
+            tools:visibility="visible"/>
+
         <com.perrigogames.life4trials.view.RankImageView
             android:id="@+id/image_desired_rank"
             android:layout_width="32dp"
@@ -43,6 +69,40 @@
             app:layout_constraintBottom_toBottomOf="@id/image_desired_rank"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/image_desired_rank"
+            app:layout_constraintTop_toTopOf="@id/image_desired_rank"/>
+
+        <ImageView
+            android:id="@+id/image_camera_icon"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_margin="@dimen/content_padding_med"
+            android:contentDescription="@string/icon"
+            android:src="@drawable/ic_photo_camera"
+            android:tint="@color/white"
+            app:layout_constraintBottom_toBottomOf="@id/image_desired_rank"
+            app:layout_constraintEnd_toStartOf="@id/switch_acquire_mode"
+            app:layout_constraintTop_toTopOf="@id/image_desired_rank" />
+
+        <Switch
+            android:id="@+id/switch_acquire_mode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/content_padding_med"
+            android:layout_marginRight="@dimen/content_padding_med"
+            app:layout_constraintBottom_toBottomOf="@id/image_desired_rank"
+            app:layout_constraintEnd_toStartOf="@id/image_folder_icon"
+            app:layout_constraintTop_toTopOf="@id/image_desired_rank" />
+
+        <ImageView
+            android:id="@+id/image_folder_icon"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_margin="@dimen/content_padding_med"
+            android:contentDescription="@string/icon"
+            android:src="@drawable/ic_file_folder"
+            android:tint="@color/white"
+            app:layout_constraintBottom_toBottomOf="@id/image_desired_rank"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/image_desired_rank"/>
 
         <TextView

@@ -1,6 +1,9 @@
 package com.perrigogames.life4trials.util
 
 import android.content.Context
+import androidx.core.content.edit
+import androidx.preference.PreferenceManager
+import com.perrigogames.life4trials.BuildConfig
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.data.Trial
 import com.perrigogames.life4trials.data.TrialRank
@@ -37,6 +40,16 @@ object SharedPrefsUtils {
         }
     }
 
+    /** @return a stored flag in the user preferences */
+    fun getUserFlag(c: Context, flag: String, def: Boolean) = userPrefs(c).getBoolean(flag, def)
+
+    /** @return a stored debug flag in the user preferences, also checking the debug state of the app */
+    fun getDebugFlag(c: Context, flag: String) = BuildConfig.DEBUG && getUserFlag(c, flag, false)
+
+    fun setUserFlag(c: Context, flag: String, v: Boolean) = userPrefs(c).edit(true) { putBoolean(flag, v) }
+
+    fun setDebugFlag(c: Context, flag: String, v: Boolean) = setUserFlag(c, flag, v)
+
     private fun rankPrefs(c: Context) =
         c.getSharedPreferences(c.resources.getString(R.string.rank_preferences_key), Context.MODE_PRIVATE)
 
@@ -44,5 +57,5 @@ object SharedPrefsUtils {
         c.getSharedPreferences(c.resources.getString(R.string.tutorial_preferences_key), Context.MODE_PRIVATE)
 
     private fun userPrefs(c: Context) =
-        c.getSharedPreferences(c.resources.getString(R.string.user_preferences_key), Context.MODE_PRIVATE)
+        PreferenceManager.getDefaultSharedPreferences(c)
 }

@@ -7,12 +7,11 @@ import com.perrigogames.life4trials.data.Trial
 import com.perrigogames.life4trials.util.SharedPrefsUtils
 import com.perrigogames.life4trials.view.TrialItemView
 import com.perrigogames.life4trials.view.TrialItemView.TrialViewHolder
-import java.lang.IllegalArgumentException
 
 class TrialsAdapter(private val context: Context,
                     private val trials: List<Trial>,
                     private val tiled: Boolean = false,
-                    private val onItemClicked: (Trial) -> Unit):
+                    private val onItemClicked: (Int) -> Unit):
     RecyclerView.Adapter<TrialViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
@@ -26,7 +25,7 @@ class TrialsAdapter(private val context: Context,
 
     override fun onBindViewHolder(holder: TrialViewHolder, position: Int) {
         holder.trialItemView.trial = trials[position]
-        holder.itemView.setOnClickListener { onItemClicked(trials[position]) }
+        holder.itemView.setOnClickListener { onItemClicked(position) }
         if (tiled) {
             holder.trialItemView.setupHighestRank(SharedPrefsUtils.getRankForTrial(context, trials[position]))
         } else {

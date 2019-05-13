@@ -1,6 +1,10 @@
 package com.perrigogames.life4trials.activity
 
+import android.Manifest.permission.CAMERA
+import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -10,31 +14,30 @@ import android.provider.MediaStore
 import android.view.ContextMenu
 import android.view.MenuItem
 import android.view.View
+import android.view.View.VISIBLE
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.annotation.RequiresPermission
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
-import com.perrigogames.life4trials.BuildConfig
+import com.perrigogames.life4trials.Life4Application
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.data.SongResult
-import com.perrigogames.life4trials.data.Trial
-import com.perrigogames.life4trials.data.TrialRank
-import com.perrigogames.life4trials.data.TrialSession
-import com.perrigogames.life4trials.util.DataUtil
-import com.perrigogames.life4trials.util.PermissionUtils.FLAG_PERMISSION_REQUEST
-import com.perrigogames.life4trials.util.SharedPrefsUtils
-import com.perrigogames.life4trials.util.askForPhotoPermissions
+import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_DEBUG_DETAILS_EASY_NAV
+import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_DETAILS_PHOTO_SELECT
+import com.perrigogames.life4trials.data.*
+import com.perrigogames.life4trials.util.*
 import com.perrigogames.life4trials.view.SongView
 import com.perrigogames.life4trials.view.TrialJacketView
 import kotlinx.android.synthetic.main.content_trial_details.*
-import java.io.File
 import java.io.IOException
+
 
 class TrialDetailsActivity: AppCompatActivity() {
 
-    private val trial: Trial by lazy {
-        intent.extras?.getSerializable(ARG_TRIAL) as Trial
-    }
+    private val trialData: TrialData get() = (application as Life4Application).trialData
+    private val trialIndex: Int by lazy { intent.extras!!.getInt(ARG_TRIAL_INDEX) }
+    private val trial: Trial get() = trialData.trials[trialIndex]
+
     private val storedRank: TrialRank? get() = SharedPrefsUtils.getRankForTrial(this, trial)
     private val initialRank: TrialRank by lazy { storedRank?.next
         ?: (intent.extras?.getInt(ARG_INITIAL_RANK)?.let { TrialRank.values()[it] } ?: TrialRank.SILVER)
@@ -78,20 +81,28 @@ class TrialDetailsActivity: AppCompatActivity() {
             }
         }
 
+        switch_acquire_mode.isChecked = SharedPrefsUtils.getUserFlag(this, KEY_DETAILS_PHOTO_SELECT, false)
+        switch_acquire_mode.setOnCheckedChangeListener { _, isChecked ->
+            SharedPrefsUtils.setUserFlag(this, KEY_DETAILS_PHOTO_SELECT, isChecked)
+        }
+
         button_finalize.isEnabled = false
         button_finalize.setOnClickListener { onFinalizeClick() }
 
-        trial.let { t ->
-            (view_trial_jacket as TrialJacketView).let { jacket ->
-                jacket.trial = t
-                jacket.rank = storedRank
-            }
-            forEachSongView { idx, view ->
-                view.tag = idx
-                view.song = t.songs[idx]
-                view.setOnClickListener { onSongClicked(idx) }
-                registerForContextMenu(view)
-            }
+        (view_trial_jacket as TrialJacketView).let { jacket ->
+            jacket.trial = trial
+            jacket.rank = storedRank
+        }
+        forEachSongView { idx, view ->
+            view.tag = idx
+            view.song = trial.songs[idx]
+            view.setOnClickListener { onSongClicked(idx) }
+            registerForContextMenu(view)
+        }
+
+        if (SharedPrefsUtils.getDebugFlag(this, KEY_DEBUG_DETAILS_EASY_NAV)) {
+            button_navigate_previous.visibility = VISIBLE
+            button_navigate_next.visibility = VISIBLE
         }
     }
 
@@ -112,9 +123,15 @@ class TrialDetailsActivity: AppCompatActivity() {
         if (v is SongView) {
             val idx = v.tag as Int
             currentIndex = idx
-            val menuRes = if (trialSession.results[idx]?.photoPath != null) R.menu.menu_song_replace else R.menu.menu_song_add
+            val menuRes = if (trialSession.results[idx]?.photoUriString != null) R.menu.menu_song_replace else R.menu.menu_song_add
             menuInflater.inflate(menuRes, menu)
         }
+    }
+
+    fun navigationButtonClicked(v: View) {
+        val index = trialIndex + (if (v.id == R.id.button_navigate_previous) -1 else 1)
+        startActivity(intent(this, index))
+        finish()
     }
 
     private fun onSongClicked(index: Int) {
@@ -123,12 +140,12 @@ class TrialDetailsActivity: AppCompatActivity() {
             startEditActivity(currentIndex!!)
         } else {
             isNewEntry = true
-            startCameraActivity(FLAG_IMAGE_CAPTURE)
+            acquirePhoto(newPhoto = true)
         }
     }
 
     private fun onFinalizeClick() {
-        startCameraActivity(FLAG_IMAGE_CAPTURE_FINAL)
+        acquirePhoto(newPhoto = true, final = true)
     }
 
     private fun setRank(rank: TrialRank) {
@@ -148,32 +165,79 @@ class TrialDetailsActivity: AppCompatActivity() {
         }
     }
 
-    private fun startCameraActivity(intentFlag: Int) {
-        askForPhotoPermissions(R.string.camera_permission_description_popup) { sendCameraIntent(intentFlag) }
+    private fun acquirePhoto(selection: Boolean = SharedPrefsUtils.getUserFlag(this, KEY_DETAILS_PHOTO_SELECT, false),
+                             newPhoto: Boolean,
+                             final: Boolean = false) {
+        if (selection) {
+            startPhotoSelectActivity(when {
+                final -> FLAG_IMAGE_SELECT_FINAL
+                newPhoto -> FLAG_IMAGE_SELECT
+                else -> FLAG_IMAGE_RESELECT
+            })
+        } else {
+            startCameraActivity(when {
+                final -> FLAG_IMAGE_CAPTURE_FINAL
+                newPhoto -> FLAG_IMAGE_CAPTURE
+                else -> FLAG_IMAGE_RECAPTURE
+            })
+        }
     }
 
+    @SuppressLint("MissingPermission")
+    private fun startCameraActivity(intentFlag: Int) {
+        askForPhotoTakePermissions(R.string.camera_permission_title,
+            R.string.camera_permission_description_popup) { sendCameraIntent(intentFlag) }
+    }
+
+    @RequiresPermission(allOf = [CAMERA, WRITE_EXTERNAL_STORAGE])
     private fun sendCameraIntent(intentFlag: Int) {
         Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { intent ->
             intent.resolveActivity(packageManager)?.also {
                 try { // Create the File where the photo should go
                     @Suppress("DEPRECATION")
                     when {
-                        currentResult?.photoPath != null -> File(currentResult!!.photoPath)
                         Build.VERSION.SDK_INT >= Build.VERSION_CODES.N -> DataUtil.createImageFile(resources.configuration.locales[0])
                         else -> DataUtil.createImageFile(resources.configuration.locale)
                     }
                 } catch (ex: IOException) {
                     null // Error occurred while creating the File
                 }?.also {
+                    val uri: Uri = FileProvider.getUriForFile(this, getString(R.string.file_provider_name), it)
                     if (currentIndex != null) {
-                        currentResult = currentResult ?: SongResult(trial.songs[currentIndex!!], it.absolutePath)
+                        if (currentResult == null) {
+                            currentResult = SongResult(trial.songs[currentIndex!!], uri.toString())
+                        } else {
+                            currentResult!!.photoUri = uri
+                        }
                     } else {
-                        trialSession.finalPhoto = it.absolutePath
+                        trialSession.finalPhotoUriString = uri.toString()
                     }
-                    val photoURI: Uri = FileProvider.getUriForFile(this, getString(R.string.file_provider_name), it)
-                    intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+                    intent.putExtra(MediaStore.EXTRA_OUTPUT, uri)
                     startActivityForResult(intent, intentFlag)
                 }
+            }
+        }
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun startPhotoSelectActivity(intentFlag: Int) {
+        askForPhotoSelectPermissions(R.string.gallery_permission_title,
+            R.string.gallery_permission_description_popup) { sendPhotoSelectIntent(intentFlag) }
+    }
+
+    @RequiresPermission(WRITE_EXTERNAL_STORAGE)
+    private fun sendPhotoSelectIntent(intentFlag: Int) {
+        if (Build.VERSION.SDK_INT < 19) {
+            Intent().also { i ->
+                i.type = "image/*"
+                i.action = Intent.ACTION_GET_CONTENT
+                startActivityForResult(Intent.createChooser(i, resources.getString(R.string.add_gallery)), intentFlag)
+            }
+        } else {
+            Intent(Intent.ACTION_OPEN_DOCUMENT).also { i ->
+                i.addCategory(Intent.CATEGORY_OPENABLE)
+                i.type = "image/jpeg"
+                startActivityForResult(i, intentFlag)
             }
         }
     }
@@ -194,14 +258,9 @@ class TrialDetailsActivity: AppCompatActivity() {
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
-        when (requestCode) {
-            FLAG_PERMISSION_REQUEST -> {
-                if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                    sendCameraIntent(FLAG_IMAGE_CAPTURE)
-                }
-                return
-            }
-            else -> Unit
+        if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+            acquirePhoto(selection = requestCode == FLAG_PERMISSION_REQUEST_SELECT,
+                newPhoto = true)
         }
     }
 
@@ -211,15 +270,32 @@ class TrialDetailsActivity: AppCompatActivity() {
             FLAG_IMAGE_CAPTURE,
             FLAG_IMAGE_RECAPTURE -> when (resultCode) {
                 RESULT_OK -> {
-                    DataUtil.scaleSavedImage(currentResult!!.photoPath, 1080, 1080, contentResolver)
-                    if (BuildConfig.DEBUG && false) {
-                        currentResult!!.let { result ->
-                            result.score = (Math.random() * 70000).toInt() + 930000
-                            result.exScore = (Math.random() * 1024).toInt()
-                            result.misses = (Math.random() * 6).toInt()
-                            result.badJudges = result.misses!! + (Math.random() * 14).toInt()
-                            onEntryFinished(result)
-                        }
+                    DataUtil.scaleSavedImage(currentResult!!.photoUri.path!!, 1080, 1080, contentResolver)
+                    if (SharedPrefsUtils.getDebugFlag(this, SettingsActivity.KEY_DEBUG_BYPASS_STAT_ENTRY)) {
+                        currentResult!!.randomize()
+                        onEntryFinished(currentResult!!)
+                    } else {
+                        startEditActivity(currentIndex!!)
+                    }
+                }
+                RESULT_CANCELED -> onEntryCancelled()
+            }
+            FLAG_IMAGE_SELECT,
+            FLAG_IMAGE_RESELECT -> when (resultCode) {
+                RESULT_OK -> {
+                    val uri = data!!.data!!
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                        val takeFlags = data.flags and (Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+                        contentResolver.takePersistableUriPermission(uri, takeFlags)
+                    }
+                    if (currentResult == null) {
+                        currentResult = SongResult(trial.songs[currentIndex!!], uri.toString())
+                    } else {
+                        currentResult!!.photoUri = uri
+                    }
+                    if (SharedPrefsUtils.getDebugFlag(this, SettingsActivity.KEY_DEBUG_BYPASS_STAT_ENTRY)) {
+                        currentResult!!.randomize()
+                        onEntryFinished(currentResult!!)
                     } else {
                         startEditActivity(currentIndex!!)
                     }
@@ -228,13 +304,24 @@ class TrialDetailsActivity: AppCompatActivity() {
             }
             FLAG_IMAGE_CAPTURE_FINAL -> when (resultCode) {
                 RESULT_OK -> {
-                    DataUtil.scaleSavedImage(trialSession.finalPhoto!!, 1080, 1080, contentResolver)
+                    DataUtil.scaleSavedImage(trialSession.finalPhotoUri.path!!, 1080, 1080, contentResolver)
+                    startSubmitActivity()
+                }
+            }
+            FLAG_IMAGE_SELECT_FINAL -> when (resultCode) {
+                RESULT_OK -> {
+                    val uri = data!!.data!!
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                        val takeFlags = data.flags and (Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+                        contentResolver.takePersistableUriPermission(uri, takeFlags)
+                    }
+                    trialSession.finalPhotoUri = uri
                     startSubmitActivity()
                 }
             }
             FLAG_SCORE_ENTER -> when (resultCode) {
                 RESULT_OK -> onEntryFinished(data!!.getSerializableExtra(SongEntryActivity.RESULT_DATA) as? SongResult)
-                SongEntryActivity.RESULT_RETAKE -> startCameraActivity(if (isNewEntry) FLAG_IMAGE_CAPTURE else FLAG_IMAGE_RECAPTURE)
+                SongEntryActivity.RESULT_RETAKE -> acquirePhoto(newPhoto = isNewEntry)
                 RESULT_CANCELED -> onEntryCancelled()
             }
         }
@@ -243,11 +330,11 @@ class TrialDetailsActivity: AppCompatActivity() {
     override fun onContextItemSelected(item: MenuItem?): Boolean {
         return when(item?.itemId) {
             R.id.action_gallery -> {
-                //TODO select photos from device
+                acquirePhoto(selection = true, newPhoto = isNewEntry)
                 true
             }
             R.id.action_camera -> {
-                startCameraActivity(if (isNewEntry) FLAG_IMAGE_CAPTURE else FLAG_IMAGE_RECAPTURE)
+                acquirePhoto(selection = false, newPhoto = isNewEntry)
                 true
             }
             R.id.action_edit -> {
@@ -278,12 +365,21 @@ class TrialDetailsActivity: AppCompatActivity() {
     }
 
     companion object {
-        const val ARG_TRIAL = "ARG_TRIAL"
+        const val ARG_TRIAL_INDEX = "ARG_TRIAL_INDEX"
         const val ARG_INITIAL_RANK = "ARG_INITIAL_RANK"
 
         const val FLAG_IMAGE_CAPTURE = 1 // capturing for a new song
         const val FLAG_IMAGE_RECAPTURE = 2 // retaking a picture for a song that already exists
         const val FLAG_IMAGE_CAPTURE_FINAL = 3 // capturing the final score screen
-        const val FLAG_SCORE_ENTER = 4 // to enter the score screen
+        const val FLAG_IMAGE_SELECT = 4 // selecting a local photo for a new song
+        const val FLAG_IMAGE_RESELECT = 5 // reselecting a local photo for a song that already exists
+        const val FLAG_IMAGE_SELECT_FINAL = 6 // selecting a local photo of the final score screen
+        const val FLAG_SCORE_ENTER = 7 // to enter the score screen
+
+        fun intent(c: Context, trialIndex: Int, initialRank: TrialRank? = null) =
+            Intent(c, TrialDetailsActivity::class.java).apply {
+                putExtra(ARG_TRIAL_INDEX, trialIndex)
+                initialRank?.let { putExtra(ARG_INITIAL_RANK, it) }
+            }
     }
 }

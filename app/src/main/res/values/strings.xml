@@ -47,6 +47,8 @@
     <string name="camera_permission_title">Camera Permission</string>
     <string name="camera_permission_description_popup">This app needs your permission to use the camera to take LIFE4 verification photos. Please grant permission to use the camera on the next popup.</string>
     <string name="camera_permission_description_redirect">This app needs your permission to use the camera to take LIFE4 verification photos. Would you like to open your permission settings and grant this permission?</string>
+    <string name="gallery_permission_title">Gallery Permission</string>
+    <string name="gallery_permission_description_popup">This app needs permission to access your photos to use them for LIFE4 verification. Please grant permission to access storage on the next popup.</string>
 
     <string name="trial_close_confirmation">The progress made in this trial will not be saved.</string>
     <string name="photo_save_confirmation">This photo will not be saved.</string>
@@ -55,7 +57,7 @@
     <string name="confirm_trial_title">Confirm Trial Submission</string>
     <string name="submit_dialog_title">Submit Scores</string>
     <string name="submit_dialog_rank_confirmation">Did you pass all requirements for %s rank?</string>
-    <string name="submit_dialog_content">Photos are saved to your SD card\'s Pictures/LIFE4 folder. These photos can be uploaded to Life4\'s Trial Submission Page manually.</string>
+    <string name="submit_dialog_prompt">Photos are saved to your SD card\'s Pictures/LIFE4 folder. These photos can be uploaded to Life4\'s Trial Submission Page manually.\n\nWould you like to be taken there now?</string>
     <string name="trial_not_saved">This trial has not been saved!</string>
 
     <string name="confirm_erase_data">Are you sure you want to clear all saved rank data?</string>
@@ -80,6 +82,8 @@
     <string name="cancel">Cancel</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="arrow_left">←</string>
+    <string name="arrow_right">→</string>
 
     <!-- Welcome/FTUE -->
     <string name="welcome_to_life4">Welcome to LIFE4!</string>
@@ -97,6 +101,7 @@
     <!-- URLs -->
     <string name="url_trial_jacket_base">https://life4ddr.com/wp-content/uploads/%s/%s.jpg</string>
     <string name="url_trial_jacket_sized">https://life4ddr.com/wp-content/uploads/%s/%s-%dx%d.jpg</string>
+    <string name="url_submission_form">https://docs.google.com/forms/d/e/1FAIpQLSd2z2dcavPcdC_UhieAPUoYj0C5mTbSAabhrRYstOYem2Mq5Q/viewform</string>
 
     <!-- Content descriptions -->
     <string name="jacket_artwork_for_trial">jacket artwork for trial</string>
@@ -104,6 +109,7 @@
     <string name="rank_image">rank image</string>
     <string name="camera_icon">camera icon</string>
     <string name="life4_logo">Life4 logo</string>
+    <string name="icon">icon</string>
 
     <!-- Google Drive -->
     <string name="source_google_drive">Google Drive</string>
@@ -118,7 +124,7 @@
     <string name="not_open_file">Could not open file</string>
 
     <array name="credits">
-        <item>Camera icon by https://www.flaticon.com/authors/daniel-bruce from www.flaticon.com</item>
+        <item>Camera icon and Folder icon by https://www.flaticon.com/authors/daniel-bruce from www.flaticon.com</item>
     </array>
     <string name="title_activity_settings">Settings</string>
 

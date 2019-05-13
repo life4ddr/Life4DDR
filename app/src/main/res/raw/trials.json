@@ -197,7 +197,7 @@
 			"songs": [
 				{ "name": "FIRE FIRE", "difficulty": 14, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X2%20%28AC%29%20%28Japan%29/FIRE%20FIRE/FIRE%20FIRE-jacket.png" },
 				{ "name": "NEPHILIM DELTA", "difficulty": 14, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X3%20VS%202ndMIX%20%28AC%29%20%28Japan%29/NEPHILIM%20DELTA/NEPHILIM%20DELTA-jacket.png" },
-				{ "name": "PARANOiA ~HADES~", "difficulty": 15, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20SuperNOVA2%20%28AC%29%20%28Japan%29/PARANOiA%20~HADES~/PARANOiA%20~HADES~-jacket.png" },
+				{ "name": "PARANOiA ~HADES~", "difficulty": 15, "difficulty_class": "difficult", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20SuperNOVA2%20%28AC%29%20%28Japan%29/PARANOiA%20~HADES~/PARANOiA%20~HADES~-jacket.png" },
 				{ "name": "RISING FIRE HAWK", "difficulty": 15, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/RISING%20FIRE%20HAWK/RISING%20FIRE%20HAWK-jacket.png" }
 			]
 		},
@@ -356,7 +356,7 @@
 			"total_ex": 6951,
 			"jacket_dir": "2019/03",
 			"songs": [
-				{ "name": "I'm so Happy", "difficulty": 16, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X2%20%28AC%29%20%28Japan%29/I%27m%20so%20Happy/I%27m%20so%20Happy-jacket.png" },
+				{ "name": "I'm so Happy", "difficulty": 16, "difficulty_class": "challenge", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X2%20%28AC%29%20%28Japan%29/I%27m%20so%20Happy/I%27m%20so%20Happy-jacket.png" },
 				{ "name": "Cosy Catastrophe", "difficulty": 16, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/Cosy%20Catastrophe/Cosy%20Catastrophe-jacket.png" },
 				{ "name": "Life is beautiful", "difficulty": 16, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/Life%20is%20beautiful/Life%20is%20beautiful-jacket.png" },
 				{ "name": "CHAOS Terror-Tech Mix", "difficulty": 16, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/CHAOS%20Terror-Tech%20Mix/CHAOS%20Terror-Tech%20Mix-jacket.png" }

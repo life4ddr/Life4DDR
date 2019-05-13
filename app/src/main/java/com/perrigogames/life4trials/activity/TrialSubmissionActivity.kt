@@ -1,5 +1,7 @@
 package com.perrigogames.life4trials.activity
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -16,6 +18,7 @@ import com.perrigogames.life4trials.util.SharedPrefsUtils
 import com.perrigogames.life4trials.view.PathImageView
 import com.perrigogames.life4trials.view.longNumberString
 import kotlinx.android.synthetic.main.content_trial_submission.*
+
 
 /**
  * Activity for confirming all of the photos taken for the
@@ -76,9 +79,9 @@ class TrialSubmissionActivity: AppCompatActivity() {
             override fun onLayoutChange(v: View?, left: Int, top: Int, right: Int, bottom: Int,
                 oldLeft: Int, oldTop: Int, oldRight: Int, oldBottom: Int) {
 
-                image_trial_final.path = session.finalPhoto
+                image_trial_final.uri = session.finalPhotoUri
                 forEachResultImage { idx, imageView ->
-                    imageView.path = session.results[idx]?.photoPath
+                    imageView.uri = session.results[idx]?.photoUri
                 }
                 image_trial_final.rootView.removeOnLayoutChangeListener(this)
             }
@@ -116,8 +119,12 @@ class TrialSubmissionActivity: AppCompatActivity() {
 
         AlertDialog.Builder(this)
             .setTitle(R.string.submit_dialog_title)
-            .setMessage(R.string.submit_dialog_content)
-            .setPositiveButton(R.string.okay) { _, _ -> finish() }
+            .setMessage(R.string.submit_dialog_prompt)
+            .setNegativeButton(R.string.no) { _, _ -> finish() }
+            .setPositiveButton(R.string.yes) { _, _ -> startActivity(
+                Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.url_submission_form))))
+                finish()
+            }
             .show()
     }
 

@@ -1,11 +1,16 @@
 package com.perrigogames.life4trials.data
 
+import android.net.Uri
 import java.io.Serializable
 
 data class TrialSession(val trial: Trial,
                         var goalRank: TrialRank,
                         val results: Array<SongResult?> = arrayOfNulls(TrialData.TRIAL_LENGTH),
-                        var finalPhoto: String? = null): Serializable {
+                        var finalPhotoUriString: String? = null): Serializable {
+
+    var finalPhotoUri: Uri
+        get() = Uri.parse(finalPhotoUriString)
+        set(value) { finalPhotoUriString = value.toString() }
 
     val availableRanks: Array<TrialRank> = trial.goals[0].rank.andUp
 
@@ -32,8 +37,20 @@ data class TrialSession(val trial: Trial,
 }
 
 data class SongResult(var song: Song,
-                      var photoPath: String,
+                      var photoUriString: String?,
                       var score: Int? = null,
                       var exScore: Int? = null,
                       var misses: Int? = null,
-                      var badJudges: Int? = null): Serializable
+                      var badJudges: Int? = null): Serializable {
+
+    var photoUri: Uri
+        get() = Uri.parse(photoUriString)
+        set(value) { photoUriString = value.toString() }
+
+    fun randomize() {
+        score = (Math.random() * 70000).toInt() + 930000
+        exScore = (Math.random() * 1024).toInt()
+        misses = (Math.random() * 6).toInt()
+        badJudges = misses!! + (Math.random() * 14).toInt()
+    }
+}

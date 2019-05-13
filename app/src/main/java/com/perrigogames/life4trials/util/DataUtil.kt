@@ -105,6 +105,6 @@ fun ImageView.setScaledBitmapFromFile(path: String,
                                       targetH: Int = this.height) {
 
     DataUtil.createScaledBitmap(path, targetW, targetH)?.also { bitmap ->
-        this.setImageBitmap(bitmap)
+        setImageBitmap(bitmap)
     }
 }
