@@ -45,10 +45,10 @@
     <string name="must_enter_number">Must enter a number</string>
 
     <string name="camera_permission_title">Camera Permission</string>
-    <string name="camera_permission_description_popup">This app needs your permission to use the camera to take LIFE4 verification photos. Please grant permission to use the camera on the next popup.</string>
+    <string name="camera_permission_description_popup">This app needs your permission to use the camera to take LIFE4 verification photos.</string>
     <string name="camera_permission_description_redirect">This app needs your permission to use the camera to take LIFE4 verification photos. Would you like to open your permission settings and grant this permission?</string>
     <string name="gallery_permission_title">Gallery Permission</string>
-    <string name="gallery_permission_description_popup">This app needs permission to access your photos to use them for LIFE4 verification. Please grant permission to access storage on the next popup.</string>
+    <string name="gallery_permission_description_popup">This app needs permission to access your photos to use them for LIFE4 verification.</string>
 
     <string name="trial_close_confirmation">The progress made in this trial will not be saved.</string>
     <string name="photo_save_confirmation">This photo will not be saved.</string>

@@ -6,7 +6,6 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -20,12 +19,18 @@ import android.widget.ArrayAdapter
 import androidx.annotation.RequiresPermission
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
+import com.karumi.dexter.Dexter
+import com.karumi.dexter.MultiplePermissionsReport
+import com.karumi.dexter.listener.multi.BaseMultiplePermissionsListener
+import com.karumi.dexter.listener.multi.CompositeMultiplePermissionsListener
+import com.karumi.dexter.listener.multi.SnackbarOnAnyDeniedMultiplePermissionsListener
 import com.perrigogames.life4trials.Life4Application
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_DEBUG_DETAILS_EASY_NAV
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_DETAILS_PHOTO_SELECT
 import com.perrigogames.life4trials.data.*
-import com.perrigogames.life4trials.util.*
+import com.perrigogames.life4trials.util.DataUtil
+import com.perrigogames.life4trials.util.SharedPrefsUtils
 import com.perrigogames.life4trials.view.SongView
 import com.perrigogames.life4trials.view.TrialJacketView
 import kotlinx.android.synthetic.main.content_trial_details.*
@@ -184,10 +189,19 @@ class TrialDetailsActivity: AppCompatActivity() {
     }
 
     @SuppressLint("MissingPermission")
-    private fun startCameraActivity(intentFlag: Int) {
-        askForPhotoTakePermissions(R.string.camera_permission_title,
-            R.string.camera_permission_description_popup) { sendCameraIntent(intentFlag) }
-    }
+    private fun startCameraActivity(intentFlag: Int) = Dexter.withActivity(this)
+        .withPermissions(CAMERA, WRITE_EXTERNAL_STORAGE)
+        .withListener(
+            CompositeMultiplePermissionsListener(
+                SnackbarOnAnyDeniedMultiplePermissionsListener.Builder
+                    .with(container, R.string.camera_permission_description_popup)
+                    .withOpenSettingsButton("Settings")
+                    .build(),
+                object: BaseMultiplePermissionsListener() {
+                    override fun onPermissionsChecked(report: MultiplePermissionsReport?) { sendCameraIntent(intentFlag) }
+                })
+        )
+        .check()
 
     @RequiresPermission(allOf = [CAMERA, WRITE_EXTERNAL_STORAGE])
     private fun sendCameraIntent(intentFlag: Int) {
@@ -220,10 +234,19 @@ class TrialDetailsActivity: AppCompatActivity() {
     }
 
     @SuppressLint("MissingPermission")
-    private fun startPhotoSelectActivity(intentFlag: Int) {
-        askForPhotoSelectPermissions(R.string.gallery_permission_title,
-            R.string.gallery_permission_description_popup) { sendPhotoSelectIntent(intentFlag) }
-    }
+    private fun startPhotoSelectActivity(intentFlag: Int) = Dexter.withActivity(this)
+        .withPermissions(WRITE_EXTERNAL_STORAGE)
+        .withListener(
+            CompositeMultiplePermissionsListener(
+                SnackbarOnAnyDeniedMultiplePermissionsListener.Builder
+                    .with(container, R.string.gallery_permission_description_popup)
+                    .withOpenSettingsButton("Settings")
+                    .build(),
+                object: BaseMultiplePermissionsListener() {
+                    override fun onPermissionsChecked(report: MultiplePermissionsReport?) { sendPhotoSelectIntent(intentFlag) }
+                })
+        )
+        .check()
 
     @RequiresPermission(WRITE_EXTERNAL_STORAGE)
     private fun sendPhotoSelectIntent(intentFlag: Int) {
@@ -255,13 +278,6 @@ class TrialDetailsActivity: AppCompatActivity() {
             startActivityForResult(i, FLAG_SCORE_ENTER)
         }
         finish()
-    }
-
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
-        if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-            acquirePhoto(selection = requestCode == FLAG_PERMISSION_REQUEST_SELECT,
-                newPhoto = true)
-        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

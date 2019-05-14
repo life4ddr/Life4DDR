@@ -24,6 +24,20 @@ class SettingsActivity : AppCompatActivity() {
             val screen = preferenceManager.createPreferenceScreen(context)
 
             PreferenceCategory(context).apply {
+                key = "user_info"
+                title = "User Info"
+                summary = "Enter your user details here to show a copyable notification when submitting your results."
+                screen.addPreference(this)
+                addPreference(EditTextPreference(context).apply {
+                    key = KEY_INFO_RIVAL_CODE
+                    title = "Rival Code"
+                })
+                addPreference(EditTextPreference(context).apply {
+                    key = KEY_INFO_TWITTER_NAME
+                    title = "Twitter Name"
+                })
+            }
+            PreferenceCategory(context).apply {
                 key = "trial_details"
                 title = "Trial Details"
                 screen.addPreference(this)
@@ -90,6 +104,8 @@ class SettingsActivity : AppCompatActivity() {
 
     companion object {
         const val KEY_DETAILS_PHOTO_SELECT = "KEY_DETAILS_PHOTO_SELECT"
+        const val KEY_INFO_RIVAL_CODE = "KEY_INFO_RIVAL_CODE"
+        const val KEY_INFO_TWITTER_NAME = "KEY_INFO_TWITTER_NAME"
 
         const val KEY_DEBUG_DETAILS_EASY_NAV = "dden"
         const val KEY_DEBUG_DETAILS_DISPLAY_ALL_RANKS = "dddar"

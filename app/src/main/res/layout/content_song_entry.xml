@@ -42,6 +42,7 @@
         android:layout_margin="@dimen/content_padding_med"
         android:hint="@string/score"
         android:inputType="number"
+        android:nextFocusRight="@id/field_ex"
         app:layout_constraintBottom_toTopOf="@id/button_done"
         app:layout_constraintEnd_toStartOf="@id/field_ex"
         app:layout_constraintStart_toStartOf="parent"
