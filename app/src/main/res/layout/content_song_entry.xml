@@ -24,7 +24,7 @@
                 android:layout_height="wrap_content"
                 android:scaleType="fitStart"
                 tools:background="@color/colorAccent"
-                tools:layout_height="500dp"/>
+                tools:layout_height="500dp" />
         </FrameLayout>
     </ScrollView>
 
@@ -42,7 +42,7 @@
         android:layout_margin="@dimen/content_padding_med"
         android:hint="@string/score"
         android:inputType="number"
-        android:nextFocusRight="@id/field_ex"
+        android:nextFocusDown="@id/field_ex"
         app:layout_constraintBottom_toTopOf="@id/button_done"
         app:layout_constraintEnd_toStartOf="@id/field_ex"
         app:layout_constraintStart_toStartOf="parent"
