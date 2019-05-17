@@ -1,0 +1,15 @@
+For the purposes of this document, "Application" refers to the downloadable Android executable LIFE4 Trials, and User refers to the person, organization, or other entity that downloaded the Application.
+
+The Application does not use or store any personally identifying information. The User will never be prompted to enter their name, age, location, or anything else of this nature.
+
+The Application only uses user data and information explicitly provided to it by the User. This includes:
+	- Photos or screenshots taken for the purpose of participating in events provided by LIFE4 and served through the Application.
+	- Text transliterations, provided by the user, of computable details like scores from the photos in the previous point.
+	- Rankings, verified by the user, awarded to the user based on result data provided by the previous two points.
+
+The Application makes use of Google Drive integration. To this end, the Application:
+	- Collects and stores only enough information to authenticate and upload content to the user's personal Google Drive account.
+	- Will only initiate Google Drive integration at the user's explicit request.
+	- Utilizes an application-specific directory on the user's Google Drive account, into which only photos provided by the user during normal operation of the Application will be uploaded.
+
+LIFE4 and PerrigoGames are not affiliated with Konami Digital Entertainment Co., Ltd. or BEMANI.
