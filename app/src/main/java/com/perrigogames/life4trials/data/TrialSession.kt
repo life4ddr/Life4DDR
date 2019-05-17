@@ -40,7 +40,7 @@ data class TrialSession(val trial: Trial,
 }
 
 data class SongResult(var song: Song,
-                      var photoUriString: String?,
+                      var photoUriString: String? = null,
                       var score: Int? = null,
                       var exScore: Int? = null,
                       var misses: Int? = null,

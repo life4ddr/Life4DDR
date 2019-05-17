@@ -305,10 +305,10 @@ class TrialDetailsActivity: AppCompatActivity() {
                         contentResolver.takePersistableUriPermission(uri, takeFlags)
                     }
                     if (currentResult == null) {
-                        currentResult = SongResult(trial.songs[currentIndex!!], uri.toString())
-                    } else {
-                        currentResult!!.photoUri = uri
+                        currentResult = SongResult(trial.songs[currentIndex!!])
                     }
+                    currentResult!!.photoUri = uri
+
                     if (SharedPrefsUtils.getDebugFlag(this, SettingsActivity.KEY_DEBUG_BYPASS_STAT_ENTRY)) {
                         currentResult!!.randomize()
                         onEntryFinished(currentResult!!)
