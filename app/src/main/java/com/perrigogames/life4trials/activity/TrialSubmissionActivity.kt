@@ -115,6 +115,7 @@ class TrialSubmissionActivity: AppCompatActivity() {
     private fun submitRankAndFinish(passed: Boolean) {
         if (passed) {
             SharedPrefsUtils.setRankForTrial(this, session.trial, session.goalRank)
+            SharedPrefsUtils.setBestSessionForTrial(this, session)
             Life4Application.eventBus.post(SavedRankUpdatedEvent(session.trial))
         }
 

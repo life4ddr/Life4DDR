@@ -1,11 +1,14 @@
 package com.perrigogames.life4trials.util
 
 import android.content.Context
+import android.content.SharedPreferences
 import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 import com.perrigogames.life4trials.BuildConfig
+import com.perrigogames.life4trials.data.SongResult
 import com.perrigogames.life4trials.data.Trial
 import com.perrigogames.life4trials.data.TrialRank
+import com.perrigogames.life4trials.data.TrialSession
 
 object SharedPrefsUtils {
 
@@ -26,10 +29,19 @@ object SharedPrefsUtils {
         }
     }
 
-    fun clearRanks(c: Context) = with (rankPrefs(c).edit()) {
-        clear()
-        apply()
+    fun getBestSessionForTrial(c: Context, trial: Trial): Array<SongResult>? {
+        val sessionString = rankPrefs(c).getString("${trial.name}_best", null)
+        return sessionString?.let { DataUtil.gson.fromJson(sessionString, Array<SongResult>::class.java) }
     }
+
+    fun setBestSessionForTrial(c: Context, session: TrialSession) {
+        return with (rankPrefs(c).edit()) {
+            putString("${session.trial.name}_best", DataUtil.gson.toJson(session.results))
+            apply()
+        }
+    }
+
+    fun clearRanks(c: Context) = clearPrefs(rankPrefs(c))
 
     fun finishTutorial(c: Context, tutorial: String) {
         return with (tutorialPrefs(c).edit()) {
@@ -65,4 +77,9 @@ object SharedPrefsUtils {
 
     private fun userPrefs(c: Context) =
         PreferenceManager.getDefaultSharedPreferences(c)
+
+    private fun clearPrefs(prefs: SharedPreferences) = with (prefs.edit()) {
+        clear()
+        apply()
+    }
 }
