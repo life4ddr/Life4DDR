@@ -4,11 +4,15 @@ import android.content.Context
 import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 import com.perrigogames.life4trials.BuildConfig
-import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.data.Trial
 import com.perrigogames.life4trials.data.TrialRank
 
 object SharedPrefsUtils {
+
+    const val KEY_RANK_PREFS = "rank_preferences"
+    const val KEY_USER_PREFS = "user_preferences"
+    const val KEY_TUTORIAL_PREFS = "tutorial_preferences"
+    const val KEY_DATA_PREFS = "data_preferences"
 
     fun getRankForTrial(c: Context, trial: Trial): TrialRank? {
         val index = rankPrefs(c).getInt(trial.name, -1)
@@ -54,10 +58,10 @@ object SharedPrefsUtils {
     fun setDebugFlag(c: Context, flag: String, v: Boolean) = setUserFlag(c, flag, v)
 
     private fun rankPrefs(c: Context) =
-        c.getSharedPreferences(c.resources.getString(R.string.rank_preferences_key), Context.MODE_PRIVATE)
+        c.getSharedPreferences(KEY_RANK_PREFS, Context.MODE_PRIVATE)
 
     private fun tutorialPrefs(c: Context) =
-        c.getSharedPreferences(c.resources.getString(R.string.tutorial_preferences_key), Context.MODE_PRIVATE)
+        c.getSharedPreferences(KEY_TUTORIAL_PREFS, Context.MODE_PRIVATE)
 
     private fun userPrefs(c: Context) =
         PreferenceManager.getDefaultSharedPreferences(c)

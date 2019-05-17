@@ -62,12 +62,6 @@
 
     <string name="confirm_erase_data">Are you sure you want to clear all saved rank data?</string>
 
-    <!-- SharedPreferences Keys -->
-    <string name="rank_preferences_key">rank_preferences</string>
-    <string name="user_preferences_key">user_preferences</string>
-    <string name="tutorial_preferences_key">tutorial_preferences</string>
-    <string name="data_preferences_key">data_preferences</string>
-
     <!-- Format Strings -->
     <string name="difficulty_string_format">"%s (%d)"</string>
     <string name="score_string_format">"%s (%d EX)"</string>
