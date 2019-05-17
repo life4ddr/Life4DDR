@@ -34,6 +34,9 @@ data class TrialSession(val trial: Trial,
 
     val goalSet: GoalSet?
         get() = trial.goalSet(goalRank)
+
+    val totalExScore: Int
+        get() = results.sumBy { it?.exScore ?: 0 }
 }
 
 data class SongResult(var song: Song,

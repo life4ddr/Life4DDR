@@ -6,6 +6,7 @@ import androidx.preference.*
 import com.perrigogames.life4trials.BuildConfig
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.data.TrialRank
+import com.perrigogames.life4trials.util.NotificationUtil
 
 class SettingsActivity : AppCompatActivity() {
 
@@ -26,15 +27,26 @@ class SettingsActivity : AppCompatActivity() {
             PreferenceCategory(context).apply {
                 key = "user_info"
                 title = "User Info"
-                summary = "Shown in notifications when submitting your results."
                 screen.addPreference(this)
                 addPreference(EditTextPreference(context).apply {
                     key = KEY_INFO_RIVAL_CODE
-                    title = "Rival Code"
+                    title = context.getString(R.string.rival_code)
                 })
                 addPreference(EditTextPreference(context).apply {
                     key = KEY_INFO_TWITTER_NAME
-                    title = "Twitter Name"
+                    title = context.getString(R.string.twitter_name)
+                })
+                addPreference(SwitchPreference(context).apply {
+                    key = KEY_SUBMISSION_NOTIFICAION
+                    title = "Show info notifications during submission"
+                })
+                addPreference(Preference(context).apply {
+                    key = KEY_SUBMISSION_NOTIFICAION_TEST
+                    title = "Test notifications"
+                    onPreferenceClickListener = Preference.OnPreferenceClickListener {
+                        NotificationUtil.showUserInfoNotifications(context, 1579)
+                        true
+                    }
                 })
             }
             PreferenceCategory(context).apply {
@@ -47,16 +59,16 @@ class SettingsActivity : AppCompatActivity() {
                 })
             }
 
-            PreferenceCategory(context).apply {
-                key = "help"
-                title = "Help"
-                screen.addPreference(this)
-                addPreference(Preference(context).apply {
-                    key = "feedback"
-                    title = "Send feedback"
-                    summary = "Report technical issues or suggest new features"
-                })
-            }
+//            PreferenceCategory(context).apply {
+//                key = "help"
+//                title = "Help"
+//                screen.addPreference(this)
+//                addPreference(Preference(context).apply {
+//                    key = "feedback"
+//                    title = "Send feedback"
+//                    summary = "Report technical issues or suggest new features"
+//                })
+//            }
 
             if (BuildConfig.DEBUG) {
                 PreferenceCategory(context).apply {
@@ -101,6 +113,8 @@ class SettingsActivity : AppCompatActivity() {
         const val KEY_DETAILS_PHOTO_SELECT = "KEY_DETAILS_PHOTO_SELECT"
         const val KEY_INFO_RIVAL_CODE = "KEY_INFO_RIVAL_CODE"
         const val KEY_INFO_TWITTER_NAME = "KEY_INFO_TWITTER_NAME"
+        const val KEY_SUBMISSION_NOTIFICAION = "KEY_SUBMISSION_NOTIFICAION"
+        const val KEY_SUBMISSION_NOTIFICAION_TEST = "KEY_SUBMISSION_NOTIFICAION_TEST"
 
         const val KEY_DEBUG_DETAILS_DISPLAY_ALL_RANKS = "dddar"
         const val KEY_DEBUG_BYPASS_STAT_ENTRY = "dbse"

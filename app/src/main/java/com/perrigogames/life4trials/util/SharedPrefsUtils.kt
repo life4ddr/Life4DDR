@@ -43,6 +43,9 @@ object SharedPrefsUtils {
     /** @return a stored flag in the user preferences */
     fun getUserFlag(c: Context, flag: String, def: Boolean) = userPrefs(c).getBoolean(flag, def)
 
+    /** @return a stored string in the user preferences */
+    fun getUserString(c: Context, flag: String, def: String? = null) = userPrefs(c).getString(flag, def)
+
     /** @return a stored debug flag in the user preferences, also checking the debug state of the app */
     fun getDebugFlag(c: Context, flag: String) = BuildConfig.DEBUG && getUserFlag(c, flag, false)
 
