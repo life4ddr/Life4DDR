@@ -13,6 +13,7 @@ import android.provider.MediaStore
 import android.view.ContextMenu
 import android.view.MenuItem
 import android.view.View
+import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -26,7 +27,6 @@ import com.karumi.dexter.listener.multi.CompositeMultiplePermissionsListener
 import com.karumi.dexter.listener.multi.SnackbarOnAnyDeniedMultiplePermissionsListener
 import com.perrigogames.life4trials.Life4Application
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_DEBUG_DETAILS_EASY_NAV
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_DETAILS_PHOTO_SELECT
 import com.perrigogames.life4trials.data.*
 import com.perrigogames.life4trials.util.DataUtil
@@ -51,6 +51,11 @@ class TrialDetailsActivity: AppCompatActivity() {
     private lateinit var trialSession: TrialSession
     private var currentIndex: Int? = null
     private var modified = false
+        set(v) {
+            field = v
+            button_navigate_previous.visibility = if (v) GONE else VISIBLE
+            button_navigate_next.visibility = if (v) GONE else VISIBLE
+        }
     private var isNewEntry = false
 
     private fun songViewForIndex(index: Int?) = when(index) {
@@ -103,11 +108,6 @@ class TrialDetailsActivity: AppCompatActivity() {
             view.song = trial.songs[idx]
             view.setOnClickListener { onSongClicked(idx) }
             registerForContextMenu(view)
-        }
-
-        if (SharedPrefsUtils.getDebugFlag(this, KEY_DEBUG_DETAILS_EASY_NAV)) {
-            button_navigate_previous.visibility = VISIBLE
-            button_navigate_next.visibility = VISIBLE
         }
     }
 

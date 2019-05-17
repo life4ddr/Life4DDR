@@ -24,31 +24,37 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:background="@color/colorAccent"/>
 
-        <Button
+        <ImageButton
             android:id="@+id/button_navigate_previous"
             android:layout_width="@dimen/size_detail_nav_debug"
             android:layout_height="@dimen/size_detail_nav_debug"
+            android:layout_margin="@dimen/content_padding_med"
+            android:alpha="0.5"
+            android:background="@null"
             android:onClick="navigationButtonClicked"
-            android:text="@string/arrow_left"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_scroll_arrow_to_left"
             android:textStyle="bold"
-            android:visibility="gone"
+            android:tint="@color/white"
             app:layout_constraintBottom_toBottomOf="@id/view_trial_jacket"
             app:layout_constraintEnd_toStartOf="@id/view_trial_jacket"
-            app:layout_constraintTop_toTopOf="@id/view_trial_jacket"
-            tools:visibility="visible"/>
+            app:layout_constraintTop_toTopOf="@id/view_trial_jacket" />
 
-        <Button
+        <ImageButton
             android:id="@+id/button_navigate_next"
             android:layout_width="@dimen/size_detail_nav_debug"
             android:layout_height="@dimen/size_detail_nav_debug"
+            android:layout_margin="@dimen/content_padding_med"
+            android:alpha="0.5"
+            android:background="@null"
             android:onClick="navigationButtonClicked"
-            android:text="@string/arrow_right"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_scroll_arrow_to_right"
             android:textStyle="bold"
-            android:visibility="gone"
+            android:tint="@color/white"
             app:layout_constraintBottom_toBottomOf="@id/view_trial_jacket"
             app:layout_constraintStart_toEndOf="@id/view_trial_jacket"
-            app:layout_constraintTop_toTopOf="@id/view_trial_jacket"
-            tools:visibility="visible"/>
+            app:layout_constraintTop_toTopOf="@id/view_trial_jacket" />
 
         <com.perrigogames.life4trials.view.RankImageView
             android:id="@+id/image_desired_rank"

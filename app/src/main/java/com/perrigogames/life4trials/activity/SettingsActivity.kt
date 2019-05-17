@@ -26,7 +26,7 @@ class SettingsActivity : AppCompatActivity() {
             PreferenceCategory(context).apply {
                 key = "user_info"
                 title = "User Info"
-                summary = "Enter your user details here to show a copyable notification when submitting your results."
+                summary = "Shown in notifications when submitting your results."
                 screen.addPreference(this)
                 addPreference(EditTextPreference(context).apply {
                     key = KEY_INFO_RIVAL_CODE
@@ -63,11 +63,6 @@ class SettingsActivity : AppCompatActivity() {
                     key = "debug_flags_category"
                     title = "Debug Flags*"
                     screen.addPreference(this)
-                    addPreference(SwitchPreference(context).apply {
-                        key = KEY_DEBUG_DETAILS_EASY_NAV
-                        title = "Easy Details Navigation"
-                        summary = "Apply buttons to the Details page to allow jumping to next/previous Trial"
-                    })
                     addPreference(SwitchPreference(context).apply {
                         key = KEY_DEBUG_DETAILS_DISPLAY_ALL_RANKS
                         title = "Display all ranks"
@@ -107,7 +102,6 @@ class SettingsActivity : AppCompatActivity() {
         const val KEY_INFO_RIVAL_CODE = "KEY_INFO_RIVAL_CODE"
         const val KEY_INFO_TWITTER_NAME = "KEY_INFO_TWITTER_NAME"
 
-        const val KEY_DEBUG_DETAILS_EASY_NAV = "dden"
         const val KEY_DEBUG_DETAILS_DISPLAY_ALL_RANKS = "dddar"
         const val KEY_DEBUG_BYPASS_STAT_ENTRY = "dbse"
         const val KEY_DEBUG_BYPASS_CAMERA = "dbc"
