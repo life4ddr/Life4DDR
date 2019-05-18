@@ -20,6 +20,14 @@ enum class TrialRank(@DrawableRes val drawableRes: Int): Serializable {
         AMETHYST -> AMETHYST
     }
 
+    val color get() = when(this) {
+        SILVER -> R.color.silver
+        GOLD -> R.color.gold
+        DIAMOND -> R.color.diamond
+        COBALT -> R.color.cobalt
+        AMETHYST -> R.color.amethyst
+    }
+
     /**
      * Generates a list of this and all [TrialRank]s that are higher than this.
      */
@@ -29,7 +37,7 @@ enum class TrialRank(@DrawableRes val drawableRes: Int): Serializable {
     companion object {
         fun parse(s: String?): TrialRank? = when (s) {
             null, "NONE" -> null
-            else -> TrialRank.valueOf(s)
+            else -> valueOf(s)
         }
     }
 }

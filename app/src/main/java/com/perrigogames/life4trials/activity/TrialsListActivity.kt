@@ -17,6 +17,7 @@ import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.TrialsAdapter
 import com.perrigogames.life4trials.data.TrialData
 import com.perrigogames.life4trials.event.SavedRankUpdatedEvent
+import com.perrigogames.life4trials.event.TrialListUpdatedEvent
 import com.perrigogames.life4trials.util.SharedPrefsUtils
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
@@ -57,12 +58,17 @@ class TrialsListActivity : AppCompatActivity() {
     }
 
     @Subscribe
-    fun onRankUpdated(event: SavedRankUpdatedEvent) {
-        if (event.trial != null) {
-            adapter.notifyItemChanged(data.trials.indexOf(event.trial))
+    fun onRankUpdated(e: SavedRankUpdatedEvent) {
+        if (e.trial != null) {
+            adapter.notifyItemChanged(data.trials.indexOf(e.trial))
         } else {
             adapter.notifyDataSetChanged()
         }
+    }
+
+    @Subscribe
+    fun onListUpdated(e: TrialListUpdatedEvent) {
+        adapter.notifyDataSetChanged()
     }
 
     private fun createListAdapter() {

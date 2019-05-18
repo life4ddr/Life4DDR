@@ -12,4 +12,10 @@
     <color name="difficultyDifficult">#f54558</color>
     <color name="difficultyExpert">#2cc945</color>
     <color name="difficultyChallenge">#4444FF</color>
+
+    <color name="silver">#8E8F93</color>
+    <color name="gold">#E7BA2C</color>
+    <color name="diamond">#87DCFF</color>
+    <color name="cobalt">#0092DB</color>
+    <color name="amethyst">#DF29FF</color>
 </resources>

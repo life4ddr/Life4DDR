@@ -33,19 +33,43 @@
         tools:text="Clockwork"
         tools:visibility="visible"/>
 
+    <ImageView
+        android:id="@+id/image_trial_difficulty"
+        android:layout_width="@dimen/jacket_difficulty_size"
+        android:layout_height="40dp"
+        android:layout_margin="@dimen/content_padding_med"
+        android:alpha="0.5"
+        android:src="@drawable/circle"
+        app:layout_constraintLeft_toLeftOf="@id/image_trial_jacket"
+        app:layout_constraintTop_toTopOf="@id/image_trial_jacket"/>
+
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/text_trial_difficulty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/content_padding_med"
-        android:background="#66ffffff"
         android:paddingStart="@dimen/content_padding_small"
         android:paddingEnd="@dimen/content_padding_small"
         android:textColor="@android:color/primary_text_light"
         android:textSize="24sp"
-        app:layout_constraintLeft_toLeftOf="@id/image_trial_jacket"
-        app:layout_constraintTop_toTopOf="@id/image_trial_jacket"
+        app:layout_constraintBottom_toBottomOf="@id/image_trial_difficulty"
+        app:layout_constraintEnd_toEndOf="@id/image_trial_difficulty"
+        app:layout_constraintStart_toStartOf="@id/image_trial_difficulty"
+        app:layout_constraintTop_toTopOf="@id/image_trial_difficulty"
         tools:text="17"/>
+
+    <ImageView
+        android:id="@+id/view_foreground_tint"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:alpha="0.5"
+        android:src="@color/colorPrimary"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible"/>
 
     <ImageView
         android:id="@+id/image_badge_highest"
@@ -57,5 +81,21 @@
         app:layout_constraintEnd_toEndOf="@id/image_trial_jacket"
         app:layout_constraintTop_toTopOf="@id/image_trial_jacket"
         tools:src="@drawable/silver_3"
+        tools:visibility="visible"/>
+
+    <ImageView
+        android:id="@+id/image_badge_highest_center"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="@dimen/content_padding_med"
+        android:contentDescription="@string/rank_image"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/image_trial_jacket"
+        app:layout_constraintEnd_toEndOf="@id/image_trial_jacket"
+        app:layout_constraintHeight_percent="0.5"
+        app:layout_constraintStart_toStartOf="@id/image_trial_jacket"
+        app:layout_constraintTop_toTopOf="@id/image_trial_jacket"
+        app:layout_constraintWidth_percent="0.5"
+        tools:src="@drawable/amethyst_3"
         tools:visibility="visible"/>
 </com.perrigogames.life4trials.view.TrialJacketView>

@@ -5,4 +5,5 @@
     <dimen name="content_padding_large">16dp</dimen>
     <dimen name="trial_details_main_thumb_size">200dp</dimen>
     <dimen name="size_detail_nav_debug">48dp</dimen>
+    <dimen name="jacket_difficulty_size">40dp</dimen>
 </resources>

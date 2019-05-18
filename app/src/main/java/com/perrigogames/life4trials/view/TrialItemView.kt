@@ -10,8 +10,10 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.perrigogames.life4trials.R
+import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_LIST_TINT_COMPLETED
 import com.perrigogames.life4trials.data.Trial
 import com.perrigogames.life4trials.data.TrialRank
+import com.perrigogames.life4trials.util.SharedPrefsUtils
 import kotlinx.android.synthetic.main.item_trial_list_item.view.*
 
 /**
@@ -53,7 +55,12 @@ class TrialItemView @JvmOverloads constructor(context: Context, attrs: Attribute
     }
 
     fun setupHighestRank(rank: TrialRank?) {
-        (view_trial_jacket as TrialJacketView).rank = rank
+        (view_trial_jacket as TrialJacketView).let { view ->
+            view.rank = rank
+            if (SharedPrefsUtils.getUserFlag(context, KEY_LIST_TINT_COMPLETED, false)) {
+                view.tintOnRank = TrialRank.AMETHYST
+            }
+        }
     }
 
     private fun setupRank(imageView: ImageView, rank: TrialRank, target: TrialRank? = null) {

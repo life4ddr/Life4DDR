@@ -9,6 +9,7 @@ import com.perrigogames.life4trials.Life4Application
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.data.TrialRank
 import com.perrigogames.life4trials.event.SavedRankUpdatedEvent
+import com.perrigogames.life4trials.event.TrialListUpdatedEvent
 import com.perrigogames.life4trials.util.NotificationUtil
 import com.perrigogames.life4trials.util.SharedPrefsUtils
 
@@ -51,6 +52,19 @@ class SettingsActivity : AppCompatActivity() {
                     title = "Test notifications"
                     onPreferenceClickListener = Preference.OnPreferenceClickListener {
                         NotificationUtil.showUserInfoNotifications(context, 1579)
+                        true
+                    }
+                })
+            }
+            PreferenceCategory(context).apply {
+                key = "trial_list"
+                title = "Trial List"
+                screen.addPreference(this)
+                addPreference(SwitchPreference(context).apply {
+                    key = KEY_LIST_TINT_COMPLETED
+                    title = "Tint fully completed Trials"
+                    onPreferenceClickListener = Preference.OnPreferenceClickListener {
+                        Life4Application.eventBus.post(TrialListUpdatedEvent())
                         true
                     }
                 })
@@ -146,6 +160,7 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     companion object {
+        const val KEY_LIST_TINT_COMPLETED = "KEY_LIST_TINT_COMPLETED"
         const val KEY_DETAILS_PHOTO_SELECT = "KEY_DETAILS_PHOTO_SELECT"
         const val KEY_INFO_RIVAL_CODE = "KEY_INFO_RIVAL_CODE"
         const val KEY_INFO_TWITTER_NAME = "KEY_INFO_TWITTER_NAME"
