@@ -1,7 +1,5 @@
 For the purposes of this document, "Application" refers to the downloadable Android executable LIFE4 Trials, and User refers to the person, organization, or other entity that downloaded the Application.
 
-The Application does not use or store any personally identifying information. The User will never be prompted to enter their name, age, location, or anything else of this nature.
-
 The Application only uses user data and information explicitly provided to it by the User. This includes:
 	- Photos or screenshots taken for the purpose of participating in events provided by LIFE4 and served through the Application.
 	- Text transliterations, provided by the user, of computable details like scores from the photos in the previous point.
@@ -11,5 +9,9 @@ The Application makes use of Google Drive integration. To this end, the Applicat
 	- Collects and stores only enough information to authenticate and upload content to the user's personal Google Drive account.
 	- Will only initiate Google Drive integration at the user's explicit request.
 	- Utilizes an application-specific directory on the user's Google Drive account, into which only photos provided by the user during normal operation of the Application will be uploaded.
+
+The Application will optionally allow The User to store two pieces of potentially identifying information, specifically The User's Twitter username and DanceDanceRevolution Rival Code. This information is set in The Application's settings menu and does not pull from external sources. This information is not verified or processed in any way by The Application.  If supplied, these details are displayed to the user by means of an Android system notification shown when navigating to the LIFE4 Submission page.
+
+The User will never be prompted to enter their name, age, location, or any other personal information of this nature, with the exception of the details outlined in the previous clause.
 
 LIFE4 and PerrigoGames are not affiliated with Konami Digital Entertainment Co., Ltd. or BEMANI.
