@@ -58,7 +58,11 @@ class TrialsListActivity : AppCompatActivity() {
 
     @Subscribe
     fun onRankUpdated(event: SavedRankUpdatedEvent) {
-        adapter.notifyItemChanged(data.trials.indexOf(event.trial))
+        if (event.trial != null) {
+            adapter.notifyItemChanged(data.trials.indexOf(event.trial))
+        } else {
+            adapter.notifyDataSetChanged()
+        }
     }
 
     private fun createListAdapter() {

@@ -1,12 +1,16 @@
 package com.perrigogames.life4trials.activity
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.*
 import com.perrigogames.life4trials.BuildConfig
+import com.perrigogames.life4trials.Life4Application
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.data.TrialRank
+import com.perrigogames.life4trials.event.SavedRankUpdatedEvent
 import com.perrigogames.life4trials.util.NotificationUtil
+import com.perrigogames.life4trials.util.SharedPrefsUtils
 
 class SettingsActivity : AppCompatActivity() {
 
@@ -19,7 +23,7 @@ class SettingsActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
-    class SettingsFragment : PreferenceFragmentCompat() {
+    class SettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedPreferenceChangeListener {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             val context = preferenceManager.context
             val screen = preferenceManager.createPreferenceScreen(context)
@@ -31,10 +35,12 @@ class SettingsActivity : AppCompatActivity() {
                 addPreference(EditTextPreference(context).apply {
                     key = KEY_INFO_RIVAL_CODE
                     title = context.getString(R.string.rival_code)
+                    summary = SharedPrefsUtils.getUserString(context, KEY_INFO_RIVAL_CODE)
                 })
                 addPreference(EditTextPreference(context).apply {
                     key = KEY_INFO_TWITTER_NAME
                     title = context.getString(R.string.twitter_name)
+                    summary = SharedPrefsUtils.getUserString(context, KEY_INFO_TWITTER_NAME)
                 })
                 addPreference(SwitchPreference(context).apply {
                     key = KEY_SUBMISSION_NOTIFICAION
@@ -95,17 +101,47 @@ class SettingsActivity : AppCompatActivity() {
                     key = "debug_ranks_category"
                     title = "Debug Ranks*"
                     screen.addPreference(this)
-                    (1..4).forEach { idx ->
+
+                    val ranksList = TrialRank.values().map { it.toString() }.toMutableList()
+                    ranksList.add(0, "NONE")
+                    val ranksArray = ranksList.toTypedArray()
+                    (context.applicationContext as Life4Application).trialData.trials.forEach { trial ->
                         addPreference(DropDownPreference(context).apply {
-                            key = "rank_$idx"
-                            title = "Rank $idx"
-                            entryValues = TrialRank.values().map { it.toString() }.toTypedArray()
+                            key = "$KEY_DEBUG_RANK_PREFIX${trial.name}"
+                            title = trial.name
+                            summary = SharedPrefsUtils.getRankForTrial(context, trial)?.toString() ?: "NONE"
+                            entries = ranksArray
+                            entryValues = ranksArray
                         })
                     }
                 }
             }
-
             preferenceScreen = screen
+        }
+
+        override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
+            if (key != null) {
+                when {
+                    key == KEY_INFO_RIVAL_CODE ||
+                    key == KEY_INFO_TWITTER_NAME -> findPreference<EditTextPreference>(key)?.let { it.summary = it.text }
+                    key.startsWith(KEY_DEBUG_RANK_PREFIX) -> findPreference<DropDownPreference>(key)?.let {
+                        val rank = TrialRank.parse(it.entry.toString())
+                        SharedPrefsUtils.setRankForTrial(preferenceManager.context, it.key.substring(KEY_DEBUG_RANK_PREFIX.length), rank)
+                        Life4Application.eventBus.post(SavedRankUpdatedEvent())
+                        it.summary = rank?.toString() ?: "NONE"
+                    }
+                }
+            }
+        }
+
+        override fun onPause() {
+            super.onPause()
+            preferenceScreen.sharedPreferences.unregisterOnSharedPreferenceChangeListener(this)
+        }
+
+        override fun onResume() {
+            super.onResume()
+            preferenceScreen.sharedPreferences.registerOnSharedPreferenceChangeListener(this)
         }
     }
 
@@ -119,5 +155,7 @@ class SettingsActivity : AppCompatActivity() {
         const val KEY_DEBUG_DETAILS_DISPLAY_ALL_RANKS = "dddar"
         const val KEY_DEBUG_BYPASS_STAT_ENTRY = "dbse"
         const val KEY_DEBUG_BYPASS_CAMERA = "dbc"
+
+        private const val KEY_DEBUG_RANK_PREFIX = "KEY_DEBUG_RANK_PREFIX"
     }
 }

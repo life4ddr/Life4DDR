@@ -17,14 +17,22 @@ object SharedPrefsUtils {
     const val KEY_TUTORIAL_PREFS = "tutorial_preferences"
     const val KEY_DATA_PREFS = "data_preferences"
 
-    fun getRankForTrial(c: Context, trial: Trial): TrialRank? {
-        val index = rankPrefs(c).getInt(trial.name, -1)
+    fun getRankForTrial(c: Context, trial: Trial): TrialRank? = getRankForTrial(c, trial.name)
+
+    fun getRankForTrial(c: Context, trialName: String): TrialRank? {
+        val index = rankPrefs(c).getInt(trialName, -1)
         return if (index < 0) null else TrialRank.values()[index]
     }
 
-    fun setRankForTrial(c: Context, trial: Trial, rank: TrialRank) {
+    fun setRankForTrial(c: Context, trial: Trial, rank: TrialRank?) = setRankForTrial(c, trial.name, rank)
+
+    fun setRankForTrial(c: Context, trialName: String, rank: TrialRank?) {
         return with (rankPrefs(c).edit()) {
-            putInt(trial.name, rank.ordinal)
+            if (rank != null) {
+                putInt(trialName, rank.ordinal)
+            } else {
+                remove(trialName)
+            }
             apply()
         }
     }

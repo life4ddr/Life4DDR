@@ -25,4 +25,11 @@ enum class TrialRank(@DrawableRes val drawableRes: Int): Serializable {
      */
     val andUp: Array<TrialRank>
         get() = values().let { it.copyOfRange(this.ordinal, it.size) }
+
+    companion object {
+        fun parse(s: String?): TrialRank? = when (s) {
+            null, "NONE" -> null
+            else -> TrialRank.valueOf(s)
+        }
+    }
 }
