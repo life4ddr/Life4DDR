@@ -37,6 +37,9 @@ data class TrialSession(val trial: Trial,
 
     val totalExScore: Int
         get() = results.sumBy { it?.exScore ?: 0 }
+
+    val missingExScore: Int
+        get() = totalExScore - trial.total_ex
 }
 
 data class SongResult(var song: Song,

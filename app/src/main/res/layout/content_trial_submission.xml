@@ -146,9 +146,8 @@
         android:id="@+id/image_desired_rank"
         android:layout_width="32dp"
         android:layout_height="32dp"
-        android:layout_marginTop="@dimen/content_padding_large"
+        android:layout_margin="@dimen/content_padding_large"
         app:layout_constraintEnd_toStartOf="@id/spinner_desired_rank"
-        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/barrier"
         tools:src="@drawable/silver_3" />
@@ -157,10 +156,22 @@
         android:id="@+id/spinner_desired_rank"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/content_padding_med"
+        android:layout_marginLeft="@dimen/content_padding_med"
         app:layout_constraintBottom_toBottomOf="@id/image_desired_rank"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/image_desired_rank"
         app:layout_constraintTop_toTopOf="@id/image_desired_rank" />
+
+    <TextView
+        android:id="@+id/text_ex_score"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/content_padding_large"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@id/image_desired_rank"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/image_desired_rank"
+        tools:text="2600 EX"/>
 
     <TextView
         android:id="@+id/text_goals"

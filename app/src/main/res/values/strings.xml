@@ -65,6 +65,7 @@
     <!-- Format Strings -->
     <string name="difficulty_string_format">"%s (%d)"</string>
     <string name="score_string_format">"%s (%d EX)"</string>
+    <string name="ex_score_string_format">%d EX (%d)</string>
     <string name="score_string_summary_format">"%s\n%d EX"</string>
 
     <!-- Short/Common Strings -->
