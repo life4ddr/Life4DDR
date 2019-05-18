@@ -20,17 +20,21 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_width="200dp" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/text_trial_title"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/content_padding_med"
+        android:lines="1"
         android:textSize="24sp"
         android:visibility="gone"
+        app:autoSizeMinTextSize="4sp"
+        app:autoSizeTextType="uniform"
         app:layout_constraintBottom_toBottomOf="@id/image_trial_jacket"
+        app:layout_constraintEnd_toEndOf="@id/image_trial_jacket"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="@id/image_trial_jacket"
-        tools:text="Clockwork"
+        tools:text="Clockwork Clockwork"
         tools:visibility="visible"/>
 
     <ImageView
