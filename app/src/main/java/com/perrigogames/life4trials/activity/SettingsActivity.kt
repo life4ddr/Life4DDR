@@ -14,6 +14,8 @@ import com.perrigogames.life4trials.event.TrialListUpdatedEvent
 import com.perrigogames.life4trials.util.NotificationUtil
 import com.perrigogames.life4trials.util.SharedPrefsUtils
 
+
+
 class SettingsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
