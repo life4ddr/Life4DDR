@@ -1,6 +1,9 @@
 package com.perrigogames.life4trials.activity
 
+import android.content.Intent
+import android.content.Intent.ACTION_SENDTO
 import android.content.SharedPreferences
+import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
@@ -90,16 +93,21 @@ class SettingsActivity : AppCompatActivity() {
                 })
             }
 
-//            PreferenceCategory(context).apply {
-//                key = "help"
-//                title = "Help"
-//                screen.addPreference(this)
-//                addPreference(Preference(context).apply {
-//                    key = "feedback"
-//                    title = "Send feedback"
-//                    summary = "Report technical issues or suggest new features"
-//                })
-//            }
+            PreferenceCategory(context).apply {
+                key = "help"
+                title = "Help"
+                screen.addPreference(this)
+                addPreference(Preference(context).apply {
+                    key = "feedback"
+                    title = "Send feedback"
+                    summary = "Report technical issues or suggest new features"
+                    onPreferenceClickListener = Preference.OnPreferenceClickListener {
+                        startActivity(Intent(ACTION_SENDTO, Uri.parse(
+                            "mailto:life4@perrigogames.com?subject=${Uri.encode(getString(R.string.life4_feedback_email_subject))}")))
+                        true
+                    }
+                })
+            }
 
             if (BuildConfig.DEBUG) {
                 PreferenceCategory(context).apply {
