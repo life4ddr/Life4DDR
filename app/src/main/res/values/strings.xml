@@ -57,7 +57,7 @@
     <string name="confirm_trial_title">Confirm Trial Submission</string>
     <string name="submit_dialog_title">Submit Scores</string>
     <string name="submit_dialog_rank_confirmation">Did you pass all requirements for %s rank?</string>
-    <string name="submit_dialog_prompt">Photos are saved to your SD card\'s Pictures/LIFE4 folder. These photos can be uploaded to Life4\'s Trial Submission Page manually.\n\nWould you like to be taken there now?</string>
+    <string name="submit_dialog_prompt">Photos are saved to your SD card\'s Pictures/LIFE4 folder. These photos can be uploaded to LIFE4\'s Trial Submission Page manually.\n\nWould you like to be taken there now?</string>
     <string name="trial_not_saved">This trial has not been saved!</string>
 
     <string name="confirm_erase_data">Are you sure you want to clear all saved rank data?</string>
