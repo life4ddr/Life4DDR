@@ -148,7 +148,7 @@
 					"rank": "diamond",
 					"score": [990000, 990000],
 					"judge": 10,
-					"ex_missing": 150
+					"ex_missing": 250
 				}, {
 					"rank": "cobalt",
 					"score": [990000, 990000, 990000, 990000],
