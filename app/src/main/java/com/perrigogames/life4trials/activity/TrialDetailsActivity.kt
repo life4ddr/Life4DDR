@@ -31,9 +31,11 @@ import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_DETA
 import com.perrigogames.life4trials.data.*
 import com.perrigogames.life4trials.util.DataUtil
 import com.perrigogames.life4trials.util.SharedPrefsUtils
+import com.perrigogames.life4trials.util.locale
 import com.perrigogames.life4trials.view.SongView
 import com.perrigogames.life4trials.view.TrialJacketView
 import kotlinx.android.synthetic.main.content_trial_details.*
+import java.io.File
 import java.io.IOException
 
 
@@ -50,6 +52,7 @@ class TrialDetailsActivity: AppCompatActivity() {
 
     private lateinit var trialSession: TrialSession
     private var currentIndex: Int? = null
+    private var currentPhotoFile: File? = null
     private var modified = false
         set(v) {
             field = v
@@ -208,14 +211,11 @@ class TrialDetailsActivity: AppCompatActivity() {
         Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { intent ->
             intent.resolveActivity(packageManager)?.also {
                 try { // Create the File where the photo should go
-                    @Suppress("DEPRECATION")
-                    when {
-                        Build.VERSION.SDK_INT >= Build.VERSION_CODES.N -> DataUtil.createImageFile(resources.configuration.locales[0])
-                        else -> DataUtil.createImageFile(resources.configuration.locale)
-                    }
+                    DataUtil.createTempFile(locale)
                 } catch (ex: IOException) {
                     null // Error occurred while creating the File
                 }?.also {
+                    currentPhotoFile = it
                     val uri: Uri = FileProvider.getUriForFile(this, getString(R.string.file_provider_name), it)
                     if (currentIndex != null) {
                         if (currentResult == null) {
@@ -286,7 +286,7 @@ class TrialDetailsActivity: AppCompatActivity() {
             FLAG_IMAGE_CAPTURE,
             FLAG_IMAGE_RECAPTURE -> when (resultCode) {
                 RESULT_OK -> {
-                    DataUtil.scaleSavedImage(currentResult!!.photoUri.path!!, 1080, 1080, contentResolver)
+                    resizeImage(currentPhotoFile!!, currentResult!!.photoUri)
                     if (SharedPrefsUtils.getDebugFlag(this, SettingsActivity.KEY_DEBUG_BYPASS_STAT_ENTRY)) {
                         currentResult!!.randomize()
                         onEntryFinished(currentResult!!)
@@ -320,7 +320,7 @@ class TrialDetailsActivity: AppCompatActivity() {
             }
             FLAG_IMAGE_CAPTURE_FINAL -> when (resultCode) {
                 RESULT_OK -> {
-                    DataUtil.scaleSavedImage(trialSession.finalPhotoUri.path!!, 1080, 1080, contentResolver)
+                    resizeImage(currentPhotoFile!!, trialSession.finalPhotoUri)
                     startSubmitActivity()
                 }
             }
@@ -364,12 +364,16 @@ class TrialDetailsActivity: AppCompatActivity() {
         }
     }
 
+    private fun resizeImage(out: File, photoUri: Uri) =
+        DataUtil.resizeImage(out, 1080, 1080, MediaStore.Images.Media.getBitmap(contentResolver, photoUri))
+
     private fun onEntryFinished(result: SongResult?) {
         currentResult = result
         updateSongs()
         modified = true
         currentIndex = null
         isNewEntry = false
+        currentPhotoFile = null
     }
 
     private fun onEntryCancelled() {
