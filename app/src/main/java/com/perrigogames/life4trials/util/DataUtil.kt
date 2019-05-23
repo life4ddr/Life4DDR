@@ -9,6 +9,8 @@ import android.widget.ImageView
 import androidx.annotation.RawRes
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.google.gson.typeadapters.RuntimeTypeAdapterFactory
+import com.perrigogames.life4trials.data.*
 import java.io.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -22,7 +24,13 @@ object DataUtil {
         }
 
     val gson: Gson by lazy {
-        GsonBuilder().create()
+        GsonBuilder()
+            .registerTypeAdapterFactory(RuntimeTypeAdapterFactory.of(BaseRankGoal::class.java, "type")
+                .registerSubtype(CaloriesRankGoal::class.java, CaloriesRankGoal.TYPE_STRING)
+                .registerSubtype(FolderClearGoal::class.java, FolderClearGoal.TYPE_STRING)
+                .registerSubtype(SongSetGoal::class.java, SongSetGoal.TYPE_STRING)
+                .registerSubtype(DifficultyClearGoal::class.java, DifficultyClearGoal.TYPE_STRING))
+            .create()
     }
 
     fun timestamp(locale: Locale, date: Date = Date()): String = SimpleDateFormat("yyyyMMdd_HHmmss", locale).format(date)

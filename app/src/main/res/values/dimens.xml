@@ -6,5 +6,6 @@
     <dimen name="trial_details_main_thumb_size">200dp</dimen>
     <dimen name="size_detail_nav_debug">48dp</dimen>
     <dimen name="jacket_difficulty_size">40dp</dimen>
+    <dimen name="rank_goal_icon_size">64dp</dimen>
     <dimen name="record_rank_icon_size">32dp</dimen>
 </resources>

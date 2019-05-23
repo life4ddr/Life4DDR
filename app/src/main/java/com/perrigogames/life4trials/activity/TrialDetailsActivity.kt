@@ -182,7 +182,7 @@ class TrialDetailsActivity: AppCompatActivity() {
 
     private fun setRank(rank: TrialRank) {
         trialSession.goalRank = rank
-        image_desired_rank.rank = rank
+        image_desired_rank.rank = rank.parent
         text_goals_content.text = trialSession.goalSet?.generateSingleGoalString(resources, trial)
         updateSongs()
     }

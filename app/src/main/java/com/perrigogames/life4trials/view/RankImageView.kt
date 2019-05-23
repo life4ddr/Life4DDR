@@ -4,12 +4,12 @@ import android.content.Context
 import android.util.AttributeSet
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
-import com.perrigogames.life4trials.data.TrialRank
+import com.perrigogames.life4trials.data.LadderRank
 
 class RankImageView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
     ImageView(context, attrs, defStyleAttr) {
 
-    var rank: TrialRank? = null
+    var rank: LadderRank? = null
         set(v) {
             field = v
             setImageDrawable(if (v == null) null else

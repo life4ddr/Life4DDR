@@ -53,7 +53,7 @@ class TrialSubmissionActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.content_trial_submission)
 
-        image_desired_rank.rank = session.goalRank
+        image_desired_rank.rank = session.goalRank.parent
         text_ex_score.text = getString(R.string.ex_score_string_format, session.totalExScore, session.missingExScore)
 
         spinner_desired_rank.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, session.availableRanks)
@@ -108,7 +108,7 @@ class TrialSubmissionActivity: AppCompatActivity() {
 
     private fun setRank(rank: TrialRank) {
         session.goalRank = rank
-        image_desired_rank.rank = rank
+        image_desired_rank.rank = rank.parent
         text_goals.text = session.goalSet?.generateSingleGoalString(resources, session.trial)
     }
 

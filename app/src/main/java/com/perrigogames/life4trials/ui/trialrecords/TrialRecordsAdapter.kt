@@ -87,7 +87,7 @@ class TrialRecordsAdapter(private val trialManager: TrialManager,
                 if (s != null) {
                     val trial = trialManager.findTrial(s.trialId)
                     title.text = trial!!.name
-                    rankImage.rank = s.goalRank
+                    rankImage.rank = s.goalRank!!.parent
                     rankImage.alpha = if (s.goalObtained) 1f else 0.3f
                     date.text = DataUtil.humanTimestamp(view.context.locale, s.date)
 
