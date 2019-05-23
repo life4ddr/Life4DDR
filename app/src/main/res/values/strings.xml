@@ -13,7 +13,7 @@
     <string name="action_import">Import Ranks</string>
     <string name="action_records">Records</string>
 
-    <!-- Goal Strings -->
+    <!-- Trial Goal Strings -->
     <string name="score_songs">• Score %s on at least %d songs.</string>
     <string name="aaa_songs">• AAA at least %d songs.</string>
     <string name="score_other_songs">• Score %s on at least %d other songs.</string>
@@ -32,6 +32,12 @@
     <string name="no_bad_judgments">• PFC all songs.</string>
     <string name="no_missing_ex">• MFC all songs.</string>
     <string name="no_misses">• Full combo all songs.</string>
+
+    <!-- RankEntry Goal Strings -->
+    <string name="rank_goal_calories">Burn %d calories in a single session.</string>
+    <string name="rank_goal_single_score">Score %s on any level %d.</string>
+    <string name="rank_goal_lamp">Earn a %s Lamp on %s (%s).</string>
+    <string name="rank_goal_set_different">Complete a set of %s.</string>
 
     <string name="score">Score</string>
     <string name="ex_score">EX Score</string>
@@ -125,6 +131,8 @@
     <array name="credits">
         <item>Camera icon and Folder icon by https://www.flaticon.com/authors/daniel-bruce from www.flaticon.com</item>
     </array>
+
+    <!-- Activity Titles -->
     <string name="title_activity_settings">Settings</string>
 
     <!-- Preference Titles -->
@@ -156,6 +164,34 @@
     <string name="perfects">Perfects</string>
     <string name="expert">Expert</string>
     <string name="greats_less">Greats and Worse</string>
-    
+
     <string name="breakdown_information_missing">One or more of your songs are missing step breakdowns.</string>
+
+    <!-- Rank Strings -->
+    <string name="wood_1">WOOD I</string>
+    <string name="wood_2">WOOD II</string>
+    <string name="wood_3">WOOD III</string>
+    <string name="bronze_1">BRONZE I</string>
+    <string name="bronze_2">BRONZE II</string>
+    <string name="bronze_3">BRONZE III</string>
+    <string name="silver_1">SILVER I</string>
+    <string name="silver_2">SILVER II</string>
+    <string name="silver_3">SILVER III</string>
+    <string name="gold_1">GOLD I</string>
+    <string name="gold_2">GOLD II</string>
+    <string name="gold_3">GOLD III</string>
+    <string name="diamond_1">DIAMOND I</string>
+    <string name="diamond_2">DIAMOND II</string>
+    <string name="diamond_3">DIAMOND III</string>
+    <string name="cobalt_1">COBALT I</string>
+    <string name="cobalt_2">COBALT II</string>
+    <string name="cobalt_3">COBALT III</string>
+    <string name="amethyst_1">AMETHYST I</string>
+    <string name="amethyst_2">AMETHYST II</string>
+    <string name="amethyst_3">AMETHYST III</string>
+
+
+
+    <string name="action_rank_goals">Rank Goals</string>
+    <string name="set_numbers_3">%d, %d, and %d</string>
 </resources>

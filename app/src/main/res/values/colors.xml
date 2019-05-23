@@ -14,6 +14,8 @@
     <color name="difficultyExpert">#2cc945</color>
     <color name="difficultyChallenge">#4444FF</color>
 
+    <color name="wood">#925A3C</color>
+    <color name="bronze">#D36119</color>
     <color name="silver">#8E8F93</color>
     <color name="gold">#E7BA2C</color>
     <color name="diamond">#87DCFF</color>
