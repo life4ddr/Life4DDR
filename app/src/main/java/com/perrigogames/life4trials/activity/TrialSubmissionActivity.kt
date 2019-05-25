@@ -14,6 +14,7 @@ import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.data.TrialRank
 import com.perrigogames.life4trials.data.TrialSession
 import com.perrigogames.life4trials.event.SavedRankUpdatedEvent
+import com.perrigogames.life4trials.life4app
 import com.perrigogames.life4trials.util.NotificationUtil
 import com.perrigogames.life4trials.util.SharedPrefsUtils
 import com.perrigogames.life4trials.view.PathImageView
@@ -88,6 +89,11 @@ class TrialSubmissionActivity: AppCompatActivity() {
                 image_trial_final.rootView.removeOnLayoutChangeListener(this)
             }
         })
+    }
+
+    override fun onDestroy() {
+        life4app.trialManager.saveTrial(session)
+        super.onDestroy()
     }
 
     override fun onBackPressed() {

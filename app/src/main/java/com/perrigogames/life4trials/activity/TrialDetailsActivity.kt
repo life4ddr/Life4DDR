@@ -25,10 +25,13 @@ import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.listener.multi.BaseMultiplePermissionsListener
 import com.karumi.dexter.listener.multi.CompositeMultiplePermissionsListener
 import com.karumi.dexter.listener.multi.SnackbarOnAnyDeniedMultiplePermissionsListener
-import com.perrigogames.life4trials.Life4Application
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_DETAILS_PHOTO_SELECT
-import com.perrigogames.life4trials.data.*
+import com.perrigogames.life4trials.data.SongResult
+import com.perrigogames.life4trials.data.Trial
+import com.perrigogames.life4trials.data.TrialRank
+import com.perrigogames.life4trials.data.TrialSession
+import com.perrigogames.life4trials.life4app
 import com.perrigogames.life4trials.util.DataUtil
 import com.perrigogames.life4trials.util.SharedPrefsUtils
 import com.perrigogames.life4trials.util.locale
@@ -41,9 +44,9 @@ import java.io.IOException
 
 class TrialDetailsActivity: AppCompatActivity() {
 
-    private val trialData: TrialData get() = (application as Life4Application).trialData
+    private val trials: List<Trial> get() = life4app.trialManager.trials
     private val trialIndex: Int by lazy { intent.extras!!.getInt(ARG_TRIAL_INDEX) }
-    private val trial: Trial get() = trialData.trials[trialIndex]
+    private val trial: Trial get() = trials[trialIndex]
 
     private val storedRank: TrialRank? get() = SharedPrefsUtils.getRankForTrial(this, trial)
     private val initialRank: TrialRank by lazy { storedRank?.next

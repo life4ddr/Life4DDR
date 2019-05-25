@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'io.fabric'
+apply plugin: 'io.objectbox' // apply last
 
 ext {
     play_services_version = "15.0.1"

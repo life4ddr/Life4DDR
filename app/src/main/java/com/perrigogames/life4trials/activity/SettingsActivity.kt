@@ -14,6 +14,7 @@ import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.data.TrialRank
 import com.perrigogames.life4trials.event.SavedRankUpdatedEvent
 import com.perrigogames.life4trials.event.TrialListUpdatedEvent
+import com.perrigogames.life4trials.life4app
 import com.perrigogames.life4trials.util.NotificationUtil
 import com.perrigogames.life4trials.util.SharedPrefsUtils
 
@@ -138,7 +139,7 @@ class SettingsActivity : AppCompatActivity() {
                     val ranksList = TrialRank.values().map { it.toString() }.toMutableList()
                     ranksList.add(0, "NONE")
                     val ranksArray = ranksList.toTypedArray()
-                    (context.applicationContext as Life4Application).trialData.trials.forEach { trial ->
+                    context.life4app.trialManager.trials.forEach { trial ->
                         addPreference(DropDownPreference(context).apply {
                             key = "$KEY_DEBUG_RANK_PREFIX${trial.name}"
                             title = trial.name

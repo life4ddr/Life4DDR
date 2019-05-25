@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.perrigogames.life4trials.Life4Application
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.TrialsAdapter
-import com.perrigogames.life4trials.data.TrialData
+import com.perrigogames.life4trials.data.Trial
 import com.perrigogames.life4trials.event.SavedRankUpdatedEvent
 import com.perrigogames.life4trials.event.TrialListUpdatedEvent
 import com.perrigogames.life4trials.util.SharedPrefsUtils
@@ -29,9 +29,9 @@ import org.greenrobot.eventbus.Subscribe
  */
 class TrialsListActivity : AppCompatActivity() {
 
-    private val data: TrialData get() = (application as Life4Application).trialData
-
     private lateinit var adapter: TrialsAdapter
+
+    private val trials: List<Trial> get() = (application as Life4Application).trialManager.trials
 
     private val useGrid: Boolean get() = intent?.extras?.getBoolean(EXTRA_GRID, true) ?: true
 
@@ -60,7 +60,7 @@ class TrialsListActivity : AppCompatActivity() {
     @Subscribe
     fun onRankUpdated(e: SavedRankUpdatedEvent) {
         if (e.trial != null) {
-            adapter.notifyItemChanged(data.trials.indexOf(e.trial))
+            adapter.notifyItemChanged(trials.indexOf(e.trial))
         } else {
             adapter.notifyDataSetChanged()
         }
@@ -72,13 +72,13 @@ class TrialsListActivity : AppCompatActivity() {
     }
 
     private fun createListAdapter() {
-        adapter = TrialsAdapter(this, data.trials, false, this::onTrialSelected)
+        adapter = TrialsAdapter(this, trials, false, this::onTrialSelected)
         recycler_trials_list.adapter = adapter
         recycler_trials_list.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
     }
 
     private fun createTiledAdapter() {
-        adapter = TrialsAdapter(this, data.trials, true, this::onTrialSelected)
+        adapter = TrialsAdapter(this, trials, true, this::onTrialSelected)
         recycler_trials_list.adapter = adapter
         recycler_trials_list.addItemDecoration(object: RecyclerView.ItemDecoration() {
             override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
