@@ -102,7 +102,10 @@ class TrialDetailsActivity: AppCompatActivity() {
             SharedPrefsUtils.setUserFlag(this, KEY_DETAILS_PHOTO_SELECT, isChecked)
         }
 
-        button_finalize.isEnabled = false
+        button_concede.visibility = VISIBLE
+        button_finalize.visibility = GONE
+        button_leaderboard.setOnClickListener { onLeaderboardClick() }
+        button_concede.setOnClickListener { onConcedeClick() }
         button_finalize.setOnClickListener { onFinalizeClick() }
 
         (view_trial_jacket as TrialJacketView).let { jacket ->
@@ -155,6 +158,18 @@ class TrialDetailsActivity: AppCompatActivity() {
         }
     }
 
+    private fun onLeaderboardClick() {
+
+    }
+
+    private fun onConcedeClick() {
+        AlertDialog.Builder(this).setTitle(R.string.are_you_sure)
+            .setMessage(getString(R.string.trial_concede_confirmation_format, trial.name, trialSession.goalRank))
+            .setNegativeButton(R.string.cancel, null)
+            .setPositiveButton(R.string.okay) { _, _ -> concedeTrial() }
+            .show()
+    }
+
     private fun onFinalizeClick() {
         acquirePhoto(newPhoto = true, final = true)
     }
@@ -174,6 +189,11 @@ class TrialDetailsActivity: AppCompatActivity() {
                 return@forEachSongView
             }
         }
+    }
+
+    private fun concedeTrial() {
+        life4app.trialManager.saveRecord(trialSession)
+        finish()
     }
 
     private fun acquirePhoto(selection: Boolean = SharedPrefsUtils.getUserFlag(this, KEY_DETAILS_PHOTO_SELECT, false),

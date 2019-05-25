@@ -1,9 +1,11 @@
 package com.perrigogames.life4trials.ui.trialrecords
 
+import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.db.TrialSessionDB
@@ -61,6 +63,8 @@ class TrialRecordsAdapter(private val trialManager: TrialManager,
         private val song3: TextView = mView.text_record_song_3
         private val song4: TextView = mView.text_record_song_4
 
+        private var oldColors: ColorStateList= label1.textColors
+
         var session: TrialSessionDB? = null
             set(s) {
                 field = s
@@ -74,9 +78,18 @@ class TrialRecordsAdapter(private val trialManager: TrialManager,
                         view.text = trial.songs[idx].name
                     }
                     arrayOf(song1, song2, song3, song4).forEachIndexed { idx, view ->
-                        val song = s.songs[idx]
-                        view.text = mView.context.getString(R.string.score_string_format,
-                            song.score.longNumberString(), song.exScore)
+                        val played = idx < s.songs.size
+                        if (played) {
+                            val song = s.songs[idx]
+                            view.text = mView.context.getString(
+                                R.string.score_string_format,
+                                song.score.longNumberString(), song.exScore
+                            )
+                            view.setTextColor(oldColors)
+                        } else {
+                            view.text = mView.context.getString(R.string.not_played)
+                            view.setTextColor(ContextCompat.getColor(mView.context, R.color.orange))
+                        }
                     }
                 }
             }

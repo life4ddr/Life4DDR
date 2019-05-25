@@ -52,6 +52,7 @@
     <string name="gallery_permission_description_popup">This app needs permission to access your photos to use them for LIFE4 verification.</string>
 
     <string name="trial_close_confirmation">The progress made in this trial will not be saved.</string>
+    <string name="trial_concede_confirmation_format">This trial will be saved to your records as incomplete for %s (%s).\n\nYou will NOT get a chance to log your failed song if you haven\'t already.</string>
     <string name="photo_save_confirmation">This photo will not be saved.</string>
     <string name="details_save_confirmation">Your changes will not be saved.</string>
 
@@ -143,4 +144,7 @@
     <string name="user_info_notifications_description">Notifications shown during song submission that can be copied to ease form entry.</string>
     <string name="title_activity_records">Records</string>
     <string name="no_records_found">No Records found.\n\nGo play some Trials!</string>
+    <string name="concede">Concede</string>
+    <string name="leaderboard">Leaderboard</string>
+    <string name="not_played">Not Played</string>
 </resources>
