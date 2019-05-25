@@ -25,10 +25,12 @@ object DataUtil {
         GsonBuilder().create()
     }
 
-    fun timestampNow(locale: Locale): String = SimpleDateFormat("yyyyMMdd_HHmmss", locale).format(Date())
+    fun timestamp(locale: Locale, date: Date = Date()): String = SimpleDateFormat("yyyyMMdd_HHmmss", locale).format(date)
+
+    fun humanTimestamp(locale: Locale, date: Date = Date()): String = SimpleDateFormat("yyyy-MM-dd hh:mm aa", locale).format(date)
 
     @Throws(IOException::class)
-    fun createTempFile(locale: Locale): File = createTempFile("JPEG_${timestampNow(locale)}_")
+    fun createTempFile(locale: Locale): File = createTempFile("JPEG_${timestamp(locale)}_")
 
     @Throws(IOException::class)
     fun createTempFile(filename: String): File = File.createTempFile(filename, ".jpg", picturesDir)

@@ -141,7 +141,7 @@ class SettingsActivity : AppCompatActivity() {
                     val ranksArray = ranksList.toTypedArray()
                     context.life4app.trialManager.trials.forEach { trial ->
                         addPreference(DropDownPreference(context).apply {
-                            key = "$KEY_DEBUG_RANK_PREFIX${trial.name}"
+                            key = "$KEY_DEBUG_RANK_PREFIX${trial.id}"
                             title = trial.name
                             summary = SharedPrefsUtils.getRankForTrial(context, trial)?.toString() ?: "NONE"
                             entries = ranksArray

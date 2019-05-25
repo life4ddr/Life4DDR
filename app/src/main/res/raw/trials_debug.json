@@ -1,6 +1,7 @@
 {
 	"trials": [
 		{
+			"id": "konnorspicks",
 			"name": "KONNOR's Picks",
 			"difficulty": 16,
 			"goals": [
@@ -29,6 +30,7 @@
 				{ "name": "Vanquish The Ghost", "difficulty": 16, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/Vanquish%20The%20Ghost/Vanquish%20The%20Ghost-jacket.png" }
 			]
 		}, {
+			"id": "debug",
 			"name": "Debug",
 			"difficulty": 20,
 			"goals": [

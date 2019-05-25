@@ -36,4 +36,8 @@
         android:title="@string/action_drive"
         android:visible="false"
         app:showAsAction="never"/>
+    <item android:id="@+id/action_records"
+        android:orderInCategory="200"
+        android:title="@string/action_records"
+        app:showAsAction="never"/>
 </menu>

@@ -17,14 +17,14 @@ object SharedPrefsUtils {
     const val KEY_TUTORIAL_PREFS = "tutorial_preferences"
     const val KEY_DATA_PREFS = "data_preferences"
 
-    fun getRankForTrial(c: Context, trial: Trial): TrialRank? = getRankForTrial(c, trial.name)
+    fun getRankForTrial(c: Context, trial: Trial): TrialRank? = getRankForTrial(c, trial.id)
 
     fun getRankForTrial(c: Context, trialName: String): TrialRank? {
         val index = rankPrefs(c).getInt(trialName, -1)
         return if (index < 0) null else TrialRank.values()[index]
     }
 
-    fun setRankForTrial(c: Context, trial: Trial, rank: TrialRank?) = setRankForTrial(c, trial.name, rank)
+    fun setRankForTrial(c: Context, trial: Trial, rank: TrialRank?) = setRankForTrial(c, trial.id, rank)
 
     fun setRankForTrial(c: Context, trialName: String, rank: TrialRank?) {
         return with (rankPrefs(c).edit()) {
@@ -38,13 +38,13 @@ object SharedPrefsUtils {
     }
 
     fun getBestSessionForTrial(c: Context, trial: Trial): Array<SongResult>? {
-        val sessionString = rankPrefs(c).getString("${trial.name}_best", null)
+        val sessionString = rankPrefs(c).getString("${trial.id}_best", null)
         return sessionString?.let { DataUtil.gson.fromJson(sessionString, Array<SongResult>::class.java) }
     }
 
     fun setBestSessionForTrial(c: Context, session: TrialSession) {
         return with (rankPrefs(c).edit()) {
-            putString("${session.trial.name}_best", DataUtil.gson.toJson(session.results))
+            putString("${session.trial.id}_best", DataUtil.gson.toJson(session.results))
             apply()
         }
     }

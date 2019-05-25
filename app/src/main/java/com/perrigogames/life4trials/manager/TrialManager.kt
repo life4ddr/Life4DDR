@@ -29,8 +29,12 @@ class TrialManager(context: Context) {
     private val sessionBox get() = objectBox.boxFor(TrialSessionDB::class.java)
     private val songBox get() = objectBox.boxFor(SongDB::class.java)
 
-    fun saveTrial(session: TrialSession) {
-        val sessionDB = TrialSessionDB()
+    val records: List<TrialSessionDB> get() = sessionBox.all
+
+    fun findTrial(id: String) = trials.firstOrNull { it.id == id }
+
+    fun saveRecord(session: TrialSession) {
+        val sessionDB = TrialSessionDB.from(session)
         songBox.put(session.results.filterNotNull().map { result ->
             SongDB.from(result).also {
                 it.session.target = sessionDB

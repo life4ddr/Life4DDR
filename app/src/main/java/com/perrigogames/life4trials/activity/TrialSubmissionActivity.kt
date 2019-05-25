@@ -92,7 +92,7 @@ class TrialSubmissionActivity: AppCompatActivity() {
     }
 
     override fun onDestroy() {
-        life4app.trialManager.saveTrial(session)
+        life4app.trialManager.saveRecord(session)
         super.onDestroy()
     }
 
@@ -120,6 +120,7 @@ class TrialSubmissionActivity: AppCompatActivity() {
     }
 
     private fun submitRankAndFinish(passed: Boolean) {
+        session.goalObtained = passed
         if (passed) {
             SharedPrefsUtils.setRankForTrial(this, session.trial, session.goalRank)
             SharedPrefsUtils.setBestSessionForTrial(this, session)

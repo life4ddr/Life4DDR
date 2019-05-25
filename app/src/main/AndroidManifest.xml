@@ -47,6 +47,9 @@
             android:name=".activity.GoogleDriveActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".activity.TrialRecordsActivity"
+            android:label="@string/title_activity_records"/>
+        <activity
             android:name=".activity.SettingsActivity"
             android:label="@string/title_activity_settings" />
 

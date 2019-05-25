@@ -8,6 +8,8 @@ data class TrialSession(val trial: Trial,
                         val results: Array<SongResult?> = arrayOfNulls(TrialData.TRIAL_LENGTH),
                         var finalPhotoUriString: String? = null): Serializable {
 
+    var goalObtained: Boolean = false
+
     var finalPhotoUri: Uri
         get() = Uri.parse(finalPhotoUriString)
         set(value) { finalPhotoUriString = value.toString() }

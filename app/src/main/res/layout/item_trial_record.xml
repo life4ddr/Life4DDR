@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/text_record_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/text_record_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/text_record_title"
+        tools:text="04/20/2710"/>
+
+    <com.perrigogames.life4trials.view.RankImageView
+        android:id="@+id/image_rank_icon"
+        android:layout_width="@dimen/record_rank_icon_size"
+        android:layout_height="@dimen/record_rank_icon_size"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/cobalt_3"/>
+
+    <TextView
+        android:id="@+id/text_record_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/content_padding_med"
+        android:layout_marginLeft="@dimen/content_padding_med"
+        android:layout_marginEnd="@dimen/content_padding_med"
+        android:layout_marginRight="@dimen/content_padding_med"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/image_rank_icon"
+        app:layout_constraintEnd_toStartOf="@id/text_record_date"
+        app:layout_constraintStart_toEndOf="@id/image_rank_icon"
+        app:layout_constraintTop_toTopOf="@id/image_rank_icon"
+        tools:text="Heartbreak (1560 EX)"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/text_record_label_1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content_padding_med"
+        android:layout_marginEnd="@dimen/content_padding_large"
+        android:layout_marginRight="@dimen/content_padding_large"
+        android:gravity="end"
+        android:lines="1"
+        android:textStyle="bold"
+        app:autoSizeMinTextSize="10sp"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintEnd_toEndOf="@id/guideline_score"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_record_title"
+        tools:text="Song A"/>
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/text_record_label_2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content_padding_med"
+        android:layout_marginEnd="@dimen/content_padding_large"
+        android:layout_marginRight="@dimen/content_padding_large"
+        android:gravity="end"
+        android:lines="1"
+        android:textStyle="bold"
+        app:autoSizeMinTextSize="10sp"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintEnd_toEndOf="@id/guideline_score"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_record_label_1"
+        tools:text="Song B"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/text_record_label_3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content_padding_med"
+        android:layout_marginEnd="@dimen/content_padding_large"
+        android:layout_marginRight="@dimen/content_padding_large"
+        android:gravity="end"
+        android:lines="1"
+        android:textStyle="bold"
+        app:autoSizeMinTextSize="10sp"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintEnd_toEndOf="@id/guideline_score"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_record_label_2"
+        tools:text="Song 123456"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/text_record_label_4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content_padding_med"
+        android:layout_marginEnd="@dimen/content_padding_large"
+        android:layout_marginRight="@dimen/content_padding_large"
+        android:gravity="end"
+        android:lines="1"
+        android:textStyle="bold"
+        app:autoSizeMinTextSize="10sp"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/guideline_score"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_record_label_3"
+        tools:text="AAAAAAAAAAAAAAAAAAAAAA"/>
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/guideline_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="left"
+        app:constraint_referenced_ids="text_record_song_1,text_record_song_2,text_record_song_3,text_record_song_4"/>
+
+    <TextView
+        android:id="@+id/text_record_song_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/content_padding_med"
+        android:layout_marginRight="@dimen/content_padding_med"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/text_record_label_1"
+        tools:text="995,367 (420 EX)" />
+
+    <TextView
+        android:id="@+id/text_record_song_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/content_padding_med"
+        android:layout_marginRight="@dimen/content_padding_med"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/text_record_label_2"
+        tools:text="995,367 (420 EX)" />
+
+    <TextView
+        android:id="@+id/text_record_song_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/content_padding_med"
+        android:layout_marginRight="@dimen/content_padding_med"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/text_record_label_3"
+        tools:text="995,367 (420 EX)" />
+
+    <TextView
+        android:id="@+id/text_record_song_4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/content_padding_med"
+        android:layout_marginRight="@dimen/content_padding_med"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/text_record_label_4"
+        tools:text="995,367 (420 EX)" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

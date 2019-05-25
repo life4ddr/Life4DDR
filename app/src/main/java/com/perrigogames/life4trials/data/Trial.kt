@@ -12,7 +12,8 @@ data class TrialData(val trials: List<Trial>): Serializable {
     }
 }
 
-data class Trial(val name: String,
+data class Trial(val id: String,
+                 val name: String,
                  val difficulty: Int,
                  val goals: List<GoalSet>,
                  val total_ex: Int,
@@ -25,12 +26,12 @@ data class Trial(val name: String,
     fun jacketUrl(resources: Resources) =
         resources.getString(
             R.string.url_trial_jacket_base,
-            jacket_dir, (jacket_name ?: name.toLowerCase()))
+            jacket_dir, (jacket_name ?: id))
 
     fun jacketUrl(resources: Resources, size: Int) =
         resources.getString(
             R.string.url_trial_jacket_sized,
-            jacket_dir, (jacket_name ?: name.toLowerCase()), size, size)
+            jacket_dir, (jacket_name ?: id), size, size)
 
     val shouldShowTitle get() = jacket_dir == null && jacket_name == null
 }

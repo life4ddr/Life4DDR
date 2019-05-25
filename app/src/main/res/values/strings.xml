@@ -11,6 +11,7 @@
     <string name="action_drive">Google Drive</string>
     <string name="action_export">Export Ranks</string>
     <string name="action_import">Import Ranks</string>
+    <string name="action_records">Records</string>
 
     <!-- Goal Strings -->
     <string name="score_songs">• Score %s on at least %d songs.</string>
@@ -140,4 +141,6 @@
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="user_info_notifications">User Info Notifications</string>
     <string name="user_info_notifications_description">Notifications shown during song submission that can be copied to ease form entry.</string>
+    <string name="title_activity_records">Records</string>
+    <string name="no_records_found">No Records found.\n\nGo play some Trials!</string>
 </resources>
