@@ -180,14 +180,9 @@ class TrialDetailsActivity: AppCompatActivity() {
     }
 
     private fun updateSongs() {
-        button_finalize.isEnabled = true
-        forEachSongView { idx, songView ->
-            songView.result = trialSession.results[idx]
-            if (trialSession.results[idx] == null) {
-                button_finalize.isEnabled = false
-                return@forEachSongView
-            }
-        }
+        val allSongsComplete = trialSession.results.size == 4 // FIXME variable trial length
+        button_concede.visibility = if (allSongsComplete) GONE else VISIBLE
+        button_finalize.visibility = if (allSongsComplete) VISIBLE else GONE
     }
 
     private fun concedeTrial() {
