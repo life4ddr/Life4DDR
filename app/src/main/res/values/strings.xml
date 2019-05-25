@@ -147,4 +147,5 @@
     <string name="concede">Concede</string>
     <string name="leaderboard">Leaderboard</string>
     <string name="not_played">Not Played</string>
+    <string name="delete">Delete</string>
 </resources>

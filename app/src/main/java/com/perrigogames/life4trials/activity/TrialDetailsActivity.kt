@@ -133,7 +133,6 @@ class TrialDetailsActivity: AppCompatActivity() {
     }
 
     override fun onCreateContextMenu(menu: ContextMenu?, v: View?, menuInfo: ContextMenu.ContextMenuInfo?) {
-        super.onCreateContextMenu(menu, v, menuInfo)
         if (v is SongView) {
             val idx = v.tag as Int
             currentIndex = idx

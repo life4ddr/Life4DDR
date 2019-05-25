@@ -5,7 +5,7 @@
   "entities": [
     {
       "id": "1:897729382389109926",
-      "lastPropertyId": "7:7135047427876290819",
+      "lastPropertyId": "8:7014522395873648673",
       "name": "SongDB",
       "properties": [
         {
@@ -32,6 +32,10 @@
         {
           "id": "7:7135047427876290819",
           "name": "exScore"
+        },
+        {
+          "id": "8:7014522395873648673",
+          "name": "position"
         }
       ],
       "relations": []

@@ -25,13 +25,22 @@ class TrialRecordsAdapter(private val trialManager: TrialManager,
                           private val mListener: OnRecordsListInteractionListener?) :
     RecyclerView.Adapter<TrialRecordsAdapter.ViewHolder>() {
 
-    private val recordsList = trialManager.records
+    private lateinit var recordsList: List<TrialSessionDB>
     private val mOnClickListener: View.OnClickListener
 
     init {
+        refreshTrials()
         mOnClickListener = View.OnClickListener { v ->
             mListener?.onRecordsListInteraction(v.tag as TrialSessionDB)
         }
+    }
+
+    fun refreshTrials() {
+        recordsList = trialManager.records
+    }
+
+    override fun getItemId(position: Int): Long {
+        return recordsList[position].id
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -42,7 +51,7 @@ class TrialRecordsAdapter(private val trialManager: TrialManager,
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = recordsList[position]
         holder.session = item
-        with(holder.mView) {
+        with(holder.view) {
             tag = item
             setOnClickListener(mOnClickListener)
         }
@@ -50,20 +59,24 @@ class TrialRecordsAdapter(private val trialManager: TrialManager,
 
     override fun getItemCount(): Int = recordsList.size
 
-    inner class ViewHolder(val mView: View) : RecyclerView.ViewHolder(mView) {
-        private val rankImage: RankImageView = mView.image_rank_icon
-        private val title: TextView = mView.text_record_title
-        private val date: TextView = mView.text_record_date
-        private val label1: TextView = mView.text_record_label_1
-        private val label2: TextView = mView.text_record_label_2
-        private val label3: TextView = mView.text_record_label_3
-        private val label4: TextView = mView.text_record_label_4
-        private val song1: TextView = mView.text_record_song_1
-        private val song2: TextView = mView.text_record_song_2
-        private val song3: TextView = mView.text_record_song_3
-        private val song4: TextView = mView.text_record_song_4
+    inner class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
+        private val rankImage: RankImageView = view.image_rank_icon
+        private val title: TextView = view.text_record_title
+        private val date: TextView = view.text_record_date
+        private val label1: TextView = view.text_record_label_1
+        private val label2: TextView = view.text_record_label_2
+        private val label3: TextView = view.text_record_label_3
+        private val label4: TextView = view.text_record_label_4
+        private val song1: TextView = view.text_record_song_1
+        private val song2: TextView = view.text_record_song_2
+        private val song3: TextView = view.text_record_song_3
+        private val song4: TextView = view.text_record_song_4
 
         private var oldColors: ColorStateList= label1.textColors
+
+        init {
+            view.isLongClickable = true
+        }
 
         var session: TrialSessionDB? = null
             set(s) {
@@ -73,22 +86,21 @@ class TrialRecordsAdapter(private val trialManager: TrialManager,
                     title.text = trial!!.name
                     rankImage.rank = s.goalRank
                     rankImage.alpha = if (s.goalObtained) 1f else 0.3f
-                    date.text = DataUtil.humanTimestamp(mView.context.locale, s.date)
+                    date.text = DataUtil.humanTimestamp(view.context.locale, s.date)
+
                     arrayOf(label1, label2, label3, label4).forEachIndexed { idx, view ->
                         view.text = trial.songs[idx].name
                     }
-                    arrayOf(song1, song2, song3, song4).forEachIndexed { idx, view ->
-                        val played = idx < s.songs.size
-                        if (played) {
-                            val song = s.songs[idx]
-                            view.text = mView.context.getString(
-                                R.string.score_string_format,
-                                song.score.longNumberString(), song.exScore
-                            )
-                            view.setTextColor(oldColors)
+
+                    arrayOf(song1, song2, song3, song4).forEachIndexed { idx, v ->
+                        val songDb = s.songs.firstOrNull { it.position == idx }
+                        if (songDb != null) {
+                            v.text = view.context.getString(R.string.score_string_format,
+                                songDb.score.longNumberString(), songDb.exScore)
+                            v.setTextColor(oldColors)
                         } else {
-                            view.text = mView.context.getString(R.string.not_played)
-                            view.setTextColor(ContextCompat.getColor(mView.context, R.color.orange))
+                            v.text = view.context.getString(R.string.not_played)
+                            v.setTextColor(ContextCompat.getColor(view.context, R.color.orange))
                         }
                     }
                 }
@@ -97,5 +109,9 @@ class TrialRecordsAdapter(private val trialManager: TrialManager,
         override fun toString(): String {
             return super.toString() + " '$title'"
         }
+    }
+
+    companion object {
+        const val ID_ACTION_DELETE = 10001
     }
 }

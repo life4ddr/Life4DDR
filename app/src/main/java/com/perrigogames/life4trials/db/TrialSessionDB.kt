@@ -28,7 +28,8 @@ data class TrialSessionDB(var trialId: String,
 }
 
 @Entity
-data class SongDB(var score: Int = 0,
+data class SongDB(var position: Int = 0,
+                  var score: Int = 0,
                   var exScore: Int = 0,
                   var misses: Int = 0,
                   var judge: Int = 0,
@@ -37,7 +38,7 @@ data class SongDB(var score: Int = 0,
     lateinit var session: ToOne<TrialSessionDB>
 
     companion object {
-        fun from(result: SongResult) = SongDB(
+        fun from(result: SongResult, position: Int) = SongDB(position,
             result.score ?: 0,
             result.exScore ?: 0,
             result.misses ?: 0,

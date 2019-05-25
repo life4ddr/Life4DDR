@@ -1,6 +1,7 @@
 package com.perrigogames.life4trials.manager
 
 import android.content.Context
+import android.widget.Toast
 import com.perrigogames.life4trials.BuildConfig
 import com.perrigogames.life4trials.Life4Application
 import com.perrigogames.life4trials.R
@@ -11,7 +12,7 @@ import com.perrigogames.life4trials.db.TrialSessionDB
 import com.perrigogames.life4trials.util.DataUtil
 import com.perrigogames.life4trials.util.loadRawString
 
-class TrialManager(context: Context) {
+class TrialManager(private val context: Context) {
 
     private var trialData: TrialData
     val trials get() = trialData.trials
@@ -35,11 +36,19 @@ class TrialManager(context: Context) {
 
     fun saveRecord(session: TrialSession) {
         val sessionDB = TrialSessionDB.from(session)
-        songBox.put(session.results.filterNotNull().map { result ->
-            SongDB.from(result).also {
-                it.session.target = sessionDB
-            }
-        })
+        songBox.put(session.results.mapIndexed { idx, result ->
+            if (result != null) {
+                SongDB.from(result, idx).also {
+                    it.session.target = sessionDB
+                }
+            } else null
+        }.filterNotNull())
         sessionBox.put(sessionDB)
+    }
+
+    fun deleteRecord(id: Long) {
+        sessionBox.get(id).songs.forEach { songBox.remove(it.id) }
+        sessionBox.remove(id)
+        Toast.makeText(context, "Songs: ${songBox.count()}", Toast.LENGTH_SHORT).show()
     }
 }

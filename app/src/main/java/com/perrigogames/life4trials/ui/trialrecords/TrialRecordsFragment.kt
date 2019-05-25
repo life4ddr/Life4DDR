@@ -2,11 +2,9 @@ package com.perrigogames.life4trials.ui.trialrecords
 
 import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
+import android.view.*
 import android.view.View.GONE
 import android.view.View.VISIBLE
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -15,13 +13,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.db.TrialSessionDB
 import com.perrigogames.life4trials.life4app
+import com.perrigogames.life4trials.view.ContextMenuRecyclerView.RecyclerViewContextMenuInfo
 import com.perrigogames.life4trials.view.PaddingItemDecoration
 import kotlinx.android.synthetic.main.fragment_trial_records.*
 
+
 class TrialRecordsFragment : Fragment() {
 
-    private lateinit var viewModel: TrialRecordsViewModel
+    private val trialManager get() = context!!.life4app.trialManager
 
+    private val adapter get() = recycler_records_list.adapter as TrialRecordsAdapter
+
+    private lateinit var viewModel: TrialRecordsViewModel
     private var listener: OnRecordsListInteractionListener? = null
 
     override fun onCreateView(inflater: LayoutInflater,
@@ -33,12 +36,12 @@ class TrialRecordsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         recycler_records_list.apply {
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-            adapter = TrialRecordsAdapter(context!!.life4app.trialManager, listener)
+            adapter = TrialRecordsAdapter(trialManager, listener)
             addItemDecoration(PaddingItemDecoration(resources.getDimensionPixelSize(R.dimen.content_padding_large)))
             addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
-
-            text_no_records.visibility = if (adapter!!.itemCount <= 0) VISIBLE else GONE
+            updateEmptyLabelView()
         }
+        registerForContextMenu(recycler_records_list)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -54,6 +57,27 @@ class TrialRecordsFragment : Fragment() {
         } else {
             throw RuntimeException("$context must implement OnRecordsListInteractionListener")
         }
+    }
+
+    override fun onCreateContextMenu(menu: ContextMenu, v: View, menuInfo: ContextMenu.ContextMenuInfo?) {
+        super.onCreateContextMenu(menu, v, menuInfo)
+        activity!!.menuInflater.inflate(R.menu.menu_record, menu)
+    }
+
+    override fun onContextItemSelected(item: MenuItem): Boolean {
+        val info = item.menuInfo as RecyclerViewContextMenuInfo
+        //TODO check for Delete
+        if (info.position >= 0) {
+            trialManager.deleteRecord(info.id)
+            adapter.refreshTrials()
+            adapter.notifyItemRangeRemoved(info.position, 1)
+            updateEmptyLabelView()
+        }
+        return super.onContextItemSelected(item)
+    }
+
+    private fun updateEmptyLabelView() {
+        text_no_records.visibility = if (adapter.itemCount <= 0) VISIBLE else GONE
     }
 
     /**
