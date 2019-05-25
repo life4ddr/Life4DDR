@@ -16,7 +16,7 @@ import com.perrigogames.life4trials.TrialsAdapter
 import com.perrigogames.life4trials.data.Trial
 import com.perrigogames.life4trials.event.SavedRankUpdatedEvent
 import com.perrigogames.life4trials.event.TrialListUpdatedEvent
-import com.perrigogames.life4trials.util.SharedPrefsUtils
+import com.perrigogames.life4trials.life4app
 import com.perrigogames.life4trials.view.PaddingItemDecoration
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
@@ -30,7 +30,8 @@ class TrialsListActivity : AppCompatActivity() {
 
     private lateinit var adapter: TrialsAdapter
 
-    private val trials: List<Trial> get() = (application as Life4Application).trialManager.trials
+    private val trialManager get() = life4app.trialManager
+    private val trials: List<Trial> get() = trialManager.trials
 
     private val useGrid: Boolean get() = intent?.extras?.getBoolean(EXTRA_GRID, true) ?: true
 
@@ -144,7 +145,7 @@ class TrialsListActivity : AppCompatActivity() {
             .setTitle(R.string.are_you_sure)
             .setMessage(R.string.confirm_erase_data)
             .setPositiveButton(R.string.yes) { _, _ ->
-                SharedPrefsUtils.clearRanks(this)
+                trialManager.clearRecords()
                 restartActivity()
             }
             .setNegativeButton(R.string.no, null)

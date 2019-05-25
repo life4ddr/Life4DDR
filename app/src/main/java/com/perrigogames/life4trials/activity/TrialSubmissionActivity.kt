@@ -9,11 +9,9 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.perrigogames.life4trials.Life4Application
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.data.TrialRank
 import com.perrigogames.life4trials.data.TrialSession
-import com.perrigogames.life4trials.event.SavedRankUpdatedEvent
 import com.perrigogames.life4trials.life4app
 import com.perrigogames.life4trials.util.NotificationUtil
 import com.perrigogames.life4trials.util.SharedPrefsUtils
@@ -91,11 +89,6 @@ class TrialSubmissionActivity: AppCompatActivity() {
         })
     }
 
-    override fun onDestroy() {
-        life4app.trialManager.saveRecord(session)
-        super.onDestroy()
-    }
-
     override fun onBackPressed() {
         android.app.AlertDialog.Builder(this).setTitle(R.string.are_you_sure)
             .setMessage(R.string.trial_not_saved)
@@ -122,9 +115,7 @@ class TrialSubmissionActivity: AppCompatActivity() {
     private fun submitRankAndFinish(passed: Boolean) {
         session.goalObtained = passed
         if (passed) {
-            SharedPrefsUtils.setRankForTrial(this, session.trial, session.goalRank)
-            SharedPrefsUtils.setBestSessionForTrial(this, session)
-            Life4Application.eventBus.post(SavedRankUpdatedEvent(session.trial))
+            life4app.trialManager.saveRecord(session)
         }
 
         AlertDialog.Builder(this)

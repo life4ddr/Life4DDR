@@ -12,13 +12,11 @@ import com.perrigogames.life4trials.BuildConfig
 import com.perrigogames.life4trials.Life4Application
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.data.TrialRank
-import com.perrigogames.life4trials.event.SavedRankUpdatedEvent
+import com.perrigogames.life4trials.data.TrialSession
 import com.perrigogames.life4trials.event.TrialListUpdatedEvent
 import com.perrigogames.life4trials.life4app
 import com.perrigogames.life4trials.util.NotificationUtil
 import com.perrigogames.life4trials.util.SharedPrefsUtils
-
-
 
 class SettingsActivity : AppCompatActivity() {
 
@@ -40,6 +38,9 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     class SettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedPreferenceChangeListener {
+
+        val trialManager get() = context!!.life4app.trialManager
+
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             val context = preferenceManager.context
             val screen = preferenceManager.createPreferenceScreen(context)
@@ -143,7 +144,7 @@ class SettingsActivity : AppCompatActivity() {
                         addPreference(DropDownPreference(context).apply {
                             key = "$KEY_DEBUG_RANK_PREFIX${trial.id}"
                             title = trial.name
-                            summary = SharedPrefsUtils.getRankForTrial(context, trial)?.toString() ?: "NONE"
+                            summary = trialManager.getRankForTrial(trial.id)?.toString() ?: "NONE"
                             entries = ranksArray
                             entryValues = ranksArray
                         })
@@ -158,10 +159,12 @@ class SettingsActivity : AppCompatActivity() {
                 when {
                     key == KEY_INFO_RIVAL_CODE ||
                     key == KEY_INFO_TWITTER_NAME -> findPreference<EditTextPreference>(key)?.let { it.summary = it.text }
-                    key.startsWith(KEY_DEBUG_RANK_PREFIX) -> findPreference<DropDownPreference>(key)?.let {
+                    key.startsWith(KEY_DEBUG_RANK_PREFIX) -> findPreference<DropDownPreference>(key)?.let { it ->
                         val rank = TrialRank.parse(it.entry.toString())
-                        SharedPrefsUtils.setRankForTrial(preferenceManager.context, it.key.substring(KEY_DEBUG_RANK_PREFIX.length), rank)
-                        Life4Application.eventBus.post(SavedRankUpdatedEvent())
+                        val session = TrialSession(
+                            trialManager.findTrial(it.key.substring(KEY_DEBUG_RANK_PREFIX.length))!!,
+                            rank ?: TrialRank.SILVER).apply { goalObtained = (rank != null) }
+                        trialManager.saveRecord(session)
                         it.summary = rank?.toString() ?: "NONE"
                     }
                 }

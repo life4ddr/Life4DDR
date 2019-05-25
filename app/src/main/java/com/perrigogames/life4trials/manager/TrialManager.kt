@@ -1,16 +1,19 @@
 package com.perrigogames.life4trials.manager
 
 import android.content.Context
-import android.widget.Toast
 import com.perrigogames.life4trials.BuildConfig
 import com.perrigogames.life4trials.Life4Application
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.data.TrialData
+import com.perrigogames.life4trials.data.TrialRank
 import com.perrigogames.life4trials.data.TrialSession
 import com.perrigogames.life4trials.db.SongDB
 import com.perrigogames.life4trials.db.TrialSessionDB
+import com.perrigogames.life4trials.db.TrialSessionDB_
+import com.perrigogames.life4trials.event.SavedRankUpdatedEvent
 import com.perrigogames.life4trials.util.DataUtil
 import com.perrigogames.life4trials.util.loadRawString
+import io.objectbox.kotlin.query
 
 class TrialManager(private val context: Context) {
 
@@ -44,11 +47,36 @@ class TrialManager(private val context: Context) {
             } else null
         }.filterNotNull())
         sessionBox.put(sessionDB)
+        Life4Application.eventBus.post(SavedRankUpdatedEvent(session.trial))
     }
 
     fun deleteRecord(id: Long) {
         sessionBox.get(id).songs.forEach { songBox.remove(it.id) }
         sessionBox.remove(id)
-        Toast.makeText(context, "Songs: ${songBox.count()}", Toast.LENGTH_SHORT).show()
+    }
+
+    fun trialRecords(trialId: String): List<TrialSessionDB> {
+        sessionBox.query {
+            return equal(TrialSessionDB_.trialId, trialId).build().find()
+        }
+        return emptyList()
+    }
+
+    fun clearRecords() {
+        sessionBox.removeAll()
+        songBox.removeAll()
+        Life4Application.eventBus.post(SavedRankUpdatedEvent())
+    }
+
+    fun getRankForTrial(trialId: String): TrialRank? {
+        sessionBox.query {
+            val results = equal(TrialSessionDB_.trialId, trialId)
+                .equal(TrialSessionDB_.goalObtained, true)
+                .sort { o1, o2 -> o2.goalRankId.compareTo(o1.goalRankId)}
+                .build()
+                .find()
+            return results.firstOrNull()?.goalRank
+        }
+        return null
     }
 }

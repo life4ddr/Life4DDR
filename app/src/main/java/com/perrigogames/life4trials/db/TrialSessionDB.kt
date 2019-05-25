@@ -13,17 +13,21 @@ import java.util.*
 @Entity
 data class TrialSessionDB(var trialId: String,
                           var date: Date,
-                          var goalRankString: String,
+                          var goalRankId: Int,
                           var goalObtained: Boolean,
                           @Id var id: Long = 0) {
 
-    val goalRank get() = TrialRank.parse(goalRankString)
+    val goalRank get() = TrialRank.parse(goalRankId)
 
     @Backlink(to = "session")
     lateinit var songs: ToMany<SongDB>
 
     companion object {
-        fun from(session: TrialSession) = TrialSessionDB(session.trial.id, Date(), session.goalRank.name, session.goalObtained)
+        fun from(session: TrialSession) = TrialSessionDB(
+            session.trial.id,
+            Date(),
+            session.goalRank.stableId,
+            session.goalObtained)
     }
 }
 

@@ -48,7 +48,7 @@ class TrialDetailsActivity: AppCompatActivity() {
     private val trialIndex: Int by lazy { intent.extras!!.getInt(ARG_TRIAL_INDEX) }
     private val trial: Trial get() = trials[trialIndex]
 
-    private val storedRank: TrialRank? get() = SharedPrefsUtils.getRankForTrial(this, trial)
+    private val storedRank: TrialRank? get() = life4app.trialManager.getRankForTrial(trial.id)
     private val initialRank: TrialRank by lazy { storedRank?.next
         ?: (intent.extras?.getInt(ARG_INITIAL_RANK)?.let { TrialRank.values()[it] } ?: TrialRank.SILVER)
     }
@@ -180,9 +180,12 @@ class TrialDetailsActivity: AppCompatActivity() {
     }
 
     private fun updateSongs() {
-        val allSongsComplete = trialSession.results.size == 4 // FIXME variable trial length
+        val allSongsComplete = trialSession.results.filterNotNull().size == 4 // FIXME variable trial length
         button_concede.visibility = if (allSongsComplete) GONE else VISIBLE
         button_finalize.visibility = if (allSongsComplete) VISIBLE else GONE
+        forEachSongView { idx, songView ->
+            songView.result = trialSession.results[idx]
+        }
     }
 
     private fun concedeTrial() {

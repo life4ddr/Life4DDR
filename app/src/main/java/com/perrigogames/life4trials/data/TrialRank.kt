@@ -5,12 +5,13 @@ import com.google.gson.annotations.SerializedName
 import com.perrigogames.life4trials.R
 import java.io.Serializable
 
-enum class TrialRank(@DrawableRes val drawableRes: Int): Serializable {
-    @SerializedName("silver") SILVER(R.drawable.silver_3),
-    @SerializedName("gold") GOLD(R.drawable.gold_3),
-    @SerializedName("diamond") DIAMOND(R.drawable.diamond_3),
-    @SerializedName("cobalt") COBALT(R.drawable.cobalt_3),
-    @SerializedName("amethyst") AMETHYST(R.drawable.amethyst_3);
+enum class TrialRank(val stableId: Int,
+                     @DrawableRes val drawableRes: Int): Serializable {
+    @SerializedName("silver") SILVER(20, R.drawable.silver_3),
+    @SerializedName("gold") GOLD(25, R.drawable.gold_3),
+    @SerializedName("diamond") DIAMOND(30, R.drawable.diamond_3),
+    @SerializedName("cobalt") COBALT(35, R.drawable.cobalt_3),
+    @SerializedName("amethyst") AMETHYST(40, R.drawable.amethyst_3);
 
     val next get() = when(this) {
         SILVER -> GOLD
@@ -39,5 +40,7 @@ enum class TrialRank(@DrawableRes val drawableRes: Int): Serializable {
             null, "NONE" -> null
             else -> valueOf(s)
         }
+
+        fun parse(stableId: Int): TrialRank? = values().firstOrNull { it.stableId == stableId }
     }
 }
