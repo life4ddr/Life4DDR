@@ -4,9 +4,11 @@ import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.db.TrialSessionDB
 import com.perrigogames.life4trials.manager.TrialManager
@@ -71,6 +73,7 @@ class TrialRecordsAdapter(private val trialManager: TrialManager,
         private val song2: TextView = view.text_record_song_2
         private val song3: TextView = view.text_record_song_3
         private val song4: TextView = view.text_record_song_4
+        private val jacketBackground: ImageView = view.image_jacket_background
 
         private var oldColors: ColorStateList= label1.textColors
 
@@ -88,8 +91,13 @@ class TrialRecordsAdapter(private val trialManager: TrialManager,
                     rankImage.alpha = if (s.goalObtained) 1f else 0.3f
                     date.text = DataUtil.humanTimestamp(view.context.locale, s.date)
 
-                    arrayOf(label1, label2, label3, label4, song1, song2, song3, song4).forEach {
-                        it.visibility = if (s.songs.size == 0) View.GONE else View.VISIBLE
+                    val miniEntry = s.songs.size == 0
+                    if (!miniEntry) {
+                        Glide.with(view).load(trial.jacketUrl(view.resources, 350)).into(jacketBackground)
+                    }
+
+                    arrayOf(label1, label2, label3, label4, song1, song2, song3, song4, jacketBackground).forEach {
+                        it.visibility = if (miniEntry) View.GONE else View.VISIBLE
                     }
 
                     arrayOf(label1, label2, label3, label4).forEachIndexed { idx, view ->

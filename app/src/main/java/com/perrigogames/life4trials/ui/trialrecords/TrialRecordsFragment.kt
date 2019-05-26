@@ -14,7 +14,6 @@ import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.db.TrialSessionDB
 import com.perrigogames.life4trials.life4app
 import com.perrigogames.life4trials.view.ContextMenuRecyclerView.RecyclerViewContextMenuInfo
-import com.perrigogames.life4trials.view.PaddingItemDecoration
 import kotlinx.android.synthetic.main.fragment_trial_records.*
 
 
@@ -37,7 +36,6 @@ class TrialRecordsFragment : Fragment() {
         recycler_records_list.apply {
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
             adapter = TrialRecordsAdapter(trialManager, listener)
-            addItemDecoration(PaddingItemDecoration(resources.getDimensionPixelSize(R.dimen.content_padding_large)))
             addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
             updateEmptyLabelView()
         }
