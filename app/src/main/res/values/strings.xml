@@ -12,6 +12,7 @@
     <string name="action_export">Export Ranks</string>
     <string name="action_import">Import Ranks</string>
     <string name="action_records">Records</string>
+    <string name="action_rank_goals">Rank Goals</string>
 
     <!-- Trial Goal Strings -->
     <string name="score_songs">• Score %s on at least %d songs.</string>
@@ -191,7 +192,5 @@
     <string name="amethyst_3">AMETHYST III</string>
 
 
-
-    <string name="action_rank_goals">Rank Goals</string>
-    <string name="set_numbers_3">%d, %d, and %d</string>
+    <string name="set_numbers_3_format">%d, %d, and %d</string>
 </resources>

@@ -131,6 +131,10 @@ class TrialsListActivity : AppCompatActivity() {
                 startActivity(Intent(this, TrialRecordsActivity::class.java))
                 true
             }
+            R.id.action_rank_goals -> {
+                startActivity(Intent(this, RankListActivity::class.java))
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }

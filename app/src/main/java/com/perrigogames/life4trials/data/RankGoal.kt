@@ -58,7 +58,7 @@ class SongSetGoal(type: String,
     override fun goalString(context: Context): String {
         //TODO: "Set of 3 X's"
         return context.getString(R.string.rank_goal_set_different,
-            context.getString(R.string.set_numbers_3, difficulties[0],
+            context.getString(R.string.set_numbers_3_format, difficulties[0],
                 difficulties[1], difficulties[2]))
     }
 
