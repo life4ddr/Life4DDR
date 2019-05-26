@@ -312,6 +312,10 @@ class TrialDetailsActivity: AppCompatActivity() {
             FLAG_IMAGE_RECAPTURE -> when (resultCode) {
                 RESULT_OK -> {
                     resizeImage(currentPhotoFile!!, currentResult!!.photoUri)
+                    Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE).also { mediaScanIntent ->
+                        mediaScanIntent.data = Uri.fromFile(currentPhotoFile)
+                        sendBroadcast(mediaScanIntent)
+                    }
                     if (SharedPrefsUtils.getDebugFlag(this, SettingsActivity.KEY_DEBUG_BYPASS_STAT_ENTRY)) {
                         currentResult!!.randomize()
                         onEntryFinished(currentResult!!)
@@ -346,6 +350,10 @@ class TrialDetailsActivity: AppCompatActivity() {
             FLAG_IMAGE_CAPTURE_FINAL -> when (resultCode) {
                 RESULT_OK -> {
                     resizeImage(currentPhotoFile!!, trialSession.finalPhotoUri)
+                    Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE).also { mediaScanIntent ->
+                        mediaScanIntent.data = Uri.fromFile(currentPhotoFile)
+                        sendBroadcast(mediaScanIntent)
+                    }
                     startSubmitActivity()
                 }
             }
