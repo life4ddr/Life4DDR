@@ -29,6 +29,12 @@ class SongView @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
             update()
         }
 
+    var shouldShowAdvancedSongDetails: Boolean = false
+        set(v) {
+            field = v
+            update()
+        }
+
     private var oldColors: ColorStateList? = null
 
     private fun update() {
@@ -44,7 +50,10 @@ class SongView @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
                 resources.getString(R.string.score_string_format, r.score?.longNumberString(), r.exScore)
             }
 
-            val tintColor = if (result?.photoUriString != null) R.color.colorPrimary else R.color.gray
+            val tintColor = if (result?.photoUriString != null) {
+                if (shouldShowAdvancedSongDetails && result?.hasAdvancedStats != true) R.color.orange
+                else R.color.colorPrimary
+            } else R.color.gray
             image_photo_icon.setColorFilter(ContextCompat.getColor(context, tintColor))
 
             if (result?.passed == false) {

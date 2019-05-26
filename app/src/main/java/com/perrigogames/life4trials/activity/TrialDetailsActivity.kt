@@ -20,6 +20,7 @@ import android.widget.ArrayAdapter
 import androidx.annotation.RequiresPermission
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
+import com.google.android.material.snackbar.Snackbar
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.listener.multi.BaseMultiplePermissionsListener
@@ -174,6 +175,8 @@ class TrialDetailsActivity: AppCompatActivity() {
             trialSession.results.none { it!!.misses == null || it.badJudges == null }) {
 
             acquirePhoto(newPhoto = true, final = true)
+        } else {
+            Snackbar.make(container, R.string.breakdown_information_missing, Snackbar.LENGTH_LONG).show()
         }
     }
 
@@ -181,6 +184,7 @@ class TrialDetailsActivity: AppCompatActivity() {
         trialSession.goalRank = rank
         image_desired_rank.rank = rank
         text_goals_content.text = trialSession.goalSet?.generateSingleGoalString(resources, trial)
+        updateSongs()
     }
 
     private fun updateSongs() {
@@ -189,6 +193,7 @@ class TrialDetailsActivity: AppCompatActivity() {
         button_finalize.visibility = if (allSongsComplete) VISIBLE else GONE
         forEachSongView { idx, songView ->
             songView.result = trialSession.results[idx]
+            songView.shouldShowAdvancedSongDetails = trialSession.shouldShowAdvancedSongDetails
         }
     }
 

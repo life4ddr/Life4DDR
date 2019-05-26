@@ -156,4 +156,6 @@
     <string name="perfects">Perfects</string>
     <string name="expert">Expert</string>
     <string name="greats_less">Greats and Worse</string>
+    
+    <string name="breakdown_information_missing">One or more of your songs are missing step breakdowns.</string>
 </resources>
