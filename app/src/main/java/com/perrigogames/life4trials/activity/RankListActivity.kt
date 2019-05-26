@@ -1,9 +1,11 @@
 package com.perrigogames.life4trials.activity
 
+import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.perrigogames.life4trials.R
+import com.perrigogames.life4trials.RankDetailsActivity
+import com.perrigogames.life4trials.RankDetailsActivity.Companion.ARG_RANK_ENTRY
 import com.perrigogames.life4trials.activity.RankListActivityFragment.OnRankListInteractionListener
 import com.perrigogames.life4trials.data.RankEntry
 import kotlinx.android.synthetic.main.content_rank_list.*
@@ -25,6 +27,8 @@ class RankListActivity : AppCompatActivity(), OnRankListInteractionListener {
     }
 
     override fun onListFragmentInteraction(item: RankEntry) {
-        Toast.makeText(this, getString(item.rank.nameRes), Toast.LENGTH_SHORT).show()
+        startActivity(Intent(this, RankDetailsActivity::class.java).apply {
+            putExtra(ARG_RANK_ENTRY, item)
+        })
     }
 }

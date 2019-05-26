@@ -20,6 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup">
+        <activity android:name=".RankDetailsActivity"></activity>
         <activity android:name=".activity.Life4DescriptionActivity" />
         <activity
             android:name=".activity.TrialsListActivity"
@@ -48,7 +49,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.TrialRecordsActivity"
-            android:label="@string/title_activity_records"/>
+            android:label="@string/title_activity_records" />
         <activity
             android:name=".activity.RankListActivity"
             android:screenOrientation="portrait" />
