@@ -158,7 +158,7 @@ class TrialDetailsActivity: AppCompatActivity() {
     }
 
     private fun onLeaderboardClick() {
-
+        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.url_trial, trial.id))))
     }
 
     private fun onConcedeClick() {
@@ -170,7 +170,11 @@ class TrialDetailsActivity: AppCompatActivity() {
     }
 
     private fun onFinalizeClick() {
-        acquirePhoto(newPhoto = true, final = true)
+        if (!trialSession.shouldShowAdvancedSongDetails ||
+            trialSession.results.none { it!!.misses == null || it.badJudges == null }) {
+
+            acquirePhoto(newPhoto = true, final = true)
+        }
     }
 
     private fun setRank(rank: TrialRank) {
@@ -288,6 +292,7 @@ class TrialDetailsActivity: AppCompatActivity() {
     private fun startEditActivity(index: Int) {
         Intent(this, SongEntryActivity::class.java).also { i ->
             i.putExtra(SongEntryActivity.ARG_RESULT, trialSession.results[index])
+            i.putExtra(SongEntryActivity.ARG_ADVANCED_DETAIL, trialSession.shouldShowAdvancedSongDetails)
             startActivityForResult(i, FLAG_SCORE_ENTER)
         }
     }

@@ -6,6 +6,7 @@ import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterF
 import com.perrigogames.life4trials.db.MyObjectBox
 import com.perrigogames.life4trials.manager.TrialManager
 import com.perrigogames.life4trials.util.NotificationUtil
+import com.perrigogames.life4trials.util.SharedPrefsUtils
 import io.objectbox.BoxStore
 import okhttp3.OkHttpClient
 import org.greenrobot.eventbus.EventBus
@@ -18,6 +19,7 @@ class Life4Application: MultiDexApplication() {
 
     override fun onCreate() {
         super.onCreate()
+        SharedPrefsUtils.initializeDefaults(this)
 
         trialManager = TrialManager(this)
 

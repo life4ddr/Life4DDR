@@ -93,6 +93,10 @@ class SettingsActivity : AppCompatActivity() {
                     key = KEY_DETAILS_PHOTO_SELECT
                     title = "Use photo picker"
                 })
+                addPreference(SwitchPreference(context).apply {
+                    key = KEY_DETAILS_EXPERT
+                    title = "Expert score entry"
+                })
             }
 
             PreferenceCategory(context).apply {
@@ -185,6 +189,7 @@ class SettingsActivity : AppCompatActivity() {
     companion object {
         const val KEY_LIST_TINT_COMPLETED = "KEY_LIST_TINT_COMPLETED"
         const val KEY_DETAILS_PHOTO_SELECT = "KEY_DETAILS_PHOTO_SELECT"
+        const val KEY_DETAILS_EXPERT = "KEY_DETAILS_EXPERT"
         const val KEY_INFO_RIVAL_CODE = "KEY_INFO_RIVAL_CODE"
         const val KEY_INFO_TWITTER_NAME = "KEY_INFO_TWITTER_NAME"
         const val KEY_SUBMISSION_NOTIFICAION = "KEY_SUBMISSION_NOTIFICAION"

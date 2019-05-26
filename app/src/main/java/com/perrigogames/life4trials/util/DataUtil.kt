@@ -27,7 +27,7 @@ object DataUtil {
 
     fun timestamp(locale: Locale, date: Date = Date()): String = SimpleDateFormat("yyyyMMdd_HHmmss", locale).format(date)
 
-    fun humanTimestamp(locale: Locale, date: Date = Date()): String = SimpleDateFormat("yyyy-MM-dd hh:mm aa", locale).format(date)
+    fun humanTimestamp(locale: Locale, date: Date = Date()): String = SimpleDateFormat("yyyy-MM-dd   hh:mm aa", locale).format(date)
 
     @Throws(IOException::class)
     fun createTempFile(locale: Locale): File = createTempFile("JPEG_${timestamp(locale)}_")

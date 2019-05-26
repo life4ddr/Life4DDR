@@ -5,9 +5,11 @@ import android.content.SharedPreferences
 import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 import com.perrigogames.life4trials.BuildConfig
+import com.perrigogames.life4trials.activity.SettingsActivity
 
 object SharedPrefsUtils {
 
+    const val KEY_INIT = "KEY_INIT"
     const val KEY_RANK_PREFS = "rank_preferences"
     const val KEY_USER_PREFS = "user_preferences"
     const val KEY_TUTORIAL_PREFS = "tutorial_preferences"
@@ -38,6 +40,16 @@ object SharedPrefsUtils {
     fun setUserFlag(c: Context, flag: String, v: Boolean) = userPrefs(c).edit(true) { putBoolean(flag, v) }
 
     fun setDebugFlag(c: Context, flag: String, v: Boolean) = setUserFlag(c, flag, v)
+
+    fun initializeDefaults(c: Context) {
+        userPrefs(c).let {
+            if (it.getInt(KEY_INIT, 0) != 1) {
+                it.edit().putInt(KEY_INIT, 1)
+                    .putBoolean(SettingsActivity.KEY_LIST_TINT_COMPLETED, true)
+                    .putBoolean(SettingsActivity.KEY_SUBMISSION_NOTIFICAION, true).apply()
+            }
+        }
+    }
 
     private fun tutorialPrefs(c: Context) =
         c.getSharedPreferences(KEY_TUTORIAL_PREFS, Context.MODE_PRIVATE)

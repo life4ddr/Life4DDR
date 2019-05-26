@@ -36,7 +36,7 @@ class TrialRecordsAdapter(private val trialManager: TrialManager,
     }
 
     fun refreshTrials() {
-        recordsList = trialManager.records
+        recordsList = trialManager.records.reversed()
     }
 
     override fun getItemId(position: Int): Long {
@@ -88,6 +88,10 @@ class TrialRecordsAdapter(private val trialManager: TrialManager,
                     rankImage.alpha = if (s.goalObtained) 1f else 0.3f
                     date.text = DataUtil.humanTimestamp(view.context.locale, s.date)
 
+                    arrayOf(label1, label2, label3, label4, song1, song2, song3, song4).forEach {
+                        it.visibility = if (s.songs.size == 0) View.GONE else View.VISIBLE
+                    }
+
                     arrayOf(label1, label2, label3, label4).forEachIndexed { idx, view ->
                         view.text = trial.songs[idx].name
                     }
@@ -97,7 +101,11 @@ class TrialRecordsAdapter(private val trialManager: TrialManager,
                         if (songDb != null) {
                             v.text = view.context.getString(R.string.score_string_format,
                                 songDb.score.longNumberString(), songDb.exScore)
-                            v.setTextColor(oldColors)
+                            if (songDb.passed) {
+                                v.setTextColor(oldColors)
+                            } else {
+                                v.setTextColor(ContextCompat.getColor(view.context, R.color.orange))
+                            }
                         } else {
                             v.text = view.context.getString(R.string.not_played)
                             v.setTextColor(ContextCompat.getColor(view.context, R.color.orange))

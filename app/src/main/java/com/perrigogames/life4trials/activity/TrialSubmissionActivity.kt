@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.data.TrialRank
 import com.perrigogames.life4trials.data.TrialSession
@@ -71,7 +72,15 @@ class TrialSubmissionActivity: AppCompatActivity() {
 
         forEachResultText { idx, textView ->
             session.results[idx]?.let { result ->
-                textView.text = getString(R.string.score_string_summary_format, result.score?.longNumberString(), result.exScore)
+                textView.text = if (session.shouldShowAdvancedSongDetails) {
+                    getString(R.string.score_string_summary_format_advanced,
+                        result.score?.longNumberString(), result.exScore, result.misses, result.badJudges)
+                } else {
+                    getString(R.string.score_string_summary_format, result.score?.longNumberString(), result.exScore)
+                }
+                if (!result.passed) {
+                    textView.setTextColor(ResourcesCompat.getColor(resources, R.color.orange, theme))
+                }
             }
         }
 
@@ -104,32 +113,37 @@ class TrialSubmissionActivity: AppCompatActivity() {
     }
 
     private fun submitResult() {
-        AlertDialog.Builder(this)
-            .setTitle(R.string.submit_dialog_title)
-            .setMessage(resources.getString(R.string.submit_dialog_rank_confirmation, session.goalRank.toString()))
-            .setPositiveButton(R.string.yes) { _, _ -> submitRankAndFinish(true) }
-            .setNegativeButton(R.string.no) { _, _ -> submitRankAndFinish(false) }
-            .show()
+        if (session.results.any { it?.passed != true }) {
+            submitRankAndFinish(false)
+        } else {
+            AlertDialog.Builder(this)
+                .setTitle(R.string.submit_dialog_title)
+                .setMessage(resources.getString(R.string.submit_dialog_rank_confirmation, session.goalRank.toString()))
+                .setPositiveButton(R.string.yes) { _, _ -> submitRankAndFinish(true) }
+                .setNegativeButton(R.string.no) { _, _ -> submitRankAndFinish(false) }
+                .show()
+        }
     }
 
     private fun submitRankAndFinish(passed: Boolean) {
         session.goalObtained = passed
+        life4app.trialManager.saveRecord(session)
         if (passed) {
-            life4app.trialManager.saveRecord(session)
-        }
-
-        AlertDialog.Builder(this)
-            .setTitle(R.string.submit_dialog_title)
-            .setMessage(R.string.submit_dialog_prompt)
-            .setNegativeButton(R.string.no) { _, _ -> finish() }
-            .setPositiveButton(R.string.yes) { _, _ ->
-                if (SharedPrefsUtils.getUserFlag(this, SettingsActivity.KEY_SUBMISSION_NOTIFICAION, false)) {
-                    NotificationUtil.showUserInfoNotifications(this, session.totalExScore)
+            AlertDialog.Builder(this)
+                .setTitle(R.string.submit_dialog_title)
+                .setMessage(R.string.submit_dialog_prompt)
+                .setNegativeButton(R.string.no) { _, _ -> finish() }
+                .setPositiveButton(R.string.yes) { _, _ ->
+                    if (SharedPrefsUtils.getUserFlag(this, SettingsActivity.KEY_SUBMISSION_NOTIFICAION, false)) {
+                        NotificationUtil.showUserInfoNotifications(this, session.totalExScore)
+                    }
+                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.url_submission_form))))
+                    finish()
                 }
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.url_submission_form))))
-                finish()
-            }
-            .show()
+                .show()
+        } else {
+            finish()
+        }
     }
 
     companion object {

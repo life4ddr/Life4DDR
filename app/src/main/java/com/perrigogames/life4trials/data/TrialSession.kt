@@ -16,6 +16,9 @@ data class TrialSession(val trial: Trial,
 
     val availableRanks: Array<TrialRank> = trial.goals[0].rank.andUp
 
+    val shouldShowAdvancedSongDetails
+        get() = goalSet?.let { it.miss != null || it.judge != null } ?: false
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
@@ -49,7 +52,9 @@ data class SongResult(var song: Song,
                       var score: Int? = null,
                       var exScore: Int? = null,
                       var misses: Int? = null,
-                      var badJudges: Int? = null): Serializable {
+                      var badJudges: Int? = null,
+                      var perfects: Int? = null,
+                      var passed: Boolean = true): Serializable {
 
     var photoUri: Uri
         get() = Uri.parse(photoUriString)
@@ -58,7 +63,5 @@ data class SongResult(var song: Song,
     fun randomize() {
         score = (Math.random() * 70000).toInt() + 930000
         exScore = (Math.random() * 1024).toInt()
-        misses = (Math.random() * 6).toInt()
-        badJudges = misses!! + (Math.random() * 14).toInt()
     }
 }

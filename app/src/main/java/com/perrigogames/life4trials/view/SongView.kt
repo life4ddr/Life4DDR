@@ -1,6 +1,7 @@
 package com.perrigogames.life4trials.view
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.os.Build
 import android.util.AttributeSet
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -28,7 +29,13 @@ class SongView @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
             update()
         }
 
+    private var oldColors: ColorStateList? = null
+
     private fun update() {
+        if (oldColors == null) {
+            oldColors = text_song_result.textColors
+        }
+
         song?.let {
             text_song_title.text = it.name
             text_song_difficulty.setDifficulty(it.difficultyClass, it.difficultyNumber)
@@ -39,6 +46,12 @@ class SongView @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
 
             val tintColor = if (result?.photoUriString != null) R.color.colorPrimary else R.color.gray
             image_photo_icon.setColorFilter(ContextCompat.getColor(context, tintColor))
+
+            if (result?.passed == false) {
+                text_song_result.setTextColor(ContextCompat.getColor(context, R.color.orange))
+            } else {
+                text_song_result.setTextColor(oldColors)
+            }
 
             Glide.with(this).load(it.url).into(image_song_jacket)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {

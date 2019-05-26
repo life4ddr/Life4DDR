@@ -69,6 +69,7 @@
     <string name="score_string_format">"%s (%d EX)"</string>
     <string name="ex_score_string_format">%d EX (%d)</string>
     <string name="score_string_summary_format">"%s\n%d EX"</string>
+    <string name="score_string_summary_format_advanced">"%s\n%d EX\n%d Miss\n%d &lt;Great"</string>
 
     <!-- Short/Common Strings -->
     <string name="goals">Goals:</string>
@@ -96,6 +97,7 @@
     </array>
 
     <!-- URLs -->
+    <string name="url_trial">https://life4ddr.com/%s</string>
     <string name="url_trial_jacket_base">https://life4ddr.com/wp-content/uploads/%s/%s.jpg</string>
     <string name="url_trial_jacket_sized">https://life4ddr.com/wp-content/uploads/%s/%s-%dx%d.jpg</string>
     <string name="url_submission_form">https://docs.google.com/forms/d/e/1FAIpQLSd2z2dcavPcdC_UhieAPUoYj0C5mTbSAabhrRYstOYem2Mq5Q/viewform</string>
@@ -148,4 +150,10 @@
     <string name="leaderboard">Leaderboard</string>
     <string name="not_played">Not Played</string>
     <string name="delete">Delete</string>
+    <string name="passed">Passed</string>
+    <string name="goods">Goods</string>
+    <string name="greats">Greats</string>
+    <string name="perfects">Perfects</string>
+    <string name="expert">Expert</string>
+    <string name="greats_less">Greats and Worse</string>
 </resources>

@@ -39,11 +39,10 @@
         android:id="@+id/field_score"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/content_padding_med"
         android:hint="@string/score"
         android:inputType="number"
         android:nextFocusDown="@id/field_ex"
-        app:layout_constraintBottom_toTopOf="@id/button_done"
+        app:layout_constraintBottom_toTopOf="@id/checkbox_expert"
         app:layout_constraintEnd_toStartOf="@id/field_ex"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/barrier" />
@@ -52,13 +51,91 @@
         android:id="@+id/field_ex"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/content_padding_med"
         android:hint="@string/ex_score"
         android:inputType="number"
-        app:layout_constraintBottom_toTopOf="@id/button_done"
+        app:layout_constraintBottom_toBottomOf="@id/field_score"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/field_score"
-        app:layout_constraintTop_toBottomOf="@id/barrier" />
+        app:layout_constraintTop_toTopOf="@id/field_score" />
+
+    <CheckBox
+        android:id="@+id/checkbox_expert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/expert"
+        app:layout_constraintBottom_toTopOf="@id/field_misses"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/field_score"/>
+
+    <EditText
+        android:id="@+id/field_misses"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/misses"
+        android:inputType="number"
+        android:nextFocusDown="@id/field_goods"
+        app:layout_constraintBottom_toTopOf="@id/field_greats_less"
+        app:layout_constraintEnd_toStartOf="@id/field_goods"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/checkbox_expert" />
+
+    <EditText
+        android:id="@+id/field_goods"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/goods"
+        android:inputType="number"
+        android:nextFocusDown="@id/field_greats"
+        app:layout_constraintBottom_toBottomOf="@id/field_misses"
+        app:layout_constraintEnd_toStartOf="@id/field_greats"
+        app:layout_constraintStart_toEndOf="@id/field_misses"
+        app:layout_constraintTop_toTopOf="@id/field_misses" />
+
+    <EditText
+        android:id="@+id/field_greats"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/greats"
+        android:inputType="number"
+        app:layout_constraintBottom_toBottomOf="@id/field_misses"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/field_goods"
+        app:layout_constraintTop_toTopOf="@id/field_misses" />
+
+    <EditText
+        android:id="@+id/field_greats_less"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/greats_less"
+        android:inputType="number"
+        android:nextFocusDown="@id/field_perfects"
+        app:layout_constraintBottom_toTopOf="@id/button_done"
+        app:layout_constraintEnd_toStartOf="@id/field_perfects"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/field_misses" />
+
+    <EditText
+        android:id="@+id/field_perfects"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/perfects"
+        android:inputType="number"
+        app:layout_constraintBottom_toBottomOf="@id/field_greats_less"
+        app:layout_constraintStart_toEndOf="@id/field_greats_less"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/field_greats_less" />
+
+    <CheckBox
+        android:id="@+id/checkbox_passed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:text="@string/passed"
+        app:layout_constraintBottom_toBottomOf="@id/button_retake"
+        app:layout_constraintEnd_toStartOf="@id/button_retake"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/button_retake"/>
 
     <Button
         android:id="@+id/button_retake"
@@ -66,10 +143,10 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/content_padding_med"
         android:layout_marginRight="@dimen/content_padding_med"
-        android:layout_marginBottom="@dimen/content_padding_med"
         android:text="@string/retake_photo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/button_done"
+        app:layout_constraintHorizontal_bias="1"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -77,7 +154,6 @@
         android:id="@+id/button_done"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/content_padding_med"
         android:text="@string/use_photo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

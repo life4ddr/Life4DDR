@@ -35,8 +35,10 @@ data class TrialSessionDB(var trialId: String,
 data class SongDB(var position: Int = 0,
                   var score: Int = 0,
                   var exScore: Int = 0,
-                  var misses: Int = 0,
-                  var judge: Int = 0,
+                  var misses: Int = -1,
+                  var badJudges: Int = -1,
+                  var perfects: Int = -1,
+                  var passed: Boolean = true,
                   @Id var id: Long = 0) {
 
     lateinit var session: ToOne<TrialSessionDB>
@@ -47,6 +49,8 @@ data class SongDB(var position: Int = 0,
             result.exScore ?: 0,
             result.misses ?: 0,
             result.badJudges ?: 0,
+            result.perfects ?: 0,
+            result.passed,
             0)
     }
 }
