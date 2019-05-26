@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.data.TrialRank
@@ -38,6 +39,14 @@ class TrialSubmissionActivity: AppCompatActivity() {
         else -> null
     }
 
+    private fun difficultyViewForIndex(index: Int?): View? = when(index) {
+        0 -> view_difficulty_1
+        1 -> view_difficulty_2
+        2 -> view_difficulty_3
+        3 -> view_difficulty_4
+        else -> null
+    }
+
     private fun textViewForIndex(index: Int?): TextView? = when(index) {
         0 -> text_song_1
         1 -> text_song_2
@@ -47,6 +56,7 @@ class TrialSubmissionActivity: AppCompatActivity() {
     }
 
     private inline fun forEachResultImage(block: (Int, PathImageView) -> Unit) = (0..3).forEach { idx -> block(idx, imageViewForIndex(idx)!!) }
+    private inline fun forEachResultDifficulty(block: (Int, View) -> Unit) = (0..3).forEach { idx -> block(idx, difficultyViewForIndex(idx)!!) }
     private inline fun forEachResultText(block: (Int, TextView) -> Unit) = (0..3).forEach { idx -> block(idx, textViewForIndex(idx)!!) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -81,6 +91,12 @@ class TrialSubmissionActivity: AppCompatActivity() {
                 if (!result.passed) {
                     textView.setTextColor(ResourcesCompat.getColor(resources, R.color.orange, theme))
                 }
+            }
+        }
+
+        forEachResultDifficulty { idx, view ->
+            session.results[idx]?.let { result ->
+                view.setBackgroundColor(ContextCompat.getColor(this, result.song.difficultyClass.colorRes))
             }
         }
 

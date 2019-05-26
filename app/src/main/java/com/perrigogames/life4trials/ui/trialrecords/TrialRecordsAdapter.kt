@@ -73,6 +73,10 @@ class TrialRecordsAdapter(private val trialManager: TrialManager,
         private val song2: TextView = view.text_record_song_2
         private val song3: TextView = view.text_record_song_3
         private val song4: TextView = view.text_record_song_4
+        private val difficulty1: View = view.view_difficulty_1
+        private val difficulty2: View = view.view_difficulty_2
+        private val difficulty3: View = view.view_difficulty_3
+        private val difficulty4: View = view.view_difficulty_4
         private val jacketBackground: ImageView = view.image_jacket_background
 
         private var oldColors: ColorStateList= label1.textColors
@@ -118,6 +122,10 @@ class TrialRecordsAdapter(private val trialManager: TrialManager,
                             v.text = view.context.getString(R.string.not_played)
                             v.setTextColor(ContextCompat.getColor(view.context, R.color.orange))
                         }
+                    }
+
+                    arrayOf(difficulty1, difficulty2, difficulty3, difficulty4).forEachIndexed { idx, view ->
+                        view.setBackgroundColor(ContextCompat.getColor(view.context, trial.songs[idx].difficultyClass.colorRes))
                     }
                 }
             }

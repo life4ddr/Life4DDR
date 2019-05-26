@@ -53,6 +53,7 @@
         android:layout_height="wrap_content"
         android:hint="@string/ex_score"
         android:inputType="number"
+        android:nextFocusDown="@id/field_misses"
         app:layout_constraintBottom_toBottomOf="@id/field_score"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/field_score"

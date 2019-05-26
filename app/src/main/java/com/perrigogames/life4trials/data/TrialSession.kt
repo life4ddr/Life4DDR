@@ -56,7 +56,7 @@ data class SongResult(var song: Song,
                       var perfects: Int? = null,
                       var passed: Boolean = true): Serializable {
 
-    val hasAdvancedStats: Boolean get() = misses != null && badJudges != null
+    val hasAdvancedStats: Boolean get() = misses != null || badJudges != null
 
     var photoUri: Uri
         get() = Uri.parse(photoUriString)

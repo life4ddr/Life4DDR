@@ -49,11 +49,21 @@
         android:layout_marginStart="@dimen/content_padding_med"
         android:layout_marginTop="@dimen/content_padding_large"
         android:layout_marginEnd="@dimen/content_padding_med"
+        android:scaleType="centerCrop"
         app:layout_constraintDimensionRatio="1"
         app:layout_constraintEnd_toStartOf="@id/image_song_2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/image_trial_final"
         tools:background="@color/colorAccent" />
+
+    <View
+        android:id="@+id/view_difficulty_1"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/submission_difficulty_bar_height"
+        app:layout_constraintEnd_toEndOf="@id/image_song_1"
+        app:layout_constraintStart_toStartOf="@id/image_song_1"
+        app:layout_constraintTop_toBottomOf="@id/image_song_1"
+        tools:background="@color/difficultyExpert"/>
 
     <TextView
         android:id="@+id/text_song_1"
@@ -72,11 +82,21 @@
         android:layout_height="0dp"
         android:layout_marginEnd="@dimen/content_padding_med"
         android:layout_marginRight="@dimen/content_padding_med"
+        android:scaleType="centerCrop"
         app:layout_constraintDimensionRatio="1"
         app:layout_constraintEnd_toStartOf="@id/image_song_3"
         app:layout_constraintStart_toEndOf="@id/image_song_1"
         app:layout_constraintTop_toTopOf="@id/image_song_1"
         tools:background="@color/colorAccent" />
+
+    <View
+        android:id="@+id/view_difficulty_2"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/submission_difficulty_bar_height"
+        app:layout_constraintEnd_toEndOf="@id/image_song_2"
+        app:layout_constraintStart_toStartOf="@id/image_song_2"
+        app:layout_constraintTop_toBottomOf="@id/image_song_2"
+        tools:background="@color/difficultyExpert"/>
 
     <TextView
         android:id="@+id/text_song_2"
@@ -95,11 +115,21 @@
         android:layout_height="0dp"
         android:layout_marginEnd="@dimen/content_padding_med"
         android:layout_marginRight="@dimen/content_padding_med"
+        android:scaleType="centerCrop"
         app:layout_constraintDimensionRatio="1"
         app:layout_constraintEnd_toStartOf="@id/image_song_4"
         app:layout_constraintStart_toEndOf="@id/image_song_2"
         app:layout_constraintTop_toTopOf="@id/image_song_1"
         tools:background="@color/colorAccent" />
+
+    <View
+        android:id="@+id/view_difficulty_3"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/submission_difficulty_bar_height"
+        app:layout_constraintEnd_toEndOf="@id/image_song_3"
+        app:layout_constraintStart_toStartOf="@id/image_song_3"
+        app:layout_constraintTop_toBottomOf="@id/image_song_3"
+        tools:background="@color/difficultyExpert"/>
 
     <TextView
         android:id="@+id/text_song_3"
@@ -118,11 +148,21 @@
         android:layout_height="0dp"
         android:layout_marginEnd="@dimen/content_padding_med"
         android:layout_marginRight="@dimen/content_padding_med"
+        android:scaleType="centerCrop"
         app:layout_constraintDimensionRatio="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/image_song_3"
         app:layout_constraintTop_toTopOf="@id/image_song_1"
         tools:background="@color/colorAccent" />
+
+    <View
+        android:id="@+id/view_difficulty_4"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/submission_difficulty_bar_height"
+        app:layout_constraintEnd_toEndOf="@id/image_song_4"
+        app:layout_constraintStart_toStartOf="@id/image_song_4"
+        app:layout_constraintTop_toBottomOf="@id/image_song_4"
+        tools:background="@color/difficultyExpert"/>
 
     <TextView
         android:id="@+id/text_song_4"

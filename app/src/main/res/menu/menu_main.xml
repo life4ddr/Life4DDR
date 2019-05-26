@@ -36,6 +36,7 @@
     <item android:id="@+id/action_rank_goals"
         android:orderInCategory="195"
         android:title="@string/action_rank_goals"
+        android:visible="false"
         app:showAsAction="never"/>
     <item android:id="@+id/action_records"
         android:orderInCategory="200"

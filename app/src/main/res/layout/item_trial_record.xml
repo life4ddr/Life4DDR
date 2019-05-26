@@ -10,8 +10,8 @@
         android:id="@+id/image_jacket_background"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginEnd="@dimen/content_padding_med"
-        android:layout_marginRight="@dimen/content_padding_med"
+        android:layout_marginEnd="@dimen/record_difficulty_end_margin"
+        android:layout_marginRight="@dimen/record_difficulty_end_margin"
         android:alpha="0.3"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -128,6 +128,46 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/text_record_label_3"
         tools:text="AAAAAAAAAAAAAAAAAAAAAA"/>
+
+    <View
+        android:id="@+id/view_difficulty_1"
+        android:layout_width="@dimen/record_difficulty_width"
+        android:layout_height="0dp"
+        android:layout_marginEnd="@dimen/record_difficulty_end_margin"
+        android:layout_marginRight="@dimen/record_difficulty_end_margin"
+        app:layout_constraintBottom_toBottomOf="@id/text_record_label_1"
+        app:layout_constraintEnd_toStartOf="@id/guideline_score"
+        app:layout_constraintTop_toTopOf="@id/text_record_label_1" />
+
+    <View
+        android:id="@+id/view_difficulty_2"
+        android:layout_width="@dimen/record_difficulty_width"
+        android:layout_height="0dp"
+        android:layout_marginEnd="@dimen/record_difficulty_end_margin"
+        android:layout_marginRight="@dimen/record_difficulty_end_margin"
+        app:layout_constraintBottom_toBottomOf="@id/text_record_label_2"
+        app:layout_constraintEnd_toStartOf="@id/guideline_score"
+        app:layout_constraintTop_toTopOf="@id/text_record_label_2" />
+
+    <View
+        android:id="@+id/view_difficulty_3"
+        android:layout_width="@dimen/record_difficulty_width"
+        android:layout_height="0dp"
+        android:layout_marginEnd="@dimen/record_difficulty_end_margin"
+        android:layout_marginRight="@dimen/record_difficulty_end_margin"
+        app:layout_constraintBottom_toBottomOf="@id/text_record_label_3"
+        app:layout_constraintEnd_toStartOf="@id/guideline_score"
+        app:layout_constraintTop_toTopOf="@id/text_record_label_3" />
+
+    <View
+        android:id="@+id/view_difficulty_4"
+        android:layout_width="@dimen/record_difficulty_width"
+        android:layout_height="0dp"
+        android:layout_marginEnd="@dimen/record_difficulty_end_margin"
+        android:layout_marginRight="@dimen/record_difficulty_end_margin"
+        app:layout_constraintBottom_toBottomOf="@id/text_record_label_4"
+        app:layout_constraintEnd_toStartOf="@id/guideline_score"
+        app:layout_constraintTop_toTopOf="@id/text_record_label_4" />
 
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/guideline_score"

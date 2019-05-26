@@ -13,6 +13,8 @@ import android.text.TextWatcher
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.perrigogames.life4trials.BuildConfig
 import com.perrigogames.life4trials.R
@@ -37,13 +39,20 @@ class SongEntryActivity: AppCompatActivity() {
     val newEntry: Boolean get() = result?.score == null
     var modified: Boolean = false
 
-    val score get() = try { field_score.text.toString().toInt() } catch (e: NumberFormatException) { -1 }
-    val ex get() = try { field_ex.text.toString().toInt() } catch (e: NumberFormatException) { -1 }
-    val misses get() = try { field_misses.text.toString().toInt() } catch (e: NumberFormatException) { 0 }
-    val goods get() = try { field_goods.text.toString().toInt() } catch (e: NumberFormatException) { 0 }
-    val greats get() = try { field_greats.text.toString().toInt() } catch (e: NumberFormatException) { 0 }
-    val greatsLess get() = try { field_greats_less.text.toString().toInt() } catch (e: NumberFormatException) { 0 }
-    val perfects get() = try { field_perfects.text.toString().toInt() } catch (e: NumberFormatException) { 0 }
+    // Lists of fields for easy iteration
+    val normalFields: List<EditText> by lazy { listOf(field_score, field_ex) }
+    val advancedFields: List<EditText> by lazy { listOf(field_misses, field_goods, field_greats) }
+    val expertFields: List<EditText> by lazy { listOf(field_greats_less, field_perfects) }
+    val allFields: List<EditText> by lazy { normalFields + advancedFields + expertFields }
+
+    // Entered field values
+    val score: Int? get() = try { field_score.text.toString().toInt() } catch (e: NumberFormatException) { null }
+    val ex: Int? get() = try { field_ex.text.toString().toInt() } catch (e: NumberFormatException) { null }
+    val misses: Int? get() = try { field_misses.text.toString().toInt() } catch (e: NumberFormatException) { null }
+    val goods: Int? get() = try { field_goods.text.toString().toInt() } catch (e: NumberFormatException) { null }
+    val greats: Int? get() = try { field_greats.text.toString().toInt() } catch (e: NumberFormatException) { null }
+    val greatsLess: Int? get() = try { field_greats_less.text.toString().toInt() } catch (e: NumberFormatException) { null }
+    val perfects: Int? get() = try { field_perfects.text.toString().toInt() } catch (e: NumberFormatException) { null }
 
     private val textWatcher = object: TextWatcher {
         override fun afterTextChanged(s: Editable?) {
@@ -72,14 +81,14 @@ class SongEntryActivity: AppCompatActivity() {
             if (it.exScore != null) {
                 field_ex.text = SpannableStringBuilder(it.exScore.toString())
             }
-            if (it.misses != null) {
+            if (it.misses != null && it.misses != -1) {
                 field_misses.text = SpannableStringBuilder(it.misses.toString())
             }
-            if (it.badJudges != null && it.badJudges!! > 0) {
+            if (it.badJudges != null && it.misses != -1) {
                 checkbox_expert.isChecked = true
                 field_greats_less.text = SpannableStringBuilder(it.badJudges.toString())
             }
-            if (it.perfects != null && it.perfects!! > 0) {
+            if (it.perfects != null && it.misses != -1) {
                 checkbox_expert.isChecked = true
                 field_perfects.text = SpannableStringBuilder(it.perfects.toString())
             }
@@ -88,12 +97,12 @@ class SongEntryActivity: AppCompatActivity() {
 
             checkbox_expert.setOnCheckedChangeListener { _, isChecked ->
                 SharedPrefsUtils.setUserFlag(this, SettingsActivity.KEY_DETAILS_EXPERT, isChecked)
-                updateExpertCheck(isChecked)
+                updateAdvancedFields(isChecked)
             }
             if (!checkbox_expert.isChecked) {
                 checkbox_expert.isChecked = getUserFlag(this, SettingsActivity.KEY_DETAILS_EXPERT, false)
             }
-            updateExpertCheck(checkbox_expert.isChecked)
+            updateAdvancedFields(checkbox_expert.isChecked)
 
             if (field_score.requestFocus()) {
                 (getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager)
@@ -105,40 +114,40 @@ class SongEntryActivity: AppCompatActivity() {
         }
     }
 
-    private fun updateExpertCheck(isChecked: Boolean) {
-        val normalVisibility = if (advancedDetail) { if (isChecked) GONE else VISIBLE } else GONE
-        val expertVisibility = if (advancedDetail) { if (isChecked) VISIBLE else GONE } else GONE
+    private fun updateAdvancedFields(isExpert: Boolean) {
         checkbox_expert.visibility = if (advancedDetail) VISIBLE else GONE
-        field_misses.visibility = normalVisibility
-        field_goods.visibility = normalVisibility
-        field_greats.visibility = normalVisibility
-        field_greats_less.visibility = expertVisibility
-        field_perfects.visibility = expertVisibility
+        advancedFields.forEach { it.visibility = if (advancedDetail && !isExpert) VISIBLE else GONE }
+        expertFields.forEach { it.visibility = if (advancedDetail && isExpert) VISIBLE else GONE }
     }
 
     private fun completeEntry() {
-        field_score.error = null
-        field_ex.error = null
-        if (!BuildConfig.DEBUG && (score == -1 || ex == -1)) {
-            if (score == -1) {
-                field_score.error = getString(R.string.must_enter_number)
-            }
-            if (ex == -1) {
-                field_ex.error = getString(R.string.must_enter_number)
-            }
+        allFields.forEach { it.error = null }
+        checkErrorForValue(score, field_score)
+        checkErrorForValue(ex, field_ex)
+        checkErrorForValue(misses, field_misses)
+        checkErrorForValue(goods, field_goods)
+        checkErrorForValue(greats, field_greats)
+        checkErrorForValue(greatsLess, field_greats_less)
+        checkErrorForValue(perfects, field_perfects)
+        if (!BuildConfig.DEBUG && allFields.any { it.visibility == VISIBLE && it.error != null }) {
+            Toast.makeText(this, R.string.make_sure_fields_filled, Toast.LENGTH_SHORT)
         } else {
             setResult(Activity.RESULT_OK, Intent().apply {
                 putExtra(RESULT_DATA, result!!.also {
                     it.score = score
                     it.exScore = ex
-                    if (!checkbox_expert.isChecked) {
-                        it.misses = misses
-                        it.badJudges = misses + goods + greats
-                        it.perfects = null
-                    } else {
-                        it.misses = null
-                        it.badJudges = greatsLess
-                        it.perfects = perfects
+                    if (advancedDetail) {
+                        if (!checkbox_expert.isChecked) {
+                            it.misses = misses
+                            it.badJudges = if (misses != null && goods != null && greats != null)
+                                misses!! + goods!! + greats!!
+                            else null
+                            it.perfects = if (it.badJudges != null) -1 else null
+                        } else {
+                            it.misses = -1
+                            it.badJudges = greatsLess
+                            it.perfects = perfects
+                        }
                     }
                     it.passed = checkbox_passed.isChecked
                 })
@@ -160,6 +169,12 @@ class SongEntryActivity: AppCompatActivity() {
                 .show()
         } else {
             cancel()
+        }
+    }
+
+    private fun checkErrorForValue(value: Int?, field: EditText) {
+        if (value == null) {
+            field.error = getString(R.string.must_enter_number)
         }
     }
 

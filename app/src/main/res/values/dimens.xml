@@ -8,4 +8,7 @@
     <dimen name="jacket_difficulty_size">40dp</dimen>
     <dimen name="rank_goal_icon_size">64dp</dimen>
     <dimen name="record_rank_icon_size">32dp</dimen>
+    <dimen name="submission_difficulty_bar_height">3dp</dimen>
+    <dimen name="record_difficulty_width">6dp</dimen>
+    <dimen name="record_difficulty_end_margin">5dp</dimen>
 </resources>
