@@ -57,6 +57,13 @@
             android:name=".activity.SettingsActivity"
             android:label="@string/title_activity_settings" />
 
+        <receiver android:name=".util.NotificationCopyHandler"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="ACTION_COPY_CLIPBOARD"/>
+            </intent-filter>
+        </receiver>
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${providerName}"

@@ -197,4 +197,6 @@
 
     <string name="set_numbers_3_format">%d, %d, and %d</string>
     <string name="make_sure_fields_filled">Make sure all fields are filled in.</string>
+    <string name="tap_to_copy">Tap to copy \"%s\"</string>
+    <string name="copied">\"%s\" Copied!</string>
 </resources>
