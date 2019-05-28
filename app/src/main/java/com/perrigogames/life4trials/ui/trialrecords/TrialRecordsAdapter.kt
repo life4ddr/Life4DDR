@@ -113,7 +113,7 @@ class TrialRecordsAdapter(private val trialManager: TrialManager,
 
                     rankImage.rank = s.goalRank!!.parent
                     rankImage.alpha = if (s.goalObtained) 1f else 0.3f
-                    date.text = DataUtil.humanTimestamp(context.locale, s.date)
+                    date.text = DataUtil.humanNewlineTimestamp(context.locale, s.date)
 
                     val miniEntry = s.songs.size == 0
                     if (!miniEntry) {
