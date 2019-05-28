@@ -19,6 +19,8 @@ data class TrialSessionDB(var trialId: String,
 
     val goalRank get() = TrialRank.parse(goalRankId)
 
+    val exScore get() = if (songs.size > 0) songs.sumBy { it.exScore } else null
+
     @Backlink(to = "session")
     lateinit var songs: ToMany<SongDB>
 

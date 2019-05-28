@@ -72,9 +72,12 @@
     <string name="confirm_erase_data">Are you sure you want to clear all saved rank data?</string>
 
     <!-- Format Strings -->
+    <string name="ex_score_fraction_format">"%d/%d EX"</string>
     <string name="difficulty_string_format">"%s (%d)"</string>
     <string name="score_string_format">"%s (%d EX)"</string>
-    <string name="ex_score_string_format">%d EX (%d)</string>
+    <string name="ex_score_string_format">%d EX</string>
+    <string name="ex_score_missing_string_format">%d EX (%d)</string>
+    <string name="ex_score_missing_newline_string_format">%d EX\n(%d)</string>
     <string name="score_string_summary_format">"%s\n%d EX"</string>
     <string name="score_string_summary_format_advanced">"%s\n%d EX\n%d Miss\n%d &lt;Great"</string>
 

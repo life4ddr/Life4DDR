@@ -64,7 +64,7 @@ class TrialSubmissionActivity: AppCompatActivity() {
         setContentView(R.layout.content_trial_submission)
 
         image_desired_rank.rank = session.goalRank.parent
-        text_ex_score.text = getString(R.string.ex_score_string_format, session.totalExScore, session.missingExScore)
+        text_ex_score.text = getString(R.string.ex_score_missing_string_format, session.totalExScore, session.missingExScore)
 
         spinner_desired_rank.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, session.availableRanks)
         spinner_desired_rank.setSelection(session.availableRanks.indexOf(session.goalRank))

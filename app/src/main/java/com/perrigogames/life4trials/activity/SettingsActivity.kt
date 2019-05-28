@@ -41,6 +41,11 @@ class SettingsActivity : AppCompatActivity() {
 
         val trialManager get() = context!!.life4app.trialManager
 
+        private val listUpdateListener = Preference.OnPreferenceClickListener {
+            Life4Application.eventBus.post(TrialListUpdatedEvent())
+            true
+        }
+
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             val context = preferenceManager.context
             val screen = preferenceManager.createPreferenceScreen(context)
@@ -77,12 +82,19 @@ class SettingsActivity : AppCompatActivity() {
                 title = "Trial List"
                 screen.addPreference(this)
                 addPreference(SwitchPreference(context).apply {
+                    key = KEY_LIST_SHOW_EX
+                    title = "Show EX Score"
+                    onPreferenceClickListener = listUpdateListener
+                })
+                addPreference(SwitchPreference(context).apply {
+                    key = KEY_LIST_SHOW_EX_REMAINING
+                    title = "Also show remaining EX Score"
+                    onPreferenceClickListener = listUpdateListener
+                })
+                addPreference(SwitchPreference(context).apply {
                     key = KEY_LIST_TINT_COMPLETED
                     title = "Tint fully completed Trials"
-                    onPreferenceClickListener = Preference.OnPreferenceClickListener {
-                        Life4Application.eventBus.post(TrialListUpdatedEvent())
-                        true
-                    }
+                    onPreferenceClickListener = listUpdateListener
                 })
             }
             PreferenceCategory(context).apply {
@@ -96,6 +108,15 @@ class SettingsActivity : AppCompatActivity() {
                 addPreference(SwitchPreference(context).apply {
                     key = KEY_DETAILS_EXPERT
                     title = "Expert score entry"
+                })
+            }
+            PreferenceCategory(context).apply {
+                key = "trial_records"
+                title = "Records"
+                screen.addPreference(this)
+                addPreference(SwitchPreference(context).apply {
+                    key = KEY_RECORDS_REMAINING_EX
+                    title = "Show remaining EX instead of total"
                 })
             }
 
@@ -188,12 +209,15 @@ class SettingsActivity : AppCompatActivity() {
 
     companion object {
         const val KEY_LIST_TINT_COMPLETED = "KEY_LIST_TINT_COMPLETED"
+        const val KEY_LIST_SHOW_EX = "KEY_LIST_SHOW_EX"
+        const val KEY_LIST_SHOW_EX_REMAINING = "KEY_LIST_SHOW_EX_REMAINING"
         const val KEY_DETAILS_PHOTO_SELECT = "KEY_DETAILS_PHOTO_SELECT"
         const val KEY_DETAILS_EXPERT = "KEY_DETAILS_EXPERT"
         const val KEY_INFO_RIVAL_CODE = "KEY_INFO_RIVAL_CODE"
         const val KEY_INFO_TWITTER_NAME = "KEY_INFO_TWITTER_NAME"
         const val KEY_SUBMISSION_NOTIFICAION = "KEY_SUBMISSION_NOTIFICAION"
         const val KEY_SUBMISSION_NOTIFICAION_TEST = "KEY_SUBMISSION_NOTIFICAION_TEST"
+        const val KEY_RECORDS_REMAINING_EX = "KEY_RECORDS_REMAINING_EX"
 
         const val KEY_DEBUG_DETAILS_DISPLAY_ALL_RANKS = "dddar"
         const val KEY_DEBUG_BYPASS_STAT_ENTRY = "dbse"

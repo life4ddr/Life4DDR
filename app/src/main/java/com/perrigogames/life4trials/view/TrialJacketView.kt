@@ -5,10 +5,16 @@ import android.graphics.drawable.ColorDrawable
 import android.util.AttributeSet
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
+import androidx.constraintlayout.widget.ConstraintSet.BOTTOM
+import androidx.constraintlayout.widget.ConstraintSet.TOP
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
+import com.perrigogames.life4trials.R
+import com.perrigogames.life4trials.activity.SettingsActivity
 import com.perrigogames.life4trials.data.Trial
 import com.perrigogames.life4trials.data.TrialRank
+import com.perrigogames.life4trials.util.SharedPrefsUtils
 import kotlinx.android.synthetic.main.view_trial_jacket.view.*
 
 class TrialJacketView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
@@ -46,16 +52,54 @@ class TrialJacketView @JvmOverloads constructor(context: Context, attrs: Attribu
             updateRankTint()
         }
 
+    var exScore: Int? = null
+        set(v) {
+            field = v
+            updateExScore()
+        }
+
+    private val shouldTint: Boolean
+        get() = rank != null && rank == tintOnRank
+
     private fun updateRankTint() {
-        if (rank != null && rank == tintOnRank) {
-            view_foreground_tint.visibility = View.VISIBLE
+        if (shouldTint) {
+            view_foreground_tint.visibility = VISIBLE
             (view_foreground_tint.drawable as ColorDrawable).color = ContextCompat.getColor(context, rank!!.color)
-            image_badge_highest.visibility = View.GONE
-            image_badge_highest_center.visibility = View.VISIBLE
+            image_badge_highest.visibility = GONE
+            image_badge_highest_center.visibility = VISIBLE
+            text_ex_score.visibility = GONE
+            text_ex_score_center.visibility = VISIBLE
         } else {
-            view_foreground_tint.visibility = View.GONE
-            image_badge_highest.visibility = if (rank != null) View.VISIBLE else View.GONE
-            image_badge_highest_center.visibility = View.GONE
+            view_foreground_tint.visibility = GONE
+            image_badge_highest.visibility = if (rank != null) VISIBLE else GONE
+            image_badge_highest_center.visibility = GONE
+            text_ex_score.visibility = VISIBLE
+            text_ex_score_center.visibility = GONE
+        }
+        updateExScore()
+    }
+
+    private fun updateExScore() {
+        if (exScore != null) {
+            if (trial != null && SharedPrefsUtils.getUserFlag(context, SettingsActivity.KEY_LIST_SHOW_EX_REMAINING, false)) {
+                text_ex_score.text = context.getString(R.string.ex_score_missing_newline_string_format, exScore, exScore!! - trial!!.total_ex)
+                text_ex_score_center.text = context.getString(R.string.ex_score_missing_string_format, exScore, exScore!! - trial!!.total_ex)
+            } else {
+                text_ex_score.text = context.getString(R.string.ex_score_string_format, exScore!!)
+                text_ex_score_center.text = context.getString(R.string.ex_score_string_format, exScore!!)
+            }
+        } else {
+            text_ex_score.text = null
+            text_ex_score_center.text = null
+        }
+        ConstraintSet().also {
+            it.clone(this)
+            if (exScore != null) {
+                it.connect(image_badge_highest_center.id, BOTTOM, text_ex_score_center.id, TOP, 0)
+            } else {
+                it.connect(image_badge_highest_center.id, BOTTOM, this.id, BOTTOM, 0)
+            }
+            it.applyTo(this)
         }
     }
 }

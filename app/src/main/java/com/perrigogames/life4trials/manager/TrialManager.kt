@@ -68,15 +68,19 @@ class TrialManager(private val context: Context) {
         Life4Application.eventBus.post(SavedRankUpdatedEvent())
     }
 
-    fun getRankForTrial(trialId: String): TrialRank? {
+    fun bestTrial(trialId: String): TrialSessionDB? {
         sessionBox.query {
             val results = equal(TrialSessionDB_.trialId, trialId)
                 .equal(TrialSessionDB_.goalObtained, true)
                 .sort { o1, o2 -> o2.goalRankId.compareTo(o1.goalRankId)}
                 .build()
                 .find()
-            return results.firstOrNull()?.goalRank
+            return results.firstOrNull()
         }
         return null
+    }
+
+    fun getRankForTrial(trialId: String): TrialRank? {
+        return bestTrial(trialId)?.goalRank
     }
 }

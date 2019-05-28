@@ -27,10 +27,13 @@ class TrialsAdapter(private val context: Context,
     override fun onBindViewHolder(holder: TrialViewHolder, position: Int) {
         holder.trialItemView.trial = trials[position]
         holder.itemView.setOnClickListener { onItemClicked(position) }
+        val bestSession = trialManager.bestTrial(trials[position].id)
         if (tiled) {
-            holder.trialItemView.setupHighestRank(trialManager.getRankForTrial(trials[position].id))
+            holder.trialItemView.setHighestRank(bestSession?.goalRank)
+            holder.trialItemView.setExScore(bestSession?.exScore)
         } else {
-            holder.trialItemView.setupRankList(trialManager.getRankForTrial(trials[position].id))
+            holder.trialItemView.setupRankList(bestSession?.goalRank)
+            holder.trialItemView.setExScore(bestSession?.exScore)
         }
     }
 
