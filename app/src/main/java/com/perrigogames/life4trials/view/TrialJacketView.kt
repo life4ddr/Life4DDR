@@ -81,6 +81,11 @@ class TrialJacketView @JvmOverloads constructor(context: Context, attrs: Attribu
 
     private fun updateExScore() {
         if (exScore != null) {
+            if (shouldTint) {
+                text_ex_score_center.visibility = VISIBLE
+            } else {
+                text_ex_score.visibility = VISIBLE
+            }
             if (trial != null && SharedPrefsUtils.getUserFlag(context, SettingsActivity.KEY_LIST_SHOW_EX_REMAINING, false)) {
                 text_ex_score.text = context.getString(R.string.ex_score_missing_newline_string_format, exScore, exScore!! - trial!!.total_ex)
                 text_ex_score_center.text = context.getString(R.string.ex_score_missing_string_format, exScore, exScore!! - trial!!.total_ex)
@@ -89,8 +94,8 @@ class TrialJacketView @JvmOverloads constructor(context: Context, attrs: Attribu
                 text_ex_score_center.text = context.getString(R.string.ex_score_string_format, exScore!!)
             }
         } else {
-            text_ex_score.text = null
-            text_ex_score_center.text = null
+            text_ex_score.visibility = GONE
+            text_ex_score_center.visibility = GONE
         }
         ConstraintSet().also {
             it.clone(this)

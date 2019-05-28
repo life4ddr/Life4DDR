@@ -110,6 +110,7 @@
         android:layout_marginEnd="@dimen/content_padding_med"
         android:layout_marginRight="@dimen/content_padding_med"
         android:gravity="right"
+        android:background="@drawable/drawable_rounded_dark"
         android:textColor="@color/white"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@id/image_badge_highest"

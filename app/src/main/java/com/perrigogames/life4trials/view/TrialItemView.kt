@@ -68,6 +68,8 @@ class TrialItemView @JvmOverloads constructor(context: Context, attrs: Attribute
         (view_trial_jacket as TrialJacketView).let { view ->
             if (SharedPrefsUtils.getUserFlag(context, SettingsActivity.KEY_LIST_SHOW_EX, false)) {
                 view.exScore = exScore
+            } else {
+                view.exScore = null
             }
         }
     }
