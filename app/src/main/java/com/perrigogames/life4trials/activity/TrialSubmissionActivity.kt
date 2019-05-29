@@ -3,6 +3,7 @@ package com.perrigogames.life4trials.activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -65,6 +66,11 @@ class TrialSubmissionActivity: AppCompatActivity() {
 
         image_desired_rank.rank = session.goalRank.parent
         text_ex_score.text = getString(R.string.ex_score_missing_string_format, session.totalExScore, session.missingExScore)
+
+        val displayMetrics = DisplayMetrics()
+        windowManager.defaultDisplay.getMetrics(displayMetrics)
+        image_trial_final.layoutParams.height = (displayMetrics.heightPixels * 0.4f).toInt()
+        image_song_1.layoutParams.height = (displayMetrics.widthPixels / 4.3f).toInt()
 
         spinner_desired_rank.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, session.availableRanks)
         spinner_desired_rank.setSelection(session.availableRanks.indexOf(session.goalRank))

@@ -6,221 +6,203 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_left"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.25" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_right"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.75" />
-
-    <TextView
-        android:id="@+id/text_submit_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/content_padding_large"
-        android:text="@string/confirm_trial_title"
-        android:textSize="24sp"
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/button_submit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <com.perrigogames.life4trials.view.PathImageView
-        android:id="@+id/image_trial_final"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="@dimen/content_padding_large"
-        app:layout_constraintDimensionRatio="1"
-        app:layout_constraintEnd_toEndOf="@id/guideline_right"
-        app:layout_constraintStart_toStartOf="@id/guideline_left"
-        app:layout_constraintTop_toBottomOf="@id/text_submit_title"
-        tools:background="@color/colorAccent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <com.perrigogames.life4trials.view.PathImageView
-        android:id="@+id/image_song_1"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="@dimen/content_padding_med"
-        android:layout_marginTop="@dimen/content_padding_large"
-        android:layout_marginEnd="@dimen/content_padding_med"
-        android:scaleType="centerCrop"
-        app:layout_constraintDimensionRatio="1"
-        app:layout_constraintEnd_toStartOf="@id/image_song_2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/image_trial_final"
-        tools:background="@color/colorAccent" />
+            <com.perrigogames.life4trials.view.PathImageView
+                android:id="@+id/image_trial_final"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/content_padding_large"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:background="@color/colorAccent" />
 
-    <View
-        android:id="@+id/view_difficulty_1"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/submission_difficulty_bar_height"
-        app:layout_constraintEnd_toEndOf="@id/image_song_1"
-        app:layout_constraintStart_toStartOf="@id/image_song_1"
-        app:layout_constraintTop_toBottomOf="@id/image_song_1"
-        tools:background="@color/difficultyExpert"/>
+            <com.perrigogames.life4trials.view.PathImageView
+                android:id="@+id/image_song_1"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/content_padding_large"
+                android:scaleType="centerCrop"
+                app:layout_constraintDimensionRatio="1"
+                app:layout_constraintEnd_toStartOf="@id/image_song_2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/image_trial_final"
+                tools:background="@color/colorAccent"
+                tools:layout_height="80dp"/>
 
-    <TextView
-        android:id="@+id/text_song_1"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="@dimen/content_padding_med"
-        app:layout_constraintBottom_toBottomOf="@id/barrier"
-        app:layout_constraintEnd_toEndOf="@id/image_song_1"
-        app:layout_constraintStart_toStartOf="@id/image_song_1"
-        app:layout_constraintTop_toBottomOf="@id/image_song_1"
-        tools:text="@string/score_string_summary_format"/>
+            <View
+                android:id="@+id/view_difficulty_1"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/submission_difficulty_bar_height"
+                app:layout_constraintEnd_toEndOf="@id/image_song_1"
+                app:layout_constraintStart_toStartOf="@id/image_song_1"
+                app:layout_constraintTop_toBottomOf="@id/image_song_1"
+                tools:background="@color/difficultyExpert"/>
 
-    <com.perrigogames.life4trials.view.PathImageView
-        android:id="@+id/image_song_2"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginEnd="@dimen/content_padding_med"
-        android:layout_marginRight="@dimen/content_padding_med"
-        android:scaleType="centerCrop"
-        app:layout_constraintDimensionRatio="1"
-        app:layout_constraintEnd_toStartOf="@id/image_song_3"
-        app:layout_constraintStart_toEndOf="@id/image_song_1"
-        app:layout_constraintTop_toTopOf="@id/image_song_1"
-        tools:background="@color/colorAccent" />
+            <TextView
+                android:id="@+id/text_song_1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/content_padding_med"
+                app:layout_constraintBottom_toBottomOf="@id/barrier"
+                app:layout_constraintEnd_toEndOf="@id/image_song_1"
+                app:layout_constraintStart_toStartOf="@id/image_song_1"
+                app:layout_constraintTop_toBottomOf="@id/image_song_1"
+                tools:text="@string/score_string_summary_format"/>
 
-    <View
-        android:id="@+id/view_difficulty_2"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/submission_difficulty_bar_height"
-        app:layout_constraintEnd_toEndOf="@id/image_song_2"
-        app:layout_constraintStart_toStartOf="@id/image_song_2"
-        app:layout_constraintTop_toBottomOf="@id/image_song_2"
-        tools:background="@color/difficultyExpert"/>
+            <com.perrigogames.life4trials.view.PathImageView
+                android:id="@+id/image_song_2"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintDimensionRatio="1"
+                app:layout_constraintEnd_toStartOf="@id/image_song_3"
+                app:layout_constraintStart_toEndOf="@id/image_song_1"
+                app:layout_constraintTop_toTopOf="@id/image_song_1"
+                tools:background="@color/colorAccent" />
 
-    <TextView
-        android:id="@+id/text_song_2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/content_padding_med"
-        app:layout_constraintBottom_toBottomOf="@id/barrier"
-        app:layout_constraintEnd_toEndOf="@id/image_song_2"
-        app:layout_constraintStart_toStartOf="@id/image_song_2"
-        app:layout_constraintTop_toBottomOf="@id/image_song_2"
-        tools:text="@string/score_string_summary_format"/>
+            <View
+                android:id="@+id/view_difficulty_2"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/submission_difficulty_bar_height"
+                app:layout_constraintEnd_toEndOf="@id/image_song_2"
+                app:layout_constraintStart_toStartOf="@id/image_song_2"
+                app:layout_constraintTop_toBottomOf="@id/image_song_2"
+                tools:background="@color/difficultyExpert"/>
 
-    <com.perrigogames.life4trials.view.PathImageView
-        android:id="@+id/image_song_3"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginEnd="@dimen/content_padding_med"
-        android:layout_marginRight="@dimen/content_padding_med"
-        android:scaleType="centerCrop"
-        app:layout_constraintDimensionRatio="1"
-        app:layout_constraintEnd_toStartOf="@id/image_song_4"
-        app:layout_constraintStart_toEndOf="@id/image_song_2"
-        app:layout_constraintTop_toTopOf="@id/image_song_1"
-        tools:background="@color/colorAccent" />
+            <TextView
+                android:id="@+id/text_song_2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/content_padding_med"
+                app:layout_constraintBottom_toBottomOf="@id/barrier"
+                app:layout_constraintEnd_toEndOf="@id/image_song_2"
+                app:layout_constraintStart_toStartOf="@id/image_song_2"
+                app:layout_constraintTop_toBottomOf="@id/image_song_2"
+                tools:text="@string/score_string_summary_format"/>
 
-    <View
-        android:id="@+id/view_difficulty_3"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/submission_difficulty_bar_height"
-        app:layout_constraintEnd_toEndOf="@id/image_song_3"
-        app:layout_constraintStart_toStartOf="@id/image_song_3"
-        app:layout_constraintTop_toBottomOf="@id/image_song_3"
-        tools:background="@color/difficultyExpert"/>
+            <com.perrigogames.life4trials.view.PathImageView
+                android:id="@+id/image_song_3"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintDimensionRatio="1"
+                app:layout_constraintEnd_toStartOf="@id/image_song_4"
+                app:layout_constraintStart_toEndOf="@id/image_song_2"
+                app:layout_constraintTop_toTopOf="@id/image_song_1"
+                tools:background="@color/colorAccent" />
 
-    <TextView
-        android:id="@+id/text_song_3"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/content_padding_med"
-        app:layout_constraintBottom_toBottomOf="@id/barrier"
-        app:layout_constraintEnd_toEndOf="@id/image_song_3"
-        app:layout_constraintStart_toStartOf="@id/image_song_3"
-        app:layout_constraintTop_toBottomOf="@id/image_song_3"
-        tools:text="@string/score_string_summary_format"/>
+            <View
+                android:id="@+id/view_difficulty_3"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/submission_difficulty_bar_height"
+                app:layout_constraintEnd_toEndOf="@id/image_song_3"
+                app:layout_constraintStart_toStartOf="@id/image_song_3"
+                app:layout_constraintTop_toBottomOf="@id/image_song_3"
+                tools:background="@color/difficultyExpert"/>
 
-    <com.perrigogames.life4trials.view.PathImageView
-        android:id="@+id/image_song_4"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginEnd="@dimen/content_padding_med"
-        android:layout_marginRight="@dimen/content_padding_med"
-        android:scaleType="centerCrop"
-        app:layout_constraintDimensionRatio="1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/image_song_3"
-        app:layout_constraintTop_toTopOf="@id/image_song_1"
-        tools:background="@color/colorAccent" />
+            <TextView
+                android:id="@+id/text_song_3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/content_padding_med"
+                app:layout_constraintBottom_toBottomOf="@id/barrier"
+                app:layout_constraintEnd_toEndOf="@id/image_song_3"
+                app:layout_constraintStart_toStartOf="@id/image_song_3"
+                app:layout_constraintTop_toBottomOf="@id/image_song_3"
+                tools:text="@string/score_string_summary_format"/>
 
-    <View
-        android:id="@+id/view_difficulty_4"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/submission_difficulty_bar_height"
-        app:layout_constraintEnd_toEndOf="@id/image_song_4"
-        app:layout_constraintStart_toStartOf="@id/image_song_4"
-        app:layout_constraintTop_toBottomOf="@id/image_song_4"
-        tools:background="@color/difficultyExpert"/>
+            <com.perrigogames.life4trials.view.PathImageView
+                android:id="@+id/image_song_4"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintDimensionRatio="1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/image_song_3"
+                app:layout_constraintTop_toTopOf="@id/image_song_1"
+                tools:background="@color/colorAccent" />
 
-    <TextView
-        android:id="@+id/text_song_4"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/content_padding_med"
-        app:layout_constraintBottom_toBottomOf="@id/barrier"
-        app:layout_constraintEnd_toEndOf="@id/image_song_4"
-        app:layout_constraintStart_toStartOf="@id/image_song_4"
-        app:layout_constraintTop_toBottomOf="@id/image_song_4"
-        tools:text="@string/score_string_summary_format"/>
+            <View
+                android:id="@+id/view_difficulty_4"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/submission_difficulty_bar_height"
+                app:layout_constraintEnd_toEndOf="@id/image_song_4"
+                app:layout_constraintStart_toStartOf="@id/image_song_4"
+                app:layout_constraintTop_toBottomOf="@id/image_song_4"
+                tools:background="@color/difficultyExpert"/>
 
-    <androidx.constraintlayout.widget.Barrier
-        android:id="@+id/barrier"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:barrierDirection="bottom"
-        app:constraint_referenced_ids="text_song_1,text_song_2,text_song_3,text_song_4"/>
+            <TextView
+                android:id="@+id/text_song_4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/content_padding_med"
+                app:layout_constraintBottom_toBottomOf="@id/barrier"
+                app:layout_constraintEnd_toEndOf="@id/image_song_4"
+                app:layout_constraintStart_toStartOf="@id/image_song_4"
+                app:layout_constraintTop_toBottomOf="@id/image_song_4"
+                tools:text="@string/score_string_summary_format"/>
 
-    <com.perrigogames.life4trials.view.RankImageView
-        android:id="@+id/image_desired_rank"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_margin="@dimen/content_padding_large"
-        app:layout_constraintEnd_toStartOf="@id/spinner_desired_rank"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/barrier"
-        tools:src="@drawable/silver_3" />
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrier"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="text_song_1,text_song_2,text_song_3,text_song_4"/>
 
-    <Spinner
-        android:id="@+id/spinner_desired_rank"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/content_padding_med"
-        android:layout_marginLeft="@dimen/content_padding_med"
-        app:layout_constraintBottom_toBottomOf="@id/image_desired_rank"
-        app:layout_constraintStart_toEndOf="@id/image_desired_rank"
-        app:layout_constraintTop_toTopOf="@id/image_desired_rank" />
+            <com.perrigogames.life4trials.view.RankImageView
+                android:id="@+id/image_desired_rank"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_margin="@dimen/content_padding_large"
+                app:layout_constraintEnd_toStartOf="@id/spinner_desired_rank"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/barrier"
+                tools:src="@drawable/silver_3" />
 
-    <TextView
-        android:id="@+id/text_ex_score"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/content_padding_large"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@id/image_desired_rank"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/image_desired_rank"
-        tools:text="2600 EX"/>
+            <Spinner
+                android:id="@+id/spinner_desired_rank"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/content_padding_med"
+                android:layout_marginLeft="@dimen/content_padding_med"
+                app:layout_constraintBottom_toBottomOf="@id/image_desired_rank"
+                app:layout_constraintStart_toEndOf="@id/image_desired_rank"
+                app:layout_constraintTop_toTopOf="@id/image_desired_rank" />
 
-    <TextView
-        android:id="@+id/text_goals"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/content_padding_med"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/image_desired_rank" />
+            <TextView
+                android:id="@+id/text_ex_score"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/content_padding_large"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@id/image_desired_rank"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/image_desired_rank"
+                tools:text="2600 EX"/>
+
+            <TextView
+                android:id="@+id/text_goals"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/content_padding_med"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/image_desired_rank" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
     <Button
         android:id="@+id/button_submit"
@@ -229,6 +211,6 @@
         android:text="@string/submit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_goals" />
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
