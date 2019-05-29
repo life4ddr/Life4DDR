@@ -1,67 +1,69 @@
 {
-	"trials": [
-		{
-			"id": "konnorspicks",
-			"name": "KONNOR's Picks",
-			"difficulty": 16,
-			"goals": [
-				{
-					"rank": "silver"
-				}, {
-					"rank": "gold",
-					"miss": 10
-				}, {
-					"rank": "diamond",
-					"score": [990000, 990000, 970000, 970000],
-					"miss": 0
-				}, {
-					"rank": "cobalt",
-					"ex_missing": 50
-				}, {
-					"rank": "amethyst",
-					"ex_missing": 10
-				}
-			],
-			"total_ex": 10000,
-			"songs": [
-				{ "name": "Confession", "difficulty": 14, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202013%20%28AC%29%20%28Japan%29/Confession/Confession-jacket.png"},
-				{ "name": "Astrogazer", "difficulty": 15, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/Astrogazer/Astrogazer-jacket.png"},
-				{ "name": "Elemental Creation", "difficulty": 17, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202013%20%28AC%29%20%28Japan%29/Elemental%20Creation/Elemental%20Creation-jacket.png"},
-				{ "name": "Vanquish The Ghost", "difficulty": 16, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/Vanquish%20The%20Ghost/Vanquish%20The%20Ghost-jacket.png" }
-			]
-		}, {
-			"id": "debug",
-			"name": "Debug",
-			"difficulty": 20,
-			"goals": [
-				{
-					"rank": "silver",
-					"miss": 0
-				}, {
-					"rank": "gold",
-					"ex_missing": 0
-				}, {
-					"rank": "diamond",
-					"score": [1000000, 995000, 990000, 985000],
-					"ex_missing": 220
-				}, {
-					"rank": "cobalt",
-					"miss": 0,
-					"ex_missing": 0
-				}, {
-					"rank": "amethyst",
-					"score": [1000000, 1000000, 1000000, 1000000],
-					"miss": 0,
-					"ex_missing": 0
-				}
-			],
-			"total_ex": 10000,
-			"songs": [
-				{ "name": "AAAAAAAAAA", "difficulty": 18, "difficulty_class": "beginner", "url": ""},
-				{ "name": "BBBBBBBBBB", "difficulty": 19, "difficulty_class": "basic", "url": ""},
-				{ "name": "CCCCCCCCCC", "difficulty": 20, "difficulty_class": "difficult", "url": ""},
-				{ "name": "DDDDDDDDDD", "difficulty": 21, "difficulty_class": "challenge", "url": "" }
-			]
-		}
-	]
+  "trials": [
+    {
+      "id": "konnorpicks",
+      "name": "KONNOR's Picks",
+      "type": "trial",
+      "difficulty": 16,
+      "goals": [
+        {
+          "rank": "silver"
+        }, {
+          "rank": "gold",
+          "miss": 10
+        }, {
+          "rank": "diamond",
+          "score": [990000, 990000, 970000, 970000],
+          "miss": 0
+        }, {
+          "rank": "cobalt",
+          "ex_missing": 50
+        }, {
+          "rank": "amethyst",
+          "ex_missing": 10
+        }
+      ],
+      "total_ex": 10000,
+      "songs": [
+        { "name": "Confession", "difficulty": 14, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202013%20%28AC%29%20%28Japan%29/Confession/Confession-jacket.png"},
+        { "name": "Astrogazer", "difficulty": 15, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/Astrogazer/Astrogazer-jacket.png"},
+        { "name": "Elemental Creation", "difficulty": 17, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202013%20%28AC%29%20%28Japan%29/Elemental%20Creation/Elemental%20Creation-jacket.png"},
+        { "name": "Vanquish The Ghost", "difficulty": 16, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/Vanquish%20The%20Ghost/Vanquish%20The%20Ghost-jacket.png" }
+      ]
+    }, {
+      "id": "debug",
+      "name": "Debug",
+      "type": "trial",
+      "difficulty": 20,
+      "goals": [
+        {
+          "rank": "silver",
+          "miss": 0
+        }, {
+          "rank": "gold",
+          "ex_missing": 0
+        }, {
+          "rank": "diamond",
+          "score": [1000000, 995000, 990000, 985000],
+          "ex_missing": 220
+        }, {
+          "rank": "cobalt",
+          "miss": 0,
+          "ex_missing": 0
+        }, {
+          "rank": "amethyst",
+          "score": [1000000, 1000000, 1000000, 1000000],
+          "miss": 0,
+          "ex_missing": 0
+        }
+      ],
+      "total_ex": 10000,
+      "songs": [
+        { "name": "AAAAAAAAAA", "difficulty": 18, "difficulty_class": "beginner", "url": ""},
+        { "name": "BBBBBBBBBB", "difficulty": 19, "difficulty_class": "basic", "url": ""},
+        { "name": "CCCCCCCCCC", "difficulty": 20, "difficulty_class": "difficult", "url": ""},
+        { "name": "DDDDDDDDDD", "difficulty": 21, "difficulty_class": "challenge", "url": "" }
+      ]
+    }
+  ]
 }

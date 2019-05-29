@@ -30,6 +30,8 @@ class TrialJacketView @JvmOverloads constructor(context: Context, attrs: Attribu
         set(v) {
             field = v
             text_trial_title.text = v?.name
+            image_trial_difficulty.visibility = if (v?.difficulty != null) VISIBLE else GONE
+            text_trial_difficulty.visibility = if (v?.difficulty != null) VISIBLE else GONE
             text_trial_difficulty.text = v?.difficulty?.toString()
             if (v != null) {
                 if (v.shouldShowTitle) {
@@ -87,8 +89,8 @@ class TrialJacketView @JvmOverloads constructor(context: Context, attrs: Attribu
                 text_ex_score.visibility = VISIBLE
             }
             if (trial != null && SharedPrefsUtils.getUserFlag(context, SettingsActivity.KEY_LIST_SHOW_EX_REMAINING, false)) {
-                text_ex_score.text = context.getString(R.string.ex_score_missing_newline_string_format, exScore, exScore!! - trial!!.total_ex)
-                text_ex_score_center.text = context.getString(R.string.ex_score_missing_string_format, exScore, exScore!! - trial!!.total_ex)
+                text_ex_score.text = context.getString(R.string.ex_score_missing_newline_string_format, exScore, exScore!! - trial!!.total_ex!!)
+                text_ex_score_center.text = context.getString(R.string.ex_score_missing_string_format, exScore, exScore!! - trial!!.total_ex!!)
             } else {
                 text_ex_score.text = context.getString(R.string.ex_score_string_format, exScore!!)
                 text_ex_score_center.text = context.getString(R.string.ex_score_string_format, exScore!!)

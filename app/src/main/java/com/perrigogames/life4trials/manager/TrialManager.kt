@@ -11,6 +11,7 @@ import com.perrigogames.life4trials.db.SongDB
 import com.perrigogames.life4trials.db.TrialSessionDB
 import com.perrigogames.life4trials.db.TrialSessionDB_
 import com.perrigogames.life4trials.event.SavedRankUpdatedEvent
+import com.perrigogames.life4trials.life4app
 import com.perrigogames.life4trials.util.DataUtil
 import com.perrigogames.life4trials.util.loadRawString
 import io.objectbox.kotlin.query
@@ -24,7 +25,8 @@ class TrialManager(private val context: Context) {
         trialData = DataUtil.gson.fromJson(context.loadRawString(R.raw.trials), TrialData::class.java)!!
         if (BuildConfig.DEBUG) {
             val debugData: TrialData = DataUtil.gson.fromJson(context.loadRawString(R.raw.trials_debug), TrialData::class.java)!!
-            trialData = TrialData(trialData.trials + debugData.trials)
+            val placements = context.life4app.placementManager.placements
+            trialData = TrialData(trialData.trials + debugData.trials + placements)
         }
     }
 

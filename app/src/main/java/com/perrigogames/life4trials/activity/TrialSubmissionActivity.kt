@@ -159,7 +159,7 @@ class TrialSubmissionActivity: AppCompatActivity() {
                     if (SharedPrefsUtils.getUserFlag(this, SettingsActivity.KEY_SUBMISSION_NOTIFICAION, false)) {
                         NotificationUtil.showUserInfoNotifications(this, session.totalExScore)
                     }
-                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.url_submission_form))))
+                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.url_trial_submission_form))))
                     finish()
                 }
                 .show()

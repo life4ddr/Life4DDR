@@ -105,9 +105,9 @@ class TrialRecordsAdapter(private val trialManager: TrialManager,
 
                     val sessionEx = s.exScore ?: 0
                     val shouldShowRemaining = SharedPrefsUtils.getUserFlag(context, KEY_RECORDS_REMAINING_EX, false)
-                    val goalEx = if (shouldShowRemaining) sessionEx - trial.total_ex else trial.total_ex
+                    val goalEx = if (shouldShowRemaining) sessionEx - trial.total_ex!! else trial.total_ex
                     exScore.text = context.getString(R.string.ex_score_fraction_format, sessionEx, goalEx)
-                    exProgress.max = trial.total_ex
+                    exProgress.max = trial.total_ex!!
                     val progressPercent = AccelerateInterpolator(0.25f).getInterpolation(sessionEx.toFloat() / trial.total_ex)
                     exProgress.progress = (progressPercent * sessionEx).toInt()
 
