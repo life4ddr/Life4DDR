@@ -1,16 +1,17 @@
-package com.perrigogames.life4trials
+package com.perrigogames.life4trials.ui.triallist
 
 import android.content.Context
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.perrigogames.life4trials.data.Trial
+import com.perrigogames.life4trials.life4app
 import com.perrigogames.life4trials.view.TrialItemView
 import com.perrigogames.life4trials.view.TrialItemView.TrialViewHolder
 
-class TrialsAdapter(private val context: Context,
-                    private val trials: List<Trial>,
-                    private val tiled: Boolean = false,
-                    private val onItemClicked: (Int) -> Unit):
+class TrialListAdapter(private val context: Context,
+                       private val trials: List<Trial>,
+                       private val tiled: Boolean = false,
+                       private val onItemClicked: (String) -> Unit):
     RecyclerView.Adapter<TrialViewHolder>() {
 
     private val trialManager get() = context.life4app.trialManager
@@ -26,7 +27,7 @@ class TrialsAdapter(private val context: Context,
 
     override fun onBindViewHolder(holder: TrialViewHolder, position: Int) {
         holder.trialItemView.trial = trials[position]
-        holder.itemView.setOnClickListener { onItemClicked(position) }
+        holder.itemView.setOnClickListener { onItemClicked(trials[position].id) }
         val bestSession = trialManager.bestTrial(trials[position].id)
         if (tiled) {
             holder.trialItemView.setHighestRank(bestSession?.goalRank)

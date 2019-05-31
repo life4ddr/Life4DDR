@@ -17,7 +17,7 @@ import com.perrigogames.life4trials.data.TrialRank
 import com.perrigogames.life4trials.data.TrialSession
 import com.perrigogames.life4trials.life4app
 import com.perrigogames.life4trials.util.NotificationUtil
-import com.perrigogames.life4trials.util.SharedPrefsUtils
+import com.perrigogames.life4trials.util.SharedPrefsUtil
 import com.perrigogames.life4trials.view.PathImageView
 import com.perrigogames.life4trials.view.longNumberString
 import kotlinx.android.synthetic.main.content_trial_submission.*
@@ -156,7 +156,7 @@ class TrialSubmissionActivity: AppCompatActivity() {
                 .setMessage(R.string.submit_dialog_prompt)
                 .setNegativeButton(R.string.no) { _, _ -> finish() }
                 .setPositiveButton(R.string.yes) { _, _ ->
-                    if (SharedPrefsUtils.getUserFlag(this, SettingsActivity.KEY_SUBMISSION_NOTIFICAION, false)) {
+                    if (SharedPrefsUtil.getUserFlag(this, SettingsActivity.KEY_SUBMISSION_NOTIFICAION, false)) {
                         NotificationUtil.showUserInfoNotifications(this, session.totalExScore)
                     }
                     startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.url_trial_submission_form))))

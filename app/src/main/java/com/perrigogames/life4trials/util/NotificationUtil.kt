@@ -60,12 +60,12 @@ object NotificationUtil {
     }
 
     fun showUserInfoNotifications(c: Context, exScore: Int) {
-        SharedPrefsUtils.getUserString(c, SettingsActivity.KEY_INFO_RIVAL_CODE)?.let { rivalCode ->
+        SharedPrefsUtil.getUserString(c, SettingsActivity.KEY_INFO_RIVAL_CODE)?.let { rivalCode ->
             if (rivalCode.isNotEmpty()) {
                 notifyCopyableMessage(c, ID_NOTIF_RIVAL_CODE, R.string.rival_code, rivalCode)
             }
         }
-        SharedPrefsUtils.getUserString(c, SettingsActivity.KEY_INFO_TWITTER_NAME)?.let { twitterName ->
+        SharedPrefsUtil.getUserString(c, SettingsActivity.KEY_INFO_TWITTER_NAME)?.let { twitterName ->
             if (twitterName.isNotEmpty()) {
                 notifyCopyableMessage(c, ID_NOTIF_TWITTER_HANDLE, R.string.twitter_name, twitterName)
             }

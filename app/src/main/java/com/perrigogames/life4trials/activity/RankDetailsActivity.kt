@@ -1,7 +1,8 @@
-package com.perrigogames.life4trials
+package com.perrigogames.life4trials.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.data.RankEntry
 import com.perrigogames.life4trials.ui.rankdetails.RankDetailsFragment
 

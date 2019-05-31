@@ -34,8 +34,9 @@ import com.perrigogames.life4trials.data.TrialRank
 import com.perrigogames.life4trials.data.TrialSession
 import com.perrigogames.life4trials.life4app
 import com.perrigogames.life4trials.util.DataUtil
-import com.perrigogames.life4trials.util.SharedPrefsUtils
+import com.perrigogames.life4trials.util.SharedPrefsUtil
 import com.perrigogames.life4trials.util.locale
+import com.perrigogames.life4trials.util.openWebUrlFromRes
 import com.perrigogames.life4trials.view.SongView
 import com.perrigogames.life4trials.view.TrialJacketView
 import kotlinx.android.synthetic.main.content_trial_details.*
@@ -46,8 +47,8 @@ import java.io.IOException
 class TrialDetailsActivity: AppCompatActivity() {
 
     private val trials: List<Trial> get() = life4app.trialManager.trials
-    private val trialIndex: Int by lazy { intent.extras!!.getInt(ARG_TRIAL_INDEX) }
-    private val trial: Trial get() = trials[trialIndex]
+    private val trialId: String by lazy { intent.extras!!.getString(ARG_TRIAL_ID) }
+    private val trial: Trial get() = trials.first { it.id == trialId }
 
     private val storedRank: TrialRank? get() = life4app.trialManager.getRankForTrial(trial.id)
     private val initialRank: TrialRank by lazy { storedRank?.next
@@ -98,9 +99,9 @@ class TrialDetailsActivity: AppCompatActivity() {
             }
         }
 
-        switch_acquire_mode.isChecked = SharedPrefsUtils.getUserFlag(this, KEY_DETAILS_PHOTO_SELECT, false)
+        switch_acquire_mode.isChecked = SharedPrefsUtil.getUserFlag(this, KEY_DETAILS_PHOTO_SELECT, false)
         switch_acquire_mode.setOnCheckedChangeListener { _, isChecked ->
-            SharedPrefsUtils.setUserFlag(this, KEY_DETAILS_PHOTO_SELECT, isChecked)
+            SharedPrefsUtil.setUserFlag(this, KEY_DETAILS_PHOTO_SELECT, isChecked)
         }
 
         button_concede.visibility = VISIBLE
@@ -143,8 +144,9 @@ class TrialDetailsActivity: AppCompatActivity() {
     }
 
     fun navigationButtonClicked(v: View) {
-        val index = trialIndex + (if (v.id == R.id.button_navigate_previous) -1 else 1)
-        startActivity(intent(this, index))
+        val mod = if (v.id == R.id.button_navigate_previous) -1 else 1
+        val targetTrial = trials[trials.indexOfFirst { it.id == trialId } + mod]
+        startActivity(intent(this, targetTrial.id))
         finish()
     }
 
@@ -158,9 +160,7 @@ class TrialDetailsActivity: AppCompatActivity() {
         }
     }
 
-    private fun onLeaderboardClick() {
-        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.url_trial, trial.id))))
-    }
+    private fun onLeaderboardClick() = openWebUrlFromRes(R.string.url_trial, trial.id)
 
     private fun onConcedeClick() {
         AlertDialog.Builder(this).setTitle(R.string.are_you_sure)
@@ -202,7 +202,7 @@ class TrialDetailsActivity: AppCompatActivity() {
         finish()
     }
 
-    private fun acquirePhoto(selection: Boolean = SharedPrefsUtils.getUserFlag(this, KEY_DETAILS_PHOTO_SELECT, false),
+    private fun acquirePhoto(selection: Boolean = SharedPrefsUtil.getUserFlag(this, KEY_DETAILS_PHOTO_SELECT, false),
                              newPhoto: Boolean,
                              final: Boolean = false) {
         if (selection) {
@@ -321,7 +321,7 @@ class TrialDetailsActivity: AppCompatActivity() {
                         mediaScanIntent.data = Uri.fromFile(currentPhotoFile)
                         sendBroadcast(mediaScanIntent)
                     }
-                    if (SharedPrefsUtils.getDebugFlag(this, SettingsActivity.KEY_DEBUG_BYPASS_STAT_ENTRY)) {
+                    if (SharedPrefsUtil.getDebugFlag(this, SettingsActivity.KEY_DEBUG_BYPASS_STAT_ENTRY)) {
                         currentResult!!.randomize()
                         onEntryFinished(currentResult!!)
                     } else {
@@ -343,7 +343,7 @@ class TrialDetailsActivity: AppCompatActivity() {
                     }
                     currentResult!!.photoUri = uri
 
-                    if (SharedPrefsUtils.getDebugFlag(this, SettingsActivity.KEY_DEBUG_BYPASS_STAT_ENTRY)) {
+                    if (SharedPrefsUtil.getDebugFlag(this, SettingsActivity.KEY_DEBUG_BYPASS_STAT_ENTRY)) {
                         currentResult!!.randomize()
                         onEntryFinished(currentResult!!)
                     } else {
@@ -412,6 +412,14 @@ class TrialDetailsActivity: AppCompatActivity() {
         currentIndex = null
         isNewEntry = false
         currentPhotoFile = null
+
+        if (result?.passed == false) {
+            AlertDialog.Builder(this).setTitle(R.string.trial_failed)
+                .setMessage(R.string.trial_fail_confirmation)
+                .setNegativeButton(R.string.cancel, null)
+                .setPositiveButton(R.string.okay) { _, _ -> concedeTrial() }
+                .show()
+        }
     }
 
     private fun onEntryCancelled() {
@@ -423,7 +431,7 @@ class TrialDetailsActivity: AppCompatActivity() {
     }
 
     companion object {
-        const val ARG_TRIAL_INDEX = "ARG_TRIAL_INDEX"
+        const val ARG_TRIAL_ID = "ARG_TRIAL_ID"
         const val ARG_INITIAL_RANK = "ARG_INITIAL_RANK"
 
         const val FLAG_IMAGE_CAPTURE = 1 // capturing for a new song
@@ -434,9 +442,9 @@ class TrialDetailsActivity: AppCompatActivity() {
         const val FLAG_IMAGE_SELECT_FINAL = 6 // selecting a local photo of the final score screen
         const val FLAG_SCORE_ENTER = 7 // to enter the score screen
 
-        fun intent(c: Context, trialIndex: Int, initialRank: TrialRank? = null) =
+        fun intent(c: Context, trialId: String, initialRank: TrialRank? = null) =
             Intent(c, TrialDetailsActivity::class.java).apply {
-                putExtra(ARG_TRIAL_INDEX, trialIndex)
+                putExtra(ARG_TRIAL_ID, trialId)
                 initialRank?.let { putExtra(ARG_INITIAL_RANK, it) }
             }
     }

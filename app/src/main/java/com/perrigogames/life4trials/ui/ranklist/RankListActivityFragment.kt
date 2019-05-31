@@ -1,4 +1,4 @@
-package com.perrigogames.life4trials.activity
+package com.perrigogames.life4trials.ui.ranklist
 
 import android.content.Context
 import android.os.Bundle

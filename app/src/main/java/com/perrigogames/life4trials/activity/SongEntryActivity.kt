@@ -16,12 +16,11 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.perrigogames.life4trials.BuildConfig
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.data.Song
 import com.perrigogames.life4trials.data.SongResult
-import com.perrigogames.life4trials.util.SharedPrefsUtils
-import com.perrigogames.life4trials.util.SharedPrefsUtils.getUserFlag
+import com.perrigogames.life4trials.util.SharedPrefsUtil
+import com.perrigogames.life4trials.util.SharedPrefsUtil.getUserFlag
 import kotlinx.android.synthetic.main.content_song_entry.*
 
 
@@ -96,7 +95,7 @@ class SongEntryActivity: AppCompatActivity() {
             field_ex.addTextChangedListener(textWatcher)
 
             checkbox_expert.setOnCheckedChangeListener { _, isChecked ->
-                SharedPrefsUtils.setUserFlag(this, SettingsActivity.KEY_DETAILS_EXPERT, isChecked)
+                SharedPrefsUtil.setUserFlag(this, SettingsActivity.KEY_DETAILS_EXPERT, isChecked)
                 updateAdvancedFields(isChecked)
             }
             if (!checkbox_expert.isChecked) {
@@ -129,8 +128,9 @@ class SongEntryActivity: AppCompatActivity() {
         checkErrorForValue(greats, field_greats)
         checkErrorForValue(greatsLess, field_greats_less)
         checkErrorForValue(perfects, field_perfects)
-        if (!BuildConfig.DEBUG && allFields.any { it.visibility == VISIBLE && it.error != null }) {
-            Toast.makeText(this, R.string.make_sure_fields_filled, Toast.LENGTH_SHORT)
+        if (!SharedPrefsUtil.getDebugFlag(this, SettingsActivity.KEY_DEBUG_ACCEPT_INVALID) &&
+            allFields.any { it.visibility == VISIBLE && it.error != null }) {
+            Toast.makeText(this, R.string.make_sure_fields_filled, Toast.LENGTH_SHORT).show()
         } else {
             setResult(Activity.RESULT_OK, Intent().apply {
                 putExtra(RESULT_DATA, result!!.also {

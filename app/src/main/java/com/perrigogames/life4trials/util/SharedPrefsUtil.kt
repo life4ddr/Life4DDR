@@ -7,7 +7,7 @@ import androidx.preference.PreferenceManager
 import com.perrigogames.life4trials.BuildConfig
 import com.perrigogames.life4trials.activity.SettingsActivity
 
-object SharedPrefsUtils {
+object SharedPrefsUtil {
 
     const val KEY_INIT = "KEY_INIT"
     const val KEY_RANK_PREFS = "rank_preferences"

@@ -10,18 +10,23 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.activity.SettingsActivity
+import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_LIST_SHOW_EX
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_LIST_TINT_COMPLETED
 import com.perrigogames.life4trials.data.Trial
 import com.perrigogames.life4trials.data.TrialRank
-import com.perrigogames.life4trials.util.SharedPrefsUtils
+import com.perrigogames.life4trials.util.SharedPrefsUtil
 import kotlinx.android.synthetic.main.item_trial_list_item.view.*
 
 /**
- * A custom [View]
+ * A custom [View] for displaying a single [Trial].
  */
 class TrialItemView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
     ConstraintLayout(context, attrs, defStyleAttr) {
+
+    val tintCompleted: Boolean
+        get() = SharedPrefsUtil.getUserFlag(context, KEY_LIST_TINT_COMPLETED, false)
+    val showEx: Boolean
+        get() = SharedPrefsUtil.getUserFlag(context, KEY_LIST_SHOW_EX, false)
 
     var trial: Trial? = null
         set(v) {
@@ -39,7 +44,7 @@ class TrialItemView @JvmOverloads constructor(context: Context, attrs: Attribute
     }
 
     fun setupRankList(rank: TrialRank?) = trial?.let { t ->
-        t.goals.forEach { goal ->
+        t.goals?.forEach { goal ->
             (when(goal.rank) {
                 TrialRank.SILVER -> image_badge_1
                 TrialRank.GOLD -> image_badge_2
@@ -58,19 +63,13 @@ class TrialItemView @JvmOverloads constructor(context: Context, attrs: Attribute
     fun setHighestRank(rank: TrialRank?) {
         (view_trial_jacket as TrialJacketView).let { view ->
             view.rank = rank
-            if (SharedPrefsUtils.getUserFlag(context, KEY_LIST_TINT_COMPLETED, false)) {
-                view.tintOnRank = TrialRank.AMETHYST
-            }
+            view.tintOnRank = if (tintCompleted) TrialRank.AMETHYST else null
         }
     }
 
     fun setExScore(exScore: Int?) {
         (view_trial_jacket as TrialJacketView).let { view ->
-            if (SharedPrefsUtils.getUserFlag(context, SettingsActivity.KEY_LIST_SHOW_EX, false)) {
-                view.exScore = exScore
-            } else {
-                view.exScore = null
-            }
+            view.exScore = if (showEx) exScore else null
         }
     }
 

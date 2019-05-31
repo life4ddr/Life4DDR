@@ -3,6 +3,7 @@
     <dimen name="content_padding_small">4dp</dimen>
     <dimen name="content_padding_med">8dp</dimen>
     <dimen name="content_padding_large">16dp</dimen>
+    <dimen name="content_padding_huge">32dp</dimen>
     <dimen name="trial_details_main_thumb_size">200dp</dimen>
     <dimen name="size_detail_nav_debug">48dp</dimen>
     <dimen name="jacket_difficulty_size">40dp</dimen>
@@ -11,4 +12,6 @@
     <dimen name="submission_difficulty_bar_height">3dp</dimen>
     <dimen name="record_difficulty_width">6dp</dimen>
     <dimen name="record_difficulty_end_margin">5dp</dimen>
+    <dimen name="placement_rank_icon_size">128dp</dimen>
+    <dimen name="text_title">32sp</dimen>
 </resources>

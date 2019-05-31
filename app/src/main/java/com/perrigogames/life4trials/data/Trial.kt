@@ -16,13 +16,13 @@ class Trial(val id: String,
             val name: String,
             val type: TrialType,
             val difficulty: Int?,
-            val goals: List<GoalSet>,
+            val goals: List<GoalSet>?,
             val total_ex: Int?,
             val songs: List<Song>,
             val jacket_dir: String? = null,
             val jacket_name: String? = null): Serializable {
 
-    fun goalSet(rank: TrialRank): GoalSet? = goals.find { it.rank == rank }
+    fun goalSet(rank: TrialRank): GoalSet? = goals?.find { it.rank == rank }
 
     fun jacketUrl(resources: Resources) =
         resources.getString(

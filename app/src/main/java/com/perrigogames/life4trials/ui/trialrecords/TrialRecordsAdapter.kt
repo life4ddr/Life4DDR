@@ -19,7 +19,7 @@ import com.perrigogames.life4trials.db.TrialSessionDB
 import com.perrigogames.life4trials.manager.TrialManager
 import com.perrigogames.life4trials.ui.trialrecords.TrialRecordsFragment.OnRecordsListInteractionListener
 import com.perrigogames.life4trials.util.DataUtil
-import com.perrigogames.life4trials.util.SharedPrefsUtils
+import com.perrigogames.life4trials.util.SharedPrefsUtil
 import com.perrigogames.life4trials.util.locale
 import com.perrigogames.life4trials.view.RankImageView
 import com.perrigogames.life4trials.view.longNumberString
@@ -104,7 +104,7 @@ class TrialRecordsAdapter(private val trialManager: TrialManager,
                     title.text = trial.name
 
                     val sessionEx = s.exScore ?: 0
-                    val shouldShowRemaining = SharedPrefsUtils.getUserFlag(context, KEY_RECORDS_REMAINING_EX, false)
+                    val shouldShowRemaining = SharedPrefsUtil.getUserFlag(context, KEY_RECORDS_REMAINING_EX, false)
                     val goalEx = if (shouldShowRemaining) sessionEx - trial.total_ex!! else trial.total_ex
                     exScore.text = context.getString(R.string.ex_score_fraction_format, sessionEx, goalEx)
                     exProgress.max = trial.total_ex!!

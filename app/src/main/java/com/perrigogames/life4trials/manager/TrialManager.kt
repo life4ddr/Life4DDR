@@ -1,6 +1,7 @@
 package com.perrigogames.life4trials.manager
 
 import android.content.Context
+import androidx.appcompat.app.AlertDialog
 import com.perrigogames.life4trials.BuildConfig
 import com.perrigogames.life4trials.Life4Application
 import com.perrigogames.life4trials.R
@@ -65,9 +66,16 @@ class TrialManager(private val context: Context) {
     }
 
     fun clearRecords() {
-        sessionBox.removeAll()
-        songBox.removeAll()
-        Life4Application.eventBus.post(SavedRankUpdatedEvent())
+        AlertDialog.Builder(context)
+            .setTitle(R.string.are_you_sure)
+            .setMessage(R.string.confirm_erase_data)
+            .setPositiveButton(R.string.yes) { _, _ ->
+                sessionBox.removeAll()
+                songBox.removeAll()
+                Life4Application.eventBus.post(SavedRankUpdatedEvent())
+            }
+            .setNegativeButton(R.string.no, null)
+            .show()
     }
 
     fun bestTrial(trialId: String): TrialSessionDB? {

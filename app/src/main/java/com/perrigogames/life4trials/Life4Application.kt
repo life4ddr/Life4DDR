@@ -9,7 +9,7 @@ import com.perrigogames.life4trials.manager.PlacementManager
 import com.perrigogames.life4trials.manager.TrialManager
 import com.perrigogames.life4trials.util.DataUtil
 import com.perrigogames.life4trials.util.NotificationUtil
-import com.perrigogames.life4trials.util.SharedPrefsUtils
+import com.perrigogames.life4trials.util.SharedPrefsUtil
 import com.perrigogames.life4trials.util.loadRawString
 import io.objectbox.BoxStore
 import okhttp3.OkHttpClient
@@ -25,7 +25,7 @@ class Life4Application: MultiDexApplication() {
 
     override fun onCreate() {
         super.onCreate()
-        SharedPrefsUtils.initializeDefaults(this)
+        SharedPrefsUtil.initializeDefaults(this)
 
         placementManager = PlacementManager(this)
         trialManager = TrialManager(this)

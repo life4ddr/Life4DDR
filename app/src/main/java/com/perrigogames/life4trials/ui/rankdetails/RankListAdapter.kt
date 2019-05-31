@@ -8,9 +8,9 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.activity.RankListActivityFragment.OnRankListInteractionListener
 import com.perrigogames.life4trials.data.LadderRank
 import com.perrigogames.life4trials.data.RankEntry
+import com.perrigogames.life4trials.ui.ranklist.RankListActivityFragment.OnRankListInteractionListener
 import kotlinx.android.synthetic.main.item_rank.view.*
 
 /**

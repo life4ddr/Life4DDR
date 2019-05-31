@@ -58,6 +58,8 @@
     <string name="gallery_permission_title">Gallery Permission</string>
     <string name="gallery_permission_description_popup">This app needs permission to access your photos to use them for LIFE4 verification.</string>
 
+    <string name="trial_failed">Trial Failed!</string>
+    <string name="trial_fail_confirmation">Would you like to Concede and save this Trial attempt?</string>
     <string name="trial_close_confirmation">The progress made in this trial will not be saved.</string>
     <string name="trial_concede_confirmation_format">This trial will be saved to your records as incomplete for %s (%s).\n\nYou will NOT get a chance to log your failed song if you haven\'t already.</string>
     <string name="photo_save_confirmation">This photo will not be saved.</string>
@@ -141,10 +143,25 @@
     <string name="title_activity_settings">Settings</string>
 
     <!-- Preference Titles -->
+    <string name="user_info">User Info</string>
+    <string name="trial_list">Trial List</string>
+    <string name="show_ex">Show EX Score</string>
+    <string name="show_ex_remaining">Also show remaining EX Score</string>
+    <string name="tint_completed_trials">Tint fully completed Trials</string>
     <string name="messages_header">Messages</string>
     <string name="sync_header">Sync</string>
     <string name="rival_code">Rival Code</string>
     <string name="twitter_name">Twitter Name</string>
+    <string name="show_notifications">Show info notifications during submission</string>
+    <string name="test_notifications">Test notifications</string>
+    <string name="photo_select">Use photo picker</string>
+    <string name="expert_score">Expert score entry</string>
+    <string name="show_remaining_instead_total">Show remaining EX instead of total</string>
+    <string name="send_feedback">Send feedback</string>
+    <string name="send_feedback_summary">Report technical issues or suggest new features</string>
+    <string name="trial_details">Trial Details</string>
+    <string name="trial_records">Trial Records</string>
+    <string name="help">Help &amp; Feedback</string>
 
     <!-- Messages Preferences -->
     <string name="signature_title">Your signature</string>
@@ -200,4 +217,13 @@
     <string name="make_sure_fields_filled">Make sure all fields are filled in.</string>
     <string name="tap_to_copy">Tap to copy \"%s\"</string>
     <string name="copied">\"%s\" Copied!</string>
+    <string name="placement_explanation">Placement sets are collections of three songs that must be played all in the same set.</string>
+    <array name="placement_explanation_bullets">
+        <item>• The songs can be played in any order.</item>
+        <item>• Extra Stage is optional. If you earn an Extra Stage, you can use it to improve a previous score.</item>
+        <item>• No photos are required of the individual song results screen.</item>
+        <item>• The ONLY photo that is required is one of the final results screen, showing the scores for each song
+            played.
+        </item>
+    </array>
 </resources>

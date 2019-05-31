@@ -1,51 +1,62 @@
-<!--
-  ~ Copyright 2018 The app Open Source Project
-  ~
-  ~ Licensed under the Apache License, Version 2.0 (the "License");
-  ~ you may not use this file except in compliance with the License.
-  ~ You may obtain a copy of the License at
-  ~
-  ~      http://www.apache.org/licenses/LICENSE-2.0
-  ~
-  ~ Unless required by applicable law or agreed to in writing, software
-  ~ distributed under the License is distributed on an "AS IS" BASIS,
-  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  ~ See the License for the specific language governing permissions and
-  ~ limitations under the License.
-  -->
+<PreferenceScreen
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-<androidx.preference.PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <PreferenceCategory app:title="@string/messages_header">
+    <PreferenceCategory app:title="@string/user_info">
 
         <EditTextPreference
-            app:key="signature"
-            app:title="@string/signature_title"
-            app:useSimpleSummaryProvider="true" />
-
-        <ListPreference
-            app:defaultValue="reply"
-            app:entries="@array/reply_entries"
-            app:entryValues="@array/reply_values"
-            app:key="reply"
-            app:title="@string/reply_title"
-            app:useSimpleSummaryProvider="true" />
-
+            app:key="KEY_INFO_RIVAL_CODE"
+            app:title="@string/rival_code" />
+        <EditTextPreference
+            app:key="KEY_INFO_TWITTER_NAME"
+            app:title="@string/twitter_name" />
+        <SwitchPreference
+            app:key="KEY_SUBMISSION_NOTIFICAION"
+            app:title="@string/show_notifications" />
+        <Preference
+            app:key="notification_test"
+            app:title="@string/test_notifications" />
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="@string/sync_header">
+    <PreferenceCategory app:title="@string/trial_list">
 
-        <SwitchPreferenceCompat
-            app:key="sync"
-            app:title="@string/sync_title" />
+        <SwitchPreference
+            app:key="KEY_LIST_SHOW_EX"
+            app:title="@string/show_ex" />
 
-        <SwitchPreferenceCompat
-            app:dependency="sync"
-            app:key="attachment"
-            app:summaryOff="@string/attachment_summary_off"
-            app:summaryOn="@string/attachment_summary_on"
-            app:title="@string/attachment_title" />
+        <SwitchPreference
+            app:dependency="KEY_LIST_SHOW_EX"
+            app:key="KEY_LIST_SHOW_EX_REMAINING"
+            app:title="@string/show_ex_remaining" />
 
+        <SwitchPreference
+            app:key="KEY_LIST_TINT_COMPLETED"
+            app:title="@string/tint_completed_trials" />
     </PreferenceCategory>
 
-</androidx.preference.PreferenceScreen>
+    <PreferenceCategory app:title="@string/trial_details">
+
+        <SwitchPreference
+            app:key="KEY_DETAILS_PHOTO_SELECT"
+            app:title="@string/photo_select" />
+
+        <SwitchPreference
+            app:key="KEY_DETAILS_EXPERT"
+            app:title="@string/expert_score" />
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/trial_records">
+
+        <SwitchPreference
+            app:key="KEY_RECORDS_REMAINING_EX"
+            app:title="@string/show_remaining_instead_total" />
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/help">
+
+        <Preference
+            app:key="KEY_FEEDBACK"
+            app:summary="@string/send_feedback_summary"
+            app:title="@string/send_feedback"/>
+    </PreferenceCategory>
+
+</PreferenceScreen>
