@@ -186,6 +186,7 @@
                 android:id="@+id/text_ex_score"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/content_padding_large"
                 android:layout_marginRight="@dimen/content_padding_large"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="@id/image_desired_rank"
@@ -206,7 +207,8 @@
 
     <Button
         android:id="@+id/button_submit"
-        android:layout_width="wrap_content"
+        style="@style/BottomProgressButton"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/submit"
         app:layout_constraintEnd_toEndOf="parent"

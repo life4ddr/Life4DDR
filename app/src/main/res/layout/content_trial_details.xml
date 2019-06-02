@@ -192,6 +192,7 @@
 
     <Button
         android:id="@+id/button_leaderboard"
+        style="@style/BottomProgressButtonRightBorder"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/leaderboard"
@@ -202,6 +203,7 @@
 
     <Button
         android:id="@+id/button_concede"
+        style="@style/BottomProgressButtonLeftBorder"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/concede"
@@ -212,6 +214,7 @@
 
     <Button
         android:id="@+id/button_finalize"
+        style="@style/BottomProgressButtonLeftBorder"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/finalize"
