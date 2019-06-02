@@ -22,6 +22,8 @@ class TrialManager(private val context: Context) {
     private var trialData: TrialData
     val trials get() = trialData.trials
 
+    var currentSession: TrialSession? = null
+
     init {
         trialData = DataUtil.gson.fromJson(context.loadRawString(R.raw.trials), TrialData::class.java)!!
         if (BuildConfig.DEBUG) {
@@ -39,6 +41,14 @@ class TrialManager(private val context: Context) {
     val records: List<TrialSessionDB> get() = sessionBox.all
 
     fun findTrial(id: String) = trials.firstOrNull { it.id == id }
+
+    fun previousTrial(id: String) = previousTrial(trials.indexOfFirst { it.id == id })
+
+    fun previousTrial(index: Int) = trials.getOrNull(index - 1)
+
+    fun nextTrial(id: String) = nextTrial(trials.indexOfFirst { it.id == id })
+
+    fun nextTrial(index: Int) = trials.getOrNull(index + 1)
 
     fun saveRecord(session: TrialSession) {
         val sessionDB = TrialSessionDB.from(session)
@@ -92,5 +102,10 @@ class TrialManager(private val context: Context) {
 
     fun getRankForTrial(trialId: String): TrialRank? {
         return bestTrial(trialId)?.goalRank
+    }
+
+    fun startSession(trialId: String, initialGoal: TrialRank): TrialSession {
+        currentSession = TrialSession(findTrial(trialId)!!, initialGoal)
+        return currentSession!!
     }
 }

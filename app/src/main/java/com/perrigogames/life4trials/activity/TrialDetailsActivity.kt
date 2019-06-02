@@ -28,11 +28,10 @@ import com.karumi.dexter.listener.multi.CompositeMultiplePermissionsListener
 import com.karumi.dexter.listener.multi.SnackbarOnAnyDeniedMultiplePermissionsListener
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_DETAILS_PHOTO_SELECT
-import com.perrigogames.life4trials.data.SongResult
-import com.perrigogames.life4trials.data.Trial
-import com.perrigogames.life4trials.data.TrialRank
-import com.perrigogames.life4trials.data.TrialSession
+import com.perrigogames.life4trials.data.*
 import com.perrigogames.life4trials.life4app
+import com.perrigogames.life4trials.manager.TrialManager
+import com.perrigogames.life4trials.ui.songlist.SongListFragment
 import com.perrigogames.life4trials.util.DataUtil
 import com.perrigogames.life4trials.util.SharedPrefsUtil
 import com.perrigogames.life4trials.util.locale
@@ -44,11 +43,11 @@ import java.io.File
 import java.io.IOException
 
 
-class TrialDetailsActivity: AppCompatActivity() {
+class TrialDetailsActivity: AppCompatActivity(), SongListFragment.Listener {
 
-    private val trials: List<Trial> get() = life4app.trialManager.trials
+    private val trialManager: TrialManager get() = life4app.trialManager
     private val trialId: String by lazy { intent.extras!!.getString(ARG_TRIAL_ID) }
-    private val trial: Trial get() = trials.first { it.id == trialId }
+    private val trial: Trial get() = trialManager.findTrial(trialId)!!
 
     private val storedRank: TrialRank? get() = life4app.trialManager.getRankForTrial(trial.id)
     private val initialRank: TrialRank by lazy { storedRank?.next
@@ -66,15 +65,7 @@ class TrialDetailsActivity: AppCompatActivity() {
         }
     private var isNewEntry = false
 
-    private fun songViewForIndex(index: Int?) = when(index) {
-        0 -> include_song_1
-        1 -> include_song_2
-        2 -> include_song_3
-        3 -> include_song_4
-        else -> null
-    } as? SongView
-
-    private inline fun forEachSongView(block: (Int, SongView) -> Unit) = (0..3).forEach { idx -> block(idx, songViewForIndex(idx)!!) }
+    private lateinit var songListFragment: SongListFragment
 
     private var currentResult: SongResult?
         get() = currentIndex?.let { trialSession.results[it] }
@@ -82,13 +73,11 @@ class TrialDetailsActivity: AppCompatActivity() {
             currentIndex?.let { trialSession.results[it] = v }
         }
 
-    private val currentSongView get() = songViewForIndex(currentIndex)
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.content_trial_details)
+        trialSession = trialManager.startSession(trialId, initialRank)
 
-        trialSession = TrialSession(trial, initialRank)
         spinner_desired_rank.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, trialSession.availableRanks)
         spinner_desired_rank.setSelection(trialSession.availableRanks.indexOf(initialRank))
         spinner_desired_rank.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -104,22 +93,22 @@ class TrialDetailsActivity: AppCompatActivity() {
             SharedPrefsUtil.setUserFlag(this, KEY_DETAILS_PHOTO_SELECT, isChecked)
         }
 
-        button_concede.visibility = VISIBLE
-        button_finalize.visibility = GONE
-        button_leaderboard.setOnClickListener { onLeaderboardClick() }
-        button_concede.setOnClickListener { onConcedeClick() }
-        button_finalize.setOnClickListener { onFinalizeClick() }
-
         (view_trial_jacket as TrialJacketView).let { jacket ->
             jacket.trial = trial
             jacket.rank = storedRank
         }
-        forEachSongView { idx, view ->
-            view.tag = idx
-            view.song = trial.songs[idx]
-            view.setOnClickListener { onSongClicked(idx) }
-            registerForContextMenu(view)
-        }
+
+        songListFragment = SongListFragment.newInstance(trial.id, tiled = false, useCurrentSession = true)
+        supportFragmentManager.beginTransaction()
+            .add(R.id.container_song_list_fragment, songListFragment)
+            .commitNow()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        try {
+            scroll_details.scrollTo(0, 0)
+        } catch (_: NullPointerException) {}
     }
 
     override fun onBackPressed() {
@@ -144,14 +133,16 @@ class TrialDetailsActivity: AppCompatActivity() {
     }
 
     fun navigationButtonClicked(v: View) {
-        val mod = if (v.id == R.id.button_navigate_previous) -1 else 1
-        val targetTrial = trials[trials.indexOfFirst { it.id == trialId } + mod]
-        startActivity(intent(this, targetTrial.id))
-        finish()
+        val prev = v.id == R.id.button_navigate_previous
+        val targetTrial = if (prev) trialManager.previousTrial(trialId) else trialManager.nextTrial(trialId)
+        if (targetTrial != null){
+            startActivity(intent(this, targetTrial.id))
+            finish()
+        }
     }
 
-    private fun onSongClicked(index: Int) {
-        currentIndex = index
+    override fun onSongSelected(song: Song, position: Int) {
+        currentIndex = position
         if (currentResult != null) {
             startEditActivity(currentIndex!!)
         } else {
@@ -160,9 +151,9 @@ class TrialDetailsActivity: AppCompatActivity() {
         }
     }
 
-    private fun onLeaderboardClick() = openWebUrlFromRes(R.string.url_trial, trial.id)
+    private fun onLeaderboardClick(v: View) = openWebUrlFromRes(R.string.url_trial, trial.id)
 
-    private fun onConcedeClick() {
+    private fun onConcedeClick(v: View) {
         AlertDialog.Builder(this).setTitle(R.string.are_you_sure)
             .setMessage(getString(R.string.trial_concede_confirmation_format, trial.name, trialSession.goalRank))
             .setNegativeButton(R.string.cancel, null)
@@ -170,7 +161,7 @@ class TrialDetailsActivity: AppCompatActivity() {
             .show()
     }
 
-    private fun onFinalizeClick() {
+    private fun onFinalizeClick(v: View) {
         if (!trialSession.shouldShowAdvancedSongDetails ||
             trialSession.results.none { it!!.misses == null || it.badJudges == null }) {
 
@@ -182,19 +173,17 @@ class TrialDetailsActivity: AppCompatActivity() {
 
     private fun setRank(rank: TrialRank) {
         trialSession.goalRank = rank
+
         image_desired_rank.rank = rank.parent
         text_goals_content.text = trialSession.goalSet?.generateSingleGoalString(resources, trial)
-        updateSongs()
+
+        songListFragment.shouldShowAdvancedSongDetails = trialSession.shouldShowAdvancedSongDetails
     }
 
-    private fun updateSongs() {
-        val allSongsComplete = trialSession.results.filterNotNull().size == 4 // FIXME variable trial length
+    private fun updateCompleteState() {
+        val allSongsComplete = trialSession.results.filterNotNull().size == TrialData.TRIAL_LENGTH
         button_concede.visibility = if (allSongsComplete) GONE else VISIBLE
         button_finalize.visibility = if (allSongsComplete) VISIBLE else GONE
-        forEachSongView { idx, songView ->
-            songView.result = trialSession.results[idx]
-            songView.shouldShowAdvancedSongDetails = trialSession.shouldShowAdvancedSongDetails
-        }
     }
 
     private fun concedeTrial() {
@@ -407,7 +396,8 @@ class TrialDetailsActivity: AppCompatActivity() {
 
     private fun onEntryFinished(result: SongResult?) {
         currentResult = result
-        updateSongs()
+        songListFragment.setSongResult(currentIndex!!, result)
+        updateCompleteState()
         modified = true
         currentIndex = null
         isNewEntry = false

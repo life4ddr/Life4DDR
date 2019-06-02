@@ -117,6 +117,10 @@ class SongEntryActivity: AppCompatActivity() {
         checkbox_expert.visibility = if (advancedDetail) VISIBLE else GONE
         advancedFields.forEach { it.visibility = if (advancedDetail && !isExpert) VISIBLE else GONE }
         expertFields.forEach { it.visibility = if (advancedDetail && isExpert) VISIBLE else GONE }
+        field_ex.nextFocusDownId = when {
+            isExpert && advancedDetail -> field_greats_less.id
+            else -> 0
+        }
     }
 
     private fun completeEntry() {

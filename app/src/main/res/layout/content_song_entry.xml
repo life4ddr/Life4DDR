@@ -54,7 +54,6 @@
         android:layout_height="wrap_content"
         android:hint="@string/ex_score"
         android:inputType="number"
-        android:nextFocusDown="@id/field_misses"
         app:layout_constraintEnd_toStartOf="@id/checkbox_passed"
         app:layout_constraintBottom_toBottomOf="@id/field_score"
         app:layout_constraintHorizontal_weight="0.4"

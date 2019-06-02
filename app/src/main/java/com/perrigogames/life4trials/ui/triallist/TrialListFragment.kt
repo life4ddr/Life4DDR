@@ -56,7 +56,7 @@ class TrialListFragment : Fragment() {
         if (context is OnTrialListInteractionListener) {
             listener = context
         } else {
-            throw RuntimeException("$context must implement OnFragmentInteractionListener")
+            throw RuntimeException("$context must implement Listener")
         }
         Life4Application.eventBus.register(this)
     }

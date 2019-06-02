@@ -140,45 +140,14 @@
                 app:layout_constraintTop_toBottomOf="@id/text_goals_header"
                 tools:text="- Get 950,000 points on each song\n- Get over 1000 EX Points\n- Get less than 7 total misses"/>
 
-            <include
-                android:id="@+id/include_song_1"
-                layout="@layout/item_song_list_item"
+            <FrameLayout
+                android:id="@+id/container_song_list_fragment"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/content_padding_med"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_goals_content"/>
-
-            <include
-                android:id="@+id/include_song_2"
-                layout="@layout/item_song_list_item"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/content_padding_med"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/include_song_1"/>
-
-            <include
-                android:id="@+id/include_song_3"
-                layout="@layout/item_song_list_item"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/content_padding_med"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/include_song_2"/>
-
-            <include
-                android:id="@+id/include_song_4"
-                layout="@layout/item_song_list_item"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/content_padding_med"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/include_song_3"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
@@ -196,6 +165,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/leaderboard"
+        android:onClick="onLeaderboardClick"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/guideline_panel_buttons"
         app:layout_constraintStart_toStartOf="parent"
@@ -207,6 +177,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/concede"
+        android:onClick="onConcedeClick"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/guideline_panel_buttons"
@@ -219,6 +190,7 @@
         android:layout_height="wrap_content"
         android:text="@string/finalize"
         android:visibility="gone"
+        android:onClick="onFinalizeClick"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/guideline_panel_buttons"

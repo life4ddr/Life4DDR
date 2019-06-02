@@ -13,7 +13,10 @@ import com.perrigogames.life4trials.data.SongResult
 import kotlinx.android.synthetic.main.item_song_list_item.view.*
 import java.text.DecimalFormat
 
-
+/**
+ * A [View] designed to show the qualities of a [Song], including the jacket, difficulty,
+ * and a player's score if wanted.
+ */
 class SongView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
     ConstraintLayout(context, attrs, defStyleAttr) {
 
@@ -37,7 +40,7 @@ class SongView @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
 
     private var oldColors: ColorStateList? = null
 
-    private fun update() {
+    fun update() {
         if (oldColors == null) {
             oldColors = text_song_result.textColors
         }
