@@ -143,7 +143,12 @@ class TrialDetailsActivity: AppCompatActivity() {
     }
 
     fun navigationButtonClicked(v: View) {
-        val index = trialIndex + (if (v.id == R.id.button_navigate_previous) -1 else 1)
+        var index = trialIndex + (if (v.id == R.id.button_navigate_previous) -1 else 1)
+        if (index == -1) {
+            index = trials.size - 1
+        } else if (index == trials.size) {
+            index = 0
+        }
         startActivity(intent(this, index))
         finish()
     }
