@@ -43,10 +43,14 @@ enum class LadderRank(val stableId: Long,
     val colorRes @ColorRes get() = group.colorRes
 
     companion object {
-        fun parse(s: String?): LadderRank? = when (s) {
-            null, "NONE" -> null
-            else -> valueOf(s)
-        }
+        fun parse(s: String?): LadderRank? = try {
+            s?.let {
+                valueOf(it.toUpperCase()
+                    .replace(" III", "3")
+                    .replace(" II", "2")
+                    .replace(" I", "1"))
+            }
+        } catch (e: IllegalArgumentException) { null }
 
         fun parse(stableId: Long?): LadderRank? = stableId?.let { id -> values().firstOrNull { it.stableId == id } }
     }

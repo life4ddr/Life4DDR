@@ -3,6 +3,7 @@ package com.perrigogames.life4trials
 import android.content.Context
 import android.util.Log
 import androidx.multidex.MultiDexApplication
+import com.perrigogames.life4trials.api.Life4API
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_INFO_NAME
 import com.perrigogames.life4trials.api.FirebaseUtil
 import com.perrigogames.life4trials.db.MyObjectBox
@@ -14,8 +15,13 @@ import com.perrigogames.life4trials.util.SharedPrefsUtil.KEY_INIT_STATE
 import com.perrigogames.life4trials.util.SharedPrefsUtil.VAL_INIT_STATE_PLACEMENTS
 import com.perrigogames.life4trials.util.SharedPrefsUtil.VAL_INIT_STATE_RANKS
 import io.objectbox.BoxStore
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+import okhttp3.logging.HttpLoggingInterceptor.Level.BODY
 import io.objectbox.android.AndroidObjectBrowser
 import org.greenrobot.eventbus.EventBus
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 
 class Life4Application: MultiDexApplication() {
@@ -26,6 +32,8 @@ class Life4Application: MultiDexApplication() {
     lateinit var songDataManager: SongDataManager
     lateinit var tournamentManager: TournamentManager
     lateinit var trialManager: TrialManager
+    lateinit var playerManager: PlayerManager
+    lateinit var life4Api: Life4API
 
     override fun onCreate() {
         super.onCreate()
@@ -37,6 +45,8 @@ class Life4Application: MultiDexApplication() {
         }
 
         SharedPrefsUtil.initializeDefaults(this)
+
+        life4Api = retrofit.create(Life4API::class.java)
 
         objectBox = MyObjectBox.builder()
             .androidContext(this)
@@ -52,6 +62,7 @@ class Life4Application: MultiDexApplication() {
         trialManager = TrialManager(this)
         ladderManager = LadderManager(this, songDataManager)
         tournamentManager = TournamentManager()
+        playerManager = PlayerManager(this)
 
         NotificationUtil.setupNotifications(this)
 
@@ -68,6 +79,15 @@ class Life4Application: MultiDexApplication() {
         val eventBus = EventBus()
 
         lateinit var objectBox: BoxStore
+
+        val retrofit: Retrofit = Retrofit.Builder()
+            .client(OkHttpClient().newBuilder().build())
+            .baseUrl("http://life4bot.herokuapp.com/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(OkHttpClient.Builder()
+                .addInterceptor(HttpLoggingInterceptor().apply { level = BODY })
+                .build())
+            .build()
     }
 }
 

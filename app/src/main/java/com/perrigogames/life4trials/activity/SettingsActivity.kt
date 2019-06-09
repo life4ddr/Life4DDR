@@ -45,6 +45,7 @@ class SettingsActivity : AppCompatActivity() {
 
         private val ladderManager get() = context!!.life4app.ladderManager
         private val trialManager get() = context!!.life4app.trialManager
+        private val playerManager get() = context!!.life4app.playerManager
 
         private val listUpdateListener: (Preference) -> Boolean = {
             Life4Application.eventBus.post(TrialListUpdatedEvent())
@@ -176,6 +177,22 @@ class SettingsActivity : AppCompatActivity() {
                     }
                 }
             }
+            Preference(context).apply {
+                key = KEY_DEBUG_LEADERBOARD
+                title = "Leaderboard Test"
+                onPreferenceClickListener = Preference.OnPreferenceClickListener {
+                    (context as AppCompatActivity).startActivity(Intent(context, LadderLeaderboardActivity::class.java))
+                    true
+                }
+                preferenceScreen.addPreference(this)
+            }
+            Preference(context).apply {
+                key = "induce_crash"
+                title = "Induce crash"
+                onPreferenceClickListener = Preference.OnPreferenceClickListener {
+                    throw IllegalAccessException()
+                }
+            }
             category("debug_ranks_category", "Debug Ranks*") {
                 val ranksList = TrialRank.values().map { it.toString() }.toMutableList()
                 ranksList.add(0, "NONE")
@@ -208,6 +225,10 @@ class SettingsActivity : AppCompatActivity() {
                                 ladderManager.setUserRank(activity!!, rank)
                             }
                         }
+                    }
+                    key == KEY_INFO_IMPORT -> findPreference<EditTextPreference>(key)?.let {
+                        it.text?.let { text -> playerManager.importPlayerInfo(text) }
+                        it.text = null
                     }
                     key.startsWith(KEY_DEBUG_RANK_PREFIX) -> findPreference<DropDownPreference>(key)?.let { it ->
                         val rank = TrialRank.parse(it.entry.toString())
@@ -271,6 +292,7 @@ class SettingsActivity : AppCompatActivity() {
         const val KEY_INFO_RANK = "KEY_INFO_RANK"
         const val KEY_INFO_RIVAL_CODE = "KEY_INFO_RIVAL_CODE"
         const val KEY_INFO_TWITTER_NAME = "KEY_INFO_TWITTER_NAME"
+        const val KEY_INFO_IMPORT = "KEY_INFO_IMPORT"
         const val KEY_SUBMISSION_NOTIFICAION = "KEY_SUBMISSION_NOTIFICAION"
         const val KEY_SUBMISSION_NOTIFICAION_TEST = "KEY_SUBMISSION_NOTIFICAION_TEST"
         const val KEY_RECORDS_REMAINING_EX = "KEY_RECORDS_REMAINING_EX"
@@ -285,6 +307,7 @@ class SettingsActivity : AppCompatActivity() {
         const val KEY_DEBUG_BYPASS_STAT_ENTRY = "dbse"
         const val KEY_DEBUG_ACCEPT_INVALID = "dbai"
         const val KEY_DEBUG_BYPASS_CAMERA = "dbc"
+        const val KEY_DEBUG_LEADERBOARD = "dlb"
 
         private const val KEY_DEBUG_RANK_PREFIX = "KEY_DEBUG_RANK_PREFIX"
     }

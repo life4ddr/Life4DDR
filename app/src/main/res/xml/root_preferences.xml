@@ -15,6 +15,10 @@
         <EditTextPreference
             app:key="KEY_INFO_TWITTER_NAME"
             app:title="@string/twitter_name" />
+        <EditTextPreference
+            app:key="KEY_INFO_IMPORT"
+            app:summary="@string/import_info_description"
+            app:title="@string/import_info"/>
         <SwitchPreference
             app:key="KEY_SUBMISSION_NOTIFICAION"
             app:defaultValue="true"
