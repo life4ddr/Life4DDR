@@ -14,6 +14,7 @@ object SharedPrefsUtil {
     const val KEY_USER_PREFS = "user_preferences"
     const val KEY_TUTORIAL_PREFS = "tutorial_preferences"
     const val KEY_DATA_PREFS = "data_preferences"
+    const val KEY_APP_CRASHED = "app_crashed"
 
     fun finishTutorial(c: Context, tutorial: String) {
         return with (tutorialPrefs(c).edit()) {

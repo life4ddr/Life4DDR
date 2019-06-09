@@ -102,6 +102,14 @@ class SettingsActivity : AppCompatActivity() {
                     summary = "Use random score values when entering a new photo"
                 })
             }
+            Preference(context).apply {
+                key = "induce_crash"
+                title = "Induce crash"
+                onPreferenceClickListener = Preference.OnPreferenceClickListener {
+                    throw IllegalAccessException()
+                }
+                preferenceScreen.addPreference(this)
+            }
             PreferenceCategory(context).apply {
                 key = "debug_ranks_category"
                 title = "Debug Ranks*"

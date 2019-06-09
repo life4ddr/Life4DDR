@@ -10,6 +10,7 @@ import com.perrigogames.life4trials.manager.TrialManager
 import com.perrigogames.life4trials.util.DataUtil
 import com.perrigogames.life4trials.util.NotificationUtil
 import com.perrigogames.life4trials.util.SharedPrefsUtil
+import com.perrigogames.life4trials.util.SharedPrefsUtil.KEY_APP_CRASHED
 import com.perrigogames.life4trials.util.loadRawString
 import io.objectbox.BoxStore
 import okhttp3.OkHttpClient
@@ -36,6 +37,12 @@ class Life4Application: MultiDexApplication() {
             .build()
 
         NotificationUtil.setupNotifications(this)
+
+        val defaultHandler = Thread.getDefaultUncaughtExceptionHandler()
+        Thread.setDefaultUncaughtExceptionHandler { thread, exception ->
+            SharedPrefsUtil.setUserFlag(this@Life4Application, KEY_APP_CRASHED, true)
+            defaultHandler!!.uncaughtException(thread, exception)
+        }
     }
 
     companion object {
