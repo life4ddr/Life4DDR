@@ -41,6 +41,7 @@ class TrialItemView @JvmOverloads constructor(context: Context, attrs: Attribute
         image_badge_3.visibility = GONE
         image_badge_4.visibility = GONE
         image_badge_5.visibility = GONE
+        image_badge_6.visibility = GONE
     }
 
     fun setupRankList(rank: TrialRank?) = trial?.let { t ->
@@ -51,6 +52,7 @@ class TrialItemView @JvmOverloads constructor(context: Context, attrs: Attribute
                 TrialRank.DIAMOND -> image_badge_3
                 TrialRank.COBALT -> image_badge_4
                 TrialRank.AMETHYST -> image_badge_5
+                TrialRank.EMERALD -> image_badge_6
             }).visibility = View.VISIBLE
         }
         setupRank(image_badge_1, TrialRank.SILVER, rank)
@@ -58,6 +60,7 @@ class TrialItemView @JvmOverloads constructor(context: Context, attrs: Attribute
         setupRank(image_badge_3, TrialRank.DIAMOND, rank)
         setupRank(image_badge_4, TrialRank.COBALT, rank)
         setupRank(image_badge_5, TrialRank.AMETHYST, rank)
+        setupRank(image_badge_6, TrialRank.EMERALD, rank)
     }
 
     fun setHighestRank(rank: TrialRank?) {

@@ -50,7 +50,8 @@
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/image_badge_2"
-        tools:background="@color/colorAccent"/>
+        tools:src="@drawable/silver_3"
+        tools:visibility="visible"/>
 
     <ImageView
         android:id="@+id/image_badge_2"
@@ -61,7 +62,8 @@
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/image_badge_3"
-        tools:background="@color/colorAccent"/>
+        tools:src="@drawable/gold_3"
+        tools:visibility="visible"/>
 
     <ImageView
         android:id="@+id/image_badge_3"
@@ -72,7 +74,8 @@
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/image_badge_4"
-        tools:background="@color/colorAccent"/>
+        tools:src="@drawable/diamond_3"
+        tools:visibility="visible"/>
 
     <ImageView
         android:id="@+id/image_badge_4"
@@ -83,7 +86,8 @@
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/image_badge_5"
-        tools:background="@color/colorAccent"/>
+        tools:src="@drawable/cobalt_3"
+        tools:visibility="visible"/>
 
     <ImageView
         android:id="@+id/image_badge_5"
@@ -93,7 +97,20 @@
         android:contentDescription="@string/rank_image"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/image_badge_6"
+        tools:src="@drawable/amethyst_3"
+        tools:visibility="visible"/>
+
+    <ImageView
+        android:id="@+id/image_badge_6"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_margin="@dimen/content_padding_med"
+        android:contentDescription="@string/rank_image"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:background="@color/colorAccent"/>
+        tools:src="@drawable/emerald_3"
+        tools:visibility="visible"/>
 
 </com.perrigogames.life4trials.view.TrialItemView>

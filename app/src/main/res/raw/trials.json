@@ -1,6 +1,85 @@
 {
   "trials": [
     {
+      "id": "primal",
+      "name": "Primal",
+      "type": "trial",
+      "difficulty": 13,
+      "goals": [
+        {
+          "rank": "silver",
+          "score": [900000, 900000, 900000, 900000]
+        }, {
+          "rank": "gold",
+          "score": [965000, 965000, 985000, 985000]
+        }, {
+          "rank": "diamond",
+          "judge": 15,
+          "ex_missing": 180
+        }, {
+          "rank": "cobalt",
+          "judge": 5,
+          "ex_missing": 120
+        }, {
+          "rank": "amethyst",
+          "judge": 2,
+          "ex_missing": 75
+        }, {
+          "rank": "emerald",
+          "judge": 2,
+          "ex_missing": 50
+        }
+      ],
+      "total_ex": 5301,
+      "songs": [
+        { "name": "WILD SIDE", "difficulty": 13, "difficulty_class": "challenge", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202013%20%28AC%29%20%28Japan%29/WILD%20SIDE/WILD%20SIDE-jacket.png" },
+        { "name": "Tribe", "difficulty": 13, "difficulty_class": "challenge", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X3%20VS%202ndMIX%20%28AC%29%20%28Japan%29/Tribe/Tribe-jacket.png" },
+        { "name": "ORION.78~civilization mix~", "difficulty": 13, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DDRMAX%20-Dance%20Dance%20Revolution%206thMIX-%20%28AC%29%20%28Japan%29/ORION.78~civilization%20mix~/ORION.78~civilization%20mix~-jacket.png" },
+        { "name": "AFRONOVA", "difficulty": 13, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/Dance%20Dance%20Revolution%203rdMIX%20%28AC%29%20%28Japan%29/AFRONOVA/AFRONOVA-jacket.png" }
+      ],
+      "preview": true
+    },
+    {
+      "id": "wanderlust",
+      "name": "Wanderlust",
+      "type": "trial",
+      "difficulty": 15,
+      "goals": [
+        {
+          "rank": "silver"
+        }, {
+          "rank": "gold",
+          "score": [960000, 960000, 925000, 925000]
+        }, {
+          "rank": "diamond",
+          "score": [975000, 975000, 975000, 975000],
+          "miss": 7,
+          "ex_missing": 275
+        }, {
+          "rank": "cobalt",
+          "score": [990000, 990000, 990000, 990000],
+          "judge": 12,
+          "ex_missing": 200
+        }, {
+          "rank": "amethyst",
+          "judge": 3,
+          "ex_missing": 120
+        }, {
+          "rank": "emerald",
+          "judge": 2,
+          "ex_missing": 70
+        }
+      ],
+      "total_ex": 6957,
+      "songs": [
+        { "name": "Go For The Top", "difficulty": 15, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X3%20VS%202ndMIX%20%28AC%29%20%28Japan%29/Go%20For%20The%20Top/Go%20For%20The%20Top-jacket.png" },
+        { "name": "Nostalgia Is Lost", "difficulty": 15, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202014%20%28AC%29%20%28Japan%29/Nostalgia%20Is%20Lost/Nostalgia%20Is%20Lost-jacket.png" },
+        { "name": "Triple Journey -TAG EDITION-", "difficulty": 16, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202013%20%28AC%29%20%28Japan%29/Triple%20Journey%20-TAG%20EDITION-/Triple%20Journey%20-TAG%20EDITION--jacket.png" },
+        { "name": "Destination", "difficulty": 15, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202014%20%28AC%29%20%28Japan%29/Destination/Destination-jacket.png" }
+      ],
+      "preview": true
+    },
+    {
       "id": "heartbreak",
       "name": "Heartbreak",
       "type": "trial",
@@ -22,8 +101,12 @@
           "ex_missing": 45
         }, {
           "rank": "amethyst",
-          "judge": 0,
+          "judge": 1,
           "ex_missing": 20
+        }, {
+          "rank": "emerald",
+          "judge": 0,
+          "ex_missing": 12
         }
       ],
       "total_ex": 4056,
@@ -59,6 +142,10 @@
           "rank": "amethyst",
           "judge": 2,
           "ex_missing": 50
+        }, {
+          "rank": "emerald",
+          "judge": 2,
+          "ex_missing": 35
         }
       ],
       "total_ex": 5169,
@@ -93,8 +180,12 @@
           "ex_missing": 90
         }, {
           "rank": "amethyst",
-          "judge": 0,
+          "judge": 2,
           "ex_missing": 60
+        }, {
+          "rank": "emerald",
+          "judge": 2,
+          "ex_missing": 40
         }
       ],
       "total_ex": 4428,
@@ -131,6 +222,10 @@
           "rank": "amethyst",
           "judge": 2,
           "ex_missing": 60
+        }, {
+          "rank": "emerald",
+          "judge": 2,
+          "ex_missing": 40
         }
       ],
       "total_ex": 5463,
@@ -167,6 +262,10 @@
           "rank": "amethyst",
           "judge": 7,
           "ex_missing": 100
+        }, {
+          "rank": "emerald",
+          "judge": 4,
+          "ex_missing": 75
         }
       ],
       "total_ex": 5460,
@@ -182,17 +281,18 @@
       "id": "hellscape",
       "name": "Hellscape",
       "type": "trial",
-      "difficulty": 14,
+      "difficulty": 15,
       "goals": [
         {
           "rank": "silver"
         }, {
           "rank": "gold",
-          "score": [985000],
-          "score_indexed": [970000, 970000, 950000, 0]
+          "score": [985000, 970000, 970000],
+          "score_indexed": [0, 0, 950000, 0]
         }, {
           "rank": "diamond",
-          "score_indexed": [990000, 990000, 985000, 0],
+          "score": [990000, 990000, 990000],
+          "score_indexed": [0, 0, 985000, 0],
           "ex_missing": 220
         }, {
           "rank": "cobalt",
@@ -202,6 +302,10 @@
           "rank": "amethyst",
           "judge": 3,
           "ex_missing": 90
+        }, {
+          "rank": "emerald",
+          "judge": 2,
+          "ex_missing": 65
         }
       ],
       "total_ex": 6615,
@@ -237,6 +341,10 @@
           "rank": "amethyst",
           "judge": 2,
           "ex_missing": 90
+        }, {
+          "rank": "emerald",
+          "judge": 2,
+          "ex_missing": 65
         }
       ],
       "total_ex": 6270,
@@ -271,6 +379,10 @@
           "rank": "amethyst",
           "judge": 2,
           "ex_missing": 75
+        }, {
+          "rank": "emerald",
+          "judge": 2,
+          "ex_missing": 50
         }
       ],
       "total_ex": 6735,
@@ -302,11 +414,15 @@
           "rank": "cobalt",
           "score": [990000, 990000, 990000, 990000],
           "judge": 10,
-          "ex_missing": 180
+          "ex_missing": 160
         }, {
           "rank": "amethyst",
           "judge": 2,
-          "ex_missing": 100
+          "ex_missing": 90
+        }, {
+          "rank": "emerald",
+          "judge": 2,
+          "ex_missing": 70
         }
       ],
       "total_ex": 6870,
@@ -339,6 +455,10 @@
           "rank": "amethyst",
           "judge": 5,
           "ex_missing": 135
+        }, {
+          "rank": "emerald",
+          "judge": 3,
+          "ex_missing": 90
         }
       ],
       "total_ex": 7161,
@@ -373,6 +493,10 @@
           "rank": "amethyst",
           "judge": 3,
           "ex_missing": 110
+        }, {
+          "rank": "emerald",
+          "judge": 3,
+          "ex_missing": 75
         }
       ],
       "total_ex": 6951,
@@ -405,7 +529,11 @@
         }, {
           "rank": "amethyst",
           "judge": 5,
-          "ex_missing": 150
+          "ex_missing": 160
+        }, {
+          "rank": "emerald",
+          "judge": 5,
+          "ex_missing": 100
         }
       ],
       "total_ex": 7311,
@@ -436,6 +564,10 @@
           "rank": "amethyst",
           "judge": 20,
           "ex_missing": 275
+        }, {
+          "rank": "emerald",
+          "judge": 10,
+          "ex_missing": 200
         }
       ],
       "total_ex": 7749,
@@ -466,6 +598,10 @@
           "rank": "amethyst",
           "judge": 15,
           "ex_missing": 240
+        }, {
+          "rank": "emerald",
+          "judge": 10,
+          "ex_missing": 160
         }
       ],
       "total_ex": 7470,
@@ -493,6 +629,10 @@
           "rank": "amethyst",
           "score": [990000, 960000, 960000, 960000],
           "ex_missing": 550
+        }, {
+          "rank": "emerald",
+          "score": [990000, 990000, 990000, 980000],
+          "ex_missing": 350
         }
       ],
       "total_ex": 9396,

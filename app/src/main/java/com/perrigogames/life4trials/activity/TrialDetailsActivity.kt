@@ -151,9 +151,9 @@ class TrialDetailsActivity: AppCompatActivity(), SongListFragment.Listener {
         }
     }
 
-    private fun onLeaderboardClick(v: View) = openWebUrlFromRes(R.string.url_trial, trial.id)
+    fun onLeaderboardClick(v: View) = openWebUrlFromRes(R.string.url_trial, trial.id)
 
-    private fun onConcedeClick(v: View) {
+    fun onConcedeClick(v: View) {
         AlertDialog.Builder(this).setTitle(R.string.are_you_sure)
             .setMessage(getString(R.string.trial_concede_confirmation_format, trial.name, trialSession.goalRank))
             .setNegativeButton(R.string.cancel, null)
@@ -161,7 +161,7 @@ class TrialDetailsActivity: AppCompatActivity(), SongListFragment.Listener {
             .show()
     }
 
-    private fun onFinalizeClick(v: View) {
+    fun onFinalizeClick(v: View) {
         if (!trialSession.shouldShowAdvancedSongDetails ||
             trialSession.results.none { it!!.misses == null || it.badJudges == null }) {
 

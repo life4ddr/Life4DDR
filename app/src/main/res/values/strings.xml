@@ -211,6 +211,17 @@
     <string name="amethyst_1">AMETHYST I</string>
     <string name="amethyst_2">AMETHYST II</string>
     <string name="amethyst_3">AMETHYST III</string>
+    <string name="emerald_1">EMERALD I</string>
+    <string name="emerald_2">EMERALD II</string>
+    <string name="emerald_3">EMERALD III</string>
+
+    <!-- Trial Rank Strings -->
+    <string name="trial_silver">SILVER</string>
+    <string name="trial_gold">GOLD</string>
+    <string name="trial_diamond">DIAMOND</string>
+    <string name="trial_cobalt">COBALT</string>
+    <string name="trial_amethyst">AMETHYST</string>
+    <string name="trial_emerald">EMERALD</string>
 
 
     <string name="set_numbers_3_format">%d, %d, and %d</string>

@@ -31,7 +31,10 @@ enum class LadderRank(val stableId: Int,
     @SerializedName("cobalt3") COBALT3(72, R.drawable.cobalt_3, R.string.cobalt_3),
     @SerializedName("amethyst1") AMETHYST1(80, R.drawable.amethyst_1, R.string.amethyst_1),
     @SerializedName("amethyst2") AMETHYST2(81, R.drawable.amethyst_2, R.string.amethyst_2),
-    @SerializedName("amethyst3") AMETHYST3(82, R.drawable.amethyst_3, R.string.amethyst_3);
+    @SerializedName("amethyst3") AMETHYST3(82, R.drawable.amethyst_3, R.string.amethyst_3),
+    @SerializedName("emerald1") EMERALD1(90, R.drawable.emerald_1, R.string.emerald_1),
+    @SerializedName("emerald2") EMERALD2(91, R.drawable.emerald_2, R.string.emerald_2),
+    @SerializedName("emerald3") EMERALD3(92, R.drawable.emerald_3, R.string.emerald_3);
 
     val color get() = when(this) {
         WOOD1, WOOD2, WOOD3 -> R.color.wood
@@ -41,6 +44,7 @@ enum class LadderRank(val stableId: Int,
         DIAMOND1, DIAMOND2, DIAMOND3 -> R.color.diamond
         COBALT1, COBALT2, COBALT3 -> R.color.cobalt
         AMETHYST1, AMETHYST2, AMETHYST3 -> R.color.amethyst
+        EMERALD1, EMERALD2, EMERALD3 -> R.color.emerald
     }
 
     companion object {

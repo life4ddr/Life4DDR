@@ -75,8 +75,19 @@
         android:layout_marginRight="@dimen/content_padding_med"
         android:contentDescription="@string/rank_image"
         app:layout_constraintBottom_toBottomOf="@id/image_badge_1"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/image_badge_6"
         app:layout_constraintStart_toEndOf="@id/image_badge_4"
         tools:background="@color/colorAccent" />
 
+    <ImageView
+        android:id="@+id/image_badge_6"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="@dimen/content_padding_med"
+        android:layout_marginRight="@dimen/content_padding_med"
+        android:contentDescription="@string/rank_image"
+        app:layout_constraintBottom_toBottomOf="@id/image_badge_1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/image_badge_5"
+        tools:background="@color/colorAccent" />
 </com.perrigogames.life4trials.view.TrialItemView>

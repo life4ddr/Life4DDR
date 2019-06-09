@@ -14,7 +14,7 @@ data class TrialSession(val trial: Trial,
         get() = Uri.parse(finalPhotoUriString)
         set(value) { finalPhotoUriString = value.toString() }
 
-    val availableRanks: Array<TrialRank> = trial.goals!![0].rank.andUp
+    val availableRanks: Array<TrialRank> = trial.goals!!.map { it.rank }.toTypedArray()
 
     val shouldShowAdvancedSongDetails
         get() = goalSet?.let { it.miss != null || it.judge != null } ?: false
