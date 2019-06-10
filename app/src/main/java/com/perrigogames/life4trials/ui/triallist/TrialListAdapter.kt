@@ -56,7 +56,7 @@ class TrialListAdapter(private val context: Context,
     override fun getItemViewType(position: Int) = if (tiled) ID_TILE else ID_LIST
 
     fun notifyTrialChanged(trial: Trial) {
-        notifyItemChanged(positionForItem(trial))
+        notifyItemChanged(positionForItem(trial), trial)
     }
 
     private fun positionForItem(item: Trial) = when {

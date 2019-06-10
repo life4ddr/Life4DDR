@@ -17,14 +17,19 @@
     <!-- Trial Goal Strings -->
     <string name="score_songs">• Score %s on at least %d songs.</string>
     <string name="aaa_songs">• AAA at least %d songs.</string>
+    <string name="mfc_songs">• MFC at least %d songs.</string>
     <string name="score_other_songs">• Score %s on at least %d other songs.</string>
     <string name="aaa_other_songs">• AAA at least %d other songs.</string>
+    <string name="mfc_other_songs">• MFC at least %d other songs.</string>
     <string name="score_specific_song">• Score %s on %s.</string>
     <string name="aaa_specific_song">• AAA %s.</string>
+    <string name="mfc_specific_song">• MFC %s.</string>
     <string name="score_every_song">• Score %s on every song.</string>
     <string name="aaa_every_song">• AAA every song.</string>
+    <string name="mfc_every_song">• MFC every song.</string>
     <string name="score_on_remainder">• Score %s on all other songs.</string>
     <string name="aaa_on_remainder">• AAA all other songs.</string>
+    <string name="mfc_on_remainder">• MFC all other songs.</string>
     <string name="bad_judgments_count">• %d or fewer Greats, Goods, and Misses.</string>
     <string name="misses_count">• %d or fewer Misses.</string>
     <string name="missing_ex_count">• %d missing EX or less.</string>

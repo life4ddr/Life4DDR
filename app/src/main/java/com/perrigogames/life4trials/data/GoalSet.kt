@@ -4,6 +4,7 @@ import android.content.res.Resources
 import com.google.gson.annotations.SerializedName
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.data.TrialData.Companion.AAA_SCORE
+import com.perrigogames.life4trials.data.TrialData.Companion.MAX_SCORE
 import java.io.Serializable
 
 data class GoalSet(val rank: TrialRank,
@@ -96,25 +97,35 @@ data class GoalSet(val rank: TrialRank,
 
     private fun scoreString(score: Int) = "${score / 1000}k"
 
-    private fun onSpecificString(res: Resources, score: Int, song: String) =
-        if (score == AAA_SCORE) res.getString(R.string.aaa_specific_song, song)
-        else res.getString(R.string.score_specific_song, scoreString(score), song)
+    private fun onSpecificString(res: Resources, score: Int, song: String) = when (score) {
+        AAA_SCORE -> res.getString(R.string.aaa_specific_song, song)
+        MAX_SCORE -> res.getString(R.string.mfc_specific_song, song)
+        else -> res.getString(R.string.score_specific_song, scoreString(score), song)
+    }
 
-    private fun onCountString(res: Resources, score: Int, count: Int) =
-        if (score == AAA_SCORE) res.getString(R.string.aaa_songs, count)
-        else res.getString(R.string.score_songs, scoreString(score), count)
+    private fun onCountString(res: Resources, score: Int, count: Int) = when (score) {
+        AAA_SCORE -> res.getString(R.string.aaa_songs, count)
+        MAX_SCORE -> res.getString(R.string.mfc_songs, count)
+        else -> res.getString(R.string.score_songs, scoreString(score), count)
+    }
 
-    private fun onCountOtherString(res: Resources, score: Int, count: Int) =
-        if (score == AAA_SCORE) res.getString(R.string.aaa_other_songs, count)
-        else res.getString(R.string.score_other_songs, scoreString(score), count)
+    private fun onCountOtherString(res: Resources, score: Int, count: Int) = when (score) {
+        AAA_SCORE -> res.getString(R.string.aaa_other_songs, count)
+        MAX_SCORE -> res.getString(R.string.mfc_other_songs, count)
+        else -> res.getString(R.string.score_other_songs, scoreString(score), count)
+    }
 
-    private fun onEveryString(res: Resources, score: Int) =
-        if (score == AAA_SCORE) res.getString(R.string.aaa_every_song)
-        else res.getString(R.string.score_every_song, scoreString(score))
+    private fun onEveryString(res: Resources, score: Int) = when (score) {
+        AAA_SCORE -> res.getString(R.string.aaa_every_song)
+        MAX_SCORE -> res.getString(R.string.mfc_every_song)
+        else -> res.getString(R.string.score_every_song, scoreString(score))
+    }
 
-    private fun onRemainderString(res: Resources, score: Int) =
-        if (score == AAA_SCORE) res.getString(R.string.aaa_on_remainder)
-        else res.getString(R.string.score_on_remainder, scoreString(score))
+    private fun onRemainderString(res: Resources, score: Int) = when (score) {
+        AAA_SCORE -> res.getString(R.string.mfc_on_remainder)
+        MAX_SCORE -> res.getString(R.string.aaa_on_remainder)
+        else -> res.getString(R.string.score_on_remainder, scoreString(score))
+    }
 
     private fun badJudgementsString(res: Resources, bad: Int) =
         if (bad == 0) res.getString(R.string.no_bad_judgments)
