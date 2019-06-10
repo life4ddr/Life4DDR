@@ -15,7 +15,7 @@ class TrialData(val trials: List<Trial>): Serializable {
 class Trial(val id: String,
             val name: String,
             val type: TrialType,
-            val preview: Boolean = false,
+            val new: Boolean = false,
             val difficulty: Int?,
             val goals: List<GoalSet>?,
             val total_ex: Int?,

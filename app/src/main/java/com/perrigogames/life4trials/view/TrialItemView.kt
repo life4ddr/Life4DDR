@@ -15,7 +15,14 @@ import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_LIST
 import com.perrigogames.life4trials.data.Trial
 import com.perrigogames.life4trials.data.TrialRank
 import com.perrigogames.life4trials.util.SharedPrefsUtil
-import kotlinx.android.synthetic.main.item_trial_list_item.view.*
+import kotlinx.android.synthetic.main.item_trial_list_item.view.image_badge_1
+import kotlinx.android.synthetic.main.item_trial_list_item.view.image_badge_2
+import kotlinx.android.synthetic.main.item_trial_list_item.view.image_badge_3
+import kotlinx.android.synthetic.main.item_trial_list_item.view.image_badge_4
+import kotlinx.android.synthetic.main.item_trial_list_item.view.image_badge_5
+import kotlinx.android.synthetic.main.item_trial_list_item.view.image_badge_6
+import kotlinx.android.synthetic.main.item_trial_list_item.view.view_trial_jacket
+import kotlinx.android.synthetic.main.item_trial_tile_item.view.*
 
 /**
  * A custom [View] for displaying a single [Trial].
@@ -27,6 +34,11 @@ class TrialItemView @JvmOverloads constructor(context: Context, attrs: Attribute
         get() = SharedPrefsUtil.getUserFlag(context, KEY_LIST_TINT_COMPLETED, false)
     val showEx: Boolean
         get() = SharedPrefsUtil.getUserFlag(context, KEY_LIST_SHOW_EX, false)
+    var showNew: Boolean = false
+        set(v) {
+            field = v
+            update()
+        }
 
     var trial: Trial? = null
         set(v) {
@@ -42,6 +54,9 @@ class TrialItemView @JvmOverloads constructor(context: Context, attrs: Attribute
         image_badge_4.visibility = GONE
         image_badge_5.visibility = GONE
         image_badge_6.visibility = GONE
+
+        image_new.visibility = if (showNew) View.VISIBLE else View.GONE
+        text_new.visibility = if (showNew) View.VISIBLE else View.GONE
     }
 
     fun setupRankList(rank: TrialRank?) = trial?.let { t ->

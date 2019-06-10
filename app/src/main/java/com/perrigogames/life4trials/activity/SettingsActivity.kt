@@ -13,6 +13,7 @@ import com.perrigogames.life4trials.Life4Application
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.data.TrialRank
 import com.perrigogames.life4trials.data.TrialSession
+import com.perrigogames.life4trials.event.TrialListReplacedEvent
 import com.perrigogames.life4trials.event.TrialListUpdatedEvent
 import com.perrigogames.life4trials.life4app
 import com.perrigogames.life4trials.util.NotificationUtil
@@ -45,6 +46,10 @@ class SettingsActivity : AppCompatActivity() {
             Life4Application.eventBus.post(TrialListUpdatedEvent())
             true
         }
+        private val listReplaceListener = Preference.OnPreferenceClickListener {
+            Life4Application.eventBus.post(TrialListReplacedEvent())
+            true
+        }
 
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey)
@@ -63,6 +68,7 @@ class SettingsActivity : AppCompatActivity() {
             preferenceScreen.findPreference<Preference>(KEY_LIST_SHOW_EX)!!.onPreferenceClickListener = listUpdateListener
             preferenceScreen.findPreference<Preference>(KEY_LIST_SHOW_EX_REMAINING)!!.onPreferenceClickListener = listUpdateListener
             preferenceScreen.findPreference<Preference>(KEY_LIST_TINT_COMPLETED)!!.onPreferenceClickListener = listUpdateListener
+            preferenceScreen.findPreference<Preference>(KEY_LIST_HIGHLIGHT_NEW)!!.onPreferenceClickListener = listReplaceListener
 
             preferenceScreen.findPreference<Preference>(KEY_FEEDBACK)!!.onPreferenceClickListener =
                 Preference.OnPreferenceClickListener {
@@ -162,6 +168,7 @@ class SettingsActivity : AppCompatActivity() {
         const val KEY_LIST_TINT_COMPLETED = "KEY_LIST_TINT_COMPLETED"
         const val KEY_LIST_SHOW_EX = "KEY_LIST_SHOW_EX"
         const val KEY_LIST_SHOW_EX_REMAINING = "KEY_LIST_SHOW_EX_REMAINING"
+        const val KEY_LIST_HIGHLIGHT_NEW = "KEY_LIST_HIGHLIGHT_NEW"
         const val KEY_DETAILS_PHOTO_SELECT = "KEY_DETAILS_PHOTO_SELECT"
         const val KEY_DETAILS_EXPERT = "KEY_DETAILS_EXPERT"
         const val KEY_INFO_RIVAL_CODE = "KEY_INFO_RIVAL_CODE"

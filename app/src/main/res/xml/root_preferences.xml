@@ -1,5 +1,4 @@
-<PreferenceScreen
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory app:title="@string/user_info">
 
@@ -11,6 +10,7 @@
             app:title="@string/twitter_name" />
         <SwitchPreference
             app:key="KEY_SUBMISSION_NOTIFICAION"
+            app:defaultValue="true"
             app:title="@string/show_notifications" />
         <Preference
             app:key="notification_test"
@@ -30,7 +30,13 @@
 
         <SwitchPreference
             app:key="KEY_LIST_TINT_COMPLETED"
-            app:title="@string/tint_completed_trials" />
+            app:defaultValue="true"
+            app:title="@string/tint_completed_trials"/>
+
+        <SwitchPreference
+            app:defaultValue="true"
+            app:key="KEY_LIST_HIGHLIGHT_NEW"
+            app:title="@string/highlight_new_trials"/>
     </PreferenceCategory>
 
     <PreferenceCategory app:title="@string/trial_details">

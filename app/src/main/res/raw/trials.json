@@ -1,85 +1,6 @@
 {
   "trials": [
     {
-      "id": "primal",
-      "name": "Primal",
-      "type": "trial",
-      "difficulty": 13,
-      "goals": [
-        {
-          "rank": "silver",
-          "score": [900000, 900000, 900000, 900000]
-        }, {
-          "rank": "gold",
-          "score": [965000, 965000, 985000, 985000]
-        }, {
-          "rank": "diamond",
-          "judge": 15,
-          "ex_missing": 180
-        }, {
-          "rank": "cobalt",
-          "judge": 5,
-          "ex_missing": 120
-        }, {
-          "rank": "amethyst",
-          "judge": 2,
-          "ex_missing": 75
-        }, {
-          "rank": "emerald",
-          "judge": 2,
-          "ex_missing": 50
-        }
-      ],
-      "total_ex": 5301,
-      "songs": [
-        { "name": "WILD SIDE", "difficulty": 13, "difficulty_class": "challenge", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202013%20%28AC%29%20%28Japan%29/WILD%20SIDE/WILD%20SIDE-jacket.png" },
-        { "name": "Tribe", "difficulty": 13, "difficulty_class": "challenge", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X3%20VS%202ndMIX%20%28AC%29%20%28Japan%29/Tribe/Tribe-jacket.png" },
-        { "name": "ORION.78~civilization mix~", "difficulty": 13, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DDRMAX%20-Dance%20Dance%20Revolution%206thMIX-%20%28AC%29%20%28Japan%29/ORION.78~civilization%20mix~/ORION.78~civilization%20mix~-jacket.png" },
-        { "name": "AFRONOVA", "difficulty": 13, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/Dance%20Dance%20Revolution%203rdMIX%20%28AC%29%20%28Japan%29/AFRONOVA/AFRONOVA-jacket.png" }
-      ],
-      "preview": true
-    },
-    {
-      "id": "wanderlust",
-      "name": "Wanderlust",
-      "type": "trial",
-      "difficulty": 15,
-      "goals": [
-        {
-          "rank": "silver"
-        }, {
-          "rank": "gold",
-          "score": [960000, 960000, 925000, 925000]
-        }, {
-          "rank": "diamond",
-          "score": [975000, 975000, 975000, 975000],
-          "miss": 7,
-          "ex_missing": 275
-        }, {
-          "rank": "cobalt",
-          "score": [990000, 990000, 990000, 990000],
-          "judge": 12,
-          "ex_missing": 200
-        }, {
-          "rank": "amethyst",
-          "judge": 3,
-          "ex_missing": 120
-        }, {
-          "rank": "emerald",
-          "judge": 2,
-          "ex_missing": 70
-        }
-      ],
-      "total_ex": 6957,
-      "songs": [
-        { "name": "Go For The Top", "difficulty": 15, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X3%20VS%202ndMIX%20%28AC%29%20%28Japan%29/Go%20For%20The%20Top/Go%20For%20The%20Top-jacket.png" },
-        { "name": "Nostalgia Is Lost", "difficulty": 15, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202014%20%28AC%29%20%28Japan%29/Nostalgia%20Is%20Lost/Nostalgia%20Is%20Lost-jacket.png" },
-        { "name": "Triple Journey -TAG EDITION-", "difficulty": 16, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202013%20%28AC%29%20%28Japan%29/Triple%20Journey%20-TAG%20EDITION-/Triple%20Journey%20-TAG%20EDITION--jacket.png" },
-        { "name": "Destination", "difficulty": 15, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202014%20%28AC%29%20%28Japan%29/Destination/Destination-jacket.png" }
-      ],
-      "preview": true
-    },
-    {
       "id": "heartbreak",
       "name": "Heartbreak",
       "type": "trial",
@@ -197,6 +118,45 @@
         { "name": "GRADIUSIC CYBER", "difficulty": 13, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/Dance%20Dance%20Revolution%202ndMIX%20CLUB%20Version%202%20%28AC%29%20%28Japan%29/GRADIUSIC%20CYBER/GRADIUSIC%20CYBER-jacket.png" },
         { "name": "dirty digital", "difficulty": 13, "difficulty_class": "challenge", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X2%20%28AC%29%20%28Japan%29/dirty%20digital/dirty%20digital-jacket.png" }
       ]
+    },
+    {
+      "id": "primal",
+      "name": "Primal",
+      "type": "trial",
+      "difficulty": 13,
+      "goals": [
+        {
+          "rank": "silver",
+          "score": [900000, 900000, 900000, 900000]
+        }, {
+          "rank": "gold",
+          "score": [965000, 965000, 985000, 985000]
+        }, {
+          "rank": "diamond",
+          "judge": 15,
+          "ex_missing": 180
+        }, {
+          "rank": "cobalt",
+          "judge": 5,
+          "ex_missing": 120
+        }, {
+          "rank": "amethyst",
+          "judge": 2,
+          "ex_missing": 75
+        }, {
+          "rank": "emerald",
+          "judge": 2,
+          "ex_missing": 50
+        }
+      ],
+      "total_ex": 5301,
+      "songs": [
+        { "name": "WILD SIDE", "difficulty": 13, "difficulty_class": "challenge", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202013%20%28AC%29%20%28Japan%29/WILD%20SIDE/WILD%20SIDE-jacket.png" },
+        { "name": "Tribe", "difficulty": 13, "difficulty_class": "challenge", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X3%20VS%202ndMIX%20%28AC%29%20%28Japan%29/Tribe/Tribe-jacket.png" },
+        { "name": "ORION.78~civilization mix~", "difficulty": 13, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DDRMAX%20-Dance%20Dance%20Revolution%206thMIX-%20%28AC%29%20%28Japan%29/ORION.78~civilization%20mix~/ORION.78~civilization%20mix~-jacket.png" },
+        { "name": "AFRONOVA", "difficulty": 13, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/Dance%20Dance%20Revolution%203rdMIX%20%28AC%29%20%28Japan%29/AFRONOVA/AFRONOVA-jacket.png" }
+      ],
+      "new": true
     },
     {
       "id": "daybreak",
@@ -433,6 +393,46 @@
         { "name": "KHAMEN BREAK", "difficulty": 16, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202014%20%28AC%29%20%28Japan%29/KHAMEN%20BREAK/KHAMEN%20BREAK-jacket.png" },
         { "name": "Cleopatrysm", "difficulty": 15, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202014%20%28AC%29%20%28Japan%29/Cleopatrysm/Cleopatrysm-jacket.png" }
       ]
+    },
+    {
+      "id": "wanderlust",
+      "name": "Wanderlust",
+      "type": "trial",
+      "difficulty": 15,
+      "goals": [
+        {
+          "rank": "silver"
+        }, {
+          "rank": "gold",
+          "score": [960000, 960000, 925000, 925000]
+        }, {
+          "rank": "diamond",
+          "score": [975000, 975000, 975000, 975000],
+          "miss": 7,
+          "ex_missing": 275
+        }, {
+          "rank": "cobalt",
+          "score": [990000, 990000, 990000, 990000],
+          "judge": 12,
+          "ex_missing": 200
+        }, {
+          "rank": "amethyst",
+          "judge": 3,
+          "ex_missing": 120
+        }, {
+          "rank": "emerald",
+          "judge": 2,
+          "ex_missing": 70
+        }
+      ],
+      "total_ex": 6957,
+      "songs": [
+        { "name": "Go For The Top", "difficulty": 15, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X3%20VS%202ndMIX%20%28AC%29%20%28Japan%29/Go%20For%20The%20Top/Go%20For%20The%20Top-jacket.png" },
+        { "name": "Nostalgia Is Lost", "difficulty": 15, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202014%20%28AC%29%20%28Japan%29/Nostalgia%20Is%20Lost/Nostalgia%20Is%20Lost-jacket.png" },
+        { "name": "Triple Journey -TAG EDITION-", "difficulty": 16, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202013%20%28AC%29%20%28Japan%29/Triple%20Journey%20-TAG%20EDITION-/Triple%20Journey%20-TAG%20EDITION--jacket.png" },
+        { "name": "Destination", "difficulty": 15, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202014%20%28AC%29%20%28Japan%29/Destination/Destination-jacket.png" }
+      ],
+      "new": true
     },
     {
       "id": "snowdrift",

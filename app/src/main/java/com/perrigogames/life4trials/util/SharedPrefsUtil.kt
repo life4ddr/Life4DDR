@@ -5,7 +5,7 @@ import android.content.SharedPreferences
 import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 import com.perrigogames.life4trials.BuildConfig
-import com.perrigogames.life4trials.activity.SettingsActivity
+import com.perrigogames.life4trials.R
 
 object SharedPrefsUtil {
 
@@ -43,13 +43,7 @@ object SharedPrefsUtil {
     fun setDebugFlag(c: Context, flag: String, v: Boolean) = setUserFlag(c, flag, v)
 
     fun initializeDefaults(c: Context) {
-        userPrefs(c).let {
-            if (it.getInt(KEY_INIT, 0) != 1) {
-                it.edit().putInt(KEY_INIT, 1)
-                    .putBoolean(SettingsActivity.KEY_LIST_TINT_COMPLETED, true)
-                    .putBoolean(SettingsActivity.KEY_SUBMISSION_NOTIFICAION, true).apply()
-            }
-        }
+        PreferenceManager.setDefaultValues(c, R.xml.root_preferences, false)
     }
 
     private fun tutorialPrefs(c: Context) =

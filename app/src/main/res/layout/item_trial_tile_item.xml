@@ -90,4 +90,27 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/image_badge_5"
         tools:background="@color/colorAccent" />
+
+    <ImageView
+        android:id="@+id/image_new"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:rotation="-90"
+        android:src="@drawable/triangle_new"
+        app:layout_constraintBottom_toBottomOf="@id/text_new"
+        app:layout_constraintEnd_toEndOf="@id/text_new"/>
+    
+    <TextView
+        android:id="@+id/text_new"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:fontFamily="@font/avenir"
+        android:gravity="center"
+        android:rotation="-45"
+        android:text="@string/new_tag"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/view_trial_jacket"
+        app:layout_constraintEnd_toEndOf="@id/view_trial_jacket"/>
 </com.perrigogames.life4trials.view.TrialItemView>

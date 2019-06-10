@@ -12,10 +12,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.perrigogames.life4trials.Life4Application
 import com.perrigogames.life4trials.R
+import com.perrigogames.life4trials.activity.SettingsActivity
 import com.perrigogames.life4trials.data.Trial
 import com.perrigogames.life4trials.event.SavedRankUpdatedEvent
+import com.perrigogames.life4trials.event.TrialListReplacedEvent
 import com.perrigogames.life4trials.event.TrialListUpdatedEvent
 import com.perrigogames.life4trials.life4app
+import com.perrigogames.life4trials.util.SharedPrefsUtil
 import com.perrigogames.life4trials.view.PaddingItemDecoration
 import org.greenrobot.eventbus.Subscribe
 
@@ -28,6 +31,9 @@ class TrialListFragment : Fragment() {
 
     private val trialManager get() = context!!.life4app.trialManager
     private val trials: List<Trial> get() = trialManager.trials
+
+    private val featureNew: Boolean
+        get() = SharedPrefsUtil.getUserFlag(context!!, SettingsActivity.KEY_LIST_HIGHLIGHT_NEW, true)
 
     private lateinit var recyclerView: RecyclerView
 
@@ -68,13 +74,13 @@ class TrialListFragment : Fragment() {
     }
 
     private fun createListAdapter() {
-        adapter = TrialListAdapter(context!!, trials, false) { listener?.onTrialSelected(it) }
+        adapter = TrialListAdapter(context!!, trials, false, featureNew) { listener?.onTrialSelected(it) }
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
     }
 
     private fun createTiledAdapter() {
-        adapter = TrialListAdapter(context!!, trials, true) { listener?.onTrialSelected(it) }
+        adapter = TrialListAdapter(context!!, trials, true, featureNew) { listener?.onTrialSelected(it) }
         recyclerView.adapter = adapter
         recyclerView.addItemDecoration(PaddingItemDecoration(resources.getDimensionPixelSize(R.dimen.content_padding_med)))
 
@@ -87,7 +93,7 @@ class TrialListFragment : Fragment() {
     @Subscribe
     fun onRankUpdated(e: SavedRankUpdatedEvent) {
         if (e.trial != null) {
-            adapter.notifyItemChanged(trials.indexOf(e.trial))
+            adapter.notifyTrialChanged(e.trial)
         } else {
             adapter.notifyDataSetChanged()
         }
@@ -95,7 +101,13 @@ class TrialListFragment : Fragment() {
 
     @Subscribe
     fun onListUpdated(e: TrialListUpdatedEvent) {
-        adapter.notifyDataSetChanged()
+        adapter.updateNewTrialsList()
+    }
+
+    @Subscribe
+    fun onListReplaced(e: TrialListReplacedEvent) {
+        adapter.featureNew = featureNew
+        adapter.updateNewTrialsList()
     }
 
     interface OnTrialListInteractionListener {
