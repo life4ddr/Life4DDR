@@ -9,4 +9,4 @@ fun Activity.openWebUrl(url: String) = startActivity(Intent(Intent.ACTION_VIEW, 
 
 fun Activity.openWebUrlFromRes(@StringRes res: Int) = openWebUrl(getString(res))
 
-fun Activity.openWebUrlFromRes(@StringRes res: Int, vararg formatArgs: Any?) = openWebUrl(getString(res, formatArgs))
+fun Activity.openWebUrlFromRes(@StringRes res: Int, vararg formatArgs: Any?) = openWebUrl(getString(res, *formatArgs))
