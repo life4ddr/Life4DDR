@@ -16,7 +16,7 @@ enum class TrialRank(val stableId: Int,
     @SerializedName("diamond") DIAMOND(30, R.string.trial_diamond, LadderRank.DIAMOND3),
     @SerializedName("cobalt") COBALT(35, R.string.trial_cobalt, LadderRank.COBALT3),
     @SerializedName("amethyst") AMETHYST(40, R.string.trial_amethyst, LadderRank.AMETHYST3),
-    @SerializedName("emerald") EMERALD(40, R.string.trial_emerald, LadderRank.EMERALD3);
+    @SerializedName("emerald") EMERALD(45, R.string.trial_emerald, LadderRank.EMERALD3);
 
     val drawableRes: Int get() = parent.drawableRes
 

@@ -75,8 +75,8 @@ class TrialManager(private val context: Context) {
         return emptyList()
     }
 
-    fun clearRecords() {
-        AlertDialog.Builder(context)
+    fun clearRecords(c: Context) {
+        AlertDialog.Builder(c)
             .setTitle(R.string.are_you_sure)
             .setMessage(R.string.confirm_erase_data)
             .setPositiveButton(R.string.yes) { _, _ ->

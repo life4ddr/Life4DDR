@@ -81,7 +81,7 @@ class TrialItemView @JvmOverloads constructor(context: Context, attrs: Attribute
     fun setHighestRank(rank: TrialRank?) {
         (view_trial_jacket as TrialJacketView).let { view ->
             view.rank = rank
-            view.tintOnRank = if (tintCompleted) TrialRank.AMETHYST else null
+            view.tintOnRank = if (tintCompleted) TrialRank.values().last() else null
         }
     }
 

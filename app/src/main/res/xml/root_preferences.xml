@@ -55,6 +55,10 @@
         <SwitchPreference
             app:key="KEY_RECORDS_REMAINING_EX"
             app:title="@string/show_remaining_instead_total" />
+
+        <Preference
+            app:key="KEY_RECORDS_CLEAR"
+            app:title="@string/action_clear_record_data"/>
     </PreferenceCategory>
 
     <PreferenceCategory app:title="@string/help">

@@ -95,7 +95,7 @@ class TrialListFragment : Fragment() {
         if (e.trial != null) {
             adapter.notifyTrialChanged(e.trial)
         } else {
-            adapter.notifyDataSetChanged()
+            adapter.updateNewTrialsList()
         }
     }
 

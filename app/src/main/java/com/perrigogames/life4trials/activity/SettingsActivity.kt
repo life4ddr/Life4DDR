@@ -42,11 +42,11 @@ class SettingsActivity : AppCompatActivity() {
 
         private val trialManager get() = context!!.life4app.trialManager
 
-        private val listUpdateListener = Preference.OnPreferenceClickListener {
+        private val listUpdateListener: (Preference) -> Boolean = {
             Life4Application.eventBus.post(TrialListUpdatedEvent())
             true
         }
-        private val listReplaceListener = Preference.OnPreferenceClickListener {
+        private val listReplaceListener: (Preference) -> Boolean = {
             Life4Application.eventBus.post(TrialListReplacedEvent())
             true
         }
@@ -59,16 +59,19 @@ class SettingsActivity : AppCompatActivity() {
                 SharedPrefsUtil.getUserString(context, KEY_INFO_RIVAL_CODE)
             preferenceScreen.findPreference<Preference>(KEY_INFO_TWITTER_NAME)!!.summary =
                 SharedPrefsUtil.getUserString(context, KEY_INFO_TWITTER_NAME)
-            preferenceScreen.findPreference<Preference>(KEY_SUBMISSION_NOTIFICAION)!!.onPreferenceClickListener =
-                Preference.OnPreferenceClickListener {
-                    NotificationUtil.showUserInfoNotifications(context, 1579)
-                    true
-                }
+            preferenceListener(KEY_SUBMISSION_NOTIFICAION) {
+                NotificationUtil.showUserInfoNotifications(context, 1579)
+                true
+            }
+            preferenceListener(KEY_RECORDS_CLEAR) {
+                trialManager.clearRecords(context)
+                true
+            }
 
-            preferenceScreen.findPreference<Preference>(KEY_LIST_SHOW_EX)!!.onPreferenceClickListener = listUpdateListener
-            preferenceScreen.findPreference<Preference>(KEY_LIST_SHOW_EX_REMAINING)!!.onPreferenceClickListener = listUpdateListener
-            preferenceScreen.findPreference<Preference>(KEY_LIST_TINT_COMPLETED)!!.onPreferenceClickListener = listUpdateListener
-            preferenceScreen.findPreference<Preference>(KEY_LIST_HIGHLIGHT_NEW)!!.onPreferenceClickListener = listReplaceListener
+            preferenceListener(KEY_LIST_SHOW_EX, listUpdateListener)
+            preferenceListener(KEY_LIST_SHOW_EX_REMAINING, listUpdateListener)
+            preferenceListener(KEY_LIST_TINT_COMPLETED, listUpdateListener)
+            preferenceListener(KEY_LIST_HIGHLIGHT_NEW, listReplaceListener)
 
             preferenceScreen.findPreference<Preference>(KEY_FEEDBACK)!!.onPreferenceClickListener =
                 Preference.OnPreferenceClickListener {
@@ -162,6 +165,11 @@ class SettingsActivity : AppCompatActivity() {
             super.onResume()
             preferenceScreen.sharedPreferences.registerOnSharedPreferenceChangeListener(this)
         }
+
+        private inline fun preferenceListener(key: String, crossinline action: (Preference) -> Boolean) {
+            preferenceScreen.findPreference<Preference>(key)!!.onPreferenceClickListener =
+                Preference.OnPreferenceClickListener { action(it) }
+        }
     }
 
     companion object {
@@ -175,6 +183,7 @@ class SettingsActivity : AppCompatActivity() {
         const val KEY_INFO_TWITTER_NAME = "KEY_INFO_TWITTER_NAME"
         const val KEY_SUBMISSION_NOTIFICAION = "KEY_SUBMISSION_NOTIFICAION"
         const val KEY_RECORDS_REMAINING_EX = "KEY_RECORDS_REMAINING_EX"
+        const val KEY_RECORDS_CLEAR = "KEY_RECORDS_CLEAR"
         const val KEY_FEEDBACK = "KEY_FEEDBACK"
 
         const val KEY_DEBUG_DETAILS_DISPLAY_ALL_RANKS = "dddar"
