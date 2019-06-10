@@ -55,9 +55,9 @@ class SettingsActivity : AppCompatActivity() {
             setPreferencesFromResource(R.xml.root_preferences, rootKey)
 
             val context = preferenceManager.context
-            preferenceScreen.findPreference<Preference>(KEY_INFO_RIVAL_CODE)!!.summary =
+            preference(KEY_INFO_RIVAL_CODE).summary =
                 SharedPrefsUtil.getUserString(context, KEY_INFO_RIVAL_CODE)
-            preferenceScreen.findPreference<Preference>(KEY_INFO_TWITTER_NAME)!!.summary =
+            preference(KEY_INFO_TWITTER_NAME).summary =
                 SharedPrefsUtil.getUserString(context, KEY_INFO_TWITTER_NAME)
             preferenceListener(KEY_SUBMISSION_NOTIFICAION) {
                 NotificationUtil.showUserInfoNotifications(context, 1579)
@@ -73,15 +73,20 @@ class SettingsActivity : AppCompatActivity() {
             preferenceListener(KEY_LIST_TINT_COMPLETED, listUpdateListener)
             preferenceListener(KEY_LIST_HIGHLIGHT_NEW, listReplaceListener)
 
-            preferenceScreen.findPreference<Preference>(KEY_FEEDBACK)!!.onPreferenceClickListener =
-                Preference.OnPreferenceClickListener {
-                    startActivity(Intent(ACTION_SENDTO, Uri.parse(
-                        "mailto:life4@perrigogames.com?subject=${Uri.encode(getString(R.string.life4_feedback_email_subject))}")))
-                    true
-                }
+            preferenceListener(KEY_FEEDBACK) {
+                startActivity(Intent(ACTION_SENDTO, Uri.parse(
+                    "mailto:life4@perrigogames.com?subject=${Uri.encode(getString(R.string.life4_feedback_email_subject))}")))
+                true
+            }
 
             if (BuildConfig.DEBUG) {
                 addDebugRanks()
+            }
+
+            Preference(context).apply {
+                key = "version_info"
+                title = "Version ${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})"
+                preferenceScreen.addPreference(this)
             }
         }
 
@@ -166,9 +171,10 @@ class SettingsActivity : AppCompatActivity() {
             preferenceScreen.sharedPreferences.registerOnSharedPreferenceChangeListener(this)
         }
 
+        private fun preference(key: String) = preferenceScreen.findPreference<Preference>(key)!!
+
         private inline fun preferenceListener(key: String, crossinline action: (Preference) -> Boolean) {
-            preferenceScreen.findPreference<Preference>(key)!!.onPreferenceClickListener =
-                Preference.OnPreferenceClickListener { action(it) }
+            preference(key).onPreferenceClickListener = Preference.OnPreferenceClickListener { action(it) }
         }
     }
 
