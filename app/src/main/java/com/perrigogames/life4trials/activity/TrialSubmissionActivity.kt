@@ -82,7 +82,7 @@ class TrialSubmissionActivity: AppCompatActivity() {
             }
         }
 
-        session.goalSet?.let { set -> text_goals.text = set.generateSingleGoalString(resources, session.trial) }
+        session.trialGoalSet?.let { set -> text_goals.text = set.generateSingleGoalString(resources, session.trial) }
 
         button_submit.setOnClickListener { submitResult() }
 
@@ -131,7 +131,7 @@ class TrialSubmissionActivity: AppCompatActivity() {
     private fun setRank(rank: TrialRank) {
         session.goalRank = rank
         image_desired_rank.rank = rank.parent
-        text_goals.text = session.goalSet?.generateSingleGoalString(resources, session.trial)
+        text_goals.text = session.trialGoalSet?.generateSingleGoalString(resources, session.trial)
     }
 
     private fun submitResult() {

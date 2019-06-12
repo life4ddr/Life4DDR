@@ -175,7 +175,7 @@ class TrialDetailsActivity: AppCompatActivity(), SongListFragment.Listener {
         trialSession.goalRank = rank
 
         image_desired_rank.rank = rank.parent
-        text_goals_content.text = trialSession.goalSet?.generateSingleGoalString(resources, trial)
+        text_goals_content.text = trialSession.trialGoalSet?.generateSingleGoalString(resources, trial)
 
         songListFragment.shouldShowAdvancedSongDetails = trialSession.shouldShowAdvancedSongDetails
     }

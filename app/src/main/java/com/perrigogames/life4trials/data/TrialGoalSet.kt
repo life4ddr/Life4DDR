@@ -7,12 +7,12 @@ import com.perrigogames.life4trials.data.TrialData.Companion.AAA_SCORE
 import com.perrigogames.life4trials.data.TrialData.Companion.MAX_SCORE
 import java.io.Serializable
 
-data class GoalSet(val rank: TrialRank,
-                   val score: List<Int>? = null,
-                   @SerializedName("score_indexed") val scoreIndexed: List<Int>? = null,
-                   val judge: Int? = null,
-                   val miss: Int? = null,
-                   @SerializedName("ex_missing") val exMissing: Int? = null): Serializable {
+data class TrialGoalSet(val rank: TrialRank,
+                        val score: List<Int>? = null,
+                        @SerializedName("score_indexed") val scoreIndexed: List<Int>? = null,
+                        val judge: Int? = null,
+                        val miss: Int? = null,
+                        @SerializedName("ex_missing") val exMissing: Int? = null): Serializable {
 
     val goalTypes: List<GoalType>
         get() = mutableListOf<GoalType>().apply {

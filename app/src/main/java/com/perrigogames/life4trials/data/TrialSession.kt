@@ -17,7 +17,7 @@ data class TrialSession(val trial: Trial,
     val availableRanks: Array<TrialRank> = trial.goals!!.map { it.rank }.toTypedArray()
 
     val shouldShowAdvancedSongDetails
-        get() = goalSet?.let { it.miss != null || it.judge != null } ?: false
+        get() = trialGoalSet?.let { it.miss != null || it.judge != null } ?: false
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -37,7 +37,7 @@ data class TrialSession(val trial: Trial,
         return result
     }
 
-    val goalSet: GoalSet?
+    val trialGoalSet: TrialGoalSet?
         get() = trial.goalSet(goalRank)
 
     val totalExScore: Int
