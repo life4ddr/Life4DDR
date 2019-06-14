@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
-        android:id="@+id/text_goal_title"
+        android:id="@+id/text_rank_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/content_padding_med"
@@ -39,7 +39,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/image_status_icon"
-        app:layout_constraintTop_toBottomOf="@id/text_goal_title"
+        app:layout_constraintTop_toBottomOf="@id/text_rank_title"
         tools:text="2 songs remaining"
         tools:visibility="visible"/>
 

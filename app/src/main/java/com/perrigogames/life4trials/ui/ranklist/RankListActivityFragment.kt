@@ -9,10 +9,10 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.perrigogames.life4trials.Life4Application
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.data.LadderRankData
 import com.perrigogames.life4trials.data.RankEntry
+import com.perrigogames.life4trials.life4app
 import com.perrigogames.life4trials.ui.rankdetails.RankListAdapter
 
 /**
@@ -20,16 +20,12 @@ import com.perrigogames.life4trials.ui.rankdetails.RankListAdapter
  */
 class RankListActivityFragment : Fragment() {
 
-    private val rankData: LadderRankData get() = (context!!.applicationContext as Life4Application).ladderRankData
+    private val rankData: LadderRankData get() = context!!.life4app.ladderManager.ladderData
 
     private val columnCount: Int
         get() = arguments?.getInt(ARG_COLUMN_COUNT) ?: 1
 
     private var listener: OnRankListInteractionListener? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_rank_details, container, false)
@@ -40,7 +36,7 @@ class RankListActivityFragment : Fragment() {
                     columnCount <= 1 -> LinearLayoutManager(context)
                     else -> GridLayoutManager(context, columnCount)
                 }
-                adapter = RankListAdapter(rankData.ranks, listener)
+                adapter = RankListAdapter(rankData.rankRequirements, columnCount == 1, listener)
             }
         }
         return view

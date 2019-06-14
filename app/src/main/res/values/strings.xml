@@ -40,23 +40,30 @@
     <string name="no_misses">• Full combo all songs.</string>
 
     <!-- RankEntry Goal Strings -->
-    <string name="rank_goal_calories">Burn %d calories in a single session.</string>
+    <string name="rank_goal_calories">Burn %d calories in one day.</string>
     <string name="rank_goal_single_score">Score %s on any level %d.</string>
-    <string name="rank_goal_lamp">Earn a %s Lamp on %s (%s).</string>
+    <string name="rank_goal_lamp">Earn a %s on %s (%s).</string>
     <string name="rank_goal_set_different">Complete a set of %s.</string>
-    <string name="rank_goal_difficulty_clear">%s %d different %ds.</string>
-    <string name="rank_goal_difficulty_clear_single">%s a %d.</string>
+    <string name="rank_goal_clear_count">%s %d songs on %s.</string>
+    <string name="rank_goal_clear_count_single">%s a song on %s.</string>
+    <string name="rank_goal_clear_specific">%s %s on %s.</string>
+    <string name="rank_goal_clear_trial">Earn %s on %d trials.</string>
+    <string name="rank_goal_clear_trial_single">Earn %s on any trial.</string>
+    <string name="rank_goal_difficulty_clear">%s %d different %s.</string>
+    <string name="rank_goal_difficulty_clear_single_a">%s a %s.</string>
+    <string name="rank_goal_difficulty_clear_single_an">%s an %s.</string>
     <string name="rank_goal_difficulty_lamp">%s the %d\'s folder.</string>
-    <string name="rank_goal_difficulty_score">%s %s.</string>
-    <string name="rank_goal_difficulty_score_all">All %d\'s over %s.</string>
-    <string name="rank_goal_difficulty_aaa_all">AAA every %d</string>
+    <string name="rank_goal_difficulty_score">%s %d %s.</string>
+    <string name="rank_goal_difficulty_score_all">All %s over %s.</string>
+    <string name="rank_goal_difficulty_score_all_lamp">All %s over %s with a %s.</string>
+    <string name="rank_goal_difficulty_aaa_all">AAA every %d.</string>
+    <string name="rank_goal_difficulty_aaa_all_lamp">AAA every %d with a %s.</string>
     <string name="exceptions">(%dE)</string>
 
     <string name="fail">Fail</string>
     <string name="clear">Clear</string>
     <string name="clear_aaa">AAA</string>
     <string name="clear_life4">LIFE4 clear</string>
-    <string name="clear_life4_short">L4C</string>
     <string name="clear_fc">Full Combo</string>
     <string name="clear_fc_short">FC</string>
     <string name="clear_gfc">Great Full Combo</string>
@@ -258,13 +265,24 @@
     <string name="trial_emerald">EMERALD</string>
 
 
-    <string name="set_numbers_multiple_same_format">%d %d\'s</string>
+    <string name="set_numbers_multiple_same_format">%d different %d\'s</string>
     <string name="set_numbers_3_format">%d, %d, and %d</string>
     <string name="make_sure_fields_filled">Make sure all fields are filled in.</string>
     <string name="tap_to_copy">Tap to copy \"%s\"</string>
     <string name="copied">\"%s\" Copied!</string>
     <string name="placement_explanation">Placement sets are collections of three songs that must be played all in the same set.</string>
     <string name="new_tag">NEW!</string>
+    <string name="bgsp">BGSP</string>
+    <string name="bsp">BSP</string>
+    <string name="dsp">DSP</string>
+    <string name="esp">ESP</string>
+    <string name="csp">CSP</string>
+    <string name="and_s">and %s</string>
+    <string name="or_s">or %s</string>
+    <string name="or_s_caps">OR %s</string>
+    <string name="plural_number">%ds</string>
+    <string name="any_full_mix_or_letter">any full mix or letter folder</string>
+    <string name="choose_list">Choose 1: %s</string>
     <array name="placement_explanation_bullets">
         <item>• The songs can be played in any order.</item>
         <item>• Extra Stage is optional. If you earn an Extra Stage, you can use it to improve a previous score.</item>

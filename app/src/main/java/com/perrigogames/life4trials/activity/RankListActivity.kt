@@ -22,7 +22,7 @@ class RankListActivity : AppCompatActivity(), OnRankListInteractionListener {
         layout_container.removeAllViews()
         supportFragmentManager.beginTransaction()
             .add(R.id.layout_container,
-                RankListActivityFragment.newInstance(3))
+                RankListActivityFragment.newInstance(1))
             .commit()
     }
 

@@ -20,6 +20,8 @@ class RankDetailsAdapter(private val rank: RankEntry,
                          private val mListener: OnGoalListInteractionListener?) :
     RecyclerView.Adapter<RankDetailsAdapter.ViewHolder>() {
 
+    private val items = rank.goals
+
     private val mOnClickListener: View.OnClickListener
 
     init {
@@ -34,8 +36,8 @@ class RankDetailsAdapter(private val rank: RankEntry,
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = rank.goals[position]
-        holder.setGoal(rank.goals[position])
+        val item = items[position]
+        holder.setGoal(item)
 
         with(holder.view) {
             tag = item
@@ -43,11 +45,11 @@ class RankDetailsAdapter(private val rank: RankEntry,
         }
     }
 
-    override fun getItemCount(): Int = rank.goals.size
+    override fun getItemCount(): Int = items.size
 
     inner class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         private val statusIcon: ImageView = view.image_status_icon
-        private val title: TextView = view.text_goal_title
+        private val title: TextView = view.text_rank_title
 
         fun setGoal(goal: BaseRankGoal) {
 //            statusIcon.setImageDrawable(ContextCompat.getDrawable(view.context, rank.drawableRes))

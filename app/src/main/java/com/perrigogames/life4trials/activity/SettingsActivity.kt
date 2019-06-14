@@ -117,6 +117,15 @@ class SettingsActivity : AppCompatActivity() {
                 })
             }
             Preference(context).apply {
+                key = "rank_list"
+                title = "Rank list"
+                onPreferenceClickListener = Preference.OnPreferenceClickListener {
+                    (context as AppCompatActivity).startActivity(Intent(context, RankListActivity::class.java))
+                    true
+                }
+                preferenceScreen.addPreference(this)
+            }
+            Preference(context).apply {
                 key = "induce_crash"
                 title = "Induce crash"
                 onPreferenceClickListener = Preference.OnPreferenceClickListener {

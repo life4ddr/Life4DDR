@@ -3,6 +3,7 @@ package com.perrigogames.life4trials.data
 import android.content.Context
 import com.google.gson.annotations.SerializedName
 import com.perrigogames.life4trials.R
+import com.perrigogames.life4trials.util.toListString
 import com.perrigogames.life4trials.view.longNumberString
 import java.io.Serializable
 
@@ -13,7 +14,7 @@ import java.io.Serializable
 abstract class BaseRankGoal(val type: String,
                             val mandatory: Boolean = false): Serializable {
 
-    abstract fun goalString(context: Context): String
+    abstract fun goalString(c: Context): String
 }
 
 /**
@@ -23,8 +24,8 @@ abstract class BaseRankGoal(val type: String,
 class CaloriesRankGoal(type: String,
                        val count: Int): BaseRankGoal(type) {
 
-    override fun goalString(context: Context): String =
-            context.getString(R.string.rank_goal_calories, count)
+    override fun goalString(c: Context): String =
+            c.getString(R.string.rank_goal_calories, count)
 
     companion object {
         const val TYPE_STRING = "calories"
@@ -33,21 +34,41 @@ class CaloriesRankGoal(type: String,
 
 /**
  * A specialized rank goal requiring the player to clear all of the songs in a generic folder.
- * @param clearType the set of difficulty numbers (ordered) that must be cleared, defaults to [ClearType.CLEAR]
+ * @param mClearType the set of difficulty numbers (ordered) that must be cleared, defaults to [ClearType.CLEAR]
+ * @param mRequireAllDifficulties whether to require the user to do each of the difficulties or simply one of their choice, defaults to true
  * @param difficulties the difficulties that the folder must be cleared on
  * @param folder the specific folder that needs to be finished, null indicates any folder can be used
+ * @param songs the list of specific songs that need to be completed (this overrides [folder])
  */
-class FolderClearGoal(type: String,
-                      @SerializedName("clear_type") val clearType: ClearType = ClearType.CLEAR,
-                      @SerializedName("require_all_difficulties") val requireAllDifficulties: Boolean = true,
-                      val difficulties: List<DifficultyClass>,
-                      val folder: String?): BaseRankGoal(type) {
+class SongSetClearGoal(type: String,
+                       mandatory: Boolean,
+                       @SerializedName("clear_type") private val mClearType: ClearType?,
+                       @SerializedName("require_all_difficulties") private val mRequireAllDifficulties: Boolean?,
+                       val count: Int?,
+                       val difficulties: List<DifficultyClass>,
+                       val folder: String?,
+                       val songs: List<String>?): BaseRankGoal(type, mandatory) {
 
-    override fun goalString(context: Context): String =
-            context.getString(R.string.rank_goal_lamp)
+    val requireAllDifficulties: Boolean get() = mRequireAllDifficulties ?: true
+
+    val clearType: ClearType get() = mClearType ?: ClearType.CLEAR
+
+    override fun goalString(c: Context): String = when {
+        count == null && songs != null -> c.getString(R.string.rank_goal_clear_specific, c.getString(clearType.clearResShort), songs.toListString(c, R.string.and_s), difficultyString(c))
+        count == null -> c.getString(R.string.rank_goal_lamp, c.getString(clearType.lampRes!!), folderName(c), difficultyString(c))
+        count == 1 -> c.getString(R.string.rank_goal_clear_count_single, c.getString(clearType.clearResShort), difficultyString(c))
+        else -> c.getString(R.string.rank_goal_clear_count, c.getString(clearType.clearResShort), count, difficultyString(c))
+    }
+
+    private fun difficultyString(c: Context): String =
+        difficulties.joinToString(separator = difficultySeparator) { c.getString(it.abbreviationRes) }
+
+    private val difficultySeparator get() = if (requireAllDifficulties) " + " else " / "
+
+    private fun folderName(c: Context) = folder ?: c.getString(R.string.any_full_mix_or_letter)
 
     companion object {
-        const val TYPE_STRING = "lamp"
+        const val TYPE_STRING = "songs"
     }
 }
 
@@ -56,16 +77,17 @@ class FolderClearGoal(type: String,
  * @param difficulties the set of difficulty numbers (ordered) that must be cleared
  */
 class SongSetGoal(type: String,
-                  @SerializedName("difficulty_numbers") val difficulties: IntArray): BaseRankGoal(type) {
+                  mandatory: Boolean,
+                  @SerializedName("difficulty_numbers") val difficulties: IntArray): BaseRankGoal(type, mandatory) {
 
-    override fun goalString(context: Context): String {
-        return context.getString(
+    override fun goalString(c: Context): String {
+        return c.getString(
             R.string.rank_goal_set_different,
             if (difficulties.all { it == difficulties[0] }) {
-                context.getString(R.string.set_numbers_multiple_same_format,
+                c.getString(R.string.set_numbers_multiple_same_format,
                     difficulties.size, difficulties[0])
             } else {
-                context.getString(R.string.set_numbers_3_format,
+                c.getString(R.string.set_numbers_3_format,
                     difficulties[0], difficulties[1], difficulties[2])
             })
     }
@@ -76,14 +98,35 @@ class SongSetGoal(type: String,
 }
 
 /**
+ * A specialized rank goal requiring the player to clear a Trial with a certain rank.
+ * @param rank the [TrialRank] that the user needs to earn
+ * @param count the number of trials that need to be cleared with [rank]
+ */
+class TrialGoal(type: String,
+                mandatory: Boolean,
+                val rank: TrialRank,
+                val count: Int = 1): BaseRankGoal(type, mandatory) {
+
+    override fun goalString(c: Context): String {
+        return if (count == 1) c.getString(R.string.rank_goal_clear_trial_single, c.getString(rank.nameRes))
+        else c.getString(R.string.rank_goal_clear_trial, c.getString(rank.nameRes), count)
+    }
+
+    companion object {
+        const val TYPE_STRING = "trial"
+    }
+}
+
+/**
  * A specialized rank goal requiring players to clear songs of a particular difficulty in special ways.
  * For example,
  * - clearing 3 different 12's with LIFE4 enabled
  * - clearing all 17's with 950k or more points
  * - PFC-ing all 15's with the exception of 5 songs
- * -
- * @param difficulty the difficulty number to be judged
- * @param clearType the [ClearType] that needs to be obtained for each song, defaults to [ClearType.CLEAR]
+ * @param mDifficulty the difficulty number to be judged
+ * @param mDifficultyNumbers the set of difficulty numbers to be judged. This overrides [mDifficulty] and is
+ *   intended to be different options (PFC 3 9s or 10s to indicate a user could do a mix of difficulties)
+ * @param mClearType the [ClearType] that needs to be obtained for each song, defaults to [ClearType.CLEAR]
  * @param count the number of songs that need to be cleared from the difficulty, null indicates the
  *   entire folder must be cleared. Cannot be used with [songs]
  * @param songs specifies specific songs that must be cleared. Overrides [count]
@@ -93,59 +136,106 @@ class SongSetGoal(type: String,
  *   meet these requirements
  */
 class DifficultyClearGoal(type: String,
-                          val difficulty: Int,
-                          @SerializedName("clear_type") val clearType: ClearType = ClearType.CLEAR,
+                          mandatory: Boolean,
+                          @SerializedName("difficulty") val mDifficulty: Int?,
+                          @SerializedName("difficulty_numbers") private val mDifficultyNumbers: IntArray?,
+                          @SerializedName("clear_type") private val mClearType: ClearType?,
                           val count: Int?,
                           val songs: List<String>? = null,
-                          val score: Int? = null,
-                          val exceptions: Int? = null,
-                          @SerializedName("song_exceptions") val songExceptions: List<String>? = null): BaseRankGoal(type) {
+                          val score: Int?,
+                          val exceptions: Int?,
+                          @SerializedName("song_exceptions") val songExceptions: List<String>? = null): BaseRankGoal(type, mandatory) {
 
-    override fun goalString(context: Context): String {
+    val clearType: ClearType get() = mClearType ?: ClearType.CLEAR
+
+    val difficultyNumbers: IntArray get() = when {
+        mDifficultyNumbers != null -> mDifficultyNumbers
+        mDifficulty != null -> intArrayOf(mDifficulty)
+        else -> throw IllegalArgumentException("Must implement difficulty or difficulty_numbers")
+    }
+
+    override fun goalString(c: Context): String {
         return if (count == null) when {
-            score != null -> scoreAllString(context) // All X over Y
-            else -> lampString(context) // Y lamp the X's folder
+            score != null -> scoreAllString(c) + exceptionString(c) // All X over Y
+            else -> lampString(c) + exceptionString(c) // Y lamp the X's folder
         } else when {
-            score != null -> scoreString(context) // All X over Y
-            else -> clearString(context) // Y lamp the X's folder
+            score != null -> scoreString(c) // All X over Y
+            else -> clearString(c) // Y lamp the X's folder
 //            throw IllegalArgumentException("Improper difficulty goal content")
         }
     }
 
-    private fun scoreString(c: Context): String = when (score) {
-            TrialData.AAA_SCORE -> clearString(c, c.getString(R.string.clear_aaa))
-            TrialData.MAX_SCORE -> throw IllegalArgumentException("Use 'marvelous' clear type instead of specifying 1000000")
-            else -> c.getString(R.string.rank_goal_difficulty_score_all, difficulty, score!!.longNumberString())
+    private fun scoreString(c: Context): String = when {
+        score == null -> throw IllegalArgumentException("Score must exist when making a score string")
+        score == TrialData.MAX_SCORE -> throw IllegalArgumentException("Use 'marvelous' clear type instead of specifying 1000000")
+        score == TrialData.AAA_SCORE -> clearString(c, c.getString(R.string.clear_aaa))
+        count == 1 -> when(mDifficulty) {
+            8, 11, 18 -> c.getString(R.string.rank_goal_difficulty_clear_single_an, score.longNumberString(), difficultyString(c, false))
+            else -> c.getString(R.string.rank_goal_difficulty_clear_single_a, score.longNumberString(), difficultyString(c, false))
         }
+        else -> c.getString(R.string.rank_goal_difficulty_score, score.longNumberString(), count, difficultyString(c, true))
+    }
 
     private fun scoreAllString(c: Context): String = when (score) {
-        TrialData.AAA_SCORE -> c.getString(R.string.rank_goal_difficulty_aaa_all, difficulty)
         TrialData.MAX_SCORE -> throw IllegalArgumentException("Use 'marvelous' clear type instead of specifying 1000000")
-        else -> c.getString(R.string.rank_goal_difficulty_score_all, difficulty, score!!.longNumberString())
+        TrialData.AAA_SCORE -> when (clearType) {
+            ClearType.CLEAR -> c.getString(R.string.rank_goal_difficulty_aaa_all, mDifficulty)
+            else -> c.getString(R.string.rank_goal_difficulty_aaa_all_lamp, mDifficulty, c.getString(clearType.lampRes!!))
+        }
+        else -> when (clearType) {
+            ClearType.CLEAR -> c.getString(R.string.rank_goal_difficulty_score_all, difficultyString(c, true), score!!.longNumberString())
+            else -> c.getString(R.string.rank_goal_difficulty_score_all_lamp, difficultyString(c, true), score!!.longNumberString(), c.getString(clearType.lampRes!!))
+        }
     }
 
     private fun clearString(c: Context, text: String): String = with(c) {
-        return if (count == 1) getString(R.string.rank_goal_difficulty_clear_single, text, difficulty)
-        else getString(R.string.rank_goal_difficulty_clear, text, count, difficulty)
+        return if (count == 1) when(mDifficulty) {
+            8, 11, 18 -> getString(R.string.rank_goal_difficulty_clear_single_an, text, difficultyString(c, false))
+            else -> getString(R.string.rank_goal_difficulty_clear_single_a, text, difficultyString(c, false))
+        } else getString(R.string.rank_goal_difficulty_clear, text, count, difficultyString(c, true))
     }
 
     private fun clearString(c: Context): String =  when {
         exceptions != null -> throw IllegalArgumentException("Cannot combine exceptions with a set number")
         clearType.lampRes == null -> throw IllegalArgumentException("Invalid clear type: $clearType")
-        count == 1 -> c.getString(R.string.rank_goal_difficulty_clear_single, c.getString(clearType.clearRes), difficulty)
-        else -> clearString(c, c.getString(clearType.clearRes))
+        count == 1 -> when(mDifficulty) {
+            8, 11, 18 -> c.getString(R.string.rank_goal_difficulty_clear_single_an, c.getString(clearType.clearResShort), difficultyString(c, false))
+            else -> c.getString(R.string.rank_goal_difficulty_clear_single_a, c.getString(clearType.clearResShort), difficultyString(c, false))
+        }
+        else -> clearString(c, c.getString(clearType.clearResShort))
     }
 
     private fun lampString(c: Context): String = with(c) {
         return (when {
             clearType.lampRes == null -> throw IllegalArgumentException("Invalid clear type: $clearType")
-            else -> getString(R.string.rank_goal_difficulty_lamp, getString(clearType.lampRes), difficulty)
-        }) + exceptionString(c)
+            else -> getString(R.string.rank_goal_difficulty_lamp, getString(clearType.lampRes!!), mDifficulty)
+        })
     }
 
-    private fun exceptionString(c: Context) = " ${c.getString(R.string.exceptions, exceptions)}"
+    private fun difficultyString(c: Context, plural: Boolean): String =
+        difficultyNumbers.map { d -> pluralNumber(c, d, plural) }.toListString(c, R.string.or_s)
+
+    private fun pluralNumber(c: Context, number: Int, plural: Boolean) =
+        if (plural) c.getString(R.string.plural_number, number) else number.toString()
+
+    private fun exceptionString(c: Context) = if (exceptions != null)
+        " ${c.getString(R.string.exceptions, exceptions)}"
+    else ""
 
     companion object {
         const val TYPE_STRING = "difficulty"
+    }
+}
+
+class MultipleChoiceGoal(type: String,
+                         mandatory: Boolean,
+                         val options: List<BaseRankGoal>): BaseRankGoal(type, mandatory) {
+
+    override fun goalString(c: Context): String {
+        return options.map { it.goalString(c).replace(".", "") }.toListString(c, R.string.or_s_caps)
+    }
+
+    companion object {
+        const val TYPE_STRING = "multiple"
     }
 }

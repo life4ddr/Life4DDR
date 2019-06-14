@@ -1,6 +1,7 @@
 package com.perrigogames.life4trials.data
 
 import androidx.annotation.StringRes
+import com.google.gson.annotations.SerializedName
 import com.perrigogames.life4trials.R
 
 /**
@@ -12,13 +13,13 @@ import com.perrigogames.life4trials.R
  */
 enum class ClearType(@StringRes val lampRes: Int?,
                      @StringRes val clearRes: Int,
-                     @StringRes val clearResShort: Int?,
+                     @StringRes val clearResShort: Int,
                      val passing: Boolean = true) {
-    FAIL(null, R.string.fail, null, false),
-    CLEAR(R.string.lamp_clear, R.string.clear, null),
-    LIFE4_CLEAR(R.string.lamp_life4, R.string.clear_life4, R.string.clear_life4_short),
-    GOOD_FULL_COMBO(R.string.lamp_fc, R.string.clear_fc, R.string.clear_fc_short),
-    GREAT_FULL_COMBO(R.string.lamp_gfc, R.string.clear_gfc, R.string.clear_gfc_short),
-    PERFECT_FULL_COMBO(R.string.lamp_pfc, R.string.clear_pfc, R.string.clear_pfc_short),
-    MARVELOUS_FULL_COMBO(R.string.lamp_mfc, R.string.clear_mfc, R.string.clear_mfc_short)
+    @SerializedName("fail") FAIL(null, R.string.fail, R.string.fail, false),
+    @SerializedName("clear") CLEAR(R.string.lamp_clear, R.string.clear, R.string.clear),
+    @SerializedName("life4_clear", alternate = ["life4"]) LIFE4_CLEAR(R.string.lamp_life4, R.string.clear_life4, R.string.clear_life4),
+    @SerializedName("good") GOOD_FULL_COMBO(R.string.lamp_fc, R.string.clear_fc, R.string.clear_fc_short),
+    @SerializedName("great") GREAT_FULL_COMBO(R.string.lamp_gfc, R.string.clear_gfc, R.string.clear_gfc_short),
+    @SerializedName("perfect") PERFECT_FULL_COMBO(R.string.lamp_pfc, R.string.clear_pfc, R.string.clear_pfc_short),
+    @SerializedName("marvelous") MARVELOUS_FULL_COMBO(R.string.lamp_mfc, R.string.clear_mfc, R.string.clear_mfc_short)
 }

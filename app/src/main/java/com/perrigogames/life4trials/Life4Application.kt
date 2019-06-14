@@ -3,15 +3,13 @@ package com.perrigogames.life4trials
 import android.content.Context
 import androidx.multidex.MultiDexApplication
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
-import com.perrigogames.life4trials.data.LadderRankData
 import com.perrigogames.life4trials.db.MyObjectBox
+import com.perrigogames.life4trials.manager.LadderManager
 import com.perrigogames.life4trials.manager.PlacementManager
 import com.perrigogames.life4trials.manager.TrialManager
-import com.perrigogames.life4trials.util.DataUtil
 import com.perrigogames.life4trials.util.NotificationUtil
 import com.perrigogames.life4trials.util.SharedPrefsUtil
 import com.perrigogames.life4trials.util.SharedPrefsUtil.KEY_APP_CRASHED
-import com.perrigogames.life4trials.util.loadRawString
 import io.objectbox.BoxStore
 import okhttp3.OkHttpClient
 import org.greenrobot.eventbus.EventBus
@@ -20,7 +18,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class Life4Application: MultiDexApplication() {
 
-    lateinit var ladderRankData: LadderRankData
+    lateinit var ladderManager: LadderManager
     lateinit var placementManager: PlacementManager
     lateinit var trialManager: TrialManager
 
@@ -30,7 +28,7 @@ class Life4Application: MultiDexApplication() {
 
         placementManager = PlacementManager(this)
         trialManager = TrialManager(this)
-        ladderRankData = DataUtil.gson.fromJson(loadRawString(R.raw.ranks), LadderRankData::class.java)!!
+        ladderManager = LadderManager(this)
 
         objectBox = MyObjectBox.builder()
             .androidContext(this)
