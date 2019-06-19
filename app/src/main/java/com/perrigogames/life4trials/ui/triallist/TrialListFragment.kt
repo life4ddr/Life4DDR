@@ -92,11 +92,7 @@ class TrialListFragment : Fragment() {
 
     @Subscribe
     fun onRankUpdated(e: SavedRankUpdatedEvent) {
-        if (e.trial != null) {
-            adapter.notifyTrialChanged(e.trial)
-        } else {
-            adapter.updateNewTrialsList()
-        }
+        adapter.updateNewTrialsList()
     }
 
     @Subscribe
