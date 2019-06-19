@@ -6,8 +6,6 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.data.Trial
-import com.perrigogames.life4trials.life4app
 import com.perrigogames.life4trials.ui.triallist.TrialListFragment
 import kotlinx.android.synthetic.main.activity_trial_list.*
 
@@ -16,9 +14,6 @@ import kotlinx.android.synthetic.main.activity_trial_list.*
  * an associated [TrialDetailsActivity].
  */
 class TrialListActivity : AppCompatActivity(), TrialListFragment.OnTrialListInteractionListener {
-
-    private val trialManager get() = life4app.trialManager
-    private val trials: List<Trial> get() = trialManager.trials
 
     private val useGrid: Boolean get() = intent?.extras?.getBoolean(EXTRA_GRID, true) ?: true
 
@@ -29,7 +24,7 @@ class TrialListActivity : AppCompatActivity(), TrialListFragment.OnTrialListInte
         setSupportActionBar(toolbar)
 
         supportFragmentManager.beginTransaction()
-            .add(R.id.container_fragment, TrialListFragment.newInstance(useGrid))
+            .replace(R.id.container_fragment, TrialListFragment.newInstance(useGrid))
             .commit()
     }
 
