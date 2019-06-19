@@ -7,7 +7,7 @@
     android:layout_height="wrap_content">
 
     <include
-        android:id="@+id/view_trial_jacket"
+        android:id="@+id/image_rank"
         layout="@layout/view_trial_jacket"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -28,7 +28,7 @@
         app:layout_constraintEnd_toStartOf="@id/image_badge_2"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/view_trial_jacket"
+        app:layout_constraintTop_toBottomOf="@id/image_rank"
         tools:background="@color/colorAccent"/>
 
     <ImageView
@@ -111,6 +111,6 @@
         android:textColor="@color/white"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@id/view_trial_jacket"
-        app:layout_constraintEnd_toEndOf="@id/view_trial_jacket"/>
+        app:layout_constraintBottom_toBottomOf="@id/image_rank"
+        app:layout_constraintEnd_toEndOf="@id/image_rank"/>
 </com.perrigogames.life4trials.view.TrialItemView>

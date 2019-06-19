@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.item_trial_list_item.view.image_badge_3
 import kotlinx.android.synthetic.main.item_trial_list_item.view.image_badge_4
 import kotlinx.android.synthetic.main.item_trial_list_item.view.image_badge_5
 import kotlinx.android.synthetic.main.item_trial_list_item.view.image_badge_6
-import kotlinx.android.synthetic.main.item_trial_list_item.view.view_trial_jacket
+import kotlinx.android.synthetic.main.item_trial_list_item.view.image_rank
 import kotlinx.android.synthetic.main.item_trial_tile_item.view.*
 
 /**
@@ -43,7 +43,7 @@ class TrialItemView @JvmOverloads constructor(context: Context, attrs: Attribute
     var trial: Trial? = null
         set(v) {
             field = v
-            (view_trial_jacket as TrialJacketView).trial = v
+            (image_rank as TrialJacketView).trial = v
             update()
         }
 
@@ -79,14 +79,14 @@ class TrialItemView @JvmOverloads constructor(context: Context, attrs: Attribute
     }
 
     fun setHighestRank(rank: TrialRank?) {
-        (view_trial_jacket as TrialJacketView).let { view ->
+        (image_rank as TrialJacketView).let { view ->
             view.rank = rank
             view.tintOnRank = if (tintCompleted) TrialRank.values().last() else null
         }
     }
 
     fun setExScore(exScore: Int?) {
-        (view_trial_jacket as TrialJacketView).let { view ->
+        (image_rank as TrialJacketView).let { view ->
             view.exScore = if (showEx) exScore else null
         }
     }

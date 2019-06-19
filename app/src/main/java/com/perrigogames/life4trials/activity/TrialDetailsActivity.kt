@@ -80,7 +80,7 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener {
             SharedPrefsUtil.setUserFlag(this, KEY_DETAILS_PHOTO_SELECT, isChecked)
         }
 
-        (view_trial_jacket as TrialJacketView).let { jacket ->
+        (image_rank as TrialJacketView).let { jacket ->
             jacket.trial = trial
             jacket.rank = storedRank
         }
@@ -293,7 +293,7 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener {
     }
 
     companion object {
-        const val ARG_TRIAL_ID = "ARG_TRIAL_ID"
+        const val ARG_TRIAL_ID = "ARG_PLACEMENT_ID"
         const val ARG_INITIAL_RANK = "ARG_INITIAL_RANK"
 
         const val FLAG_SCORE_ENTER = 7 // to enter the score screen

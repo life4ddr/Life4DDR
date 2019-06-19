@@ -140,8 +140,8 @@ class TrialSubmissionActivity: AppCompatActivity() {
             submitRankAndFinish(false)
         } else {
             AlertDialog.Builder(this)
-                .setTitle(R.string.submit_dialog_title)
-                .setMessage(resources.getString(R.string.submit_dialog_rank_confirmation, session.goalRank.toString()))
+                .setTitle(R.string.trial_submit_dialog_title)
+                .setMessage(resources.getString(R.string.trial_submit_dialog_rank_confirmation, session.goalRank.toString()))
                 .setPositiveButton(R.string.yes) { _, _ -> submitRankAndFinish(true) }
                 .setNegativeButton(R.string.no) { _, _ -> submitRankAndFinish(false) }
                 .show()
@@ -153,8 +153,8 @@ class TrialSubmissionActivity: AppCompatActivity() {
         life4app.trialManager.saveRecord(session)
         if (passed) {
             AlertDialog.Builder(this)
-                .setTitle(R.string.submit_dialog_title)
-                .setMessage(R.string.submit_dialog_prompt)
+                .setTitle(R.string.trial_submit_dialog_title)
+                .setMessage(R.string.trial_submit_dialog_prompt)
                 .setNegativeButton(R.string.no) { _, _ -> finish() }
                 .setPositiveButton(R.string.yes) { _, _ ->
                     if (SharedPrefsUtil.getUserFlag(this, SettingsActivity.KEY_SUBMISSION_NOTIFICAION, false)) {

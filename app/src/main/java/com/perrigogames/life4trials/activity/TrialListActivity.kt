@@ -6,6 +6,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.perrigogames.life4trials.R
+import com.perrigogames.life4trials.data.TrialType
 import com.perrigogames.life4trials.ui.triallist.TrialListFragment
 import kotlinx.android.synthetic.main.activity_trial_list.*
 
@@ -28,8 +29,11 @@ class TrialListActivity : AppCompatActivity(), TrialListFragment.OnTrialListInte
             .commit()
     }
 
-    override fun onTrialSelected(trialId: String) {
-        startActivity(TrialDetailsActivity.intent(this, trialId))
+    override fun onTrialSelected(trialId: String, trialType: TrialType) {
+        when (trialType) {
+            TrialType.TRIAL -> startActivity(TrialDetailsActivity.intent(this, trialId))
+            TrialType.PLACEMENT -> startActivity(PlacementDetailsActivity.intent(this, trialId))
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

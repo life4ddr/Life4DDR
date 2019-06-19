@@ -11,12 +11,12 @@ import java.io.Serializable
 enum class TrialRank(val stableId: Int,
                      @StringRes val nameRes: Int,
                      val parent: LadderRank): Serializable {
-    @SerializedName("silver") SILVER(20, R.string.trial_silver, LadderRank.SILVER3),
-    @SerializedName("gold") GOLD(25, R.string.trial_gold, LadderRank.GOLD3),
-    @SerializedName("diamond") DIAMOND(30, R.string.trial_diamond, LadderRank.DIAMOND3),
-    @SerializedName("cobalt") COBALT(35, R.string.trial_cobalt, LadderRank.COBALT3),
-    @SerializedName("amethyst") AMETHYST(40, R.string.trial_amethyst, LadderRank.AMETHYST3),
-    @SerializedName("emerald") EMERALD(45, R.string.trial_emerald, LadderRank.EMERALD3);
+    @SerializedName("silver") SILVER(20, R.string.silver, LadderRank.SILVER3),
+    @SerializedName("gold") GOLD(25, R.string.gold, LadderRank.GOLD3),
+    @SerializedName("diamond") DIAMOND(30, R.string.diamond, LadderRank.DIAMOND3),
+    @SerializedName("cobalt") COBALT(35, R.string.cobalt, LadderRank.COBALT3),
+    @SerializedName("amethyst") AMETHYST(40, R.string.amethyst, LadderRank.AMETHYST3),
+    @SerializedName("emerald") EMERALD(45, R.string.emerald, LadderRank.EMERALD3);
 
     val drawableRes: Int get() = parent.drawableRes
 

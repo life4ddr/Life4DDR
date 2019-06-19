@@ -27,6 +27,7 @@ class SongListFragment : Fragment() {
     private var trialId: String? = null
     private var tiled: Boolean = false
     private var useCurrentSession: Boolean = false
+    private var useCamera: Boolean = true
     private var listener: Listener? = null
 
     private lateinit var layout: LinearLayout
@@ -48,6 +49,7 @@ class SongListFragment : Fragment() {
             trialId = it.getString(ARG_TRIAL_ID)
             tiled = it.getBoolean(ARG_TILED, tiled)
             useCurrentSession = it.getBoolean(ARG_CURRENT_SESSION_RESULTS, false)
+            useCamera = it.getBoolean(ARG_SHOW_CAMERA, false)
         }
     }
 
@@ -80,6 +82,7 @@ class SongListFragment : Fragment() {
             if (results != null) {
                 it.result = results!![idx]
             }
+            it.shouldShowCamera = useCamera
             it.setOnClickListener { listener?.onSongSelected(song, idx) }
         })
         layout.addView(newView)
@@ -94,17 +97,19 @@ class SongListFragment : Fragment() {
     }
 
     companion object {
-        private const val ARG_TRIAL_ID = "ARG_TRIAL_ID"
+        private const val ARG_TRIAL_ID = "ARG_PLACEMENT_ID"
         private const val ARG_TILED = "ARG_TILED"
         private const val ARG_CURRENT_SESSION_RESULTS = "ARG_CURRENT_SESSION_RESULTS"
+        private const val ARG_SHOW_CAMERA = "ARG_SHOW_CAMERA"
 
         @JvmStatic
-        fun newInstance(trialId: String, tiled: Boolean, useCurrentSession: Boolean) =
+        fun newInstance(trialId: String, tiled: Boolean, useCurrentSession: Boolean, useCamera: Boolean = true) =
             SongListFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_TRIAL_ID, trialId)
                     putBoolean(ARG_TILED, tiled)
                     putBoolean(ARG_CURRENT_SESSION_RESULTS, useCurrentSession)
+                    putBoolean(ARG_SHOW_CAMERA, useCamera)
                 }
             }
     }

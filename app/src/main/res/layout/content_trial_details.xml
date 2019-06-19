@@ -21,7 +21,7 @@
             android:orientation="vertical">
 
             <include
-                android:id="@+id/view_trial_jacket"
+                android:id="@+id/image_rank"
                 layout="@layout/view_trial_jacket"
                 android:layout_width="@dimen/trial_details_main_thumb_size"
                 android:layout_height="@dimen/trial_details_main_thumb_size"
@@ -43,9 +43,9 @@
                 android:src="@drawable/ic_scroll_arrow_to_left"
                 android:textStyle="bold"
                 android:tint="@color/white"
-                app:layout_constraintBottom_toBottomOf="@id/view_trial_jacket"
-                app:layout_constraintEnd_toStartOf="@id/view_trial_jacket"
-                app:layout_constraintTop_toTopOf="@id/view_trial_jacket" />
+                app:layout_constraintBottom_toBottomOf="@id/image_rank"
+                app:layout_constraintEnd_toStartOf="@id/image_rank"
+                app:layout_constraintTop_toTopOf="@id/image_rank" />
 
             <ImageButton
                 android:id="@+id/button_navigate_next"
@@ -59,9 +59,9 @@
                 android:src="@drawable/ic_scroll_arrow_to_right"
                 android:textStyle="bold"
                 android:tint="@color/white"
-                app:layout_constraintBottom_toBottomOf="@id/view_trial_jacket"
-                app:layout_constraintStart_toEndOf="@id/view_trial_jacket"
-                app:layout_constraintTop_toTopOf="@id/view_trial_jacket" />
+                app:layout_constraintBottom_toBottomOf="@id/image_rank"
+                app:layout_constraintStart_toEndOf="@id/image_rank"
+                app:layout_constraintTop_toTopOf="@id/image_rank" />
 
             <com.perrigogames.life4trials.view.RankImageView
                 android:id="@+id/image_desired_rank"
@@ -73,7 +73,7 @@
                 app:layout_constraintHorizontal_bias="0"
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/view_trial_jacket"
+                app:layout_constraintTop_toBottomOf="@id/image_rank"
                 tools:background="@color/colorAccent"/>
 
             <Spinner

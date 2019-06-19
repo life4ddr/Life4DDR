@@ -5,6 +5,7 @@
     <dimen name="content_padding_large">16dp</dimen>
     <dimen name="content_padding_huge">32dp</dimen>
     <dimen name="trial_details_main_thumb_size">200dp</dimen>
+    <dimen name="placement_details_rank_size">160dp</dimen>
     <dimen name="size_detail_nav_debug">48dp</dimen>
     <dimen name="jacket_difficulty_size">40dp</dimen>
     <dimen name="rank_goal_icon_size">64dp</dimen>

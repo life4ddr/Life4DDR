@@ -14,6 +14,7 @@ import com.perrigogames.life4trials.Life4Application
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.activity.SettingsActivity
 import com.perrigogames.life4trials.data.Trial
+import com.perrigogames.life4trials.data.TrialType
 import com.perrigogames.life4trials.event.SavedRankUpdatedEvent
 import com.perrigogames.life4trials.event.TrialListReplacedEvent
 import com.perrigogames.life4trials.event.TrialListUpdatedEvent
@@ -74,13 +75,13 @@ class TrialListFragment : Fragment() {
     }
 
     private fun createListAdapter() {
-        adapter = TrialListAdapter(context!!, trials, false, featureNew) { listener?.onTrialSelected(it) }
+        adapter = TrialListAdapter(context!!, trials, false, featureNew)  { id, type -> onTrialSelected(id, type) }
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
     }
 
     private fun createTiledAdapter() {
-        adapter = TrialListAdapter(context!!, trials, true, featureNew) { listener?.onTrialSelected(it) }
+        adapter = TrialListAdapter(context!!, trials, true, featureNew) { id, type -> onTrialSelected(id, type) }
         recyclerView.adapter = adapter
         recyclerView.addItemDecoration(PaddingItemDecoration(resources.getDimensionPixelSize(R.dimen.content_padding_med)))
 
@@ -89,6 +90,8 @@ class TrialListFragment : Fragment() {
         recyclerView.layoutManager = GridLayoutManager(context,
             if (displayMetrics.widthPixels > displayMetrics.heightPixels) 4 else 2)
     }
+
+    private fun onTrialSelected(trialId: String, trialType: TrialType) = listener?.onTrialSelected(trialId, trialType)
 
     @Subscribe
     fun onRankUpdated(e: SavedRankUpdatedEvent) {
@@ -108,7 +111,7 @@ class TrialListFragment : Fragment() {
 
     interface OnTrialListInteractionListener {
 
-        fun onTrialSelected(trialId: String)
+        fun onTrialSelected(trialId: String, trialType: TrialType)
     }
 
     companion object {

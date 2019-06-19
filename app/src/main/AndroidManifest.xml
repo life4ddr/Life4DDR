@@ -59,6 +59,8 @@
             android:name=".activity.RankDetailsActivity"/>
         <activity
             android:name=".activity.Life4DescriptionActivity" />
+        <activity
+            android:name=".activity.PlacementDetailsActivity" />
 
         <receiver
             android:name=".util.NotificationCopyHandler"
