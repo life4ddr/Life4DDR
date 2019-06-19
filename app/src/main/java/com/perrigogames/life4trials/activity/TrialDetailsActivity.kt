@@ -15,6 +15,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import com.google.android.material.snackbar.Snackbar
 import com.perrigogames.life4trials.R
+import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_DETAILS_ENFORCE_EXPERT
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_DETAILS_PHOTO_SELECT
 import com.perrigogames.life4trials.data.*
 import com.perrigogames.life4trials.life4app
@@ -149,6 +150,7 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener {
 
     fun onFinalizeClick(v: View) {
         if (!trialSession.shouldShowAdvancedSongDetails ||
+            !SharedPrefsUtil.getUserFlag(this, KEY_DETAILS_ENFORCE_EXPERT, true) ||
             trialSession.results.none { it!!.misses == null || it.badJudges == null }) {
 
             isFinal = true

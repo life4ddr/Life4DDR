@@ -88,7 +88,8 @@ class TrialSubmissionActivity: AppCompatActivity() {
 
         forEachResultText { idx, textView ->
             session.results[idx]?.let { result ->
-                textView.text = if (session.shouldShowAdvancedSongDetails) {
+                textView.text = if (session.shouldShowAdvancedSongDetails &&
+                        SharedPrefsUtil.getUserFlag(this, SettingsActivity.KEY_DETAILS_ENFORCE_EXPERT, true)) {
                     getString(R.string.score_string_summary_format_advanced,
                         result.score?.longNumberString(), result.exScore, result.misses, result.badJudges)
                 } else {
