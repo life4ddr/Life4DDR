@@ -23,6 +23,7 @@ class TrialListActivity : AppCompatActivity(), TrialListFragment.OnTrialListInte
     private val useGrid: Boolean get() = intent?.extras?.getBoolean(EXTRA_GRID, true) ?: true
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.AppTheme_NoActionBar)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_trial_list)
         setSupportActionBar(toolbar)

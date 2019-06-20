@@ -136,8 +136,15 @@
     <string name="arrow_right">→</string>
 
     <!-- Welcome/FTUE -->
-    <string name="welcome_to_life4">Welcome to LIFE4!</string>
-    <string name="welcome_to_life4_trials">Welcome to LIFE4 Trials!</string>
+    <string name="welcome_to_life4">WELCOME TO LIFE4!</string>
+    <string name="welcome_to_life4_trials">WELCOME TO LIFE4 TRIALS!</string>
+    <string name="life4_intro_greeting">We\'re excited to have you join us.  To get started, how familiar are you with DanceDanceRevolution?</string>
+    <string name="life4_intro_new_player">I\'m new to DDR</string>
+    <string name="life4_intro_new_player_response">Great, and welcome to DDR! We\'ll start you at the beginning of LIFE4\'s ranking system.</string>
+    <string name="life4_intro_familiar">I\'ve played several times</string>
+    <string name="life4_intro_familiar_response">Perfect! You can probably skip some easy ranks by playing a Placement set.</string>
+    <string name="life4_intro_member">I\'m already a LIFE4 member!</string>
+    <string name="life4_intro_member_response">Marvelous! Let\'s log you in and get your rank from the LIFE4 database.</string>
     <string name="life4_trials_tagline">A new way to participate in LIFE4</string>
     <string name="life4_trials_description">Trials are a new way to participate in LIFE4. Playing a Trial involves playing a predetermined set of 4 songs</string>
 
@@ -283,6 +290,7 @@
     <string name="plural_number">%ds</string>
     <string name="any_full_mix_or_letter">any full mix or letter folder</string>
     <string name="choose_list">Choose 1: %s</string>
+    <string name="life4">LIFE4</string>
     <array name="placement_explanation_bullets">
         <item>• The songs can be played in any order.</item>
         <item>• Extra Stage is optional. If you earn an Extra Stage, you can use it to improve a previous score.</item>
