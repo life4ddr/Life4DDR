@@ -11,6 +11,7 @@ import androidx.preference.*
 import com.perrigogames.life4trials.BuildConfig
 import com.perrigogames.life4trials.Life4Application
 import com.perrigogames.life4trials.R
+import com.perrigogames.life4trials.data.LadderRank
 import com.perrigogames.life4trials.data.TrialRank
 import com.perrigogames.life4trials.data.TrialSession
 import com.perrigogames.life4trials.event.TrialListReplacedEvent
@@ -80,7 +81,7 @@ class SettingsActivity : AppCompatActivity() {
             }
 
             if (BuildConfig.DEBUG) {
-                addDebugRanks()
+                addDebugSettings()
             }
 
             Preference(context).apply {
@@ -90,7 +91,7 @@ class SettingsActivity : AppCompatActivity() {
             }
         }
 
-        private fun addDebugRanks() {
+        private fun addDebugSettings() {
             PreferenceCategory(context).apply {
                 key = "debug_flags_category"
                 title = "Debug Flags*"
@@ -114,6 +115,35 @@ class SettingsActivity : AppCompatActivity() {
                     key = KEY_DEBUG_BYPASS_STAT_ENTRY
                     title = "Bypass stats entry"
                     summary = "Use random score values when entering a new photo"
+                })
+            }
+            PreferenceCategory(context).apply {
+                key = "debug_notifications_category"
+                title = "Debug Notifications*"
+                preferenceScreen.addPreference(this)
+                addPreference(Preference(context).apply {
+                    key = "debug_placement"
+                    title = "Placement results"
+                    onPreferenceClickListener = Preference.OnPreferenceClickListener {
+                        NotificationUtil.showPlacementNotification(context, LadderRank.values().random())
+                        true
+                    }
+                })
+                addPreference(Preference(context).apply {
+                    key = "debug_ladder"
+                    title = "Ladder rank up"
+                    onPreferenceClickListener = Preference.OnPreferenceClickListener {
+                        NotificationUtil.showLadderRankChangedNotification(context, LadderRank.values().random())
+                        true
+                    }
+                })
+                addPreference(Preference(context).apply {
+                    key = "debug_trial"
+                    title = "Trial rank up"
+                    onPreferenceClickListener = Preference.OnPreferenceClickListener {
+                        NotificationUtil.showTrialRankChangedNotification(context, trialManager.trials.random(), TrialRank.values().random())
+                        true
+                    }
                 })
             }
             Preference(context).apply {

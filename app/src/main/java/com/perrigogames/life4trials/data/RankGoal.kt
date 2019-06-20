@@ -11,7 +11,8 @@ import java.io.Serializable
  * The base rank goal class, describing a single goal of a rank on the LIFE4 ladder.
  * @param type the type of the goal, indicating which subclass it is
  */
-abstract class BaseRankGoal(val type: String,
+abstract class BaseRankGoal(val id: Int,
+                            val type: String,
                             val mandatory: Boolean = false): Serializable {
 
     abstract fun goalString(c: Context): String
@@ -21,8 +22,9 @@ abstract class BaseRankGoal(val type: String,
  * A specialized rank goal requiring the player to burn a number of calories in a single session.
  * @param count the number of calories that need to be burned in a single session
  */
-class CaloriesRankGoal(type: String,
-                       val count: Int): BaseRankGoal(type) {
+class CaloriesRankGoal(id: Int,
+                       type: String,
+                       val count: Int): BaseRankGoal(id, type) {
 
     override fun goalString(c: Context): String =
             c.getString(R.string.rank_goal_calories, count)
@@ -40,14 +42,15 @@ class CaloriesRankGoal(type: String,
  * @param folder the specific folder that needs to be finished, null indicates any folder can be used
  * @param songs the list of specific songs that need to be completed (this overrides [folder])
  */
-class SongSetClearGoal(type: String,
+class SongSetClearGoal(id: Int,
+                       type: String,
                        mandatory: Boolean,
                        @SerializedName("clear_type") private val mClearType: ClearType?,
                        @SerializedName("require_all_difficulties") private val mRequireAllDifficulties: Boolean?,
                        val count: Int?,
                        val difficulties: List<DifficultyClass>,
                        val folder: String?,
-                       val songs: List<String>?): BaseRankGoal(type, mandatory) {
+                       val songs: List<String>?): BaseRankGoal(id, type, mandatory) {
 
     val requireAllDifficulties: Boolean get() = mRequireAllDifficulties ?: true
 
@@ -76,9 +79,10 @@ class SongSetClearGoal(type: String,
  * A specialized rank goal requiring the player to clear a special set of songs in one full round of play.
  * @param difficulties the set of difficulty numbers (ordered) that must be cleared
  */
-class SongSetGoal(type: String,
+class SongSetGoal(id: Int,
+                  type: String,
                   mandatory: Boolean,
-                  @SerializedName("difficulty_numbers") val difficulties: IntArray): BaseRankGoal(type, mandatory) {
+                  @SerializedName("difficulty_numbers") val difficulties: IntArray): BaseRankGoal(id, type, mandatory) {
 
     override fun goalString(c: Context): String {
         return c.getString(
@@ -102,10 +106,11 @@ class SongSetGoal(type: String,
  * @param rank the [TrialRank] that the user needs to earn
  * @param count the number of trials that need to be cleared with [rank]
  */
-class TrialGoal(type: String,
+class TrialGoal(id: Int,
+                type: String,
                 mandatory: Boolean,
                 val rank: TrialRank,
-                val count: Int = 1): BaseRankGoal(type, mandatory) {
+                val count: Int = 1): BaseRankGoal(id, type, mandatory) {
 
     override fun goalString(c: Context): String {
         return if (count == 1) c.getString(R.string.rank_goal_clear_trial_single, c.getString(rank.nameRes))
@@ -135,7 +140,8 @@ class TrialGoal(type: String,
  * @param exceptions if [count] is null, indicates the number of songs in the folder that do not need to
  *   meet these requirements
  */
-class DifficultyClearGoal(type: String,
+class DifficultyClearGoal(id: Int,
+                          type: String,
                           mandatory: Boolean,
                           @SerializedName("difficulty") val mDifficulty: Int?,
                           @SerializedName("difficulty_numbers") private val mDifficultyNumbers: IntArray?,
@@ -144,7 +150,7 @@ class DifficultyClearGoal(type: String,
                           val songs: List<String>? = null,
                           val score: Int?,
                           val exceptions: Int?,
-                          @SerializedName("song_exceptions") val songExceptions: List<String>? = null): BaseRankGoal(type, mandatory) {
+                          @SerializedName("song_exceptions") val songExceptions: List<String>? = null): BaseRankGoal(id, type, mandatory) {
 
     val clearType: ClearType get() = mClearType ?: ClearType.CLEAR
 
@@ -227,9 +233,10 @@ class DifficultyClearGoal(type: String,
     }
 }
 
-class MultipleChoiceGoal(type: String,
+class MultipleChoiceGoal(id: Int,
+                         type: String,
                          mandatory: Boolean,
-                         val options: List<BaseRankGoal>): BaseRankGoal(type, mandatory) {
+                         val options: List<BaseRankGoal>): BaseRankGoal(id, type, mandatory) {
 
     override fun goalString(c: Context): String {
         return options.map { it.goalString(c).replace(".", "") }.toListString(c, R.string.or_s_caps)

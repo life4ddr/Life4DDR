@@ -75,9 +75,29 @@
         }
       ],
       "relations": []
+    },
+    {
+      "id": "3:5121322014264730323",
+      "lastPropertyId": "3:6482824092841661256",
+      "name": "GoalStatusDB",
+      "properties": [
+        {
+          "id": "1:1411004893783989070",
+          "name": "goalId"
+        },
+        {
+          "id": "2:8351987538112467256",
+          "name": "date"
+        },
+        {
+          "id": "3:6482824092841661256",
+          "name": "status"
+        }
+      ],
+      "relations": []
     }
   ],
-  "lastEntityId": "2:5753770248500082315",
+  "lastEntityId": "3:5121322014264730323",
   "lastIndexId": "1:5226183221815835245",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",

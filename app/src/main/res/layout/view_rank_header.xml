@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.perrigogames.life4trials.view.RankHeaderView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.perrigogames.life4trials.view.RankImageView
+        android:id="@+id/image_rank"
+        android:layout_width="@dimen/placement_details_rank_size"
+        android:layout_height="@dimen/placement_details_rank_size"
+        android:layout_margin="@dimen/content_padding_large"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/gold_3"/>
+
+    <ImageButton
+        android:id="@+id/button_navigate_previous"
+        android:layout_width="@dimen/size_detail_nav_debug"
+        android:layout_height="@dimen/size_detail_nav_debug"
+        android:layout_margin="@dimen/content_padding_med"
+        android:alpha="0.5"
+        android:background="@null"
+        android:onClick="navigationButtonClicked"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_scroll_arrow_to_left"
+        android:textStyle="bold"
+        android:tint="@color/white"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/image_rank"
+        app:layout_constraintEnd_toStartOf="@id/image_rank"
+        app:layout_constraintTop_toTopOf="@id/image_rank" />
+
+    <ImageButton
+        android:id="@+id/button_navigate_next"
+        android:layout_width="@dimen/size_detail_nav_debug"
+        android:layout_height="@dimen/size_detail_nav_debug"
+        android:layout_margin="@dimen/content_padding_med"
+        android:alpha="0.5"
+        android:background="@null"
+        android:onClick="navigationButtonClicked"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_scroll_arrow_to_right"
+        android:textStyle="bold"
+        android:tint="@color/white"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/image_rank"
+        app:layout_constraintStart_toEndOf="@id/image_rank"
+        app:layout_constraintTop_toTopOf="@id/image_rank" />
+
+    <TextView
+        android:id="@+id/text_rank_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/content_padding_large"
+        android:gravity="center"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/image_rank"
+        tools:text="GOLD III"/>
+
+</com.perrigogames.life4trials.view.RankHeaderView>

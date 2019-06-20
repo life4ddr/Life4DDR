@@ -4,155 +4,155 @@
 			"rank": "wood1",
 			"requirements": 4,
 			"goals": [
-				{ "type": "calories", "count": 350 },
-				{ "type": "songs", "difficulties": ["basic"] },
-				{ "type": "difficulty", "difficulty": 6, "count": 1, "score": 800000 },
-				{ "type": "difficulty", "difficulty": 4, "count": 3, "clear_type": "life4" },
-				{ "type": "difficulty", "difficulty": 6, "count": 10 },
-				{ "type": "set", "difficulty_numbers": [5, 5, 5] },
-				{ "type": "difficulty", "difficulty": 7, "count": 5 },
-				{ "type": "difficulty", "difficulty": 8, "count": 1 }
+				{ "id": 1001, "type": "calories", "count": 350 },
+				{ "id": 1002, "type": "songs", "difficulties": ["basic"] },
+				{ "id": 1003, "type": "difficulty", "difficulty": 6, "count": 1, "score": 800000 },
+				{ "id": 1004, "type": "difficulty", "difficulty": 4, "count": 3, "clear_type": "life4" },
+				{ "id": 1005, "type": "difficulty", "difficulty": 6, "count": 10 },
+				{ "id": 1006, "type": "set", "difficulty_numbers": [5, 5, 5] },
+				{ "id": 1007, "type": "difficulty", "difficulty": 7, "count": 5 },
+				{ "id": 1008, "type": "difficulty", "difficulty": 8, "count": 1 }
 			]
 		},
 		{
 			"rank": "wood2",
 			"requirements": 4,
 			"goals": [
-				{ "type": "calories", "count": 400 },
-				{ "type": "songs", "difficulties": ["difficult"] },
-				{ "type": "difficulty", "difficulty": 8, "count": 1, "score": 800000 },
-				{ "type": "difficulty", "difficulty": 6, "count": 3, "clear_type": "life4" },
-				{ "type": "difficulty", "difficulty": 8, "count": 10 },
-				{ "type": "set", "difficulty_numbers": [7, 7, 7] },
-				{ "type": "difficulty", "difficulty": 9, "count": 5 },
-				{ "type": "difficulty", "difficulty": 10, "count": 1 }
+				{ "id": 1101, "type": "calories", "count": 400 },
+				{ "id": 1102, "type": "songs", "difficulties": ["difficult"] },
+				{ "id": 1103, "type": "difficulty", "difficulty": 8, "count": 1, "score": 800000 },
+				{ "id": 1104, "type": "difficulty", "difficulty": 6, "count": 3, "clear_type": "life4" },
+				{ "id": 1105, "type": "difficulty", "difficulty": 8, "count": 10 },
+				{ "id": 1106, "type": "set", "difficulty_numbers": [7, 7, 7] },
+				{ "id": 1107, "type": "difficulty", "difficulty": 9, "count": 5 },
+				{ "id": 1108, "type": "difficulty", "difficulty": 10, "count": 1 }
 			]
 		},
 		{
 			"rank": "wood3",
 			"requirements": 4,
 			"goals": [
-				{ "type": "calories", "count": 450 },
-				{ "type": "songs", "difficulties": ["expert"] },
-				{ "type": "difficulty", "difficulty": 9, "count": 1, "score": 800000 },
-				{ "type": "difficulty", "difficulty": 7, "count": 3, "clear_type": "life4" },
-				{ "type": "difficulty", "difficulty": 9, "count": 10 },
-				{ "type": "set", "difficulty_numbers": [9, 9, 9] },
-				{ "type": "difficulty", "difficulty": 11, "count": 5 },
-				{ "type": "difficulty", "difficulty": 12, "count": 1 }
+				{ "id": 1201, "type": "calories", "count": 450 },
+				{ "id": 1202, "type": "songs", "difficulties": ["expert"] },
+				{ "id": 1203, "type": "difficulty", "difficulty": 9, "count": 1, "score": 800000 },
+				{ "id": 1204, "type": "difficulty", "difficulty": 7, "count": 3, "clear_type": "life4" },
+				{ "id": 1205, "type": "difficulty", "difficulty": 9, "count": 10 },
+				{ "id": 1206, "type": "set", "difficulty_numbers": [9, 9, 9] },
+				{ "id": 1207, "type": "difficulty", "difficulty": 11, "count": 5 },
+				{ "id": 1208, "type": "difficulty", "difficulty": 12, "count": 1 }
 			]
 		},
 		{
 			"rank": "bronze1",
 			"requirements": 4,
 			"goals": [
-				{ "type": "calories", "count": 500 },
-				{ "type": "set", "difficulty_numbers": [9, 10, 11] },
-				{ "type": "difficulty", "difficulty": 10, "count": 1, "score": 800000 },
-				{ "type": "difficulty", "difficulty": 8, "count": 3, "clear_type": "life4" },
-				{ "type": "difficulty", "difficulty_numbers": [8, 9], "count": 10 },
-				{ "type": "set", "difficulty_numbers": [10, 10, 10] },
-				{ "type": "difficulty", "difficulty": 11, "count": 5 },
-				{ "type": "difficulty", "difficulty": 12, "count": 1 }
+				{ "id": 2101, "type": "calories", "count": 500 },
+				{ "id": 2102, "type": "set", "difficulty_numbers": [9, 10, 11] },
+				{ "id": 2103, "type": "difficulty", "difficulty": 10, "count": 1, "score": 800000 },
+				{ "id": 2104, "type": "difficulty", "difficulty": 8, "count": 3, "clear_type": "life4" },
+				{ "id": 2105, "type": "difficulty", "difficulty_numbers": [8, 9], "count": 10 },
+				{ "id": 2106, "type": "set", "difficulty_numbers": [10, 10, 10] },
+				{ "id": 2107, "type": "difficulty", "difficulty": 11, "count": 5 },
+				{ "id": 2108, "type": "difficulty", "difficulty": 12, "count": 1 }
 			]
 		},
 		{
 			"rank": "bronze2",
 			"requirements": 5,
 			"goals": [
-				{ "type": "calories", "count": 600 },
-				{ "type": "set", "difficulty_numbers": [10, 11, 12] },
-				{ "type": "songs", "folder": "DDR 1st Mix", "difficulties": ["basic", "difficult"] },
-				{ "type": "difficulty", "difficulty": 9, "count": 1, "score": 875000 },
-				{ "type": "difficulty", "difficulty": 9, "count": 3, "clear_type": "life4" },
-				{ "type": "difficulty", "difficulty": 10, "count": 10 },
-				{ "type": "set", "difficulty_numbers": [11, 11, 11] },
-				{ "type": "difficulty", "difficulty": 12, "count": 5 },
-				{ "type": "difficulty", "difficulty": 13, "count": 1 }
+				{ "id": 2201, "type": "calories", "count": 600 },
+				{ "id": 2202, "type": "set", "difficulty_numbers": [10, 11, 12] },
+				{ "id": 2203, "type": "songs", "folder": "DDR 1st Mix", "difficulties": ["basic", "difficult"] },
+				{ "id": 2204, "type": "difficulty", "difficulty": 9, "count": 1, "score": 875000 },
+				{ "id": 2205, "type": "difficulty", "difficulty": 9, "count": 3, "clear_type": "life4" },
+				{ "id": 2206, "type": "difficulty", "difficulty": 10, "count": 10 },
+				{ "id": 2207, "type": "set", "difficulty_numbers": [11, 11, 11] },
+				{ "id": 2208, "type": "difficulty", "difficulty": 12, "count": 5 },
+				{ "id": 2209, "type": "difficulty", "difficulty": 13, "count": 1 }
 			]
 		},
 		{
 			"rank": "bronze3",
 			"requirements": 6,
 			"goals": [
-				{ "type": "calories", "count": 700 },
-				{ "type": "songs", "songs": ["EGOISM440", "ENDYMION", "Over the Period", "Paranoia Revolution", "Valkyrie Dimension"], "difficulties": ["basic"] },
-				{ "type": "songs", "difficulties": ["expert", "challenge"], "require_all_difficulties": false },
-				{ "type": "difficulty", "difficulty": 10, "count": 1, "score": 900000 },
-				{ "type": "difficulty", "difficulty": 10, "count": 3, "clear_type": "life4" },
-				{ "type": "difficulty", "difficulty": 12, "count": 10 },
-				{ "type": "set", "difficulty_numbers": [12, 12, 12] },
-				{ "type": "difficulty", "difficulty": 13, "count": 5 },
-				{ "type": "difficulty", "difficulty": 14, "count": 1 }
+				{ "id": 2301, "type": "calories", "count": 700 },
+				{ "id": 2302, "type": "songs", "songs": ["EGOISM440", "ENDYMION", "Over the Period", "Paranoia Revolution", "Valkyrie Dimension"], "difficulties": ["basic"] },
+				{ "id": 2303, "type": "songs", "difficulties": ["expert", "challenge"], "require_all_difficulties": false },
+				{ "id": 2304, "type": "difficulty", "difficulty": 10, "count": 1, "score": 900000 },
+				{ "id": 2305, "type": "difficulty", "difficulty": 10, "count": 3, "clear_type": "life4" },
+				{ "id": 2306, "type": "difficulty", "difficulty": 12, "count": 10 },
+				{ "id": 2307, "type": "set", "difficulty_numbers": [12, 12, 12] },
+				{ "id": 2308, "type": "difficulty", "difficulty": 13, "count": 5 },
+				{ "id": 2309, "type": "difficulty", "difficulty": 14, "count": 1 }
 			]
 		},
 		{
 			"rank": "silver1",
 			"requirements": 5,
 			"goals": [
-				{ "type": "songs", "count": 1, "difficulties": ["expert", "challenge"], "clear_type": "perfect", "require_all_difficulties": false },
-				{ "type": "songs", "count": 5, "difficulties": ["expert", "challenge"], "clear_type": "great", "require_all_difficulties": false },
-				{ "type": "difficulty", "difficulty": 11, "count": 1, "score": 925000 },
-				{ "type": "difficulty", "difficulty": 11, "count": 3, "clear_type": "life4" },
-				{ "type": "difficulty", "difficulty": 13, "count": 10 },
-				{ "type": "set", "difficulty_numbers": [13, 13, 13] },
-				{ "type": "difficulty", "difficulty": 14, "count": 5 },
-				{ "type": "difficulty", "difficulty": 15, "count": 1 },
-				{ "type": "songs", "folder": "DDR 1st Mix", "difficulties": ["expert"], "mandatory": true },
-				{ "type": "songs", "folder": "DDR 4th Mix", "difficulties": ["expert"], "mandatory": true }
+				{ "id": 3101, "type": "songs", "count": 1, "difficulties": ["expert", "challenge"], "clear_type": "perfect", "require_all_difficulties": false },
+				{ "id": 3102, "type": "songs", "count": 5, "difficulties": ["expert", "challenge"], "clear_type": "great", "require_all_difficulties": false },
+				{ "id": 3103, "type": "difficulty", "difficulty": 11, "count": 1, "score": 925000 },
+				{ "id": 3104, "type": "difficulty", "difficulty": 11, "count": 3, "clear_type": "life4" },
+				{ "id": 3105, "type": "difficulty", "difficulty": 13, "count": 10 },
+				{ "id": 3106, "type": "set", "difficulty_numbers": [13, 13, 13] },
+				{ "id": 3107, "type": "difficulty", "difficulty": 14, "count": 5 },
+				{ "id": 3108, "type": "difficulty", "difficulty": 15, "count": 1 },
+				{ "id": 3109, "type": "songs", "folder": "DDR 1st Mix", "difficulties": ["expert"], "mandatory": true },
+				{ "id": 3110, "type": "songs", "folder": "DDR 4th Mix", "difficulties": ["expert"], "mandatory": true }
 			]
 		},
 		{
 			"rank": "silver2",
 			"requirements": 5,
 			"goals": [
-				{ "type": "songs", "count": 3, "difficulties": ["expert", "challenge"], "clear_type": "perfect", "require_all_difficulties": false },
-				{ "type": "difficulty", "difficulty": 10, "count": 1, "clear_type": "perfect" },
-				{ "type": "difficulty", "difficulty": 12, "count": 1, "score": 940000 },
-				{ "type": "difficulty", "difficulty": 12, "count": 3, "clear_type": "life4" },
-				{ "type": "difficulty", "difficulty": 14, "count": 10 },
-				{ "type": "set", "difficulty_numbers": [14, 14, 14] },
-				{ "type": "difficulty", "difficulty": 15, "count": 5 },
-				{ "type": "difficulty", "difficulty": 16, "count": 1 },
-				{ "type": "songs", "folder": "DDR 3rd Mix", "difficulties": ["expert", "challenge"], "require_all_difficulties": false, "mandatory": true },
-				{ "type": "songs", "folder": "DDR 5th Mix", "difficulties": ["expert"], "mandatory": true }
+				{ "id": 3201, "type": "songs", "count": 3, "difficulties": ["expert", "challenge"], "clear_type": "perfect", "require_all_difficulties": false },
+				{ "id": 3202, "type": "difficulty", "difficulty": 10, "count": 1, "clear_type": "perfect" },
+				{ "id": 3203, "type": "difficulty", "difficulty": 12, "count": 1, "score": 940000 },
+				{ "id": 3204, "type": "difficulty", "difficulty": 12, "count": 3, "clear_type": "life4" },
+				{ "id": 3205, "type": "difficulty", "difficulty": 14, "count": 10 },
+				{ "id": 3206, "type": "set", "difficulty_numbers": [14, 14, 14] },
+				{ "id": 3207, "type": "difficulty", "difficulty": 15, "count": 5 },
+				{ "id": 3208, "type": "difficulty", "difficulty": 16, "count": 1 },
+				{ "id": 3209, "type": "songs", "folder": "DDR 3rd Mix", "difficulties": ["expert", "challenge"], "require_all_difficulties": false, "mandatory": true },
+				{ "id": 3210, "type": "songs", "folder": "DDR 5th Mix", "difficulties": ["expert"], "mandatory": true }
 			]
 		},
 		{
 			"rank": "silver3",
 			"requirements": 6,
 			"goals": [
-				{ "type": "difficulty", "difficulty": 10, "count": 5, "clear_type": "perfect" },
-				{ "type": "difficulty", "difficulty": 11, "count": 1, "clear_type": "perfect" },
-				{ "type": "difficulty", "difficulty": 12, "count": 1, "score": 990000 },
-				{ "type": "difficulty", "difficulty": 13, "count": 1, "score": 950000 },
-				{ "type": "difficulty", "difficulty": 13, "count": 3, "clear_type": "life4" },
-				{ "type": "difficulty", "difficulty": 15, "count": 10 },
-				{ "type": "set", "difficulty_numbers": [15, 15, 15] },
-				{ "type": "difficulty", "difficulty": 16, "count": 5 },
-				{ "type": "difficulty", "difficulty": 17, "count": 1 },
-				{ "type": "trial", "rank": "silver", "count": 1 },
-				{ "type": "songs", "folder": "Q Folder", "difficulties": ["expert"], "mandatory": true },
-				{ "type": "songs", "folder": "Y Folder", "difficulties": ["expert"], "mandatory": true },
-				{ "type": "songs", "folder": "DDR 2nd Mix", "difficulties": ["expert", "challenge"], "mandatory": true }
+				{ "id": 3301, "type": "difficulty", "difficulty": 10, "count": 5, "clear_type": "perfect" },
+				{ "id": 3302, "type": "difficulty", "difficulty": 11, "count": 1, "clear_type": "perfect" },
+				{ "id": 3303, "type": "difficulty", "difficulty": 12, "count": 1, "score": 990000 },
+				{ "id": 3304, "type": "difficulty", "difficulty": 13, "count": 1, "score": 950000 },
+				{ "id": 3305, "type": "difficulty", "difficulty": 13, "count": 3, "clear_type": "life4" },
+				{ "id": 3306, "type": "difficulty", "difficulty": 15, "count": 10 },
+				{ "id": 3307, "type": "set", "difficulty_numbers": [15, 15, 15] },
+				{ "id": 3308, "type": "difficulty", "difficulty": 16, "count": 5 },
+				{ "id": 3309, "type": "difficulty", "difficulty": 17, "count": 1 },
+				{ "id": 3310, "type": "trial", "rank": "silver", "count": 1 },
+				{ "id": 3311, "type": "songs", "folder": "Q Folder", "difficulties": ["expert"], "mandatory": true },
+				{ "id": 3312, "type": "songs", "folder": "Y Folder", "difficulties": ["expert"], "mandatory": true },
+				{ "id": 3313, "type": "songs", "folder": "DDR 2nd Mix", "difficulties": ["expert", "challenge"], "mandatory": true }
 			]
 		},
 		{
 			"rank": "gold1",
 			"requirements": 6,
 			"goals": [
-				{ "type": "difficulty", "difficulty": 11, "count": 5, "clear_type": "perfect" },
-				{ "type": "difficulty", "difficulty": 12, "count": 1, "clear_type": "perfect" },
-				{ "type": "difficulty", "difficulty": 13, "count": 3, "score": 990000 },
-				{ "type": "difficulty", "difficulty": 14, "count": 1, "score": 965000 },
-				{ "type": "difficulty", "difficulty": 14, "count": 3, "clear_type": "life4" },
-				{ "type": "songs", "songs": ["EGOISM440", "ENDYMION", "Over the Period", "Paranoia Revolution", "Valkyrie Dimension"], "difficulties": ["difficult"] },
-				{ "type": "difficulty", "difficulty": 16, "count": 10 },
-				{ "type": "set", "difficulty_numbers": [16, 16, 16] },
-				{ "type": "difficulty", "difficulty": 17, "count": 1 },
-				{ "type": "songs", "folder": "DDRMAX", "difficulties": ["expert"], "mandatory": true },
-				{ "type": "songs", "folder": "Z Folder", "difficulties": ["expert"], "mandatory": true },
-				{ "type": "multiple", "mandatory": true, "options": [
+				{ "id": 4101, "type": "difficulty", "difficulty": 11, "count": 5, "clear_type": "perfect" },
+				{ "id": 4102, "type": "difficulty", "difficulty": 12, "count": 1, "clear_type": "perfect" },
+				{ "id": 4103, "type": "difficulty", "difficulty": 13, "count": 3, "score": 990000 },
+				{ "id": 4104, "type": "difficulty", "difficulty": 14, "count": 1, "score": 965000 },
+				{ "id": 4105, "type": "difficulty", "difficulty": 14, "count": 3, "clear_type": "life4" },
+				{ "id": 4106, "type": "songs", "songs": ["EGOISM440", "ENDYMION", "Over the Period", "Paranoia Revolution", "Valkyrie Dimension"], "difficulties": ["difficult"] },
+				{ "id": 4107, "type": "difficulty", "difficulty": 16, "count": 10 },
+				{ "id": 4108, "type": "set", "difficulty_numbers": [16, 16, 16] },
+				{ "id": 4109, "type": "difficulty", "difficulty": 17, "count": 1 },
+				{ "id": 4110, "type": "songs", "folder": "DDRMAX", "difficulties": ["expert"], "mandatory": true },
+				{ "id": 4111, "type": "songs", "folder": "Z Folder", "difficulties": ["expert"], "mandatory": true },
+				{ "id": 4112, "type": "multiple", "mandatory": true, "options": [
 					{ "type": "difficulty", "difficulty": 9, "count": 1, "clear_type": "perfect"},
 					{ "type": "difficulty", "difficulty": 7, "count": 3, "clear_type": "perfect"}
 				]}
@@ -162,17 +162,17 @@
 			"rank": "gold2",
 			"requirements": 6,
 			"goals": [
-				{ "type": "difficulty", "difficulty": 12, "count": 5, "clear_type": "perfect" },
-				{ "type": "difficulty", "difficulty": 13, "count": 1, "clear_type": "perfect" },
-				{ "type": "difficulty", "difficulty": 14, "count": 5, "score": 990000 },
-				{ "type": "difficulty", "difficulty": 15, "count": 1, "score": 975000 },
-				{ "type": "difficulty", "difficulty": 15, "count": 3, "clear_type": "life4" },
-				{ "type": "difficulty", "difficulty": 17, "count": 10 },
-				{ "type": "set", "difficulty_numbers": [17, 17] },
-				{ "type": "difficulty", "difficulty": 18, "count": 2 },
-				{ "type": "songs", "folder": "DDRMAX2", "difficulties": ["expert", "challenge"], "mandatory": true },
-				{ "type": "songs", "folder": "W Folder", "difficulties": ["expert", "challenge"], "mandatory": true },
-				{ "type": "multiple", "mandatory": true, "options": [
+				{ "id": 4201, "type": "difficulty", "difficulty": 12, "count": 5, "clear_type": "perfect" },
+				{ "id": 4202, "type": "difficulty", "difficulty": 13, "count": 1, "clear_type": "perfect" },
+				{ "id": 4203, "type": "difficulty", "difficulty": 14, "count": 5, "score": 990000 },
+				{ "id": 4204, "type": "difficulty", "difficulty": 15, "count": 1, "score": 975000 },
+				{ "id": 4205, "type": "difficulty", "difficulty": 15, "count": 3, "clear_type": "life4" },
+				{ "id": 4206, "type": "difficulty", "difficulty": 17, "count": 10 },
+				{ "id": 4207, "type": "set", "difficulty_numbers": [17, 17] },
+				{ "id": 4208, "type": "difficulty", "difficulty": 18, "count": 2 },
+				{ "id": 4209, "type": "songs", "folder": "DDRMAX2", "difficulties": ["expert", "challenge"], "mandatory": true },
+				{ "id": 4210, "type": "songs", "folder": "W Folder", "difficulties": ["expert", "challenge"], "mandatory": true },
+				{ "id": 4211, "type": "multiple", "mandatory": true, "options": [
 					{ "type": "difficulty", "difficulty": 11, "count": 1, "clear_type": "perfect"},
 					{ "type": "difficulty", "difficulty": 9, "count": 5, "clear_type": "perfect"}
 				]}
@@ -182,18 +182,18 @@
 			"rank": "gold3",
 			"requirements": 6,
 			"goals": [
-				{ "type": "difficulty", "difficulty": 13, "count": 5, "clear_type": "perfect" },
-				{ "type": "difficulty", "difficulty": 14, "count": 1, "clear_type": "perfect" },
-				{ "type": "difficulty", "difficulty": 15, "count": 5, "score": 990000 },
-				{ "type": "difficulty", "difficulty": 15 },
-				{ "type": "difficulty", "difficulty": 16, "count": 1, "score": 975000 },
-				{ "type": "difficulty", "difficulty": 16 },
-				{ "type": "difficulty", "difficulty": 17, "count": 20 },
-				{ "type": "set", "difficulty_numbers": [17, 17, 17] },
-				{ "type": "difficulty", "difficulty": 18, "count": 5 },
-				{ "type": "trial", "rank": "gold", "count": 1 },
-				{ "type": "difficulty", "difficulty": 14, "mandatory": true },
-				{ "type": "multiple", "mandatory": true, "options": [
+				{ "id": 4301, "type": "difficulty", "difficulty": 13, "count": 5, "clear_type": "perfect" },
+				{ "id": 4302, "type": "difficulty", "difficulty": 14, "count": 1, "clear_type": "perfect" },
+				{ "id": 4303, "type": "difficulty", "difficulty": 15, "count": 5, "score": 990000 },
+				{ "id": 4304, "type": "difficulty", "difficulty": 15 },
+				{ "id": 4305, "type": "difficulty", "difficulty": 16, "count": 1, "score": 975000 },
+				{ "id": 4306, "type": "difficulty", "difficulty": 16 },
+				{ "id": 4307, "type": "difficulty", "difficulty": 17, "count": 20 },
+				{ "id": 4308, "type": "set", "difficulty_numbers": [17, 17, 17] },
+				{ "id": 4309, "type": "difficulty", "difficulty": 18, "count": 5 },
+				{ "id": 4310, "type": "trial", "rank": "gold", "count": 1 },
+				{ "id": 4311, "type": "difficulty", "difficulty": 14, "mandatory": true },
+				{ "id": 4312, "type": "multiple", "mandatory": true, "options": [
 					{ "type": "difficulty", "difficulty": 13, "count": 1, "clear_type": "perfect"},
 					{ "type": "difficulty", "difficulty": 12, "count": 5, "clear_type": "perfect"}
 				]}
@@ -202,137 +202,149 @@
 		{
 			"rank": "diamond1",
 			"goals": [
-				{ "mandatory": true, "type": "difficulty", "difficulty": 14 },
-				{ "mandatory": true, "type": "difficulty", "difficulty": 14, "count": 3, "clear_type": "perfect" },
-				{ "mandatory": true, "type": "difficulty", "difficulty": 15, "score": 940000, "exceptions": 5 },
-				{ "mandatory": true, "type": "difficulty", "difficulty": 16, "score": 890000, "exceptions": 5 },
-				{ "mandatory": true, "type": "difficulty", "difficulty": 17, "score": 800000, "exceptions": 3 },
-				{ "mandatory": true, "type": "difficulty", "difficulty": 18, "count": 5 },
-				{ "mandatory": true, "type": "trial", "rank": "gold", "count": 1 }
+				{ "id": 5101, "type": "difficulty", "mandatory": true, "difficulty": 14 },
+				{ "id": 5102, "type": "difficulty", "mandatory": true, "difficulty": 14, "count": 3, "clear_type": "perfect" },
+				{ "id": 5103, "type": "difficulty", "mandatory": true, "difficulty": 15 },
+				{ "id": 5104, "type": "difficulty", "mandatory": true, "difficulty": 15, "score": 940000, "exceptions": 5 },
+				{ "id": 5105, "type": "difficulty", "mandatory": true, "difficulty": 16 },
+				{ "id": 5106, "type": "difficulty", "mandatory": true, "difficulty": 16, "score": 890000, "exceptions": 5 },
+				{ "id": 5107, "type": "difficulty", "mandatory": true, "difficulty": 17 },
+				{ "id": 5108, "type": "difficulty", "mandatory": true, "difficulty": 17, "score": 800000, "exceptions": 3 },
+				{ "id": 5109, "type": "difficulty", "mandatory": true, "difficulty": 18, "count": 5 },
+				{ "id": 5110, "type": "trial", "mandatory": true, "rank": "gold", "count": 1 }
 			]
 		},
 		{
 			"rank": "diamond2",
 			"goals": [
-				{ "mandatory": true, "type": "difficulty", "difficulty": 14 },
-				{ "mandatory": true, "type": "difficulty", "difficulty": 14, "count": 6, "clear_type": "perfect" },
-				{ "mandatory": true, "type": "difficulty", "difficulty": 15, "score": 950000, "exceptions": 3 },
-				{ "mandatory": true, "type": "difficulty", "difficulty": 15, "count": 1, "clear_type": "perfect" },
-				{ "mandatory": true, "type": "difficulty", "difficulty": 16, "score": 900000, "exceptions": 3 },
-				{ "mandatory": true, "type": "difficulty", "difficulty": 17, "score": 825000, "exceptions": 2 },
-				{ "mandatory": true, "type": "difficulty", "difficulty": 18, "count": 15 },
-				{ "mandatory": true, "type": "trial", "rank": "gold", "count": 2 }
+				{ "id": 5201, "type": "difficulty", "mandatory": true, "difficulty": 14 },
+				{ "id": 5202, "type": "difficulty", "mandatory": true, "difficulty": 14, "count": 6, "clear_type": "perfect" },
+				{ "id": 5203, "type": "difficulty", "mandatory": true, "difficulty": 15 },
+				{ "id": 5204, "type": "difficulty", "mandatory": true, "difficulty": 15, "score": 950000, "exceptions": 3 },
+				{ "id": 5205, "type": "difficulty", "mandatory": true, "difficulty": 15, "count": 1, "clear_type": "perfect" },
+				{ "id": 5206, "type": "difficulty", "mandatory": true, "difficulty": 16 },
+				{ "id": 5207, "type": "difficulty", "mandatory": true, "difficulty": 16, "score": 900000, "exceptions": 3 },
+				{ "id": 5208, "type": "difficulty", "mandatory": true, "difficulty": 17 },
+				{ "id": 5209, "type": "difficulty", "mandatory": true, "difficulty": 17, "score": 825000, "exceptions": 2 },
+				{ "id": 5210, "type": "difficulty", "mandatory": true, "difficulty": 18, "count": 15 },
+				{ "id": 5211, "type": "trial", "mandatory": true, "rank": "gold", "count": 2 }
 			]
 		},
 		{
 			"rank": "diamond3",
 			"goals": [
-				{ "mandatory": true, "type": "difficulty", "difficulty": 14, "clear_type": "life4" },
-				{ "mandatory": true, "type": "difficulty", "difficulty": 14, "count": 12, "clear_type": "perfect" },
-				{ "mandatory": true, "type": "difficulty", "difficulty": 15, "score": 960000, "exceptions": 2 },
-				{ "mandatory": true, "type": "difficulty", "difficulty": 15, "count": 4, "clear_type": "perfect" },
-				{ "mandatory": true, "type": "difficulty", "difficulty": 16, "score": 910000, "exceptions": 2 },
-				{ "mandatory": true, "type": "difficulty", "difficulty": 17, "score": 850000, "exceptions": 1 },
-				{ "mandatory": true, "type": "difficulty", "difficulty": 18 },
-				{ "mandatory": true, "type": "difficulty", "difficulty": 19, "count": 1 },
-				{ "mandatory": true, "type": "trial", "rank": "gold", "count": 4 },
-				{ "mandatory": true, "type": "trial", "rank": "diamond", "count": 1 }
+				{ "id": 5301, "type": "difficulty", "mandatory": true, "difficulty": 14, "clear_type": "life4" },
+				{ "id": 5302, "type": "difficulty", "mandatory": true, "difficulty": 14, "count": 12, "clear_type": "perfect" },
+				{ "id": 5303, "type": "difficulty", "mandatory": true, "difficulty": 15 },
+				{ "id": 5304, "type": "difficulty", "mandatory": true, "difficulty": 15, "score": 960000, "exceptions": 2 },
+				{ "id": 5305, "type": "difficulty", "mandatory": true, "difficulty": 15, "count": 4, "clear_type": "perfect" },
+				{ "id": 5306, "type": "difficulty", "mandatory": true, "difficulty": 16 },
+				{ "id": 5307, "type": "difficulty", "mandatory": true, "difficulty": 16, "score": 910000, "exceptions": 2 },
+				{ "id": 5308, "type": "difficulty", "mandatory": true, "difficulty": 17 },
+				{ "id": 5309, "type": "difficulty", "mandatory": true, "difficulty": 17, "score": 850000, "exceptions": 1 },
+				{ "id": 5310, "type": "difficulty", "mandatory": true, "difficulty": 18 },
+				{ "id": 5311, "type": "difficulty", "mandatory": true, "difficulty": 19, "count": 1 },
+				{ "id": 5312, "type": "trial", "mandatory": true, "rank": "gold", "count": 4 },
+				{ "id": 5313, "type": "trial", "mandatory": true, "rank": "diamond", "count": 1 }
 			]
 		},
 		{
 			"rank": "cobalt1",
 			"goals": [
-				{ "mandatory": true, "type": "difficulty", "difficulty": 14, "clear_type": "good" },
-				{ "mandatory": true, "type": "difficulty", "difficulty": 14, "count": 30, "clear_type": "perfect" },
-				{ "mandatory": true, "type": "difficulty", "difficulty": 15, "score": 970000, "clear_type": "life4" },
-				{ "mandatory": true, "type": "difficulty", "difficulty": 15, "count": 12, "clear_type": "perfect" },
-				{ "mandatory": true, "type": "difficulty", "difficulty": 16, "score": 930000 },
-				{ "mandatory": true, "type": "difficulty", "difficulty": 16, "count": 1, "clear_type": "perfect" },
-				{ "mandatory": true, "type": "difficulty", "difficulty": 17, "score": 875000 },
-				{ "mandatory": true, "type": "difficulty", "difficulty": 18, "score": 800000, "exceptions": 3 },
-				{ "mandatory": true, "type": "difficulty", "difficulty": 19, "count": 2 },
-				{ "mandatory": true, "type": "trial", "rank": "diamond", "count": 2 }
+				{ "id": 6101, "type": "difficulty", "mandatory": true, "difficulty": 14, "clear_type": "good" },
+				{ "id": 6102, "type": "difficulty", "mandatory": true, "difficulty": 14, "count": 30, "clear_type": "perfect" },
+				{ "id": 6103, "type": "difficulty", "mandatory": true, "difficulty": 15, "score": 970000, "clear_type": "life4" },
+				{ "id": 6104, "type": "difficulty", "mandatory": true, "difficulty": 15, "count": 12, "clear_type": "perfect" },
+				{ "id": 6105, "type": "difficulty", "mandatory": true, "difficulty": 16, "score": 930000 },
+				{ "id": 6106, "type": "difficulty", "mandatory": true, "difficulty": 16, "count": 1, "clear_type": "perfect" },
+				{ "id": 6107, "type": "difficulty", "mandatory": true, "difficulty": 17, "score": 875000 },
+				{ "id": 6108, "type": "difficulty", "mandatory": true, "difficulty": 18 },
+				{ "id": 6109, "type": "difficulty", "mandatory": true, "difficulty": 18, "score": 800000, "exceptions": 3 },
+				{ "id": 6110, "type": "difficulty", "mandatory": true, "difficulty": 19, "count": 2 },
+				{ "id": 6111, "type": "trial", "mandatory": true, "rank": "diamond", "count": 2 }
 			]
 		},
 		{
 			"rank": "cobalt2",
 			"goals": [
-				{ "mandatory": true, "type": "difficulty", "difficulty": 14, "clear_type": "great" },
-				{ "mandatory": true, "type": "difficulty", "difficulty": 14, "count": 50, "clear_type": "perfect" },
-				{ "mandatory": true, "type": "difficulty", "difficulty": 15, "score": 975000, "clear_type": "good" },
-				{ "mandatory": true, "type": "difficulty", "difficulty": 15, "count": 20, "clear_type": "perfect" },
-				{ "mandatory": true, "type": "difficulty", "difficulty": 16, "score": 945000, "clear_type": "life4" },
-				{ "mandatory": true, "type": "difficulty", "difficulty": 16, "count": 5, "clear_type": "perfect" },
-				{ "mandatory": true, "type": "difficulty", "difficulty": 17, "score": 900000 },
-				{ "mandatory": true, "type": "difficulty", "difficulty": 18, "score": 825000, "exceptions": 2 },
-				{ "mandatory": true, "type": "difficulty", "difficulty": 19, "score": 725000, "song_exceptions": ["ENDYMION"] },
-				{ "mandatory": true, "type": "trial", "rank": "diamond", "count": 3 }
+				{ "id": 6201, "type": "difficulty", "mandatory": true, "difficulty": 14, "clear_type": "great" },
+				{ "id": 6202, "type": "difficulty", "mandatory": true, "difficulty": 14, "count": 50, "clear_type": "perfect" },
+				{ "id": 6203, "type": "difficulty", "mandatory": true, "difficulty": 15, "score": 975000, "clear_type": "good" },
+				{ "id": 6204, "type": "difficulty", "mandatory": true, "difficulty": 15, "count": 20, "clear_type": "perfect" },
+				{ "id": 6205, "type": "difficulty", "mandatory": true, "difficulty": 16, "score": 945000, "clear_type": "life4" },
+				{ "id": 6206, "type": "difficulty", "mandatory": true, "difficulty": 16, "count": 5, "clear_type": "perfect" },
+				{ "id": 6207, "type": "difficulty", "mandatory": true, "difficulty": 17, "score": 900000 },
+				{ "id": 6208, "type": "difficulty", "mandatory": true, "difficulty": 18 },
+				{ "id": 6209, "type": "difficulty", "mandatory": true, "difficulty": 18, "score": 825000, "exceptions": 2 },
+				{ "id": 6210, "type": "difficulty", "mandatory": true, "difficulty": 19, "score": 725000, "song_exceptions": ["ENDYMION"] },
+				{ "id": 6211, "type": "trial", "mandatory": true, "rank": "diamond", "count": 3 }
 			]
 		},
 		{
 			"rank": "cobalt3",
 			"goals": [
-				{ "mandatory": true, "type": "difficulty", "difficulty": 14, "clear_type": "great" },
-				{ "mandatory": true, "type": "difficulty", "difficulty": 14, "count": 80, "clear_type": "perfect" },
-				{ "mandatory": true, "type": "difficulty", "difficulty": 15, "score": 985000, "clear_type": "great" },
-				{ "mandatory": true, "type": "difficulty", "difficulty": 15, "count": 35, "clear_type": "perfect" },
-				{ "mandatory": true, "type": "difficulty", "difficulty": 16, "score": 960000, "clear_type": "life4" },
-				{ "mandatory": true, "type": "difficulty", "difficulty": 16, "count": 12, "clear_type": "perfect" },
-				{ "mandatory": true, "type": "difficulty", "difficulty": 17, "score": 925000 },
-				{ "mandatory": true, "type": "difficulty", "difficulty": 18, "score": 850000, "exceptions": 1 },
-				{ "mandatory": true, "type": "difficulty", "difficulty": 19, "score": 750000, "song_exceptions": ["ENDYMION"] },
-				{ "mandatory": true, "type": "trial", "rank": "diamond", "count": 4 },
-				{ "mandatory": true, "type": "trial", "rank": "cobalt", "count": 1 }
+				{ "id": 6301, "type": "difficulty", "mandatory": true, "difficulty": 14, "clear_type": "great" },
+				{ "id": 6302, "type": "difficulty", "mandatory": true, "difficulty": 14, "count": 80, "clear_type": "perfect" },
+				{ "id": 6303, "type": "difficulty", "mandatory": true, "difficulty": 15, "score": 985000, "clear_type": "great" },
+				{ "id": 6304, "type": "difficulty", "mandatory": true, "difficulty": 15, "count": 35, "clear_type": "perfect" },
+				{ "id": 6305, "type": "difficulty", "mandatory": true, "difficulty": 16, "score": 960000, "clear_type": "life4" },
+				{ "id": 6306, "type": "difficulty", "mandatory": true, "difficulty": 16, "count": 12, "clear_type": "perfect" },
+				{ "id": 6307, "type": "difficulty", "mandatory": true, "difficulty": 17, "score": 925000 },
+				{ "id": 6308, "type": "difficulty", "mandatory": true, "difficulty": 18 },
+				{ "id": 6308, "type": "difficulty", "mandatory": true, "difficulty": 18, "score": 850000, "exceptions": 1 },
+				{ "id": 6309, "type": "difficulty", "mandatory": true, "difficulty": 19, "score": 750000, "song_exceptions": ["ENDYMION"] },
+				{ "id": 6310, "type": "trial", "mandatory": true, "rank": "diamond", "count": 4 },
+				{ "id": 6311, "type": "trial", "mandatory": true, "rank": "cobalt", "count": 1 }
 			]
 		},
 		{
 			"rank": "amethyst1",
 			"goals": [
-				{ "mandatory": true, "type": "difficulty", "difficulty": 14, "clear_type": "perfect" },
-				{ "mandatory": true, "type": "difficulty", "difficulty": 15, "score": 990000, "clear_type": "great" },
-				{ "mandatory": true, "type": "difficulty", "difficulty": 15, "count": 60, "clear_type": "perfect" },
-				{ "mandatory": true, "type": "difficulty", "difficulty": 16, "score": 975000, "clear_type": "life4" },
-				{ "mandatory": true, "type": "difficulty", "difficulty": 16, "count": 25, "clear_type": "perfect" },
-				{ "mandatory": true, "type": "difficulty", "difficulty": 17, "score": 950000 },
-				{ "mandatory": true, "type": "difficulty", "difficulty": 17, "count": 1, "clear_type": "perfect" },
-				{ "mandatory": true, "type": "difficulty", "difficulty": 18, "score": 880000 },
-				{ "mandatory": true, "type": "difficulty", "difficulty": 19, "score": 775000, "song_exceptions": ["ENDYMION"] },
-				{ "mandatory": true, "type": "difficulty", "difficulty": 10, "difficulty_floor": true, "count": 2, "clear_type": "marvelous" },
-				{ "mandatory": true, "type": "trial", "rank": "cobalt", "count": 2 }
+				{ "id": 7101, "type": "difficulty", "mandatory": true, "difficulty": 14, "clear_type": "perfect" },
+				{ "id": 7102, "type": "difficulty", "mandatory": true, "difficulty": 15, "score": 990000, "clear_type": "great" },
+				{ "id": 7103, "type": "difficulty", "mandatory": true, "difficulty": 15, "count": 60, "clear_type": "perfect" },
+				{ "id": 7104, "type": "difficulty", "mandatory": true, "difficulty": 16, "score": 975000, "clear_type": "life4" },
+				{ "id": 7105, "type": "difficulty", "mandatory": true, "difficulty": 16, "count": 25, "clear_type": "perfect" },
+				{ "id": 7106, "type": "difficulty", "mandatory": true, "difficulty": 17, "score": 950000 },
+				{ "id": 7107, "type": "difficulty", "mandatory": true, "difficulty": 17, "count": 1, "clear_type": "perfect" },
+				{ "id": 7108, "type": "difficulty", "mandatory": true, "difficulty": 18, "score": 880000 },
+				{ "id": 7109, "type": "difficulty", "mandatory": true, "difficulty": 19, "score": 775000, "song_exceptions": ["ENDYMION"] },
+				{ "id": 7110, "type": "difficulty", "mandatory": true, "difficulty": 10, "difficulty_floor": true, "count": 2, "clear_type": "marvelous" },
+				{ "id": 7111, "type": "trial", "mandatory": true, "rank": "cobalt", "count": 2 }
 			]
 		},
 		{
 			"rank": "amethyst2",
 			"goals": [
-				{ "mandatory": true, "type": "difficulty", "difficulty": 14, "clear_type": "perfect" },
-				{ "mandatory": true, "type": "difficulty", "difficulty": 15, "score": 992000, "clear_type": "great" },
-				{ "mandatory": true, "type": "difficulty", "difficulty": 15, "count": 70, "clear_type": "perfect" },
-				{ "mandatory": true, "type": "difficulty", "difficulty": 16, "score": 980000, "clear_type": "good" },
-				{ "mandatory": true, "type": "difficulty", "difficulty": 16, "count": 30, "clear_type": "perfect" },
-				{ "mandatory": true, "type": "difficulty", "difficulty": 17, "score": 965000 },
-				{ "mandatory": true, "type": "difficulty", "difficulty": 17, "count": 3, "clear_type": "perfect" },
-				{ "mandatory": true, "type": "difficulty", "difficulty": 18, "score": 910000 },
-				{ "mandatory": true, "type": "difficulty", "difficulty": 19, "score": 800000, "song_exceptions": ["ENDYMION"] },
-				{ "mandatory": true, "type": "difficulty", "difficulty": 10, "difficulty_floor": true, "count": 5, "clear_type": "marvelous" },
-				{ "mandatory": true, "type": "trial", "rank": "cobalt", "count": 4 }
+				{ "id": 7201, "type": "difficulty", "mandatory": true, "difficulty": 14, "clear_type": "perfect" },
+				{ "id": 7202, "type": "difficulty", "mandatory": true, "difficulty": 15, "score": 992000, "clear_type": "great" },
+				{ "id": 7203, "type": "difficulty", "mandatory": true, "difficulty": 15, "count": 70, "clear_type": "perfect" },
+				{ "id": 7204, "type": "difficulty", "mandatory": true, "difficulty": 16, "score": 980000, "clear_type": "good" },
+				{ "id": 7205, "type": "difficulty", "mandatory": true, "difficulty": 16, "count": 30, "clear_type": "perfect" },
+				{ "id": 7206, "type": "difficulty", "mandatory": true, "difficulty": 17, "score": 965000 },
+				{ "id": 7207, "type": "difficulty", "mandatory": true, "difficulty": 17, "count": 3, "clear_type": "perfect" },
+				{ "id": 7208, "type": "difficulty", "mandatory": true, "difficulty": 18, "score": 910000 },
+				{ "id": 7209, "type": "difficulty", "mandatory": true, "difficulty": 19, "score": 800000, "song_exceptions": ["ENDYMION"] },
+				{ "id": 7210, "type": "difficulty", "mandatory": true, "difficulty": 10, "difficulty_floor": true, "count": 5, "clear_type": "marvelous" },
+				{ "id": 7211, "type": "trial", "mandatory": true, "rank": "cobalt", "count": 4 }
 			]
 		},
 		{
 			"rank": "amethyst3",
 			"goals": [
-				{ "mandatory": true, "type": "difficulty", "difficulty": 14, "clear_type": "perfect" },
-				{ "mandatory": true, "type": "difficulty", "difficulty": 15, "score": 995000, "clear_type": "great" },
-				{ "mandatory": true, "type": "difficulty", "difficulty": 15, "count": 75, "clear_type": "perfect" },
-				{ "mandatory": true, "type": "difficulty", "difficulty": 16, "score": 985000, "clear_type": "good" },
-				{ "mandatory": true, "type": "difficulty", "difficulty": 16, "count": 35, "clear_type": "perfect" },
-				{ "mandatory": true, "type": "difficulty", "difficulty": 17, "score": 975000, "clear_type": "life4" },
-				{ "mandatory": true, "type": "difficulty", "difficulty": 17, "count": 7, "clear_type": "perfect" },
-				{ "mandatory": true, "type": "difficulty", "difficulty": 18, "score": 930000 },
-				{ "mandatory": true, "type": "difficulty", "difficulty": 19, "score": 825000, "song_exceptions": ["ENDYMION"] },
-				{ "mandatory": true, "type": "difficulty", "difficulty": 10, "difficulty_floor": true, "count": 10, "clear_type": "marvelous" },
-				{ "mandatory": true, "type": "difficulty", "difficulty": 12, "difficulty_floor": true, "count": 5, "clear_type": "marvelous" },
-				{ "mandatory": true, "type": "trial", "rank": "cobalt", "count": 6 },
-				{ "mandatory": true, "type": "trial", "rank": "amethyst", "count": 1 }
+				{ "id": 73021, "type": "difficulty", "mandatory": true, "difficulty": 14, "clear_type": "perfect" },
+				{ "id": 7303, "type": "difficulty", "mandatory": true, "difficulty": 15, "score": 995000, "clear_type": "great" },
+				{ "id": 7304, "type": "difficulty", "mandatory": true, "difficulty": 15, "count": 75, "clear_type": "perfect" },
+				{ "id": 7305, "type": "difficulty", "mandatory": true, "difficulty": 16, "score": 985000, "clear_type": "good" },
+				{ "id": 7306, "type": "difficulty", "mandatory": true, "difficulty": 16, "count": 35, "clear_type": "perfect" },
+				{ "id": 7307, "type": "difficulty", "mandatory": true, "difficulty": 17, "score": 975000, "clear_type": "life4" },
+				{ "id": 7308, "type": "difficulty", "mandatory": true, "difficulty": 17, "count": 7, "clear_type": "perfect" },
+				{ "id": 7309, "type": "difficulty", "mandatory": true, "difficulty": 18, "score": 930000 },
+				{ "id": 7310, "type": "difficulty", "mandatory": true, "difficulty": 19, "score": 825000, "song_exceptions": ["ENDYMION"] },
+				{ "id": 7311, "type": "difficulty", "mandatory": true, "difficulty": 10, "difficulty_floor": true, "count": 10, "clear_type": "marvelous" },
+				{ "id": 7312, "type": "difficulty", "mandatory": true, "difficulty": 12, "difficulty_floor": true, "count": 5, "clear_type": "marvelous" },
+				{ "id": 7313, "type": "trial", "mandatory": true, "rank": "cobalt", "count": 6 },
+				{ "id": 7314, "type": "trial", "mandatory": true, "rank": "amethyst", "count": 1 }
 			]
 		}
 	]

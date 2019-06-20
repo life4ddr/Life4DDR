@@ -2,6 +2,7 @@ package com.perrigogames.life4trials
 
 import android.content.Context
 import androidx.multidex.MultiDexApplication
+import com.perrigogames.life4trials.api.FirebaseUtil
 import com.perrigogames.life4trials.db.MyObjectBox
 import com.perrigogames.life4trials.manager.LadderManager
 import com.perrigogames.life4trials.manager.PlacementManager
@@ -38,6 +39,10 @@ class Life4Application: MultiDexApplication() {
         ladderManager = LadderManager(this)
 
         NotificationUtil.setupNotifications(this)
+
+        if (BuildConfig.DEBUG) {
+            FirebaseUtil.getId(this)
+        }
     }
 
     companion object {

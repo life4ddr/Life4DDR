@@ -21,6 +21,10 @@
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup">
 
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="ID_UPDATES_CHANNEL" />
+
         <activity
             android:name=".activity.FirstRunActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
@@ -61,6 +65,14 @@
             android:name=".activity.Life4DescriptionActivity" />
         <activity
             android:name=".activity.PlacementDetailsActivity" />
+
+        <service
+            android:name=".api.Life4FirebaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
 
         <receiver
             android:name=".util.NotificationCopyHandler"

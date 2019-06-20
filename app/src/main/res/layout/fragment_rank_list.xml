@@ -6,12 +6,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include
-        android:id="@+id/layout_rank_header"
-        layout="@layout/view_rank_header"/>
-
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/fragment_rank_details"
+        android:id="@+id/recycler_rank_details"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:listitem="@layout/item_rank_goal" />

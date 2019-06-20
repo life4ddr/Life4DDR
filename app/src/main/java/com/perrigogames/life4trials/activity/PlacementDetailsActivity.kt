@@ -15,6 +15,7 @@ import com.perrigogames.life4trials.life4app
 import com.perrigogames.life4trials.manager.PlacementManager
 import com.perrigogames.life4trials.ui.songlist.SongListFragment
 import com.perrigogames.life4trials.util.SharedPrefsUtil
+import com.perrigogames.life4trials.view.RankHeaderView
 import kotlinx.android.synthetic.main.content_placement_details.*
 
 
@@ -32,8 +33,10 @@ class PlacementDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listene
         super.onCreate(savedInstanceState)
         setContentView(R.layout.content_placement_details)
 
-        image_rank.rank = trial.placement_rank!!.parent
-        text_rank_title.text = getString(trial.placement_rank!!.nameRes)
+        (layout_rank_header as RankHeaderView).apply {
+            rank = trial.placement_rank!!.parent
+            navigationButtonsVisible = true
+        }
 
         switch_acquire_mode.isChecked = SharedPrefsUtil.getUserFlag(this, KEY_DETAILS_PHOTO_SELECT, false)
         switch_acquire_mode.setOnCheckedChangeListener { _, isChecked ->
