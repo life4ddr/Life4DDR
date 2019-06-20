@@ -26,7 +26,7 @@ class RankDetailsAdapter(private val rank: RankEntry,
 
     init {
         mOnClickListener = View.OnClickListener { v ->
-            val item = v.tag as RankEntry
+            val item = v.tag as BaseRankGoal
             mListener?.onGoalListInteraction(item)
         }
     }
