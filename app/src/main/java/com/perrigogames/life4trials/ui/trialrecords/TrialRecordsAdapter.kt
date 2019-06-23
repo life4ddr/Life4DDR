@@ -12,7 +12,6 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_RECORDS_REMAINING_EX
 import com.perrigogames.life4trials.db.TrialSessionDB
@@ -117,7 +116,7 @@ class TrialRecordsAdapter(private val trialManager: TrialManager,
 
                     val miniEntry = s.songs.size == 0
                     if (!miniEntry) {
-                        Glide.with(view).load(trial.jacketUrl(view.resources, 350)).into(jacketBackground)
+                        jacketBackground.setImageResource(trial.jacketResId(context))
                     }
 
                     arrayOf(label1, label2, label3, label4, song1, song2, song3, song4, jacketBackground, exProgress).forEach {
