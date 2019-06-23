@@ -124,6 +124,7 @@ object NotificationUtil {
     }
 
     private fun htmlStyle(message: String) = NotificationCompat.InboxStyle().also {
+        @Suppress("DEPRECATION")
         it.addLine(if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
             Html.fromHtml(message, 0) else
             Html.fromHtml(message))

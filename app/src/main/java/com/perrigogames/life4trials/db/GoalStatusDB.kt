@@ -9,8 +9,8 @@ import java.util.*
 
 @Entity
 data class GoalStatusDB(@Id var goalId: Long,
-                        var date: Date,
-                        @Convert(converter = GoalStatusConverter::class, dbType = Int::class) var status: GoalStatus)
+                        @Convert(converter = GoalStatusConverter::class, dbType = Int::class) var status: GoalStatus = INCOMPLETE,
+                        var date: Date = Date())
 
 
 class GoalStatusConverter: PropertyConverter<GoalStatus, Int> {

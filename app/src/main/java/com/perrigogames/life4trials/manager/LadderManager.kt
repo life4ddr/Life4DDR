@@ -7,10 +7,8 @@ import com.perrigogames.life4trials.data.BaseRankGoal
 import com.perrigogames.life4trials.data.LadderRankData
 import com.perrigogames.life4trials.db.GoalStatus
 import com.perrigogames.life4trials.db.GoalStatusDB
-import com.perrigogames.life4trials.db.GoalStatusDB_
 import com.perrigogames.life4trials.util.DataUtil
 import com.perrigogames.life4trials.util.loadRawString
-import io.objectbox.kotlin.query
 import java.util.*
 
 class LadderManager(context: Context) {
@@ -21,18 +19,31 @@ class LadderManager(context: Context) {
 
     private val goalsBox get() = objectBox.boxFor(GoalStatusDB::class.java)
 
-    fun setGoalState(goal: BaseRankGoal, status: GoalStatus) {
-        goalsBox.query {
-            var goalDB = equal(GoalStatusDB_.goalId, goal.id.toLong())
-                .build().find().firstOrNull()
+    fun getGoalStatus(goal: BaseRankGoal): GoalStatusDB? {
+        return goalsBox.get(goal.id.toLong())
+    }
 
-            if (goalDB != null) {
-                goalDB.date = Date()
-                goalDB.status = status
-            } else {
-                goalDB = GoalStatusDB(goal.id.toLong(), Date(), status)
-            }
+    fun getOrCreateGoalStatus(goal: BaseRankGoal): GoalStatusDB {
+        var goalDB = getGoalStatus(goal)
+        if (goalDB == null) {
+            goalDB = GoalStatusDB(goal.id.toLong())
             goalsBox.put(goalDB)
         }
+        return goalDB
+    }
+
+    fun setGoalState(goal: BaseRankGoal, status: GoalStatus) {
+        val statusDB = getGoalStatus(goal)
+        if (statusDB == null) {
+            goalsBox.put(GoalStatusDB(goal.id.toLong(), status))
+        } else {
+            setGoalState(statusDB, status)
+        }
+    }
+
+    fun setGoalState(goalDB: GoalStatusDB, status: GoalStatus) {
+        goalDB.date = Date()
+        goalDB.status = status
+        goalsBox.put(goalDB)
     }
 }
