@@ -60,7 +60,7 @@ class SettingsActivity : AppCompatActivity() {
                 SharedPrefsUtil.getUserString(context, KEY_INFO_RIVAL_CODE)
             preference(KEY_INFO_TWITTER_NAME).summary =
                 SharedPrefsUtil.getUserString(context, KEY_INFO_TWITTER_NAME)
-            preferenceListener(KEY_SUBMISSION_NOTIFICAION) {
+            preferenceListener(KEY_SUBMISSION_NOTIFICAION_TEST) {
                 NotificationUtil.showUserInfoNotifications(context, 1579)
                 true
             }
@@ -219,6 +219,7 @@ class SettingsActivity : AppCompatActivity() {
         const val KEY_INFO_RIVAL_CODE = "KEY_INFO_RIVAL_CODE"
         const val KEY_INFO_TWITTER_NAME = "KEY_INFO_TWITTER_NAME"
         const val KEY_SUBMISSION_NOTIFICAION = "KEY_SUBMISSION_NOTIFICAION"
+        const val KEY_SUBMISSION_NOTIFICAION_TEST = "KEY_SUBMISSION_NOTIFICAION_TEST"
         const val KEY_RECORDS_REMAINING_EX = "KEY_RECORDS_REMAINING_EX"
         const val KEY_RECORDS_CLEAR = "KEY_RECORDS_CLEAR"
         const val KEY_FEEDBACK = "KEY_FEEDBACK"

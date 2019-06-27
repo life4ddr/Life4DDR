@@ -14,7 +14,7 @@
             app:defaultValue="true"
             app:title="@string/show_notifications" />
         <Preference
-            app:key="notification_test"
+            app:key="KEY_SUBMISSION_NOTIFICAION_TEST"
             app:title="@string/test_notifications" />
     </PreferenceCategory>
 
