@@ -122,8 +122,8 @@ data class TrialGoalSet(val rank: TrialRank,
     }
 
     private fun onRemainderString(res: Resources, score: Int) = when (score) {
-        AAA_SCORE -> res.getString(R.string.mfc_on_remainder)
-        MAX_SCORE -> res.getString(R.string.aaa_on_remainder)
+        AAA_SCORE -> res.getString(R.string.aaa_on_remainder)
+        MAX_SCORE -> res.getString(R.string.mfc_on_remainder)
         else -> res.getString(R.string.score_on_remainder, scoreString(score))
     }
 
