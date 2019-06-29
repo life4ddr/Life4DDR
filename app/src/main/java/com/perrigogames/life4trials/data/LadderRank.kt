@@ -8,7 +8,7 @@ import com.perrigogames.life4trials.R
 /**
  * Enum class representing a Rank that a player can earn in LIFE4.
  */
-enum class LadderRank(val stableId: Int,
+enum class LadderRank(val stableId: Long,
                       @DrawableRes val drawableRes: Int,
                       @StringRes val nameRes: Int) {
     @SerializedName("wood1") WOOD1(20, R.drawable.wood_1, R.string.wood_1),
@@ -53,6 +53,6 @@ enum class LadderRank(val stableId: Int,
             else -> valueOf(s)
         }
 
-        fun parse(stableId: Int): LadderRank? = values().firstOrNull { it.stableId == stableId }
+        fun parse(stableId: Long): LadderRank? = values().firstOrNull { it.stableId == stableId }
     }
 }

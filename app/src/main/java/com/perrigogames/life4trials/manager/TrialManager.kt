@@ -9,16 +9,16 @@ import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.data.TrialData
 import com.perrigogames.life4trials.data.TrialRank
 import com.perrigogames.life4trials.data.TrialSession
-import com.perrigogames.life4trials.db.SongDB
 import com.perrigogames.life4trials.db.TrialSessionDB
 import com.perrigogames.life4trials.db.TrialSessionDB_
+import com.perrigogames.life4trials.db.TrialSongResultDB
 import com.perrigogames.life4trials.event.SavedRankUpdatedEvent
 import com.perrigogames.life4trials.life4app
 import com.perrigogames.life4trials.util.DataUtil
 import com.perrigogames.life4trials.util.loadRawString
 import io.objectbox.kotlin.query
 
-class TrialManager(private val context: Context) {
+class TrialManager(private val context: Context): BaseManager() {
 
     private var trialData: TrialData
     val trials get() = trialData.trials
@@ -45,10 +45,8 @@ class TrialManager(private val context: Context) {
         }
     }
 
-    private val objectBox get() = Life4Application.objectBox
-
     private val sessionBox get() = objectBox.boxFor(TrialSessionDB::class.java)
-    private val songBox get() = objectBox.boxFor(SongDB::class.java)
+    private val songBox get() = objectBox.boxFor(TrialSongResultDB::class.java)
 
     val records: List<TrialSessionDB> get() = sessionBox.all
 
@@ -66,7 +64,7 @@ class TrialManager(private val context: Context) {
         val sessionDB = TrialSessionDB.from(session)
         songBox.put(session.results.mapIndexed { idx, result ->
             if (result != null) {
-                SongDB.from(result, idx).also {
+                TrialSongResultDB.from(result, idx).also {
                     it.session.target = sessionDB
                 }
             } else null
@@ -76,7 +74,7 @@ class TrialManager(private val context: Context) {
     }
 
     fun deleteRecord(id: Long) {
-        sessionBox.get(id).songs.forEach { songBox.remove(it.id) }
+        sessionBox.get(id).songResults.forEach { songBox.remove(it.id) }
         sessionBox.remove(id)
     }
 
@@ -102,12 +100,12 @@ class TrialManager(private val context: Context) {
 
     fun bestTrial(trialId: String): TrialSessionDB? {
         sessionBox.query {
-            val results = equal(TrialSessionDB_.trialId, trialId)
+            return equal(TrialSessionDB_.trialId, trialId)
                 .equal(TrialSessionDB_.goalObtained, true)
                 .sort { o1, o2 -> o2.goalRankId.compareTo(o1.goalRankId)}
                 .build()
                 .find()
-            return results.firstOrNull()
+                .firstOrNull()
         }
         return null
     }

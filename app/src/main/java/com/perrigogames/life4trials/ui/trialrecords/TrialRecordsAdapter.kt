@@ -114,7 +114,7 @@ class TrialRecordsAdapter(private val trialManager: TrialManager,
                     rankImage.alpha = if (s.goalObtained) 1f else 0.3f
                     date.text = DataUtil.humanNewlineTimestamp(context.locale, s.date)
 
-                    val miniEntry = s.songs.size == 0
+                    val miniEntry = s.songResults.size == 0
                     if (!miniEntry) {
                         jacketBackground.setImageResource(trial.jacketResId(context))
                     }
@@ -129,7 +129,7 @@ class TrialRecordsAdapter(private val trialManager: TrialManager,
                     }
 
                     arrayOf(song1, song2, song3, song4).forEachIndexed { idx, v ->
-                        val songDb = s.songs.firstOrNull { it.position == idx }
+                        val songDb = s.songResults.firstOrNull { it.position == idx }
                         if (songDb != null) {
                             v.text = context.getString(R.string.score_string_format,
                                 songDb.score.longNumberString(), songDb.exScore)

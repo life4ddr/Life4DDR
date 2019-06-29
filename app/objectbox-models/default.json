@@ -6,7 +6,7 @@
     {
       "id": "1:897729382389109926",
       "lastPropertyId": "11:4687129921278289407",
-      "name": "SongDB",
+      "name": "TrialSongResultDB",
       "properties": [
         {
           "id": "1:8766572468174205243",
@@ -95,10 +95,88 @@
         }
       ],
       "relations": []
+    },
+    {
+      "id": "4:3550087585911202435",
+      "lastPropertyId": "5:2807419384847361086",
+      "name": "ChartDB",
+      "properties": [
+        {
+          "id": "1:2261428690331898312",
+          "name": "difficultyClass"
+        },
+        {
+          "id": "2:5881916565998638573",
+          "name": "difficultyNumber"
+        },
+        {
+          "id": "3:7915110439707899891",
+          "name": "playStyle"
+        },
+        {
+          "id": "4:5156906940983289518",
+          "name": "id"
+        },
+        {
+          "id": "5:2807419384847361086",
+          "indexId": "2:2179306308437673584",
+          "name": "songId"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "5:8259428376274226022",
+      "lastPropertyId": "4:8156728067762894280",
+      "name": "SongDB",
+      "properties": [
+        {
+          "id": "1:7474618414295292202",
+          "name": "title"
+        },
+        {
+          "id": "2:4035254530351899273",
+          "name": "artist"
+        },
+        {
+          "id": "3:1848766116061709151",
+          "name": "version"
+        },
+        {
+          "id": "4:8156728067762894280",
+          "name": "id"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "6:7996573366626203407",
+      "lastPropertyId": "4:7576977601798902236",
+      "name": "LadderResultDB",
+      "properties": [
+        {
+          "id": "1:7353156616830171450",
+          "name": "score"
+        },
+        {
+          "id": "2:6907817080132173099",
+          "name": "clearType"
+        },
+        {
+          "id": "3:7664573071473972433",
+          "name": "id"
+        },
+        {
+          "id": "4:7576977601798902236",
+          "indexId": "3:4803047367100923710",
+          "name": "chartId"
+        }
+      ],
+      "relations": []
     }
   ],
-  "lastEntityId": "3:5121322014264730323",
-  "lastIndexId": "1:5226183221815835245",
+  "lastEntityId": "6:7996573366626203407",
+  "lastIndexId": "3:4803047367100923710",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",
   "modelVersion": 4,

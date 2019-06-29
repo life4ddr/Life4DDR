@@ -284,7 +284,7 @@
     <string name="copied">\"%s\" Copied!</string>
     <string name="placement_explanation">Placement sets are collections of three songs that must be played all in the same set.</string>
     <string name="new_tag">NEW!</string>
-    <string name="bgsp">BGSP</string>
+    <string name="bgsp">bSP</string>
     <string name="bsp">BSP</string>
     <string name="dsp">DSP</string>
     <string name="esp">ESP</string>
@@ -297,4 +297,11 @@
     <string name="choose_list">Choose 1: %s</string>
     <string name="life4">LIFE4</string>
     <string name="placement_description">To participate in Rank Placement, you must complete the following songs in a single set.\n\n• The songs can be played in any order.\n• Extra Stage is optional. If you earn an Extra Stage, you can use it to improve a previous score.\n• The ONLY photo that is required is one of the final results screen, showing the scores for each song played. (Click \"Finalize\" to take this photo)</string>
+    <string name="action_progress_matrix">Progress Matrix</string>
+
+    <string name="dont_show_again">Don\'t show this again</string>
+    <string name="import_skip_directions">Skip import directions</string>
+    <string name="import_paste_copied_text">Paste the copied text into the box.</string>
+    <string name="import_data_format">%p:b:B:D:E:C%%y:SP:DP%;%d%;%s0%;%f:mfc:pfc:gfc:fc:life4:clear%;%t%</string>
+    <string name="import_finished">Import Finished:\n%d updated, %d errors</string>
 </resources>

@@ -23,6 +23,7 @@
         <item name="colorAccent">@color/difficultyExpert</item>
     </style>
 
+    <!-- Buttons -->
     <style name="BottomProgressButton">
         <item name="android:background">@drawable/button_normal_x</item>
         <item name="android:textColor">@drawable/button_text_color</item>

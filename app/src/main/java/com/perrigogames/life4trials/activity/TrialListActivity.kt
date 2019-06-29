@@ -6,6 +6,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.perrigogames.life4trials.R
+import com.perrigogames.life4trials.data.LadderRank
 import com.perrigogames.life4trials.data.TrialType
 import com.perrigogames.life4trials.ui.triallist.TrialListFragment
 import kotlinx.android.synthetic.main.activity_trial_list.*
@@ -50,6 +51,9 @@ class TrialListActivity : AppCompatActivity(), TrialListFragment.OnTrialListInte
             R.id.action_grid_view -> restartActivity(true)
             R.id.action_records -> startActivity(Intent(this, TrialRecordsActivity::class.java))
             R.id.action_rank_goals -> startActivity(Intent(this, RankListActivity::class.java))
+            R.id.action_progress_matrix -> startActivity(Intent(this, MatrixTestActivity::class.java).also {
+                it.putExtra(MatrixTestActivity.EXTRA_RANK, LadderRank.DIAMOND1.name)
+            })
             else -> return super.onOptionsItemSelected(item)
         }
         return true

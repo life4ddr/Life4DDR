@@ -4,7 +4,7 @@ import androidx.annotation.StringRes
 import com.google.gson.annotations.SerializedName
 import com.perrigogames.life4trials.R
 
-enum class PlacementRank(val stableId: Int,
+enum class PlacementRank(val stableId: Long,
                          @StringRes val nameRes: Int,
                          val parent: LadderRank) {
 

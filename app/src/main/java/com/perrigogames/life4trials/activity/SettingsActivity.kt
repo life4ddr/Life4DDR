@@ -41,6 +41,7 @@ class SettingsActivity : AppCompatActivity() {
 
     class SettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedPreferenceChangeListener {
 
+        private val ladderManager get() = context!!.life4app.ladderManager
         private val trialManager get() = context!!.life4app.trialManager
 
         private val listUpdateListener: (Preference) -> Boolean = {
@@ -84,81 +85,81 @@ class SettingsActivity : AppCompatActivity() {
                 addDebugSettings()
             }
 
-            Preference(context).apply {
+            preference {
                 key = "version_info"
                 title = "Version ${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})"
-                preferenceScreen.addPreference(this)
             }
         }
 
         private fun addDebugSettings() {
-            PreferenceCategory(context).apply {
-                key = "debug_flags_category"
-                title = "Debug Flags*"
-                preferenceScreen.addPreference(this)
-                addPreference(SwitchPreference(context).apply {
+            category("debug_flags_category", "Debug Settings*") {
+                checkBox(this) {
                     key = KEY_DEBUG_DETAILS_DISPLAY_ALL_RANKS
                     title = "Display all ranks"
                     summary = "Show all the ranks one after the other on the Details screen"
-                })
-                addPreference(SwitchPreference(context).apply {
+                }
+                checkBox(this) {
                     key = KEY_DEBUG_BYPASS_CAMERA
                     title = "Bypass camera"
                     summary = "Use a generic image instead of launching the Camera"
-                })
-                addPreference(SwitchPreference(context).apply {
+                }
+                checkBox(this) {
                     key = KEY_DEBUG_ACCEPT_INVALID
                     title = "Accept invalid song data"
                     summary = "Allow missing fields when entering scores and steps"
-                })
-                addPreference(SwitchPreference(context).apply {
+                }
+                checkBox(this) {
                     key = KEY_DEBUG_BYPASS_STAT_ENTRY
                     title = "Bypass stats entry"
                     summary = "Use random score values when entering a new photo"
-                })
+                }
+                preference(this) {
+                    key = "import_data"
+                    title = "Import manager data"
+                    onPreferenceClickListener = Preference.OnPreferenceClickListener {
+                        ladderManager.showImportFlow(activity!!)
+                        true
+                    }
+                }
+                checkBox(this) {
+                    key = KEY_IMPORT_SKIP_DIRECTIONS
+                    title = getString(R.string.import_skip_directions)
+                }
+                preference(this) {
+                    key = "induce_crash"
+                    title = "Induce crash"
+                    onPreferenceClickListener = Preference.OnPreferenceClickListener {
+                        throw IllegalAccessException()
+                    }
+                }
             }
-            PreferenceCategory(context).apply {
-                key = "debug_notifications_category"
-                title = "Debug Notifications*"
-                preferenceScreen.addPreference(this)
-                addPreference(Preference(context).apply {
+            category("debug_notifications_category", "Debug Notifications*") {
+                preference(this) {
                     key = "debug_placement"
                     title = "Placement results"
                     onPreferenceClickListener = Preference.OnPreferenceClickListener {
                         NotificationUtil.showPlacementNotification(context, LadderRank.values().random())
                         true
                     }
-                })
-                addPreference(Preference(context).apply {
+                }
+                preference(this) {
                     key = "debug_ladder"
                     title = "Ladder rank up"
                     onPreferenceClickListener = Preference.OnPreferenceClickListener {
                         NotificationUtil.showLadderRankChangedNotification(context, LadderRank.values().random())
                         true
                     }
-                })
-                addPreference(Preference(context).apply {
+                }
+                preference(this) {
                     key = "debug_trial"
                     title = "Trial rank up"
                     onPreferenceClickListener = Preference.OnPreferenceClickListener {
                         NotificationUtil.showTrialRankChangedNotification(context, trialManager.trials.random(), TrialRank.values().random())
                         true
                     }
-                })
-            }
-            Preference(context).apply {
-                key = "induce_crash"
-                title = "Induce crash"
-                onPreferenceClickListener = Preference.OnPreferenceClickListener {
-                    throw IllegalAccessException()
                 }
-                preferenceScreen.addPreference(this)
             }
-            PreferenceCategory(context).apply {
-                key = "debug_ranks_category"
-                title = "Debug Ranks*"
-                preferenceScreen.addPreference(this)
-
+            category("debug_ranks_category", "Debug Ranks*") {
                 val ranksList = TrialRank.values().map { it.toString() }.toMutableList()
                 ranksList.add(0, "NONE")
                 val ranksArray = ranksList.toTypedArray()
@@ -206,6 +207,26 @@ class SettingsActivity : AppCompatActivity() {
         private inline fun preferenceListener(key: String, crossinline action: (Preference) -> Boolean) {
             preference(key).onPreferenceClickListener = Preference.OnPreferenceClickListener { action(it) }
         }
+
+        private inline fun preference(target: PreferenceGroup = preferenceScreen, block: Preference.() -> Unit) =
+            target.addPreference(Preference(context).apply(block))
+
+        private inline fun switch(target: PreferenceGroup = preferenceScreen, block: SwitchPreference.() -> Unit) =
+            target.addPreference(SwitchPreference(context).apply(block))
+
+        private inline fun checkBox(target: PreferenceGroup = preferenceScreen, block: CheckBoxPreference.() -> Unit) =
+            target.addPreference(CheckBoxPreference(context).apply(block))
+
+        private inline fun category(key: String,
+                                    title: String,
+                                    target: PreferenceGroup = preferenceScreen,
+                                    block: PreferenceCategory.() -> Unit) =
+            PreferenceCategory(context).also {
+                it.key = key
+                it.title = title
+                target.addPreference(it)
+                it.apply(block)
+            }
     }
 
     companion object {
@@ -223,6 +244,7 @@ class SettingsActivity : AppCompatActivity() {
         const val KEY_RECORDS_REMAINING_EX = "KEY_RECORDS_REMAINING_EX"
         const val KEY_RECORDS_CLEAR = "KEY_RECORDS_CLEAR"
         const val KEY_FEEDBACK = "KEY_FEEDBACK"
+        const val KEY_IMPORT_SKIP_DIRECTIONS = "KEY_IMPORT_SKIP_DIRECTIONS"
 
         const val KEY_DEBUG_DETAILS_DISPLAY_ALL_RANKS = "dddar"
         const val KEY_DEBUG_BYPASS_STAT_ENTRY = "dbse"

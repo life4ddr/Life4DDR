@@ -25,4 +25,13 @@ class RankHeaderView @JvmOverloads constructor(context: Context, attrs: Attribut
             button_navigate_previous.visibility = if (v) VISIBLE else GONE
             button_navigate_next.visibility = if (v) VISIBLE else GONE
         }
+
+    fun setIconSize(size: Int) {
+        image_rank.apply {
+            layoutParams = layoutParams.also {
+                it.width = size
+                it.height = size
+            }
+        }
+    }
 }

@@ -17,3 +17,9 @@ class TrialListUpdatedEvent
  * Event published when something substantial changes with the Trial List, requiring the list to recreate the
  */
 class TrialListReplacedEvent
+
+/**
+ * Event published when a ladder data import finishes, including information about the number of items updated
+ * and how many items gave errors.
+ */
+class LadderImportCompletedEvent(val updated: Int, val errors: Int)
