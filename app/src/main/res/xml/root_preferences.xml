@@ -18,6 +18,20 @@
             app:title="@string/test_notifications" />
     </PreferenceCategory>
 
+    <PreferenceCategory
+        app:key="KEY_CATEGORY_IMPORT"
+        app:title="@string/score_manager_import" >
+
+        <Preference
+            app:key="KEY_IMPORT_DATA"
+            app:title="@string/import_manager_data"/>
+
+        <CheckBoxPreference
+            app:key="KEY_IMPORT_SKIP_DIRECTIONS"
+            app:title="@string/import_skip_directions"/>
+
+    </PreferenceCategory>
+
     <PreferenceCategory app:title="@string/trial_list">
 
         <SwitchPreference

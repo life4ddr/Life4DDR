@@ -42,6 +42,9 @@ object SharedPrefsUtil {
 
     fun setDebugFlag(c: Context, flag: String, v: Boolean) = setUserFlag(c, flag, v)
 
+    /** @return true if preview features should be shown */
+    fun isPreviewEnabled() = BuildConfig.DEBUG || BuildConfig.BUILD_TYPE == "preview"
+
     fun initializeDefaults(c: Context) {
         PreferenceManager.setDefaultValues(c, R.xml.root_preferences, false)
     }

@@ -69,6 +69,10 @@ class SettingsActivity : AppCompatActivity() {
                 trialManager.clearRecords(context)
                 true
             }
+            preferenceListener(KEY_IMPORT_DATA) {
+                ladderManager.showImportFlow(activity!!)
+                true
+            }
 
             preferenceListener(KEY_LIST_SHOW_EX, listUpdateListener)
             preferenceListener(KEY_LIST_SHOW_EX_REMAINING, listUpdateListener)
@@ -83,6 +87,9 @@ class SettingsActivity : AppCompatActivity() {
 
             if (BuildConfig.DEBUG) {
                 addDebugSettings()
+            }
+            SharedPrefsUtil.isPreviewEnabled().let { p ->
+                preference(KEY_CATEGORY_IMPORT).isVisible = p
             }
 
             preference {
@@ -112,18 +119,6 @@ class SettingsActivity : AppCompatActivity() {
                     key = KEY_DEBUG_BYPASS_STAT_ENTRY
                     title = "Bypass stats entry"
                     summary = "Use random score values when entering a new photo"
-                }
-                preference(this) {
-                    key = "import_data"
-                    title = "Import manager data"
-                    onPreferenceClickListener = Preference.OnPreferenceClickListener {
-                        ladderManager.showImportFlow(activity!!)
-                        true
-                    }
-                }
-                checkBox(this) {
-                    key = KEY_IMPORT_SKIP_DIRECTIONS
-                    title = getString(R.string.import_skip_directions)
                 }
                 preference(this) {
                     key = "induce_crash"
@@ -244,6 +239,8 @@ class SettingsActivity : AppCompatActivity() {
         const val KEY_RECORDS_REMAINING_EX = "KEY_RECORDS_REMAINING_EX"
         const val KEY_RECORDS_CLEAR = "KEY_RECORDS_CLEAR"
         const val KEY_FEEDBACK = "KEY_FEEDBACK"
+        const val KEY_CATEGORY_IMPORT = "KEY_CATEGORY_IMPORT"
+        const val KEY_IMPORT_DATA = "KEY_IMPORT_DATA"
         const val KEY_IMPORT_SKIP_DIRECTIONS = "KEY_IMPORT_SKIP_DIRECTIONS"
 
         const val KEY_DEBUG_DETAILS_DISPLAY_ALL_RANKS = "dddar"

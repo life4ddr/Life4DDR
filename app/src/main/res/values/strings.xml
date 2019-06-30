@@ -206,6 +206,9 @@
     <string name="twitter_name">Twitter Name</string>
     <string name="show_notifications">Show info notifications during submission</string>
     <string name="test_notifications">Test notifications</string>
+    <string name="score_manager_import">Score Manager Import</string>
+    <string name="import_manager_data">Import manager data</string>
+    <string name="import_skip_directions">Skip import directions</string>
     <string name="photo_select">Use photo picker</string>
     <string name="expert_score">Expert score entry</string>
     <string name="enforce_expert">Require step breakdowns</string>
@@ -300,7 +303,6 @@
     <string name="action_progress_matrix">Progress Matrix</string>
 
     <string name="dont_show_again">Don\'t show this again</string>
-    <string name="import_skip_directions">Skip import directions</string>
     <string name="import_paste_copied_text">Paste the copied text into the box.</string>
     <string name="import_data_format">%p:b:B:D:E:C%%y:SP:DP%;%d%;%s0%;%f:mfc:pfc:gfc:fc:life4:clear%;%t%</string>
     <string name="import_finished">Import Finished:\n%d updated, %d errors</string>

@@ -9,6 +9,7 @@ import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.data.LadderRank
 import com.perrigogames.life4trials.data.TrialType
 import com.perrigogames.life4trials.ui.triallist.TrialListFragment
+import com.perrigogames.life4trials.util.SharedPrefsUtil
 import kotlinx.android.synthetic.main.activity_trial_list.*
 
 /**
@@ -39,8 +40,12 @@ class TrialListActivity : AppCompatActivity(), TrialListFragment.OnTrialListInte
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
-//        menu.findItem(R.id.action_grid_view).isVisible = !useGrid
-//        menu.findItem(R.id.action_list_view).isVisible = useGrid
+        SharedPrefsUtil.isPreviewEnabled().let { p ->
+            menu.findItem(R.id.action_grid_view).isVisible = p && !useGrid
+            menu.findItem(R.id.action_list_view).isVisible = p && useGrid
+            menu.findItem(R.id.action_rank_goals).isVisible = p
+            menu.findItem(R.id.action_progress_matrix).isVisible = p
+        }
         return true
     }
 

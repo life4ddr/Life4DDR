@@ -18,7 +18,7 @@ android {
         upload {
             storeFile file('../../keystores/upload-keystore.jks')
             keyPassword 'FlOnG9T#0sNe41bXjKtVJi75Y'
-            storePassword 'Ndb%TJQfsJ5c8%qLHP4QEG%Y@'
+            storePassword 'FlOnG9T#0sNe41bXjKtVJi75Y'
             keyAlias = 'upload'
         }
         debug {
@@ -45,6 +45,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.upload
             manifestPlaceholders = [providerName: "com.perrigogames.fileprovider"]
+        }
+        preview {
+            initWith release
         }
         debug {
             applicationIdSuffix ".debug"
