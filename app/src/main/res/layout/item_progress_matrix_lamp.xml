@@ -5,19 +5,40 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:background="@color/black_20"
     tools:layout_height="80dp"
     tools:layout_width="200dp">
+
+    <ImageView
+        android:id="@+id/image_banner_start"
+        android:layout_width="12dp"
+        android:layout_height="0dp"
+        android:src="@drawable/lamp_left"
+        app:layout_constraintBottom_toTopOf="@id/progress_amount"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageView
+        android:id="@+id/image_banner_end"
+        android:layout_width="12dp"
+        android:layout_height="0dp"
+        android:src="@drawable/lamp_right"
+        app:layout_constraintBottom_toTopOf="@id/progress_amount"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
         android:id="@+id/text_goal_title"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginStart="@dimen/content_padding_small"
+        android:layout_marginEnd="@dimen/content_padding_small"
         android:gravity="center"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@id/text_goal_progress"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/image_banner_end"
+        app:layout_constraintStart_toEndOf="@id/image_banner_start"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed"
         tools:text="Score 950,000 or more"/>
@@ -26,20 +47,20 @@
         android:id="@+id/text_goal_progress"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/content_padding_small"
         android:gravity="center"
         android:textStyle="italic"
-        android:layout_marginBottom="@dimen/content_padding_small"
         app:layout_constraintBottom_toTopOf="@id/progress_amount"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/image_banner_end"
+        app:layout_constraintStart_toEndOf="@id/image_banner_start"
         app:layout_constraintTop_toBottomOf="@id/text_goal_title"
         tools:text="5/100 (except 5)"/>
 
     <ProgressBar
         android:id="@+id/progress_amount"
         style="?android:attr/progressBarStyleHorizontal"
-        android:layout_height="12dp"
         android:layout_width="0dp"
+        android:layout_height="12dp"
         android:progressDrawable="@drawable/matrix_progress_drawable"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

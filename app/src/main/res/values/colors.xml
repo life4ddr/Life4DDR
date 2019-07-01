@@ -13,6 +13,7 @@
     <color name="black_50">#7F000000</color>
 
     <color name="white_70">#B2FFFFFF</color>
+    <color name="white_50">#80FFFFFF</color>
 
     <color name="difficultyBeginner">#1fc6db</color>
     <color name="difficultyBasic">#f59e23</color>
@@ -29,4 +30,13 @@
     <color name="amethyst">#DF29FF</color>
     <color name="emerald">#1AF80A</color>
     <color name="red_new">#FF4500</color>
+
+    <color name="no_play">#00000000</color>
+    <color name="fail">#594D27</color>
+    <color name="clear">#DDDD00</color>
+    <color name="life4">#DD0000</color>
+    <color name="good">#0050FF</color>
+    <color name="great">#00CC10</color>
+    <color name="perfect">#DDDD55</color>
+    <color name="marvelous">#EEEEEE</color>
 </resources>

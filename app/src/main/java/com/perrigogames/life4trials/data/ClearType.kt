@@ -1,5 +1,6 @@
 package com.perrigogames.life4trials.data
 
+import androidx.annotation.ColorRes
 import androidx.annotation.StringRes
 import com.google.gson.annotations.SerializedName
 import com.perrigogames.life4trials.R
@@ -16,15 +17,16 @@ enum class ClearType(val stableId: Long,
                      @StringRes val lampRes: Int?,
                      @StringRes val clearRes: Int,
                      @StringRes val clearResShort: Int,
+                     @ColorRes val colorRes: Int,
                      val passing: Boolean = true) {
-    @SerializedName(NO_PLAY_KEY) NO_PLAY(0, null, R.string.not_played, R.string.not_played, false),
-    @SerializedName(FAIL_KEY) FAIL(1, null, R.string.fail, R.string.fail, false),
-    @SerializedName(CLEAR_KEY) CLEAR(2, R.string.lamp_clear, R.string.clear, R.string.clear),
-    @SerializedName(LIFE4C_KEY, alternate = [LIFE4_KEY]) LIFE4_CLEAR(3, R.string.lamp_life4, R.string.clear_life4, R.string.clear_life4),
-    @SerializedName(GOOD_KEY, alternate = [FC_KEY]) GOOD_FULL_COMBO(4, R.string.lamp_fc, R.string.clear_fc, R.string.clear_fc_short),
-    @SerializedName(GREAT_KEY, alternate = [GFC_KEY]) GREAT_FULL_COMBO(5, R.string.lamp_gfc, R.string.clear_gfc, R.string.clear_gfc_short),
-    @SerializedName(PERFECT_KEY, alternate = [PFC_KEY]) PERFECT_FULL_COMBO(6, R.string.lamp_pfc, R.string.clear_pfc, R.string.clear_pfc_short),
-    @SerializedName(MARVELOUS_KEY, alternate = [MFC_KEY]) MARVELOUS_FULL_COMBO(7, R.string.lamp_mfc, R.string.clear_mfc, R.string.clear_mfc_short);
+    @SerializedName(NO_PLAY_KEY) NO_PLAY(0, null, R.string.not_played, R.string.not_played, R.color.no_play, false),
+    @SerializedName(FAIL_KEY) FAIL(1, null, R.string.fail, R.string.fail, R.color.fail, false),
+    @SerializedName(CLEAR_KEY) CLEAR(2, R.string.lamp_clear, R.string.clear, R.string.clear, R.color.clear),
+    @SerializedName(LIFE4C_KEY, alternate = [LIFE4_KEY]) LIFE4_CLEAR(3, R.string.lamp_life4, R.string.clear_life4, R.string.clear_life4, R.color.life4),
+    @SerializedName(GOOD_KEY, alternate = [FC_KEY]) GOOD_FULL_COMBO(4, R.string.lamp_fc, R.string.clear_fc, R.string.clear_fc_short, R.color.good),
+    @SerializedName(GREAT_KEY, alternate = [GFC_KEY]) GREAT_FULL_COMBO(5, R.string.lamp_gfc, R.string.clear_gfc, R.string.clear_gfc_short, R.color.great),
+    @SerializedName(PERFECT_KEY, alternate = [PFC_KEY]) PERFECT_FULL_COMBO(6, R.string.lamp_pfc, R.string.clear_pfc, R.string.clear_pfc_short, R.color.perfect),
+    @SerializedName(MARVELOUS_KEY, alternate = [MFC_KEY]) MARVELOUS_FULL_COMBO(7, R.string.lamp_mfc, R.string.clear_mfc, R.string.clear_mfc_short, R.color.marvelous);
 
     companion object {
         const val NO_PLAY_KEY = "no_play"

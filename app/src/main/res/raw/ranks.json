@@ -253,15 +253,16 @@
 			"goals": [
 				{ "id": 6101, "type": "difficulty", "mandatory": true, "difficulty": 14, "clear_type": "good" },
 				{ "id": 6102, "type": "difficulty", "mandatory": true, "difficulty": 14, "count": 30, "clear_type": "perfect" },
-				{ "id": 6103, "type": "difficulty", "mandatory": true, "difficulty": 15, "score": 970000, "clear_type": "life4" },
-				{ "id": 6104, "type": "difficulty", "mandatory": true, "difficulty": 15, "count": 12, "clear_type": "perfect" },
-				{ "id": 6105, "type": "difficulty", "mandatory": true, "difficulty": 16, "score": 930000 },
-				{ "id": 6106, "type": "difficulty", "mandatory": true, "difficulty": 16, "count": 1, "clear_type": "perfect" },
-				{ "id": 6107, "type": "difficulty", "mandatory": true, "difficulty": 17, "score": 875000 },
-				{ "id": 6108, "type": "difficulty", "mandatory": true, "difficulty": 18 },
-				{ "id": 6109, "type": "difficulty", "mandatory": true, "difficulty": 18, "score": 800000, "exceptions": 3 },
-				{ "id": 6110, "type": "difficulty", "mandatory": true, "difficulty": 19, "count": 2 },
-				{ "id": 6111, "type": "trial", "mandatory": true, "rank": "diamond", "count": 2 }
+				{ "id": 6103, "type": "difficulty", "mandatory": true, "difficulty": 15, "clear_type": "life4" },
+				{ "id": 6104, "type": "difficulty", "mandatory": true, "difficulty": 15, "score": 970000 },
+				{ "id": 6105, "type": "difficulty", "mandatory": true, "difficulty": 15, "count": 12, "clear_type": "perfect" },
+				{ "id": 6106, "type": "difficulty", "mandatory": true, "difficulty": 16, "score": 930000 },
+				{ "id": 6107, "type": "difficulty", "mandatory": true, "difficulty": 16, "count": 1, "clear_type": "perfect" },
+				{ "id": 6108, "type": "difficulty", "mandatory": true, "difficulty": 17, "score": 875000 },
+				{ "id": 6109, "type": "difficulty", "mandatory": true, "difficulty": 18 },
+				{ "id": 6110, "type": "difficulty", "mandatory": true, "difficulty": 18, "score": 800000, "exceptions": 3 },
+				{ "id": 6111, "type": "difficulty", "mandatory": true, "difficulty": 19, "count": 2 },
+				{ "id": 6112, "type": "trial", "mandatory": true, "rank": "diamond", "count": 2 }
 			]
 		},
 		{

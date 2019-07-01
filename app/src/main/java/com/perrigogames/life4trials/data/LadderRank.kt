@@ -53,6 +53,6 @@ enum class LadderRank(val stableId: Long,
             else -> valueOf(s)
         }
 
-        fun parse(stableId: Long): LadderRank? = values().firstOrNull { it.stableId == stableId }
+        fun parse(stableId: Long?): LadderRank? = stableId?.let { id -> values().firstOrNull { it.stableId == id } }
     }
 }

@@ -1,33 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scroll_details"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.perrigogames.life4trials.activity.MatrixTestActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
 
         <include
             android:id="@+id/layout_rank_header"
             layout="@layout/view_rank_header"
-            android:layout_width="0dp"
-            android:layout_height="200dp"
-            app:layout_constraintBottom_toTopOf="@id/layout_progress_matrix"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            android:layout_width="match_parent"
+            android:layout_height="200dp"/>
 
         <com.perrigogames.life4trials.view.ProgressMatrixView
             android:id="@+id/layout_progress_matrix"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layout_rank_header" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/content_padding_large"
+            android:layout_marginLeft="@dimen/content_padding_large"
+            android:layout_marginEnd="@dimen/content_padding_huge"
+            android:layout_marginRight="@dimen/content_padding_huge" />
+    </LinearLayout>
 </ScrollView>

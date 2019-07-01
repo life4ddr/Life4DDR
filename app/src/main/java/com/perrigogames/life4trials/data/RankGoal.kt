@@ -3,6 +3,7 @@ package com.perrigogames.life4trials.data
 import android.content.Context
 import com.google.gson.annotations.SerializedName
 import com.perrigogames.life4trials.R
+import com.perrigogames.life4trials.util.locale
 import com.perrigogames.life4trials.util.toListString
 import com.perrigogames.life4trials.view.longNumberString
 import java.io.Serializable
@@ -168,6 +169,19 @@ class DifficultyClearGoal(id: Int,
             score != null -> scoreString(c) // All X over Y
             else -> clearString(c) // Y lamp the X's folder
 //            throw IllegalArgumentException("Improper difficulty goal content")
+        }
+    }
+
+    fun matrixString(c: Context): String {
+        return if (score != null && clearType == ClearType.CLEAR) {
+            score.longNumberString()
+        } else {
+            val lampString = c.getString(clearType.clearResShort).toUpperCase(c.locale)
+            if (score == null) {
+                lampString
+            } else {
+                "$lampString\n${score.longNumberString()}"
+            }
         }
     }
 
