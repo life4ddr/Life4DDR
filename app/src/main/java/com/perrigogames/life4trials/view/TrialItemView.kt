@@ -15,12 +15,7 @@ import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_LIST
 import com.perrigogames.life4trials.data.Trial
 import com.perrigogames.life4trials.data.TrialRank
 import com.perrigogames.life4trials.util.SharedPrefsUtil
-import kotlinx.android.synthetic.main.item_trial_list_item.view.image_badge_1
-import kotlinx.android.synthetic.main.item_trial_list_item.view.image_badge_2
-import kotlinx.android.synthetic.main.item_trial_list_item.view.image_badge_3
-import kotlinx.android.synthetic.main.item_trial_list_item.view.image_badge_4
-import kotlinx.android.synthetic.main.item_trial_list_item.view.image_badge_5
-import kotlinx.android.synthetic.main.item_trial_list_item.view.image_badge_6
+import kotlinx.android.synthetic.main.item_trial_list_item.view.*
 import kotlinx.android.synthetic.main.item_trial_list_item.view.image_rank
 import kotlinx.android.synthetic.main.item_trial_tile_item.view.*
 
@@ -39,6 +34,7 @@ class TrialItemView @JvmOverloads constructor(context: Context, attrs: Attribute
             field = v
             update()
         }
+    private var usesBadgeList = false
 
     var trial: Trial? = null
         set(v) {
@@ -48,18 +44,21 @@ class TrialItemView @JvmOverloads constructor(context: Context, attrs: Attribute
         }
 
     private fun update() {
-        image_badge_1.visibility = GONE
-        image_badge_2.visibility = GONE
-        image_badge_3.visibility = GONE
-        image_badge_4.visibility = GONE
-        image_badge_5.visibility = GONE
-        image_badge_6.visibility = GONE
+        if (usesBadgeList) {
+            image_badge_1.visibility = GONE
+            image_badge_2.visibility = GONE
+            image_badge_3.visibility = GONE
+            image_badge_4.visibility = GONE
+            image_badge_5.visibility = GONE
+            image_badge_6.visibility = GONE
+        }
 
         image_new.visibility = if (showNew) View.VISIBLE else View.GONE
         text_new.visibility = if (showNew) View.VISIBLE else View.GONE
     }
 
     fun setupRankList(rank: TrialRank?) = trial?.let { t ->
+        usesBadgeList = true
         t.goals?.forEach { goal ->
             (when(goal.rank) {
                 TrialRank.SILVER -> image_badge_1
