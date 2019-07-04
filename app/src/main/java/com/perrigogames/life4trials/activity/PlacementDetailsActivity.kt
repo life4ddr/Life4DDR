@@ -35,7 +35,11 @@ class PlacementDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listene
 
         (layout_rank_header as RankHeaderView).apply {
             rank = trial.placement_rank!!.parent
-            navigationButtonsVisible = true
+            genericTitles = true
+            navigationListener = object : RankHeaderView.NavigationListener {
+                override fun onPreviousClicked() = navigationButtonClicked(placementManager.previousPlacement(placementId))
+                override fun onNextClicked() = navigationButtonClicked(placementManager.nextPlacement(placementId))
+            }
         }
 
         switch_acquire_mode.isChecked = SharedPrefsUtil.getUserFlag(this, KEY_DETAILS_PHOTO_SELECT, false)
@@ -56,11 +60,9 @@ class PlacementDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listene
         } catch (_: NullPointerException) {}
     }
 
-    fun navigationButtonClicked(v: View) {
-        val prev = v.id == R.id.button_navigate_previous
-        val targetPlacement = if (prev) placementManager.previousPlacement(placementId) else placementManager.nextPlacement(placementId)
-        if (targetPlacement != null){
-            startActivity(intent(this, targetPlacement.id))
+    fun navigationButtonClicked(placement: Trial?) {
+        if (placement != null) {
+            startActivity(intent(this, placement.id))
             finish()
         }
     }

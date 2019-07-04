@@ -51,6 +51,7 @@ class SongSetClearGoal(id: Int,
                        val count: Int?,
                        val difficulties: List<DifficultyClass>,
                        val folder: String?,
+                       val score: Int?,
                        val songs: List<String>?): BaseRankGoal(id, type, mandatory) {
 
     val requireAllDifficulties: Boolean get() = mRequireAllDifficulties ?: true
@@ -58,9 +59,14 @@ class SongSetClearGoal(id: Int,
     val clearType: ClearType get() = mClearType ?: ClearType.CLEAR
 
     override fun goalString(c: Context): String = when {
-        count == null && songs != null -> c.getString(R.string.rank_goal_clear_specific, c.getString(clearType.clearResShort), songs.toListString(c, R.string.and_s), difficultyString(c))
-        count == null -> c.getString(R.string.rank_goal_lamp, c.getString(clearType.lampRes!!), folderName(c), difficultyString(c))
-        count == 1 -> c.getString(R.string.rank_goal_clear_count_single, c.getString(clearType.clearResShort), difficultyString(c))
+        score != null && songs != null -> c.getString(R.string.score_specific_song_difficulty,
+            score.longNumberString(), songs.toListString(c, R.string.and_s), difficultyString(c))
+        count == null && songs != null -> c.getString(R.string.rank_goal_clear_specific,
+            c.getString(clearType.clearResShort), songs.toListString(c, R.string.and_s), difficultyString(c))
+        count == null -> c.getString(R.string.rank_goal_lamp,
+            c.getString(clearType.lampRes!!), folderName(c), difficultyString(c))
+        count == 1 -> c.getString(R.string.rank_goal_clear_count_single,
+            c.getString(clearType.clearResShort), difficultyString(c))
         else -> c.getString(R.string.rank_goal_clear_count, c.getString(clearType.clearResShort), count, difficultyString(c))
     }
 
@@ -168,7 +174,6 @@ class DifficultyClearGoal(id: Int,
         } else when {
             score != null -> scoreString(c) // All X over Y
             else -> clearString(c) // Y lamp the X's folder
-//            throw IllegalArgumentException("Improper difficulty goal content")
         }
     }
 
@@ -233,20 +238,44 @@ class DifficultyClearGoal(id: Int,
     }
 
     private fun difficultyString(c: Context, plural: Boolean): String =
-        difficultyNumbers.map { d -> pluralNumber(c, d, plural) }.toListString(c, R.string.or_s)
+        difficultyNumbers.map { d -> pluralNumber(c, d, plural) }.toListString(c)
 
     private fun pluralNumber(c: Context, number: Int, plural: Boolean) =
         if (plural) c.getString(R.string.plural_number, number) else number.toString()
 
-    private fun exceptionString(c: Context) = if (exceptions != null)
-        " ${c.getString(R.string.exceptions, exceptions)}"
-    else ""
+    private fun exceptionString(c: Context) = when {
+        exceptions != null -> c.getString(R.string.exceptions, exceptions)
+        songExceptions != null -> c.getString(R.string.exceptions_songs, songExceptions.toListString(c))
+        else -> ""
+    }
 
     companion object {
         const val TYPE_STRING = "difficulty"
     }
 }
 
+/**
+ * A specialized goal requiring the user to obtain a certain number of "MFC Points"
+ * @param points the number of MFC Points the player is required to obtain
+ */
+class MFCPointsGoal(id: Int,
+                    type: String,
+                    mandatory: Boolean,
+                    val points: Int): BaseRankGoal(id, type, mandatory) {
+
+    override fun goalString(c: Context): String {
+        return c.getString(R.string.rank_goal_ex_points, points)
+    }
+
+    companion object {
+        const val TYPE_STRING = "mfc_points"
+    }
+}
+
+/**
+ * A composite goal requiring the user to complete one of a small series of goals
+ * @param options the goals from which the player is allowed to choose
+ */
 class MultipleChoiceGoal(id: Int,
                          type: String,
                          mandatory: Boolean,

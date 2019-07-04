@@ -15,12 +15,16 @@ import com.perrigogames.life4trials.life4app
 import com.perrigogames.life4trials.view.RankHeaderView
 import kotlinx.android.synthetic.main.fragment_rank_details.view.*
 
-class RankDetailsFragment(private val rankEntry: RankEntry) : Fragment() {
+class RankDetailsFragment(private val rankEntry: RankEntry,
+                          private val navigationListener: RankHeaderView.NavigationListener? = null) : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val view = inflater.inflate(R.layout.fragment_rank_details, container, false)
 
-        (view.layout_rank_header as RankHeaderView).rank = rankEntry.rank
+        (view.layout_rank_header as RankHeaderView).let {
+            it.rank = rankEntry.rank
+            it.navigationListener = navigationListener
+        }
         view.fragment_rank_details.apply {
             adapter = RankGoalsAdapter(rankEntry, context.life4app.ladderManager, null)
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
@@ -40,6 +44,7 @@ class RankDetailsFragment(private val rankEntry: RankEntry) : Fragment() {
     }
 
     companion object {
-        fun newInstance(rankEntry: RankEntry) = RankDetailsFragment(rankEntry)
+        fun newInstance(rankEntry: RankEntry, navigationListener: RankHeaderView.NavigationListener? = null) =
+            RankDetailsFragment(rankEntry, navigationListener)
     }
 }

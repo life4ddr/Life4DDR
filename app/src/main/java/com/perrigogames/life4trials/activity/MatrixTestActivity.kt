@@ -9,7 +9,6 @@ import com.perrigogames.life4trials.data.LadderRank
 import com.perrigogames.life4trials.life4app
 import com.perrigogames.life4trials.view.RankHeaderView
 import kotlinx.android.synthetic.main.activity_matrix_test.*
-import kotlinx.android.synthetic.main.view_rank_header.*
 
 class MatrixTestActivity : AppCompatActivity() {
 
@@ -23,19 +22,16 @@ class MatrixTestActivity : AppCompatActivity() {
 
         rank = LadderRank.parse(intent?.extras?.getLong(EXTRA_RANK)) ?: return
         setRank(rank)
-        button_navigate_previous.setOnClickListener {
-            setRank(LadderRank.values()[rank.ordinal - 1])
-        }
-        button_navigate_next.setOnClickListener {
-            setRank(LadderRank.values()[rank.ordinal + 1])
-        }
     }
 
     private fun setRank(r: LadderRank) {
         rank = r
         layout_progress_matrix.goals = life4app.ladderManager.findRank(r)!!.goals
         rankHeader.rank = r
-        rankHeader.navigationButtonsVisible = true
+        rankHeader.navigationListener = object : RankHeaderView.NavigationListener {
+            override fun onPreviousClicked() = setRank(LadderRank.values()[rank.ordinal - 1])
+            override fun onNextClicked() = setRank(LadderRank.values()[rank.ordinal + 1])
+        }
     }
 
     companion object {

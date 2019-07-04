@@ -29,7 +29,7 @@ enum class TrialRank(val stableId: Long,
         EMERALD -> EMERALD
     }
 
-    val color get() = parent.color
+    val colorRes get() = parent.colorRes
 
     /**
      * Generates a list of this and all [TrialRank]s that are higher than this.

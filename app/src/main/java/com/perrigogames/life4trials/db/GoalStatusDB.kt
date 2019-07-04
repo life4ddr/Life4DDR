@@ -8,9 +8,10 @@ import io.objectbox.converter.PropertyConverter
 import java.util.*
 
 @Entity
-data class GoalStatusDB(@Id var goalId: Long,
+data class GoalStatusDB(val goalId: Long,
                         @Convert(converter = GoalStatusConverter::class, dbType = Int::class) var status: GoalStatus = INCOMPLETE,
-                        var date: Date = Date())
+                        var date: Date = Date(),
+                        @Id var id: Long = 0)
 
 
 class GoalStatusConverter: PropertyConverter<GoalStatus, Int> {

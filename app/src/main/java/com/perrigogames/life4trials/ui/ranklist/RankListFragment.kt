@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.fragment_rank_list.view.*
 /**
  * Fragment displaying the list of ladder ranks that can be obtained.
  */
-class RankListActivityFragment : Fragment() {
+class RankListFragment : Fragment() {
 
     private val rankData: LadderRankData get() = context!!.life4app.ladderManager.ladderData
 
@@ -70,7 +70,7 @@ class RankListActivityFragment : Fragment() {
 
         @JvmStatic
         fun newInstance(columnCount: Int = 1) =
-            RankListActivityFragment().apply {
+            RankListFragment().apply {
                 arguments = Bundle().apply {
                     putInt(ARG_COLUMN_COUNT, columnCount)
                 }

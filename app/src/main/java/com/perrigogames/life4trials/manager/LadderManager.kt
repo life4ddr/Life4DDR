@@ -7,14 +7,12 @@ import androidx.fragment.app.FragmentActivity
 import com.perrigogames.life4trials.Life4Application
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.data.*
-import com.perrigogames.life4trials.db.ChartDB
-import com.perrigogames.life4trials.db.GoalStatus
-import com.perrigogames.life4trials.db.GoalStatusDB
-import com.perrigogames.life4trials.db.LadderResultDB
+import com.perrigogames.life4trials.db.*
 import com.perrigogames.life4trials.event.LadderImportCompletedEvent
 import com.perrigogames.life4trials.ui.managerimport.ScoreManagerImportEntryDialog
 import com.perrigogames.life4trials.util.DataUtil
 import com.perrigogames.life4trials.util.loadRawString
+import io.objectbox.kotlin.query
 import java.util.*
 
 class LadderManager(val context: Context,
@@ -27,8 +25,17 @@ class LadderManager(val context: Context,
 
     fun findRank(rank: LadderRank) = ladderData.rankRequirements.firstOrNull { it.rank == rank }
 
+    fun previousEntry(rank: LadderRank) = previousEntry(ladderData.rankRequirements.indexOfFirst { it.rank == rank })
+
+    fun previousEntry(index: Int) = ladderData.rankRequirements.getOrNull(index - 1)
+
+    fun nextEntry(rank: LadderRank) = nextEntry(ladderData.rankRequirements.indexOfFirst { it.rank == rank })
+
+    fun nextEntry(index: Int) = ladderData.rankRequirements.getOrNull(index + 1)
+
     fun getGoalStatus(goal: BaseRankGoal): GoalStatusDB? {
-        return goalsBox.get(goal.id.toLong())
+        goalsBox.query { return equal(GoalStatusDB_.goalId, goal.id.toLong()).build().findFirst() }
+        return null
     }
 
     fun getOrCreateGoalStatus(goal: BaseRankGoal): GoalStatusDB {

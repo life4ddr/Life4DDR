@@ -53,7 +53,8 @@ class RankGoalsAdapter(private val rank: RankEntry,
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = items[position]
-        holder.view.setGoal(item)
+        val goalDB = ladderManager.getGoalStatus(item)
+        holder.view.setGoal(item, goalDB)
 
         with(holder.view) {
             tag = item

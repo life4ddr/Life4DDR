@@ -65,7 +65,7 @@ class TrialJacketView @JvmOverloads constructor(context: Context, attrs: Attribu
     private fun updateRankTint() {
         if (shouldTint) {
             view_foreground_tint.visibility = VISIBLE
-            view_foreground_tint.setImageDrawable(ColorDrawable(ResourcesCompat.getColor(context.resources, rank!!.color, context.theme)))
+            view_foreground_tint.setImageDrawable(ColorDrawable(ResourcesCompat.getColor(context.resources, rank!!.colorRes, context.theme)))
             image_badge_highest.visibility = GONE
             image_badge_highest_center.visibility = VISIBLE
             text_ex_score.visibility = GONE

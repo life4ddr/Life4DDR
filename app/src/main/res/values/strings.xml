@@ -16,30 +16,31 @@
 
     <!-- Trial Goal Strings -->
     <string name="clear_first_songs">• %s the first %d songs.</string>
-    <string name="score_songs">• Score %s on at least %d songs.</string>
-    <string name="aaa_songs">• AAA at least %d songs.</string>
-    <string name="mfc_songs">• MFC at least %d songs.</string>
-    <string name="score_other_songs">• Score %s on at least %d other songs.</string>
-    <string name="aaa_other_songs">• AAA at least %d other songs.</string>
-    <string name="mfc_other_songs">• MFC at least %d other songs.</string>
-    <string name="score_specific_song">• Score %s on %s.</string>
-    <string name="aaa_specific_song">• AAA %s.</string>
-    <string name="mfc_specific_song">• MFC %s.</string>
-    <string name="score_every_song">• Score %s on every song.</string>
-    <string name="aaa_every_song">• AAA every song.</string>
-    <string name="mfc_every_song">• MFC every song.</string>
-    <string name="score_on_remainder">• Score %s on all other songs.</string>
-    <string name="aaa_on_remainder">• AAA all other songs.</string>
-    <string name="mfc_on_remainder">• MFC all other songs.</string>
-    <string name="bad_judgments_count">• %d or fewer Greats, Goods, and Misses.</string>
-    <string name="misses_count">• %d or fewer Misses.</string>
+    <string name="score_songs">Score %s on at least %d songs.</string>
+    <string name="aaa_songs">AAA at least %d songs.</string>
+    <string name="mfc_songs">MFC at least %d songs.</string>
+    <string name="score_other_songs">Score %s on at least %d other songs.</string>
+    <string name="aaa_other_songs">AAA at least %d other songs.</string>
+    <string name="mfc_other_songs">MFC at least %d other songs.</string>
+    <string name="score_specific_song">Score %s on %s.</string>
+    <string name="score_specific_song_difficulty">Score %s on %s (%s).</string>
+    <string name="aaa_specific_song">AAA %s.</string>
+    <string name="mfc_specific_song">MFC %s.</string>
+    <string name="score_every_song">Score %s on every song.</string>
+    <string name="aaa_every_song">AAA every song.</string>
+    <string name="mfc_every_song">MFC every song.</string>
+    <string name="score_on_remainder">Score %s on all other songs.</string>
+    <string name="aaa_on_remainder">AAA all other songs.</string>
+    <string name="mfc_on_remainder">MFC all other songs.</string>
+    <string name="bad_judgments_count">%d or fewer Greats, Goods, and Misses.</string>
+    <string name="misses_count">%d or fewer Misses.</string>
     <string name="misses_each_count">• %d or fewer Misses on each song.</string>
-    <string name="missing_ex_count">• %d missing EX or less.</string>
-    <string name="missing_ex_count_threshold">• %d missing EX or less (%d).</string>
-    <string name="pass_the_trial">• Pass the Trial.</string>
-    <string name="no_bad_judgments">• PFC all songs.</string>
-    <string name="no_missing_ex">• MFC all songs.</string>
-    <string name="no_misses">• Full combo all songs.</string>
+    <string name="missing_ex_count">%d missing EX or less.</string>
+    <string name="missing_ex_count_threshold">%d missing EX or less (%d).</string>
+    <string name="pass_the_trial">Pass the Trial.</string>
+    <string name="no_bad_judgments">PFC all songs.</string>
+    <string name="no_missing_ex">MFC all songs.</string>
+    <string name="no_misses">Full combo all songs.</string>
 
     <!-- RankEntry Goal Strings -->
     <string name="rank_goal_calories">Burn %d calories in one day.</string>
@@ -52,6 +53,7 @@
     <string name="rank_goal_clear_trial">Earn %s on %d trials.</string>
     <string name="rank_goal_clear_trial_single">Earn %s on any trial.</string>
     <string name="rank_goal_difficulty_clear">%s %d different %s.</string>
+    <string name="rank_goal_difficulty_clear_single">%s %s.</string>
     <string name="rank_goal_difficulty_clear_single_a">%s a %s.</string>
     <string name="rank_goal_difficulty_clear_single_an">%s an %s.</string>
     <string name="rank_goal_difficulty_lamp">%s the %d\'s folder.</string>
@@ -60,7 +62,9 @@
     <string name="rank_goal_difficulty_score_all_lamp">All %s over %s with a %s.</string>
     <string name="rank_goal_difficulty_aaa_all">AAA every %d.</string>
     <string name="rank_goal_difficulty_aaa_all_lamp">AAA every %d with a %s.</string>
-    <string name="exceptions">(%dE)</string>
+    <string name="rank_goal_ex_points">Earn %d MFC Points.</string>
+    <string name="exceptions">" (%dE)"</string>
+    <string name="exceptions_songs">" (except %s)"</string>
 
     <string name="fail">Fail</string>
     <string name="clear">Clear</string>
@@ -187,7 +191,7 @@
     <string name="not_open_file">Could not open file</string>
 
     <array name="credits">
-        <item>Camera icon and Folder icon by https://www.flaticon.com/authors/daniel-bruce from www.flaticon.com</item>
+        <item>Camera, Folder, Scroll Left, and Scroll Right icons by https://www.flaticon.com/authors/daniel-bruce from www.flaticon.com</item>
     </array>
 
     <!-- Activity Titles -->
