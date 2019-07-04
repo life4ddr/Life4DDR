@@ -60,7 +60,7 @@ class LadderGoalItemView @JvmOverloads constructor(context: Context,
 
         button_status_icon.isChecked = state == COMPLETE
         button_ignore.visibility = if (goal?.mandatory == true) View.GONE else View.VISIBLE
-        alpha = if (state == IGNORED) 0.5f else 1.0f
+        alpha = if (state == IGNORED) 0.3f else 1.0f
     }
 
     interface LadderGoalItemListener {
