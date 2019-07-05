@@ -32,6 +32,12 @@ object SharedPrefsUtil {
     /** @return a stored flag in the user preferences */
     fun getUserFlag(c: Context, flag: String, def: Boolean) = userPrefs(c).getBoolean(flag, def)
 
+    /** @return a stored int in the user preferences */
+    fun getUserInt(c: Context, flag: String, def: Int) = userPrefs(c).getInt(flag, def)
+
+    /** @return a stored Long in the user preferences */
+    fun getUserLong(c: Context, flag: String, def: Long) = userPrefs(c).getLong(flag, def)
+
     /** @return a stored string in the user preferences */
     fun getUserString(c: Context, flag: String, def: String? = null) = userPrefs(c).getString(flag, def)
 

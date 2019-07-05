@@ -6,11 +6,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include
-        android:id="@+id/layout_rank_header"
-        layout="@layout/view_rank_header"
+    <ViewStub
+        android:id="@+id/stub_rank_header"
+        android:layout_height="200dp"
+        android:inflatedId="@+id/layout_rank_header"
         android:layout_width="match_parent"
-        android:layout_height="200dp"/>
+        android:layout="@layout/view_rank_header" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/fragment_rank_details"

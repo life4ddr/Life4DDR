@@ -16,17 +16,21 @@ import com.perrigogames.life4trials.view.RankHeaderView
 import kotlinx.android.synthetic.main.fragment_rank_details.view.*
 
 class RankDetailsFragment(private val rankEntry: RankEntry,
-                          private val navigationListener: RankHeaderView.NavigationListener? = null) : Fragment() {
+                          private val options: RankGoalsAdapter.Options,
+                          private val navigationListener: RankHeaderView.NavigationListener? = null,
+                          private val goalListListener: OnGoalListInteractionListener?) : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val view = inflater.inflate(R.layout.fragment_rank_details, container, false)
 
-        (view.layout_rank_header as RankHeaderView).let {
-            it.rank = rankEntry.rank
-            it.navigationListener = navigationListener
+        if (options.showHeader) {
+            (view.stub_rank_header.inflate() as RankHeaderView).let {
+                it.rank = rankEntry.rank
+                it.navigationListener = navigationListener
+            }
         }
         view.fragment_rank_details.apply {
-            adapter = RankGoalsAdapter(rankEntry, context.life4app.ladderManager, null)
+            adapter = RankGoalsAdapter(rankEntry, options, context.life4app.ladderManager, goalListListener)
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         }
 
@@ -41,10 +45,15 @@ class RankDetailsFragment(private val rankEntry: RankEntry,
      */
     interface OnGoalListInteractionListener {
         fun onGoalStateChanged(item: BaseRankGoal, goalStatus: GoalStatus)
+
+        fun onRankSubmitClicked()
     }
 
     companion object {
-        fun newInstance(rankEntry: RankEntry, navigationListener: RankHeaderView.NavigationListener? = null) =
-            RankDetailsFragment(rankEntry, navigationListener)
+        fun newInstance(rankEntry: RankEntry,
+                        options: RankGoalsAdapter.Options = RankGoalsAdapter.Options(),
+                        navigationListener: RankHeaderView.NavigationListener? = null,
+                        goalListListener: OnGoalListInteractionListener? = null) =
+            RankDetailsFragment(rankEntry, options, navigationListener, goalListListener)
     }
 }

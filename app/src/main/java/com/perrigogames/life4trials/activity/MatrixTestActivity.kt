@@ -26,7 +26,7 @@ class MatrixTestActivity : AppCompatActivity() {
 
     private fun setRank(r: LadderRank) {
         rank = r
-        layout_progress_matrix.goals = life4app.ladderManager.findRank(r)!!.goals
+        layout_progress_matrix.goals = life4app.ladderManager.findRankEntry(r)!!.goals
         rankHeader.rank = r
         rankHeader.navigationListener = object : RankHeaderView.NavigationListener {
             override fun onPreviousClicked() = setRank(LadderRank.values()[rank.ordinal - 1])

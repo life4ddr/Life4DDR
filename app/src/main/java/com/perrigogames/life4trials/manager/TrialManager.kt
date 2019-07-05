@@ -88,7 +88,7 @@ class TrialManager(private val context: Context): BaseManager() {
     fun clearRecords(c: Context) {
         AlertDialog.Builder(c)
             .setTitle(R.string.are_you_sure)
-            .setMessage(R.string.confirm_erase_data)
+            .setMessage(R.string.confirm_erase_rank_data)
             .setPositiveButton(R.string.yes) { _, _ ->
                 sessionBox.removeAll()
                 songBox.removeAll()

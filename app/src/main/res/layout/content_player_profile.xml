@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <TextView
+        android:id="@+id/text_player_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/content_padding_huge"
+        android:layout_marginLeft="@dimen/content_padding_huge"
+        android:fontFamily="@font/avenir"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/image_rank"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/image_rank"
+        tools:text="KONNOR" />
+
+    <com.perrigogames.life4trials.view.RankImageView
+        android:id="@+id/image_rank"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_margin="@dimen/content_padding_large"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/gold_3" />
+
+    <View
+        android:id="@+id/divider_header"
+        android:layout_width="0sp"
+        android:layout_height="2dp"
+        android:layout_margin="@dimen/content_padding_large"
+        android:background="@color/white_50"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/image_rank" />
+
+    <include
+        android:id="@+id/view_mode_button_left"
+        layout="@layout/item_profile_mode_button"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="@dimen/content_padding_large"
+        android:layout_marginLeft="@dimen/content_padding_large"
+        android:layout_marginTop="@dimen/content_padding_large"
+        app:layout_constraintEnd_toStartOf="@id/view_mode_button_right"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/divider_header" />
+
+    <include
+        android:id="@+id/view_mode_button_right"
+        layout="@layout/item_profile_mode_button"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="@dimen/content_padding_large"
+        android:layout_marginTop="@dimen/content_padding_large"
+        android:layout_marginEnd="@dimen/content_padding_large"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/view_mode_button_left"
+        app:layout_constraintTop_toBottomOf="@id/divider_header"/>
+
+    <View
+        android:id="@+id/divider_goals"
+        android:layout_width="0sp"
+        android:layout_height="2dp"
+        android:layout_margin="@dimen/content_padding_large"
+        android:layout_marginTop="@dimen/content_padding_large"
+        android:background="@color/white_50"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view_mode_button_left" />
+
+    <FrameLayout
+        android:id="@+id/container_current_goals"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/view_suggestions"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/divider_goals" />
+
+    <FrameLayout
+        android:id="@+id/view_suggestions"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -23,3 +23,8 @@ class TrialListReplacedEvent
  * and how many items gave errors.
  */
 class LadderImportCompletedEvent(val updated: Int, val errors: Int)
+
+/**
+ * Event published when the local user's rank is updated.
+ */
+class LadderRankUpdatedEvent

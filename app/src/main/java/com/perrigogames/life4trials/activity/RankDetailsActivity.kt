@@ -28,7 +28,7 @@ class RankDetailsActivity : AppCompatActivity(), RankHeaderView.NavigationListen
         setContentView(R.layout.activity_rank_details)
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.container, RankDetailsFragment.newInstance(rankEntry!!, this))
+                .replace(R.id.container, RankDetailsFragment.newInstance(rankEntry!!, navigationListener = this))
                 .commitNow()
         }
     }

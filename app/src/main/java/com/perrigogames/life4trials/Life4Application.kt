@@ -4,10 +4,7 @@ import android.content.Context
 import androidx.multidex.MultiDexApplication
 import com.perrigogames.life4trials.api.FirebaseUtil
 import com.perrigogames.life4trials.db.MyObjectBox
-import com.perrigogames.life4trials.manager.LadderManager
-import com.perrigogames.life4trials.manager.PlacementManager
-import com.perrigogames.life4trials.manager.SongDataManager
-import com.perrigogames.life4trials.manager.TrialManager
+import com.perrigogames.life4trials.manager.*
 import com.perrigogames.life4trials.util.NotificationUtil
 import com.perrigogames.life4trials.util.SharedPrefsUtil
 import com.perrigogames.life4trials.util.SharedPrefsUtil.KEY_APP_CRASHED
@@ -19,6 +16,7 @@ class Life4Application: MultiDexApplication() {
     lateinit var ladderManager: LadderManager
     lateinit var placementManager: PlacementManager
     lateinit var songDataManager: SongDataManager
+    lateinit var tournamentManager: TournamentManager
     lateinit var trialManager: TrialManager
 
     override fun onCreate() {
@@ -40,6 +38,7 @@ class Life4Application: MultiDexApplication() {
         placementManager = PlacementManager(this)
         trialManager = TrialManager(this)
         ladderManager = LadderManager(this, songDataManager)
+        tournamentManager = TournamentManager()
 
         NotificationUtil.setupNotifications(this)
 

@@ -1,5 +1,6 @@
 <resources>
-    <string name="app_name">LIFE4 Trials</string>
+    <string name="app_name">LIFE4</string>
+    <string name="life4_trials">LIFE4 Trials</string>
 
     <string name="file_provider_name">com.perrigogames.fileprovider</string>
 
@@ -13,6 +14,9 @@
     <string name="action_import">Import Ranks</string>
     <string name="action_records">Records</string>
     <string name="action_rank_goals">Rank Goals</string>
+    <string name="action_player_profile">Player Profile</string>
+    <string name="action_shop">Shop</string>
+    <string name="description_shop">Purchase physical LIFE4 gear</string>
 
     <!-- Trial Goal Strings -->
     <string name="clear_first_songs">• %s the first %d songs.</string>
@@ -118,7 +122,8 @@
     <string name="trial_submit_dialog_prompt">Photos are saved to your SD card\'s Pictures/LIFE4 folder. These photos can be uploaded to LIFE4\'s Submission Page manually.\n\nWould you like to be taken there now?</string>
     <string name="trial_not_saved">This trial has not been saved!</string>
 
-    <string name="confirm_erase_data">Are you sure you want to clear all saved rank data?</string>
+    <string name="confirm_erase_rank_data">Are you sure you want to clear all saved rank data?</string>
+    <string name="confirm_erase_goal_data">Are you sure you want to clear all saved goal data?</string>
 
     <!-- Format Strings -->
     <string name="ex_score_fraction_format">"%d/%d EX"</string>
@@ -169,6 +174,8 @@
     <string name="url_trial_jacket_sized">https://life4ddr.com/wp-content/uploads/%s/%s-%dx%d.jpg</string>
     <string name="url_standard_submission_form">https://docs.google.com/forms/d/e/1FAIpQLSe-UDKHOaVv7Zf3FEYPUKBwfT0yc79af8hvVMDIu7VYDoIEvQ/viewform</string>
     <string name="url_trial_submission_form">https://docs.google.com/forms/d/e/1FAIpQLSd2z2dcavPcdC_UhieAPUoYj0C5mTbSAabhrRYstOYem2Mq5Q/viewform</string>
+    <string name="url_song_of_week">https://life4ddr.com/</string>
+    <string name="url_shop">https://life4.bigcartel.com/</string>
 
     <!-- Content descriptions -->
     <string name="jacket_artwork_for_trial">jacket artwork for trial</string>
@@ -191,7 +198,9 @@
     <string name="not_open_file">Could not open file</string>
 
     <array name="credits">
-        <item>Camera, Folder, Scroll Left, and Scroll Right icons by https://www.flaticon.com/authors/daniel-bruce from www.flaticon.com</item>
+        <item>Camera, Folder, Scroll Left, and Scroll Right icons by https://www.flaticon.com/authors/daniel-bruce from
+            www.flaticon.com
+        </item>
     </array>
 
     <!-- Activity Titles -->
@@ -206,10 +215,14 @@
     <string name="highlight_new_trials">Highlight new Trials</string>
     <string name="messages_header">Messages</string>
     <string name="sync_header">Sync</string>
+    <string name="player_name">Player Name</string>
+    <string name="player_rank">Player Rank</string>
     <string name="rival_code">Rival Code</string>
     <string name="twitter_name">Twitter Name</string>
     <string name="show_notifications">Show info notifications during submission</string>
     <string name="test_notifications">Test notifications</string>
+    <string name="rank_goals">Rank Goals</string>
+    <string name="clear_goal_data">Clear Goal Data</string>
     <string name="score_manager_import">Score Manager Import</string>
     <string name="import_manager_data">Import manager data</string>
     <string name="import_skip_directions">Skip import directions</string>
@@ -310,4 +323,10 @@
     <string name="import_paste_copied_text">Paste the copied text into the box.</string>
     <string name="import_data_format">%p:b:B:D:E:C%%y:SP:DP%;%d%;%s0%;%f:mfc:pfc:gfc:fc:life4:clear%;%t%</string>
     <string name="import_finished">Import Finished:\n%d updated, %d errors</string>
+    <string name="tournaments">Tournaments</string>
+    <string name="trials">Trials</string>
+    <string name="ladder_goals_complete">All of your goals are complete!</string>
+    <string name="ladder_submit_photos">Submit your photos to LIFE4 to rank up.</string>
+    <string name="title_single_song_tournament">Song of the Week</string>
+    <string name="single_song_tournament_directions">To play in this tournament, score as high as you can on the song listed below, get a picture of the results screen and submit it to LIFE4.</string>
 </resources>

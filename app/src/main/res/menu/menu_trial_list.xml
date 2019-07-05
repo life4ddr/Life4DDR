@@ -13,15 +13,9 @@
         android:title="@string/action_grid_view"
         android:visible="false"
         app:showAsAction="never"/>
-    <item android:id="@+id/action_progress_matrix"
-        android:orderInCategory="185"
-        android:title="@string/action_progress_matrix"
-        android:visible="true"
-        app:showAsAction="never"/>
-    <item android:id="@+id/action_shop"
+    <item android:id="@+id/action_records"
         android:orderInCategory="190"
-        android:title="@string/action_shop"
-        android:visible="true"
+        android:title="@string/action_records"
         app:showAsAction="never"/>
     <item android:id="@+id/action_settings"
         android:orderInCategory="300"

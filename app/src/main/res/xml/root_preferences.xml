@@ -4,6 +4,12 @@
     <PreferenceCategory app:title="@string/user_info">
 
         <EditTextPreference
+            app:key="KEY_INFO_NAME"
+            app:title="@string/player_name" />
+        <DropDownPreference
+            app:key="KEY_INFO_RANK"
+            app:title="@string/player_rank"/>
+        <EditTextPreference
             app:key="KEY_INFO_RIVAL_CODE"
             app:title="@string/rival_code" />
         <EditTextPreference
@@ -16,6 +22,12 @@
         <Preference
             app:key="KEY_SUBMISSION_NOTIFICAION_TEST"
             app:title="@string/test_notifications" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/rank_goals">
+        <Preference
+            android:key="KEY_LADDER_CLEAR"
+            android:title="@string/clear_goal_data"/>
     </PreferenceCategory>
 
     <PreferenceCategory
@@ -82,7 +94,10 @@
     </PreferenceCategory>
 
     <PreferenceCategory app:title="@string/help">
-
+        <Preference
+            app:key="KEY_SHOP"
+            app:summary="@string/description_shop"
+            app:title="@string/action_shop"/>
         <Preference
             app:key="KEY_FEEDBACK"
             app:summary="@string/send_feedback_summary"

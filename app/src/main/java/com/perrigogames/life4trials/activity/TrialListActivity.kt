@@ -6,10 +6,8 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.data.LadderRank
 import com.perrigogames.life4trials.data.TrialType
 import com.perrigogames.life4trials.ui.triallist.TrialListFragment
-import com.perrigogames.life4trials.util.SharedPrefsUtil
 import kotlinx.android.synthetic.main.activity_trial_list.*
 
 /**
@@ -39,24 +37,16 @@ class TrialListActivity : AppCompatActivity(), TrialListFragment.OnTrialListInte
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_main, menu)
-        SharedPrefsUtil.isPreviewEnabled().let { p ->
-            menu.findItem(R.id.action_grid_view).isVisible = p && !useGrid
-            menu.findItem(R.id.action_list_view).isVisible = p && useGrid
-            menu.findItem(R.id.action_rank_goals).isVisible = p
-            menu.findItem(R.id.action_progress_matrix).isVisible = p
-        }
+        menuInflater.inflate(R.menu.menu_trial_list, menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_settings -> startActivity(Intent(this, SettingsActivity::class.java))
             R.id.action_list_view -> restartActivity(false)
             R.id.action_grid_view -> restartActivity(true)
             R.id.action_records -> startActivity(Intent(this, TrialRecordsActivity::class.java))
-            R.id.action_rank_goals -> startActivity(Intent(this, RankListActivity::class.java))
-            R.id.action_progress_matrix -> startActivity(MatrixTestActivity.intent(this, LadderRank.DIAMOND1))
+            R.id.action_settings -> startActivity(Intent(this, SettingsActivity::class.java))
             else -> return super.onOptionsItemSelected(item)
         }
         return true

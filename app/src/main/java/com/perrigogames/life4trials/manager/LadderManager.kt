@@ -3,12 +3,14 @@ package com.perrigogames.life4trials.manager
 import android.content.Context
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.FragmentActivity
 import com.perrigogames.life4trials.Life4Application
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.data.*
 import com.perrigogames.life4trials.db.*
 import com.perrigogames.life4trials.event.LadderImportCompletedEvent
+import com.perrigogames.life4trials.event.LadderRankUpdatedEvent
 import com.perrigogames.life4trials.ui.managerimport.ScoreManagerImportEntryDialog
 import com.perrigogames.life4trials.util.DataUtil
 import com.perrigogames.life4trials.util.loadRawString
@@ -23,7 +25,7 @@ class LadderManager(val context: Context,
     private val goalsBox get() = objectBox.boxFor(GoalStatusDB::class.java)
     private val ladderResultBox get() = objectBox.boxFor(LadderResultDB::class.java)
 
-    fun findRank(rank: LadderRank) = ladderData.rankRequirements.firstOrNull { it.rank == rank }
+    fun findRankEntry(rank: LadderRank) = ladderData.rankRequirements.firstOrNull { it.rank == rank }
 
     fun previousEntry(rank: LadderRank) = previousEntry(ladderData.rankRequirements.indexOfFirst { it.rank == rank })
 
@@ -36,6 +38,11 @@ class LadderManager(val context: Context,
     fun getGoalStatus(goal: BaseRankGoal): GoalStatusDB? {
         goalsBox.query { return equal(GoalStatusDB_.goalId, goal.id.toLong()).build().findFirst() }
         return null
+    }
+
+    fun getGoalStatuses(goals: List<BaseRankGoal>): List<GoalStatusDB> {
+        goalsBox.query { return `in`(GoalStatusDB_.goalId, goals.map { it.id.toLong() }.toLongArray()).build().find() }
+        return emptyList()
     }
 
     fun getOrCreateGoalStatus(goal: BaseRankGoal): GoalStatusDB {
@@ -102,6 +109,19 @@ class LadderManager(val context: Context,
         }
         Toast.makeText(context, context.getString(R.string.import_finished, success, errors), Toast.LENGTH_SHORT).show()
         Life4Application.eventBus.post(LadderImportCompletedEvent(success, errors))
+    }
+
+    fun clearGoalData(c: Context) {
+        AlertDialog.Builder(c)
+            .setTitle(R.string.are_you_sure)
+            .setMessage(R.string.confirm_erase_rank_data)
+            .setPositiveButton(R.string.yes) { _, _ ->
+                goalsBox.removeAll()
+                ladderResultBox.removeAll()
+                Life4Application.eventBus.post(LadderRankUpdatedEvent())
+            }
+            .setNegativeButton(R.string.no, null)
+            .show()
     }
 
     private fun updateOrCreateResultForChart(chart: ChartDB, score: Int, clear: ClearType): LadderResultDB {

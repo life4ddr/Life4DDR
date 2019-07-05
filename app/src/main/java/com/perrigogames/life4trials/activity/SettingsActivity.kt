@@ -14,11 +14,13 @@ import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.data.LadderRank
 import com.perrigogames.life4trials.data.TrialRank
 import com.perrigogames.life4trials.data.TrialSession
+import com.perrigogames.life4trials.event.LadderRankUpdatedEvent
 import com.perrigogames.life4trials.event.TrialListReplacedEvent
 import com.perrigogames.life4trials.event.TrialListUpdatedEvent
 import com.perrigogames.life4trials.life4app
 import com.perrigogames.life4trials.util.NotificationUtil
 import com.perrigogames.life4trials.util.SharedPrefsUtil
+import com.perrigogames.life4trials.util.openWebUrlFromRes
 
 class SettingsActivity : AppCompatActivity() {
 
@@ -57,6 +59,13 @@ class SettingsActivity : AppCompatActivity() {
             setPreferencesFromResource(R.xml.root_preferences, rootKey)
 
             val context = preferenceManager.context
+            preference(KEY_INFO_NAME).summary =
+                SharedPrefsUtil.getUserString(context, KEY_INFO_NAME)
+            (preference(KEY_INFO_RANK) as DropDownPreference).apply {
+                summary = LadderRank.parse(value?.toLongOrNull()).toString()
+                entries = LadderRank.values().map { it.toString() }.toTypedArray()
+                entryValues = LadderRank.values().map { it.stableId.toString() }.toTypedArray()
+            }
             preference(KEY_INFO_RIVAL_CODE).summary =
                 SharedPrefsUtil.getUserString(context, KEY_INFO_RIVAL_CODE)
             preference(KEY_INFO_TWITTER_NAME).summary =
@@ -79,6 +88,15 @@ class SettingsActivity : AppCompatActivity() {
             preferenceListener(KEY_LIST_TINT_COMPLETED, listUpdateListener)
             preferenceListener(KEY_LIST_HIGHLIGHT_NEW, listReplaceListener)
 
+            preferenceListener(KEY_LADDER_CLEAR) {
+                ladderManager.clearGoalData(context)
+                true
+            }
+
+            preferenceListener(KEY_FEEDBACK) {
+                (activity as SettingsActivity).openWebUrlFromRes(R.string.url_shop)
+                true
+            }
             preferenceListener(KEY_FEEDBACK) {
                 startActivity(Intent(ACTION_SENDTO, Uri.parse(
                     "mailto:life4@perrigogames.com?subject=${Uri.encode(getString(R.string.life4_feedback_email_subject))}")))
@@ -173,8 +191,15 @@ class SettingsActivity : AppCompatActivity() {
         override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
             if (key != null) {
                 when {
+                    key == KEY_INFO_NAME ||
                     key == KEY_INFO_RIVAL_CODE ||
                     key == KEY_INFO_TWITTER_NAME -> findPreference<EditTextPreference>(key)?.let { it.summary = it.text }
+                    key == KEY_INFO_RANK -> {
+                        findPreference<DropDownPreference>(key)?.let {
+                            it.summary = LadderRank.parse(it.value.toLongOrNull()).toString()
+                        }
+                        Life4Application.eventBus.post(LadderRankUpdatedEvent())
+                    }
                     key.startsWith(KEY_DEBUG_RANK_PREFIX) -> findPreference<DropDownPreference>(key)?.let { it ->
                         val rank = TrialRank.parse(it.entry.toString())
                         val session = TrialSession(
@@ -225,6 +250,7 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     companion object {
+        const val KEY_LADDER_CLEAR = "KEY_LADDER_CLEAR"
         const val KEY_LIST_TINT_COMPLETED = "KEY_LIST_TINT_COMPLETED"
         const val KEY_LIST_SHOW_EX = "KEY_LIST_SHOW_EX"
         const val KEY_LIST_SHOW_EX_REMAINING = "KEY_LIST_SHOW_EX_REMAINING"
@@ -232,12 +258,15 @@ class SettingsActivity : AppCompatActivity() {
         const val KEY_DETAILS_PHOTO_SELECT = "KEY_DETAILS_PHOTO_SELECT"
         const val KEY_DETAILS_EXPERT = "KEY_DETAILS_EXPERT"
         const val KEY_DETAILS_ENFORCE_EXPERT = "KEY_DETAILS_ENFORCE_EXPERT"
+        const val KEY_INFO_NAME = "KEY_INFO_NAME"
+        const val KEY_INFO_RANK = "KEY_INFO_RANK"
         const val KEY_INFO_RIVAL_CODE = "KEY_INFO_RIVAL_CODE"
         const val KEY_INFO_TWITTER_NAME = "KEY_INFO_TWITTER_NAME"
         const val KEY_SUBMISSION_NOTIFICAION = "KEY_SUBMISSION_NOTIFICAION"
         const val KEY_SUBMISSION_NOTIFICAION_TEST = "KEY_SUBMISSION_NOTIFICAION_TEST"
         const val KEY_RECORDS_REMAINING_EX = "KEY_RECORDS_REMAINING_EX"
         const val KEY_RECORDS_CLEAR = "KEY_RECORDS_CLEAR"
+        const val KEY_SHOP = "KEY_SHOP"
         const val KEY_FEEDBACK = "KEY_FEEDBACK"
         const val KEY_CATEGORY_IMPORT = "KEY_CATEGORY_IMPORT"
         const val KEY_IMPORT_DATA = "KEY_IMPORT_DATA"
