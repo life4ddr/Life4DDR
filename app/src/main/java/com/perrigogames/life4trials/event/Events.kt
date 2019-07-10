@@ -25,6 +25,11 @@ class TrialListReplacedEvent
 class LadderImportCompletedEvent(val updated: Int, val errors: Int)
 
 /**
+ * Event published when the local user's name, rival code, Twitter handle etc. change.
+ */
+class LocalUserInfoUpdatedEvent
+
+/**
  * Event published when the local user's rank is updated.
  */
 class LadderRankUpdatedEvent

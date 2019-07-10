@@ -11,15 +11,28 @@
         android:id="@+id/text_player_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/content_padding_huge"
-        android:layout_marginLeft="@dimen/content_padding_huge"
+        android:layout_marginStart="@dimen/content_padding_large"
+        android:layout_marginLeft="@dimen/content_padding_large"
         android:fontFamily="@font/avenir"
         android:textSize="32sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@id/image_rank"
+        app:layout_constraintBottom_toTopOf="@id/text_player_rival_code"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/image_rank"
         tools:text="KONNOR" />
+
+    <TextView
+        android:id="@+id/text_player_rival_code"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/content_padding_large"
+        android:layout_marginLeft="@dimen/content_padding_large"
+        android:textSize="20sp"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="@id/image_rank"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_player_name"
+        tools:text="1234-5678" />
 
     <com.perrigogames.life4trials.view.RankImageView
         android:id="@+id/image_rank"

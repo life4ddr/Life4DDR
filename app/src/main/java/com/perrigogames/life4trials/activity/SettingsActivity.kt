@@ -15,6 +15,7 @@ import com.perrigogames.life4trials.data.LadderRank
 import com.perrigogames.life4trials.data.TrialRank
 import com.perrigogames.life4trials.data.TrialSession
 import com.perrigogames.life4trials.event.LadderRankUpdatedEvent
+import com.perrigogames.life4trials.event.LocalUserInfoUpdatedEvent
 import com.perrigogames.life4trials.event.TrialListReplacedEvent
 import com.perrigogames.life4trials.event.TrialListUpdatedEvent
 import com.perrigogames.life4trials.life4app
@@ -193,7 +194,10 @@ class SettingsActivity : AppCompatActivity() {
                 when {
                     key == KEY_INFO_NAME ||
                     key == KEY_INFO_RIVAL_CODE ||
-                    key == KEY_INFO_TWITTER_NAME -> findPreference<EditTextPreference>(key)?.let { it.summary = it.text }
+                    key == KEY_INFO_TWITTER_NAME ->  {
+                        findPreference<EditTextPreference>(key)?.let { it.summary = it.text }
+                        Life4Application.eventBus.post(LocalUserInfoUpdatedEvent())
+                    }
                     key == KEY_INFO_RANK -> {
                         findPreference<DropDownPreference>(key)?.let {
                             it.summary = LadderRank.parse(it.value.toLongOrNull()).toString()

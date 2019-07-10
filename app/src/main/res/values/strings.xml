@@ -325,6 +325,7 @@
     <string name="import_finished">Import Finished:\n%d updated, %d errors</string>
     <string name="tournaments">Tournaments</string>
     <string name="trials">Trials</string>
+    <string name="settings_set_info">Set Your Name</string>
     <string name="ladder_goals_complete">All of your goals are complete!</string>
     <string name="ladder_submit_photos">Submit your photos to LIFE4 to rank up.</string>
     <string name="title_single_song_tournament">Song of the Week</string>
