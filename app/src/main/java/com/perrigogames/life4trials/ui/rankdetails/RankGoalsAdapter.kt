@@ -55,7 +55,7 @@ class RankGoalsAdapter(private val rank: RankEntry,
                 else -> GoalStatus.COMPLETE
             })
             updateVisibility(item, goalDB)
-            listener?.onGoalStateChanged(item, goalDB.status)
+            listener?.onGoalStateChanged(item, goalDB.status, 0)
         }
 
         override fun onIgnoreClicked(itemView: LadderGoalItemView, item: BaseRankGoal, goalDB: GoalStatusDB) {
@@ -64,7 +64,7 @@ class RankGoalsAdapter(private val rank: RankEntry,
                 else -> GoalStatus.IGNORED
             })
             updateVisibility(item, goalDB)
-            listener?.onGoalStateChanged(item, goalDB.status)
+            listener?.onGoalStateChanged(item, goalDB.status, 0)
         }
 
         override fun onExpandClicked(itemView: LadderGoalItemView, item: BaseRankGoal, goalDB: GoalStatusDB) {

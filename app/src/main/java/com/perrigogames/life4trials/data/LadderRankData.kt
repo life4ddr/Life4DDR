@@ -14,7 +14,10 @@ class LadderRankData(@SerializedName("unlock_requirement") val unlockRequirement
  * Describes a single rank in [LadderRankData] and the goals required to obtain it.
  */
 class RankEntry(val rank: LadderRank,
-                val goals: List<BaseRankGoal>): Serializable {
+                val goals: List<BaseRankGoal>,
+                val requirements: Int?): Serializable {
+
+    val allowedIgnores: Int get() = requirements?.let { goals.size - it } ?: 0
 
     val difficultyGoals: List<DifficultyClearGoal> get() = goals.mapNotNull { it as? DifficultyClearGoal }
 }

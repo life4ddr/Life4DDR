@@ -22,9 +22,20 @@ class RankDetailsFragment(private val rankEntry: RankEntry,
                           private val navigationListener: RankHeaderView.NavigationListener? = null,
                           private val goalListListener: OnGoalListInteractionListener? = null) : Fragment() {
 
+    private val shouldShowGoals get() = rankEntry.allowedIgnores == 0 && options.showHeader
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val view = inflater.inflate(R.layout.fragment_rank_details, container, false)
+        val listener = object: OnGoalListInteractionListener {
+            override fun onGoalStateChanged(item: BaseRankGoal, goalStatus: GoalStatus, hiddenGoals: Int) {
+                updateHiddenCount(view, hiddenGoals)
+                goalListListener?.onGoalStateChanged(item, goalStatus, hiddenGoals)
+            }
 
+            override fun onRankSubmitClicked() {
+                goalListListener?.onRankSubmitClicked()
+            }
+        }
         if (options.showHeader) {
             (view.stub_rank_header.inflate() as RankHeaderView).let {
                 it.rank = rankEntry.rank
@@ -32,16 +43,30 @@ class RankDetailsFragment(private val rankEntry: RankEntry,
             }
             (view.fragment_rank_details.layoutParams as ConstraintLayout.LayoutParams).topToBottom = R.id.layout_rank_header
         }
+
+        view.text_goals_hidden.visibilityBool = shouldShowGoals
+
         view.button_use_rank.apply {
             visibilityBool = options.showSetRank
             setOnClickListener { goalListListener?.onUseRankClicked() }
         }
+
+        var hidden = 0
         view.fragment_rank_details.apply {
-            adapter = RankGoalsAdapter(rankEntry, options, context.life4app.ladderManager, goalListListener)
+            adapter = RankGoalsAdapter(rankEntry, options, context.life4app.ladderManager, listener)
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+//            hidden = (adapter as RankGoalsAdapter).ignoredItems
         }
+        updateHiddenCount(view, hidden)
 
         return view
+    }
+
+    private fun updateHiddenCount(v: View, hidden: Int) {
+        v.text_goals_hidden.visibility = if (shouldShowGoals) View.GONE else View.VISIBLE
+        v.text_goals_hidden.text = getString(R.string.goals_hidden_format, hidden, rankEntry.allowedIgnores)
+        if (rankEntry.allowedIgnores == hidden) {
+        }
     }
 
     /**
@@ -51,7 +76,7 @@ class RankDetailsFragment(private val rankEntry: RankEntry,
      * activity.
      */
     interface OnGoalListInteractionListener {
-        fun onGoalStateChanged(item: BaseRankGoal, goalStatus: GoalStatus) {}
+        fun onGoalStateChanged(item: BaseRankGoal, goalStatus: GoalStatus, hiddenGoals: Int) {}
         fun onRankSubmitClicked() {}
         fun onUseRankClicked() {}
     }

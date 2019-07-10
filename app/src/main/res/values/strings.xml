@@ -335,6 +335,7 @@
     <string name="ladder_submit_photos">Submit your photos to LIFE4 to rank up.</string>
     <string name="title_single_song_tournament">Song of the Week</string>
     <string name="single_song_tournament_directions">To play in this tournament, score as high as you can on the song listed below, get a picture of the results screen and submit it to LIFE4.</string>
+    <string name="goals_hidden_format">%d/%d hidden</string>
     <string name="use_this_rank">Use This Rank</string>
     <string name="field_hint_dancer_name">Dancer Name</string>
     <string name="field_hint_rival_code">Rival Code (Optional)</string>

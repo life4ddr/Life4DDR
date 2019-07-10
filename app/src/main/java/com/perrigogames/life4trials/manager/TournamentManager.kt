@@ -9,6 +9,6 @@ import com.perrigogames.life4trials.data.Song
 class TournamentManager: BaseManager() {
 
     //FIXME obviously wants API support
-    fun getCurrentSongOfWeek() = Song("Astrogazer", 18, DifficultyClass.CHALLENGE,
+    fun getCurrentSongOfWeek() = Song("Astrogazer", 18, DifficultyClass.CHALLENGE, 0,
         "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/Astrogazer/Astrogazer-jacket.png")
 }

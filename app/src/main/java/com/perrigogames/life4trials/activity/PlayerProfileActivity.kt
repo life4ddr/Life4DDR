@@ -83,7 +83,7 @@ class PlayerProfileActivity : AppCompatActivity(), RankDetailsFragment.OnGoalLis
         }
     }
 
-    override fun onGoalStateChanged(item: BaseRankGoal, goalStatus: GoalStatus) = Unit
+    override fun onGoalStateChanged(item: BaseRankGoal, goalStatus: GoalStatus, hiddenGoals: Int) = Unit
 
     override fun onRankSubmitClicked() = openWebUrlFromRes(R.string.url_standard_submission_form)
 
