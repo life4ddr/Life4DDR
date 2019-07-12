@@ -15,15 +15,15 @@
         }, {
           "rank": "diamond",
           "judge": 3,
-          "ex_missing": 70
+          "ex_missing": 90
         }, {
           "rank": "cobalt",
           "judge": 1,
-          "ex_missing": 45
+          "ex_missing": 55
         }, {
           "rank": "amethyst",
           "judge": 1,
-          "ex_missing": 20
+          "ex_missing": 25
         }, {
           "rank": "emerald",
           "judge": 1,
@@ -53,19 +53,19 @@
         }, {
           "rank": "diamond",
           "judge": 7,
-          "ex_missing": 135
+          "ex_missing": 160
         }, {
           "rank": "cobalt",
           "judge": 3,
-          "ex_missing": 80
+          "ex_missing": 90
         }, {
           "rank": "amethyst",
           "judge": 2,
-          "ex_missing": 50
+          "ex_missing": 60
         }, {
           "rank": "emerald",
           "judge": 2,
-          "ex_missing": 35
+          "ex_missing": 40
         }
       ],
       "total_ex": 5169,
@@ -94,8 +94,8 @@
           "ex_missing": 150
         }, {
           "rank": "cobalt",
-          "judge": 4,
-          "ex_missing": 90
+          "judge": 5,
+          "ex_missing": 100
         }, {
           "rank": "amethyst",
           "judge": 2,
@@ -129,15 +129,15 @@
         }, {
           "rank": "diamond",
           "judge": 15,
-          "ex_missing": 180
+          "ex_missing": 220
         }, {
           "rank": "cobalt",
           "judge": 5,
-          "ex_missing": 120
+          "ex_missing": 130
         }, {
           "rank": "amethyst",
           "judge": 2,
-          "ex_missing": 75
+          "ex_missing": 80
         }, {
           "rank": "emerald",
           "judge": 2,
@@ -168,15 +168,15 @@
         }, {
           "rank": "diamond",
           "judge": 10,
-          "ex_missing": 150
+          "ex_missing": 180
         }, {
           "rank": "cobalt",
           "judge": 3,
-          "ex_missing": 100
+          "ex_missing": 120
         }, {
           "rank": "amethyst",
           "judge": 2,
-          "ex_missing": 60
+          "ex_missing": 65
         }, {
           "rank": "emerald",
           "judge": 2,
@@ -246,15 +246,15 @@
           "rank": "diamond",
           "score": [990000, 990000, 990000],
           "score_indexed": [0, 0, 985000, 0],
-          "ex_missing": 220
+          "ex_missing": 300
         }, {
           "rank": "cobalt",
           "judge": 10,
-          "ex_missing": 160
+          "ex_missing": 180
         }, {
           "rank": "amethyst",
           "judge": 3,
-          "ex_missing": 90
+          "ex_missing": 100
         }, {
           "rank": "emerald",
           "judge": 2,
@@ -284,11 +284,11 @@
         }, {
           "rank": "diamond",
           "score": [990000, 990000, 985000, 985000],
-          "ex_missing": 220
+          "ex_missing": 300
         }, {
           "rank": "cobalt",
           "judge": 10,
-          "ex_missing": 160
+          "ex_missing": 180
         }, {
           "rank": "amethyst",
           "judge": 2,
@@ -321,15 +321,15 @@
         }, {
           "rank": "diamond",
           "score": [990000, 990000, 980000, 980000],
-          "ex_missing": 275
+          "ex_missing": 350
         }, {
           "rank": "cobalt",
           "judge": 6,
-          "ex_missing": 140
+          "ex_missing": 175
         }, {
           "rank": "amethyst",
           "judge": 2,
-          "ex_missing": 75
+          "ex_missing": 85
         }, {
           "rank": "emerald",
           "judge": 2,
@@ -359,16 +359,16 @@
           "rank": "diamond",
           "score": [980000, 980000, 980000, 980000],
           "miss": 5,
-          "ex_missing": 250
+          "ex_missing": 300
         }, {
           "rank": "cobalt",
           "score": [990000, 990000, 990000, 990000],
           "judge": 10,
-          "ex_missing": 160
+          "ex_missing": 170
         }, {
           "rank": "amethyst",
           "judge": 2,
-          "ex_missing": 90
+          "ex_missing": 100
         }, {
           "rank": "emerald",
           "judge": 2,
@@ -393,21 +393,21 @@
           "rank": "silver"
         }, {
           "rank": "gold",
-          "score": [960000, 960000, 925000, 925000]
+          "score": [950000, 950000, 910000, 910000]
         }, {
           "rank": "diamond",
           "score": [975000, 975000, 975000, 975000],
           "miss": 7,
-          "ex_missing": 275
+          "ex_missing": 375
         }, {
           "rank": "cobalt",
           "score": [990000, 990000, 990000, 990000],
           "judge": 12,
-          "ex_missing": 200
+          "ex_missing": 225
         }, {
           "rank": "amethyst",
           "judge": 3,
-          "ex_missing": 120
+          "ex_missing": 125
         }, {
           "rank": "emerald",
           "judge": 2,
@@ -439,11 +439,11 @@
         }, {
           "rank": "cobalt",
           "score": [990000, 990000, 990000, 990000],
-          "ex_missing": 210
+          "ex_missing": 260
         }, {
           "rank": "amethyst",
           "judge": 5,
-          "ex_missing": 135
+          "ex_missing": 150
         }, {
           "rank": "emerald",
           "judge": 3,
@@ -475,11 +475,11 @@
           "rank": "cobalt",
           "score": [990000, 990000, 990000, 990000],
           "judge": 10,
-          "ex_missing": 190
+          "ex_missing": 250
         }, {
           "rank": "amethyst",
           "judge": 3,
-          "ex_missing": 110
+          "ex_missing": 130
         }, {
           "rank": "emerald",
           "judge": 3,
@@ -511,11 +511,11 @@
           "rank": "cobalt",
           "score": [990000, 990000],
           "miss": 5,
-          "ex_missing": 250
+          "ex_missing": 300
         }, {
           "rank": "amethyst",
           "judge": 5,
-          "ex_missing": 160
+          "ex_missing": 180
         }, {
           "rank": "emerald",
           "judge": 5,
@@ -544,11 +544,11 @@
         }, {
           "rank": "cobalt",
           "score": [990000, 990000, 975000, 975000],
-          "ex_missing": 500
+          "ex_missing": 600
         }, {
           "rank": "amethyst",
           "judge": 20,
-          "ex_missing": 275
+          "ex_missing": 300
         }, {
           "rank": "emerald",
           "judge": 10,
@@ -576,16 +576,16 @@
           "score": [940000, 940000, 925000, 925000]
         }, {
           "rank": "cobalt",
-          "score": [990000, 990000, 975000, 975000],
-          "ex_missing": 400
+          "score": [990000, 975000, 975000, 975000],
+          "ex_missing": 500
         }, {
           "rank": "amethyst",
           "judge": 15,
-          "ex_missing": 240
+          "ex_missing": 275
         }, {
           "rank": "emerald",
           "judge": 10,
-          "ex_missing": 160
+          "ex_missing": 175
         }
       ],
       "total_ex": 7470,
@@ -611,11 +611,11 @@
         }, {
           "rank": "amethyst",
           "score": [990000, 960000, 960000, 960000],
-          "ex_missing": 550
+          "ex_missing": 600
         }, {
           "rank": "emerald",
-          "score": [990000, 990000, 990000, 980000],
-          "ex_missing": 350
+          "score": [990000, 990000, 980000, 980000],
+          "ex_missing": 400
         }
       ],
       "total_ex": 9396,
