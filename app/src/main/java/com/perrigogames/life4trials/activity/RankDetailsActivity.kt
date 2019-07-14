@@ -10,7 +10,7 @@ import com.perrigogames.life4trials.life4app
 import com.perrigogames.life4trials.ui.rankdetails.RankDetailsFragment
 import com.perrigogames.life4trials.view.RankHeaderView
 
-class RankDetailsActivity : AppCompatActivity(), RankHeaderView.NavigationListener {
+class RankDetailsActivity : AppCompatActivity(), RankHeaderView.NavigationListener, RankDetailsFragment.OnGoalListInteractionListener {
 
     private val ladderManager get() = life4app.ladderManager
 
@@ -28,7 +28,7 @@ class RankDetailsActivity : AppCompatActivity(), RankHeaderView.NavigationListen
         setContentView(R.layout.activity_rank_details)
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.container, RankDetailsFragment.newInstance(rankEntry!!, navigationListener = this))
+                .replace(R.id.container, RankDetailsFragment(rankEntry!!, RankDetailsFragment.Options(showSetRank = true), this, this))
                 .commitNow()
         }
     }
@@ -36,6 +36,11 @@ class RankDetailsActivity : AppCompatActivity(), RankHeaderView.NavigationListen
     override fun onPreviousClicked() = navigationButtonClicked(ladderManager.previousEntry(rankEntry!!.rank))
 
     override fun onNextClicked() = navigationButtonClicked(ladderManager.nextEntry(rankEntry!!.rank))
+
+    override fun onUseRankClicked() {
+        ladderManager.setUserRank(this, rankEntry!!.rank)
+        finish()
+    }
 
     private fun navigationButtonClicked(entry: RankEntry?) {
         if (entry != null) {

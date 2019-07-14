@@ -3,7 +3,6 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'io.fabric'
-apply plugin: 'io.objectbox' // apply last
 
 ext {
     play_services_version = "15.0.1"
@@ -106,14 +105,17 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlin_coroutine_version"
 
     // Google Drive
-    implementation 'com.google.android.gms:play-services-auth:16.0.1'
-    implementation 'com.google.http-client:google-http-client-gson:1.26.0'
-    implementation('com.google.api-client:google-api-client-android:1.26.0') {
-        exclude group: 'org.apache.httpcomponents'
-    }
-    implementation('com.google.apis:google-api-services-drive:v3-rev136-1.25.0') {
-        exclude group: 'org.apache.httpcomponents'
-    }
+//    implementation 'com.google.android.gms:play-services-auth:16.0.1'
+//    implementation 'com.google.http-client:google-http-client-gson:1.26.0'
+//    implementation('com.google.api-client:google-api-client-android:1.26.0') {
+//        exclude group: 'org.apache.httpcomponents'
+//    }
+//    implementation('com.google.apis:google-api-services-drive:v3-rev136-1.25.0') {
+//        exclude group: 'org.apache.httpcomponents'
+//    }
+
+    debugImplementation "io.objectbox:objectbox-android-objectbrowser:$objectboxVersion"
+    releaseImplementation "io.objectbox:objectbox-android:$objectboxVersion"
 
     // Dagger2
     implementation "com.google.dagger:dagger-android:$dagger2_version"
@@ -135,3 +137,4 @@ dependencies {
 }
 
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'io.objectbox' // apply last

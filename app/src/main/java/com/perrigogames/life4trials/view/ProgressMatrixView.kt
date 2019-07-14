@@ -4,7 +4,6 @@ import android.content.Context
 import android.util.AttributeSet
 import android.util.SparseArray
 import android.view.LayoutInflater
-import android.view.View
 import android.widget.TableLayout
 import android.widget.TableRow
 import androidx.core.content.ContextCompat
@@ -15,6 +14,7 @@ import com.perrigogames.life4trials.data.BaseRankGoal
 import com.perrigogames.life4trials.data.DifficultyClearGoal
 import com.perrigogames.life4trials.data.TrialData
 import com.perrigogames.life4trials.util.CommonSizes
+import com.perrigogames.life4trials.util.visibilityBool
 import kotlinx.android.synthetic.main.item_progress_matrix.view.progress_amount
 import kotlinx.android.synthetic.main.item_progress_matrix.view.text_goal_progress
 import kotlinx.android.synthetic.main.item_progress_matrix.view.text_goal_title
@@ -69,7 +69,7 @@ class ProgressMatrixView @JvmOverloads constructor(context: Context, attrs: Attr
                         }
                         val folderClear = goal.count == null && !hasLamp
                         listOf(goalCell.image_banner_start, goalCell.image_banner_end).forEach { banner ->
-                            banner.visibility = if (folderClear) View.VISIBLE else View.GONE
+                            banner.visibilityBool = folderClear
                             if (folderClear) {
                                 banner.setColorFilter(ContextCompat.getColor(context, goal.clearType.colorRes))
                                 banner.layoutParams = banner.layoutParams.also {

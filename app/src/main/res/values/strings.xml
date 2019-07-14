@@ -126,6 +126,8 @@
     <string name="confirm_erase_goal_data">Are you sure you want to clear all saved goal data?</string>
 
     <!-- Format Strings -->
+    <string name="goal_progress_format">"%d / %d"</string>
+    <string name="goal_remaining_format">"%d / %d left"</string>
     <string name="ex_score_fraction_format">"%d/%d EX"</string>
     <string name="difficulty_string_format">"%s (%d)"</string>
     <string name="score_string_format">"%s (%d EX)"</string>
@@ -198,9 +200,8 @@
     <string name="not_open_file">Could not open file</string>
 
     <array name="credits">
-        <item>Camera, Folder, Scroll Left, and Scroll Right icons by https://www.flaticon.com/authors/daniel-bruce from
-            www.flaticon.com
-        </item>
+        <item>Camera, Folder, Scroll Left, and Scroll Right icons by https://www.flaticon.com/authors/daniel-bruce from www.flaticon.com</item>
+        <item>Fixtures icon by Freepik from www.flaticon.com</item>
     </array>
 
     <!-- Activity Titles -->
@@ -330,4 +331,5 @@
     <string name="ladder_submit_photos">Submit your photos to LIFE4 to rank up.</string>
     <string name="title_single_song_tournament">Song of the Week</string>
     <string name="single_song_tournament_directions">To play in this tournament, score as high as you can on the song listed below, get a picture of the results screen and submit it to LIFE4.</string>
+    <string name="use_this_rank">Use This Rank</string>
 </resources>

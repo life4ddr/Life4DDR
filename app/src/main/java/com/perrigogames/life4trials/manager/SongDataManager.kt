@@ -1,30 +1,94 @@
 package com.perrigogames.life4trials.manager
 
+import android.content.Context
 import com.crashlytics.android.Crashlytics
+import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.data.DifficultyClass
+import com.perrigogames.life4trials.data.IgnoreList
+import com.perrigogames.life4trials.data.IgnoreLists
 import com.perrigogames.life4trials.data.PlayStyle
 import com.perrigogames.life4trials.db.ChartDB
+import com.perrigogames.life4trials.db.ChartDB_
 import com.perrigogames.life4trials.db.SongDB
 import com.perrigogames.life4trials.db.SongDB_
-import io.objectbox.kotlin.query
+import com.perrigogames.life4trials.util.DataUtil
+import com.perrigogames.life4trials.util.loadRawString
 
 /**
  * A Manager class that keeps track of the available songs
  */
-class SongDataManager: BaseManager() {
+class SongDataManager(context: Context): BaseManager() {
 
-    val songBox get() = objectBox.boxFor(SongDB::class.java)
-    val chartBox get() = objectBox.boxFor(ChartDB::class.java)
+    //
+    // Ignore List Data
+    //
+    private var ignoreList: List<IgnoreList> =
+        DataUtil.gson.fromJson(context.loadRawString(R.raw.ignore_lists), IgnoreLists::class.java)!!.lists
+    private var selectedIgnoreList: IgnoreList? = ignoreList.first { it.id == "ACE_US" } //FIXME
+    var selectedIgnoreSongIds: LongArray? = null
+        get() {
+            if (field == null) {
+                field = selectedIgnoreList?.songs?.map { it.title }?.toTypedArray()?.let { ignoreTitles ->
+                    multipleSongTitleQuery.setParameters("titles", ignoreTitles).find().map { it.id }.toLongArray()
+                } ?: LongArray(0)
+            }
+            return field
+        }
+        private set
+    var selectedIgnoreChartIds: LongArray? = null
+        get() {
+            if (field == null) {
+                field = selectedIgnoreList?.charts?.mapNotNull { chart ->
+                    val song = songTitleQuery.setParameter("title", chart.title).findFirst()
+                    return@mapNotNull song?.charts?.first { it.difficultyClass == chart.difficultyClass }?.id
+                }?.toLongArray() ?: LongArray(0)
+            }
+            return field
+        }
+        private set
 
-    fun getSongByName(name: String): SongDB? {
-        songBox.query { return equal(SongDB_.title, name).build().findFirst() }
-        return null
+    //
+    // ObjectBoxes
+    //
+    private val songBox get() = objectBox.boxFor(SongDB::class.java)
+    private val chartBox get() = objectBox.boxFor(ChartDB::class.java)
+
+    //
+    // Queries
+    //
+    private val songTitleQuery = songBox.query()
+        .equal(SongDB_.title, "").parameterAlias("title")
+        .build()
+    private val multipleSongTitleQuery = songBox.query()
+        .`in`(SongDB_.title, emptyArray<String>()).parameterAlias("titles")
+        .build()
+    private val chartDifficultyQuery = chartBox.query().apply {
+        equal(ChartDB_.difficultyNumber, 0)
+        link(ChartDB_.song).notIn(SongDB_.id, selectedIgnoreSongIds)
+        notIn(ChartDB_.id, selectedIgnoreChartIds)
+    }.build()
+
+    init {
+        selectedIgnoreList = selectedIgnoreList
     }
 
-    fun getOrCreateSong(name: String): SongDB {
-        return getSongByName(name) ?: SongDB(name).also {
+    fun getSongByName(name: String): SongDB? =
+        songTitleQuery.setParameter(SongDB_.title, name).findFirst()
+
+    fun getChartsByDifficulty(difficulty: Int): MutableList<ChartDB> =
+        chartDifficultyQuery.setParameter(ChartDB_.difficultyNumber, difficulty.toLong()).find()
+
+    fun getOrCreateSong(name: String, artist: String? = null): SongDB =
+        getSongByName(name) ?: SongDB(name, artist).also {
             songBox.put(it)
         }
+
+    /**
+     * Nulls out the list of invalid IDs, to regenerate them
+     */
+    fun invalidateIgnoredIds() {
+        selectedIgnoreSongIds = null
+        selectedIgnoreChartIds = null
     }
 
     fun updateOrCreateChartForSong(song: SongDB,

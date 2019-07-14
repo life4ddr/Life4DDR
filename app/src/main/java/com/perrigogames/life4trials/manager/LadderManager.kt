@@ -5,26 +5,61 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.FragmentActivity
+import com.perrigogames.life4trials.BuildConfig
 import com.perrigogames.life4trials.Life4Application
 import com.perrigogames.life4trials.R
+import com.perrigogames.life4trials.activity.SettingsActivity
 import com.perrigogames.life4trials.data.*
 import com.perrigogames.life4trials.db.*
 import com.perrigogames.life4trials.event.LadderImportCompletedEvent
 import com.perrigogames.life4trials.event.LadderRankUpdatedEvent
 import com.perrigogames.life4trials.ui.managerimport.ScoreManagerImportEntryDialog
 import com.perrigogames.life4trials.util.DataUtil
+import com.perrigogames.life4trials.util.SharedPrefsUtil
 import com.perrigogames.life4trials.util.loadRawString
-import io.objectbox.kotlin.query
 import java.util.*
 
 class LadderManager(val context: Context,
                     val songDataManager: SongDataManager): BaseManager() {
 
+    //
+    // Ladder Data
+    //
     val ladderData = DataUtil.gson.fromJson(context.loadRawString(R.raw.ranks), LadderRankData::class.java)!!
 
+    //
+    // ObjectBoxes
+    //
     private val goalsBox get() = objectBox.boxFor(GoalStatusDB::class.java)
     private val ladderResultBox get() = objectBox.boxFor(LadderResultDB::class.java)
 
+    //
+    // Queries
+    //
+    private val goalStatusQuery = goalsBox.query()
+        .equal(GoalStatusDB_.goalId, 0).parameterAlias("id")
+        .build()
+    private val goalMultiStatusQuery = goalsBox.query()
+        .`in`(GoalStatusDB_.goalId, LongArray(0)).parameterAlias("ids")
+        .build()
+    private val ladderResultQuery = ladderResultBox.query()
+        .`in`(LadderResultDB_.chartId, LongArray(0)).parameterAlias("ids")
+        .build()
+
+    //
+    // Local User Rank
+    //
+    fun getUserRank(c: Context): LadderRank? =
+        LadderRank.parse(SharedPrefsUtil.getUserString(c, SettingsActivity.KEY_INFO_RANK)?.toLongOrNull())
+
+    fun setUserRank(c: Context, rank: LadderRank?) {
+        SharedPrefsUtil.setUserString(c, SettingsActivity.KEY_INFO_RANK, rank?.stableId.toString())
+        Life4Application.eventBus.post(LadderRankUpdatedEvent())
+    }
+
+    //
+    // Rank Navigation
+    //
     fun findRankEntry(rank: LadderRank) = ladderData.rankRequirements.firstOrNull { it.rank == rank }
 
     fun previousEntry(rank: LadderRank) = previousEntry(ladderData.rankRequirements.indexOfFirst { it.rank == rank })
@@ -35,15 +70,14 @@ class LadderManager(val context: Context,
 
     fun nextEntry(index: Int) = ladderData.rankRequirements.getOrNull(index + 1)
 
-    fun getGoalStatus(goal: BaseRankGoal): GoalStatusDB? {
-        goalsBox.query { return equal(GoalStatusDB_.goalId, goal.id.toLong()).build().findFirst() }
-        return null
-    }
+    //
+    // Goal State
+    //
+    fun getGoalStatus(goal: BaseRankGoal): GoalStatusDB? =
+        goalStatusQuery.setParameter("id", goal.id.toLong()).findFirst()
 
-    fun getGoalStatuses(goals: List<BaseRankGoal>): List<GoalStatusDB> {
-        goalsBox.query { return `in`(GoalStatusDB_.goalId, goals.map { it.id.toLong() }.toLongArray()).build().find() }
-        return emptyList()
-    }
+    fun getGoalStatuses(goals: List<BaseRankGoal>): List<GoalStatusDB> =
+        goalMultiStatusQuery.setParameters("ids", goals.map { it.id.toLong() }.toLongArray()).find()
 
     fun getOrCreateGoalStatus(goal: BaseRankGoal): GoalStatusDB {
         var goalDB = getGoalStatus(goal)
@@ -69,11 +103,27 @@ class LadderManager(val context: Context,
         goalsBox.put(goalDB)
     }
 
+    //
+    // Imported Score Data
+    //
+    fun getGoalProgress(goal: BaseRankGoal): LadderGoalProgress? = when (goal) {
+        is DifficultyClearGoal -> {
+            val charts = songDataManager.getChartsByDifficulty(goal.difficulty!!)
+                .filterNot { songDataManager.selectedIgnoreChartIds!!.contains(it.id) ||
+                        songDataManager.selectedIgnoreSongIds!!.contains(it.song.targetId)}
+            val results = ladderResultQuery.setParameters("ids", charts.map { it.id }.toLongArray()).find()
+            goal.getGoalProgress(results)
+        }
+        else -> null
+    }
+
     fun showImportFlow(activity: FragmentActivity) {
         ScoreManagerImportEntryDialog(object: ScoreManagerImportEntryDialog.Listener {
+
             override fun onDialogCancelled() = Unit
 
             override fun onDataSubmitted(data: String) = importManagerData(data)
+
         }).show(activity.supportFragmentManager, ScoreManagerImportEntryDialog.TAG)
     }
 
@@ -83,13 +133,17 @@ class LadderManager(val context: Context,
         dataString.lines().forEach { entry ->
             val entryParts = entry.trim().split(';')
             if (entryParts.size >= 4) {
-                // format = %p:b:B:D:E:C%%y:SP:DP%;%d%;%s0%;%f:mfc:pfc:gfc:fc:life4:clear%;%t%
+                // format = %p:b:B:D:E:C%%y:SP:DP%;%d%;%s0%;%l%;%f:mfc:pfc:gfc:fc:life4:clear%;%t%
                 try {
                     val chartType = entryParts[0] // ESP
                     val difficultyNumber = entryParts[1].toInt()
                     val score = entryParts[2].toInt()
-                    val clear = ClearType.parse(entryParts[3])!!
-                    val songName = entryParts.subList(4, entryParts.size).joinToString(";")
+                    val clear = when {
+                        entryParts[3] == "-" -> ClearType.NO_PLAY
+                        entryParts[3] == "E" -> ClearType.FAIL
+                        else -> ClearType.parse(entryParts[4])!!
+                    }
+                    val songName = entryParts.subList(5, entryParts.size).joinToString(";")
 
                     val playStyle = PlayStyle.parse(chartType)!!
                     val difficultyClass = DifficultyClass.parse(chartType)!!
@@ -98,6 +152,9 @@ class LadderManager(val context: Context,
                     val chartDB = songDataManager.updateOrCreateChartForSong(songDB, playStyle, difficultyClass, difficultyNumber)
                     val resultDB = updateOrCreateResultForChart(chartDB, score, clear)
 
+                    if (BuildConfig.DEBUG && resultDB.clearType == ClearType.NO_PLAY) {
+                        Log.v("import", "${songDB.title} - ${chartDB.difficultyClass} (${chartDB.difficultyNumber})")
+                    }
                     success++
                 } catch (e: Exception) {
                     errors++
@@ -108,6 +165,7 @@ class LadderManager(val context: Context,
             }
         }
         Toast.makeText(context, context.getString(R.string.import_finished, success, errors), Toast.LENGTH_SHORT).show()
+        songDataManager.invalidateIgnoredIds()
         Life4Application.eventBus.post(LadderImportCompletedEvent(success, errors))
     }
 
@@ -133,7 +191,7 @@ class LadderManager(val context: Context,
                 ladderResultBox.put(it)
             }
         }
-        return result ?: LadderResultDB().also {
+        return result ?: LadderResultDB(score, clear).also {
             chart.plays.add(it)
             songDataManager.updateChart(chart)
             ladderResultBox.put(it)

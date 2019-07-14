@@ -8,6 +8,7 @@
             app:title="@string/player_name" />
         <DropDownPreference
             app:key="KEY_INFO_RANK"
+            app:defaultValue="20"
             app:title="@string/player_rank"/>
         <EditTextPreference
             app:key="KEY_INFO_RIVAL_CODE"

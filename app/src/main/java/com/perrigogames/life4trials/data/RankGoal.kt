@@ -3,10 +3,12 @@ package com.perrigogames.life4trials.data
 import android.content.Context
 import com.google.gson.annotations.SerializedName
 import com.perrigogames.life4trials.R
+import com.perrigogames.life4trials.db.LadderResultDB
 import com.perrigogames.life4trials.util.locale
 import com.perrigogames.life4trials.util.toListString
 import com.perrigogames.life4trials.view.longNumberString
 import java.io.Serializable
+import kotlin.math.min
 
 /**
  * The base rank goal class, describing a single goal of a rank on the LIFE4 ladder.
@@ -17,6 +19,8 @@ abstract class BaseRankGoal(val id: Int,
                             val mandatory: Boolean = false): Serializable {
 
     abstract fun goalString(c: Context): String
+
+    open fun getGoalProgress(results: List<LadderResultDB>): LadderGoalProgress? = null
 }
 
 /**
@@ -172,8 +176,29 @@ class DifficultyClearGoal(id: Int,
             score != null -> scoreAllString(c) + exceptionString(c) // All X over Y
             else -> lampString(c) + exceptionString(c) // Y lamp the X's folder
         } else when {
-            score != null -> scoreString(c) // All X over Y
-            else -> clearString(c) // Y lamp the X's folder
+            score != null -> scoreString(c) // X Ys over Z
+            else -> clearString(c) // Y clear Z X's
+        }
+    }
+
+    override fun getGoalProgress(results: List<LadderResultDB>): LadderGoalProgress? {
+        return when {
+            results.isEmpty() -> null
+            count == null -> {
+                val remaining = when {
+                    score != null -> results.filter { it.score < score } // All X over Y
+                    else -> results.filter { it.clearType.ordinal < clearType.ordinal } // Y lamp the X's folder
+                }
+                val actualResultsSize = results.size - (exceptions ?: 0)
+                LadderGoalProgress(min(results.size - remaining.size, actualResultsSize), actualResultsSize, remaining)
+            }
+            else -> {
+                val resultCount = when {
+                    score != null -> results.count { it.score >= score } // X Ys over Z
+                    else -> results.count { it.clearType.ordinal >= clearType.ordinal } // Y clear Z X's
+                }
+                LadderGoalProgress(min(count, resultCount), count)
+            }
         }
     }
 

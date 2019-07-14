@@ -14,7 +14,6 @@ import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.data.LadderRank
 import com.perrigogames.life4trials.data.TrialRank
 import com.perrigogames.life4trials.data.TrialSession
-import com.perrigogames.life4trials.event.LadderRankUpdatedEvent
 import com.perrigogames.life4trials.event.LocalUserInfoUpdatedEvent
 import com.perrigogames.life4trials.event.TrialListReplacedEvent
 import com.perrigogames.life4trials.event.TrialListUpdatedEvent
@@ -200,9 +199,11 @@ class SettingsActivity : AppCompatActivity() {
                     }
                     key == KEY_INFO_RANK -> {
                         findPreference<DropDownPreference>(key)?.let {
-                            it.summary = LadderRank.parse(it.value.toLongOrNull()).toString()
+                            LadderRank.parse(it.value.toLongOrNull()).let { rank ->
+                                it.summary = rank.toString()
+                                ladderManager.setUserRank(activity!!, rank)
+                            }
                         }
-                        Life4Application.eventBus.post(LadderRankUpdatedEvent())
                     }
                     key.startsWith(KEY_DEBUG_RANK_PREFIX) -> findPreference<DropDownPreference>(key)?.let { it ->
                         val rank = TrialRank.parse(it.entry.toString())

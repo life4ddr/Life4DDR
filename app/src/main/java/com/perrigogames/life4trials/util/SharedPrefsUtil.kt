@@ -46,6 +46,8 @@ object SharedPrefsUtil {
 
     fun setUserFlag(c: Context, flag: String, v: Boolean) = userPrefs(c).edit(true) { putBoolean(flag, v) }
 
+    fun setUserString(c: Context, flag: String, v: String? = null) = userPrefs(c).edit(true) { putString(flag, v) }
+
     fun setDebugFlag(c: Context, flag: String, v: Boolean) = setUserFlag(c, flag, v)
 
     /** @return true if preview features should be shown */

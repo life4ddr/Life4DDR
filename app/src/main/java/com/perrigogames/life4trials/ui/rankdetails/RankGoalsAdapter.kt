@@ -20,7 +20,7 @@ import kotlin.math.max
  * specified [OnGoalListInteractionListener].
  */
 class RankGoalsAdapter(private val rank: RankEntry,
-                       private val options: Options,
+                       private val options: RankDetailsFragment.Options,
                        private val ladderManager: LadderManager,
                        private var listener: OnGoalListInteractionListener? = null) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -32,6 +32,7 @@ class RankGoalsAdapter(private val rank: RankEntry,
             rank.goals.filterNot { completedGoals.contains(it.id.toLong()) }.toMutableList()
         } else rank.goals.toMutableList()
     }
+    private val expandedItems = mutableListOf<BaseRankGoal>()
 
     private var mNoGoalView: ConstraintLayout? = null
     private fun noGoalView(parent: ViewGroup): ConstraintLayout {
@@ -64,6 +65,11 @@ class RankGoalsAdapter(private val rank: RankEntry,
             updateVisibility(item, goalDB)
             listener?.onGoalStateChanged(item, goalDB.status)
         }
+
+        override fun onExpandClicked(itemView: LadderGoalItemView, item: BaseRankGoal, goalDB: GoalStatusDB) {
+            expandedItems.remove(item) || expandedItems.add(item)
+            notifyItemChanged(activeItems.indexOf(item))
+        }
     }
 
     fun updateVisibility(goal: BaseRankGoal, goalDB: GoalStatusDB) {
@@ -88,31 +94,37 @@ class RankGoalsAdapter(private val rank: RankEntry,
         }
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (holder is NoGoalViewHolder) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) = when (holder) {
+        is NoGoalViewHolder -> {
             holder.view.button_submit.setOnClickListener {
                 listener?.onRankSubmitClicked()
             }
             holder.view.image_rank.rank = rank.rank
-        } else if (holder is GoalViewHolder) {
+        }
+        is GoalViewHolder -> {
             val item = activeItems[position]
             val goalDB = ladderManager.getGoalStatus(item)
-            holder.view.setGoal(item, goalDB)
+            val progress = ladderManager.getGoalProgress(item)
+
+//            if (progress?.isComplete() == true) {
+//                ladderManager.setGoalState(goalDB!!, GoalStatus.COMPLETE)
+//                holder.view.post { notifyItemChanged(position) }
+//            }
+
+            holder.view.expanded = expandedItems.contains(item)
+            holder.view.setGoal(item, goalDB, progress)
 
             with(holder.view) {
                 tag = item
             }
         }
+        else -> Unit
     }
 
     // Used to avoid the duplicate items recycling
     override fun getItemViewType(position: Int): Int = if (activeItems.isEmpty()) VIEW_TYPE_NO_GOAL else VIEW_TYPE_GOAL
 
     override fun getItemCount(): Int = max(activeItems.size, 1)
-
-    class Options(val hideCompleted: Boolean = false,
-                  val hideIgnored: Boolean = false,
-                  val showHeader: Boolean = true)
 
     inner class GoalViewHolder(val view: LadderGoalItemView) : RecyclerView.ViewHolder(view)
 

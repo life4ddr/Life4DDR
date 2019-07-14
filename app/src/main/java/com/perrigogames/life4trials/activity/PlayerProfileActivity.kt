@@ -10,14 +10,13 @@ import androidx.core.content.ContextCompat
 import com.perrigogames.life4trials.Life4Application
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_INFO_NAME
-import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_INFO_RANK
 import com.perrigogames.life4trials.data.BaseRankGoal
 import com.perrigogames.life4trials.data.LadderRank
 import com.perrigogames.life4trials.db.GoalStatus
+import com.perrigogames.life4trials.event.LadderImportCompletedEvent
 import com.perrigogames.life4trials.event.LadderRankUpdatedEvent
 import com.perrigogames.life4trials.life4app
 import com.perrigogames.life4trials.ui.rankdetails.RankDetailsFragment
-import com.perrigogames.life4trials.ui.rankdetails.RankGoalsAdapter
 import com.perrigogames.life4trials.util.CommonSizes
 import com.perrigogames.life4trials.util.SharedPrefsUtil
 import com.perrigogames.life4trials.util.openWebUrlFromRes
@@ -93,6 +92,9 @@ class PlayerProfileActivity : AppCompatActivity(), RankDetailsFragment.OnGoalLis
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onLadderRankModified(e: LadderRankUpdatedEvent) = updatePlayerContent()
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onLadderImportCompleted(e: LadderImportCompletedEvent) = updatePlayerContent()
+
     private fun setupContent() {
         if (!SharedPrefsUtil.isPreviewEnabled()) {
             view_mode_button_left.alpha = 0.3f
@@ -111,7 +113,7 @@ class PlayerProfileActivity : AppCompatActivity(), RankDetailsFragment.OnGoalLis
 
     private fun updatePlayerContent() {
         text_player_name.text = SharedPrefsUtil.getUserString(this, KEY_INFO_NAME)
-        rank = LadderRank.parse(SharedPrefsUtil.getUserString(this, KEY_INFO_RANK)?.toLongOrNull())
+        rank = ladderManager.getUserRank(this)
 
         if (rank != null) {
             image_rank.visibility = View.VISIBLE
@@ -120,8 +122,8 @@ class PlayerProfileActivity : AppCompatActivity(), RankDetailsFragment.OnGoalLis
 
             ladderManager.nextEntry(rank!!)?.let { rankEntry ->
                 supportFragmentManager.beginTransaction()
-                    .replace(R.id.container_current_goals, RankDetailsFragment.newInstance(rankEntry,
-                        RankGoalsAdapter.Options(hideCompleted = true, hideIgnored = false, showHeader = false), null, this))
+                    .replace(R.id.container_current_goals, RankDetailsFragment(rankEntry,
+                        RankDetailsFragment.Options(hideCompleted = true, hideIgnored = false, showHeader = false), null, this))
                     .commitNowAllowingStateLoss()
             }
         } else {

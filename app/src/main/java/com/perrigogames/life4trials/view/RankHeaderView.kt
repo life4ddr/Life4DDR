@@ -6,6 +6,7 @@ import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.data.LadderRank
+import com.perrigogames.life4trials.util.visibilityBool
 import kotlinx.android.synthetic.main.view_rank_header.view.*
 
 /**
@@ -30,8 +31,8 @@ class RankHeaderView @JvmOverloads constructor(context: Context, attrs: Attribut
     var navigationListener: NavigationListener? = null
         set(v) {
             field = v
-            button_navigate_previous.visibility = if (v != null) VISIBLE else GONE
-            button_navigate_next.visibility = if (v != null) VISIBLE else GONE
+            button_navigate_previous.visibilityBool = v != null
+            button_navigate_next.visibilityBool = v != null
         }
 
     var genericTitles = false
@@ -56,7 +57,7 @@ class RankHeaderView @JvmOverloads constructor(context: Context, attrs: Attribut
     }
 
     private fun updateTitle() {
-        text_rank_title.text = rank?.let { context.getString(if (genericTitles) it.groupNameRes else it.nameRes) } ?: ""
+        text_goal_title.text = rank?.let { context.getString(if (genericTitles) it.groupNameRes else it.nameRes) } ?: ""
     }
 
     interface NavigationListener {

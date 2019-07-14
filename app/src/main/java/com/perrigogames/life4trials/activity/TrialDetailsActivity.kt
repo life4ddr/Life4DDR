@@ -8,8 +8,6 @@ import android.os.Bundle
 import android.view.ContextMenu
 import android.view.MenuItem
 import android.view.View
-import android.view.View.GONE
-import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -23,6 +21,7 @@ import com.perrigogames.life4trials.manager.TrialManager
 import com.perrigogames.life4trials.ui.songlist.SongListFragment
 import com.perrigogames.life4trials.util.SharedPrefsUtil
 import com.perrigogames.life4trials.util.openWebUrlFromRes
+import com.perrigogames.life4trials.util.visibilityBool
 import com.perrigogames.life4trials.view.SongView
 import com.perrigogames.life4trials.view.TrialJacketView
 import kotlinx.android.synthetic.main.content_trial_details.*
@@ -46,8 +45,8 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener {
     private var modified = false
         set(v) {
             field = v
-            button_navigate_previous.visibility = if (v) GONE else VISIBLE
-            button_navigate_next.visibility = if (v) GONE else VISIBLE
+            button_navigate_previous.visibilityBool = !v
+            button_navigate_next.visibilityBool = !v
         }
     private var isNewEntry = false
     private var isFinal = false
@@ -174,8 +173,8 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener {
 
     private fun updateCompleteState() {
         val allSongsComplete = trialSession.results.filterNotNull().size == TrialData.TRIAL_LENGTH
-        button_concede.visibility = if (allSongsComplete) GONE else VISIBLE
-        button_finalize.visibility = if (allSongsComplete) VISIBLE else GONE
+        button_concede.visibilityBool = !allSongsComplete
+        button_finalize.visibilityBool = allSongsComplete
     }
 
     private fun concedeTrial() {

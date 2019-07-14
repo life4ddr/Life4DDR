@@ -10,7 +10,6 @@ import android.provider.MediaStore
 import android.text.Editable
 import android.text.SpannableStringBuilder
 import android.text.TextWatcher
-import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
@@ -21,6 +20,7 @@ import com.perrigogames.life4trials.data.Song
 import com.perrigogames.life4trials.data.SongResult
 import com.perrigogames.life4trials.util.SharedPrefsUtil
 import com.perrigogames.life4trials.util.SharedPrefsUtil.getUserFlag
+import com.perrigogames.life4trials.util.visibilityBool
 import kotlinx.android.synthetic.main.content_song_entry.*
 
 
@@ -114,9 +114,9 @@ class SongEntryActivity: AppCompatActivity() {
     }
 
     private fun updateAdvancedFields(isExpert: Boolean) {
-        checkbox_expert.visibility = if (advancedDetail) VISIBLE else GONE
-        advancedFields.forEach { it.visibility = if (advancedDetail && !isExpert) VISIBLE else GONE }
-        expertFields.forEach { it.visibility = if (advancedDetail && isExpert) VISIBLE else GONE }
+        checkbox_expert.visibilityBool = advancedDetail
+        advancedFields.forEach { it.visibilityBool = advancedDetail && !isExpert }
+        expertFields.forEach { it.visibilityBool = advancedDetail && isExpert }
         field_ex.nextFocusDownId = when {
             isExpert && advancedDetail -> field_greats_less.id
             else -> 0

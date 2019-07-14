@@ -15,6 +15,7 @@ import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_LIST
 import com.perrigogames.life4trials.data.Trial
 import com.perrigogames.life4trials.data.TrialRank
 import com.perrigogames.life4trials.util.SharedPrefsUtil
+import com.perrigogames.life4trials.util.visibilityBool
 import kotlinx.android.synthetic.main.item_trial_list_item.view.*
 import kotlinx.android.synthetic.main.item_trial_list_item.view.image_rank
 import kotlinx.android.synthetic.main.item_trial_tile_item.view.*
@@ -53,8 +54,8 @@ class TrialItemView @JvmOverloads constructor(context: Context, attrs: Attribute
             image_badge_6.visibility = GONE
         }
 
-        image_new.visibility = if (showNew) View.VISIBLE else View.GONE
-        text_new.visibility = if (showNew) View.VISIBLE else View.GONE
+        image_new.visibilityBool = showNew
+        text_new.visibilityBool = showNew
     }
 
     fun setupRankList(rank: TrialRank?) = trial?.let { t ->

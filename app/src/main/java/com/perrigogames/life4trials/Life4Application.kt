@@ -1,6 +1,7 @@
 package com.perrigogames.life4trials
 
 import android.content.Context
+import android.util.Log
 import androidx.multidex.MultiDexApplication
 import com.perrigogames.life4trials.api.FirebaseUtil
 import com.perrigogames.life4trials.db.MyObjectBox
@@ -9,7 +10,9 @@ import com.perrigogames.life4trials.util.NotificationUtil
 import com.perrigogames.life4trials.util.SharedPrefsUtil
 import com.perrigogames.life4trials.util.SharedPrefsUtil.KEY_APP_CRASHED
 import io.objectbox.BoxStore
+import io.objectbox.android.AndroidObjectBrowser
 import org.greenrobot.eventbus.EventBus
+
 
 class Life4Application: MultiDexApplication() {
 
@@ -33,8 +36,12 @@ class Life4Application: MultiDexApplication() {
         objectBox = MyObjectBox.builder()
             .androidContext(this)
             .build()
+        if (BuildConfig.DEBUG) {
+            val started = AndroidObjectBrowser(objectBox).start(this)
+            Log.i("ObjectBrowser", "Started: $started")
+        }
 
-        songDataManager = SongDataManager()
+        songDataManager = SongDataManager(this)
         placementManager = PlacementManager(this)
         trialManager = TrialManager(this)
         ladderManager = LadderManager(this, songDataManager)
