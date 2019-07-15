@@ -16,9 +16,9 @@
 
     <color name="difficultyBeginner">#1fc6db</color>
     <color name="difficultyBasic">#f59e23</color>
-    <color name="difficultyDifficult">#f54558</color>
+    <color name="difficultyDifficult">#ff5060</color>
     <color name="difficultyExpert">#2cc945</color>
-    <color name="difficultyChallenge">#4444FF</color>
+    <color name="difficultyChallenge">#2288FF</color>
 
     <color name="wood">#925A3C</color>
     <color name="bronze">#D36119</color>
