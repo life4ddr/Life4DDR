@@ -18,6 +18,8 @@
         { "title": "六兆年と一夜物語" },
         { "title": "TRIP MACHINE (xac nanoglide mix)" },
         { "title": "PARANOiA (kskst mix)" },
+        { "title": "First Time" },
+        { "title": "Catch Our Fire!" },
         { "title": "Pursuer" },
         { "title": "Vanquish The Ghost" }
       ],
@@ -43,7 +45,9 @@
         { "title": "輪廻転生" },
         { "title": "六兆年と一夜物語" },
         { "title": "TRIP MACHINE (xac nanoglide mix)" },
-        { "title": "PARANOiA (kskst mix)" }
+        { "title": "PARANOiA (kskst mix)" },
+        { "title": "First Time" },
+        { "title": "Catch Our Fire!" }
       ],
       "charts": [
         { "title": "ナイト・オブ・ナイツ", "difficulty_class": "challenge" }
