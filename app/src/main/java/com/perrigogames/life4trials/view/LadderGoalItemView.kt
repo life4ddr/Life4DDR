@@ -2,7 +2,12 @@ package com.perrigogames.life4trials.view
 
 import android.content.Context
 import android.util.AttributeSet
+import android.view.LayoutInflater
+import android.widget.TableLayout
+import android.widget.TableRow
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
+import androidx.core.view.children
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.data.BaseRankGoal
 import com.perrigogames.life4trials.data.LadderGoalProgress
@@ -12,6 +17,7 @@ import com.perrigogames.life4trials.db.GoalStatus.IGNORED
 import com.perrigogames.life4trials.db.GoalStatusDB
 import com.perrigogames.life4trials.util.visibilityBool
 import kotlinx.android.synthetic.main.item_rank_goal.view.*
+import kotlinx.android.synthetic.main.row_song_detail.view.*
 
 class LadderGoalItemView @JvmOverloads constructor(context: Context,
                                                    attrs: AttributeSet? = null,
@@ -47,7 +53,7 @@ class LadderGoalItemView @JvmOverloads constructor(context: Context,
         } }
         setOnClickListener { goal?.let { g ->
             goalDB?.let { db ->
-                if (text_expand_left.text.isNotEmpty()) {
+                if (table_expand_details.childCount > 0) {
                     listener?.onExpandClicked(this, g, db)
                 }
             }
@@ -71,16 +77,20 @@ class LadderGoalItemView @JvmOverloads constructor(context: Context,
         val state = goalDB?.status ?: GoalStatus.INCOMPLETE
         text_goal_title.text = goal?.goalString(context) ?: ""
 
+        table_expand_details.children.forEach { pool.add(it as TableRow) }
+        table_expand_details.removeAllViews()
+        table_expand_details.visibilityBool = expanded
         goalProgress?.let {
             text_goal_subtitle.text = context.getString(R.string.goal_progress_format, it.progress, it.max)
-            it.results?.let { results ->
-                text_expand_left.text = results.joinToString("\n") { r -> r.score.longNumberString() }
-                text_expand_right.text = results.joinToString("\n") { r -> r.chart.target.song.target.title }
+            it.results?.forEach { result ->
+                val name = result.chart.target.song.target.title
+                val difficulty = result.chart.target.difficultyClass
+
+                val row = retrieveTableRow(table_expand_details, result.score.longNumberString(), name)
+                row.text_title.setTextColor(ContextCompat.getColor(context, difficulty.colorRes))
+                table_expand_details.addView(row)
             }
         }
-
-        text_expand_left.visibilityBool = expanded
-        text_expand_right.visibilityBool = expanded
 
         text_goal_subtitle.visibilityBool = goalProgress != null
         button_status_icon.isChecked = state == COMPLETE
@@ -94,5 +104,20 @@ class LadderGoalItemView @JvmOverloads constructor(context: Context,
         fun onStateToggle(itemView: LadderGoalItemView, item: BaseRankGoal, goalDB: GoalStatusDB)
         fun onIgnoreClicked(itemView: LadderGoalItemView, item: BaseRankGoal, goalDB: GoalStatusDB)
         fun onExpandClicked(itemView: LadderGoalItemView, item: BaseRankGoal, goalDB: GoalStatusDB)
+    }
+
+    companion object {
+
+        private val pool = mutableListOf<TableRow>()
+        private fun retrieveTableRow(parent: TableLayout, scoreString: String, titleString: String): TableRow {
+            val item = if (pool.isNotEmpty())
+                pool.removeAt(0)
+            else LayoutInflater.from(parent.context).inflate(R.layout.row_song_detail, parent, false) as TableRow
+
+            return item.apply {
+                text_score.text = scoreString
+                text_title.text = titleString
+            }
+        }
     }
 }

@@ -10,6 +10,7 @@ import androidx.core.content.ContextCompat
 import com.perrigogames.life4trials.Life4Application
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_INFO_NAME
+import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_INFO_RIVAL_CODE
 import com.perrigogames.life4trials.data.BaseRankGoal
 import com.perrigogames.life4trials.data.LadderRank
 import com.perrigogames.life4trials.db.GoalStatus
@@ -20,6 +21,7 @@ import com.perrigogames.life4trials.ui.rankdetails.RankDetailsFragment
 import com.perrigogames.life4trials.util.CommonSizes
 import com.perrigogames.life4trials.util.SharedPrefsUtil
 import com.perrigogames.life4trials.util.openWebUrlFromRes
+import com.perrigogames.life4trials.util.visibilityBool
 import kotlinx.android.synthetic.main.activity_player_profile.*
 import kotlinx.android.synthetic.main.content_player_profile.*
 import kotlinx.android.synthetic.main.item_profile_mode_button.view.*
@@ -76,12 +78,8 @@ class PlayerProfileActivity : AppCompatActivity(), RankDetailsFragment.OnGoalLis
 
     fun onExtraViewClicked(v: View) {
         when (v.id) {
-            R.id.view_mode_button_left -> {
-                if (SharedPrefsUtil.isPreviewEnabled()) {
-                    startActivity(Intent(this, SingleSongTournamentActivity::class.java))
-                }
-            }
-            R.id.view_mode_button_right -> startActivity(Intent(this, TrialListActivity::class.java))
+            R.id.view_mode_button_left -> startActivity(Intent(this, TrialListActivity::class.java))
+            R.id.view_mode_button_right -> startActivity(Intent(this, SettingsActivity::class.java))
         }
     }
 
@@ -99,20 +97,24 @@ class PlayerProfileActivity : AppCompatActivity(), RankDetailsFragment.OnGoalLis
         if (!SharedPrefsUtil.isPreviewEnabled()) {
             view_mode_button_left.alpha = 0.3f
         }
-        view_mode_button_left.text_title.text = getString(R.string.tournaments)
-        view_mode_button_left.image_background.apply {
-            setImageDrawable(ContextCompat.getDrawable(this@PlayerProfileActivity, R.drawable.ic_tournament))
+        view_mode_button_left.text_title.text = getString(R.string.trials)
+        view_mode_button_left.image_background.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.life4_trials_logo_invert))
+        view_mode_button_right.text_title.text = getString(R.string.action_settings)
+        view_mode_button_right.image_background.apply {
+            setImageDrawable(ContextCompat.getDrawable(this@PlayerProfileActivity, R.drawable.ic_cogwheel))
             setColorFilter(ContextCompat.getColor(this@PlayerProfileActivity, R.color.white))
+            scaleX = 0.7f
+            scaleY = 0.7f
             setPadding(0, CommonSizes.contentPaddingLarge(resources) + CommonSizes.contentPaddingMed(resources), 0, 0)
         }
-        view_mode_button_right.text_title.text = getString(R.string.trials)
-        view_mode_button_right.image_background.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.life4_trials_logo_invert))
 
         updatePlayerContent()
     }
 
     private fun updatePlayerContent() {
         text_player_name.text = SharedPrefsUtil.getUserString(this, KEY_INFO_NAME)
+        text_player_rival_code.text = SharedPrefsUtil.getUserString(this, KEY_INFO_RIVAL_CODE)
+        text_player_rival_code.apply { visibilityBool = text.isNotEmpty() }
         rank = ladderManager.getUserRank(this)
 
         if (rank != null) {

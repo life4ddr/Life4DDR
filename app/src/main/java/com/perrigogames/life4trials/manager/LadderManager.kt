@@ -108,7 +108,7 @@ class LadderManager(val context: Context,
     //
     fun getGoalProgress(goal: BaseRankGoal): LadderGoalProgress? = when (goal) {
         is DifficultyClearGoal -> {
-            val charts = songDataManager.getChartsByDifficulty(goal.difficulty!!)
+            val charts = songDataManager.getChartsByDifficulty(goal.difficultyNumbers)
                 .filterNot { songDataManager.selectedIgnoreChartIds!!.contains(it.id) ||
                         songDataManager.selectedIgnoreSongIds!!.contains(it.song.targetId)}
             val results = ladderResultQuery.setParameters("ids", charts.map { it.id }.toLongArray()).find()
@@ -133,17 +133,24 @@ class LadderManager(val context: Context,
         dataString.lines().forEach { entry ->
             val entryParts = entry.trim().split(';')
             if (entryParts.size >= 4) {
-                // format = %p:b:B:D:E:C%%y:SP:DP%;%d%;%s0%;%l%;%f:mfc:pfc:gfc:fc:life4:clear%;%t%
+                // format = %p:b:B:D:E:C%%y:SP:DP%;%d%;%s0%;%l%;%f:mfc:pfc:gfc:fc:life4:clear%;%e%;%a%;%t%
                 try {
                     val chartType = entryParts[0] // ESP
                     val difficultyNumber = entryParts[1].toInt()
                     val score = entryParts[2].toInt()
-                    val clear = when {
-                        entryParts[3] == "-" -> ClearType.NO_PLAY
-                        entryParts[3] == "E" -> ClearType.FAIL
-                        else -> ClearType.parse(entryParts[4])!!
+                    // need 5 and 6 first
+                    val clears = entryParts[5].toIntOrNull() ?: 0
+                    val plays = entryParts[6].toIntOrNull() ?: 0
+
+                    var clear = ClearType.parse(entryParts[4])!!
+                    if (clear == ClearType.CLEAR) {
+                        when {
+                            entryParts[3] == "-" -> clear = ClearType.NO_PLAY
+                            entryParts[3] == "E" -> clear = if (clears > 0) ClearType.CLEAR else ClearType.FAIL
+                        }
                     }
-                    val songName = entryParts.subList(5, entryParts.size).joinToString(";")
+
+                    val songName = entryParts.subList(7, entryParts.size).joinToString(";")
 
                     val playStyle = PlayStyle.parse(chartType)!!
                     val difficultyClass = DifficultyClass.parse(chartType)!!

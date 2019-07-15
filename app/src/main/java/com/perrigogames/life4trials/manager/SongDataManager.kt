@@ -63,7 +63,12 @@ class SongDataManager(context: Context): BaseManager() {
         .`in`(SongDB_.title, emptyArray<String>()).parameterAlias("titles")
         .build()
     private val chartDifficultyQuery = chartBox.query().apply {
-        equal(ChartDB_.difficultyNumber, 0)
+        equal(ChartDB_.difficultyNumber, 0).parameterAlias("difficulty")
+        link(ChartDB_.song).notIn(SongDB_.id, selectedIgnoreSongIds)
+        notIn(ChartDB_.id, selectedIgnoreChartIds)
+    }.build()
+    private val chartMultiDifficultyQuery = chartBox.query().apply {
+        `in`(ChartDB_.difficultyNumber, IntArray(0)).parameterAlias("difficultyNumbers")
         link(ChartDB_.song).notIn(SongDB_.id, selectedIgnoreSongIds)
         notIn(ChartDB_.id, selectedIgnoreChartIds)
     }.build()
@@ -73,10 +78,13 @@ class SongDataManager(context: Context): BaseManager() {
     }
 
     fun getSongByName(name: String): SongDB? =
-        songTitleQuery.setParameter(SongDB_.title, name).findFirst()
+        songTitleQuery.setParameter("title", name).findFirst()
 
     fun getChartsByDifficulty(difficulty: Int): MutableList<ChartDB> =
-        chartDifficultyQuery.setParameter(ChartDB_.difficultyNumber, difficulty.toLong()).find()
+        chartDifficultyQuery.setParameter("difficulty", difficulty.toLong()).find()
+
+    fun getChartsByDifficulty(difficultyList: IntArray): MutableList<ChartDB> =
+        chartMultiDifficultyQuery.setParameters("difficultyNumbers", difficultyList).find()
 
     fun getOrCreateSong(name: String, artist: String? = null): SongDB =
         getSongByName(name) ?: SongDB(name, artist).also {
