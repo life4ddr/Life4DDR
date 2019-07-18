@@ -1,6 +1,7 @@
 package com.perrigogames.life4trials.view
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.TableLayout
@@ -33,6 +34,7 @@ class LadderGoalItemView @JvmOverloads constructor(context: Context,
             return field
         }
     private var goalProgress: LadderGoalProgress? = null
+    private var oldColors: ColorStateList? = null
 
     var listener: LadderGoalItemListener? = null
     var expanded: Boolean = false
@@ -74,6 +76,10 @@ class LadderGoalItemView @JvmOverloads constructor(context: Context,
     }
 
     fun updateData() {
+        if (oldColors == null) {
+            oldColors = text_goal_subtitle.textColors
+        }
+
         val state = goalDB?.status ?: GoalStatus.INCOMPLETE
         text_goal_title.text = goal?.goalString(context) ?: ""
 
@@ -82,6 +88,11 @@ class LadderGoalItemView @JvmOverloads constructor(context: Context,
         table_expand_details.visibilityBool = expanded
         goalProgress?.let {
             text_goal_subtitle.text = context.getString(R.string.goal_progress_format, it.progress, it.max)
+            if (it.progress == it.max) {
+                text_goal_subtitle.setTextColor(ContextCompat.getColor(context, R.color.gold))
+            } else {
+                text_goal_subtitle.setTextColor(oldColors)
+            }
             it.results?.forEach { result ->
                 val name = result.chart.target.song.target.title
                 val difficulty = result.chart.target.difficultyClass
