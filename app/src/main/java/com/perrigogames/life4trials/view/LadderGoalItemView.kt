@@ -41,24 +41,21 @@ class LadderGoalItemView @JvmOverloads constructor(context: Context,
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
-        button_status_icon.setOnClickListener { goal?.let { g ->
-            goalDB?.let { db ->
-                listener?.onStateToggle(this, g, db)
-                updateData()
+        button_status_icon.setOnClickListener { ifHasDB { g, db ->
+            listener?.onStateToggle(this, g, db)
+            updateData()
+        } }
+        button_ignore.setOnClickListener { ifHasDB { g, db ->
+            listener?.onIgnoreClicked(this, g, db)
+            updateData()
+        } }
+        setOnClickListener { ifHasDB { g, db ->
+            if (table_expand_details.childCount > 0) {
+                listener?.onExpandClicked(this, g, db)
             }
         } }
-        button_ignore.setOnClickListener { goal?.let { g ->
-            goalDB?.let { db ->
-                listener?.onIgnoreClicked(this, g, db)
-                updateData()
-            }
-        } }
-        setOnClickListener { goal?.let { g ->
-            goalDB?.let { db ->
-                if (table_expand_details.childCount > 0) {
-                    listener?.onExpandClicked(this, g, db)
-                }
-            }
+        setOnLongClickListener { ifHasDB { g, db ->
+            listener?.onLongPressed(this, g, db)
         } }
     }
 
@@ -109,12 +106,20 @@ class LadderGoalItemView @JvmOverloads constructor(context: Context,
         alpha = if (state == IGNORED) 0.3f else 1.0f
     }
 
+    private inline fun ifHasDB(block: (BaseRankGoal, GoalStatusDB) -> Unit): Boolean {
+        goal?.let { g ->
+            goalDB?.let { db -> block(g, db) }
+        }
+        return true
+    }
+
     interface LadderGoalItemListener {
 
         fun createGoalDB(item: BaseRankGoal): GoalStatusDB
         fun onStateToggle(itemView: LadderGoalItemView, item: BaseRankGoal, goalDB: GoalStatusDB)
         fun onIgnoreClicked(itemView: LadderGoalItemView, item: BaseRankGoal, goalDB: GoalStatusDB)
         fun onExpandClicked(itemView: LadderGoalItemView, item: BaseRankGoal, goalDB: GoalStatusDB)
+        fun onLongPressed(itemView: LadderGoalItemView, item: BaseRankGoal, goalDB: GoalStatusDB)
     }
 
     companion object {

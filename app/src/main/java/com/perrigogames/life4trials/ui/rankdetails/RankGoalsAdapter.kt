@@ -1,5 +1,6 @@
 package com.perrigogames.life4trials.ui.rankdetails
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -69,6 +70,10 @@ class RankGoalsAdapter(private val rank: RankEntry,
         override fun onExpandClicked(itemView: LadderGoalItemView, item: BaseRankGoal, goalDB: GoalStatusDB) {
             expandedItems.remove(item) || expandedItems.add(item)
             notifyItemChanged(activeItems.indexOf(item))
+        }
+
+        override fun onLongPressed(itemView: LadderGoalItemView, item: BaseRankGoal, goalDB: GoalStatusDB) {
+            Log.v("rank goal", "long pressed")
         }
     }
 
