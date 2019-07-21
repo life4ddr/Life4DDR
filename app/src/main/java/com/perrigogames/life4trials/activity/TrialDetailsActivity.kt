@@ -85,6 +85,9 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener {
             jacket.rank = storedRank
         }
 
+        text_author_credit.visibility = if (trial.author != null) VISIBLE else GONE
+        trial.author?.let { text_author_credit.text = getString(R.string.author_credit_format, it) }
+
         songListFragment = SongListFragment.newInstance(trial.id, tiled = false, useCurrentSession = true)
         supportFragmentManager.beginTransaction()
             .add(R.id.container_song_list_fragment, songListFragment)

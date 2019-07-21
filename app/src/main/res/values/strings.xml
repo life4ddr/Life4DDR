@@ -124,6 +124,7 @@
     <string name="ex_score_missing_newline_string_format">%d EX\n(%d)</string>
     <string name="score_string_summary_format">"%s\n%d EX"</string>
     <string name="score_string_summary_format_advanced">"%s\n%d EX\n%d Miss\n%d &lt;Great"</string>
+    <string name="author_credit_format">Created by %s</string>
 
     <!-- Short/Common Strings -->
     <string name="goals">Goals:</string>
@@ -275,7 +276,6 @@
     <string name="emerald_3">EMERALD III</string>
 
     <!-- Trial Rank Strings -->
-
     <string name="set_numbers_multiple_same_format">%d different %d\'s</string>
     <string name="set_numbers_3_format">%d, %d, and %d</string>
     <string name="make_sure_fields_filled">Make sure all fields are filled in.</string>

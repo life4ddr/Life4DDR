@@ -16,6 +16,7 @@ class TrialData(val trials: List<Trial>): Serializable {
 
 class Trial(val id: String,
             val name: String,
+            val author: String?,
             val type: TrialType,
             val placement_rank: PlacementRank?,
             val new: Boolean = false,
