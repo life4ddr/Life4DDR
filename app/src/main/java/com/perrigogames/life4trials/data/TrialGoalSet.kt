@@ -14,6 +14,7 @@ data class TrialGoalSet(val rank: TrialRank,
                         @SerializedName("score_indexed") val scoreIndexed: List<Int>? = null,
                         val judge: Int? = null,
                         val miss: Int? = null,
+                        @SerializedName("miss_each") val missEach: Int? = null,
                         @SerializedName("ex_missing") val exMissing: Int? = null): Serializable {
 
     val goalTypes: List<GoalType>
@@ -36,6 +37,7 @@ data class TrialGoalSet(val rank: TrialRank,
         generateSpecificScoreGoalStrings(res, trial, list)
         generateScoreGoalStrings(res, list)
         miss?.let { list.add(missesString(res, it)) }
+        missEach?.let { list.add(missesEachString(res, it)) }
         judge?.let { list.add(badJudgementsString(res, it)) }
         exMissing?.let { list.add(exScoreString(res, it, trial.total_ex)) }
         if (list.size == 0) {
@@ -171,6 +173,10 @@ data class TrialGoalSet(val rank: TrialRank,
     private fun missesString(res: Resources, misses: Int) =
         if (misses == 0) res.getString(R.string.no_misses)
         else res.getString(R.string.misses_count, misses)
+
+    private fun missesEachString(res: Resources, misses: Int) =
+        if (misses == 0) res.getString(R.string.no_misses)
+        else res.getString(R.string.misses_each_count, misses)
 
     enum class GoalType {
         CLEAR, SCORE, EX, BAD_JUDGEMENT, MISS

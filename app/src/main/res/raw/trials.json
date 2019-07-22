@@ -284,7 +284,8 @@
           "score_indexed": [0, 0, 0, 700000]
         }, {
           "rank": "gold",
-          "score": [980000, 980000, 960000, 960000]
+          "score": [980000, 980000, 960000, 960000],
+          "miss": 10
         }, {
           "rank": "diamond",
           "judge": 18,
@@ -513,7 +514,28 @@
       "author": "bluechows",
       "goals": [
         {
-          "rank": "silver"
+          "rank": "silver",
+          "clear_indexed": ["clear", "clear", "clear", "fail"],
+          "score_indexed": [0, 0, 0, 450000]
+        },{
+          "rank": "gold",
+          "score": [970000, 970000, 950000, 950000]
+        },{
+          "rank": "diamond",
+          "score": [985000, 985000, 985000, 975000],
+          "ex_missing": 350
+        },{
+          "rank": "cobalt",
+          "judge": 10,
+          "ex_missing": 200
+        },{
+          "rank": "amethyst",
+          "judge": 5,
+          "ex_missing": 100
+        },{
+          "rank": "emerald",
+          "judge": 3,
+          "ex_missing": 65
         }
       ],
       "total_ex": 99999,
@@ -640,15 +662,36 @@
       "author": "MagnetMan",
       "goals": [
         {
-          "rank": "silver"
+          "rank": "silver",
+          "clear_indexed": ["clear", "clear", "clear", "fail"],
+          "score_indexed": [0, 0, 0, 500000]
+        },{
+          "rank": "gold",
+          "score": [965000, 965000, 950000, 950000]
+        },{
+          "rank": "diamond",
+          "score": [975000, 975000, 975000, 975000],
+          "miss_each": 3
+        },{
+          "rank": "cobalt",
+          "score": [990000, 990000, 990000, 990000],
+          "ex_missing": 250
+        },{
+          "rank": "amethyst",
+          "judge": 5,
+          "ex_missing": 135
+        },{
+          "rank": "emerald",
+          "judge": 3,
+          "ex_missing": 65
         }
       ],
       "total_ex": 99999,
       "songs": [
         { "name": "Beautiful Dream", "difficulty": 15, "difficulty_class": "challenge", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202013%20%28AC%29%20%28Japan%29/Beautiful%20Dream/Beautiful%20Dream-jacket.png" },
-        { "name": "IN BETWEEN", "difficulty": 15, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/IN%20BETWEEN/IN%20BETWEEN-jacket.png" },
+        { "name": "AWAKE", "difficulty": 16, "difficulty_class": "challenge", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202014%20%28AC%29%20%28Japan%29/AWAKE/AWAKE-jacket.png" },
         { "name": "Come to Life", "difficulty": 16, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/Come%20to%20Life/Come%20to%20Life-jacket.png" },
-        { "name": "AWAKE", "difficulty": 16, "difficulty_class": "challenge", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202014%20%28AC%29%20%28Japan%29/AWAKE/AWAKE-jacket.png" }
+        { "name": "IN BETWEEN", "difficulty": 15, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/IN%20BETWEEN/IN%20BETWEEN-jacket.png" }
       ],
       "new": true
     },
@@ -753,10 +796,25 @@
       "name": "Quantum",
       "type": "trial",
       "difficulty": 18,
-      "author": "bluechows",
+      "author": "matias8823",
       "goals": [
         {
-          "rank": "silver"
+          "rank": "gold",
+          "clear_indexed": ["clear", "clear", "clear", "fail"]
+        },{
+          "rank": "diamond",
+          "score": [925000, 925000, 850000, 850000]
+        },{
+          "rank": "cobalt",
+          "score": [950000, 950000, 925000, 925000]
+        },{
+          "rank": "amethyst",
+          "score": [990000, 990000, 965000, 965000],
+          "ex_missing": 525
+        },{
+          "rank": "emerald",
+          "score": [990000, 990000, 980000, 980000],
+          "ex_missing": 300
         }
       ],
       "total_ex": 99999,
