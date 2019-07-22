@@ -66,7 +66,9 @@ class LadderManager(val context: Context,
 
     fun previousEntry(index: Int) = ladderData.rankRequirements.getOrNull(index - 1)
 
-    fun nextEntry(rank: LadderRank) = nextEntry(ladderData.rankRequirements.indexOfFirst { it.rank == rank })
+    fun nextEntry(rank: LadderRank?) =
+        if (rank != null) nextEntry(ladderData.rankRequirements.indexOfFirst { it.rank == rank })
+        else ladderData.rankRequirements.getOrNull(0)
 
     fun nextEntry(index: Int) = ladderData.rankRequirements.getOrNull(index + 1)
 

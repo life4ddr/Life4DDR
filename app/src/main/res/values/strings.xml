@@ -153,6 +153,7 @@
     <!-- Welcome/FTUE -->
     <string name="welcome_to_life4">WELCOME TO LIFE4!</string>
     <string name="welcome_to_life4_trials">WELCOME TO LIFE4 TRIALS!</string>
+    <string name="life4_intro_info_greeting">We\'re excited to have you join us.  To get started, please tell us who you are.</string>
     <string name="life4_intro_greeting">We\'re excited to have you join us.  To get started, how familiar are you with DanceDanceRevolution?</string>
     <string name="life4_intro_new_player">I\'m new to DDR</string>
     <string name="life4_intro_new_player_response">Great, and welcome to DDR! We\'ll start you at the beginning of LIFE4\'s ranking system.</string>
@@ -200,7 +201,9 @@
     <string name="not_open_file">Could not open file</string>
 
     <array name="credits">
-        <item>Camera, Folder, Scroll Left, and Scroll Right icons by https://www.flaticon.com/authors/daniel-bruce from www.flaticon.com</item>
+        <item>Camera, Folder, Scroll Left, and Scroll Right icons by https://www.flaticon.com/authors/daniel-bruce from
+            www.flaticon.com
+        </item>
         <item>Fixtures icon by Freepik from www.flaticon.com</item>
     </array>
 
@@ -264,6 +267,7 @@
     <string name="breakdown_information_missing">One or more of your songs are missing step breakdowns.</string>
 
     <!-- Rank Strings -->
+    <string name="none">NONE</string>
     <string name="wood">WOOD</string>
     <string name="wood_1">WOOD I</string>
     <string name="wood_2">WOOD II</string>
@@ -332,4 +336,11 @@
     <string name="title_single_song_tournament">Song of the Week</string>
     <string name="single_song_tournament_directions">To play in this tournament, score as high as you can on the song listed below, get a picture of the results screen and submit it to LIFE4.</string>
     <string name="use_this_rank">Use This Rank</string>
+    <string name="field_hint_dancer_name">Dancer Name</string>
+    <string name="field_hint_rival_code">Rival Code (Optional)</string>
+    <string name="field_hint_twitter">Twitter Name (Optional)</string>
+    <string name="error_name_required">Name is required</string>
+    <string name="intro_rank_method_placement">Play a Placement set to get a temporary rank</string>
+    <string name="intro_rank_method_selection">Select a rank to start working towards</string>
+    <string name="intro_rank_method_no_rank">Start from the beginning</string>
 </resources>

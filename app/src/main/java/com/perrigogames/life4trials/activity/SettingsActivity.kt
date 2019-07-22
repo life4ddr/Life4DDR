@@ -62,9 +62,13 @@ class SettingsActivity : AppCompatActivity() {
             preference(KEY_INFO_NAME).summary =
                 SharedPrefsUtil.getUserString(context, KEY_INFO_NAME)
             (preference(KEY_INFO_RANK) as DropDownPreference).apply {
-                summary = LadderRank.parse(value?.toLongOrNull()).toString()
-                entries = LadderRank.values().map { it.toString() }.toTypedArray()
-                entryValues = LadderRank.values().map { it.stableId.toString() }.toTypedArray()
+                summary = LadderRank.parse(value.toLongOrNull())?.toString() ?: getString(R.string.none)
+                entries = LadderRank.values().map { it.toString() }.toMutableList().apply {
+                    add(0, "NONE")
+                }.toTypedArray()
+                entryValues = LadderRank.values().map { it.stableId.toString() }.toMutableList().apply {
+                    add(0, "")
+                }.toTypedArray()
             }
             preference(KEY_INFO_RIVAL_CODE).summary =
                 SharedPrefsUtil.getUserString(context, KEY_INFO_RIVAL_CODE)
@@ -200,7 +204,7 @@ class SettingsActivity : AppCompatActivity() {
                     key == KEY_INFO_RANK -> {
                         findPreference<DropDownPreference>(key)?.let {
                             LadderRank.parse(it.value.toLongOrNull()).let { rank ->
-                                it.summary = rank.toString()
+                                it.summary = rank?.toString() ?: getString(R.string.none)
                                 ladderManager.setUserRank(activity!!, rank)
                             }
                         }

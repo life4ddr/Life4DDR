@@ -121,15 +121,16 @@ class PlayerProfileActivity : AppCompatActivity(), RankDetailsFragment.OnGoalLis
             image_rank.visibility = View.VISIBLE
             image_rank.rank = rank
             image_rank.setOnClickListener { startActivity(Intent(this, RankListActivity::class.java)) }
-
-            ladderManager.nextEntry(rank!!)?.let { rankEntry ->
-                supportFragmentManager.beginTransaction()
-                    .replace(R.id.container_current_goals, RankDetailsFragment(rankEntry,
-                        RankDetailsFragment.Options(hideCompleted = true, hideIgnored = false, showHeader = false), null, this))
-                    .commitNowAllowingStateLoss()
-            }
         } else {
-            image_rank.visibility = View.GONE
+            image_rank.setOnClickListener(null)
+            image_rank.visibility = View.INVISIBLE
+        }
+
+        ladderManager.nextEntry(rank)?.let { rankEntry ->
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.container_current_goals, RankDetailsFragment(rankEntry,
+                    RankDetailsFragment.Options(hideCompleted = true, hideIgnored = false, showHeader = false), null, this))
+                .commitNowAllowingStateLoss()
         }
     }
 }

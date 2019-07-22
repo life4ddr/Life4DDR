@@ -1,5 +1,6 @@
 package com.perrigogames.life4trials.activity
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -27,8 +28,21 @@ class RankListActivity : AppCompatActivity(), OnRankListInteractionListener {
     }
 
     override fun onListFragmentInteraction(item: RankEntry) {
-        startActivity(Intent(this, RankDetailsActivity::class.java).apply {
+        startActivityForResult(Intent(this, RankDetailsActivity::class.java).apply {
             putExtra(ARG_RANK_ENTRY, item)
-        })
+        }, REQUEST_CODE_DETAIL_SELECTION)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_CODE_DETAIL_SELECTION) {
+            if (resultCode != Activity.RESULT_CANCELED) {
+                finish()
+            }
+        }
+    }
+
+    companion object {
+        const val REQUEST_CODE_DETAIL_SELECTION = 1022
     }
 }

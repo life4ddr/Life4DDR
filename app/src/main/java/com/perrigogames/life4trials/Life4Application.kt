@@ -3,6 +3,7 @@ package com.perrigogames.life4trials
 import android.content.Context
 import android.util.Log
 import androidx.multidex.MultiDexApplication
+import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_INFO_NAME
 import com.perrigogames.life4trials.api.FirebaseUtil
 import com.perrigogames.life4trials.db.MyObjectBox
 import com.perrigogames.life4trials.manager.*
@@ -53,6 +54,8 @@ class Life4Application: MultiDexApplication() {
             FirebaseUtil.getId(this)
         }
     }
+
+    val requireSignin: Boolean get() = SharedPrefsUtil.getUserString(this, KEY_INFO_NAME, null) == null
 
     companion object {
         val eventBus = EventBus()
