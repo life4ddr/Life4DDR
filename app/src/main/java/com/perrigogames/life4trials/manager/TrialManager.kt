@@ -2,6 +2,7 @@ package com.perrigogames.life4trials.manager
 
 import android.content.Context
 import androidx.appcompat.app.AlertDialog
+import com.crashlytics.android.Crashlytics
 import com.perrigogames.life4trials.BuildConfig
 import com.perrigogames.life4trials.Life4Application
 import com.perrigogames.life4trials.R
@@ -30,6 +31,17 @@ class TrialManager(private val context: Context) {
             val debugData: TrialData = DataUtil.gson.fromJson(context.loadRawString(R.raw.trials_debug), TrialData::class.java)!!
             val placements = context.life4app.placementManager.placements
             trialData = TrialData(trialData.trials + debugData.trials + placements)
+        }
+        validateTrials()
+    }
+
+    private fun validateTrials() = trials.forEach { trial ->
+        if (trial.songs.count { it.ex != null } == 4) {
+            var sum = 0
+            trial.songs.forEach { sum += it.ex!! }
+            if (sum != trial.total_ex) {
+                Crashlytics.logException(Exception("Trial ${trial.name} has improper EX values: total_ex=${trial.total_ex}, sum=$sum"))
+            }
         }
     }
 

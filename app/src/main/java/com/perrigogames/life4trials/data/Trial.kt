@@ -36,6 +36,7 @@ class Trial(val id: String,
 class Song(val name: String,
            @SerializedName("difficulty") val difficultyNumber: Int,
            @SerializedName("difficulty_class") val difficultyClass: DifficultyClass,
+           val ex: Int?,
            val url: String? = null): Serializable
 
 enum class TrialType {
