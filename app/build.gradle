@@ -16,13 +16,13 @@ ext {
 android {
     signingConfigs {
         upload {
-            storeFile file('../../../keystores/upload-keystore.jks')
+            storeFile file('../../keystores/upload-keystore.jks')
             keyPassword 'FlOnG9T#0sNe41bXjKtVJi75Y'
             storePassword 'Ndb%TJQfsJ5c8%qLHP4QEG%Y@'
             keyAlias = 'upload'
         }
         debug {
-            storeFile file('../../../keystores/debug-keystore.jks')
+            storeFile file('../../keystores/debug-keystore.jks')
             keyPassword '9RA8qJW#hT^gI@T3UW0k$L3@W#'
             storePassword '!R35qX!&$P6wuEOI%lm6y&lAyq'
             keyAlias = 'debug'
