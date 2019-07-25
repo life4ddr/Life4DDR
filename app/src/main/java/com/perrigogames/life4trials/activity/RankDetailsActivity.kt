@@ -8,9 +8,10 @@ import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.data.RankEntry
 import com.perrigogames.life4trials.life4app
 import com.perrigogames.life4trials.ui.rankdetails.RankDetailsFragment
+import com.perrigogames.life4trials.ui.rankdetails.RankDetailsViewModel
 import com.perrigogames.life4trials.view.RankHeaderView
 
-class RankDetailsActivity : AppCompatActivity(), RankHeaderView.NavigationListener, RankDetailsFragment.OnGoalListInteractionListener {
+class RankDetailsActivity : AppCompatActivity(), RankHeaderView.NavigationListener, RankDetailsViewModel.OnGoalListInteractionListener {
 
     private val ladderManager get() = life4app.ladderManager
 

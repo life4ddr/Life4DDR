@@ -18,6 +18,7 @@ import com.perrigogames.life4trials.event.LadderImportCompletedEvent
 import com.perrigogames.life4trials.event.LadderRankUpdatedEvent
 import com.perrigogames.life4trials.life4app
 import com.perrigogames.life4trials.ui.rankdetails.RankDetailsFragment
+import com.perrigogames.life4trials.ui.rankdetails.RankDetailsViewModel
 import com.perrigogames.life4trials.util.CommonSizes
 import com.perrigogames.life4trials.util.SharedPrefsUtil
 import com.perrigogames.life4trials.util.openWebUrlFromRes
@@ -33,7 +34,7 @@ import org.greenrobot.eventbus.ThreadMode
  * info like their name and rank, in-progress goals, and navigation buttons to
  * other experiences like Tournaments or Trials.
  */
-class PlayerProfileActivity : AppCompatActivity(), RankDetailsFragment.OnGoalListInteractionListener {
+class PlayerProfileActivity : AppCompatActivity(), RankDetailsViewModel.OnGoalListInteractionListener {
 
     private val ladderManager get() = life4app.ladderManager
     private var rank: LadderRank? = null
