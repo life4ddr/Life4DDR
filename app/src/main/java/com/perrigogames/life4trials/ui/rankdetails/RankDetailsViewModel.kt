@@ -24,10 +24,6 @@ class RankDetailsViewModel(private val rankEntry: RankEntry,
 
     private val goalItemListener = object: LadderGoalItemView.LadderGoalItemListener {
 
-        override fun createGoalDB(item: BaseRankGoal): GoalStatusDB {
-            return ladderManager.getOrCreateGoalStatus(item)
-        }
-
         override fun onStateToggle(itemView: LadderGoalItemView, item: BaseRankGoal, goalDB: GoalStatusDB) {
             ladderManager.setGoalState(goalDB, when(goalDB.status) {
                 GoalStatus.COMPLETE -> GoalStatus.INCOMPLETE
@@ -58,8 +54,18 @@ class RankDetailsViewModel(private val rankEntry: RankEntry,
         }
     }
 
+    private val dataSource = object: RankGoalsAdapter.DataSource {
+        override fun getGoals() = activeItems
+
+        override fun isGoalExpanded(item: BaseRankGoal) = expandedItems.contains(item)
+
+        override fun getGoalStatus(item: BaseRankGoal) = ladderManager.getOrCreateGoalStatus(item)
+
+        override fun getGoalProgress(item: BaseRankGoal) = ladderManager.getGoalProgress(item)
+    }
+
     val adapter: RankGoalsAdapter =
-        RankGoalsAdapter(activeItems, expandedItems, rankEntry, ladderManager, goalItemListener, goalListListener)
+        RankGoalsAdapter(rankEntry, dataSource, goalItemListener, goalListListener)
 
     fun updateVisibility(goal: BaseRankGoal, goalDB: GoalStatusDB) {
         if (goalDB.status == GoalStatus.COMPLETE && options.hideCompleted) {

@@ -9,7 +9,6 @@ import com.perrigogames.life4trials.data.BaseRankGoal
 import com.perrigogames.life4trials.data.LadderGoalProgress
 import com.perrigogames.life4trials.data.RankEntry
 import com.perrigogames.life4trials.db.GoalStatusDB
-import com.perrigogames.life4trials.manager.LadderManager
 import com.perrigogames.life4trials.ui.rankdetails.RankDetailsViewModel.OnGoalListInteractionListener
 import com.perrigogames.life4trials.view.LadderGoalItemView
 import kotlinx.android.synthetic.main.item_no_goals.view.*
@@ -19,10 +18,8 @@ import kotlin.math.max
  * [RecyclerView.Adapter] that can display a [RankEntry] and makes a call to the
  * specified [OnGoalListInteractionListener].
  */
-class RankGoalsAdapter(val items: List<BaseRankGoal>,
-                       val expandedItems: List<BaseRankGoal>,
-                       private val rank: RankEntry,
-                       private val ladderManager: LadderManager,
+class RankGoalsAdapter(private val rank: RankEntry,
+                       private val dataSource: DataSource,
                        var listener: LadderGoalItemView.LadderGoalItemListener? = null,
                        var goalListListener: OnGoalListInteractionListener? = null) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -48,21 +45,28 @@ class RankGoalsAdapter(val items: List<BaseRankGoal>,
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) = when (holder) {
         is GoalViewHolder -> {
-            val item = items[position]
-            holder.bind(item, ladderManager.getGoalStatus(item), ladderManager.getGoalProgress(item))
+            val item = dataSource.getGoals()[position]
+            holder.bind(item, dataSource.getGoalStatus(item), dataSource.getGoalProgress(item))
             holder.view.tag = item
         }
         else -> Unit
     }
 
     // Used to avoid the duplicate items recycling
-    override fun getItemViewType(position: Int): Int = if (items.isEmpty()) VIEW_TYPE_NO_GOAL else VIEW_TYPE_GOAL
+    override fun getItemViewType(position: Int): Int = if (dataSource.getGoals().isEmpty()) VIEW_TYPE_NO_GOAL else VIEW_TYPE_GOAL
 
-    override fun getItemCount(): Int = max(items.size, 1)
+    override fun getItemCount(): Int = max(dataSource.getGoals().size, 1)
+
+    interface DataSource {
+        fun getGoals(): List<BaseRankGoal>
+        fun isGoalExpanded(item: BaseRankGoal): Boolean
+        fun getGoalStatus(item: BaseRankGoal): GoalStatusDB
+        fun getGoalProgress(item: BaseRankGoal): LadderGoalProgress?
+    }
 
     inner class GoalViewHolder(val view: LadderGoalItemView) : RecyclerView.ViewHolder(view) {
-        fun bind(goal: BaseRankGoal, goalDB: GoalStatusDB? = null, goalProgress: LadderGoalProgress? = null) {
-            view.expanded = expandedItems.contains(goal)
+        fun bind(goal: BaseRankGoal, goalDB: GoalStatusDB, goalProgress: LadderGoalProgress? = null) {
+            view.expanded = dataSource.isGoalExpanded(goal)
             view.setGoal(goal, goalDB, goalProgress)
         }
     }

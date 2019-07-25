@@ -27,12 +27,6 @@ class LadderGoalItemView @JvmOverloads constructor(context: Context,
 
     private var goal: BaseRankGoal? = null
     private var goalDB: GoalStatusDB? = null
-        get() {
-            if (field == null) {
-                field = goal?.let { listener?.createGoalDB(it) }
-            }
-            return field
-        }
     private var goalProgress: LadderGoalProgress? = null
     private var oldColors: ColorStateList? = null
 
@@ -72,7 +66,7 @@ class LadderGoalItemView @JvmOverloads constructor(context: Context,
         updateData()
     }
 
-    fun updateData() {
+    private fun updateData() {
         if (oldColors == null) {
             oldColors = text_goal_subtitle.textColors
         }
@@ -115,7 +109,6 @@ class LadderGoalItemView @JvmOverloads constructor(context: Context,
 
     interface LadderGoalItemListener {
 
-        fun createGoalDB(item: BaseRankGoal): GoalStatusDB
         fun onStateToggle(itemView: LadderGoalItemView, item: BaseRankGoal, goalDB: GoalStatusDB)
         fun onIgnoreClicked(itemView: LadderGoalItemView, item: BaseRankGoal, goalDB: GoalStatusDB)
         fun onExpandClicked(itemView: LadderGoalItemView, item: BaseRankGoal, goalDB: GoalStatusDB)
