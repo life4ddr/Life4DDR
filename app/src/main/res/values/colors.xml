@@ -14,11 +14,11 @@
 
     <color name="white_70">#B2FFFFFF</color>
 
-    <color name="difficultyBeginner">#1fc6db</color>
-    <color name="difficultyBasic">#f59e23</color>
-    <color name="difficultyDifficult">#ff5060</color>
-    <color name="difficultyExpert">#2cc945</color>
-    <color name="difficultyChallenge">#2288FF</color>
+    <color name="difficultyBeginner">#1FC6DB</color>
+    <color name="difficultyBasic">#F59E23</color>
+    <color name="difficultyDifficult">#FF1D25</color>
+    <color name="difficultyExpert">#00FF00</color>
+    <color name="difficultyChallenge">#C917C9</color>
 
     <color name="wood">#925A3C</color>
     <color name="bronze">#D36119</color>
@@ -28,5 +28,6 @@
     <color name="cobalt">#0092DB</color>
     <color name="amethyst">#DF29FF</color>
     <color name="emerald">#1AF80A</color>
+
     <color name="red_new">#FF4500</color>
 </resources>
