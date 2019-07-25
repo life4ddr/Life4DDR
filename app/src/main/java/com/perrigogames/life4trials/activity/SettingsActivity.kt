@@ -62,7 +62,7 @@ class SettingsActivity : AppCompatActivity() {
             preference(KEY_INFO_NAME).summary =
                 SharedPrefsUtil.getUserString(context, KEY_INFO_NAME)
             (preference(KEY_INFO_RANK) as DropDownPreference).apply {
-                summary = LadderRank.parse(value.toLongOrNull())?.toString() ?: getString(R.string.none)
+                summary = LadderRank.parse(value?.toLongOrNull())?.toString() ?: getString(R.string.none)
                 entries = LadderRank.values().map { it.toString() }.toMutableList().apply {
                     add(0, "NONE")
                 }.toTypedArray()

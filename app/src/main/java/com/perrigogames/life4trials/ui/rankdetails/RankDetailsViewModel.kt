@@ -34,7 +34,7 @@ class RankDetailsViewModel(private val rankEntry: RankEntry,
                 else -> GoalStatus.COMPLETE
             })
             updateVisibility(item, goalDB)
-//            updateHiddenCount(view, hiddenGoals)
+            updateHiddenCount()
             goalListListener?.onGoalStateChanged(item, goalDB.status, 0)
         }
 
@@ -44,7 +44,7 @@ class RankDetailsViewModel(private val rankEntry: RankEntry,
                 else -> GoalStatus.IGNORED
             })
             updateVisibility(item, goalDB)
-//            updateHiddenCount(view, hiddenGoals)
+            updateHiddenCount()
             goalListListener?.onGoalStateChanged(item, goalDB.status, 0)
         }
 
@@ -70,6 +70,10 @@ class RankDetailsViewModel(private val rankEntry: RankEntry,
                 adapter.notifyItemInserted(0)
             }
         }
+    }
+
+    private fun updateHiddenCount() {
+
     }
 
     /**
