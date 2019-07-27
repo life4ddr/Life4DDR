@@ -17,12 +17,12 @@ interface Life4API{
 
 class ApiPlayer(
     @SerializedName("playerID") val id: Int,
-    @SerializedName("playerName") val name: String?,
+    @SerializedName("playerName") val name: String,
     @SerializedName("playerRank") private val rankString: String,
     @SerializedName("playerDateEarned") val playerDateEarned: String, //FIXME
-    @SerializedName("twitterHandle") val twitterHandle: String,
-    @SerializedName("discordHandle") val discordHandle: String,
-    @SerializedName("playerRivalCode") val playerRivalCode: String,
+    @SerializedName("twitterHandle") val twitterHandle: String?,
+    @SerializedName("discordHandle") val discordHandle: String?,
+    @SerializedName("playerRivalCode") val playerRivalCode: String?,
     @SerializedName("activeStatus") val activeStatus: Boolean) {
 
     val pending: Boolean get() = rankString.endsWith("(P)")

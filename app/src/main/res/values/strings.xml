@@ -309,7 +309,6 @@
     <string name="make_sure_fields_filled">Make sure all fields are filled in.</string>
     <string name="tap_to_copy">Tap to copy \"%s\"</string>
     <string name="copied">\"%s\" Copied!</string>
-    <string name="placement_explanation">Placement sets are collections of three songs that must be played all in the same set.</string>
     <string name="action_ladder">Ladder</string>
     <string name="new_tag">NEW!</string>
     <string name="bgsp">bSP</string>
@@ -350,7 +349,11 @@
     <string name="start_no_rank">Start Without Rank</string>
     <string name="rank_list">Rank List</string>
 
+    <string name="player_found">Player Profile Found</string>
+    <string name="player_found_prompt">We found this player on LIFE4 already.\nIs this you?</string>
+
     <string name="placement_overview">Placement Sets are a quick way to get into the LIFE4 system or better learn where you should begin.\n\nYou choose which rank you want to try and place into.\n\nWhen choosing a placement set, select which set you think you will most accurately be able to showcase your skill level in.\n\nDon’t worry about choosing the wrong set; you will still be placed accordingly.</string>
     <string name="placement_description">To participate in Rank Placement, you must complete the following songs in a single set.\n\n• The songs can be played in any order.\n• Extra Stage is optional. If you earn an Extra Stage, you can use it to improve a previous score.\n• The ONLY photo that is required is one of the final results screen, showing the scores for each song played. (Click \"Finalize\" to take this photo)</string>
     <string name="placement_explanation">Placement sets are collections of three songs that must be played all in the same set.</string>
+    <string name="remove_rank">Remove Rank</string>
 </resources>

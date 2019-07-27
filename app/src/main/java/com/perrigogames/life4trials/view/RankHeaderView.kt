@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.data.LadderRank
 import com.perrigogames.life4trials.util.visibilityBool
@@ -58,6 +59,7 @@ class RankHeaderView @JvmOverloads constructor(context: Context, attrs: Attribut
 
     private fun updateTitle() {
         text_goal_title.text = rank?.let { context.getString(if (genericTitles) it.groupNameRes else it.nameRes) } ?: ""
+        text_goal_title.setTextColor(rank?.let { ContextCompat.getColor(context, it.colorRes) } ?: 0)
     }
 
     interface NavigationListener {

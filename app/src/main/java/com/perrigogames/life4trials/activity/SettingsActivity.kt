@@ -94,7 +94,7 @@ class SettingsActivity : AppCompatActivity() {
             preferenceListener(KEY_LIST_HIGHLIGHT_NEW, listReplaceListener)
 
             preferenceListener(KEY_LADDER_CLEAR) {
-                ladderManager.clearGoalData(context)
+                ladderManager.clearGoalData()
                 true
             }
 
@@ -222,7 +222,7 @@ class SettingsActivity : AppCompatActivity() {
                         findPreference<DropDownPreference>(key)?.let {
                             LadderRank.parse(it.value.toLongOrNull()).let { rank ->
                                 it.summary = rank?.toString() ?: getString(R.string.none)
-                                ladderManager.setUserRank(activity!!, rank)
+                                ladderManager.setUserRank(rank)
                             }
                         }
                     }

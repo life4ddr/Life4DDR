@@ -49,11 +49,11 @@ class LadderManager(val context: Context,
     //
     // Local User Rank
     //
-    fun getUserRank(c: Context): LadderRank? =
-        LadderRank.parse(SharedPrefsUtil.getUserString(c, SettingsActivity.KEY_INFO_RANK)?.toLongOrNull())
+    fun getUserRank(): LadderRank? =
+        LadderRank.parse(SharedPrefsUtil.getUserString(context, SettingsActivity.KEY_INFO_RANK)?.toLongOrNull())
 
-    fun setUserRank(c: Context, rank: LadderRank?) {
-        SharedPrefsUtil.setUserString(c, SettingsActivity.KEY_INFO_RANK, rank?.stableId.toString())
+    fun setUserRank(rank: LadderRank?) {
+        SharedPrefsUtil.setUserString(context, SettingsActivity.KEY_INFO_RANK, rank?.stableId.toString())
         Life4Application.eventBus.post(LadderRankUpdatedEvent())
     }
 
@@ -178,8 +178,8 @@ class LadderManager(val context: Context,
         Life4Application.eventBus.post(LadderImportCompletedEvent(success, errors))
     }
 
-    fun clearGoalData(c: Context) {
-        AlertDialog.Builder(c)
+    fun clearGoalData() {
+        AlertDialog.Builder(context)
             .setTitle(R.string.are_you_sure)
             .setMessage(R.string.confirm_erase_rank_data)
             .setPositiveButton(R.string.yes) { _, _ ->

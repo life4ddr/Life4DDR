@@ -1,6 +1,8 @@
 package com.perrigogames.life4trials.activity
 
 import android.content.Intent
+import android.graphics.ColorMatrix
+import android.graphics.ColorMatrixColorFilter
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -116,15 +118,19 @@ class PlayerProfileActivity : AppCompatActivity(), RankDetailsViewModel.OnGoalLi
         text_player_name.text = SharedPrefsUtil.getUserString(this, KEY_INFO_NAME)
         text_player_rival_code.text = SharedPrefsUtil.getUserString(this, KEY_INFO_RIVAL_CODE)
         text_player_rival_code.apply { visibilityBool = text.isNotEmpty() }
-        rank = ladderManager.getUserRank(this)
+        rank = ladderManager.getUserRank()
 
-        if (rank != null) {
-            image_rank.visibility = View.VISIBLE
-            image_rank.rank = rank
-            image_rank.setOnClickListener { startActivity(Intent(this, RankListActivity::class.java)) }
-        } else {
-            image_rank.setOnClickListener(null)
-            image_rank.visibility = View.INVISIBLE
+        image_rank.also {
+            it.setOnClickListener { startActivity(Intent(this, RankListActivity::class.java)) }
+            if (rank != null) {
+                it.rank = rank
+                it.colorFilter = null
+                it.imageAlpha = 255
+            } else {
+                it.rank = LadderRank.WOOD1
+                it.colorFilter = ColorMatrixColorFilter(ColorMatrix().apply { setSaturation(0f) })
+                it.imageAlpha = 128
+            }
         }
 
         ladderManager.nextEntry(rank)?.let { rankEntry ->

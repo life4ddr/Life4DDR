@@ -1,18 +1,24 @@
 package com.perrigogames.life4trials.activity
 
+import android.app.Activity
 import android.os.Bundle
 import android.text.Editable
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doAfterTextChanged
+import com.perrigogames.life4trials.Life4Application
 import com.perrigogames.life4trials.R
+import com.perrigogames.life4trials.api.ApiPlayer
 import com.perrigogames.life4trials.life4app
-import com.perrigogames.life4trials.util.SharedPrefsUtil
-import com.perrigogames.life4trials.util.SharedPrefsUtil.KEY_INIT_STATE
-import com.perrigogames.life4trials.util.SharedPrefsUtil.VAL_INIT_STATE_PLACEMENTS
-import com.perrigogames.life4trials.util.SharedPrefsUtil.VAL_INIT_STATE_RANKS
+import com.perrigogames.life4trials.manager.PlayerManager
+import com.perrigogames.life4trials.util.visibilityBool
+import com.perrigogames.life4trials.view.PlayerFoundView
 import kotlinx.android.synthetic.main.activity_first_run_info.*
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 /**
  * An [AppCompatActivity] shown to the user when their initial stats are empty.
@@ -20,11 +26,19 @@ import kotlinx.android.synthetic.main.activity_first_run_info.*
 class FirstRunInfoActivity: AppCompatActivity() {
 
     private val firstRunManager get() = life4app.firstRunManager
+    private val ladderManager get() = life4app.ladderManager
+    private val playerManager get() = life4app.playerManager
+    private var lastNameCheck: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_first_run_info)
 
+        field_name.onFocusChangeListener = View.OnFocusChangeListener { v, hasFocus ->
+            if (!hasFocus) {
+                onNameFinished(field_name.text.toString())
+            }
+        }
         field_rival_code.onFieldChanged { field, text ->
             if (text.length == 5) {
                 val firstHalf = text.substring(0..3)
@@ -42,6 +56,46 @@ class FirstRunInfoActivity: AppCompatActivity() {
         }
 
         radio_method_placement.isChecked = true
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Life4Application.eventBus.register(this)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Life4Application.eventBus.unregister(this)
+    }
+
+    fun onNameFinished(name: String) {
+        if (lastNameCheck == null || lastNameCheck != name) {
+            lastNameCheck = name
+            playerManager.importPlayerInfo(name)
+            progress_name.visibilityBool = true
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onPlayerImported(e: PlayerManager.PlayerImportedEvent) {
+        progress_name.visibilityBool = false
+        if (lastNameCheck != null && e.apiPlayer?.name == lastNameCheck) {
+            (getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager)
+                .hideSoftInputFromWindow(currentFocus?.windowToken, 0)
+
+            val content = layoutInflater.inflate(R.layout.view_player_found_constraint, null, false) as PlayerFoundView
+            content.apiPlayer = e.apiPlayer
+
+            AlertDialog.Builder(this)
+                .setCancelable(false)
+                .setTitle(R.string.player_found)
+                .setView(content)
+                .setPositiveButton(R.string.yes) { _, _ -> onAcceptImportedPlayer(e.apiPlayer!!) }
+                .setNegativeButton(R.string.no) { _, _ ->
+                    field_name.setText("")
+                    field_name.requestFocus()
+                }.show()
+        }
     }
 
     fun onSignInClicked(v: View) {
@@ -64,13 +118,15 @@ class FirstRunInfoActivity: AppCompatActivity() {
             else -> firstRunManager.finishProcessIntent
         }
 
-        if (placement) {
-            SharedPrefsUtil.setUserString(this, KEY_INIT_STATE, VAL_INIT_STATE_PLACEMENTS)
-        } else if (rankList) {
-            SharedPrefsUtil.setUserString(this, KEY_INIT_STATE, VAL_INIT_STATE_RANKS)
-        }
-
         startActivity(launchIntent)
+        finish()
+    }
+
+    fun onAcceptImportedPlayer(player: ApiPlayer) {
+        field_name.error = null
+        firstRunManager.setUserBasics(player.name, player.playerRivalCode, player.twitterHandle)
+        ladderManager.setUserRank(player.rank)
+        startActivity(firstRunManager.finishProcessIntent)
         finish()
     }
 

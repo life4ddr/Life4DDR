@@ -1,10 +1,12 @@
 package com.perrigogames.life4trials.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.perrigogames.life4trials.R
+import com.perrigogames.life4trials.activity.PlacementDetailsActivity.Companion.RESULT_FINISHED
 import com.perrigogames.life4trials.life4app
 import com.perrigogames.life4trials.ui.firstrun.PlacementListAdapter
 import kotlinx.android.synthetic.main.activity_placement_list.*
@@ -23,7 +25,15 @@ class PlacementListActivity : AppCompatActivity() {
 
         recycler_placements.layoutManager = LinearLayoutManager(this)
         recycler_placements.adapter = PlacementListAdapter(placementManager.placements) { id ->
-            startActivity(PlacementDetailsActivity.intent(this, id))
+            startActivityForResult(PlacementDetailsActivity.intent(this, id), REQUEST_PLACEMENT_FINISH)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_PLACEMENT_FINISH && resultCode == RESULT_FINISHED) {
+            startActivity(firstRunManager.finishProcessIntent)
+            finish()
         }
     }
 
@@ -35,5 +45,9 @@ class PlacementListActivity : AppCompatActivity() {
     fun onNoRankClick(v: View) {
         startActivity(firstRunManager.finishProcessIntent)
         finish()
+    }
+
+    companion object {
+        const val REQUEST_PLACEMENT_FINISH = 4655
     }
 }

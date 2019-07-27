@@ -27,10 +27,21 @@ class PlayerManager(private val context: Context) {
     fun importPlayerInfo(playerName: String) {
         importJob?.cancel()
         importJob = CoroutineScope(Dispatchers.IO).launch {
-            val response = life4Api.getPlayer(playerName)
+            //FIXME the API isn't currently operational
+//            val response = life4Api.getPlayer(playerName)
+//            withContext(Dispatchers.Main) {
+//                if (response?.check()) {
+//                    Life4Application.eventBus.post(PlayerImportedEvent(response.body()!![0]))
+//                }
+//                importJob = null
+//            }
+            delay(750)
             withContext(Dispatchers.Main) {
-                if (response.check()) {
-                    Life4Application.eventBus.post(PlayerImportedEvent(response.body()!![0]))
+                if (playerName == "KONNOR") {
+                    val player = ApiPlayer(1, playerName, "GOLD III", "", "@CodingCabbit", "", "1234-5678", true)
+                    Life4Application.eventBus.post(PlayerImportedEvent(player))
+                } else {
+                    Life4Application.eventBus.post(PlayerImportedEvent())
                 }
                 importJob = null
             }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.perrigogames.life4trials.view.RankHeaderView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.perrigogames.life4trials.view.RankHeaderView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -50,8 +51,8 @@
         android:tint="@color/white"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@id/image_rank"
-        app:layout_constraintStart_toEndOf="@id/image_rank"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/image_rank"
         app:layout_constraintTop_toTopOf="@id/image_rank"
         tools:visibility="visible" />
 
@@ -59,7 +60,10 @@
         android:id="@+id/text_goal_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/content_padding_large"
+        android:layout_marginStart="@dimen/content_padding_large"
+        android:layout_marginEnd="@dimen/content_padding_large"
+        android:layout_marginBottom="@dimen/content_padding_large"
+        android:fontFamily="@font/avenir"
         android:gravity="center"
         android:textSize="32sp"
         android:textStyle="bold"

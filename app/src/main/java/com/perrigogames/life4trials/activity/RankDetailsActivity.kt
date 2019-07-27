@@ -39,7 +39,7 @@ class RankDetailsActivity : AppCompatActivity(), RankHeaderView.NavigationListen
     override fun onNextClicked() = navigationButtonClicked(ladderManager.nextEntry(rankEntry!!.rank))
 
     override fun onUseRankClicked() {
-        ladderManager.setUserRank(this, rankEntry!!.rank)
+        setResult(RESULT_RANK_SELECTED, Intent().putExtra(EXTRA_RANK, rankEntry!!.rank.stableId))
         finish()
     }
 
@@ -52,6 +52,8 @@ class RankDetailsActivity : AppCompatActivity(), RankHeaderView.NavigationListen
 
     companion object {
         const val ARG_RANK_ENTRY = "ARG_RANK_ENTRY"
+        const val RESULT_RANK_SELECTED = 4966
+        const val EXTRA_RANK = "EXTRA_RANK"
 
         fun intent(context: Context, entry: RankEntry) = Intent(context, RankDetailsActivity::class.java).also {
             it.putExtra(ARG_RANK_ENTRY, entry)

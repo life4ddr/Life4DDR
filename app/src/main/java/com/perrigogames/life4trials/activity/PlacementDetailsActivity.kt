@@ -36,10 +36,10 @@ class PlacementDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listene
         (layout_rank_header as RankHeaderView).apply {
             rank = trial.placement_rank!!.parent
             genericTitles = true
-            navigationListener = object : RankHeaderView.NavigationListener {
-                override fun onPreviousClicked() = navigationButtonClicked(placementManager.previousPlacement(placementId))
-                override fun onNextClicked() = navigationButtonClicked(placementManager.nextPlacement(placementId))
-            }
+//            navigationListener = object : RankHeaderView.NavigationListener {
+//                override fun onPreviousClicked() = navigationButtonClicked(placementManager.previousPlacement(placementId))
+//                override fun onNextClicked() = navigationButtonClicked(placementManager.nextPlacement(placementId))
+//            }
         }
 
         switch_acquire_mode.isChecked = SharedPrefsUtil.getUserFlag(this, KEY_DETAILS_PHOTO_SELECT, false)
@@ -80,12 +80,17 @@ class PlacementDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listene
         AlertDialog.Builder(this)
             .setTitle(R.string.confirm_placement_title)
             .setMessage(R.string.trial_submit_dialog_prompt)
-            .setNegativeButton(R.string.no) { _, _ -> finish() }
+            .setNegativeButton(R.string.no) { _, _ -> finishWithResult() }
             .setPositiveButton(R.string.yes) { _, _ ->
                 startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.url_standard_submission_form))))
-                finish()
+                finishWithResult()
             }
             .show()
+    }
+
+    private fun finishWithResult() {
+        setResult(RESULT_FINISHED)
+        finish()
     }
 
     override fun onPhotoTaken(uri: Uri) {
@@ -98,6 +103,7 @@ class PlacementDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listene
 
     companion object {
         const val ARG_PLACEMENT_ID = "ARG_PLACEMENT_ID"
+        const val RESULT_FINISHED = 1003
 
         fun intent(c: Context, trialId: String) =
             Intent(c, PlacementDetailsActivity::class.java).apply {

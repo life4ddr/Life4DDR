@@ -1,12 +1,13 @@
 package com.perrigogames.life4trials.activity
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.activity.RankDetailsActivity.Companion.ARG_RANK_ENTRY
+import com.perrigogames.life4trials.activity.RankDetailsActivity.Companion.RESULT_RANK_SELECTED
+import com.perrigogames.life4trials.data.LadderRank
 import com.perrigogames.life4trials.data.RankEntry
 import com.perrigogames.life4trials.life4app
 import com.perrigogames.life4trials.ui.ranklist.RankListFragment
@@ -19,6 +20,7 @@ import kotlinx.android.synthetic.main.content_rank_list.*
 class FirstRankSelectionActivity : AppCompatActivity(), OnRankListInteractionListener {
 
     private val firstRunManager get() = life4app.firstRunManager
+    private val ladderManager get() = life4app.ladderManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +42,9 @@ class FirstRankSelectionActivity : AppCompatActivity(), OnRankListInteractionLis
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_CODE_DETAIL_SELECTION) {
-            if (resultCode != Activity.RESULT_CANCELED) {
+            if (resultCode == RESULT_RANK_SELECTED && data != null) {
+                ladderManager.setUserRank(LadderRank.parse(data.getLongExtra(RankDetailsActivity.EXTRA_RANK, 0)))
+                startActivity(firstRunManager.finishProcessIntent)
                 finish()
             }
         }

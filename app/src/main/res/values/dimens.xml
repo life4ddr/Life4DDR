@@ -29,4 +29,6 @@
     <dimen name="first_run_rank_size">48dp</dimen>
     <dimen name="first_run_jacket_size">32dp</dimen>
     <dimen name="first_run_rank_name_size">20sp</dimen>
+    <dimen name="profile_found_rank_size">96dp</dimen>
+    <dimen name="profile_found_name_size">28sp</dimen>
 </resources>
