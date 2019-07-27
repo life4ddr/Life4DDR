@@ -264,12 +264,12 @@
           "ex_missing": 50
         }
       ],
-      "total_ex": 5370,
+      "total_ex": 5544,
       "songs": [
         { "name": "New Century", "difficulty": 14, "difficulty_class": "difficult", "ex": 1455, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/New%20Century/New%20Century-jacket.png" },
         { "name": "革命(X-Special)", "difficulty": 14, "difficulty_class": "challenge", "ex": 1197, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X%20%28AC%29%20%28Japan%29/KAKUMEI%28X-Special%29/KAKUMEI%28X-Special%29-jacket.png" },
         { "name": "PARANOiA Revolution", "difficulty": 14, "difficulty_class": "difficult", "ex": 1563, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X3%20VS%202ndMIX%20%28AC%29%20%28Japan%29/PARANOiA%20Revolution/PARANOiA%20Revolution-jacket.png" },
-        { "name": "La libertad", "difficulty": 14, "difficulty_class": "challenge", "ex": 1155, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X2%20%28AC%29%20%28Japan%29/La%20libertad/La%20libertad-jacket.png" }
+        { "name": "La libertad", "difficulty": 14, "difficulty_class": "challenge", "ex": 1329, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X2%20%28AC%29%20%28Japan%29/La%20libertad/La%20libertad-jacket.png" }
       ],
       "new": true
     },
