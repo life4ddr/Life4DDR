@@ -1,15 +1,17 @@
 package com.perrigogames.life4trials.activity
 
-import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
 import android.view.View
+import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doAfterTextChanged
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_INFO_NAME
-import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_INFO_RIVAL_CODE
-import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_INFO_TWITTER_NAME
+import com.perrigogames.life4trials.life4app
 import com.perrigogames.life4trials.util.SharedPrefsUtil
+import com.perrigogames.life4trials.util.SharedPrefsUtil.KEY_INIT_STATE
+import com.perrigogames.life4trials.util.SharedPrefsUtil.VAL_INIT_STATE_PLACEMENTS
+import com.perrigogames.life4trials.util.SharedPrefsUtil.VAL_INIT_STATE_RANKS
 import kotlinx.android.synthetic.main.activity_first_run_info.*
 
 /**
@@ -17,32 +19,25 @@ import kotlinx.android.synthetic.main.activity_first_run_info.*
  */
 class FirstRunInfoActivity: AppCompatActivity() {
 
+    private val firstRunManager get() = life4app.firstRunManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_first_run_info)
 
-        field_rival_code.let { field ->
-            field.doAfterTextChanged { text ->
-                text?.let {
-                    if (it.length == 5) {
-                        val firstHalf = it.substring(0..3)
-                        field.setText(
-                            if (it[4] == '-') firstHalf
-                            else "$firstHalf-${it[4]}")
-                        field.setSelection(field.text.length)
-                    }
-                }
+        field_rival_code.onFieldChanged { field, text ->
+            if (text.length == 5) {
+                val firstHalf = text.substring(0..3)
+                field.setText(
+                    if (text[4] == '-') firstHalf
+                    else "$firstHalf-${text[4]}")
+                field.setSelection(field.text.length)
             }
         }
-
-        field_twitter.let { field ->
-            field.doAfterTextChanged { text ->
-                text?.let {
-                    if (it.length == 1 && it[0] != '@') {
-                        field.setText("@$it")
-                        field.setSelection(field.text.length)
-                    }
-                }
+        field_twitter.onFieldChanged { field, text ->
+            if (text.length == 1 && text[0] != '@') {
+                field.setText("@$text")
+                field.setSelection(field.text.length)
             }
         }
 
@@ -56,23 +51,33 @@ class FirstRunInfoActivity: AppCompatActivity() {
         }
 
         field_name.error = null
-        SharedPrefsUtil.setUserString(this, KEY_INFO_NAME, field_name.text.toString())
-        if (field_rival_code.text.isNotEmpty()) {
-            SharedPrefsUtil.setUserString(this, KEY_INFO_RIVAL_CODE, field_rival_code.text.toString())
-        }
-        if (field_twitter.text.isNotEmpty()) {
-            SharedPrefsUtil.setUserString(this, KEY_INFO_TWITTER_NAME, field_twitter.text.toString())
-        }
+        firstRunManager.setUserBasics(
+            field_name.text.toString(),
+            field_rival_code.text.toString(),
+            field_twitter.text.toString())
 
         val placement = radio_method_placement.isChecked
-        val skipRank = radio_method_no_rank.isChecked
-        val launchActivity: Class<*> = when {
-            placement -> PlacementListActivity::class.java
-            skipRank -> PlayerProfileActivity::class.java
-            else -> RankListActivity::class.java
+        val rankList = radio_method_selection.isChecked
+        val launchIntent = when {
+            placement -> firstRunManager.placementIntent
+            rankList -> firstRunManager.rankListIntent
+            else -> firstRunManager.finishProcessIntent
         }
 
-        startActivity(Intent(applicationContext, launchActivity))
+        if (placement) {
+            SharedPrefsUtil.setUserString(this, KEY_INIT_STATE, VAL_INIT_STATE_PLACEMENTS)
+        } else if (rankList) {
+            SharedPrefsUtil.setUserString(this, KEY_INIT_STATE, VAL_INIT_STATE_RANKS)
+        }
+
+        startActivity(launchIntent)
         finish()
+    }
+
+    //TODO this can be a utility function elsewhere too
+    private inline fun EditText.onFieldChanged(crossinline block: (EditText, Editable) -> Unit) = this.let { field ->
+        field.doAfterTextChanged { text ->
+            text?.let { block(this, text) }
+        }
     }
 }

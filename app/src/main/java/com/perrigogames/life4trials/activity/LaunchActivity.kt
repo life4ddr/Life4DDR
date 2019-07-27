@@ -1,6 +1,5 @@
 package com.perrigogames.life4trials.activity
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.perrigogames.life4trials.life4app
@@ -10,20 +9,12 @@ import com.perrigogames.life4trials.life4app
  * based on the current save state.
  */
 class LaunchActivity: AppCompatActivity() {
+
+    private val firstRunManager get() = life4app.firstRunManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        val launchActivity: Class<*> = try {
-            Class.forName(getScreenClassName())
-        } catch (e: ClassNotFoundException) {
-            PlayerProfileActivity::class.java
-        }
-
-        startActivity(Intent(applicationContext, launchActivity))
+        startActivity(firstRunManager.launchIntent)
         finish()
     }
-
-    /** return Class name of Activity to show  */
-    private fun getScreenClassName(): String =
-        (if (life4app.requireSignin) FirstRunInfoActivity::class else PlayerProfileActivity::class).java.name
 }

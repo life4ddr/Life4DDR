@@ -10,6 +10,9 @@ import com.perrigogames.life4trials.manager.*
 import com.perrigogames.life4trials.util.NotificationUtil
 import com.perrigogames.life4trials.util.SharedPrefsUtil
 import com.perrigogames.life4trials.util.SharedPrefsUtil.KEY_APP_CRASHED
+import com.perrigogames.life4trials.util.SharedPrefsUtil.KEY_INIT_STATE
+import com.perrigogames.life4trials.util.SharedPrefsUtil.VAL_INIT_STATE_PLACEMENTS
+import com.perrigogames.life4trials.util.SharedPrefsUtil.VAL_INIT_STATE_RANKS
 import io.objectbox.BoxStore
 import io.objectbox.android.AndroidObjectBrowser
 import org.greenrobot.eventbus.EventBus
@@ -17,6 +20,7 @@ import org.greenrobot.eventbus.EventBus
 
 class Life4Application: MultiDexApplication() {
 
+    lateinit var firstRunManager: FirstRunManager
     lateinit var ladderManager: LadderManager
     lateinit var placementManager: PlacementManager
     lateinit var songDataManager: SongDataManager
@@ -42,6 +46,7 @@ class Life4Application: MultiDexApplication() {
             Log.i("ObjectBrowser", "Started: $started")
         }
 
+        firstRunManager = FirstRunManager(this)
         songDataManager = SongDataManager(this)
         placementManager = PlacementManager(this)
         trialManager = TrialManager(this)
@@ -56,6 +61,8 @@ class Life4Application: MultiDexApplication() {
     }
 
     val requireSignin: Boolean get() = SharedPrefsUtil.getUserString(this, KEY_INFO_NAME, null) == null
+    val showPlacements: Boolean get() = SharedPrefsUtil.getUserString(this, KEY_INIT_STATE, null) == VAL_INIT_STATE_PLACEMENTS
+    val showRankList: Boolean get() = SharedPrefsUtil.getUserString(this, KEY_INIT_STATE, null) == VAL_INIT_STATE_RANKS
 
     companion object {
         val eventBus = EventBus()

@@ -8,4 +8,7 @@
     <dimen name="content_padding_huge">32dp</dimen>
 
     <dimen name="first_run_icon_size">256dp</dimen>
+    <dimen name="first_run_rank_size">64dp</dimen>
+    <dimen name="first_run_jacket_size">48dp</dimen>
+    <dimen name="first_run_rank_name_size">24sp</dimen>
 </resources>

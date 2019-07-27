@@ -9,7 +9,11 @@ import com.perrigogames.life4trials.R
 
 object SharedPrefsUtil {
 
-    const val KEY_INIT = "KEY_INIT"
+    const val KEY_INIT_STATE = "KEY_INIT_STATE"
+    const val VAL_INIT_STATE_PLACEMENTS = "placements"
+    const val VAL_INIT_STATE_RANKS = "ranks"
+    const val VAL_INIT_STATE_DONE = "done"
+
     const val KEY_RANK_PREFS = "rank_preferences"
     const val KEY_USER_PREFS = "user_preferences"
     const val KEY_TUTORIAL_PREFS = "tutorial_preferences"

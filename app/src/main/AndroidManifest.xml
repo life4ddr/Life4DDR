@@ -90,6 +90,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.perrigogames.life4trials.activity.PlayerProfileActivity" />
         </activity>
+        <activity android:name=".activity.FirstRankSelectionActivity" />
 
         <service
             android:name=".api.Life4FirebaseMessagingService"

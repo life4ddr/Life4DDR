@@ -26,4 +26,7 @@
     <dimen name="lamp_corner_radius_inverse">-10dp</dimen>
 
     <dimen name="first_run_icon_size">128dp</dimen>
+    <dimen name="first_run_rank_size">48dp</dimen>
+    <dimen name="first_run_jacket_size">32dp</dimen>
+    <dimen name="first_run_rank_name_size">20sp</dimen>
 </resources>

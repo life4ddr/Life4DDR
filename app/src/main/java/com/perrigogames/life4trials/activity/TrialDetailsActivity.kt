@@ -67,7 +67,6 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener {
         trialSession = trialManager.startSession(trialId, initialRank)
 
         spinner_desired_rank.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, trialSession.availableRanks)
-        spinner_desired_rank.setSelection(trialSession.availableRanks.indexOf(initialRank))
         spinner_desired_rank.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) = Unit
 
@@ -75,6 +74,7 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener {
                 setRank(trialSession.availableRanks[position])
             }
         }
+        spinner_desired_rank.setSelection(trialSession.availableRanks.indexOf(initialRank))
 
         switch_acquire_mode.isChecked = SharedPrefsUtil.getUserFlag(this, KEY_DETAILS_PHOTO_SELECT, false)
         switch_acquire_mode.setOnCheckedChangeListener { _, isChecked ->
