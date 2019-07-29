@@ -46,7 +46,7 @@ class RankGoalsAdapter(private val rank: RankEntry,
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) = when (holder) {
         is GoalViewHolder -> {
             val item = dataSource.getGoals()[position]
-            holder.bind(item, dataSource.getGoalStatus(item), dataSource.getGoalProgress(item))
+            holder.bind(item, dataSource)
             holder.view.tag = item
         }
         else -> Unit
@@ -60,14 +60,16 @@ class RankGoalsAdapter(private val rank: RankEntry,
     interface DataSource {
         fun getGoals(): List<BaseRankGoal>
         fun isGoalExpanded(item: BaseRankGoal): Boolean
+        fun canIgnoreGoals(): Boolean
         fun getGoalStatus(item: BaseRankGoal): GoalStatusDB
         fun getGoalProgress(item: BaseRankGoal): LadderGoalProgress?
     }
 
     inner class GoalViewHolder(val view: LadderGoalItemView) : RecyclerView.ViewHolder(view) {
-        fun bind(goal: BaseRankGoal, goalDB: GoalStatusDB, goalProgress: LadderGoalProgress? = null) {
+        fun bind(goal: BaseRankGoal, dataSource: DataSource) {
             view.expanded = dataSource.isGoalExpanded(goal)
-            view.setGoal(goal, goalDB, goalProgress)
+            view.canIgnore = dataSource.canIgnoreGoals()
+            view.setGoal(goal, dataSource.getGoalStatus(goal), dataSource.getGoalProgress(goal))
         }
     }
 

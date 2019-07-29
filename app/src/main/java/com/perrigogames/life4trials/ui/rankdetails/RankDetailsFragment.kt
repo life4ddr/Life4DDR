@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.perrigogames.life4trials.R
@@ -20,14 +21,12 @@ class RankDetailsFragment(private val rankEntry: RankEntry,
                           private val navigationListener: RankHeaderView.NavigationListener? = null,
                           private val goalListListener: RankDetailsViewModel.OnGoalListInteractionListener? = null) : Fragment() {
 
-    private val shouldShowGoals get() = rankEntry.allowedIgnores == 0 && options.showHeader
-
     private lateinit var viewModel: RankDetailsViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val view = inflater.inflate(R.layout.fragment_rank_details, container, false)
 
-        viewModel = RankDetailsViewModel(rankEntry, options, context!!.life4app.ladderManager, goalListListener)
+        viewModel = RankDetailsViewModel(view.context, rankEntry, options, context!!.life4app.ladderManager, goalListListener)
 
         if (options.showHeader) {
             (view.stub_rank_header.inflate() as RankHeaderView).let {
@@ -37,7 +36,8 @@ class RankDetailsFragment(private val rankEntry: RankEntry,
             (view.fragment_rank_details.layoutParams as ConstraintLayout.LayoutParams).topToBottom = R.id.layout_rank_header
         }
 
-        view.text_goals_hidden.visibilityBool = shouldShowGoals
+        viewModel.hiddenStatusText.observe(this, Observer<String> { text -> view.text_goals_hidden.text = text })
+        viewModel.hiddenStatusVisibility.observe(this, Observer<Int> { v -> view.text_goals_hidden.visibility = v })
 
         view.button_use_rank.apply {
             visibilityBool = options.showSetRank
@@ -50,13 +50,6 @@ class RankDetailsFragment(private val rankEntry: RankEntry,
         }
 
         return view
-    }
-
-    private fun updateHiddenCount(v: View, hidden: Int) {
-        v.text_goals_hidden.visibility = if (shouldShowGoals) View.GONE else View.VISIBLE
-        v.text_goals_hidden.text = getString(R.string.goals_hidden_format, hidden, rankEntry.allowedIgnores)
-        if (rankEntry.allowedIgnores == hidden) {
-        }
     }
 
     class Options(val hideCompleted: Boolean = false,

@@ -1,7 +1,11 @@
 package com.perrigogames.life4trials.ui.rankdetails
 
+import android.content.Context
 import android.util.Log
+import android.view.View
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.data.BaseRankGoal
 import com.perrigogames.life4trials.data.RankEntry
 import com.perrigogames.life4trials.db.GoalStatus
@@ -9,7 +13,12 @@ import com.perrigogames.life4trials.db.GoalStatusDB
 import com.perrigogames.life4trials.manager.LadderManager
 import com.perrigogames.life4trials.view.LadderGoalItemView
 
-class RankDetailsViewModel(private val rankEntry: RankEntry,
+/**
+ * A [ViewModel] that manages manipulating and displaying a series of [BaseRankGoal]s
+ * attributable to a certain rank.
+ */
+class RankDetailsViewModel(private val context: Context,
+                           private val rankEntry: RankEntry,
                            private val options: RankDetailsFragment.Options,
                            private val ladderManager: LadderManager,
                            private val goalListListener: OnGoalListInteractionListener?) : ViewModel() {
@@ -21,6 +30,8 @@ class RankDetailsViewModel(private val rankEntry: RankEntry,
         } else rankEntry.goals.toMutableList()
     }
     private val expandedItems = mutableListOf<BaseRankGoal>()
+    private val hiddenItemCount get() = ladderManager.getGoalStatuses(activeItems).count { it.status == GoalStatus.IGNORED }
+    private var canIgnoreGoals: Boolean = true
 
     private val goalItemListener = object: LadderGoalItemView.LadderGoalItemListener {
 
@@ -56,16 +67,21 @@ class RankDetailsViewModel(private val rankEntry: RankEntry,
 
     private val dataSource = object: RankGoalsAdapter.DataSource {
         override fun getGoals() = activeItems
-
         override fun isGoalExpanded(item: BaseRankGoal) = expandedItems.contains(item)
-
+        override fun canIgnoreGoals(): Boolean = canIgnoreGoals
         override fun getGoalStatus(item: BaseRankGoal) = ladderManager.getOrCreateGoalStatus(item)
-
         override fun getGoalProgress(item: BaseRankGoal) = ladderManager.getGoalProgress(item)
     }
 
     val adapter: RankGoalsAdapter =
         RankGoalsAdapter(rankEntry, dataSource, goalItemListener, goalListListener)
+
+    val hiddenStatusText = MutableLiveData<String>()
+    val hiddenStatusVisibility = MutableLiveData<Int>()
+
+    init {
+        updateHiddenCount()
+    }
 
     fun updateVisibility(goal: BaseRankGoal, goalDB: GoalStatusDB) {
         if (goalDB.status == GoalStatus.COMPLETE && options.hideCompleted) {
@@ -79,7 +95,16 @@ class RankDetailsViewModel(private val rankEntry: RankEntry,
     }
 
     private fun updateHiddenCount() {
-
+        val canHideTasks = rankEntry.allowedIgnores > 0
+        hiddenStatusVisibility.value = if (canHideTasks) View.VISIBLE else View.GONE
+        if (canHideTasks) {
+            hiddenStatusText.value = context.getString(R.string.goals_hidden_format, hiddenItemCount, rankEntry.allowedIgnores)
+        }
+        val prevIgnore = canIgnoreGoals
+        canIgnoreGoals = hiddenItemCount < rankEntry.allowedIgnores
+        if (prevIgnore != canIgnoreGoals) {
+            adapter.notifyDataSetChanged()
+        }
     }
 
     /**

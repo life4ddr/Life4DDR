@@ -17,7 +17,7 @@ class RankEntry(val rank: LadderRank,
                 val goals: List<BaseRankGoal>,
                 val requirements: Int?): Serializable {
 
-    val allowedIgnores: Int get() = requirements?.let { goals.size - it } ?: 0
+    val allowedIgnores: Int get() = requirements?.let { req -> goals.count { !it.mandatory } - req } ?: 0
 
     val difficultyGoals: List<DifficultyClearGoal> get() = goals.mapNotNull { it as? DifficultyClearGoal }
 }

@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.TableLayout
 import android.widget.TableRow
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -32,6 +33,8 @@ class LadderGoalItemView @JvmOverloads constructor(context: Context,
 
     var listener: LadderGoalItemListener? = null
     var expanded: Boolean = false
+
+    private val currentState get() = goalDB?.status ?: GoalStatus.INCOMPLETE
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
@@ -66,17 +69,32 @@ class LadderGoalItemView @JvmOverloads constructor(context: Context,
         updateData()
     }
 
+    var canIgnore: Boolean = true
+        set(v) {
+            field = v
+            updateIgnoreState()
+        }
+
     private fun updateData() {
         if (oldColors == null) {
             oldColors = text_goal_subtitle.textColors
         }
 
-        val state = goalDB?.status ?: GoalStatus.INCOMPLETE
         text_goal_title.text = goal?.goalString(context) ?: ""
+        button_status_icon.isChecked = currentState == COMPLETE
 
+        updateExpand()
+        updateProgress()
+        updateIgnoreState()
+    }
+
+    private fun updateExpand() {
         table_expand_details.children.forEach { pool.add(it as TableRow) }
         table_expand_details.removeAllViews()
         table_expand_details.visibilityBool = expanded
+    }
+
+    private fun updateProgress() {
         goalProgress?.let {
             text_goal_subtitle.text = context.getString(R.string.goal_progress_format, it.progress, it.max)
             if (it.progress == it.max) {
@@ -93,11 +111,16 @@ class LadderGoalItemView @JvmOverloads constructor(context: Context,
                 table_expand_details.addView(row)
             }
         }
-
         text_goal_subtitle.visibilityBool = goalProgress != null
-        button_status_icon.isChecked = state == COMPLETE
-        button_ignore.visibilityBool = goal?.mandatory != true
-        alpha = if (state == IGNORED) 0.3f else 1.0f
+    }
+
+    private fun updateIgnoreState() {
+        button_ignore.visibility = when {
+            goal?.mandatory == true -> View.GONE // mandatory goals never show ignore, reclaim space
+            canIgnore || currentState == IGNORED -> View.VISIBLE // show ignore if you're allowed to, or if you're already ignored
+            else -> View.INVISIBLE // ignore function is hidden, don't reclaim space
+        }
+        alpha = if (currentState == IGNORED) 0.3f else 1.0f
     }
 
     private inline fun ifHasDB(block: (BaseRankGoal, GoalStatusDB) -> Unit): Boolean {
