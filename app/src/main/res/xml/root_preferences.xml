@@ -15,14 +15,15 @@
         <EditTextPreference
             app:key="KEY_INFO_TWITTER_NAME"
             app:title="@string/twitter_name" />
-        <EditTextPreference
-            app:key="KEY_INFO_IMPORT"
-            app:summary="@string/import_info_description"
-            app:title="@string/import_info"/>
-        <SwitchPreference
+        <!--<EditTextPreference-->
+            <!--app:key="KEY_INFO_IMPORT"-->
+            <!--app:summary="@string/import_info_description"-->
+            <!--app:title="@string/import_info"/>-->
+        <CheckBoxPreference
             app:key="KEY_SUBMISSION_NOTIFICAION"
             app:defaultValue="true"
-            app:title="@string/show_notifications" />
+            app:summary="@string/show_notifications"
+            app:title="@string/show_notifications_title" />
         <Preference
             app:key="KEY_SUBMISSION_NOTIFICAION_TEST"
             app:title="@string/test_notifications" />
@@ -50,21 +51,21 @@
 
     <PreferenceCategory app:title="@string/trial_list">
 
-        <SwitchPreference
+        <CheckBoxPreference
             app:key="KEY_LIST_SHOW_EX"
             app:title="@string/show_ex" />
 
-        <SwitchPreference
+        <CheckBoxPreference
             app:dependency="KEY_LIST_SHOW_EX"
             app:key="KEY_LIST_SHOW_EX_REMAINING"
             app:title="@string/show_ex_remaining" />
 
-        <SwitchPreference
+        <CheckBoxPreference
             app:key="KEY_LIST_TINT_COMPLETED"
             app:defaultValue="true"
             app:title="@string/tint_completed_trials"/>
 
-        <SwitchPreference
+        <CheckBoxPreference
             app:defaultValue="true"
             app:key="KEY_LIST_HIGHLIGHT_NEW"
             app:title="@string/highlight_new_trials"/>
@@ -72,15 +73,15 @@
 
     <PreferenceCategory app:title="@string/trial_details">
 
-        <SwitchPreference
+        <CheckBoxPreference
             app:key="KEY_DETAILS_PHOTO_SELECT"
             app:title="@string/photo_select" />
 
-        <SwitchPreference
+        <CheckBoxPreference
             app:key="KEY_DETAILS_EXPERT"
             app:title="@string/expert_score" />
 
-        <SwitchPreference
+        <CheckBoxPreference
             android:defaultValue="true"
             app:key="KEY_DETAILS_ENFORCE_EXPERT"
             app:title="@string/enforce_expert" />
@@ -88,16 +89,17 @@
 
     <PreferenceCategory app:title="@string/trial_records">
 
-        <SwitchPreference
+        <CheckBoxPreference
             app:key="KEY_RECORDS_REMAINING_EX"
-            app:title="@string/show_remaining_instead_total" />
+            app:summary="@string/show_remaining_instead_total"
+            app:title="@string/show_remaining_ex_title"/>
 
         <Preference
             app:key="KEY_RECORDS_CLEAR"
             app:title="@string/action_clear_record_data"/>
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="@string/help">
+    <PreferenceCategory app:title="@string/help_and_feedback">
         <Preference
             app:key="KEY_SHOP"
             app:summary="@string/description_shop"

@@ -1,5 +1,7 @@
 package com.perrigogames.life4trials.manager
 
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.util.Log
 import android.widget.Toast
@@ -9,10 +11,12 @@ import com.perrigogames.life4trials.BuildConfig
 import com.perrigogames.life4trials.Life4Application
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.activity.SettingsActivity
+import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_IMPORT_SKIP_DIRECTIONS
 import com.perrigogames.life4trials.data.*
 import com.perrigogames.life4trials.db.*
 import com.perrigogames.life4trials.event.LadderImportCompletedEvent
 import com.perrigogames.life4trials.event.LadderRankUpdatedEvent
+import com.perrigogames.life4trials.ui.managerimport.ScoreManagerImportDirectionsDialog
 import com.perrigogames.life4trials.ui.managerimport.ScoreManagerImportEntryDialog
 import com.perrigogames.life4trials.util.DataUtil
 import com.perrigogames.life4trials.util.SharedPrefsUtil
@@ -119,13 +123,41 @@ class LadderManager(val context: Context,
         else -> null
     }
 
+    val shouldShowImportTutorial get() = !SharedPrefsUtil.getUserFlag(context, KEY_IMPORT_SKIP_DIRECTIONS, false)
+
     fun showImportFlow(activity: FragmentActivity) {
-        ScoreManagerImportEntryDialog(object: ScoreManagerImportEntryDialog.Listener {
+        if (shouldShowImportTutorial) {
+            showImportDirectionsDialog(activity)
+        } else {
+            showImportEntryDialog(activity)
+        }
+    }
 
+    private fun showImportDirectionsDialog(activity: FragmentActivity) {
+        ScoreManagerImportDirectionsDialog(object: ScoreManagerImportDirectionsDialog.Listener {
             override fun onDialogCancelled() = Unit
+            override fun onCopyAndContinue() {
+                Toast.makeText(activity, context.getString(R.string.copied), Toast.LENGTH_SHORT).show()
+                (context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).let {
+                    it.primaryClip = ClipData.newPlainText("LIFE4 Data", context.getString(R.string.import_data_format))
+                }
+                showImportEntryDialog(activity)
+            }
+        }).show(activity.supportFragmentManager, ScoreManagerImportDirectionsDialog.TAG)
+    }
 
+    private fun showImportEntryDialog(activity: FragmentActivity) {
+        val launchIntent = activity.packageManager.getLaunchIntentForPackage("jp.linanfine.dsma")
+        if (launchIntent != null) {
+            activity.startActivity(launchIntent)//null pointer check in case package name was not found
+        } else {
+            Toast.makeText(activity, context.getString(R.string.no_ddra_manager), Toast.LENGTH_SHORT).show()
+        }
+
+        ScoreManagerImportEntryDialog(object : ScoreManagerImportEntryDialog.Listener {
+            override fun onDialogCancelled() = Unit
+            override fun onHelpPressed() = showImportDirectionsDialog(activity)
             override fun onDataSubmitted(data: String) = importManagerData(data)
-
         }).show(activity.supportFragmentManager, ScoreManagerImportEntryDialog.TAG)
     }
 

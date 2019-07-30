@@ -226,7 +226,7 @@
     <string name="show_notifications">Show info notifications during submission</string>
     <string name="import_info">Import details</string>
     <string name="import_info_description">Load details from LIFE4 by entering your Player Name</string>
-    <string name="test_notifications">Test notifications</string>
+    <string name="test_notifications">Test Info Notifications</string>
     <string name="rank_goals">Rank Goals</string>
     <string name="clear_goal_data">Clear Goal Data</string>
     <string name="score_manager_import">Score Manager Import</string>
@@ -235,12 +235,14 @@
     <string name="photo_select">Use photo picker</string>
     <string name="expert_score">Expert score entry</string>
     <string name="enforce_expert">Require step breakdowns</string>
-    <string name="show_remaining_instead_total">Show remaining EX instead of total</string>
+    <string name="show_remaining_ex_title">Show remaining EX</string>
+    <string name="show_remaining_instead_total">Show the difference between a Trial\'s total EX and your own</string>
     <string name="send_feedback">Send feedback</string>
     <string name="send_feedback_summary">Report technical issues or suggest new features</string>
     <string name="trial_details">Trial Details</string>
     <string name="trial_records">Trial Records</string>
-    <string name="help">Help &amp; Feedback</string>
+    <string name="help">Help</string>
+    <string name="help_and_feedback">Help &amp; Feedback</string>
 
     <!-- Messages Preferences -->
     <string name="signature_title">Your signature</string>
@@ -308,7 +310,8 @@
     <string name="set_numbers_3_format">%d, %d, and %d</string>
     <string name="make_sure_fields_filled">Make sure all fields are filled in.</string>
     <string name="tap_to_copy">Tap to copy \"%s\"</string>
-    <string name="copied">\"%s\" Copied!</string>
+    <string name="copied">Copied!</string>
+    <string name="copied_format">\"%s\" Copied!</string>
     <string name="action_ladder">Ladder</string>
     <string name="new_tag">NEW!</string>
     <string name="bgsp">bSP</string>
@@ -356,4 +359,7 @@
     <string name="placement_description">To participate in Rank Placement, you must complete the following songs in a single set.\n\n• The songs can be played in any order.\n• Extra Stage is optional. If you earn an Extra Stage, you can use it to improve a previous score.\n• The ONLY photo that is required is one of the final results screen, showing the scores for each song played. (Click \"Finalize\" to take this photo)</string>
     <string name="placement_explanation">Placement sets are collections of three songs that must be played all in the same set.</string>
     <string name="remove_rank">Remove Rank</string>
+    <string name="copy_and_continue">Copy and Continue</string>
+    <string name="no_ddra_manager">You don\'t seem to have the DDR A Score Manager app installed.</string>
+    <string name="show_notifications_title">Show Info Notifications</string>
 </resources>

@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="@dimen/content_padding_large" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_text_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.48" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="@dimen/content_padding_large" />
+
+        <TextView
+            android:id="@+id/text_step_1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="In the DDR A Manager app, enter a list of songs you want to copy and press the MENU button."
+            app:layout_constraintBottom_toBottomOf="@id/image_step_1"
+            app:layout_constraintEnd_toEndOf="@id/guideline_text_end"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
+            app:layout_constraintTop_toTopOf="@id/image_step_1"/>
+
+        <ImageView
+            android:id="@+id/image_step_1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/content_padding_large"
+            android:adjustViewBounds="true"
+            android:src="@drawable/manager_tutorial_menu"
+            app:layout_constraintEnd_toEndOf="@id/guideline_end"
+            app:layout_constraintStart_toStartOf="@id/guideline_center"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_step_2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Click 'Copy to clipboard'."
+            app:layout_constraintBottom_toBottomOf="@id/image_step_2"
+            app:layout_constraintEnd_toEndOf="@id/guideline_text_end"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
+            app:layout_constraintTop_toTopOf="@id/image_step_2"/>
+
+        <ImageView
+            android:id="@+id/image_step_2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/content_padding_huge"
+            android:layout_marginTop="@dimen/content_padding_med"
+            android:layout_marginEnd="@dimen/content_padding_huge"
+            android:adjustViewBounds="true"
+            android:src="@drawable/manager_tutorial_menu_clipboard"
+            app:layout_constraintEnd_toEndOf="@id/guideline_end"
+            app:layout_constraintStart_toStartOf="@id/guideline_center"
+            app:layout_constraintTop_toBottomOf="@id/image_step_1" />
+
+        <TextView
+            android:id="@+id/text_step_3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Click 'Edit copy formats...'."
+            app:layout_constraintBottom_toBottomOf="@id/image_step_3"
+            app:layout_constraintEnd_toEndOf="@id/guideline_text_end"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
+            app:layout_constraintTop_toTopOf="@id/image_step_3"/>
+
+        <ImageView
+            android:id="@+id/image_step_3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/content_padding_med"
+            android:adjustViewBounds="true"
+            android:src="@drawable/manager_tutorial_formats_edit"
+            app:layout_constraintEnd_toEndOf="@id/guideline_end"
+            app:layout_constraintStart_toStartOf="@id/guideline_center"
+            app:layout_constraintTop_toBottomOf="@id/image_step_2" />
+
+        <TextView
+            android:id="@+id/text_step_4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Paste the copied format text into one of the formats boxes that you don't already use."
+            app:layout_constraintBottom_toBottomOf="@id/image_step_4"
+            app:layout_constraintEnd_toEndOf="@id/guideline_text_end"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
+            app:layout_constraintTop_toTopOf="@id/image_step_4"/>
+
+        <ImageView
+            android:id="@+id/image_step_4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/content_padding_med"
+            android:adjustViewBounds="true"
+            android:src="@drawable/manager_tutorial_formats_list"
+            app:layout_constraintEnd_toEndOf="@id/guideline_end"
+            app:layout_constraintStart_toStartOf="@id/guideline_center"
+            app:layout_constraintTop_toBottomOf="@id/image_step_3" />
+
+        <TextView
+            android:id="@+id/text_step_5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Return to the Copy dialog and select the newly added format."
+            app:layout_constraintBottom_toBottomOf="@id/image_step_5"
+            app:layout_constraintEnd_toEndOf="@id/guideline_text_end"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
+            app:layout_constraintTop_toTopOf="@id/image_step_5"/>
+
+        <ImageView
+            android:id="@+id/image_step_5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/content_padding_med"
+            android:adjustViewBounds="true"
+            android:src="@drawable/manager_tutorial_formats_copy"
+            app:layout_constraintEnd_toEndOf="@id/guideline_end"
+            app:layout_constraintStart_toStartOf="@id/guideline_center"
+            app:layout_constraintTop_toBottomOf="@id/image_step_4" />
+
+        <TextView
+            android:id="@+id/text_step_6"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/content_padding_med"
+            android:gravity="center"
+            android:text="Then return to LIFE4 and paste the copied score data into the next dialog."
+            app:layout_constraintBottom_toTopOf="@id/check_dont_show"
+            app:layout_constraintEnd_toEndOf="@id/guideline_end"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
+            app:layout_constraintTop_toBottomOf="@id/image_step_5"/>
+
+        <CheckBox
+            android:id="@+id/check_dont_show"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/content_padding_large"
+            android:text="@string/dont_show_again"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/guideline_end"
+            app:layout_constraintTop_toBottomOf="@id/text_step_6"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

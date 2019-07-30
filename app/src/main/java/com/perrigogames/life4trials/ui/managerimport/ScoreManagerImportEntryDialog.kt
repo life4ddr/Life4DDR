@@ -18,6 +18,7 @@ class ScoreManagerImportEntryDialog(var listener: Listener? = null): DialogFragm
             val view = requireActivity().layoutInflater.inflate(R.layout.dialog_manager_import_entry, null)
             AlertDialog.Builder(it)
                 .setView(view)
+                .setNegativeButton(R.string.help) { _, _ -> listener?.onHelpPressed() }
                 .setPositiveButton(R.string.okay) { _, _ -> listener?.onDataSubmitted(view.field_manager_data.text.toString()) }
                 .setOnCancelListener { listener?.onDialogCancelled() }
                 .create()
@@ -26,6 +27,7 @@ class ScoreManagerImportEntryDialog(var listener: Listener? = null): DialogFragm
 
     interface Listener {
         fun onDialogCancelled()
+        fun onHelpPressed()
         fun onDataSubmitted(data: String)
     }
 
