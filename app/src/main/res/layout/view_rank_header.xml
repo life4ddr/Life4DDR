@@ -62,7 +62,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/content_padding_large"
         android:layout_marginEnd="@dimen/content_padding_large"
-        android:layout_marginBottom="@dimen/content_padding_large"
         android:fontFamily="@font/avenir"
         android:gravity="center"
         android:textSize="32sp"

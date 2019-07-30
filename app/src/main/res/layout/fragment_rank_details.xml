@@ -35,4 +35,18 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/text_goals_hidden"
         tools:listitem="@layout/item_rank_goal"/>
+
+    <TextView
+        android:id="@+id/text_question"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="?"
+        android:textSize="164dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/text_goals_hidden"
+        tools:visibility="visible"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

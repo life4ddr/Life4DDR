@@ -362,4 +362,6 @@
     <string name="copy_and_continue">Copy and Continue</string>
     <string name="no_ddra_manager">You don\'t seem to have the DDR A Score Manager app installed.</string>
     <string name="show_notifications_title">Show Info Notifications</string>
+    <string name="no_rank">NO RANK</string>
+    <string name="import_ddra_data">Import DDR A Score Manager Data</string>
 </resources>

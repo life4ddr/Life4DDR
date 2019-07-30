@@ -1,6 +1,7 @@
 package com.perrigogames.life4trials.view
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.util.AttributeSet
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -16,8 +17,11 @@ import kotlinx.android.synthetic.main.view_rank_header.view.*
 class RankHeaderView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
     ConstraintLayout(context, attrs, defStyleAttr) {
 
+    private lateinit var oldColors: ColorStateList
+
     override fun onFinishInflate() {
         super.onFinishInflate()
+        oldColors = text_goal_title.textColors
         button_navigate_previous.setOnClickListener { navigationListener?.onPreviousClicked() }
         button_navigate_next.setOnClickListener { navigationListener?.onNextClicked() }
     }
@@ -57,9 +61,13 @@ class RankHeaderView @JvmOverloads constructor(context: Context, attrs: Attribut
             navigationListener?.onNextClicked()
     }
 
-    private fun updateTitle() {
-        text_goal_title.text = rank?.let { context.getString(if (genericTitles) it.groupNameRes else it.nameRes) } ?: ""
-        text_goal_title.setTextColor(rank?.let { ContextCompat.getColor(context, it.colorRes) } ?: 0)
+    private fun updateTitle() = text_goal_title.apply {
+        text = rank?.let { context.getString(if (genericTitles) it.groupNameRes else it.nameRes) } ?: context.getString(R.string.no_rank)
+        if (rank == null) {
+            setTextColor(oldColors)
+        } else {
+            setTextColor(rank?.let { ContextCompat.getColor(context, it.colorRes) } ?: 0)
+        }
     }
 
     interface NavigationListener {

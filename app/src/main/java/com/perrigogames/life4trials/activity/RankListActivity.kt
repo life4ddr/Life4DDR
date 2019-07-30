@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.activity.RankDetailsActivity.Companion.ARG_RANK_ENTRY
 import com.perrigogames.life4trials.activity.RankDetailsActivity.Companion.EXTRA_RANK
 import com.perrigogames.life4trials.activity.RankDetailsActivity.Companion.RESULT_RANK_SELECTED
 import com.perrigogames.life4trials.data.LadderRank
@@ -13,6 +12,8 @@ import com.perrigogames.life4trials.data.RankEntry
 import com.perrigogames.life4trials.life4app
 import com.perrigogames.life4trials.ui.ranklist.RankListFragment
 import com.perrigogames.life4trials.ui.ranklist.RankListFragment.OnRankListInteractionListener
+import com.perrigogames.life4trials.util.visibilityBool
+import kotlinx.android.synthetic.main.activity_rank_list.*
 import kotlinx.android.synthetic.main.content_rank_list.*
 
 /**
@@ -25,6 +26,7 @@ class RankListActivity : AppCompatActivity(), OnRankListInteractionListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_rank_list)
+        button_remove_rank.visibilityBool = ladderManager.getUserRank() != null
 
         layout_container.removeAllViews()
         supportFragmentManager.beginTransaction()
@@ -33,11 +35,8 @@ class RankListActivity : AppCompatActivity(), OnRankListInteractionListener {
             .commit()
     }
 
-    override fun onListFragmentInteraction(item: RankEntry) {
-        startActivityForResult(Intent(this, RankDetailsActivity::class.java).apply {
-            putExtra(ARG_RANK_ENTRY, item)
-        }, REQUEST_CODE_DETAIL_SELECTION)
-    }
+    override fun onListFragmentInteraction(item: RankEntry?) =
+        startActivityForResult(RankDetailsActivity.intent(this, item), REQUEST_CODE_DETAIL_SELECTION)
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)

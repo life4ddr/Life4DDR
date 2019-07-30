@@ -33,7 +33,13 @@ class RankListFragment : Fragment() {
         with(view.recycler_rank_list) {
             layoutManager = when {
                 columnCount <= 1 -> LinearLayoutManager(context)
-                else -> GridLayoutManager(context, columnCount)
+                else -> GridLayoutManager(context, columnCount).apply {
+                    spanSizeLookup = object: GridLayoutManager.SpanSizeLookup() {
+                        override fun getSpanSize(pos: Int) =
+                            if (pos == 0) columnCount
+                            else 1
+                    }
+                }
             }
             adapter = RankListAdapter(rankData.rankRequirements, ladderManager.getUserRank(), columnCount == 1, listener)
         }
@@ -61,7 +67,7 @@ class RankListFragment : Fragment() {
      * activity.
      */
     interface OnRankListInteractionListener {
-        fun onListFragmentInteraction(item: RankEntry)
+        fun onListFragmentInteraction(item: RankEntry?)
     }
 
     companion object {

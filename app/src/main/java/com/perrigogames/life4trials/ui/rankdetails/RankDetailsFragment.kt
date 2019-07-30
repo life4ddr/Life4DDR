@@ -12,10 +12,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.data.RankEntry
 import com.perrigogames.life4trials.life4app
+import com.perrigogames.life4trials.util.visibilityBool
 import com.perrigogames.life4trials.view.RankHeaderView
 import kotlinx.android.synthetic.main.fragment_rank_details.view.*
 
-class RankDetailsFragment(private val rankEntry: RankEntry,
+class RankDetailsFragment(private val rankEntry: RankEntry?,
                           private val options: Options = Options(),
                           private val navigationListener: RankHeaderView.NavigationListener? = null,
                           private val goalListListener: RankDetailsViewModel.OnGoalListInteractionListener? = null) : Fragment() {
@@ -29,7 +30,7 @@ class RankDetailsFragment(private val rankEntry: RankEntry,
 
         if (options.showHeader) {
             (view.stub_rank_header.inflate() as RankHeaderView).let {
-                it.rank = rankEntry.rank
+                it.rank = rankEntry?.rank
                 it.navigationListener = navigationListener
             }
             (view.text_goals_hidden.layoutParams as ConstraintLayout.LayoutParams).topToBottom = R.id.layout_rank_header
@@ -53,9 +54,14 @@ class RankDetailsFragment(private val rankEntry: RankEntry,
 //        }
 
         view.fragment_rank_details.apply {
-            adapter = viewModel.adapter
-            layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+            visibilityBool = viewModel.shouldShowGoals
+            if (viewModel.shouldShowGoals) {
+                adapter = viewModel.adapter
+                layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+            }
         }
+
+        view.text_question.visibilityBool = !viewModel.shouldShowGoals
 
         return view
     }

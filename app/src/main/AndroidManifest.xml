@@ -57,8 +57,7 @@
             android:name=".activity.TrialListActivity"
             android:label="@string/app_name"
             android:parentActivityName=".activity.PlayerProfileActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Launcher" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.TrialDetailsActivity"
             android:screenOrientation="portrait" />

@@ -2,6 +2,7 @@ package com.perrigogames.life4trials.manager
 
 import android.content.Context
 import android.widget.Toast
+import com.perrigogames.life4trials.BuildConfig
 import com.perrigogames.life4trials.Life4Application
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.api.ApiPlayer
@@ -37,7 +38,7 @@ class PlayerManager(private val context: Context) {
 //            }
             delay(750)
             withContext(Dispatchers.Main) {
-                if (playerName == "KONNOR") {
+                if (BuildConfig.DEBUG && playerName == "KONNOR") {
                     val player = ApiPlayer(1, playerName, "GOLD III", "", "@CodingCabbit", "", "1234-5678", true)
                     Life4Application.eventBus.post(PlayerImportedEvent(player))
                 } else {

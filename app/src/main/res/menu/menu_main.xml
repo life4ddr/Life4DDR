@@ -21,10 +21,16 @@
     <item android:id="@+id/action_shop"
         android:orderInCategory="190"
         android:title="@string/action_shop"
-        android:visible="true"
+        android:visible="false"
         app:showAsAction="never"/>
     <item android:id="@+id/action_settings"
         android:orderInCategory="300"
         android:title="@string/action_settings"
+        android:visible="false"
+        app:showAsAction="never"/>
+    <item android:id="@+id/action_import_data"
+        android:orderInCategory="300"
+        android:title="@string/import_ddra_data"
+        android:visible="true"
         app:showAsAction="never"/>
 </menu>

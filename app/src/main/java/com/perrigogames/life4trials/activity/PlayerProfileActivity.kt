@@ -1,8 +1,6 @@
 package com.perrigogames.life4trials.activity
 
 import android.content.Intent
-import android.graphics.ColorMatrix
-import android.graphics.ColorMatrixColorFilter
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -62,6 +60,7 @@ class PlayerProfileActivity : AppCompatActivity(), RankDetailsViewModel.OnGoalLi
         when (item.itemId) {
             R.id.action_settings -> startActivity(Intent(this, SettingsActivity::class.java))
             R.id.action_records -> startActivity(Intent(this, TrialRecordsActivity::class.java))
+            R.id.action_import_data -> ladderManager.showImportFlow(this)
             R.id.action_progress_matrix -> startActivity(MatrixTestActivity.intent(this, LadderRank.DIAMOND1))
             R.id.action_shop -> openWebUrlFromRes(R.string.url_shop)
             else -> return super.onOptionsItemSelected(item)
@@ -97,9 +96,6 @@ class PlayerProfileActivity : AppCompatActivity(), RankDetailsViewModel.OnGoalLi
     fun onLadderImportCompleted(e: LadderImportCompletedEvent) = updatePlayerContent()
 
     private fun setupContent() {
-        if (!SharedPrefsUtil.isPreviewEnabled()) {
-            view_mode_button_left.alpha = 0.3f
-        }
         view_mode_button_left.text_title.text = getString(R.string.trials)
         view_mode_button_left.image_background.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.life4_trials_logo_invert))
         view_mode_button_right.text_title.text = getString(R.string.action_settings)
@@ -122,18 +118,10 @@ class PlayerProfileActivity : AppCompatActivity(), RankDetailsViewModel.OnGoalLi
 
         image_rank.also {
             it.setOnClickListener { startActivity(Intent(this, RankListActivity::class.java)) }
-            if (rank != null) {
-                it.rank = rank
-                it.colorFilter = null
-                it.imageAlpha = 255
-            } else {
-                it.rank = LadderRank.WOOD1
-                it.colorFilter = ColorMatrixColorFilter(ColorMatrix().apply { setSaturation(0f) })
-                it.imageAlpha = 128
-            }
+            it.rank = rank
         }
 
-        ladderManager.nextEntry(rank)?.let { rankEntry ->
+        ladderManager.findRankEntry(rank).let { rankEntry ->
             supportFragmentManager.beginTransaction()
                 .replace(R.id.container_current_goals, RankDetailsFragment(rankEntry,
                     RankDetailsFragment.Options(hideCompleted = true, hideIgnored = false, showHeader = false), null, this))

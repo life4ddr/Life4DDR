@@ -30,7 +30,7 @@ class RankListAdapter(private val mValues: List<RankEntry>,
 
     init {
         mOnClickListener = View.OnClickListener { v ->
-            val item = v.tag as RankEntry
+            val item = v.tag as? RankEntry
             // Notify the active callbacks interface (the activity, if the fragment is attached to
             // one) that an item has been selected.
             mListener?.onListFragmentInteraction(item)
@@ -38,32 +38,40 @@ class RankListAdapter(private val mValues: List<RankEntry>,
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(LayoutInflater.from(parent.context)
-            .inflate(when {
-                showGoals -> R.layout.item_rank_list_goals
-                else -> R.layout.item_rank_list
-            }, parent, false))
+        return ViewHolder(LayoutInflater.from(parent.context).inflate(when {
+            viewType == TYPE_NO_RANK -> R.layout.item_no_rank
+            showGoals -> R.layout.item_rank_list_goals
+            else -> R.layout.item_rank_list
+        }, parent, false))
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = mValues[position]
-        holder.setRank(item.rank)
-        holder.highlighted = item.rank == selectedRank
-        if (showGoals) {
-            holder.setGoals(item.goals)
-        }
+        if (position > 0) {
+            val item = mValues[position - 1]
+            holder.setRank(item.rank)
+            holder.highlighted = item.rank == selectedRank
+            if (showGoals) {
+                holder.setGoals(item.goals)
+            }
 
-        with(holder.mView) {
-            tag = item
-            setOnClickListener(mOnClickListener)
+            with(holder.mView) {
+                tag = item
+                setOnClickListener(mOnClickListener)
+            }
+        } else {
+            holder.mView.setOnClickListener(mOnClickListener)
         }
     }
 
-    override fun getItemCount(): Int = mValues.size
+    override fun getItemViewType(pos: Int) =
+        if (pos == 0) TYPE_NO_RANK
+        else TYPE_RANK
+
+    override fun getItemCount(): Int = mValues.size + 1
 
     inner class ViewHolder(val mView: View) : RecyclerView.ViewHolder(mView) {
-        private val icon: ImageView = mView.image_rank_icon
-        private val title: TextView = mView.text_goal_title
+        private val icon: ImageView get() = mView.image_rank_icon
+        private val title: TextView get() = mView.text_goal_title
 
         var highlighted = false
             set(v) {
@@ -89,5 +97,10 @@ class RankListAdapter(private val mValues: List<RankEntry>,
         override fun toString(): String {
             return super.toString() + " '$title'"
         }
+    }
+
+    companion object {
+        const val TYPE_NO_RANK = 5
+        const val TYPE_RANK = 6
     }
 }
