@@ -96,7 +96,7 @@ class RankDetailsViewModel(private val context: Context,
 
     private fun updateHiddenCount() {
         val canHideTasks = rankEntry.allowedIgnores > 0
-        hiddenStatusVisibility.value = if (canHideTasks) View.VISIBLE else View.GONE
+        hiddenStatusVisibility.value = if (canHideTasks) View.VISIBLE else View.INVISIBLE
         if (canHideTasks) {
             hiddenStatusText.value = context.getString(R.string.goals_hidden_format, hiddenItemCount, rankEntry.allowedIgnores)
         }

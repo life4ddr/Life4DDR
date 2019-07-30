@@ -62,6 +62,5 @@ class RankDetailsFragment(private val rankEntry: RankEntry,
 
     class Options(val hideCompleted: Boolean = false,
                   val hideIgnored: Boolean = false,
-                  val showHeader: Boolean = true,
-                  val showSetRank: Boolean = false)
+                  val showHeader: Boolean = true)
 }

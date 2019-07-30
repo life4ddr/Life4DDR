@@ -21,6 +21,7 @@ import kotlinx.android.synthetic.main.item_rank_list_goals.view.*
  * specified [OnRankListInteractionListener].
  */
 class RankListAdapter(private val mValues: List<RankEntry>,
+                      private val selectedRank: LadderRank?,
                       private val showGoals: Boolean,
                       private val mListener: OnRankListInteractionListener?) :
     RecyclerView.Adapter<RankListAdapter.ViewHolder>() {
@@ -47,6 +48,7 @@ class RankListAdapter(private val mValues: List<RankEntry>,
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = mValues[position]
         holder.setRank(item.rank)
+        holder.highlighted = item.rank == selectedRank
         if (showGoals) {
             holder.setGoals(item.goals)
         }
@@ -62,6 +64,16 @@ class RankListAdapter(private val mValues: List<RankEntry>,
     inner class ViewHolder(val mView: View) : RecyclerView.ViewHolder(mView) {
         private val icon: ImageView = mView.image_rank_icon
         private val title: TextView = mView.text_goal_title
+
+        var highlighted = false
+            set(v) {
+                field = v
+                if (v) {
+                    mView.setBackgroundResource(R.drawable.drawable_rounded_light)
+                } else {
+                    mView.background = null
+                }
+            }
 
         fun setRank(rank: LadderRank) {
             icon.setImageDrawable(ContextCompat.getDrawable(mView.context, rank.drawableRes))

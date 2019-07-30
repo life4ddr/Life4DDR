@@ -30,7 +30,7 @@ class RankDetailsActivity : AppCompatActivity(), RankHeaderView.NavigationListen
         setContentView(R.layout.activity_rank_details)
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.container, RankDetailsFragment(rankEntry!!, RankDetailsFragment.Options(showSetRank = true), this, this))
+                .replace(R.id.container, RankDetailsFragment(rankEntry!!, RankDetailsFragment.Options(), this, this))
                 .commitNow()
         }
     }

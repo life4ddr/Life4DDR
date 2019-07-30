@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.data.LadderRankData
 import com.perrigogames.life4trials.data.RankEntry
 import com.perrigogames.life4trials.life4app
 import com.perrigogames.life4trials.ui.rankdetails.RankListAdapter
@@ -20,7 +19,8 @@ import kotlinx.android.synthetic.main.fragment_rank_list.view.*
  */
 class RankListFragment : Fragment() {
 
-    private val rankData: LadderRankData get() = context!!.life4app.ladderManager.ladderData
+    private val ladderManager get() = context!!.life4app.ladderManager
+    private val rankData get() = ladderManager.ladderData
 
     private val columnCount: Int
         get() = arguments?.getInt(ARG_COLUMN_COUNT) ?: 1
@@ -35,7 +35,7 @@ class RankListFragment : Fragment() {
                 columnCount <= 1 -> LinearLayoutManager(context)
                 else -> GridLayoutManager(context, columnCount)
             }
-            adapter = RankListAdapter(rankData.rankRequirements, columnCount == 1, listener)
+            adapter = RankListAdapter(rankData.rankRequirements, ladderManager.getUserRank(), columnCount == 1, listener)
         }
         return view
     }
