@@ -98,7 +98,7 @@ class SettingsActivity : AppCompatActivity() {
                 true
             }
 
-            preferenceListener(KEY_FEEDBACK) {
+            preferenceListener(KEY_SHOP) {
                 (activity as SettingsActivity).openWebUrlFromRes(R.string.url_shop)
                 true
             }
