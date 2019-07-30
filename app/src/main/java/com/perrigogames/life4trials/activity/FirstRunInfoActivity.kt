@@ -11,9 +11,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doAfterTextChanged
 import com.perrigogames.life4trials.Life4Application
 import com.perrigogames.life4trials.R
+import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_INFO_NAME
+import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_INFO_RIVAL_CODE
+import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_INFO_TWITTER_NAME
 import com.perrigogames.life4trials.api.ApiPlayer
 import com.perrigogames.life4trials.life4app
 import com.perrigogames.life4trials.manager.PlayerManager
+import com.perrigogames.life4trials.util.SharedPrefsUtil
 import com.perrigogames.life4trials.util.visibilityBool
 import com.perrigogames.life4trials.view.PlayerFoundView
 import kotlinx.android.synthetic.main.activity_first_run_info.*
@@ -33,6 +37,10 @@ class FirstRunInfoActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_first_run_info)
+
+        field_name.setText(SharedPrefsUtil.getUserString(this, KEY_INFO_NAME, ""))
+        field_rival_code.setText(SharedPrefsUtil.getUserString(this, KEY_INFO_RIVAL_CODE, ""))
+        field_twitter.setText(SharedPrefsUtil.getUserString(this, KEY_INFO_TWITTER_NAME, ""))
 
         field_name.onFocusChangeListener = View.OnFocusChangeListener { v, hasFocus ->
             if (!hasFocus) {
@@ -68,7 +76,7 @@ class FirstRunInfoActivity: AppCompatActivity() {
         Life4Application.eventBus.unregister(this)
     }
 
-    fun onNameFinished(name: String) {
+    private fun onNameFinished(name: String) {
         if (lastNameCheck == null || lastNameCheck != name) {
             lastNameCheck = name
             playerManager.importPlayerInfo(name)
@@ -122,7 +130,7 @@ class FirstRunInfoActivity: AppCompatActivity() {
         finish()
     }
 
-    fun onAcceptImportedPlayer(player: ApiPlayer) {
+    private fun onAcceptImportedPlayer(player: ApiPlayer) {
         field_name.error = null
         firstRunManager.setUserBasics(player.name, player.playerRivalCode, player.twitterHandle)
         ladderManager.setUserRank(player.rank)
