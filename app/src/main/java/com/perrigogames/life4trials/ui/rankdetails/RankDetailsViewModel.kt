@@ -116,6 +116,5 @@ class RankDetailsViewModel(private val context: Context,
     interface OnGoalListInteractionListener {
         fun onGoalStateChanged(item: BaseRankGoal, goalStatus: GoalStatus, hiddenGoals: Int) {}
         fun onRankSubmitClicked() {}
-        fun onUseRankClicked() {}
     }
 }

@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.data.RankEntry
 import com.perrigogames.life4trials.life4app
-import com.perrigogames.life4trials.util.visibilityBool
 import com.perrigogames.life4trials.view.RankHeaderView
 import kotlinx.android.synthetic.main.fragment_rank_details.view.*
 
@@ -33,16 +32,25 @@ class RankDetailsFragment(private val rankEntry: RankEntry,
                 it.rank = rankEntry.rank
                 it.navigationListener = navigationListener
             }
-            (view.fragment_rank_details.layoutParams as ConstraintLayout.LayoutParams).topToBottom = R.id.layout_rank_header
+            (view.text_goals_hidden.layoutParams as ConstraintLayout.LayoutParams).topToBottom = R.id.layout_rank_header
         }
 
         viewModel.hiddenStatusText.observe(this, Observer<String> { text -> view.text_goals_hidden.text = text })
-        viewModel.hiddenStatusVisibility.observe(this, Observer<Int> { v -> view.text_goals_hidden.visibility = v })
+        viewModel.hiddenStatusVisibility.observe(this, Observer<Int> { v ->
+            view.text_goals_hidden.visibility = v
+            (view.fragment_rank_details.layoutParams as ConstraintLayout.LayoutParams).let { params ->
+                params.topToBottom = when {
+                    v != View.GONE -> R.id.text_goals_hidden
+                    options.showHeader -> R.id.layout_rank_header
+                    else -> R.id.stub_rank_header
+                }
+            }
+        })
 
-        view.button_use_rank.apply {
-            visibilityBool = options.showSetRank
-            setOnClickListener { goalListListener?.onUseRankClicked() }
-        }
+//        view.button_use_rank.apply {
+//            visibilityBool = options.showSetRank
+//            setOnClickListener { goalListListener?.onUseRankClicked() }
+//        }
 
         view.fragment_rank_details.apply {
             adapter = viewModel.adapter

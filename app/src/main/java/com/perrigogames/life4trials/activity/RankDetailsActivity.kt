@@ -3,6 +3,7 @@ package com.perrigogames.life4trials.activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.data.RankEntry
@@ -38,7 +39,7 @@ class RankDetailsActivity : AppCompatActivity(), RankHeaderView.NavigationListen
 
     override fun onNextClicked() = navigationButtonClicked(ladderManager.nextEntry(rankEntry!!.rank))
 
-    override fun onUseRankClicked() {
+    fun useRankClicked(v: View) {
         setResult(RESULT_RANK_SELECTED, Intent().putExtra(EXTRA_RANK, rankEntry!!.rank.stableId))
         finish()
     }
