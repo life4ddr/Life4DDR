@@ -60,7 +60,7 @@
         android:button="@null"
         android:scaleX="0.7"
         android:scaleY="0.7"
-        app:backgroundTint="@color/colorPrimary"
+        app:backgroundTint="@color/colorAccent"
         app:layout_constraintBottom_toTopOf="@id/table_expand_details"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
