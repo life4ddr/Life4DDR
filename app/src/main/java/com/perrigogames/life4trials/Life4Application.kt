@@ -3,9 +3,9 @@ package com.perrigogames.life4trials
 import android.content.Context
 import android.util.Log
 import androidx.multidex.MultiDexApplication
-import com.perrigogames.life4trials.api.Life4API
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_INFO_NAME
 import com.perrigogames.life4trials.api.FirebaseUtil
+import com.perrigogames.life4trials.api.Life4API
 import com.perrigogames.life4trials.db.MyObjectBox
 import com.perrigogames.life4trials.manager.*
 import com.perrigogames.life4trials.util.NotificationUtil
@@ -15,10 +15,10 @@ import com.perrigogames.life4trials.util.SharedPrefsUtil.KEY_INIT_STATE
 import com.perrigogames.life4trials.util.SharedPrefsUtil.VAL_INIT_STATE_PLACEMENTS
 import com.perrigogames.life4trials.util.SharedPrefsUtil.VAL_INIT_STATE_RANKS
 import io.objectbox.BoxStore
+import io.objectbox.android.AndroidObjectBrowser
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import okhttp3.logging.HttpLoggingInterceptor.Level.BODY
-import io.objectbox.android.AndroidObjectBrowser
 import org.greenrobot.eventbus.EventBus
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -60,7 +60,7 @@ class Life4Application: MultiDexApplication() {
         songDataManager = SongDataManager(this)
         placementManager = PlacementManager(this)
         trialManager = TrialManager(this)
-        ladderManager = LadderManager(this, songDataManager)
+        ladderManager = LadderManager(this, songDataManager, trialManager)
         tournamentManager = TournamentManager()
         playerManager = PlayerManager(this)
 

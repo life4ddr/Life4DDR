@@ -98,16 +98,23 @@ class TrialManager(private val context: Context): BaseManager() {
             .show()
     }
 
-    fun bestTrial(trialId: String): TrialSessionDB? {
-        sessionBox.query {
-            return equal(TrialSessionDB_.trialId, trialId)
-                .equal(TrialSessionDB_.goalObtained, true)
-                .sort { o1, o2 -> o2.goalRankId.compareTo(o1.goalRankId)}
-                .build()
-                .find()
-                .firstOrNull()
+    fun bestTrial(trialId: String): TrialSessionDB? = sessionBox.query()
+        .equal(TrialSessionDB_.trialId, trialId)
+        .equal(TrialSessionDB_.goalObtained, true)
+        .sort { o1, o2 -> o2.goalRankId.compareTo(o1.goalRankId)}
+        .build()
+        .find()
+        .firstOrNull()
+
+    fun bestTrials(): List<TrialSessionDB> {
+        val results = sessionBox.query()
+            .equal(TrialSessionDB_.goalObtained, true)
+            .sort { o1, o2 -> o2.goalRankId.compareTo(o1.goalRankId)}
+            .build()
+            .find()
+        return trials.mapNotNull {
+            results.firstOrNull { db -> db.trialId == it.id }
         }
-        return null
     }
 
     fun getRankForTrial(trialId: String): TrialRank? {

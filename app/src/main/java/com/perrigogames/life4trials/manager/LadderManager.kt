@@ -23,8 +23,9 @@ import com.perrigogames.life4trials.util.SharedPrefsUtil
 import com.perrigogames.life4trials.util.loadRawString
 import java.util.*
 
-class LadderManager(val context: Context,
-                    val songDataManager: SongDataManager): BaseManager() {
+class LadderManager(private val context: Context,
+                    private val songDataManager: SongDataManager,
+                    private val trialManager: TrialManager): BaseManager() {
 
     //
     // Ladder Data
@@ -117,6 +118,10 @@ class LadderManager(val context: Context,
                         songDataManager.selectedIgnoreSongIds!!.contains(it.song.targetId)}
             val results = ladderResultQuery.setParameters("ids", filtered.map { it.id }.toLongArray()).find()
             goal.getGoalProgress(results)
+        }
+        is TrialGoal -> {
+            val trials = trialManager.bestTrials().filter { it.goalRankId >= goal.rank.stableId }
+            LadderGoalProgress(trials.size, goal.count)
         }
         else -> null
     }
