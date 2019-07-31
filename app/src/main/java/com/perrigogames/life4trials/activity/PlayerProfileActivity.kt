@@ -62,7 +62,6 @@ class PlayerProfileActivity : AppCompatActivity(), RankDetailsViewModel.OnGoalLi
             R.id.action_records -> startActivity(Intent(this, TrialRecordsActivity::class.java))
             R.id.action_import_data -> ladderManager.showImportFlow(this)
             R.id.action_progress_matrix -> startActivity(MatrixTestActivity.intent(this, LadderRank.DIAMOND1))
-            R.id.action_shop -> openWebUrlFromRes(R.string.url_shop)
             else -> return super.onOptionsItemSelected(item)
         }
         return true

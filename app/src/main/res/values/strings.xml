@@ -13,6 +13,7 @@
     <string name="action_export">Export Ranks</string>
     <string name="action_import">Import Ranks</string>
     <string name="action_records">Records</string>
+    <string name="action_trial_records">Trial Records</string>
     <string name="action_rank_goals">Rank Goals</string>
     <string name="action_player_profile">Player Profile</string>
     <string name="action_shop">Shop</string>
@@ -364,4 +365,5 @@
     <string name="show_notifications_title">Show Info Notifications</string>
     <string name="no_rank">NO RANK</string>
     <string name="import_ddra_data">Import DDR A Score Manager Data</string>
+    <string name="import_ddra_data_short">DDR A Manager Import</string>
 </resources>
