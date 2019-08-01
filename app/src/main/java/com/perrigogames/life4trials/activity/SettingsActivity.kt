@@ -14,11 +14,13 @@ import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.data.LadderRank
 import com.perrigogames.life4trials.data.TrialRank
 import com.perrigogames.life4trials.data.TrialSession
+import com.perrigogames.life4trials.event.LocalUserInfoUpdatedEvent
 import com.perrigogames.life4trials.event.TrialListReplacedEvent
 import com.perrigogames.life4trials.event.TrialListUpdatedEvent
 import com.perrigogames.life4trials.life4app
 import com.perrigogames.life4trials.util.NotificationUtil
 import com.perrigogames.life4trials.util.SharedPrefsUtil
+import com.perrigogames.life4trials.util.openWebUrlFromRes
 
 class SettingsActivity : AppCompatActivity() {
 
@@ -41,7 +43,10 @@ class SettingsActivity : AppCompatActivity() {
 
     class SettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedPreferenceChangeListener {
 
+        private val ladderManager get() = context!!.life4app.ladderManager
         private val trialManager get() = context!!.life4app.trialManager
+        private val playerManager get() = context!!.life4app.playerManager
+        private val songDataManager get() = context!!.life4app.songDataManager
 
         private val listUpdateListener: (Preference) -> Boolean = {
             Life4Application.eventBus.post(TrialListUpdatedEvent())
@@ -56,6 +61,17 @@ class SettingsActivity : AppCompatActivity() {
             setPreferencesFromResource(R.xml.root_preferences, rootKey)
 
             val context = preferenceManager.context
+            preference(KEY_INFO_NAME).summary =
+                SharedPrefsUtil.getUserString(context, KEY_INFO_NAME)
+            (preference(KEY_INFO_RANK) as DropDownPreference).apply {
+                summary = LadderRank.parse(value?.toLongOrNull())?.toString() ?: getString(R.string.none)
+                entries = LadderRank.values().map { it.toString() }.toMutableList().apply {
+                    add(0, "NONE")
+                }.toTypedArray()
+                entryValues = LadderRank.values().map { it.stableId.toString() }.toMutableList().apply {
+                    add(0, "")
+                }.toTypedArray()
+            }
             preference(KEY_INFO_RIVAL_CODE).summary =
                 SharedPrefsUtil.getUserString(context, KEY_INFO_RIVAL_CODE)
             preference(KEY_INFO_TWITTER_NAME).summary =
@@ -64,8 +80,8 @@ class SettingsActivity : AppCompatActivity() {
                 NotificationUtil.showUserInfoNotifications(context, 1579)
                 true
             }
-            preferenceListener(KEY_RECORDS_CLEAR) {
-                trialManager.clearRecords(context)
+            preferenceListener(KEY_IMPORT_DATA) {
+                ladderManager.showImportFlow(activity!!)
                 true
             }
 
@@ -74,6 +90,23 @@ class SettingsActivity : AppCompatActivity() {
             preferenceListener(KEY_LIST_TINT_COMPLETED, listUpdateListener)
             preferenceListener(KEY_LIST_HIGHLIGHT_NEW, listReplaceListener)
 
+            preferenceListener(KEY_LADDER_CLEAR) {
+                ladderManager.clearGoalStates(context)
+                true
+            }
+            preferenceListener(KEY_RECORDS_CLEAR) {
+                trialManager.clearRecords(context)
+                true
+            }
+            preferenceListener(KEY_SONG_RESULTS_CLEAR) {
+                ladderManager.clearSongResults(context)
+                true
+            }
+
+            preferenceListener(KEY_SHOP) {
+                (activity as SettingsActivity).openWebUrlFromRes(R.string.url_shop)
+                true
+            }
             preferenceListener(KEY_FEEDBACK) {
                 startActivity(Intent(ACTION_SENDTO, Uri.parse(
                     "mailto:life4@perrigogames.com?subject=${Uri.encode(getString(R.string.life4_feedback_email_subject))}")))
@@ -83,68 +116,89 @@ class SettingsActivity : AppCompatActivity() {
             if (BuildConfig.DEBUG) {
                 addDebugSettings()
             }
+            SharedPrefsUtil.isPreviewEnabled().let { p ->
+                preference(KEY_CATEGORY_IMPORT).isVisible = p
+            }
 
-            Preference(context).apply {
+            preference {
                 key = "version_info"
                 title = "Version ${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})"
-                preferenceScreen.addPreference(this)
             }
         }
 
         private fun addDebugSettings() {
-            PreferenceCategory(context).apply {
-                key = "debug_flags_category"
-                title = "Debug Flags*"
-                preferenceScreen.addPreference(this)
-                addPreference(SwitchPreference(context).apply {
+            category("debug_flags_category", "Debug Settings*") {
+                checkBox(this) {
                     key = KEY_DEBUG_DETAILS_DISPLAY_ALL_RANKS
                     title = "Display all ranks"
                     summary = "Show all the ranks one after the other on the Details screen"
-                })
-                addPreference(SwitchPreference(context).apply {
+                }
+                checkBox(this) {
                     key = KEY_DEBUG_BYPASS_CAMERA
                     title = "Bypass camera"
                     summary = "Use a generic image instead of launching the Camera"
-                })
-                addPreference(SwitchPreference(context).apply {
+                }
+                checkBox(this) {
                     key = KEY_DEBUG_ACCEPT_INVALID
                     title = "Accept invalid song data"
                     summary = "Allow missing fields when entering scores and steps"
-                })
-                addPreference(SwitchPreference(context).apply {
+                }
+                checkBox(this) {
                     key = KEY_DEBUG_BYPASS_STAT_ENTRY
                     title = "Bypass stats entry"
                     summary = "Use random score values when entering a new photo"
-                })
+                }
+                preference(this) {
+                    key = "induce_crash"
+                    title = "Induce crash"
+                    onPreferenceClickListener = Preference.OnPreferenceClickListener {
+                        throw IllegalAccessException()
+                    }
+                }
             }
-            PreferenceCategory(context).apply {
-                key = "debug_notifications_category"
-                title = "Debug Notifications*"
-                preferenceScreen.addPreference(this)
-                addPreference(Preference(context).apply {
+            category("debug_notifications_category", "Debug Notifications*") {
+                preference(this) {
                     key = "debug_placement"
                     title = "Placement results"
                     onPreferenceClickListener = Preference.OnPreferenceClickListener {
                         NotificationUtil.showPlacementNotification(context, LadderRank.values().random())
                         true
                     }
-                })
-                addPreference(Preference(context).apply {
+                }
+                preference(this) {
                     key = "debug_ladder"
                     title = "Ladder rank up"
                     onPreferenceClickListener = Preference.OnPreferenceClickListener {
                         NotificationUtil.showLadderRankChangedNotification(context, LadderRank.values().random())
                         true
                     }
-                })
-                addPreference(Preference(context).apply {
+                }
+                preference(this) {
                     key = "debug_trial"
                     title = "Trial rank up"
                     onPreferenceClickListener = Preference.OnPreferenceClickListener {
                         NotificationUtil.showTrialRankChangedNotification(context, trialManager.trials.random(), TrialRank.values().random())
                         true
                     }
-                })
+                }
+            }
+            Preference(context).apply {
+                key = KEY_DEBUG_LEADERBOARD
+                title = "Leaderboard Test"
+                onPreferenceClickListener = Preference.OnPreferenceClickListener {
+                    (context as AppCompatActivity).startActivity(Intent(context, LadderLeaderboardActivity::class.java))
+                    true
+                }
+                preferenceScreen.addPreference(this)
+            }
+            Preference(context).apply {
+                key = KEY_DEBUG_DATA_DUMP
+                title = "Dump Song Data"
+                onPreferenceClickListener = Preference.OnPreferenceClickListener {
+                    songDataManager.dumpData()
+                    true
+                }
+                preferenceScreen.addPreference(this)
             }
             Preference(context).apply {
                 key = "induce_crash"
@@ -152,13 +206,8 @@ class SettingsActivity : AppCompatActivity() {
                 onPreferenceClickListener = Preference.OnPreferenceClickListener {
                     throw IllegalAccessException()
                 }
-                preferenceScreen.addPreference(this)
             }
-            PreferenceCategory(context).apply {
-                key = "debug_ranks_category"
-                title = "Debug Ranks*"
-                preferenceScreen.addPreference(this)
-
+            category("debug_ranks_category", "Debug Ranks*") {
                 val ranksList = TrialRank.values().map { it.toString() }.toMutableList()
                 ranksList.add(0, "NONE")
                 val ranksArray = ranksList.toTypedArray()
@@ -177,8 +226,24 @@ class SettingsActivity : AppCompatActivity() {
         override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
             if (key != null) {
                 when {
+                    key == KEY_INFO_NAME ||
                     key == KEY_INFO_RIVAL_CODE ||
-                    key == KEY_INFO_TWITTER_NAME -> findPreference<EditTextPreference>(key)?.let { it.summary = it.text }
+                    key == KEY_INFO_TWITTER_NAME ->  {
+                        findPreference<EditTextPreference>(key)?.let { it.summary = it.text }
+                        Life4Application.eventBus.post(LocalUserInfoUpdatedEvent())
+                    }
+                    key == KEY_INFO_RANK -> {
+                        findPreference<DropDownPreference>(key)?.let {
+                            LadderRank.parse(it.value.toLongOrNull()).let { rank ->
+                                it.summary = rank?.toString() ?: getString(R.string.none)
+                                ladderManager.setUserRank(rank)
+                            }
+                        }
+                    }
+                    key == KEY_INFO_IMPORT -> findPreference<EditTextPreference>(key)?.let {
+                        it.text?.let { text -> playerManager.importPlayerInfo(text) }
+                        it.text = null
+                    }
                     key.startsWith(KEY_DEBUG_RANK_PREFIX) -> findPreference<DropDownPreference>(key)?.let { it ->
                         val rank = TrialRank.parse(it.entry.toString())
                         val session = TrialSession(
@@ -206,6 +271,26 @@ class SettingsActivity : AppCompatActivity() {
         private inline fun preferenceListener(key: String, crossinline action: (Preference) -> Boolean) {
             preference(key).onPreferenceClickListener = Preference.OnPreferenceClickListener { action(it) }
         }
+
+        private inline fun preference(target: PreferenceGroup = preferenceScreen, block: Preference.() -> Unit) =
+            target.addPreference(Preference(context).apply(block))
+
+        private inline fun switch(target: PreferenceGroup = preferenceScreen, block: SwitchPreference.() -> Unit) =
+            target.addPreference(SwitchPreference(context).apply(block))
+
+        private inline fun checkBox(target: PreferenceGroup = preferenceScreen, block: CheckBoxPreference.() -> Unit) =
+            target.addPreference(CheckBoxPreference(context).apply(block))
+
+        private inline fun category(key: String,
+                                    title: String,
+                                    target: PreferenceGroup = preferenceScreen,
+                                    block: PreferenceCategory.() -> Unit) =
+            PreferenceCategory(context).also {
+                it.key = key
+                it.title = title
+                target.addPreference(it)
+                it.apply(block)
+            }
     }
 
     companion object {
@@ -216,18 +301,29 @@ class SettingsActivity : AppCompatActivity() {
         const val KEY_DETAILS_PHOTO_SELECT = "KEY_DETAILS_PHOTO_SELECT"
         const val KEY_DETAILS_EXPERT = "KEY_DETAILS_EXPERT"
         const val KEY_DETAILS_ENFORCE_EXPERT = "KEY_DETAILS_ENFORCE_EXPERT"
+        const val KEY_INFO_NAME = "KEY_INFO_NAME"
+        const val KEY_INFO_RANK = "KEY_INFO_RANK"
         const val KEY_INFO_RIVAL_CODE = "KEY_INFO_RIVAL_CODE"
         const val KEY_INFO_TWITTER_NAME = "KEY_INFO_TWITTER_NAME"
+        const val KEY_INFO_IMPORT = "KEY_INFO_IMPORT"
         const val KEY_SUBMISSION_NOTIFICAION = "KEY_SUBMISSION_NOTIFICAION"
         const val KEY_SUBMISSION_NOTIFICAION_TEST = "KEY_SUBMISSION_NOTIFICAION_TEST"
         const val KEY_RECORDS_REMAINING_EX = "KEY_RECORDS_REMAINING_EX"
-        const val KEY_RECORDS_CLEAR = "KEY_RECORDS_CLEAR"
+        const val KEY_SHOP = "KEY_SHOP"
         const val KEY_FEEDBACK = "KEY_FEEDBACK"
+        const val KEY_CATEGORY_IMPORT = "KEY_CATEGORY_IMPORT"
+        const val KEY_IMPORT_DATA = "KEY_IMPORT_DATA"
+        const val KEY_IMPORT_SKIP_DIRECTIONS = "KEY_IMPORT_SKIP_DIRECTIONS"
+        const val KEY_LADDER_CLEAR = "KEY_LADDER_CLEAR"
+        const val KEY_SONG_RESULTS_CLEAR = "KEY_SONG_RESULTS_CLEAR"
+        const val KEY_RECORDS_CLEAR = "KEY_RECORDS_CLEAR"
 
         const val KEY_DEBUG_DETAILS_DISPLAY_ALL_RANKS = "dddar"
         const val KEY_DEBUG_BYPASS_STAT_ENTRY = "dbse"
         const val KEY_DEBUG_ACCEPT_INVALID = "dbai"
         const val KEY_DEBUG_BYPASS_CAMERA = "dbc"
+        const val KEY_DEBUG_LEADERBOARD = "dlb"
+        const val KEY_DEBUG_DATA_DUMP = "dimo"
 
         private const val KEY_DEBUG_RANK_PREFIX = "KEY_DEBUG_RANK_PREFIX"
     }

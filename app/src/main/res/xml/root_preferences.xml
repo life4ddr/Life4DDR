@@ -1,40 +1,64 @@
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory app:title="@string/user_info">
 
+        <EditTextPreference
+            app:key="KEY_INFO_NAME"
+            app:title="@string/player_name" />
+        <DropDownPreference
+            app:key="KEY_INFO_RANK"
+            app:title="@string/player_rank"/>
         <EditTextPreference
             app:key="KEY_INFO_RIVAL_CODE"
             app:title="@string/rival_code" />
         <EditTextPreference
             app:key="KEY_INFO_TWITTER_NAME"
             app:title="@string/twitter_name" />
-        <SwitchPreference
+        <!--<EditTextPreference-->
+            <!--app:key="KEY_INFO_IMPORT"-->
+            <!--app:summary="@string/import_info_description"-->
+            <!--app:title="@string/import_info"/>-->
+        <CheckBoxPreference
             app:key="KEY_SUBMISSION_NOTIFICAION"
             app:defaultValue="true"
-            app:title="@string/show_notifications" />
+            app:summary="@string/show_notifications"
+            app:title="@string/show_notifications_title" />
         <Preference
             app:key="KEY_SUBMISSION_NOTIFICAION_TEST"
             app:title="@string/test_notifications" />
     </PreferenceCategory>
 
+    <PreferenceCategory
+        app:key="KEY_CATEGORY_IMPORT"
+        app:title="@string/score_manager_import" >
+
+        <Preference
+            app:key="KEY_IMPORT_DATA"
+            app:title="@string/import_manager_data"/>
+
+        <CheckBoxPreference
+            app:key="KEY_IMPORT_SKIP_DIRECTIONS"
+            app:title="@string/import_skip_directions"/>
+
+    </PreferenceCategory>
+
     <PreferenceCategory app:title="@string/trial_list">
 
-        <SwitchPreference
+        <CheckBoxPreference
             app:key="KEY_LIST_SHOW_EX"
             app:title="@string/show_ex" />
 
-        <SwitchPreference
+        <CheckBoxPreference
             app:dependency="KEY_LIST_SHOW_EX"
             app:key="KEY_LIST_SHOW_EX_REMAINING"
             app:title="@string/show_ex_remaining" />
 
-        <SwitchPreference
+        <CheckBoxPreference
             app:key="KEY_LIST_TINT_COMPLETED"
             app:defaultValue="true"
             app:title="@string/tint_completed_trials"/>
 
-        <SwitchPreference
+        <CheckBoxPreference
             app:defaultValue="true"
             app:key="KEY_LIST_HIGHLIGHT_NEW"
             app:title="@string/highlight_new_trials"/>
@@ -42,33 +66,47 @@
 
     <PreferenceCategory app:title="@string/trial_details">
 
-        <SwitchPreference
+        <CheckBoxPreference
             app:key="KEY_DETAILS_PHOTO_SELECT"
             app:title="@string/photo_select" />
 
-        <SwitchPreference
+        <CheckBoxPreference
             app:key="KEY_DETAILS_EXPERT"
             app:title="@string/expert_score" />
 
-        <SwitchPreference
-            android:defaultValue="true"
+        <CheckBoxPreference
+            app:defaultValue="true"
             app:key="KEY_DETAILS_ENFORCE_EXPERT"
             app:title="@string/enforce_expert" />
     </PreferenceCategory>
 
     <PreferenceCategory app:title="@string/trial_records">
 
-        <SwitchPreference
+        <CheckBoxPreference
             app:key="KEY_RECORDS_REMAINING_EX"
-            app:title="@string/show_remaining_instead_total" />
+            app:summary="@string/show_remaining_instead_total"
+            app:title="@string/show_remaining_ex_title"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/clear_data">
+        <Preference
+            app:key="KEY_LADDER_CLEAR"
+            app:title="@string/clear_goal_states"/>
+
+        <Preference
+            app:key="KEY_SONG_RESULTS_CLEAR"
+            app:title="@string/clear_song_results"/>
 
         <Preference
             app:key="KEY_RECORDS_CLEAR"
             app:title="@string/action_clear_record_data"/>
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="@string/help">
-
+    <PreferenceCategory app:title="@string/help_and_feedback">
+        <Preference
+            app:key="KEY_SHOP"
+            app:summary="@string/description_shop"
+            app:title="@string/action_shop"/>
         <Preference
             app:key="KEY_FEEDBACK"
             app:summary="@string/send_feedback_summary"

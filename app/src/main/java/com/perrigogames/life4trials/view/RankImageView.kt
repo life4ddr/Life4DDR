@@ -1,6 +1,8 @@
 package com.perrigogames.life4trials.view
 
 import android.content.Context
+import android.graphics.ColorMatrix
+import android.graphics.ColorMatrixColorFilter
 import android.util.AttributeSet
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
@@ -15,7 +17,9 @@ class RankImageView @JvmOverloads constructor(context: Context, attrs: Attribute
     var rank: LadderRank? = null
         set(v) {
             field = v
-            setImageDrawable(if (v == null) null else
-                ContextCompat.getDrawable(context, v.drawableRes))
+            setImageDrawable(ContextCompat.getDrawable(context, (v ?: LadderRank.WOOD1).drawableRes))
+            imageAlpha = if (v != null) 255 else 128
+            colorFilter = if (v != null) null else
+                ColorMatrixColorFilter(ColorMatrix().apply { setSaturation(0f) })
         }
 }

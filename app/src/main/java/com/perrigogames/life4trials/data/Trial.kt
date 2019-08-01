@@ -8,6 +8,7 @@ import java.io.Serializable
 
 class TrialData(val trials: List<Trial>): Serializable {
     companion object {
+        const val HIGHEST_DIFFICULTY = 20
         const val TRIAL_LENGTH = 4
         const val MAX_SCORE = 1000000
         const val AAA_SCORE = 990000

@@ -3,11 +3,10 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'io.fabric'
-apply plugin: 'io.objectbox' // apply last
 
 ext {
     play_services_version = "15.0.1"
-    retrofit2_version = "2.5.0"
+    retrofit2_version = "2.6.0"
     okhttp3_version = "3.12.0"
     kotlin_coroutine_version = "1.0.1"
     dagger2_version = "2.22"
@@ -18,7 +17,7 @@ android {
         upload {
             storeFile file('../../keystores/upload-keystore.jks')
             keyPassword 'FlOnG9T#0sNe41bXjKtVJi75Y'
-            storePassword 'Ndb%TJQfsJ5c8%qLHP4QEG%Y@'
+            storePassword 'FlOnG9T#0sNe41bXjKtVJi75Y'
             keyAlias = 'upload'
         }
         debug {
@@ -45,6 +44,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.upload
             manifestPlaceholders = [providerName: "com.perrigogames.fileprovider"]
+        }
+        preview {
+            initWith release
         }
         debug {
             applicationIdSuffix ".debug"
@@ -92,7 +94,6 @@ dependencies {
     // Retrofit2
     implementation "com.squareup.retrofit2:retrofit:$retrofit2_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit2_version"
-    implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2"
 
     // Okhttp3
     implementation "com.squareup.okhttp3:okhttp:$okhttp3_version"
@@ -103,14 +104,17 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlin_coroutine_version"
 
     // Google Drive
-    implementation 'com.google.android.gms:play-services-auth:16.0.1'
-    implementation 'com.google.http-client:google-http-client-gson:1.26.0'
-    implementation('com.google.api-client:google-api-client-android:1.26.0') {
-        exclude group: 'org.apache.httpcomponents'
-    }
-    implementation('com.google.apis:google-api-services-drive:v3-rev136-1.25.0') {
-        exclude group: 'org.apache.httpcomponents'
-    }
+//    implementation 'com.google.android.gms:play-services-auth:16.0.1'
+//    implementation 'com.google.http-client:google-http-client-gson:1.26.0'
+//    implementation('com.google.api-client:google-api-client-android:1.26.0') {
+//        exclude group: 'org.apache.httpcomponents'
+//    }
+//    implementation('com.google.apis:google-api-services-drive:v3-rev136-1.25.0') {
+//        exclude group: 'org.apache.httpcomponents'
+//    }
+
+    debugImplementation "io.objectbox:objectbox-android-objectbrowser:$objectboxVersion"
+    releaseImplementation "io.objectbox:objectbox-android:$objectboxVersion"
 
     // Dagger2
     implementation "com.google.dagger:dagger-android:$dagger2_version"
@@ -118,6 +122,7 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.0.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
     kapt "com.google.dagger:dagger-compiler:$dagger2_version"
     kapt "com.google.dagger:dagger-android-processor:$dagger2_version"
 
@@ -132,3 +137,4 @@ dependencies {
 }
 
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'io.objectbox' // apply last

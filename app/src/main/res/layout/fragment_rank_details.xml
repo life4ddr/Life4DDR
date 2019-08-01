@@ -1,18 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include
-        android:id="@+id/layout_rank_header"
-        layout="@layout/view_rank_header"/>
+    <ViewStub
+        android:id="@+id/stub_rank_header"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:inflatedId="@+id/layout_rank_header"
+        android:layout="@layout/view_rank_header"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/text_goals_hidden"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content_padding_med"
+        android:layout_marginEnd="@dimen/content_padding_large"
+        android:layout_marginRight="@dimen/content_padding_large"
+        android:layout_marginBottom="@dimen/content_padding_med"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/stub_rank_header"
+        tools:text="2/5 hidden" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/fragment_rank_details"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:listitem="@layout/item_rank_goal" />
-</LinearLayout>
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_goals_hidden"
+        tools:listitem="@layout/item_rank_goal"/>
+
+    <TextView
+        android:id="@+id/text_question"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="?"
+        android:textSize="164dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/text_goals_hidden"
+        tools:visibility="visible"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,6 +10,7 @@ import androidx.annotation.RawRes
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.typeadapters.RuntimeTypeAdapterFactory
+import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.data.*
 import java.io.*
 import java.text.SimpleDateFormat
@@ -31,6 +32,7 @@ object DataUtil {
                 .registerSubtype(SongSetGoal::class.java, SongSetGoal.TYPE_STRING)
                 .registerSubtype(DifficultyClearGoal::class.java, DifficultyClearGoal.TYPE_STRING)
                 .registerSubtype(TrialGoal::class.java, TrialGoal.TYPE_STRING)
+                .registerSubtype(MFCPointsGoal::class.java, MFCPointsGoal.TYPE_STRING)
                 .registerSubtype(MultipleChoiceGoal::class.java, MultipleChoiceGoal.TYPE_STRING))
             .create()
     }
@@ -135,7 +137,7 @@ val Context.locale: Locale get() = when {
 }
 
 
-fun List<String>.toListString(c: Context, lastModifierFormatRes: Int): String = StringBuilder().apply {
+fun List<String>.toListString(c: Context, lastModifierFormatRes: Int = R.string.or_s): String = StringBuilder().apply {
     this@toListString.forEachIndexed { index, d ->
         append(when {
             this@toListString.size == 1 -> d

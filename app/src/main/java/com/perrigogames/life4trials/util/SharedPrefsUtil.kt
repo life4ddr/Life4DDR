@@ -9,7 +9,11 @@ import com.perrigogames.life4trials.R
 
 object SharedPrefsUtil {
 
-    const val KEY_INIT = "KEY_INIT"
+    const val KEY_INIT_STATE = "KEY_INIT_STATE"
+    const val VAL_INIT_STATE_PLACEMENTS = "placements"
+    const val VAL_INIT_STATE_RANKS = "ranks"
+    const val VAL_INIT_STATE_DONE = "done"
+
     const val KEY_RANK_PREFS = "rank_preferences"
     const val KEY_USER_PREFS = "user_preferences"
     const val KEY_TUTORIAL_PREFS = "tutorial_preferences"
@@ -32,6 +36,12 @@ object SharedPrefsUtil {
     /** @return a stored flag in the user preferences */
     fun getUserFlag(c: Context, flag: String, def: Boolean) = userPrefs(c).getBoolean(flag, def)
 
+    /** @return a stored int in the user preferences */
+    fun getUserInt(c: Context, flag: String, def: Int) = userPrefs(c).getInt(flag, def)
+
+    /** @return a stored Long in the user preferences */
+    fun getUserLong(c: Context, flag: String, def: Long) = userPrefs(c).getLong(flag, def)
+
     /** @return a stored string in the user preferences */
     fun getUserString(c: Context, flag: String, def: String? = null) = userPrefs(c).getString(flag, def)
 
@@ -40,7 +50,12 @@ object SharedPrefsUtil {
 
     fun setUserFlag(c: Context, flag: String, v: Boolean) = userPrefs(c).edit(true) { putBoolean(flag, v) }
 
+    fun setUserString(c: Context, flag: String, v: String? = null) = userPrefs(c).edit(true) { putString(flag, v) }
+
     fun setDebugFlag(c: Context, flag: String, v: Boolean) = setUserFlag(c, flag, v)
+
+    /** @return true if preview features should be shown */
+    fun isPreviewEnabled() = BuildConfig.DEBUG || BuildConfig.BUILD_TYPE == "preview"
 
     fun initializeDefaults(c: Context) {
         PreferenceManager.setDefaultValues(c, R.xml.root_preferences, false)

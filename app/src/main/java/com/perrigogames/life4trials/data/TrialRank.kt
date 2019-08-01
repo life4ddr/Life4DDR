@@ -8,7 +8,7 @@ import java.io.Serializable
 /**
  * Enum class representing a Rank that a player can earn in a LIFE4 Trial.
  */
-enum class TrialRank(val stableId: Int,
+enum class TrialRank(val stableId: Long,
                      @StringRes val nameRes: Int,
                      val parent: LadderRank): Serializable {
     @SerializedName("silver") SILVER(20, R.string.silver, LadderRank.SILVER3),
@@ -29,7 +29,7 @@ enum class TrialRank(val stableId: Int,
         EMERALD -> EMERALD
     }
 
-    val color get() = parent.color
+    val colorRes get() = parent.colorRes
 
     /**
      * Generates a list of this and all [TrialRank]s that are higher than this.
@@ -43,6 +43,6 @@ enum class TrialRank(val stableId: Int,
             else -> valueOf(s)
         }
 
-        fun parse(stableId: Int): TrialRank? = values().firstOrNull { it.stableId == stableId }
+        fun parse(stableId: Long): TrialRank? = values().firstOrNull { it.stableId == stableId }
     }
 }

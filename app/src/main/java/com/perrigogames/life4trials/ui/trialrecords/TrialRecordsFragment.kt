@@ -3,8 +3,6 @@ package com.perrigogames.life4trials.ui.trialrecords
 import android.content.Context
 import android.os.Bundle
 import android.view.*
-import android.view.View.GONE
-import android.view.View.VISIBLE
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -13,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.db.TrialSessionDB
 import com.perrigogames.life4trials.life4app
+import com.perrigogames.life4trials.util.visibilityBool
 import com.perrigogames.life4trials.view.ContextMenuRecyclerView.RecyclerViewContextMenuInfo
 import kotlinx.android.synthetic.main.fragment_trial_records.*
 
@@ -75,7 +74,7 @@ class TrialRecordsFragment : Fragment() {
     }
 
     private fun updateEmptyLabelView() {
-        text_no_records.visibility = if (adapter.itemCount <= 0) VISIBLE else GONE
+        text_no_records.visibilityBool = adapter.itemCount <= 0
     }
 
     /**

@@ -1,5 +1,6 @@
 <resources>
-    <string name="app_name">LIFE4 Trials</string>
+    <string name="app_name">LIFE4</string>
+    <string name="life4_trials">LIFE4 Trials</string>
 
     <string name="file_provider_name">com.perrigogames.fileprovider</string>
 
@@ -12,34 +13,39 @@
     <string name="action_export">Export Ranks</string>
     <string name="action_import">Import Ranks</string>
     <string name="action_records">Records</string>
+    <string name="action_trial_records">Trial Records</string>
     <string name="action_rank_goals">Rank Goals</string>
+    <string name="action_player_profile">Player Profile</string>
+    <string name="action_shop">Shop</string>
+    <string name="description_shop">Purchase physical LIFE4 gear</string>
 
     <!-- Trial Goal Strings -->
     <string name="clear_first_songs">• %s the first %d songs.</string>
-    <string name="score_songs">• Score %s on at least %d songs.</string>
-    <string name="aaa_songs">• AAA at least %d songs.</string>
-    <string name="mfc_songs">• MFC at least %d songs.</string>
-    <string name="score_other_songs">• Score %s on at least %d other songs.</string>
-    <string name="aaa_other_songs">• AAA at least %d other songs.</string>
-    <string name="mfc_other_songs">• MFC at least %d other songs.</string>
-    <string name="score_specific_song">• Score %s on %s.</string>
-    <string name="aaa_specific_song">• AAA %s.</string>
-    <string name="mfc_specific_song">• MFC %s.</string>
-    <string name="score_every_song">• Score %s on every song.</string>
-    <string name="aaa_every_song">• AAA every song.</string>
-    <string name="mfc_every_song">• MFC every song.</string>
-    <string name="score_on_remainder">• Score %s on all other songs.</string>
-    <string name="aaa_on_remainder">• AAA all other songs.</string>
-    <string name="mfc_on_remainder">• MFC all other songs.</string>
-    <string name="bad_judgments_count">• %d or fewer Greats, Goods, and Misses.</string>
-    <string name="misses_count">• %d or fewer Misses.</string>
+    <string name="score_songs">Score %s on at least %d songs.</string>
+    <string name="aaa_songs">AAA at least %d songs.</string>
+    <string name="mfc_songs">MFC at least %d songs.</string>
+    <string name="score_other_songs">Score %s on at least %d other songs.</string>
+    <string name="aaa_other_songs">AAA at least %d other songs.</string>
+    <string name="mfc_other_songs">MFC at least %d other songs.</string>
+    <string name="score_specific_song">Score %s on %s.</string>
+    <string name="score_specific_song_difficulty">Score %s on %s (%s).</string>
+    <string name="aaa_specific_song">AAA %s.</string>
+    <string name="mfc_specific_song">MFC %s.</string>
+    <string name="score_every_song">Score %s on every song.</string>
+    <string name="aaa_every_song">AAA every song.</string>
+    <string name="mfc_every_song">MFC every song.</string>
+    <string name="score_on_remainder">Score %s on all other songs.</string>
+    <string name="aaa_on_remainder">AAA all other songs.</string>
+    <string name="mfc_on_remainder">MFC all other songs.</string>
+    <string name="bad_judgments_count">%d or fewer Greats, Goods, and Misses.</string>
+    <string name="misses_count">%d or fewer Misses.</string>
     <string name="misses_each_count">• %d or fewer Misses on each song.</string>
-    <string name="missing_ex_count">• %d missing EX or less.</string>
-    <string name="missing_ex_count_threshold">• %d missing EX or less (%d).</string>
-    <string name="pass_the_trial">• Pass the Trial.</string>
-    <string name="no_bad_judgments">• PFC all songs.</string>
-    <string name="no_missing_ex">• MFC all songs.</string>
-    <string name="no_misses">• Full combo all songs.</string>
+    <string name="missing_ex_count">%d missing EX or less.</string>
+    <string name="missing_ex_count_threshold">%d missing EX or less (%d).</string>
+    <string name="pass_the_trial">Pass the Trial.</string>
+    <string name="no_bad_judgments">PFC all songs.</string>
+    <string name="no_missing_ex">MFC all songs.</string>
+    <string name="no_misses">Full combo all songs.</string>
 
     <!-- RankEntry Goal Strings -->
     <string name="rank_goal_calories">Burn %d calories in one day.</string>
@@ -52,6 +58,7 @@
     <string name="rank_goal_clear_trial">Earn %s on %d trials.</string>
     <string name="rank_goal_clear_trial_single">Earn %s on any trial.</string>
     <string name="rank_goal_difficulty_clear">%s %d different %s.</string>
+    <string name="rank_goal_difficulty_clear_single">%s %s.</string>
     <string name="rank_goal_difficulty_clear_single_a">%s a %s.</string>
     <string name="rank_goal_difficulty_clear_single_an">%s an %s.</string>
     <string name="rank_goal_difficulty_lamp">%s the %d\'s folder.</string>
@@ -60,7 +67,9 @@
     <string name="rank_goal_difficulty_score_all_lamp">All %s over %s with a %s.</string>
     <string name="rank_goal_difficulty_aaa_all">AAA every %d.</string>
     <string name="rank_goal_difficulty_aaa_all_lamp">AAA every %d with a %s.</string>
-    <string name="exceptions">(%dE)</string>
+    <string name="rank_goal_ex_points">Earn %d MFC Points.</string>
+    <string name="exceptions">" (%dE)"</string>
+    <string name="exceptions_songs">" (except %s)"</string>
 
     <string name="fail">Fail</string>
     <string name="clear">Clear</string>
@@ -114,9 +123,13 @@
     <string name="trial_submit_dialog_prompt">Photos are saved to your SD card\'s Pictures/LIFE4 folder. These photos can be uploaded to LIFE4\'s Submission Page manually.\n\nWould you like to be taken there now?</string>
     <string name="trial_not_saved">This trial has not been saved!</string>
 
-    <string name="confirm_erase_data">Are you sure you want to clear all saved rank data?</string>
+    <string name="confirm_erase_trial_data">Are you sure you want to clear all saved rank data?</string>
+    <string name="confirm_erase_result_data">Are you sure you want to clear all song result data?</string>
+    <string name="confirm_erase_goal_data">Are you sure you want to clear all saved goal data?</string>
 
     <!-- Format Strings -->
+    <string name="goal_progress_format">"%d / %d"</string>
+    <string name="goal_remaining_format">"%d / %d left"</string>
     <string name="ex_score_fraction_format">"%d/%d EX"</string>
     <string name="difficulty_string_format">"%s (%d)"</string>
     <string name="score_string_format">"%s (%d EX)"</string>
@@ -142,6 +155,7 @@
     <!-- Welcome/FTUE -->
     <string name="welcome_to_life4">WELCOME TO LIFE4!</string>
     <string name="welcome_to_life4_trials">WELCOME TO LIFE4 TRIALS!</string>
+    <string name="life4_intro_info_greeting">We\'re excited to have you join us.  To get started, please tell us who you are.</string>
     <string name="life4_intro_greeting">We\'re excited to have you join us.  To get started, how familiar are you with DanceDanceRevolution?</string>
     <string name="life4_intro_new_player">I\'m new to DDR</string>
     <string name="life4_intro_new_player_response">Great, and welcome to DDR! We\'ll start you at the beginning of LIFE4\'s ranking system.</string>
@@ -165,6 +179,8 @@
     <string name="url_trial_jacket_sized">https://life4ddr.com/wp-content/uploads/%s/%s-%dx%d.jpg</string>
     <string name="url_standard_submission_form">https://docs.google.com/forms/d/e/1FAIpQLSe-UDKHOaVv7Zf3FEYPUKBwfT0yc79af8hvVMDIu7VYDoIEvQ/viewform</string>
     <string name="url_trial_submission_form">https://docs.google.com/forms/d/e/1FAIpQLSd2z2dcavPcdC_UhieAPUoYj0C5mTbSAabhrRYstOYem2Mq5Q/viewform</string>
+    <string name="url_song_of_week">https://life4ddr.com/</string>
+    <string name="url_shop">https://life4.bigcartel.com/</string>
 
     <!-- Content descriptions -->
     <string name="jacket_artwork_for_trial">jacket artwork for trial</string>
@@ -187,7 +203,10 @@
     <string name="not_open_file">Could not open file</string>
 
     <array name="credits">
-        <item>Camera icon and Folder icon by https://www.flaticon.com/authors/daniel-bruce from www.flaticon.com</item>
+        <item>Camera, Folder, Scroll Left, and Scroll Right icons by https://www.flaticon.com/authors/daniel-bruce from
+            www.flaticon.com
+        </item>
+        <item>Fixtures icon by Freepik from www.flaticon.com</item>
     </array>
 
     <!-- Activity Titles -->
@@ -202,19 +221,32 @@
     <string name="highlight_new_trials">Highlight new Trials</string>
     <string name="messages_header">Messages</string>
     <string name="sync_header">Sync</string>
+    <string name="player_name">Player Name</string>
+    <string name="player_rank">Player Rank</string>
     <string name="rival_code">Rival Code</string>
     <string name="twitter_name">Twitter Name</string>
     <string name="show_notifications">Show info notifications during submission</string>
-    <string name="test_notifications">Test notifications</string>
+    <string name="import_info">Import details</string>
+    <string name="import_info_description">Load details from LIFE4 by entering your Player Name</string>
+    <string name="test_notifications">Test Info Notifications</string>
+    <string name="rank_goals">Rank Goals</string>
+    <string name="clear_data">Clear Data</string>
+    <string name="clear_goal_states">Clear Goal States</string>
+    <string name="clear_song_results">Clear Song Results</string>
+    <string name="score_manager_import">Score Manager Import</string>
+    <string name="import_manager_data">Import manager data</string>
+    <string name="import_skip_directions">Skip import directions</string>
     <string name="photo_select">Use photo picker</string>
     <string name="expert_score">Expert score entry</string>
     <string name="enforce_expert">Require step breakdowns</string>
-    <string name="show_remaining_instead_total">Show remaining EX instead of total</string>
+    <string name="show_remaining_ex_title">Show remaining EX</string>
+    <string name="show_remaining_instead_total">Show the difference between a Trial\'s total EX and your own</string>
     <string name="send_feedback">Send feedback</string>
     <string name="send_feedback_summary">Report technical issues or suggest new features</string>
     <string name="trial_details">Trial Details</string>
     <string name="trial_records">Trial Records</string>
-    <string name="help">Help &amp; Feedback</string>
+    <string name="help">Help</string>
+    <string name="help_and_feedback">Help &amp; Feedback</string>
 
     <!-- Messages Preferences -->
     <string name="signature_title">Your signature</string>
@@ -243,6 +275,7 @@
     <string name="breakdown_information_missing">One or more of your songs are missing step breakdowns.</string>
 
     <!-- Rank Strings -->
+    <string name="none">NONE</string>
     <string name="wood">WOOD</string>
     <string name="wood_1">WOOD I</string>
     <string name="wood_2">WOOD II</string>
@@ -281,10 +314,11 @@
     <string name="set_numbers_3_format">%d, %d, and %d</string>
     <string name="make_sure_fields_filled">Make sure all fields are filled in.</string>
     <string name="tap_to_copy">Tap to copy \"%s\"</string>
-    <string name="copied">\"%s\" Copied!</string>
-    <string name="placement_explanation">Placement sets are collections of three songs that must be played all in the same set.</string>
+    <string name="copied">Copied!</string>
+    <string name="copied_format">\"%s\" Copied!</string>
+    <string name="action_ladder">Ladder</string>
     <string name="new_tag">NEW!</string>
-    <string name="bgsp">BGSP</string>
+    <string name="bgsp">bSP</string>
     <string name="bsp">BSP</string>
     <string name="dsp">DSP</string>
     <string name="esp">ESP</string>
@@ -296,5 +330,43 @@
     <string name="any_full_mix_or_letter">any full mix or letter folder</string>
     <string name="choose_list">Choose 1: %s</string>
     <string name="life4">LIFE4</string>
+    <string name="action_progress_matrix">Progress Matrix</string>
+
+    <string name="dont_show_again">Don\'t show this again</string>
+    <string name="import_paste_copied_text">Paste the copied text into the box.</string>
+    <string name="import_data_format">%p:b:B:D:E:C%%y:SP:DP%;%d%;%s0%;%f:mfc:pfc:gfc:fc:life4:clear%;%t%</string>
+    <string name="import_finished">Import Finished:\n%d updated, %d errors</string>
+    <string name="tournaments">Tournaments</string>
+    <string name="trials">Trials</string>
+    <string name="settings_set_info">Set Your Name</string>
+    <string name="ladder_goals_complete">All of your goals are complete!</string>
+    <string name="ladder_submit_photos">Submit your photos to LIFE4 to rank up.</string>
+    <string name="title_single_song_tournament">Song of the Week</string>
+    <string name="single_song_tournament_directions">To play in this tournament, score as high as you can on the song listed below, get a picture of the results screen and submit it to LIFE4.</string>
+    <string name="goals_ignored_format">%d/%d ignored</string>
+    <string name="use_this_rank">Use This Rank</string>
+    <string name="field_hint_dancer_name">Dancer Name</string>
+    <string name="field_hint_rival_code">Rival Code (Optional)</string>
+    <string name="field_hint_twitter">Twitter Name (Optional)</string>
+    <string name="error_name_required">Name is required</string>
+    <string name="intro_rank_method_placement">Play a Placement set to get a temporary rank</string>
+    <string name="intro_rank_method_selection">Select a rank to start working towards</string>
+    <string name="intro_rank_method_no_rank">Start from the beginning</string>
+    <string name="placements">Placements</string>
+    <string name="start_no_rank">Start Without Rank</string>
+    <string name="rank_list">Rank List</string>
+
+    <string name="player_found">Player Profile Found</string>
+    <string name="player_found_prompt">We found this player on LIFE4 already.\nIs this you?</string>
+
+    <string name="placement_overview">Placement Sets are a quick way to get into the LIFE4 system or better learn where you should begin.\n\nYou choose which rank you want to try and place into.\n\nWhen choosing a placement set, select which set you think you will most accurately be able to showcase your skill level in.\n\nDon’t worry about choosing the wrong set; you will still be placed accordingly.</string>
     <string name="placement_description">To participate in Rank Placement, you must complete the following songs in a single set.\n\n• The songs can be played in any order.\n• Extra Stage is optional. If you earn an Extra Stage, you can use it to improve a previous score.\n• The ONLY photo that is required is one of the final results screen, showing the scores for each song played. (Click \"Finalize\" to take this photo)</string>
+    <string name="placement_explanation">Placement sets are collections of three songs that must be played all in the same set.</string>
+    <string name="remove_rank">Remove Rank</string>
+    <string name="copy_and_continue">Copy and Continue</string>
+    <string name="no_ddra_manager">You don\'t seem to have the DDR A Score Manager app installed.</string>
+    <string name="show_notifications_title">Show Info Notifications</string>
+    <string name="no_rank">NO RANK</string>
+    <string name="import_ddra_data">Import DDR A Score Manager Data</string>
+    <string name="import_ddra_data_short">DDR A Manager Import</string>
 </resources>

@@ -23,7 +23,7 @@
         android:id="@+id/text_song_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/content_padding_small"
+        android:layout_margin="@dimen/content_padding_med"
         android:gravity="center"
         android:maxLines="2"
         android:textSize="20sp"

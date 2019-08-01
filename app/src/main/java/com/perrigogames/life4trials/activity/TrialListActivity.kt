@@ -37,19 +37,16 @@ class TrialListActivity : AppCompatActivity(), TrialListFragment.OnTrialListInte
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_main, menu)
-//        menu.findItem(R.id.action_grid_view).isVisible = !useGrid
-//        menu.findItem(R.id.action_list_view).isVisible = useGrid
+        menuInflater.inflate(R.menu.menu_trial_list, menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_settings -> startActivity(Intent(this, SettingsActivity::class.java))
             R.id.action_list_view -> restartActivity(false)
             R.id.action_grid_view -> restartActivity(true)
             R.id.action_records -> startActivity(Intent(this, TrialRecordsActivity::class.java))
-            R.id.action_rank_goals -> startActivity(Intent(this, RankListActivity::class.java))
+            R.id.action_settings -> startActivity(Intent(this, SettingsActivity::class.java))
             else -> return super.onOptionsItemSelected(item)
         }
         return true

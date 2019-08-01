@@ -1,16 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.perrigogames.life4trials.view.RankHeaderView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.perrigogames.life4trials.view.RankHeaderView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    tools:layout_height="200dp">
 
     <com.perrigogames.life4trials.view.RankImageView
         android:id="@+id/image_rank"
-        android:layout_width="@dimen/placement_details_rank_size"
-        android:layout_height="@dimen/placement_details_rank_size"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_margin="@dimen/content_padding_large"
+        app:layout_constraintBottom_toTopOf="@id/text_goal_title"
+        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_max="@dimen/placement_details_rank_size"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@drawable/gold_3"/>
@@ -19,7 +24,6 @@
         android:id="@+id/button_navigate_previous"
         android:layout_width="@dimen/size_detail_nav_debug"
         android:layout_height="@dimen/size_detail_nav_debug"
-        android:layout_margin="@dimen/content_padding_med"
         android:alpha="0.5"
         android:background="@null"
         android:onClick="navigationButtonClicked"
@@ -30,13 +34,14 @@
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@id/image_rank"
         app:layout_constraintEnd_toStartOf="@id/image_rank"
-        app:layout_constraintTop_toTopOf="@id/image_rank" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/image_rank"
+        tools:visibility="visible" />
 
     <ImageButton
         android:id="@+id/button_navigate_next"
         android:layout_width="@dimen/size_detail_nav_debug"
         android:layout_height="@dimen/size_detail_nav_debug"
-        android:layout_margin="@dimen/content_padding_med"
         android:alpha="0.5"
         android:background="@null"
         android:onClick="navigationButtonClicked"
@@ -46,14 +51,18 @@
         android:tint="@color/white"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@id/image_rank"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/image_rank"
-        app:layout_constraintTop_toTopOf="@id/image_rank" />
+        app:layout_constraintTop_toTopOf="@id/image_rank"
+        tools:visibility="visible" />
 
     <TextView
-        android:id="@+id/text_rank_title"
+        android:id="@+id/text_goal_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/content_padding_large"
+        android:layout_marginStart="@dimen/content_padding_large"
+        android:layout_marginEnd="@dimen/content_padding_large"
+        android:fontFamily="@font/avenir"
         android:gravity="center"
         android:textSize="32sp"
         android:textStyle="bold"

@@ -23,6 +23,7 @@ import com.perrigogames.life4trials.manager.TrialManager
 import com.perrigogames.life4trials.ui.songlist.SongListFragment
 import com.perrigogames.life4trials.util.SharedPrefsUtil
 import com.perrigogames.life4trials.util.openWebUrlFromRes
+import com.perrigogames.life4trials.util.visibilityBool
 import com.perrigogames.life4trials.view.SongView
 import com.perrigogames.life4trials.view.TrialJacketView
 import kotlinx.android.synthetic.main.content_trial_details.*
@@ -46,8 +47,8 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener {
     private var modified = false
         set(v) {
             field = v
-            button_navigate_previous.visibility = if (v) GONE else VISIBLE
-            button_navigate_next.visibility = if (v) GONE else VISIBLE
+            button_navigate_previous.visibilityBool = !v
+            button_navigate_next.visibilityBool = !v
         }
     private var isNewEntry = false
     private var isFinal = false
@@ -66,7 +67,6 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener {
         trialSession = trialManager.startSession(trialId, initialRank)
 
         spinner_desired_rank.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, trialSession.availableRanks)
-        spinner_desired_rank.setSelection(trialSession.availableRanks.indexOf(initialRank))
         spinner_desired_rank.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) = Unit
 
@@ -74,6 +74,7 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener {
                 setRank(trialSession.availableRanks[position])
             }
         }
+        spinner_desired_rank.setSelection(trialSession.availableRanks.indexOf(initialRank))
 
         switch_acquire_mode.isChecked = SharedPrefsUtil.getUserFlag(this, KEY_DETAILS_PHOTO_SELECT, false)
         switch_acquire_mode.setOnCheckedChangeListener { _, isChecked ->
@@ -174,8 +175,8 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener {
 
     private fun updateCompleteState() {
         val allSongsComplete = trialSession.results.filterNotNull().size == TrialData.TRIAL_LENGTH
-        button_concede.visibility = if (allSongsComplete) GONE else VISIBLE
-        button_finalize.visibility = if (allSongsComplete) VISIBLE else GONE
+        button_concede.visibilityBool = !allSongsComplete
+        button_finalize.visibilityBool = allSongsComplete
     }
 
     private fun concedeTrial() {

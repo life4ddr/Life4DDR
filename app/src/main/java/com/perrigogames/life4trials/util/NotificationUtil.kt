@@ -25,7 +25,7 @@ class NotificationCopyHandler: BroadcastReceiver() {
         (c.getSystemService(CLIPBOARD_SERVICE) as ClipboardManager).let {
             it.primaryClip = ClipData.newPlainText("LIFE4 Data", intent.getStringExtra(EXTRA_COPY_VALUE))
         }
-        Toast.makeText(c, c.getString(R.string.copied, intent.getStringExtra(EXTRA_COPY_VALUE)), Toast.LENGTH_SHORT).show()
+        Toast.makeText(c, c.getString(R.string.copied_format, intent.getStringExtra(EXTRA_COPY_VALUE)), Toast.LENGTH_SHORT).show()
     }
 }
 
