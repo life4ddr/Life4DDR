@@ -1,6 +1,7 @@
 package com.perrigogames.life4trials.manager
 
 import android.content.Context
+import android.util.Log
 import com.crashlytics.android.Crashlytics
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.data.DifficultyClass
@@ -115,6 +116,23 @@ class SongDataManager(context: Context): BaseManager() {
     }
 
     fun updateChart(chart: ChartDB) = chartBox.put(chart)
+
+    fun dumpData() {
+        songBox.all.map { song ->
+            val builder = StringBuilder("${song.title};")
+            val chartsCopy = song.charts.toMutableList()
+            DifficultyClass.values().forEach { diff ->
+                val chart = chartsCopy.firstOrNull { it.difficultyClass == diff }
+                if (chart != null) {
+                    chartsCopy.remove(chart)
+                    builder.append("${chart.difficultyNumber};")
+                } else {
+                    builder.append(";")
+                }
+            }
+            builder.toString()
+        }.forEach { Log.v("SongDataManager", it) }
+    }
 }
 
 class UnexpectedDifficultyNumberException(chart: ChartDB, newDiff: Int): Exception(

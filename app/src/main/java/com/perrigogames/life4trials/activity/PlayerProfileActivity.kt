@@ -16,6 +16,8 @@ import com.perrigogames.life4trials.data.LadderRank
 import com.perrigogames.life4trials.db.GoalStatus
 import com.perrigogames.life4trials.event.LadderImportCompletedEvent
 import com.perrigogames.life4trials.event.LadderRankUpdatedEvent
+import com.perrigogames.life4trials.event.TrialListReplacedEvent
+import com.perrigogames.life4trials.event.TrialListUpdatedEvent
 import com.perrigogames.life4trials.life4app
 import com.perrigogames.life4trials.ui.rankdetails.RankDetailsFragment
 import com.perrigogames.life4trials.ui.rankdetails.RankDetailsViewModel
@@ -93,6 +95,12 @@ class PlayerProfileActivity : AppCompatActivity(), RankDetailsViewModel.OnGoalLi
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onLadderImportCompleted(e: LadderImportCompletedEvent) = updatePlayerContent()
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onTrialListReplaced(e: TrialListReplacedEvent) = updatePlayerContent()
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onTrialListUpdated(e: TrialListUpdatedEvent) = updatePlayerContent()
 
     private fun setupContent() {
         view_mode_button_left.text_title.text = getString(R.string.trials)

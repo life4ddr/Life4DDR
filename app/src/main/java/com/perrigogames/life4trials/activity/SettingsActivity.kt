@@ -46,6 +46,7 @@ class SettingsActivity : AppCompatActivity() {
         private val ladderManager get() = context!!.life4app.ladderManager
         private val trialManager get() = context!!.life4app.trialManager
         private val playerManager get() = context!!.life4app.playerManager
+        private val songDataManager get() = context!!.life4app.songDataManager
 
         private val listUpdateListener: (Preference) -> Boolean = {
             Life4Application.eventBus.post(TrialListUpdatedEvent())
@@ -187,6 +188,15 @@ class SettingsActivity : AppCompatActivity() {
                 preferenceScreen.addPreference(this)
             }
             Preference(context).apply {
+                key = KEY_DEBUG_DATA_DUMP
+                title = "Dump Song Data"
+                onPreferenceClickListener = Preference.OnPreferenceClickListener {
+                    songDataManager.dumpData()
+                    true
+                }
+                preferenceScreen.addPreference(this)
+            }
+            Preference(context).apply {
                 key = "induce_crash"
                 title = "Induce crash"
                 onPreferenceClickListener = Preference.OnPreferenceClickListener {
@@ -308,6 +318,7 @@ class SettingsActivity : AppCompatActivity() {
         const val KEY_DEBUG_ACCEPT_INVALID = "dbai"
         const val KEY_DEBUG_BYPASS_CAMERA = "dbc"
         const val KEY_DEBUG_LEADERBOARD = "dlb"
+        const val KEY_DEBUG_DATA_DUMP = "dimo"
 
         private const val KEY_DEBUG_RANK_PREFIX = "KEY_DEBUG_RANK_PREFIX"
     }
