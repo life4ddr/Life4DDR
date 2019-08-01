@@ -158,7 +158,6 @@
       "name": "Species",
       "type": "trial",
       "difficulty": 13,
-      "author": "bluechows",
       "goals": [
         {
           "rank": "silver",
@@ -432,7 +431,6 @@
       "name": "Tempest",
       "type": "trial",
       "difficulty": 15,
-      "author": "bluechows",
       "goals": [
         {
           "rank": "silver",
