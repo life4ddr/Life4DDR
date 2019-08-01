@@ -80,10 +80,6 @@ class SettingsActivity : AppCompatActivity() {
                 NotificationUtil.showUserInfoNotifications(context, 1579)
                 true
             }
-            preferenceListener(KEY_RECORDS_CLEAR) {
-                trialManager.clearRecords(context)
-                true
-            }
             preferenceListener(KEY_IMPORT_DATA) {
                 ladderManager.showImportFlow(activity!!)
                 true
@@ -95,7 +91,15 @@ class SettingsActivity : AppCompatActivity() {
             preferenceListener(KEY_LIST_HIGHLIGHT_NEW, listReplaceListener)
 
             preferenceListener(KEY_LADDER_CLEAR) {
-                ladderManager.clearGoalData()
+                ladderManager.clearGoalStates(context)
+                true
+            }
+            preferenceListener(KEY_RECORDS_CLEAR) {
+                trialManager.clearRecords(context)
+                true
+            }
+            preferenceListener(KEY_SONG_RESULTS_CLEAR) {
+                ladderManager.clearSongResults(context)
                 true
             }
 
@@ -290,7 +294,6 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     companion object {
-        const val KEY_LADDER_CLEAR = "KEY_LADDER_CLEAR"
         const val KEY_LIST_TINT_COMPLETED = "KEY_LIST_TINT_COMPLETED"
         const val KEY_LIST_SHOW_EX = "KEY_LIST_SHOW_EX"
         const val KEY_LIST_SHOW_EX_REMAINING = "KEY_LIST_SHOW_EX_REMAINING"
@@ -306,12 +309,14 @@ class SettingsActivity : AppCompatActivity() {
         const val KEY_SUBMISSION_NOTIFICAION = "KEY_SUBMISSION_NOTIFICAION"
         const val KEY_SUBMISSION_NOTIFICAION_TEST = "KEY_SUBMISSION_NOTIFICAION_TEST"
         const val KEY_RECORDS_REMAINING_EX = "KEY_RECORDS_REMAINING_EX"
-        const val KEY_RECORDS_CLEAR = "KEY_RECORDS_CLEAR"
         const val KEY_SHOP = "KEY_SHOP"
         const val KEY_FEEDBACK = "KEY_FEEDBACK"
         const val KEY_CATEGORY_IMPORT = "KEY_CATEGORY_IMPORT"
         const val KEY_IMPORT_DATA = "KEY_IMPORT_DATA"
         const val KEY_IMPORT_SKIP_DIRECTIONS = "KEY_IMPORT_SKIP_DIRECTIONS"
+        const val KEY_LADDER_CLEAR = "KEY_LADDER_CLEAR"
+        const val KEY_SONG_RESULTS_CLEAR = "KEY_SONG_RESULTS_CLEAR"
+        const val KEY_RECORDS_CLEAR = "KEY_RECORDS_CLEAR"
 
         const val KEY_DEBUG_DETAILS_DISPLAY_ALL_RANKS = "dddar"
         const val KEY_DEBUG_BYPASS_STAT_ENTRY = "dbse"

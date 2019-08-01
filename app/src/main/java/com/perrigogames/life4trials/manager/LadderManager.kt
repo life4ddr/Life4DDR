@@ -14,8 +14,9 @@ import com.perrigogames.life4trials.activity.SettingsActivity
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_IMPORT_SKIP_DIRECTIONS
 import com.perrigogames.life4trials.data.*
 import com.perrigogames.life4trials.db.*
-import com.perrigogames.life4trials.event.LadderImportCompletedEvent
 import com.perrigogames.life4trials.event.LadderRankUpdatedEvent
+import com.perrigogames.life4trials.event.SongResultsImportCompletedEvent
+import com.perrigogames.life4trials.event.SongResultsUpdatedEvent
 import com.perrigogames.life4trials.ui.managerimport.ScoreManagerImportDirectionsDialog
 import com.perrigogames.life4trials.ui.managerimport.ScoreManagerImportEntryDialog
 import com.perrigogames.life4trials.util.DataUtil
@@ -210,17 +211,32 @@ class LadderManager(private val context: Context,
         }
         Toast.makeText(context, context.getString(R.string.import_finished, success, errors), Toast.LENGTH_SHORT).show()
         songDataManager.invalidateIgnoredIds()
-        Life4Application.eventBus.post(LadderImportCompletedEvent(success, errors))
+        Life4Application.eventBus.post(SongResultsImportCompletedEvent(success, errors))
+        if (success > 0) {
+            Life4Application.eventBus.post(SongResultsUpdatedEvent())
+        }
     }
 
-    fun clearGoalData() {
-        AlertDialog.Builder(context)
+    fun clearGoalStates(c: Context) {
+        AlertDialog.Builder(c)
             .setTitle(R.string.are_you_sure)
-            .setMessage(R.string.confirm_erase_rank_data)
+            .setMessage(R.string.confirm_erase_trial_data)
             .setPositiveButton(R.string.yes) { _, _ ->
                 goalsBox.removeAll()
                 ladderResultBox.removeAll()
                 Life4Application.eventBus.post(LadderRankUpdatedEvent())
+            }
+            .setNegativeButton(R.string.no, null)
+            .show()
+    }
+
+    fun clearSongResults(c: Context) {
+        AlertDialog.Builder(c)
+            .setTitle(R.string.are_you_sure)
+            .setMessage(R.string.confirm_erase_result_data)
+            .setPositiveButton(R.string.yes) { _, _ ->
+                ladderResultBox.removeAll()
+                Life4Application.eventBus.post(SongResultsUpdatedEvent())
             }
             .setNegativeButton(R.string.no, null)
             .show()
