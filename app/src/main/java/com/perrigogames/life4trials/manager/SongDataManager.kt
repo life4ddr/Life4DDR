@@ -118,7 +118,7 @@ class SongDataManager(context: Context): BaseManager() {
     fun updateChart(chart: ChartDB) = chartBox.put(chart)
 
     fun dumpData() {
-        songBox.all.map { song ->
+        val songStrings = songBox.all.map { song ->
             val builder = StringBuilder("${song.title};")
             val chartsCopy = song.charts.toMutableList()
             DifficultyClass.values().forEach { diff ->
@@ -131,7 +131,18 @@ class SongDataManager(context: Context): BaseManager() {
                 }
             }
             builder.toString()
-        }.forEach { Log.v("SongDataManager", it) }
+        }.toMutableList()
+        with(StringBuilder()) {
+            while (songStrings.isNotEmpty()) {
+                (0..10).forEach {
+                    if (songStrings.isNotEmpty()) {
+                        append("${songStrings.removeAt(0)}[][]")
+                    }
+                }
+                Log.v("SongDataManager", this.toString())
+                setLength(0)
+            }
+        }
     }
 }
 
