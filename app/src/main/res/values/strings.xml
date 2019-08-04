@@ -369,4 +369,7 @@
     <string name="no_rank">NO RANK</string>
     <string name="import_ddra_data">Import DDR A Score Manager Data</string>
     <string name="import_ddra_data_short">DDR A Manager Import</string>
+
+    <string name="ranks_updated">Rank Requirements have been updated!</string>
+    <string name="trials_updated">Trials have been updated!</string>
 </resources>

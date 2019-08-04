@@ -10,6 +10,7 @@ import androidx.constraintlayout.widget.ConstraintSet.BOTTOM
 import androidx.constraintlayout.widget.ConstraintSet.TOP
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
+import com.bumptech.glide.Glide
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.activity.SettingsActivity
 import com.perrigogames.life4trials.data.Trial
@@ -37,10 +38,14 @@ class TrialJacketView @JvmOverloads constructor(context: Context, attrs: Attribu
             text_trial_title.visibility = View.GONE
             if (v != null) {
                 val resId = v.jacketResId(context)
-                if (resId == R.drawable.trial_default) {
-                    text_trial_title.visibility = View.VISIBLE
+                if (v.cover_url != null && (resId == R.drawable.trial_default || v.cover_override)) {
+                    Glide.with(this).load(v.cover_url).into(image_trial_jacket)
+                } else {
+                    if (resId == R.drawable.trial_default) {
+                        text_trial_title.visibility = View.VISIBLE
+                    }
+                    image_trial_jacket.setImageDrawable(ContextCompat.getDrawable(context, resId))
                 }
-                image_trial_jacket.setImageDrawable(ContextCompat.getDrawable(context, resId))
             }
         }
 

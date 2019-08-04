@@ -1,11 +1,13 @@
 package com.perrigogames.life4trials.manager
 
 import android.content.Context
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.crashlytics.android.Crashlytics
 import com.perrigogames.life4trials.BuildConfig
 import com.perrigogames.life4trials.Life4Application
 import com.perrigogames.life4trials.R
+import com.perrigogames.life4trials.api.GithubDataAPI
 import com.perrigogames.life4trials.data.TrialData
 import com.perrigogames.life4trials.data.TrialRank
 import com.perrigogames.life4trials.data.TrialSession
@@ -13,26 +15,47 @@ import com.perrigogames.life4trials.db.TrialSessionDB
 import com.perrigogames.life4trials.db.TrialSessionDB_
 import com.perrigogames.life4trials.db.TrialSongResultDB
 import com.perrigogames.life4trials.event.SavedRankUpdatedEvent
+import com.perrigogames.life4trials.event.TrialListReplacedEvent
 import com.perrigogames.life4trials.life4app
 import com.perrigogames.life4trials.util.DataUtil
 import com.perrigogames.life4trials.util.loadRawString
+import com.perrigogames.life4trials.util.readFromFile
+import com.perrigogames.life4trials.util.saveToFile
 import io.objectbox.kotlin.query
+import kotlinx.coroutines.*
+import retrofit2.Response
 
-class TrialManager(private val context: Context): BaseManager() {
+class TrialManager(private val context: Context,
+                   private val githubDataAPI: GithubDataAPI): BaseManager() {
 
     private var trialData: TrialData
     val trials get() = trialData.trials
 
     var currentSession: TrialSession? = null
+    private var trialsJob: Job? = null
 
     init {
-        trialData = DataUtil.gson.fromJson(context.loadRawString(R.raw.trials), TrialData::class.java)!!
+        val dataString = context.readFromFile(TRIALS_FILE_NAME) ?: context.loadRawString(R.raw.trials)
+        trialData = DataUtil.gson.fromJson(dataString, TrialData::class.java)!!
         if (BuildConfig.DEBUG) {
             val debugData: TrialData = DataUtil.gson.fromJson(context.loadRawString(R.raw.trials_debug), TrialData::class.java)!!
             val placements = context.life4app.placementManager.placements
-            trialData = TrialData(trialData.trials + debugData.trials + placements)
+            trialData = TrialData(trialData.version, trialData.trials + debugData.trials + placements)
         }
         validateTrials()
+
+        trialsJob?.cancel()
+        trialsJob = CoroutineScope(Dispatchers.IO).launch {
+            val response = githubDataAPI.getTrials()
+            withContext(Dispatchers.Main) {
+                if (response.check()) {
+                    context.saveToFile(TRIALS_FILE_NAME, DataUtil.gson.toJson(response.body()))
+                    Toast.makeText(context, "${response.body()!!.trials.size} Trials found!", Toast.LENGTH_SHORT).show()
+                    Life4Application.eventBus.post(TrialListReplacedEvent())
+                }
+                trialsJob = null
+            }
+        }
     }
 
     private fun validateTrials() = trials.forEach { trial ->
@@ -124,5 +147,18 @@ class TrialManager(private val context: Context): BaseManager() {
     fun startSession(trialId: String, initialGoal: TrialRank): TrialSession {
         currentSession = TrialSession(findTrial(trialId)!!, initialGoal)
         return currentSession!!
+    }
+
+    private fun Response<TrialData>.check(): Boolean = when {
+        !isSuccessful -> {
+            Toast.makeText(context, errorBody()!!.string(), Toast.LENGTH_SHORT).show()
+            false
+        }
+        body()!!.version <= trialData.version -> false
+        else -> true
+    }
+
+    companion object {
+        const val TRIALS_FILE_NAME = "trials.json"
     }
 }
