@@ -3,11 +3,13 @@
     <dimen name="text_small">14sp</dimen>
     <dimen name="text_med">16sp</dimen>
     <dimen name="text_large">20sp</dimen>
-    <dimen name="text_huge">36sp</dimen>
+    <dimen name="text_huge">28sp</dimen>
+    <dimen name="text_giant">36sp</dimen>
 
     <dimen name="content_padding_huge">32dp</dimen>
 
-    <dimen name="first_run_icon_size">256dp</dimen>
+    <dimen name="first_run_icon_width">256dp</dimen>
+    <dimen name="first_run_icon_height">192dp</dimen>
     <dimen name="first_run_rank_size">64dp</dimen>
     <dimen name="first_run_jacket_size">48dp</dimen>
     <dimen name="first_run_rank_name_size">24sp</dimen>

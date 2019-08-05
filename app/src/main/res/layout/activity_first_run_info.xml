@@ -12,48 +12,48 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/image_app_icon"
-            android:layout_width="@dimen/first_run_icon_size"
-            android:layout_height="@dimen/first_run_icon_size"
-            android:src="@drawable/ic_life4_trials_logo_invert"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:background="@color/colorAccent"/>
-
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/text_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/content_padding_large"
+            android:layout_marginTop="@dimen/content_padding_large"
             android:layout_marginEnd="@dimen/content_padding_large"
             android:fontFamily="@font/avenir"
             android:gravity="center"
             android:lines="1"
-            android:text="@string/welcome_to_life4"
-            android:textSize="@dimen/text_huge"
+            android:text="@string/welcome_to"
+            android:textSize="@dimen/text_giant"
             android:textStyle="bold"
             app:autoSizeTextType="uniform"
-            app:layout_constraintBottom_toTopOf="@id/text_greetings"
+            app:layout_constraintBottom_toTopOf="@id/image_app_icon"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/image_app_icon"/>
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <ImageView
+            android:id="@+id/image_app_icon"
+            android:layout_width="@dimen/first_run_icon_width"
+            android:layout_height="0dp"
+            android:src="@drawable/life4_logo_invert"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintDimensionRatio="H,5:3"
+            app:layout_constraintTop_toBottomOf="@id/text_title" />
 
         <TextView
             android:id="@+id/text_greetings"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/content_padding_large"
-            android:layout_marginTop="@dimen/content_padding_large"
             android:layout_marginEnd="@dimen/content_padding_large"
             android:layout_marginBottom="@dimen/content_padding_huge"
             android:gravity="center"
             android:text="@string/life4_intro_info_greeting"
-            android:textSize="@dimen/text_large"
+            android:textSize="@dimen/text_med"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_title"/>
+            app:layout_constraintTop_toBottomOf="@id/image_app_icon"/>
 
         <EditText
             android:id="@+id/field_name"

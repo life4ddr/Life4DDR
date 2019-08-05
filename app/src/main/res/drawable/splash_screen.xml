@@ -6,6 +6,6 @@
     <item>
         <bitmap
             android:gravity="center"
-            android:src="@drawable/life4_trials_logo_invert_small"/>
+            android:src="@drawable/life4_logo_invert"/>
     </item>
 </layer-list>

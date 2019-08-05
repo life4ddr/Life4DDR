@@ -153,9 +153,10 @@
     <string name="arrow_right">→</string>
 
     <!-- Welcome/FTUE -->
+    <string name="welcome_to">WELCOME TO</string>
     <string name="welcome_to_life4">WELCOME TO LIFE4!</string>
     <string name="welcome_to_life4_trials">WELCOME TO LIFE4 TRIALS!</string>
-    <string name="life4_intro_info_greeting">We\'re excited to have you join us.  To get started, please tell us who you are.</string>
+    <string name="life4_intro_info_greeting">To get started, please tell us a bit about yourself.</string>
     <string name="life4_intro_greeting">We\'re excited to have you join us.  To get started, how familiar are you with DanceDanceRevolution?</string>
     <string name="life4_intro_new_player">I\'m new to DDR</string>
     <string name="life4_intro_new_player_response">Great, and welcome to DDR! We\'ll start you at the beginning of LIFE4\'s ranking system.</string>
