@@ -111,6 +111,9 @@
             app:key="KEY_FEEDBACK"
             app:summary="@string/send_feedback_summary"
             app:title="@string/send_feedback"/>
+        <Preference
+            app:key="KEY_CREDITS"
+            app:title="@string/credits"/>
     </PreferenceCategory>
 
 </PreferenceScreen>

@@ -95,6 +95,7 @@
                 android:value="com.perrigogames.life4trials.activity.PlayerProfileActivity" />
         </activity>
         <activity android:name=".activity.FirstRankSelectionActivity" />
+        <activity android:name=".activity.CreditsActivity" />
 
         <service
             android:name=".api.Life4FirebaseMessagingService"

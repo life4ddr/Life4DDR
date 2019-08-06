@@ -203,13 +203,6 @@
     <string name="get_files">Get Files</string>
     <string name="not_open_file">Could not open file</string>
 
-    <array name="credits">
-        <item>Camera, Folder, Scroll Left, and Scroll Right icons by https://www.flaticon.com/authors/daniel-bruce from
-            www.flaticon.com
-        </item>
-        <item>Fixtures icon by Freepik from www.flaticon.com</item>
-    </array>
-
     <!-- Activity Titles -->
     <string name="title_activity_settings">Settings</string>
 
@@ -370,4 +363,12 @@
     <string name="no_rank">NO RANK</string>
     <string name="import_ddra_data">Import DDR A Score Manager Data</string>
     <string name="import_ddra_data_short">DDR A Manager Import</string>
+    <string name="credits">Credits</string>
+
+    <array name="credits">
+        <item>Camera, Cancel, Cogwheel, Eye, Folder, Scroll Left, Scroll Right, and Star icons by https://www.flaticon.com/authors/daniel-bruce from www.flaticon.com</item>
+        <item>Fixtures icon by https://www.flaticon.com/authors/Freepik from www.flaticon.com</item>
+        <item>Coded by @CodingCabbit</item>
+        <item>Inspired by the awesome team at @LIFE4DDR</item>
+    </array>
 </resources>
