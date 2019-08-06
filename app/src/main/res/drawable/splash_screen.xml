@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!-- The android:opacity=”opaque” line — this is critical in preventing a flash of black as your theme transitions. -->
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android" android:opacity="opaque">
-    <item android:drawable="@color/colorPrimaryDark"/>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:opacity="opaque">
+    <item android:drawable="@drawable/twitter_avi_bg"/>
     <item>
         <bitmap
-            android:gravity="center"
+            android:width="170dp"
+            android:height="180dp"
+            android:gravity="center_horizontal|center_vertical"
             android:src="@drawable/life4_logo_invert"/>
     </item>
 </layer-list>

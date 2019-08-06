@@ -50,7 +50,7 @@ object NotificationUtil {
 
     private fun userInfoNotification(c: Context, title: String, content: String? = null) =
         NotificationCompat.Builder(c, ID_USER_INFO_CHANNEL)
-            .setSmallIcon(R.drawable.ic_life4_trials_logo)
+            .setSmallIcon(R.drawable.ic_life4_trials_logo_notif)
             .setContentTitle(title)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .apply {
