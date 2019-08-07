@@ -108,8 +108,12 @@ class SettingsActivity : AppCompatActivity() {
                 true
             }
             preferenceListener(KEY_FEEDBACK) {
-                startActivity(Intent(ACTION_SENDTO, Uri.parse(
+                (context as AppCompatActivity).startActivity(Intent(ACTION_SENDTO, Uri.parse(
                     "mailto:life4@perrigogames.com?subject=${Uri.encode(getString(R.string.life4_feedback_email_subject))}")))
+                true
+            }
+            preferenceListener(KEY_CREDITS) {
+                (context as AppCompatActivity).startActivity(Intent(context, CreditsActivity::class.java))
                 true
             }
 
@@ -311,6 +315,7 @@ class SettingsActivity : AppCompatActivity() {
         const val KEY_RECORDS_REMAINING_EX = "KEY_RECORDS_REMAINING_EX"
         const val KEY_SHOP = "KEY_SHOP"
         const val KEY_FEEDBACK = "KEY_FEEDBACK"
+        const val KEY_CREDITS = "KEY_CREDITS"
         const val KEY_CATEGORY_IMPORT = "KEY_CATEGORY_IMPORT"
         const val KEY_IMPORT_DATA = "KEY_IMPORT_DATA"
         const val KEY_IMPORT_SKIP_DIRECTIONS = "KEY_IMPORT_SKIP_DIRECTIONS"

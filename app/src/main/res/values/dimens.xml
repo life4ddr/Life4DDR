@@ -2,7 +2,8 @@
     <dimen name="text_small">12sp</dimen>
     <dimen name="text_med">14sp</dimen>
     <dimen name="text_large">16sp</dimen>
-    <dimen name="text_huge">28sp</dimen>
+    <dimen name="text_huge">22sp</dimen>
+    <dimen name="text_giant">28sp</dimen>
 
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="content_padding_small">4dp</dimen>
@@ -25,7 +26,8 @@
     <dimen name="lamp_corner_radius">10dp</dimen>
     <dimen name="lamp_corner_radius_inverse">-10dp</dimen>
 
-    <dimen name="first_run_icon_size">128dp</dimen>
+    <dimen name="first_run_icon_width">128dp</dimen>
+    <dimen name="first_run_icon_height">96dp</dimen>
     <dimen name="first_run_rank_size">48dp</dimen>
     <dimen name="first_run_jacket_size">32dp</dimen>
     <dimen name="first_run_rank_name_size">20sp</dimen>
