@@ -7,7 +7,8 @@ import java.io.Serializable
  * Data class for deserializing the ranks.json file. Describes all of the ranks that can
  * be earned in LIFE4 and the goals required to obtain each.
  */
-class LadderRankData(@SerializedName("unlock_requirement") val unlockRequirement: LadderRank,
+class LadderRankData(val version: Int,
+                     @SerializedName("unlock_requirement") val unlockRequirement: LadderRank,
                      @SerializedName("rank_requirements") val rankRequirements: List<RankEntry>): Serializable
 
 /**

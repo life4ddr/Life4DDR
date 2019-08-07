@@ -6,7 +6,9 @@ import com.google.gson.annotations.SerializedName
 import com.perrigogames.life4trials.R
 import java.io.Serializable
 
-class TrialData(val trials: List<Trial>): Serializable {
+class TrialData(val version: Int,
+                val trials: List<Trial>): Serializable {
+
     companion object {
         const val HIGHEST_DIFFICULTY = 20
         const val TRIAL_LENGTH = 4
@@ -24,6 +26,8 @@ class Trial(val id: String,
             val difficulty: Int?,
             val goals: List<TrialGoalSet>?,
             val total_ex: Int?,
+            val cover_url: String? = null,
+            val cover_override: Boolean = false,
             val songs: List<Song>): Serializable {
 
     fun goalSet(rank: TrialRank): TrialGoalSet? = goals?.find { it.rank == rank }

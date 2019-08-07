@@ -36,7 +36,9 @@ class PlayerManager(private val context: Context) {
 //                }
 //                importJob = null
 //            }
-            delay(750)
+            if (BuildConfig.DEBUG) {
+                delay(750) // simulate fetching a user on debug
+            }
             withContext(Dispatchers.Main) {
                 if (BuildConfig.DEBUG && playerName == "KONNOR") {
                     val player = ApiPlayer(1, playerName, "GOLD III", "", "@CodingCabbit", "", "1234-5678", true)

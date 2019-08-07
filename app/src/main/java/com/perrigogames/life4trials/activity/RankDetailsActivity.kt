@@ -5,13 +5,17 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.perrigogames.life4trials.Life4Application
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.data.LadderRank
 import com.perrigogames.life4trials.data.RankEntry
+import com.perrigogames.life4trials.event.LadderRanksReplacedEvent
 import com.perrigogames.life4trials.life4app
 import com.perrigogames.life4trials.ui.rankdetails.RankDetailsFragment
 import com.perrigogames.life4trials.ui.rankdetails.RankDetailsViewModel
 import com.perrigogames.life4trials.view.RankHeaderView
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 class RankDetailsActivity : AppCompatActivity(), RankHeaderView.NavigationListener, RankDetailsViewModel.OnGoalListInteractionListener {
 
@@ -41,6 +45,19 @@ class RankDetailsActivity : AppCompatActivity(), RankHeaderView.NavigationListen
             }
         }
     }
+
+    override fun onStart() {
+        super.onStart()
+        Life4Application.eventBus.register(this)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Life4Application.eventBus.unregister(this)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onRankListUpdated(e: LadderRanksReplacedEvent) = setupRank(ladderManager.findRankEntry(rankEntry?.rank))
 
     fun useRankClicked(v: View) {
         setResult(RESULT_RANK_SELECTED, Intent().putExtra(EXTRA_RANK, rankEntry?.rank?.stableId))

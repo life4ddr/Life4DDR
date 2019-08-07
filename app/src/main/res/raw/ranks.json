@@ -379,7 +379,7 @@
 				{ "id": 8207, "type": "difficulty", "mandatory": true, "difficulty": 18, "score": 950000 },
 				{ "id": 8208, "type": "difficulty", "mandatory": true, "difficulty": 18, "count": 1, "clear_type": "perfect" },
 				{ "id": 8209, "type": "difficulty", "mandatory": true, "difficulty": 19, "score": 850000, "song_exceptions": ["ENDYMION"] },
-				{ "id": 8210, "type": "songs", "mandatory": true, "songs": ["ENDYMION"], "difficulties": ["challenge"], "score": 775000 },
+				{ "id": 8210, "type": "songs", "mandatory": true, "songs": ["ENDYMION"], "difficulties": ["challenge"], "score": 800000 },
 				{ "id": 8211, "type": "mfc_points", "mandatory": true, "points": 30 },
 				{ "id": 8212, "type": "trial", "mandatory": true, "rank": "amethyst", "count": 4 }
 			]
@@ -396,7 +396,7 @@
 				{ "id": 8307, "type": "difficulty", "mandatory": true, "difficulty": 18, "score": 960000 },
 				{ "id": 8308, "type": "difficulty", "mandatory": true, "difficulty": 18, "count": 2, "clear_type": "perfect" },
 				{ "id": 8309, "type": "difficulty", "mandatory": true, "difficulty": 19, "score": 865000, "song_exceptions": ["ENDYMION"] },
-				{ "id": 8310, "type": "songs", "mandatory": true, "songs": ["ENDYMION"], "difficulties": ["challenge"], "score": 775000 },
+				{ "id": 8310, "type": "songs", "mandatory": true, "songs": ["ENDYMION"], "difficulties": ["challenge"], "score": 825000 },
 				{ "id": 8311, "type": "mfc_points", "mandatory": true, "points": 40 },
 				{ "id": 8312, "type": "trial", "mandatory": true, "rank": "amethyst", "count": 6 },
 				{ "id": 8313, "type": "trial", "mandatory": true, "rank": "emerald", "count": 1 }

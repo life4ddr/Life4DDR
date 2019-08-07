@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Build
 import android.os.Environment
+import android.util.Log
 import android.widget.ImageView
 import androidx.annotation.RawRes
 import com.google.gson.Gson
@@ -112,7 +113,31 @@ fun Context.loadRawString(@RawRes res: Int): String {
     return writer.toString()
 }
 
-fun Context.saveString(path: String, content: String): Boolean {
+fun Context.readFromFile(path: String): String? {
+    var ret: String? = null
+    try {
+        InputStreamReader(openFileInput(path)).use { streamReader ->
+            val bufferedReader = BufferedReader(streamReader)
+            val builder = StringBuilder().also {
+                var receiveString: String? = bufferedReader.readLine()
+                while (receiveString != null) {
+                    it.append(receiveString)
+                    receiveString = bufferedReader.readLine()
+                }
+            }
+            if (builder.isNotEmpty()) {
+                ret = builder.toString()
+            }
+        }
+    } catch (e: FileNotFoundException) {
+        Log.e("DataUtil", "File not found: $e")
+    } catch (e: IOException) {
+        Log.e("DataUtil", "Can not read file: $e")
+    }
+    return ret
+}
+
+fun Context.saveToFile(path: String, content: String): Boolean {
     return try {
         OutputStreamWriter(openFileOutput(path, Context.MODE_PRIVATE)).use {
             it.write(content)
