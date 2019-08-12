@@ -7,11 +7,24 @@
     android:layout_height="match_parent"
     tools:context="com.perrigogames.life4trials.activity.FirstRankSelectionActivity">
 
-    <include layout="@layout/content_rank_list"
+    <TextView
+        android:id="@+id/text_change_rank_later"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/content_padding_med"
+        android:gravity="center"
+        android:text="@string/change_rank_later"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <include
+        layout="@layout/content_rank_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="@dimen/content_padding_med"
         app:layout_constraintBottom_toTopOf="@id/button_placements"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/text_change_rank_later"/>
 
     <Button
         android:id="@+id/button_placements"
