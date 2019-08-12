@@ -41,7 +41,7 @@ class SongDataManager(context: Context): BaseManager() {
             if (field == null) {
                 field = selectedIgnoreList?.charts?.mapNotNull { chart ->
                     val song = songTitleQuery.setParameter("title", chart.title).findFirst()
-                    return@mapNotNull song?.charts?.first { it.difficultyClass == chart.difficultyClass }?.id
+                    return@mapNotNull song?.charts?.firstOrNull { it.difficultyClass == chart.difficultyClass }?.id
                 }?.toLongArray() ?: LongArray(0)
             }
             return field
