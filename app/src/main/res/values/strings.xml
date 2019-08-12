@@ -328,7 +328,7 @@
 
     <string name="dont_show_again">Don\'t show this again</string>
     <string name="import_paste_copied_text">Paste the copied text into the box.</string>
-    <string name="import_data_format">%p:b:B:D:E:C%%y:SP:DP%;%d%;%s0%;%f:mfc:pfc:gfc:fc:life4:clear%;%t%</string>
+    <string name="import_data_format">%p:b:B:D:E:C%%y:SP:DP%;%d%;%s0%;%l%;%f:mfc:pfc:gfc:fc:life4:clear%;%e%;%a%;%t%</string>
     <string name="import_finished">Import Finished:\n%d updated, %d errors</string>
     <string name="tournaments">Tournaments</string>
     <string name="trials">Trials</string>

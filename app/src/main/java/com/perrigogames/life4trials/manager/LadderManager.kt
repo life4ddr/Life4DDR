@@ -211,11 +211,14 @@ class LadderManager(private val context: Context,
                     if (clear == ClearType.CLEAR) {
                         when {
                             entryParts[3] == "-" -> clear = ClearType.NO_PLAY
-                            entryParts[3] == "E" -> clear = if (clears > 0) ClearType.CLEAR else ClearType.FAIL
+                            entryParts[3] == "E" -> clear = when {
+                                clears > 0 -> ClearType.CLEAR
+                                else -> ClearType.FAIL
+                            }
                         }
                     }
 
-                    val songName = entryParts.subList(7, entryParts.size).joinToString(";")
+                    val songName = entryParts.subList(entryParts.size - 1, entryParts.size).joinToString(";")
 
                     val playStyle = PlayStyle.parse(chartType)!!
                     val difficultyClass = DifficultyClass.parse(chartType)!!
