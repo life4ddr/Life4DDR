@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import com.crashlytics.android.Crashlytics
 import com.perrigogames.life4trials.R
+import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_IMPORT_IGNORE
 import com.perrigogames.life4trials.data.DifficultyClass
 import com.perrigogames.life4trials.data.IgnoreList
 import com.perrigogames.life4trials.data.IgnoreLists
@@ -13,19 +14,27 @@ import com.perrigogames.life4trials.db.ChartDB_
 import com.perrigogames.life4trials.db.SongDB
 import com.perrigogames.life4trials.db.SongDB_
 import com.perrigogames.life4trials.util.DataUtil
+import com.perrigogames.life4trials.util.SharedPrefsUtil
 import com.perrigogames.life4trials.util.loadRawString
 
 /**
  * A Manager class that keeps track of the available songs
  */
-class SongDataManager(context: Context): BaseManager() {
+class SongDataManager(private val context: Context): BaseManager() {
 
     //
     // Ignore List Data
     //
     private var ignoreList: List<IgnoreList> =
         DataUtil.gson.fromJson(context.loadRawString(R.raw.ignore_lists), IgnoreLists::class.java)!!.lists
-    private var selectedIgnoreList: IgnoreList? = ignoreList.first { it.id == "ACE_US" } //FIXME
+    val ignoreListIds get() = ignoreList.map { it.id }
+    val ignoreListTitles get() = ignoreList.map { it.name }
+
+    private val selectedIgnoreList: IgnoreList?
+        get() = getIgnoreList(SharedPrefsUtil.getUserString(context, KEY_IMPORT_IGNORE, "ACE_US")!!)
+
+    fun getIgnoreList(id: String) = ignoreList.first { it.id == id }
+
     var selectedIgnoreSongIds: LongArray? = null
         get() {
             if (field == null) {
@@ -68,10 +77,6 @@ class SongDataManager(context: Context): BaseManager() {
         link(ChartDB_.song).notIn(SongDB_.id, selectedIgnoreSongIds)
         notIn(ChartDB_.id, selectedIgnoreChartIds)
     }.build()
-
-    init {
-        selectedIgnoreList = selectedIgnoreList
-    }
 
     fun getSongByName(name: String): SongDB? =
         songTitleQuery.setParameter("title", name).findFirst()
