@@ -96,7 +96,11 @@ class LadderGoalItemView @JvmOverloads constructor(context: Context,
 
     private fun updateProgress() {
         goalProgress?.let {
-            text_goal_subtitle.text = context.getString(R.string.goal_progress_format, it.progress, it.max)
+            text_goal_subtitle.text = if (!it.showMax) {
+                it.progress.longNumberString()
+            } else {
+                context.getString(R.string.goal_progress_format, it.progress, it.max)
+            }
             if (it.progress >= it.max) {
                 text_goal_subtitle.setTextColor(ContextCompat.getColor(context, R.color.gold))
             } else {

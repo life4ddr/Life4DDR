@@ -142,14 +142,41 @@ class LadderManager(private val context: Context,
     fun getGoalProgress(goal: BaseRankGoal): LadderGoalProgress? = when (goal) {
         is DifficultyClearGoal -> {
             val charts = songDataManager.getChartsByDifficulty(goal.difficultyNumbers)
-            val filtered = charts.filterNot { songDataManager.selectedIgnoreChartIds!!.contains(it.id) ||
-                        songDataManager.selectedIgnoreSongIds!!.contains(it.song.targetId)}
+            val filtered = charts.filterNot {
+                        songDataManager.selectedIgnoreChartIds!!.contains(it.id) ||
+                        songDataManager.selectedIgnoreSongIds!!.contains(it.song.targetId) ||
+                        goal.songExceptions?.contains(it.song.target.title) == true }
             val results = ladderResultQuery.setParameters("ids", filtered.map { it.id }.toLongArray()).find()
-            goal.getGoalProgress(results)
+            goal.getGoalProgress(results) // return
         }
         is TrialGoal -> {
             val trials = trialManager.bestTrials().filter { it.goalRankId >= goal.rank.stableId }
-            LadderGoalProgress(trials.size, goal.count)
+            LadderGoalProgress(trials.size, goal.count) // return
+        }
+        is SongSetClearGoal -> when {
+            goal.songs != null -> {
+                val songs = goal.songs.mapNotNull { songDataManager.getSongByName(it) }
+                val charts = goal.difficulties.map { diff ->
+                    songs.mapNotNull { song -> song.charts.firstOrNull { it.difficultyClass == diff } }
+                }.flatten()
+                if (goal.score != null) { // clear chart with target score
+                    if (charts.size == 1) { // single chart, show the score
+                        val currentScore = charts[0].plays.maxBy { it.score }!!.score
+                        LadderGoalProgress(currentScore, goal.score, showMax = false)
+                    } else { // multiple charts, show songs satisfied
+                        val doneCount = charts.count {
+                            it.plays.maxBy { play -> play.score }!!.score > goal.score
+                        }
+                        LadderGoalProgress(doneCount, charts.size)
+                    }
+                } else { // simply clear chart
+                    val doneCount = charts.count {
+                        it.plays.maxBy { play -> play.clearType.stableId }!!.clearType.passing
+                    }
+                    LadderGoalProgress(doneCount, charts.size)
+                }
+            }
+            else -> null
         }
         else -> null
     }

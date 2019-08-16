@@ -77,7 +77,7 @@
 			"requirements": 6,
 			"goals": [
 				{ "id": 2301, "type": "calories", "count": 700 },
-				{ "id": 2302, "type": "songs", "songs": ["EGOISM440", "ENDYMION", "Over the Period", "Paranoia Revolution", "Valkyrie Dimension"], "difficulties": ["basic"] },
+				{ "id": 2302, "type": "songs", "songs": ["EGOISM 440", "ENDYMION", "Over the “Period”", "Paranoia Revolution", "Valkyrie Dimension"], "difficulties": ["basic"] },
 				{ "id": 2303, "type": "songs", "difficulties": ["expert", "challenge"], "require_all_difficulties": false },
 				{ "id": 2304, "type": "difficulty", "difficulty": 10, "count": 1, "score": 900000 },
 				{ "id": 2305, "type": "difficulty", "difficulty": 10, "count": 3, "clear_type": "life4" },
@@ -147,7 +147,7 @@
 				{ "id": 4103, "type": "difficulty", "difficulty": 13, "count": 3, "score": 990000 },
 				{ "id": 4104, "type": "difficulty", "difficulty": 14, "count": 1, "score": 965000 },
 				{ "id": 4105, "type": "difficulty", "difficulty": 14, "count": 3, "clear_type": "life4" },
-				{ "id": 4106, "type": "songs", "songs": ["EGOISM440", "ENDYMION", "Over the Period", "Paranoia Revolution", "Valkyrie Dimension"], "difficulties": ["difficult"] },
+				{ "id": 4106, "type": "songs", "songs": ["EGOISM 440", "ENDYMION", "Over the “Period”", "Paranoia Revolution", "Valkyrie Dimension"], "difficulties": ["difficult"] },
 				{ "id": 4107, "type": "difficulty", "difficulty": 16, "count": 10 },
 				{ "id": 4108, "type": "set", "difficulty_numbers": [16, 16, 16] },
 				{ "id": 4109, "type": "difficulty", "difficulty": 17, "count": 1 },
