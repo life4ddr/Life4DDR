@@ -115,7 +115,7 @@ class LadderGoalItemView @JvmOverloads constructor(context: Context,
                 table_expand_details.addView(row)
             }
         }
-        text_goal_subtitle.visibilityBool = goalProgress != null
+        text_goal_subtitle.visibilityBool = goalProgress?.let { it.progress != 0 && it.max != 0 } ?: false
     }
 
     private fun updateIgnoreState() {

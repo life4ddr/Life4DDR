@@ -24,6 +24,7 @@ import com.perrigogames.life4trials.util.saveToFile
 import io.objectbox.kotlin.query
 import kotlinx.coroutines.*
 import retrofit2.Response
+import java.net.UnknownHostException
 
 class TrialManager(private val context: Context,
                    private val githubDataAPI: GithubDataAPI): BaseManager() {
@@ -43,18 +44,23 @@ class TrialManager(private val context: Context,
             trialData = TrialData(trialData.version, trialData.trials + debugData.trials + placements)
         }
         validateTrials()
+        fetchRemoteTrials()
+    }
 
+    private fun fetchRemoteTrials() {
         trialsJob?.cancel()
         trialsJob = CoroutineScope(Dispatchers.IO).launch {
-            val response = githubDataAPI.getTrials()
-            withContext(Dispatchers.Main) {
-                if (response.check()) {
-                    context.saveToFile(TRIALS_FILE_NAME, DataUtil.gson.toJson(response.body()))
-                    Toast.makeText(context, "${response.body()!!.trials.size} Trials found!", Toast.LENGTH_SHORT).show()
-                    Life4Application.eventBus.post(TrialListReplacedEvent())
+            try {
+                val response = githubDataAPI.getTrials()
+                withContext(Dispatchers.Main) {
+                    if (response.check()) {
+                        context.saveToFile(TRIALS_FILE_NAME, DataUtil.gson.toJson(response.body()))
+                        Toast.makeText(context, "${response.body()!!.trials.size} Trials found!", Toast.LENGTH_SHORT).show()
+                        Life4Application.eventBus.post(TrialListReplacedEvent())
+                    }
+                    trialsJob = null
                 }
-                trialsJob = null
-            }
+            } catch (e: UnknownHostException) {}
         }
     }
 

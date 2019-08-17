@@ -24,6 +24,7 @@ import com.perrigogames.life4trials.ui.managerimport.ScoreManagerImportEntryDial
 import com.perrigogames.life4trials.util.*
 import kotlinx.coroutines.*
 import retrofit2.Response
+import java.net.UnknownHostException
 import java.util.*
 
 class LadderManager(private val context: Context,
@@ -50,19 +51,24 @@ class LadderManager(private val context: Context,
     init {
         val dataString = context.readFromFile(RANKS_FILE_NAME) ?: context.loadRawString(R.raw.ranks)
         ladderData = DataUtil.gson.fromJson(dataString, LadderRankData::class.java)!!
+        fetchRemoteRanks()
+    }
 
+    private fun fetchRemoteRanks() {
         ladderJob?.cancel()
         ladderJob = CoroutineScope(Dispatchers.IO).launch {
-            val response = githubDataAPI.getLadderRanks()
-            withContext(Dispatchers.Main) {
-                if (response.check()) {
-                    context.saveToFile(TrialManager.TRIALS_FILE_NAME, DataUtil.gson.toJson(response.body()))
-                    Toast.makeText(context, R.string.ranks_updated, Toast.LENGTH_SHORT).show()
-                    ladderData = response.body()!!
-                    Life4Application.eventBus.post(LadderRanksReplacedEvent())
+            try {
+                val response = githubDataAPI.getLadderRanks()
+                withContext(Dispatchers.Main) {
+                    if (response.check()) {
+                        context.saveToFile(TrialManager.TRIALS_FILE_NAME, DataUtil.gson.toJson(response.body()))
+                        Toast.makeText(context, R.string.ranks_updated, Toast.LENGTH_SHORT).show()
+                        ladderData = response.body()!!
+                        Life4Application.eventBus.post(LadderRanksReplacedEvent())
+                    }
+                    ladderJob = null
                 }
-                ladderJob = null
-            }
+            } catch (e: UnknownHostException) {}
         }
     }
 
