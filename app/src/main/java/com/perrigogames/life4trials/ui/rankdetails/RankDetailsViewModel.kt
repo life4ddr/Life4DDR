@@ -24,8 +24,9 @@ class RankDetailsViewModel(private val context: Context,
                            private val ladderManager: LadderManager,
                            private val goalListListener: OnGoalListInteractionListener?) : ViewModel() {
 
-    private val targetEntry: RankEntry? by lazy { when (rankEntry) {
-        null -> ladderManager.findRankEntry(LadderRank.WOOD1)
+    private val targetEntry: RankEntry? by lazy { when {
+        !options.showNextGoals -> rankEntry
+        rankEntry == null -> ladderManager.findRankEntry(LadderRank.WOOD1)
         else -> ladderManager.nextEntry(rankEntry.rank)
     } }
 
@@ -85,15 +86,24 @@ class RankDetailsViewModel(private val context: Context,
     val adapter: RankGoalsAdapter? = targetEntry?.let { RankGoalsAdapter(it, dataSource, goalItemListener, goalListListener) }
     val shouldShowGoals get() = adapter != null
 
+    val directionsText = MutableLiveData<String>()
     val hiddenStatusText = MutableLiveData<String>()
     val hiddenStatusVisibility = MutableLiveData<Int>()
 
     init {
+        val rankName = targetEntry?.rank?.nameRes?.let { context.getString(it) }
+        directionsText.value = targetEntry?.let { when {
+            it.requirements != null -> context.getString(R.string.rank_directions_optional, rankName, it.goals.size - it.allowedIgnores)
+            else -> context.getString(R.string.rank_directions_all, rankName)
+        } } ?: ""
         if (shouldShowGoals) {
             updateHiddenCount()
         }
     }
 
+    /**
+     * Updates the visibility of a single goal
+     */
     fun updateVisibility(goal: BaseRankGoal, goalDB: GoalStatusDB) {
         if (goalDB.status == GoalStatus.COMPLETE && options.hideCompleted) {
             val index = activeItems.indexOf(goal)
@@ -125,6 +135,7 @@ class RankDetailsViewModel(private val context: Context,
      */
     interface OnGoalListInteractionListener {
         fun onGoalStateChanged(item: BaseRankGoal, goalStatus: GoalStatus, hiddenGoals: Int) {}
+        fun onNextSwitchToggled(enabled: Boolean) {}
         fun onRankSubmitClicked() {}
     }
 }

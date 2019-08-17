@@ -22,6 +22,7 @@ class RankDetailsActivity : AppCompatActivity(), RankHeaderView.NavigationListen
     private val ladderManager get() = life4app.ladderManager
 
     private var rankEntry: RankEntry? = null
+    private var showNextGoals: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +47,11 @@ class RankDetailsActivity : AppCompatActivity(), RankHeaderView.NavigationListen
         }
     }
 
+    override fun onNextSwitchToggled(enabled: Boolean) {
+        showNextGoals = enabled
+        setupRank(rankEntry)
+    }
+
     override fun onStart() {
         super.onStart()
         Life4Application.eventBus.register(this)
@@ -67,7 +73,7 @@ class RankDetailsActivity : AppCompatActivity(), RankHeaderView.NavigationListen
     private fun setupRank(entry: RankEntry?) {
         rankEntry = entry
         supportFragmentManager.beginTransaction()
-            .replace(R.id.container, RankDetailsFragment(rankEntry, RankDetailsFragment.Options(), this, this))
+            .replace(R.id.container, RankDetailsFragment(rankEntry, RankDetailsFragment.Options(showNextGoals = showNextGoals), this, this))
             .commitNow()
     }
 

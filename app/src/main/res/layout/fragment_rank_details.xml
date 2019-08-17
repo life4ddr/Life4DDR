@@ -15,6 +15,32 @@
         android:layout="@layout/view_rank_header"
         app:layout_constraintTop_toTopOf="parent"/>
 
+    <Switch
+        android:id="@+id/switch_show_next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/content_padding_large"
+        android:layout_marginLeft="@dimen/content_padding_large"
+        android:layout_marginTop="@dimen/content_padding_med"
+        android:layout_marginBottom="@dimen/content_padding_med"
+        app:layout_constraintBottom_toBottomOf="@+id/text_directions"
+        app:layout_constraintEnd_toStartOf="@id/text_directions"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/text_directions" />
+
+    <TextView
+        android:id="@+id/text_directions"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/content_padding_med"
+        android:layout_marginTop="@dimen/content_padding_med"
+        android:layout_marginEnd="@dimen/content_padding_med"
+        android:layout_marginBottom="@dimen/content_padding_med"
+        app:layout_constraintEnd_toStartOf="@id/text_goals_hidden"
+        app:layout_constraintStart_toEndOf="@id/switch_show_next"
+        app:layout_constraintTop_toBottomOf="@id/stub_rank_header"
+        tools:text="To obtain GOLD III, finish 6/9 of these goals:" />
+
     <TextView
         android:id="@+id/text_goals_hidden"
         android:layout_width="wrap_content"
@@ -23,18 +49,35 @@
         android:layout_marginEnd="@dimen/content_padding_large"
         android:layout_marginRight="@dimen/content_padding_large"
         android:layout_marginBottom="@dimen/content_padding_med"
+        app:layout_constraintBottom_toBottomOf="@id/text_directions"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/stub_rank_header"
+        app:layout_constraintTop_toTopOf="@id/text_directions"
         tools:text="2/5 hidden" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/fragment_rank_details"
+        android:id="@+id/recycler_rank_details"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_goals_hidden"
+        app:layout_constraintTop_toBottomOf="@id/text_directions"
         tools:listitem="@layout/item_rank_goal"/>
+
+    <TextView
+        android:id="@+id/text_no_goals"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/content_padding_huge"
+        android:layout_marginEnd="@dimen/content_padding_huge"
+        android:gravity="center"
+        android:text="@string/no_rank_goals"
+        android:textSize="@dimen/text_huge"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/text_directions"
+        tools:visibility="visible"/>
 
     <TextView
         android:id="@+id/text_question"
@@ -47,6 +90,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/text_goals_hidden"
+        app:layout_constraintTop_toTopOf="@id/text_directions"
         tools:visibility="visible"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

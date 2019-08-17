@@ -131,7 +131,13 @@ class PlayerProfileActivity : AppCompatActivity(), RankDetailsViewModel.OnGoalLi
         ladderManager.findRankEntry(rank).let { rankEntry ->
             supportFragmentManager.beginTransaction()
                 .replace(R.id.container_current_goals, RankDetailsFragment(rankEntry,
-                    RankDetailsFragment.Options(hideCompleted = true, hideIgnored = false, showHeader = false), null, this))
+                    RankDetailsFragment.Options(
+                        hideCompleted = true,
+                        hideIgnored = false,
+                        showHeader = false,
+                        showNextGoals = true,
+                        allowNextSwitcher = false),
+                    null, this))
                 .commitNowAllowingStateLoss()
         }
     }
