@@ -15,6 +15,20 @@
         android:layout="@layout/view_rank_header"
         app:layout_constraintTop_toTopOf="parent"/>
 
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="top"
+        app:constraint_referenced_ids="switch_show_next,text_directions,text_goals_hidden"/>
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="switch_show_next,text_directions,text_goals_hidden"/>
+
     <Switch
         android:id="@+id/switch_show_next"
         android:layout_width="wrap_content"
@@ -39,16 +53,15 @@
         app:layout_constraintEnd_toStartOf="@id/text_goals_hidden"
         app:layout_constraintStart_toEndOf="@id/switch_show_next"
         app:layout_constraintTop_toBottomOf="@id/stub_rank_header"
+        app:layout_constraintBottom_toTopOf="@id/barrier_bottom"
         tools:text="To obtain GOLD III, finish 6/9 of these goals:" />
 
     <TextView
         android:id="@+id/text_goals_hidden"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/content_padding_med"
         android:layout_marginEnd="@dimen/content_padding_large"
         android:layout_marginRight="@dimen/content_padding_large"
-        android:layout_marginBottom="@dimen/content_padding_med"
         app:layout_constraintBottom_toBottomOf="@id/text_directions"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/text_directions"
@@ -59,8 +72,9 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:fillViewport="true"
+        android:layout_marginTop="@dimen/content_padding_med"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_directions"
+        app:layout_constraintTop_toBottomOf="@id/barrier_bottom"
         tools:listitem="@layout/item_rank_goal"/>
 
     <TextView

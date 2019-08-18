@@ -93,8 +93,8 @@ class RankDetailsViewModel(private val context: Context,
     init {
         val rankName = targetEntry?.rank?.nameRes?.let { context.getString(it) }
         directionsText.value = targetEntry?.let { when {
-            it.requirements != null -> context.getString(R.string.rank_directions_optional, rankName, it.goals.size - it.allowedIgnores)
-            else -> context.getString(R.string.rank_directions_all, rankName)
+            it.requirements != null -> context.resources.getString(R.string.rank_directions_optional, rankName, it.goals.size - it.allowedIgnores)
+            else -> context.resources.getString(R.string.rank_directions_all, rankName)
         } } ?: ""
         if (shouldShowGoals) {
             updateHiddenCount()

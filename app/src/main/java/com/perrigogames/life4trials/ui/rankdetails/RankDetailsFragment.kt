@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.data.RankEntry
 import com.perrigogames.life4trials.life4app
+import com.perrigogames.life4trials.util.spannedText
 import com.perrigogames.life4trials.util.visibilityBool
 import com.perrigogames.life4trials.view.RankHeaderView
 import kotlinx.android.synthetic.main.fragment_rank_details.view.*
@@ -37,7 +38,7 @@ class RankDetailsFragment(private val rankEntry: RankEntry?,
             (view.text_goals_hidden.layoutParams as ConstraintLayout.LayoutParams).topToBottom = R.id.layout_rank_header
         }
 
-        viewModel.directionsText.observe(this, Observer<String> { view.text_directions.text = it })
+        viewModel.directionsText.observe(this, Observer<String> { view.text_directions.text = it.spannedText })
         viewModel.hiddenStatusText.observe(this, Observer<String> { view.text_goals_hidden.text = it })
         viewModel.hiddenStatusVisibility.observe(this, Observer<Int> { v ->
             view.text_goals_hidden.visibility = v
