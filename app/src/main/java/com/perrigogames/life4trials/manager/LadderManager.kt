@@ -167,11 +167,11 @@ class LadderManager(private val context: Context,
                 }.flatten()
                 if (goal.score != null) { // clear chart with target score
                     if (charts.size == 1) { // single chart, show the score
-                        val currentScore = charts[0].plays.maxBy { it.score }!!.score
-                        LadderGoalProgress(currentScore, goal.score, showMax = false)
+                        val currentScore = charts[0].plays.maxBy { it.score }?.score
+                        currentScore?.let { curr -> LadderGoalProgress(curr, goal.score, showMax = false) }
                     } else { // multiple charts, show songs satisfied
-                        val doneCount = charts.count {
-                            it.plays.maxBy { play -> play.score }!!.score > goal.score
+                        val doneCount = charts.count { chart ->
+                            (chart.plays.maxBy { it.score }?.score ?: 0) > goal.score
                         }
                         LadderGoalProgress(doneCount, charts.size)
                     }
