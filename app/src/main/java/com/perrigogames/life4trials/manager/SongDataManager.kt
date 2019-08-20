@@ -2,13 +2,12 @@ package com.perrigogames.life4trials.manager
 
 import android.content.Context
 import android.util.Log
+import android.widget.Toast
 import com.crashlytics.android.Crashlytics
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_IMPORT_IGNORE
-import com.perrigogames.life4trials.data.DifficultyClass
-import com.perrigogames.life4trials.data.IgnoreList
-import com.perrigogames.life4trials.data.IgnoreLists
-import com.perrigogames.life4trials.data.PlayStyle
+import com.perrigogames.life4trials.api.GithubDataAPI
+import com.perrigogames.life4trials.data.*
 import com.perrigogames.life4trials.db.ChartDB
 import com.perrigogames.life4trials.db.ChartDB_
 import com.perrigogames.life4trials.db.SongDB
@@ -16,11 +15,77 @@ import com.perrigogames.life4trials.db.SongDB_
 import com.perrigogames.life4trials.util.DataUtil
 import com.perrigogames.life4trials.util.SharedPrefsUtil
 import com.perrigogames.life4trials.util.loadRawString
+import com.perrigogames.life4trials.util.saveToFile
+import kotlinx.coroutines.*
+import retrofit2.Response
+import java.net.UnknownHostException
 
 /**
  * A Manager class that keeps track of the available songs
  */
-class SongDataManager(private val context: Context): BaseManager() {
+class SongDataManager(private val context: Context,
+                      private val githubDataAPI: GithubDataAPI): BaseManager() {
+
+    init {
+        initializeSongDatabase()
+        fetchRemoteSongs()
+    }
+
+    //
+    // Song List Management
+    //
+    private var trialsJob: Job? = null
+
+    private fun initializeSongDatabase(input: String = context.loadRawString(R.raw.songs)) {
+        val dbSongs = mutableListOf<SongDB>()
+        val dbCharts = mutableListOf<ChartDB>()
+        input.lines().mapNotNull { line ->
+            if (line.isEmpty()) {
+                return@mapNotNull null
+            }
+            val data = line.split(";")
+            val id = data[0].toLong()
+            val title = data[1]
+            var preview = false
+            val mix = data[2].let {
+                it.toLongOrNull() ?: it.substring(0, it.length - 1).let { seg ->
+                    preview = true
+                    seg.toLong()
+                }
+            }
+            dbSongs.add(SongDB(title, null, GameVersion.parse(mix), preview).also { song ->
+                songBox.attach(song)
+                PlayStyle.values().forEachIndexed { sIdx, style ->
+                    DifficultyClass.values().forEachIndexed { dIdx, diff ->
+                        val diffStr = data[3 + ((sIdx + 1) * dIdx)]
+                        if (diffStr.isNotEmpty()) {
+                            ChartDB(diff, diffStr.toInt(), style).also { chart ->
+                                dbCharts.add(chart)
+                                song.charts.add(chart)
+                            }
+                        }
+                    }
+                }
+            })
+        }
+        chartBox.put(dbCharts)
+        songBox.put(dbSongs)
+    }
+
+    private fun fetchRemoteSongs() {
+        trialsJob?.cancel()
+        trialsJob = CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val response = githubDataAPI.getSongList()
+                withContext(Dispatchers.Main) {
+                    if (response.check()) {
+                        response.body()?.let { context.saveToFile(SONGS_FILE_NAME, it) }
+                    }
+                    trialsJob = null
+                }
+            } catch (e: UnknownHostException) {}
+        }
+    }
 
     //
     // Ignore List Data
@@ -126,13 +191,15 @@ class SongDataManager(private val context: Context): BaseManager() {
         val songStrings = songBox.all.map { song ->
             val builder = StringBuilder("${song.title};")
             val chartsCopy = song.charts.toMutableList()
-            DifficultyClass.values().forEach { diff ->
-                val chart = chartsCopy.firstOrNull { it.difficultyClass == diff }
-                if (chart != null) {
-                    chartsCopy.remove(chart)
-                    builder.append("${chart.difficultyNumber};")
-                } else {
-                    builder.append(";")
+            PlayStyle.values().forEach { style ->
+                DifficultyClass.values().forEach { diff ->
+                    val chart = chartsCopy.firstOrNull { it.playStyle == style && it.difficultyClass == diff }
+                    if (chart != null) {
+                        chartsCopy.remove(chart)
+                        builder.append("${chart.difficultyNumber};")
+                    } else {
+                        builder.append(";")
+                    }
                 }
             }
             builder.toString()
@@ -148,6 +215,18 @@ class SongDataManager(private val context: Context): BaseManager() {
                 setLength(0)
             }
         }
+    }
+
+    private fun Response<String>.check(): Boolean = when {
+        !isSuccessful -> {
+            Toast.makeText(context, errorBody()!!.string(), Toast.LENGTH_SHORT).show()
+            false
+        }
+        else -> true
+    }
+
+    companion object {
+        const val SONGS_FILE_NAME = "songs.csv"
     }
 }
 

@@ -57,7 +57,7 @@ class Life4Application: MultiDexApplication() {
         }
 
         firstRunManager = FirstRunManager(this)
-        songDataManager = SongDataManager(this)
+        songDataManager = SongDataManager(this, githubDataApi)
         placementManager = PlacementManager(this)
         trialManager = TrialManager(this, githubDataApi)
         ladderManager = LadderManager(this, songDataManager, trialManager, githubDataApi)

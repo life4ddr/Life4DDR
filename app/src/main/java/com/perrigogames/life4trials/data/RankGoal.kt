@@ -16,6 +16,7 @@ import kotlin.math.min
  */
 abstract class BaseRankGoal(val id: Int,
                             val type: String,
+                            @SerializedName("play_style") val playStyle: PlayStyle = PlayStyle.SINGLE,
                             val mandatory: Boolean = false): Serializable {
 
     abstract fun goalString(c: Context): String
@@ -29,7 +30,8 @@ abstract class BaseRankGoal(val id: Int,
  */
 class CaloriesRankGoal(id: Int,
                        type: String,
-                       val count: Int): BaseRankGoal(id, type) {
+                       playStyle: PlayStyle = PlayStyle.SINGLE,
+                       val count: Int): BaseRankGoal(id, type, playStyle) {
 
     override fun goalString(c: Context): String =
             c.getString(R.string.rank_goal_calories, count)
@@ -49,6 +51,7 @@ class CaloriesRankGoal(id: Int,
  */
 class SongSetClearGoal(id: Int,
                        type: String,
+                       playStyle: PlayStyle = PlayStyle.SINGLE,
                        mandatory: Boolean,
                        @SerializedName("clear_type") private val mClearType: ClearType?,
                        @SerializedName("require_all_difficulties") private val mRequireAllDifficulties: Boolean?,
@@ -56,7 +59,7 @@ class SongSetClearGoal(id: Int,
                        val difficulties: List<DifficultyClass>,
                        val folder: String?,
                        val score: Int?,
-                       val songs: List<String>?): BaseRankGoal(id, type, mandatory) {
+                       val songs: List<String>?): BaseRankGoal(id, type, playStyle, mandatory) {
 
     val requireAllDifficulties: Boolean get() = mRequireAllDifficulties ?: true
 
@@ -92,8 +95,9 @@ class SongSetClearGoal(id: Int,
  */
 class SongSetGoal(id: Int,
                   type: String,
+                  playStyle: PlayStyle = PlayStyle.SINGLE,
                   mandatory: Boolean,
-                  @SerializedName("difficulty_numbers") val difficulties: IntArray): BaseRankGoal(id, type, mandatory) {
+                  @SerializedName("difficulty_numbers") val difficulties: IntArray): BaseRankGoal(id, type, playStyle, mandatory) {
 
     override fun goalString(c: Context): String {
         return c.getString(
@@ -119,9 +123,10 @@ class SongSetGoal(id: Int,
  */
 class TrialGoal(id: Int,
                 type: String,
+                playStyle: PlayStyle = PlayStyle.SINGLE,
                 mandatory: Boolean,
                 val rank: TrialRank,
-                val count: Int = 1): BaseRankGoal(id, type, mandatory) {
+                val count: Int = 1): BaseRankGoal(id, type, playStyle, mandatory) {
 
     override fun goalString(c: Context): String {
         return if (count == 1) c.getString(R.string.rank_goal_clear_trial_single, c.getString(rank.nameRes))
@@ -153,6 +158,7 @@ class TrialGoal(id: Int,
  */
 class DifficultyClearGoal(id: Int,
                           type: String,
+                          playStyle: PlayStyle = PlayStyle.SINGLE,
                           mandatory: Boolean,
                           @SerializedName("difficulty") val difficulty: Int?,
                           @SerializedName("difficulty_numbers") private val mDifficultyNumbers: IntArray?,
@@ -161,7 +167,7 @@ class DifficultyClearGoal(id: Int,
                           val songs: List<String>? = null,
                           val score: Int?,
                           val exceptions: Int?,
-                          @SerializedName("song_exceptions") val songExceptions: List<String>? = null): BaseRankGoal(id, type, mandatory) {
+                          @SerializedName("song_exceptions") val songExceptions: List<String>? = null): BaseRankGoal(id, type, playStyle, mandatory) {
 
     val clearType: ClearType get() = mClearType ?: ClearType.CLEAR
 
@@ -285,8 +291,9 @@ class DifficultyClearGoal(id: Int,
  */
 class MFCPointsGoal(id: Int,
                     type: String,
+                    playStyle: PlayStyle = PlayStyle.SINGLE,
                     mandatory: Boolean,
-                    val points: Int): BaseRankGoal(id, type, mandatory) {
+                    val points: Int): BaseRankGoal(id, type, playStyle, mandatory) {
 
     override fun goalString(c: Context): String {
         return c.getString(R.string.rank_goal_ex_points, points)
@@ -303,8 +310,9 @@ class MFCPointsGoal(id: Int,
  */
 class MultipleChoiceGoal(id: Int,
                          type: String,
+                         playStyle: PlayStyle = PlayStyle.SINGLE,
                          mandatory: Boolean,
-                         val options: List<BaseRankGoal>): BaseRankGoal(id, type, mandatory) {
+                         val options: List<BaseRankGoal>): BaseRankGoal(id, type, playStyle, mandatory) {
 
     override fun goalString(c: Context): String {
         return options.map { it.goalString(c).replace(".", "") }.toListString(c, R.string.or_s_caps)

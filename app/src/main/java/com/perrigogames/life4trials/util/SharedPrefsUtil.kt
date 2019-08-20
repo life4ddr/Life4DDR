@@ -7,6 +7,10 @@ import androidx.preference.PreferenceManager
 import com.perrigogames.life4trials.BuildConfig
 import com.perrigogames.life4trials.R
 
+enum class MajorUpdate {
+    SONG_DB
+}
+
 object SharedPrefsUtil {
 
     const val KEY_INIT_STATE = "KEY_INIT_STATE"
@@ -19,6 +23,7 @@ object SharedPrefsUtil {
     const val KEY_TUTORIAL_PREFS = "tutorial_preferences"
     const val KEY_DATA_PREFS = "data_preferences"
     const val KEY_APP_CRASHED = "app_crashed"
+    const val KEY_MAJOR_UPDATE = "major_update"
 
     fun finishTutorial(c: Context, tutorial: String) {
         return with (tutorialPrefs(c).edit()) {
