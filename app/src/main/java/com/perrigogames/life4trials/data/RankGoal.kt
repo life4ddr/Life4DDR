@@ -21,7 +21,7 @@ abstract class BaseRankGoal(val id: Int,
 
     abstract fun goalString(c: Context): String
 
-    open fun getGoalProgress(results: List<LadderResultDB>): LadderGoalProgress? = null
+    open fun getGoalProgress(possible: Int, results: List<LadderResultDB>): LadderGoalProgress? = null
 }
 
 /**
@@ -187,15 +187,15 @@ class DifficultyClearGoal(id: Int,
         }
     }
 
-    override fun getGoalProgress(results: List<LadderResultDB>): LadderGoalProgress? {
+    override fun getGoalProgress(possible: Int, results: List<LadderResultDB>): LadderGoalProgress? {
         return when {
-            results.isEmpty() -> null
+            results.isEmpty() -> LadderGoalProgress(0, possible)
             count == null -> {
                 val remaining = when {
                     score != null -> results.filter { it.score < score } // All X over Y
                     else -> results.filter { it.clearType.ordinal < clearType.ordinal } // Y lamp the X's folder
                 }.sortedByDescending { it.score }
-                val actualResultsSize = results.size - (exceptions ?: 0)
+                val actualResultsSize = possible - (exceptions ?: 0)
                 LadderGoalProgress(min(results.size - remaining.size, actualResultsSize), actualResultsSize, results = remaining)
             }
             else -> {

@@ -373,6 +373,10 @@
     <string name="rank_directions_optional">To earn <![CDATA[<b><font color=#ffffff>%s</font></b>]]>, complete %d goals:</string>
     <string name="rank_directions_all">To earn <![CDATA[<b><font color=#ffffff>%s</font></b>]]>, complete:</string>
     <string name="no_rank_goals">It\'s free to not have a rank, but it\'s more fun if you play through some goals!</string>
+
+    <string name="database_upgraded">Song Database Upgraded</string>
+    <string name="database_replaced_reimport">The internal song database has been upgraded. You will need to reimport your scores from the DDR A Score Manager. You\'ll only need to do this once.</string>
+
     <array name="credits">
         <item>Camera, Cancel, Cogwheel, Eye, Folder, Scroll Left, Scroll Right, and Star icons by https://www.flaticon.com/authors/daniel-bruce from www.flaticon.com</item>
         <item>Fixtures icon by https://www.flaticon.com/authors/Freepik from www.flaticon.com</item>

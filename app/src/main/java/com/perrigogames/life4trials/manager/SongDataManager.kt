@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import android.widget.Toast
 import com.crashlytics.android.Crashlytics
+import com.perrigogames.life4trials.Life4Application
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_IMPORT_IGNORE
 import com.perrigogames.life4trials.api.GithubDataAPI
@@ -12,11 +13,11 @@ import com.perrigogames.life4trials.db.ChartDB
 import com.perrigogames.life4trials.db.ChartDB_
 import com.perrigogames.life4trials.db.SongDB
 import com.perrigogames.life4trials.db.SongDB_
-import com.perrigogames.life4trials.util.DataUtil
-import com.perrigogames.life4trials.util.SharedPrefsUtil
-import com.perrigogames.life4trials.util.loadRawString
-import com.perrigogames.life4trials.util.saveToFile
+import com.perrigogames.life4trials.event.MajorUpdateProcessEvent
+import com.perrigogames.life4trials.util.*
+import com.perrigogames.life4trials.util.SharedPrefsUtil.KEY_SONG_LIST_VERSION
 import kotlinx.coroutines.*
+import org.greenrobot.eventbus.Subscribe
 import retrofit2.Response
 import java.net.UnknownHostException
 
@@ -27,8 +28,15 @@ class SongDataManager(private val context: Context,
                       private val githubDataAPI: GithubDataAPI): BaseManager() {
 
     init {
-        initializeSongDatabase()
+        Life4Application.eventBus.register(this)
         fetchRemoteSongs()
+    }
+
+    @Subscribe
+    fun onMajorVersion(e: MajorUpdateProcessEvent) {
+        if (e.version == MajorUpdate.SONG_DB) {
+            initializeSongDatabase()
+        }
     }
 
     //
@@ -37,39 +45,45 @@ class SongDataManager(private val context: Context,
     private var trialsJob: Job? = null
 
     private fun initializeSongDatabase(input: String = context.loadRawString(R.raw.songs)) {
-        val dbSongs = mutableListOf<SongDB>()
-        val dbCharts = mutableListOf<ChartDB>()
-        input.lines().mapNotNull { line ->
-            if (line.isEmpty()) {
-                return@mapNotNull null
-            }
-            val data = line.split(";")
-            val id = data[0].toLong()
-            val title = data[1]
-            var preview = false
-            val mix = data[2].let {
-                it.toLongOrNull() ?: it.substring(0, it.length - 1).let { seg ->
-                    preview = true
-                    seg.toLong()
+        chartBox.removeAll()
+        songBox.removeAll()
+        val lines = input.lines()
+        if (SharedPrefsUtil.getUserInt(context, KEY_SONG_LIST_VERSION, -1) < lines[0].toInt()) {
+            val dbSongs = mutableListOf<SongDB>()
+            val dbCharts = mutableListOf<ChartDB>()
+            lines.mapIndexedNotNull { idx, line ->
+                if (idx == 0 || line.isEmpty()) {
+                    return@mapIndexedNotNull null
                 }
-            }
-            dbSongs.add(SongDB(title, null, GameVersion.parse(mix), preview).also { song ->
-                songBox.attach(song)
-                PlayStyle.values().forEachIndexed { sIdx, style ->
-                    DifficultyClass.values().forEachIndexed { dIdx, diff ->
-                        val diffStr = data[3 + ((sIdx + 1) * dIdx)]
-                        if (diffStr.isNotEmpty()) {
-                            ChartDB(diff, diffStr.toInt(), style).also { chart ->
-                                dbCharts.add(chart)
-                                song.charts.add(chart)
+                val data = line.split(";")
+                val id = data[0].toLong()
+                val title = data[1]
+                var preview = false
+                val mix = data[2].let {
+                    it.toLongOrNull() ?: it.substring(0, it.length - 1).let { seg ->
+                        preview = true
+                        seg.toLong()
+                    }
+                }
+                dbSongs.add(SongDB(title, null, GameVersion.parse(mix), preview).also { song ->
+                    songBox.attach(song)
+                    PlayStyle.values().forEachIndexed { sIdx, style ->
+                        DifficultyClass.values().forEachIndexed { dIdx, diff ->
+                            val diffStr = data[3 + ((sIdx + 1) * dIdx)]
+                            if (diffStr.isNotEmpty()) {
+                                ChartDB(diff, diffStr.toInt(), style).also { chart ->
+                                    dbCharts.add(chart)
+                                    song.charts.add(chart)
+                                }
                             }
                         }
                     }
-                }
-            })
+                })
+            }
+            chartBox.put(dbCharts)
+            songBox.put(dbSongs)
+            invalidateIgnoredIds()
         }
-        chartBox.put(dbCharts)
-        songBox.put(dbSongs)
     }
 
     private fun fetchRemoteSongs() {
@@ -79,7 +93,10 @@ class SongDataManager(private val context: Context,
                 val response = githubDataAPI.getSongList()
                 withContext(Dispatchers.Main) {
                     if (response.check()) {
-                        response.body()?.let { context.saveToFile(SONGS_FILE_NAME, it) }
+                        response.body()?.let {
+                            context.saveToFile(SONGS_FILE_NAME, it)
+                            initializeSongDatabase(it)
+                        }
                     }
                     trialsJob = null
                 }

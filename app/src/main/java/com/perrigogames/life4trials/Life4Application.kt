@@ -65,6 +65,7 @@ class Life4Application: MultiDexApplication() {
         playerManager = PlayerManager(this)
 
         NotificationUtil.setupNotifications(this)
+        SharedPrefsUtil.handleMajorUpdate(this)
 
         if (BuildConfig.DEBUG) {
             FirebaseUtil.getId(this)

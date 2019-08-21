@@ -15,14 +15,12 @@ import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_IMPO
 import com.perrigogames.life4trials.api.GithubDataAPI
 import com.perrigogames.life4trials.data.*
 import com.perrigogames.life4trials.db.*
-import com.perrigogames.life4trials.event.LadderRankUpdatedEvent
-import com.perrigogames.life4trials.event.LadderRanksReplacedEvent
-import com.perrigogames.life4trials.event.SongResultsImportCompletedEvent
-import com.perrigogames.life4trials.event.SongResultsUpdatedEvent
+import com.perrigogames.life4trials.event.*
 import com.perrigogames.life4trials.ui.managerimport.ScoreManagerImportDirectionsDialog
 import com.perrigogames.life4trials.ui.managerimport.ScoreManagerImportEntryDialog
 import com.perrigogames.life4trials.util.*
 import kotlinx.coroutines.*
+import org.greenrobot.eventbus.Subscribe
 import retrofit2.Response
 import java.net.UnknownHostException
 import java.util.*
@@ -49,6 +47,7 @@ class LadderManager(private val context: Context,
     // Init
     //
     init {
+        Life4Application.eventBus.register(this)
         val dataString = context.readFromFile(RANKS_FILE_NAME) ?: context.loadRawString(R.raw.ranks)
         ladderData = DataUtil.gson.fromJson(dataString, LadderRankData::class.java)!!
         fetchRemoteRanks()
@@ -69,6 +68,22 @@ class LadderManager(private val context: Context,
                     ladderJob = null
                 }
             } catch (e: UnknownHostException) {}
+        }
+    }
+
+    @Subscribe
+    fun onMajorVersion(e: MajorUpdateProcessEvent) {
+        if (e.version == MajorUpdate.SONG_DB) {
+            if (!ladderResultBox.isEmpty) {
+                ladderResultBox.removeAll()
+                AlertDialog.Builder(context)
+                    .setTitle(R.string.database_upgraded)
+                    .setMessage(R.string.database_replaced_reimport)
+                    .setPositiveButton(R.string.okay) { d, _ -> d.dismiss() }
+                    .setCancelable(true)
+                    .create()
+                    .show()
+            }
         }
     }
 
@@ -153,7 +168,7 @@ class LadderManager(private val context: Context,
                         songDataManager.selectedIgnoreSongIds!!.contains(it.song.targetId) ||
                         goal.songExceptions?.contains(it.song.target.title) == true }
             val results = ladderResultQuery.setParameters("ids", filtered.map { it.id }.toLongArray()).find()
-            goal.getGoalProgress(results) // return
+            goal.getGoalProgress(filtered.size, results) // return
         }
         is TrialGoal -> {
             val trials = trialManager.bestTrials().filter { it.goalRankId >= goal.rank.stableId }
