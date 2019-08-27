@@ -107,37 +107,42 @@ class SongDataManager(private val context: Context,
     //
     // Ignore List Data
     //
-    private var ignoreList: List<IgnoreList> =
+    private var ignoreLists: List<IgnoreList> =
         DataUtil.gson.fromJson(context.loadRawString(R.raw.ignore_lists), IgnoreLists::class.java)!!.lists
-    val ignoreListIds get() = ignoreList.map { it.id }
-    val ignoreListTitles get() = ignoreList.map { it.name }
+    val ignoreListIds get() = ignoreLists.map { it.id }
+    val ignoreListTitles get() = ignoreLists.map { it.name }
 
     private val selectedIgnoreList: IgnoreList?
         get() = getIgnoreList(SharedPrefsUtil.getUserString(context, KEY_IMPORT_IGNORE, "ACE_US")!!)
 
-    fun getIgnoreList(id: String) = ignoreList.first { it.id == id }
+    fun getIgnoreList(id: String) = ignoreLists.first { it.id == id }
 
-    var selectedIgnoreSongIds: LongArray? = null
+    private var mSelectedIgnoreSongIds: LongArray? = null
+    private var mSelectedIgnoreChartIds: LongArray? = null
+
+    val selectedIgnoreSongIds: LongArray
         get() {
-            if (field == null) {
-                field = selectedIgnoreList?.songs?.map { it.title }?.toTypedArray()?.let { ignoreTitles ->
+            if (mSelectedIgnoreSongIds == null) {
+                val ignoredSongs = selectedIgnoreList?.songs?.map { it.title }?.toTypedArray()?.let { ignoreTitles ->
                     multipleSongTitleQuery.setParameters("titles", ignoreTitles).find().map { it.id }.toLongArray()
                 } ?: LongArray(0)
+                val ignoredVersions = selectedIgnoreList?.mixes?.map { it.stableId }?.toLongArray()?.let { versions ->
+                    multipleGameVersionQuery.setParameters("versions", versions).find().map { it.id }.toLongArray()
+                } ?: LongArray(0)
+                mSelectedIgnoreSongIds = ignoredSongs.union(ignoredVersions.asIterable()).toLongArray()
             }
-            return field
+            return mSelectedIgnoreSongIds!!
         }
-        private set
-    var selectedIgnoreChartIds: LongArray? = null
+    val selectedIgnoreChartIds: LongArray
         get() {
-            if (field == null) {
-                field = selectedIgnoreList?.charts?.mapNotNull { chart ->
+            if (mSelectedIgnoreChartIds == null) {
+                mSelectedIgnoreChartIds = selectedIgnoreList?.charts?.mapNotNull { chart ->
                     val song = songTitleQuery.setParameter("title", chart.title).findFirst()
                     return@mapNotNull song?.charts?.firstOrNull { it.difficultyClass == chart.difficultyClass }?.id
                 }?.toLongArray() ?: LongArray(0)
             }
-            return field
+            return mSelectedIgnoreChartIds!!
         }
-        private set
 
     //
     // ObjectBoxes
@@ -154,14 +159,28 @@ class SongDataManager(private val context: Context,
     private val multipleSongTitleQuery = songBox.query()
         .`in`(SongDB_.title, emptyArray<String>()).parameterAlias("titles")
         .build()
+    private val gameVersionQuery = songBox.query()
+        .equal(SongDB_.version, -1).parameterAlias("version")
+        .build()
+    private val multipleGameVersionQuery = songBox.query()
+        .`in`(SongDB_.version, LongArray(0)).parameterAlias("versions")
+        .build()
     private val chartDifficultyQuery = chartBox.query().apply {
         equal(ChartDB_.difficultyNumber, 0).parameterAlias("difficulty")
         link(ChartDB_.song).notIn(SongDB_.id, selectedIgnoreSongIds)
         notIn(ChartDB_.id, selectedIgnoreChartIds)
     }.build()
 
+    fun getSongById(id: Long): SongDB? = songBox.get(id)
+
+    fun getSongsById(ids: LongArray): MutableList<SongDB> = songBox.get(ids)
+
     fun getSongByName(name: String): SongDB? =
         songTitleQuery.setParameter("title", name).findFirst()
+
+    fun getChartById(id: Long): ChartDB? = chartBox.get(id)
+
+    fun getChartsById(ids: LongArray): MutableList<ChartDB> = chartBox.get(ids)
 
     fun getChartsByDifficulty(difficulty: Int): MutableList<ChartDB> =
         chartDifficultyQuery.setParameter("difficulty", difficulty.toLong()).find()
@@ -179,8 +198,8 @@ class SongDataManager(private val context: Context,
      * Nulls out the list of invalid IDs, to regenerate them
      */
     fun invalidateIgnoredIds() {
-        selectedIgnoreSongIds = null
-        selectedIgnoreChartIds = null
+        mSelectedIgnoreSongIds = null
+        mSelectedIgnoreChartIds = null
     }
 
     fun updateOrCreateChartForSong(song: SongDB,

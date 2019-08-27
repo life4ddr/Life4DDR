@@ -326,6 +326,7 @@
     <string name="choose_list">Choose 1: %s</string>
     <string name="life4">LIFE4</string>
     <string name="action_progress_matrix">Progress Matrix</string>
+    <string name="action_blocklist">Blocklist</string>
 
     <string name="dont_show_again">Don\'t show this again</string>
     <string name="import_paste_copied_text">Paste the copied text into the box.</string>
@@ -378,7 +379,9 @@
     <string name="database_replaced_reimport">The internal song database has been upgraded. You will need to reimport your scores from the DDR A Score Manager. You\'ll only need to do this once.</string>
 
     <array name="credits">
-        <item>Camera, Cancel, Cogwheel, Eye, Folder, Scroll Left, Scroll Right, and Star icons by https://www.flaticon.com/authors/daniel-bruce from www.flaticon.com</item>
+        <item>Camera, Cancel, Cogwheel, Eye, Folder, Scroll Left, Scroll Right, and Star icons by
+            https://www.flaticon.com/authors/daniel-bruce from www.flaticon.com
+        </item>
         <item>Fixtures icon by https://www.flaticon.com/authors/Freepik from www.flaticon.com</item>
         <item>Coded by @CodingCabbit</item>
         <item>Inspired by the awesome team at @LIFE4DDR</item>

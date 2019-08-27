@@ -164,8 +164,8 @@ class LadderManager(private val context: Context,
         is DifficultyClearGoal -> {
             val charts = songDataManager.getChartsByDifficulty(goal.difficultyNumbers)
             val filtered = charts.filterNot {
-                        songDataManager.selectedIgnoreChartIds!!.contains(it.id) ||
-                        songDataManager.selectedIgnoreSongIds!!.contains(it.song.targetId) ||
+                        songDataManager.selectedIgnoreChartIds.contains(it.id) ||
+                        songDataManager.selectedIgnoreSongIds.contains(it.song.targetId) ||
                         goal.songExceptions?.contains(it.song.target.title) == true }
             val results = ladderResultQuery.setParameters("ids", filtered.map { it.id }.toLongArray()).find()
             goal.getGoalProgress(filtered.size, results) // return

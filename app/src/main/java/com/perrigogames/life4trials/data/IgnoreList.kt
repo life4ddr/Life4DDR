@@ -12,7 +12,7 @@ class IgnoreList(val id: String,
                  val name: String,
                  val songs: List<IgnoredSong>? = null,
                  val charts: List<IgnoredChart>? = null,
-                 val mixes: List<GameVersion>)
+                 val mixes: List<GameVersion>? = null)
 
 class IgnoredSong(val title: String)
 

@@ -50,6 +50,7 @@ class PlayerProfileActivity : AppCompatActivity(), RankDetailsViewModel.OnGoalLi
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
         SharedPrefsUtil.isPreviewEnabled().let { p ->
+            menu.findItem(R.id.action_blocklist).isVisible = p
             menu.findItem(R.id.action_progress_matrix).isVisible = p
         }
         return true
@@ -61,6 +62,7 @@ class PlayerProfileActivity : AppCompatActivity(), RankDetailsViewModel.OnGoalLi
             R.id.action_records -> startActivity(Intent(this, TrialRecordsActivity::class.java))
             R.id.action_import_data -> ladderManager.showImportFlow(this)
             R.id.action_progress_matrix -> startActivity(MatrixTestActivity.intent(this, LadderRank.DIAMOND1))
+            R.id.action_blocklist -> startActivity(Intent(this, BlockListCheckActivity::class.java))
             else -> return super.onOptionsItemSelected(item)
         }
         return true
