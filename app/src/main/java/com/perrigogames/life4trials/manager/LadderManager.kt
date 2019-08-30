@@ -202,7 +202,7 @@ class LadderManager(private val context: Context,
                     }
                 } else { // simply clear chart
                     val doneCount = charts.count {
-                        it.plays.maxBy { play -> play.clearType.stableId }!!.clearType.passing
+                        it.plays.maxBy { play -> play.clearType.stableId }?.clearType?.passing ?: false
                     }
                     LadderGoalProgress(doneCount, charts.size)
                 }

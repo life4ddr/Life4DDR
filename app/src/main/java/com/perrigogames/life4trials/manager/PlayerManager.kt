@@ -41,7 +41,7 @@ class PlayerManager(private val context: Context) {
             }
             withContext(Dispatchers.Main) {
                 if (BuildConfig.DEBUG && playerName == "KONNOR") {
-                    val player = ApiPlayer(1, playerName, "GOLD III", "", "@CodingCabbit", "", "1234-5678", true)
+                    val player = ApiPlayer(1, playerName, "DIAMOND I", "", "@CodingCabbit", "", "5142-3911", true)
                     Life4Application.eventBus.post(PlayerImportedEvent(player))
                 } else {
                     Life4Application.eventBus.post(PlayerImportedEvent())
