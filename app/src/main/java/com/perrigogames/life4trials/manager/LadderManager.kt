@@ -160,15 +160,23 @@ class LadderManager(private val context: Context,
     //
     // Imported Score Data
     //
-    fun getGoalProgress(goal: BaseRankGoal): LadderGoalProgress? = when (goal) {
+    fun getGoalProgress(goal: BaseRankGoal, playStyle: PlayStyle): LadderGoalProgress? = when (goal) {
         is DifficultyClearGoal -> {
-            val charts = songDataManager.getChartsByDifficulty(goal.difficultyNumbers)
+            val charts = songDataManager.getChartsByDifficulty(goal.difficultyNumbers, playStyle)
             val filtered = charts.filterNot {
                         songDataManager.selectedIgnoreChartIds.contains(it.id) ||
                         songDataManager.selectedIgnoreSongIds.contains(it.song.targetId) ||
                         goal.songExceptions?.contains(it.song.target.title) == true }
-            val results = ladderResultQuery.setParameters("ids", filtered.map { it.id }.toLongArray()).find()
-            goal.getGoalProgress(filtered.size, results) // return
+            val filteredIds = filtered.map { it.id }.toLongArray()
+            val results = ladderResultQuery.setParameters("ids", filteredIds).find()
+            if (results.isEmpty()) {
+                null // return
+            } else {
+                val resultIds = results.map { it.chart.target.id }.toSortedSet()
+                val notFound = getOrCreateResultsForCharts(filtered.filterNot { resultIds.contains(it.id) })
+                results.addAll(notFound)
+                goal.getGoalProgress(filtered.size, results) // return
+            }
         }
         is TrialGoal -> {
             val trials = trialManager.bestTrials().filter { it.goalRankId >= goal.rank.stableId }
@@ -178,7 +186,9 @@ class LadderManager(private val context: Context,
             goal.songs != null -> {
                 val songs = goal.songs.mapNotNull { songDataManager.getSongByName(it) }
                 val charts = goal.difficulties.map { diff ->
-                    songs.mapNotNull { song -> song.charts.firstOrNull { it.difficultyClass == diff } }
+                    songs.mapNotNull { song -> song.charts.firstOrNull {
+                        it.difficultyClass == diff && it.playStyle == playStyle
+                    } }
                 }.flatten()
                 if (goal.score != null) { // clear chart with target score
                     if (charts.size == 1) { // single chart, show the score
@@ -318,6 +328,16 @@ class LadderManager(private val context: Context,
             }
             .setNegativeButton(R.string.no, null)
             .show()
+    }
+
+    private fun getOrCreateResultsForCharts(charts: List<ChartDB>): List<LadderResultDB> {
+        return charts.map { chart ->
+            chart.plays.firstOrNull() ?: LadderResultDB().also { result ->
+                chart.plays.add(result)
+                songDataManager.updateChart(chart)
+                ladderResultBox.put(result)
+            }
+        }
     }
 
     private fun updateOrCreateResultForChart(chart: ChartDB, score: Int, clear: ClearType): LadderResultDB {

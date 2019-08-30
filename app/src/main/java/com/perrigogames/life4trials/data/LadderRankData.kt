@@ -14,7 +14,8 @@ class LadderRankData(val version: Int,
 /**
  * Describes a single rank in [LadderRankData] and the goals required to obtain it.
  */
-class RankEntry(val rank: LadderRank,
+class RankEntry @JvmOverloads constructor(val rank: LadderRank,
+                @SerializedName("play_style") val playStyle: PlayStyle,
                 val goals: List<BaseRankGoal>,
                 val requirements: Int?): Serializable {
 

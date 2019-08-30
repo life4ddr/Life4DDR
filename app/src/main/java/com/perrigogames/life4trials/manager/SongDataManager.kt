@@ -167,6 +167,7 @@ class SongDataManager(private val context: Context,
         .build()
     private val chartDifficultyQuery = chartBox.query().apply {
         equal(ChartDB_.difficultyNumber, 0).parameterAlias("difficulty")
+        equal(ChartDB_.playStyle, 0).parameterAlias("playStyle")
         link(ChartDB_.song).notIn(SongDB_.id, selectedIgnoreSongIds)
         notIn(ChartDB_.id, selectedIgnoreChartIds)
     }.build()
@@ -182,11 +183,18 @@ class SongDataManager(private val context: Context,
 
     fun getChartsById(ids: LongArray): MutableList<ChartDB> = chartBox.get(ids)
 
-    fun getChartsByDifficulty(difficulty: Int): MutableList<ChartDB> =
-        chartDifficultyQuery.setParameter("difficulty", difficulty.toLong()).find()
+    fun getChartsByDifficulty(difficulty: Int, playStyle: PlayStyle): MutableList<ChartDB> =
+        chartDifficultyQuery.setParameter("difficulty", difficulty.toLong())
+            .setParameter("playStyle", playStyle.stableId)
+            .find()
 
-    fun getChartsByDifficulty(difficultyList: IntArray): MutableList<ChartDB> = mutableListOf<ChartDB>().apply {
-        difficultyList.forEach { addAll(chartDifficultyQuery.setParameter("difficulty", it.toLong()).find()) }
+    fun getChartsByDifficulty(difficultyList: IntArray, playStyle: PlayStyle): MutableList<ChartDB> = mutableListOf<ChartDB>().apply {
+        difficultyList.forEach {
+            addAll(chartDifficultyQuery
+                .setParameter("difficulty", it.toLong())
+                .setParameter("playStyle", playStyle.stableId)
+                .find())
+        }
     }
 
     fun getOrCreateSong(name: String, artist: String? = null): SongDB =

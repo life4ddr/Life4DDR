@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.data.BaseRankGoal
 import com.perrigogames.life4trials.data.LadderRank
+import com.perrigogames.life4trials.data.PlayStyle
 import com.perrigogames.life4trials.data.RankEntry
 import com.perrigogames.life4trials.db.GoalStatus
 import com.perrigogames.life4trials.db.GoalStatusDB
@@ -80,7 +81,7 @@ class RankDetailsViewModel(private val context: Context,
         override fun isGoalExpanded(item: BaseRankGoal) = expandedItems.contains(item)
         override fun canIgnoreGoals(): Boolean = canIgnoreGoals
         override fun getGoalStatus(item: BaseRankGoal) = ladderManager.getOrCreateGoalStatus(item)
-        override fun getGoalProgress(item: BaseRankGoal) = ladderManager.getGoalProgress(item)
+        override fun getGoalProgress(item: BaseRankGoal, playStyle: PlayStyle) = ladderManager.getGoalProgress(item, playStyle)
     }
 
     val adapter: RankGoalsAdapter? = targetEntry?.let { RankGoalsAdapter(it, dataSource, goalItemListener, goalListListener) }

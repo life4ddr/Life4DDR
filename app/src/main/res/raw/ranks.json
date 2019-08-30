@@ -3,6 +3,7 @@
 	"rank_requirements": [
 		{
 			"rank": "wood1",
+			"play_style":"single",
 			"requirements": 4,
 			"goals": [
 				{ "id": 1001, "type": "calories", "count": 350 },
@@ -17,6 +18,7 @@
 		},
 		{
 			"rank": "wood2",
+			"play_style": "single",
 			"requirements": 4,
 			"goals": [
 				{ "id": 1101, "type": "calories", "count": 400 },
@@ -31,6 +33,7 @@
 		},
 		{
 			"rank": "wood3",
+			"play_style": "single",
 			"requirements": 4,
 			"goals": [
 				{ "id": 1201, "type": "calories", "count": 450 },
@@ -45,6 +48,7 @@
 		},
 		{
 			"rank": "bronze1",
+			"play_style": "single",
 			"requirements": 4,
 			"goals": [
 				{ "id": 2101, "type": "calories", "count": 500 },
@@ -59,6 +63,7 @@
 		},
 		{
 			"rank": "bronze2",
+			"play_style": "single",
 			"requirements": 5,
 			"goals": [
 				{ "id": 2201, "type": "calories", "count": 600 },
@@ -74,6 +79,7 @@
 		},
 		{
 			"rank": "bronze3",
+			"play_style": "single",
 			"requirements": 6,
 			"goals": [
 				{ "id": 2301, "type": "calories", "count": 700 },
@@ -89,6 +95,7 @@
 		},
 		{
 			"rank": "silver1",
+			"play_style": "single",
 			"requirements": 5,
 			"goals": [
 				{ "id": 3101, "type": "songs", "count": 1, "difficulties": ["expert", "challenge"], "clear_type": "perfect", "require_all_difficulties": false },
@@ -105,6 +112,7 @@
 		},
 		{
 			"rank": "silver2",
+			"play_style": "single",
 			"requirements": 5,
 			"goals": [
 				{ "id": 3201, "type": "songs", "count": 3, "difficulties": ["expert", "challenge"], "clear_type": "perfect", "require_all_difficulties": false },
@@ -121,6 +129,7 @@
 		},
 		{
 			"rank": "silver3",
+			"play_style": "single",
 			"requirements": 6,
 			"goals": [
 				{ "id": 3301, "type": "difficulty", "difficulty": 10, "count": 5, "clear_type": "perfect" },
@@ -140,6 +149,7 @@
 		},
 		{
 			"rank": "gold1",
+			"play_style": "single",
 			"requirements": 6,
 			"goals": [
 				{ "id": 4101, "type": "difficulty", "difficulty": 11, "count": 5, "clear_type": "perfect" },
@@ -161,6 +171,7 @@
 		},
 		{
 			"rank": "gold2",
+			"play_style": "single",
 			"requirements": 6,
 			"goals": [
 				{ "id": 4201, "type": "difficulty", "difficulty": 12, "count": 5, "clear_type": "perfect" },
@@ -181,6 +192,7 @@
 		},
 		{
 			"rank": "gold3",
+			"play_style": "single",
 			"requirements": 6,
 			"goals": [
 				{ "id": 4301, "type": "difficulty", "difficulty": 13, "count": 5, "clear_type": "perfect" },
@@ -202,6 +214,7 @@
 		},
 		{
 			"rank": "diamond1",
+			"play_style": "single",
 			"goals": [
 				{ "id": 5101, "type": "difficulty", "mandatory": true, "difficulty": 14 },
 				{ "id": 5102, "type": "difficulty", "mandatory": true, "difficulty": 14, "count": 3, "clear_type": "perfect" },
@@ -217,6 +230,7 @@
 		},
 		{
 			"rank": "diamond2",
+			"play_style": "single",
 			"goals": [
 				{ "id": 5201, "type": "difficulty", "mandatory": true, "difficulty": 14 },
 				{ "id": 5202, "type": "difficulty", "mandatory": true, "difficulty": 14, "count": 6, "clear_type": "perfect" },
@@ -233,6 +247,7 @@
 		},
 		{
 			"rank": "diamond3",
+			"play_style": "single",
 			"goals": [
 				{ "id": 5301, "type": "difficulty", "mandatory": true, "difficulty": 14, "clear_type": "life4" },
 				{ "id": 5302, "type": "difficulty", "mandatory": true, "difficulty": 14, "count": 12, "clear_type": "perfect" },
@@ -251,6 +266,7 @@
 		},
 		{
 			"rank": "cobalt1",
+			"play_style": "single",
 			"goals": [
 				{ "id": 6101, "type": "difficulty", "mandatory": true, "difficulty": 14, "clear_type": "good" },
 				{ "id": 6102, "type": "difficulty", "mandatory": true, "difficulty": 14, "count": 30, "clear_type": "perfect" },
@@ -268,6 +284,7 @@
 		},
 		{
 			"rank": "cobalt2",
+			"play_style": "single",
 			"goals": [
 				{ "id": 6201, "type": "difficulty", "mandatory": true, "difficulty": 14, "clear_type": "great" },
 				{ "id": 6202, "type": "difficulty", "mandatory": true, "difficulty": 14, "count": 50, "clear_type": "perfect" },
@@ -284,6 +301,7 @@
 		},
 		{
 			"rank": "cobalt3",
+			"play_style": "single",
 			"goals": [
 				{ "id": 6301, "type": "difficulty", "mandatory": true, "difficulty": 14, "clear_type": "great" },
 				{ "id": 6302, "type": "difficulty", "mandatory": true, "difficulty": 14, "count": 80, "clear_type": "perfect" },
@@ -301,6 +319,7 @@
 		},
 		{
 			"rank": "amethyst1",
+			"play_style": "single",
 			"goals": [
 				{ "id": 7101, "type": "difficulty", "mandatory": true, "difficulty": 14, "clear_type": "perfect" },
 				{ "id": 7102, "type": "difficulty", "mandatory": true, "difficulty": 15, "score": 990000, "clear_type": "great" },
@@ -318,6 +337,7 @@
 		},
 		{
 			"rank": "amethyst2",
+			"play_style": "single",
 			"goals": [
 				{ "id": 7201, "type": "difficulty", "mandatory": true, "difficulty": 14, "clear_type": "perfect" },
 				{ "id": 7202, "type": "difficulty", "mandatory": true, "difficulty": 15, "score": 992000, "clear_type": "great" },
@@ -335,6 +355,7 @@
 		},
 		{
 			"rank": "amethyst3",
+			"play_style": "single",
 			"goals": [
 				{ "id": 7301, "type": "difficulty", "mandatory": true, "difficulty": 14, "clear_type": "perfect" },
 				{ "id": 7303, "type": "difficulty", "mandatory": true, "difficulty": 15, "score": 995000, "clear_type": "great" },
@@ -353,6 +374,7 @@
 		},
 		{
 			"rank": "emerald1",
+			"play_style": "single",
 			"goals": [
 				{ "id": 8101, "type": "difficulty", "mandatory": true, "difficulty": 14, "clear_type": "perfect" },
 				{ "id": 8102, "type": "difficulty", "mandatory": true, "difficulty": 15, "clear_type": "perfect" },
@@ -369,6 +391,7 @@
 		},
 		{
 			"rank": "emerald2",
+			"play_style": "single",
 			"goals": [
 				{ "id": 8201, "type": "difficulty", "mandatory": true, "difficulty": 14, "clear_type": "perfect" },
 				{ "id": 8202, "type": "difficulty", "mandatory": true, "difficulty": 15, "clear_type": "perfect" },
@@ -386,6 +409,7 @@
 		},
 		{
 			"rank": "emerald3",
+			"play_style": "single",
 			"goals": [
 				{ "id": 8301, "type": "difficulty", "mandatory": true, "difficulty": 14, "clear_type": "perfect" },
 				{ "id": 8302, "type": "difficulty", "mandatory": true, "difficulty": 15, "clear_type": "perfect" },

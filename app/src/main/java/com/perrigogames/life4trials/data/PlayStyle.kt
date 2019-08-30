@@ -1,9 +1,11 @@
 package com.perrigogames.life4trials.data
 
+import com.google.gson.annotations.SerializedName
 import io.objectbox.converter.PropertyConverter
 
 enum class PlayStyle(val stableId: Long) {
-    SINGLE(1), DOUBLE(2);
+    @SerializedName("single") SINGLE(1),
+    @SerializedName("double") DOUBLE(2);
 
     companion object {
         fun parse(stableId: Long?) = stableId?.let { id -> values().firstOrNull { it.stableId == id } }
