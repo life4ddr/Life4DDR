@@ -126,9 +126,6 @@ class SettingsActivity : AppCompatActivity() {
             if (BuildConfig.DEBUG) {
                 addDebugSettings()
             }
-            SharedPrefsUtil.isPreviewEnabled().let { p ->
-                preference(KEY_CATEGORY_IMPORT).isVisible = p
-            }
 
             preference {
                 key = "version_info"
