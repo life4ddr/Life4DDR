@@ -38,7 +38,7 @@ object SharedPrefsUtil {
             .filter { it.ordinal > currentUpdate }
             .forEach {
                 Log.i(javaClass.simpleName, "Processing upgrade ${it.name}")
-                Life4Application.eventBus.post(MajorUpdateProcessEvent(it))
+                Life4Application.eventBus.postSticky(MajorUpdateProcessEvent(it))
             }
         setUserInt(c, KEY_MAJOR_UPDATE, MajorUpdate.values().last().ordinal)
     }

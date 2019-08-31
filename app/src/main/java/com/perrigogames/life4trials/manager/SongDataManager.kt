@@ -18,6 +18,7 @@ import com.perrigogames.life4trials.util.*
 import com.perrigogames.life4trials.util.SharedPrefsUtil.KEY_SONG_LIST_VERSION
 import kotlinx.coroutines.*
 import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import retrofit2.Response
 import java.net.UnknownHostException
 
@@ -32,7 +33,7 @@ class SongDataManager(private val context: Context,
         fetchRemoteSongs()
     }
 
-    @Subscribe
+    @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMajorVersion(e: MajorUpdateProcessEvent) {
         if (e.version == MajorUpdate.SONG_DB) {
             initializeSongDatabase()

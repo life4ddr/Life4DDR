@@ -14,6 +14,7 @@ import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.data.LadderRank
 import com.perrigogames.life4trials.data.TrialRank
 import com.perrigogames.life4trials.data.TrialSession
+import com.perrigogames.life4trials.event.LadderRanksReplacedEvent
 import com.perrigogames.life4trials.event.LocalUserInfoUpdatedEvent
 import com.perrigogames.life4trials.event.TrialListReplacedEvent
 import com.perrigogames.life4trials.event.TrialListUpdatedEvent
@@ -254,6 +255,7 @@ class SettingsActivity : AppCompatActivity() {
                         findPreference<DropDownPreference>(key)?.let {
                             it.summary = songDataManager.getIgnoreList(it.value).name
                         }
+                        Life4Application.eventBus.post(LadderRanksReplacedEvent())
                     }
                     key == KEY_INFO_IMPORT -> findPreference<EditTextPreference>(key)?.let {
                         it.text?.let { text -> playerManager.importPlayerInfo(text) }

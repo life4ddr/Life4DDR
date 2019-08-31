@@ -376,7 +376,7 @@
     <string name="no_rank_goals">It\'s free to not have a rank, but it\'s more fun if you play through some goals!</string>
 
     <string name="database_upgraded">Song Database Upgraded</string>
-    <string name="database_replaced_reimport">The internal song database has been upgraded. You will need to reimport your scores from the DDR A Score Manager. You\'ll only need to do this once.</string>
+    <string name="database_replaced_reimport">The internal song database has been upgraded.\n\nIf you imported your scores from the DDR A Score Manager, you will need to do this again to ensure compatibility.\n\nYou\'ll only need to do this once.</string>
 
     <array name="credits">
         <item>Camera, Cancel, Cogwheel, Eye, Folder, Scroll Left, Scroll Right, and Star icons by

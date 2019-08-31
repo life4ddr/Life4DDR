@@ -43,6 +43,7 @@ class PlayerProfileActivity : AppCompatActivity(), RankDetailsViewModel.OnGoalLi
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_player_profile)
         setSupportActionBar(toolbar)
+        Life4Application.eventBus.register(this)
 
         setupContent()
     }
@@ -68,14 +69,9 @@ class PlayerProfileActivity : AppCompatActivity(), RankDetailsViewModel.OnGoalLi
         return true
     }
 
-    override fun onAttachedToWindow() {
-        super.onAttachedToWindow()
-        Life4Application.eventBus.register(this)
-    }
-
-    override fun onDetachedFromWindow() {
+    override fun onDestroy() {
         Life4Application.eventBus.unregister(this)
-        super.onDetachedFromWindow()
+        super.onDestroy()
     }
 
     fun onExtraViewClicked(v: View) {
@@ -103,6 +99,12 @@ class PlayerProfileActivity : AppCompatActivity(), RankDetailsViewModel.OnGoalLi
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onRankListUpdated(e: LadderRanksReplacedEvent) = updatePlayerContent()
+
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    fun onMajorVersion(e: MajorUpdateProcessEvent) {
+        ladderManager.onMajorVersion(this)
+        Life4Application.eventBus.removeStickyEvent(e)
+    }
 
     private fun setupContent() {
         view_mode_button_left.text_title.text = getString(R.string.trials)

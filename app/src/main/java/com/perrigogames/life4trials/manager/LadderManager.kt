@@ -3,6 +3,7 @@ package com.perrigogames.life4trials.manager
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.os.Handler
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -16,12 +17,16 @@ import com.perrigogames.life4trials.api.GithubDataAPI
 import com.perrigogames.life4trials.data.*
 import com.perrigogames.life4trials.data.DifficultyClass.*
 import com.perrigogames.life4trials.db.*
-import com.perrigogames.life4trials.event.*
+import com.perrigogames.life4trials.event.LadderRankUpdatedEvent
+import com.perrigogames.life4trials.event.LadderRanksReplacedEvent
+import com.perrigogames.life4trials.event.SongResultsImportCompletedEvent
+import com.perrigogames.life4trials.event.SongResultsUpdatedEvent
 import com.perrigogames.life4trials.ui.managerimport.ScoreManagerImportDirectionsDialog
 import com.perrigogames.life4trials.ui.managerimport.ScoreManagerImportEntryDialog
 import com.perrigogames.life4trials.util.*
 import kotlinx.coroutines.*
 import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import retrofit2.Response
 import java.net.UnknownHostException
 import java.util.*
@@ -72,11 +77,11 @@ class LadderManager(private val context: Context,
         }
     }
 
-    @Subscribe
-    fun onMajorVersion(e: MajorUpdateProcessEvent) {
-        if (e.version == MajorUpdate.SONG_DB) {
-            if (!ladderResultBox.isEmpty) {
-                ladderResultBox.removeAll()
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMajorVersion(context: Context) {
+        if (!ladderResultBox.isEmpty) {
+            ladderResultBox.removeAll()
+            Handler().postDelayed({
                 AlertDialog.Builder(context)
                     .setTitle(R.string.database_upgraded)
                     .setMessage(R.string.database_replaced_reimport)
@@ -84,7 +89,7 @@ class LadderManager(private val context: Context,
                     .setCancelable(true)
                     .create()
                     .show()
-            }
+            }, 10)
         }
     }
 
