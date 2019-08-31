@@ -14,6 +14,7 @@ import com.perrigogames.life4trials.activity.SettingsActivity
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_IMPORT_SKIP_DIRECTIONS
 import com.perrigogames.life4trials.api.GithubDataAPI
 import com.perrigogames.life4trials.data.*
+import com.perrigogames.life4trials.data.DifficultyClass.*
 import com.perrigogames.life4trials.db.*
 import com.perrigogames.life4trials.event.*
 import com.perrigogames.life4trials.ui.managerimport.ScoreManagerImportDirectionsDialog
@@ -99,6 +100,13 @@ class LadderManager(private val context: Context,
     private val ladderResultQuery = ladderResultBox.query()
         .`in`(LadderResultDB_.chartId, LongArray(0)).parameterAlias("ids")
         .build()
+    private val mfcQuery = ladderResultBox.query()
+        .equal(LadderResultDB_.clearType, ClearType.MARVELOUS_FULL_COMBO.stableId)
+        .apply {
+            link(LadderResultDB_.chart)
+                .`in`(ChartDB_.difficultyClass, longArrayOf(DIFFICULT.stableId, EXPERT.stableId, CHALLENGE.stableId))
+        }
+        .build()
 
     //
     // Local User Rank
@@ -181,6 +189,9 @@ class LadderManager(private val context: Context,
         is TrialGoal -> {
             val trials = trialManager.bestTrials().filter { it.goalRankId >= goal.rank.stableId }
             LadderGoalProgress(trials.size, goal.count) // return
+        }
+        is MFCPointsGoal -> {
+            goal.getGoalProgress(goal.points, mfcQuery.find())
         }
         is SongSetClearGoal -> when {
             goal.songs != null -> {

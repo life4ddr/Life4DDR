@@ -299,6 +299,18 @@ class MFCPointsGoal(id: Int,
         return c.getString(R.string.rank_goal_ex_points, points)
     }
 
+    override fun getGoalProgress(possible: Int, results: List<LadderResultDB>) = LadderGoalProgress(results.sumBy {
+        when(it.chart.target.difficultyNumber) {
+            8, 9, 10 -> 1
+            11, 12 -> 2
+            13 -> 4
+            14 -> 8
+            15 -> 15
+            16, 17, 18, 19, 20 -> 25
+            else -> 0
+        }
+    }, points)
+
     companion object {
         const val TYPE_STRING = "mfc_points"
     }
