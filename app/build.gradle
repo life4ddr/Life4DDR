@@ -94,6 +94,7 @@ dependencies {
     // Retrofit2
     implementation "com.squareup.retrofit2:retrofit:$retrofit2_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit2_version"
+    implementation "com.squareup.retrofit2:converter-scalars:$retrofit2_version"
 
     // Okhttp3
     implementation "com.squareup.okhttp3:okhttp:$okhttp3_version"

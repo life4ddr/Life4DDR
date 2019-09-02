@@ -20,6 +20,7 @@ import okhttp3.logging.HttpLoggingInterceptor.Level.BODY
 import org.greenrobot.eventbus.EventBus
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.scalars.ScalarsConverterFactory
 
 
 class Life4Application: MultiDexApplication() {
@@ -83,6 +84,7 @@ class Life4Application: MultiDexApplication() {
         private fun retrofit(baseUrl: String): Retrofit = Retrofit.Builder()
             .client(OkHttpClient().newBuilder().build())
             .baseUrl(baseUrl)
+            .addConverterFactory(ScalarsConverterFactory.create())
             .addConverterFactory(GsonConverterFactory.create(DataUtil.gson))
             .client(OkHttpClient.Builder()
                 .addInterceptor(HttpLoggingInterceptor().apply { level = BODY })
