@@ -297,7 +297,7 @@ class LadderManager(private val context: Context,
                     val playStyle = PlayStyle.parse(chartType)!!
                     val difficultyClass = DifficultyClass.parse(chartType)!!
 
-                    val songDB = songDataManager.getOrCreateSong(songName)
+                    val songDB = songDataManager.getSongByName(songName) ?: throw SongNotFoundException(songName)
                     val chartDB = songDataManager.updateOrCreateChartForSong(songDB, playStyle, difficultyClass, difficultyNumber)
                     val resultDB = updateOrCreateResultForChart(chartDB, score, clear)
 

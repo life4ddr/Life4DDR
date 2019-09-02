@@ -7,18 +7,15 @@ import com.perrigogames.life4trials.Life4Application
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_IMPORT_IGNORE
 import com.perrigogames.life4trials.api.GithubDataAPI
-import com.perrigogames.life4trials.api.RemoteData
+import com.perrigogames.life4trials.api.LocalRemoteData
 import com.perrigogames.life4trials.data.*
 import com.perrigogames.life4trials.db.ChartDB
 import com.perrigogames.life4trials.db.ChartDB_
 import com.perrigogames.life4trials.db.SongDB
 import com.perrigogames.life4trials.db.SongDB_
 import com.perrigogames.life4trials.event.MajorUpdateProcessEvent
-import com.perrigogames.life4trials.util.DataUtil
-import com.perrigogames.life4trials.util.MajorUpdate
-import com.perrigogames.life4trials.util.SharedPrefsUtil
+import com.perrigogames.life4trials.util.*
 import com.perrigogames.life4trials.util.SharedPrefsUtil.KEY_SONG_LIST_VERSION
-import com.perrigogames.life4trials.util.loadRawString
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import retrofit2.Response
@@ -29,14 +26,20 @@ import retrofit2.Response
 class SongDataManager(private val context: Context,
                       private val githubDataAPI: GithubDataAPI): BaseManager() {
 
-    private val songList = object: RemoteData<String>(context) {
+    private val songList = object: LocalRemoteData<String>(context, R.raw.songs, SONGS_FILE_NAME) {
+        override fun createLocalDataFromText(text: String) = text
+        override fun createTextToData(data: String) = data.substring(0, data.indexOf('\n'))
+        override fun getDataVersion(data: String) = data.substring(0, data.indexOfOrEnd('\n')).trim().toInt()
         override suspend fun getRemoteResponse(): Response<String> = githubDataAPI.getSongList()
-        override fun onFetchUpdated(data: String) = initializeSongDatabase(data)
+        override fun onFetchUpdated(data: String) {
+            super.onFetchUpdated(data)
+            refreshSongDatabase(data)
+        }
     }
 
     init {
         Life4Application.eventBus.register(this)
-        songList.fetch()
+        songList.start()
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -49,16 +52,22 @@ class SongDataManager(private val context: Context,
     //
     // Song List Management
     //
-    private fun initializeSongDatabase(input: String = context.loadRawString(R.raw.songs)) {
+    private fun initializeSongDatabase() {
         chartBox.removeAll()
         songBox.removeAll()
+        refreshSongDatabase()
+    }
+
+    private fun refreshSongDatabase(input: String = songList.data) {
         val lines = input.lines()
         if (SharedPrefsUtil.getUserInt(context, KEY_SONG_LIST_VERSION, -1) < lines[0].toInt()) {
+            val songContents = songBox.all
+
             val dbSongs = mutableListOf<SongDB>()
             val dbCharts = mutableListOf<ChartDB>()
-            lines.mapIndexedNotNull { idx, line ->
+            lines.forEachIndexed { idx, line ->
                 if (idx == 0 || line.isEmpty()) {
-                    return@mapIndexedNotNull null
+                    return@forEachIndexed
                 }
                 val data = line.split(";")
                 val id = data[0].toLong()
@@ -70,13 +79,14 @@ class SongDataManager(private val context: Context,
                         seg.toLong()
                     }
                 }
-                dbSongs.add(SongDB(title, null, GameVersion.parse(mix), preview).also { song ->
+                val existingSong: SongDB? = songContents.firstOrNull { it.id == id }
+                dbSongs.add(existingSong ?: SongDB(title, null, GameVersion.parse(mix), preview).also { song ->
                     songBox.attach(song)
                     PlayStyle.values().forEachIndexed { sIdx, style ->
                         DifficultyClass.values().forEachIndexed { dIdx, diff ->
                             val diffStr = data[3 + ((sIdx + 1) * dIdx)]
                             if (diffStr.isNotEmpty()) {
-                                ChartDB(diff, diffStr.toInt(), style).also { chart ->
+                                updateOrCreateChartForSong(song, style, diff, diffStr.toInt(), false).also { chart ->
                                     dbCharts.add(chart)
                                     song.charts.add(chart)
                                 }
@@ -88,6 +98,7 @@ class SongDataManager(private val context: Context,
             chartBox.put(dbCharts)
             songBox.put(dbSongs)
             invalidateIgnoredIds()
+            SharedPrefsUtil.setUserInt(context, KEY_SONG_LIST_VERSION, lines[0].toInt())
         }
     }
 
@@ -184,9 +195,15 @@ class SongDataManager(private val context: Context,
         }
     }
 
-    fun getOrCreateSong(name: String, artist: String? = null): SongDB =
-        getSongByName(name) ?: SongDB(name, artist).also {
-            songBox.put(it)
+    fun getOrCreateSong(name: String,
+                        artist: String? = null,
+                        gameVersion: GameVersion? = null,
+                        preview: Boolean = false,
+                        commit: Boolean = true): SongDB =
+        getSongByName(name) ?: SongDB(name, artist, gameVersion, preview).also {
+            if (commit) {
+                songBox.put(it)
+            }
         }
 
     /**
@@ -200,19 +217,24 @@ class SongDataManager(private val context: Context,
     fun updateOrCreateChartForSong(song: SongDB,
                                    playStyle: PlayStyle,
                                    difficultyClass: DifficultyClass,
-                                   difficultyNumber: Int): ChartDB {
+                                   difficultyNumber: Int,
+                                   commit: Boolean = true): ChartDB {
         val chart = song.charts.firstOrNull { it.playStyle == playStyle && it.difficultyClass == difficultyClass }
         chart?.let {
             if (it.difficultyNumber != difficultyNumber) {
                 Crashlytics.logException(UnexpectedDifficultyNumberException(it, difficultyNumber))
                 it.difficultyNumber = difficultyNumber
-                chartBox.put(it)
+                if (commit) {
+                    chartBox.put(it)
+                }
             }
         }
         return chart ?: ChartDB(difficultyClass, difficultyNumber, playStyle).also {
             song.charts.add(it)
-            chartBox.put(it)
-            songBox.put(song)
+            if (commit) {
+                chartBox.put(it)
+                songBox.put(song)
+            }
         }
     }
 
@@ -255,3 +277,5 @@ class SongDataManager(private val context: Context,
 
 class UnexpectedDifficultyNumberException(chart: ChartDB, newDiff: Int): Exception(
     "Chart ${chart.song.target.title} ${chart.playStyle} ${chart.difficultyClass} changed: ${chart.difficultyNumber} -> $newDiff")
+
+class SongNotFoundException(name: String): Exception("$name does not exist in the song database")

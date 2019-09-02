@@ -55,21 +55,32 @@ abstract class LocalRemoteData<T: Any>(private val context: Context,
 
     abstract fun createLocalDataFromText(text: String): T
 
-    open fun getDataVersion(data: T): Int? = null
+    open fun createTextToData(data: T): String = DataUtil.gson.toJson(data)
+
+    open fun getDataVersion(data: T): Int = Int.MIN_VALUE
 
     override fun checkResponse(response: Response<T>) = super.checkResponse(response) && shouldUpdate(response.body()!!)
 
     override fun onFetchUpdated(data: T) {
         super.onFetchUpdated(data)
         this.data = data
-        context.saveToFile(cachedFileName, DataUtil.gson.toJson(data))
+        context.saveToFile(cachedFileName, createTextToData(data))
     }
 
-    private fun shouldUpdate(other: T) = getDataVersion(data) == null || getDataVersion(other)!! > getDataVersion(data)!!
+    private fun shouldUpdate(other: T) = getDataVersion(other) > getDataVersion(data)
+
+    private fun shouldDeleteCache(cache: T) = getDataVersion(cache) < getDataVersion(data)
 
     fun start() {
-        val dataString = context.readFromFile(cachedFileName) ?: context.loadRawString(rawResId)
-        data = createLocalDataFromText(dataString)
+        data = createLocalDataFromText(context.loadRawString(rawResId))
+        context.readFromFile(cachedFileName)?.let { createLocalDataFromText(it) }?.let { cached ->
+            if (shouldDeleteCache(cached)) {
+                context.deleteFile(cachedFileName)
+                onFetchUpdated(data)
+            } else if (shouldUpdate(cached)) {
+                data = cached
+            }
+        }
         fetch()
     }
 }
