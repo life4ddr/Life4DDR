@@ -2,25 +2,26 @@ package com.perrigogames.life4trials.manager
 
 import android.content.Context
 import android.util.Log
-import android.widget.Toast
 import com.crashlytics.android.Crashlytics
 import com.perrigogames.life4trials.Life4Application
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_IMPORT_IGNORE
 import com.perrigogames.life4trials.api.GithubDataAPI
+import com.perrigogames.life4trials.api.RemoteData
 import com.perrigogames.life4trials.data.*
 import com.perrigogames.life4trials.db.ChartDB
 import com.perrigogames.life4trials.db.ChartDB_
 import com.perrigogames.life4trials.db.SongDB
 import com.perrigogames.life4trials.db.SongDB_
 import com.perrigogames.life4trials.event.MajorUpdateProcessEvent
-import com.perrigogames.life4trials.util.*
+import com.perrigogames.life4trials.util.DataUtil
+import com.perrigogames.life4trials.util.MajorUpdate
+import com.perrigogames.life4trials.util.SharedPrefsUtil
 import com.perrigogames.life4trials.util.SharedPrefsUtil.KEY_SONG_LIST_VERSION
-import kotlinx.coroutines.*
+import com.perrigogames.life4trials.util.loadRawString
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import retrofit2.Response
-import java.net.UnknownHostException
 
 /**
  * A Manager class that keeps track of the available songs
@@ -28,9 +29,14 @@ import java.net.UnknownHostException
 class SongDataManager(private val context: Context,
                       private val githubDataAPI: GithubDataAPI): BaseManager() {
 
+    private val songList = object: RemoteData<String>(context) {
+        override suspend fun getRemoteResponse(): Response<String> = githubDataAPI.getSongList()
+        override fun onFetchUpdated(data: String) = initializeSongDatabase(data)
+    }
+
     init {
         Life4Application.eventBus.register(this)
-        fetchRemoteSongs()
+        songList.fetch()
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -43,8 +49,6 @@ class SongDataManager(private val context: Context,
     //
     // Song List Management
     //
-    private var trialsJob: Job? = null
-
     private fun initializeSongDatabase(input: String = context.loadRawString(R.raw.songs)) {
         chartBox.removeAll()
         songBox.removeAll()
@@ -84,24 +88,6 @@ class SongDataManager(private val context: Context,
             chartBox.put(dbCharts)
             songBox.put(dbSongs)
             invalidateIgnoredIds()
-        }
-    }
-
-    private fun fetchRemoteSongs() {
-        trialsJob?.cancel()
-        trialsJob = CoroutineScope(Dispatchers.IO).launch {
-            try {
-                val response = githubDataAPI.getSongList()
-                withContext(Dispatchers.Main) {
-                    if (response.check()) {
-                        response.body()?.let {
-                            context.saveToFile(SONGS_FILE_NAME, it)
-                            initializeSongDatabase(it)
-                        }
-                    }
-                    trialsJob = null
-                }
-            } catch (e: UnknownHostException) {}
         }
     }
 
@@ -260,14 +246,6 @@ class SongDataManager(private val context: Context,
                 setLength(0)
             }
         }
-    }
-
-    private fun Response<String>.check(): Boolean = when {
-        !isSuccessful -> {
-            Toast.makeText(context, errorBody()!!.string(), Toast.LENGTH_SHORT).show()
-            false
-        }
-        else -> true
     }
 
     companion object {
