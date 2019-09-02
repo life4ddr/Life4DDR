@@ -8,6 +8,7 @@ import com.perrigogames.life4trials.BuildConfig
 import com.perrigogames.life4trials.Life4Application
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.api.GithubDataAPI
+import com.perrigogames.life4trials.api.LocalRemoteData
 import com.perrigogames.life4trials.data.TrialData
 import com.perrigogames.life4trials.data.TrialRank
 import com.perrigogames.life4trials.data.TrialSession
@@ -19,49 +20,40 @@ import com.perrigogames.life4trials.event.TrialListReplacedEvent
 import com.perrigogames.life4trials.life4app
 import com.perrigogames.life4trials.util.DataUtil
 import com.perrigogames.life4trials.util.loadRawString
-import com.perrigogames.life4trials.util.readFromFile
-import com.perrigogames.life4trials.util.saveToFile
 import io.objectbox.kotlin.query
-import kotlinx.coroutines.*
-import retrofit2.Response
-import java.net.UnknownHostException
 
 class TrialManager(private val context: Context,
                    private val githubDataAPI: GithubDataAPI): BaseManager() {
 
-    private var trialData: TrialData
-    val trials get() = trialData.trials
-
-    var currentSession: TrialSession? = null
-    private var trialsJob: Job? = null
-
-    init {
-        val dataString = context.readFromFile(TRIALS_FILE_NAME) ?: context.loadRawString(R.raw.trials)
-        trialData = DataUtil.gson.fromJson(dataString, TrialData::class.java)!!
-        if (BuildConfig.DEBUG) {
-            val debugData: TrialData = DataUtil.gson.fromJson(context.loadRawString(R.raw.trials_debug), TrialData::class.java)!!
-            val placements = context.life4app.placementManager.placements
-            trialData = TrialData(trialData.version, trialData.trials + debugData.trials + placements)
+    private var trialData = object: LocalRemoteData<TrialData>(context, R.raw.trials_debug, TRIALS_FILE_NAME) {
+        override fun createLocalDataFromText(text: String): TrialData {
+            var out = DataUtil.gson.fromJson(text, TrialData::class.java)!!
+            if (BuildConfig.DEBUG) {
+                val debugData: TrialData = DataUtil.gson.fromJson(context.loadRawString(R.raw.trials_debug), TrialData::class.java)!!
+                val placements = context.life4app.placementManager.placements
+                out = TrialData(out.version, out.trials + debugData.trials + placements)
+            }
+            return out
         }
-        validateTrials()
-        fetchRemoteTrials()
+
+        override suspend fun getRemoteResponse() = githubDataAPI.getTrials()
+
+        override fun getDataVersion(data: TrialData) = data.version
+
+        override fun onFetchUpdated(data: TrialData) {
+            super.onFetchUpdated(data)
+            Toast.makeText(context, "${data.trials.size} Trials found!", Toast.LENGTH_SHORT).show()
+            Life4Application.eventBus.post(TrialListReplacedEvent())
+        }
     }
 
-    private fun fetchRemoteTrials() {
-        trialsJob?.cancel()
-        trialsJob = CoroutineScope(Dispatchers.IO).launch {
-            try {
-                val response = githubDataAPI.getTrials()
-                withContext(Dispatchers.Main) {
-                    if (response.check()) {
-                        context.saveToFile(TRIALS_FILE_NAME, DataUtil.gson.toJson(response.body()))
-                        Toast.makeText(context, "${response.body()!!.trials.size} Trials found!", Toast.LENGTH_SHORT).show()
-                        Life4Application.eventBus.post(TrialListReplacedEvent())
-                    }
-                    trialsJob = null
-                }
-            } catch (e: UnknownHostException) {}
-        }
+    var currentSession: TrialSession? = null
+
+    val trials get() = trialData.data.trials
+
+    init {
+        trialData.start()
+        validateTrials()
     }
 
     private fun validateTrials() = trials.forEach { trial ->
@@ -153,15 +145,6 @@ class TrialManager(private val context: Context,
     fun startSession(trialId: String, initialGoal: TrialRank): TrialSession {
         currentSession = TrialSession(findTrial(trialId)!!, initialGoal)
         return currentSession!!
-    }
-
-    private fun Response<TrialData>.check(): Boolean = when {
-        !isSuccessful -> {
-            Toast.makeText(context, errorBody()!!.string(), Toast.LENGTH_SHORT).show()
-            false
-        }
-        body()!!.version <= trialData.version -> false
-        else -> true
     }
 
     companion object {
