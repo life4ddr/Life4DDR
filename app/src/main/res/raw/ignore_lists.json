@@ -82,9 +82,19 @@
         { "title": "ACE FOR ACES", "difficulty_class": "challenge" }
       ],
       "mixes": [ "A20" ]
-    },{
+    }, {
       "id": "A20",
-      "name": "DDR A20 (JP)"
+      "name": "DDR A20 (White) (JP)",
+      "songs": [
+        { "title": "BUTTERFLY (20th Anniversary Mix)" },
+        { "title": "CARTOON HEROES (20th Anniversary Mix)" },
+        { "title": "HAVE YOU NEVER BEEN MELLOW (20th Anniversary Mix)" },
+        { "title": "LONG TRAIN RUNNIN' (20th Anniversary Mix)" },
+        { "title": "SKY HIGH (20th Anniversary Mix)" }
+      ]
+    }, {
+      "id": "A20_GOLD_CAB",
+      "name": "DDR A20 20th Anniversary (Gold) (JP)"
     }
   ]
 }
