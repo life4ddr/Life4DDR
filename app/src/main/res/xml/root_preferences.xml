@@ -43,7 +43,7 @@
         <DropDownPreference
             app:defaultValue="ACE_US"
             app:key="KEY_IMPORT_IGNORE"
-            app:title="@string/ignore_list"/>
+            app:title="@string/action_blocklist"/>
 
     </PreferenceCategory>
 
