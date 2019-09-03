@@ -90,11 +90,17 @@
         { "title": "CARTOON HEROES (20th Anniversary Mix)" },
         { "title": "HAVE YOU NEVER BEEN MELLOW (20th Anniversary Mix)" },
         { "title": "LONG TRAIN RUNNIN' (20th Anniversary Mix)" },
-        { "title": "SKY HIGH (20th Anniversary Mix)" }
+        { "title": "SKY HIGH (20th Anniversary Mix)" },
+        { "title": "ORCA" },
+        { "title": "Splash Gold" }
       ]
     }, {
       "id": "A20_GOLD_CAB",
-      "name": "DDR A20 20th Anniversary (Gold) (JP)"
+      "name": "DDR A20 20th Anniversary (Gold) (JP)",
+      "songs": [
+        { "title": "ORCA" },
+        { "title": "Splash Gold" }
+      ]
     }
   ]
 }
