@@ -31,8 +31,8 @@
       ],
       "mixes": [ "A20" ]
     }, {
-      "id": "ACE_US_EXTRA_EXCLUSIVE",
-      "name": "DDR A (US) w/ Extra Exclusives",
+      "id": "ACE_US_KAC_2019",
+      "name": "DDR A (US) w/ KAC 2019",
       "songs": [
         { "title": "ありふれたせかいせいふく" },
         { "title": "ドキドキ☆流星トラップガール!!" },
@@ -50,11 +50,12 @@
         { "title": "六兆年と一夜物語" },
         { "title": "TRIP MACHINE (xac nanoglide mix)" },
         { "title": "PARANOiA (kskst mix)" },
-        { "title": "First Time" },
-        { "title": "Catch Our Fire!" }
+        { "title": "Pursuer" },
+        { "title": "Vanquish The Ghost" }
       ],
       "charts": [
-        { "title": "ナイト・オブ・ナイツ", "difficulty_class": "challenge" }
+        { "title": "ナイト・オブ・ナイツ", "difficulty_class": "challenge" },
+        { "title": "ACE FOR ACES", "difficulty_class": "challenge" }
       ],
       "mixes": [ "A20" ]
     }, {
@@ -71,11 +72,14 @@
       ],
       "mixes": [ "A20" ]
     }, {
-      "id": "ACE_JP_EXTRA_EXCLUSIVE",
-      "name": "DDR A (JP) w/ Extra Exclusives",
+      "id": "ACE_JP_KAC_2019",
+      "name": "DDR A (JP) w/ KAC 2019",
       "songs": [
-        { "title": "First Time" },
-        { "title": "Catch Our Fire!" }
+        { "title": "Pursuer" },
+        { "title": "Vanquish The Ghost" }
+      ],
+      "charts": [
+        { "title": "ACE FOR ACES", "difficulty_class": "challenge" }
       ],
       "mixes": [ "A20" ]
     },{
