@@ -121,13 +121,11 @@ class SongDataManager(private val context: Context,
     val selectedIgnoreSongIds: LongArray
         get() {
             if (mSelectedIgnoreSongIds == null) {
-                val ignoredSongs = selectedIgnoreList?.songs?.map { it.title }?.toTypedArray()?.let { ignoreTitles ->
-                    multipleSongTitleQuery.setParameters("titles", ignoreTitles).find().map { it.id }.toLongArray()
+                mSelectedIgnoreSongIds = selectedIgnoreList?.songs?.map { it.title }?.toTypedArray()?.let { ignoreTitles ->
+                    val versionId = selectedIgnoreList!!.baseVersion.stableId
+                    blockedSongQuery(ignoreTitles, versionId, versionId + 1)
+                        .find().map { it.id }.toLongArray()
                 } ?: LongArray(0)
-                val ignoredVersions = selectedIgnoreList?.mixes?.map { it.stableId }?.toLongArray()?.let { versions ->
-                    multipleGameVersionQuery.setParameters("versions", versions).find().map { it.id }.toLongArray()
-                } ?: LongArray(0)
-                mSelectedIgnoreSongIds = ignoredSongs.union(ignoredVersions.asIterable()).toLongArray()
             }
             return mSelectedIgnoreSongIds!!
         }
@@ -154,8 +152,10 @@ class SongDataManager(private val context: Context,
     private val songTitleQuery = songBox.query()
         .equal(SongDB_.title, "").parameterAlias("title")
         .build()
-    private val multipleSongTitleQuery = songBox.query()
-        .`in`(SongDB_.title, emptyArray<String>()).parameterAlias("titles")
+    private fun blockedSongQuery(titles: Array<String>, version: Long, previewVersion: Long) = songBox.query()
+        .greater(SongDB_.version, previewVersion) // block everything higher than preview version
+        .or().greater(SongDB_.version, version).and().equal(SongDB_.preview, false) // block non-preview songs in preview versions
+        .or().`in`(SongDB_.title, titles) // block songs in the supplied list
         .build()
     private val gameVersionQuery = songBox.query()
         .equal(SongDB_.version, -1).parameterAlias("version")
@@ -165,7 +165,7 @@ class SongDataManager(private val context: Context,
         .build()
     private val chartDifficultyQuery = chartBox.query().apply {
         equal(ChartDB_.difficultyNumber, 0).parameterAlias("difficulty")
-        equal(ChartDB_.playStyle, 0).parameterAlias("playStyle")
+        equal(ChartDB_.playStyle, 0).parameterAlias("play_style")
         link(ChartDB_.song).notIn(SongDB_.id, selectedIgnoreSongIds)
         notIn(ChartDB_.id, selectedIgnoreChartIds)
     }.build()
@@ -183,28 +183,17 @@ class SongDataManager(private val context: Context,
 
     fun getChartsByDifficulty(difficulty: Int, playStyle: PlayStyle): MutableList<ChartDB> =
         chartDifficultyQuery.setParameter("difficulty", difficulty.toLong())
-            .setParameter("playStyle", playStyle.stableId)
+            .setParameter("play_style", playStyle.stableId)
             .find()
 
     fun getChartsByDifficulty(difficultyList: IntArray, playStyle: PlayStyle): MutableList<ChartDB> = mutableListOf<ChartDB>().apply {
         difficultyList.forEach {
             addAll(chartDifficultyQuery
                 .setParameter("difficulty", it.toLong())
-                .setParameter("playStyle", playStyle.stableId)
+                .setParameter("play_style", playStyle.stableId)
                 .find())
         }
     }
-
-    fun getOrCreateSong(name: String,
-                        artist: String? = null,
-                        gameVersion: GameVersion? = null,
-                        preview: Boolean = false,
-                        commit: Boolean = true): SongDB =
-        getSongByName(name) ?: SongDB(name, artist, gameVersion, preview).also {
-            if (commit) {
-                songBox.put(it)
-            }
-        }
 
     /**
      * Nulls out the list of invalid IDs, to regenerate them

@@ -10,9 +10,9 @@ class IgnoreLists(val lists: List<IgnoreList>)
  */
 class IgnoreList(val id: String,
                  val name: String,
+                 @SerializedName("base_version") val baseVersion: GameVersion,
                  val songs: List<IgnoredSong>? = null,
-                 val charts: List<IgnoredChart>? = null,
-                 val mixes: List<GameVersion>? = null)
+                 val charts: List<IgnoredChart>? = null)
 
 class IgnoredSong(val title: String)
 

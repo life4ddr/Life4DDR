@@ -3,6 +3,7 @@
     {
       "id": "ACE_US",
       "name": "DDR A (US)",
+      "base_version": "ACE",
       "songs": [
         { "title": "ありふれたせかいせいふく" },
         { "title": "ドキドキ☆流星トラップガール!!" },
@@ -28,11 +29,11 @@
       "charts": [
         { "title": "ナイト・オブ・ナイツ", "difficulty_class": "challenge" },
         { "title": "ACE FOR ACES", "difficulty_class": "challenge" }
-      ],
-      "mixes": [ "A20" ]
+      ]
     }, {
       "id": "ACE_US_KAC_2019",
       "name": "DDR A (US) w/ KAC 2019",
+      "base_version": "ACE",
       "songs": [
         { "title": "ありふれたせかいせいふく" },
         { "title": "ドキドキ☆流星トラップガール!!" },
@@ -56,11 +57,11 @@
       "charts": [
         { "title": "ナイト・オブ・ナイツ", "difficulty_class": "challenge" },
         { "title": "ACE FOR ACES", "difficulty_class": "challenge" }
-      ],
-      "mixes": [ "A20" ]
+      ]
     }, {
       "id": "ACE_JP",
       "name": "DDR A (JP)",
+      "base_version": "ACE",
       "songs": [
         { "title": "First Time" },
         { "title": "Catch Our Fire!" },
@@ -69,22 +70,22 @@
       ],
       "charts": [
         { "title": "ACE FOR ACES", "difficulty_class": "challenge" }
-      ],
-      "mixes": [ "A20" ]
+      ]
     }, {
       "id": "ACE_JP_KAC_2019",
       "name": "DDR A (JP) w/ KAC 2019",
+      "base_version": "ACE",
       "songs": [
         { "title": "Pursuer" },
         { "title": "Vanquish The Ghost" }
       ],
       "charts": [
         { "title": "ACE FOR ACES", "difficulty_class": "challenge" }
-      ],
-      "mixes": [ "A20" ]
+      ]
     }, {
       "id": "A20",
       "name": "DDR A20 (White) (JP)",
+      "base_version": "A20",
       "songs": [
         { "title": "BUTTERFLY (20th Anniversary Mix)" },
         { "title": "CARTOON HEROES (20th Anniversary Mix)" },
@@ -97,10 +98,15 @@
     }, {
       "id": "A20_GOLD_CAB",
       "name": "DDR A20 20th Anniversary (Gold) (JP)",
+      "base_version": "A20",
       "songs": [
         { "title": "ORCA" },
         { "title": "Splash Gold" }
       ]
+    }, {
+      "id": "ALL_MUSIC",
+      "name": "All Songs",
+      "base_version": "A20"
     }
   ]
 }
