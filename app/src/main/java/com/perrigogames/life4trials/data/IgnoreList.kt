@@ -2,7 +2,8 @@ package com.perrigogames.life4trials.data
 
 import com.google.gson.annotations.SerializedName
 
-class IgnoreLists(val lists: List<IgnoreList>)
+class IgnoreLists(val lists: List<IgnoreList>,
+                  val version: Int)
 
 /**
  * Data class to describe an ignore list, or a set of songs and

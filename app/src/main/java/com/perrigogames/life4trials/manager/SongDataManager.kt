@@ -14,11 +14,15 @@ import com.perrigogames.life4trials.db.ChartDB_
 import com.perrigogames.life4trials.db.SongDB
 import com.perrigogames.life4trials.db.SongDB_
 import com.perrigogames.life4trials.event.MajorUpdateProcessEvent
-import com.perrigogames.life4trials.util.*
+import com.perrigogames.life4trials.util.DataUtil
+import com.perrigogames.life4trials.util.MajorUpdate
+import com.perrigogames.life4trials.util.SharedPrefsUtil
 import com.perrigogames.life4trials.util.SharedPrefsUtil.KEY_SONG_LIST_VERSION
+import com.perrigogames.life4trials.util.indexOfOrEnd
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import retrofit2.Response
+
 
 /**
  * A Manager class that keeps track of the available songs
@@ -37,9 +41,16 @@ class SongDataManager(private val context: Context,
         }
     }
 
+    private val ignoreLists = object: LocalRemoteData<IgnoreLists>(context, R.raw.ignore_lists, IGNORES_FILE_NAME) {
+        override suspend fun getRemoteResponse() = githubDataAPI.getIgnoreLists()
+        override fun createLocalDataFromText(text: String) = DataUtil.gson.fromJson(text, IgnoreLists::class.java)
+        override fun getDataVersion(data: IgnoreLists) = data.version
+    }
+
     init {
         Life4Application.eventBus.register(this)
         songList.start()
+        ignoreLists.start()
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -105,15 +116,13 @@ class SongDataManager(private val context: Context,
     //
     // Ignore List Data
     //
-    private var ignoreLists: List<IgnoreList> =
-        DataUtil.gson.fromJson(context.loadRawString(R.raw.ignore_lists), IgnoreLists::class.java)!!.lists
-    val ignoreListIds get() = ignoreLists.map { it.id }
-    val ignoreListTitles get() = ignoreLists.map { it.name }
+    val ignoreListIds get() = ignoreLists.data.lists.map { it.id }
+    val ignoreListTitles get() = ignoreLists.data.lists.map { it.name }
 
     private val selectedIgnoreList: IgnoreList?
         get() = getIgnoreList(SharedPrefsUtil.getUserString(context, KEY_IMPORT_IGNORE, "ACE_US")!!)
 
-    fun getIgnoreList(id: String) = ignoreLists.first { it.id == id }
+    fun getIgnoreList(id: String) = ignoreLists.data.lists.first { it.id == id }
 
     private var mSelectedIgnoreSongIds: LongArray? = null
     private var mSelectedIgnoreChartIds: LongArray? = null
@@ -261,6 +270,7 @@ class SongDataManager(private val context: Context,
 
     companion object {
         const val SONGS_FILE_NAME = "songs.csv"
+        const val IGNORES_FILE_NAME = "ignore_lists.json"
     }
 }
 

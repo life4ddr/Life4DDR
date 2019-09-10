@@ -1,5 +1,6 @@
 package com.perrigogames.life4trials.api
 
+import com.perrigogames.life4trials.data.IgnoreLists
 import com.perrigogames.life4trials.data.LadderRankData
 import com.perrigogames.life4trials.data.TrialData
 import com.perrigogames.life4trials.manager.LadderManager
@@ -18,6 +19,9 @@ interface GithubDataAPI {
 
     @GET(SongDataManager.SONGS_FILE_NAME)
     suspend fun getSongList(): Response<String>
+
+    @GET(SongDataManager.IGNORES_FILE_NAME)
+    suspend fun getIgnoreLists(): Response<IgnoreLists>
 
     @GET(TrialManager.TRIALS_FILE_NAME)
     suspend fun getTrials(): Response<TrialData>
