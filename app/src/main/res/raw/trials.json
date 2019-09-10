@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "major_version": 2,
   "trials": [
     {
@@ -39,6 +39,44 @@
         { "name": "Leaving...", "difficulty": 11, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X2%20%28AC%29%20%28Japan%29/Leaving...%20%28Chinese%29/Leaving...%20%28Chinese%29-jacket.png" },
         { "name": "Feelings Won't Fade (Extend Trance Mix)", "difficulty": 12, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20SuperNOVA2%20%28AC%29%20%28Japan%29/Feelings%20Won%27t%20Fade%28Extend%20Trance%20Mix%29/Feelings%20Won%27t%20Fade%28Extend%20Trance%20Mix%29-jacket.png" }
       ]
+    },
+    {
+      "id": "devotion",
+      "name": "Devotion",
+      "type": "trial",
+      "difficulty": 12,
+      "goals": [
+        {
+          "rank": "silver"
+        }
+      ],
+      "total_ex": 99999,
+      "songs": [
+        { "name": "MY SUMMER LOVE", "difficulty": 12, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/Dance%20Dance%20Revolution%204thMIX%20%28AC%29%20%28Japan%29/MY%20SUMMER%20LOVE/MY%20SUMMER%20LOVE-jacket.png" },
+        { "name": "Secret Rendez-vous", "difficulty": 12, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DDRMAX2%20-Dance%20Dance%20Revolution%207thMIX-%20%28AC%29%20%28Japan%29/Secret%20Rendez-vous/Secret%20Rendez-vous-jacket.png" },
+        { "name": "SEDUCTION", "difficulty": 12, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20SuperNOVA%20%28AC%29%20%28International%29/SEDUCTION/SEDUCTION-jacket.png" },
+        { "name": "She is my wife", "difficulty": 12, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X2%20%28AC%29%20%28Japan%29/She%20is%20my%20wife/She%20is%20my%20wife-jacket.png" }
+      ],
+      "new": true
+    },
+    {
+      "id": "believe",
+      "name": "Believe",
+      "type": "trial",
+      "difficulty": 12,
+      "goals": [
+        {
+          "rank": "silver"
+        }
+      ],
+      "total_ex": 99999,
+      "songs": [
+        { "name": "Sky Is The Limit", "difficulty": 12, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X2%20%28AC%29%20%28Japan%29/Sky%20Is%20The%20Limit/Sky%20Is%20The%20Limit-jacket.png" },
+        { "name": "Hopeful", "difficulty": 13, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28International%29/Hopeful/Hopeful-jacket.png" },
+        { "name": "A Brighter Day", "difficulty": 12, "difficulty_class": "challenge", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X2%20%28AC%29%20%28Japan%29/A%20Brighter%20Day/A%20Brighter%20Day-jacket.png" },
+        { "name": "Life is beautiful", "difficulty": 12, "difficulty_class": "difficult", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28International%29/Life%20is%20beautiful/Life%20is%20beautiful-jacket.png" }
+      ],
+      "new": true
     },
     {
       "id": "celestial",
@@ -191,6 +229,24 @@
         { "name": "Monkey Business", "difficulty": 13, "difficulty_class": "expert", "ex": 1386, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202013%20%28AC%29%20%28Japan%29/Monkey%20Business/Monkey%20Business-jacket.png" },
         { "name": "HYENA", "difficulty": 14, "difficulty_class": "expert", "ex": 1506, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202014%20%28AC%29%20%28Japan%29/HYENA/HYENA-jacket.png" },
         { "name": "Condor", "difficulty": 13, "difficulty_class": "expert", "ex": 1131, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202013%20%28AC%29%20%28Japan%29/Condor/Condor-jacket.png" }
+      ]
+    },
+    {
+      "id": "passport",
+      "name": "Passport",
+      "type": "trial",
+      "difficulty": 13,
+      "goals": [
+        {
+          "rank": "silver"
+        }
+      ],
+      "total_ex": 99999,
+      "songs": [
+        { "name": "bag", "difficulty": 13, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/Dance%20Dance%20Revolution%20EXTREME%20%28AC%29%20%28Japan%29/bag/bag-jacket.png" },
+        { "name": "Arrabbiata", "difficulty": 13, "difficulty_class": "difficult", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20SuperNOVA2%20%28AC%29%20%28Japan%29/Arrabbiata/Arrabbiata-jacket.png" },
+        { "name": "exotic ethnic", "difficulty": 13, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DDRMAX%20-Dance%20Dance%20Revolution%206thMIX-%20%28AC%29%20%28Japan%29/exotic%20ethnic/exotic%20ethnic-jacket.png" },
+        { "name": "桜", "difficulty": 13, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/Dance%20Dance%20Revolution%20EXTREME%20%28AC%29%20%28Japan%29/SAKURA/SAKURA-jacket.png" }
       ],
       "new": true
     },
@@ -287,8 +343,7 @@
         { "name": "革命(X-Special)", "difficulty": 14, "difficulty_class": "challenge", "ex": 1197, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X%20%28AC%29%20%28Japan%29/KAKUMEI%28X-Special%29/KAKUMEI%28X-Special%29-jacket.png" },
         { "name": "PARANOiA Revolution", "difficulty": 14, "difficulty_class": "difficult", "ex": 1563, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X3%20VS%202ndMIX%20%28AC%29%20%28Japan%29/PARANOiA%20Revolution/PARANOiA%20Revolution-jacket.png" },
         { "name": "La libertad", "difficulty": 14, "difficulty_class": "challenge", "ex": 1329, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X2%20%28AC%29%20%28Japan%29/La%20libertad/La%20libertad-jacket.png" }
-      ],
-      "new": true
+      ]
     },
     {
       "id": "countdown",
@@ -481,8 +536,7 @@
         { "name": "Windy Fairy", "difficulty": 15, "difficulty_class": "expert", "ex": 1824, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202013%20%28AC%29%20%28Japan%29/Windy%20Fairy/Windy%20Fairy-jacket.png" },
         { "name": "Cosmic Hurricane", "difficulty": 15, "difficulty_class": "challenge", "ex": 1962, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X3%20VS%202ndMIX%20%28AC%29%20%28Japan%29/Cosmic%20Hurricane/Cosmic%20Hurricane-jacket.png" },
         { "name": "ZEPHYRANTHES", "difficulty": 15, "difficulty_class": "expert", "ex": 1842, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/ZEPHYRANTHES/ZEPHYRANTHES-jacket.png" }
-      ],
-      "new": true
+      ]
     },
     {
       "id": "pharaoh",
@@ -601,8 +655,7 @@
         { "name": "AWAKE", "difficulty": 16, "difficulty_class": "challenge", "ex": 1965, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202014%20%28AC%29%20%28Japan%29/AWAKE/AWAKE-jacket.png" },
         { "name": "IN BETWEEN", "difficulty": 15, "difficulty_class": "expert", "ex": 1413, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/IN%20BETWEEN/IN%20BETWEEN-jacket.png" },
         { "name": "Come to Life", "difficulty": 16, "difficulty_class": "expert", "ex": 1926, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/Come%20to%20Life/Come%20to%20Life-jacket.png" }
-      ],
-      "new": true
+      ]
     },
     {
       "id": "snowdrift",
@@ -712,6 +765,25 @@
       ]
     },
     {
+      "id": "spectacle",
+      "name": "Spectacle",
+      "type": "trial",
+      "difficulty": 16,
+      "goals": [
+        {
+          "rank": "silver"
+        }
+      ],
+      "total_ex": 99999,
+      "songs": [
+        { "name": "Unreal", "difficulty": 15, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20SuperNOVA2%20%28AC%29%20%28Japan%29/Unreal/Unreal-jacket.png" },
+        { "name": "S!ck", "difficulty": 16, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28International%29/S%21ck/S%21ck-jacket.png" },
+        { "name": "Blew My Mind", "difficulty": 16, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202013%20%28AC%29%20%28Japan%29/Blew%20My%20Mind/Blew%20My%20Mind-jacket.png" },
+        { "name": "UNBELIEVABLE (Sparky remix)", "difficulty": 15, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X3%20VS%202ndMIX%20%28AC%29%20%28Japan%29/UNBELIEVABLE%20%28Sparky%20remix%29/UNBELIEVABLE%20%28Sparky%20remix%29-jacket.png" }
+      ],
+      "new": true
+    },
+    {
       "id": "chemical",
       "name": "Chemical",
       "type": "trial",
@@ -810,8 +882,7 @@
         { "name": "シュレーディンガーの猫", "difficulty": 18, "difficulty_class": "challenge", "ex": 2385, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/Schrodinger%20no%20neko/Schrodinger%20no%20neko-jacket.png" },
         { "name": "Anti-Matter", "difficulty": 18, "difficulty_class": "challenge", "ex": 2190, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X2%20%28AC%29%20%28Japan%29/Anti-Matter/Anti-Matter-jacket.png" },
         { "name": "Magnetic", "difficulty": 17, "difficulty_class": "challenge", "ex": 2193, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202013%20%28AC%29%20%28Japan%29/Magnetic/Magnetic-jacket.png" }
-      ],
-      "new": true
+      ]
     },
     {
       "id": "origin",
