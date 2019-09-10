@@ -25,16 +25,9 @@ import io.objectbox.kotlin.query
 class TrialManager(private val context: Context,
                    private val githubDataAPI: GithubDataAPI): BaseManager() {
 
-    private var trialData = object: LocalRemoteData<TrialData>(context, R.raw.trials_debug, TRIALS_FILE_NAME) {
-        override fun createLocalDataFromText(text: String): TrialData {
-            var out = DataUtil.gson.fromJson(text, TrialData::class.java)!!
-            if (BuildConfig.DEBUG) {
-                val debugData: TrialData = DataUtil.gson.fromJson(context.loadRawString(R.raw.trials_debug), TrialData::class.java)!!
-                val placements = context.life4app.placementManager.placements
-                out = TrialData(out.version, out.trials + debugData.trials + placements)
-            }
-            return out
-        }
+    private var trialData = object: LocalRemoteData<TrialData>(context, R.raw.trials, TRIALS_FILE_NAME) {
+        override fun createLocalDataFromText(text: String): TrialData =
+            mergeDebugData(DataUtil.gson.fromJson(text, TrialData::class.java)!!)
 
         override suspend fun getRemoteResponse() = githubDataAPI.getTrials()
 
@@ -42,9 +35,16 @@ class TrialManager(private val context: Context,
 
         override fun onFetchUpdated(data: TrialData) {
             super.onFetchUpdated(data)
+            this.data = mergeDebugData(data)
             Toast.makeText(context, "${data.trials.size} Trials found!", Toast.LENGTH_SHORT).show()
             Life4Application.eventBus.post(TrialListReplacedEvent())
         }
+
+        private fun mergeDebugData(data: TrialData): TrialData = if (BuildConfig.DEBUG) {
+            val debugData: TrialData = DataUtil.gson.fromJson(context.loadRawString(R.raw.trials_debug), TrialData::class.java)!!
+            val placements = context.life4app.placementManager.placements
+            TrialData(data.version, data.trials + debugData.trials + placements)
+        } else data
     }
 
     var currentSession: TrialSession? = null
