@@ -45,6 +45,10 @@
             app:key="KEY_IMPORT_IGNORE"
             app:title="@string/action_blocklist"/>
 
+        <Preference
+            app:key="KEY_IMPORT_VIEW_LIST"
+            app:title="@string/action_view_blocklist"/>
+
     </PreferenceCategory>
 
     <PreferenceCategory app:title="@string/trial_list">

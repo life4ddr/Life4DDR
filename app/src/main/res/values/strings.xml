@@ -326,6 +326,7 @@
     <string name="life4">LIFE4</string>
     <string name="action_progress_matrix">Progress Matrix</string>
     <string name="action_blocklist">Ignored Songs List</string>
+    <string name="action_view_blocklist">View ignored songs</string>
 
     <string name="dont_show_again">Don\'t show this again</string>
     <string name="import_paste_copied_text">Paste the copied text into the box.</string>

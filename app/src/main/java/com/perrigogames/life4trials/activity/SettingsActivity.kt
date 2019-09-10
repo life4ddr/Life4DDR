@@ -78,6 +78,10 @@ class SettingsActivity : AppCompatActivity() {
                 entries = songDataManager.ignoreListTitles.toTypedArray()
                 entryValues = songDataManager.ignoreListIds.toTypedArray()
             }
+            preferenceListener(KEY_IMPORT_VIEW_LIST) {
+                startActivity(Intent(context, BlockListCheckActivity::class.java))
+                true
+            }
             preference(KEY_INFO_RIVAL_CODE).summary =
                 SharedPrefsUtil.getUserString(context, KEY_INFO_RIVAL_CODE)
             preference(KEY_INFO_TWITTER_NAME).summary =
@@ -330,6 +334,7 @@ class SettingsActivity : AppCompatActivity() {
         const val KEY_CATEGORY_IMPORT = "KEY_CATEGORY_IMPORT"
         const val KEY_IMPORT_DATA = "KEY_IMPORT_DATA"
         const val KEY_IMPORT_SKIP_DIRECTIONS = "KEY_IMPORT_SKIP_DIRECTIONS"
+        const val KEY_IMPORT_VIEW_LIST = "KEY_IMPORT_VIEW_LIST"
         const val KEY_LADDER_CLEAR = "KEY_LADDER_CLEAR"
         const val KEY_SONG_RESULTS_CLEAR = "KEY_SONG_RESULTS_CLEAR"
         const val KEY_RECORDS_CLEAR = "KEY_RECORDS_CLEAR"

@@ -16,10 +16,11 @@ class BlockListCheckActivity : AppCompatActivity() {
 
         text_songs.text = with(StringBuilder()) {
             songDataManager.getSongsById(songDataManager.selectedIgnoreSongIds).forEach {
-                append("${it.id} - ${it.title}\n")
+                append("(${it.id}) ${it.version} - ${it.title}\n")
             }
             songDataManager.getChartsById(songDataManager.selectedIgnoreChartIds).forEach {
-                append("${it.id} - ${it.song.target.title} ${it.difficultyClass}\n")
+                val target = it.song.target
+                append("(${it.id}) ${target.version} - ${target.title} (${it.difficultyClass})\n")
             }
             toString()
         }
