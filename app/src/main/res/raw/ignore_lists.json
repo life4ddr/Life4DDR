@@ -1,12 +1,13 @@
 {
   "version": 1,
+  "major_version": 1,
   "lists": [
     {
       "id": "ACE_US",
       "name": "DDR A (US)",
       "base_version": "ACE",
       "songs": [
-        { "title": "39"},
+        { "title": "39" },
         { "title": "More One Night" },
         { "title": "The Light" },
         { "title": "愛言葉" },
@@ -58,7 +59,7 @@
       "name": "DDR A (US) w/ KAC 2019",
       "base_version": "ACE",
       "songs": [
-        { "title": "39"},
+        { "title": "39" },
         { "title": "More One Night" },
         { "title": "The Light" },
         { "title": "愛言葉" },
