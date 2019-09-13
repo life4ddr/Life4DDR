@@ -5,7 +5,7 @@ import android.util.Log
 import com.crashlytics.android.Crashlytics
 import com.perrigogames.life4trials.Life4Application
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_IMPORT_IGNORE
+import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_IMPORT_GAME_VERSION
 import com.perrigogames.life4trials.api.GithubDataAPI
 import com.perrigogames.life4trials.api.LocalRemoteData
 import com.perrigogames.life4trials.api.MajorVersionedRemoteData
@@ -120,7 +120,7 @@ class SongDataManager(private val context: Context,
     val ignoreListTitles get() = ignoreLists.data.lists.map { it.name }
 
     private val selectedIgnoreList: IgnoreList?
-        get() = getIgnoreList(SharedPrefsUtil.getUserString(context, KEY_IMPORT_IGNORE, "ACE_US")!!)
+        get() = getIgnoreList(SharedPrefsUtil.getUserString(context, KEY_IMPORT_GAME_VERSION, "ACE_US")!!)
 
     fun getIgnoreList(id: String) = ignoreLists.data.lists.first { it.id == id }
 

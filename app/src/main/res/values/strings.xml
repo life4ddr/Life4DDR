@@ -325,7 +325,7 @@
     <string name="choose_list">Choose 1: %s</string>
     <string name="life4">LIFE4</string>
     <string name="action_progress_matrix">Progress Matrix</string>
-    <string name="action_blocklist">Ignored Songs List</string>
+    <string name="action_game_version">Game Version</string>
     <string name="action_view_blocklist">View ignored songs</string>
 
     <string name="dont_show_again">Don\'t show this again</string>

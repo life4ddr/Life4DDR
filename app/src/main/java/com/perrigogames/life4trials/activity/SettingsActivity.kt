@@ -73,7 +73,7 @@ class SettingsActivity : AppCompatActivity() {
                     add(0, "")
                 }.toTypedArray()
             }
-            (preference(KEY_IMPORT_IGNORE) as DropDownPreference).apply {
+            (preference(KEY_IMPORT_GAME_VERSION) as DropDownPreference).apply {
                 summary = songDataManager.getIgnoreList(value).name
                 entries = songDataManager.ignoreListTitles.toTypedArray()
                 entryValues = songDataManager.ignoreListIds.toTypedArray()
@@ -251,7 +251,7 @@ class SettingsActivity : AppCompatActivity() {
                             }
                         }
                     }
-                    key == KEY_IMPORT_IGNORE -> {
+                    key == KEY_IMPORT_GAME_VERSION -> {
                         songDataManager.invalidateIgnoredIds()
                         findPreference<DropDownPreference>(key)?.let {
                             it.summary = songDataManager.getIgnoreList(it.value).name
@@ -328,7 +328,7 @@ class SettingsActivity : AppCompatActivity() {
         const val KEY_SUBMISSION_NOTIFICAION_TEST = "KEY_SUBMISSION_NOTIFICAION_TEST"
         const val KEY_RECORDS_REMAINING_EX = "KEY_RECORDS_REMAINING_EX"
         const val KEY_SHOP = "KEY_SHOP"
-        const val KEY_IMPORT_IGNORE = "KEY_IMPORT_IGNORE"
+        const val KEY_IMPORT_GAME_VERSION = "KEY_IMPORT_GAME_VERSION"
         const val KEY_FEEDBACK = "KEY_FEEDBACK"
         const val KEY_CREDITS = "KEY_CREDITS"
         const val KEY_CATEGORY_IMPORT = "KEY_CATEGORY_IMPORT"
