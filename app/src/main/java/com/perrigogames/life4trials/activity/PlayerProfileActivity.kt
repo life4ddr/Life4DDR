@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.perrigogames.life4trials.Life4Application
@@ -97,6 +98,16 @@ class PlayerProfileActivity : AppCompatActivity(), RankDetailsViewModel.OnGoalLi
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onRankListUpdated(e: LadderRanksReplacedEvent) = updatePlayerContent()
+
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    fun onDataRequiresAppUpdate(e: DataRequiresAppUpdateEvent) {
+        AlertDialog.Builder(this)
+            .setTitle(R.string.update_your_app)
+            .setMessage(R.string.remote_data_needs_update)
+            .setPositiveButton(R.string.okay, null)
+            .create().show()
+        Life4Application.eventBus.removeStickyEvent(e)
+    }
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     fun onMajorVersion(e: MajorUpdateProcessEvent) {

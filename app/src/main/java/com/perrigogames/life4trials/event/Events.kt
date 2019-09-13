@@ -4,8 +4,12 @@ import com.perrigogames.life4trials.data.Trial
 import com.perrigogames.life4trials.util.MajorUpdate
 
 /** Event published when the app should process logic for a [MajorUpdate]
- * @param version the [MajorVersion] the app should respond to */
+ * @param version the [MajorUpdate] the app should respond to */
 class MajorUpdateProcessEvent(val version: MajorUpdate)
+
+/** Event published when a remote data source's major version is higher than the internal parser
+ * can support, indicating the application should be updated */
+class DataRequiresAppUpdateEvent
 
 /** Event published when a saved rank is updated.
  * @param trial the [Trial] that was updated. If null, indicate all Trials' ranks may have been updated */

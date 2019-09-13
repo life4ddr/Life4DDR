@@ -3,7 +3,8 @@ package com.perrigogames.life4trials.data
 import com.google.gson.annotations.SerializedName
 
 class IgnoreLists(val lists: List<IgnoreList>,
-                  val version: Int)
+                  override val version: Int,
+                  @SerializedName("major_version") override val majorVersion: Int): MajorVersioned
 
 /**
  * Data class to describe an ignore list, or a set of songs and

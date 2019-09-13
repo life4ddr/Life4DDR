@@ -8,7 +8,7 @@ import com.perrigogames.life4trials.BuildConfig
 import com.perrigogames.life4trials.Life4Application
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.api.GithubDataAPI
-import com.perrigogames.life4trials.api.LocalRemoteData
+import com.perrigogames.life4trials.api.MajorVersionedRemoteData
 import com.perrigogames.life4trials.data.TrialData
 import com.perrigogames.life4trials.data.TrialRank
 import com.perrigogames.life4trials.data.TrialSession
@@ -25,13 +25,11 @@ import io.objectbox.kotlin.query
 class TrialManager(private val context: Context,
                    private val githubDataAPI: GithubDataAPI): BaseManager() {
 
-    private var trialData = object: LocalRemoteData<TrialData>(context, R.raw.trials, TRIALS_FILE_NAME) {
+    private var trialData = object: MajorVersionedRemoteData<TrialData>(context, R.raw.trials, TRIALS_FILE_NAME, 1) {
         override fun createLocalDataFromText(text: String): TrialData =
             mergeDebugData(DataUtil.gson.fromJson(text, TrialData::class.java)!!)
 
         override suspend fun getRemoteResponse() = githubDataAPI.getTrials()
-
-        override fun getDataVersion(data: TrialData) = data.version
 
         override fun onFetchUpdated(data: TrialData) {
             super.onFetchUpdated(data)
@@ -43,7 +41,7 @@ class TrialManager(private val context: Context,
         private fun mergeDebugData(data: TrialData): TrialData = if (BuildConfig.DEBUG) {
             val debugData: TrialData = DataUtil.gson.fromJson(context.loadRawString(R.raw.trials_debug), TrialData::class.java)!!
             val placements = context.life4app.placementManager.placements
-            TrialData(data.version, data.trials + debugData.trials + placements)
+            TrialData(data.version, data.majorVersion,data.trials + debugData.trials + placements)
         } else data
     }
 

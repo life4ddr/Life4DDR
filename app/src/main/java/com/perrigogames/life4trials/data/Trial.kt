@@ -6,8 +6,9 @@ import com.google.gson.annotations.SerializedName
 import com.perrigogames.life4trials.R
 import java.io.Serializable
 
-class TrialData(val version: Int,
-                val trials: List<Trial>): Serializable {
+class TrialData(override val version: Int,
+                @SerializedName("major_version") override val majorVersion: Int,
+                val trials: List<Trial>): Serializable, MajorVersioned {
 
     companion object {
         const val HIGHEST_DIFFICULTY = 20

@@ -79,7 +79,8 @@ class Life4Application: MultiDexApplication() {
         lateinit var objectBox: BoxStore
 
         val life4Retrofit = retrofit("http://life4bot.herokuapp.com/")
-        val githubRetrofit = retrofit("https://raw.githubusercontent.com/PerrigoGames/Life4DDR-Trials/remote-data/app/src/main/res/raw/")
+        private val githubTarget = if (BuildConfig.DEBUG) "remote-data-test" else "remote-data"
+        val githubRetrofit = retrofit("https://raw.githubusercontent.com/PerrigoGames/Life4DDR-Trials/$githubTarget/app/src/main/res/raw/")
 
         private fun retrofit(baseUrl: String): Retrofit = Retrofit.Builder()
             .client(OkHttpClient().newBuilder().build())

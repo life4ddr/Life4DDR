@@ -8,6 +8,7 @@ import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_IMPORT_IGNORE
 import com.perrigogames.life4trials.api.GithubDataAPI
 import com.perrigogames.life4trials.api.LocalRemoteData
+import com.perrigogames.life4trials.api.MajorVersionedRemoteData
 import com.perrigogames.life4trials.data.*
 import com.perrigogames.life4trials.db.ChartDB
 import com.perrigogames.life4trials.db.ChartDB_
@@ -41,10 +42,9 @@ class SongDataManager(private val context: Context,
         }
     }
 
-    private val ignoreLists = object: LocalRemoteData<IgnoreLists>(context, R.raw.ignore_lists, IGNORES_FILE_NAME) {
+    private val ignoreLists = object: MajorVersionedRemoteData<IgnoreLists>(context, R.raw.ignore_lists, IGNORES_FILE_NAME, 1) {
         override suspend fun getRemoteResponse() = githubDataAPI.getIgnoreLists()
         override fun createLocalDataFromText(text: String) = DataUtil.gson.fromJson(text, IgnoreLists::class.java)
-        override fun getDataVersion(data: IgnoreLists) = data.version
     }
 
     init {
