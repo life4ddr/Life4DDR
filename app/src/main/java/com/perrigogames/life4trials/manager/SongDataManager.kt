@@ -33,7 +33,7 @@ class SongDataManager(private val context: Context,
 
     private val songList = object: LocalRemoteData<String>(context, R.raw.songs, SONGS_FILE_NAME) {
         override fun createLocalDataFromText(text: String) = text
-        override fun createTextToData(data: String) = data.substring(0, data.indexOf('\n'))
+        override fun createTextToData(data: String) = data
         override fun getDataVersion(data: String) = data.substring(0, data.indexOfOrEnd('\n')).trim().toInt()
         override suspend fun getRemoteResponse(): Response<String> = githubDataAPI.getSongList()
         override fun onFetchUpdated(data: String) {
@@ -69,9 +69,9 @@ class SongDataManager(private val context: Context,
         refreshSongDatabase()
     }
 
-    private fun refreshSongDatabase(input: String = songList.data) {
+    fun refreshSongDatabase(input: String = songList.data, force: Boolean = false) {
         val lines = input.lines()
-        if (SharedPrefsUtil.getUserInt(context, KEY_SONG_LIST_VERSION, -1) < lines[0].toInt()) {
+        if (force || SharedPrefsUtil.getUserInt(context, KEY_SONG_LIST_VERSION, -1) < lines[0].toInt()) {
             val songContents = songBox.all
 
             val dbSongs = mutableListOf<SongDB>()
@@ -91,20 +91,21 @@ class SongDataManager(private val context: Context,
                     }
                 }
                 val existingSong: SongDB? = songContents.firstOrNull { it.id == id }
-                dbSongs.add(existingSong ?: SongDB(title, null, GameVersion.parse(mix), preview).also { song ->
+                val song = existingSong ?: SongDB(title, null, GameVersion.parse(mix), preview).also { song ->
                     songBox.attach(song)
-                    PlayStyle.values().forEachIndexed { sIdx, style ->
-                        DifficultyClass.values().forEachIndexed { dIdx, diff ->
-                            val diffStr = data[3 + ((sIdx + 1) * dIdx)]
-                            if (diffStr.isNotEmpty()) {
-                                updateOrCreateChartForSong(song, style, diff, diffStr.toInt(), false).also { chart ->
-                                    dbCharts.add(chart)
-                                    song.charts.add(chart)
-                                }
+                }
+                PlayStyle.values().forEachIndexed { sIdx, style ->
+                    DifficultyClass.values().forEachIndexed { dIdx, diff ->
+                        val diffStr = data[3 + ((sIdx + 1) * dIdx)]
+                        if (diffStr.isNotEmpty()) {
+                            updateOrCreateChartForSong(song, style, diff, diffStr.toInt(), false).also { chart ->
+                                dbCharts.add(chart)
+                                song.charts.add(chart)
                             }
                         }
                     }
-                })
+                }
+                dbSongs.add(song)
             }
             chartBox.put(dbCharts)
             songBox.put(dbSongs)

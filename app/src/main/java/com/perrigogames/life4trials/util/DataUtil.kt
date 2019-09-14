@@ -122,6 +122,7 @@ fun Context.readFromFile(path: String): String? {
                 var receiveString: String? = bufferedReader.readLine()
                 while (receiveString != null) {
                     it.append(receiveString)
+                    it.append('\n')
                     receiveString = bufferedReader.readLine()
                 }
             }
