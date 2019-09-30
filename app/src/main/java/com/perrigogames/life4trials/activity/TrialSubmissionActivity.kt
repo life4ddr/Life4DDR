@@ -1,14 +1,11 @@
 package com.perrigogames.life4trials.activity
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.TextView
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
@@ -16,7 +13,6 @@ import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.data.TrialRank
 import com.perrigogames.life4trials.data.TrialSession
 import com.perrigogames.life4trials.life4app
-import com.perrigogames.life4trials.util.NotificationUtil
 import com.perrigogames.life4trials.util.SharedPrefsUtil
 import com.perrigogames.life4trials.view.PathImageView
 import com.perrigogames.life4trials.view.longNumberString
@@ -89,7 +85,7 @@ class TrialSubmissionActivity: AppCompatActivity() {
 
         session.trialGoalSet?.let { set -> text_goals.text = set.generateSingleGoalString(resources, session.trial) }
 
-        button_submit.setOnClickListener { submitResult() }
+        button_submit.setOnClickListener { life4app.trialManager.submitResult(this) { finish() } }
 
         forEachResultText { idx, textView ->
             session.results[idx]?.let { result ->
@@ -138,40 +134,6 @@ class TrialSubmissionActivity: AppCompatActivity() {
         session.goalRank = rank
         image_desired_rank.rank = rank.parent
         text_goals.text = session.trialGoalSet?.generateSingleGoalString(resources, session.trial)
-    }
-
-    private fun submitResult() {
-        when {
-            session.results.any { it?.passed != true } -> submitRankAndFinish(false)
-            session.trial.isEvent -> submitRankAndFinish(true)
-            else -> AlertDialog.Builder(this)
-                .setTitle(R.string.trial_submit_dialog_title)
-                .setMessage(resources.getString(R.string.trial_submit_dialog_rank_confirmation, session.goalRank.toString()))
-                .setPositiveButton(R.string.yes) { _, _ -> submitRankAndFinish(true) }
-                .setNegativeButton(R.string.no) { _, _ -> submitRankAndFinish(false) }
-                .show()
-        }
-    }
-
-    private fun submitRankAndFinish(passed: Boolean) {
-        session.goalObtained = passed
-        life4app.trialManager.saveRecord(session)
-        if (passed) {
-            AlertDialog.Builder(this)
-                .setTitle(R.string.trial_submit_dialog_title)
-                .setMessage(R.string.trial_submit_dialog_prompt)
-                .setNegativeButton(R.string.no) { _, _ -> finish() }
-                .setPositiveButton(R.string.yes) { _, _ ->
-                    if (SharedPrefsUtil.getUserFlag(this, SettingsActivity.KEY_SUBMISSION_NOTIFICAION, false)) {
-                        NotificationUtil.showUserInfoNotifications(this, session.totalExScore)
-                    }
-                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.url_trial_submission_form))))
-                    finish()
-                }
-                .show()
-        } else {
-            finish()
-        }
     }
 
     companion object {

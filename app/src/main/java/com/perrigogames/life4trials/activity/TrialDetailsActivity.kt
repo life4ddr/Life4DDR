@@ -227,13 +227,17 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener {
         }
     }
 
-    private fun startSubmitActivity(uri: Uri) {
+    private fun onScoreSummaryPhotoTaken(uri: Uri) {
         trialSession.finalPhotoUri = uri
-        Intent(this, TrialSubmissionActivity::class.java).also { i ->
-            i.putExtra(TrialSubmissionActivity.ARG_SESSION, trialSession)
-            startActivityForResult(i, FLAG_SCORE_ENTER)
+        if (trial.isEvent) {
+            trialManager.submitResult(this) { finish() }
+        } else {
+            Intent(this, TrialSubmissionActivity::class.java).also { i ->
+                i.putExtra(TrialSubmissionActivity.ARG_SESSION, trialSession)
+                startActivityForResult(i, FLAG_SCORE_ENTER)
+            }
+            finish()
         }
-        finish()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -280,7 +284,7 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener {
 
     override fun onPhotoTaken(uri: Uri) {
         if (isFinal) {
-            startSubmitActivity(uri)
+            onScoreSummaryPhotoTaken(uri)
         } else {
             if (SharedPrefsUtil.getDebugFlag(this, SettingsActivity.KEY_DEBUG_BYPASS_STAT_ENTRY)) {
                 currentResult!!.randomize()
@@ -293,7 +297,7 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener {
 
     override fun onPhotoChosen(uri: Uri) {
         if (isFinal) {
-            startSubmitActivity(uri)
+            onScoreSummaryPhotoTaken(uri)
         } else {
             if (currentResult == null) {
                 currentResult = SongResult(trial.songs[currentIndex!!])
