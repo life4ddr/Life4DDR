@@ -22,6 +22,7 @@ import com.perrigogames.life4trials.manager.TrialManager
 import com.perrigogames.life4trials.ui.songlist.SongListFragment
 import com.perrigogames.life4trials.util.SharedPrefsUtil
 import com.perrigogames.life4trials.util.openWebUrlFromRes
+import com.perrigogames.life4trials.util.toListString
 import com.perrigogames.life4trials.util.visibilityBool
 import com.perrigogames.life4trials.view.JacketCornerView
 import com.perrigogames.life4trials.view.SongView
@@ -82,12 +83,15 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener {
         text_event_timer.visibilityBool = trial.isEvent
         image_desired_rank.visibility = if (trial.isEvent) View.INVISIBLE else View.VISIBLE
         spinner_desired_rank.visibility = if (trial.isEvent) View.INVISIBLE else View.VISIBLE
+        text_goals_content.visibilityBool = !trial.isEvent
 
         if (trial.isEvent) {
+            val userRank = ladderManager.getUserRank()
+            val scoringGroup = trial.findScoringGroup(TrialRank.fromLadderRank(userRank) ?: TrialRank.WOOD)
             text_event_timer.text = resources.getString(R.string.event_ends_format,
                 SimpleDateFormat("MMMM dd", Locale.US).format(trial.event_end))
             text_event_help.text = resources.getString(R.string.event_directions,
-                resources.getString(ladderManager.getUserRank()?.groupNameRes ?: LadderRankGroup.WOOD.nameRes))
+                scoringGroup.map { resources.getString(it.nameRes) }.toListString(baseContext))
         } else {
             spinner_desired_rank.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, trialSession.availableRanks)
             spinner_desired_rank.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {

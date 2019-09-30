@@ -27,6 +27,7 @@ class Trial(val id: String,
             val new: Boolean = false,
             val event_start: Date?,
             val event_end: Date?,
+            val scoring_groups: List<List<TrialRank>>,
             val difficulty: Int?,
             val goals: List<TrialGoalSet>?,
             val total_ex: Int?,
@@ -43,6 +44,11 @@ class Trial(val id: String,
         c.resources.getIdentifier(id, "drawable", c.packageName).let {
             return if (it == 0) R.drawable.trial_default else it
         }
+
+    /**
+     * Return the scoring group for a user with a particular rank.
+     */
+    fun findScoringGroup(rank: TrialRank) = scoring_groups.first { it.contains(rank) }
 }
 
 class Song(val name: String,
