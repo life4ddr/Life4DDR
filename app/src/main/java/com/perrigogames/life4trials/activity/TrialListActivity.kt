@@ -16,8 +16,6 @@ import kotlinx.android.synthetic.main.activity_trial_list.*
  */
 class TrialListActivity : AppCompatActivity(), TrialListFragment.OnTrialListInteractionListener {
 
-    private val useGrid: Boolean get() = intent?.extras?.getBoolean(EXTRA_GRID, true) ?: true
-
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme_NoActionBar)
         super.onCreate(savedInstanceState)
@@ -25,12 +23,13 @@ class TrialListActivity : AppCompatActivity(), TrialListFragment.OnTrialListInte
         setSupportActionBar(toolbar)
 
         supportFragmentManager.beginTransaction()
-            .replace(R.id.container_fragment, TrialListFragment.newInstance(useGrid))
+            .replace(R.id.container_fragment, TrialListFragment())
             .commit()
     }
 
     override fun onTrialSelected(trialId: String, trialType: TrialType) {
         when (trialType) {
+            TrialType.EVENT,
             TrialType.TRIAL -> startActivity(TrialDetailsActivity.intent(this, trialId))
             TrialType.PLACEMENT -> startActivity(PlacementDetailsActivity.intent(this, trialId))
         }
@@ -43,21 +42,10 @@ class TrialListActivity : AppCompatActivity(), TrialListFragment.OnTrialListInte
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_list_view -> restartActivity(false)
-            R.id.action_grid_view -> restartActivity(true)
             R.id.action_records -> startActivity(Intent(this, TrialRecordsActivity::class.java))
             R.id.action_settings -> startActivity(Intent(this, SettingsActivity::class.java))
             else -> return super.onOptionsItemSelected(item)
         }
         return true
-    }
-
-    private fun restartActivity(grid: Boolean = useGrid) {
-        intent.putExtra(EXTRA_GRID, grid)
-        recreate()
-    }
-
-    companion object {
-        const val EXTRA_GRID = "EXTRA_GRID"
     }
 }

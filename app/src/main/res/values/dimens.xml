@@ -33,4 +33,5 @@
     <dimen name="first_run_rank_name_size">20sp</dimen>
     <dimen name="profile_found_rank_size">96dp</dimen>
     <dimen name="profile_found_name_size">28sp</dimen>
+    <dimen name="jacket_corner_size">64dp</dimen>
 </resources>

@@ -64,7 +64,7 @@ class TrialSubmissionActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.content_trial_submission)
 
-        image_desired_rank.rank = session.goalRank.parent
+        image_desired_rank.rank = session.goalRank?.parent
         text_ex_score.text = getString(R.string.ex_score_missing_string_format, session.totalExScore, session.missingExScore)
 
         val displayMetrics = DisplayMetrics()
@@ -72,14 +72,19 @@ class TrialSubmissionActivity: AppCompatActivity() {
         image_trial_final.layoutParams.height = (displayMetrics.heightPixels * 0.4f).toInt()
         image_song_1.layoutParams.height = (displayMetrics.widthPixels / 4.3f).toInt()
 
-        spinner_desired_rank.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, session.availableRanks)
-        spinner_desired_rank.setSelection(session.availableRanks.indexOf(session.goalRank))
-        spinner_desired_rank.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(parent: AdapterView<*>?) = Unit
+        image_desired_rank.visibility = if (session.trial.isEvent) View.INVISIBLE else View.VISIBLE
+        spinner_desired_rank.visibility = if (session.trial.isEvent) View.INVISIBLE else View.VISIBLE
+        if (!session.trial.isEvent) {
+            spinner_desired_rank.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, session.availableRanks)
+            spinner_desired_rank.setSelection(session.availableRanks!!.indexOf(session.goalRank))
+            spinner_desired_rank.onItemSelectedListener =
+                object : AdapterView.OnItemSelectedListener {
+                    override fun onNothingSelected(parent: AdapterView<*>?) = Unit
 
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                setRank(session.availableRanks[position])
-            }
+                    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                        setRank(session.availableRanks!![position])
+                    }
+                }
         }
 
         session.trialGoalSet?.let { set -> text_goals.text = set.generateSingleGoalString(resources, session.trial) }
@@ -136,10 +141,10 @@ class TrialSubmissionActivity: AppCompatActivity() {
     }
 
     private fun submitResult() {
-        if (session.results.any { it?.passed != true }) {
-            submitRankAndFinish(false)
-        } else {
-            AlertDialog.Builder(this)
+        when {
+            session.results.any { it?.passed != true } -> submitRankAndFinish(false)
+            session.trial.isEvent -> submitRankAndFinish(true)
+            else -> AlertDialog.Builder(this)
                 .setTitle(R.string.trial_submit_dialog_title)
                 .setMessage(resources.getString(R.string.trial_submit_dialog_rank_confirmation, session.goalRank.toString()))
                 .setPositiveButton(R.string.yes) { _, _ -> submitRankAndFinish(true) }

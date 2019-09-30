@@ -3,16 +3,6 @@
       xmlns:tools="http://schemas.android.com/tools"
       tools:context="com.perrigogames.life4trials.activity.TrialListActivity">
 
-    <item android:id="@+id/action_list_view"
-        android:orderInCategory="90"
-        android:title="@string/action_list_view"
-        android:visible="false"
-        app:showAsAction="never"/>
-    <item android:id="@+id/action_grid_view"
-        android:orderInCategory="91"
-        android:title="@string/action_grid_view"
-        android:visible="false"
-        app:showAsAction="never"/>
     <item android:id="@+id/action_records"
         android:orderInCategory="190"
         android:title="@string/action_records"

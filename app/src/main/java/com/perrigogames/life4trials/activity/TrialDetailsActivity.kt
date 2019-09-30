@@ -8,8 +8,6 @@ import android.os.Bundle
 import android.view.ContextMenu
 import android.view.MenuItem
 import android.view.View
-import android.view.View.GONE
-import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -19,25 +17,33 @@ import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_DETA
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_DETAILS_PHOTO_SELECT
 import com.perrigogames.life4trials.data.*
 import com.perrigogames.life4trials.life4app
+import com.perrigogames.life4trials.manager.LadderManager
 import com.perrigogames.life4trials.manager.TrialManager
 import com.perrigogames.life4trials.ui.songlist.SongListFragment
 import com.perrigogames.life4trials.util.SharedPrefsUtil
 import com.perrigogames.life4trials.util.openWebUrlFromRes
 import com.perrigogames.life4trials.util.visibilityBool
+import com.perrigogames.life4trials.view.JacketCornerView
 import com.perrigogames.life4trials.view.SongView
 import com.perrigogames.life4trials.view.TrialJacketView
 import kotlinx.android.synthetic.main.content_trial_details.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener {
 
+    private val ladderManager: LadderManager get() = life4app.ladderManager
     private val trialManager: TrialManager get() = life4app.trialManager
     private val trialId: String by lazy { intent.extras!!.getString(ARG_TRIAL_ID) }
     private val trial: Trial get() = trialManager.findTrial(trialId)!!
 
     private val storedRank: TrialRank? get() = life4app.trialManager.getRankForTrial(trial.id)
-    private val initialRank: TrialRank by lazy { storedRank?.next
-        ?: (intent.extras?.getInt(ARG_INITIAL_RANK)?.let { TrialRank.values()[it] } ?: TrialRank.SILVER)
+    private val initialRank: TrialRank? by lazy {
+        if (trial.isEvent)
+            TrialRank.fromLadderRank(ladderManager.getUserRank())
+        else
+            storedRank?.next ?: (intent.extras?.getInt(ARG_INITIAL_RANK)?.let { TrialRank.values()[it] } ?: TrialRank.SILVER)
     }
 
     override val snackbarContainer: ViewGroup get() = container
@@ -66,27 +72,40 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener {
         setContentView(R.layout.content_trial_details)
         trialSession = trialManager.startSession(trialId, initialRank)
 
-        spinner_desired_rank.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, trialSession.availableRanks)
-        spinner_desired_rank.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(parent: AdapterView<*>?) = Unit
-
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                setRank(trialSession.availableRanks[position])
-            }
+        (image_rank as TrialJacketView).let { jacket ->
+            jacket.trial = trial
+            jacket.rank = storedRank
+            jacket.setCornerType(if (trial.isEvent) JacketCornerView.CornerType.EVENT else null)
         }
-        spinner_desired_rank.setSelection(trialSession.availableRanks.indexOf(initialRank))
+
+        text_event_help.visibilityBool = trial.isEvent
+        text_event_timer.visibilityBool = trial.isEvent
+        image_desired_rank.visibility = if (trial.isEvent) View.INVISIBLE else View.VISIBLE
+        spinner_desired_rank.visibility = if (trial.isEvent) View.INVISIBLE else View.VISIBLE
+
+        if (trial.isEvent) {
+            text_event_timer.text = resources.getString(R.string.event_ends_format,
+                SimpleDateFormat("MMMM dd", Locale.US).format(trial.event_end))
+            text_event_help.text = resources.getString(R.string.event_directions,
+                resources.getString(ladderManager.getUserRank()?.groupNameRes ?: LadderRankGroup.WOOD.nameRes))
+        } else {
+            spinner_desired_rank.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, trialSession.availableRanks)
+            spinner_desired_rank.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onNothingSelected(parent: AdapterView<*>?) = Unit
+
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    setRank(trialSession.availableRanks!![position])
+                }
+            }
+            spinner_desired_rank.setSelection(trialSession.availableRanks!!.indexOf(initialRank))
+        }
 
         switch_acquire_mode.isChecked = SharedPrefsUtil.getUserFlag(this, KEY_DETAILS_PHOTO_SELECT, false)
         switch_acquire_mode.setOnCheckedChangeListener { _, isChecked ->
             SharedPrefsUtil.setUserFlag(this, KEY_DETAILS_PHOTO_SELECT, isChecked)
         }
 
-        (image_rank as TrialJacketView).let { jacket ->
-            jacket.trial = trial
-            jacket.rank = storedRank
-        }
-
-        text_author_credit.visibility = if (trial.author != null) VISIBLE else GONE
+        text_author_credit.visibilityBool = trial.author != null
         trial.author?.let { text_author_credit.text = getString(R.string.author_credit_format, it) }
 
         songListFragment = SongListFragment.newInstance(trial.id, tiled = false, useCurrentSession = true)

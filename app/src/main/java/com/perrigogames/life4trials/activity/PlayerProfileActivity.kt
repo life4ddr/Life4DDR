@@ -23,6 +23,7 @@ import com.perrigogames.life4trials.util.CommonSizes
 import com.perrigogames.life4trials.util.SharedPrefsUtil
 import com.perrigogames.life4trials.util.openWebUrlFromRes
 import com.perrigogames.life4trials.util.visibilityBool
+import com.perrigogames.life4trials.view.JacketCornerView
 import kotlinx.android.synthetic.main.activity_player_profile.*
 import kotlinx.android.synthetic.main.content_player_profile.*
 import kotlinx.android.synthetic.main.item_profile_mode_button.view.*
@@ -37,6 +38,7 @@ import org.greenrobot.eventbus.ThreadMode
 class PlayerProfileActivity : AppCompatActivity(), RankDetailsViewModel.OnGoalListInteractionListener {
 
     private val ladderManager get() = life4app.ladderManager
+    private val trialManager get() = life4app.trialManager
     private var rank: LadderRank? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -126,6 +128,9 @@ class PlayerProfileActivity : AppCompatActivity(), RankDetailsViewModel.OnGoalLi
             scaleY = 0.7f
             setPadding(0, CommonSizes.contentPaddingLarge(resources) + CommonSizes.contentPaddingMed(resources), 0, 0)
         }
+
+        view_corner_view_left.visibilityBool = trialManager.hasEventTrial
+        (view_corner_view_left as JacketCornerView).cornerType = JacketCornerView.CornerType.EVENT
 
         updatePlayerContent()
     }

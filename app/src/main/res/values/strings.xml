@@ -6,8 +6,6 @@
 
     <!-- Settings Strings -->
     <string name="action_settings">Settings</string>
-    <string name="action_list_view">List View</string>
-    <string name="action_grid_view">Grid View</string>
     <string name="action_clear_record_data">Clear Record Data</string>
     <string name="action_drive">Google Drive</string>
     <string name="action_export">Export Ranks</string>
@@ -139,6 +137,8 @@
     <string name="score_string_summary_format">"%s\n%d EX"</string>
     <string name="score_string_summary_format_advanced">"%s\n%d EX\n%d Miss\n%d &lt;Great"</string>
     <string name="author_credit_format">Created by %s</string>
+    <string name="event_directions">In this event, you\'re competing against everyone with a %s Rank.  Aim for the highest combined EX Score!</string>
+    <string name="event_ends_format">Event ends %s</string>
 
     <!-- Short/Common Strings -->
     <string name="goals">Goals:</string>
@@ -312,6 +312,7 @@
     <string name="copied_format">\"%s\" Copied!</string>
     <string name="action_ladder">Ladder</string>
     <string name="new_tag">NEW!</string>
+    <string name="event_tag">EVENT</string>
     <string name="bgsp">bSP</string>
     <string name="bsp">BSP</string>
     <string name="dsp">DSP</string>

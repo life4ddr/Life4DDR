@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.perrigogames.life4trials.Life4Application
 import com.perrigogames.life4trials.R
@@ -31,30 +30,18 @@ class TrialListFragment : Fragment() {
     private lateinit var adapter: TrialListAdapter
 
     private val trialManager get() = context!!.life4app.trialManager
-    private val trials: List<Trial> get() = trialManager.trials
+    private val trials: List<Trial> get() = trialManager.activeTrials
 
     private val featureNew: Boolean
         get() = SharedPrefsUtil.getUserFlag(context!!, SettingsActivity.KEY_LIST_HIGHLIGHT_NEW, true)
 
     private lateinit var recyclerView: RecyclerView
 
-    private var tiled: Boolean = false
     private var listener: OnTrialListInteractionListener? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            tiled = it.getBoolean(ARG_TILED, false)
-        }
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         recyclerView = inflater.inflate(R.layout.fragment_trial_list, container, false) as RecyclerView
-        if (tiled) {
-            createTiledAdapter()
-        } else {
-            createListAdapter()
-        }
+        createTiledAdapter()
         return recyclerView
     }
 
@@ -74,14 +61,8 @@ class TrialListFragment : Fragment() {
         listener = null
     }
 
-    private fun createListAdapter() {
-        adapter = TrialListAdapter(context!!, trials, false, featureNew)  { id, type -> onTrialSelected(id, type) }
-        recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-    }
-
     private fun createTiledAdapter() {
-        adapter = TrialListAdapter(context!!, trials, true, featureNew) { id, type -> onTrialSelected(id, type) }
+        adapter = TrialListAdapter(context!!, trials, featureNew) { id, type -> onTrialSelected(id, type) }
         recyclerView.adapter = adapter
         recyclerView.addItemDecoration(PaddingItemDecoration(resources.getDimensionPixelSize(R.dimen.content_padding_med)))
 
@@ -116,14 +97,7 @@ class TrialListFragment : Fragment() {
 
     companion object {
 
-        private const val ARG_TILED = "ARG_TILED"
-
         @JvmStatic
-        fun newInstance(tiled: Boolean) =
-            TrialListFragment().apply {
-                arguments = Bundle().apply {
-                    putBoolean(ARG_TILED, tiled)
-                }
-            }
+        fun newInstance() = TrialListFragment()
     }
 }

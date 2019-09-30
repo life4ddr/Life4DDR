@@ -48,6 +48,8 @@ class TrialManager(private val context: Context,
     var currentSession: TrialSession? = null
 
     val trials get() = trialData.data.trials
+    val activeTrials get() = trials.filter { !it.isEvent || it.isActiveEvent }
+    val hasEventTrial get() = trials.count { it.isActiveEvent } > 0
 
     init {
         trialData.start()
@@ -71,13 +73,13 @@ class TrialManager(private val context: Context,
 
     fun findTrial(id: String) = trials.firstOrNull { it.id == id }
 
-    fun previousTrial(id: String) = previousTrial(trials.indexOfFirst { it.id == id })
+    fun previousTrial(id: String) = previousTrial(activeTrials.indexOfFirst { it.id == id })
 
-    fun previousTrial(index: Int) = trials.getOrNull(index - 1)
+    fun previousTrial(index: Int) = activeTrials.getOrNull(index - 1)
 
-    fun nextTrial(id: String) = nextTrial(trials.indexOfFirst { it.id == id })
+    fun nextTrial(id: String) = nextTrial(activeTrials.indexOfFirst { it.id == id })
 
-    fun nextTrial(index: Int) = trials.getOrNull(index + 1)
+    fun nextTrial(index: Int) = activeTrials.getOrNull(index + 1)
 
     fun saveRecord(session: TrialSession) {
         val sessionDB = TrialSessionDB.from(session)
@@ -140,7 +142,7 @@ class TrialManager(private val context: Context,
         return bestTrial(trialId)?.goalRank
     }
 
-    fun startSession(trialId: String, initialGoal: TrialRank): TrialSession {
+    fun startSession(trialId: String, initialGoal: TrialRank?): TrialSession {
         currentSession = TrialSession(findTrial(trialId)!!, initialGoal)
         return currentSession!!
     }

@@ -264,9 +264,8 @@ class SettingsActivity : AppCompatActivity() {
                     }
                     key.startsWith(KEY_DEBUG_RANK_PREFIX) -> findPreference<DropDownPreference>(key)?.let { it ->
                         val rank = TrialRank.parse(it.entry.toString())
-                        val session = TrialSession(
-                            trialManager.findTrial(it.key.substring(KEY_DEBUG_RANK_PREFIX.length))!!,
-                            rank ?: TrialRank.SILVER).apply { goalObtained = (rank != null) }
+                        val trial = trialManager.findTrial(it.key.substring(KEY_DEBUG_RANK_PREFIX.length))!!
+                        val session = TrialSession(trial, if (trial.isEvent) null else rank).apply { goalObtained = (rank != null) }
                         trialManager.saveRecord(session)
                         it.summary = rank?.toString() ?: "NONE"
                     }

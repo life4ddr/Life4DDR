@@ -6,25 +6,32 @@ import androidx.recyclerview.widget.RecyclerView
 import com.perrigogames.life4trials.data.Trial
 import com.perrigogames.life4trials.data.TrialType
 import com.perrigogames.life4trials.life4app
+import com.perrigogames.life4trials.view.JacketCornerView.CornerType.EVENT
+import com.perrigogames.life4trials.view.JacketCornerView.CornerType.NEW
 import com.perrigogames.life4trials.view.TrialItemView
 import com.perrigogames.life4trials.view.TrialItemView.TrialViewHolder
 
 class TrialListAdapter(private val context: Context,
                        private val trials: List<Trial>,
-                       private val tiled: Boolean = false,
                        var featureNew: Boolean = false,
                        private val onItemClicked: (String, TrialType) -> Unit):
     RecyclerView.Adapter<TrialViewHolder>() {
 
     private val trialManager get() = context.life4app.trialManager
 
-    private val mNewTrials get() = trials.filter { it.new && trialManager.bestTrial(it.id) == null }
-    private val mOldTrials get() = trials.filterNot { t -> newTrials.any { it.id == t.id } }
+    private val mEventTrials get() = trials.filter { it.isEvent }
+    private val mNewTrials get() = trials.filter { !it.isEvent && it.new && trialManager.bestTrial(it.id) == null }
+    private val mOldTrials get() = trials.filterNot { t -> t.isEvent || newTrials.any { it.id == t.id } }
 
+    private var eventTrials = mEventTrials
     private var newTrials = mNewTrials
     private var oldTrials = mOldTrials
+    private val eSize get() = eventTrials.size
+    private val nSize get() = newTrials.size
+    private val oSize get() = oldTrials.size
 
     fun updateNewTrialsList() {
+        eventTrials = mEventTrials
         newTrials = mNewTrials
         oldTrials = mOldTrials
         notifyDataSetChanged()
@@ -40,36 +47,39 @@ class TrialListAdapter(private val context: Context,
     override fun onBindViewHolder(holder: TrialViewHolder, position: Int) {
         val item = itemForPosition(position)
         holder.trialItemView.trial = item
-        holder.trialItemView.showNew = featureNew && item.new && trialManager.bestTrial(item.id) == null
+        holder.trialItemView.setCornerType(when {
+            item.event_end != null -> EVENT
+            featureNew && item.new && trialManager.bestTrial(item.id) == null -> NEW
+            else -> null
+        })
         holder.itemView.setOnClickListener { onItemClicked(item.id, item.type) }
         val bestSession = trialManager.bestTrial(item.id)
-        if (tiled) {
+        if (!item.isEvent) {
             holder.trialItemView.setHighestRank(bestSession?.goalRank)
-            holder.trialItemView.setExScore(bestSession?.exScore)
-        } else {
-            holder.trialItemView.setupRankList(bestSession?.goalRank)
-            holder.trialItemView.setExScore(bestSession?.exScore)
         }
+        holder.trialItemView.setExScore(bestSession?.exScore)
     }
 
     override fun getItemCount() = trials.size
 
-    override fun getItemViewType(position: Int) = if (tiled) ID_TILE else ID_LIST
+    override fun getItemViewType(position: Int) = ID_TILE
 
     fun notifyTrialChanged(trial: Trial) {
         notifyItemChanged(positionForItem(trial), trial)
     }
 
     private fun positionForItem(item: Trial) = when {
-        !featureNew -> trials.indexOf(item)
-        newTrials.contains(item) -> newTrials.indexOf(item)
-        else -> oldTrials.indexOf(item) + newTrials.size
+        item.isEvent -> eventTrials.indexOf(item)
+        !featureNew -> trials.indexOf(item) + eSize
+        newTrials.contains(item) -> newTrials.indexOf(item) + eSize
+        else -> oldTrials.indexOf(item) + nSize + eSize
     }
 
     private fun itemForPosition(position: Int) = when {
-        !featureNew -> trials[position] // basic list
-        position < newTrials.size -> newTrials[position] // new trials up front
-        else -> oldTrials[position - newTrials.size] // followed by the old
+        position < eSize -> eventTrials[position] // events always at the front
+        !featureNew -> trials[position - eSize] // basic list
+        position < nSize + eSize -> newTrials[position - eSize] // new trials up front
+        else -> oldTrials[position - nSize - eSize] // followed by the old
     }
 
     companion object {

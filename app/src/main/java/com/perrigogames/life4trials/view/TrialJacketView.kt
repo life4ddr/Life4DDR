@@ -12,10 +12,8 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import com.bumptech.glide.Glide
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.activity.SettingsActivity
 import com.perrigogames.life4trials.data.Trial
 import com.perrigogames.life4trials.data.TrialRank
-import com.perrigogames.life4trials.util.SharedPrefsUtil
 import com.perrigogames.life4trials.util.visibilityBool
 import kotlinx.android.synthetic.main.view_trial_jacket.view.*
 
@@ -65,40 +63,57 @@ class TrialJacketView @JvmOverloads constructor(context: Context, attrs: Attribu
             updateExScore()
         }
 
-    private val shouldTint: Boolean
-        get() = rank != null && rank == tintOnRank
+    private val shouldTint get() = rank != null && rank == tintOnRank
+    var showExRemaining: Boolean = false
+        set(v) {
+            field = v
+            updateExScore()
+        }
+
+    fun setCornerType(v: JacketCornerView.CornerType?) {
+        (view_jacket_corner as JacketCornerView).cornerType = v
+    }
 
     private fun updateRankTint() {
-        if (shouldTint) {
-            view_foreground_tint.visibility = VISIBLE
-            view_foreground_tint.setImageDrawable(ColorDrawable(ResourcesCompat.getColor(context.resources, rank!!.colorRes, context.theme)))
-            image_badge_highest.visibility = GONE
-            image_badge_highest_center.visibility = VISIBLE
-            text_ex_score.visibility = GONE
-            text_ex_score_center.visibility = VISIBLE
-        } else {
-            view_foreground_tint.visibility = GONE
-            image_badge_highest.visibilityBool = rank != null
-            image_badge_highest_center.visibility = GONE
-            text_ex_score.visibility = VISIBLE
-            text_ex_score_center.visibility = GONE
+        when {
+            trial?.isEvent == true -> {
+                image_badge_highest.visibility = GONE
+                image_badge_highest_center.visibility = INVISIBLE
+            }
+            shouldTint -> {
+                view_foreground_tint.visibility = VISIBLE
+                view_foreground_tint.setImageDrawable(ColorDrawable(ResourcesCompat.getColor(context.resources, rank!!.colorRes, context.theme)))
+                image_badge_highest.visibility = GONE
+                image_badge_highest_center.visibility = VISIBLE
+            }
+            else -> {
+                view_foreground_tint.visibility = GONE
+                image_badge_highest.visibilityBool = rank != null
+                image_badge_highest_center.visibility = INVISIBLE
+            }
         }
         updateExScore()
     }
 
     private fun updateExScore() {
+        text_ex_score.visibility = GONE
+        text_ex_score_center.visibility = GONE
         if (exScore != null) {
-            if (shouldTint) {
+            if (shouldTint || trial?.isEvent == true) {
                 text_ex_score_center.visibility = VISIBLE
+                text_ex_score_center.bringToFront()
+                text_ex_score_center.background = if (trial?.isEvent == true) ResourcesCompat.getDrawable(resources, R.drawable.drawable_rounded_dark, context.theme) else null
             } else {
                 text_ex_score.visibility = VISIBLE
             }
-            if (trial != null && trial!!.total_ex != null && SharedPrefsUtil.getUserFlag(context, SettingsActivity.KEY_LIST_SHOW_EX_REMAINING, false)) {
+            if (trial != null && trial!!.total_ex != null && showExRemaining) {
                 text_ex_score.text = context.getString(R.string.ex_score_missing_newline_string_format, exScore, exScore!! - trial!!.total_ex!!)
                 text_ex_score_center.text = context.getString(R.string.ex_score_missing_string_format, exScore, exScore!! - trial!!.total_ex!!)
             } else {
-                text_ex_score.text = context.getString(R.string.ex_score_string_format, exScore!!)
-                text_ex_score_center.text = context.getString(R.string.ex_score_string_format, exScore!!)
+                context.getString(R.string.ex_score_string_format, exScore!!).let { exText ->
+                    text_ex_score.text = exText
+                    text_ex_score_center.text = exText
+                }
             }
         } else {
             text_ex_score.visibility = GONE
