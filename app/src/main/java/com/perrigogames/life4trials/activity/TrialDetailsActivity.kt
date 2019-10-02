@@ -169,15 +169,7 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener {
     }
 
     fun onSubmitClick(v: View) {
-        if (trial.isEvent) {
-            trialManager.submitResult(this) { finish() }
-        } else {
-            Intent(this, TrialSubmissionActivity::class.java).also { i ->
-                i.putExtra(TrialSubmissionActivity.ARG_SESSION, trialSession)
-                startActivityForResult(i, FLAG_SCORE_ENTER)
-            }
-            finish()
-        }
+        trialManager.submitResult(this) { finish() }
     }
 
     fun onFinalizeClick(v: View) {

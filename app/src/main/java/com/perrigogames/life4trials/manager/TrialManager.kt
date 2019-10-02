@@ -174,6 +174,7 @@ class TrialManager(private val context: Context,
             AlertDialog.Builder(context)
                 .setTitle(R.string.trial_submit_dialog_title)
                 .setMessage(R.string.trial_submit_dialog_prompt)
+                .setCancelable(false)
                 .setNegativeButton(R.string.no) { _, _ -> onFinish() }
                 .setPositiveButton(R.string.yes) { _, _ ->
                     if (SharedPrefsUtil.getUserFlag(context, SettingsActivity.KEY_SUBMISSION_NOTIFICAION, false)) {
