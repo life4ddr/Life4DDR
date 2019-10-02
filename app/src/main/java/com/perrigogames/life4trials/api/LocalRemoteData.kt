@@ -97,6 +97,7 @@ abstract class LocalRemoteData<T: Any>(protected val context: Context,
 
     fun start() {
         data = createLocalDataFromText(context.loadRawString(rawResId))
+        onNewDataLoaded(data)
         context.readFromFile(cachedFileName)?.let { createLocalDataFromText(it) }?.let { onNewDataLoaded(it) }
         fetch()
     }
@@ -136,7 +137,9 @@ abstract class MajorVersionedRemoteData<T: MajorVersioned>(context: Context,
     }
 
     override fun onNewDataLoaded(newData: T) {
-        if (!shouldUpdateApp(newData)) {
+        if (shouldUpdateApp(newData)) {
+            Life4Application.eventBus.postSticky(DataRequiresAppUpdateEvent())
+        } else {
             super.onNewDataLoaded(newData)
         }
     }
