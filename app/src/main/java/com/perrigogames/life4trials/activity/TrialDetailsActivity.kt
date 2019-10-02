@@ -118,15 +118,6 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener {
             .commitNow()
     }
 
-    override fun onResume() {
-        super.onResume()
-        scroll_details.post {
-            try {
-                scroll_details.scrollTo(0, scroll_details.height)
-            } catch (_: NullPointerException) { }
-        }
-    }
-
     override fun onBackPressed() {
         if (modified) {
             AlertDialog.Builder(this).setTitle(R.string.are_you_sure)
@@ -217,6 +208,14 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener {
         button_submit.visibilityBool = allSongsComplete && trialSession.hasFinalPhoto
     }
 
+    private fun scrollToBottom() {
+        scroll_details.post {
+            try {
+                scroll_details.scrollTo(0, scroll_details.height)
+            } catch (_: NullPointerException) { }
+        }
+    }
+
     private fun concedeTrial() {
         life4app.trialManager.saveRecord(trialSession)
         finish()
@@ -246,6 +245,7 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener {
         trialSession.finalPhotoUri = uri
         songListFragment.addResultsPhotoView(uri)
         updateCompleteState()
+        scrollToBottom()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -276,6 +276,7 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener {
         currentResult = result
         songListFragment.setSongResult(currentIndex!!, result)
         updateCompleteState()
+        scrollToBottom()
         modified = true
         currentIndex = null
         isNewEntry = false
