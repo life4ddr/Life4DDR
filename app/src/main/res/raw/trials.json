@@ -1,6 +1,6 @@
 {
-  "version": 1,
-  "major_version": 1,
+  "version": 2,
+  "major_version": 2,
   "trials": [
     {
       "id": "heartbreak",
@@ -193,6 +193,22 @@
         { "name": "Condor", "difficulty": 13, "difficulty_class": "expert", "ex": 1131, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202013%20%28AC%29%20%28Japan%29/Condor/Condor-jacket.png" }
       ],
       "new": true
+    },
+    {
+      "id": "hallowed",
+      "name": "Hallowed",
+      "type": "event",
+      "difficulty": 13,
+      "total_ex": 4950,
+      "songs": [
+        { "name": "Vanquish The Ghost", "difficulty": 12, "difficulty_class": "difficult", "ex": 1176, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/Vanquish%20The%20Ghost/Vanquish%20The%20Ghost-jacket.png" },
+        { "name": "Electronic or Treat!", "difficulty": 12, "difficulty_class": "difficult", "ex": 1227, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202014%20%28AC%29%20%28Japan%29/Electronic%20or%20Treat%21/Electronic%20or%20Treat%21-jacket.png" },
+        { "name": "不沈艦CANDY", "difficulty": 14, "difficulty_class": "expert", "ex": 1752, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X2%20%28AC%29%20%28Japan%29/YELLOW%20CANDY/YELLOW%20CANDY-jacket.png" },
+        { "name": "Bloody Tears（IIDX EDITION）", "difficulty": 11, "difficulty_class": "expert", "ex": 795, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20SuperNOVA2%20%28AC%29%20%28Japan%29/Bloody%20Tears%20%28IIDX%20EDITION%29/Bloody%20Tears%20%28IIDX%20EDITION%29-jacket.png" }
+      ],
+      "scoring_groups": [["wood", "bronze", "silver"], ["gold"], ["diamond"], ["cobalt"], ["amethyst", "emerald"]],
+      "event_start": "20191001T000000-0000",
+      "event_end": "20191101T000000-0000"
     },
     {
       "id": "daybreak",
