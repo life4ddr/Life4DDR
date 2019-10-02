@@ -168,7 +168,7 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener {
             .show()
     }
 
-    fun onSubmitClicked(v: View) {
+    fun onSubmitClick(v: View) {
         if (trial.isEvent) {
             trialManager.submitResult(this) { finish() }
         } else {
