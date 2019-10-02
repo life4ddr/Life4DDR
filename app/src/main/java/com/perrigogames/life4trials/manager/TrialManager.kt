@@ -55,6 +55,7 @@ class TrialManager(private val context: Context,
     val trials get() = trialData.data.trials
     val activeTrials get() = trials.filter { !it.isEvent || it.isActiveEvent }
     val hasEventTrial get() = trials.count { it.isActiveEvent } > 0
+    val eventTrials get() = trials.filter { it.isEvent }
 
     init {
         trialData.start()
@@ -139,7 +140,8 @@ class TrialManager(private val context: Context,
             .build()
             .find()
         return trials.mapNotNull {
-            results.firstOrNull { db -> db.trialId == it.id }
+            if (it.isEvent) null
+            else results.firstOrNull { db -> db.trialId == it.id }
         }
     }
 

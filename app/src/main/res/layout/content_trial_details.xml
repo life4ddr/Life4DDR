@@ -44,6 +44,19 @@
         app:layout_constraintStart_toEndOf="@+id/guideline_panel_buttons"
         app:layout_constraintTop_toBottomOf="@id/scroll_details"/>
 
+    <Button
+        android:id="@+id/button_submit"
+        style="@style/BottomProgressButtonLeftBorder"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:onClick="onSubmitClick"
+        android:text="@string/submit"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/guideline_panel_buttons"
+        app:layout_constraintTop_toBottomOf="@id/scroll_details"/>
+
     <ScrollView
         android:id="@+id/scroll_details"
         android:layout_width="match_parent"

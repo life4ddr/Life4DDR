@@ -120,9 +120,11 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener {
 
     override fun onResume() {
         super.onResume()
-        try {
-            scroll_details.scrollTo(0, 0)
-        } catch (_: NullPointerException) {}
+        scroll_details.post {
+            try {
+                scroll_details.scrollTo(0, scroll_details.height)
+            } catch (_: NullPointerException) { }
+        }
     }
 
     override fun onBackPressed() {
@@ -175,6 +177,18 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener {
             .show()
     }
 
+    fun onSubmitClicked(v: View) {
+        if (trial.isEvent) {
+            trialManager.submitResult(this) { finish() }
+        } else {
+            Intent(this, TrialSubmissionActivity::class.java).also { i ->
+                i.putExtra(TrialSubmissionActivity.ARG_SESSION, trialSession)
+                startActivityForResult(i, FLAG_SCORE_ENTER)
+            }
+            finish()
+        }
+    }
+
     fun onFinalizeClick(v: View) {
         if (!trialSession.shouldShowAdvancedSongDetails ||
             !SharedPrefsUtil.getUserFlag(this, KEY_DETAILS_ENFORCE_EXPERT, true) ||
@@ -199,7 +213,8 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener {
     private fun updateCompleteState() {
         val allSongsComplete = trialSession.results.filterNotNull().size == TrialData.TRIAL_LENGTH
         button_concede.visibilityBool = !allSongsComplete
-        button_finalize.visibilityBool = allSongsComplete
+        button_finalize.visibilityBool = allSongsComplete && !trialSession.hasFinalPhoto
+        button_submit.visibilityBool = allSongsComplete && trialSession.hasFinalPhoto
     }
 
     private fun concedeTrial() {
@@ -229,15 +244,8 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener {
 
     private fun onScoreSummaryPhotoTaken(uri: Uri) {
         trialSession.finalPhotoUri = uri
-        if (trial.isEvent) {
-            trialManager.submitResult(this) { finish() }
-        } else {
-            Intent(this, TrialSubmissionActivity::class.java).also { i ->
-                i.putExtra(TrialSubmissionActivity.ARG_SESSION, trialSession)
-                startActivityForResult(i, FLAG_SCORE_ENTER)
-            }
-            finish()
-        }
+        songListFragment.addResultsPhotoView(uri)
+        updateCompleteState()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

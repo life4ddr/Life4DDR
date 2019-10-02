@@ -14,6 +14,8 @@ data class TrialSession(val trial: Trial,
         get() = Uri.parse(finalPhotoUriString)
         set(value) { finalPhotoUriString = value.toString() }
 
+    val hasFinalPhoto get() = finalPhotoUriString != null
+
     val availableRanks: Array<TrialRank>? = trial.goals?.map { it.rank }?.toTypedArray()
 
     val shouldShowAdvancedSongDetails

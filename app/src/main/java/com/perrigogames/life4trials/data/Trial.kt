@@ -48,7 +48,7 @@ class Trial(val id: String,
     /**
      * Return the scoring group for a user with a particular rank.
      */
-    fun findScoringGroup(rank: TrialRank) = scoring_groups.first { it.contains(rank) }
+    fun findScoringGroup(rank: TrialRank) = scoring_groups?.first { it.contains(rank) }
 }
 
 class Song(val name: String,

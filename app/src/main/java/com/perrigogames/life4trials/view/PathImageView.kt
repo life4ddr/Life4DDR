@@ -7,7 +7,7 @@ import android.util.AttributeSet
 import android.view.View
 import android.widget.ImageView
 
-class PathImageView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
+class PathImageView @JvmOverloads constructor(context: Context?, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
     ImageView(context, attrs, defStyleAttr) {
 
     var outputSize: Int = 128
