@@ -30,7 +30,7 @@ import io.objectbox.kotlin.query
 class TrialManager(private val context: Context,
                    private val githubDataAPI: GithubDataAPI): BaseManager() {
 
-    private var trialData = object: MajorVersionedRemoteData<TrialData>(context, R.raw.trials, TRIALS_FILE_NAME, 1) {
+    private var trialData = object: MajorVersionedRemoteData<TrialData>(context, R.raw.trials, TRIALS_FILE_NAME, 2) {
         override fun createLocalDataFromText(text: String): TrialData =
             mergeDebugData(DataUtil.gson.fromJson(text, TrialData::class.java)!!)
 
