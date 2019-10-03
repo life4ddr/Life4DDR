@@ -91,7 +91,7 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener {
             text_event_timer.text = resources.getString(R.string.event_ends_format,
                 SimpleDateFormat("MMMM dd", Locale.US).format(trial.event_end))
             text_event_help.text = resources.getString(R.string.event_directions,
-                scoringGroup.map { resources.getString(it.nameRes) }.toListString(baseContext))
+                scoringGroup?.map { resources.getString(it.nameRes) }?.toListString(baseContext))
         } else {
             spinner_desired_rank.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, trialSession.availableRanks)
             spinner_desired_rank.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {

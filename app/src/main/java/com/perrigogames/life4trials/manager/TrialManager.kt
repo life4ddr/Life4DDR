@@ -189,6 +189,13 @@ class TrialManager(private val context: Context,
         }
     }
 
+    override fun onApplicationException() {
+        Crashlytics.setInt("trials_version", trialData.data.version)
+        Crashlytics.setInt("trials_major_version", trialData.data.majorVersion)
+        Crashlytics.setInt("trials_engine", trialData.majorVersion)
+        Crashlytics.setString("trials", trials.joinToString { it.id })
+    }
+
     companion object {
         const val TRIALS_FILE_NAME = "trials.json"
     }

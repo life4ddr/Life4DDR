@@ -279,7 +279,7 @@ class LadderManager(private val context: Context,
                     val score = entryParts[2].toInt()
                     // need 5 and 6 first
                     val clears = entryParts[5].toIntOrNull() ?: 0
-                    val plays = entryParts[6].toIntOrNull() ?: 0
+//                    val plays = entryParts[6].toIntOrNull() ?: 0
 
                     var clear = ClearType.parse(entryParts[4])!!
                     if (clear == ClearType.CLEAR) {

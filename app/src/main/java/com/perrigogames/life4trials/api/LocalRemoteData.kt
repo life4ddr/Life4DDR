@@ -89,7 +89,7 @@ abstract class LocalRemoteData<T: Any>(protected val context: Context,
 
     open fun createTextToData(data: T): String = DataUtil.gson.toJson(data)
 
-    open fun getDataVersion(data: T): Int = Int.MIN_VALUE
+    open fun getDataVersion(data: T = this.data): Int = Int.MIN_VALUE
 
     override fun checkResponse(response: Response<T>) = super.checkResponse(response) && shouldUpdate(response.body()!!)
 
@@ -130,7 +130,7 @@ abstract class LocalRemoteData<T: Any>(protected val context: Context,
 abstract class MajorVersionedRemoteData<T: MajorVersioned>(context: Context,
                                                            @RawRes rawResId: Int,
                                                            cachedFileName: String,
-                                                           private val majorVersion: Int):
+                                                           val majorVersion: Int):
     LocalRemoteData<T>(context, rawResId, cachedFileName) {
 
     override fun getDataVersion(data: T) = data.version

@@ -40,6 +40,13 @@ class Life4Application: MultiDexApplication() {
 
         val defaultHandler = Thread.getDefaultUncaughtExceptionHandler()
         Thread.setDefaultUncaughtExceptionHandler { thread, exception ->
+            firstRunManager.onApplicationException()
+            ladderManager.onApplicationException()
+            placementManager.onApplicationException()
+            songDataManager.onApplicationException()
+            tournamentManager.onApplicationException()
+            trialManager.onApplicationException()
+
             SharedPrefsUtil.setUserFlag(this@Life4Application, KEY_APP_CRASHED, true)
             defaultHandler!!.uncaughtException(thread, exception)
         }

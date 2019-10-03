@@ -8,4 +8,6 @@ import com.perrigogames.life4trials.Life4Application
 open class BaseManager {
 
     protected val objectBox get() = Life4Application.objectBox
+
+    open fun onApplicationException() {}
 }
