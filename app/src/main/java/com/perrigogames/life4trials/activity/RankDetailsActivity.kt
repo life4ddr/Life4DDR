@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.perrigogames.life4trials.Life4Application
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.data.LadderRank
-import com.perrigogames.life4trials.data.RankEntry
 import com.perrigogames.life4trials.event.LadderRanksReplacedEvent
 import com.perrigogames.life4trials.life4app
 import com.perrigogames.life4trials.ui.rankdetails.RankDetailsFragment
@@ -21,35 +20,35 @@ class RankDetailsActivity : AppCompatActivity(), RankHeaderView.NavigationListen
 
     private val ladderManager get() = life4app.ladderManager
 
-    private var rankEntry: RankEntry? = null
+    private var rank: LadderRank? = null
     private var showNextGoals: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_rank_details)
         if (savedInstanceState == null) {
-            setupRank(intent.getSerializableExtra(ARG_RANK_ENTRY) as? RankEntry)
+            setupRank(LadderRank.parse(intent.getLongExtra(ARG_RANK, 0)))
         }
     }
 
     override fun onPreviousClicked() {
-        rankEntry?.let { setupRank(ladderManager.previousEntry(it.rank)) }
+        rank?.let { setupRank(ladderManager.previousEntry(it)?.rank) }
     }
 
     override fun onNextClicked() {
-        if (rankEntry == null) {
-            setupRank(ladderManager.findRankEntry(LadderRank.values().first()))
+        if (rank == null) {
+            setupRank(LadderRank.values().first())
         } else {
-            val nextEntry = ladderManager.nextEntry(rankEntry!!.rank)
+            val nextEntry = ladderManager.nextEntry(rank)
             if (nextEntry != null) {
-                setupRank(nextEntry)
+                setupRank(nextEntry.rank)
             }
         }
     }
 
     override fun onNextSwitchToggled(enabled: Boolean) {
         showNextGoals = enabled
-        setupRank(rankEntry)
+        setupRank(rank)
     }
 
     override fun onStart() {
@@ -63,27 +62,28 @@ class RankDetailsActivity : AppCompatActivity(), RankHeaderView.NavigationListen
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onRankListUpdated(e: LadderRanksReplacedEvent) = setupRank(ladderManager.findRankEntry(rankEntry?.rank))
+    fun onRankListUpdated(e: LadderRanksReplacedEvent) = setupRank(rank)
 
     fun useRankClicked(v: View) {
-        setResult(RESULT_RANK_SELECTED, Intent().putExtra(EXTRA_RANK, rankEntry?.rank?.stableId))
+        setResult(RESULT_RANK_SELECTED, Intent().putExtra(EXTRA_RANK, rank?.stableId))
         finish()
     }
 
-    private fun setupRank(entry: RankEntry?) {
-        rankEntry = entry
+    private fun setupRank(rank: LadderRank?) {
+        this.rank = rank
         supportFragmentManager.beginTransaction()
-            .replace(R.id.container, RankDetailsFragment(rankEntry, RankDetailsFragment.Options(showNextGoals = showNextGoals), this, this))
+            .replace(R.id.container, RankDetailsFragment.newInstance(
+                rank, RankDetailsFragment.Options(showNextGoals = showNextGoals)))
             .commitNow()
     }
 
     companion object {
-        const val ARG_RANK_ENTRY = "ARG_RANK_ENTRY"
+        const val ARG_RANK = "ARG_RANK"
         const val RESULT_RANK_SELECTED = 4966
         const val EXTRA_RANK = "EXTRA_RANK"
 
-        fun intent(context: Context, entry: RankEntry?) = Intent(context, RankDetailsActivity::class.java).also {
-            it.putExtra(ARG_RANK_ENTRY, entry)
+        fun intent(context: Context, rank: LadderRank?) = Intent(context, RankDetailsActivity::class.java).also {
+            it.putExtra(ARG_RANK, rank?.stableId)
         }
     }
 }
