@@ -117,7 +117,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/content_padding_med"
         android:layout_marginRight="@dimen/content_padding_med"
-        android:gravity="right"
+        android:gravity="end"
         android:background="@drawable/drawable_rounded_dark"
         android:textColor="@color/white"
         android:textStyle="bold"

@@ -22,7 +22,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup">
-        <activity android:name=".activity.BlockListCheckActivity"></activity>
+        <activity android:name=".activity.BlockListCheckActivity" />
         <activity android:name=".activity.PlacementListActivity" />
 
         <meta-data

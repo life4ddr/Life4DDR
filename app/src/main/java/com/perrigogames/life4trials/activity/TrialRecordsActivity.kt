@@ -1,6 +1,7 @@
 package com.perrigogames.life4trials.activity
 
 import android.os.Bundle
+import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.db.TrialSessionDB
@@ -10,7 +11,9 @@ class TrialRecordsActivity : AppCompatActivity(), TrialRecordsFragment.OnRecords
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_trial_records)
+        setContentView(FrameLayout(this).also {
+            it.id = R.id.container_fragment
+        })
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.container_fragment, TrialRecordsFragment.newInstance())

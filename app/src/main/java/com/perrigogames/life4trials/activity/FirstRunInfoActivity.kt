@@ -92,7 +92,7 @@ class FirstRunInfoActivity: AppCompatActivity() {
             (getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager)
                 .hideSoftInputFromWindow(currentFocus?.windowToken, 0)
 
-            val content = layoutInflater.inflate(R.layout.view_player_found_constraint, null, false) as PlayerFoundView
+            val content = layoutInflater.inflate(R.layout.view_player_found, null, false) as PlayerFoundView
             content.apiPlayer = e.apiPlayer
 
             AlertDialog.Builder(this)

@@ -1,13 +1,11 @@
 <resources>
     <string name="app_name">LIFE4</string>
-    <string name="life4_trials">LIFE4 Trials</string>
 
     <string name="file_provider_name">com.perrigogames.fileprovider</string>
 
     <!-- Settings Strings -->
     <string name="action_settings">Settings</string>
     <string name="action_clear_record_data">Clear Record Data</string>
-    <string name="action_drive">Google Drive</string>
     <string name="action_export">Export Ranks</string>
     <string name="action_import">Import Ranks</string>
     <string name="action_records">Records</string>
@@ -106,6 +104,7 @@
     <string name="camera_permission_description_redirect">This app needs your permission to use the camera to take LIFE4 verification photos. Would you like to open your permission settings and grant this permission?</string>
     <string name="gallery_permission_title">Gallery Permission</string>
     <string name="gallery_permission_description_popup">This app needs permission to access your photos to use them for LIFE4 verification.</string>
+    <string name="status_error">We found a problem: %1$s</string>
 
     <string name="trial_failed">Trial Failed!</string>
     <string name="trial_fail_confirmation">Would you like to Concede and save this Trial attempt?</string>
@@ -155,7 +154,6 @@
     <!-- Welcome/FTUE -->
     <string name="welcome_to">WELCOME TO</string>
     <string name="welcome_to_life4">WELCOME TO LIFE4!</string>
-    <string name="welcome_to_life4_trials">WELCOME TO LIFE4 TRIALS!</string>
     <string name="life4_intro_info_greeting">To get started, please tell us a bit about yourself.</string>
     <string name="life4_intro_greeting">We\'re excited to have you join us.  To get started, how familiar are you with DanceDanceRevolution?</string>
     <string name="life4_intro_new_player">I\'m new to DDR</string>
@@ -164,8 +162,6 @@
     <string name="life4_intro_familiar_response">Perfect! You can probably skip some easy ranks by playing a Placement set.</string>
     <string name="life4_intro_member">I\'m already a LIFE4 member!</string>
     <string name="life4_intro_member_response">Marvelous! Let\'s log you in and get your rank from the LIFE4 database.</string>
-    <string name="life4_trials_tagline">A new way to participate in LIFE4</string>
-    <string name="life4_trials_description">Trials are a new way to participate in LIFE4. Playing a Trial involves playing a predetermined set of 4 songs</string>
 
     <string name="life4_trials_long_description">LIFE4 Trials are a new way for DDR players to participate in LIFE4 events outside of the core ranking system. We wanted to give players a chance to test their skills and compare their scores without having to complete full folders or grind out a ton of songs. In addition to consistency and stamina, Trials will also test players’ Marvelous Attack (MA) in order to achieve the highest ranks.\n\nEach Trial consists of 4 songs, grouped together by a common theme (title, skillset, etc), which will need to be played together in order in a single set (including extra stage). Trials will vary in difficulty, but the goals required for each will shift, allowing top-tier players to focus on MA on easier Trials to achieve higher rankings, while also letting newer players focus on passing more difficult songs on the more challenging Trials.\n\nPlayers can earn Trial Ranks by achieving a specific set of requirements for each Trial. The requirements for each Trial Rank are roughly aligned with the same skill goals at each respective level of the core LIFE4 ranking system. A Silver Trial Rank may be earned by simply clearing all of the songs in a Trial, for example, but a Cobalt Trial Rank may require the player to PFC every song, or score under a certain amount of total missing EX. (Some of the more difficult Trials may not include lower-tier Trial Ranks as there may not always be a comparable skill level.)\n\nAre you ready to take on the Trials?</string>
     <string name="life4_feedback_email_subject">LIFE4 Feedback</string>
@@ -176,8 +172,6 @@
 
     <!-- URLs -->
     <string name="url_trial">https://life4ddr.com/%s</string>
-    <string name="url_trial_jacket_base">https://life4ddr.com/wp-content/uploads/%s/%s.jpg</string>
-    <string name="url_trial_jacket_sized">https://life4ddr.com/wp-content/uploads/%s/%s-%dx%d.jpg</string>
     <string name="url_standard_submission_form">https://docs.google.com/forms/d/e/1FAIpQLSe-UDKHOaVv7Zf3FEYPUKBwfT0yc79af8hvVMDIu7VYDoIEvQ/viewform</string>
     <string name="url_trial_submission_form">https://docs.google.com/forms/d/e/1FAIpQLSd2z2dcavPcdC_UhieAPUoYj0C5mTbSAabhrRYstOYem2Mq5Q/viewform</string>
     <string name="url_song_of_week">https://life4ddr.com/</string>
@@ -191,18 +185,6 @@
     <string name="life4_logo">Life4 logo</string>
     <string name="icon">icon</string>
 
-    <!-- Google Drive -->
-    <string name="source_google_drive">Google Drive</string>
-    <string name="start_drive">Start Google Drive</string>
-    <string name="login_drive">Log In to Drive</string>
-    <string name="logout_drive">Log Out of Drive</string>
-    <string name="status_logged_out">Logged Out</string>
-    <string name="status_logged_in">Logged In</string>
-    <string name="status_user_cancelled">User Cancelled</string>
-    <string name="status_error">We found a problem: %1$s</string>
-    <string name="get_files">Get Files</string>
-    <string name="not_open_file">Could not open file</string>
-
     <!-- Activity Titles -->
     <string name="title_activity_settings">Settings</string>
 
@@ -213,8 +195,6 @@
     <string name="show_ex_remaining">Also show remaining EX Score</string>
     <string name="tint_completed_trials">Tint fully completed Trials</string>
     <string name="highlight_new_trials">Highlight new Trials</string>
-    <string name="messages_header">Messages</string>
-    <string name="sync_header">Sync</string>
     <string name="player_name">Player Name</string>
     <string name="player_rank">Player Rank</string>
     <string name="rival_code">Rival Code</string>
@@ -242,15 +222,7 @@
     <string name="help">Help</string>
     <string name="help_and_feedback">Help &amp; Feedback</string>
 
-    <!-- Messages Preferences -->
-    <string name="signature_title">Your signature</string>
-    <string name="reply_title">Default reply action</string>
-
     <!-- Sync Preferences -->
-    <string name="sync_title">Sync email periodically</string>
-    <string name="attachment_title">Download incoming attachments</string>
-    <string name="attachment_summary_on">Automatically download attachments for incoming emails</string>
-    <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="user_info_notifications">User Info Notifications</string>
     <string name="user_info_notifications_description">Notifications shown during song submission that can be copied to ease form entry.</string>
     <string name="title_activity_records">Records</string>
@@ -310,7 +282,6 @@
     <string name="tap_to_copy">Tap to copy \"%s\"</string>
     <string name="copied">Copied!</string>
     <string name="copied_format">\"%s\" Copied!</string>
-    <string name="action_ladder">Ladder</string>
     <string name="new_tag">NEW!</string>
     <string name="event_tag">EVENT</string>
     <string name="bgsp">bSP</string>
@@ -335,7 +306,6 @@
     <string name="import_finished">Import Finished:\n%d updated, %d errors</string>
     <string name="tournaments">Tournaments</string>
     <string name="trials">Trials</string>
-    <string name="settings_set_info">Set Your Name</string>
     <string name="ladder_goals_complete">All of your goals are complete!</string>
     <string name="ladder_submit_photos">Submit your photos to LIFE4 to rank up.</string>
     <string name="title_single_song_tournament">Song of the Week</string>
@@ -365,7 +335,6 @@
     <string name="no_ddra_manager">You don\'t seem to have the DDR A Score Manager app installed.</string>
     <string name="show_notifications_title">Show Info Notifications</string>
     <string name="no_rank">NO RANK</string>
-    <string name="import_ddra_data">Import DDR A Score Manager Data</string>
     <string name="import_ddra_data_short">DDR A Manager Import</string>
 
     <string name="ranks_updated">Rank Requirements have been updated!</string>
@@ -381,6 +350,7 @@
 
     <string name="update_your_app">Update Your App!</string>
     <string name="remote_data_needs_update">This version of the LIFE4 app is not compatible with some of the newest updates.\n\nPlease update your LIFE4 app to get the most current experience!</string>
+    <string name="question_mark">\?</string>
 
     <array name="credits">
         <item>Camera, Cancel, Cogwheel, Eye, Folder, Scroll Left, Scroll Right, and Star icons by

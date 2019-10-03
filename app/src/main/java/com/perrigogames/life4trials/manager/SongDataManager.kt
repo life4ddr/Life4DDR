@@ -258,7 +258,7 @@ class SongDataManager(private val context: Context,
         }.toMutableList()
         with(StringBuilder()) {
             while (songStrings.isNotEmpty()) {
-                (0..10).forEach {
+                repeat((0..10).count()) {
                     if (songStrings.isNotEmpty()) {
                         append("${songStrings.removeAt(0)}[][]")
                     }

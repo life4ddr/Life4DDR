@@ -228,7 +228,7 @@ class LadderManager(private val context: Context,
         else -> null
     }
 
-    val shouldShowImportTutorial get() = !SharedPrefsUtil.getUserFlag(context, KEY_IMPORT_SKIP_DIRECTIONS, false)
+    private val shouldShowImportTutorial get() = !SharedPrefsUtil.getUserFlag(context, KEY_IMPORT_SKIP_DIRECTIONS, false)
 
     fun showImportFlow(activity: FragmentActivity) {
         if (shouldShowImportTutorial) {

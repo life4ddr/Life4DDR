@@ -16,6 +16,8 @@ import com.perrigogames.life4trials.data.*
 import java.io.*
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.max
+import kotlin.math.min
 
 
 object DataUtil {
@@ -63,7 +65,7 @@ object DataUtil {
             BitmapFactory.decodeFile(path, this)
 
             // Determine how much to scale down the image
-            val scaleFactor: Int = Math.min(outWidth / targetW, outHeight / targetH)
+            val scaleFactor: Int = min(outWidth / targetW, outHeight / targetH)
 
             // Decode the image file into a Bitmap sized to fill the View
             inJustDecodeBounds = false
@@ -91,7 +93,7 @@ object DataUtil {
     }
 
     fun scaleBitmap(bitmap: Bitmap, width: Int, height: Int): Bitmap {
-        val scaleFactor = Math.max(1, Math.min(bitmap.width / width, bitmap.height / height)).toFloat()
+        val scaleFactor = max(1, min(bitmap.width / width, bitmap.height / height)).toFloat()
         return Bitmap.createScaledBitmap(bitmap,
             (bitmap.width / scaleFactor).toInt(),
             (bitmap.height / scaleFactor).toInt(),

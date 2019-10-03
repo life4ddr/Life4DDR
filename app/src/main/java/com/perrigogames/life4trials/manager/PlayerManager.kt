@@ -62,7 +62,7 @@ class PlayerManager(private val context: Context) {
                     if (response.check()) {
                         ladderPlayers.addAll(response.body()!!
                             .filterNot { it.rank == null }
-                            .sortedWith(compareBy({ LadderRank.values().size - it.rank!!.ordinal }, { it.name?.toLowerCase() })))
+                            .sortedWith(compareBy({ LadderRank.values().size - it.rank!!.ordinal }, { it.name.toLowerCase() })))
                         Life4Application.eventBus.post(PlayerLadderUpdatedEvent(ladderPlayers))
                     }
                     ladderJob = null
