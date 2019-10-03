@@ -24,8 +24,9 @@ import com.perrigogames.life4trials.view.SongView
  */
 class SongListFragment : Fragment() {
 
+    private val placementManager get() = context!!.life4app.placementManager
     private val trialManager get() = context!!.life4app.trialManager
-    private val trial get() = trialManager.findTrial(trialId!!)!!
+    private val trial get() = trialManager.findTrial(trialId!!) ?: placementManager.findPlacement(trialId!!)!!
     private val results get() = if (useCurrentSession) trialManager.currentSession!!.results else null
 
     private var trialId: String? = null
