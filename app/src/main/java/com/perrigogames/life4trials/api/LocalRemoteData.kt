@@ -12,6 +12,7 @@ import com.perrigogames.life4trials.util.readFromFile
 import com.perrigogames.life4trials.util.saveToFile
 import kotlinx.coroutines.*
 import retrofit2.Response
+import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 
 /**
@@ -35,7 +36,13 @@ abstract class RemoteData<T: Any>(private val context: Context) {
                     }
                     fetchJob = null
                 }
-            } catch (e: UnknownHostException) {}
+            } catch (e: UnknownHostException) {
+                onFetchFailed()
+                fetchJob = null
+            } catch (e: SocketTimeoutException) {
+                onFetchFailed()
+                fetchJob = null
+            }
         }
     }
 
