@@ -5,10 +5,10 @@ import android.net.Uri
 import android.provider.MediaStore
 import android.util.AttributeSet
 import android.view.View
-import android.widget.ImageView
+import androidx.appcompat.widget.AppCompatImageView
 
 class PathImageView @JvmOverloads constructor(context: Context?, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
-    ImageView(context, attrs, defStyleAttr) {
+    AppCompatImageView(context, attrs, defStyleAttr) {
 
     var outputSize: Int = 128
 

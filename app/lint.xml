@@ -45,6 +45,7 @@
         <ignore path="src/main/res/drawable/snowdrift.webp" />
         <ignore path="src/main/res/drawable/species.jpg" />
         <ignore path="src/main/res/drawable/tempest.jpg" />
+        <ignore path="src/main/res/drawable/upheaval.jpg" />
         <ignore path="src/main/res/drawable/wanderlust.webp" />
     </issue>
 </lint>

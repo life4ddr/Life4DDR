@@ -5,6 +5,7 @@ import android.graphics.ColorMatrix
 import android.graphics.ColorMatrixColorFilter
 import android.util.AttributeSet
 import android.widget.ImageView
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.content.ContextCompat
 import com.perrigogames.life4trials.data.LadderRank
 
@@ -12,7 +13,7 @@ import com.perrigogames.life4trials.data.LadderRank
  * A subclass of [ImageView] that can display the icon of a [LadderRank]
  */
 class RankImageView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
-    ImageView(context, attrs, defStyleAttr) {
+    AppCompatImageView(context, attrs, defStyleAttr) {
 
     var rank: LadderRank? = null
         set(v) {

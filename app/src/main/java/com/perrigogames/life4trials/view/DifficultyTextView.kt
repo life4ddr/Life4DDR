@@ -2,13 +2,13 @@ package com.perrigogames.life4trials.view
 
 import android.content.Context
 import android.util.AttributeSet
-import android.widget.TextView
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
-import com.perrigogames.life4trials.data.DifficultyClass
 import com.perrigogames.life4trials.R
+import com.perrigogames.life4trials.data.DifficultyClass
 
 class DifficultyTextView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = android.R.attr.textViewStyle) :
-    TextView(context, attrs, defStyleAttr) {
+    AppCompatTextView(context, attrs, defStyleAttr) {
 
     var difficultyNumber: Int = 0
         set(value) {

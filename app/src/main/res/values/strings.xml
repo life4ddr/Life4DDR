@@ -10,8 +10,6 @@
     <string name="action_import">Import Ranks</string>
     <string name="action_records">Records</string>
     <string name="action_trial_records">Trial Records</string>
-    <string name="action_rank_goals">Rank Goals</string>
-    <string name="action_player_profile">Player Profile</string>
     <string name="action_shop">Shop</string>
     <string name="description_shop">Purchase physical LIFE4 gear</string>
 
@@ -153,22 +151,9 @@
 
     <!-- Welcome/FTUE -->
     <string name="welcome_to">WELCOME TO</string>
-    <string name="welcome_to_life4">WELCOME TO LIFE4!</string>
     <string name="life4_intro_info_greeting">To get started, please tell us a bit about yourself.</string>
-    <string name="life4_intro_greeting">We\'re excited to have you join us.  To get started, how familiar are you with DanceDanceRevolution?</string>
-    <string name="life4_intro_new_player">I\'m new to DDR</string>
-    <string name="life4_intro_new_player_response">Great, and welcome to DDR! We\'ll start you at the beginning of LIFE4\'s ranking system.</string>
-    <string name="life4_intro_familiar">I\'ve played several times</string>
-    <string name="life4_intro_familiar_response">Perfect! You can probably skip some easy ranks by playing a Placement set.</string>
-    <string name="life4_intro_member">I\'m already a LIFE4 member!</string>
-    <string name="life4_intro_member_response">Marvelous! Let\'s log you in and get your rank from the LIFE4 database.</string>
-
     <string name="life4_trials_long_description">LIFE4 Trials are a new way for DDR players to participate in LIFE4 events outside of the core ranking system. We wanted to give players a chance to test their skills and compare their scores without having to complete full folders or grind out a ton of songs. In addition to consistency and stamina, Trials will also test players’ Marvelous Attack (MA) in order to achieve the highest ranks.\n\nEach Trial consists of 4 songs, grouped together by a common theme (title, skillset, etc), which will need to be played together in order in a single set (including extra stage). Trials will vary in difficulty, but the goals required for each will shift, allowing top-tier players to focus on MA on easier Trials to achieve higher rankings, while also letting newer players focus on passing more difficult songs on the more challenging Trials.\n\nPlayers can earn Trial Ranks by achieving a specific set of requirements for each Trial. The requirements for each Trial Rank are roughly aligned with the same skill goals at each respective level of the core LIFE4 ranking system. A Silver Trial Rank may be earned by simply clearing all of the songs in a Trial, for example, but a Cobalt Trial Rank may require the player to PFC every song, or score under a certain amount of total missing EX. (Some of the more difficult Trials may not include lower-tier Trial Ranks as there may not always be a comparable skill level.)\n\nAre you ready to take on the Trials?</string>
     <string name="life4_feedback_email_subject">LIFE4 Feedback</string>
-    <array name="song_plural">
-        <item>song</item>
-        <item>songs</item>
-    </array>
 
     <!-- URLs -->
     <string name="url_trial">https://life4ddr.com/%s</string>
@@ -200,8 +185,6 @@
     <string name="rival_code">Rival Code</string>
     <string name="twitter_name">Twitter Name</string>
     <string name="show_notifications">Show info notifications during submission</string>
-    <string name="import_info">Import details</string>
-    <string name="import_info_description">Load details from LIFE4 by entering your Player Name</string>
     <string name="test_notifications">Test Info Notifications</string>
     <string name="rank_goals">Rank Goals</string>
     <string name="clear_data">Clear Data</string>
@@ -295,7 +278,6 @@
     <string name="plural_number">%ds</string>
     <string name="any_full_mix_or_letter">any full mix or letter folder</string>
     <string name="choose_list">Choose 1: %s</string>
-    <string name="life4">LIFE4</string>
     <string name="action_progress_matrix">Progress Matrix</string>
     <string name="action_game_version">Game Version</string>
     <string name="action_view_blocklist">View ignored songs</string>
@@ -329,7 +311,6 @@
 
     <string name="placement_overview">Placement Sets are a quick way to get into the LIFE4 system or better learn where you should begin.\n\nYou choose which rank you want to try and place into.\n\nWhen choosing a placement set, select which set you think you will most accurately be able to showcase your skill level in.\n\nDon’t worry about choosing the wrong set; you will still be placed accordingly.</string>
     <string name="placement_description">To participate in Rank Placement, you must complete the following songs in a single set.\n\n• The songs can be played in any order.\n• Extra Stage is optional. If you earn an Extra Stage, you can use it to improve a previous score.\n• The ONLY photo that is required is one of the final results screen, showing the scores for each song played. (Click \"Finalize\" to take this photo)</string>
-    <string name="placement_explanation">Placement sets are collections of three songs that must be played all in the same set.</string>
     <string name="remove_rank">Remove Rank</string>
     <string name="copy_and_continue">Copy and Continue</string>
     <string name="no_ddra_manager">You don\'t seem to have the DDR A Score Manager app installed.</string>
@@ -351,6 +332,12 @@
     <string name="update_your_app">Update Your App!</string>
     <string name="remote_data_needs_update">This version of the LIFE4 app is not compatible with some of the newest updates.\n\nPlease update your LIFE4 app to get the most current experience!</string>
     <string name="question_mark">\?</string>
+    <string name="manager_import_tutorial_1">In the DDR A Manager app, enter a list of songs you want to copy and press the MENU button.</string>
+    <string name="manager_import_tutorial_2">Click \'Copy to clipboard\'.</string>
+    <string name="manager_import_tutorial_3">Click \'Edit copy formats...\'.</string>
+    <string name="manager_import_tutorial_4">Paste the copied format text into one of the formats boxes that you don\'t already use.</string>
+    <string name="manager_import_tutorial_5">Return to the Copy dialog and select the newly added format.</string>
+    <string name="manager_import_tutorial_6">Then return to LIFE4 and paste the copied score data.</string>
 
     <array name="credits">
         <item>Camera, Cancel, Cogwheel, Eye, Folder, Scroll Left, Scroll Right, and Star icons by

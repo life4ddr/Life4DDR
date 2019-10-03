@@ -243,9 +243,8 @@ class LadderManager(private val context: Context,
             override fun onDialogCancelled() = Unit
             override fun onCopyAndContinue() {
                 Toast.makeText(activity, context.getString(R.string.copied), Toast.LENGTH_SHORT).show()
-                (context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).let {
-                    it.primaryClip = ClipData.newPlainText("LIFE4 Data", context.getString(R.string.import_data_format))
-                }
+                (context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).primaryClip =
+                    ClipData.newPlainText("LIFE4 Data", context.getString(R.string.import_data_format))
                 showImportEntryDialog(activity)
             }
         }).show(activity.supportFragmentManager, ScoreManagerImportDirectionsDialog.TAG)
@@ -315,7 +314,7 @@ class LadderManager(private val context: Context,
         }
         Toast.makeText(context, context.getString(R.string.import_finished, success, errors), Toast.LENGTH_SHORT).show()
         songDataManager.invalidateIgnoredIds()
-        Life4Application.eventBus.post(SongResultsImportCompletedEvent(success, errors))
+        Life4Application.eventBus.post(SongResultsImportCompletedEvent())
         if (success > 0) {
             Life4Application.eventBus.post(SongResultsUpdatedEvent())
         }
