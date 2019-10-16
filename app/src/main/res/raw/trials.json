@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "major_version": 2,
   "trials": [
     {
@@ -206,7 +206,7 @@
         { "name": "不沈艦CANDY", "difficulty": 14, "difficulty_class": "expert", "ex": 1752, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X2%20%28AC%29%20%28Japan%29/YELLOW%20CANDY/YELLOW%20CANDY-jacket.png" },
         { "name": "Bloody Tears（IIDX EDITION）", "difficulty": 11, "difficulty_class": "expert", "ex": 795, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20SuperNOVA2%20%28AC%29%20%28Japan%29/Bloody%20Tears%20%28IIDX%20EDITION%29/Bloody%20Tears%20%28IIDX%20EDITION%29-jacket.png" }
       ],
-      "scoring_groups": [["wood", "bronze", "silver"], ["gold"], ["diamond"], ["cobalt"], ["amethyst", "emerald"]],
+      "scoring_groups": [["wood", "bronze", "silver"], ["gold"], ["platinum"], ["diamond"], ["cobalt"], ["amethyst", "emerald"]],
       "event_start": "20191001T000000-0000",
       "event_end": "20191101T000000-0000"
     },

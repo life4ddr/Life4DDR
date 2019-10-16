@@ -213,6 +213,27 @@
 			]
 		},
 		{
+			"rank": "platinum1",
+			"play_style": "single",
+			"goals": [
+				{ "id": 5101, "type": "difficulty", "mandatory": true, "difficulty": 14 }
+			]
+		},
+		{
+			"rank": "platinum2",
+			"play_style": "single",
+			"goals": [
+				{ "id": 5101, "type": "difficulty", "mandatory": true, "difficulty": 14 }
+			]
+		},
+		{
+			"rank": "platinum3",
+			"play_style": "single",
+			"goals": [
+				{ "id": 5101, "type": "difficulty", "mandatory": true, "difficulty": 14 }
+			]
+		},
+		{
 			"rank": "diamond1",
 			"play_style": "single",
 			"goals": [

@@ -243,6 +243,10 @@
     <string name="gold_1">GOLD I</string>
     <string name="gold_2">GOLD II</string>
     <string name="gold_3">GOLD III</string>
+    <string name="platinum">PLATINUM</string>
+    <string name="platinum_1">PLATINUM I</string>
+    <string name="platinum_2">PLATINUM II</string>
+    <string name="platinum_3">PLATINUM III</string>
     <string name="diamond">DIAMOND</string>
     <string name="diamond_1">DIAMOND I</string>
     <string name="diamond_2">DIAMOND II</string>
