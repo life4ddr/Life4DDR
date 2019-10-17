@@ -23,6 +23,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup">
         <activity android:name=".activity.BlockListCheckActivity" />
+        <activity android:name=".activity.SongRecordsListCheckActivity" />
         <activity android:name=".activity.PlacementListActivity" />
 
         <meta-data

@@ -6,13 +6,13 @@ import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.life4app
 import kotlinx.android.synthetic.main.activity_block_list_check.*
 
-class BlockListCheckActivity : AppCompatActivity() {
+class SongRecordsListActivity : AppCompatActivity() {
 
     private val songDataManager get() = life4app.songDataManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_block_list_check)
+        setContentView(R.layout.activity_block_list_check) // debug screen, reuse old layout idgafos
 
         text_songs.text = with(StringBuilder()) {
             songDataManager.getSongsById(songDataManager.selectedIgnoreSongIds).forEach {

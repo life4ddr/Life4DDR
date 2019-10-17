@@ -345,6 +345,19 @@ class LadderManager(private val context: Context,
             .show()
     }
 
+    fun refreshSongDatabase(c: Context) {
+        AlertDialog.Builder(c)
+            .setTitle(R.string.are_you_sure)
+            .setMessage(R.string.confirm_refresh_song_db)
+            .setPositiveButton(R.string.yes) { _, _ ->
+                ladderResultBox.removeAll()
+                songDataManager.initializeSongDatabase()
+                Life4Application.eventBus.post(SongResultsUpdatedEvent())
+            }
+            .setNegativeButton(R.string.no, null)
+            .show()
+    }
+
     private fun getOrCreateResultsForCharts(charts: List<ChartDB>): List<LadderResultDB> {
         return charts.map { chart ->
             chart.plays.firstOrNull() ?: LadderResultDB().also { result ->

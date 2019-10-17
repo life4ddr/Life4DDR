@@ -107,6 +107,10 @@
             app:title="@string/clear_song_results"/>
 
         <Preference
+            app:key="KEY_REFRESH_SONG_DB"
+            app:title="@string/action_refresh_song_db"/>
+
+        <Preference
             app:key="KEY_RECORDS_CLEAR"
             app:title="@string/action_clear_record_data"/>
     </PreferenceCategory>

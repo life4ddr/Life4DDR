@@ -63,13 +63,13 @@ class SongDataManager(private val context: Context,
     //
     // Song List Management
     //
-    private fun initializeSongDatabase() {
+    fun initializeSongDatabase() {
         chartBox.removeAll()
         songBox.removeAll()
         refreshSongDatabase()
     }
 
-    fun refreshSongDatabase(input: String = songList.data, force: Boolean = false) {
+    private fun refreshSongDatabase(input: String = songList.data, force: Boolean = false) {
         val lines = input.lines()
         if (force || SharedPrefsUtil.getUserInt(context, KEY_SONG_LIST_VERSION, -1) < lines[0].toInt()) {
             val songContents = songBox.all
@@ -179,6 +179,8 @@ class SongDataManager(private val context: Context,
         link(ChartDB_.song).notIn(SongDB_.id, selectedIgnoreSongIds)
         notIn(ChartDB_.id, selectedIgnoreChartIds)
     }.build()
+
+    fun getSongs(): List<SongDB> = songBox.all
 
     fun getSongById(id: Long): SongDB? = songBox.get(id)
 

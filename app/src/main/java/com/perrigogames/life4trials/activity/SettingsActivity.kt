@@ -112,6 +112,10 @@ class SettingsActivity : AppCompatActivity() {
                 ladderManager.clearSongResults(context)
                 true
             }
+            preferenceListener(KEY_REFRESH_SONG_DB) {
+                ladderManager.refreshSongDatabase(context)
+                true
+            }
 
             preferenceListener(KEY_SHOP) {
                 (activity as SettingsActivity).openWebUrlFromRes(R.string.url_shop)
@@ -207,6 +211,15 @@ class SettingsActivity : AppCompatActivity() {
                 title = "Dump Song Data"
                 onPreferenceClickListener = Preference.OnPreferenceClickListener {
                     songDataManager.dumpData()
+                    true
+                }
+                preferenceScreen.addPreference(this)
+            }
+            Preference(context).apply {
+                key = KEY_DEBUG_SONG_RECORDS
+                title = "Song Records"
+                onPreferenceClickListener = Preference.OnPreferenceClickListener {
+                    (context as AppCompatActivity).startActivity(Intent(context, SongRecordsListCheckActivity::class.java))
                     true
                 }
                 preferenceScreen.addPreference(this)
@@ -336,6 +349,7 @@ class SettingsActivity : AppCompatActivity() {
         const val KEY_IMPORT_VIEW_LIST = "KEY_IMPORT_VIEW_LIST"
         const val KEY_LADDER_CLEAR = "KEY_LADDER_CLEAR"
         const val KEY_SONG_RESULTS_CLEAR = "KEY_SONG_RESULTS_CLEAR"
+        const val KEY_REFRESH_SONG_DB = "KEY_REFRESH_SONG_DB"
         const val KEY_RECORDS_CLEAR = "KEY_RECORDS_CLEAR"
 
         const val KEY_DEBUG_DETAILS_DISPLAY_ALL_RANKS = "dddar"
@@ -344,6 +358,7 @@ class SettingsActivity : AppCompatActivity() {
         const val KEY_DEBUG_BYPASS_CAMERA = "dbc"
         const val KEY_DEBUG_LEADERBOARD = "dlb"
         const val KEY_DEBUG_DATA_DUMP = "dimo"
+        const val KEY_DEBUG_SONG_RECORDS = "dsr"
 
         private const val KEY_DEBUG_RANK_PREFIX = "KEY_DEBUG_RANK_PREFIX"
     }
