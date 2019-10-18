@@ -66,7 +66,7 @@ class SongDataManager(private val context: Context,
     fun initializeSongDatabase() {
         chartBox.removeAll()
         songBox.removeAll()
-        refreshSongDatabase()
+        refreshSongDatabase(force = true)
     }
 
     private fun refreshSongDatabase(input: String = songList.data, force: Boolean = false) {
