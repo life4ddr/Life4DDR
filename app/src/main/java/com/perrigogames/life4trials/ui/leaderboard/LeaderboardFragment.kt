@@ -14,6 +14,7 @@ import com.perrigogames.life4trials.api.ApiPlayer
 import com.perrigogames.life4trials.life4app
 import com.perrigogames.life4trials.manager.PlayerManager
 import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 /**
  * A fragment representing a list of Leaderboard items.
@@ -69,7 +70,7 @@ class LeaderboardFragment : Fragment() {
         Life4Application.eventBus.unregister(this)
     }
 
-    @Subscribe
+    @Subscribe(threadMode = ThreadMode.MAIN)
     fun onPlayerLadderUpdated(e: PlayerManager.PlayerLadderUpdatedEvent) {
         e.apiPlayers?.let {
             adapter.players = it

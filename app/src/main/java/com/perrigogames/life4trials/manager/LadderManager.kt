@@ -25,8 +25,6 @@ import com.perrigogames.life4trials.ui.managerimport.ScoreManagerImportDirection
 import com.perrigogames.life4trials.ui.managerimport.ScoreManagerImportEntryDialog
 import com.perrigogames.life4trials.util.*
 import kotlinx.coroutines.*
-import org.greenrobot.eventbus.Subscribe
-import org.greenrobot.eventbus.ThreadMode
 import retrofit2.Response
 import java.net.UnknownHostException
 import java.util.*
@@ -53,7 +51,6 @@ class LadderManager(private val context: Context,
     // Init
     //
     init {
-        Life4Application.eventBus.register(this)
         val dataString = context.readFromFile(RANKS_FILE_NAME) ?: context.loadRawString(R.raw.ranks)
         ladderData = DataUtil.gson.fromJson(dataString, LadderRankData::class.java)!!
         fetchRemoteRanks()
@@ -77,8 +74,7 @@ class LadderManager(private val context: Context,
         }
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onMajorVersion(context: Context) {
+    fun onDatabaseMajorUpdate(context: Context) {
         if (!ladderResultBox.isEmpty) {
             ladderResultBox.removeAll()
             Handler().postDelayed({

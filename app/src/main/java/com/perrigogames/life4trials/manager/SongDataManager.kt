@@ -1,7 +1,9 @@
 package com.perrigogames.life4trials.manager
 
 import android.content.Context
+import android.os.Handler
 import android.util.Log
+import androidx.appcompat.app.AlertDialog
 import com.crashlytics.android.Crashlytics
 import com.perrigogames.life4trials.Life4Application
 import com.perrigogames.life4trials.R
@@ -121,7 +123,7 @@ class SongDataManager(private val context: Context,
     val ignoreListTitles get() = ignoreLists.data.lists.map { it.name }
 
     private val selectedIgnoreList: IgnoreList?
-        get() = getIgnoreList(SharedPrefsUtil.getUserString(context, KEY_IMPORT_GAME_VERSION, "ACE_US")!!)
+        get() = getIgnoreList(SharedPrefsUtil.getUserString(context, KEY_IMPORT_GAME_VERSION, "A20")!!)
 
     fun getIgnoreList(id: String) = ignoreLists.data.lists.first { it.id == id }
 
@@ -149,6 +151,20 @@ class SongDataManager(private val context: Context,
             }
             return mSelectedIgnoreChartIds!!
         }
+
+    fun onA20RequiredUpdate(context: Context) {
+        invalidateIgnoredIds()
+        SharedPrefsUtil.setUserString(context, KEY_IMPORT_GAME_VERSION, "A20")
+        Handler().postDelayed({
+            AlertDialog.Builder(context)
+                .setTitle(R.string.a20_update)
+                .setMessage(R.string.a20_update_explanation)
+                .setPositiveButton(R.string.okay) { d, _ -> d.dismiss() }
+                .setCancelable(true)
+                .create()
+                .show()
+        }, 10)
+    }
 
     //
     // ObjectBoxes

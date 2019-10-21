@@ -41,7 +41,7 @@
             app:title="@string/import_skip_directions"/>
 
         <DropDownPreference
-            app:defaultValue="ACE_US"
+            app:defaultValue="A20"
             app:key="KEY_IMPORT_GAME_VERSION"
             app:title="@string/action_game_version"/>
 

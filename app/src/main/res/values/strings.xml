@@ -330,6 +330,8 @@
 
     <string name="database_upgraded">Song Database Upgraded</string>
     <string name="database_replaced_reimport">The internal song database has been upgraded.\n\nIf you imported your scores from the DDR A Score Manager, you will need to do this again to ensure compatibility.\n\nYou\'ll only need to do this once.</string>
+    <string name="a20_update">DDR A20 Required!</string>
+    <string name="a20_update_explanation">Due to the increased availability of DDR A20, the most current version of the game, LIFE4 now requires comprehensive goals to include DDR A20 songs.\n\nThe app will now display required A20 songs by default.\n\nIf you don\'t have access to an A20 cabinet or play on a gold A20 cabinet, you can set your Game Version in the Settings menu.</string>
 
     <string name="update_your_app">Update Your App!</string>
     <string name="remote_data_needs_update">This version of the LIFE4 app is not compatible with some of the newest updates.\n\nPlease update your LIFE4 app to get the most current experience!</string>

@@ -11,7 +11,7 @@ import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.event.MajorUpdateProcessEvent
 
 enum class MajorUpdate {
-    SONG_DB
+    SONG_DB, A20_REQUIRED
 }
 
 object SharedPrefsUtil {
@@ -21,10 +21,7 @@ object SharedPrefsUtil {
     const val VAL_INIT_STATE_RANKS = "ranks"
     const val VAL_INIT_STATE_DONE = "done"
 
-    const val KEY_RANK_PREFS = "rank_preferences"
-    const val KEY_USER_PREFS = "user_preferences"
     const val KEY_TUTORIAL_PREFS = "tutorial_preferences"
-    const val KEY_DATA_PREFS = "data_preferences"
     const val KEY_APP_CRASHED = "app_crashed"
     const val KEY_MAJOR_UPDATE = "major_update"
     const val KEY_SONG_LIST_VERSION = "song_list_version"

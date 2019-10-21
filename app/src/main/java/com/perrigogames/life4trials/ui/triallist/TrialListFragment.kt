@@ -21,6 +21,7 @@ import com.perrigogames.life4trials.life4app
 import com.perrigogames.life4trials.util.SharedPrefsUtil
 import com.perrigogames.life4trials.view.PaddingItemDecoration
 import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 /**
  * A [Fragment] for displaying a list of [Trial]s in a [RecyclerView].
@@ -74,17 +75,17 @@ class TrialListFragment : Fragment() {
 
     private fun onTrialSelected(trialId: String, trialType: TrialType) = listener?.onTrialSelected(trialId, trialType)
 
-    @Subscribe
+    @Subscribe(threadMode = ThreadMode.MAIN)
     fun onRankUpdated(e: SavedRankUpdatedEvent) {
         adapter.updateNewTrialsList()
     }
 
-    @Subscribe
+    @Subscribe(threadMode = ThreadMode.MAIN)
     fun onListUpdated(e: TrialListUpdatedEvent) {
         adapter.updateNewTrialsList()
     }
 
-    @Subscribe
+    @Subscribe(threadMode = ThreadMode.MAIN)
     fun onListReplaced(e: TrialListReplacedEvent) {
         adapter.featureNew = featureNew
         adapter.updateNewTrialsList()
