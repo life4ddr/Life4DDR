@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory app:title="@string/trial_list">
+        <CheckBoxPreference
+            app:key="KEY_LIST_SHOW_EX"
+            app:title="@string/show_ex" />
+        <CheckBoxPreference
+            app:dependency="KEY_LIST_SHOW_EX"
+            app:key="KEY_LIST_SHOW_EX_REMAINING"
+            app:title="@string/show_ex_remaining" />
+        <CheckBoxPreference
+            app:defaultValue="true"
+            app:key="KEY_LIST_TINT_COMPLETED"
+            app:title="@string/tint_completed_trials"/>
+        <CheckBoxPreference
+            app:defaultValue="true"
+            app:key="KEY_LIST_HIGHLIGHT_NEW"
+            app:title="@string/highlight_new_trials"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/trial_details">
+        <CheckBoxPreference
+            app:key="KEY_DETAILS_PHOTO_SELECT"
+            app:title="@string/photo_select" />
+        <CheckBoxPreference
+            app:key="KEY_DETAILS_EXPERT"
+            app:title="@string/expert_score" />
+        <CheckBoxPreference
+            app:defaultValue="true"
+            app:key="KEY_DETAILS_ENFORCE_EXPERT"
+            app:title="@string/enforce_expert" />
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/trial_records">
+        <CheckBoxPreference
+            app:key="KEY_RECORDS_REMAINING_EX"
+            app:summary="@string/show_remaining_instead_total"
+            app:title="@string/show_remaining_ex_title"/>
+    </PreferenceCategory>
+</PreferenceScreen>
