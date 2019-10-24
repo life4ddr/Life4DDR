@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+    <CheckBoxPreference
+        app:defaultValue="true"
+        app:key="KEY_SUBMISSION_NOTIFICAION"
+        app:summary="@string/show_notifications"
+        app:title="@string/show_notifications_title" />
+    <DropDownPreference
+        app:key="KEY_INFO_RANK"
+        app:title="@string/player_rank"/>
+    <EditTextPreference
+        app:key="KEY_INFO_RIVAL_CODE"
+        app:title="@string/rival_code" />
+    <EditTextPreference
+        app:key="KEY_INFO_TWITTER_NAME"
+        app:title="@string/twitter_name" />
+    <EditTextPreference
+        app:key="KEY_INFO_NAME"
+        app:title="@string/player_name" />
+    <Preference
+        app:key="KEY_SUBMISSION_NOTIFICAION_TEST"
+        app:title="@string/test_notifications" />
+</PreferenceScreen>
