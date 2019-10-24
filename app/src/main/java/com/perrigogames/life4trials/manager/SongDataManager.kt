@@ -17,11 +17,8 @@ import com.perrigogames.life4trials.db.ChartDB_
 import com.perrigogames.life4trials.db.SongDB
 import com.perrigogames.life4trials.db.SongDB_
 import com.perrigogames.life4trials.event.MajorUpdateProcessEvent
-import com.perrigogames.life4trials.util.DataUtil
-import com.perrigogames.life4trials.util.MajorUpdate
-import com.perrigogames.life4trials.util.SharedPrefsUtil
+import com.perrigogames.life4trials.util.*
 import com.perrigogames.life4trials.util.SharedPrefsUtil.KEY_SONG_LIST_VERSION
-import com.perrigogames.life4trials.util.indexOfOrEnd
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import retrofit2.Response
@@ -159,6 +156,10 @@ class SongDataManager(private val context: Context,
             AlertDialog.Builder(context)
                 .setTitle(R.string.a20_update)
                 .setMessage(R.string.a20_update_explanation)
+                .setNegativeButton(R.string.more_info) { d, _ ->
+                    context.openWebUrlFromRes(R.string.url_a20_update)
+                    d.dismiss()
+                }
                 .setPositiveButton(R.string.okay) { d, _ -> d.dismiss() }
                 .setCancelable(true)
                 .create()
