@@ -8,6 +8,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.preference.*
 import com.perrigogames.life4trials.BuildConfig
 import com.perrigogames.life4trials.Life4Application
@@ -317,19 +318,18 @@ class SettingsActivity : AppCompatActivity(), SettingsFragmentListener {
 
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.empty_preferences, rootKey)
-            category("debug_ranks_category", "Debug Ranks*") {
-                val ranksList = TrialRank.values().map { it.toString() }.toMutableList()
-                ranksList.add(0, "NONE")
-                val ranksArray = ranksList.toTypedArray()
-                context.life4app.trialManager.trials.filter { it.goals != null && it.goals.isNotEmpty() }.forEach { trial ->
-                    addPreference(DropDownPreference(context).apply {
-                        key = "$KEY_DEBUG_RANK_PREFIX${trial.id}"
-                        title = trial.name
-                        summary = trialManager.getRankForTrial(trial.id)?.toString() ?: "NONE"
-                        entries = ranksArray
-                        entryValues = ranksArray
-                    })
-                }
+            val ranksList = TrialRank.values().map { it.toString() }.toMutableList()
+            ranksList.add(0, "NONE")
+            val ranksArray = ranksList.toTypedArray()
+            context!!.life4app.trialManager.trials.filter { it.goals != null && it.goals.isNotEmpty() }.forEach { trial ->
+                preferenceScreen.addPreference(DropDownPreference(context).apply {
+                    key = "$KEY_DEBUG_RANK_PREFIX${trial.id}"
+                    title = trial.name
+                    icon = ContextCompat.getDrawable(context, trial.jacketResId(context!!))
+                    summary = trialManager.getRankForTrial(trial.id)?.toString() ?: "NONE"
+                    entries = ranksArray
+                    entryValues = ranksArray
+                })
             }
         }
 

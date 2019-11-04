@@ -24,11 +24,6 @@
         app:fragment="com.perrigogames.life4trials.activity.SettingsActivity$ClearDataFragment"
         app:title="@string/clear_data"/>
 
-    <Preference
-        app:fragment="com.perrigogames.life4trials.activity.SettingsActivity$DebugSettingsFragment"
-        app:key="KEY_DEBUG"
-        app:title="Debug Settings"/>
-
     <PreferenceCategory app:title="@string/help_and_feedback">
         <Preference
             app:key="KEY_SHOP"
@@ -38,6 +33,10 @@
             app:key="KEY_FEEDBACK"
             app:summary="@string/send_feedback_summary"
             app:title="@string/send_feedback"/>
+        <Preference
+            app:fragment="com.perrigogames.life4trials.activity.SettingsActivity$DebugSettingsFragment"
+            app:key="KEY_DEBUG"
+            app:title="Debug Settings"/>
         <Preference
             app:key="KEY_CREDITS"
             app:title="@string/credits"/>
