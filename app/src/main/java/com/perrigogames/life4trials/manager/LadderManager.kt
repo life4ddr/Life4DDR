@@ -53,6 +53,9 @@ class LadderManager(private val context: Context,
     init {
         val dataString = context.readFromFile(RANKS_FILE_NAME) ?: context.loadRawString(R.raw.ranks)
         ladderData = DataUtil.gson.fromJson(dataString, LadderRankData::class.java)!!
+        ladderData.rankRequirements.forEach {  entry ->
+            entry.goals = entry.goalIds.map { id -> ladderData.goals.first { it.id == id } }
+        }
         fetchRemoteRanks()
     }
 

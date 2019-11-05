@@ -15,9 +15,9 @@ import kotlin.math.min
  * @param type the type of the goal, indicating which subclass it is
  */
 abstract class BaseRankGoal(val id: Int,
-                            val type: String,
-                            @SerializedName("play_style") val playStyle: PlayStyle = PlayStyle.SINGLE,
-                            val mandatory: Boolean = false): Serializable {
+                            @SerializedName("t", alternate = ["type"]) val type: String,
+                            @SerializedName("s", alternate = ["play_style"]) val playStyle: PlayStyle = PlayStyle.SINGLE,
+                            @SerializedName("m", alternate = ["mandatory"]) val mandatory: Boolean = false): Serializable {
 
     abstract fun goalString(c: Context): String
 
@@ -160,7 +160,7 @@ class DifficultyClearGoal(id: Int,
                           type: String,
                           playStyle: PlayStyle = PlayStyle.SINGLE,
                           mandatory: Boolean,
-                          @SerializedName("difficulty") val difficulty: Int?,
+                          @SerializedName("d", alternate = ["difficulty"]) val difficulty: Int?,
                           @SerializedName("difficulty_numbers") private val mDifficultyNumbers: IntArray?,
                           @SerializedName("clear_type") private val mClearType: ClearType?,
                           val count: Int?,

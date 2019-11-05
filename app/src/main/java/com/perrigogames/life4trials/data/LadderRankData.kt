@@ -9,6 +9,7 @@ import java.io.Serializable
  */
 class LadderRankData(val version: Int,
                      @SerializedName("unlock_requirement") val unlockRequirement: LadderRank,
+                     @SerializedName("goals") val goals: List<BaseRankGoal>,
                      @SerializedName("rank_requirements") val rankRequirements: List<RankEntry>): Serializable
 
 /**
@@ -16,8 +17,10 @@ class LadderRankData(val version: Int,
  */
 class RankEntry @JvmOverloads constructor(val rank: LadderRank,
                 @SerializedName("play_style") val playStyle: PlayStyle,
-                val goals: List<BaseRankGoal>,
+                @SerializedName("goal_ids") val goalIds: List<Int>,
                 val requirements: Int?): Serializable {
+
+    var goals = emptyList<BaseRankGoal>()
 
     val allowedIgnores: Int get() = requirements?.let { req -> goals.count { !it.mandatory } - req } ?: 0
 
