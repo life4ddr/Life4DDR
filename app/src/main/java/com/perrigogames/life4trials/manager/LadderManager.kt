@@ -39,6 +39,10 @@ class LadderManager(private val context: Context,
     //
     var ladderData: LadderRankData
         private set
+    val currentRequirements: LadderVersion
+        get() = songDataManager.selectedIgnoreList!!.baseVersion.let { version ->
+            ladderData.gameVersions[version] ?: error("Rank requirements not found for version $version")
+        }
     private var ladderJob: Job? = null
 
     //
@@ -53,9 +57,13 @@ class LadderManager(private val context: Context,
     init {
         val dataString = context.readFromFile(RANKS_FILE_NAME) ?: context.loadRawString(R.raw.ranks)
         ladderData = DataUtil.gson.fromJson(dataString, LadderRankData::class.java)!!
-        ladderData.rankRequirements.forEach {  entry ->
-            entry.goals = entry.goalIds.map { id -> ladderData.goals.first { it.id == id } }
+        ladderData.gameVersions.values.flatMap { it.rankRequirements }.forEach {  entry ->
+            entry.goals = entry.goalIds.map { id ->
+                ladderData.goals.firstOrNull { it.id == id } ?:
+                        error("ID not found: $id")
+            }
         }
+        songDataManager.selectedIgnoreList
         fetchRemoteRanks()
     }
 
@@ -126,15 +134,15 @@ class LadderManager(private val context: Context,
     //
     // Rank Navigation
     //
-    fun findRankEntry(rank: LadderRank?) = ladderData.rankRequirements.firstOrNull { it.rank == rank }
+    fun findRankEntry(rank: LadderRank?) = currentRequirements.rankRequirements.firstOrNull { it.rank == rank }
 
-    fun previousEntry(rank: LadderRank?) = previousEntry(ladderData.rankRequirements.indexOfFirst { it.rank == rank })
+    fun previousEntry(rank: LadderRank?) = previousEntry(currentRequirements.rankRequirements.indexOfFirst { it.rank == rank })
 
-    fun previousEntry(index: Int) = ladderData.rankRequirements.getOrNull(index - 1)
+    fun previousEntry(index: Int) = currentRequirements.rankRequirements.getOrNull(index - 1)
 
-    fun nextEntry(rank: LadderRank?) = nextEntry(ladderData.rankRequirements.indexOfFirst { it.rank == rank })
+    fun nextEntry(rank: LadderRank?) = nextEntry(currentRequirements.rankRequirements.indexOfFirst { it.rank == rank })
 
-    fun nextEntry(index: Int) = ladderData.rankRequirements.getOrNull(index + 1)
+    fun nextEntry(index: Int) = currentRequirements.rankRequirements.getOrNull(index + 1)
 
     //
     // Goal State

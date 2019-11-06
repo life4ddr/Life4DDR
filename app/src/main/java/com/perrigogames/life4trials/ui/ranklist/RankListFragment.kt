@@ -24,7 +24,7 @@ import org.greenrobot.eventbus.ThreadMode
 class RankListFragment : Fragment() {
 
     private val ladderManager get() = context!!.life4app.ladderManager
-    private val rankData get() = ladderManager.ladderData
+    private val rankData get() = ladderManager.currentRequirements
 
     private val columnCount: Int
         get() = arguments?.getInt(ARG_COLUMN_COUNT) ?: 1

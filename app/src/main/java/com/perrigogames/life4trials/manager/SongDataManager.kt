@@ -119,8 +119,10 @@ class SongDataManager(private val context: Context,
     val ignoreListIds get() = ignoreLists.data.lists.map { it.id }
     val ignoreListTitles get() = ignoreLists.data.lists.map { it.name }
 
-    private val selectedIgnoreList: IgnoreList?
-        get() = getIgnoreList(SharedPrefsUtil.getUserString(context, KEY_IMPORT_GAME_VERSION, "A20")!!)
+    val selectedVersion: String
+        get() = SharedPrefsUtil.getUserString(context, KEY_IMPORT_GAME_VERSION, "A20")!!
+    val selectedIgnoreList: IgnoreList?
+        get() = getIgnoreList(selectedVersion)
 
     fun getIgnoreList(id: String) = ignoreLists.data.lists.first { it.id == id }
 

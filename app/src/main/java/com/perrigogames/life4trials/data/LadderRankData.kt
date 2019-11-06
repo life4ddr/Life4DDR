@@ -8,14 +8,16 @@ import java.io.Serializable
  * be earned in LIFE4 and the goals required to obtain each.
  */
 class LadderRankData(val version: Int,
-                     @SerializedName("unlock_requirement") val unlockRequirement: LadderRank,
                      @SerializedName("goals") val goals: List<BaseRankGoal>,
-                     @SerializedName("rank_requirements") val rankRequirements: List<RankEntry>): Serializable
+                     @SerializedName("game_versions") val gameVersions: Map<GameVersion, LadderVersion>): Serializable
+
+class LadderVersion(@SerializedName("unlock_requirement") val unlockRequirement: LadderRank,
+                    @SerializedName("rank_requirements") val rankRequirements: List<RankEntry>): Serializable
 
 /**
  * Describes a single rank in [LadderRankData] and the goals required to obtain it.
  */
-class RankEntry @JvmOverloads constructor(val rank: LadderRank,
+class RankEntry(val rank: LadderRank,
                 @SerializedName("play_style") val playStyle: PlayStyle,
                 @SerializedName("goal_ids") val goalIds: List<Int>,
                 val requirements: Int?): Serializable {

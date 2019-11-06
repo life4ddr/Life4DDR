@@ -29,7 +29,7 @@ object DataUtil {
 
     val gson: Gson by lazy {
         GsonBuilder()
-            .registerTypeAdapterFactory(RuntimeTypeAdapterFactory.of(BaseRankGoal::class.java, "type")
+            .registerTypeAdapterFactory(RuntimeTypeAdapterFactory.of(BaseRankGoal::class.java, "t")
                 .registerSubtype(CaloriesRankGoal::class.java, CaloriesRankGoal.TYPE_STRING)
                 .registerSubtype(SongSetClearGoal::class.java, SongSetClearGoal.TYPE_STRING)
                 .registerSubtype(SongSetGoal::class.java, SongSetGoal.TYPE_STRING)
