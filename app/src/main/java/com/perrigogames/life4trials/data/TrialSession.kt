@@ -66,6 +66,6 @@ data class SongResult(var song: Song,
 
     fun randomize() {
         score = (Math.random() * 70000).toInt() + 930000
-        exScore = (Math.random() * 1024).toInt()
+        exScore = (song.ex ?: 1000) - (Math.random() * 100).toInt()
     }
 }
