@@ -101,9 +101,7 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener {
                     setRank(trialSession.availableRanks!![position])
                 }
             }
-            spinner_desired_rank.postDelayed({
-                spinner_desired_rank.setSelection(trialSession.availableRanks!!.indexOf(initialRank))
-            }, 5)
+            spinner_desired_rank.setSelection(trialSession.availableRanks!!.indexOf(initialRank))
         }
 
         switch_acquire_mode.isChecked = SharedPrefsUtil.getUserFlag(this, KEY_DETAILS_PHOTO_SELECT, false)
