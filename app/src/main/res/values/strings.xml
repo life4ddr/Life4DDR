@@ -176,7 +176,8 @@
     <string name="title_activity_settings">Settings</string>
 
     <!-- Preference Titles -->
-    <string name="user_info">Edit User Info</string>
+    <string name="user_info">User Info</string>
+    <string name="edit_user_info">Edit User Info</string>
     <string name="trial_list">Trial List</string>
     <string name="show_ex">Show EX Score</string>
     <string name="show_ex_remaining">Also show remaining EX Score</string>

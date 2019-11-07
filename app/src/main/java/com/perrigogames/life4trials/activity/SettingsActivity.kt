@@ -177,7 +177,7 @@ class SettingsActivity : AppCompatActivity(), SettingsFragmentListener {
     }
 
     class UserInfoSettingsFragment : BaseSettingsFragment() {
-        override fun fragmentName() = context!!.getString(R.string.user_info)
+        override fun fragmentName() = context!!.getString(R.string.edit_user_info)
 
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.user_info_preferences, rootKey)

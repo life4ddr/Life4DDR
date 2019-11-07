@@ -1,11 +1,11 @@
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
-    <Preference
-        app:fragment="com.perrigogames.life4trials.activity.SettingsActivity$UserInfoSettingsFragment"
-        app:title="@string/user_info"/>
     <DropDownPreference
-        app:defaultValue="A20"
+        app:defaultValue="A20_US"
         app:key="KEY_IMPORT_GAME_VERSION"
         app:title="@string/action_game_version"/>
+    <Preference
+        app:fragment="com.perrigogames.life4trials.activity.SettingsActivity$UserInfoSettingsFragment"
+        app:title="@string/edit_user_info"/>
     <Preference
         app:key="KEY_IMPORT_DATA"
         app:title="@string/import_manager_data"/>
