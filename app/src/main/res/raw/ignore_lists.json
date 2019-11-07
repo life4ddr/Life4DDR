@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "major_version": 1,
   "lists": [
     {
@@ -153,7 +153,49 @@
         { "title": "MAX 360", "difficulty_class": "challenge" }
       ]
     }, {
-      "id": "A20",
+      "id": "A20_US",
+      "name": "DDR A20 (White) (US)",
+      "base_version": "A20",
+      "songs": [
+        { "title": "ドキドキ☆流星トラップガール!!" },
+        { "title": "second spring storm" },
+        { "title": "BUTTERFLY (20th Anniversary Mix)" },
+        { "title": "CARTOON HEROES (20th Anniversary Mix)" },
+        { "title": "HAVE YOU NEVER BEEN MELLOW (20th Anniversary Mix)" },
+        { "title": "LONG TRAIN RUNNIN' (20th Anniversary Mix)" },
+        { "title": "SKY HIGH (20th Anniversary Mix)" },
+        { "title": "Ace out" },
+        { "title": "Avenger" },
+        { "title": "Give Me" },
+        { "title": "New Era" },
+        { "title": "The World Ends Now" },
+        { "title": "Rampage Hero" },
+        { "title": "最小三倍完全数" },
+        { "title": "Afterimage d'automne" },
+        { "title": "BLACK JACKAL" },
+        { "title": "Six String Proof" },
+        { "title": "toy boxer" },
+        { "title": "Trill auf G" },
+        { "title": "voltississimo" },
+        { "title": "おーまい！らぶりー！すうぃーてぃ！だーりん！" },
+        { "title": "ミッドナイト☆WAR" },
+        { "title": "初音ミクの消失" },
+        { "title": "ロストワンの号哭" },
+        { "title": "脳漿炸裂ガール" },
+        { "title": "幸せになれる隠しコマンドがあるらしい" },
+        { "title": "The Light" },
+        { "title": "ORCA" },
+        { "title": "Splash Gold" }
+      ],
+      "charts": [
+        { "title": "#OurMemories", "difficulty_class": "challenge" },
+        { "title": "Show me your moves", "difficulty_class": "challenge" },
+        { "title": "CHAOS Terror-Tech Mix", "difficulty_class": "challenge" },
+        { "title": "POSSESSION (20th Anniversary Mix)", "difficulty_class": "challenge" },
+        { "title": "MAX 360", "difficulty_class": "challenge" }
+      ]
+    }, {
+      "id": "A20_JP",
       "name": "DDR A20 (White) (JP)",
       "base_version": "A20",
       "songs": [
@@ -168,8 +210,26 @@
         { "title": "Avenger" },
         { "title": "Give Me" },
         { "title": "New Era" },
+        { "title": "The World Ends Now" },
+        { "title": "Rampage Hero" },
+        { "title": "最小三倍完全数" },
+        { "title": "Afterimage d'automne" },
+        { "title": "BLACK JACKAL" },
+        { "title": "Six String Proof" },
+        { "title": "toy boxer" },
+        { "title": "Trill auf G" },
+        { "title": "voltississimo" },
+        { "title": "おーまい！らぶりー！すうぃーてぃ！だーりん！" },
+        { "title": "ミッドナイト☆WAR" },
         { "title": "ORCA" },
         { "title": "Splash Gold" }
+      ],
+      "charts": [
+        { "title": "#OurMemories", "difficulty_class": "challenge" },
+        { "title": "Show me your moves", "difficulty_class": "challenge" },
+        { "title": "CHAOS Terror-Tech Mix", "difficulty_class": "challenge" },
+        { "title": "POSSESSION (20th Anniversary Mix)", "difficulty_class": "challenge" },
+        { "title": "MAX 360", "difficulty_class": "challenge" }
       ]
     }, {
       "id": "A20_GOLD_CAB",
@@ -182,8 +242,26 @@
         { "title": "Avenger" },
         { "title": "Give Me" },
         { "title": "New Era" },
+        { "title": "The World Ends Now" },
+        { "title": "Rampage Hero" },
+        { "title": "最小三倍完全数" },
+        { "title": "Afterimage d'automne" },
+        { "title": "BLACK JACKAL" },
+        { "title": "Six String Proof" },
+        { "title": "toy boxer" },
+        { "title": "Trill auf G" },
+        { "title": "voltississimo" },
+        { "title": "おーまい！らぶりー！すうぃーてぃ！だーりん！" },
+        { "title": "ミッドナイト☆WAR" },
         { "title": "ORCA" },
         { "title": "Splash Gold" }
+      ],
+      "charts": [
+        { "title": "#OurMemories", "difficulty_class": "challenge" },
+        { "title": "Show me your moves", "difficulty_class": "challenge" },
+        { "title": "CHAOS Terror-Tech Mix", "difficulty_class": "challenge" },
+        { "title": "POSSESSION (20th Anniversary Mix)", "difficulty_class": "challenge" },
+        { "title": "MAX 360", "difficulty_class": "challenge" }
       ]
     }, {
       "id": "ALL_MUSIC",

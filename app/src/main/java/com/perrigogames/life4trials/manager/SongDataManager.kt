@@ -120,11 +120,11 @@ class SongDataManager(private val context: Context,
     val ignoreListTitles get() = ignoreLists.data.lists.map { it.name }
 
     val selectedVersion: String
-        get() = SharedPrefsUtil.getUserString(context, KEY_IMPORT_GAME_VERSION, "A20")!!
+        get() = SharedPrefsUtil.getUserString(context, KEY_IMPORT_GAME_VERSION, DEFAULT_IGNORE_VERSION)!!
     val selectedIgnoreList: IgnoreList?
         get() = getIgnoreList(selectedVersion)
 
-    fun getIgnoreList(id: String) = ignoreLists.data.lists.first { it.id == id }
+    fun getIgnoreList(id: String) = ignoreLists.data.lists.firstOrNull { it.id == id } ?: getIgnoreList()
 
     private var mSelectedIgnoreSongIds: LongArray? = null
     private var mSelectedIgnoreChartIds: LongArray? = null
@@ -153,7 +153,7 @@ class SongDataManager(private val context: Context,
 
     fun onA20RequiredUpdate(context: Context) {
         invalidateIgnoredIds()
-        SharedPrefsUtil.setUserString(context, KEY_IMPORT_GAME_VERSION, "A20")
+        SharedPrefsUtil.setUserString(context, KEY_IMPORT_GAME_VERSION, DEFAULT_IGNORE_VERSION)
         Handler().postDelayed({
             AlertDialog.Builder(context)
                 .setTitle(R.string.a20_update)
@@ -293,6 +293,7 @@ class SongDataManager(private val context: Context,
     companion object {
         const val SONGS_FILE_NAME = "songs.csv"
         const val IGNORES_FILE_NAME = "ignore_lists.json"
+        const val DEFAULT_IGNORE_VERSION = "A20_US"
     }
 }
 
