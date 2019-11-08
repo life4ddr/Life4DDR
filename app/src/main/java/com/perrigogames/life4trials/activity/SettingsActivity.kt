@@ -133,13 +133,21 @@ class SettingsActivity : AppCompatActivity(), SettingsFragmentListener {
                 true
             }
 
-            preferenceListener(KEY_SHOP) {
-                (activity as SettingsActivity).openWebUrlFromRes(R.string.url_shop)
+            preferenceListener(KEY_SHOP_LIFE4) {
+                (activity as SettingsActivity).openWebUrlFromRes(R.string.url_shop_life4)
+                true
+            }
+            preferenceListener(KEY_SHOP_DANGERSHARK) {
+                (activity as SettingsActivity).openWebUrlFromRes(R.string.url_shop_dangershark)
                 true
             }
             preferenceListener(KEY_FEEDBACK) {
                 (context as AppCompatActivity).startActivity(Intent(ACTION_SENDTO, Uri.parse(
                     "mailto:life4@perrigogames.com?subject=${Uri.encode(getString(R.string.life4_feedback_email_subject))}")))
+                true
+            }
+            preferenceListener(KEY_FIND_US_TWITTER) {
+                (activity as SettingsActivity).openWebUrlFromRes(R.string.url_twitter)
                 true
             }
             preferenceListener(KEY_CREDITS) {
@@ -364,9 +372,11 @@ class SettingsActivity : AppCompatActivity(), SettingsFragmentListener {
         const val KEY_SUBMISSION_NOTIFICAION = "KEY_SUBMISSION_NOTIFICAION"
         const val KEY_SUBMISSION_NOTIFICAION_TEST = "KEY_SUBMISSION_NOTIFICAION_TEST"
         const val KEY_RECORDS_REMAINING_EX = "KEY_RECORDS_REMAINING_EX"
-        const val KEY_SHOP = "KEY_SHOP"
+        const val KEY_SHOP_LIFE4 = "KEY_SHOP_LIFE4"
+        const val KEY_SHOP_DANGERSHARK = "KEY_SHOP_DANGERSHARK"
         const val KEY_IMPORT_GAME_VERSION = "KEY_IMPORT_GAME_VERSION"
         const val KEY_FEEDBACK = "KEY_FEEDBACK"
+        const val KEY_FIND_US_TWITTER = "KEY_FIND_US_TWITTER"
         const val KEY_CREDITS = "KEY_CREDITS"
         const val KEY_CATEGORY_IMPORT = "KEY_CATEGORY_IMPORT"
         const val KEY_IMPORT_DATA = "KEY_IMPORT_DATA"

@@ -26,19 +26,26 @@
 
     <PreferenceCategory app:title="@string/help_and_feedback">
         <Preference
-            app:key="KEY_SHOP"
-            app:summary="@string/description_shop"
-            app:title="@string/action_shop"/>
+            app:key="KEY_SHOP_LIFE4"
+            app:summary="@string/description_shop_life4"
+            app:title="@string/action_shop_life4"/>
+        <Preference
+            app:key="KEY_SHOP_DANGERSHARK"
+            app:summary="@string/description_shop_dangershark"
+            app:title="@string/action_shop_dangershark"/>
         <Preference
             app:key="KEY_FEEDBACK"
             app:summary="@string/send_feedback_summary"
             app:title="@string/send_feedback"/>
         <Preference
-            app:fragment="com.perrigogames.life4trials.activity.SettingsActivity$DebugSettingsFragment"
-            app:key="KEY_DEBUG"
-            app:title="Debug Settings"/>
+            app:key="KEY_FIND_US_TWITTER"
+            app:title="@string/find_us_on_twitter"/>
         <Preference
             app:key="KEY_CREDITS"
             app:title="@string/credits"/>
+        <Preference
+            app:fragment="com.perrigogames.life4trials.activity.SettingsActivity$DebugSettingsFragment"
+            app:key="KEY_DEBUG"
+            app:title="Debug Settings"/>
     </PreferenceCategory>
 </PreferenceScreen>

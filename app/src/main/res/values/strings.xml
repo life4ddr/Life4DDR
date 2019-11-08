@@ -11,8 +11,10 @@
     <string name="action_import">Import Ranks</string>
     <string name="action_records">Records</string>
     <string name="action_trial_records">Trial Records</string>
-    <string name="action_shop">Shop</string>
-    <string name="description_shop">Purchase physical LIFE4 gear</string>
+    <string name="action_shop_life4">Shop LIFE4</string>
+    <string name="action_shop_dangershark">Shop DangerShark</string>
+    <string name="description_shop_life4">Purchase physical LIFE4 gear</string>
+    <string name="description_shop_dangershark">Purchase merch from our partner DangerShark</string>
 
     <!-- Trial Goal Strings -->
     <string name="clear_first_songs">• %s the first %d songs.</string>
@@ -162,7 +164,9 @@
     <string name="url_standard_submission_form">https://docs.google.com/forms/d/e/1FAIpQLSe-UDKHOaVv7Zf3FEYPUKBwfT0yc79af8hvVMDIu7VYDoIEvQ/viewform</string>
     <string name="url_trial_submission_form">https://docs.google.com/forms/d/e/1FAIpQLSd2z2dcavPcdC_UhieAPUoYj0C5mTbSAabhrRYstOYem2Mq5Q/viewform</string>
     <string name="url_a20_update">https://life4ddr.com/requirements/</string>
-    <string name="url_shop">https://life4.bigcartel.com/</string>
+    <string name="url_shop_life4">https://life4.bigcartel.com/</string>
+    <string name="url_shop_dangershark">https://www.dangershark.com/</string>
+    <string name="url_twitter">https://twitter.com/life4ddr/</string>
 
     <!-- Content descriptions -->
     <string name="jacket_artwork_for_trial">jacket artwork for trial</string>
@@ -349,6 +353,7 @@
     <string name="manager_import_tutorial_5">Return to the Copy dialog and select the newly added format.</string>
     <string name="manager_import_tutorial_6">Then return to LIFE4 and paste the copied score data.</string>
     <string name="trial_settings">Trial Settings</string>
+    <string name="find_us_on_twitter">Find us on Twitter</string>
 
     <array name="credits">
         <item>Camera, Cancel, Cogwheel, Eye, Folder, Scroll Left, Scroll Right, and Star icons by
