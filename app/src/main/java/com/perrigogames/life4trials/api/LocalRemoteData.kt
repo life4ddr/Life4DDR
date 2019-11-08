@@ -85,10 +85,14 @@ abstract class LocalRemoteData<T: Any>(protected val context: Context,
 
     lateinit var data: T
 
+    /** Provided a string, constructs and returns an appropriate [T]. */
     abstract fun createLocalDataFromText(text: String): T
 
+    /** Provided a [T], returns an appropriate string representation for later use. */
     open fun createTextToData(data: T): String = DataUtil.gson.toJson(data)
 
+    /** @return a version number for a given [T] so this structure can determine whether it
+     * needs to be updated. */
     open fun getDataVersion(data: T = this.data): Int = Int.MIN_VALUE
 
     override fun checkResponse(response: Response<T>) = super.checkResponse(response) && shouldUpdate(response.body()!!)
@@ -133,6 +137,7 @@ abstract class MajorVersionedRemoteData<T: MajorVersioned>(context: Context,
                                                            val majorVersion: Int):
     LocalRemoteData<T>(context, rawResId, cachedFileName) {
 
+    /** Since the template is restricted to [MajorVersioned], use that version number. */
     override fun getDataVersion(data: T) = data.version
 
     override fun checkResponse(response: Response<T>) = super.checkResponse(response) && when {

@@ -14,6 +14,7 @@ import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.activity.SettingsActivity
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_IMPORT_SKIP_DIRECTIONS
 import com.perrigogames.life4trials.api.GithubDataAPI
+import com.perrigogames.life4trials.api.MajorVersionedRemoteData
 import com.perrigogames.life4trials.data.*
 import com.perrigogames.life4trials.data.DifficultyClass.*
 import com.perrigogames.life4trials.db.*
@@ -23,10 +24,9 @@ import com.perrigogames.life4trials.event.SongResultsImportCompletedEvent
 import com.perrigogames.life4trials.event.SongResultsUpdatedEvent
 import com.perrigogames.life4trials.ui.managerimport.ScoreManagerImportDirectionsDialog
 import com.perrigogames.life4trials.ui.managerimport.ScoreManagerImportEntryDialog
-import com.perrigogames.life4trials.util.*
-import kotlinx.coroutines.*
+import com.perrigogames.life4trials.util.DataUtil
+import com.perrigogames.life4trials.util.SharedPrefsUtil
 import retrofit2.Response
-import java.net.UnknownHostException
 import java.util.*
 
 class LadderManager(private val context: Context,
@@ -37,13 +37,30 @@ class LadderManager(private val context: Context,
     //
     // Ladder Data
     //
-    var ladderData: LadderRankData
-        private set
+    private val ladderDataRemote = object: MajorVersionedRemoteData<LadderRankData>(context, R.raw.ranks_v2, RANKS_FILE_NAME, 1) {
+        override suspend fun getRemoteResponse() = githubDataAPI.getLadderRanks()
+
+        override fun createLocalDataFromText(text: String): LadderRankData {
+            val out = DataUtil.gson.fromJson(text, LadderRankData::class.java)!!
+            out.gameVersions.values.flatMap { it.rankRequirements }.forEach {  entry ->
+                entry.goals = entry.goalIds.map { id ->
+                    out.goals.firstOrNull { it.id == id } ?:
+                    error("ID not found: $id")
+                }
+            }
+            return out
+        }
+
+        override fun onNewDataLoaded(newData: LadderRankData) {
+            Toast.makeText(context, R.string.ranks_updated, Toast.LENGTH_SHORT).show()
+            Life4Application.eventBus.post(LadderRanksReplacedEvent())
+        }
+    }
+    val ladderData: LadderRankData get() = ladderDataRemote.data
     val currentRequirements: LadderVersion
         get() = songDataManager.selectedIgnoreList!!.baseVersion.let { version ->
             ladderData.gameVersions[version] ?: error("Rank requirements not found for version $version")
         }
-    private var ladderJob: Job? = null
 
     //
     // ObjectBoxes
@@ -55,34 +72,7 @@ class LadderManager(private val context: Context,
     // Init
     //
     init {
-        val dataString = context.readFromFile(RANKS_FILE_NAME) ?: context.loadRawString(R.raw.ranks)
-        ladderData = DataUtil.gson.fromJson(dataString, LadderRankData::class.java)!!
-        ladderData.gameVersions.values.flatMap { it.rankRequirements }.forEach {  entry ->
-            entry.goals = entry.goalIds.map { id ->
-                ladderData.goals.firstOrNull { it.id == id } ?:
-                        error("ID not found: $id")
-            }
-        }
-        songDataManager.selectedIgnoreList
-        fetchRemoteRanks()
-    }
-
-    private fun fetchRemoteRanks() {
-        ladderJob?.cancel()
-        ladderJob = CoroutineScope(Dispatchers.IO).launch {
-            try {
-                val response = githubDataAPI.getLadderRanks()
-                withContext(Dispatchers.Main) {
-                    if (response.check()) {
-                        context.saveToFile(TrialManager.TRIALS_FILE_NAME, DataUtil.gson.toJson(response.body()))
-                        Toast.makeText(context, R.string.ranks_updated, Toast.LENGTH_SHORT).show()
-                        ladderData = response.body()!!
-                        Life4Application.eventBus.post(LadderRanksReplacedEvent())
-                    }
-                    ladderJob = null
-                }
-            } catch (e: UnknownHostException) {}
-        }
+        ladderDataRemote.start()
     }
 
     fun onDatabaseMajorUpdate(context: Context) {
@@ -401,6 +391,6 @@ class LadderManager(private val context: Context,
     }
 
     companion object {
-        const val RANKS_FILE_NAME = "ranks.json"
+        const val RANKS_FILE_NAME = "ranks_v2.json"
     }
 }

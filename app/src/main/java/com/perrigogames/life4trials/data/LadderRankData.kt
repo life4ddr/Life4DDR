@@ -4,12 +4,13 @@ import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
 /**
- * Data class for deserializing the ranks.json file. Describes all of the ranks that can
+ * Data class for deserializing the ranks_v2_v2.json file. Describes all of the ranks_v2 that can
  * be earned in LIFE4 and the goals required to obtain each.
  */
-class LadderRankData(val version: Int,
+class LadderRankData(override val version: Int,
+                     override val majorVersion: Int,
                      @SerializedName("goals") val goals: List<BaseRankGoal>,
-                     @SerializedName("game_versions") val gameVersions: Map<GameVersion, LadderVersion>): Serializable
+                     @SerializedName("game_versions") val gameVersions: Map<GameVersion, LadderVersion>): Serializable, MajorVersioned
 
 class LadderVersion(@SerializedName("unlock_requirement") val unlockRequirement: LadderRank,
                     @SerializedName("rank_requirements") val rankRequirements: List<RankEntry>): Serializable

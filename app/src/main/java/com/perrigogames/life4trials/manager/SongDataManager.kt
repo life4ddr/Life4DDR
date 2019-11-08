@@ -124,7 +124,8 @@ class SongDataManager(private val context: Context,
     val selectedIgnoreList: IgnoreList?
         get() = getIgnoreList(selectedVersion)
 
-    fun getIgnoreList(id: String) = ignoreLists.data.lists.firstOrNull { it.id == id } ?: getIgnoreList()
+    fun getIgnoreList(id: String): IgnoreList =
+        ignoreLists.data.lists.firstOrNull { it.id == id } ?: getIgnoreList(DEFAULT_IGNORE_VERSION)
 
     private var mSelectedIgnoreSongIds: LongArray? = null
     private var mSelectedIgnoreChartIds: LongArray? = null
