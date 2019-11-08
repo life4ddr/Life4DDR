@@ -22,7 +22,7 @@ class RankEntry(val rank: LadderRank,
                 @SerializedName("goal_ids") val goalIds: List<Int>,
                 val requirements: Int?): Serializable {
 
-    var goals = emptyList<BaseRankGoal>()
+    @Transient var goals = emptyList<BaseRankGoal>()
 
     val allowedIgnores: Int get() = requirements?.let { req -> goals.count { !it.mandatory } - req } ?: 0
 
