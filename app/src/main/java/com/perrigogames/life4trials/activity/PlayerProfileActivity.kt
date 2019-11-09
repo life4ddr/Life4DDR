@@ -115,7 +115,6 @@ class PlayerProfileActivity : AppCompatActivity(), RankDetailsViewModel.OnGoalLi
             MajorUpdate.SONG_DB -> ladderManager.onDatabaseMajorUpdate(this)
             MajorUpdate.A20_REQUIRED -> songDataManager.onA20RequiredUpdate(this)
         }
-        ladderManager.onDatabaseMajorUpdate(this)
         Life4Application.eventBus.removeStickyEvent(e)
     }
 
