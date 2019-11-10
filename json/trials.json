@@ -3,6 +3,46 @@
   "major_version": 2,
   "trials": [
     {
+      "id": "devotion",
+      "name": "Devotion",
+      "type": "trial",
+      "difficulty": 12,
+      "goals": [
+        {
+          "rank": "silver",
+          "score": [965000, 940000, 940000, 900000]
+        }, {
+          "rank": "gold",
+          "score": [995000, 990000, 985000, 985000]
+        }, {
+          "rank": "diamond",
+          "judge": 5,
+          "ex_missing": 120
+        }, {
+          "rank": "cobalt",
+          "judge": 2,
+          "ex_missing": 65
+        }, {
+          "rank": "amethyst",
+          "judge": 1,
+          "ex_missing": 35
+        }, {
+          "rank": "emerald",
+          "judge": 1,
+          "ex_missing": 20
+        }
+      ],
+      "total_ex": 3702,
+      "songs": [
+        { "name": "MY SUMMER LOVE", "difficulty": 12, "difficulty_class": "expert", "ex": 780, "url": "https://zenius-i-vanisher.com/simfiles/Dance%20Dance%20Revolution%204thMIX%20%28AC%29%20%28Japan%29/MY%20SUMMER%20LOVE/MY%20SUMMER%20LOVE-jacket.png" },
+        { "name": "Secret Rendez-vous", "difficulty": 12, "difficulty_class": "expert", "ex": 747, "url": "https://zenius-i-vanisher.com/simfiles/DDRMAX2%20-Dance%20Dance%20Revolution%207thMIX-%20%28AC%29%20%28Japan%29/Secret%20Rendez-vous/Secret%20Rendez-vous-jacket.png" },
+        { "name": "SEDUCTION", "difficulty": 12, "difficulty_class": "expert", "ex": 1194, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20SuperNOVA%20%28AC%29%20%28International%29/SEDUCTION/SEDUCTION-jacket.png" },
+        { "name": "She is my wife", "difficulty": 12, "difficulty_class": "expert", "ex": 981, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X2%20%28AC%29%20%28Japan%29/She%20is%20my%20wife/She%20is%20my%20wife-jacket.png" }
+      ],
+      "cover_url": "",
+      "new": true
+    },
+    {
       "id": "heartbreak",
       "name": "Heartbreak",
       "type": "trial",
@@ -41,45 +81,6 @@
       ]
     },
     {
-      "id": "devotion",
-      "name": "Devotion",
-      "type": "trial",
-      "difficulty": 12,
-      "goals": [
-        {
-          "rank": "silver",
-          "score": [965000, 940000, 940000, 900000]
-        }, {
-          "rank": "gold",
-          "score": [995000, 990000, 985000, 985000]
-        }, {
-          "rank": "diamond",
-          "judge": 5,
-          "ex_missing": 120
-        }, {
-          "rank": "cobalt",
-          "judge": 2,
-          "ex_missing": 65
-        }, {
-          "rank": "amethyst",
-          "judge": 1,
-          "ex_missing": 35
-        }, {
-          "rank": "emerald",
-          "judge": 1,
-          "ex_missing": 20
-        }
-      ],
-      "total_ex": 3702,
-      "songs": [
-        { "name": "MY SUMMER LOVE", "difficulty": 12, "difficulty_class": "expert", "ex": 780, "url": "https://zenius-i-vanisher.com/simfiles/Dance%20Dance%20Revolution%204thMIX%20%28AC%29%20%28Japan%29/MY%20SUMMER%20LOVE/MY%20SUMMER%20LOVE-jacket.png" },
-        { "name": "Secret Rendez-vous", "difficulty": 12, "difficulty_class": "expert", "ex": 747, "url": "https://zenius-i-vanisher.com/simfiles/DDRMAX2%20-Dance%20Dance%20Revolution%207thMIX-%20%28AC%29%20%28Japan%29/Secret%20Rendez-vous/Secret%20Rendez-vous-jacket.png" },
-        { "name": "SEDUCTION", "difficulty": 12, "difficulty_class": "expert", "ex": 1194, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20SuperNOVA%20%28AC%29%20%28International%29/SEDUCTION/SEDUCTION-jacket.png" },
-        { "name": "She is my wife", "difficulty": 12, "difficulty_class": "expert", "ex": 981, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X2%20%28AC%29%20%28Japan%29/She%20is%20my%20wife/She%20is%20my%20wife-jacket.png" }
-      ],
-      "new": true
-    },
-    {
       "id": "believe",
       "name": "Believe",
       "type": "trial",
@@ -116,6 +117,7 @@
         { "name": "A Brighter Day", "difficulty": 12, "difficulty_class": "challenge", "ex": 1149, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X2%20%28AC%29%20%28Japan%29/A%20Brighter%20Day/A%20Brighter%20Day-jacket.png" },
         { "name": "Life is beautiful", "difficulty": 12, "difficulty_class": "difficult", "ex": 1329, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28International%29/Life%20is%20beautiful/Life%20is%20beautiful-jacket.png" }
       ],
+      "cover_url": "",
       "author": "plasmaaa",
       "new": true
     },
@@ -309,6 +311,7 @@
         { "name": "exotic ethnic", "difficulty": 13, "difficulty_class": "expert", "ex": 1356, "url": "https://zenius-i-vanisher.com/simfiles/DDRMAX%20-Dance%20Dance%20Revolution%206thMIX-%20%28AC%29%20%28Japan%29/exotic%20ethnic/exotic%20ethnic-jacket.png" },
         { "name": "桜", "difficulty": 13, "difficulty_class": "expert", "ex": 1341, "url": "https://zenius-i-vanisher.com/simfiles/Dance%20Dance%20Revolution%20EXTREME%20%28AC%29%20%28Japan%29/SAKURA/SAKURA-jacket.png" }
       ],
+      "cover_url": "",
       "author": "Sam-Thak",
       "new": true
     },
@@ -791,6 +794,43 @@
       ]
     },
     {
+      "id": "spectacle",
+      "name": "Spectacle",
+      "type": "trial",
+      "difficulty": 16,
+      "goals": [
+        {
+          "rank": "gold",
+          "score": [950000, 950000, 850000, 850000]
+        }, {
+          "rank": "diamond",
+          "score": [990000, 990000, 960000, 935000]
+        }, {
+          "rank": "cobalt",
+          "score": [990000, 990000, 990000, 980000],
+          "ex_missing": 275
+        }, {
+          "rank": "amethyst",
+          "judge": 8,
+          "ex_missing": 160
+        }, {
+          "rank": "emerald",
+          "judge": 5,
+          "ex_missing": 100
+        }
+      ],
+      "total_ex": 6750,
+      "songs": [
+        { "name": "Unreal", "difficulty": 15, "difficulty_class": "expert", "ex": 1194, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20SuperNOVA2%20%28AC%29%20%28Japan%29/Unreal/Unreal-jacket.png" },
+        { "name": "S!ck", "difficulty": 16, "difficulty_class": "expert", "ex": 2118, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28International%29/S%21ck/S%21ck-jacket.png" },
+        { "name": "Blew My Mind", "difficulty": 16, "difficulty_class": "expert", "ex": 1803, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202013%20%28AC%29%20%28Japan%29/Blew%20My%20Mind/Blew%20My%20Mind-jacket.png" },
+        { "name": "UNBELIEVABLE (Sparky remix)", "difficulty": 15, "difficulty_class": "expert", "ex": 1635, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X3%20VS%202ndMIX%20%28AC%29%20%28Japan%29/UNBELIEVABLE%20%28Sparky%20remix%29/UNBELIEVABLE%20%28Sparky%20remix%29-jacket.png" }
+      ],
+      "cover_url": "",
+      "author": "CRMARTIN",
+      "new": true
+    },
+    {
       "id": "inhuman",
       "name": "Inhuman",
       "type": "trial",
@@ -825,42 +865,6 @@
         { "name": "Boss Rush", "difficulty": 16, "difficulty_class": "expert", "ex": 2208, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/Boss%20Rush/Boss%20Rush-jacket.png" },
         { "name": "Vanquish The Ghost", "difficulty": 16, "difficulty_class": "expert", "ex": 1650, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/Vanquish%20The%20Ghost/Vanquish%20The%20Ghost-jacket.png" }
       ]
-    },
-    {
-      "id": "spectacle",
-      "name": "Spectacle",
-      "type": "trial",
-      "difficulty": 16,
-      "goals": [
-        {
-          "rank": "gold",
-          "score": [950000, 950000, 850000, 850000]
-        }, {
-          "rank": "diamond",
-          "score": [990000, 990000, 960000, 935000]
-        }, {
-          "rank": "cobalt",
-          "score": [990000, 990000, 990000, 980000],
-          "ex_missing": 275
-        }, {
-          "rank": "amethyst",
-          "judge": 8,
-          "ex_missing": 160
-        }, {
-          "rank": "emerald",
-          "judge": 5,
-          "ex_missing": 100
-        }
-      ],
-      "total_ex": 6750,
-      "songs": [
-        { "name": "Unreal", "difficulty": 15, "difficulty_class": "expert", "ex": 1194, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20SuperNOVA2%20%28AC%29%20%28Japan%29/Unreal/Unreal-jacket.png" },
-        { "name": "S!ck", "difficulty": 16, "difficulty_class": "expert", "ex": 2118, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28International%29/S%21ck/S%21ck-jacket.png" },
-        { "name": "Blew My Mind", "difficulty": 16, "difficulty_class": "expert", "ex": 1803, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202013%20%28AC%29%20%28Japan%29/Blew%20My%20Mind/Blew%20My%20Mind-jacket.png" },
-        { "name": "UNBELIEVABLE (Sparky remix)", "difficulty": 15, "difficulty_class": "expert", "ex": 1635, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X3%20VS%202ndMIX%20%28AC%29%20%28Japan%29/UNBELIEVABLE%20%28Sparky%20remix%29/UNBELIEVABLE%20%28Sparky%20remix%29-jacket.png" }
-      ],
-      "author": "CRMARTIN",
-      "new": true
     },
     {
       "id": "chemical",
