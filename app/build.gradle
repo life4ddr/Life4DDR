@@ -63,6 +63,11 @@ android {
     lintOptions {
         abortOnError false
     }
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
 }
 
 dependencies {
@@ -86,6 +91,8 @@ dependencies {
     kapt dep.glide_compiler
 
     testImplementation dep.junit
+    testImplementation dep.androidx_test
+    testImplementation dep.robolectric
     androidTestImplementation dep.espresso
 }
 

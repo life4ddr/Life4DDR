@@ -23,6 +23,7 @@ ext {
     kotlinandroidviewbindings_version = '0.10'
     test_runner_version = '1.2.0'
     espresso_version = '3.2.0'
+    robolectric_version = '4.3'
     kotlin_preferences_version = '1.51'
     fabric_version = '2.10.0'
     eventbus_version = '3.1.1'
@@ -72,10 +73,12 @@ ext {
             dexter                     : "com.karumi:dexter:$dexter_version",
             objectbox_debug            : "io.objectbox:objectbox-android-objectbrowser:$objectbox_version",
             objectbox_release          : "io.objectbox:objectbox-android:$objectbox_version",
+            androidx_test              : "androidx.test.ext:junit:1.1.1",
             espresso                   : ["androidx.test:runner:$test_runner_version",
                                           "androidx.test.espresso:espresso-core:$espresso_version",
                                           "com.android.support.test.espresso:espresso-intents:$espresso_version",
                                           "com.android.support.test.espresso:espresso-contrib:$espresso_version"],
+            robolectric                : "org.robolectric:robolectric:$robolectric_version",
             kotlin_preferences         : ["com.marcinmoskala.PreferenceHolder:preferenceholder:$kotlin_preferences_version",
                                           "com.marcinmoskala.PreferenceHolder:preferenceholder-gson-serializer:$kotlin_preferences_version"],
             code_view                  : 'com.github.tiagohm:CodeView:0.4.0',
