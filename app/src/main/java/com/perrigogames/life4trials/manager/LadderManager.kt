@@ -171,7 +171,7 @@ class LadderManager(private val context: Context,
     //
     fun getGoalProgress(goal: BaseRankGoal, playStyle: PlayStyle): LadderGoalProgress? = when (goal) {
         is DifficultyClearGoal -> {
-            val charts = songDataManager.getChartsByDifficulty(goal.difficultyNumbers, playStyle)
+            val charts = songDataManager.getFilteredChartsByDifficulty(goal.difficultyNumbers, playStyle)
             val filtered = charts.filterNot {
                         songDataManager.selectedIgnoreChartIds.contains(it.id) ||
                         songDataManager.selectedIgnoreSongIds.contains(it.song.targetId) ||

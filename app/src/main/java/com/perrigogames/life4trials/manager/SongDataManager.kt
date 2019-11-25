@@ -56,6 +56,9 @@ class SongDataManager(private val context: Context,
     fun onMajorVersion(e: MajorUpdateProcessEvent) {
         if (e.version == MajorUpdate.SONG_DB) {
             initializeSongDatabase()
+        } else if (e.version == MajorUpdate.DOUBLES_FIX) {
+            chartBox.remove(getChartsByPlayStyle(PlayStyle.DOUBLE))
+            refreshSongDatabase(force = true)
         }
     }
 
@@ -104,7 +107,7 @@ class SongDataManager(private val context: Context,
                 }
                 PlayStyle.values().forEachIndexed { sIdx, style ->
                     DifficultyClass.values().forEachIndexed { dIdx, diff ->
-                        val diffStr = data[3 + ((sIdx + 1) * dIdx)]
+                        val diffStr = data[3 + ((sIdx * DifficultyClass.values().size) + dIdx)]
                         if (diffStr.isNotEmpty()) {
                             updateOrCreateChartForSong(song, style, diff, diffStr.toInt(), false).also { chart ->
                                 dbCharts.add(chart)
@@ -202,6 +205,9 @@ class SongDataManager(private val context: Context,
     private val multipleGameVersionQuery = songBox.query()
         .`in`(SongDB_.version, LongArray(0)).parameterAlias("versions")
         .build()
+    private val chartPlayStyleQuery = chartBox.query()
+        .equal(ChartDB_.playStyle, 0).parameterAlias("play_style")
+        .build()
     private val chartDifficultyQuery = chartBox.query().apply {
         equal(ChartDB_.difficultyNumber, 0).parameterAlias("difficulty")
         equal(ChartDB_.playStyle, 0).parameterAlias("play_style")
@@ -222,12 +228,16 @@ class SongDataManager(private val context: Context,
 
     fun getChartsById(ids: LongArray): MutableList<ChartDB> = chartBox.get(ids)
 
-    fun getChartsByDifficulty(difficulty: Int, playStyle: PlayStyle): MutableList<ChartDB> =
+    fun getChartsByPlayStyle(playStyle: PlayStyle): MutableList<ChartDB> =
+        chartPlayStyleQuery.setParameter("play_style", playStyle.stableId)
+            .find()
+
+    fun getFilteredChartsByDifficulty(difficulty: Int, playStyle: PlayStyle): MutableList<ChartDB> =
         chartDifficultyQuery.setParameter("difficulty", difficulty.toLong())
             .setParameter("play_style", playStyle.stableId)
             .find()
 
-    fun getChartsByDifficulty(difficultyList: IntArray, playStyle: PlayStyle): MutableList<ChartDB> = mutableListOf<ChartDB>().apply {
+    fun getFilteredChartsByDifficulty(difficultyList: IntArray, playStyle: PlayStyle): MutableList<ChartDB> = mutableListOf<ChartDB>().apply {
         difficultyList.forEach {
             addAll(chartDifficultyQuery
                 .setParameter("difficulty", it.toLong())
