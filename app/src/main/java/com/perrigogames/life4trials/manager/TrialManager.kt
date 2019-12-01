@@ -187,7 +187,7 @@ class TrialManager(private val context: Context,
                 .setNegativeButton(R.string.no) { _, _ -> onFinish() }
                 .setPositiveButton(R.string.yes) { _, _ ->
                     if (SharedPrefsUtil.getUserFlag(context, SettingsActivity.KEY_SUBMISSION_NOTIFICAION, false)) {
-                        NotificationUtil.showUserInfoNotifications(context, session.totalExScore)
+                        NotificationUtil.showUserInfoNotifications(context, session.currentTotalExScore)
                     }
                     context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(context.getString(R.string.url_trial_submission_form))))
                     onFinish()
