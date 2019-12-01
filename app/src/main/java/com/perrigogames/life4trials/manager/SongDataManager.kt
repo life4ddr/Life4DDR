@@ -83,14 +83,23 @@ class SongDataManager(private val context: Context,
                 val id = data[0].toLong()
                 val title = data[1]
                 var preview = false
-                val mix = data[2].let {
+                val mix = GameVersion.parse(data[2].let {
                     it.toLongOrNull() ?: it.substring(0, it.length - 1).let { seg ->
                         preview = true
                         seg.toLong()
                     }
-                }
+                })
                 val existingSong: SongDB? = songContents.firstOrNull { it.id == id }
-                val song = existingSong ?: SongDB(title, null, GameVersion.parse(mix), preview).also { song ->
+                existingSong?.let {
+                    if (it.title != title || it.artist != null || it.version != mix || it.preview != preview) {
+                        it.title = title
+                        it.artist = null
+                        it.version = mix
+                        it.preview = preview
+                        songBox.put(it)
+                    }
+                }
+                val song = existingSong ?: SongDB(title, null, mix, preview).also { song ->
                     songBox.attach(song)
                 }
                 PlayStyle.values().forEachIndexed { sIdx, style ->
