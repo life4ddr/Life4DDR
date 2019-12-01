@@ -26,7 +26,6 @@ import com.perrigogames.life4trials.ui.managerimport.ScoreManagerImportDirection
 import com.perrigogames.life4trials.ui.managerimport.ScoreManagerImportEntryDialog
 import com.perrigogames.life4trials.util.DataUtil
 import com.perrigogames.life4trials.util.SharedPrefsUtil
-import retrofit2.Response
 import java.util.*
 
 class LadderManager(private val context: Context,
@@ -379,15 +378,6 @@ class LadderManager(private val context: Context,
             songDataManager.updateChart(chart)
             ladderResultBox.put(it)
         }
-    }
-
-    private fun Response<LadderRankData>.check(): Boolean = when {
-        !isSuccessful -> {
-            Toast.makeText(context, errorBody()!!.string(), Toast.LENGTH_SHORT).show()
-            false
-        }
-        body()!!.version <= ladderData.version -> false
-        else -> true
     }
 
     companion object {
