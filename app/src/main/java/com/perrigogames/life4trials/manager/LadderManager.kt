@@ -50,7 +50,8 @@ class LadderManager(private val context: Context,
             return out
         }
 
-        override fun onNewDataLoaded(newData: LadderRankData) {
+        override fun onFetchUpdated(data: LadderRankData) {
+            super.onFetchUpdated(data)
             Toast.makeText(context, R.string.ranks_updated, Toast.LENGTH_SHORT).show()
             Life4Application.eventBus.post(LadderRanksReplacedEvent())
         }
