@@ -7,6 +7,7 @@ import com.perrigogames.life4trials.api.GithubDataAPI
 import com.perrigogames.life4trials.api.Life4API
 import com.perrigogames.life4trials.db.MyObjectBox
 import com.perrigogames.life4trials.manager.*
+import com.perrigogames.life4trials.repo.TrialRepo
 import com.perrigogames.life4trials.util.DataUtil
 import com.perrigogames.life4trials.util.NotificationUtil
 import com.perrigogames.life4trials.util.SharedPrefsUtil
@@ -24,6 +25,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 
 class Life4Application: MultiDexApplication() {
 
+    lateinit var trialRepo: TrialRepo
     lateinit var firstRunManager: FirstRunManager
     lateinit var ladderManager: LadderManager
     lateinit var placementManager: PlacementManager
@@ -39,6 +41,7 @@ class Life4Application: MultiDexApplication() {
 
         val defaultHandler = Thread.getDefaultUncaughtExceptionHandler()
         Thread.setDefaultUncaughtExceptionHandler { thread, exception ->
+            trialRepo.onApplicationException()
             firstRunManager.onApplicationException()
             ladderManager.onApplicationException()
             placementManager.onApplicationException()
@@ -63,10 +66,11 @@ class Life4Application: MultiDexApplication() {
             Log.i("ObjectBrowser", "Started: $started")
         }
 
+        trialRepo = TrialRepo()
         firstRunManager = FirstRunManager(this)
         songDataManager = SongDataManager(this, githubDataApi)
         placementManager = PlacementManager(this)
-        trialManager = TrialManager(this, githubDataApi)
+        trialManager = TrialManager(this, trialRepo, githubDataApi)
         ladderManager = LadderManager(this, songDataManager, trialManager, githubDataApi)
         tournamentManager = TournamentManager()
         playerManager = PlayerManager(this)

@@ -44,7 +44,7 @@ class TrialRecordsAdapter(private val trialManager: TrialManager,
     }
 
     fun refreshTrials() {
-        recordsList = trialManager.records.reversed()
+        recordsList = trialManager.allRecords.reversed()
     }
 
     override fun getItemId(position: Int): Long {
