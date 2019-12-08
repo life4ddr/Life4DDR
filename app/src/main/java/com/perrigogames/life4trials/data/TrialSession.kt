@@ -1,7 +1,7 @@
 package com.perrigogames.life4trials.data
 
 import android.net.Uri
-import com.perrigogames.life4trials.data.TrialGoalSet.GoalType.*
+import com.perrigogames.life4trials.util.hasCascade
 import java.io.Serializable
 
 data class TrialSession(val trial: Trial,
@@ -93,27 +93,52 @@ data class TrialSession(val trial: Trial,
     /** Calculates the amount of EX still available on songs that haven't been played */
     val remainingExScore: Int get() = currentTotalExScore - trial.total_ex!!
 
-    val highestPossibleRank: TrialRank = TrialRank.values().last { rank ->
-        trial.goals?.firstOrNull { it.rank == rank }?.let { goal ->
-            val goalTypes = goal.goalTypes
-            if (goalTypes.isNullOrEmpty()) {
-                true
-            } else {
-                goalTypes.all { type -> when(type) {
-                    EX -> missingExScore < goal.exMissing!!
-                    BAD_JUDGEMENT -> currentBadJudgments?.let { it < goal.judge!! } ?: true
-                    MISS -> currentMisses?.let { it < goal.judge!! } ?: true
-                    //FIXME finish this
-                    else -> true
-//                    CLEAR -> {
-//
-//                    }
-//                    SCORE -> {
-//
-//                    }
-                } }
+    val highestPossibleRank: TrialRank? get() {
+        val availableRanks = trial.goals?.map { it.rank }?.sortedBy { it.stableId }
+        return availableRanks?.lastOrNull { isRankSatisfied(it) }
+    }
+
+    fun isRankSatisfied(rank: TrialRank): Boolean {
+        var satisfied = true
+        val goal = trial.goalSet(rank) ?: return false
+        if (goal.exMissing != null) {
+            satisfied = satisfied && (missingExScore <= goal.exMissing)
+        }
+        if (satisfied && goal.judge != null) {
+            satisfied = satisfied && currentBadJudgments?.let { it <= goal.judge } ?: true
+        }
+        if (satisfied && goal.miss != null) {
+            satisfied = satisfied && currentMisses?.let { it <= goal.miss } ?: true
+        }
+        if (satisfied && goal.missEach != null) {
+            satisfied = satisfied && currentMisses?.let { it <= goal.missEach } ?: true
+        }
+
+        val scores = results.map { it?.score }
+        if (satisfied && goal.score != null && !goal.score.hasCascade(scores.filterNotNull())) {
+            satisfied = false
+        }
+        if (satisfied && goal.scoreIndexed != null) {
+            scores.forEachIndexed { idx, score ->
+                if (score != null && score < goal.scoreIndexed[idx]) {
+                    return false
+                }
             }
-        } ?: true
+        }
+
+        val clears = results.map { it?.clearType?.stableId?.toInt() }
+
+        if (satisfied && goal.clear != null && !goal.clear.map { it.stableId.toInt() }.hasCascade(clears.filterNotNull())) {
+            satisfied = false
+        }
+        if (satisfied && goal.clearIndexed != null) {
+            clears.forEachIndexed { idx, clear ->
+                if (clear != null && clear < goal.clearIndexed[idx].stableId) {
+                    return false
+                }
+            }
+        }
+        return satisfied
     }
 }
 
@@ -127,6 +152,26 @@ data class SongResult(var song: Song,
                       var passed: Boolean = true): Serializable {
 
     val hasAdvancedStats: Boolean get() = misses != null || badJudges != null
+
+    val clearType: ClearType get() = when {
+        !passed -> ClearType.FAIL
+        perfects != null && badJudges != null -> when {
+            perfects == 0 && badJudges == 0 -> ClearType.MARVELOUS_FULL_COMBO
+            badJudges == 0 -> ClearType.PERFECT_FULL_COMBO
+            misses != null -> when {
+                misses == 0 -> ClearType.GREAT_FULL_COMBO
+                misses!! < 4 -> ClearType.LIFE4_CLEAR
+                else -> ClearType.CLEAR
+            }
+            else -> ClearType.CLEAR
+        }
+        misses != null -> when {
+            misses == 0 -> ClearType.GREAT_FULL_COMBO
+            misses!! < 4 -> ClearType.LIFE4_CLEAR
+            else -> ClearType.CLEAR
+        }
+        else -> ClearType.CLEAR
+    }
 
     var photoUri: Uri
         get() = Uri.parse(photoUriString)
