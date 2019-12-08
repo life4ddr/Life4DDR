@@ -72,12 +72,10 @@ class TrialManager(private val context: Context,
     }
 
     private fun validateTrials() = trials.forEach { trial ->
-        if (trial.songs.count { it.ex != null } == 4) {
-            var sum = 0
-            trial.songs.forEach { sum += it.ex!! }
-            if (sum != trial.total_ex) {
-                Crashlytics.logException(Exception("Trial ${trial.name} has improper EX values: total_ex=${trial.total_ex}, sum=$sum"))
-            }
+        var sum = 0
+        trial.songs.forEach { sum += it.ex }
+        if (sum != trial.total_ex) {
+            Crashlytics.logException(Exception("Trial ${trial.name} has improper EX values: total_ex=${trial.total_ex}, sum=$sum"))
         }
     }
 

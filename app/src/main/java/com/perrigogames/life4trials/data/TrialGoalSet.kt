@@ -27,8 +27,8 @@ data class TrialGoalSet(val rank: TrialRank,
         }
 
     fun generateSingleGoalString(res: Resources, trial: Trial) = StringBuilder().apply {
-        generateGoalStrings(res, trial).forEach { s ->
-            append("$s\n")
+        generateGoalStrings(res, trial).forEachIndexed { idx, s ->
+            append(if (idx == 0) s else "\n$s")
         }
     }.toString()
 

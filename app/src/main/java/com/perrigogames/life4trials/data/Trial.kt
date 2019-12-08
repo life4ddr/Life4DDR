@@ -30,7 +30,7 @@ class Trial(val id: String,
             val scoring_groups: List<List<TrialRank>>?,
             val difficulty: Int?,
             val goals: List<TrialGoalSet>?,
-            val total_ex: Int?,
+            val total_ex: Int,
             val cover_url: String? = null,
             val cover_override: Boolean = false,
             val songs: List<Song>): Serializable {
@@ -50,13 +50,13 @@ class Trial(val id: String,
      */
     fun findScoringGroup(rank: TrialRank) = scoring_groups?.first { it.contains(rank) }
 
-    val isExValid get() = songs.sumBy { it.ex ?: 0 }.let { it == 0 || it == total_ex }
+    val isExValid get() = songs.sumBy { it.ex }.let { it == 0 || it == total_ex }
 }
 
 class Song(val name: String,
            @SerializedName("difficulty") val difficultyNumber: Int,
            @SerializedName("difficulty_class") val difficultyClass: DifficultyClass,
-           val ex: Int?,
+           val ex: Int,
            val url: String? = null): Serializable
 
 enum class TrialType {

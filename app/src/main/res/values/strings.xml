@@ -109,6 +109,7 @@
 
     <string name="trial_failed">Trial Failed!</string>
     <string name="trial_fail_confirmation">Would you like to Concede and save this Trial attempt?</string>
+    <string name="trial_fail_no_rank_confirmation">It is no longer possible to earn a rank on %s.\n\nWould you like to Concede and save this Trial attempt?</string>
     <string name="trial_close_confirmation">The progress made in this trial will not be saved.</string>
     <string name="trial_concede_confirmation_format">This trial will be saved to your records as incomplete for %s (%s).\n\nYou will NOT get a chance to log your failed song if you haven\'t already.</string>
     <string name="photo_save_confirmation">This photo will not be saved.</string>
@@ -133,10 +134,12 @@
     <string name="difficulty_string_format">"%s (%d)"</string>
     <string name="score_string_format">"%s (%d EX)"</string>
     <string name="ex_score_string_format">%d EX</string>
+    <string name="ex_score_progress_format">"%d / %d EX"</string>
     <string name="ex_score_missing_string_format">%d EX (%d)</string>
     <string name="ex_score_missing_newline_string_format">%d EX\n(%d)</string>
     <string name="score_string_summary_format">"%s\n%d EX"</string>
-    <string name="score_string_summary_format_advanced">"%s\n%d EX\n%d Miss\n%d &lt;Great"</string>
+    <string name="score_string_summary_format_advanced">"%d Miss\n%d &lt;Great"\n%d EX</string>
+    <string name="score_string_summary_format_expert">"%d &lt;Great\n%d Perfect"\n%d EX</string>
     <string name="author_credit_format">Created by %s</string>
     <string name="event_directions">In this event, you\'re competing against everyone with a %s Rank.  Aim for the highest combined EX Score!</string>
     <string name="event_ends_format">Event ends %s</string>

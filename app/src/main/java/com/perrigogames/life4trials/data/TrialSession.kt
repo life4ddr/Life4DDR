@@ -1,6 +1,7 @@
 package com.perrigogames.life4trials.data
 
 import android.net.Uri
+import com.perrigogames.life4trials.data.ClearType.*
 import com.perrigogames.life4trials.util.hasCascade
 import java.io.Serializable
 
@@ -20,7 +21,8 @@ data class TrialSession(val trial: Trial,
     val availableRanks: Array<TrialRank>? = trial.goals?.map { it.rank }?.toTypedArray()
 
     val shouldShowAdvancedSongDetails
-        get() = trialGoalSet?.let { it.miss != null || it.judge != null } ?: false
+        get() = results.filterNotNull().none { it.score != null } ||
+                trialGoalSet?.let { it.miss != null || it.judge != null } ?: false
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -77,7 +79,7 @@ data class TrialSession(val trial: Trial,
     val currentTotalExScore: Int get() = results.filterNotNull().sumBy { it.exScore!! }
 
     /** Calculates the highest EX that a player could obtain on the songs that have been currently completed */
-    val currentMaxExScore: Int get() = trial.songs.mapIndexed { idx, item -> if (results[idx] != null) item.ex!! else 0  }.sumBy { it }
+    val currentMaxExScore: Int get() = trial.songs.mapIndexed { idx, item -> if (results[idx] != null) item.ex else 0  }.sumBy { it }
 
     /** Calculates the amount of EX that is missing, which only counts the songs that have been completed */
     val missingExScore: Int get() = currentMaxExScore - currentTotalExScore
@@ -87,11 +89,11 @@ data class TrialSession(val trial: Trial,
     val projectedExScore: Int
         get() {
             val projectedMaxPercent = currentTotalExScore.toDouble() / currentMaxExScore.toDouble()
-            return (trial.total_ex!! * projectedMaxPercent).toInt()
+            return (trial.total_ex * projectedMaxPercent).toInt()
         }
 
     /** Calculates the amount of EX still available on songs that haven't been played */
-    val remainingExScore: Int get() = currentTotalExScore - trial.total_ex!!
+    val remainingExScore: Int get() = currentTotalExScore - trial.total_ex
 
     val highestPossibleRank: TrialRank? get() {
         val availableRanks = trial.goals?.map { it.rank }?.sortedBy { it.stableId }
@@ -154,23 +156,24 @@ data class SongResult(var song: Song,
     val hasAdvancedStats: Boolean get() = misses != null || badJudges != null
 
     val clearType: ClearType get() = when {
-        !passed -> ClearType.FAIL
+        !passed -> FAIL
+        exScore == song.ex -> MARVELOUS_FULL_COMBO
         perfects != null && badJudges != null -> when {
-            perfects == 0 && badJudges == 0 -> ClearType.MARVELOUS_FULL_COMBO
-            badJudges == 0 -> ClearType.PERFECT_FULL_COMBO
+            perfects == 0 && badJudges == 0 -> MARVELOUS_FULL_COMBO
+            badJudges == 0 -> PERFECT_FULL_COMBO
             misses != null -> when {
-                misses == 0 -> ClearType.GREAT_FULL_COMBO
-                misses!! < 4 -> ClearType.LIFE4_CLEAR
-                else -> ClearType.CLEAR
+                misses == 0 -> GREAT_FULL_COMBO
+                misses!! < 4 -> LIFE4_CLEAR
+                else -> CLEAR
             }
-            else -> ClearType.CLEAR
+            else -> CLEAR
         }
         misses != null -> when {
-            misses == 0 -> ClearType.GREAT_FULL_COMBO
-            misses!! < 4 -> ClearType.LIFE4_CLEAR
-            else -> ClearType.CLEAR
+            misses == 0 -> GREAT_FULL_COMBO
+            misses!! < 4 -> LIFE4_CLEAR
+            else -> CLEAR
         }
-        else -> ClearType.CLEAR
+        else -> CLEAR
     }
 
     var photoUri: Uri
@@ -179,6 +182,6 @@ data class SongResult(var song: Song,
 
     fun randomize() {
         score = (Math.random() * 70000).toInt() + 930000
-        exScore = (song.ex ?: 1000) - (Math.random() * 100).toInt()
+        exScore = song.ex - (Math.random() * 100).toInt()
     }
 }
