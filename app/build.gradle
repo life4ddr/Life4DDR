@@ -82,6 +82,7 @@ dependencies {
     implementation dep.retrofit
     implementation dep.coroutines_android
     implementation dep.coroutines_jvm
+    implementation dep.lottie
 
     debugImplementation dep.objectbox_debug
     releaseImplementation dep.objectbox_release
