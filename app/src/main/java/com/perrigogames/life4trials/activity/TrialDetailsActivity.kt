@@ -25,6 +25,7 @@ import com.perrigogames.life4trials.util.openWebUrlFromRes
 import com.perrigogames.life4trials.util.toListString
 import com.perrigogames.life4trials.util.visibilityBool
 import com.perrigogames.life4trials.view.JacketCornerView
+import com.perrigogames.life4trials.view.RunningEXScoreView
 import com.perrigogames.life4trials.view.SongView
 import com.perrigogames.life4trials.view.TrialJacketView
 import kotlinx.android.synthetic.main.content_trial_details.*
@@ -72,6 +73,7 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.content_trial_details)
         trialSession = trialManager.startSession(trialId, initialRank)
+        updateEXScoreMeter()
 
         (image_rank as TrialJacketView).let { jacket ->
             jacket.trial = trial
@@ -200,6 +202,24 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener {
         button_submit.visibilityBool = allSongsComplete && trialSession.hasFinalPhoto
     }
 
+    private fun updateHighestPossibleRank() {
+        val currentGoal = trialSession.goalRank
+        val highestPossible = trialSession.highestPossibleRank
+        if (highestPossible == null) {
+            AlertDialog.Builder(this).setTitle(R.string.trial_failed)
+                .setMessage(getString(R.string.trial_fail_no_rank_confirmation, trial.name))
+                .setNegativeButton(R.string.cancel, null)
+                .setPositiveButton(R.string.okay) { _, _ -> concedeTrial() }
+                .show()
+        } else if (currentGoal != null && highestPossible.stableId != currentGoal.stableId) {
+            spinner_desired_rank.setSelection(trialSession.availableRanks!!.indexOf(highestPossible))
+        }
+    }
+
+    private fun updateEXScoreMeter() {
+        (include_ex_score as RunningEXScoreView).update(trialSession)
+    }
+
     private fun scrollToBottom() {
         scroll_details.post {
             try {
@@ -267,6 +287,7 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener {
     private fun onEntryFinished(result: SongResult?) {
         currentResult = result
         songListFragment.setSongResult(currentIndex!!, result)
+        updateEXScoreMeter()
         updateCompleteState()
         scrollToBottom()
         modified = true
@@ -280,6 +301,8 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener {
                 .setNegativeButton(R.string.cancel, null)
                 .setPositiveButton(R.string.okay) { _, _ -> concedeTrial() }
                 .show()
+        } else {
+            updateHighestPossibleRank()
         }
     }
 

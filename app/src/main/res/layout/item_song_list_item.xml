@@ -18,6 +18,49 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:background="@color/colorAccent" />
 
+    <ImageView
+        android:id="@+id/image_photo_icon"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_margin="@dimen/content_padding_med"
+        android:contentDescription="@string/camera_icon"
+        android:src="@drawable/ic_photo_camera"
+        android:tint="@color/gray"
+        app:layout_constraintDimensionRatio="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/text_song_details"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="@dimen/content_padding_med"
+        android:layout_marginRight="@dimen/content_padding_med"
+        android:layout_marginBottom="@dimen/content_padding_med"
+        android:gravity="bottom|end"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_weight="0.4"
+        app:layout_constraintStart_toEndOf="@id/text_song_result"
+        app:layout_constraintTop_toTopOf="@id/text_song_difficulty"
+        tools:text="33 Perfect\n1 Great" />
+
+    <TextView
+        android:id="@+id/text_song_result"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/content_padding_med"
+        android:layout_marginRight="@dimen/content_padding_med"
+        android:layout_marginBottom="@dimen/content_padding_med"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/text_song_details"
+        app:layout_constraintHorizontal_weight="0.6"
+        app:layout_constraintStart_toStartOf="@id/text_song_title"
+        tools:text="995,365  (1266 EX)" />
+
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/text_song_title"
         android:layout_width="0dp"
@@ -43,31 +86,5 @@
         app:layout_constraintTop_toBottomOf="@id/text_song_title"
         tools:text="CHALLENGE 17"
         tools:textColor="#4444ff"/>
-
-    <TextView
-        android:id="@+id/text_song_result"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/content_padding_med"
-        android:layout_marginRight="@dimen/content_padding_med"
-        android:layout_marginBottom="@dimen/content_padding_med"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/text_song_title"
-        tools:text="995,365  (1266 EX)" />
-
-    <ImageView
-        android:id="@+id/image_photo_icon"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_margin="@dimen/content_padding_med"
-        android:contentDescription="@string/camera_icon"
-        android:src="@drawable/ic_photo_camera"
-        android:tint="@color/gray"
-        app:layout_constraintDimensionRatio="1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="visible" />
 
 </com.perrigogames.life4trials.view.SongView>
