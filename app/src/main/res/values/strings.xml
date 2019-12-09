@@ -204,6 +204,7 @@
     <string name="import_manager_data">Import manager data</string>
     <string name="import_skip_directions">Skip import directions</string>
     <string name="photo_select">Use photo picker</string>
+    <string name="import_finished_errors">Import finished with %d errors.</string>
     <string name="expert_score">Expert score entry</string>
     <string name="enforce_expert">Require step breakdowns</string>
     <string name="show_remaining_ex_title">Show remaining EX</string>
@@ -357,6 +358,7 @@
     <string name="manager_import_tutorial_6">Then return to LIFE4 and paste the copied score data.</string>
     <string name="trial_settings">Trial Settings</string>
     <string name="find_us_on_twitter">Find us on Twitter</string>
+    <string name="close">Close</string>
 
     <array name="credits">
         <item>Camera, Cancel, Cogwheel, Eye, Folder, Scroll Left, Scroll Right, and Star icons by

@@ -28,6 +28,7 @@ ext {
     fabric_version = '2.10.0'
     eventbus_version = '3.1.1'
     dexter_version = '5.0.0'
+    lottie_version = '3.3.0'
 
     dep = [
             kotlin_stdlib_common       : "org.jetbrains.kotlin:kotlin-stdlib-common:$kotlin_version",
@@ -82,6 +83,7 @@ ext {
             kotlin_preferences         : ["com.marcinmoskala.PreferenceHolder:preferenceholder:$kotlin_preferences_version",
                                           "com.marcinmoskala.PreferenceHolder:preferenceholder-gson-serializer:$kotlin_preferences_version"],
             code_view                  : 'com.github.tiagohm:CodeView:0.4.0',
+            lottie                     : "com.airbnb.android:lottie:$lottie_version",
 
             // Native
             coroutines_native            : "org.jetbrains.kotlinx:kotlinx-coroutines-core-native:$coroutines_version"
