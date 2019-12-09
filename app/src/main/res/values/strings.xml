@@ -17,7 +17,7 @@
     <string name="description_shop_dangershark">Purchase merch from our partner DangerShark</string>
 
     <!-- Trial Goal Strings -->
-    <string name="clear_first_songs">• %s the first %d songs.</string>
+    <string name="clear_first_songs">%s the first %d songs.</string>
     <string name="score_songs">Score %s on at least %d songs.</string>
     <string name="aaa_songs">AAA at least %d songs.</string>
     <string name="mfc_songs">MFC at least %d songs.</string>
@@ -36,7 +36,7 @@
     <string name="mfc_on_remainder">MFC all other songs.</string>
     <string name="bad_judgments_count">%d or fewer Greats, Goods, and Misses.</string>
     <string name="misses_count">%d or fewer Misses.</string>
-    <string name="misses_each_count">• %d or fewer Misses on each song.</string>
+    <string name="misses_each_count">%d or fewer Misses on each song.</string>
     <string name="missing_ex_count">%d missing EX or less.</string>
     <string name="missing_ex_count_threshold">%d missing EX or less (%d).</string>
     <string name="pass_the_trial">Pass the Trial.</string>
