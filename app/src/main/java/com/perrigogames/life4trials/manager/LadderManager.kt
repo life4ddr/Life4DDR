@@ -24,8 +24,10 @@ import com.perrigogames.life4trials.event.SongResultsImportCompletedEvent
 import com.perrigogames.life4trials.event.SongResultsUpdatedEvent
 import com.perrigogames.life4trials.ui.managerimport.ScoreManagerImportDirectionsDialog
 import com.perrigogames.life4trials.ui.managerimport.ScoreManagerImportEntryDialog
+import com.perrigogames.life4trials.ui.managerimport.ScoreManagerImportProcessingDialog
 import com.perrigogames.life4trials.util.DataUtil
 import com.perrigogames.life4trials.util.SharedPrefsUtil
+import kotlinx.coroutines.*
 import java.util.*
 
 class LadderManager(private val context: Context,
@@ -170,6 +172,8 @@ class LadderManager(private val context: Context,
     //
     // Imported Score Data
     //
+    private var importJob: Job? = null
+
     fun getGoalProgress(goal: BaseRankGoal, playStyle: PlayStyle): LadderGoalProgress? = when (goal) {
         is DifficultyClearGoal -> {
             val charts = songDataManager.getFilteredChartsByDifficulty(goal.difficultyNumbers, playStyle)
@@ -258,63 +262,86 @@ class LadderManager(private val context: Context,
         ScoreManagerImportEntryDialog(object : ScoreManagerImportEntryDialog.Listener {
             override fun onDialogCancelled() = Unit
             override fun onHelpPressed() = showImportDirectionsDialog(activity)
-            override fun onDataSubmitted(data: String) = importManagerData(data)
+            override fun onDataSubmitted(data: String) = showImportProcessingDialog(activity, data)
         }).show(activity.supportFragmentManager, ScoreManagerImportEntryDialog.TAG)
     }
 
-    fun importManagerData(dataString: String) {
+    private fun showImportProcessingDialog(activity: FragmentActivity, dataString: String) {
+        val dialog = ScoreManagerImportProcessingDialog(object : ScoreManagerImportProcessingDialog.Listener {
+            override fun onDialogLoaded(managerListener: ManagerImportListener) = importManagerData(dataString, managerListener)
+            override fun onDialogCancelled() = cancelImportJob()
+        })
+        dialog.show(activity.supportFragmentManager, ScoreManagerImportEntryDialog.TAG)
+    }
+
+    fun importManagerData(dataString: String, listener: ManagerImportListener? = null) {
         var success = 0
         var errors = 0
-        dataString.lines().forEach { entry ->
-            val entryParts = entry.trim().split(';')
-            if (entryParts.size >= 4) {
-                // format = %p:b:B:D:E:C%%y:SP:DP%;%d%;%s0%;%l%;%f:mfc:pfc:gfc:fc:life4:clear%;%e%;%a%;%t%
-                try {
-                    val chartType = entryParts[0] // ESP
-                    val difficultyNumber = entryParts[1].toInt()
-                    val score = entryParts[2].toInt()
-                    // need 5 and 6 first
-                    val clears = entryParts[5].toIntOrNull() ?: 0
-//                    val plays = entryParts[6].toIntOrNull() ?: 0
+        importJob = CoroutineScope(Dispatchers.IO).launch {
+            val lines = dataString.lines()
+            lines.forEach { entry ->
+                val entryParts = entry.trim().split(';')
+                if (entryParts.size >= 4) {
+                    // format = %p:b:B:D:E:C%%y:SP:DP%;%d%;%s0%;%l%;%f:mfc:pfc:gfc:fc:life4:clear%;%e%;%a%;%t%
+                    try {
+                        val chartType = entryParts[0] // ESP
+                        val difficultyNumber = entryParts[1].toInt()
+                        val score = entryParts[2].toInt()
+                        // need 5 and 6 first
+                        val clears = entryParts[5].toIntOrNull() ?: 0
 
-                    var clear = ClearType.parse(entryParts[4])!!
-                    if (clear == ClearType.CLEAR) {
-                        when {
-                            entryParts[3] == "-" -> clear = ClearType.NO_PLAY
-                            entryParts[3] == "E" -> clear = when {
-                                clears > 0 -> ClearType.CLEAR
-                                else -> ClearType.FAIL
+                        var clear = ClearType.parse(entryParts[4])!!
+                        if (clear == ClearType.CLEAR) {
+                            when {
+                                entryParts[3] == "-" -> clear = ClearType.NO_PLAY
+                                entryParts[3] == "E" -> clear = when {
+                                    clears > 0 -> ClearType.CLEAR
+                                    else -> ClearType.FAIL
+                                }
                             }
                         }
+
+                        val songName = entryParts.subList(entryParts.size - 1, entryParts.size).joinToString(";")
+
+                        val playStyle = PlayStyle.parse(chartType)!!
+                        val difficultyClass = DifficultyClass.parse(chartType)!!
+
+                        val songDB = songDataManager.getSongByName(songName) ?: throw SongNotFoundException(songName)
+                        val chartDB = songDataManager.updateOrCreateChartForSong(songDB, playStyle, difficultyClass, difficultyNumber)
+                        val resultDB = updateOrCreateResultForChart(chartDB, score, clear)
+
+                        if (BuildConfig.DEBUG && resultDB.clearType == ClearType.NO_PLAY) {
+                            Log.v("import", "${songDB.title} - ${chartDB.difficultyClass} (${chartDB.difficultyNumber})")
+                        }
+                        success++
+                        if (success % 2 == 0) {
+                            withContext(Dispatchers.Main) { listener?.onCountUpdated(success + errors, lines.size - 1) }
+                        }
+                    } catch (e: Exception) {
+                        errors++
+                        Log.e("Exception", e.message)
+                        withContext(Dispatchers.Main) { listener?.onError(errors, "${entry}\n${e.message}") }
                     }
-
-                    val songName = entryParts.subList(entryParts.size - 1, entryParts.size).joinToString(";")
-
-                    val playStyle = PlayStyle.parse(chartType)!!
-                    val difficultyClass = DifficultyClass.parse(chartType)!!
-
-                    val songDB = songDataManager.getSongByName(songName) ?: throw SongNotFoundException(songName)
-                    val chartDB = songDataManager.updateOrCreateChartForSong(songDB, playStyle, difficultyClass, difficultyNumber)
-                    val resultDB = updateOrCreateResultForChart(chartDB, score, clear)
-
-                    if (BuildConfig.DEBUG && resultDB.clearType == ClearType.NO_PLAY) {
-                        Log.v("import", "${songDB.title} - ${chartDB.difficultyClass} (${chartDB.difficultyNumber})")
-                    }
-                    success++
-                } catch (e: Exception) {
+                } else if (entry.isNotEmpty()) {
                     errors++
-                    Log.e("Exception", e.toString())
                 }
-            } else if (entry.isNotEmpty()) {
-                errors++
+            }
+            withContext(Dispatchers.Main) {
+                Toast.makeText(context, context.getString(R.string.import_finished, success, errors), Toast.LENGTH_SHORT).show()
+                songDataManager.invalidateIgnoredIds()
+                Life4Application.eventBus.post(SongResultsImportCompletedEvent())
+                if (success > 0) {
+                    Life4Application.eventBus.post(SongResultsUpdatedEvent())
+                }
+                importJob = null
+                listener?.onCompleted()
             }
         }
-        Toast.makeText(context, context.getString(R.string.import_finished, success, errors), Toast.LENGTH_SHORT).show()
-        songDataManager.invalidateIgnoredIds()
-        Life4Application.eventBus.post(SongResultsImportCompletedEvent())
-        if (success > 0) {
-            Life4Application.eventBus.post(SongResultsUpdatedEvent())
-        }
+    }
+
+    fun cancelImportJob() {
+        importJob?.cancel()
+        importJob = null
     }
 
     fun clearGoalStates(c: Context) {
@@ -379,6 +406,15 @@ class LadderManager(private val context: Context,
             songDataManager.updateChart(chart)
             ladderResultBox.put(it)
         }
+    }
+
+    /**
+     * Listener class for the manager import process
+     */
+    interface ManagerImportListener {
+        fun onCountUpdated(current: Int, total: Int)
+        fun onError(totalCount: Int, message: String)
+        fun onCompleted()
     }
 
     companion object {
