@@ -51,13 +51,13 @@ enum class TrialRank(val stableId: Long,
 
         fun parse(stableId: Long): TrialRank? = values().firstOrNull { it.stableId == stableId }
 
-        fun fromLadderRank(userRank: LadderRank?) = when(userRank) {
+        fun fromLadderRank(userRank: LadderRank?, parsePlatinum: Boolean) = when(userRank) {
             null -> null
             LadderRank.WOOD1, LadderRank.WOOD2, LadderRank.WOOD3 -> WOOD
             LadderRank.BRONZE1, LadderRank.BRONZE2, LadderRank.BRONZE3 -> BRONZE
             LadderRank.SILVER1, LadderRank.SILVER2, LadderRank.SILVER3 -> SILVER
             LadderRank.GOLD1, LadderRank.GOLD2, LadderRank.GOLD3 -> GOLD
-            LadderRank.PLATINUM1, LadderRank.PLATINUM2, LadderRank.PLATINUM3 -> PLATINUM
+            LadderRank.PLATINUM1, LadderRank.PLATINUM2, LadderRank.PLATINUM3 -> if (parsePlatinum) PLATINUM else GOLD
             LadderRank.DIAMOND1, LadderRank.DIAMOND2, LadderRank.DIAMOND3 -> DIAMOND
             LadderRank.COBALT1, LadderRank.COBALT2, LadderRank.COBALT3 -> COBALT
             LadderRank.AMETHYST1, LadderRank.AMETHYST2, LadderRank.AMETHYST3 -> AMETHYST

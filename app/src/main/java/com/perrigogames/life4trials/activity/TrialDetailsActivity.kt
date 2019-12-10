@@ -41,11 +41,15 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener {
     private val trial: Trial get() = trialManager.findTrial(trialId)!!
 
     private val storedRank: TrialRank? get() = life4app.trialManager.getRankForTrial(trial.id)
-    private val initialRank: TrialRank? by lazy {
+    private val initialRank: TrialRank by lazy {
         if (trial.isEvent)
-            TrialRank.fromLadderRank(ladderManager.getUserRank())
+            TrialRank.fromLadderRank(ladderManager.getUserRank(), true) ?:
+            TrialRank.WOOD
         else
-            storedRank?.next ?: (intent.extras?.getInt(ARG_INITIAL_RANK)?.let { TrialRank.values()[it] } ?: TrialRank.SILVER)
+            storedRank?.next ?:
+            intent.extras?.getInt(ARG_INITIAL_RANK, -1)?.let { if (it >= 0) TrialRank.values()[it] else null } ?:
+            TrialRank.fromLadderRank(ladderManager.getUserRank(), false) ?:
+            TrialRank.WOOD
     }
 
     override val snackbarContainer: ViewGroup get() = container
@@ -89,7 +93,7 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener {
 
         if (trial.isEvent) {
             val userRank = ladderManager.getUserRank()
-            val scoringGroup = trial.findScoringGroup(TrialRank.fromLadderRank(userRank) ?: TrialRank.WOOD)
+            val scoringGroup = trial.findScoringGroup(TrialRank.fromLadderRank(userRank, true) ?: TrialRank.WOOD)
             text_event_timer.text = resources.getString(R.string.event_ends_format,
                 SimpleDateFormat("MMMM dd", Locale.US).format(trial.event_end))
             text_event_help.text = resources.getString(R.string.event_directions,
@@ -103,7 +107,13 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener {
                     setRank(trialSession.availableRanks!![position])
                 }
             }
-            spinner_desired_rank.setSelection(trialSession.availableRanks!!.indexOf(initialRank))
+            trialSession.availableRanks!!.let { ranks ->
+                val initialSpinnerRank = ranks
+                    .sortedBy { it.stableId }
+                    .lastOrNull { initialRank.stableId >= it.stableId }
+                    ?: ranks.first()
+                spinner_desired_rank.setSelection(ranks.indexOf(initialSpinnerRank))
+            }
         }
 
         switch_acquire_mode.isChecked = SharedPrefsUtil.getUserFlag(this, KEY_DETAILS_PHOTO_SELECT, false)
