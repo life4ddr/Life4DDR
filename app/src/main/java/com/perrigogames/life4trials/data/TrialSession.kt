@@ -149,11 +149,14 @@ data class SongResult(var song: Song,
                       var score: Int? = null,
                       var exScore: Int? = null,
                       var misses: Int? = null,
-                      var badJudges: Int? = null,
+                      var goods: Int? = null,
+                      var greats: Int? = null,
                       var perfects: Int? = null,
                       var passed: Boolean = true): Serializable {
 
-    val hasAdvancedStats: Boolean get() = misses != null || badJudges != null
+    val badJudges get() = if (hasAdvancedStats) misses!! + goods!! + greats!! else null
+
+    val hasAdvancedStats: Boolean get() = misses != null && goods != null && greats != null && perfects != null
 
     val clearType: ClearType get() = when {
         !passed -> FAIL

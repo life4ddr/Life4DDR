@@ -138,7 +138,7 @@
     <string name="ex_score_missing_string_format">%d EX (%d)</string>
     <string name="ex_score_missing_newline_string_format">%d EX\n(%d)</string>
     <string name="score_string_summary_format">"%s\n%d EX"</string>
-    <string name="score_string_summary_format_advanced">"%d Miss\n%d &lt;Great"\n%d EX</string>
+    <string name="score_string_summary_format_advanced">"%d Miss\n%d Good\n%d Great"\n%d EX</string>
     <string name="score_string_summary_format_expert">"%d &lt;Great\n%d Perfect"\n%d EX</string>
     <string name="author_credit_format">Created by %s</string>
     <string name="event_directions">In this event, you\'re competing against everyone with a %s Rank.  Aim for the highest combined EX Score!</string>

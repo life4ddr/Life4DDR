@@ -177,7 +177,7 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener {
     fun onFinalizeClick(v: View) {
         if (!trialSession.shouldShowAdvancedSongDetails ||
             !SharedPrefsUtil.getUserFlag(this, KEY_DETAILS_ENFORCE_EXPERT, true) ||
-            trialSession.results.none { it!!.misses == null || it.badJudges == null }) {
+            trialSession.results.none { it!!.hasAdvancedStats }) {
 
             isFinal = true
             acquirePhoto()
@@ -248,6 +248,7 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener {
     private fun startEditActivity(index: Int) {
         Intent(this, SongEntryActivity::class.java).also { i ->
             i.putExtra(SongEntryActivity.ARG_RESULT, trialSession.results[index])
+            i.putExtra(SongEntryActivity.ARG_SONG, trial.songs[index])
             i.putExtra(SongEntryActivity.ARG_ADVANCED_DETAIL, trialSession.shouldShowAdvancedSongDetails)
             startActivityForResult(i, FLAG_SCORE_ENTER)
         }

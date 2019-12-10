@@ -65,7 +65,7 @@ class SongView @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
                 if (r.badJudges != null && r.perfects != null && r.perfects != -1) {
                     resources.getString(R.string.score_string_summary_format_expert, r.badJudges, r.perfects, s.ex)
                 } else if (r.misses != null && r.badJudges != null) {
-                    resources.getString(R.string.score_string_summary_format_advanced, r.misses, r.badJudges, s.ex)
+                    resources.getString(R.string.score_string_summary_format_advanced, r.misses, r.goods, r.greats, s.ex)
                 } else null
             } ?: resources.getString(R.string.ex_score_string_format, s.ex)
 
