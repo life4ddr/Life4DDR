@@ -15,6 +15,7 @@
         android:id="@+id/scroll_errors"
         android:layout_width="match_parent"
         android:layout_height="300dp"
+        android:layout_marginBottom="@dimen/content_padding_med"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/progress_amount">
 
