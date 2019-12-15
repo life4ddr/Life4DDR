@@ -10,6 +10,8 @@ data class TrialSession(val trial: Trial,
                         val results: Array<SongResult?> = arrayOfNulls(TrialData.TRIAL_LENGTH),
                         var finalPhotoUriString: String? = null): Serializable {
 
+    val hasStarted: Boolean get() = results.filterNotNull().any { it.score != null }
+
     var goalObtained: Boolean = false
 
     var finalPhotoUri: Uri
@@ -20,9 +22,9 @@ data class TrialSession(val trial: Trial,
 
     val availableRanks: Array<TrialRank>? = trial.goals?.map { it.rank }?.toTypedArray()
 
-    val shouldShowAdvancedSongDetails
-        get() = results.filterNotNull().none { it.score != null } ||
-                trialGoalSet?.let { it.miss != null || it.judge != null } ?: false
+    val shouldShowAdvancedSongDetails: Boolean
+        get() = (if (!hasStarted) trial.highestGoal() else trialGoalSet)
+            ?.let { it.miss != null || it.judge != null } ?: false
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -104,16 +106,16 @@ data class TrialSession(val trial: Trial,
         var satisfied = true
         val goal = trial.goalSet(rank) ?: return false
         if (goal.exMissing != null) {
-            satisfied = satisfied && (missingExScore <= goal.exMissing)
+            satisfied = (missingExScore <= goal.exMissing)
         }
         if (satisfied && goal.judge != null) {
-            satisfied = satisfied && currentBadJudgments?.let { it <= goal.judge } ?: true
+            satisfied = currentBadJudgments?.let { it <= goal.judge } ?: true
         }
         if (satisfied && goal.miss != null) {
-            satisfied = satisfied && currentMisses?.let { it <= goal.miss } ?: true
+            satisfied = currentMisses?.let { it <= goal.miss } ?: true
         }
         if (satisfied && goal.missEach != null) {
-            satisfied = satisfied && currentMisses?.let { it <= goal.missEach } ?: true
+            satisfied = currentMisses?.let { it <= goal.missEach } ?: true
         }
 
         val scores = results.map { it?.score }
@@ -129,6 +131,11 @@ data class TrialSession(val trial: Trial,
         }
 
         val clears = results.map { it?.clearType?.stableId?.toInt() }
+
+        // No clear requirements, just make sure everything is a pass
+        if (satisfied && goal.clear == null && goal.clearIndexed == null) {
+            satisfied = clears.none { it == FAIL.stableId.toInt() }
+        }
 
         if (satisfied && goal.clear != null && !goal.clear.map { it.stableId.toInt() }.hasCascade(clears.filterNotNull())) {
             satisfied = false

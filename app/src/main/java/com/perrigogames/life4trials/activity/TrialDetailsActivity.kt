@@ -15,6 +15,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_DETAILS_ENFORCE_EXPERT
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_DETAILS_PHOTO_SELECT
+import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_DETAILS_UPDATE_GOAL
 import com.perrigogames.life4trials.data.*
 import com.perrigogames.life4trials.life4app
 import com.perrigogames.life4trials.manager.LadderManager
@@ -221,7 +222,10 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener {
                 .setNegativeButton(R.string.cancel, null)
                 .setPositiveButton(R.string.okay) { _, _ -> concedeTrial() }
                 .show()
-        } else if (currentGoal != null && highestPossible.stableId != currentGoal.stableId) {
+        } else if (SharedPrefsUtil.getUserFlag(this, KEY_DETAILS_UPDATE_GOAL, true) &&
+            currentGoal != null &&
+            highestPossible.stableId != currentGoal.stableId) {
+
             spinner_desired_rank.setSelection(trialSession.availableRanks!!.indexOf(highestPossible))
         }
     }
@@ -305,16 +309,7 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener {
         currentIndex = null
         isNewEntry = false
         currentPhotoFile = null
-
-        if (result?.passed == false) {
-            AlertDialog.Builder(this).setTitle(R.string.trial_failed)
-                .setMessage(R.string.trial_fail_confirmation)
-                .setNegativeButton(R.string.cancel, null)
-                .setPositiveButton(R.string.okay) { _, _ -> concedeTrial() }
-                .show()
-        } else {
-            updateHighestPossibleRank()
-        }
+        updateHighestPossibleRank()
     }
 
     override fun onPhotoTaken(uri: Uri) {

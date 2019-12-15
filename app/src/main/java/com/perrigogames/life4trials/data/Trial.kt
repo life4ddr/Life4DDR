@@ -41,6 +41,8 @@ class Trial(val id: String,
 
     fun goalSet(rank: TrialRank?): TrialGoalSet? = goals?.find { it.rank == rank }
 
+    fun highestGoal(): TrialGoalSet? = goals?.maxBy { it.rank.stableId }
+
     @DrawableRes fun jacketResId(c: Context): Int =
         c.resources.getIdentifier(id, "drawable", c.packageName).let {
             return if (it == 0) R.drawable.trial_default else it

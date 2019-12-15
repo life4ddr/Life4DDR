@@ -207,6 +207,8 @@
     <string name="import_finished_errors">Import finished with %d errors.</string>
     <string name="expert_score">Expert score entry</string>
     <string name="enforce_expert">Require step breakdowns</string>
+    <string name="automatically_adjust_rank">Automatically adjust goal rank</string>
+    <string name="automatically_adjust_rank_description">Set the goal rank to the highest possible rank after every Trial song</string>
     <string name="show_remaining_ex_title">Show remaining EX</string>
     <string name="show_remaining_instead_total">Show the difference between a Trial\'s total EX and your own</string>
     <string name="send_feedback">Send feedback</string>

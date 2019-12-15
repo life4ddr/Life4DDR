@@ -34,24 +34,25 @@ class SongEntryActivity: AppCompatActivity() {
     val song: Song? get() =
         intent?.extras?.getSerializable(ARG_SONG) as? Song
 
-    val advancedDetail: Boolean get() =
+    private val requiresAdvancedDetail: Boolean get() =
         intent?.extras?.getSerializable(ARG_ADVANCED_DETAIL) as? Boolean ?: false
 
     val newEntry: Boolean get() = result?.score == null
     var modified: Boolean = false
+    private var advancedFieldVisibility: Boolean = false
+        set(v) = advancedFields.forEach { it.visibilityBool = v }
 
     // Lists of fields for easy iteration
-    val normalFields: List<EditText> by lazy { listOf(field_score, field_ex) }
-    val advancedFields: List<EditText> by lazy { listOf(field_misses, field_goods, field_greats, field_perfects) }
-    val allFields: List<EditText> by lazy { normalFields + advancedFields }
+    private val advancedFields: List<EditText> by lazy { listOf(field_misses, field_goods, field_greats, field_perfects) }
+    private val allFields: List<EditText> by lazy { listOf(field_score, field_ex) + advancedFields }
 
     // Entered field values
-    val score: Int? get() = try { field_score.text.toString().toInt() } catch (e: NumberFormatException) { null }
-    val ex: Int? get() = try { field_ex.text.toString().toInt() } catch (e: NumberFormatException) { null }
-    val misses: Int? get() = try { field_misses.text.toString().toInt() } catch (e: NumberFormatException) { null }
-    val goods: Int? get() = try { field_goods.text.toString().toInt() } catch (e: NumberFormatException) { null }
-    val greats: Int? get() = try { field_greats.text.toString().toInt() } catch (e: NumberFormatException) { null }
-    val perfects: Int? get() = try { field_perfects.text.toString().toInt() } catch (e: NumberFormatException) { null }
+    private val score: Int? get() = try { field_score.text.toString().toInt() } catch (e: NumberFormatException) { null }
+    private val ex: Int? get() = try { field_ex.text.toString().toInt() } catch (e: NumberFormatException) { null }
+    private val misses: Int? get() = try { field_misses.text.toString().toInt() } catch (e: NumberFormatException) { null }
+    private val goods: Int? get() = try { field_goods.text.toString().toInt() } catch (e: NumberFormatException) { null }
+    private val greats: Int? get() = try { field_greats.text.toString().toInt() } catch (e: NumberFormatException) { null }
+    private val perfects: Int? get() = try { field_perfects.text.toString().toInt() } catch (e: NumberFormatException) { null }
 
     private val textWatcher = object: TextWatcher {
         override fun afterTextChanged(s: Editable?) {
@@ -86,6 +87,7 @@ class SongEntryActivity: AppCompatActivity() {
             button_done.setOnClickListener { completeEntry() }
 
             button_clear.setOnClickListener { clearType = CLEAR }
+            button_fc.isEnabled = requiresAdvancedDetail
             button_fc.setOnClickListener { clearType = GOOD_FULL_COMBO }
             button_pfc.setOnClickListener { clearType = PERFECT_FULL_COMBO }
             button_mfc.setOnClickListener { clearType = MARVELOUS_FULL_COMBO }
@@ -105,7 +107,7 @@ class SongEntryActivity: AppCompatActivity() {
                 field_goods.text = SpannableStringBuilder(it.goods.toString())
             }
             if (it.greats != null) {
-                field_goods.text = SpannableStringBuilder(it.goods.toString())
+                field_greats.text = SpannableStringBuilder(it.greats.toString())
             }
             if (it.perfects != null) {
                 field_perfects.text = SpannableStringBuilder(it.perfects.toString())
@@ -115,7 +117,7 @@ class SongEntryActivity: AppCompatActivity() {
 
             field_perfects.addTextChangedListener(perfectTextWatcher)
 
-            advancedFields.forEach { it.visibilityBool = advancedDetail }
+            advancedFieldVisibility = requiresAdvancedDetail
 
             if (field_score.requestFocus()) {
                 (getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager)
@@ -130,12 +132,18 @@ class SongEntryActivity: AppCompatActivity() {
     private var clearType = CLEAR
         set(type) {
             field = type
+            if (type == PERFECT_FULL_COMBO) {
+                advancedFieldVisibility = true
+                field_perfects.requestFocus()
+            } else {
+                advancedFieldVisibility = requiresAdvancedDetail
+            }
             updateFieldEditable(field_score, type, PERFECT_FULL_COMBO)
             updateFieldEditable(field_ex, type, PERFECT_FULL_COMBO)
             updateFieldEditable(field_misses, type, GOOD_FULL_COMBO)
             updateFieldEditable(field_goods, type, GREAT_FULL_COMBO)
             updateFieldEditable(field_greats, type, PERFECT_FULL_COMBO)
-            updateFieldEditable(field_perfects, type, MARVELOUS_FULL_COMBO)
+            updateFieldEditable(field_perfects, type, MARVELOUS_FULL_COMBO, type == PERFECT_FULL_COMBO)
             field_ex.nextFocusDownId = when (type) {
                 MARVELOUS_FULL_COMBO -> 0
                 PERFECT_FULL_COMBO -> R.id.field_perfects
@@ -145,8 +153,8 @@ class SongEntryActivity: AppCompatActivity() {
             }
         }
 
-    private fun updateFieldEditable(field: EditText, type: ClearType, targetType: ClearType) {
-        field.isEnabled = type.stableId < targetType.stableId
+    private fun updateFieldEditable(field: EditText, type: ClearType, targetType: ClearType, forceEnabled: Boolean = false) {
+        field.isEnabled = forceEnabled || type.stableId < targetType.stableId
         field.setText(if (field.isEnabled) "" else "0")
     }
 
@@ -166,7 +174,7 @@ class SongEntryActivity: AppCompatActivity() {
                 putExtra(RESULT_DATA, result!!.also {
                     it.score = score
                     it.exScore = ex
-                    if (advancedDetail) {
+                    if (requiresAdvancedDetail) {
                         it.misses = misses
                         it.goods = goods
                         it.greats = greats
