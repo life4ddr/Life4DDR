@@ -24,8 +24,8 @@ android {
         applicationId "com.perrigogames.life4trials"
         minSdkVersion 18
         targetSdkVersion 28
-        versionCode 51
-        versionName "3.1.0-preview"
+        versionCode 52
+        versionName "3.1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         signingConfig signingConfigs.upload
