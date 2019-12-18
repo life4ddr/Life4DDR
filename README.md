@@ -3,9 +3,5 @@ An Android application to easily browse, track and manage your LIFE4 Trials.
 
 [Homepage](http://life4ddr.com)
 
-### Installation
-APKs can currently only be downloaded from GitHub.
-- Download the latest APK version [here](https://github.com/PerrigoGames/Life4DDR-Trials/releases/download/v1.0.0/Life4Trials_1_0_0.apk).
-- Ensure you have "Unknown sources" checked in Settings/Security.
-- Run the APK file to install.
-- Supports Android version 4.1 and higher
+Current builds are available through [Google Play](https://play.google.com/store/apps/details?id=com.perrigogames.life4trials&hl=en_US). 
+**APKS ON THE RELEASES PAGE ARE OLD AND NOT SUPPORTED!**
