@@ -12,12 +12,6 @@ android {
             storePassword 'FlOnG9T#0sNe41bXjKtVJi75Y'
             keyAlias = 'upload'
         }
-        debug {
-            storeFile file('../../keystores/debug-keystore.jks')
-            keyPassword '9RA8qJW#hT^gI@T3UW0k$L3@W#'
-            storePassword '!R35qX!&$P6wuEOI%lm6y&lAyq'
-            keyAlias = 'debug'
-        }
     }
     compileSdkVersion 28
     defaultConfig {
@@ -42,8 +36,9 @@ android {
         }
         debug {
             applicationIdSuffix ".debug"
-            signingConfig signingConfigs.debug
             manifestPlaceholders = [providerName: "com.perrigogames.fileprovider.debug"]
+            // Disable Fabric Crashlytics for debug
+            ext.enableCrashlytics = false
         }
     }
     compileOptions {
@@ -98,5 +93,13 @@ dependencies {
 }
 
 apply plugin: 'com.google.gms.google-services'
+
+// Disable the google services plugin for debug
+android.applicationVariants.all { variant ->
+    if (variant.name == 'debug') {
+        project.tasks.getByName('process' + variant.name.capitalize() + 'GoogleServices').enabled = false
+    }
+}
+
 apply plugin: 'io.objectbox' // apply last
 

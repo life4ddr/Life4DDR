@@ -12,6 +12,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import com.crashlytics.android.Crashlytics
+import com.perrigogames.life4trials.BuildConfig
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.data.Song
 import com.perrigogames.life4trials.data.SongResult
@@ -62,7 +63,9 @@ class SongListFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        Crashlytics.log("${javaClass.simpleName}: onCreateView: $trialId")
+        if (!BuildConfig.DEBUG) {
+            Crashlytics.log("${javaClass.simpleName}: onCreateView: $trialId")
+        }
         layout = inflater.inflate(R.layout.fragment_song_list, container, false) as LinearLayout
         trial.songs.forEachIndexed(this::addSongView)
         return layout

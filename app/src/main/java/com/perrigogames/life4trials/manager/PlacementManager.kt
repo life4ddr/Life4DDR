@@ -2,6 +2,7 @@ package com.perrigogames.life4trials.manager
 
 import android.content.Context
 import com.crashlytics.android.Crashlytics
+import com.perrigogames.life4trials.BuildConfig
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.data.TrialData
 import com.perrigogames.life4trials.util.DataUtil
@@ -25,6 +26,8 @@ class PlacementManager(context: Context): BaseManager() {
     fun nextPlacement(index: Int) = placements.getOrNull(index + 1)
 
     override fun onApplicationException() {
-        Crashlytics.setString("placements", placements.joinToString { it.id })
+        if (!BuildConfig.DEBUG) {
+            Crashlytics.setString("placements", placements.joinToString { it.id })
+        }
     }
 }
