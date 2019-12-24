@@ -75,7 +75,9 @@ class TrialManager(private val context: Context,
         var sum = 0
         trial.songs.forEach { sum += it.ex }
         if (sum != trial.total_ex) {
-            Crashlytics.logException(Exception("Trial ${trial.name} has improper EX values: total_ex=${trial.total_ex}, sum=$sum"))
+            if (!BuildConfig.DEBUG) {
+                Crashlytics.logException(Exception("Trial ${trial.name} has improper EX values: total_ex=${trial.total_ex}, sum=$sum"))
+            }
         }
     }
 
@@ -197,10 +199,12 @@ class TrialManager(private val context: Context,
     }
 
     override fun onApplicationException() {
-        Crashlytics.setInt("trials_version", trialData.data.version)
-        Crashlytics.setInt("trials_major_version", trialData.data.majorVersion)
-        Crashlytics.setInt("trials_engine", trialData.majorVersion)
-        Crashlytics.setString("trials", trials.joinToString { it.id })
+        if (!BuildConfig.DEBUG) {
+            Crashlytics.setInt("trials_version", trialData.data.version)
+            Crashlytics.setInt("trials_major_version", trialData.data.majorVersion)
+            Crashlytics.setInt("trials_engine", trialData.majorVersion)
+            Crashlytics.setString("trials", trials.joinToString { it.id })
+        }
     }
 
     companion object {

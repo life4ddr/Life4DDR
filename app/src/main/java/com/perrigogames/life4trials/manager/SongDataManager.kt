@@ -5,6 +5,7 @@ import android.os.Handler
 import android.util.Log
 import androidx.appcompat.app.AlertDialog
 import com.crashlytics.android.Crashlytics
+import com.perrigogames.life4trials.BuildConfig
 import com.perrigogames.life4trials.Life4Application
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_IMPORT_GAME_VERSION
@@ -262,7 +263,9 @@ class SongDataManager(private val context: Context,
         val chart = song.charts.firstOrNull { it.playStyle == playStyle && it.difficultyClass == difficultyClass }
         chart?.let {
             if (it.difficultyNumber != difficultyNumber) {
-                Crashlytics.logException(UnexpectedDifficultyNumberException(it, difficultyNumber))
+                if (!BuildConfig.DEBUG) {
+                    Crashlytics.logException(UnexpectedDifficultyNumberException(it, difficultyNumber))
+                }
                 it.difficultyNumber = difficultyNumber
                 if (commit) {
                     chartBox.put(it)
