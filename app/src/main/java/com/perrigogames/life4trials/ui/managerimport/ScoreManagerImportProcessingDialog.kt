@@ -19,6 +19,7 @@ class ScoreManagerImportProcessingDialog(var listener: Listener? = null): Dialog
     lateinit var dialog: AlertDialog
 
     private var errors = 0
+    private var shouldClose = true
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
@@ -46,14 +47,19 @@ class ScoreManagerImportProcessingDialog(var listener: Listener? = null): Dialog
         }
 
         override fun onError(totalCount: Int, message: String) {
-            contentView.text_error_log.append(message)
+            contentView.text_error_log.append("$message\n----\n")
             errors = totalCount
+            shouldClose = false
         }
 
         override fun onCompleted() {
             context?.let {
-                if (errors > 0) {
-                    contentView.text_progress.text = getString(R.string.import_finished_errors, errors)
+                if (!shouldClose) {
+                    contentView.text_progress.text = if (errors > 0) {
+                        getString(R.string.import_finished_errors, errors)
+                    } else {
+                        getString(R.string.import_finished)
+                    }
                     contentView.button_close.text = getString(R.string.close)
                 } else {
                     dialog.dismiss()

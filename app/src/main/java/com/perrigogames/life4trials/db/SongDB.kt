@@ -17,6 +17,9 @@ class SongDB(var title: String,
 
     @Backlink(to = "song")
     lateinit var charts: ToMany<ChartDB>
+
+    fun getChart(playStyle: PlayStyle, difficultyClass: DifficultyClass) =
+        charts.firstOrNull { it.playStyle == playStyle && it.difficultyClass == difficultyClass }
 }
 
 @Entity
@@ -29,6 +32,8 @@ class ChartDB(@Convert(converter = DifficultyClassConverter::class, dbType = Lon
 
     @Backlink(to = "chart")
     lateinit var plays: ToMany<LadderResultDB>
+
+    val styleDifficultyString get() = playStyle.aggregateString(difficultyClass)
 }
 
 @Entity

@@ -204,6 +204,7 @@
     <string name="import_manager_data">Import manager data</string>
     <string name="import_skip_directions">Skip import directions</string>
     <string name="photo_select">Use photo picker</string>
+    <string name="import_finished">Import finished.</string>
     <string name="import_finished_errors">Import finished with %d errors.</string>
     <string name="expert_score">Expert score entry</string>
     <string name="enforce_expert">Require step breakdowns</string>
@@ -302,7 +303,7 @@
     <string name="dont_show_again">Don\'t show this again</string>
     <string name="import_paste_copied_text">Paste the copied text into the box.</string>
     <string name="import_data_format">%p:b:B:D:E:C%%y:SP:DP%;%d%;%s0%;%l%;%f:mfc:pfc:gfc:fc:life4:clear%;%e%;%a%;%t%</string>
-    <string name="import_finished">Import Finished:\n%d updated, %d errors</string>
+    <string name="import_finished_toast">Import Finished:\n%d updated, %d errors</string>
     <string name="tournaments">Tournaments</string>
     <string name="trials">Trials</string>
     <string name="ladder_goals_complete">All of your goals are complete!</string>
