@@ -17,12 +17,12 @@ import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_IMPO
 import com.perrigogames.life4trials.api.GithubDataAPI
 import com.perrigogames.life4trials.api.MajorVersionedRemoteData
 import com.perrigogames.life4trials.data.*
-import com.perrigogames.life4trials.data.DifficultyClass.*
 import com.perrigogames.life4trials.db.*
 import com.perrigogames.life4trials.event.LadderRankUpdatedEvent
 import com.perrigogames.life4trials.event.LadderRanksReplacedEvent
 import com.perrigogames.life4trials.event.SongResultsImportCompletedEvent
 import com.perrigogames.life4trials.event.SongResultsUpdatedEvent
+import com.perrigogames.life4trials.repo.LadderResultRepo
 import com.perrigogames.life4trials.ui.managerimport.ScoreManagerImportDirectionsDialog
 import com.perrigogames.life4trials.ui.managerimport.ScoreManagerImportEntryDialog
 import com.perrigogames.life4trials.ui.managerimport.ScoreManagerImportProcessingDialog
@@ -32,6 +32,7 @@ import kotlinx.coroutines.*
 import java.util.*
 
 class LadderManager(private val context: Context,
+                    private val ladderResults: LadderResultRepo,
                     private val songDataManager: SongDataManager,
                     private val trialManager: TrialManager,
                     private val githubDataAPI: GithubDataAPI): BaseManager() {
@@ -69,7 +70,6 @@ class LadderManager(private val context: Context,
     // ObjectBoxes
     //
     private val goalsBox get() = objectBox.boxFor(GoalStatusDB::class.java)
-    private val ladderResultBox get() = objectBox.boxFor(LadderResultDB::class.java)
 
     //
     // Init
@@ -79,8 +79,8 @@ class LadderManager(private val context: Context,
     }
 
     fun onDatabaseMajorUpdate(context: Context) {
-        if (!ladderResultBox.isEmpty) {
-            ladderResultBox.removeAll()
+        if (!ladderResults.isEmpty) {
+            ladderResults.clearRepo()
             Handler().postDelayed({
                 AlertDialog.Builder(context)
                     .setTitle(R.string.database_upgraded)
@@ -101,16 +101,6 @@ class LadderManager(private val context: Context,
         .build()
     private val goalMultiStatusQuery = goalsBox.query()
         .`in`(GoalStatusDB_.goalId, LongArray(0)).parameterAlias("ids")
-        .build()
-    private val ladderResultQuery = ladderResultBox.query()
-        .`in`(LadderResultDB_.chartId, LongArray(0)).parameterAlias("ids")
-        .build()
-    private val mfcQuery = ladderResultBox.query()
-        .equal(LadderResultDB_.clearType, ClearType.MARVELOUS_FULL_COMBO.stableId)
-        .apply {
-            link(LadderResultDB_.chart)
-                .`in`(ChartDB_.difficultyClass, longArrayOf(DIFFICULT.stableId, EXPERT.stableId, CHALLENGE.stableId))
-        }
         .build()
 
     //
@@ -193,7 +183,7 @@ class LadderManager(private val context: Context,
                         songDataManager.selectedIgnoreSongIds.contains(it.song.targetId) ||
                         goal.songExceptions?.contains(it.song.target.title) == true }
             val filteredIds = filtered.map { it.id }.toLongArray()
-            val results = ladderResultQuery.setParameters("ids", filteredIds).find()
+            val results = ladderResults.getResultsById(filteredIds).toMutableList()
             if (results.isEmpty()) {
                 null // return
             } else {
@@ -208,7 +198,7 @@ class LadderManager(private val context: Context,
             LadderGoalProgress(trials.size, goal.count) // return
         }
         is MFCPointsGoal -> {
-            goal.getGoalProgress(goal.points, mfcQuery.find())
+            goal.getGoalProgress(goal.points, ladderResults.getMFCs())
         }
         is SongSetClearGoal -> when {
             goal.songs != null -> {
@@ -362,7 +352,7 @@ class LadderManager(private val context: Context,
             .setMessage(R.string.confirm_erase_trial_data)
             .setPositiveButton(R.string.yes) { _, _ ->
                 goalsBox.removeAll()
-                ladderResultBox.removeAll()
+                ladderResults.clearRepo()
                 Life4Application.eventBus.post(LadderRankUpdatedEvent())
             }
             .setNegativeButton(R.string.no, null)
@@ -374,7 +364,7 @@ class LadderManager(private val context: Context,
             .setTitle(R.string.are_you_sure)
             .setMessage(R.string.confirm_erase_result_data)
             .setPositiveButton(R.string.yes) { _, _ ->
-                ladderResultBox.removeAll()
+                ladderResults.clearRepo()
                 Life4Application.eventBus.post(SongResultsUpdatedEvent())
             }
             .setNegativeButton(R.string.no, null)
@@ -386,7 +376,7 @@ class LadderManager(private val context: Context,
             .setTitle(R.string.are_you_sure)
             .setMessage(R.string.confirm_refresh_song_db)
             .setPositiveButton(R.string.yes) { _, _ ->
-                ladderResultBox.removeAll()
+                ladderResults.clearRepo()
                 songDataManager.initializeSongDatabase()
                 Life4Application.eventBus.post(SongResultsUpdatedEvent())
             }
@@ -399,7 +389,7 @@ class LadderManager(private val context: Context,
             chart.plays.firstOrNull() ?: LadderResultDB().also { result ->
                 chart.plays.add(result)
                 songDataManager.updateChart(chart)
-                ladderResultBox.put(result)
+                ladderResults.addResult(result)
             }
         }
     }
@@ -410,13 +400,13 @@ class LadderManager(private val context: Context,
             if (it.score != score || it.clearType != clear) {
                 it.score = score
                 it.clearType = clear
-                ladderResultBox.put(it)
+                ladderResults.addResult(it)
             }
         }
         return result ?: LadderResultDB(score, clear).also {
             chart.plays.add(it)
             songDataManager.updateChart(chart)
-            ladderResultBox.put(it)
+            ladderResults.addResult(it)
         }
     }
 

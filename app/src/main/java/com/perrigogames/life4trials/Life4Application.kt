@@ -7,6 +7,7 @@ import com.perrigogames.life4trials.api.GithubDataAPI
 import com.perrigogames.life4trials.api.Life4API
 import com.perrigogames.life4trials.db.MyObjectBox
 import com.perrigogames.life4trials.manager.*
+import com.perrigogames.life4trials.repo.LadderResultRepo
 import com.perrigogames.life4trials.repo.TrialRepo
 import com.perrigogames.life4trials.util.DataUtil
 import com.perrigogames.life4trials.util.NotificationUtil
@@ -26,6 +27,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 class Life4Application: MultiDexApplication() {
 
     lateinit var trialRepo: TrialRepo
+    lateinit var ladderResultRepo: LadderResultRepo
     lateinit var firstRunManager: FirstRunManager
     lateinit var ladderManager: LadderManager
     lateinit var placementManager: PlacementManager
@@ -67,11 +69,12 @@ class Life4Application: MultiDexApplication() {
         }
 
         trialRepo = TrialRepo()
+        ladderResultRepo = LadderResultRepo()
         firstRunManager = FirstRunManager(this)
         songDataManager = SongDataManager(this, githubDataApi)
         placementManager = PlacementManager(this)
         trialManager = TrialManager(this, trialRepo, githubDataApi)
-        ladderManager = LadderManager(this, songDataManager, trialManager, githubDataApi)
+        ladderManager = LadderManager(this, ladderResultRepo, songDataManager, trialManager, githubDataApi)
         tournamentManager = TournamentManager()
         playerManager = PlayerManager(this)
 
