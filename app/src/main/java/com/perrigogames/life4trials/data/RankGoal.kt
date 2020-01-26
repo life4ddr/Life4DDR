@@ -100,15 +100,13 @@ class SongSetGoal(id: Int,
                   @SerializedName("difficulty_numbers") val difficulties: IntArray): BaseRankGoal(id, type, playStyle, mandatory) {
 
     override fun goalString(c: Context): String {
-        return c.getString(
-            R.string.rank_goal_set_different,
-            if (difficulties.all { it == difficulties[0] }) {
-                c.getString(R.string.set_numbers_multiple_same_format,
-                    difficulties.size, difficulties[0])
-            } else {
-                c.getString(R.string.set_numbers_3_format,
-                    difficulties[0], difficulties[1], difficulties[2])
-            })
+        return if (difficulties.all { it == difficulties[0] }) {
+            c.getString(R.string.rank_goal_set_sequential,
+                c.getString(R.string.set_numbers_multiple_same_format, difficulties.size, difficulties[0]))
+        } else {
+            c.getString(R.string.rank_goal_set_different,
+                c.getString(R.string.set_numbers_3_format, difficulties[0], difficulties[1], difficulties[2]))
+        }
     }
 
     companion object {

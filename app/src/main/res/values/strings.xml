@@ -49,6 +49,7 @@
     <string name="rank_goal_single_score">Score %s on any level %d.</string>
     <string name="rank_goal_lamp">Earn a %s on %s (%s).</string>
     <string name="rank_goal_set_different">Complete a set of %s.</string>
+    <string name="rank_goal_set_sequential">Complete %s in a row.</string>
     <string name="rank_goal_clear_count">%s %d songs on %s.</string>
     <string name="rank_goal_clear_count_single">%s a song on %s.</string>
     <string name="rank_goal_clear_specific">%s %s on %s.</string>
