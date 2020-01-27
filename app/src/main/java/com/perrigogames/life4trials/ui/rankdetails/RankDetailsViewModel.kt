@@ -120,22 +120,28 @@ class RankDetailsViewModel(private val context: Context,
     private fun toggleHideCompletedGoals() {
         options.hideCompleted = !options.hideCompleted
 
-        if (options.hideCompleted) {
-            ladderManager.getGoalStatuses(allGoals).reversed().forEachIndexed { idx, status ->
-                if (status.status == GoalStatus.COMPLETE) {
-                    val targetIdx = allGoals.size - (idx + 1)
-                    adapter?.notifyItemRemoved(targetIdx)
-                    activeGoals.removeAt(targetIdx)
-                }
-            }
-        } else {
-            ladderManager.getGoalStatuses(allGoals).forEachIndexed { idx, status ->
-                if (status.status == GoalStatus.COMPLETE) {
-                    adapter?.notifyItemInserted(idx)
-                    activeGoals.add(idx, allGoals[idx])
+        val goalStatuses = ladderManager.getGoalStatuses(allGoals)
+        val goalSequence = when {
+            options.hideCompleted -> allGoals.reversed()
+            else -> allGoals
+        }
+        goalSequence.forEachIndexed { idx, goal ->
+            val status = goalStatuses.first { it.goalId == goal.id.toLong() }
+            if (status.status == GoalStatus.COMPLETE) {
+                when {
+                    options.hideCompleted -> {
+                        val targetIdx = allGoals.size - (idx + 1)
+                        adapter?.notifyItemRemoved(targetIdx)
+                        activeGoals.removeAt(targetIdx)
+                    }
+                    else -> {
+                        adapter?.notifyItemInserted(idx)
+                        activeGoals.add(idx, allGoals[idx])
+                    }
                 }
             }
         }
+
         completedStatusArrowRotation.value = if (options.hideCompleted) 0f else 90f
     }
 
