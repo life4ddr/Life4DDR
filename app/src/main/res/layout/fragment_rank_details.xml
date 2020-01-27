@@ -20,14 +20,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="top"
-        app:constraint_referenced_ids="switch_show_next,text_directions,text_goals_hidden"/>
+        app:constraint_referenced_ids="switch_show_next,text_directions,text_goals_complete"/>
 
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/barrier_bottom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="bottom"
-        app:constraint_referenced_ids="switch_show_next,text_directions,text_goals_hidden"/>
+        app:constraint_referenced_ids="switch_show_next,text_directions,text_goals_complete"/>
 
     <Switch
         android:id="@+id/switch_show_next"
@@ -50,22 +50,34 @@
         android:layout_marginTop="@dimen/content_padding_med"
         android:layout_marginEnd="@dimen/content_padding_med"
         android:layout_marginBottom="@dimen/content_padding_med"
-        app:layout_constraintEnd_toStartOf="@id/text_goals_hidden"
+        app:layout_constraintEnd_toStartOf="@id/text_goals_complete"
         app:layout_constraintStart_toEndOf="@id/switch_show_next"
         app:layout_constraintTop_toBottomOf="@id/stub_rank_header"
         app:layout_constraintBottom_toTopOf="@id/barrier_bottom"
         tools:text="To obtain GOLD III, finish 6/9 of these goals:" />
 
     <TextView
-        android:id="@+id/text_goals_hidden"
+        android:id="@+id/text_goals_complete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/content_padding_med"
+        android:layout_marginRight="@dimen/content_padding_med"
+        app:layout_constraintBottom_toBottomOf="@id/text_directions"
+        app:layout_constraintEnd_toStartOf="@+id/image_goals_complete_arrow"
+        app:layout_constraintTop_toTopOf="@id/text_directions"
+        tools:text="2/5 completed" />
+
+    <ImageView
+        android:id="@+id/image_goals_complete_arrow"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:src="@drawable/ic_scroll_arrow_to_right"
+        android:tint="@color/white"
         android:layout_marginEnd="@dimen/content_padding_large"
         android:layout_marginRight="@dimen/content_padding_large"
         app:layout_constraintBottom_toBottomOf="@id/text_directions"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/text_directions"
-        tools:text="2/5 hidden" />
+        app:layout_constraintTop_toTopOf="@id/text_directions"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_rank_details"

@@ -10,6 +10,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.transition.ChangeTransform
+import androidx.transition.Fade
+import androidx.transition.TransitionManager
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.data.LadderRank
 import com.perrigogames.life4trials.data.RankEntry
@@ -17,6 +20,7 @@ import com.perrigogames.life4trials.life4app
 import com.perrigogames.life4trials.util.spannedText
 import com.perrigogames.life4trials.util.visibilityBool
 import com.perrigogames.life4trials.view.RankHeaderView
+import kotlinx.android.synthetic.main.fragment_rank_details.*
 import kotlinx.android.synthetic.main.fragment_rank_details.view.*
 import java.io.Serializable
 
@@ -40,7 +44,7 @@ class RankDetailsFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        val view = inflater.inflate(R.layout.fragment_rank_details, container, false)
+        val view = inflater.inflate(R.layout.fragment_rank_details, container, false) as ConstraintLayout
 
         viewModel = RankDetailsViewModel(view.context, rankEntry, options, context!!.life4app.ladderManager, goalListListener)
 
@@ -50,20 +54,25 @@ class RankDetailsFragment : Fragment() {
                 it.navigationListener = navigationListener
             }
             (view.text_directions.layoutParams as ConstraintLayout.LayoutParams).topToBottom = R.id.layout_rank_header
-            (view.text_goals_hidden.layoutParams as ConstraintLayout.LayoutParams).topToBottom = R.id.layout_rank_header
+            (view.text_goals_complete.layoutParams as ConstraintLayout.LayoutParams).topToBottom = R.id.layout_rank_header
         }
 
         viewModel.directionsText.observe(this, Observer<String> { view.text_directions.text = it.spannedText })
-        viewModel.hiddenStatusText.observe(this, Observer<String> { view.text_goals_hidden.text = it })
-        viewModel.hiddenStatusVisibility.observe(this, Observer<Int> { v ->
-            view.text_goals_hidden.visibility = v
+        viewModel.completedStatusText.observe(this, Observer<String> { view.text_goals_complete.text = it })
+        viewModel.completedStatusVisibility.observe(this, Observer<Int> { v ->
+            view.text_goals_complete.visibility = v
             (view.recycler_rank_details.layoutParams as ConstraintLayout.LayoutParams).let { params ->
                 params.topToBottom = when {
-                    v != View.GONE -> R.id.text_goals_hidden
+                    v != View.GONE -> R.id.text_goals_complete
                     options.showHeader -> R.id.layout_rank_header
                     else -> R.id.stub_rank_header
                 }
             }
+        })
+        viewModel.completedStatusArrowVisibility.observe(this, Observer<Int> { v -> view.image_goals_complete_arrow.visibility = v })
+        viewModel.completedStatusArrowRotation.observe(this, Observer<Float> { r ->
+            TransitionManager.beginDelayedTransition(view, ChangeTransform().excludeTarget(view.recycler_rank_details, true))
+            view.image_goals_complete_arrow.rotation = r
         })
 
         view.recycler_rank_details.apply {
@@ -79,8 +88,15 @@ class RankDetailsFragment : Fragment() {
         view.switch_show_next.isChecked = options.showNextGoals
         view.switch_show_next.visibilityBool = options.allowNextSwitcher
         view.switch_show_next.setOnCheckedChangeListener { _, checked -> goalListListener?.onNextSwitchToggled(checked) }
+        view.text_goals_complete.setOnClickListener { onCompletedTextClicked() }
+        view.image_goals_complete_arrow.setOnClickListener { onCompletedTextClicked() }
 
         return view
+    }
+
+    private fun onCompletedTextClicked() {
+        viewModel.onGoalsCompleteClicked()
+        recycler_rank_details.scrollToPosition(0)
     }
 
     override fun onAttach(context: Context) {
@@ -95,7 +111,7 @@ class RankDetailsFragment : Fragment() {
         }
     }
 
-    data class Options(val hideCompleted: Boolean = false,
+    data class Options(var hideCompleted: Boolean = false,
                        val hideIgnored: Boolean = false,
                        val showHeader: Boolean = true,
                        val showNextGoals: Boolean = false,
