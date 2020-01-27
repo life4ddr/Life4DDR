@@ -223,7 +223,7 @@ class SongDataManager(private val context: Context,
     fun getSongsById(ids: LongArray): MutableList<SongDB> = songBox.get(ids)
 
     fun getSongByName(name: String): SongDB? =
-        songTitleQuery.setParameter("title", name).findFirst()
+        songTitleQuery.setParameter("title", name).find().first { name == it.title }
 
     fun getChartById(id: Long): ChartDB? = chartBox.get(id)
 
@@ -255,12 +255,30 @@ class SongDataManager(private val context: Context,
         mSelectedIgnoreChartIds = null
     }
 
+    /**
+     * Checks to see if a chart is present and correct as it should be.
+     * Throws an exception on an invalid chart, so this should always be surrounded with a try/catch
+     */
+    @Throws(ChartNotFoundException::class, UnexpectedDifficultyNumberException::class)
+    fun validateChartDifficulty(song: SongDB,
+                                playStyle: PlayStyle,
+                                difficultyClass: DifficultyClass,
+                                difficultyNumber: Int) {
+        val chart = song.getChart(playStyle, difficultyClass)
+        when {
+            chart == null ->
+                throw ChartNotFoundException(song, playStyle, difficultyClass, difficultyNumber)
+            chart.difficultyNumber != difficultyNumber ->
+                throw UnexpectedDifficultyNumberException(chart, difficultyNumber)
+        }
+    }
+
     fun updateOrCreateChartForSong(song: SongDB,
                                    playStyle: PlayStyle,
                                    difficultyClass: DifficultyClass,
                                    difficultyNumber: Int,
                                    commit: Boolean = true): ChartDB {
-        val chart = song.charts.firstOrNull { it.playStyle == playStyle && it.difficultyClass == difficultyClass }
+        val chart = song.getChart(playStyle, difficultyClass)
         chart?.let {
             if (it.difficultyNumber != difficultyNumber) {
                 if (!BuildConfig.DEBUG) {
@@ -321,6 +339,9 @@ class SongDataManager(private val context: Context,
 }
 
 class UnexpectedDifficultyNumberException(chart: ChartDB, newDiff: Int): Exception(
-    "Chart ${chart.song.target.title} ${chart.playStyle} ${chart.difficultyClass} changed: ${chart.difficultyNumber} -> $newDiff")
+    "${chart.song.target.title} (${chart.styleDifficultyString} ${chart.difficultyNumber}) changed: ${chart.difficultyNumber} -> $newDiff")
 
 class SongNotFoundException(name: String): Exception("$name does not exist in the song database")
+
+class ChartNotFoundException(song: SongDB, playStyle: PlayStyle, difficultyClass: DifficultyClass, difficultyNumber: Int): Exception(
+    "${song.title} (${playStyle.aggregateString(difficultyClass)} $difficultyNumber) does not exist in the song database")
