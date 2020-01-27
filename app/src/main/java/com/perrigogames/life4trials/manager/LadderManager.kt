@@ -3,6 +3,7 @@ package com.perrigogames.life4trials.manager
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.content.Intent
 import android.os.Handler
 import android.util.Log
 import android.widget.Toast
@@ -252,9 +253,10 @@ class LadderManager(private val context: Context,
     }
 
     private fun showImportEntryDialog(activity: FragmentActivity) {
-        val launchIntent = activity.packageManager.getLaunchIntentForPackage("jp.linanfine.dsma")
-        if (launchIntent != null) {
-            activity.startActivity(launchIntent)//null pointer check in case package name was not found
+        val intent = activity.packageManager.getLaunchIntentForPackage("jp.linanfine.dsma")
+        if (intent != null) {
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            activity.startActivity(intent)//null pointer check in case package name was not found
         } else {
             Toast.makeText(activity, context.getString(R.string.no_ddra_manager), Toast.LENGTH_SHORT).show()
         }
