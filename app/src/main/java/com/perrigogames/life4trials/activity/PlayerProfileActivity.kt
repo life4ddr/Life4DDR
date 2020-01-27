@@ -38,6 +38,7 @@ class PlayerProfileActivity : AppCompatActivity(), RankDetailsViewModel.OnGoalLi
     private val songDataManager get() = life4app.songDataManager
     private val trialManager get() = life4app.trialManager
     private var rank: LadderRank? = null
+    private var goalRank: LadderRank? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme_NoActionBar)
@@ -141,6 +142,7 @@ class PlayerProfileActivity : AppCompatActivity(), RankDetailsViewModel.OnGoalLi
         text_player_rival_code.text = SharedPrefsUtil.getUserString(this, KEY_INFO_RIVAL_CODE)
         text_player_rival_code.apply { visibilityBool = text.isNotEmpty() }
         rank = ladderManager.getUserRank()
+        goalRank = ladderManager.getUserGoalRank()
 
         image_rank.also {
             it.setOnClickListener { startActivity(Intent(this, RankListActivity::class.java)) }
@@ -151,10 +153,10 @@ class PlayerProfileActivity : AppCompatActivity(), RankDetailsViewModel.OnGoalLi
             hideCompleted = true,
             hideIgnored = false,
             showHeader = false,
-            showNextGoals = true,
+            showNextGoals = false,
             allowNextSwitcher = false)
         supportFragmentManager.beginTransaction()
-            .replace(R.id.container_current_goals, RankDetailsFragment.newInstance(rank, options))
+            .replace(R.id.container_current_goals, RankDetailsFragment.newInstance(goalRank, options))
             .commitNowAllowingStateLoss()
     }
 }

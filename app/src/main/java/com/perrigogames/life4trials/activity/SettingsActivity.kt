@@ -366,6 +366,7 @@ class SettingsActivity : AppCompatActivity(), SettingsFragmentListener {
         const val KEY_DETAILS_ENFORCE_EXPERT = "KEY_DETAILS_ENFORCE_EXPERT"
         const val KEY_INFO_NAME = "KEY_INFO_NAME"
         const val KEY_INFO_RANK = "KEY_INFO_RANK"
+        const val KEY_INFO_TARGET_RANK = "KEY_INFO_TARGET_RANK"
         const val KEY_INFO_RIVAL_CODE = "KEY_INFO_RIVAL_CODE"
         const val KEY_INFO_TWITTER_NAME = "KEY_INFO_TWITTER_NAME"
         const val KEY_INFO_IMPORT = "KEY_INFO_IMPORT"

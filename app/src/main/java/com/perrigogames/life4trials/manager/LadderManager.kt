@@ -119,8 +119,18 @@ class LadderManager(private val context: Context,
     fun getUserRank(): LadderRank? =
         LadderRank.parse(SharedPrefsUtil.getUserString(context, SettingsActivity.KEY_INFO_RANK)?.toLongOrNull())
 
+    fun getUserGoalRank(): LadderRank? = SharedPrefsUtil.getUserString(context, SettingsActivity.KEY_INFO_TARGET_RANK)?.let {
+        LadderRank.parse(it.toLongOrNull())
+    } ?: getUserRank()
+
     fun setUserRank(rank: LadderRank?) {
         SharedPrefsUtil.setUserString(context, SettingsActivity.KEY_INFO_RANK, rank?.stableId.toString())
+        SharedPrefsUtil.setUserString(context, SettingsActivity.KEY_INFO_TARGET_RANK, null)
+        Life4Application.eventBus.post(LadderRankUpdatedEvent())
+    }
+
+    fun setUserTargetRank(rank: LadderRank?) {
+        SharedPrefsUtil.setUserString(context, SettingsActivity.KEY_INFO_TARGET_RANK, rank?.stableId.toString())
         Life4Application.eventBus.post(LadderRankUpdatedEvent())
     }
 

@@ -312,7 +312,9 @@
     <string name="title_single_song_tournament">Song of the Week</string>
     <string name="single_song_tournament_directions">To play in this tournament, score as high as you can on the song listed below, get a picture of the results screen and submit it to LIFE4.</string>
     <string name="goals_completed_format">%d/%d completed</string>
-    <string name="use_this_rank">Set Rank</string>
+    <string name="i_am_rank_format">I Am %s</string>
+    <string name="i_have_no_rank">I Have No Rank</string>
+    <string name="work_towards_rank_format">Work Towards\n%s</string>
     <string name="field_hint_dancer_name">Dancer Name</string>
     <string name="field_hint_rival_code">Rival Code (Optional)</string>
     <string name="field_hint_twitter">Twitter Name (Optional)</string>

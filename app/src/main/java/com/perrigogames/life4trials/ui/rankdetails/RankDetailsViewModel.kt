@@ -27,7 +27,7 @@ class RankDetailsViewModel(private val context: Context,
 
     private val targetEntry: RankEntry? by lazy { when {
         !options.showNextGoals -> rankEntry
-        rankEntry == null -> ladderManager.findRankEntry(LadderRank.WOOD1)
+        rankEntry == null -> ladderManager.findRankEntry(LadderRank.values().first())
         else -> ladderManager.nextEntry(rankEntry.rank)
     } }
 
@@ -103,7 +103,7 @@ class RankDetailsViewModel(private val context: Context,
 
     init {
         val rankName = targetEntry?.rank?.nameRes?.let { context.getString(it) }
-        directionsText.value = context.resources.getString(R.string.rank_directions, rankName)
+        directionsText.value = rankName?.let { context.resources.getString(R.string.rank_directions, it) } ?: ""
         completedStatusArrowVisibility.value = if (hidesCompleteTasks) View.VISIBLE else View.GONE
         if (shouldShowGoals) {
             updateCompleteCount()
