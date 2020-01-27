@@ -1,5 +1,5 @@
 {
-  "version": 3,
+  "version": 5,
   "major_version": 1,
   "lists": [
     {
@@ -57,9 +57,14 @@
         { "title": "Show me your moves", "difficulty_class": "challenge" },
         { "title": "CHAOS Terror-Tech Mix", "difficulty_class": "challenge" },
         { "title": "POSSESSION (20th Anniversary Mix)", "difficulty_class": "challenge" },
-        { "title": "MAX 360", "difficulty_class": "challenge" }
+        { "title": "MAX 360", "difficulty_class": "challenge" },
+        { "title": "無頼ック自己ライザー", "difficulty_class": "challenge" },
+        { "title": "タイガーランペイジ", "difficulty_class": "challenge" },
+        { "title": "腐れ外道とチョコレゐト", "difficulty_class": "challenge" },
+        { "title": "Prey", "difficulty_class": "challenge" }
       ]
-    }, {
+    },
+    {
       "id": "ACE_US_KAC_2019",
       "name": "DDR A (US) w/ KAC 2019",
       "base_version": "ACE",
@@ -112,9 +117,14 @@
         { "title": "Show me your moves", "difficulty_class": "challenge" },
         { "title": "CHAOS Terror-Tech Mix", "difficulty_class": "challenge" },
         { "title": "POSSESSION (20th Anniversary Mix)", "difficulty_class": "challenge" },
-        { "title": "MAX 360", "difficulty_class": "challenge" }
+        { "title": "MAX 360", "difficulty_class": "challenge" },
+        { "title": "無頼ック自己ライザー", "difficulty_class": "challenge" },
+        { "title": "タイガーランペイジ", "difficulty_class": "challenge" },
+        { "title": "腐れ外道とチョコレゐト", "difficulty_class": "challenge" },
+        { "title": "Prey", "difficulty_class": "challenge" }
       ]
-    }, {
+    },
+    {
       "id": "ACE_JP",
       "name": "DDR A (JP)",
       "base_version": "ACE",
@@ -132,9 +142,14 @@
         { "title": "Show me your moves", "difficulty_class": "challenge" },
         { "title": "CHAOS Terror-Tech Mix", "difficulty_class": "challenge" },
         { "title": "POSSESSION (20th Anniversary Mix)", "difficulty_class": "challenge" },
-        { "title": "MAX 360", "difficulty_class": "challenge" }
+        { "title": "MAX 360", "difficulty_class": "challenge" },
+        { "title": "無頼ック自己ライザー", "difficulty_class": "challenge" },
+        { "title": "タイガーランペイジ", "difficulty_class": "challenge" },
+        { "title": "腐れ外道とチョコレゐト", "difficulty_class": "challenge" },
+        { "title": "Prey", "difficulty_class": "challenge" }
       ]
-    }, {
+    },
+    {
       "id": "ACE_JP_KAC_2019",
       "name": "DDR A (JP) w/ KAC 2019",
       "base_version": "ACE",
@@ -150,9 +165,14 @@
         { "title": "Show me your moves", "difficulty_class": "challenge" },
         { "title": "CHAOS Terror-Tech Mix", "difficulty_class": "challenge" },
         { "title": "POSSESSION (20th Anniversary Mix)", "difficulty_class": "challenge" },
-        { "title": "MAX 360", "difficulty_class": "challenge" }
+        { "title": "MAX 360", "difficulty_class": "challenge" },
+        { "title": "無頼ック自己ライザー", "difficulty_class": "challenge" },
+        { "title": "タイガーランペイジ", "difficulty_class": "challenge" },
+        { "title": "腐れ外道とチョコレゐト", "difficulty_class": "challenge" },
+        { "title": "Prey", "difficulty_class": "challenge" }
       ]
-    }, {
+    },
+    {
       "id": "A20_US",
       "name": "DDR A20 (White) (US)",
       "base_version": "A20",
@@ -170,6 +190,12 @@
         { "title": "New Era" },
         { "title": "The World Ends Now" },
         { "title": "Rampage Hero" },
+        { "title": "ALPACORE" },
+        { "title": "Starlight in the Snow" },
+        { "title": "Glitch Angel" },
+        { "title": "ランカーキラーガール" },
+        { "title": "The History of the Future" },
+        { "title": "令和" },
         { "title": "最小三倍完全数" },
         { "title": "Afterimage d'automne" },
         { "title": "BLACK JACKAL" },
@@ -192,9 +218,17 @@
         { "title": "Show me your moves", "difficulty_class": "challenge" },
         { "title": "CHAOS Terror-Tech Mix", "difficulty_class": "challenge" },
         { "title": "POSSESSION (20th Anniversary Mix)", "difficulty_class": "challenge" },
-        { "title": "MAX 360", "difficulty_class": "challenge" }
+        { "title": "MAX 360", "difficulty_class": "challenge" },
+        { "title": "無頼ック自己ライザー", "difficulty_class": "challenge" },
+        { "title": "タイガーランペイジ", "difficulty_class": "challenge" },
+        { "title": "腐れ外道とチョコレゐト", "difficulty_class": "challenge" },
+        { "title": "Prey", "difficulty_class": "challenge" },
+        { "title": "DOWNER & UPPER", "difficulty_class": "challenge" },
+        { "title": "Our Soul", "difficulty_class": "challenge" },
+        { "title": "ホーンテッド★メイドランチ", "difficulty_class": "challenge" }
       ]
-    }, {
+    },
+    {
       "id": "A20_JP",
       "name": "DDR A20 (White) (JP)",
       "base_version": "A20",
@@ -212,6 +246,11 @@
         { "title": "New Era" },
         { "title": "The World Ends Now" },
         { "title": "Rampage Hero" },
+        { "title": "ALPACORE" },
+        { "title": "Starlight in the Snow" },
+        { "title": "Glitch Angel" },
+        { "title": "ランカーキラーガール" },
+        { "title": "The History of the Future" },
         { "title": "最小三倍完全数" },
         { "title": "Afterimage d'automne" },
         { "title": "BLACK JACKAL" },
@@ -229,9 +268,17 @@
         { "title": "Show me your moves", "difficulty_class": "challenge" },
         { "title": "CHAOS Terror-Tech Mix", "difficulty_class": "challenge" },
         { "title": "POSSESSION (20th Anniversary Mix)", "difficulty_class": "challenge" },
-        { "title": "MAX 360", "difficulty_class": "challenge" }
+        { "title": "MAX 360", "difficulty_class": "challenge" },
+        { "title": "無頼ック自己ライザー", "difficulty_class": "challenge" },
+        { "title": "タイガーランペイジ", "difficulty_class": "challenge" },
+        { "title": "腐れ外道とチョコレゐト", "difficulty_class": "challenge" },
+        { "title": "Prey", "difficulty_class": "challenge" },
+        { "title": "DOWNER & UPPER", "difficulty_class": "challenge" },
+        { "title": "Our Soul", "difficulty_class": "challenge" },
+        { "title": "ホーンテッド★メイドランチ", "difficulty_class": "challenge" }
       ]
-    }, {
+    },
+    {
       "id": "A20_GOLD_CAB",
       "name": "DDR A20 20th Anniversary (Gold) (JP)",
       "base_version": "A20",
@@ -244,6 +291,11 @@
         { "title": "New Era" },
         { "title": "The World Ends Now" },
         { "title": "Rampage Hero" },
+        { "title": "ALPACORE" },
+        { "title": "Starlight in the Snow" },
+        { "title": "Glitch Angel" },
+        { "title": "ランカーキラーガール" },
+        { "title": "The History of the Future" },
         { "title": "最小三倍完全数" },
         { "title": "Afterimage d'automne" },
         { "title": "BLACK JACKAL" },
@@ -261,9 +313,17 @@
         { "title": "Show me your moves", "difficulty_class": "challenge" },
         { "title": "CHAOS Terror-Tech Mix", "difficulty_class": "challenge" },
         { "title": "POSSESSION (20th Anniversary Mix)", "difficulty_class": "challenge" },
-        { "title": "MAX 360", "difficulty_class": "challenge" }
+        { "title": "MAX 360", "difficulty_class": "challenge" },
+        { "title": "無頼ック自己ライザー", "difficulty_class": "challenge" },
+        { "title": "タイガーランペイジ", "difficulty_class": "challenge" },
+        { "title": "腐れ外道とチョコレゐト", "difficulty_class": "challenge" },
+        { "title": "Prey", "difficulty_class": "challenge" },
+        { "title": "DOWNER & UPPER", "difficulty_class": "challenge" },
+        { "title": "Our Soul", "difficulty_class": "challenge" },
+        { "title": "ホーンテッド★メイドランチ", "difficulty_class": "challenge" }
       ]
-    }, {
+    },
+    {
       "id": "ALL_MUSIC",
       "name": "All Songs",
       "base_version": "A20"
