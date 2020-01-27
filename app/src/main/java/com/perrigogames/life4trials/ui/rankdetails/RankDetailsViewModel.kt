@@ -31,17 +31,23 @@ class RankDetailsViewModel(private val context: Context,
         else -> ladderManager.nextEntry(rankEntry.rank)
     } }
 
-    private val activeItems: MutableList<BaseRankGoal> by lazy { when {
+    private val hidesCompleteTasks = options.hideCompleted // resolves immediately, determines eligibility for toggling hidden on/off
+
+    private val allGoals: List<BaseRankGoal> by lazy { targetEntry!!.goals }
+    private val activeGoals: MutableList<BaseRankGoal> by lazy { createActiveGoals() }
+
+    private fun createActiveGoals() = when {
         targetEntry == null -> mutableListOf()
         options.hideCompleted -> {
             val completedGoals = ladderManager.getGoalStatuses(targetEntry!!.goals).filter { it.status == GoalStatus.COMPLETE }.map { it.goalId }
             targetEntry!!.goals.filterNot { completedGoals.contains(it.id.toLong()) }.toMutableList()
         }
-        else -> targetEntry!!.goals.toMutableList()
-    } }
+        else -> allGoals.toMutableList()
+    }
 
     private val expandedItems = mutableListOf<BaseRankGoal>()
-    private val hiddenItemCount get() = ladderManager.getGoalStatuses(activeItems).count { it.status == GoalStatus.IGNORED }
+    private val completeItemCount get() = ladderManager.getGoalStatuses(allGoals).count { it.status == GoalStatus.COMPLETE }
+    private val hiddenItemCount get() = ladderManager.getGoalStatuses(allGoals).count { it.status == GoalStatus.IGNORED }
     private var canIgnoreGoals: Boolean = true
 
     private val goalItemListener: LadderGoalItemView.LadderGoalItemListener = object: LadderGoalItemView.LadderGoalItemListener {
@@ -52,7 +58,8 @@ class RankDetailsViewModel(private val context: Context,
                 else -> GoalStatus.COMPLETE
             })
             updateVisibility(item, goalDB)
-            updateHiddenCount()
+            updateCompleteCount()
+            updateIgnoredStates()
             goalListListener?.onGoalStateChanged(item, goalDB.status, 0)
         }
 
@@ -62,13 +69,14 @@ class RankDetailsViewModel(private val context: Context,
                 else -> GoalStatus.IGNORED
             })
             updateVisibility(item, goalDB)
-            updateHiddenCount()
+            updateCompleteCount()
+            updateIgnoredStates()
             goalListListener?.onGoalStateChanged(item, goalDB.status, 0)
         }
 
         override fun onExpandClicked(itemView: LadderGoalItemView, item: BaseRankGoal, goalDB: GoalStatusDB) {
             expandedItems.remove(item) || expandedItems.add(item)
-            adapter!!.notifyItemChanged(activeItems.indexOf(item))
+            adapter!!.notifyItemChanged(activeGoals.indexOf(item))
         }
 
         override fun onLongPressed(itemView: LadderGoalItemView, item: BaseRankGoal, goalDB: GoalStatusDB) {
@@ -77,7 +85,7 @@ class RankDetailsViewModel(private val context: Context,
     }
 
     private val dataSource = object: RankGoalsAdapter.DataSource {
-        override fun getGoals() = activeItems
+        override fun getGoals() = activeGoals
         override fun isGoalExpanded(item: BaseRankGoal) = expandedItems.contains(item)
         override fun canIgnoreGoals(): Boolean = canIgnoreGoals
         override fun getGoalStatus(item: BaseRankGoal) = ladderManager.getOrCreateGoalStatus(item)
@@ -88,18 +96,47 @@ class RankDetailsViewModel(private val context: Context,
     val shouldShowGoals get() = adapter != null
 
     val directionsText = MutableLiveData<String>()
-    val hiddenStatusText = MutableLiveData<String>()
-    val hiddenStatusVisibility = MutableLiveData<Int>()
+    val completedStatusText = MutableLiveData<String>()
+    val completedStatusVisibility = MutableLiveData<Int>()
+    val completedStatusArrowVisibility = MutableLiveData<Int>()
+    val completedStatusArrowRotation = MutableLiveData<Float>()
 
     init {
         val rankName = targetEntry?.rank?.nameRes?.let { context.getString(it) }
-        directionsText.value = targetEntry?.let { when {
-            it.requirements != null -> context.resources.getString(R.string.rank_directions_optional, rankName, it.goals.size - it.allowedIgnores)
-            else -> context.resources.getString(R.string.rank_directions_all, rankName)
-        } } ?: ""
+        directionsText.value = context.resources.getString(R.string.rank_directions, rankName)
+        completedStatusArrowVisibility.value = if (hidesCompleteTasks) View.VISIBLE else View.GONE
         if (shouldShowGoals) {
-            updateHiddenCount()
+            updateCompleteCount()
+            updateIgnoredStates()
         }
+    }
+
+    fun onGoalsCompleteClicked() {
+        if (hidesCompleteTasks) {
+            toggleHideCompletedGoals()
+        }
+    }
+
+    private fun toggleHideCompletedGoals() {
+        options.hideCompleted = !options.hideCompleted
+
+        if (options.hideCompleted) {
+            ladderManager.getGoalStatuses(allGoals).reversed().forEachIndexed { idx, status ->
+                if (status.status == GoalStatus.COMPLETE) {
+                    val targetIdx = allGoals.size - (idx + 1)
+                    adapter?.notifyItemRemoved(targetIdx)
+                    activeGoals.removeAt(targetIdx)
+                }
+            }
+        } else {
+            ladderManager.getGoalStatuses(allGoals).forEachIndexed { idx, status ->
+                if (status.status == GoalStatus.COMPLETE) {
+                    adapter?.notifyItemInserted(idx)
+                    activeGoals.add(idx, allGoals[idx])
+                }
+            }
+        }
+        completedStatusArrowRotation.value = if (options.hideCompleted) 0f else 90f
     }
 
     /**
@@ -107,20 +144,21 @@ class RankDetailsViewModel(private val context: Context,
      */
     fun updateVisibility(goal: BaseRankGoal, goalDB: GoalStatusDB) {
         if (goalDB.status == GoalStatus.COMPLETE && options.hideCompleted) {
-            val index = activeItems.indexOf(goal)
-            activeItems.removeAt(index)
+            val index = activeGoals.indexOf(goal)
+            activeGoals.removeAt(index)
             adapter!!.notifyItemRemoved(index)
-            if (activeItems.isEmpty()) {
+            if (activeGoals.isEmpty()) {
                 adapter.notifyItemInserted(0)
             }
         }
     }
 
-    private fun updateHiddenCount() {
-        //FIXME this is always shown since the "advancement" panel has issues with the text disappearing
-        hiddenStatusVisibility.value = View.VISIBLE
-        hiddenStatusText.value = context.getString(R.string.goals_ignored_format, hiddenItemCount, targetEntry?.allowedIgnores ?: 0)
+    private fun updateCompleteCount() {
+        completedStatusVisibility.value = View.VISIBLE
+        completedStatusText.value = context.getString(R.string.goals_completed_format, completeItemCount, targetEntry?.requirements ?: 0)
+    }
 
+    private fun updateIgnoredStates() {
         val prevIgnore = canIgnoreGoals
         canIgnoreGoals = hiddenItemCount < targetEntry?.allowedIgnores ?: 0
         if (prevIgnore != canIgnoreGoals) {

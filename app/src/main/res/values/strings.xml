@@ -49,6 +49,7 @@
     <string name="rank_goal_single_score">Score %s on any level %d.</string>
     <string name="rank_goal_lamp">Earn a %s on %s (%s).</string>
     <string name="rank_goal_set_different">Complete a set of %s.</string>
+    <string name="rank_goal_set_sequential">Complete %s in a row.</string>
     <string name="rank_goal_clear_count">%s %d songs on %s.</string>
     <string name="rank_goal_clear_count_single">%s a song on %s.</string>
     <string name="rank_goal_clear_specific">%s %s on %s.</string>
@@ -309,7 +310,7 @@
     <string name="ladder_submit_photos">Submit your photos to LIFE4 to rank up.</string>
     <string name="title_single_song_tournament">Song of the Week</string>
     <string name="single_song_tournament_directions">To play in this tournament, score as high as you can on the song listed below, get a picture of the results screen and submit it to LIFE4.</string>
-    <string name="goals_ignored_format">%d/%d ignored</string>
+    <string name="goals_completed_format">%d/%d completed</string>
     <string name="use_this_rank">Set Rank</string>
     <string name="field_hint_dancer_name">Dancer Name</string>
     <string name="field_hint_rival_code">Rival Code (Optional)</string>
@@ -339,8 +340,7 @@
     <string name="trials_updated">Trials have been updated!</string>
 
     <string name="credits">Credits</string>
-    <string name="rank_directions_optional">To earn <![CDATA[<b><font color=#ffffff>%s</font></b>]]>, complete %d goals:</string>
-    <string name="rank_directions_all">To earn <![CDATA[<b><font color=#ffffff>%s</font></b>]]>, complete:</string>
+    <string name="rank_directions">To earn <![CDATA[<b><font color=#ffffff>%s</font></b>]]>:</string>
     <string name="no_rank_goals">It\'s free to not have a rank, but it\'s more fun if you play through some goals!</string>
 
     <string name="database_upgraded">Song Database Upgraded</string>

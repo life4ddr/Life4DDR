@@ -21,11 +21,13 @@ class LadderVersion(@SerializedName("unlock_requirement") val unlockRequirement:
 class RankEntry(val rank: LadderRank,
                 @SerializedName("play_style") val playStyle: PlayStyle,
                 @SerializedName("goal_ids") val goalIds: List<Int>,
-                val requirements: Int?): Serializable {
+                @SerializedName("requirements") private val requirementsOpt: Int?): Serializable {
 
     @Transient var goals = emptyList<BaseRankGoal>()
 
-    val allowedIgnores: Int get() = requirements?.let { req -> goals.count { !it.mandatory } - req } ?: 0
+    val requirements: Int get() = requirementsOpt ?: goals.size
+
+    val allowedIgnores: Int get() = requirementsOpt?.let { req -> goals.count { !it.mandatory } - req } ?: 0
 
     val difficultyGoals: List<DifficultyClearGoal> get() = goals.mapNotNull { it as? DifficultyClearGoal }
 }
