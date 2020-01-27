@@ -1,5 +1,5 @@
 {
-  "version": 4,
+  "version": 5,
   "major_version": 1,
   "lists": [
     {
@@ -192,6 +192,7 @@
         { "title": "Rampage Hero" },
         { "title": "ALPACORE" },
         { "title": "Starlight in the Snow" },
+        { "title": "Glitch Angel" },
         { "title": "ランカーキラーガール" },
         { "title": "The History of the Future" },
         { "title": "令和" },
@@ -247,6 +248,7 @@
         { "title": "Rampage Hero" },
         { "title": "ALPACORE" },
         { "title": "Starlight in the Snow" },
+        { "title": "Glitch Angel" },
         { "title": "ランカーキラーガール" },
         { "title": "The History of the Future" },
         { "title": "最小三倍完全数" },
@@ -291,6 +293,7 @@
         { "title": "Rampage Hero" },
         { "title": "ALPACORE" },
         { "title": "Starlight in the Snow" },
+        { "title": "Glitch Angel" },
         { "title": "ランカーキラーガール" },
         { "title": "The History of the Future" },
         { "title": "最小三倍完全数" },
