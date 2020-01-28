@@ -170,7 +170,7 @@ class SettingsActivity : AppCompatActivity(), SettingsFragmentListener {
             if (key != null) {
                 when (key) {
                     KEY_IMPORT_GAME_VERSION -> {
-                        songDataManager.invalidateIgnoredIds()
+                        ignoreListManager.invalidateIgnoredIds()
                         findPreference<DropDownPreference>(key)?.let {
                             it.summary = ignoreListManager.getIgnoreList(it.value).name
                         }

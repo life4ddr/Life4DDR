@@ -181,8 +181,8 @@ class LadderManager(private val context: Context,
         is DifficultyClearGoal -> {
             val charts = songDataManager.getFilteredChartsByDifficulty(goal.difficultyNumbers, playStyle)
             val filtered = charts.filterNot {
-                        songDataManager.selectedIgnoreChartIds.contains(it.id) ||
-                        songDataManager.selectedIgnoreSongIds.contains(it.song.targetId) ||
+                        ignoreListManager.selectedIgnoreChartIds.contains(it.id) ||
+                        ignoreListManager.selectedIgnoreSongIds.contains(it.song.targetId) ||
                         goal.songExceptions?.contains(it.song.target.title) == true }
             val filteredIds = filtered.map { it.id }.toLongArray()
             val results = ladderResults.getResultsById(filteredIds).toMutableList()
@@ -332,7 +332,7 @@ class LadderManager(private val context: Context,
             }
             withContext(Dispatchers.Main) {
                 Toast.makeText(context, context.getString(R.string.import_finished, success, errors), Toast.LENGTH_SHORT).show()
-                songDataManager.invalidateIgnoredIds()
+                ignoreListManager.invalidateIgnoredIds()
                 Life4Application.eventBus.post(SongResultsImportCompletedEvent())
                 if (success > 0) {
                     Life4Application.eventBus.post(SongResultsUpdatedEvent())
