@@ -11,8 +11,6 @@ import com.perrigogames.life4trials.repo.LadderResultRepo
 import com.perrigogames.life4trials.repo.TrialRepo
 import com.perrigogames.life4trials.util.DataUtil
 import com.perrigogames.life4trials.util.NotificationUtil
-import com.perrigogames.life4trials.util.SharedPrefsUtil
-import com.perrigogames.life4trials.util.SharedPrefsUtil.KEY_APP_CRASHED
 import io.objectbox.BoxStore
 import io.objectbox.android.AndroidObjectBrowser
 import okhttp3.OkHttpClient
@@ -28,13 +26,17 @@ class Life4Application: MultiDexApplication() {
 
     lateinit var trialRepo: TrialRepo
     lateinit var ladderResultRepo: LadderResultRepo
+
     lateinit var firstRunManager: FirstRunManager
+    lateinit var ignoreListManager: IgnoreListManager
     lateinit var ladderManager: LadderManager
     lateinit var placementManager: PlacementManager
     lateinit var songDataManager: SongDataManager
     lateinit var tournamentManager: TournamentManager
     lateinit var trialManager: TrialManager
     lateinit var playerManager: PlayerManager
+    lateinit var settingsManager: SettingsManager
+
     lateinit var life4Api: Life4API
     lateinit var githubDataApi: GithubDataAPI
 
@@ -43,19 +45,18 @@ class Life4Application: MultiDexApplication() {
 
         val defaultHandler = Thread.getDefaultUncaughtExceptionHandler()
         Thread.setDefaultUncaughtExceptionHandler { thread, exception ->
-            trialRepo.onApplicationException()
             firstRunManager.onApplicationException()
             ladderManager.onApplicationException()
             placementManager.onApplicationException()
             songDataManager.onApplicationException()
             tournamentManager.onApplicationException()
             trialManager.onApplicationException()
+            settingsManager.onApplicationException()
 
-            SharedPrefsUtil.setUserFlag(this@Life4Application, KEY_APP_CRASHED, true)
             defaultHandler!!.uncaughtException(thread, exception)
         }
 
-        SharedPrefsUtil.initializeDefaults(this)
+        settingsManager = SettingsManager(this)
 
         life4Api = life4Retrofit.create(Life4API::class.java)
         githubDataApi = githubRetrofit.create(GithubDataAPI::class.java)
@@ -70,16 +71,18 @@ class Life4Application: MultiDexApplication() {
 
         trialRepo = TrialRepo()
         ladderResultRepo = LadderResultRepo()
-        firstRunManager = FirstRunManager(this)
-        songDataManager = SongDataManager(this, githubDataApi)
+
+        firstRunManager = FirstRunManager(this, settingsManager)
+        ignoreListManager = IgnoreListManager(this, githubDataApi, settingsManager)
+        songDataManager = SongDataManager(this, githubDataApi, settingsManager, ignoreListManager)
         placementManager = PlacementManager(this)
-        trialManager = TrialManager(this, trialRepo, githubDataApi)
-        ladderManager = LadderManager(this, ladderResultRepo, songDataManager, trialManager, githubDataApi)
+        trialManager = TrialManager(this, trialRepo, githubDataApi, settingsManager)
+        ladderManager = LadderManager(this, ladderResultRepo, ignoreListManager, songDataManager, trialManager, githubDataApi, settingsManager)
         tournamentManager = TournamentManager()
         playerManager = PlayerManager(this)
 
         NotificationUtil.setupNotifications(this)
-        SharedPrefsUtil.handleMajorUpdate(this)
+        settingsManager.handleMajorUpdate(this)
 
 //        if (BuildConfig.DEBUG) {
 //            FirebaseUtil.getId(this)

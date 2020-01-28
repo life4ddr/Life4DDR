@@ -12,16 +12,15 @@ import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_DETA
 import com.perrigogames.life4trials.data.Song
 import com.perrigogames.life4trials.data.Trial
 import com.perrigogames.life4trials.life4app
-import com.perrigogames.life4trials.manager.PlacementManager
 import com.perrigogames.life4trials.ui.songlist.SongListFragment
-import com.perrigogames.life4trials.util.SharedPrefsUtil
 import com.perrigogames.life4trials.view.RankHeaderView
 import kotlinx.android.synthetic.main.content_placement_details.*
 
 
 class PlacementDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener {
 
-    private val placementManager: PlacementManager get() = life4app.placementManager
+    private val placementManager get() = life4app.placementManager
+    private val settingsManager get() = life4app.settingsManager
     private val placementId: String by lazy { intent.extras!!.getString(ARG_PLACEMENT_ID) }
     private val trial: Trial get() = placementManager.findPlacement(placementId)!!
 
@@ -42,9 +41,9 @@ class PlacementDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listene
 //            }
         }
 
-        switch_acquire_mode.isChecked = SharedPrefsUtil.getUserFlag(this, KEY_DETAILS_PHOTO_SELECT, false)
+        switch_acquire_mode.isChecked = settingsManager.getUserFlag(KEY_DETAILS_PHOTO_SELECT, false)
         switch_acquire_mode.setOnCheckedChangeListener { _, isChecked ->
-            SharedPrefsUtil.setUserFlag(this, KEY_DETAILS_PHOTO_SELECT, isChecked)
+            settingsManager.setUserFlag(KEY_DETAILS_PHOTO_SELECT, isChecked)
         }
 
         songListFragment = SongListFragment.newInstance(trial.id, tiled = false, useCurrentSession = false, useCamera = false)

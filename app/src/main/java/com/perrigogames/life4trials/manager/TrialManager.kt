@@ -10,6 +10,7 @@ import com.perrigogames.life4trials.BuildConfig
 import com.perrigogames.life4trials.Life4Application
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.activity.SettingsActivity
+import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_SUBMISSION_NOTIFICAION
 import com.perrigogames.life4trials.api.GithubDataAPI
 import com.perrigogames.life4trials.api.MajorVersionedRemoteData
 import com.perrigogames.life4trials.data.TrialData
@@ -22,12 +23,12 @@ import com.perrigogames.life4trials.life4app
 import com.perrigogames.life4trials.repo.TrialRepo
 import com.perrigogames.life4trials.util.DataUtil
 import com.perrigogames.life4trials.util.NotificationUtil
-import com.perrigogames.life4trials.util.SharedPrefsUtil
 import com.perrigogames.life4trials.util.loadRawString
 
 class TrialManager(private val context: Context,
                    private val repo: TrialRepo,
-                   private val githubDataAPI: GithubDataAPI): BaseManager() {
+                   private val githubDataAPI: GithubDataAPI,
+                   private val settingsManager: SettingsManager): BaseManager() {
 
     private var trialData = object: MajorVersionedRemoteData<TrialData>(context, R.raw.trials, TRIALS_FILE_NAME, 2) {
         override fun createLocalDataFromText(text: String): TrialData {
@@ -151,7 +152,7 @@ class TrialManager(private val context: Context,
                 .setCancelable(false)
                 .setNegativeButton(R.string.no) { _, _ -> onFinish() }
                 .setPositiveButton(R.string.yes) { _, _ ->
-                    if (SharedPrefsUtil.getUserFlag(context, SettingsActivity.KEY_SUBMISSION_NOTIFICAION, false)) {
+                    if (settingsManager.getUserFlag(KEY_SUBMISSION_NOTIFICAION, false)) {
                         NotificationUtil.showUserInfoNotifications(context, session.currentTotalExScore)
                     }
                     context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(context.getString(R.string.url_trial_submission_form))))

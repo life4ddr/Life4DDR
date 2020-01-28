@@ -6,8 +6,9 @@ import com.perrigogames.life4trials.db.ChartDB_
 import com.perrigogames.life4trials.db.LadderResultDB
 import com.perrigogames.life4trials.db.LadderResultDB_
 import com.perrigogames.life4trials.manager.BaseManager
+import com.perrigogames.life4trials.manager.BaseRepo
 
-class LadderResultRepo: BaseManager() {
+class LadderResultRepo: BaseRepo() {
 
     private val ladderResultBox get() = objectBox.boxFor(LadderResultDB::class.java)
 

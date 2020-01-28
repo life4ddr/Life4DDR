@@ -6,9 +6,10 @@ import com.perrigogames.life4trials.db.TrialSessionDB
 import com.perrigogames.life4trials.db.TrialSessionDB_
 import com.perrigogames.life4trials.db.TrialSongResultDB
 import com.perrigogames.life4trials.manager.BaseManager
+import com.perrigogames.life4trials.manager.BaseRepo
 import io.objectbox.kotlin.query
 
-class TrialRepo: BaseManager() {
+class TrialRepo: BaseRepo() {
 
     private val sessionBox get() = objectBox.boxFor(TrialSessionDB::class.java)
     private val songBox get() = objectBox.boxFor(TrialSongResultDB::class.java)

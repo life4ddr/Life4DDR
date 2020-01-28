@@ -14,6 +14,7 @@ import com.perrigogames.life4trials.Life4Application
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.activity.SettingsActivity
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_IMPORT_SKIP_DIRECTIONS
+import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_INFO_RANK
 import com.perrigogames.life4trials.api.GithubDataAPI
 import com.perrigogames.life4trials.api.MajorVersionedRemoteData
 import com.perrigogames.life4trials.data.*
@@ -27,15 +28,16 @@ import com.perrigogames.life4trials.ui.managerimport.ScoreManagerImportDirection
 import com.perrigogames.life4trials.ui.managerimport.ScoreManagerImportEntryDialog
 import com.perrigogames.life4trials.ui.managerimport.ScoreManagerImportProcessingDialog
 import com.perrigogames.life4trials.util.DataUtil
-import com.perrigogames.life4trials.util.SharedPrefsUtil
 import kotlinx.coroutines.*
 import java.util.*
 
 class LadderManager(private val context: Context,
                     private val ladderResults: LadderResultRepo,
+                    private val ignoreListManager: IgnoreListManager,
                     private val songDataManager: SongDataManager,
                     private val trialManager: TrialManager,
-                    private val githubDataAPI: GithubDataAPI): BaseManager() {
+                    private val githubDataAPI: GithubDataAPI,
+                    private val settingsManager: SettingsManager): BaseManager() {
 
     //
     // Ladder Data
@@ -62,7 +64,7 @@ class LadderManager(private val context: Context,
     }
     val ladderData: LadderRankData get() = ladderDataRemote.data
     val currentRequirements: LadderVersion
-        get() = songDataManager.selectedIgnoreList!!.baseVersion.let { version ->
+        get() = ignoreListManager.selectedIgnoreList!!.baseVersion.let { version ->
             ladderData.gameVersions[version] ?: error("Rank requirements not found for version $version")
         }
 
@@ -107,20 +109,20 @@ class LadderManager(private val context: Context,
     // Local User Rank
     //
     fun getUserRank(): LadderRank? =
-        LadderRank.parse(SharedPrefsUtil.getUserString(context, SettingsActivity.KEY_INFO_RANK)?.toLongOrNull())
+        LadderRank.parse(settingsManager.getUserString(KEY_INFO_RANK)?.toLongOrNull())
 
-    fun getUserGoalRank(): LadderRank? = SharedPrefsUtil.getUserString(context, SettingsActivity.KEY_INFO_TARGET_RANK)?.let {
+    fun getUserGoalRank(): LadderRank? = settingsManager.getUserString(SettingsActivity.KEY_INFO_TARGET_RANK)?.let {
         LadderRank.parse(it.toLongOrNull())
     } ?: getUserRank()
 
     fun setUserRank(rank: LadderRank?) {
-        SharedPrefsUtil.setUserString(context, SettingsActivity.KEY_INFO_RANK, rank?.stableId.toString())
-        SharedPrefsUtil.setUserString(context, SettingsActivity.KEY_INFO_TARGET_RANK, null)
+        settingsManager.setUserString(KEY_INFO_RANK, rank?.stableId.toString())
+        settingsManager.setUserString(SettingsActivity.KEY_INFO_TARGET_RANK, null)
         Life4Application.eventBus.post(LadderRankUpdatedEvent())
     }
 
     fun setUserTargetRank(rank: LadderRank?) {
-        SharedPrefsUtil.setUserString(context, SettingsActivity.KEY_INFO_TARGET_RANK, rank?.stableId.toString())
+        settingsManager.setUserString(SettingsActivity.KEY_INFO_TARGET_RANK, rank?.stableId.toString())
         Life4Application.eventBus.post(LadderRankUpdatedEvent())
     }
 
@@ -230,7 +232,7 @@ class LadderManager(private val context: Context,
         else -> null
     }
 
-    private val shouldShowImportTutorial get() = !SharedPrefsUtil.getUserFlag(context, KEY_IMPORT_SKIP_DIRECTIONS, false)
+    private val shouldShowImportTutorial get() = !settingsManager.getUserFlag(KEY_IMPORT_SKIP_DIRECTIONS, false)
 
     fun showImportFlow(activity: FragmentActivity) {
         if (shouldShowImportTutorial) {

@@ -11,15 +11,14 @@ import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_IMPORT_GAME_VERSION
 import com.perrigogames.life4trials.api.GithubDataAPI
 import com.perrigogames.life4trials.api.LocalRemoteData
-import com.perrigogames.life4trials.api.MajorVersionedRemoteData
 import com.perrigogames.life4trials.data.*
 import com.perrigogames.life4trials.db.ChartDB
 import com.perrigogames.life4trials.db.ChartDB_
 import com.perrigogames.life4trials.db.SongDB
 import com.perrigogames.life4trials.db.SongDB_
 import com.perrigogames.life4trials.event.MajorUpdateProcessEvent
+import com.perrigogames.life4trials.manager.SettingsManager.Companion.KEY_SONG_LIST_VERSION
 import com.perrigogames.life4trials.util.*
-import com.perrigogames.life4trials.util.SharedPrefsUtil.KEY_SONG_LIST_VERSION
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import retrofit2.Response
@@ -29,7 +28,9 @@ import retrofit2.Response
  * A Manager class that keeps track of the available songs
  */
 class SongDataManager(private val context: Context,
-                      private val githubDataAPI: GithubDataAPI): BaseManager() {
+                      private val githubDataAPI: GithubDataAPI,
+                      private val settingsManager: SettingsManager,
+                      private val ignoreListManager: IgnoreListManager): BaseManager() {
 
     private val songList = object: LocalRemoteData<String>(context, R.raw.songs, SONGS_FILE_NAME) {
         override fun createLocalDataFromText(text: String) = text
@@ -42,15 +43,9 @@ class SongDataManager(private val context: Context,
         }
     }
 
-    private val ignoreLists = object: MajorVersionedRemoteData<IgnoreLists>(context, R.raw.ignore_lists, IGNORES_FILE_NAME, 1) {
-        override suspend fun getRemoteResponse() = githubDataAPI.getIgnoreLists()
-        override fun createLocalDataFromText(text: String) = DataUtil.gson.fromJson(text, IgnoreLists::class.java)
-    }
-
     init {
         Life4Application.eventBus.register(this)
         songList.start()
-        ignoreLists.start()
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -74,7 +69,7 @@ class SongDataManager(private val context: Context,
 
     private fun refreshSongDatabase(input: String = songList.data, force: Boolean = false) {
         val lines = input.lines()
-        if (force || SharedPrefsUtil.getUserInt(context, KEY_SONG_LIST_VERSION, -1) < lines[0].toInt()) {
+        if (force || settingsManager.getUserInt(KEY_SONG_LIST_VERSION, -1) < lines[0].toInt()) {
             val songContents = songBox.all
 
             val dbSongs = mutableListOf<SongDB>()
@@ -122,23 +117,9 @@ class SongDataManager(private val context: Context,
             chartBox.put(dbCharts)
             songBox.put(dbSongs)
             invalidateIgnoredIds()
-            SharedPrefsUtil.setUserInt(context, KEY_SONG_LIST_VERSION, lines[0].toInt())
+            settingsManager.setUserInt(KEY_SONG_LIST_VERSION, lines[0].toInt())
         }
     }
-
-    //
-    // Ignore List Data
-    //
-    val ignoreListIds get() = ignoreLists.data.lists.map { it.id }
-    val ignoreListTitles get() = ignoreLists.data.lists.map { it.name }
-
-    val selectedVersion: String
-        get() = SharedPrefsUtil.getUserString(context, KEY_IMPORT_GAME_VERSION, DEFAULT_IGNORE_VERSION)!!
-    val selectedIgnoreList: IgnoreList?
-        get() = getIgnoreList(selectedVersion)
-
-    fun getIgnoreList(id: String): IgnoreList =
-        ignoreLists.data.lists.firstOrNull { it.id == id } ?: getIgnoreList(DEFAULT_IGNORE_VERSION)
 
     private var mSelectedIgnoreSongIds: LongArray? = null
     private var mSelectedIgnoreChartIds: LongArray? = null
@@ -146,8 +127,8 @@ class SongDataManager(private val context: Context,
     val selectedIgnoreSongIds: LongArray
         get() {
             if (mSelectedIgnoreSongIds == null) {
-                mSelectedIgnoreSongIds = selectedIgnoreList?.songs?.map { it.title }?.toTypedArray()?.let { ignoreTitles ->
-                    val versionId = selectedIgnoreList!!.baseVersion.stableId
+                mSelectedIgnoreSongIds = ignoreListManager.selectedIgnoreList?.songs?.map { it.title }?.toTypedArray()?.let { ignoreTitles ->
+                    val versionId = ignoreListManager.selectedIgnoreList!!.baseVersion.stableId
                     blockedSongQuery(ignoreTitles, versionId, versionId + 1)
                         .find().map { it.id }.toLongArray()
                 } ?: LongArray(0)
@@ -157,7 +138,7 @@ class SongDataManager(private val context: Context,
     val selectedIgnoreChartIds: LongArray
         get() {
             if (mSelectedIgnoreChartIds == null) {
-                mSelectedIgnoreChartIds = selectedIgnoreList?.charts?.mapNotNull { chart ->
+                mSelectedIgnoreChartIds = ignoreListManager.selectedIgnoreList?.charts?.mapNotNull { chart ->
                     val song = songTitleQuery.setParameter("title", chart.title).findFirst()
                     return@mapNotNull song?.charts?.firstOrNull { it.difficultyClass == chart.difficultyClass }?.id
                 }?.toLongArray() ?: LongArray(0)
@@ -167,7 +148,7 @@ class SongDataManager(private val context: Context,
 
     fun onA20RequiredUpdate(context: Context) {
         invalidateIgnoredIds()
-        SharedPrefsUtil.setUserString(context, KEY_IMPORT_GAME_VERSION, DEFAULT_IGNORE_VERSION)
+        settingsManager.setUserString(KEY_IMPORT_GAME_VERSION, DEFAULT_IGNORE_VERSION)
         Handler().postDelayed({
             AlertDialog.Builder(context)
                 .setTitle(R.string.a20_update)
