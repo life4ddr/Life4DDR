@@ -8,6 +8,7 @@ import com.perrigogames.life4trials.api.Life4API
 import com.perrigogames.life4trials.db.MyObjectBox
 import com.perrigogames.life4trials.manager.*
 import com.perrigogames.life4trials.repo.LadderResultRepo
+import com.perrigogames.life4trials.repo.SongRepo
 import com.perrigogames.life4trials.repo.TrialRepo
 import com.perrigogames.life4trials.util.DataUtil
 import com.perrigogames.life4trials.util.NotificationUtil
@@ -24,6 +25,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 
 class Life4Application: MultiDexApplication() {
 
+    lateinit var songRepo: SongRepo
     lateinit var trialRepo: TrialRepo
     lateinit var ladderResultRepo: LadderResultRepo
 
@@ -69,15 +71,16 @@ class Life4Application: MultiDexApplication() {
             Log.i("ObjectBrowser", "Started: $started")
         }
 
+        songRepo = SongRepo()
         trialRepo = TrialRepo()
         ladderResultRepo = LadderResultRepo()
 
         firstRunManager = FirstRunManager(this, settingsManager)
-        ignoreListManager = IgnoreListManager(this, githubDataApi, settingsManager)
-        songDataManager = SongDataManager(this, githubDataApi, settingsManager, ignoreListManager)
+        ignoreListManager = IgnoreListManager(this, songRepo, githubDataApi, settingsManager)
+        songDataManager = SongDataManager(this, githubDataApi, songRepo, settingsManager, ignoreListManager)
         placementManager = PlacementManager(this)
         trialManager = TrialManager(this, trialRepo, githubDataApi, settingsManager)
-        ladderManager = LadderManager(this, ladderResultRepo, ignoreListManager, songDataManager, trialManager, githubDataApi, settingsManager)
+        ladderManager = LadderManager(this, songRepo, ladderResultRepo, ignoreListManager, songDataManager, trialManager, githubDataApi, settingsManager)
         tournamentManager = TournamentManager()
         playerManager = PlayerManager(this)
 

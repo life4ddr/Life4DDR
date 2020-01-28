@@ -24,6 +24,7 @@ import com.perrigogames.life4trials.event.LadderRanksReplacedEvent
 import com.perrigogames.life4trials.event.SongResultsImportCompletedEvent
 import com.perrigogames.life4trials.event.SongResultsUpdatedEvent
 import com.perrigogames.life4trials.repo.LadderResultRepo
+import com.perrigogames.life4trials.repo.SongRepo
 import com.perrigogames.life4trials.ui.managerimport.ScoreManagerImportDirectionsDialog
 import com.perrigogames.life4trials.ui.managerimport.ScoreManagerImportEntryDialog
 import com.perrigogames.life4trials.ui.managerimport.ScoreManagerImportProcessingDialog
@@ -32,6 +33,7 @@ import kotlinx.coroutines.*
 import java.util.*
 
 class LadderManager(private val context: Context,
+                    private val songRepo: SongRepo,
                     private val ladderResults: LadderResultRepo,
                     private val ignoreListManager: IgnoreListManager,
                     private val songDataManager: SongDataManager,
@@ -204,7 +206,7 @@ class LadderManager(private val context: Context,
         }
         is SongSetClearGoal -> when {
             goal.songs != null -> {
-                val songs = goal.songs.mapNotNull { songDataManager.getSongByName(it) }
+                val songs = goal.songs.mapNotNull { songRepo.getSongByName(it) }
                 val charts = goal.difficulties.map { diff ->
                     songs.mapNotNull { song -> song.charts.firstOrNull {
                         it.difficultyClass == diff && it.playStyle == playStyle
@@ -310,7 +312,7 @@ class LadderManager(private val context: Context,
                         val playStyle = PlayStyle.parse(chartType)!!
                         val difficultyClass = DifficultyClass.parse(chartType)!!
 
-                        val songDB = songDataManager.getSongByName(songName) ?: throw SongNotFoundException(songName)
+                        val songDB = songRepo.getSongByName(songName) ?: throw SongNotFoundException(songName)
                         val chartDB = songDataManager.updateOrCreateChartForSong(songDB, playStyle, difficultyClass, difficultyNumber)
                         val resultDB = updateOrCreateResultForChart(chartDB, score, clear)
 

@@ -18,6 +18,7 @@ import com.perrigogames.life4trials.db.SongDB
 import com.perrigogames.life4trials.db.SongDB_
 import com.perrigogames.life4trials.event.MajorUpdateProcessEvent
 import com.perrigogames.life4trials.manager.SettingsManager.Companion.KEY_SONG_LIST_VERSION
+import com.perrigogames.life4trials.repo.SongRepo
 import com.perrigogames.life4trials.util.*
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -29,6 +30,7 @@ import retrofit2.Response
  */
 class SongDataManager(private val context: Context,
                       private val githubDataAPI: GithubDataAPI,
+                      private val songRepo: SongRepo,
                       private val settingsManager: SettingsManager,
                       private val ignoreListManager: IgnoreListManager): BaseManager() {
 
@@ -63,14 +65,14 @@ class SongDataManager(private val context: Context,
     //
     fun initializeSongDatabase() {
         chartBox.removeAll()
-        songBox.removeAll()
+        songRepo.clear()
         refreshSongDatabase(force = true)
     }
 
     private fun refreshSongDatabase(input: String = songList.data, force: Boolean = false) {
         val lines = input.lines()
         if (force || settingsManager.getUserInt(KEY_SONG_LIST_VERSION, -1) < lines[0].toInt()) {
-            val songContents = songBox.all
+            val songContents = songRepo.getSongs()
 
             val dbSongs = mutableListOf<SongDB>()
             val dbCharts = mutableListOf<ChartDB>()
@@ -95,11 +97,11 @@ class SongDataManager(private val context: Context,
                         it.artist = null
                         it.version = mix
                         it.preview = preview
-                        songBox.put(it)
+                        songRepo.put(it)
                     }
                 }
                 val song = existingSong ?: SongDB(title, null, mix, preview).also { song ->
-                    songBox.attach(song)
+                    songRepo.attach(song)
                 }
                 PlayStyle.values().forEachIndexed { sIdx, style ->
                     DifficultyClass.values().forEachIndexed { dIdx, diff ->
@@ -115,7 +117,7 @@ class SongDataManager(private val context: Context,
                 dbSongs.add(song)
             }
             chartBox.put(dbCharts)
-            songBox.put(dbSongs)
+            songRepo.put(dbSongs)
             ignoreListManager.invalidateIgnoredIds()
             settingsManager.setUserInt(KEY_SONG_LIST_VERSION, lines[0].toInt())
         }
@@ -142,21 +144,11 @@ class SongDataManager(private val context: Context,
     //
     // ObjectBoxes
     //
-    private val songBox get() = objectBox.boxFor(SongDB::class.java)
     private val chartBox get() = objectBox.boxFor(ChartDB::class.java)
 
     //
     // Queries
     //
-    private val songTitleQuery = songBox.query()
-        .equal(SongDB_.title, "").parameterAlias("title")
-        .build()
-    private val gameVersionQuery = songBox.query()
-        .equal(SongDB_.version, -1).parameterAlias("version")
-        .build()
-    private val multipleGameVersionQuery = songBox.query()
-        .`in`(SongDB_.version, LongArray(0)).parameterAlias("versions")
-        .build()
     private val chartPlayStyleQuery = chartBox.query()
         .equal(ChartDB_.playStyle, 0).parameterAlias("play_style")
         .build()
@@ -167,16 +159,7 @@ class SongDataManager(private val context: Context,
         notIn(ChartDB_.id, ignoreListManager.selectedIgnoreChartIds)
     }.build()
 
-    fun getSongs(): List<SongDB> = songBox.all
-
-    fun getSongById(id: Long): SongDB? = songBox.get(id)
-
-    fun getSongsById(ids: LongArray): MutableList<SongDB> = songBox.get(ids)
-
-    fun getCurrentlyIgnoredSongs() = getSongsById(ignoreListManager.selectedIgnoreSongIds)
-
-    fun getSongByName(name: String): SongDB? =
-        songTitleQuery.setParameter("title", name).findFirst()
+    fun getCurrentlyIgnoredSongs() = songRepo.getSongsById(ignoreListManager.selectedIgnoreSongIds)
 
     fun getChartById(id: Long): ChartDB? = chartBox.get(id)
 
@@ -241,7 +224,7 @@ class SongDataManager(private val context: Context,
             song.charts.add(it)
             if (commit) {
                 chartBox.put(it)
-                songBox.put(song)
+                songRepo.put(song)
             }
         }
     }
@@ -249,7 +232,7 @@ class SongDataManager(private val context: Context,
     fun updateChart(chart: ChartDB) = chartBox.put(chart)
 
     fun dumpData() {
-        val songStrings = songBox.all.map { song ->
+        val songStrings = songRepo.getSongs().map { song ->
             val builder = StringBuilder("${song.title};")
             val chartsCopy = song.charts.toMutableList()
             PlayStyle.values().forEach { style ->
