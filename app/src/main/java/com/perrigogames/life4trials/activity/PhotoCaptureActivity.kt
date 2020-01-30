@@ -128,7 +128,7 @@ abstract class PhotoCaptureActivity: AppCompatActivity() {
     abstract fun onPhotoCancelled()
 
     protected fun resizeImage(out: File, photoUri: Uri) =
-        DataUtil.resizeImage(out, 1080, 1080, MediaStore.Images.Media.getBitmap(contentResolver, photoUri))
+        DataUtil.resizeImage(out, 1440, 1440, MediaStore.Images.Media.getBitmap(contentResolver, photoUri))
 
     private inline fun snackbarListener(@StringRes stringRes: Int,
                                         crossinline listener: (MultiplePermissionsReport?) -> Unit): CompositeMultiplePermissionsListener {
