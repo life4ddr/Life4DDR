@@ -28,6 +28,7 @@
     <string name="score_specific_song_difficulty">Score %s on %s (%s).</string>
     <string name="aaa_specific_song">AAA %s.</string>
     <string name="mfc_specific_song">MFC %s.</string>
+    <string name="clear_every_song">%s every song.</string>
     <string name="score_every_song">Score %s on every song.</string>
     <string name="aaa_every_song">AAA every song.</string>
     <string name="mfc_every_song">MFC every song.</string>
