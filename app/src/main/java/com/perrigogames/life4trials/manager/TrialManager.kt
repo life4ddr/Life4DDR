@@ -144,7 +144,7 @@ class TrialManager(private val context: Context,
 
     private fun submitRankAndFinish(context: Context, session: TrialSession, passed: Boolean, onFinish: () -> Unit) {
         session.goalObtained = passed
-        repo.saveRecord(session)
+        saveRecord(session)
         if (passed) {
             AlertDialog.Builder(context)
                 .setTitle(R.string.trial_submit_dialog_title)

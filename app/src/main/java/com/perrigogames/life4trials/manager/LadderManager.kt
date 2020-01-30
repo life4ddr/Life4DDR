@@ -201,7 +201,13 @@ class LadderManager(private val context: Context,
             }
         }
         is TrialGoal -> {
-            val trials = trialManager.bestTrials().filter { it.goalRankId >= goal.rank.stableId }
+            val trials = trialManager.bestTrials().filter {
+                if (goal.restrictDifficulty) {
+                    it.goalRankId == goal.rank.stableId.toInt()
+                } else {
+                    it.goalRankId >= goal.rank.stableId
+                }
+            }
             LadderGoalProgress(trials.size, goal.count) // return
         }
         is MFCPointsGoal -> {

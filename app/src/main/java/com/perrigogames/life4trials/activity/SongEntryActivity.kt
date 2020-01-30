@@ -41,7 +41,10 @@ class SongEntryActivity: AppCompatActivity() {
     val newEntry: Boolean get() = result?.score == null
     var modified: Boolean = false
     private var advancedFieldVisibility: Boolean = false
-        set(v) = advancedFields.forEach { it.visibilityBool = v }
+        set(v) {
+            field = v
+            advancedFields.forEach { it.visibilityBool = v }
+        }
 
     // Lists of fields for easy iteration
     private val advancedFields: List<EditText> by lazy { listOf(field_misses, field_goods, field_greats, field_perfects) }
@@ -163,10 +166,6 @@ class SongEntryActivity: AppCompatActivity() {
         allFields.forEach { it.error = null }
         checkErrorForValue(score, field_score)
         checkErrorForValue(ex, field_ex)
-        checkErrorForValue(misses, field_misses)
-        checkErrorForValue(goods, field_goods)
-        checkErrorForValue(greats, field_greats)
-        checkErrorForValue(perfects, field_perfects)
         if (!life4app.settingsManager.getDebugFlag(KEY_DEBUG_ACCEPT_INVALID) &&
             allFields.any { it.visibility == VISIBLE && it.error != null }) {
             Toast.makeText(this, R.string.make_sure_fields_filled, Toast.LENGTH_SHORT).show()
@@ -175,7 +174,7 @@ class SongEntryActivity: AppCompatActivity() {
                 putExtra(RESULT_DATA, result!!.also {
                     it.score = score
                     it.exScore = ex
-                    if (requiresAdvancedDetail) {
+                    if (advancedFieldVisibility) {
                         it.misses = misses
                         it.goods = goods
                         it.greats = greats
