@@ -7,6 +7,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.manager.LadderManager.ManagerImportListener
+import kotlinx.android.synthetic.main.dialog_manager_import_processing.*
 import kotlinx.android.synthetic.main.dialog_manager_import_processing.view.*
 
 /**
@@ -55,6 +56,8 @@ class ScoreManagerImportProcessingDialog(var listener: Listener? = null): Dialog
         override fun onCompleted() {
             context?.let {
                 if (!shouldClose) {
+                    contentView.lottie_background.pauseAnimation()
+                    contentView.lottie_background.visibility = View.GONE
                     contentView.text_progress.text = if (errors > 0) {
                         getString(R.string.import_finished_errors, errors)
                     } else {
