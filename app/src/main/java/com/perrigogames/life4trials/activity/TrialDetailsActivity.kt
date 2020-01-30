@@ -184,19 +184,19 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener {
     }
 
     fun onSubmitClick(v: View) {
-        trialManager.submitResult(this) { finish() }
-    }
-
-    fun onFinalizeClick(v: View) {
         if (!trialSession.shouldShowAdvancedSongDetails ||
             !settingsManager.getUserFlag(KEY_DETAILS_ENFORCE_EXPERT, true) ||
-            trialSession.results.none { it!!.hasAdvancedStats }) {
+            trialSession.results.all { it!!.hasAdvancedStats }) {
 
-            isFinal = true
-            acquirePhoto()
+            trialManager.submitResult(this) { finish() }
         } else {
             Snackbar.make(container, R.string.breakdown_information_missing, Snackbar.LENGTH_LONG).show()
         }
+    }
+
+    fun onFinalizeClick(v: View) {
+        isFinal = true
+        acquirePhoto()
     }
 
     private fun setRank(rank: TrialRank) {
