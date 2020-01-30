@@ -22,7 +22,6 @@ import com.perrigogames.life4trials.event.TrialListReplacedEvent
 import com.perrigogames.life4trials.event.TrialListUpdatedEvent
 import com.perrigogames.life4trials.life4app
 import com.perrigogames.life4trials.util.NotificationUtil
-import com.perrigogames.life4trials.util.SharedPrefsUtil
 import com.perrigogames.life4trials.util.openWebUrlFromRes
 
 
@@ -55,6 +54,8 @@ class SettingsActivity : AppCompatActivity(), SettingsFragmentListener {
         protected val trialManager get() = context!!.life4app.trialManager
         protected val playerManager get() = context!!.life4app.playerManager
         protected val songDataManager get() = context!!.life4app.songDataManager
+        protected val ignoreListManager get() = context!!.life4app.ignoreListManager
+        protected val settingsManager get() = context!!.life4app.settingsManager
         private var listener: SettingsFragmentListener? = null
 
         override fun onPause() {
@@ -120,9 +121,9 @@ class SettingsActivity : AppCompatActivity(), SettingsFragmentListener {
             setPreferencesFromResource(R.xml.root_preferences, rootKey)
 
             (preference(KEY_IMPORT_GAME_VERSION) as DropDownPreference).apply {
-                summary = songDataManager.getIgnoreList(value).name
-                entries = songDataManager.ignoreListTitles.toTypedArray()
-                entryValues = songDataManager.ignoreListIds.toTypedArray()
+                summary = ignoreListManager.getIgnoreList(value).name
+                entries = ignoreListManager.ignoreListTitles.toTypedArray()
+                entryValues = ignoreListManager.ignoreListIds.toTypedArray()
             }
             preferenceListener(KEY_IMPORT_VIEW_LIST) {
                 startActivity(Intent(context, BlockListCheckActivity::class.java))
@@ -169,9 +170,9 @@ class SettingsActivity : AppCompatActivity(), SettingsFragmentListener {
             if (key != null) {
                 when (key) {
                     KEY_IMPORT_GAME_VERSION -> {
-                        songDataManager.invalidateIgnoredIds()
+                        ignoreListManager.invalidateIgnoredIds()
                         findPreference<DropDownPreference>(key)?.let {
-                            it.summary = songDataManager.getIgnoreList(it.value).name
+                            it.summary = ignoreListManager.getIgnoreList(it.value).name
                         }
                         Life4Application.eventBus.post(LadderRanksReplacedEvent())
                     }
@@ -200,12 +201,9 @@ class SettingsActivity : AppCompatActivity(), SettingsFragmentListener {
                 }.toTypedArray()
             }
 
-            preference(KEY_INFO_NAME).summary =
-                SharedPrefsUtil.getUserString(context!!, KEY_INFO_NAME)
-            preference(KEY_INFO_RIVAL_CODE).summary =
-                SharedPrefsUtil.getUserString(context!!, KEY_INFO_RIVAL_CODE)
-            preference(KEY_INFO_TWITTER_NAME).summary =
-                SharedPrefsUtil.getUserString(context!!, KEY_INFO_TWITTER_NAME)
+            preference(KEY_INFO_NAME).summary = settingsManager.getUserString(KEY_INFO_NAME)
+            preference(KEY_INFO_RIVAL_CODE).summary = settingsManager.getUserString(KEY_INFO_RIVAL_CODE)
+            preference(KEY_INFO_TWITTER_NAME).summary = settingsManager.getUserString(KEY_INFO_TWITTER_NAME)
 
             preferenceListener(KEY_SUBMISSION_NOTIFICAION_TEST) {
                 NotificationUtil.showUserInfoNotifications(context!!, 1579)

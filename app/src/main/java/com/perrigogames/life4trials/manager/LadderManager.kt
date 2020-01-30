@@ -14,27 +14,32 @@ import com.perrigogames.life4trials.Life4Application
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.activity.SettingsActivity
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_IMPORT_SKIP_DIRECTIONS
+import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_INFO_RANK
 import com.perrigogames.life4trials.api.GithubDataAPI
 import com.perrigogames.life4trials.api.MajorVersionedRemoteData
 import com.perrigogames.life4trials.data.*
-import com.perrigogames.life4trials.data.DifficultyClass.*
 import com.perrigogames.life4trials.db.*
 import com.perrigogames.life4trials.event.LadderRankUpdatedEvent
 import com.perrigogames.life4trials.event.LadderRanksReplacedEvent
 import com.perrigogames.life4trials.event.SongResultsImportCompletedEvent
 import com.perrigogames.life4trials.event.SongResultsUpdatedEvent
+import com.perrigogames.life4trials.repo.LadderResultRepo
+import com.perrigogames.life4trials.repo.SongRepo
 import com.perrigogames.life4trials.ui.managerimport.ScoreManagerImportDirectionsDialog
 import com.perrigogames.life4trials.ui.managerimport.ScoreManagerImportEntryDialog
 import com.perrigogames.life4trials.ui.managerimport.ScoreManagerImportProcessingDialog
 import com.perrigogames.life4trials.util.DataUtil
-import com.perrigogames.life4trials.util.SharedPrefsUtil
 import kotlinx.coroutines.*
 import java.util.*
 
 class LadderManager(private val context: Context,
+                    private val songRepo: SongRepo,
+                    private val ladderResults: LadderResultRepo,
+                    private val ignoreListManager: IgnoreListManager,
                     private val songDataManager: SongDataManager,
                     private val trialManager: TrialManager,
-                    private val githubDataAPI: GithubDataAPI): BaseManager() {
+                    private val githubDataAPI: GithubDataAPI,
+                    private val settingsManager: SettingsManager): BaseManager() {
 
     //
     // Ladder Data
@@ -61,7 +66,7 @@ class LadderManager(private val context: Context,
     }
     val ladderData: LadderRankData get() = ladderDataRemote.data
     val currentRequirements: LadderVersion
-        get() = songDataManager.selectedIgnoreList!!.baseVersion.let { version ->
+        get() = ignoreListManager.selectedIgnoreList!!.baseVersion.let { version ->
             ladderData.gameVersions[version] ?: error("Rank requirements not found for version $version")
         }
 
@@ -69,7 +74,6 @@ class LadderManager(private val context: Context,
     // ObjectBoxes
     //
     private val goalsBox get() = objectBox.boxFor(GoalStatusDB::class.java)
-    private val ladderResultBox get() = objectBox.boxFor(LadderResultDB::class.java)
 
     //
     // Init
@@ -79,8 +83,8 @@ class LadderManager(private val context: Context,
     }
 
     fun onDatabaseMajorUpdate(context: Context) {
-        if (!ladderResultBox.isEmpty) {
-            ladderResultBox.removeAll()
+        if (!ladderResults.isEmpty) {
+            ladderResults.clearRepo()
             Handler().postDelayed({
                 AlertDialog.Builder(context)
                     .setTitle(R.string.database_upgraded)
@@ -102,35 +106,25 @@ class LadderManager(private val context: Context,
     private val goalMultiStatusQuery = goalsBox.query()
         .`in`(GoalStatusDB_.goalId, LongArray(0)).parameterAlias("ids")
         .build()
-    private val ladderResultQuery = ladderResultBox.query()
-        .`in`(LadderResultDB_.chartId, LongArray(0)).parameterAlias("ids")
-        .build()
-    private val mfcQuery = ladderResultBox.query()
-        .equal(LadderResultDB_.clearType, ClearType.MARVELOUS_FULL_COMBO.stableId)
-        .apply {
-            link(LadderResultDB_.chart)
-                .`in`(ChartDB_.difficultyClass, longArrayOf(DIFFICULT.stableId, EXPERT.stableId, CHALLENGE.stableId))
-        }
-        .build()
 
     //
     // Local User Rank
     //
     fun getUserRank(): LadderRank? =
-        LadderRank.parse(SharedPrefsUtil.getUserString(context, SettingsActivity.KEY_INFO_RANK)?.toLongOrNull())
+        LadderRank.parse(settingsManager.getUserString(KEY_INFO_RANK)?.toLongOrNull())
 
-    fun getUserGoalRank(): LadderRank? = SharedPrefsUtil.getUserString(context, SettingsActivity.KEY_INFO_TARGET_RANK)?.let {
+    fun getUserGoalRank(): LadderRank? = settingsManager.getUserString(SettingsActivity.KEY_INFO_TARGET_RANK)?.let {
         LadderRank.parse(it.toLongOrNull())
     } ?: getUserRank()
 
     fun setUserRank(rank: LadderRank?) {
-        SharedPrefsUtil.setUserString(context, SettingsActivity.KEY_INFO_RANK, rank?.stableId.toString())
-        SharedPrefsUtil.setUserString(context, SettingsActivity.KEY_INFO_TARGET_RANK, null)
+        settingsManager.setUserString(KEY_INFO_RANK, rank?.stableId.toString())
+        settingsManager.setUserString(SettingsActivity.KEY_INFO_TARGET_RANK, null)
         Life4Application.eventBus.post(LadderRankUpdatedEvent())
     }
 
     fun setUserTargetRank(rank: LadderRank?) {
-        SharedPrefsUtil.setUserString(context, SettingsActivity.KEY_INFO_TARGET_RANK, rank?.stableId.toString())
+        settingsManager.setUserString(SettingsActivity.KEY_INFO_TARGET_RANK, rank?.stableId.toString())
         Life4Application.eventBus.post(LadderRankUpdatedEvent())
     }
 
@@ -187,20 +181,21 @@ class LadderManager(private val context: Context,
 
     fun getGoalProgress(goal: BaseRankGoal, playStyle: PlayStyle): LadderGoalProgress? = when (goal) {
         is DifficultyClearGoal -> {
-            val charts = songDataManager.getFilteredChartsByDifficulty(goal.difficultyNumbers, playStyle)
-            val filtered = charts.filterNot {
-                        songDataManager.selectedIgnoreChartIds.contains(it.id) ||
-                        songDataManager.selectedIgnoreSongIds.contains(it.song.targetId) ||
-                        goal.songExceptions?.contains(it.song.target.title) == true }
-            val filteredIds = filtered.map { it.id }.toLongArray()
-            val results = ladderResultQuery.setParameters("ids", filteredIds).find()
+            val charts = if (goal.count == null) {
+                songDataManager.getFilteredChartsByDifficulty(goal.difficultyNumbers, playStyle).filterNot {
+                    ignoreListManager.selectedIgnoreChartIds.contains(it.id) ||
+                    ignoreListManager.selectedIgnoreSongIds.contains(it.song.targetId) ||
+                    goal.songExceptions?.contains(it.song.target.title) == true }
+            } else songDataManager.getChartsByDifficulty(goal.difficultyNumbers, playStyle)
+            val chartIds = charts.map { it.id }.toLongArray()
+            val results = ladderResults.getResultsById(chartIds).toMutableList()
             if (results.isEmpty()) {
                 null // return
             } else {
                 val resultIds = results.map { it.chart.target.id }.toSortedSet()
-                val notFound = getOrCreateResultsForCharts(filtered.filterNot { resultIds.contains(it.id) })
+                val notFound = getOrCreateResultsForCharts(charts.filterNot { resultIds.contains(it.id) })
                 results.addAll(notFound)
-                goal.getGoalProgress(filtered.size, results) // return
+                goal.getGoalProgress(charts.size, results) // return
             }
         }
         is TrialGoal -> {
@@ -208,11 +203,11 @@ class LadderManager(private val context: Context,
             LadderGoalProgress(trials.size, goal.count) // return
         }
         is MFCPointsGoal -> {
-            goal.getGoalProgress(goal.points, mfcQuery.find())
+            goal.getGoalProgress(goal.points, ladderResults.getMFCs())
         }
         is SongSetClearGoal -> when {
             goal.songs != null -> {
-                val songs = goal.songs.mapNotNull { songDataManager.getSongByName(it) }
+                val songs = goal.songs.mapNotNull { songRepo.getSongByName(it) }
                 val charts = goal.difficulties.map { diff ->
                     songs.mapNotNull { song -> song.charts.firstOrNull {
                         it.difficultyClass == diff && it.playStyle == playStyle
@@ -240,7 +235,7 @@ class LadderManager(private val context: Context,
         else -> null
     }
 
-    private val shouldShowImportTutorial get() = !SharedPrefsUtil.getUserFlag(context, KEY_IMPORT_SKIP_DIRECTIONS, false)
+    private val shouldShowImportTutorial get() = !settingsManager.getUserFlag(KEY_IMPORT_SKIP_DIRECTIONS, false)
 
     fun showImportFlow(activity: FragmentActivity) {
         if (shouldShowImportTutorial) {
@@ -318,7 +313,7 @@ class LadderManager(private val context: Context,
                         val playStyle = PlayStyle.parse(chartType)!!
                         val difficultyClass = DifficultyClass.parse(chartType)!!
 
-                        val songDB = songDataManager.getSongByName(songName) ?: throw SongNotFoundException(songName)
+                        val songDB = songRepo.getSongByName(songName) ?: throw SongNotFoundException(songName)
                         val chartDB = songDataManager.updateOrCreateChartForSong(songDB, playStyle, difficultyClass, difficultyNumber)
                         val resultDB = updateOrCreateResultForChart(chartDB, score, clear)
 
@@ -331,7 +326,7 @@ class LadderManager(private val context: Context,
                         }
                     } catch (e: Exception) {
                         errors++
-                        Log.e("Exception", e.message)
+                        Log.e("Exception", e.message ?: "")
                         withContext(Dispatchers.Main) { listener?.onError(errors, "${entry}\n${e.message}") }
                     }
                 } else if (entry.isNotEmpty()) {
@@ -340,7 +335,7 @@ class LadderManager(private val context: Context,
             }
             withContext(Dispatchers.Main) {
                 Toast.makeText(context, context.getString(R.string.import_finished, success, errors), Toast.LENGTH_SHORT).show()
-                songDataManager.invalidateIgnoredIds()
+                ignoreListManager.invalidateIgnoredIds()
                 Life4Application.eventBus.post(SongResultsImportCompletedEvent())
                 if (success > 0) {
                     Life4Application.eventBus.post(SongResultsUpdatedEvent())
@@ -362,7 +357,7 @@ class LadderManager(private val context: Context,
             .setMessage(R.string.confirm_erase_trial_data)
             .setPositiveButton(R.string.yes) { _, _ ->
                 goalsBox.removeAll()
-                ladderResultBox.removeAll()
+                ladderResults.clearRepo()
                 Life4Application.eventBus.post(LadderRankUpdatedEvent())
             }
             .setNegativeButton(R.string.no, null)
@@ -374,7 +369,7 @@ class LadderManager(private val context: Context,
             .setTitle(R.string.are_you_sure)
             .setMessage(R.string.confirm_erase_result_data)
             .setPositiveButton(R.string.yes) { _, _ ->
-                ladderResultBox.removeAll()
+                ladderResults.clearRepo()
                 Life4Application.eventBus.post(SongResultsUpdatedEvent())
             }
             .setNegativeButton(R.string.no, null)
@@ -386,7 +381,7 @@ class LadderManager(private val context: Context,
             .setTitle(R.string.are_you_sure)
             .setMessage(R.string.confirm_refresh_song_db)
             .setPositiveButton(R.string.yes) { _, _ ->
-                ladderResultBox.removeAll()
+                ladderResults.clearRepo()
                 songDataManager.initializeSongDatabase()
                 Life4Application.eventBus.post(SongResultsUpdatedEvent())
             }
@@ -399,7 +394,7 @@ class LadderManager(private val context: Context,
             chart.plays.firstOrNull() ?: LadderResultDB().also { result ->
                 chart.plays.add(result)
                 songDataManager.updateChart(chart)
-                ladderResultBox.put(result)
+                ladderResults.addResult(result)
             }
         }
     }
@@ -410,13 +405,13 @@ class LadderManager(private val context: Context,
             if (it.score != score || it.clearType != clear) {
                 it.score = score
                 it.clearType = clear
-                ladderResultBox.put(it)
+                ladderResults.addResult(it)
             }
         }
         return result ?: LadderResultDB(score, clear).also {
             chart.plays.add(it)
             songDataManager.updateChart(chart)
-            ladderResultBox.put(it)
+            ladderResults.addResult(it)
         }
     }
 

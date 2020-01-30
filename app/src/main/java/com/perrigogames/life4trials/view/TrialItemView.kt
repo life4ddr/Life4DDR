@@ -13,7 +13,7 @@ import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_LIST
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_LIST_TINT_COMPLETED
 import com.perrigogames.life4trials.data.Trial
 import com.perrigogames.life4trials.data.TrialRank
-import com.perrigogames.life4trials.util.SharedPrefsUtil
+import com.perrigogames.life4trials.life4app
 import kotlinx.android.synthetic.main.item_trial_list_item.view.*
 
 /**
@@ -22,10 +22,12 @@ import kotlinx.android.synthetic.main.item_trial_list_item.view.*
 class TrialItemView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
     ConstraintLayout(context, attrs, defStyleAttr) {
 
+    private val settingsManager get() = context.life4app.settingsManager
+
     val tintCompleted: Boolean
-        get() = SharedPrefsUtil.getUserFlag(context, KEY_LIST_TINT_COMPLETED, false)
+        get() = context.life4app.settingsManager.getUserFlag(KEY_LIST_TINT_COMPLETED, false)
     val showEx: Boolean
-        get() = trial?.isEvent == true || SharedPrefsUtil.getUserFlag(context, KEY_LIST_SHOW_EX, false)
+        get() = trial?.isEvent == true || settingsManager.getUserFlag(KEY_LIST_SHOW_EX, false)
     private var usesBadgeList = false
 
     fun setCornerType(v: JacketCornerView.CornerType?) {
@@ -60,7 +62,7 @@ class TrialItemView @JvmOverloads constructor(context: Context, attrs: Attribute
     fun setExScore(exScore: Int?) {
         (image_rank as TrialJacketView).let { view ->
             view.showExRemaining = trial?.isEvent == true ||
-                    SharedPrefsUtil.getUserFlag(context, SettingsActivity.KEY_LIST_SHOW_EX_REMAINING, false)
+                    settingsManager.getUserFlag(SettingsActivity.KEY_LIST_SHOW_EX_REMAINING, false)
             view.exScore = if (showEx) exScore else null
         }
     }

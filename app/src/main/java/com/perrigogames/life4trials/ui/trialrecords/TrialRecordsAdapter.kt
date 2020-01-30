@@ -15,10 +15,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_RECORDS_REMAINING_EX
 import com.perrigogames.life4trials.db.TrialSessionDB
+import com.perrigogames.life4trials.life4app
 import com.perrigogames.life4trials.manager.TrialManager
 import com.perrigogames.life4trials.ui.trialrecords.TrialRecordsFragment.OnRecordsListInteractionListener
 import com.perrigogames.life4trials.util.DataUtil
-import com.perrigogames.life4trials.util.SharedPrefsUtil
 import com.perrigogames.life4trials.util.locale
 import com.perrigogames.life4trials.util.visibilityBool
 import com.perrigogames.life4trials.view.RankImageView
@@ -44,7 +44,7 @@ class TrialRecordsAdapter(private val trialManager: TrialManager,
     }
 
     fun refreshTrials() {
-        recordsList = trialManager.records.reversed()
+        recordsList = trialManager.allRecords.reversed()
     }
 
     override fun getItemId(position: Int): Long {
@@ -104,7 +104,7 @@ class TrialRecordsAdapter(private val trialManager: TrialManager,
                     title.text = trial.name
 
                     val sessionEx = s.exScore ?: 0
-                    val shouldShowRemaining = SharedPrefsUtil.getUserFlag(context, KEY_RECORDS_REMAINING_EX, false)
+                    val shouldShowRemaining = context.life4app.settingsManager.getUserFlag(KEY_RECORDS_REMAINING_EX, false)
                     val goalEx = if (shouldShowRemaining) sessionEx - trial.total_ex!! else trial.total_ex
                     exScore.text = context.getString(R.string.ex_score_fraction_format, sessionEx, goalEx)
                     exProgress.max = trial.total_ex!!

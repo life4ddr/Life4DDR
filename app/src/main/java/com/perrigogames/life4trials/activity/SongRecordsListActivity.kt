@@ -15,10 +15,10 @@ class SongRecordsListActivity : AppCompatActivity() {
         setContentView(R.layout.activity_block_list_check) // debug screen, reuse old layout idgafos
 
         text_songs.text = with(StringBuilder()) {
-            songDataManager.getSongsById(songDataManager.selectedIgnoreSongIds).forEach {
+            songDataManager.getCurrentlyIgnoredSongs().forEach {
                 append("(${it.id}) ${it.version} - ${it.title}\n")
             }
-            songDataManager.getChartsById(songDataManager.selectedIgnoreChartIds).forEach {
+            songDataManager.getCurrentlyIgnoredCharts().forEach {
                 val target = it.song.target
                 append("(${it.id}) ${target.version} - ${target.title} (${it.difficultyClass})\n")
             }

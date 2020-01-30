@@ -11,14 +11,13 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.perrigogames.life4trials.Life4Application
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.activity.SettingsActivity
+import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_LIST_HIGHLIGHT_NEW
 import com.perrigogames.life4trials.data.Trial
 import com.perrigogames.life4trials.data.TrialType
 import com.perrigogames.life4trials.event.SavedRankUpdatedEvent
 import com.perrigogames.life4trials.event.TrialListReplacedEvent
 import com.perrigogames.life4trials.event.TrialListUpdatedEvent
 import com.perrigogames.life4trials.life4app
-import com.perrigogames.life4trials.util.SharedPrefsUtil
 import com.perrigogames.life4trials.view.PaddingItemDecoration
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -31,10 +30,10 @@ class TrialListFragment : Fragment() {
     private lateinit var adapter: TrialListAdapter
 
     private val trialManager get() = context!!.life4app.trialManager
+    private val settingsManager get() = context!!.life4app.settingsManager
     private val trials: List<Trial> get() = trialManager.activeTrials
 
-    private val featureNew: Boolean
-        get() = SharedPrefsUtil.getUserFlag(context!!, SettingsActivity.KEY_LIST_HIGHLIGHT_NEW, true)
+    private val featureNew get() = settingsManager.getUserFlag(KEY_LIST_HIGHLIGHT_NEW, true)
 
     private lateinit var recyclerView: RecyclerView
 

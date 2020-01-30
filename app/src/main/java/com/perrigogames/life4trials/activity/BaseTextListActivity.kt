@@ -27,10 +27,10 @@ class BlockListCheckActivity: BaseTextListActivity() {
     private val songDataManager get() = life4app.songDataManager
 
     override fun buildText(builder: StringBuilder) {
-        songDataManager.getSongsById(songDataManager.selectedIgnoreSongIds).forEach {
+        songDataManager.getCurrentlyIgnoredSongs().forEach {
             builder.append("(${it.id}) ${it.version} - ${it.title}\n")
         }
-        songDataManager.getChartsById(songDataManager.selectedIgnoreChartIds).forEach {
+        songDataManager.getCurrentlyIgnoredCharts().forEach {
             val target = it.song.target
             builder.append("(${it.id}) ${target.version} - ${target.title} (${it.difficultyClass})\n")
         }
@@ -39,10 +39,10 @@ class BlockListCheckActivity: BaseTextListActivity() {
 
 class SongRecordsListCheckActivity: BaseTextListActivity() {
 
-    private val songDataManager get() = life4app.songDataManager
+    private val songRepo get() = life4app.songRepo
 
     override fun buildText(builder: StringBuilder) {
-        songDataManager.getSongs().forEach { song ->
+        songRepo.getSongs().forEach { song ->
             val difficulties = song.charts
                 .filter { it.playStyle == PlayStyle.SINGLE }
                 .joinToString { "${it.difficultyClass.toString().substring(0, 2)} ${it.difficultyNumber}" }
