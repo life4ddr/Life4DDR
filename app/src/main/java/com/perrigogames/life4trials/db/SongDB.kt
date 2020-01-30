@@ -42,4 +42,6 @@ class LadderResultDB(var score: Int = 0,
                      @Id var id: Long = 0) {
 
     lateinit var chart: ToOne<ChartDB>
+
+    fun satisfiesClear(type: ClearType) = clearType.ordinal >= type.ordinal
 }

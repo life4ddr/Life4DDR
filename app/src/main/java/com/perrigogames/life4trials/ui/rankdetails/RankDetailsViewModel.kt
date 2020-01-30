@@ -121,6 +121,7 @@ class RankDetailsViewModel(private val context: Context,
         options.hideCompleted = !options.hideCompleted
 
         val goalStatuses = ladderManager.getGoalStatuses(allGoals)
+        val allComplete = goalStatuses.all { it.status == GoalStatus.COMPLETE }
         val goalSequence = when {
             options.hideCompleted -> allGoals.reversed()
             else -> allGoals
@@ -131,15 +132,22 @@ class RankDetailsViewModel(private val context: Context,
                 when {
                     options.hideCompleted -> {
                         val targetIdx = allGoals.size - (idx + 1)
-                        adapter?.notifyItemRemoved(targetIdx)
                         activeGoals.removeAt(targetIdx)
+                        if (!allComplete) {
+                            adapter?.notifyItemRemoved(targetIdx)
+                        }
                     }
                     else -> {
-                        adapter?.notifyItemInserted(idx)
                         activeGoals.add(idx, allGoals[idx])
+                        if (!allComplete) {
+                            adapter?.notifyItemInserted(idx)
+                        }
                     }
                 }
             }
+        }
+        if (allComplete) {
+            adapter?.notifyDataSetChanged()
         }
 
         completedStatusArrowRotation.value = if (options.hideCompleted) 0f else 90f
