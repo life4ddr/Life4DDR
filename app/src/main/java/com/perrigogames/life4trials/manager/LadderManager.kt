@@ -15,6 +15,7 @@ import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.activity.SettingsActivity
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_IMPORT_SKIP_DIRECTIONS
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_INFO_RANK
+import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_INFO_TARGET_RANK
 import com.perrigogames.life4trials.api.GithubDataAPI
 import com.perrigogames.life4trials.api.MajorVersionedRemoteData
 import com.perrigogames.life4trials.data.*
@@ -113,18 +114,19 @@ class LadderManager(private val context: Context,
     fun getUserRank(): LadderRank? =
         LadderRank.parse(settingsManager.getUserString(KEY_INFO_RANK)?.toLongOrNull())
 
-    fun getUserGoalRank(): LadderRank? = settingsManager.getUserString(SettingsActivity.KEY_INFO_TARGET_RANK)?.let {
-        LadderRank.parse(it.toLongOrNull())
-    } ?: getUserRank()
+    fun getUserGoalRank(): LadderRank? =
+        settingsManager.getUserString(KEY_INFO_TARGET_RANK)?.toLongOrNull()?.let { LadderRank.parse(it) }
+            ?: getUserRank()?.let { LadderRank.values()[it.ordinal + 1] }
+            ?: LadderRank.WOOD1
 
     fun setUserRank(rank: LadderRank?) {
         settingsManager.setUserString(KEY_INFO_RANK, rank?.stableId.toString())
-        settingsManager.setUserString(SettingsActivity.KEY_INFO_TARGET_RANK, null)
+        settingsManager.setUserString(KEY_INFO_TARGET_RANK, "")
         Life4Application.eventBus.post(LadderRankUpdatedEvent())
     }
 
     fun setUserTargetRank(rank: LadderRank?) {
-        settingsManager.setUserString(SettingsActivity.KEY_INFO_TARGET_RANK, rank?.stableId.toString())
+        settingsManager.setUserString(KEY_INFO_TARGET_RANK, rank?.stableId.toString())
         Life4Application.eventBus.post(LadderRankUpdatedEvent())
     }
 
