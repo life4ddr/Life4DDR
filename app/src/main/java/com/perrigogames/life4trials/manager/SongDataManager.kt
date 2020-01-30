@@ -155,6 +155,10 @@ class SongDataManager(private val context: Context,
     private val chartDifficultyQuery = chartBox.query().apply {
         equal(ChartDB_.difficultyNumber, 0).parameterAlias("difficulty")
         equal(ChartDB_.playStyle, 0).parameterAlias("play_style")
+    }.build()
+    private val filteredChartDifficultyQuery = chartBox.query().apply {
+        equal(ChartDB_.difficultyNumber, 0).parameterAlias("difficulty")
+        equal(ChartDB_.playStyle, 0).parameterAlias("play_style")
         link(ChartDB_.song).notIn(SongDB_.id, ignoreListManager.selectedIgnoreSongIds)
         notIn(ChartDB_.id, ignoreListManager.selectedIgnoreChartIds)
     }.build()
@@ -171,14 +175,28 @@ class SongDataManager(private val context: Context,
 
     fun getCurrentlyIgnoredCharts() = getChartsById(ignoreListManager.selectedIgnoreChartIds)
 
-    fun getFilteredChartsByDifficulty(difficulty: Int, playStyle: PlayStyle): MutableList<ChartDB> =
+    fun getChartsByDifficulty(difficulty: Int, playStyle: PlayStyle): MutableList<ChartDB> =
         chartDifficultyQuery.setParameter("difficulty", difficulty.toLong())
             .setParameter("play_style", playStyle.stableId)
             .find()
 
-    fun getFilteredChartsByDifficulty(difficultyList: IntArray, playStyle: PlayStyle): MutableList<ChartDB> = mutableListOf<ChartDB>().apply {
+    fun getFilteredChartsByDifficulty(difficulty: Int, playStyle: PlayStyle): MutableList<ChartDB> =
+        filteredChartDifficultyQuery.setParameter("difficulty", difficulty.toLong())
+            .setParameter("play_style", playStyle.stableId)
+            .find()
+
+    fun getChartsByDifficulty(difficultyList: IntArray, playStyle: PlayStyle): MutableList<ChartDB> = mutableListOf<ChartDB>().apply {
         difficultyList.forEach {
             addAll(chartDifficultyQuery
+                .setParameter("difficulty", it.toLong())
+                .setParameter("play_style", playStyle.stableId)
+                .find())
+        }
+    }
+
+    fun getFilteredChartsByDifficulty(difficultyList: IntArray, playStyle: PlayStyle): MutableList<ChartDB> = mutableListOf<ChartDB>().apply {
+        difficultyList.forEach {
+            addAll(filteredChartDifficultyQuery
                 .setParameter("difficulty", it.toLong())
                 .setParameter("play_style", playStyle.stableId)
                 .find())

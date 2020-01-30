@@ -181,20 +181,21 @@ class LadderManager(private val context: Context,
 
     fun getGoalProgress(goal: BaseRankGoal, playStyle: PlayStyle): LadderGoalProgress? = when (goal) {
         is DifficultyClearGoal -> {
-            val charts = songDataManager.getFilteredChartsByDifficulty(goal.difficultyNumbers, playStyle)
-            val filtered = charts.filterNot {
-                        ignoreListManager.selectedIgnoreChartIds.contains(it.id) ||
-                        ignoreListManager.selectedIgnoreSongIds.contains(it.song.targetId) ||
-                        goal.songExceptions?.contains(it.song.target.title) == true }
-            val filteredIds = filtered.map { it.id }.toLongArray()
-            val results = ladderResults.getResultsById(filteredIds).toMutableList()
+            val charts = if (goal.count == null) {
+                songDataManager.getFilteredChartsByDifficulty(goal.difficultyNumbers, playStyle).filterNot {
+                    ignoreListManager.selectedIgnoreChartIds.contains(it.id) ||
+                    ignoreListManager.selectedIgnoreSongIds.contains(it.song.targetId) ||
+                    goal.songExceptions?.contains(it.song.target.title) == true }
+            } else songDataManager.getChartsByDifficulty(goal.difficultyNumbers, playStyle)
+            val chartIds = charts.map { it.id }.toLongArray()
+            val results = ladderResults.getResultsById(chartIds).toMutableList()
             if (results.isEmpty()) {
                 null // return
             } else {
                 val resultIds = results.map { it.chart.target.id }.toSortedSet()
-                val notFound = getOrCreateResultsForCharts(filtered.filterNot { resultIds.contains(it.id) })
+                val notFound = getOrCreateResultsForCharts(charts.filterNot { resultIds.contains(it.id) })
                 results.addAll(notFound)
-                goal.getGoalProgress(filtered.size, results) // return
+                goal.getGoalProgress(charts.size, results) // return
             }
         }
         is TrialGoal -> {
@@ -325,7 +326,7 @@ class LadderManager(private val context: Context,
                         }
                     } catch (e: Exception) {
                         errors++
-                        Log.e("Exception", e.message)
+                        Log.e("Exception", e.message ?: "")
                         withContext(Dispatchers.Main) { listener?.onError(errors, "${entry}\n${e.message}") }
                     }
                 } else if (entry.isNotEmpty()) {
