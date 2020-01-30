@@ -63,20 +63,10 @@
             android:name=".activity.SettingsActivity"
             android:label="@string/title_activity_settings" />
         <activity android:name=".activity.RankDetailsActivity" />
-        <activity android:name=".activity.Life4DescriptionActivity" />
         <activity android:name=".activity.PlacementDetailsActivity" />
-        <activity android:name=".activity.MatrixTestActivity" />
         <activity
             android:name=".activity.LadderLeaderboardActivity"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".activity.SingleSongTournamentActivity"
-            android:parentActivityName=".activity.PlayerProfileActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.perrigogames.life4trials.activity.PlayerProfileActivity" />
-        </activity>
         <activity android:name=".activity.FirstRankSelectionActivity" />
         <activity android:name=".activity.CreditsActivity" />
         <meta-data
