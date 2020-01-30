@@ -124,7 +124,8 @@ class TrialGoal(id: Int,
                 playStyle: PlayStyle = PlayStyle.SINGLE,
                 mandatory: Boolean,
                 val rank: TrialRank,
-                val count: Int = 1): BaseRankGoal(id, type, playStyle, mandatory) {
+                val count: Int = 1,
+                @SerializedName("restrict") val restrictDifficulty: Boolean = false): BaseRankGoal(id, type, playStyle, mandatory) {
 
     override fun goalString(c: Context): String {
         return if (count == 1) c.getString(R.string.rank_goal_clear_trial_single, c.getString(rank.nameRes))
