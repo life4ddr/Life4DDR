@@ -1,8 +1,9 @@
 {
   "version": 1,
   "major_version": 1,
-  "groups": {
-    "floor_infection": {
+  "groups": [
+    {
+      "id": "floor_infection",
       "name":  "FLOOR INFECTION",
       "unlock": "single",
       "songs": [
@@ -10,7 +11,8 @@
         { "title": "second spring storm" }
       ]
     },
-    "ichica_2019": {
+    {
+      "id": "ichica_2019",
       "name": "いちかのBEMANI投票選抜戦2019",
       "unlock": "single",
       "songs": [
@@ -25,7 +27,8 @@
         { "title": "ミッドナイト☆WAR" }
       ]
     },
-    "ace_extra_exclusive": {
+    {
+      "id": "ace_extra_exclusive",
       "name":  "DDR A Extra Exclusive",
       "songs": [
         { "title": "ACE FOR ACES", "difficulty_class": "challenge" },
@@ -33,14 +36,16 @@
         { "title": "Vanquish The Ghost" }
       ]
     },
-    "a20_extra_exclusive": {
+    {
+      "id": "a20_extra_exclusive",
       "name": "DDR A20 Extra Exclusive",
       "songs": [
         { "title": "ORCA" },
         { "title": "Splash Gold" }
       ]
     },
-    "kac_2019": {
+    {
+      "id": "kac_2019",
       "name": "The 8th KONAMI Arcade Championship Entry",
       "unlock": "all",
       "songs": [
@@ -48,7 +53,8 @@
         { "title": "Catch Our Fire!" }
       ]
     },
-    "kac_2020": {
+    {
+      "id": "kac_2020",
       "name": "The 9th KONAMI Arcade Championship Entry",
       "unlock": "all",
       "songs": [
@@ -56,7 +62,8 @@
         { "title": "The History of the Future" }
       ]
     },
-    "a20_anniversary_challenge": {
+    {
+      "id": "a20_anniversary_challenge",
       "name": "DanceDanceRevolution 20th Anniversary Grand Finale",
       "unlock": "sequence",
       "songs": [
@@ -67,7 +74,8 @@
         { "title": "MAX 360", "difficulty_class": "challenge" }
       ]
     },
-    "a20_challenge_carnival": {
+    {
+      "id": "a20_challenge_carnival",
       "name": "DDR CHALLENGE Carnival",
       "unlock": "sequence",
       "songs": [
@@ -80,7 +88,8 @@
         { "title": "Prey", "difficulty_class": "challenge" }
       ]
     },
-    "a20_legend_license": {
+    {
+      "id": "a20_legend_license",
       "name": "\"Legend License\" Remixes",
       "songs": [
         { "title": "BUTTERFLY (20th Anniversary Mix)" },
@@ -90,7 +99,8 @@
         { "title": "SKY HIGH (20th Anniversary Mix)" }
       ]
     },
-    "a20_golden_league_silver": {
+    {
+      "id": "a20_golden_league_silver",
       "name": "GOLDEN LEAGUE SILVER Class",
       "unlock": "all",
       "songs": [
@@ -103,7 +113,8 @@
         { "title": "ALPACORE" }
       ]
     },
-    "a20_golden_league_gold": {
+    {
+      "id": "a20_golden_league_gold",
       "name": "GOLDEN LEAGUE GOLD Class",
       "unlock": "all",
       "songs": [
@@ -111,7 +122,7 @@
         { "title": "Glitch Angel" }
       ]
     }
-  },
+  ],
   "lists": [
     {
       "id": "ACE_US",

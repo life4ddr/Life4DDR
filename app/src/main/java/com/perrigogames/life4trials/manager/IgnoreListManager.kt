@@ -5,8 +5,9 @@ import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_IMPORT_GAME_VERSION
 import com.perrigogames.life4trials.api.GithubDataAPI
 import com.perrigogames.life4trials.api.MajorVersionedRemoteData
+import com.perrigogames.life4trials.data.IgnoreGroup
 import com.perrigogames.life4trials.data.IgnoreList
-import com.perrigogames.life4trials.data.IgnoreLists
+import com.perrigogames.life4trials.data.IgnoreListData
 import com.perrigogames.life4trials.repo.SongRepo
 import com.perrigogames.life4trials.util.DataUtil
 
@@ -15,11 +16,11 @@ class IgnoreListManager(private val context: Context,
                         private val githubDataAPI: GithubDataAPI,
                         private val settingsManager: SettingsManager): BaseManager() {
 
-    private val ignoreLists = object: MajorVersionedRemoteData<IgnoreLists>(context, R.raw.ignore_lists_v2,
+    private val ignoreLists = object: MajorVersionedRemoteData<IgnoreListData>(context, R.raw.ignore_lists_v2,
         SongDataManager.IGNORES_FILE_NAME, 1) {
         override suspend fun getRemoteResponse() = githubDataAPI.getIgnoreLists()
-        override fun createLocalDataFromText(text: String) = DataUtil.gson.fromJson(text, IgnoreLists::class.java)
-        override fun onNewDataLoaded(newData: IgnoreLists) {
+        override fun createLocalDataFromText(text: String) = DataUtil.gson.fromJson(text, IgnoreListData::class.java)
+        override fun onNewDataLoaded(newData: IgnoreListData) {
             super.onNewDataLoaded(newData)
             newData.evaluateIgnoreLists()
         }
@@ -29,16 +30,26 @@ class IgnoreListManager(private val context: Context,
         ignoreLists.start()
     }
 
+    //
+    // General Ignorelist
+    //
+
     val ignoreListIds get() = ignoreLists.data.lists.map { it.id }
     val ignoreListTitles get() = ignoreLists.data.lists.map { it.name }
 
     fun getIgnoreList(id: String): IgnoreList =
         ignoreLists.data.lists.firstOrNull { it.id == id } ?: getIgnoreList(SongDataManager.DEFAULT_IGNORE_VERSION)
 
+    //
+    // Currently Selected
+    //
+
     val selectedVersion: String
         get() = settingsManager.getUserString(KEY_IMPORT_GAME_VERSION, SongDataManager.DEFAULT_IGNORE_VERSION)!!
     val selectedIgnoreList: IgnoreList?
         get() = getIgnoreList(selectedVersion)
+    val selectedIgnoreGroups: List<IgnoreGroup>?
+        get() = selectedIgnoreList?.groups?.map { id -> ignoreLists.data.groupsMap[id] ?: error("Invalid group name $id") }
 
     private var mSelectedIgnoreSongIds: LongArray? = null
     private var mSelectedIgnoreChartIds: LongArray? = null
@@ -63,6 +74,19 @@ class IgnoreListManager(private val context: Context,
             }
             return mSelectedIgnoreChartIds!!
         }
+
+    //
+    // Unlocks
+    //
+
+    fun getGroupUnlockState(id: String): Long {
+        return settingsManager.getUserLong("unlock_$id", 0L)
+    }
+
+    fun setGroupUnlockState(id: String, state: Long) {
+        settingsManager.setUserLong("unlock_$id", state)
+        invalidateIgnoredIds()
+    }
 
     /**
      * Nulls out the list of invalid IDs, to regenerate them

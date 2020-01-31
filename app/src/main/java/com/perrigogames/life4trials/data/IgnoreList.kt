@@ -4,14 +4,21 @@ import com.google.gson.annotations.SerializedName
 
 enum class IgnoreUnlockType {
     @SerializedName("single") SINGLE, // songs unlock one at a time in any order
-    @SerializedName("sequential") SEQUENTIAL, // songs unlock one at a time in a predetermined sequence
+    @SerializedName("sequence") SEQUENTIAL, // songs unlock one at a time in a predetermined sequence
     @SerializedName("all") ALL // songs unlock all at once
 }
 
-class IgnoreLists(val lists: List<IgnoreList>,
-                  val groups: Map<String, IgnoreGroup>,
-                  override val version: Int,
-                  @SerializedName("major_version") override val majorVersion: Int): MajorVersioned {
+class IgnoreListData(val lists: List<IgnoreList>,
+                     val groups: List<IgnoreGroup>,
+                     override val version: Int,
+                     @SerializedName("major_version") override val majorVersion: Int): MajorVersioned {
+
+    private var mGroupMap: Map<String, IgnoreGroup>? = null
+    val groupsMap: Map<String, IgnoreGroup>
+        get() {
+            mGroupMap = mGroupMap ?: groups.associateBy { it.id }
+            return mGroupMap!!
+        }
 
     fun evaluateIgnoreLists() = lists.forEach { it.evaluateSongGroups(groups) }
 }
@@ -20,7 +27,8 @@ class IgnoreLists(val lists: List<IgnoreList>,
  * Data class to describe an ignore group, or a collection of songs
  * that are closely related, like a group that unlocks all at a time
  */
-class IgnoreGroup(val name: String,
+class IgnoreGroup(val id: String,
+                  val name: String,
                   val unlock: IgnoreUnlockType? = null,
                   val songs: List<IgnoredSong>)
 
@@ -38,14 +46,14 @@ class IgnoreList(val id: String,
     @Transient var resolvedSongs: MutableList<IgnoredSong>? = null
     @Transient var resolvedCharts: MutableList<IgnoredSong>? = null
 
-    fun evaluateSongGroups(groupMap: Map<String, IgnoreGroup>) {
+    fun evaluateSongGroups(groupMap: List<IgnoreGroup>) {
         resolvedSongs = mutableListOf<IgnoredSong>().also { resolved ->
             songs?.let { resolved.addAll(it) }
-            lockedGroups?.map { groupMap[it] ?: error("Undefined group $it") }
+            lockedGroups?.map { id -> groupMap.firstOrNull { it.id == id } ?: error("Undefined group $id") }
                 ?.flatMap { it.songs }
                 ?.let { resolved.addAll(it) }
             // TODO the unlock system will want to alter these lists
-            groups?.map { groupMap[it] ?: error("Undefined group $it") }
+            groups?.map { id -> groupMap.firstOrNull { it.id == id } ?: error("Undefined group $id") }
                 ?.flatMap { it.songs }
                 ?.let { resolved.addAll(it) }
         }

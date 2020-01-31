@@ -125,6 +125,10 @@ class SettingsActivity : AppCompatActivity(), SettingsFragmentListener {
                 entries = ignoreListManager.ignoreListTitles.toTypedArray()
                 entryValues = ignoreListManager.ignoreListIds.toTypedArray()
             }
+            preferenceListener(KEY_MANAGE_UNLOCKS) {
+                startActivity(Intent(context, SongUnlockActivity::class.java))
+                true
+            }
             preferenceListener(KEY_IMPORT_VIEW_LIST) {
                 startActivity(Intent(context, BlockListCheckActivity::class.java))
                 true
@@ -374,6 +378,7 @@ class SettingsActivity : AppCompatActivity(), SettingsFragmentListener {
         const val KEY_SHOP_LIFE4 = "KEY_SHOP_LIFE4"
         const val KEY_SHOP_DANGERSHARK = "KEY_SHOP_DANGERSHARK"
         const val KEY_IMPORT_GAME_VERSION = "KEY_IMPORT_GAME_VERSION"
+        const val KEY_MANAGE_UNLOCKS = "KEY_MANAGE_UNLOCKS"
         const val KEY_FEEDBACK = "KEY_FEEDBACK"
         const val KEY_FIND_US_TWITTER = "KEY_FIND_US_TWITTER"
         const val KEY_CREDITS = "KEY_CREDITS"

@@ -186,7 +186,7 @@
 
     <!-- Preference Titles -->
     <string name="user_info">User Info</string>
-    <string name="edit_user_info">Edit User Info</string>
+    <string name="edit_user_info">Edit user info</string>
     <string name="trial_list">Trial List</string>
     <string name="show_ex">Show EX Score</string>
     <string name="show_ex_remaining">Also show remaining EX Score</string>
@@ -365,6 +365,8 @@
     <string name="trial_settings">Trial Settings</string>
     <string name="find_us_on_twitter">Find us on Twitter</string>
     <string name="close">Close</string>
+    <string name="manage_song_unlocks">Manage song unlocks</string>
+    <string name="song_unlocks">Song Unlocks</string>
 
     <array name="credits">
         <item>Camera, Cancel, Cogwheel, Eye, Folder, Scroll Left, Scroll Right, and Star icons by

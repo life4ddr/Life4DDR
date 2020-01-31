@@ -69,6 +69,8 @@
             android:screenOrientation="portrait" />
         <activity android:name=".activity.FirstRankSelectionActivity" />
         <activity android:name=".activity.CreditsActivity" />
+        <activity android:name=".activity.SongUnlockActivity" />
+
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="ID_UPDATES_CHANNEL" />
