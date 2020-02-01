@@ -224,7 +224,7 @@
     <!-- Sync Preferences -->
     <string name="user_info_notifications">User Info Notifications</string>
     <string name="user_info_notifications_description">Notifications shown during song submission that can be copied to ease form entry.</string>
-    <string name="title_activity_records">Records</string>
+    <string name="title_activity_records">Trial Records</string>
     <string name="no_records_found">No Records found.\n\nGo play some Trials!</string>
     <string name="concede">Concede</string>
     <string name="leaderboard">Leaderboard</string>
@@ -324,7 +324,7 @@
     <string name="intro_rank_method_selection">Select my rank from the list (you can change it later)</string>
     <string name="intro_rank_method_no_rank">Start from the beginning</string>
     <string name="change_rank_later">You can change your Rank in the Settings menu later.</string>
-    <string name="placements">Placements</string>
+    <string name="placements">Placement Sets</string>
     <string name="start_no_rank">Start Without Rank</string>
     <string name="rank_list">Rank List</string>
 
@@ -367,6 +367,9 @@
     <string name="close">Close</string>
     <string name="manage_song_unlocks">Manage song unlocks</string>
     <string name="song_unlocks">Song Unlocks</string>
+    <string name="select_a_rank">Select a Rank</string>
+    <string name="available_ranks">Available Ranks</string>
+    <string name="ignored_songs">Ignored Songs</string>
 
     <array name="credits">
         <item>Camera, Cancel, Cogwheel, Eye, Folder, Scroll Left, Scroll Right, and Star icons by

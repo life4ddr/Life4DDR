@@ -79,6 +79,9 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.content_trial_details)
+        supportActionBar?.title = trial.name
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         trialSession = trialManager.startSession(trialId, initialRank)
         updateEXScoreMeter()
 
@@ -143,6 +146,14 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener {
         } else {
             super.onBackPressed()
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> onBackPressed()
+            else -> return super.onOptionsItemSelected(item)
+        }
+        return true
     }
 
     override fun onCreateContextMenu(menu: ContextMenu?, v: View?, menuInfo: ContextMenu.ContextMenuInfo?) {

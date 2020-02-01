@@ -20,12 +20,12 @@ class SongUnlockActivity: AppCompatActivity() {
             .commit()
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setTitle(R.string.song_unlocks)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> finish()
+            else -> return super.onOptionsItemSelected(item)
         }
         return true
     }

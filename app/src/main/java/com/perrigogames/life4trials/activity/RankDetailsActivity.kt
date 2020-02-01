@@ -3,6 +3,7 @@ package com.perrigogames.life4trials.activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.perrigogames.life4trials.Life4Application
@@ -31,6 +32,17 @@ class RankDetailsActivity : AppCompatActivity(), RankHeaderView.NavigationListen
         if (savedInstanceState == null) {
             setupRank(LadderRank.parse(intent.getLongExtra(ARG_RANK, 0)))
         }
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setTitle(rank?.nameRes ?: R.string.no_rank)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> finish()
+            else -> return super.onOptionsItemSelected(item)
+        }
+        return true
     }
 
     override fun onPreviousClicked() {

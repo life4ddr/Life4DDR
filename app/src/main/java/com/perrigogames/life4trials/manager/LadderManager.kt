@@ -116,7 +116,7 @@ class LadderManager(private val context: Context,
 
     fun getUserGoalRank(): LadderRank? =
         settingsManager.getUserString(KEY_INFO_TARGET_RANK)?.toLongOrNull()?.let { LadderRank.parse(it) }
-            ?: getUserRank()?.let { LadderRank.values()[it.ordinal + 1] }
+            ?: getUserRank()?.let { return LadderRank.values().getOrNull(it.ordinal + 1) }
             ?: LadderRank.WOOD1
 
     fun setUserRank(rank: LadderRank?) {
