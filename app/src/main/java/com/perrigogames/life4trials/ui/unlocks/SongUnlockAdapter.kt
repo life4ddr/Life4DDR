@@ -1,19 +1,25 @@
 package com.perrigogames.life4trials.ui.unlocks
 
 import android.content.Context
-import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.CheckBox
 import android.widget.CompoundButton
+import android.widget.LinearLayout
 import android.widget.RadioButton
+import androidx.core.view.marginStart
 import androidx.recyclerview.widget.RecyclerView
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.data.IgnoreGroup
 import com.perrigogames.life4trials.data.IgnoreUnlockType
 import com.perrigogames.life4trials.data.IgnoreUnlockType.*
+import com.perrigogames.life4trials.data.IgnoredSong
+import com.perrigogames.life4trials.util.CommonSizes
 import com.perrigogames.life4trials.util.visibilityBool
+import com.perrigogames.life4trials.view.DifficultyTextView
 import kotlinx.android.synthetic.main.item_unlocks_base.view.*
 
 class SongUnlockAdapter: RecyclerView.Adapter<SongUnlockAdapter.BaseUnlockViewHolder>() {
@@ -37,7 +43,7 @@ class SongUnlockAdapter: RecyclerView.Adapter<SongUnlockAdapter.BaseUnlockViewHo
 
     override fun onBindViewHolder(holder: BaseUnlockViewHolder, position: Int) {
         val item = ignoreGroups[position]
-        holder.bind(item.name, item.songs.map { it.title }) { selection -> listener?.invoke(item, selection) }
+        holder.bind(item.name, item.songs) { selection -> listener?.invoke(item, selection) }
         selectionReader?.invoke(item.id)?.let { holder.setSelectionCount(it) }
     }
 
@@ -52,7 +58,7 @@ class SongUnlockAdapter: RecyclerView.Adapter<SongUnlockAdapter.BaseUnlockViewHo
 
         open val usesCheckbox = false
 
-        open fun bind(title: String, unlockItems: List<String>, listener: (Long) -> Unit) {
+        open fun bind(title: String, unlockItems: List<IgnoredSong>, listener: (Long) -> Unit) {
             selectionListener = listener
 
             itemView.check_all_unlock.visibilityBool = usesCheckbox
@@ -64,8 +70,20 @@ class SongUnlockAdapter: RecyclerView.Adapter<SongUnlockAdapter.BaseUnlockViewHo
             itemView.layout_unlock_container.removeAllViews()
             unlockViews = unlockItems.mapIndexed { idx, unlock ->
                 createUnlockItemView(itemView.context, idx).apply {
-                    text = unlock
-                    itemView.layout_unlock_container.addView(this)
+                    text = unlock.title
+                    if (unlock.difficultyClass != null) {
+                        itemView.layout_unlock_container.addView(LinearLayout(itemView.context).also { rowContainer ->
+                            rowContainer.addView(this)
+                            rowContainer.addView(DifficultyTextView(itemView.context).also { difficultyLabel ->
+                                difficultyLabel.difficultyClass = unlock.difficultyClass
+                                difficultyLabel.layoutParams = LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT).also { params ->
+                                    params.marginStart = CommonSizes.contentPaddingSmall(resources)
+                                }
+                            })
+                        })
+                    } else {
+                        itemView.layout_unlock_container.addView(this)
+                    }
                 }
             }
         }
@@ -82,7 +100,7 @@ class SongUnlockAdapter: RecyclerView.Adapter<SongUnlockAdapter.BaseUnlockViewHo
 
         override val usesCheckbox = true
 
-        override fun bind(title: String, unlockItems: List<String>, listener: (Long) -> Unit) {
+        override fun bind(title: String, unlockItems: List<IgnoredSong>, listener: (Long) -> Unit) {
             super.bind(title, unlockItems, listener)
             itemView.check_all_unlock.setOnCheckedChangeListener { _, checked ->
                 unlockViews.forEach { it.isChecked = checked }
