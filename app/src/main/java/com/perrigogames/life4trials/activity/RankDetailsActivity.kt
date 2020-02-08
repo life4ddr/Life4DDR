@@ -26,6 +26,8 @@ class RankDetailsActivity : AppCompatActivity(), RankHeaderView.NavigationListen
     private var rank: LadderRank? = null
     private var showNextGoals: Boolean = false
 
+    private val showWorkToward get() = intent.getBooleanExtra(ARG_SHOW_SET_GOAL, true)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_rank_details)
@@ -96,7 +98,7 @@ class RankDetailsActivity : AppCompatActivity(), RankHeaderView.NavigationListen
         }
 
         val targetRank = if (showNextGoals) ladderManager.nextEntry(rank)?.rank else rank
-        button_work_toward_rank.visibilityBool = targetRank != null
+        button_work_toward_rank.visibilityBool = showWorkToward && targetRank != null
         (targetRank)?.let { targetRank ->
             button_work_toward_rank.text = getString(R.string.work_towards_rank_format, getString(targetRank.nameRes))
         }
@@ -109,13 +111,16 @@ class RankDetailsActivity : AppCompatActivity(), RankHeaderView.NavigationListen
 
     companion object {
         const val ARG_RANK = "ARG_RANK"
+        const val ARG_SHOW_SET_GOAL = "ARG_SHOW_SET_GOAL"
         const val RESULT_RANK_SELECTED = 4966
         const val RESULT_RANK_TARGET_SELECTED = 4967
         const val EXTRA_RANK = "EXTRA_RANK"
         const val EXTRA_TARGET_RANK = "EXTRA_TARGET_RANK"
 
-        fun intent(context: Context, rank: LadderRank?) = Intent(context, RankDetailsActivity::class.java).also {
-            it.putExtra(ARG_RANK, rank?.stableId)
-        }
+        fun intent(context: Context, rank: LadderRank?, showSetGoal: Boolean = true) =
+            Intent(context, RankDetailsActivity::class.java).also {
+                it.putExtra(ARG_RANK, rank?.stableId)
+                it.putExtra(ARG_SHOW_SET_GOAL, showSetGoal)
+            }
     }
 }
