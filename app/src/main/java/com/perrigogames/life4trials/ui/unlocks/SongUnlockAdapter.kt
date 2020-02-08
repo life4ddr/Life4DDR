@@ -25,7 +25,7 @@ import kotlinx.android.synthetic.main.item_unlocks_base.view.*
 class SongUnlockAdapter: RecyclerView.Adapter<SongUnlockAdapter.BaseUnlockViewHolder>() {
 
     var listener: ((IgnoreGroup, Long) -> Unit)? = null
-    var selectionReader: ((String) -> Long)? = null
+    var selectionReader: ((String) -> List<Boolean>)? = null
 
     var ignoreGroups: List<IgnoreGroup> = emptyList()
         set(v) {
@@ -43,8 +43,8 @@ class SongUnlockAdapter: RecyclerView.Adapter<SongUnlockAdapter.BaseUnlockViewHo
 
     override fun onBindViewHolder(holder: BaseUnlockViewHolder, position: Int) {
         val item = ignoreGroups[position]
-        holder.bind(item.name, item.songs) { selection -> listener?.invoke(item, selection) }
-        selectionReader?.invoke(item.id)?.let { holder.setSelectionCount(it) }
+        holder.bind(item.name, item.songs) { selection -> listener?.invoke(item, item.unlock!!.toStoredState(selection)) }
+        selectionReader?.invoke(item.id)?.let { holder.setSelection(it) }
     }
 
     override fun getItemCount() = ignoreGroups.size
@@ -54,11 +54,11 @@ class SongUnlockAdapter: RecyclerView.Adapter<SongUnlockAdapter.BaseUnlockViewHo
     abstract inner class BaseUnlockViewHolder(v: View): RecyclerView.ViewHolder(v) {
 
         protected lateinit var unlockViews: List<CompoundButton>
-        protected lateinit var selectionListener: (Long) -> Unit
+        protected lateinit var selectionListener: (List<Boolean>) -> Unit
 
         open val usesCheckbox = false
 
-        open fun bind(title: String, unlockItems: List<IgnoredSong>, listener: (Long) -> Unit) {
+        open fun bind(title: String, unlockItems: List<IgnoredSong>, listener: (List<Boolean>) -> Unit) {
             selectionListener = listener
 
             itemView.check_all_unlock.visibilityBool = usesCheckbox
@@ -90,7 +90,11 @@ class SongUnlockAdapter: RecyclerView.Adapter<SongUnlockAdapter.BaseUnlockViewHo
 
         abstract fun createUnlockItemView(context: Context, index: Int): CompoundButton
 
-        abstract fun setSelectionCount(selection: Long)
+        open fun setSelection(selection: List<Boolean>) {
+            unlockViews.forEachIndexed { idx, button ->
+                button.isChecked = selection[idx]
+            }
+        }
     }
 
     /**
@@ -100,11 +104,11 @@ class SongUnlockAdapter: RecyclerView.Adapter<SongUnlockAdapter.BaseUnlockViewHo
 
         override val usesCheckbox = true
 
-        override fun bind(title: String, unlockItems: List<IgnoredSong>, listener: (Long) -> Unit) {
+        override fun bind(title: String, unlockItems: List<IgnoredSong>, listener: (List<Boolean>) -> Unit) {
             super.bind(title, unlockItems, listener)
             itemView.check_all_unlock.setOnCheckedChangeListener { _, checked ->
                 unlockViews.forEach { it.isChecked = checked }
-                selectionListener(if (checked) 1L else 0L)
+                selectionListener(unlockViews.map { checked })
             }
         }
 
@@ -112,9 +116,9 @@ class SongUnlockAdapter: RecyclerView.Adapter<SongUnlockAdapter.BaseUnlockViewHo
             isEnabled = false
         }
 
-        override fun setSelectionCount(selection: Long) {
-            val check = selection == 1L
-            itemView.check_all_unlock.isChecked = check
+        override fun setSelection(selection: List<Boolean>) {
+            super.setSelection(selection)
+            itemView.check_all_unlock.isChecked = selection[0]
         }
     }
 
@@ -125,14 +129,8 @@ class SongUnlockAdapter: RecyclerView.Adapter<SongUnlockAdapter.BaseUnlockViewHo
 
         override fun createUnlockItemView(context: Context, index: Int) = RadioButton(context).apply {
             setOnClickListener {
-                setSelectionCount(index.toLong() + 1)
-                selectionListener(index.toLong() + 1)
-            }
-        }
-
-        override fun setSelectionCount(selection: Long) {
-            unlockViews.forEachIndexed { idx, button ->
-                button.isChecked = idx.toLong() < selection
+                unlockViews.forEachIndexed { idx, button -> button.isChecked = idx.toLong() < index.toLong() + 1 }
+                selectionListener(unlockViews.map { it.isChecked })
             }
         }
     }
@@ -142,21 +140,9 @@ class SongUnlockAdapter: RecyclerView.Adapter<SongUnlockAdapter.BaseUnlockViewHo
      */
     inner class SelectionViewHolder(v: View): BaseUnlockViewHolder(v) {
 
-        private var selection = 0L
-
         override fun createUnlockItemView(context: Context, index: Int) = CheckBox(context).apply {
             setOnClickListener {
-                val bitIdx = 1L.shl(index)
-                selection = selection xor bitIdx
-                selectionListener(selection)
-            }
-        }
-
-        override fun setSelectionCount(selection: Long) {
-            this.selection = selection
-            unlockViews.forEachIndexed { idx, button ->
-                val bitIdx = 1L.shl(idx)
-                button.isChecked = selection and bitIdx != 0L
+                selectionListener(unlockViews.map { it.isChecked })
             }
         }
     }

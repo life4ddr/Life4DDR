@@ -24,7 +24,7 @@ class SongUnlockFragment: Fragment() {
                 ignoreListManager.setGroupUnlockState(item.id, selection)
             }
             ignoreGroups = ignoreListManager.selectedIgnoreGroups ?: emptyList()
-            selectionReader = { id -> ignoreListManager.getGroupUnlockState(id) }
+            selectionReader = { id -> ignoreListManager.getGroupUnlockFlags(id)!! }
         }
         return RecyclerView(inflater.context).apply {
             layoutManager = LinearLayoutManager(inflater.context)

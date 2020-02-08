@@ -1,6 +1,7 @@
 package com.perrigogames.life4trials.manager
 
 import android.content.Context
+import com.perrigogames.life4trials.Life4Application
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_IMPORT_GAME_VERSION
 import com.perrigogames.life4trials.api.GithubDataAPI
@@ -8,6 +9,8 @@ import com.perrigogames.life4trials.api.MajorVersionedRemoteData
 import com.perrigogames.life4trials.data.IgnoreGroup
 import com.perrigogames.life4trials.data.IgnoreList
 import com.perrigogames.life4trials.data.IgnoreListData
+import com.perrigogames.life4trials.data.IgnoredSong
+import com.perrigogames.life4trials.event.LadderRanksReplacedEvent
 import com.perrigogames.life4trials.repo.SongRepo
 import com.perrigogames.life4trials.util.DataUtil
 
@@ -57,7 +60,8 @@ class IgnoreListManager(private val context: Context,
     val selectedIgnoreSongIds: LongArray
         get() {
             if (mSelectedIgnoreSongIds == null) {
-                mSelectedIgnoreSongIds = selectedIgnoreList?.resolvedSongs?.map { it.title }?.toTypedArray()?.let { ignoreTitles ->
+                val unlocks = getAllUnlockedSongs()
+                mSelectedIgnoreSongIds = selectedIgnoreList?.resolvedSongs?.filterNot { unlocks.contains(it) }?.map { it.title }?.toTypedArray()?.let { ignoreTitles ->
                     val versionId = selectedIgnoreList!!.baseVersion.stableId
                     songRepo.findBlockedSongs(ignoreTitles, versionId, versionId + 1).map { it.id }.toLongArray()
                 } ?: LongArray(0)
@@ -79,13 +83,28 @@ class IgnoreListManager(private val context: Context,
     // Unlocks
     //
 
+    fun getUnlockGroup(id: String) = ignoreLists.data.groups.firstOrNull { it.id == id }
+
     fun getGroupUnlockState(id: String): Long {
         return settingsManager.getUserLong("unlock_$id", 0L)
     }
 
+    fun getGroupUnlockFlags(id: String): List<Boolean>? {
+        return getUnlockGroup(id)?.fromStoredState(getGroupUnlockState(id))
+    }
+
+    fun getGroupUnlockedSongs(id: String): List<IgnoredSong>? {
+        val flags = getGroupUnlockFlags(id)
+        return getUnlockGroup(id)?.songs?.filterIndexed { idx, _ -> flags?.get(idx) ?: false }
+    }
+
+    fun getAllUnlockedSongs(): List<IgnoredSong> =
+        ignoreLists.data.groups.mapNotNull { getGroupUnlockedSongs(it.id) }.flatten()
+
     fun setGroupUnlockState(id: String, state: Long) {
         settingsManager.setUserLong("unlock_$id", state)
         invalidateIgnoredIds()
+        Life4Application.eventBus.post(LadderRanksReplacedEvent())
     }
 
     /**
