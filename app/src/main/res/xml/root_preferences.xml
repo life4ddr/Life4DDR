@@ -4,6 +4,9 @@
         app:key="KEY_IMPORT_GAME_VERSION"
         app:title="@string/action_game_version"/>
     <Preference
+        app:key="KEY_MANAGE_UNLOCKS"
+        app:title="@string/manage_song_unlocks"/>
+    <Preference
         app:fragment="com.perrigogames.life4trials.activity.SettingsActivity$UserInfoSettingsFragment"
         app:title="@string/edit_user_info"/>
     <Preference

@@ -13,6 +13,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import com.google.android.material.snackbar.Snackbar
 import com.perrigogames.life4trials.R
+import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_DEBUG_BYPASS_STAT_ENTRY
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_DETAILS_ENFORCE_EXPERT
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_DETAILS_PHOTO_SELECT
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_DETAILS_UPDATE_GOAL
@@ -21,7 +22,6 @@ import com.perrigogames.life4trials.life4app
 import com.perrigogames.life4trials.manager.LadderManager
 import com.perrigogames.life4trials.manager.TrialManager
 import com.perrigogames.life4trials.ui.songlist.SongListFragment
-import com.perrigogames.life4trials.util.SharedPrefsUtil
 import com.perrigogames.life4trials.util.openWebUrlFromRes
 import com.perrigogames.life4trials.util.toListString
 import com.perrigogames.life4trials.util.visibilityBool
@@ -36,8 +36,10 @@ import java.util.*
 
 class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener {
 
-    private val ladderManager: LadderManager get() = life4app.ladderManager
-    private val trialManager: TrialManager get() = life4app.trialManager
+    private val ladderManager get() = life4app.ladderManager
+    private val trialManager get() = life4app.trialManager
+    private val settingsManager get() = life4app.settingsManager
+
     private val trialId: String by lazy { intent.extras!!.getString(ARG_TRIAL_ID) }
     private val trial: Trial get() = trialManager.findTrial(trialId)!!
 
@@ -77,6 +79,9 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.content_trial_details)
+        supportActionBar?.title = trial.name
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         trialSession = trialManager.startSession(trialId, initialRank)
         updateEXScoreMeter()
 
@@ -117,9 +122,9 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener {
             }
         }
 
-        switch_acquire_mode.isChecked = SharedPrefsUtil.getUserFlag(this, KEY_DETAILS_PHOTO_SELECT, false)
+        switch_acquire_mode.isChecked = settingsManager.getUserFlag(KEY_DETAILS_PHOTO_SELECT, false)
         switch_acquire_mode.setOnCheckedChangeListener { _, isChecked ->
-            SharedPrefsUtil.setUserFlag(this, KEY_DETAILS_PHOTO_SELECT, isChecked)
+            settingsManager.setUserFlag(KEY_DETAILS_PHOTO_SELECT, isChecked)
         }
 
         text_author_credit.visibilityBool = trial.author != null
@@ -141,6 +146,14 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener {
         } else {
             super.onBackPressed()
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> onBackPressed()
+            else -> return super.onOptionsItemSelected(item)
+        }
+        return true
     }
 
     override fun onCreateContextMenu(menu: ContextMenu?, v: View?, menuInfo: ContextMenu.ContextMenuInfo?) {
@@ -182,19 +195,19 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener {
     }
 
     fun onSubmitClick(v: View) {
-        trialManager.submitResult(this) { finish() }
-    }
-
-    fun onFinalizeClick(v: View) {
         if (!trialSession.shouldShowAdvancedSongDetails ||
-            !SharedPrefsUtil.getUserFlag(this, KEY_DETAILS_ENFORCE_EXPERT, true) ||
-            trialSession.results.none { it!!.hasAdvancedStats }) {
+            !settingsManager.getUserFlag(KEY_DETAILS_ENFORCE_EXPERT, true) ||
+            trialSession.results.all { it!!.hasAdvancedStats }) {
 
-            isFinal = true
-            acquirePhoto()
+            trialManager.submitResult(this) { finish() }
         } else {
             Snackbar.make(container, R.string.breakdown_information_missing, Snackbar.LENGTH_LONG).show()
         }
+    }
+
+    fun onFinalizeClick(v: View) {
+        isFinal = true
+        acquirePhoto()
     }
 
     private fun setRank(rank: TrialRank) {
@@ -222,7 +235,7 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener {
                 .setNegativeButton(R.string.cancel, null)
                 .setPositiveButton(R.string.okay) { _, _ -> concedeTrial() }
                 .show()
-        } else if (SharedPrefsUtil.getUserFlag(this, KEY_DETAILS_UPDATE_GOAL, true) &&
+        } else if (settingsManager.getUserFlag(KEY_DETAILS_UPDATE_GOAL, true) &&
             currentGoal != null &&
             highestPossible.stableId != currentGoal.stableId) {
 
@@ -316,7 +329,7 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener {
         if (isFinal) {
             onScoreSummaryPhotoTaken(uri)
         } else {
-            if (SharedPrefsUtil.getDebugFlag(this, SettingsActivity.KEY_DEBUG_BYPASS_STAT_ENTRY)) {
+            if (settingsManager.getDebugFlag(KEY_DEBUG_BYPASS_STAT_ENTRY)) {
                 currentResult!!.randomize()
                 onEntryFinished(currentResult!!)
             } else {
@@ -334,7 +347,7 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener {
             }
             currentResult!!.photoUri = uri
 
-            if (SharedPrefsUtil.getDebugFlag(this, SettingsActivity.KEY_DEBUG_BYPASS_STAT_ENTRY)) {
+            if (settingsManager.getDebugFlag(KEY_DEBUG_BYPASS_STAT_ENTRY)) {
                 currentResult!!.randomize()
                 onEntryFinished(currentResult!!)
             } else {

@@ -53,22 +53,26 @@ data class TrialGoalSet(val rank: TrialRank,
         clearIndexed?.let { clears ->
             var setType: ClearType? = null
             var chainEnd: Int? = null
-            clears.forEachIndexed { idx, type ->
-                if (setType == null) { // first non-fail sets the type
-                    if (type != ClearType.FAIL) {
-                        setType = type
-                    } else {
-                        return generateSpecificClearGoalStrings(res, trial, strings)
-                    }
-                } else if (setType != null) {
-                    if (type == ClearType.FAIL) { // first fail after the chain starts
-                        chainEnd = idx
-                    } else if (setType != type || (chainEnd != null && type != ClearType.FAIL)) { // if you clash or have already ended the chain
-                        return generateSpecificClearGoalStrings(res, trial, strings)
+            if (clears.all { it == clears[0] }) {
+                strings.add("• " + res.getString(R.string.clear_every_song, res.getString(clears[0].clearRes)))
+            } else {
+                clears.forEachIndexed { idx, type ->
+                    if (setType == null) { // first non-fail sets the type
+                        if (type != ClearType.FAIL) {
+                            setType = type
+                        } else {
+                            return generateSpecificClearGoalStrings(res, trial, strings)
+                        }
+                    } else if (setType != null) {
+                        if (type == ClearType.FAIL) { // first fail after the chain starts
+                            chainEnd = idx
+                        } else if (setType != type || (chainEnd != null && type != ClearType.FAIL)) { // if you clash or have already ended the chain
+                            return generateSpecificClearGoalStrings(res, trial, strings)
+                        }
                     }
                 }
+                strings.add("• " + res.getString(R.string.clear_first_songs, res.getString(setType!!.clearRes), chainEnd!!))
             }
-            strings.add("• " + res.getString(R.string.clear_first_songs, res.getString(setType!!.clearRes), chainEnd!!))
         }
     }
 

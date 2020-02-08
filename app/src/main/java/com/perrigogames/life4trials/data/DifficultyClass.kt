@@ -12,12 +12,15 @@ import io.objectbox.converter.PropertyConverter
  */
 enum class DifficultyClass(val stableId: Long,
                            @ColorRes val colorRes: Int,
-                           @StringRes val abbreviationRes: Int) {
-    @SerializedName("beginner") BEGINNER(1, R.color.difficultyBeginner, R.string.bgsp),
-    @SerializedName("basic") BASIC(2, R.color.difficultyBasic, R.string.bsp),
-    @SerializedName("difficult") DIFFICULT(3, R.color.difficultyDifficult, R.string.dsp),
-    @SerializedName("expert") EXPERT(4, R.color.difficultyExpert, R.string.esp),
-    @SerializedName("challenge") CHALLENGE(5, R.color.difficultyChallenge, R.string.csp);
+                           @StringRes val abbreviationRes: Int,
+                           val aggregatePrefix: String) {
+    @SerializedName("beginner") BEGINNER(1, R.color.difficultyBeginner, R.string.bgsp, "b"),
+    @SerializedName("basic") BASIC(2, R.color.difficultyBasic, R.string.bsp, "B"),
+    @SerializedName("difficult") DIFFICULT(3, R.color.difficultyDifficult, R.string.dsp, "D"),
+    @SerializedName("expert") EXPERT(4, R.color.difficultyExpert, R.string.esp, "E"),
+    @SerializedName("challenge") CHALLENGE(5, R.color.difficultyChallenge, R.string.csp, "C");
+
+    fun aggregateString(playStyle: PlayStyle) = playStyle.aggregateString(this)
 
     companion object {
         fun parse(stableId: Long?) = stableId?.let { id -> values().firstOrNull { it.stableId == id } }

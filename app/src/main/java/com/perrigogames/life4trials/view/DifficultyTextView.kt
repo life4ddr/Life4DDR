@@ -10,7 +10,7 @@ import com.perrigogames.life4trials.data.DifficultyClass
 class DifficultyTextView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = android.R.attr.textViewStyle) :
     AppCompatTextView(context, attrs, defStyleAttr) {
 
-    var difficultyNumber: Int = 0
+    var difficultyNumber: Int? = null
         set(value) {
             field = value
             update()
@@ -36,6 +36,8 @@ class DifficultyTextView @JvmOverloads constructor(context: Context, attrs: Attr
     private fun update() {
         setTextColor(ContextCompat.getColor(context, difficultyClass.colorRes))
         val title = customTitle ?: difficultyClass.toString()
-        text = resources.getString(R.string.difficulty_string_format, title, difficultyNumber)
+        text = if (difficultyNumber != null) {
+            resources.getString(R.string.difficulty_string_format, title, difficultyNumber)
+        } else title
     }
 }

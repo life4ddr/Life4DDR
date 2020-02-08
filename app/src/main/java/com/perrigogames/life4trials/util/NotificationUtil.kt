@@ -14,9 +14,12 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.activity.SettingsActivity
+import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_INFO_RIVAL_CODE
+import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_INFO_TWITTER_NAME
 import com.perrigogames.life4trials.data.LadderRank
 import com.perrigogames.life4trials.data.Trial
 import com.perrigogames.life4trials.data.TrialRank
+import com.perrigogames.life4trials.life4app
 import com.perrigogames.life4trials.util.NotificationUtil.EXTRA_COPY_VALUE
 
 class NotificationCopyHandler: BroadcastReceiver() {
@@ -73,12 +76,12 @@ object NotificationUtil {
     }
 
     fun showUserInfoNotifications(c: Context, exScore: Int) {
-        SharedPrefsUtil.getUserString(c, SettingsActivity.KEY_INFO_RIVAL_CODE)?.let { rivalCode ->
+        c.life4app.settingsManager.getUserString(KEY_INFO_RIVAL_CODE)?.let { rivalCode ->
             if (rivalCode.isNotEmpty()) {
                 notifyCopyableMessage(c, ID_NOTIF_RIVAL_CODE, R.string.rival_code, rivalCode)
             }
         }
-        SharedPrefsUtil.getUserString(c, SettingsActivity.KEY_INFO_TWITTER_NAME)?.let { twitterName ->
+        c.life4app.settingsManager.getUserString(KEY_INFO_TWITTER_NAME)?.let { twitterName ->
             if (twitterName.isNotEmpty()) {
                 notifyCopyableMessage(c, ID_NOTIF_TWITTER_HANDLE, R.string.twitter_name, twitterName)
             }

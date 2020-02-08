@@ -14,10 +14,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup">
-        <activity android:name=".activity.CardDrawSetupActivity"></activity>
-        <activity android:name=".activity.BlockListCheckActivity" />
-        <activity android:name=".activity.SongRecordsListCheckActivity" />
-        <activity android:name=".activity.PlacementListActivity" />
 
         <activity
             android:name=".activity.LaunchActivity"
@@ -30,55 +26,59 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity
-            android:name=".activity.FirstRunInfoActivity"
+        <activity android:name=".activity.FirstRunInfoActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
-        <activity
-            android:name=".activity.PlayerProfileActivity"
+        <activity android:name=".activity.PlacementListActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/placements"/>
+        <activity android:name=".activity.FirstRankSelectionActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/select_a_rank"/>
+
+        <activity android:name=".activity.PlayerProfileActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".activity.TrialListActivity"
-            android:label="@string/app_name"
+
+        <activity android:name=".activity.RankListActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/available_ranks"/>
+        <activity android:name=".activity.RankDetailsActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.PlacementDetailsActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".activity.TrialListActivity"
+            android:label="@string/trials"
             android:parentActivityName=".activity.PlayerProfileActivity"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".activity.TrialDetailsActivity"
+        <activity android:name=".activity.TrialDetailsActivity"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".activity.SongEntryActivity"
+        <activity android:name=".activity.SongEntryActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
-        <activity
-            android:name=".activity.TrialRecordsActivity"
+        <activity android:name=".activity.TrialRecordsActivity"
             android:label="@string/title_activity_records"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".activity.RankListActivity"
+
+        <activity android:name=".activity.SettingsActivity"
+            android:label="@string/title_activity_settings"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".activity.SettingsActivity"
-            android:label="@string/title_activity_settings" />
-        <activity android:name=".activity.RankDetailsActivity" />
-        <activity android:name=".activity.Life4DescriptionActivity" />
-        <activity android:name=".activity.PlacementDetailsActivity" />
-        <activity android:name=".activity.MatrixTestActivity" />
-        <activity
-            android:name=".activity.LadderLeaderboardActivity"
+        <activity android:name=".activity.BlockListCheckActivity"
+            android:label="@string/ignored_songs"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".activity.SingleSongTournamentActivity"
-            android:parentActivityName=".activity.PlayerProfileActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.perrigogames.life4trials.activity.PlayerProfileActivity" />
-        </activity>
-        <activity android:name=".activity.FirstRankSelectionActivity" />
-        <activity android:name=".activity.CreditsActivity" />
+        <activity android:name=".activity.SongUnlockActivity"
+            android:label="@string/song_unlocks"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.CreditsActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".activity.SongRecordsListCheckActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.LadderLeaderboardActivity"
+            android:screenOrientation="portrait" />
+
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="ID_UPDATES_CHANNEL" />

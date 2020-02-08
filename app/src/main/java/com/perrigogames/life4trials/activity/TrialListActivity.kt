@@ -25,6 +25,8 @@ class TrialListActivity : AppCompatActivity(), TrialListFragment.OnTrialListInte
         supportFragmentManager.beginTransaction()
             .replace(R.id.container_fragment, TrialListFragment())
             .commit()
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     override fun onTrialSelected(trialId: String, trialType: TrialType) {
@@ -42,6 +44,7 @@ class TrialListActivity : AppCompatActivity(), TrialListFragment.OnTrialListInte
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            android.R.id.home -> finish()
             R.id.action_records -> startActivity(Intent(this, TrialRecordsActivity::class.java))
             R.id.action_settings -> startActivity(Intent(this, SettingsActivity::class.java))
             else -> return super.onOptionsItemSelected(item)

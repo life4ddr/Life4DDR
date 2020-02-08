@@ -7,10 +7,11 @@ import com.perrigogames.life4trials.api.GithubDataAPI
 import com.perrigogames.life4trials.api.Life4API
 import com.perrigogames.life4trials.db.MyObjectBox
 import com.perrigogames.life4trials.manager.*
+import com.perrigogames.life4trials.repo.LadderResultRepo
+import com.perrigogames.life4trials.repo.SongRepo
+import com.perrigogames.life4trials.repo.TrialRepo
 import com.perrigogames.life4trials.util.DataUtil
 import com.perrigogames.life4trials.util.NotificationUtil
-import com.perrigogames.life4trials.util.SharedPrefsUtil
-import com.perrigogames.life4trials.util.SharedPrefsUtil.KEY_APP_CRASHED
 import io.objectbox.BoxStore
 import io.objectbox.android.AndroidObjectBrowser
 import okhttp3.OkHttpClient
@@ -24,13 +25,20 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 
 class Life4Application: MultiDexApplication() {
 
+    lateinit var songRepo: SongRepo
+    lateinit var trialRepo: TrialRepo
+    lateinit var ladderResultRepo: LadderResultRepo
+
     lateinit var firstRunManager: FirstRunManager
+    lateinit var ignoreListManager: IgnoreListManager
     lateinit var ladderManager: LadderManager
     lateinit var placementManager: PlacementManager
     lateinit var songDataManager: SongDataManager
     lateinit var tournamentManager: TournamentManager
     lateinit var trialManager: TrialManager
     lateinit var playerManager: PlayerManager
+    lateinit var settingsManager: SettingsManager
+
     lateinit var life4Api: Life4API
     lateinit var githubDataApi: GithubDataAPI
 
@@ -45,12 +53,12 @@ class Life4Application: MultiDexApplication() {
             songDataManager.onApplicationException()
             tournamentManager.onApplicationException()
             trialManager.onApplicationException()
+            settingsManager.onApplicationException()
 
-            SharedPrefsUtil.setUserFlag(this@Life4Application, KEY_APP_CRASHED, true)
             defaultHandler!!.uncaughtException(thread, exception)
         }
 
-        SharedPrefsUtil.initializeDefaults(this)
+        settingsManager = SettingsManager(this)
 
         life4Api = life4Retrofit.create(Life4API::class.java)
         githubDataApi = githubRetrofit.create(GithubDataAPI::class.java)
@@ -63,16 +71,21 @@ class Life4Application: MultiDexApplication() {
             Log.i("ObjectBrowser", "Started: $started")
         }
 
-        firstRunManager = FirstRunManager(this)
-        songDataManager = SongDataManager(this, githubDataApi)
+        songRepo = SongRepo()
+        trialRepo = TrialRepo()
+        ladderResultRepo = LadderResultRepo()
+
+        firstRunManager = FirstRunManager(this, settingsManager)
+        ignoreListManager = IgnoreListManager(this, songRepo, githubDataApi, settingsManager)
+        songDataManager = SongDataManager(this, githubDataApi, songRepo, settingsManager, ignoreListManager)
         placementManager = PlacementManager(this)
-        trialManager = TrialManager(this, githubDataApi)
-        ladderManager = LadderManager(this, songDataManager, trialManager, githubDataApi)
+        trialManager = TrialManager(this, trialRepo, githubDataApi, settingsManager)
+        ladderManager = LadderManager(this, songRepo, ladderResultRepo, ignoreListManager, songDataManager, trialManager, githubDataApi, settingsManager)
         tournamentManager = TournamentManager()
         playerManager = PlayerManager(this)
 
         NotificationUtil.setupNotifications(this)
-        SharedPrefsUtil.handleMajorUpdate(this)
+        settingsManager.handleMajorUpdate(this)
 
 //        if (BuildConfig.DEBUG) {
 //            FirebaseUtil.getId(this)

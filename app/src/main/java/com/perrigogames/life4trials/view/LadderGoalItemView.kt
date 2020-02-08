@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.data.BaseRankGoal
+import com.perrigogames.life4trials.data.ClearType
 import com.perrigogames.life4trials.data.LadderGoalProgress
 import com.perrigogames.life4trials.db.GoalStatus
 import com.perrigogames.life4trials.db.GoalStatus.COMPLETE
@@ -107,11 +108,16 @@ class LadderGoalItemView @JvmOverloads constructor(context: Context,
                 text_goal_subtitle.setTextColor(oldColors)
             }
             it.results?.forEach { result ->
-                val name = result.chart.target.song.target.title
-                val difficulty = result.chart.target.difficultyClass
+                val chart = result.chart.target
+                val name = chart.song.target.title
 
                 val row = retrieveTableRow(table_expand_details, result.score.longNumberString(), name)
-                row.text_title.setTextColor(ContextCompat.getColor(context, difficulty.colorRes))
+                if (result.clearType > ClearType.CLEAR) {
+                    row.text_score.setTextColor(ContextCompat.getColor(context, result.clearType.colorRes))
+                } else {
+                    row.text_score.setTextColor(oldColors)
+                }
+                row.text_title.setTextColor(ContextCompat.getColor(context, chart.difficultyClass.colorRes))
                 table_expand_details.addView(row)
             }
         }
