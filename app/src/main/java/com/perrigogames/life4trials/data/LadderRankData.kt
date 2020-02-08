@@ -25,7 +25,9 @@ class RankEntry(val rank: LadderRank,
 
     @Transient var goals = emptyList<BaseRankGoal>()
 
-    val requirements: Int get() = requirementsOpt ?: goals.size
+    private val mandatoryGoalCount get() = goals.count { it.mandatory }
+
+    val requirements: Int get() = requirementsOpt?.plus(mandatoryGoalCount) ?: goals.size
 
     val allowedIgnores: Int get() = requirementsOpt?.let { req -> goals.count { !it.mandatory } - req } ?: 0
 
