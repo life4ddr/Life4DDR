@@ -16,8 +16,6 @@ ext {
     multidex_version = "1.0.3"
     anko_version = '0.10.1'
     glide_version = '4.9.0'
-    firebase_version = '16.0.9'
-    firebase_messaging_version = '19.0.0'
     preference_holder_version = '1.51'
     activitystarter_version = '1.12-beta-2'
     kotlinandroidviewbindings_version = '0.10'
@@ -25,7 +23,6 @@ ext {
     espresso_version = '3.2.0'
     robolectric_version = '4.3'
     kotlin_preferences_version = '1.51'
-    fabric_version = '2.10.0'
     eventbus_version = '3.1.1'
     dexter_version = '5.0.0'
     lottie_version = '3.3.0'
@@ -54,9 +51,6 @@ ext {
             kotlin_serialization_jvm   : "org.jetbrains.kotlinx:kotlinx-serialization-runtime:$serialization_version",
 
             // Android
-            firebase                   : ["com.google.firebase:firebase-core:$firebase_version",
-                                          "com.google.firebase:firebase-messaging:$firebase_messaging_version",
-                                          "com.crashlytics.sdk.android:crashlytics:$fabric_version"],
             glide                      : "com.github.bumptech.glide:glide:$glide_version",
             glide_compiler             : "com.github.bumptech.glide:compiler:$glide_version",
             coroutines_android         : "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version",

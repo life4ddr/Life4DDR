@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
@@ -31,13 +32,10 @@ android {
             signingConfig signingConfigs.upload
             manifestPlaceholders = [providerName: "com.perrigogames.fileprovider"]
         }
-        preview {
-            initWith release
-        }
         debug {
             applicationIdSuffix ".debug"
             manifestPlaceholders = [providerName: "com.perrigogames.fileprovider.debug"]
-            // Disable Fabric Crashlytics for debug
+            // Disable Crashlytics for debug
             ext.enableCrashlytics = false
         }
     }
@@ -73,7 +71,6 @@ dependencies {
     implementation dep.glide
     implementation dep.eventbus
     implementation dep.dexter
-    implementation dep.firebase
     implementation dep.retrofit
     implementation dep.coroutines_android
     implementation dep.coroutines_jvm
@@ -81,6 +78,10 @@ dependencies {
 
     debugImplementation dep.objectbox_debug
     releaseImplementation dep.objectbox_release
+
+    implementation "com.google.firebase:firebase-analytics:17.2.2"
+    implementation "com.google.firebase:firebase-messaging:20.1.0"
+    implementation "com.crashlytics.sdk.android:crashlytics:2.10.1"
 
     implementation "com.google.guava:guava:27.0.1-android"
 
