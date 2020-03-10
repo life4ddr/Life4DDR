@@ -4,7 +4,7 @@ import android.content.Context
 import android.widget.Toast
 import androidx.annotation.RawRes
 import com.perrigogames.life4trials.Life4Application
-import com.perrigogames.life4trials.data.MajorVersioned
+import com.perrigogames.life4.data.MajorVersioned
 import com.perrigogames.life4trials.event.DataRequiresAppUpdateEvent
 import com.perrigogames.life4trials.util.DataUtil
 import com.perrigogames.life4trials.util.loadRawString
@@ -132,9 +132,9 @@ abstract class LocalRemoteData<T: Any>(protected val context: Context,
  * to prevent unreadable data from crashing older versions of the app that won't parse properly.
  */
 abstract class MajorVersionedRemoteData<T: MajorVersioned>(context: Context,
-                                                           @RawRes rawResId: Int,
-                                                           cachedFileName: String,
-                                                           val majorVersion: Int):
+                                                                                                          @RawRes rawResId: Int,
+                                                                                                          cachedFileName: String,
+                                                                                                          val majorVersion: Int):
     LocalRemoteData<T>(context, rawResId, cachedFileName) {
 
     /** Since the template is restricted to [MajorVersioned], use that version number. */

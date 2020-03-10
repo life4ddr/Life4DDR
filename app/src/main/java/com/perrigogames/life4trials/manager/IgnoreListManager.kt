@@ -4,7 +4,7 @@ import android.content.Context
 import com.perrigogames.life4trials.Life4Application
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_IMPORT_GAME_VERSION
-import com.perrigogames.life4trials.api.GithubDataAPI
+import com.perrigogames.life4.ktor.GithubDataAPI
 import com.perrigogames.life4trials.api.MajorVersionedRemoteData
 import com.perrigogames.life4trials.data.IgnoreGroup
 import com.perrigogames.life4trials.data.IgnoreList

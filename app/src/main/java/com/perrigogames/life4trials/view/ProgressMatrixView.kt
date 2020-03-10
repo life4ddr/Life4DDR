@@ -14,6 +14,7 @@ import com.perrigogames.life4trials.data.BaseRankGoal
 import com.perrigogames.life4trials.data.DifficultyClearGoal
 import com.perrigogames.life4trials.data.TrialData
 import com.perrigogames.life4trials.util.CommonSizes
+import com.perrigogames.life4trials.util.colorRes
 import com.perrigogames.life4trials.util.visibilityBool
 import kotlinx.android.synthetic.main.item_progress_matrix.view.progress_amount
 import kotlinx.android.synthetic.main.item_progress_matrix.view.text_goal_progress

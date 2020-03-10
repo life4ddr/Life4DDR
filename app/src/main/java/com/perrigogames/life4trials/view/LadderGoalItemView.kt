@@ -12,12 +12,13 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.data.BaseRankGoal
-import com.perrigogames.life4trials.data.ClearType
+import com.perrigogames.life4.data.ClearType
 import com.perrigogames.life4trials.data.LadderGoalProgress
 import com.perrigogames.life4trials.db.GoalStatus
 import com.perrigogames.life4trials.db.GoalStatus.COMPLETE
 import com.perrigogames.life4trials.db.GoalStatus.IGNORED
 import com.perrigogames.life4trials.db.GoalStatusDB
+import com.perrigogames.life4trials.util.colorRes
 import com.perrigogames.life4trials.util.visibilityBool
 import kotlinx.android.synthetic.main.item_rank_goal.view.*
 import kotlinx.android.synthetic.main.row_song_detail.view.*

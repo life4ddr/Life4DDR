@@ -5,8 +5,10 @@ import android.util.AttributeSet
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
-import com.perrigogames.life4trials.data.PlacementRank
+import com.perrigogames.life4.data.PlacementRank
 import com.perrigogames.life4trials.data.Song
+import com.perrigogames.life4trials.util.colorRes
+import com.perrigogames.life4trials.util.nameRes
 import kotlinx.android.synthetic.main.item_placement_overview.view.*
 
 class PlacementOverviewView @JvmOverloads constructor(context: Context,
@@ -18,7 +20,7 @@ class PlacementOverviewView @JvmOverloads constructor(context: Context,
         set(v) {
             field = v
             v?.let { rank ->
-                image_rank.rank = rank.parent
+                image_rank.rank = rank.toLadderRank()
                 text_placement_title.text = context.getString(rank.nameRes)
                 text_placement_title.setTextColor(ContextCompat.getColor(context, rank.parent.colorRes))
             }

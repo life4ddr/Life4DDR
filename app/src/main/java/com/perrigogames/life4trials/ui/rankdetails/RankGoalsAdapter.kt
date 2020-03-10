@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.data.BaseRankGoal
 import com.perrigogames.life4trials.data.LadderGoalProgress
-import com.perrigogames.life4trials.data.PlayStyle
+import com.perrigogames.life4.data.PlayStyle
 import com.perrigogames.life4trials.data.RankEntry
 import com.perrigogames.life4trials.db.GoalStatusDB
 import com.perrigogames.life4trials.ui.rankdetails.RankDetailsViewModel.OnGoalListInteractionListener

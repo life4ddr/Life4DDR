@@ -11,10 +11,9 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.ChangeTransform
-import androidx.transition.Fade
 import androidx.transition.TransitionManager
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.data.LadderRank
+import com.perrigogames.life4.data.LadderRank
 import com.perrigogames.life4trials.data.RankEntry
 import com.perrigogames.life4trials.life4app
 import com.perrigogames.life4trials.util.spannedText

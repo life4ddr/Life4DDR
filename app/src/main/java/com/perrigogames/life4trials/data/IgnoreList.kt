@@ -1,6 +1,9 @@
 package com.perrigogames.life4trials.data
 
 import com.google.gson.annotations.SerializedName
+import com.perrigogames.life4.data.DifficultyClass
+import com.perrigogames.life4.data.GameVersion
+import com.perrigogames.life4.data.MajorVersioned
 
 enum class IgnoreUnlockType {
     @SerializedName("single") SINGLE, // songs unlock one at a time in any order
@@ -23,7 +26,8 @@ enum class IgnoreUnlockType {
 class IgnoreListData(val lists: List<IgnoreList>,
                      val groups: List<IgnoreGroup>,
                      override val version: Int,
-                     @SerializedName("major_version") override val majorVersion: Int): MajorVersioned {
+                     @SerializedName("major_version") override val majorVersion: Int):
+    MajorVersioned {
 
     private var mGroupMap: Map<String, IgnoreGroup>? = null
     val groupsMap: Map<String, IgnoreGroup>

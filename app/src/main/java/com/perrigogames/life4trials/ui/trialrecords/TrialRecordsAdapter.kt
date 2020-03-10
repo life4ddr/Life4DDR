@@ -19,6 +19,7 @@ import com.perrigogames.life4trials.life4app
 import com.perrigogames.life4trials.manager.TrialManager
 import com.perrigogames.life4trials.ui.trialrecords.TrialRecordsFragment.OnRecordsListInteractionListener
 import com.perrigogames.life4trials.util.DataUtil
+import com.perrigogames.life4trials.util.colorRes
 import com.perrigogames.life4trials.util.locale
 import com.perrigogames.life4trials.util.visibilityBool
 import com.perrigogames.life4trials.view.RankImageView

@@ -1,9 +1,11 @@
 package com.perrigogames.life4trials.com.perrigogames.life4trials.data
 
 import com.perrigogames.life4trials.data.*
-import com.perrigogames.life4trials.data.ClearType.*
+import com.perrigogames.life4.data.ClearType.*
+import com.perrigogames.life4.data.DifficultyClass
+import com.perrigogames.life4.data.TrialRank
 import com.perrigogames.life4trials.data.TrialData.Companion.TRIAL_LENGTH
-import com.perrigogames.life4trials.data.TrialRank.*
+import com.perrigogames.life4.data.TrialRank.*
 import junit.framework.Assert.assertEquals
 import org.junit.Test
 

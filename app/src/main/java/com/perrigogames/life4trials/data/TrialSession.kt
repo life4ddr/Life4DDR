@@ -1,7 +1,9 @@
 package com.perrigogames.life4trials.data
 
 import android.net.Uri
-import com.perrigogames.life4trials.data.ClearType.*
+import com.perrigogames.life4.data.ClearType
+import com.perrigogames.life4.data.ClearType.*
+import com.perrigogames.life4.data.TrialRank
 import com.perrigogames.life4trials.util.hasCascade
 import java.io.Serializable
 
@@ -165,7 +167,8 @@ data class SongResult(var song: Song,
 
     val hasAdvancedStats: Boolean get() = misses != null && goods != null && greats != null && perfects != null
 
-    val clearType: ClearType get() = when {
+    val clearType: ClearType
+        get() = when {
         !passed -> FAIL
         exScore == song.ex -> MARVELOUS_FULL_COMBO
         perfects != null && badJudges != null -> when {

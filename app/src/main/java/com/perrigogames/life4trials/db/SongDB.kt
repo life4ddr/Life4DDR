@@ -1,6 +1,10 @@
 package com.perrigogames.life4trials.db
 
-import com.perrigogames.life4trials.data.*
+import com.perrigogames.life4.data.*
+import com.perrigogames.life4trials.util.ClearTypeConverter
+import com.perrigogames.life4trials.util.DifficultyClassConverter
+import com.perrigogames.life4trials.util.GameVersionConverter
+import com.perrigogames.life4trials.util.PlayStyleConverter
 import io.objectbox.annotation.Backlink
 import io.objectbox.annotation.Convert
 import io.objectbox.annotation.Entity

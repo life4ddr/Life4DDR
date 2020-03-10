@@ -1,4 +1,4 @@
-package com.perrigogames.life4trials.data
+package com.perrigogames.life4.data
 
 /**
  * Describes a class that has a version number. Higher version numbers should

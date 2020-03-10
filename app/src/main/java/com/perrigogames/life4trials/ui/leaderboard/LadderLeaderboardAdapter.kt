@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.api.ApiPlayer
 import com.perrigogames.life4trials.ui.leaderboard.LeaderboardFragment.OnLeaderboardInteractionListener
+import com.perrigogames.life4trials.util.nameRes
 import com.perrigogames.life4trials.view.RankImageView
 import kotlinx.android.synthetic.main.item_ladder_leaderboard.view.*
 

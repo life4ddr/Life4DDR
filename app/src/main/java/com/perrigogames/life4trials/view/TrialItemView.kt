@@ -12,7 +12,7 @@ import com.perrigogames.life4trials.activity.SettingsActivity
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_LIST_SHOW_EX
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_LIST_TINT_COMPLETED
 import com.perrigogames.life4trials.data.Trial
-import com.perrigogames.life4trials.data.TrialRank
+import com.perrigogames.life4.data.TrialRank
 import com.perrigogames.life4trials.life4app
 import kotlinx.android.synthetic.main.item_trial_list_item.view.*
 

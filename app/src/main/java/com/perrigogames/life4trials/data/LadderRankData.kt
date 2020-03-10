@@ -1,6 +1,10 @@
 package com.perrigogames.life4trials.data
 
 import com.google.gson.annotations.SerializedName
+import com.perrigogames.life4.data.GameVersion
+import com.perrigogames.life4.data.LadderRank
+import com.perrigogames.life4.data.MajorVersioned
+import com.perrigogames.life4.data.PlayStyle
 import java.io.Serializable
 
 /**
@@ -10,7 +14,8 @@ import java.io.Serializable
 class LadderRankData(override val version: Int,
                      override val majorVersion: Int,
                      @SerializedName("goals") val goals: List<BaseRankGoal>,
-                     @SerializedName("game_versions") val gameVersions: Map<GameVersion, LadderVersion>): Serializable, MajorVersioned
+                     @SerializedName("game_versions") val gameVersions: Map<GameVersion, LadderVersion>): Serializable,
+    MajorVersioned
 
 class LadderVersion(@SerializedName("unlock_requirement") val unlockRequirement: LadderRank,
                     @SerializedName("rank_requirements") val rankRequirements: List<RankEntry>): Serializable

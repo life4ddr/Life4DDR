@@ -13,8 +13,8 @@ import androidx.preference.*
 import com.perrigogames.life4trials.BuildConfig
 import com.perrigogames.life4trials.Life4Application
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.data.LadderRank
-import com.perrigogames.life4trials.data.TrialRank
+import com.perrigogames.life4.data.LadderRank
+import com.perrigogames.life4.data.TrialRank
 import com.perrigogames.life4trials.data.TrialSession
 import com.perrigogames.life4trials.event.LadderRanksReplacedEvent
 import com.perrigogames.life4trials.event.LocalUserInfoUpdatedEvent

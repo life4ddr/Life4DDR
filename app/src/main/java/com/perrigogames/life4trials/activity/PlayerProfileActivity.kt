@@ -13,11 +13,10 @@ import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_INFO_NAME
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_INFO_RIVAL_CODE
 import com.perrigogames.life4trials.data.BaseRankGoal
-import com.perrigogames.life4trials.data.LadderRank
+import com.perrigogames.life4.data.LadderRank
 import com.perrigogames.life4trials.db.GoalStatus
 import com.perrigogames.life4trials.event.*
 import com.perrigogames.life4trials.life4app
-import com.perrigogames.life4trials.manager.MajorUpdate
 import com.perrigogames.life4trials.manager.MajorUpdate.*
 import com.perrigogames.life4trials.ui.rankdetails.RankDetailsFragment
 import com.perrigogames.life4trials.ui.rankdetails.RankDetailsViewModel

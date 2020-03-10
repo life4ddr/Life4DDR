@@ -13,7 +13,9 @@ import androidx.core.content.res.ResourcesCompat
 import com.bumptech.glide.Glide
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.data.Trial
-import com.perrigogames.life4trials.data.TrialRank
+import com.perrigogames.life4.data.TrialRank
+import com.perrigogames.life4trials.util.colorRes
+import com.perrigogames.life4trials.util.drawableRes
 import com.perrigogames.life4trials.util.visibilityBool
 import kotlinx.android.synthetic.main.view_trial_jacket.view.*
 

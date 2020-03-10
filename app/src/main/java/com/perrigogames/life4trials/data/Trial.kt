@@ -3,6 +3,10 @@ package com.perrigogames.life4trials.data
 import android.content.Context
 import androidx.annotation.DrawableRes
 import com.google.gson.annotations.SerializedName
+import com.perrigogames.life4.data.DifficultyClass
+import com.perrigogames.life4.data.MajorVersioned
+import com.perrigogames.life4.data.PlacementRank
+import com.perrigogames.life4.data.TrialRank
 import com.perrigogames.life4trials.R
 import java.io.Serializable
 import java.util.*

@@ -17,8 +17,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_DEBUG_ACCEPT_INVALID
-import com.perrigogames.life4trials.data.ClearType
-import com.perrigogames.life4trials.data.ClearType.*
+import com.perrigogames.life4.data.ClearType
+import com.perrigogames.life4.data.ClearType.*
 import com.perrigogames.life4trials.data.Song
 import com.perrigogames.life4trials.data.SongResult
 import com.perrigogames.life4trials.data.TrialData

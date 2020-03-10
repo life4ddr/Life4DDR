@@ -9,12 +9,11 @@ import com.crashlytics.android.Crashlytics
 import com.perrigogames.life4trials.BuildConfig
 import com.perrigogames.life4trials.Life4Application
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.activity.SettingsActivity
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_SUBMISSION_NOTIFICAION
-import com.perrigogames.life4trials.api.GithubDataAPI
+import com.perrigogames.life4.ktor.GithubDataAPI
 import com.perrigogames.life4trials.api.MajorVersionedRemoteData
 import com.perrigogames.life4trials.data.TrialData
-import com.perrigogames.life4trials.data.TrialRank
+import com.perrigogames.life4.data.TrialRank
 import com.perrigogames.life4trials.data.TrialSession
 import com.perrigogames.life4trials.db.TrialSessionDB
 import com.perrigogames.life4trials.event.SavedRankUpdatedEvent

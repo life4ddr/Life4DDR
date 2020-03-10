@@ -1,6 +1,6 @@
 package com.perrigogames.life4trials.manager
 
-import com.perrigogames.life4trials.data.DifficultyClass
+import com.perrigogames.life4.data.DifficultyClass
 import com.perrigogames.life4trials.data.Song
 
 /**

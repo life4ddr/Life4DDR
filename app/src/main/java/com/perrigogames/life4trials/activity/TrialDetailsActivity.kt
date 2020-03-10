@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import com.google.android.material.snackbar.Snackbar
+import com.perrigogames.life4.data.TrialRank
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_DEBUG_BYPASS_STAT_ENTRY
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_DETAILS_ENFORCE_EXPERT
@@ -19,9 +20,8 @@ import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_DETA
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_DETAILS_UPDATE_GOAL
 import com.perrigogames.life4trials.data.*
 import com.perrigogames.life4trials.life4app
-import com.perrigogames.life4trials.manager.LadderManager
-import com.perrigogames.life4trials.manager.TrialManager
 import com.perrigogames.life4trials.ui.songlist.SongListFragment
+import com.perrigogames.life4trials.util.nameRes
 import com.perrigogames.life4trials.util.openWebUrlFromRes
 import com.perrigogames.life4trials.util.toListString
 import com.perrigogames.life4trials.util.visibilityBool

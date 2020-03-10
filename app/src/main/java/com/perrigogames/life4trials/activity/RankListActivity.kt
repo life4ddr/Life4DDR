@@ -9,7 +9,7 @@ import com.perrigogames.life4trials.activity.RankDetailsActivity.Companion.EXTRA
 import com.perrigogames.life4trials.activity.RankDetailsActivity.Companion.EXTRA_TARGET_RANK
 import com.perrigogames.life4trials.activity.RankDetailsActivity.Companion.RESULT_RANK_SELECTED
 import com.perrigogames.life4trials.activity.RankDetailsActivity.Companion.RESULT_RANK_TARGET_SELECTED
-import com.perrigogames.life4trials.data.LadderRank
+import com.perrigogames.life4.data.LadderRank
 import com.perrigogames.life4trials.data.RankEntry
 import com.perrigogames.life4trials.life4app
 import com.perrigogames.life4trials.ui.ranklist.RankListFragment

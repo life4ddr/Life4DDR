@@ -7,12 +7,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.data.BaseRankGoal
-import com.perrigogames.life4trials.data.LadderRank
-import com.perrigogames.life4trials.data.PlayStyle
+import com.perrigogames.life4.data.LadderRank
+import com.perrigogames.life4.data.PlayStyle
 import com.perrigogames.life4trials.data.RankEntry
 import com.perrigogames.life4trials.db.GoalStatus
 import com.perrigogames.life4trials.db.GoalStatusDB
 import com.perrigogames.life4trials.manager.LadderManager
+import com.perrigogames.life4trials.util.nameRes
 import com.perrigogames.life4trials.view.LadderGoalItemView
 
 /**

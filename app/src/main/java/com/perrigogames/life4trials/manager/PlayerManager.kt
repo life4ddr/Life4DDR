@@ -4,9 +4,9 @@ import android.content.Context
 import android.widget.Toast
 import com.perrigogames.life4trials.BuildConfig
 import com.perrigogames.life4trials.Life4Application
-import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.api.ApiPlayer
-import com.perrigogames.life4trials.data.LadderRank
+import com.perrigogames.life4.data.LadderRank
+import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.life4app
 import kotlinx.coroutines.*
 import retrofit2.Response

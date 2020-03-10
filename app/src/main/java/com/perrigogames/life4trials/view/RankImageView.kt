@@ -7,7 +7,8 @@ import android.util.AttributeSet
 import android.widget.ImageView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.content.ContextCompat
-import com.perrigogames.life4trials.data.LadderRank
+import com.perrigogames.life4.data.LadderRank
+import com.perrigogames.life4trials.util.drawableRes
 
 /**
  * A subclass of [ImageView] that can display the icon of a [LadderRank]

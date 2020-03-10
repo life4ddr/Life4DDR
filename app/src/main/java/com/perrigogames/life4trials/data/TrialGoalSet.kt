@@ -2,9 +2,12 @@ package com.perrigogames.life4trials.data
 
 import android.content.res.Resources
 import com.google.gson.annotations.SerializedName
+import com.perrigogames.life4.data.ClearType
+import com.perrigogames.life4.data.TrialRank
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.data.TrialData.Companion.AAA_SCORE
 import com.perrigogames.life4trials.data.TrialData.Companion.MAX_SCORE
+import com.perrigogames.life4trials.util.clearRes
 import java.io.Serializable
 
 data class TrialGoalSet(val rank: TrialRank,

@@ -323,6 +323,7 @@
     <string name="intro_rank_method_placement">Play a Placement set to get a temporary rank</string>
     <string name="intro_rank_method_selection">Select my rank from the list (you can change it later)</string>
     <string name="intro_rank_method_no_rank">Start from the beginning</string>
+    <string name="sign_in">Sign In</string>
     <string name="change_rank_later">You can change your Rank in the Settings menu later.</string>
     <string name="placements">Placement Sets</string>
     <string name="start_no_rank">Start Without Rank</string>

@@ -5,13 +5,15 @@ import android.os.Handler
 import android.util.Log
 import androidx.appcompat.app.AlertDialog
 import com.crashlytics.android.Crashlytics
+import com.perrigogames.life4.data.DifficultyClass
+import com.perrigogames.life4.data.GameVersion
+import com.perrigogames.life4.data.PlayStyle
 import com.perrigogames.life4trials.BuildConfig
 import com.perrigogames.life4trials.Life4Application
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_IMPORT_GAME_VERSION
-import com.perrigogames.life4trials.api.GithubDataAPI
+import com.perrigogames.life4.ktor.GithubDataAPI
 import com.perrigogames.life4trials.api.LocalRemoteData
-import com.perrigogames.life4trials.data.*
 import com.perrigogames.life4trials.db.ChartDB
 import com.perrigogames.life4trials.db.ChartDB_
 import com.perrigogames.life4trials.db.SongDB

@@ -1,7 +1,7 @@
 package com.perrigogames.life4trials.api
 
 import com.google.gson.annotations.SerializedName
-import com.perrigogames.life4trials.data.LadderRank
+import com.perrigogames.life4.data.LadderRank
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path

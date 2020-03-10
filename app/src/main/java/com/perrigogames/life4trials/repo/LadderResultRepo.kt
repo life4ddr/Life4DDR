@@ -1,11 +1,10 @@
 package com.perrigogames.life4trials.repo
 
-import com.perrigogames.life4trials.data.ClearType
-import com.perrigogames.life4trials.data.DifficultyClass
+import com.perrigogames.life4.data.ClearType
+import com.perrigogames.life4.data.DifficultyClass
 import com.perrigogames.life4trials.db.ChartDB_
 import com.perrigogames.life4trials.db.LadderResultDB
 import com.perrigogames.life4trials.db.LadderResultDB_
-import com.perrigogames.life4trials.manager.BaseManager
 import com.perrigogames.life4trials.manager.BaseRepo
 
 class LadderResultRepo: BaseRepo() {

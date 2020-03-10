@@ -13,12 +13,11 @@ import androidx.annotation.StringRes
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.activity.SettingsActivity
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_INFO_RIVAL_CODE
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_INFO_TWITTER_NAME
-import com.perrigogames.life4trials.data.LadderRank
+import com.perrigogames.life4.data.LadderRank
 import com.perrigogames.life4trials.data.Trial
-import com.perrigogames.life4trials.data.TrialRank
+import com.perrigogames.life4.data.TrialRank
 import com.perrigogames.life4trials.life4app
 import com.perrigogames.life4trials.util.NotificationUtil.EXTRA_COPY_VALUE
 

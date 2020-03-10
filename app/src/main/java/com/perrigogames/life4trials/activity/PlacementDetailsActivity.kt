@@ -33,7 +33,7 @@ class PlacementDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listene
         setContentView(R.layout.content_placement_details)
 
         (layout_rank_header as RankHeaderView).apply {
-            rank = trial.placement_rank!!.parent
+            rank = trial.placement_rank!!.toLadderRank()
             genericTitles = true
 //            navigationListener = object : RankHeaderView.NavigationListener {
 //                override fun onPreviousClicked() = navigationButtonClicked(placementManager.previousPlacement(placementId))
