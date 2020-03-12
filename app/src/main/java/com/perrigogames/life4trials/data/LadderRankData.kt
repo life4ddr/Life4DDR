@@ -1,10 +1,10 @@
 package com.perrigogames.life4trials.data
 
 import com.google.gson.annotations.SerializedName
-import com.perrigogames.life4.data.GameVersion
+import com.perrigogames.life4.enums.GameVersion
 import com.perrigogames.life4.data.LadderRank
 import com.perrigogames.life4.data.MajorVersioned
-import com.perrigogames.life4.data.PlayStyle
+import com.perrigogames.life4.enums.PlayStyle
 import java.io.Serializable
 
 /**

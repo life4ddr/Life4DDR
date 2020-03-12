@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModel
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.data.BaseRankGoal
 import com.perrigogames.life4.data.LadderRank
-import com.perrigogames.life4.data.PlayStyle
+import com.perrigogames.life4.enums.PlayStyle
 import com.perrigogames.life4trials.data.RankEntry
 import com.perrigogames.life4trials.db.GoalStatus
 import com.perrigogames.life4trials.db.GoalStatusDB

@@ -5,9 +5,10 @@ import android.os.Handler
 import android.util.Log
 import androidx.appcompat.app.AlertDialog
 import com.crashlytics.android.Crashlytics
-import com.perrigogames.life4.data.DifficultyClass
-import com.perrigogames.life4.data.GameVersion
-import com.perrigogames.life4.data.PlayStyle
+import com.perrigogames.life4.enums.DifficultyClass
+import com.perrigogames.life4.enums.GameVersion
+import com.perrigogames.life4.enums.PlayStyle
+import com.perrigogames.life4.util.indexOfOrEnd
 import com.perrigogames.life4trials.BuildConfig
 import com.perrigogames.life4trials.Life4Application
 import com.perrigogames.life4trials.R

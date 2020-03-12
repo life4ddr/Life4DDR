@@ -1,8 +1,8 @@
 package com.perrigogames.life4trials.db
 
-import com.perrigogames.life4trials.data.SongResult
+import com.perrigogames.life4.data.SongResult
 import com.perrigogames.life4.data.TrialRank
-import com.perrigogames.life4trials.data.TrialSession
+import com.perrigogames.life4.data.TrialSession
 import io.objectbox.annotation.Backlink
 import io.objectbox.annotation.Entity
 import io.objectbox.annotation.Id

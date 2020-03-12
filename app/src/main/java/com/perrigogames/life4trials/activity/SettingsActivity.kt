@@ -15,7 +15,7 @@ import com.perrigogames.life4trials.Life4Application
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4.data.LadderRank
 import com.perrigogames.life4.data.TrialRank
-import com.perrigogames.life4trials.data.TrialSession
+import com.perrigogames.life4.data.TrialSession
 import com.perrigogames.life4trials.event.LadderRanksReplacedEvent
 import com.perrigogames.life4trials.event.LocalUserInfoUpdatedEvent
 import com.perrigogames.life4trials.event.TrialListReplacedEvent
@@ -350,7 +350,10 @@ class SettingsActivity : AppCompatActivity(), SettingsFragmentListener {
                     key.startsWith(KEY_DEBUG_RANK_PREFIX) -> findPreference<DropDownPreference>(key)?.let { it ->
                         val rank = TrialRank.parse(it.entry.toString())
                         val trial = trialManager.findTrial(it.key.substring(KEY_DEBUG_RANK_PREFIX.length))!!
-                        val session = TrialSession(trial, if (trial.isEvent) null else rank).apply { goalObtained = (rank != null) }
+                        val session = TrialSession(
+                            trial,
+                            if (trial.isEvent) null else rank
+                        ).apply { goalObtained = (rank != null) }
                         trialManager.saveRecord(session)
                         it.summary = rank?.toString() ?: "NONE"
                     }

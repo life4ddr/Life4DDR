@@ -9,10 +9,10 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4.data.ClearType.MARVELOUS_FULL_COMBO
-import com.perrigogames.life4.data.ClearType.PERFECT_FULL_COMBO
+import com.perrigogames.life4.enums.ClearType.MARVELOUS_FULL_COMBO
+import com.perrigogames.life4.enums.ClearType.PERFECT_FULL_COMBO
 import com.perrigogames.life4.data.Song
-import com.perrigogames.life4trials.data.SongResult
+import com.perrigogames.life4.data.SongResult
 import com.perrigogames.life4trials.util.colorRes
 import kotlinx.android.synthetic.main.item_song_list_item.view.*
 import java.text.DecimalFormat

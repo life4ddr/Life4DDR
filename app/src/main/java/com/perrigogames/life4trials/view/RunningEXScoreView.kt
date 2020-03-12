@@ -4,7 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.data.TrialSession
+import com.perrigogames.life4.data.TrialSession
 import kotlinx.android.synthetic.main.view_ex_score_view.view.*
 
 class RunningEXScoreView @JvmOverloads constructor(context: Context,

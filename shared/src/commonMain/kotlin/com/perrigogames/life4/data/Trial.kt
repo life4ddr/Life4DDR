@@ -1,5 +1,6 @@
 package com.perrigogames.life4.data
 
+import com.perrigogames.life4.enums.DifficultyClass
 import com.perrigogames.life4.response.TrialGoalSet
 import com.soywiz.klock.DateTime
 import com.soywiz.klock.until

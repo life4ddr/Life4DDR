@@ -17,12 +17,13 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_DEBUG_ACCEPT_INVALID
-import com.perrigogames.life4.data.ClearType
-import com.perrigogames.life4.data.ClearType.*
+import com.perrigogames.life4.enums.ClearType
+import com.perrigogames.life4.enums.ClearType.*
 import com.perrigogames.life4.data.Song
-import com.perrigogames.life4trials.data.SongResult
+import com.perrigogames.life4.data.SongResult
 import com.perrigogames.life4.data.TrialData
 import com.perrigogames.life4trials.life4app
+import com.perrigogames.life4trials.util.photoUri
 import com.perrigogames.life4trials.util.visibilityBool
 import kotlinx.android.synthetic.main.content_song_entry.*
 
@@ -30,12 +31,12 @@ import kotlinx.android.synthetic.main.content_song_entry.*
 class SongEntryActivity: AppCompatActivity() {
 
     private val trialManager get() = life4app.trialManager
+    private val currentSession get() = trialManager.currentSession!!
 
-    val result: SongResult? get() =
-        intent?.extras?.getSerializable(ARG_RESULT) as? SongResult
+    val result: SongResult? get() = currentSession.results[songIndex]
+    val song: Song get() = currentSession.trial.songs[songIndex]
 
-    val song: Song? get() =
-        trialManager.currentSession!!.trial.songs[intent?.extras?.getInt(ARG_SONG_INDEX) ?: 0]
+    private val songIndex: Int get() = intent?.extras?.getInt(ARG_SONG_INDEX) ?: 0
 
     private val requiresAdvancedDetail: Boolean get() =
         intent?.extras?.getSerializable(ARG_ADVANCED_DETAIL) as? Boolean ?: false
@@ -172,19 +173,18 @@ class SongEntryActivity: AppCompatActivity() {
             allFields.any { it.visibility == VISIBLE && it.error != null }) {
             Toast.makeText(this, R.string.make_sure_fields_filled, Toast.LENGTH_SHORT).show()
         } else {
-            setResult(Activity.RESULT_OK, Intent().apply {
-                putExtra(RESULT_DATA, result!!.also {
-                    it.score = score
-                    it.exScore = ex
-                    if (advancedFieldVisibility) {
-                        it.misses = misses
-                        it.goods = goods
-                        it.greats = greats
-                        it.perfects = perfects
-                    }
-                    it.passed = checkbox_passed.isChecked
-                })
-            })
+            result!!.also {
+                it.score = score
+                it.exScore = ex
+                if (advancedFieldVisibility) {
+                    it.misses = misses
+                    it.goods = goods
+                    it.greats = greats
+                    it.perfects = perfects
+                }
+                it.passed = checkbox_passed.isChecked
+            }
+            setResult(Activity.RESULT_OK)
             finish()
         }
     }
@@ -224,7 +224,6 @@ class SongEntryActivity: AppCompatActivity() {
     companion object {
         const val RESULT_RETAKE = 101
 
-        const val ARG_RESULT = "ARG_RESULT"
         const val ARG_SONG_INDEX = "ARG_SONG"
         const val ARG_ADVANCED_DETAIL = "ARG_ADVANCED_DETAIL"
 

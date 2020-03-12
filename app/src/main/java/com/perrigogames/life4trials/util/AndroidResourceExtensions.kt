@@ -4,6 +4,8 @@ import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import com.perrigogames.life4.data.*
+import com.perrigogames.life4.enums.ClearType
+import com.perrigogames.life4.enums.DifficultyClass
 import com.perrigogames.life4trials.R
 
 val LadderRank.nameRes @StringRes get() = when(this) {

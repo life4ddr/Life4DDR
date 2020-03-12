@@ -1,8 +1,8 @@
 package com.perrigogames.life4
 
-import com.perrigogames.life4.data.ClearType
-import com.perrigogames.life4.data.DifficultyClass
-import com.perrigogames.life4.data.PlayStyle
+import com.perrigogames.life4.enums.ClearType
+import com.perrigogames.life4.enums.DifficultyClass
+import com.perrigogames.life4.enums.PlayStyle
 import com.perrigogames.life4.data.TrialRank
 
 interface RankStrings {

@@ -14,7 +14,7 @@ import com.perrigogames.life4trials.api.MajorVersionedRemoteData
 import com.perrigogames.life4.data.TrialData
 import com.perrigogames.life4.data.TrialRank
 import com.perrigogames.life4trials.api.GithubDataAPI
-import com.perrigogames.life4trials.data.TrialSession
+import com.perrigogames.life4.data.TrialSession
 import com.perrigogames.life4trials.db.TrialSessionDB
 import com.perrigogames.life4trials.event.SavedRankUpdatedEvent
 import com.perrigogames.life4trials.event.TrialListReplacedEvent

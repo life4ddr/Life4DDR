@@ -1,6 +1,9 @@
 package com.perrigogames.life4trials.db
 
-import com.perrigogames.life4.data.*
+import com.perrigogames.life4.enums.ClearType
+import com.perrigogames.life4.enums.DifficultyClass
+import com.perrigogames.life4.enums.GameVersion
+import com.perrigogames.life4.enums.PlayStyle
 import com.perrigogames.life4trials.util.ClearTypeConverter
 import com.perrigogames.life4trials.util.DifficultyClassConverter
 import com.perrigogames.life4trials.util.GameVersionConverter

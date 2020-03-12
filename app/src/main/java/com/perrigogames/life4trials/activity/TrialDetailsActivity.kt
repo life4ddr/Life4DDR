@@ -12,24 +12,16 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import com.google.android.material.snackbar.Snackbar
-import com.perrigogames.life4.TrialStrings
-import com.perrigogames.life4.data.Song
-import com.perrigogames.life4.data.Trial
-import com.perrigogames.life4.data.TrialData
-import com.perrigogames.life4.data.TrialRank
+import com.perrigogames.life4.data.*
 import com.perrigogames.life4trials.AndroidTrialStrings
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_DEBUG_BYPASS_STAT_ENTRY
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_DETAILS_ENFORCE_EXPERT
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_DETAILS_PHOTO_SELECT
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_DETAILS_UPDATE_GOAL
-import com.perrigogames.life4trials.data.*
 import com.perrigogames.life4trials.life4app
 import com.perrigogames.life4trials.ui.songlist.SongListFragment
-import com.perrigogames.life4trials.util.nameRes
-import com.perrigogames.life4trials.util.openWebUrlFromRes
-import com.perrigogames.life4trials.util.toListString
-import com.perrigogames.life4trials.util.visibilityBool
+import com.perrigogames.life4trials.util.*
 import com.perrigogames.life4trials.view.JacketCornerView
 import com.perrigogames.life4trials.view.RunningEXScoreView
 import com.perrigogames.life4trials.view.SongView
@@ -268,7 +260,10 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener {
     override fun onNewPhotoCreated(uri: Uri) {
         if (currentIndex != null) {
             if (currentResult == null) {
-                currentResult = SongResult(trial.songs[currentIndex!!], uri.toString())
+                currentResult = SongResult(
+                    trial.songs[currentIndex!!],
+                    uri.toString()
+                )
             } else {
                 currentResult!!.photoUri = uri
             }
@@ -279,7 +274,6 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener {
 
     private fun startEditActivity(index: Int) {
         Intent(this, SongEntryActivity::class.java).also { i ->
-            i.putExtra(SongEntryActivity.ARG_RESULT, trialSession.results[index])
             i.putExtra(SongEntryActivity.ARG_SONG_INDEX, index)
             i.putExtra(SongEntryActivity.ARG_ADVANCED_DETAIL, trialSession.shouldShowAdvancedSongDetails)
             startActivityForResult(i, FLAG_SCORE_ENTER)

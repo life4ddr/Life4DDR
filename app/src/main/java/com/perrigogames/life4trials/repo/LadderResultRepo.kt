@@ -1,7 +1,7 @@
 package com.perrigogames.life4trials.repo
 
-import com.perrigogames.life4.data.ClearType
-import com.perrigogames.life4.data.DifficultyClass
+import com.perrigogames.life4.enums.ClearType
+import com.perrigogames.life4.enums.DifficultyClass
 import com.perrigogames.life4trials.db.ChartDB_
 import com.perrigogames.life4trials.db.LadderResultDB
 import com.perrigogames.life4trials.db.LadderResultDB_

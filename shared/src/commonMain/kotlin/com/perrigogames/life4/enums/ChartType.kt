@@ -1,4 +1,4 @@
-package com.perrigogames.life4.data
+package com.perrigogames.life4.enums
 
 import kotlinx.serialization.*
 import kotlinx.serialization.internal.StringDescriptor
@@ -41,12 +41,15 @@ enum class PlayStyle(val stableId: Long,
 }
 
 data class ChartType(val style: PlayStyle,
-                     val difficulty: DifficultyClass)
+                     val difficulty: DifficultyClass
+)
 
 @Serializer(forClass = DifficultyClass::class)
 object DifficultyClassSerializer: KSerializer<DifficultyClass> {
     override val descriptor: SerialDescriptor = StringDescriptor
-    override fun deserialize(decoder: Decoder) = DifficultyClass.parse(decoder.decodeString())!!
+    override fun deserialize(decoder: Decoder) = DifficultyClass.parse(
+        decoder.decodeString()
+    )!!
     override fun serialize(encoder: Encoder, obj: DifficultyClass) {
         encoder.encodeString(obj.name.toLowerCase())
     }
@@ -55,7 +58,9 @@ object DifficultyClassSerializer: KSerializer<DifficultyClass> {
 @Serializer(forClass = PlayStyle::class)
 object PlayStyleSerializer: KSerializer<PlayStyle> {
     override val descriptor: SerialDescriptor = StringDescriptor
-    override fun deserialize(decoder: Decoder) = PlayStyle.parse(decoder.decodeString())!!
+    override fun deserialize(decoder: Decoder) = PlayStyle.parse(
+        decoder.decodeString()
+    )!!
     override fun serialize(encoder: Encoder, obj: PlayStyle) {
         encoder.encodeString(obj.name.toLowerCase())
     }
@@ -66,8 +71,10 @@ object ChartTypeSerializer: KSerializer<ChartType> {
     override val descriptor: SerialDescriptor = StringDescriptor
     override fun deserialize(decoder: Decoder): ChartType {
         val input = decoder.decodeString()
-        return ChartType(PlayStyle.parse(input)!!,
-            DifficultyClass.parse(input)!!)
+        return ChartType(
+            PlayStyle.parse(input)!!,
+            DifficultyClass.parse(input)!!
+        )
     }
     override fun serialize(encoder: Encoder, obj: ChartType) {
         encoder.encodeString("${obj.difficulty.aggregatePrefix}${obj.style.aggregateSuffix}")

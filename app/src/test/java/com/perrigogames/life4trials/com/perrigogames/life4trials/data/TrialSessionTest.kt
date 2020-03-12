@@ -1,10 +1,10 @@
 package com.perrigogames.life4trials.com.perrigogames.life4trials.data
 
 import com.perrigogames.life4.data.*
-import com.perrigogames.life4trials.data.*
-import com.perrigogames.life4.data.ClearType.*
+import com.perrigogames.life4.enums.ClearType.*
 import com.perrigogames.life4.data.TrialData.Companion.TRIAL_LENGTH
 import com.perrigogames.life4.data.TrialRank.*
+import com.perrigogames.life4.enums.DifficultyClass
 import junit.framework.Assert.assertEquals
 import org.junit.Test
 
@@ -172,7 +172,11 @@ class TrialSessionTest {
          * Creates (and automatically adds) a [SongResult] to this Trial
          */
         private inline fun TrialSession.logSong(idx: Int, block: (SongResult) -> Unit): SongResult =
-            SongResult(trial.songs[idx], score = 1000000, exScore = SONG_EX).also {
+            SongResult(
+                trial.songs[idx],
+                score = 1000000,
+                exScore = SONG_EX
+            ).also {
                 block(it)
                 results[idx] = it
             }

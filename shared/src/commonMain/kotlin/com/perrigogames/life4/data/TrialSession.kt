@@ -1,24 +1,18 @@
-package com.perrigogames.life4trials.data
+package com.perrigogames.life4.data
 
-import android.net.Uri
-import com.perrigogames.life4.data.*
-import com.perrigogames.life4.data.ClearType.*
+import com.perrigogames.life4.enums.ClearType
+import com.perrigogames.life4.enums.ClearType.*
 import com.perrigogames.life4.response.TrialGoalSet
-import com.perrigogames.life4trials.util.hasCascade
-import java.io.Serializable
+import com.perrigogames.life4.util.hasCascade
 
 data class TrialSession(val trial: Trial,
                         var goalRank: TrialRank?,
                         val results: Array<SongResult?> = arrayOfNulls(TrialData.TRIAL_LENGTH),
-                        var finalPhotoUriString: String? = null): Serializable {
+                        var finalPhotoUriString: String? = null) {
 
     val hasStarted: Boolean get() = results.filterNotNull().any { it.score != null }
 
     var goalObtained: Boolean = false
-
-    var finalPhotoUri: Uri
-        get() = Uri.parse(finalPhotoUriString)
-        set(value) { finalPhotoUriString = value.toString() }
 
     val hasFinalPhoto get() = finalPhotoUriString != null
 
@@ -30,7 +24,8 @@ data class TrialSession(val trial: Trial,
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
-        if (javaClass != other?.javaClass) return false
+        if (other == null) return false
+        if (this::class != other::class) return false
 
         other as TrialSession
 
@@ -108,25 +103,25 @@ data class TrialSession(val trial: Trial,
         var satisfied = true
         val goal = trial.goalSet(rank) ?: return false
         if (goal.exMissing != null) {
-            satisfied = (missingExScore <= goal.exMissing!!)
+            satisfied = (missingExScore <= goal.exMissing)
         }
         if (satisfied && goal.judge != null) {
-            satisfied = currentBadJudgments?.let { it <= goal.judge!! } ?: true
+            satisfied = currentBadJudgments?.let { it <= goal.judge } ?: true
         }
         if (satisfied && goal.miss != null) {
-            satisfied = currentMisses?.let { it <= goal.miss!! } ?: true
+            satisfied = currentMisses?.let { it <= goal.miss } ?: true
         }
         if (satisfied && goal.missEach != null) {
-            satisfied = currentMisses?.let { it <= goal.missEach!! } ?: true
+            satisfied = currentMisses?.let { it <= goal.missEach } ?: true
         }
 
         val scores = results.map { it?.score }
-        if (satisfied && goal.score != null && !goal.score!!.hasCascade(scores.filterNotNull())) {
+        if (satisfied && goal.score != null && !goal.score.hasCascade(scores.filterNotNull())) {
             satisfied = false
         }
         if (satisfied && goal.scoreIndexed != null) {
             scores.forEachIndexed { idx, score ->
-                if (score != null && score < goal.scoreIndexed!![idx]) {
+                if (score != null && score < goal.scoreIndexed[idx]) {
                     return false
                 }
             }
@@ -139,12 +134,12 @@ data class TrialSession(val trial: Trial,
             satisfied = clears.none { it == FAIL.stableId.toInt() }
         }
 
-        if (satisfied && goal.clear != null && !goal.clear!!.map { it.stableId.toInt() }.hasCascade(clears.filterNotNull())) {
+        if (satisfied && goal.clear != null && !goal.clear.map { it.stableId.toInt() }.hasCascade(clears.filterNotNull())) {
             satisfied = false
         }
         if (satisfied && goal.clearIndexed != null) {
             clears.forEachIndexed { idx, clear ->
-                if (clear != null && clear < goal.clearIndexed!![idx].stableId) {
+                if (clear != null && clear < goal.clearIndexed[idx].stableId) {
                     return false
                 }
             }
@@ -161,7 +156,7 @@ data class SongResult(var song: Song,
                       var goods: Int? = null,
                       var greats: Int? = null,
                       var perfects: Int? = null,
-                      var passed: Boolean = true): Serializable {
+                      var passed: Boolean = true) {
 
     val badJudges get() = if (hasAdvancedStats) misses!! + goods!! + greats!! else null
 
@@ -189,12 +184,8 @@ data class SongResult(var song: Song,
         else -> CLEAR
     }
 
-    var photoUri: Uri
-        get() = Uri.parse(photoUriString)
-        set(value) { photoUriString = value.toString() }
-
     fun randomize() {
-        score = (Math.random() * 70000).toInt() + 930000
-        exScore = song.ex - (Math.random() * 100).toInt()
+        score = (930000..1000000).random()
+        exScore = song.ex - (0..100).random()
     }
 }

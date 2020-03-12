@@ -12,7 +12,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.data.BaseRankGoal
-import com.perrigogames.life4.data.ClearType
+import com.perrigogames.life4.enums.ClearType
 import com.perrigogames.life4trials.data.LadderGoalProgress
 import com.perrigogames.life4trials.db.GoalStatus
 import com.perrigogames.life4trials.db.GoalStatus.COMPLETE

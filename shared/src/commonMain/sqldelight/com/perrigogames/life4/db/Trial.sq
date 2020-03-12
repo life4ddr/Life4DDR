@@ -1,0 +1,43 @@
+CREATE TABLE TrialSession (
+id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+trialId TEXT NOT NULL,
+date TEXT NOT NULL,
+goalRankId INTEGER NOT NULL,
+goalObtained INTEGER AS Boolean DEFAULT 0
+);
+
+CREATE TABLE TrialSong (
+id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+songId INTEGER NOT NULL,
+position INTEGER DEFAULT 0,
+score INTEGER DEFAULT 0,
+exScore INTEGER DEFAULT 0,
+misses INTEGER,
+goods INTEGER,
+greats INTEGER,
+perfects INTEGER,
+passed INTEGER AS Boolean DEFAULT 0,
+FOREIGN KEY(songId) REFERENCES TrialSession
+);
+
+selectAll:
+SELECT * FROM TrialSession;
+
+selectById:
+SELECT * FROM TrialSession WHERE id = ?;
+
+insertSession:
+INSERT OR REPLACE INTO TrialSession(id, trialId, date, goalRankId, goalObtained)
+VALUES (?,?,?,?,?);
+
+insertSimpleSong:
+INSERT OR REPLACE INTO TrialSong(id, songId, position, score, exScore, passed)
+VALUES (?,?,?,?,?,?);
+
+insertSong:
+INSERT OR REPLACE INTO TrialSong(id, songId, position, score, exScore, misses, goods, greats, perfects, passed)
+VALUES (?,?,?,?,?,?,?,?,?,?);
+
+deleteAll:
+DELETE FROM TrialSong;
+DELETE FROM TrialSession;

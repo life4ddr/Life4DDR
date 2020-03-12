@@ -1,7 +1,7 @@
 package com.perrigogames.life4trials.repo
 
 import com.perrigogames.life4.data.TrialRank
-import com.perrigogames.life4trials.data.TrialSession
+import com.perrigogames.life4.data.TrialSession
 import com.perrigogames.life4trials.db.TrialSessionDB
 import com.perrigogames.life4trials.db.TrialSessionDB_
 import com.perrigogames.life4trials.db.TrialSongResultDB

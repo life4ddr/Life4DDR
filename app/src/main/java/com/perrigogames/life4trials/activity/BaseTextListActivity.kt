@@ -3,7 +3,7 @@ package com.perrigogames.life4trials.activity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4.data.PlayStyle
+import com.perrigogames.life4.enums.PlayStyle
 import com.perrigogames.life4trials.life4app
 import kotlinx.android.synthetic.main.activity_block_list_check.*
 

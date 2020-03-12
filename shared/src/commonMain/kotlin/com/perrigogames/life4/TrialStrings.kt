@@ -1,6 +1,6 @@
 package com.perrigogames.life4
 
-import com.perrigogames.life4.data.ClearType
+import com.perrigogames.life4.enums.ClearType
 
 interface TrialStrings {
     fun scoreSingleSong(score: Int, song: String): String

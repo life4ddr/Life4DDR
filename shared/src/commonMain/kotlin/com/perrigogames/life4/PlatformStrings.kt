@@ -1,6 +1,7 @@
 package com.perrigogames.life4
 
 import com.perrigogames.life4.data.*
+import com.perrigogames.life4.enums.ClearType
 
 /**
  * An interface for providing text relating to LIFE4 data types to the

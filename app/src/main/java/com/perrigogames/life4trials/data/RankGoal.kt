@@ -3,6 +3,9 @@ package com.perrigogames.life4trials.data
 import android.content.Context
 import com.google.gson.annotations.SerializedName
 import com.perrigogames.life4.data.*
+import com.perrigogames.life4.enums.ClearType
+import com.perrigogames.life4.enums.DifficultyClass
+import com.perrigogames.life4.enums.PlayStyle
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.db.LadderResultDB
 import com.perrigogames.life4trials.util.*

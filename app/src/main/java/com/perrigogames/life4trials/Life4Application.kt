@@ -34,7 +34,6 @@ class Life4Application: MultiDexApplication() {
     lateinit var ladderManager: LadderManager
     lateinit var placementManager: PlacementManager
     lateinit var songDataManager: SongDataManager
-    lateinit var tournamentManager: TournamentManager
     lateinit var trialManager: TrialManager
     lateinit var playerManager: PlayerManager
     lateinit var settingsManager: SettingsManager
@@ -51,7 +50,6 @@ class Life4Application: MultiDexApplication() {
             ladderManager.onApplicationException()
             placementManager.onApplicationException()
             songDataManager.onApplicationException()
-            tournamentManager.onApplicationException()
             trialManager.onApplicationException()
             settingsManager.onApplicationException()
 
@@ -81,7 +79,6 @@ class Life4Application: MultiDexApplication() {
         placementManager = PlacementManager(this)
         trialManager = TrialManager(this, trialRepo, githubDataApi, settingsManager)
         ladderManager = LadderManager(this, songRepo, ladderResultRepo, ignoreListManager, songDataManager, trialManager, githubDataApi, settingsManager)
-        tournamentManager = TournamentManager()
         playerManager = PlayerManager(this)
 
         NotificationUtil.setupNotifications(this)

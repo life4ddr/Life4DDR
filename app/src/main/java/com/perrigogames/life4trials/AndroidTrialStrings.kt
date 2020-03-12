@@ -2,7 +2,7 @@ package com.perrigogames.life4trials
 
 import android.content.Context
 import com.perrigogames.life4.TrialStrings
-import com.perrigogames.life4.data.ClearType
+import com.perrigogames.life4.enums.ClearType
 import com.perrigogames.life4.data.TrialData
 import com.perrigogames.life4trials.util.clearRes
 

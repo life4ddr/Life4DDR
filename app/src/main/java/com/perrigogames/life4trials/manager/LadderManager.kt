@@ -9,10 +9,10 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.FragmentActivity
-import com.perrigogames.life4.data.ClearType
-import com.perrigogames.life4.data.DifficultyClass
+import com.perrigogames.life4.enums.ClearType
+import com.perrigogames.life4.enums.DifficultyClass
 import com.perrigogames.life4.data.LadderRank
-import com.perrigogames.life4.data.PlayStyle
+import com.perrigogames.life4.enums.PlayStyle
 import com.perrigogames.life4trials.BuildConfig
 import com.perrigogames.life4trials.Life4Application
 import com.perrigogames.life4trials.R

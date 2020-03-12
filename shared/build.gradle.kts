@@ -98,7 +98,7 @@ kotlin {
 }
 
 sqldelight {
-    database("life4") {
+    database("Life4Db") {
         packageName = "com.perrigogames.life4"
     }
 }

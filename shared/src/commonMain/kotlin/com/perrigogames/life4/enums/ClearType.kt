@@ -1,4 +1,4 @@
-package com.perrigogames.life4.data
+package com.perrigogames.life4.enums
 
 import kotlinx.serialization.*
 import kotlinx.serialization.internal.StringDescriptor
@@ -32,7 +32,9 @@ enum class ClearType(val stableId: Long, val serialized: List<String>, val passi
 @Serializer(forClass = ClearType::class)
 object ClearTypeSerializer: KSerializer<ClearType> {
     override val descriptor: SerialDescriptor = StringDescriptor
-    override fun deserialize(decoder: Decoder) = ClearType.parse(decoder.decodeString())!!
+    override fun deserialize(decoder: Decoder) = ClearType.parse(
+        decoder.decodeString()
+    )!!
     override fun serialize(encoder: Encoder, obj: ClearType) {
         encoder.encodeString(obj.serialized.first())
     }

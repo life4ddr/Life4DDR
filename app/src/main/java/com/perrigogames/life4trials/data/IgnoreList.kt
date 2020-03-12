@@ -1,8 +1,8 @@
 package com.perrigogames.life4trials.data
 
 import com.google.gson.annotations.SerializedName
-import com.perrigogames.life4.data.DifficultyClass
-import com.perrigogames.life4.data.GameVersion
+import com.perrigogames.life4.enums.DifficultyClass
+import com.perrigogames.life4.enums.GameVersion
 import com.perrigogames.life4.data.MajorVersioned
 
 enum class IgnoreUnlockType {

@@ -132,9 +132,9 @@ abstract class LocalRemoteData<T: Any>(protected val context: Context,
  * to prevent unreadable data from crashing older versions of the app that won't parse properly.
  */
 abstract class MajorVersionedRemoteData<T: MajorVersioned>(context: Context,
-                                                                                                          @RawRes rawResId: Int,
-                                                                                                          cachedFileName: String,
-                                                                                                          val majorVersion: Int):
+                                                           @RawRes rawResId: Int,
+                                                           cachedFileName: String,
+                                                           val majorVersion: Int):
     LocalRemoteData<T>(context, rawResId, cachedFileName) {
 
     /** Since the template is restricted to [MajorVersioned], use that version number. */
