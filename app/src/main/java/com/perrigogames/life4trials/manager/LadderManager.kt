@@ -19,7 +19,7 @@ import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_IMPORT_SKIP_DIRECTIONS
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_INFO_RANK
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_INFO_TARGET_RANK
-import com.perrigogames.life4.ktor.GithubDataAPI
+import com.perrigogames.life4trials.api.GithubDataAPI
 import com.perrigogames.life4trials.api.MajorVersionedRemoteData
 import com.perrigogames.life4trials.data.*
 import com.perrigogames.life4trials.db.*

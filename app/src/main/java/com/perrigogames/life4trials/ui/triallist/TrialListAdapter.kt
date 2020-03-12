@@ -3,8 +3,8 @@ package com.perrigogames.life4trials.ui.triallist
 import android.content.Context
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.perrigogames.life4trials.data.Trial
-import com.perrigogames.life4trials.data.TrialType
+import com.perrigogames.life4.data.Trial
+import com.perrigogames.life4.data.TrialType
 import com.perrigogames.life4trials.life4app
 import com.perrigogames.life4trials.view.JacketCornerView.CornerType.EVENT
 import com.perrigogames.life4trials.view.JacketCornerView.CornerType.NEW
@@ -48,7 +48,7 @@ class TrialListAdapter(private val context: Context,
         val item = itemForPosition(position)
         holder.trialItemView.trial = item
         holder.trialItemView.setCornerType(when {
-            item.event_end != null -> EVENT
+            item.eventEnd != null -> EVENT
             featureNew && item.new && trialManager.bestTrial(item.id) == null -> NEW
             else -> null
         })

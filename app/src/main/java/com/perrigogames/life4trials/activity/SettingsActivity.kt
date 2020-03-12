@@ -22,6 +22,7 @@ import com.perrigogames.life4trials.event.TrialListReplacedEvent
 import com.perrigogames.life4trials.event.TrialListUpdatedEvent
 import com.perrigogames.life4trials.life4app
 import com.perrigogames.life4trials.util.NotificationUtil
+import com.perrigogames.life4trials.util.jacketResId
 import com.perrigogames.life4trials.util.openWebUrlFromRes
 
 
@@ -331,7 +332,7 @@ class SettingsActivity : AppCompatActivity(), SettingsFragmentListener {
             val ranksList = TrialRank.values().map { it.toString() }.toMutableList()
             ranksList.add(0, "NONE")
             val ranksArray = ranksList.toTypedArray()
-            context!!.life4app.trialManager.trials.filter { it.goals != null && it.goals.isNotEmpty() }.forEach { trial ->
+            context!!.life4app.trialManager.trials.filter { it.goals != null && it.goals!!.isNotEmpty() }.forEach { trial ->
                 preferenceScreen.addPreference(DropDownPreference(context).apply {
                     key = "$KEY_DEBUG_RANK_PREFIX${trial.id}"
                     title = trial.name

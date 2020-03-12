@@ -18,10 +18,7 @@ import com.perrigogames.life4trials.db.TrialSessionDB
 import com.perrigogames.life4trials.life4app
 import com.perrigogames.life4trials.manager.TrialManager
 import com.perrigogames.life4trials.ui.trialrecords.TrialRecordsFragment.OnRecordsListInteractionListener
-import com.perrigogames.life4trials.util.DataUtil
-import com.perrigogames.life4trials.util.colorRes
-import com.perrigogames.life4trials.util.locale
-import com.perrigogames.life4trials.util.visibilityBool
+import com.perrigogames.life4trials.util.*
 import com.perrigogames.life4trials.view.RankImageView
 import com.perrigogames.life4trials.view.longNumberString
 import kotlinx.android.synthetic.main.item_trial_record.view.*
@@ -106,10 +103,10 @@ class TrialRecordsAdapter(private val trialManager: TrialManager,
 
                     val sessionEx = s.exScore ?: 0
                     val shouldShowRemaining = context.life4app.settingsManager.getUserFlag(KEY_RECORDS_REMAINING_EX, false)
-                    val goalEx = if (shouldShowRemaining) sessionEx - trial.total_ex!! else trial.total_ex
+                    val goalEx = if (shouldShowRemaining) sessionEx - trial.totalEx!! else trial.totalEx
                     exScore.text = context.getString(R.string.ex_score_fraction_format, sessionEx, goalEx)
-                    exProgress.max = trial.total_ex!!
-                    val progressPercent = AccelerateInterpolator(0.25f).getInterpolation(sessionEx.toFloat() / trial.total_ex)
+                    exProgress.max = trial.totalEx!!
+                    val progressPercent = AccelerateInterpolator(0.25f).getInterpolation(sessionEx.toFloat() / trial.totalEx)
                     exProgress.progress = (progressPercent * sessionEx).toInt()
 
                     rankImage.rank = s.goalRank!!.parent

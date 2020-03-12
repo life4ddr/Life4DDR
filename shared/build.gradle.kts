@@ -42,8 +42,8 @@ kotlin {
         implementation(Deps.stately)
         implementation(Deps.multiplatformSettings)
         implementation(Deps.koinCore)
+        implementation(Deps.klock)
         implementation(Deps.ktor.commonSerialization)
-
     }
 
     sourceSets["commonTest"].dependencies {
@@ -74,7 +74,7 @@ kotlin {
         implementation(Deps.AndroidXTest.junit)
         implementation(Deps.AndroidXTest.runner)
         implementation(Deps.AndroidXTest.rules)
-        implementation("org.robolectric:robolectric:4.0")
+        implementation("org.robolectric:robolectric:4.3")
     }
 
     sourceSets["iosMain"].dependencies {
@@ -87,19 +87,19 @@ kotlin {
     }
 
     cocoapods {
-        summary = "Common library for the KaMP starter kit"
-        homepage = "https://github.com/touchlab/KaMPStarter"
+        summary = "Common library for LIFE4DDR logic"
+        homepage = "https://github.com/PerrigoGames/Life4DDR-Trials"
     }
 
     xcodeSync {
         projectPath = "../ios/KaMPStarteriOS.xcodeproj"
-        target = "KaMPStarteriOS"
+        target = "LIFE4iOS"
     }
 }
 
 sqldelight {
-    database("KampstarterDb") {
-        packageName = "co.touchlab.kampstarter.db"
+    database("life4") {
+        packageName = "com.perrigogames.life4"
     }
 }
 

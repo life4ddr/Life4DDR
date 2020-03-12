@@ -12,7 +12,12 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import com.google.android.material.snackbar.Snackbar
+import com.perrigogames.life4.TrialStrings
+import com.perrigogames.life4.data.Song
+import com.perrigogames.life4.data.Trial
+import com.perrigogames.life4.data.TrialData
 import com.perrigogames.life4.data.TrialRank
+import com.perrigogames.life4trials.AndroidTrialStrings
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_DEBUG_BYPASS_STAT_ENTRY
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_DETAILS_ENFORCE_EXPERT
@@ -101,7 +106,7 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener {
             val userRank = ladderManager.getUserRank()
             val scoringGroup = trial.findScoringGroup(TrialRank.fromLadderRank(userRank, true) ?: TrialRank.WOOD)
             text_event_timer.text = resources.getString(R.string.event_ends_format,
-                SimpleDateFormat("MMMM dd", Locale.US).format(trial.event_end))
+                SimpleDateFormat("MMMM dd", Locale.US).format(trial.eventEnd))
             text_event_help.text = resources.getString(R.string.event_directions,
                 scoringGroup?.map { resources.getString(it.nameRes) }?.toListString(baseContext))
         } else {
@@ -214,7 +219,7 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener {
         trialSession.goalRank = rank
 
         image_desired_rank.rank = rank.parent
-        text_goals_content.text = trialSession.trialGoalSet?.generateSingleGoalString(resources, trial)
+        text_goals_content.text = trialSession.trialGoalSet?.generateSingleGoalString(AndroidTrialStrings(this), trial)
 
         songListFragment.shouldShowAdvancedSongDetails = trialSession.shouldShowAdvancedSongDetails
     }
@@ -275,7 +280,7 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener {
     private fun startEditActivity(index: Int) {
         Intent(this, SongEntryActivity::class.java).also { i ->
             i.putExtra(SongEntryActivity.ARG_RESULT, trialSession.results[index])
-            i.putExtra(SongEntryActivity.ARG_SONG, trial.songs[index])
+            i.putExtra(SongEntryActivity.ARG_SONG_INDEX, index)
             i.putExtra(SongEntryActivity.ARG_ADVANCED_DETAIL, trialSession.shouldShowAdvancedSongDetails)
             startActivityForResult(i, FLAG_SCORE_ENTER)
         }

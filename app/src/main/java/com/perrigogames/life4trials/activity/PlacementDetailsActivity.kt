@@ -9,8 +9,8 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_DETAILS_PHOTO_SELECT
-import com.perrigogames.life4trials.data.Song
-import com.perrigogames.life4trials.data.Trial
+import com.perrigogames.life4.data.Song
+import com.perrigogames.life4.data.Trial
 import com.perrigogames.life4trials.life4app
 import com.perrigogames.life4trials.ui.songlist.SongListFragment
 import com.perrigogames.life4trials.view.RankHeaderView
@@ -33,7 +33,7 @@ class PlacementDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listene
         setContentView(R.layout.content_placement_details)
 
         (layout_rank_header as RankHeaderView).apply {
-            rank = trial.placement_rank!!.toLadderRank()
+            rank = trial.placementRank!!.toLadderRank()
             genericTitles = true
 //            navigationListener = object : RankHeaderView.NavigationListener {
 //                override fun onPreviousClicked() = navigationButtonClicked(placementManager.previousPlacement(placementId))

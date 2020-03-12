@@ -6,7 +6,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.data.TrialType
+import com.perrigogames.life4.data.TrialType
 import com.perrigogames.life4trials.ui.triallist.TrialListFragment
 import kotlinx.android.synthetic.main.activity_trial_list.*
 

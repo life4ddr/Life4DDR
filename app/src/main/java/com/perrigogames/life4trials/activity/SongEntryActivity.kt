@@ -19,9 +19,9 @@ import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_DEBUG_ACCEPT_INVALID
 import com.perrigogames.life4.data.ClearType
 import com.perrigogames.life4.data.ClearType.*
-import com.perrigogames.life4trials.data.Song
+import com.perrigogames.life4.data.Song
 import com.perrigogames.life4trials.data.SongResult
-import com.perrigogames.life4trials.data.TrialData
+import com.perrigogames.life4.data.TrialData
 import com.perrigogames.life4trials.life4app
 import com.perrigogames.life4trials.util.visibilityBool
 import kotlinx.android.synthetic.main.content_song_entry.*
@@ -29,11 +29,13 @@ import kotlinx.android.synthetic.main.content_song_entry.*
 
 class SongEntryActivity: AppCompatActivity() {
 
+    private val trialManager get() = life4app.trialManager
+
     val result: SongResult? get() =
         intent?.extras?.getSerializable(ARG_RESULT) as? SongResult
 
     val song: Song? get() =
-        intent?.extras?.getSerializable(ARG_SONG) as? Song
+        trialManager.currentSession!!.trial.songs[intent?.extras?.getInt(ARG_SONG_INDEX) ?: 0]
 
     private val requiresAdvancedDetail: Boolean get() =
         intent?.extras?.getSerializable(ARG_ADVANCED_DETAIL) as? Boolean ?: false
@@ -223,7 +225,7 @@ class SongEntryActivity: AppCompatActivity() {
         const val RESULT_RETAKE = 101
 
         const val ARG_RESULT = "ARG_RESULT"
-        const val ARG_SONG = "ARG_SONG"
+        const val ARG_SONG_INDEX = "ARG_SONG"
         const val ARG_ADVANCED_DETAIL = "ARG_ADVANCED_DETAIL"
 
         const val RESULT_DATA = "RESULT_DATA"

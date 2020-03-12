@@ -4,7 +4,7 @@ import android.content.Context
 import com.crashlytics.android.Crashlytics
 import com.perrigogames.life4trials.BuildConfig
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.data.TrialData
+import com.perrigogames.life4.data.TrialData
 import com.perrigogames.life4trials.util.DataUtil
 import com.perrigogames.life4trials.util.loadRawString
 

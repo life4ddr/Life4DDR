@@ -1,9 +1,9 @@
 package com.perrigogames.life4trials.data
 
 import android.net.Uri
-import com.perrigogames.life4.data.ClearType
+import com.perrigogames.life4.data.*
 import com.perrigogames.life4.data.ClearType.*
-import com.perrigogames.life4.data.TrialRank
+import com.perrigogames.life4.response.TrialGoalSet
 import com.perrigogames.life4trials.util.hasCascade
 import java.io.Serializable
 
@@ -93,11 +93,11 @@ data class TrialSession(val trial: Trial,
     val projectedExScore: Int
         get() {
             val projectedMaxPercent = currentTotalExScore.toDouble() / currentMaxExScore.toDouble()
-            return (trial.total_ex * projectedMaxPercent).toInt()
+            return (trial.totalEx * projectedMaxPercent).toInt()
         }
 
     /** Calculates the amount of EX still available on songs that haven't been played */
-    val remainingExScore: Int get() = currentTotalExScore - trial.total_ex
+    val remainingExScore: Int get() = currentTotalExScore - trial.totalEx
 
     val highestPossibleRank: TrialRank? get() {
         val availableRanks = trial.goals?.map { it.rank }?.sortedBy { it.stableId }
@@ -108,25 +108,25 @@ data class TrialSession(val trial: Trial,
         var satisfied = true
         val goal = trial.goalSet(rank) ?: return false
         if (goal.exMissing != null) {
-            satisfied = (missingExScore <= goal.exMissing)
+            satisfied = (missingExScore <= goal.exMissing!!)
         }
         if (satisfied && goal.judge != null) {
-            satisfied = currentBadJudgments?.let { it <= goal.judge } ?: true
+            satisfied = currentBadJudgments?.let { it <= goal.judge!! } ?: true
         }
         if (satisfied && goal.miss != null) {
-            satisfied = currentMisses?.let { it <= goal.miss } ?: true
+            satisfied = currentMisses?.let { it <= goal.miss!! } ?: true
         }
         if (satisfied && goal.missEach != null) {
-            satisfied = currentMisses?.let { it <= goal.missEach } ?: true
+            satisfied = currentMisses?.let { it <= goal.missEach!! } ?: true
         }
 
         val scores = results.map { it?.score }
-        if (satisfied && goal.score != null && !goal.score.hasCascade(scores.filterNotNull())) {
+        if (satisfied && goal.score != null && !goal.score!!.hasCascade(scores.filterNotNull())) {
             satisfied = false
         }
         if (satisfied && goal.scoreIndexed != null) {
             scores.forEachIndexed { idx, score ->
-                if (score != null && score < goal.scoreIndexed[idx]) {
+                if (score != null && score < goal.scoreIndexed!![idx]) {
                     return false
                 }
             }
@@ -139,12 +139,12 @@ data class TrialSession(val trial: Trial,
             satisfied = clears.none { it == FAIL.stableId.toInt() }
         }
 
-        if (satisfied && goal.clear != null && !goal.clear.map { it.stableId.toInt() }.hasCascade(clears.filterNotNull())) {
+        if (satisfied && goal.clear != null && !goal.clear!!.map { it.stableId.toInt() }.hasCascade(clears.filterNotNull())) {
             satisfied = false
         }
         if (satisfied && goal.clearIndexed != null) {
             clears.forEachIndexed { idx, clear ->
-                if (clear != null && clear < goal.clearIndexed[idx].stableId) {
+                if (clear != null && clear < goal.clearIndexed!![idx].stableId) {
                     return false
                 }
             }

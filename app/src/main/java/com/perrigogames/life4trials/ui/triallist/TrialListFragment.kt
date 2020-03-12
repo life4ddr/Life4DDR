@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.perrigogames.life4trials.Life4Application
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_LIST_HIGHLIGHT_NEW
-import com.perrigogames.life4trials.data.Trial
-import com.perrigogames.life4trials.data.TrialType
+import com.perrigogames.life4.data.Trial
+import com.perrigogames.life4.data.TrialType
 import com.perrigogames.life4trials.event.SavedRankUpdatedEvent
 import com.perrigogames.life4trials.event.TrialListReplacedEvent
 import com.perrigogames.life4trials.event.TrialListUpdatedEvent

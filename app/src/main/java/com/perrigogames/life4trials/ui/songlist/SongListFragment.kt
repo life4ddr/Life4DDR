@@ -14,7 +14,7 @@ import androidx.fragment.app.Fragment
 import com.crashlytics.android.Crashlytics
 import com.perrigogames.life4trials.BuildConfig
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.data.Song
+import com.perrigogames.life4.data.Song
 import com.perrigogames.life4trials.data.SongResult
 import com.perrigogames.life4trials.life4app
 import com.perrigogames.life4trials.view.PathImageView

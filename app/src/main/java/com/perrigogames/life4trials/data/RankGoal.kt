@@ -2,10 +2,7 @@ package com.perrigogames.life4trials.data
 
 import android.content.Context
 import com.google.gson.annotations.SerializedName
-import com.perrigogames.life4.data.ClearType
-import com.perrigogames.life4.data.DifficultyClass
-import com.perrigogames.life4.data.PlayStyle
-import com.perrigogames.life4.data.TrialRank
+import com.perrigogames.life4.data.*
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.db.LadderResultDB
 import com.perrigogames.life4trials.util.*

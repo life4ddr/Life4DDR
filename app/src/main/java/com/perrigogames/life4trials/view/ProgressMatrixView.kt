@@ -12,7 +12,7 @@ import androidx.core.util.getOrDefault
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.data.BaseRankGoal
 import com.perrigogames.life4trials.data.DifficultyClearGoal
-import com.perrigogames.life4trials.data.TrialData
+import com.perrigogames.life4.data.TrialData
 import com.perrigogames.life4trials.util.CommonSizes
 import com.perrigogames.life4trials.util.colorRes
 import com.perrigogames.life4trials.util.visibilityBool

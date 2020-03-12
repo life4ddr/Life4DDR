@@ -12,10 +12,11 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import com.bumptech.glide.Glide
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.data.Trial
+import com.perrigogames.life4.data.Trial
 import com.perrigogames.life4.data.TrialRank
 import com.perrigogames.life4trials.util.colorRes
 import com.perrigogames.life4trials.util.drawableRes
+import com.perrigogames.life4trials.util.jacketResId
 import com.perrigogames.life4trials.util.visibilityBool
 import kotlinx.android.synthetic.main.view_trial_jacket.view.*
 
@@ -38,8 +39,8 @@ class TrialJacketView @JvmOverloads constructor(context: Context, attrs: Attribu
             text_trial_title.visibility = View.GONE
             if (v != null) {
                 val resId = v.jacketResId(context)
-                if (v.cover_url != null && (resId == R.drawable.trial_default || v.cover_override)) {
-                    Glide.with(this).load(v.cover_url).into(image_trial_jacket)
+                if (v.coverUrl != null && (resId == R.drawable.trial_default || v.coverOverride)) {
+                    Glide.with(this).load(v.coverUrl).into(image_trial_jacket)
                 } else {
                     if (resId == R.drawable.trial_default) {
                         text_trial_title.visibility = View.VISIBLE
@@ -108,9 +109,9 @@ class TrialJacketView @JvmOverloads constructor(context: Context, attrs: Attribu
             } else {
                 text_ex_score.visibility = VISIBLE
             }
-            if (trial != null && trial!!.total_ex != null && showExRemaining) {
-                text_ex_score.text = context.getString(R.string.ex_score_missing_newline_string_format, exScore, exScore!! - trial!!.total_ex!!)
-                text_ex_score_center.text = context.getString(R.string.ex_score_missing_string_format, exScore, exScore!! - trial!!.total_ex!!)
+            if (trial != null && trial!!.totalEx != null && showExRemaining) {
+                text_ex_score.text = context.getString(R.string.ex_score_missing_newline_string_format, exScore, exScore!! - trial!!.totalEx!!)
+                text_ex_score_center.text = context.getString(R.string.ex_score_missing_string_format, exScore, exScore!! - trial!!.totalEx!!)
             } else {
                 context.getString(R.string.ex_score_string_format, exScore!!).let { exText ->
                     text_ex_score.text = exText

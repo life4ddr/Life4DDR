@@ -10,10 +10,10 @@ import com.perrigogames.life4trials.BuildConfig
 import com.perrigogames.life4trials.Life4Application
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_SUBMISSION_NOTIFICAION
-import com.perrigogames.life4.ktor.GithubDataAPI
 import com.perrigogames.life4trials.api.MajorVersionedRemoteData
-import com.perrigogames.life4trials.data.TrialData
+import com.perrigogames.life4.data.TrialData
 import com.perrigogames.life4.data.TrialRank
+import com.perrigogames.life4trials.api.GithubDataAPI
 import com.perrigogames.life4trials.data.TrialSession
 import com.perrigogames.life4trials.db.TrialSessionDB
 import com.perrigogames.life4trials.event.SavedRankUpdatedEvent
@@ -49,12 +49,16 @@ class TrialManager(private val context: Context,
         private fun mergeDebugData(data: TrialData): TrialData = if (BuildConfig.DEBUG) {
             val debugData: TrialData = DataUtil.gson.fromJson(context.loadRawString(R.raw.trials_debug), TrialData::class.java)!!
             val placements = context.life4app.placementManager.placements
-            TrialData(data.version, data.majorVersion,data.trials + debugData.trials + placements)
+            TrialData(
+                data.version,
+                data.majorVersion,
+                data.trials + debugData.trials + placements
+            )
         } else data
 
         private fun validateTrialData(data: TrialData) {
              data.trials.firstOrNull { !it.isExValid }?.let { trial -> throw Exception(
-                 "Trial ${trial.name} (${trial.total_ex}) has improper EX scores: ${trial.songs.map { it.ex }.joinToString()}") }
+                 "Trial ${trial.name} (${trial.totalEx}) has improper EX scores: ${trial.songs.map { it.ex }.joinToString()}") }
         }
     }
 
@@ -75,9 +79,9 @@ class TrialManager(private val context: Context,
     private fun validateTrials() = trials.forEach { trial ->
         var sum = 0
         trial.songs.forEach { sum += it.ex }
-        if (sum != trial.total_ex) {
+        if (sum != trial.totalEx) {
             if (!BuildConfig.DEBUG) {
-                Crashlytics.logException(Exception("Trial ${trial.name} has improper EX values: total_ex=${trial.total_ex}, sum=$sum"))
+                Crashlytics.logException(Exception("Trial ${trial.name} has improper EX values: total_ex=${trial.totalEx}, sum=$sum"))
             }
         }
     }

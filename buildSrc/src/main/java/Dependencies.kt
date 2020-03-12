@@ -16,6 +16,7 @@ object Versions {
     val sqlDelight = "1.2.1"
     val ktor = "1.2.6"
     val stately = "0.9.5"
+    val klock = "1.7.3"
     val lottie = "3.3.0"
     val eventbus = "3.1.1"
     val dexter = "5.0.0"
@@ -47,6 +48,7 @@ object Deps {
     val firebase_messaging = "com.google.firebase:firebase-messaging:${Versions.firebase_messaging}"
     val firebase_crashlytics = "com.crashlytics.sdk.android:crashlytics:${Versions.fabric}"
 
+    val klock = "com.soywiz.korlibs.klock:klock:${Versions.klock}"
     val lottie = "com.airbnb.android:lottie:${Versions.lottie}"
     val eventbus = "org.greenrobot:eventbus:${Versions.eventbus}"
     val dexter = "com.karumi:dexter:${Versions.dexter}"

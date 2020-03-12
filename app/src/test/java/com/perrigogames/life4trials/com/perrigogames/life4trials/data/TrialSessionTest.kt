@@ -1,10 +1,9 @@
 package com.perrigogames.life4trials.com.perrigogames.life4trials.data
 
+import com.perrigogames.life4.data.*
 import com.perrigogames.life4trials.data.*
 import com.perrigogames.life4.data.ClearType.*
-import com.perrigogames.life4.data.DifficultyClass
-import com.perrigogames.life4.data.TrialRank
-import com.perrigogames.life4trials.data.TrialData.Companion.TRIAL_LENGTH
+import com.perrigogames.life4.data.TrialData.Companion.TRIAL_LENGTH
 import com.perrigogames.life4.data.TrialRank.*
 import junit.framework.Assert.assertEquals
 import org.junit.Test
@@ -145,9 +144,29 @@ class TrialSessionTest {
         const val SONG_EX = 1000
 
         private fun testTrial(goals: List<TrialGoalSet>) = Trial(
-            "test", "Test Trial", "Test Author", TrialType.TRIAL, null, false,
-            null, null, null, 1, goals, SONG_EX * TRIAL_LENGTH, null, false,
-            (1..TRIAL_LENGTH).map { idx -> Song("Song $idx", idx, DifficultyClass.CHALLENGE, SONG_EX, null) })
+            "test",
+            "Test Trial",
+            "Test Author",
+            TrialType.TRIAL,
+            null,
+            false,
+            null,
+            null,
+            null,
+            1,
+            goals,
+            SONG_EX * TRIAL_LENGTH,
+            null,
+            false,
+            (1..TRIAL_LENGTH).map { idx ->
+                Song(
+                    "Song $idx",
+                    idx,
+                    DifficultyClass.CHALLENGE,
+                    SONG_EX,
+                    null
+                )
+            })
 
         /**
          * Creates (and automatically adds) a [SongResult] to this Trial

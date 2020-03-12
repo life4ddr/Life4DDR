@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.data.Trial
+import com.perrigogames.life4.data.Trial
 
 class PlacementListAdapter(private val placements: List<Trial>,
                            private val onPlacementSelected: (String) -> Unit):
@@ -25,7 +25,7 @@ class PlacementListAdapter(private val placements: List<Trial>,
     inner class PlacementViewHolder(val view: PlacementOverviewView) : RecyclerView.ViewHolder(view) {
 
         fun bind(placement: Trial) {
-            view.rank = placement.placement_rank
+            view.rank = placement.placementRank
             view.songs = placement.songs
         }
     }

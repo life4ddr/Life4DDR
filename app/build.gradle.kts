@@ -86,6 +86,7 @@ dependencies {
     implementation(Deps.firebase_messaging)
     implementation(Deps.firebase_crashlytics)
 
+    implementation(Deps.klock)
     implementation(Deps.lottie)
     implementation(Deps.eventbus)
     implementation(Deps.dexter)
