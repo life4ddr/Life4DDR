@@ -15,21 +15,25 @@ import androidx.recyclerview.widget.RecyclerView
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_RECORDS_REMAINING_EX
 import com.perrigogames.life4trials.db.TrialSessionDB
-import com.perrigogames.life4trials.life4app
+import com.perrigogames.life4trials.manager.SettingsManager
 import com.perrigogames.life4trials.manager.TrialManager
 import com.perrigogames.life4trials.ui.trialrecords.TrialRecordsFragment.OnRecordsListInteractionListener
 import com.perrigogames.life4trials.util.*
 import com.perrigogames.life4trials.view.RankImageView
 import com.perrigogames.life4trials.view.longNumberString
 import kotlinx.android.synthetic.main.item_trial_record.view.*
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 
 /**
  * [RecyclerView.Adapter] that can display a [TrialSessionDB] and makes a call to the
  * specified [OnRecordsListInteractionListener].
  */
-class TrialRecordsAdapter(private val trialManager: TrialManager,
-                          private val mListener: OnRecordsListInteractionListener?) :
-    RecyclerView.Adapter<TrialRecordsAdapter.ViewHolder>() {
+class TrialRecordsAdapter(private val mListener: OnRecordsListInteractionListener?) :
+    RecyclerView.Adapter<TrialRecordsAdapter.ViewHolder>(), KoinComponent {
+
+    private val trialManager: TrialManager by inject()
+    private val settingsManager: SettingsManager by inject()
 
     private lateinit var recordsList: List<TrialSessionDB>
     private val mOnClickListener: View.OnClickListener
@@ -102,11 +106,11 @@ class TrialRecordsAdapter(private val trialManager: TrialManager,
                     title.text = trial.name
 
                     val sessionEx = s.exScore ?: 0
-                    val shouldShowRemaining = context.life4app.settingsManager.getUserFlag(KEY_RECORDS_REMAINING_EX, false)
-                    val goalEx = if (shouldShowRemaining) sessionEx - trial.totalEx!! else trial.totalEx
+                    val shouldShowRemaining = settingsManager.getUserFlag(KEY_RECORDS_REMAINING_EX, false)
+                    val goalEx = if (shouldShowRemaining) sessionEx - trial.total_ex!! else trial.total_ex
                     exScore.text = context.getString(R.string.ex_score_fraction_format, sessionEx, goalEx)
-                    exProgress.max = trial.totalEx!!
-                    val progressPercent = AccelerateInterpolator(0.25f).getInterpolation(sessionEx.toFloat() / trial.totalEx)
+                    exProgress.max = trial.total_ex!!
+                    val progressPercent = AccelerateInterpolator(0.25f).getInterpolation(sessionEx.toFloat() / trial.total_ex)
                     exProgress.progress = (progressPercent * sessionEx).toInt()
 
                     rankImage.rank = s.goalRank!!.parent

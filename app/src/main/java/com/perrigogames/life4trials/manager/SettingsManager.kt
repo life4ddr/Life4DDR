@@ -4,16 +4,22 @@ import android.content.Context
 import android.util.Log
 import androidx.core.content.edit
 import androidx.preference.PreferenceManager
+import com.perrigogames.life4.model.BaseModel
 import com.perrigogames.life4trials.BuildConfig
 import com.perrigogames.life4trials.Life4Application
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.event.MajorUpdateProcessEvent
+import org.greenrobot.eventbus.EventBus
+import org.koin.core.inject
 
 enum class MajorUpdate {
     SONG_DB, A20_REQUIRED, DOUBLES_FIX
 }
 
-class SettingsManager(private val context: Context): BaseManager() {
+class SettingsManager: BaseModel() {
+
+    private val context: Context by inject()
+    private val eventBus: EventBus by inject()
 
     init {
         initializeDefaults()
@@ -63,7 +69,7 @@ class SettingsManager(private val context: Context): BaseManager() {
             .filter { it.ordinal > currentUpdate }
             .forEach {
                 Log.i(javaClass.simpleName, "Processing upgrade ${it.name}")
-                Life4Application.eventBus.postSticky(MajorUpdateProcessEvent(it))
+                eventBus.postSticky(MajorUpdateProcessEvent(it))
             }
         setUserInt(KEY_MAJOR_UPDATE, MajorUpdate.values().last().ordinal)
     }

@@ -9,13 +9,15 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.perrigogames.life4trials.life4app
+import com.perrigogames.life4trials.manager.IgnoreListManager
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 
-class SongUnlockFragment: Fragment() {
+class SongUnlockFragment: Fragment(), KoinComponent {
 
     private lateinit var adapter: SongUnlockAdapter
 
-    private val ignoreListManager get() = context!!.life4app.ignoreListManager
+    private val ignoreListManager: IgnoreListManager by inject()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         adapter = SongUnlockAdapter().apply {

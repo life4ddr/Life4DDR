@@ -12,21 +12,25 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import com.crashlytics.android.Crashlytics
-import com.perrigogames.life4trials.BuildConfig
-import com.perrigogames.life4trials.R
 import com.perrigogames.life4.data.Song
 import com.perrigogames.life4.data.SongResult
-import com.perrigogames.life4trials.life4app
+import com.perrigogames.life4trials.BuildConfig
+import com.perrigogames.life4trials.R
+import com.perrigogames.life4trials.manager.PlacementManager
+import com.perrigogames.life4trials.manager.TrialManager
 import com.perrigogames.life4trials.view.PathImageView
 import com.perrigogames.life4trials.view.SongView
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 
 /**
  * A [Fragment] designed to display a list of [SongView]s in a vertical arrangement.
  */
-class SongListFragment : Fragment() {
+class SongListFragment : Fragment(), KoinComponent {
 
-    private val placementManager get() = context!!.life4app.placementManager
-    private val trialManager get() = context!!.life4app.trialManager
+    private val placementManager: PlacementManager by inject()
+    private val trialManager: TrialManager by inject()
+
     private val trial get() = trialManager.findTrial(trialId!!) ?: placementManager.findPlacement(trialId!!)!!
     private val results get() = if (useCurrentSession) trialManager.currentSession!!.results else null
 

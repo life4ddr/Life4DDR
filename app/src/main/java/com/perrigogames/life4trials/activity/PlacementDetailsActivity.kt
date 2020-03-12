@@ -7,20 +7,23 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
-import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_DETAILS_PHOTO_SELECT
 import com.perrigogames.life4.data.Song
 import com.perrigogames.life4.data.Trial
-import com.perrigogames.life4trials.life4app
+import com.perrigogames.life4trials.R
+import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_DETAILS_PHOTO_SELECT
+import com.perrigogames.life4trials.manager.PlacementManager
+import com.perrigogames.life4trials.manager.SettingsManager
 import com.perrigogames.life4trials.ui.songlist.SongListFragment
 import com.perrigogames.life4trials.view.RankHeaderView
 import kotlinx.android.synthetic.main.content_placement_details.*
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 
 
-class PlacementDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener {
+class PlacementDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener, KoinComponent {
 
-    private val placementManager get() = life4app.placementManager
-    private val settingsManager get() = life4app.settingsManager
+    private val placementManager: PlacementManager by inject()
+    private val settingsManager: SettingsManager by inject()
     private val placementId: String by lazy { intent.extras!!.getString(ARG_PLACEMENT_ID) }
     private val trial: Trial get() = placementManager.findPlacement(placementId)!!
 

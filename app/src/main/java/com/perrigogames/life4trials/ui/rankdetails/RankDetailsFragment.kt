@@ -12,20 +12,22 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.ChangeTransform
 import androidx.transition.TransitionManager
-import com.perrigogames.life4trials.R
 import com.perrigogames.life4.data.LadderRank
+import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.data.RankEntry
-import com.perrigogames.life4trials.life4app
+import com.perrigogames.life4trials.manager.LadderManager
 import com.perrigogames.life4trials.util.spannedText
 import com.perrigogames.life4trials.util.visibilityBool
 import com.perrigogames.life4trials.view.RankHeaderView
 import kotlinx.android.synthetic.main.fragment_rank_details.*
 import kotlinx.android.synthetic.main.fragment_rank_details.view.*
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 import java.io.Serializable
 
-class RankDetailsFragment : Fragment() {
+class RankDetailsFragment : Fragment(), KoinComponent {
 
-    private val ladderManager get() = context!!.life4app.ladderManager
+    private val ladderManager: LadderManager by inject()
 
     private var navigationListener: RankHeaderView.NavigationListener? = null
     private var goalListListener: RankDetailsViewModel.OnGoalListInteractionListener? = null
@@ -45,7 +47,7 @@ class RankDetailsFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val view = inflater.inflate(R.layout.fragment_rank_details, container, false) as ConstraintLayout
 
-        viewModel = RankDetailsViewModel(view.context, rankEntry, options, context!!.life4app.ladderManager, goalListListener)
+        viewModel = RankDetailsViewModel(view.context, rankEntry, options, ladderManager, goalListListener)
 
         if (options.showHeader) {
             (view.stub_rank_header.inflate() as RankHeaderView).let {

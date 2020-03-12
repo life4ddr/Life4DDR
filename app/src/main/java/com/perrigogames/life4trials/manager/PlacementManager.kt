@@ -5,10 +5,14 @@ import com.crashlytics.android.Crashlytics
 import com.perrigogames.life4trials.BuildConfig
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4.data.TrialData
+import com.perrigogames.life4.model.BaseModel
 import com.perrigogames.life4trials.util.DataUtil
 import com.perrigogames.life4trials.util.loadRawString
+import org.koin.core.inject
 
-class PlacementManager(context: Context): BaseManager() {
+class PlacementManager: BaseModel() {
+
+    private val context: Context by inject()
 
     private val placementData: TrialData =
         DataUtil.gson.fromJson(context.loadRawString(R.raw.placements), TrialData::class.java)!!

@@ -7,17 +7,20 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.activity.PlacementDetailsActivity.Companion.RESULT_FINISHED
-import com.perrigogames.life4trials.life4app
+import com.perrigogames.life4trials.manager.FirstRunManager
+import com.perrigogames.life4trials.manager.PlacementManager
 import com.perrigogames.life4trials.ui.firstrun.PlacementListAdapter
 import kotlinx.android.synthetic.main.activity_placement_list.*
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 
 /**
  * An [AppCompatActivity] displaying the list of Placement sets for the user to select one to play.
  */
-class PlacementListActivity : AppCompatActivity() {
+class PlacementListActivity : AppCompatActivity(), KoinComponent {
 
-    private val firstRunManager get() = life4app.firstRunManager
-    private val placementManager get() = life4app.placementManager
+    private val firstRunManager: FirstRunManager by inject()
+    private val placementManager: PlacementManager by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

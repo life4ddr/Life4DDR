@@ -1,9 +1,9 @@
 package com.perrigogames.life4trials.manager
 
-import android.content.Context
-import com.perrigogames.life4trials.Life4Application
+import com.perrigogames.life4.model.BaseModel
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_IMPORT_GAME_VERSION
+import com.perrigogames.life4trials.api.AndroidDataReader
 import com.perrigogames.life4trials.api.GithubDataAPI
 import com.perrigogames.life4trials.api.MajorVersionedRemoteData
 import com.perrigogames.life4trials.data.IgnoreGroup
@@ -13,14 +13,18 @@ import com.perrigogames.life4trials.data.IgnoredSong
 import com.perrigogames.life4trials.event.LadderRanksReplacedEvent
 import com.perrigogames.life4trials.repo.SongRepo
 import com.perrigogames.life4trials.util.DataUtil
+import org.greenrobot.eventbus.EventBus
+import org.koin.core.inject
 
-class IgnoreListManager(private val context: Context,
-                        private val songRepo: SongRepo,
-                        private val githubDataAPI: GithubDataAPI,
-                        private val settingsManager: SettingsManager): BaseManager() {
+class IgnoreListManager: BaseModel() {
 
-    private val ignoreLists = object: MajorVersionedRemoteData<IgnoreListData>(context, R.raw.ignore_lists_v2,
-        SongDataManager.IGNORES_FILE_NAME, 1) {
+    private val songRepo: SongRepo by inject()
+    private val eventBus: EventBus by inject()
+    private val githubDataAPI: GithubDataAPI by inject()
+    private val settingsManager: SettingsManager by inject()
+
+    private val ignoreLists = object: MajorVersionedRemoteData<IgnoreListData>(
+        AndroidDataReader(R.raw.ignore_lists_v2, SongDataManager.IGNORES_FILE_NAME), 1) {
         override suspend fun getRemoteResponse() = githubDataAPI.getIgnoreLists()
         override fun createLocalDataFromText(text: String) = DataUtil.gson.fromJson(text, IgnoreListData::class.java)
         override fun onNewDataLoaded(newData: IgnoreListData) {
@@ -104,7 +108,7 @@ class IgnoreListManager(private val context: Context,
     fun setGroupUnlockState(id: String, state: Long) {
         settingsManager.setUserLong("unlock_$id", state)
         invalidateIgnoredIds()
-        Life4Application.eventBus.post(LadderRanksReplacedEvent())
+        eventBus.post(LadderRanksReplacedEvent())
     }
 
     /**

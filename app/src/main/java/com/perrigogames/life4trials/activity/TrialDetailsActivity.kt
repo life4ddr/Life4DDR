@@ -19,7 +19,9 @@ import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_DEBU
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_DETAILS_ENFORCE_EXPERT
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_DETAILS_PHOTO_SELECT
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_DETAILS_UPDATE_GOAL
-import com.perrigogames.life4trials.life4app
+import com.perrigogames.life4trials.manager.LadderManager
+import com.perrigogames.life4trials.manager.SettingsManager
+import com.perrigogames.life4trials.manager.TrialManager
 import com.perrigogames.life4trials.ui.songlist.SongListFragment
 import com.perrigogames.life4trials.util.*
 import com.perrigogames.life4trials.view.JacketCornerView
@@ -27,20 +29,22 @@ import com.perrigogames.life4trials.view.RunningEXScoreView
 import com.perrigogames.life4trials.view.SongView
 import com.perrigogames.life4trials.view.TrialJacketView
 import kotlinx.android.synthetic.main.content_trial_details.*
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 import java.text.SimpleDateFormat
 import java.util.*
 
 
-class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener {
+class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener, KoinComponent {
 
-    private val ladderManager get() = life4app.ladderManager
-    private val trialManager get() = life4app.trialManager
-    private val settingsManager get() = life4app.settingsManager
+    private val ladderManager: LadderManager by inject()
+    private val trialManager: TrialManager by inject()
+    private val settingsManager: SettingsManager by inject()
 
     private val trialId: String by lazy { intent.extras!!.getString(ARG_TRIAL_ID) }
     private val trial: Trial get() = trialManager.findTrial(trialId)!!
 
-    private val storedRank: TrialRank? get() = life4app.trialManager.getRankForTrial(trial.id)
+    private val storedRank: TrialRank? get() = trialManager.getRankForTrial(trial.id)
     private val initialRank: TrialRank by lazy {
         if (trial.isEvent)
             TrialRank.fromLadderRank(ladderManager.getUserRank(), true) ?:
@@ -253,7 +257,7 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener {
     }
 
     private fun concedeTrial() {
-        life4app.trialManager.saveRecord(trialSession)
+        trialManager.saveRecord(trialSession)
         finish()
     }
 

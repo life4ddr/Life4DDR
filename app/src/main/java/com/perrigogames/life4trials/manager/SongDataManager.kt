@@ -8,11 +8,13 @@ import com.crashlytics.android.Crashlytics
 import com.perrigogames.life4.enums.DifficultyClass
 import com.perrigogames.life4.enums.GameVersion
 import com.perrigogames.life4.enums.PlayStyle
+import com.perrigogames.life4.model.BaseModel
 import com.perrigogames.life4.util.indexOfOrEnd
 import com.perrigogames.life4trials.BuildConfig
 import com.perrigogames.life4trials.Life4Application
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_IMPORT_GAME_VERSION
+import com.perrigogames.life4trials.api.AndroidDataReader
 import com.perrigogames.life4trials.api.GithubDataAPI
 import com.perrigogames.life4trials.api.LocalRemoteData
 import com.perrigogames.life4trials.db.ChartDB
@@ -23,21 +25,29 @@ import com.perrigogames.life4trials.event.MajorUpdateProcessEvent
 import com.perrigogames.life4trials.manager.SettingsManager.Companion.KEY_SONG_LIST_VERSION
 import com.perrigogames.life4trials.repo.SongRepo
 import com.perrigogames.life4trials.util.*
+import io.objectbox.BoxStore
+import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import org.koin.core.inject
 import retrofit2.Response
 
 
 /**
  * A Manager class that keeps track of the available songs
  */
-class SongDataManager(private val context: Context,
-                      private val githubDataAPI: GithubDataAPI,
-                      private val songRepo: SongRepo,
-                      private val settingsManager: SettingsManager,
-                      private val ignoreListManager: IgnoreListManager): BaseManager() {
+class SongDataManager: BaseModel() {
 
-    private val songList = object: LocalRemoteData<String>(context, R.raw.songs, SONGS_FILE_NAME) {
+    private val context: Context by inject()
+    private val songRepo: SongRepo by inject()
+    private val ignoreListManager: IgnoreListManager by inject()
+    private val githubDataAPI: GithubDataAPI by inject()
+    private val settingsManager: SettingsManager by inject()
+    private val eventBus: EventBus by inject()
+    private val objectBox: BoxStore by inject()
+
+    private val songList = object: LocalRemoteData<String>(
+        AndroidDataReader(R.raw.songs, SONGS_FILE_NAME)) {
         override fun createLocalDataFromText(text: String) = text
         override fun createTextToData(data: String) = data
         override fun getDataVersion(data: String) = data.substring(0, data.indexOfOrEnd('\n')).trim().toInt()
@@ -49,7 +59,7 @@ class SongDataManager(private val context: Context,
     }
 
     init {
-        Life4Application.eventBus.register(this)
+        eventBus.register(this)
         songList.start()
     }
 

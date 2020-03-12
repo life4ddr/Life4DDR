@@ -5,10 +5,13 @@ import com.perrigogames.life4.enums.DifficultyClass
 import com.perrigogames.life4trials.db.ChartDB_
 import com.perrigogames.life4trials.db.LadderResultDB
 import com.perrigogames.life4trials.db.LadderResultDB_
-import com.perrigogames.life4trials.manager.BaseRepo
+import io.objectbox.BoxStore
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 
-class LadderResultRepo: BaseRepo() {
+class LadderResultRepo: KoinComponent {
 
+    private val objectBox: BoxStore by inject()
     private val ladderResultBox get() = objectBox.boxFor(LadderResultDB::class.java)
 
     //

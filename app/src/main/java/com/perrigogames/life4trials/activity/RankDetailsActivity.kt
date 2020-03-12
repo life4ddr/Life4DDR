@@ -6,23 +6,26 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import com.perrigogames.life4trials.Life4Application
-import com.perrigogames.life4trials.R
 import com.perrigogames.life4.data.LadderRank
+import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.event.LadderRanksReplacedEvent
-import com.perrigogames.life4trials.life4app
+import com.perrigogames.life4trials.manager.LadderManager
 import com.perrigogames.life4trials.ui.rankdetails.RankDetailsFragment
 import com.perrigogames.life4trials.ui.rankdetails.RankDetailsViewModel
 import com.perrigogames.life4trials.util.nameRes
 import com.perrigogames.life4trials.util.visibilityBool
 import com.perrigogames.life4trials.view.RankHeaderView
 import kotlinx.android.synthetic.main.activity_rank_details.*
+import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 
-class RankDetailsActivity : AppCompatActivity(), RankHeaderView.NavigationListener, RankDetailsViewModel.OnGoalListInteractionListener {
+class RankDetailsActivity : AppCompatActivity(), RankHeaderView.NavigationListener, RankDetailsViewModel.OnGoalListInteractionListener, KoinComponent {
 
-    private val ladderManager get() = life4app.ladderManager
+    private val ladderManager: LadderManager by inject()
+    private val eventBus: EventBus by inject()
 
     private var rank: LadderRank? = null
     private var showNextGoals: Boolean = false
@@ -70,12 +73,12 @@ class RankDetailsActivity : AppCompatActivity(), RankHeaderView.NavigationListen
 
     override fun onStart() {
         super.onStart()
-        Life4Application.eventBus.register(this)
+        eventBus.register(this)
     }
 
     override fun onStop() {
         super.onStop()
-        Life4Application.eventBus.unregister(this)
+        eventBus.unregister(this)
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

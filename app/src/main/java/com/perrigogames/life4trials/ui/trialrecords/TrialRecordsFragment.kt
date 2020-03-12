@@ -10,15 +10,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.db.TrialSessionDB
-import com.perrigogames.life4trials.life4app
+import com.perrigogames.life4trials.manager.TrialManager
 import com.perrigogames.life4trials.util.visibilityBool
 import com.perrigogames.life4trials.view.ContextMenuRecyclerView.RecyclerViewContextMenuInfo
 import kotlinx.android.synthetic.main.fragment_trial_records.*
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 
 
-class TrialRecordsFragment : Fragment() {
+class TrialRecordsFragment : Fragment(), KoinComponent {
 
-    private val trialManager get() = context!!.life4app.trialManager
+    private val trialManager: TrialManager by inject()
 
     private val adapter get() = recycler_records_list.adapter as TrialRecordsAdapter
 
@@ -34,7 +36,7 @@ class TrialRecordsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         recycler_records_list.apply {
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-            adapter = TrialRecordsAdapter(trialManager, listener)
+            adapter = TrialRecordsAdapter(listener)
             addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
             updateEmptyLabelView()
         }

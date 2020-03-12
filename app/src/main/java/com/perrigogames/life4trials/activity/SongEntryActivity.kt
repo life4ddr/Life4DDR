@@ -3,7 +3,6 @@ package com.perrigogames.life4trials.activity
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
-import android.content.Intent
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.provider.MediaStore
@@ -15,22 +14,26 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_DEBUG_ACCEPT_INVALID
-import com.perrigogames.life4.enums.ClearType
-import com.perrigogames.life4.enums.ClearType.*
 import com.perrigogames.life4.data.Song
 import com.perrigogames.life4.data.SongResult
 import com.perrigogames.life4.data.TrialData
-import com.perrigogames.life4trials.life4app
+import com.perrigogames.life4.enums.ClearType
+import com.perrigogames.life4.enums.ClearType.*
+import com.perrigogames.life4trials.R
+import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_DEBUG_ACCEPT_INVALID
+import com.perrigogames.life4trials.manager.SettingsManager
+import com.perrigogames.life4trials.manager.TrialManager
 import com.perrigogames.life4trials.util.photoUri
 import com.perrigogames.life4trials.util.visibilityBool
 import kotlinx.android.synthetic.main.content_song_entry.*
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 
 
-class SongEntryActivity: AppCompatActivity() {
+class SongEntryActivity: AppCompatActivity(), KoinComponent {
 
-    private val trialManager get() = life4app.trialManager
+    private val trialManager: TrialManager by inject()
+    private val settingsManager: SettingsManager by inject()
     private val currentSession get() = trialManager.currentSession!!
 
     val result: SongResult? get() = currentSession.results[songIndex]
@@ -169,7 +172,7 @@ class SongEntryActivity: AppCompatActivity() {
         allFields.forEach { it.error = null }
         checkErrorForValue(score, field_score)
         checkErrorForValue(ex, field_ex)
-        if (!life4app.settingsManager.getDebugFlag(KEY_DEBUG_ACCEPT_INVALID) &&
+        if (!settingsManager.getDebugFlag(KEY_DEBUG_ACCEPT_INVALID) &&
             allFields.any { it.visibility == VISIBLE && it.error != null }) {
             Toast.makeText(this, R.string.make_sure_fields_filled, Toast.LENGTH_SHORT).show()
         } else {

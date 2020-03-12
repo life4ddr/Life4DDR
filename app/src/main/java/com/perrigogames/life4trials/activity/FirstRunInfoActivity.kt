@@ -9,30 +9,36 @@ import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doAfterTextChanged
-import com.perrigogames.life4trials.Life4Application
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_INFO_NAME
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_INFO_RIVAL_CODE
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_INFO_TWITTER_NAME
 import com.perrigogames.life4trials.api.ApiPlayer
 import com.perrigogames.life4trials.event.MajorUpdateProcessEvent
-import com.perrigogames.life4trials.life4app
+import com.perrigogames.life4trials.manager.FirstRunManager
+import com.perrigogames.life4trials.manager.LadderManager
 import com.perrigogames.life4trials.manager.PlayerManager
+import com.perrigogames.life4trials.manager.SettingsManager
 import com.perrigogames.life4trials.util.visibilityBool
 import com.perrigogames.life4trials.view.PlayerFoundView
 import kotlinx.android.synthetic.main.activity_first_run_info.*
+import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 
 /**
  * An [AppCompatActivity] shown to the user when their initial stats are empty.
  */
-class FirstRunInfoActivity: AppCompatActivity() {
+class FirstRunInfoActivity: AppCompatActivity(), KoinComponent {
 
-    private val firstRunManager get() = life4app.firstRunManager
-    private val ladderManager get() = life4app.ladderManager
-    private val playerManager get() = life4app.playerManager
-    private val settingsManager get() = life4app.settingsManager
+    private val firstRunManager: FirstRunManager by inject()
+    private val ladderManager: LadderManager by inject()
+    private val playerManager: PlayerManager by inject()
+    private val settingsManager: SettingsManager by inject()
+    private val eventBus: EventBus by inject()
+
     private var lastNameCheck: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,12 +75,12 @@ class FirstRunInfoActivity: AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        Life4Application.eventBus.register(this)
+        eventBus.register(this)
     }
 
     override fun onStop() {
         super.onStop()
-        Life4Application.eventBus.unregister(this)
+        eventBus.unregister(this)
     }
 
     private fun onNameFinished(name: String) {
@@ -109,7 +115,7 @@ class FirstRunInfoActivity: AppCompatActivity() {
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     fun onMajorVersion(e: MajorUpdateProcessEvent) {
-        Life4Application.eventBus.removeStickyEvent(e)
+        eventBus.removeStickyEvent(e)
     }
 
     fun onSignInClicked(v: View) {

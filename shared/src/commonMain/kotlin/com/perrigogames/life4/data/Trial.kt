@@ -33,7 +33,7 @@ class Trial(val id: String,
             @SerialName("scoring_groups") val scoringGroups: List<List<TrialRank>>?,
             val difficulty: Int?,
             val goals: List<TrialGoalSet>?,
-            @SerialName("total_ex") val totalEx: Int,
+            @SerialName("total_ex") val total_ex: Int,
             @SerialName("cover_url") val coverUrl: String? = null,
             @SerialName("cover_override") val coverOverride: Boolean = false,
             val songs: List<Song>) {
@@ -50,7 +50,7 @@ class Trial(val id: String,
      */
     fun findScoringGroup(rank: TrialRank) = scoringGroups?.first { it.contains(rank) }
 
-    val isExValid get() = songs.sumBy { it.ex }.let { it == 0 || it == totalEx }
+    val isExValid get() = songs.sumBy { it.ex }.let { it == 0 || it == total_ex }
 }
 
 @Serializable

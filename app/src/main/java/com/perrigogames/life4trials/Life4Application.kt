@@ -3,6 +3,7 @@ package com.perrigogames.life4trials
 import android.content.Context
 import android.util.Log
 import androidx.multidex.MultiDexApplication
+import com.perrigogames.life4.initKoin
 import com.perrigogames.life4trials.api.GithubDataAPI
 import com.perrigogames.life4trials.api.Life4API
 import com.perrigogames.life4trials.db.MyObjectBox
@@ -18,6 +19,9 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import okhttp3.logging.HttpLoggingInterceptor.Level.BODY
 import org.greenrobot.eventbus.EventBus
+import org.koin.core.KoinComponent
+import org.koin.core.inject
+import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
@@ -25,75 +29,74 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 
 class Life4Application: MultiDexApplication() {
 
-    lateinit var songRepo: SongRepo
-    lateinit var trialRepo: TrialRepo
-    lateinit var ladderResultRepo: LadderResultRepo
-
-    lateinit var firstRunManager: FirstRunManager
-    lateinit var ignoreListManager: IgnoreListManager
-    lateinit var ladderManager: LadderManager
-    lateinit var placementManager: PlacementManager
-    lateinit var songDataManager: SongDataManager
-    lateinit var trialManager: TrialManager
-    lateinit var playerManager: PlayerManager
-    lateinit var settingsManager: SettingsManager
-
-    lateinit var life4Api: Life4API
-    lateinit var githubDataApi: GithubDataAPI
-
     override fun onCreate() {
         super.onCreate()
 
         val defaultHandler = Thread.getDefaultUncaughtExceptionHandler()
         Thread.setDefaultUncaughtExceptionHandler { thread, exception ->
-            firstRunManager.onApplicationException()
-            ladderManager.onApplicationException()
-            placementManager.onApplicationException()
-            songDataManager.onApplicationException()
-            trialManager.onApplicationException()
-            settingsManager.onApplicationException()
+            ManagerContainer().apply {
+                firstRunManager.onApplicationException()
+                ladderManager.onApplicationException()
+                placementManager.onApplicationException()
+                songDataManager.onApplicationException()
+                trialManager.onApplicationException()
+                settingsManager.onApplicationException()
+            }
 
             defaultHandler!!.uncaughtException(thread, exception)
         }
 
-        settingsManager = SettingsManager(this)
-
-        life4Api = life4Retrofit.create(Life4API::class.java)
-        githubDataApi = githubRetrofit.create(GithubDataAPI::class.java)
-
-        objectBox = MyObjectBox.builder()
-            .androidContext(this)
-            .build()
-        if (BuildConfig.DEBUG) {
-            val started = AndroidObjectBrowser(objectBox).start(this)
-            Log.i("ObjectBrowser", "Started: $started")
+        initKoin {
+            modules(module {
+                single<Context> { this@Life4Application }
+                single { SettingsManager() }
+                single { life4Retrofit.create(Life4API::class.java) }
+                single { githubRetrofit.create(GithubDataAPI::class.java) }
+                single {
+                    MyObjectBox.builder()
+                        .androidContext(this@Life4Application)
+                        .build()
+                        .also { startObjectboxBrowser(it) }
+                }
+                single { EventBus() }
+                single { SongRepo() }
+                single { TrialRepo() }
+                single { LadderResultRepo() }
+                single { FirstRunManager() }
+                single { IgnoreListManager() }
+                single { SongDataManager() }
+                single { PlacementManager() }
+                single { TrialManager() }
+                single { LadderManager() }
+                single { PlayerManager() }
+            })
         }
 
-        songRepo = SongRepo()
-        trialRepo = TrialRepo()
-        ladderResultRepo = LadderResultRepo()
-
-        firstRunManager = FirstRunManager(this, settingsManager)
-        ignoreListManager = IgnoreListManager(this, songRepo, githubDataApi, settingsManager)
-        songDataManager = SongDataManager(this, githubDataApi, songRepo, settingsManager, ignoreListManager)
-        placementManager = PlacementManager(this)
-        trialManager = TrialManager(this, trialRepo, githubDataApi, settingsManager)
-        ladderManager = LadderManager(this, songRepo, ladderResultRepo, ignoreListManager, songDataManager, trialManager, githubDataApi, settingsManager)
-        playerManager = PlayerManager(this)
-
         NotificationUtil.setupNotifications(this)
-        settingsManager.handleMajorUpdate(this)
 
+        ManagerContainer().settingsManager.handleMajorUpdate(this)
 //        if (BuildConfig.DEBUG) {
 //            FirebaseUtil.getId(this)
 //        }
     }
 
+    private fun startObjectboxBrowser(objectBox: BoxStore) {
+        if (BuildConfig.DEBUG) {
+            val started = AndroidObjectBrowser(objectBox).start(this)
+            Log.i("ObjectBrowser", "Started: $started")
+        }
+    }
+
+    private inner class ManagerContainer: KoinComponent {
+        val firstRunManager: FirstRunManager by inject()
+        val ladderManager: LadderManager by inject()
+        val placementManager: PlacementManager by inject()
+        val songDataManager: SongDataManager by inject()
+        val trialManager: TrialManager by inject()
+        val settingsManager: SettingsManager by inject()
+    }
+
     companion object {
-        val eventBus = EventBus()
-
-        lateinit var objectBox: BoxStore
-
         val life4Retrofit = retrofit("http://life4bot.herokuapp.com/")
         private val githubTarget = if (BuildConfig.DEBUG) "remote-data-test" else "remote-data"
         val githubRetrofit = retrofit("https://raw.githubusercontent.com/PerrigoGames/Life4DDR-Trials/$githubTarget/app/src/main/res/raw/")
@@ -109,5 +112,3 @@ class Life4Application: MultiDexApplication() {
             .build()
     }
 }
-
-val Context.life4app get() = applicationContext as Life4Application

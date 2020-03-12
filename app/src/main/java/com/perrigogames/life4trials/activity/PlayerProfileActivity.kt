@@ -16,8 +16,11 @@ import com.perrigogames.life4trials.data.BaseRankGoal
 import com.perrigogames.life4.data.LadderRank
 import com.perrigogames.life4trials.db.GoalStatus
 import com.perrigogames.life4trials.event.*
-import com.perrigogames.life4trials.life4app
+import com.perrigogames.life4trials.manager.LadderManager
 import com.perrigogames.life4trials.manager.MajorUpdate.*
+import com.perrigogames.life4trials.manager.SettingsManager
+import com.perrigogames.life4trials.manager.SongDataManager
+import com.perrigogames.life4trials.manager.TrialManager
 import com.perrigogames.life4trials.ui.rankdetails.RankDetailsFragment
 import com.perrigogames.life4trials.ui.rankdetails.RankDetailsViewModel
 import com.perrigogames.life4trials.util.*
@@ -25,20 +28,25 @@ import com.perrigogames.life4trials.view.JacketCornerView
 import kotlinx.android.synthetic.main.activity_player_profile.*
 import kotlinx.android.synthetic.main.content_player_profile.*
 import kotlinx.android.synthetic.main.item_profile_mode_button.view.*
+import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 
 /**
  * An Activity that displays the local player's current profile. This includes
  * info like their name and rank, in-progress goals, and navigation buttons to
  * other experiences like Tournaments or Trials.
  */
-class PlayerProfileActivity : AppCompatActivity(), RankDetailsViewModel.OnGoalListInteractionListener {
+class PlayerProfileActivity : AppCompatActivity(), RankDetailsViewModel.OnGoalListInteractionListener, KoinComponent {
 
-    private val ladderManager get() = life4app.ladderManager
-    private val songDataManager get() = life4app.songDataManager
-    private val trialManager get() = life4app.trialManager
-    private val settingsManager get() = life4app.settingsManager
+    private val ladderManager: LadderManager by inject()
+    private val songDataManager: SongDataManager by inject()
+    private val trialManager: TrialManager by inject()
+    private val settingsManager: SettingsManager by inject()
+    private val eventBus: EventBus by inject()
+
     private var rank: LadderRank? = null
     private var goalRank: LadderRank? = null
 
@@ -47,7 +55,7 @@ class PlayerProfileActivity : AppCompatActivity(), RankDetailsViewModel.OnGoalLi
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_player_profile)
         setSupportActionBar(toolbar)
-        Life4Application.eventBus.register(this)
+        eventBus.register(this)
 
         setupContent()
     }
@@ -68,7 +76,7 @@ class PlayerProfileActivity : AppCompatActivity(), RankDetailsViewModel.OnGoalLi
     }
 
     override fun onDestroy() {
-        Life4Application.eventBus.unregister(this)
+        eventBus.unregister(this)
         super.onDestroy()
     }
 
@@ -105,7 +113,7 @@ class PlayerProfileActivity : AppCompatActivity(), RankDetailsViewModel.OnGoalLi
             .setMessage(R.string.remote_data_needs_update)
             .setPositiveButton(R.string.okay, null)
             .create().show()
-        Life4Application.eventBus.removeStickyEvent(e)
+        eventBus.removeStickyEvent(e)
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
@@ -114,7 +122,7 @@ class PlayerProfileActivity : AppCompatActivity(), RankDetailsViewModel.OnGoalLi
             SONG_DB -> ladderManager.onDatabaseMajorUpdate(this)
             A20_REQUIRED -> songDataManager.onA20RequiredUpdate(this)
         }
-        Life4Application.eventBus.removeStickyEvent(e)
+        eventBus.removeStickyEvent(e)
     }
 
     private fun setupContent() {

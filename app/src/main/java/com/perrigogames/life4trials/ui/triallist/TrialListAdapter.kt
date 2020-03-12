@@ -5,19 +5,21 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.perrigogames.life4.data.Trial
 import com.perrigogames.life4.data.TrialType
-import com.perrigogames.life4trials.life4app
+import com.perrigogames.life4trials.manager.TrialManager
 import com.perrigogames.life4trials.view.JacketCornerView.CornerType.EVENT
 import com.perrigogames.life4trials.view.JacketCornerView.CornerType.NEW
 import com.perrigogames.life4trials.view.TrialItemView
 import com.perrigogames.life4trials.view.TrialItemView.TrialViewHolder
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 
-class TrialListAdapter(private val context: Context,
-                       private val trials: List<Trial>,
+class TrialListAdapter(private val trials: List<Trial>,
                        var featureNew: Boolean = false,
                        private val onItemClicked: (String, TrialType) -> Unit):
-    RecyclerView.Adapter<TrialViewHolder>() {
+    RecyclerView.Adapter<TrialViewHolder>(), KoinComponent {
 
-    private val trialManager get() = context.life4app.trialManager
+    private val context: Context by inject()
+    private val trialManager: TrialManager by inject()
 
     private val mEventTrials get() = trials.filter { it.isEvent }
     private val mNewTrials get() = trials.filter { !it.isEvent && it.new && trialManager.bestTrial(it.id) == null }

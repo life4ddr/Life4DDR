@@ -2,10 +2,13 @@ package com.perrigogames.life4trials.repo
 
 import com.perrigogames.life4trials.db.SongDB
 import com.perrigogames.life4trials.db.SongDB_
-import com.perrigogames.life4trials.manager.BaseRepo
+import io.objectbox.BoxStore
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 
-class SongRepo: BaseRepo() {
+class SongRepo: KoinComponent {
 
+    private val objectBox: BoxStore by inject()
     private val songBox get() = objectBox.boxFor(SongDB::class.java)
 
     //

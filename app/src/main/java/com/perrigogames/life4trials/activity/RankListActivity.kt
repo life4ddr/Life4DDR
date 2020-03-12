@@ -4,26 +4,28 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.perrigogames.life4.data.LadderRank
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.activity.RankDetailsActivity.Companion.EXTRA_RANK
 import com.perrigogames.life4trials.activity.RankDetailsActivity.Companion.EXTRA_TARGET_RANK
 import com.perrigogames.life4trials.activity.RankDetailsActivity.Companion.RESULT_RANK_SELECTED
 import com.perrigogames.life4trials.activity.RankDetailsActivity.Companion.RESULT_RANK_TARGET_SELECTED
-import com.perrigogames.life4.data.LadderRank
 import com.perrigogames.life4trials.data.RankEntry
-import com.perrigogames.life4trials.life4app
+import com.perrigogames.life4trials.manager.LadderManager
 import com.perrigogames.life4trials.ui.ranklist.RankListFragment
 import com.perrigogames.life4trials.ui.ranklist.RankListFragment.OnRankListInteractionListener
 import com.perrigogames.life4trials.util.visibilityBool
 import kotlinx.android.synthetic.main.activity_rank_list.*
 import kotlinx.android.synthetic.main.content_rank_list.*
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 
 /**
  * Activity displaying the list of ladder ranks that can be obtained.
  */
-class RankListActivity : AppCompatActivity(), OnRankListInteractionListener {
+class RankListActivity : AppCompatActivity(), OnRankListInteractionListener, KoinComponent {
 
-    private val ladderManager get() = life4app.ladderManager
+    private val ladderManager: LadderManager by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

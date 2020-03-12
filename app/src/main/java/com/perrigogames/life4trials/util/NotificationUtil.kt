@@ -12,14 +12,16 @@ import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_INFO_RIVAL_CODE
-import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_INFO_TWITTER_NAME
 import com.perrigogames.life4.data.LadderRank
 import com.perrigogames.life4.data.Trial
 import com.perrigogames.life4.data.TrialRank
-import com.perrigogames.life4trials.life4app
+import com.perrigogames.life4trials.R
+import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_INFO_RIVAL_CODE
+import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_INFO_TWITTER_NAME
+import com.perrigogames.life4trials.manager.SettingsManager
 import com.perrigogames.life4trials.util.NotificationUtil.EXTRA_COPY_VALUE
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 
 class NotificationCopyHandler: BroadcastReceiver() {
 
@@ -30,7 +32,7 @@ class NotificationCopyHandler: BroadcastReceiver() {
     }
 }
 
-object NotificationUtil {
+object NotificationUtil: KoinComponent {
 
     private var MULTI_NOTIFICATION_ID = 2000
         get() = field++
@@ -45,6 +47,8 @@ object NotificationUtil {
 
     const val ACTION_COPY_CLIPBOARD = "ACTION_COPY_CLIPBOARD"
     const val EXTRA_COPY_VALUE = "EXTRA_COPY_VALUE"
+
+    private val settingsManager: SettingsManager by inject()
 
     private fun userInfoNotification(c: Context, @StringRes titleRes: Int, content: String) =
         userInfoNotification(c, c.getString(titleRes), content)
@@ -75,12 +79,12 @@ object NotificationUtil {
     }
 
     fun showUserInfoNotifications(c: Context, exScore: Int) {
-        c.life4app.settingsManager.getUserString(KEY_INFO_RIVAL_CODE)?.let { rivalCode ->
+        settingsManager.getUserString(KEY_INFO_RIVAL_CODE)?.let { rivalCode ->
             if (rivalCode.isNotEmpty()) {
                 notifyCopyableMessage(c, ID_NOTIF_RIVAL_CODE, R.string.rival_code, rivalCode)
             }
         }
-        c.life4app.settingsManager.getUserString(KEY_INFO_TWITTER_NAME)?.let { twitterName ->
+        settingsManager.getUserString(KEY_INFO_TWITTER_NAME)?.let { twitterName ->
             if (twitterName.isNotEmpty()) {
                 notifyCopyableMessage(c, ID_NOTIF_TWITTER_HANDLE, R.string.twitter_name, twitterName)
             }

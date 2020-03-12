@@ -8,7 +8,7 @@ goalObtained INTEGER AS Boolean DEFAULT 0
 
 CREATE TABLE TrialSong (
 id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-songId INTEGER NOT NULL,
+sessionId INTEGER NOT NULL,
 position INTEGER DEFAULT 0,
 score INTEGER DEFAULT 0,
 exScore INTEGER DEFAULT 0,
@@ -17,7 +17,7 @@ goods INTEGER,
 greats INTEGER,
 perfects INTEGER,
 passed INTEGER AS Boolean DEFAULT 0,
-FOREIGN KEY(songId) REFERENCES TrialSession
+FOREIGN KEY(sessionId) REFERENCES TrialSession
 );
 
 selectAll:
@@ -31,12 +31,16 @@ INSERT OR REPLACE INTO TrialSession(id, trialId, date, goalRankId, goalObtained)
 VALUES (?,?,?,?,?);
 
 insertSimpleSong:
-INSERT OR REPLACE INTO TrialSong(id, songId, position, score, exScore, passed)
+INSERT OR REPLACE INTO TrialSong(id, sessionId, position, score, exScore, passed)
 VALUES (?,?,?,?,?,?);
 
 insertSong:
-INSERT OR REPLACE INTO TrialSong(id, songId, position, score, exScore, misses, goods, greats, perfects, passed)
+INSERT OR REPLACE INTO TrialSong(id, sessionId, position, score, exScore, misses, goods, greats, perfects, passed)
 VALUES (?,?,?,?,?,?,?,?,?,?);
+
+deleteSession:
+DELETE FROM TrialSession WHERE id = ?;
+DELETE FROM TrialSong WHERE sessionId = ?;
 
 deleteAll:
 DELETE FROM TrialSong;

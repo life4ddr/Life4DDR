@@ -41,7 +41,7 @@ data class TrialGoalSet(val rank: TrialRank,
         miss?.let { list.add(s.allowedTotalMisses(it)) }
         missEach?.let { list.add(s.allowedSongMisses(it)) }
         judge?.let { list.add(s.allowedBadJudgments(it)) }
-        exMissing?.let { list.add(s.allowedMissingExScore(it, trial.totalEx)) }
+        exMissing?.let { list.add(s.allowedMissingExScore(it, trial.total_ex)) }
         if (list.size == 0) {
             list.add(s.clearTrial())
         }

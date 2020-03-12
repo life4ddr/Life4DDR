@@ -10,20 +10,22 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.preference.*
-import com.perrigogames.life4trials.BuildConfig
-import com.perrigogames.life4trials.Life4Application
-import com.perrigogames.life4trials.R
 import com.perrigogames.life4.data.LadderRank
 import com.perrigogames.life4.data.TrialRank
 import com.perrigogames.life4.data.TrialSession
+import com.perrigogames.life4trials.BuildConfig
+import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.event.LadderRanksReplacedEvent
 import com.perrigogames.life4trials.event.LocalUserInfoUpdatedEvent
 import com.perrigogames.life4trials.event.TrialListReplacedEvent
 import com.perrigogames.life4trials.event.TrialListUpdatedEvent
-import com.perrigogames.life4trials.life4app
+import com.perrigogames.life4trials.manager.*
 import com.perrigogames.life4trials.util.NotificationUtil
 import com.perrigogames.life4trials.util.jacketResId
 import com.perrigogames.life4trials.util.openWebUrlFromRes
+import org.greenrobot.eventbus.EventBus
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 
 
 class SettingsActivity : AppCompatActivity(), SettingsFragmentListener {
@@ -49,14 +51,16 @@ class SettingsActivity : AppCompatActivity(), SettingsFragmentListener {
         supportActionBar?.title = title
     }
 
-    abstract class BaseSettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedPreferenceChangeListener {
+    abstract class BaseSettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedPreferenceChangeListener, KoinComponent {
 
-        protected val ladderManager get() = context!!.life4app.ladderManager
-        protected val trialManager get() = context!!.life4app.trialManager
-        protected val playerManager get() = context!!.life4app.playerManager
-        protected val songDataManager get() = context!!.life4app.songDataManager
-        protected val ignoreListManager get() = context!!.life4app.ignoreListManager
-        protected val settingsManager get() = context!!.life4app.settingsManager
+        protected val ladderManager: LadderManager by inject()
+        protected val trialManager: TrialManager by inject()
+        protected val playerManager: PlayerManager by inject()
+        protected val songDataManager: SongDataManager by inject()
+        protected val ignoreListManager: IgnoreListManager by inject()
+        protected val settingsManager: SettingsManager by inject()
+        protected val eventBus: EventBus by inject()
+
         private var listener: SettingsFragmentListener? = null
 
         override fun onPause() {
@@ -179,7 +183,7 @@ class SettingsActivity : AppCompatActivity(), SettingsFragmentListener {
                         findPreference<DropDownPreference>(key)?.let {
                             it.summary = ignoreListManager.getIgnoreList(it.value).name
                         }
-                        Life4Application.eventBus.post(LadderRanksReplacedEvent())
+                        eventBus.post(LadderRanksReplacedEvent())
                     }
                     KEY_INFO_IMPORT -> findPreference<EditTextPreference>(key)?.let {
                         it.text?.let { text -> playerManager.importPlayerInfo(text) }
@@ -221,7 +225,7 @@ class SettingsActivity : AppCompatActivity(), SettingsFragmentListener {
                 when (key) {
                     KEY_INFO_NAME, KEY_INFO_RIVAL_CODE, KEY_INFO_TWITTER_NAME -> {
                         findPreference<EditTextPreference>(key)?.let { it.summary = it.text }
-                        Life4Application.eventBus.post(LocalUserInfoUpdatedEvent())
+                        eventBus.post(LocalUserInfoUpdatedEvent())
                     }
                     KEY_INFO_RANK -> {
                         findPreference<DropDownPreference>(key)?.let {
@@ -240,11 +244,11 @@ class SettingsActivity : AppCompatActivity(), SettingsFragmentListener {
         override fun fragmentName() = context!!.getString(R.string.trial_settings)
 
         private val listUpdateListener: (Preference) -> Boolean = {
-            Life4Application.eventBus.post(TrialListUpdatedEvent())
+            eventBus.post(TrialListUpdatedEvent())
             true
         }
         private val listReplaceListener: (Preference) -> Boolean = {
-            Life4Application.eventBus.post(TrialListReplacedEvent())
+            eventBus.post(TrialListReplacedEvent())
             true
         }
 
@@ -332,7 +336,7 @@ class SettingsActivity : AppCompatActivity(), SettingsFragmentListener {
             val ranksList = TrialRank.values().map { it.toString() }.toMutableList()
             ranksList.add(0, "NONE")
             val ranksArray = ranksList.toTypedArray()
-            context!!.life4app.trialManager.trials.filter { it.goals != null && it.goals!!.isNotEmpty() }.forEach { trial ->
+            trialManager.trials.filter { it.goals != null && it.goals!!.isNotEmpty() }.forEach { trial ->
                 preferenceScreen.addPreference(DropDownPreference(context).apply {
                     key = "$KEY_DEBUG_RANK_PREFIX${trial.id}"
                     title = trial.name

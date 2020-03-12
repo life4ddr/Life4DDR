@@ -6,30 +6,37 @@ import android.net.Uri
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.crashlytics.android.Crashlytics
-import com.perrigogames.life4trials.BuildConfig
-import com.perrigogames.life4trials.Life4Application
-import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_SUBMISSION_NOTIFICAION
-import com.perrigogames.life4trials.api.MajorVersionedRemoteData
 import com.perrigogames.life4.data.TrialData
 import com.perrigogames.life4.data.TrialRank
-import com.perrigogames.life4trials.api.GithubDataAPI
 import com.perrigogames.life4.data.TrialSession
+import com.perrigogames.life4.db.TrialDatabaseHelper
+import com.perrigogames.life4.model.BaseModel
+import com.perrigogames.life4trials.BuildConfig
+import com.perrigogames.life4trials.R
+import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_SUBMISSION_NOTIFICAION
+import com.perrigogames.life4trials.api.AndroidDataReader
+import com.perrigogames.life4trials.api.GithubDataAPI
+import com.perrigogames.life4trials.api.MajorVersionedRemoteData
 import com.perrigogames.life4trials.db.TrialSessionDB
 import com.perrigogames.life4trials.event.SavedRankUpdatedEvent
 import com.perrigogames.life4trials.event.TrialListReplacedEvent
-import com.perrigogames.life4trials.life4app
 import com.perrigogames.life4trials.repo.TrialRepo
 import com.perrigogames.life4trials.util.DataUtil
 import com.perrigogames.life4trials.util.NotificationUtil
 import com.perrigogames.life4trials.util.loadRawString
+import org.greenrobot.eventbus.EventBus
+import org.koin.core.inject
 
-class TrialManager(private val context: Context,
-                   private val repo: TrialRepo,
-                   private val githubDataAPI: GithubDataAPI,
-                   private val settingsManager: SettingsManager): BaseManager() {
+class TrialManager: BaseModel() {
 
-    private var trialData = object: MajorVersionedRemoteData<TrialData>(context, R.raw.trials, TRIALS_FILE_NAME, 2) {
+    private val repo: TrialRepo by inject()
+    private val githubDataAPI: GithubDataAPI by inject()
+    private val settingsManager: SettingsManager by inject()
+    private val placementManager: PlacementManager by inject()
+    private val eventBus: EventBus by inject()
+    private val dbHelper: TrialDatabaseHelper by inject()
+
+    private var trialData = object: MajorVersionedRemoteData<TrialData>(AndroidDataReader(R.raw.trials, TRIALS_FILE_NAME), 2) {
         override fun createLocalDataFromText(text: String): TrialData {
             val data = DataUtil.gson.fromJson(text, TrialData::class.java)!!
             validateTrialData(data)
@@ -43,12 +50,12 @@ class TrialManager(private val context: Context,
             validateTrialData(data)
             this.data = mergeDebugData(data)
             Toast.makeText(context, "${data.trials.size} Trials found!", Toast.LENGTH_SHORT).show()
-            Life4Application.eventBus.post(TrialListReplacedEvent())
+            eventBus.post(TrialListReplacedEvent())
         }
 
         private fun mergeDebugData(data: TrialData): TrialData = if (BuildConfig.DEBUG) {
             val debugData: TrialData = DataUtil.gson.fromJson(context.loadRawString(R.raw.trials_debug), TrialData::class.java)!!
-            val placements = context.life4app.placementManager.placements
+            val placements = placementManager.placements
             TrialData(
                 data.version,
                 data.majorVersion,
@@ -58,7 +65,7 @@ class TrialManager(private val context: Context,
 
         private fun validateTrialData(data: TrialData) {
              data.trials.firstOrNull { !it.isExValid }?.let { trial -> throw Exception(
-                 "Trial ${trial.name} (${trial.totalEx}) has improper EX scores: ${trial.songs.map { it.ex }.joinToString()}") }
+                 "Trial ${trial.name} (${trial.total_ex}) has improper EX scores: ${trial.songs.map { it.ex }.joinToString()}") }
         }
     }
 
@@ -79,9 +86,9 @@ class TrialManager(private val context: Context,
     private fun validateTrials() = trials.forEach { trial ->
         var sum = 0
         trial.songs.forEach { sum += it.ex }
-        if (sum != trial.totalEx) {
+        if (sum != trial.total_ex) {
             if (!BuildConfig.DEBUG) {
-                Crashlytics.logException(Exception("Trial ${trial.name} has improper EX values: total_ex=${trial.totalEx}, sum=$sum"))
+                Crashlytics.logException(Exception("Trial ${trial.name} has improper EX values: total_ex=${trial.total_ex}, sum=$sum"))
             }
         }
     }
@@ -98,7 +105,7 @@ class TrialManager(private val context: Context,
 
     fun saveRecord(session: TrialSession) {
         repo.saveRecord(session)
-        Life4Application.eventBus.post(SavedRankUpdatedEvent(session.trial))
+        eventBus.post(SavedRankUpdatedEvent(session.trial))
     }
 
     fun deleteRecord(id: Long) = repo.deleteRecord(id)
@@ -111,7 +118,7 @@ class TrialManager(private val context: Context,
             .setMessage(R.string.confirm_erase_trial_data)
             .setPositiveButton(R.string.yes) { _, _ ->
                 repo.clearRecords()
-                Life4Application.eventBus.post(SavedRankUpdatedEvent())
+                eventBus.post(SavedRankUpdatedEvent())
             }
             .setNegativeButton(R.string.no, null)
             .show()

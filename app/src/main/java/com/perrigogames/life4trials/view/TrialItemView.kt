@@ -7,25 +7,27 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
+import com.perrigogames.life4.data.Trial
+import com.perrigogames.life4.data.TrialRank
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.activity.SettingsActivity
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_LIST_SHOW_EX
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_LIST_TINT_COMPLETED
-import com.perrigogames.life4.data.Trial
-import com.perrigogames.life4.data.TrialRank
-import com.perrigogames.life4trials.life4app
+import com.perrigogames.life4trials.manager.SettingsManager
 import kotlinx.android.synthetic.main.item_trial_list_item.view.*
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 
 /**
  * A custom [View] for displaying a single [Trial].
  */
 class TrialItemView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
-    ConstraintLayout(context, attrs, defStyleAttr) {
+    ConstraintLayout(context, attrs, defStyleAttr), KoinComponent {
 
-    private val settingsManager get() = context.life4app.settingsManager
+    private val settingsManager: SettingsManager by inject()
 
     val tintCompleted: Boolean
-        get() = context.life4app.settingsManager.getUserFlag(KEY_LIST_TINT_COMPLETED, false)
+        get() = settingsManager.getUserFlag(KEY_LIST_TINT_COMPLETED, false)
     val showEx: Boolean
         get() = trial?.isEvent == true || settingsManager.getUserFlag(KEY_LIST_SHOW_EX, false)
     private var usesBadgeList = false

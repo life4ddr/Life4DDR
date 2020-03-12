@@ -16,13 +16,13 @@ class RunningEXScoreView @JvmOverloads constructor(context: Context,
         progress_ex_score.apply {
             progress = session.currentTotalExScore
             secondaryProgress = session.currentMaxExScore
-            max = session.trial.totalEx
+            max = session.trial.total_ex
         }
         text_ex_current.text = context.getString(
             R.string.ex_score_missing_string_format, session.currentTotalExScore, session.missingExScore * -1)
-        text_ex_goal.text = if (session.currentMaxExScore == session.trial.totalEx)
+        text_ex_goal.text = if (session.currentMaxExScore == session.trial.total_ex)
             context.getString(R.string.ex_score_string_format, session.currentMaxExScore)
         else
-            context.getString(R.string.ex_score_progress_format, session.currentMaxExScore, session.trial.totalEx)
+            context.getString(R.string.ex_score_progress_format, session.currentMaxExScore, session.trial.total_ex)
     }
 }

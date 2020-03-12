@@ -23,8 +23,3 @@ interface PlatformStrings {
 
     fun toListString(list: List<String>, caps: Boolean): String
 }
-
-/**
- * Formats an integer with separators (1234567 -> 1,234,567)
- */
-expect fun Int.longNumberString(): String

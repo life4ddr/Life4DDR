@@ -2,10 +2,13 @@ package com.perrigogames.life4trials.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.perrigogames.life4trials.R
 import com.perrigogames.life4.enums.PlayStyle
-import com.perrigogames.life4trials.life4app
+import com.perrigogames.life4trials.R
+import com.perrigogames.life4trials.manager.SongDataManager
+import com.perrigogames.life4trials.repo.SongRepo
 import kotlinx.android.synthetic.main.activity_block_list_check.*
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 
 abstract class BaseTextListActivity : AppCompatActivity() {
 
@@ -22,9 +25,9 @@ abstract class BaseTextListActivity : AppCompatActivity() {
     abstract fun buildText(builder: StringBuilder)
 }
 
-class BlockListCheckActivity: BaseTextListActivity() {
+class BlockListCheckActivity: BaseTextListActivity(), KoinComponent {
 
-    private val songDataManager get() = life4app.songDataManager
+    private val songDataManager: SongDataManager by inject()
 
     override fun buildText(builder: StringBuilder) {
         songDataManager.getCurrentlyIgnoredSongs().forEach {
@@ -37,9 +40,9 @@ class BlockListCheckActivity: BaseTextListActivity() {
     }
 }
 
-class SongRecordsListCheckActivity: BaseTextListActivity() {
+class SongRecordsListCheckActivity: BaseTextListActivity(), KoinComponent {
 
-    private val songRepo get() = life4app.songRepo
+    private val songRepo: SongRepo by inject()
 
     override fun buildText(builder: StringBuilder) {
         songRepo.getSongs().forEach { song ->

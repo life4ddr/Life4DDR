@@ -2,19 +2,23 @@ package com.perrigogames.life4trials.manager
 
 import android.content.Context
 import android.content.Intent
+import com.perrigogames.life4.model.BaseModel
 import com.perrigogames.life4trials.activity.*
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_INFO_NAME
 import com.perrigogames.life4trials.manager.SettingsManager.Companion.KEY_INIT_STATE
 import com.perrigogames.life4trials.manager.SettingsManager.Companion.VAL_INIT_STATE_DONE
 import com.perrigogames.life4trials.manager.SettingsManager.Companion.VAL_INIT_STATE_PLACEMENTS
 import com.perrigogames.life4trials.manager.SettingsManager.Companion.VAL_INIT_STATE_RANKS
+import org.koin.core.inject
 
 /**
  * A manager class that tracks where a user is in the first run process and
  * handles the flows between these states.
  */
-class FirstRunManager(private val context: Context,
-                      private val settingsManager: SettingsManager): BaseManager() {
+class FirstRunManager: BaseModel() {
+
+    private val context: Context by inject()
+    private val settingsManager: SettingsManager by inject()
 
     val requireSignin: Boolean get() =
         settingsManager.getUserString(KEY_INFO_NAME, null) == null

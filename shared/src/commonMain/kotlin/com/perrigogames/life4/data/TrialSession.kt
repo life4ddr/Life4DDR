@@ -88,11 +88,11 @@ data class TrialSession(val trial: Trial,
     val projectedExScore: Int
         get() {
             val projectedMaxPercent = currentTotalExScore.toDouble() / currentMaxExScore.toDouble()
-            return (trial.totalEx * projectedMaxPercent).toInt()
+            return (trial.total_ex * projectedMaxPercent).toInt()
         }
 
     /** Calculates the amount of EX still available on songs that haven't been played */
-    val remainingExScore: Int get() = currentTotalExScore - trial.totalEx
+    val remainingExScore: Int get() = currentTotalExScore - trial.total_ex
 
     val highestPossibleRank: TrialRank? get() {
         val availableRanks = trial.goals?.map { it.rank }?.sortedBy { it.stableId }

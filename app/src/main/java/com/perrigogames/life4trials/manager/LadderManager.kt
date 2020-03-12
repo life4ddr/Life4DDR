@@ -13,12 +13,13 @@ import com.perrigogames.life4.enums.ClearType
 import com.perrigogames.life4.enums.DifficultyClass
 import com.perrigogames.life4.data.LadderRank
 import com.perrigogames.life4.enums.PlayStyle
+import com.perrigogames.life4.model.BaseModel
 import com.perrigogames.life4trials.BuildConfig
-import com.perrigogames.life4trials.Life4Application
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_IMPORT_SKIP_DIRECTIONS
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_INFO_RANK
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_INFO_TARGET_RANK
+import com.perrigogames.life4trials.api.AndroidDataReader
 import com.perrigogames.life4trials.api.GithubDataAPI
 import com.perrigogames.life4trials.api.MajorVersionedRemoteData
 import com.perrigogames.life4trials.data.*
@@ -33,22 +34,31 @@ import com.perrigogames.life4trials.ui.managerimport.ScoreManagerImportDirection
 import com.perrigogames.life4trials.ui.managerimport.ScoreManagerImportEntryDialog
 import com.perrigogames.life4trials.ui.managerimport.ScoreManagerImportProcessingDialog
 import com.perrigogames.life4trials.util.DataUtil
+import io.objectbox.BoxStore
 import kotlinx.coroutines.*
+import org.greenrobot.eventbus.EventBus
+import org.koin.core.inject
 import java.util.*
 
-class LadderManager(private val context: Context,
-                    private val songRepo: SongRepo,
-                    private val ladderResults: LadderResultRepo,
-                    private val ignoreListManager: IgnoreListManager,
-                    private val songDataManager: SongDataManager,
-                    private val trialManager: TrialManager,
-                    private val githubDataAPI: GithubDataAPI,
-                    private val settingsManager: SettingsManager): BaseManager() {
+class LadderManager: BaseModel() {
+
+    private val context: Context by inject()
+    private val songRepo: SongRepo by inject()
+    private val ladderResults: LadderResultRepo by inject()
+    private val githubDataAPI: GithubDataAPI by inject()
+    private val ignoreListManager: IgnoreListManager by inject()
+    private val songDataManager: SongDataManager by inject()
+    private val trialManager: TrialManager by inject()
+    private val settingsManager: SettingsManager by inject()
+    private val eventBus: EventBus by inject()
+    private val objectBox: BoxStore by inject()
 
     //
     // Ladder Data
     //
-    private val ladderDataRemote = object: MajorVersionedRemoteData<LadderRankData>(context, R.raw.ranks_v2, RANKS_FILE_NAME, 1) {
+    private val ladderDataRemote = object: MajorVersionedRemoteData<LadderRankData>(
+        AndroidDataReader(R.raw.ranks_v2, RANKS_FILE_NAME), 1) {
+
         override suspend fun getRemoteResponse() = githubDataAPI.getLadderRanks()
 
         override fun createLocalDataFromText(text: String): LadderRankData {
@@ -65,7 +75,7 @@ class LadderManager(private val context: Context,
         override fun onFetchUpdated(data: LadderRankData) {
             super.onFetchUpdated(data)
             Toast.makeText(context, R.string.ranks_updated, Toast.LENGTH_SHORT).show()
-            Life4Application.eventBus.post(LadderRanksReplacedEvent())
+            eventBus.post(LadderRanksReplacedEvent())
         }
     }
     val ladderData: LadderRankData get() = ladderDataRemote.data
@@ -125,12 +135,12 @@ class LadderManager(private val context: Context,
     fun setUserRank(rank: LadderRank?) {
         settingsManager.setUserString(KEY_INFO_RANK, rank?.stableId.toString())
         settingsManager.setUserString(KEY_INFO_TARGET_RANK, "")
-        Life4Application.eventBus.post(LadderRankUpdatedEvent())
+        eventBus.post(LadderRankUpdatedEvent())
     }
 
     fun setUserTargetRank(rank: LadderRank?) {
         settingsManager.setUserString(KEY_INFO_TARGET_RANK, rank?.stableId.toString())
-        Life4Application.eventBus.post(LadderRankUpdatedEvent())
+        eventBus.post(LadderRankUpdatedEvent())
     }
 
     //
@@ -347,9 +357,9 @@ class LadderManager(private val context: Context,
             withContext(Dispatchers.Main) {
                 Toast.makeText(context, context.getString(R.string.import_finished, success, errors), Toast.LENGTH_SHORT).show()
                 ignoreListManager.invalidateIgnoredIds()
-                Life4Application.eventBus.post(SongResultsImportCompletedEvent())
+                eventBus.post(SongResultsImportCompletedEvent())
                 if (success > 0) {
-                    Life4Application.eventBus.post(SongResultsUpdatedEvent())
+                    eventBus.post(SongResultsUpdatedEvent())
                 }
                 importJob = null
                 listener?.onCompleted()
@@ -369,7 +379,7 @@ class LadderManager(private val context: Context,
             .setPositiveButton(R.string.yes) { _, _ ->
                 goalsBox.removeAll()
                 ladderResults.clearRepo()
-                Life4Application.eventBus.post(LadderRankUpdatedEvent())
+                eventBus.post(LadderRankUpdatedEvent())
             }
             .setNegativeButton(R.string.no, null)
             .show()
@@ -381,7 +391,7 @@ class LadderManager(private val context: Context,
             .setMessage(R.string.confirm_erase_result_data)
             .setPositiveButton(R.string.yes) { _, _ ->
                 ladderResults.clearRepo()
-                Life4Application.eventBus.post(SongResultsUpdatedEvent())
+                eventBus.post(SongResultsUpdatedEvent())
             }
             .setNegativeButton(R.string.no, null)
             .show()
@@ -394,7 +404,7 @@ class LadderManager(private val context: Context,
             .setPositiveButton(R.string.yes) { _, _ ->
                 ladderResults.clearRepo()
                 songDataManager.initializeSongDatabase()
-                Life4Application.eventBus.post(SongResultsUpdatedEvent())
+                eventBus.post(SongResultsUpdatedEvent())
             }
             .setNegativeButton(R.string.no, null)
             .show()

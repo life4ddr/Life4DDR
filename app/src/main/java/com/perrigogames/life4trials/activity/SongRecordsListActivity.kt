@@ -3,12 +3,14 @@ package com.perrigogames.life4trials.activity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.life4app
+import com.perrigogames.life4trials.manager.SongDataManager
 import kotlinx.android.synthetic.main.activity_block_list_check.*
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 
-class SongRecordsListActivity : AppCompatActivity() {
+class SongRecordsListActivity : AppCompatActivity(), KoinComponent {
 
-    private val songDataManager get() = life4app.songDataManager
+    private val songDataManager: SongDataManager by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -11,17 +11,22 @@ import androidx.recyclerview.widget.RecyclerView
 import com.perrigogames.life4trials.Life4Application
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.api.ApiPlayer
-import com.perrigogames.life4trials.life4app
 import com.perrigogames.life4trials.manager.PlayerManager
+import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 
 /**
  * A fragment representing a list of Leaderboard items.
  * Activities containing this fragment MUST implement the
  * [LeaderboardFragment.OnLeaderboardInteractionListener] interface.
  */
-class LeaderboardFragment : Fragment() {
+class LeaderboardFragment : Fragment(), KoinComponent {
+
+    private val playerManager: PlayerManager by inject()
+    private val eventBus: EventBus by inject()
 
     private var listener: OnLeaderboardInteractionListener? = null
     private lateinit var adapter: LadderLeaderboardAdapter
@@ -61,13 +66,13 @@ class LeaderboardFragment : Fragment() {
         } else {
             throw RuntimeException("$context must implement OnLeaderboardInteractionListener")
         }
-        Life4Application.eventBus.register(this)
+        eventBus.register(this)
     }
 
     override fun onDetach() {
         super.onDetach()
         listener = null
-        Life4Application.eventBus.unregister(this)
+        eventBus.unregister(this)
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -81,7 +86,7 @@ class LeaderboardFragment : Fragment() {
     private fun setupLeaderboardContent() {
         when(leaderboardType) {
             LeaderboardType.LADDER -> {
-                context!!.life4app.playerManager.fetchLadderLeaderboards()
+                playerManager.fetchLadderLeaderboards()
             }
             LeaderboardType.TRIAL -> TODO()
         }

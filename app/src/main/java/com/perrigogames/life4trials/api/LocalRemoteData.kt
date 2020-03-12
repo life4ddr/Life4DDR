@@ -2,24 +2,53 @@ package com.perrigogames.life4trials.api
 
 import android.content.Context
 import android.widget.Toast
-import androidx.annotation.RawRes
-import com.perrigogames.life4trials.Life4Application
 import com.perrigogames.life4.data.MajorVersioned
 import com.perrigogames.life4trials.event.DataRequiresAppUpdateEvent
 import com.perrigogames.life4trials.util.DataUtil
-import com.perrigogames.life4trials.util.loadRawString
-import com.perrigogames.life4trials.util.readFromFile
-import com.perrigogames.life4trials.util.saveToFile
 import kotlinx.coroutines.*
+import org.greenrobot.eventbus.EventBus
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 import retrofit2.Response
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 
 /**
+ * Interface for the particular behaviors a LocalRemoteData object would need
+ * to interface with the system storage to retrieve data locally.
+ */
+interface LocalDataReader {
+
+    /**
+     * Loads a raw version of the data from the system's resources.
+     * This is not optional and serves as the default data set.
+     */
+    fun loadRawString(): String
+
+    /**
+     * Loads the cached version of the data from internal storage, if it exists.
+     */
+    fun loadCachedString(): String?
+
+    /**
+     * Saves a set of data to the cache to be retrieved later.
+     */
+    fun saveCachedString(data: String)
+
+    /**
+     * Deletes the cached data, returning priority to the app's internal data.
+     */
+    fun deleteCachedString()
+}
+
+/**
  * A wrapper around a data type that provides support for loading the data
  * externally using Retrofit.
  */
-abstract class RemoteData<T: Any>(private val context: Context) {
+abstract class RemoteData<T: Any>: KoinComponent {
+
+    protected val context: Context by inject()
+    protected val eventBus: EventBus by inject()
 
     var fetchJob: Job? = null
 
@@ -79,9 +108,7 @@ abstract class RemoteData<T: Any>(private val context: Context) {
  * A wrapper around a data type that is both fetched from an external source and stored locally.
  * It contains logic to determine the most up-to-date version of any data and use the most recent.
  */
-abstract class LocalRemoteData<T: Any>(protected val context: Context,
-                                       @RawRes private val rawResId: Int,
-                                       private val cachedFileName: String): RemoteData<T>(context) {
+abstract class LocalRemoteData<T: Any>(private val localReader: LocalDataReader): RemoteData<T>() {
 
     lateinit var data: T
 
@@ -107,19 +134,19 @@ abstract class LocalRemoteData<T: Any>(protected val context: Context,
     private fun shouldDeleteCache(cache: T) = getDataVersion(cache) < getDataVersion(data)
 
     fun start() {
-        data = createLocalDataFromText(context.loadRawString(rawResId))
+        data = createLocalDataFromText(localReader.loadRawString())
         onNewDataLoaded(data)
-        context.readFromFile(cachedFileName)?.let { createLocalDataFromText(it) }?.let { onNewDataLoaded(it) }
+        localReader.loadCachedString()?.let { createLocalDataFromText(it) }?.let { onNewDataLoaded(it) }
         fetch()
     }
 
     open fun onNewDataLoaded(newData: T) {
         if (shouldDeleteCache(newData)) {
-            context.deleteFile(cachedFileName)
+            localReader.deleteCachedString()
             onFetchUpdated(newData)
         } else if (shouldUpdate(newData)) {
             data = newData
-            context.saveToFile(cachedFileName, createTextToData(data))
+            localReader.saveCachedString(createTextToData(data))
         }
     }
 }
@@ -131,18 +158,15 @@ abstract class LocalRemoteData<T: Any>(protected val context: Context,
  * It also checks a major version of the data against the major version supported by the interpreter
  * to prevent unreadable data from crashing older versions of the app that won't parse properly.
  */
-abstract class MajorVersionedRemoteData<T: MajorVersioned>(context: Context,
-                                                           @RawRes rawResId: Int,
-                                                           cachedFileName: String,
-                                                           val majorVersion: Int):
-    LocalRemoteData<T>(context, rawResId, cachedFileName) {
+abstract class MajorVersionedRemoteData<T: MajorVersioned>(localReader: LocalDataReader, val majorVersion: Int):
+    LocalRemoteData<T>(localReader) {
 
     /** Since the template is restricted to [MajorVersioned], use that version number. */
     override fun getDataVersion(data: T) = data.version
 
     override fun checkResponse(response: Response<T>) = super.checkResponse(response) && when {
         shouldUpdateApp(response.body()!!) -> {
-            Life4Application.eventBus.postSticky(DataRequiresAppUpdateEvent())
+            eventBus.postSticky(DataRequiresAppUpdateEvent())
             false
         }
         else -> true
@@ -150,7 +174,7 @@ abstract class MajorVersionedRemoteData<T: MajorVersioned>(context: Context,
 
     override fun onNewDataLoaded(newData: T) {
         if (shouldUpdateApp(newData)) {
-            Life4Application.eventBus.postSticky(DataRequiresAppUpdateEvent())
+            eventBus.postSticky(DataRequiresAppUpdateEvent())
         } else {
             super.onNewDataLoaded(newData)
         }

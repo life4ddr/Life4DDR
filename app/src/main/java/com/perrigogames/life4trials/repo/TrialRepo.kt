@@ -5,11 +5,14 @@ import com.perrigogames.life4.data.TrialSession
 import com.perrigogames.life4trials.db.TrialSessionDB
 import com.perrigogames.life4trials.db.TrialSessionDB_
 import com.perrigogames.life4trials.db.TrialSongResultDB
-import com.perrigogames.life4trials.manager.BaseRepo
+import io.objectbox.BoxStore
 import io.objectbox.kotlin.query
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 
-class TrialRepo: BaseRepo() {
+class TrialRepo: KoinComponent {
 
+    private val objectBox: BoxStore by inject()
     private val sessionBox get() = objectBox.boxFor(TrialSessionDB::class.java)
     private val songBox get() = objectBox.boxFor(TrialSongResultDB::class.java)
 

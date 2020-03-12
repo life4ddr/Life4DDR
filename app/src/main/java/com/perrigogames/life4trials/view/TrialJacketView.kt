@@ -109,9 +109,9 @@ class TrialJacketView @JvmOverloads constructor(context: Context, attrs: Attribu
             } else {
                 text_ex_score.visibility = VISIBLE
             }
-            if (trial != null && trial!!.totalEx != null && showExRemaining) {
-                text_ex_score.text = context.getString(R.string.ex_score_missing_newline_string_format, exScore, exScore!! - trial!!.totalEx!!)
-                text_ex_score_center.text = context.getString(R.string.ex_score_missing_string_format, exScore, exScore!! - trial!!.totalEx!!)
+            if (trial != null && trial!!.total_ex != null && showExRemaining) {
+                text_ex_score.text = context.getString(R.string.ex_score_missing_newline_string_format, exScore, exScore!! - trial!!.total_ex!!)
+                text_ex_score_center.text = context.getString(R.string.ex_score_missing_string_format, exScore, exScore!! - trial!!.total_ex!!)
             } else {
                 context.getString(R.string.ex_score_string_format, exScore!!).let { exText ->
                     text_ex_score.text = exText

@@ -18,15 +18,17 @@ import com.karumi.dexter.listener.multi.CompositeMultiplePermissionsListener
 import com.karumi.dexter.listener.multi.SnackbarOnAnyDeniedMultiplePermissionsListener
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_DETAILS_PHOTO_SELECT
-import com.perrigogames.life4trials.life4app
+import com.perrigogames.life4trials.manager.SettingsManager
 import com.perrigogames.life4trials.util.DataUtil
 import com.perrigogames.life4trials.util.locale
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 import java.io.File
 import java.io.IOException
 
-abstract class PhotoCaptureActivity: AppCompatActivity() {
+abstract class PhotoCaptureActivity: AppCompatActivity(), KoinComponent {
 
-    private val settingsManager get() = life4app.settingsManager
+    private val settingsManager: SettingsManager by inject()
 
     protected var currentPhotoFile: File? = null
     private var currentUri: Uri? = null
