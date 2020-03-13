@@ -78,7 +78,7 @@ class SongEntryActivity: AppCompatActivity(), KoinComponent {
                 modified = true
                 val intVal = s?.toString()?.toIntOrNull() ?: 0
                 field_score.setText((TrialData.MAX_SCORE - (intVal * TrialData.SCORE_PENALTY_PERFECT)).toString())
-                field_ex.setText(((song?.ex ?: 0) - intVal).toString())
+                field_ex.setText((song.ex - intVal).toString())
             }
         }
 

@@ -77,7 +77,7 @@ class PlacementDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listene
 
     fun onFinalizeClick(v: View) = acquirePhoto()
 
-    private fun doSubmit(uri: Uri) {
+    private fun doSubmit() {
 //        life4app.trialManager.saveRecord(session)
         AlertDialog.Builder(this)
             .setTitle(R.string.confirm_placement_title)
@@ -95,13 +95,9 @@ class PlacementDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listene
         finish()
     }
 
-    override fun onPhotoTaken(uri: Uri) {
-        doSubmit(uri)
-    }
+    override fun onPhotoTaken(uri: Uri) = doSubmit()
 
-    override fun onPhotoChosen(uri: Uri) {
-        doSubmit(uri)
-    }
+    override fun onPhotoChosen(uri: Uri) = doSubmit()
 
     companion object {
         const val ARG_PLACEMENT_ID = "ARG_PLACEMENT_ID"

@@ -2,7 +2,8 @@ package com.perrigogames.life4trials.data
 
 import android.content.Context
 import com.google.gson.annotations.SerializedName
-import com.perrigogames.life4.data.*
+import com.perrigogames.life4.data.TrialData
+import com.perrigogames.life4.data.TrialRank
 import com.perrigogames.life4.enums.ClearType
 import com.perrigogames.life4.enums.DifficultyClass
 import com.perrigogames.life4.enums.PlayStyle
@@ -74,7 +75,7 @@ class SongSetClearGoal(id: Int,
         count == null && songs != null -> c.getString(R.string.rank_goal_clear_specific,
             c.getString(clearType.clearResShort), songs.toListString(c, R.string.and_s), difficultyString(c))
         count == null -> c.getString(R.string.rank_goal_lamp,
-            c.getString(clearType.lampRes!!), folderName(c), difficultyString(c))
+            c.getString(clearType.lampRes), folderName(c), difficultyString(c))
         count == 1 -> c.getString(R.string.rank_goal_clear_count_single,
             c.getString(clearType.clearResShort), difficultyString(c))
         else -> c.getString(R.string.rank_goal_clear_count, c.getString(clearType.clearResShort), count, difficultyString(c))
@@ -238,11 +239,11 @@ class DifficultyClearGoal(id: Int,
         TrialData.MAX_SCORE -> throw IllegalArgumentException("Use 'marvelous' clear type instead of specifying 1000000")
         TrialData.AAA_SCORE -> when (clearType) {
             ClearType.CLEAR -> c.getString(R.string.rank_goal_difficulty_aaa_all, difficulty)
-            else -> c.getString(R.string.rank_goal_difficulty_aaa_all_lamp, difficulty, c.getString(clearType.lampRes!!))
+            else -> c.getString(R.string.rank_goal_difficulty_aaa_all_lamp, difficulty, c.getString(clearType.lampRes))
         }
         else -> when (clearType) {
             ClearType.CLEAR -> c.getString(R.string.rank_goal_difficulty_score_all, difficultyString(c, true), score!!.longNumberString())
-            else -> c.getString(R.string.rank_goal_difficulty_score_all_lamp, difficultyString(c, true), score!!.longNumberString(), c.getString(clearType.lampRes!!))
+            else -> c.getString(R.string.rank_goal_difficulty_score_all_lamp, difficultyString(c, true), score!!.longNumberString(), c.getString(clearType.lampRes))
         }
     }
 
@@ -255,7 +256,6 @@ class DifficultyClearGoal(id: Int,
 
     private fun clearString(c: Context): String =  when {
         exceptions != null -> throw IllegalArgumentException("Cannot combine exceptions with a set number")
-        clearType.lampRes == null -> throw IllegalArgumentException("Invalid clear type: $clearType")
         count == 1 -> when(difficulty) {
             8, 11, 18 -> c.getString(R.string.rank_goal_difficulty_clear_single_an, c.getString(clearType.clearResShort), difficultyString(c, false))
             else -> c.getString(R.string.rank_goal_difficulty_clear_single_a, c.getString(clearType.clearResShort), difficultyString(c, false))
@@ -263,12 +263,8 @@ class DifficultyClearGoal(id: Int,
         else -> clearString(c, c.getString(clearType.clearResShort))
     }
 
-    private fun lampString(c: Context): String = with(c) {
-        return (when {
-            clearType.lampRes == null -> throw IllegalArgumentException("Invalid clear type: $clearType")
-            else -> getString(R.string.rank_goal_difficulty_lamp, getString(clearType.lampRes!!), difficulty)
-        })
-    }
+    private fun lampString(c: Context): String =
+        c.getString(R.string.rank_goal_difficulty_lamp, c.getString(clearType.lampRes), difficulty)
 
     private fun difficultyString(c: Context, plural: Boolean): String =
         difficultyNumbers.map { d -> pluralNumber(c, d, plural) }.toListString(c)
@@ -297,9 +293,8 @@ class MFCPointsGoal(id: Int,
                     mandatory: Boolean,
                     val points: Int): BaseRankGoal(id, type, playStyle, mandatory) {
 
-    override fun goalString(c: Context): String {
-        return c.getString(R.string.rank_goal_ex_points, points)
-    }
+    override fun goalString(c: Context): String =
+        c.getString(R.string.rank_goal_ex_points, points)
 
     override fun getGoalProgress(possible: Int, results: List<LadderResultDB>) = LadderGoalProgress(results.sumBy {
         when(it.chart.target.difficultyNumber) {

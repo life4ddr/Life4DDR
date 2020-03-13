@@ -111,10 +111,10 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener, K
                 override fun onNothingSelected(parent: AdapterView<*>?) = Unit
 
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    setRank(trialSession.availableRanks!![position])
+                    setRank(trialSession.availableRanks[position])
                 }
             }
-            trialSession.availableRanks!!.let { ranks ->
+            trialSession.availableRanks.let { ranks ->
                 val initialSpinnerRank = ranks
                     .sortedBy { it.stableId }
                     .lastOrNull { initialRank.stableId >= it.stableId }
@@ -240,7 +240,7 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener, K
             currentGoal != null &&
             highestPossible.stableId != currentGoal.stableId) {
 
-            spinner_desired_rank.setSelection(trialSession.availableRanks!!.indexOf(highestPossible))
+            spinner_desired_rank.setSelection(trialSession.availableRanks.indexOf(highestPossible))
         }
     }
 

@@ -1,6 +1,9 @@
 package com.perrigogames.life4
 
-import com.perrigogames.life4.data.*
+import com.perrigogames.life4.data.LadderRank
+import com.perrigogames.life4.data.LadderRankClass
+import com.perrigogames.life4.data.PlacementRank
+import com.perrigogames.life4.data.TrialRank
 import com.perrigogames.life4.enums.ClearType
 
 /**
@@ -12,11 +15,11 @@ interface PlatformStrings {
     val rank: RankStrings
     val trial: TrialStrings
 
-    val LadderRank.name: String
-    val LadderRank.groupName: String
-    val LadderRankClass.name: String
-    val TrialRank.name: String
-    val PlacementRank.name: String
+    fun nameString(rank: LadderRank): String
+    fun groupNameString(rank: LadderRank): String
+    fun nameString(rank: TrialRank): String
+    fun nameString(rank: PlacementRank): String
+    fun nameString(clazz: LadderRankClass): String
     fun lampString(ct: ClearType): String
     fun clearString(ct: ClearType): String
     fun clearStringShort(ct: ClearType): String

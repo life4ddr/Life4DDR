@@ -103,8 +103,8 @@ class RankDetailsActivity : AppCompatActivity(), RankHeaderView.NavigationListen
 
         val targetRank = if (showNextGoals) ladderManager.nextEntry(rank)?.rank else rank
         button_work_toward_rank.visibilityBool = showWorkToward && targetRank != null
-        (targetRank)?.let { targetRank ->
-            button_work_toward_rank.text = getString(R.string.work_towards_rank_format, getString(targetRank.nameRes))
+        (targetRank)?.let { t ->
+            button_work_toward_rank.text = getString(R.string.work_towards_rank_format, getString(t.nameRes))
         }
 
         supportFragmentManager.beginTransaction()

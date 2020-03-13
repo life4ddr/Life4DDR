@@ -9,10 +9,10 @@ import android.widget.TableRow
 import androidx.core.content.ContextCompat
 import androidx.core.util.forEach
 import androidx.core.util.getOrDefault
+import com.perrigogames.life4.data.TrialData
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.data.BaseRankGoal
 import com.perrigogames.life4trials.data.DifficultyClearGoal
-import com.perrigogames.life4.data.TrialData
 import com.perrigogames.life4trials.util.CommonSizes
 import com.perrigogames.life4trials.util.colorRes
 import com.perrigogames.life4trials.util.visibilityBool
@@ -61,7 +61,7 @@ class ProgressMatrixView @JvmOverloads constructor(context: Context, attrs: Attr
                 row.text_difficulty.text = diff.toString()
 
                 var hasLamp = false
-                goals.forEachIndexed { idx, goal ->
+                goals.forEach { goal ->
                     row.addView(inflater.inflate(R.layout.item_progress_matrix_lamp, row, false).also { goalCell ->
                         goalCell.layoutParams = TableRow.LayoutParams(0, 150).also {
                             it.span = 6 / goals.size

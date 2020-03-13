@@ -49,7 +49,7 @@ class FirstRunInfoActivity: AppCompatActivity(), KoinComponent {
         field_rival_code.setText(settingsManager.getUserString(KEY_INFO_RIVAL_CODE, ""))
         field_twitter.setText(settingsManager.getUserString(KEY_INFO_TWITTER_NAME, ""))
 
-        field_name.onFocusChangeListener = View.OnFocusChangeListener { v, hasFocus ->
+        field_name.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
             if (!hasFocus) {
                 onNameFinished(field_name.text.toString())
             }

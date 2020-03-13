@@ -16,7 +16,7 @@ data class TrialSession(val trial: Trial,
 
     val hasFinalPhoto get() = finalPhotoUriString != null
 
-    val availableRanks: Array<TrialRank>? = trial.goals?.map { it.rank }?.toTypedArray()
+    val availableRanks: Array<TrialRank> = trial.goals?.map { it.rank }?.toTypedArray() ?: emptyArray()
 
     val shouldShowAdvancedSongDetails: Boolean
         get() = (if (!hasStarted) trial.highestGoal() else trialGoalSet)

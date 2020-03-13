@@ -11,9 +11,9 @@ import androidx.constraintlayout.widget.ConstraintSet.TOP
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import com.bumptech.glide.Glide
-import com.perrigogames.life4trials.R
 import com.perrigogames.life4.data.Trial
 import com.perrigogames.life4.data.TrialRank
+import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.util.colorRes
 import com.perrigogames.life4trials.util.drawableRes
 import com.perrigogames.life4trials.util.jacketResId
@@ -109,9 +109,9 @@ class TrialJacketView @JvmOverloads constructor(context: Context, attrs: Attribu
             } else {
                 text_ex_score.visibility = VISIBLE
             }
-            if (trial != null && trial!!.total_ex != null && showExRemaining) {
-                text_ex_score.text = context.getString(R.string.ex_score_missing_newline_string_format, exScore, exScore!! - trial!!.total_ex!!)
-                text_ex_score_center.text = context.getString(R.string.ex_score_missing_string_format, exScore, exScore!! - trial!!.total_ex!!)
+            if (trial != null && showExRemaining) {
+                text_ex_score.text = context.getString(R.string.ex_score_missing_newline_string_format, exScore, exScore!! - trial!!.total_ex)
+                text_ex_score_center.text = context.getString(R.string.ex_score_missing_string_format, exScore, exScore!! - trial!!.total_ex)
             } else {
                 context.getString(R.string.ex_score_string_format, exScore!!).let { exText ->
                     text_ex_score.text = exText
