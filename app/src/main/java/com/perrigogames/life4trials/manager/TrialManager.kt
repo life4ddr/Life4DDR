@@ -6,25 +6,22 @@ import android.net.Uri
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.crashlytics.android.Crashlytics
+import com.perrigogames.life4.api.TrialRemoteData
 import com.perrigogames.life4.data.TrialData
 import com.perrigogames.life4.data.TrialRank
 import com.perrigogames.life4.data.TrialSession
 import com.perrigogames.life4.db.TrialDatabaseHelper
-import com.perrigogames.life4.ktor.GithubDataAPI
+import com.perrigogames.life4.ktor.GithubDataAPI.Companion.TRIALS_FILE_NAME
 import com.perrigogames.life4.model.BaseModel
 import com.perrigogames.life4trials.BuildConfig
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_SUBMISSION_NOTIFICAION
 import com.perrigogames.life4trials.api.AndroidDataReader
-import com.perrigogames.life4trials.api.KtorMajorVersionedRemoteData
-import com.perrigogames.life4trials.api.RetrofitGithubDataAPI
 import com.perrigogames.life4trials.db.TrialSessionDB
 import com.perrigogames.life4trials.event.SavedRankUpdatedEvent
 import com.perrigogames.life4trials.event.TrialListReplacedEvent
 import com.perrigogames.life4trials.repo.TrialRepo
-import com.perrigogames.life4trials.util.DataUtil
 import com.perrigogames.life4trials.util.NotificationUtil
-import com.perrigogames.life4trials.util.loadRawString
 import org.greenrobot.eventbus.EventBus
 import org.koin.core.inject
 
@@ -32,43 +29,15 @@ class TrialManager: BaseModel() {
 
     private val context: Context by inject()
     private val repo: TrialRepo by inject()
-    private val githubDataAPI: RetrofitGithubDataAPI by inject()
     private val settingsManager: SettingsManager by inject()
-    private val placementManager: PlacementManager by inject()
     private val eventBus: EventBus by inject()
-    private val githubKtor: GithubDataAPI by inject()
     private val dbHelper: TrialDatabaseHelper by inject()
 
-    private var trialData = object: KtorMajorVersionedRemoteData<TrialData>(AndroidDataReader(R.raw.trials, TRIALS_FILE_NAME), 2) {
-        override fun createLocalDataFromText(text: String): TrialData {
-            val data = DataUtil.gson.fromJson(text, TrialData::class.java)!!
-            validateTrialData(data)
-            return mergeDebugData(data)
-        }
-
-        override suspend fun getRemoteResponse() = githubKtor.getTrials()
-
+    private var trialData = object: TrialRemoteData(AndroidDataReader(R.raw.trials, TRIALS_FILE_NAME)) {
         override fun onFetchUpdated(data: TrialData) {
             super.onFetchUpdated(data)
-            validateTrialData(data)
-            this.data = mergeDebugData(data)
             Toast.makeText(context, "${data.trials.size} Trials found!", Toast.LENGTH_SHORT).show()
             eventBus.post(TrialListReplacedEvent())
-        }
-
-        private fun mergeDebugData(data: TrialData): TrialData = if (BuildConfig.DEBUG) {
-            val debugData: TrialData = DataUtil.gson.fromJson(context.loadRawString(R.raw.trials_debug), TrialData::class.java)!!
-            val placements = placementManager.placements
-            TrialData(
-                data.version,
-                data.majorVersion,
-                data.trials + debugData.trials + placements
-            )
-        } else data
-
-        private fun validateTrialData(data: TrialData) {
-             data.trials.firstOrNull { !it.isExValid }?.let { trial -> throw Exception(
-                 "Trial ${trial.name} (${trial.total_ex}) has improper EX scores: ${trial.songs.map { it.ex }.joinToString()}") }
         }
     }
 
@@ -184,9 +153,5 @@ class TrialManager: BaseModel() {
             Crashlytics.setInt("trials_engine", trialData.majorVersion)
             Crashlytics.setString("trials", trials.joinToString { it.id })
         }
-    }
-
-    companion object {
-        const val TRIALS_FILE_NAME = "trials.json"
     }
 }

@@ -4,8 +4,12 @@ import android.content.Context
 import android.util.Log
 import androidx.multidex.MultiDexApplication
 import com.perrigogames.life4.initKoin
-import com.perrigogames.life4trials.api.Life4API
+import com.perrigogames.life4.ktor.GithubDataAPI.Companion.PLACEMENTS_FILE_NAME
+import com.perrigogames.life4.ktor.GithubDataAPI.Companion.TRIALS_FILE_NAME
+import com.perrigogames.life4.model.PlacementManager
+import com.perrigogames.life4trials.api.AndroidUncachedDataReader
 import com.perrigogames.life4trials.api.RetrofitGithubDataAPI
+import com.perrigogames.life4trials.api.RetrofitLife4API
 import com.perrigogames.life4trials.db.MyObjectBox
 import com.perrigogames.life4trials.manager.*
 import com.perrigogames.life4trials.repo.LadderResultRepo
@@ -21,6 +25,7 @@ import okhttp3.logging.HttpLoggingInterceptor.Level.BODY
 import org.greenrobot.eventbus.EventBus
 import org.koin.core.KoinComponent
 import org.koin.core.inject
+import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -50,8 +55,8 @@ class Life4Application: MultiDexApplication() {
             modules(module {
                 single<Context> { this@Life4Application }
                 single { SettingsManager() }
-                single { life4Retrofit.create(Life4API::class.java) }
-                single { githubRetrofit.create(RetrofitGithubDataAPI::class.java) }
+                single<RetrofitLife4API> { life4Retrofit.create(RetrofitLife4API::class.java) }
+                single<RetrofitGithubDataAPI> { githubRetrofit.create(RetrofitGithubDataAPI::class.java) }
                 single {
                     MyObjectBox.builder()
                         .androidContext(this@Life4Application)
@@ -59,13 +64,14 @@ class Life4Application: MultiDexApplication() {
                         .also { startObjectboxBrowser(it) }
                 }
                 single { EventBus() }
+                single(named(PLACEMENTS_FILE_NAME)) { AndroidUncachedDataReader(R.raw.placements) }
+                single(named(TRIALS_FILE_NAME)) { AndroidUncachedDataReader(R.raw.placements) }
                 single { SongRepo() }
                 single { TrialRepo() }
                 single { LadderResultRepo() }
                 single { FirstRunManager() }
                 single { IgnoreListManager() }
                 single { SongDataManager() }
-                single { PlacementManager() }
                 single { TrialManager() }
                 single { LadderManager() }
                 single { PlayerManager() }

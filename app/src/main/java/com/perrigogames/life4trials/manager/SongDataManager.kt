@@ -8,6 +8,7 @@ import com.crashlytics.android.Crashlytics
 import com.perrigogames.life4.enums.DifficultyClass
 import com.perrigogames.life4.enums.GameVersion
 import com.perrigogames.life4.enums.PlayStyle
+import com.perrigogames.life4.ktor.GithubDataAPI.Companion.SONGS_FILE_NAME
 import com.perrigogames.life4.model.BaseModel
 import com.perrigogames.life4.util.indexOfOrEnd
 import com.perrigogames.life4trials.BuildConfig
@@ -28,6 +29,7 @@ import io.objectbox.BoxStore
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import org.koin.core.get
 import org.koin.core.inject
 import retrofit2.Response
 
@@ -37,10 +39,9 @@ import retrofit2.Response
  */
 class SongDataManager: BaseModel() {
 
-    private val context: Context by inject()
     private val songRepo: SongRepo by inject()
     private val ignoreListManager: IgnoreListManager by inject()
-    private val githubDataAPI: RetrofitGithubDataAPI by inject()
+    private val githubDataAPI: RetrofitGithubDataAPI = get()
     private val settingsManager: SettingsManager by inject()
     private val eventBus: EventBus by inject()
     private val objectBox: BoxStore by inject()
@@ -292,8 +293,6 @@ class SongDataManager: BaseModel() {
     }
 
     companion object {
-        const val SONGS_FILE_NAME = "songs.csv"
-        const val IGNORES_FILE_NAME = "ignore_lists_v2.json"
         const val DEFAULT_IGNORE_VERSION = "A20_US"
     }
 }

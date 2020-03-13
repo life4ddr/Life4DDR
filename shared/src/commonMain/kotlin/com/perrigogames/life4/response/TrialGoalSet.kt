@@ -1,12 +1,19 @@
+@file:UseSerializers(
+    TrialTypeSerializer::class,
+    TrialRankSerializer::class,
+    DifficultyClassSerializer::class,
+    PlayStyleSerializer::class,
+    ChartTypeSerializer::class,
+    ClearTypeSerializer::class)
+
 package com.perrigogames.life4.response
 
 import com.perrigogames.life4.TrialStrings
-import com.perrigogames.life4.enums.ClearType
-import com.perrigogames.life4.data.Trial
-import com.perrigogames.life4.data.TrialData
-import com.perrigogames.life4.data.TrialRank
+import com.perrigogames.life4.data.*
+import com.perrigogames.life4.enums.*
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.UseSerializers
 
 @Serializable
 data class TrialGoalSet(val rank: TrialRank,

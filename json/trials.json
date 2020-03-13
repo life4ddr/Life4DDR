@@ -328,8 +328,8 @@
         { "name": "Bloody Tears（IIDX EDITION）", "difficulty": 11, "difficulty_class": "expert", "ex": 795, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20SuperNOVA2%20%28AC%29%20%28Japan%29/Bloody%20Tears%20%28IIDX%20EDITION%29/Bloody%20Tears%20%28IIDX%20EDITION%29-jacket.png" }
       ],
       "scoring_groups": [["wood", "bronze", "silver"], ["gold"], ["platinum"], ["diamond"], ["cobalt"], ["amethyst", "emerald"]],
-      "event_start": "20191001T000000-0000",
-      "event_end": "20191101T000000-0000"
+      "event_start": "20191001T000000",
+      "event_end": "20191101T000000"
     },
     {
       "id": "daybreak",
@@ -925,7 +925,6 @@
         }
       ],
       "total_ex": 7470,
-      "jacket_name": "ascension_2",
       "songs": [
         { "name": "RISING FIRE HAWK", "difficulty": 17, "difficulty_class": "challenge", "ex": 2025, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/RISING%20FIRE%20HAWK/RISING%20FIRE%20HAWK-jacket.png" },
         { "name": "SABER WING (AKIRA ISHIHARA Headshot mix)", "difficulty": 17, "difficulty_class": "challenge", "ex": 1569, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X%20%28AC%29%20%28Japan%29/SABER%20WING%20%28AKIRA%20ISHIHARA%20Headshot%20mix%29/SABER%20WING%20%28AKIRA%20ISHIHARA%20Headshot%20mix%29-jacket.png" },

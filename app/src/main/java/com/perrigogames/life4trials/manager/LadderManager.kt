@@ -13,6 +13,7 @@ import com.perrigogames.life4.data.LadderRank
 import com.perrigogames.life4.enums.ClearType
 import com.perrigogames.life4.enums.DifficultyClass
 import com.perrigogames.life4.enums.PlayStyle
+import com.perrigogames.life4.ktor.GithubDataAPI.Companion.RANKS_FILE_NAME
 import com.perrigogames.life4.model.BaseModel
 import com.perrigogames.life4trials.BuildConfig
 import com.perrigogames.life4trials.R
@@ -37,6 +38,7 @@ import com.perrigogames.life4trials.util.DataUtil
 import io.objectbox.BoxStore
 import kotlinx.coroutines.*
 import org.greenrobot.eventbus.EventBus
+import org.koin.core.get
 import org.koin.core.inject
 import java.util.*
 
@@ -45,7 +47,7 @@ class LadderManager: BaseModel() {
     private val context: Context by inject()
     private val songRepo: SongRepo by inject()
     private val ladderResults: LadderResultRepo by inject()
-    private val githubDataAPI: RetrofitGithubDataAPI by inject()
+    private val githubDataAPI: RetrofitGithubDataAPI = get()
     private val ignoreListManager: IgnoreListManager by inject()
     private val songDataManager: SongDataManager by inject()
     private val trialManager: TrialManager by inject()
@@ -443,9 +445,5 @@ class LadderManager: BaseModel() {
         fun onCountUpdated(current: Int, total: Int)
         fun onError(totalCount: Int, message: String)
         fun onCompleted()
-    }
-
-    companion object {
-        const val RANKS_FILE_NAME = "ranks_v2.json"
     }
 }

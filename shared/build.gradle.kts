@@ -38,12 +38,12 @@ kotlin {
         implementation(Deps.SqlDelight.runtime)
         implementation(Deps.ktor.commonCore)
         implementation(Deps.ktor.commonJson)
+        implementation(Deps.ktor.commonSerialization)
         implementation(Deps.Coroutines.common)
         implementation(Deps.stately)
         implementation(Deps.multiplatformSettings)
         implementation(Deps.koinCore)
         implementation(Deps.klock)
-        implementation(Deps.ktor.commonSerialization)
     }
 
     sourceSets["commonTest"].dependencies {

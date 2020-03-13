@@ -6,7 +6,7 @@ import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 
-interface Life4API{
+interface RetrofitLife4API{
 
     @GET("api/player/{player}")
     suspend fun getPlayer(@Path("player") playerName: String): Response<List<ApiPlayer>>

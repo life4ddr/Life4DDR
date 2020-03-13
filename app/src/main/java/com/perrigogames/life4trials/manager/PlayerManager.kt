@@ -7,7 +7,7 @@ import com.perrigogames.life4.model.BaseModel
 import com.perrigogames.life4trials.BuildConfig
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.api.ApiPlayer
-import com.perrigogames.life4trials.api.Life4API
+import com.perrigogames.life4trials.api.RetrofitLife4API
 import kotlinx.coroutines.*
 import org.greenrobot.eventbus.EventBus
 import org.koin.core.inject
@@ -20,7 +20,7 @@ import retrofit2.Response
 class PlayerManager: BaseModel() {
 
     private val context: Context by inject()
-    private val life4Api: Life4API by inject()
+    private val life4Api: RetrofitLife4API by inject()
     private val eventBus: EventBus by inject()
 
     private var importJob: Job? = null

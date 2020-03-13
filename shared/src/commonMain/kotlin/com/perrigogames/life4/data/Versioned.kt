@@ -1,5 +1,7 @@
 package com.perrigogames.life4.data
 
+import kotlinx.serialization.SerialName
+
 /**
  * Describes a class that has a version number. Higher version numbers should
  * override smaller version numbers in priority.
@@ -14,5 +16,5 @@ interface Versioned {
  * point where older versions of the parser can't adequately handle it.
  */
 interface MajorVersioned: Versioned {
-    val majorVersion: Int
+    @SerialName("major_version") val majorVersion: Int
 }

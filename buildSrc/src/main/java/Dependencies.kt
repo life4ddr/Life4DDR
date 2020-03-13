@@ -43,6 +43,7 @@ object Deps {
     val material_x = "com.google.android.material:material:${Versions.android_x}"
     val constraintlayout = "androidx.constraintlayout:constraintlayout:${Versions.android_x}"
     val lifecycle = "androidx.lifecycle:lifecycle-extensions:${Versions.android_x_lifecycle}"
+    val recyclerview = "androidx.recyclerview:recyclerview:${Versions.android_x}"
     val viewmodel = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.android_x_lifecycle}"
     val firebase = "com.google.firebase:firebase-core:${Versions.firebase}"
     val firebase_messaging = "com.google.firebase:firebase-messaging:${Versions.firebase_messaging}"
@@ -70,7 +71,6 @@ object Deps {
     val multiplatformSettingsTest = "com.russhwolf:multiplatform-settings-test:${Versions.multiplatformSettings}"
     val koinCore = "co.touchlab:koin-core:${Versions.koin}"
     val xcodesync = "co.touchlab:kotlinxcodesync:${Versions.xcodesync}"
-
 
     object AndroidXTest {
         val core =  "androidx.test:core:${Versions.android_x}"

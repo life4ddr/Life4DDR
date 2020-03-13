@@ -3,6 +3,9 @@ package com.perrigogames.life4
 import com.perrigogames.life4.db.TrialDatabaseHelper
 import com.perrigogames.life4.ktor.GithubDataAPI
 import com.perrigogames.life4.ktor.GithubDataImpl
+import com.perrigogames.life4.model.PlacementManager
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonConfiguration
 import org.koin.core.context.startKoin
 import org.koin.core.module.Module
 import org.koin.dsl.KoinAppDeclaration
@@ -16,6 +19,8 @@ fun initKoin(appDeclaration: KoinAppDeclaration = {}) = startKoin {
 val coreModule = module {
     single { TrialDatabaseHelper(get()) }
     single<GithubDataAPI> { GithubDataImpl() }
+    single { Json(JsonConfiguration.Stable) }
+    single { PlacementManager() }
 }
 
 expect val platformModule: Module

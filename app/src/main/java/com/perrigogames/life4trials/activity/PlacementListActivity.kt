@@ -5,10 +5,10 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.perrigogames.life4.model.PlacementManager
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.activity.PlacementDetailsActivity.Companion.RESULT_FINISHED
 import com.perrigogames.life4trials.manager.FirstRunManager
-import com.perrigogames.life4trials.manager.PlacementManager
 import com.perrigogames.life4trials.ui.firstrun.PlacementListAdapter
 import kotlinx.android.synthetic.main.activity_placement_list.*
 import org.koin.core.KoinComponent

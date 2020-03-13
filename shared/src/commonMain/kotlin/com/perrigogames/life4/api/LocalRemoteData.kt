@@ -1,10 +1,13 @@
 package com.perrigogames.life4.api
 
+import com.perrigogames.life4.data.MajorVersioned
 import com.perrigogames.life4.model.BaseModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlinx.serialization.json.Json
 import org.koin.core.KoinComponent
+import org.koin.core.inject
 
 /**
  * Interface for retrieving data from the application's resources.
@@ -96,7 +99,9 @@ abstract class KtorRemoteData<T: Any>: BaseModel(), RemoteData<T>, KoinComponent
  * A wrapper around a data type that is both fetched from an external source and stored locally.
  * It contains logic to determine the most up-to-date version of any data and use the most recent.
  */
-abstract class KtorLocalRemoteData<T: Any>(private val localReader: LocalDataReader): KtorRemoteData<T>() {
+abstract class KtorLocalRemoteData<T: Any>(protected val localReader: LocalDataReader): KtorRemoteData<T>() {
+
+    val json: Json by inject()
 
     lateinit var data: T
 
@@ -104,8 +109,7 @@ abstract class KtorLocalRemoteData<T: Any>(private val localReader: LocalDataRea
     abstract fun createLocalDataFromText(text: String): T
 
     /** Provided a [T], returns an appropriate string representation for later use. */
-//    open fun createTextToData(data: T): String = DataUtil.gson.toJson(data)
-    open fun createTextToData(data: T): String = TODO("need alternative serializer")
+    abstract fun createTextToData(data: T): String
 
         /** @return a version number for a given [T] so this structure can determine whether it
      * needs to be updated. */
@@ -138,4 +142,41 @@ abstract class KtorLocalRemoteData<T: Any>(private val localReader: LocalDataRea
             localReader.saveCachedString(createTextToData(data))
         }
     }
+}
+
+/**
+ * A wrapper around a data type that is both fetched from an external source and stored locally.
+ * It contains logic to determine the most up-to-date version of any data and use the most recent.
+ *
+ * It also checks a major version of the data against the major version supported by the interpreter
+ * to prevent unreadable data from crashing older versions of the app that won't parse properly.
+ */
+abstract class KtorMajorVersionedRemoteData<T: MajorVersioned>(localReader: LocalDataReader, val majorVersion: Int):
+    KtorLocalRemoteData<T>(localReader) {
+
+    //FIXME EventBus
+//    protected val eventBus: EventBus by inject()
+
+    /** Since the template is restricted to [MajorVersioned], use that version number. */
+    override fun getDataVersion(data: T) = data.version
+
+    override fun checkResponse(response: T) = super.checkResponse(response) && when {
+        shouldUpdateApp(response) -> {
+//            eventBus.postSticky(DataRequiresAppUpdateEvent())
+            false
+        }
+        else -> true
+    }
+
+    override fun onNewDataLoaded(newData: T) {
+        if (shouldUpdateApp(newData)) {
+//            eventBus.postSticky(DataRequiresAppUpdateEvent())
+        } else {
+            super.onNewDataLoaded(newData)
+        }
+    }
+
+    fun shouldUpdateApp() = shouldUpdateApp(this.data)
+
+    private fun shouldUpdateApp(data: T) = data.majorVersion > majorVersion
 }
