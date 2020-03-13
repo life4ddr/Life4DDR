@@ -4,11 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
+import com.perrigogames.life4.data.BaseRankGoal
+import com.perrigogames.life4.data.RankEntry
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.data.BaseRankGoal
-import com.perrigogames.life4trials.data.LadderGoalProgress
-import com.perrigogames.life4.enums.PlayStyle
-import com.perrigogames.life4trials.data.RankEntry
 import com.perrigogames.life4trials.db.GoalStatusDB
 import com.perrigogames.life4trials.ui.rankdetails.RankDetailsViewModel.OnGoalListInteractionListener
 import com.perrigogames.life4trials.view.LadderGoalItemView
@@ -63,14 +61,17 @@ class RankGoalsAdapter(private val rank: RankEntry,
         fun isGoalExpanded(item: BaseRankGoal): Boolean
         fun canIgnoreGoals(): Boolean
         fun getGoalStatus(item: BaseRankGoal): GoalStatusDB
-        fun getGoalProgress(item: BaseRankGoal, playStyle: PlayStyle): LadderGoalProgress?
+        //FIXME progress
+//        fun getGoalProgress(item: BaseRankGoal, playStyle: PlayStyle): LadderGoalProgress?
     }
 
     inner class GoalViewHolder(val view: LadderGoalItemView) : RecyclerView.ViewHolder(view) {
         fun bind(goal: BaseRankGoal, dataSource: DataSource) {
             view.expanded = dataSource.isGoalExpanded(goal)
             view.canIgnore = dataSource.canIgnoreGoals()
-            view.setGoal(goal, dataSource.getGoalStatus(goal), dataSource.getGoalProgress(goal, rank.playStyle))
+            //FIXME progress
+//            view.setGoal(goal, dataSource.getGoalStatus(goal), dataSource.getGoalProgress(goal, rank.playStyle))
+            view.setGoal(goal, dataSource.getGoalStatus(goal), null)
         }
     }
 

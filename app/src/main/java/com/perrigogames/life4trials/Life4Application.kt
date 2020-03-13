@@ -3,6 +3,9 @@ package com.perrigogames.life4trials
 import android.content.Context
 import android.util.Log
 import androidx.multidex.MultiDexApplication
+import com.perrigogames.life4.PlatformStrings
+import com.perrigogames.life4.api.LocalDataReader
+import com.perrigogames.life4.api.LocalUncachedDataReader
 import com.perrigogames.life4.initKoin
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.IGNORES_FILE_NAME
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.PLACEMENTS_FILE_NAME
@@ -12,28 +15,19 @@ import com.perrigogames.life4.ktor.GithubDataAPI.Companion.TRIALS_FILE_NAME
 import com.perrigogames.life4.model.PlacementManager
 import com.perrigogames.life4trials.api.AndroidDataReader
 import com.perrigogames.life4trials.api.AndroidUncachedDataReader
-import com.perrigogames.life4trials.api.RetrofitGithubDataAPI
-import com.perrigogames.life4trials.api.RetrofitLife4API
 import com.perrigogames.life4trials.db.MyObjectBox
 import com.perrigogames.life4trials.manager.*
 import com.perrigogames.life4trials.repo.LadderResultRepo
 import com.perrigogames.life4trials.repo.SongRepo
 import com.perrigogames.life4trials.repo.TrialRepo
-import com.perrigogames.life4trials.util.DataUtil
 import com.perrigogames.life4trials.util.NotificationUtil
 import io.objectbox.BoxStore
 import io.objectbox.android.AndroidObjectBrowser
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
-import okhttp3.logging.HttpLoggingInterceptor.Level.BODY
 import org.greenrobot.eventbus.EventBus
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.converter.scalars.ScalarsConverterFactory
 
 
 class Life4Application: MultiDexApplication() {
@@ -58,9 +52,13 @@ class Life4Application: MultiDexApplication() {
         initKoin {
             modules(module {
                 single<Context> { this@Life4Application }
+                single<PlatformStrings> { AndroidPlatformStrings() }
+                single<LocalDataReader>(named(IGNORES_FILE_NAME)) { AndroidDataReader(R.raw.ignore_lists_v2, IGNORES_FILE_NAME) }
+                single<LocalUncachedDataReader>(named(PLACEMENTS_FILE_NAME)) { AndroidUncachedDataReader(R.raw.placements) }
+                single<LocalDataReader>(named(RANKS_FILE_NAME)) { AndroidDataReader(R.raw.ranks_v2, RANKS_FILE_NAME) }
+                single<LocalDataReader>(named(SONGS_FILE_NAME)) { AndroidDataReader(R.raw.songs, SONGS_FILE_NAME) }
+                single<LocalDataReader>(named(TRIALS_FILE_NAME)) { AndroidDataReader(R.raw.trials, TRIALS_FILE_NAME) }
                 single { SettingsManager() }
-                single<RetrofitLife4API> { life4Retrofit.create(RetrofitLife4API::class.java) }
-                single<RetrofitGithubDataAPI> { githubRetrofit.create(RetrofitGithubDataAPI::class.java) }
                 single {
                     MyObjectBox.builder()
                         .androidContext(this@Life4Application)
@@ -68,11 +66,6 @@ class Life4Application: MultiDexApplication() {
                         .also { startObjectboxBrowser(it) }
                 }
                 single { EventBus() }
-                single(named(IGNORES_FILE_NAME)) { AndroidDataReader(R.raw.ignore_lists_v2, IGNORES_FILE_NAME) }
-                single(named(PLACEMENTS_FILE_NAME)) { AndroidUncachedDataReader(R.raw.placements) }
-                single(named(RANKS_FILE_NAME)) { AndroidDataReader(R.raw.ranks_v2, RANKS_FILE_NAME) }
-                single(named(SONGS_FILE_NAME)) { AndroidDataReader(R.raw.songs, SONGS_FILE_NAME) }
-                single(named(TRIALS_FILE_NAME)) { AndroidDataReader(R.raw.trials, TRIALS_FILE_NAME) }
                 single { SongRepo() }
                 single { TrialRepo() }
                 single { LadderResultRepo() }
@@ -107,21 +100,5 @@ class Life4Application: MultiDexApplication() {
         val songDataManager: SongDataManager by inject()
         val trialManager: TrialManager by inject()
         val settingsManager: SettingsManager by inject()
-    }
-
-    companion object {
-        private val life4Retrofit = retrofit("http://life4bot.herokuapp.com/")
-        private val githubTarget = if (BuildConfig.DEBUG) "remote-data-test" else "remote-data"
-        private val githubRetrofit = retrofit("https://raw.githubusercontent.com/PerrigoGames/Life4DDR-Trials/$githubTarget/app/src/main/res/raw/")
-
-        private fun retrofit(baseUrl: String): Retrofit = Retrofit.Builder()
-            .client(OkHttpClient().newBuilder().build())
-            .baseUrl(baseUrl)
-            .addConverterFactory(ScalarsConverterFactory.create())
-            .addConverterFactory(GsonConverterFactory.create(DataUtil.gson))
-            .client(OkHttpClient.Builder()
-                .addInterceptor(HttpLoggingInterceptor().apply { level = BODY })
-                .build())
-            .build()
     }
 }

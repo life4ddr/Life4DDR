@@ -5,11 +5,10 @@ import android.util.Log
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.data.BaseRankGoal
+import com.perrigogames.life4.data.BaseRankGoal
 import com.perrigogames.life4.data.LadderRank
-import com.perrigogames.life4.enums.PlayStyle
-import com.perrigogames.life4trials.data.RankEntry
+import com.perrigogames.life4.data.RankEntry
+import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.db.GoalStatus
 import com.perrigogames.life4trials.db.GoalStatusDB
 import com.perrigogames.life4trials.manager.LadderManager
@@ -90,7 +89,8 @@ class RankDetailsViewModel(private val context: Context,
         override fun isGoalExpanded(item: BaseRankGoal) = expandedItems.contains(item)
         override fun canIgnoreGoals(): Boolean = canIgnoreGoals
         override fun getGoalStatus(item: BaseRankGoal) = ladderManager.getOrCreateGoalStatus(item)
-        override fun getGoalProgress(item: BaseRankGoal, playStyle: PlayStyle) = ladderManager.getGoalProgress(item, playStyle)
+        //FIXME progress
+//        override fun getGoalProgress(item: BaseRankGoal, playStyle: PlayStyle) = ladderManager.getGoalProgress(item, playStyle)
     }
 
     val adapter: RankGoalsAdapter? = targetEntry?.let { RankGoalsAdapter(it, dataSource, goalItemListener, goalListListener) }

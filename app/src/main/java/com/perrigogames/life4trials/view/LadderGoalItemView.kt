@@ -8,25 +8,27 @@ import android.view.View
 import android.widget.TableLayout
 import android.widget.TableRow
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
 import androidx.core.view.children
+import com.perrigogames.life4.PlatformStrings
+import com.perrigogames.life4.data.BaseRankGoal
+import com.perrigogames.life4.data.LadderGoalProgress
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.data.BaseRankGoal
-import com.perrigogames.life4.enums.ClearType
-import com.perrigogames.life4trials.data.LadderGoalProgress
 import com.perrigogames.life4trials.db.GoalStatus
 import com.perrigogames.life4trials.db.GoalStatus.COMPLETE
 import com.perrigogames.life4trials.db.GoalStatus.IGNORED
 import com.perrigogames.life4trials.db.GoalStatusDB
-import com.perrigogames.life4trials.util.colorRes
 import com.perrigogames.life4trials.util.visibilityBool
 import kotlinx.android.synthetic.main.item_rank_goal.view.*
 import kotlinx.android.synthetic.main.row_song_detail.view.*
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 
 class LadderGoalItemView @JvmOverloads constructor(context: Context,
                                                    attrs: AttributeSet? = null,
                                                    defStyleAttr: Int = 0) :
-    ConstraintLayout(context, attrs, defStyleAttr) {
+    ConstraintLayout(context, attrs, defStyleAttr), KoinComponent {
+
+    private val platformStrings: PlatformStrings by inject()
 
     private var goal: BaseRankGoal? = null
     private var goalDB: GoalStatusDB? = null
@@ -82,11 +84,11 @@ class LadderGoalItemView @JvmOverloads constructor(context: Context,
             oldColors = text_goal_subtitle.textColors
         }
 
-        text_goal_title.text = goal?.goalString(context) ?: ""
+        text_goal_title.text = goal?.goalString(platformStrings) ?: ""
         button_status_icon.isChecked = currentState == COMPLETE
 
         updateExpand()
-        updateProgress()
+//        updateProgress()
         updateIgnoreState()
     }
 
@@ -96,34 +98,35 @@ class LadderGoalItemView @JvmOverloads constructor(context: Context,
         table_expand_details.visibilityBool = expanded
     }
 
-    private fun updateProgress() {
-        goalProgress?.let {
-            text_goal_subtitle.text = if (!it.showMax) {
-                it.progress.longNumberString()
-            } else {
-                context.getString(R.string.goal_progress_format, it.progress, it.max)
-            }
-            if (it.progress >= it.max) {
-                text_goal_subtitle.setTextColor(ContextCompat.getColor(context, R.color.gold))
-            } else {
-                text_goal_subtitle.setTextColor(oldColors)
-            }
-            it.results?.forEach { result ->
-                val chart = result.chart.target
-                val name = chart.song.target.title
-
-                val row = retrieveTableRow(table_expand_details, result.score.longNumberString(), name)
-                if (result.clearType > ClearType.CLEAR) {
-                    row.text_score.setTextColor(ContextCompat.getColor(context, result.clearType.colorRes))
-                } else {
-                    row.text_score.setTextColor(oldColors)
-                }
-                row.text_title.setTextColor(ContextCompat.getColor(context, chart.difficultyClass.colorRes))
-                table_expand_details.addView(row)
-            }
-        }
-        text_goal_subtitle.visibilityBool = goalProgress?.let { it.progress != 0 && it.max != 0 } ?: false
-    }
+    //FIXME progress
+//    private fun updateProgress() {
+//        goalProgress?.let {
+//            text_goal_subtitle.text = if (!it.showMax) {
+//                it.progress.longNumberString()
+//            } else {
+//                context.getString(R.string.goal_progress_format, it.progress, it.max)
+//            }
+//            if (it.progress >= it.max) {
+//                text_goal_subtitle.setTextColor(ContextCompat.getColor(context, R.color.gold))
+//            } else {
+//                text_goal_subtitle.setTextColor(oldColors)
+//            }
+//            it.results?.forEach { result ->
+//                val chart = result.chart.target
+//                val name = chart.song.target.title
+//
+//                val row = retrieveTableRow(table_expand_details, result.score.longNumberString(), name)
+//                if (result.clearType > ClearType.CLEAR) {
+//                    row.text_score.setTextColor(ContextCompat.getColor(context, result.clearType.colorRes))
+//                } else {
+//                    row.text_score.setTextColor(oldColors)
+//                }
+//                row.text_title.setTextColor(ContextCompat.getColor(context, chart.difficultyClass.colorRes))
+//                table_expand_details.addView(row)
+//            }
+//        }
+//        text_goal_subtitle.visibilityBool = goalProgress?.let { it.progress != 0 && it.max != 0 } ?: false
+//    }
 
     private fun updateIgnoreState() {
         button_ignore.visibility = when {

@@ -4,7 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.widget.LinearLayout
 import android.widget.TextView
-import com.perrigogames.life4trials.api.ApiPlayer
+import com.perrigogames.life4.data.ApiPlayer
 import com.perrigogames.life4trials.util.visibilityBool
 import kotlinx.android.synthetic.main.view_player_found.view.*
 

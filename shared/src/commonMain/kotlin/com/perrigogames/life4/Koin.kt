@@ -19,7 +19,7 @@ fun initKoin(appDeclaration: KoinAppDeclaration = {}) = startKoin {
 val coreModule = module {
     single { TrialDatabaseHelper(get()) }
     single<GithubDataAPI> { GithubDataImpl() }
-    single { Json(JsonConfiguration.Stable) }
+    single { Json(JsonConfiguration.Stable.copy(classDiscriminator = "t")) }
     single { PlacementManager() }
 }
 

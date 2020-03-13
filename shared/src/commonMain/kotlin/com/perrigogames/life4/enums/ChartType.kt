@@ -41,7 +41,12 @@ enum class PlayStyle(val stableId: Long,
 }
 
 data class ChartType(val style: PlayStyle,
-                     val difficulty: DifficultyClass)
+                     val difficulty: DifficultyClass) {
+    override fun toString(): String = difficulty.aggregatePrefix + style.aggregateSuffix
+}
+
+operator fun PlayStyle.plus(difficulty: DifficultyClass) = ChartType(this, difficulty)
+operator fun DifficultyClass.plus(style: PlayStyle) = ChartType(style, this)
 
 @Serializer(forClass = DifficultyClass::class)
 object DifficultyClassSerializer: KSerializer<DifficultyClass> {

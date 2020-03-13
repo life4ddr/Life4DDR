@@ -18,7 +18,7 @@ interface LocalUncachedDataReader {
      * Loads a raw version of the data from the system's resources.
      * This is not optional and serves as the default data set.
      */
-    fun loadRawString(): String
+    fun loadInternalString(): String
 }
 
 /**
@@ -137,7 +137,7 @@ abstract class KtorLocalRemoteData<T: Any>(protected val localReader: LocalDataR
     private fun shouldDeleteCache(cache: T) = getDataVersion(cache) < getDataVersion(data)
 
     fun start() {
-        data = createLocalDataFromText(localReader.loadRawString())
+        data = createLocalDataFromText(localReader.loadInternalString())
         onNewDataLoaded(data)
         localReader.loadCachedString()?.let { createLocalDataFromText(it) }?.let { onNewDataLoaded(it) }
         fetch()

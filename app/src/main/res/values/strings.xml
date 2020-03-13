@@ -54,8 +54,8 @@
     <string name="rank_goal_clear_count">%s %d songs on %s.</string>
     <string name="rank_goal_clear_count_single">%s a song on %s.</string>
     <string name="rank_goal_clear_specific">%s %s on %s.</string>
-    <string name="rank_goal_clear_trial">Earn %s on %d trials.</string>
-    <string name="rank_goal_clear_trial_single">Earn %s on any trial.</string>
+    <string name="rank_goal_clear_trial">Earn %s on %d Trials.</string>
+    <string name="rank_goal_clear_trial_single">Earn %s on any Trial.</string>
     <string name="rank_goal_difficulty_clear">%s %d different %s.</string>
     <string name="rank_goal_difficulty_clear_single">%s %s.</string>
     <string name="rank_goal_difficulty_clear_single_a">%s a %s.</string>
@@ -66,7 +66,7 @@
     <string name="rank_goal_difficulty_score_all_lamp">All %s over %s with a %s.</string>
     <string name="rank_goal_difficulty_aaa_all">AAA every %d.</string>
     <string name="rank_goal_difficulty_aaa_all_lamp">AAA every %d with a %s.</string>
-    <string name="rank_goal_ex_points">Earn %d MFC Points.</string>
+    <string name="rank_goal_mfc_points">Earn %d MFC Points.</string>
     <string name="exceptions">" (%dE)"</string>
     <string name="exceptions_songs">" (except %s)"</string>
 
@@ -112,8 +112,8 @@
     <string name="trial_failed">Trial Failed!</string>
     <string name="trial_fail_confirmation">Would you like to Concede and save this Trial attempt?</string>
     <string name="trial_fail_no_rank_confirmation">It is no longer possible to earn a rank on %s.\n\nWould you like to Concede and save this Trial attempt?</string>
-    <string name="trial_close_confirmation">The progress made in this trial will not be saved.</string>
-    <string name="trial_concede_confirmation_format">This trial will be saved to your records as incomplete for %s (%s).\n\nYou will NOT get a chance to log your failed song if you haven\'t already.</string>
+    <string name="trial_close_confirmation">The progress made in this Trial will not be saved.</string>
+    <string name="trial_concede_confirmation_format">This Trial will be saved to your records as incomplete for %s (%s).\n\nYou will NOT get a chance to log your failed song if you haven\'t already.</string>
     <string name="photo_save_confirmation">This photo will not be saved.</string>
     <string name="details_save_confirmation">Your changes will not be saved.</string>
 
@@ -122,7 +122,7 @@
     <string name="trial_submit_dialog_title">Submit Scores</string>
     <string name="trial_submit_dialog_rank_confirmation">Did you pass all requirements for %s rank?</string>
     <string name="trial_submit_dialog_prompt">Photos are saved to your SD card\'s Pictures/LIFE4 folder. These photos can be uploaded to LIFE4\'s Submission Page manually.\n\nWould you like to be taken there now?</string>
-    <string name="trial_not_saved">This trial has not been saved!</string>
+    <string name="trial_not_saved">This Trial has not been saved!</string>
 
     <string name="confirm_erase_trial_data">Are you sure you want to clear all saved rank data?</string>
     <string name="confirm_erase_result_data">Are you sure you want to clear all song result data?</string>

@@ -93,11 +93,6 @@ dependencies {
     implementation(Deps.dexter)
     implementation(Deps.glide)
     implementation(Deps.gson)
-    implementation(Deps.retrofit)
-    implementation(Deps.retrofit_gson)
-    implementation(Deps.retrofit_scalars)
-    implementation(Deps.okhttp)
-    implementation(Deps.okhttp_interceptor)
 //    debugImplementation(Deps.objectbox_debug)
 //    releaseImplementation(Deps.objectbox_release)
 

@@ -1,5 +1,6 @@
 package com.perrigogames.life4trials.db
 
+import com.perrigogames.life4.data.ILadderResult
 import com.perrigogames.life4.enums.ClearType
 import com.perrigogames.life4.enums.DifficultyClass
 import com.perrigogames.life4.enums.GameVersion
@@ -46,7 +47,7 @@ class ChartDB(@Convert(converter = DifficultyClassConverter::class, dbType = Lon
 @Entity
 class LadderResultDB(var score: Int = 0,
                      @Convert(converter = ClearTypeConverter::class, dbType = Long::class) var clearType: ClearType = ClearType.NO_PLAY,
-                     @Id var id: Long = 0) {
+                     @Id var id: Long = 0): ILadderResult {
 
     lateinit var chart: ToOne<ChartDB>
 

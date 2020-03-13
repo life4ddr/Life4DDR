@@ -317,7 +317,7 @@
 	],
 	"game_versions": {
 		"A20": {
-			"unlock_requirement": "amethyst",
+			"unlock_requirement": "amethyst1",
 			"rank_requirements": [
 				{
 					"rank": "wood1",
@@ -469,7 +469,7 @@
 			]
 		},
 		"ACE": {
-			"unlock_requirement": "amethyst",
+			"unlock_requirement": "amethyst1",
 			"rank_requirements": [
 				{
 					"rank": "wood1",

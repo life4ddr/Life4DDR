@@ -8,9 +8,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.perrigogames.life4trials.Life4Application
+import com.perrigogames.life4.data.ApiPlayer
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.api.ApiPlayer
 import com.perrigogames.life4trials.manager.PlayerManager
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe

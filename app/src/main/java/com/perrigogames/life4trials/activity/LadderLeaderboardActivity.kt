@@ -2,8 +2,8 @@ package com.perrigogames.life4trials.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.perrigogames.life4.data.ApiPlayer
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.api.ApiPlayer
 import com.perrigogames.life4trials.ui.leaderboard.LeaderboardFragment
 import com.perrigogames.life4trials.ui.leaderboard.LeaderboardFragment.OnLeaderboardInteractionListener
 

@@ -5,15 +5,11 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Build
 import android.os.Environment
-import android.util.Log
 import android.widget.ImageView
-import androidx.annotation.RawRes
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
-import com.google.gson.typeadapters.RuntimeTypeAdapterFactory
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.data.*
-import java.io.*
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.max
@@ -26,19 +22,6 @@ object DataUtil {
         get() = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "LIFE4").also {
             it.mkdirs()
         }
-
-    val gson: Gson by lazy {
-        GsonBuilder()
-            .registerTypeAdapterFactory(RuntimeTypeAdapterFactory.of(BaseRankGoal::class.java, "t")
-                .registerSubtype(CaloriesRankGoal::class.java, CaloriesRankGoal.TYPE_STRING)
-                .registerSubtype(SongSetClearGoal::class.java, SongSetClearGoal.TYPE_STRING)
-                .registerSubtype(SongSetGoal::class.java, SongSetGoal.TYPE_STRING)
-                .registerSubtype(DifficultyClearGoal::class.java, DifficultyClearGoal.TYPE_STRING)
-                .registerSubtype(TrialGoal::class.java, TrialGoal.TYPE_STRING)
-                .registerSubtype(MFCPointsGoal::class.java, MFCPointsGoal.TYPE_STRING)
-                .registerSubtype(MultipleChoiceGoal::class.java, MultipleChoiceGoal.TYPE_STRING))
-            .create()
-    }
 
     fun timestamp(locale: Locale, date: Date = Date()): String = SimpleDateFormat("yyyyMMdd_HHmmss", locale).format(date)
 
@@ -99,54 +82,6 @@ object DataUtil {
             (bitmap.height / scaleFactor).toInt(),
             true)
     }
-}
-
-fun Context.loadRawString(@RawRes res: Int): String {
-    val writer = StringWriter()
-    resources.openRawResource(res).use { input ->
-        val reader = BufferedReader(InputStreamReader(input, "UTF-8"))
-        val buffer = CharArray(1024)
-        var n: Int = reader.read(buffer)
-        while (n != -1) {
-            writer.write(buffer, 0, n)
-            n = reader.read(buffer)
-        }
-    }
-    return writer.toString()
-}
-
-fun Context.readFromFile(path: String): String? {
-    var ret: String? = null
-    try {
-        InputStreamReader(openFileInput(path)).use { streamReader ->
-            val bufferedReader = BufferedReader(streamReader)
-            val builder = StringBuilder().also {
-                var receiveString: String? = bufferedReader.readLine()
-                while (receiveString != null) {
-                    it.append(receiveString)
-                    it.append('\n')
-                    receiveString = bufferedReader.readLine()
-                }
-            }
-            if (builder.isNotEmpty()) {
-                ret = builder.toString()
-            }
-        }
-    } catch (e: FileNotFoundException) {
-        Log.e("DataUtil", "File not found: $e")
-    } catch (e: IOException) {
-        Log.e("DataUtil", "Can not read file: $e")
-    }
-    return ret
-}
-
-fun Context.saveToFile(path: String, content: String): Boolean {
-    return try {
-        OutputStreamWriter(openFileOutput(path, Context.MODE_PRIVATE)).use {
-            it.write(content)
-        }
-        true
-    } catch (e: Exception) { false }
 }
 
 fun ImageView.setScaledBitmapFromFile(path: String,

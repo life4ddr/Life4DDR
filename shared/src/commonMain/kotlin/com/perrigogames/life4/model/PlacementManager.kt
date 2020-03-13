@@ -13,7 +13,7 @@ class PlacementManager: BaseModel() {
     private val json: Json by inject()
     private val dataReader: LocalUncachedDataReader by inject(named(PLACEMENTS_FILE_NAME))
 
-    private val placementData: TrialData = json.parse(TrialData.serializer(), dataReader.loadRawString())
+    private val placementData: TrialData = json.parse(TrialData.serializer(), dataReader.loadInternalString())
 
     val placements get() = placementData.trials
 

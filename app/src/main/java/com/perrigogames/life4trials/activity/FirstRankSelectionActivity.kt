@@ -5,9 +5,9 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.perrigogames.life4.data.LadderRank
+import com.perrigogames.life4.data.RankEntry
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.activity.RankDetailsActivity.Companion.RESULT_RANK_SELECTED
-import com.perrigogames.life4trials.data.RankEntry
 import com.perrigogames.life4trials.manager.FirstRunManager
 import com.perrigogames.life4trials.manager.LadderManager
 import com.perrigogames.life4trials.ui.ranklist.RankListFragment

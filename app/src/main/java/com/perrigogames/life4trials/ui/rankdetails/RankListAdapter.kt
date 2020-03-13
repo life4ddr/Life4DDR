@@ -7,16 +7,19 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.data.BaseRankGoal
+import com.perrigogames.life4.PlatformStrings
+import com.perrigogames.life4.data.BaseRankGoal
 import com.perrigogames.life4.data.LadderRank
-import com.perrigogames.life4trials.data.RankEntry
+import com.perrigogames.life4.data.RankEntry
+import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.ui.ranklist.RankListFragment.OnRankListInteractionListener
 import com.perrigogames.life4trials.util.drawableRes
 import com.perrigogames.life4trials.util.nameRes
 import kotlinx.android.synthetic.main.item_rank_list.view.image_rank_icon
 import kotlinx.android.synthetic.main.item_rank_list.view.text_goal_title
 import kotlinx.android.synthetic.main.item_rank_list_goals.view.*
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 
 /**
  * [RecyclerView.Adapter] that can display a [RankEntry] and makes a call to the
@@ -26,7 +29,9 @@ class RankListAdapter(private val mValues: List<RankEntry>,
                       private val selectedRank: LadderRank?,
                       private val showGoals: Boolean,
                       private val mListener: OnRankListInteractionListener?) :
-    RecyclerView.Adapter<RankListAdapter.ViewHolder>() {
+    RecyclerView.Adapter<RankListAdapter.ViewHolder>(), KoinComponent {
+
+    private val platformStrings: PlatformStrings by inject()
 
     private val mOnClickListener: View.OnClickListener
 
@@ -92,7 +97,7 @@ class RankListAdapter(private val mValues: List<RankEntry>,
 
         fun setGoals(goals: List<BaseRankGoal>) {
             mView.text_goals.text = StringBuilder().apply {
-                goals.forEach { append("• ${it.goalString(mView.context)}\n") }
+                goals.forEach { append("• ${it.goalString(platformStrings)}\n") }
             }.toString()
         }
 

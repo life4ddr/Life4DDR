@@ -2,6 +2,7 @@ package com.perrigogames.life4.ktor
 
 import co.touchlab.stately.ensureNeverFrozen
 import com.perrigogames.life4.data.IgnoreListData
+import com.perrigogames.life4.data.LadderRankData
 import com.perrigogames.life4.data.TrialData
 import com.perrigogames.life4.isDebug
 import io.ktor.client.HttpClient
@@ -22,7 +23,7 @@ class GithubDataImpl: GithubDataAPI {
         ensureNeverFrozen()
     }
 
-//    override suspend fun getLadderRanks(): LadderRankData = client.get { github(GithubDataAPI.RANKS_FILE_NAME) }
+    override suspend fun getLadderRanks(): LadderRankData = client.get { github(GithubDataAPI.RANKS_FILE_NAME) }
 
     override suspend fun getSongList(): String = client.get { github(GithubDataAPI.SONGS_FILE_NAME) }
 
