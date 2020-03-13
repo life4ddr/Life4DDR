@@ -48,13 +48,16 @@ interface LocalDataReader: LocalUncachedDataReader {
 /**
  * Interface for retrieving data from a remote location with callbacks
  */
-interface RemoteData<T: Any> {
+interface RemoteData<T: Any>: FetchListener<T> {
 
     /**
      * Performs the fetching of the data.  This function is expected to call either [onFetchUpdated]
      * or [onFetchFailed] exactly once.
      */
     fun fetch()
+}
+
+interface FetchListener<T> {
 
     /**
      * Invoked when the remote data is received and the result of [checkResponse] is true.
@@ -99,7 +102,8 @@ abstract class KtorRemoteData<T: Any>: BaseModel(), RemoteData<T>, KoinComponent
  * A wrapper around a data type that is both fetched from an external source and stored locally.
  * It contains logic to determine the most up-to-date version of any data and use the most recent.
  */
-abstract class KtorLocalRemoteData<T: Any>(protected val localReader: LocalDataReader): KtorRemoteData<T>() {
+abstract class KtorLocalRemoteData<T: Any>(protected val localReader: LocalDataReader,
+                                           protected var fetchListener: FetchListener<T>? = null): KtorRemoteData<T>() {
 
     val json: Json by inject()
 
@@ -120,6 +124,12 @@ abstract class KtorLocalRemoteData<T: Any>(protected val localReader: LocalDataR
     override fun onFetchUpdated(data: T) {
         super.onFetchUpdated(data)
         onNewDataLoaded(data)
+        fetchListener?.onFetchUpdated(data)
+    }
+
+    override fun onFetchFailed() {
+        super.onFetchFailed()
+        fetchListener?.onFetchFailed()
     }
 
     private fun shouldUpdate(other: T) = getDataVersion(other) > getDataVersion(data)
@@ -151,8 +161,10 @@ abstract class KtorLocalRemoteData<T: Any>(protected val localReader: LocalDataR
  * It also checks a major version of the data against the major version supported by the interpreter
  * to prevent unreadable data from crashing older versions of the app that won't parse properly.
  */
-abstract class KtorMajorVersionedRemoteData<T: MajorVersioned>(localReader: LocalDataReader, val majorVersion: Int):
-    KtorLocalRemoteData<T>(localReader) {
+abstract class KtorMajorVersionedRemoteData<T: MajorVersioned>(localReader: LocalDataReader,
+                                                               val majorVersion: Int,
+                                                               fetchListener: FetchListener<T>? = null):
+    KtorLocalRemoteData<T>(localReader, fetchListener) {
 
     //FIXME EventBus
 //    protected val eventBus: EventBus by inject()

@@ -5,18 +5,17 @@ import android.os.Handler
 import android.util.Log
 import androidx.appcompat.app.AlertDialog
 import com.crashlytics.android.Crashlytics
+import com.perrigogames.life4.api.FetchListener
+import com.perrigogames.life4.api.SongListRemoteData
 import com.perrigogames.life4.enums.DifficultyClass
 import com.perrigogames.life4.enums.GameVersion
 import com.perrigogames.life4.enums.PlayStyle
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.SONGS_FILE_NAME
 import com.perrigogames.life4.model.BaseModel
-import com.perrigogames.life4.util.indexOfOrEnd
 import com.perrigogames.life4trials.BuildConfig
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_IMPORT_GAME_VERSION
 import com.perrigogames.life4trials.api.AndroidDataReader
-import com.perrigogames.life4trials.api.LocalRemoteData
-import com.perrigogames.life4trials.api.RetrofitGithubDataAPI
 import com.perrigogames.life4trials.db.ChartDB
 import com.perrigogames.life4trials.db.ChartDB_
 import com.perrigogames.life4trials.db.SongDB
@@ -29,9 +28,7 @@ import io.objectbox.BoxStore
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
-import org.koin.core.get
 import org.koin.core.inject
-import retrofit2.Response
 
 
 /**
@@ -41,22 +38,15 @@ class SongDataManager: BaseModel() {
 
     private val songRepo: SongRepo by inject()
     private val ignoreListManager: IgnoreListManager by inject()
-    private val githubDataAPI: RetrofitGithubDataAPI = get()
     private val settingsManager: SettingsManager by inject()
     private val eventBus: EventBus by inject()
     private val objectBox: BoxStore by inject()
 
-    private val songList = object: LocalRemoteData<String>(
-        AndroidDataReader(R.raw.songs, SONGS_FILE_NAME)) {
-        override fun createLocalDataFromText(text: String) = text
-        override fun createTextToData(data: String) = data
-        override fun getDataVersion(data: String) = data.substring(0, data.indexOfOrEnd('\n')).trim().toInt()
-        override suspend fun getRemoteResponse(): Response<String> = githubDataAPI.getSongList()
+    private val songList = SongListRemoteData(AndroidDataReader(R.raw.songs, SONGS_FILE_NAME), object: FetchListener<String> {
         override fun onFetchUpdated(data: String) {
-            super.onFetchUpdated(data)
             refreshSongDatabase(data)
         }
-    }
+    })
 
     init {
         eventBus.register(this)

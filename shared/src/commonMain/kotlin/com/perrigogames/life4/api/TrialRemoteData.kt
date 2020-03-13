@@ -5,8 +5,9 @@ import com.perrigogames.life4.isDebug
 import com.perrigogames.life4.ktor.GithubDataAPI
 import org.koin.core.inject
 
-//FIXME is open
-open class TrialRemoteData(reader: LocalDataReader): KtorMajorVersionedRemoteData<TrialData>(reader, 2) {
+class TrialRemoteData(reader: LocalDataReader,
+                      fetchListener: FetchListener<TrialData>? = null):
+    KtorMajorVersionedRemoteData<TrialData>(reader, 2, fetchListener) {
 
     private val githubKtor: GithubDataAPI by inject()
 

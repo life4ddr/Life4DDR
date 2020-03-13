@@ -6,6 +6,7 @@ import android.net.Uri
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.crashlytics.android.Crashlytics
+import com.perrigogames.life4.api.FetchListener
 import com.perrigogames.life4.api.TrialRemoteData
 import com.perrigogames.life4.data.TrialData
 import com.perrigogames.life4.data.TrialRank
@@ -33,13 +34,12 @@ class TrialManager: BaseModel() {
     private val eventBus: EventBus by inject()
     private val dbHelper: TrialDatabaseHelper by inject()
 
-    private var trialData = object: TrialRemoteData(AndroidDataReader(R.raw.trials, TRIALS_FILE_NAME)) {
+    private var trialData = TrialRemoteData(AndroidDataReader(R.raw.trials, TRIALS_FILE_NAME), object: FetchListener<TrialData> {
         override fun onFetchUpdated(data: TrialData) {
-            super.onFetchUpdated(data)
             Toast.makeText(context, "${data.trials.size} Trials found!", Toast.LENGTH_SHORT).show()
             eventBus.post(TrialListReplacedEvent())
         }
-    }
+    })
 
     var currentSession: TrialSession? = null
 

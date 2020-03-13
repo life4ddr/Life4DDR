@@ -22,9 +22,9 @@ class GithubDataImpl: GithubDataAPI {
     }
 
 //    override suspend fun getLadderRanks(): LadderRankData = client.get { github(GithubDataAPI.RANKS_FILE_NAME) }
-//
-//    override suspend fun getSongList(): String = client.get<String> { github(GithubDataAPI.SONGS_FILE_NAME) }
-//
+
+    override suspend fun getSongList(): String = client.get { github(GithubDataAPI.SONGS_FILE_NAME) }
+
 //    override suspend fun getIgnoreLists(): IgnoreListData = client.get { github(GithubDataAPI.IGNORES_FILE_NAME) }
 
     override suspend fun getTrials(): TrialData = client.get { github(GithubDataAPI.TRIALS_FILE_NAME) }
