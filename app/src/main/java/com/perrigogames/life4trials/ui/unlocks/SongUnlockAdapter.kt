@@ -1,7 +1,6 @@
 package com.perrigogames.life4trials.ui.unlocks
 
 import android.content.Context
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,13 +9,12 @@ import android.widget.CheckBox
 import android.widget.CompoundButton
 import android.widget.LinearLayout
 import android.widget.RadioButton
-import androidx.core.view.marginStart
 import androidx.recyclerview.widget.RecyclerView
+import com.perrigogames.life4.data.IgnoreGroup
+import com.perrigogames.life4.data.IgnoreUnlockType
+import com.perrigogames.life4.data.IgnoreUnlockType.*
+import com.perrigogames.life4.data.IgnoredSong
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.data.IgnoreGroup
-import com.perrigogames.life4trials.data.IgnoreUnlockType
-import com.perrigogames.life4trials.data.IgnoreUnlockType.*
-import com.perrigogames.life4trials.data.IgnoredSong
 import com.perrigogames.life4trials.util.CommonSizes
 import com.perrigogames.life4trials.util.visibilityBool
 import com.perrigogames.life4trials.view.DifficultyTextView
@@ -75,7 +73,7 @@ class SongUnlockAdapter: RecyclerView.Adapter<SongUnlockAdapter.BaseUnlockViewHo
                         itemView.layout_unlock_container.addView(LinearLayout(itemView.context).also { rowContainer ->
                             rowContainer.addView(this)
                             rowContainer.addView(DifficultyTextView(itemView.context).also { difficultyLabel ->
-                                difficultyLabel.difficultyClass = unlock.difficultyClass
+                                difficultyLabel.difficultyClass = unlock.difficultyClass!!
                                 difficultyLabel.layoutParams = LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT).also { params ->
                                     params.marginStart = CommonSizes.contentPaddingSmall(resources)
                                 }

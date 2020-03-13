@@ -1,5 +1,6 @@
 package com.perrigogames.life4.ktor
 
+import com.perrigogames.life4.data.IgnoreListData
 import com.perrigogames.life4.data.TrialData
 
 /**
@@ -9,7 +10,7 @@ interface GithubDataAPI {
 
 //    suspend fun getLadderRanks(): LadderRankData
     suspend fun getSongList(): String
-//    suspend fun getIgnoreLists(): IgnoreListData
+    suspend fun getIgnoreLists(): IgnoreListData
     suspend fun getTrials(): TrialData
 
     companion object {

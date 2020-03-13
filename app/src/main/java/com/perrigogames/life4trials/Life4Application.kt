@@ -4,9 +4,13 @@ import android.content.Context
 import android.util.Log
 import androidx.multidex.MultiDexApplication
 import com.perrigogames.life4.initKoin
+import com.perrigogames.life4.ktor.GithubDataAPI.Companion.IGNORES_FILE_NAME
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.PLACEMENTS_FILE_NAME
+import com.perrigogames.life4.ktor.GithubDataAPI.Companion.RANKS_FILE_NAME
+import com.perrigogames.life4.ktor.GithubDataAPI.Companion.SONGS_FILE_NAME
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.TRIALS_FILE_NAME
 import com.perrigogames.life4.model.PlacementManager
+import com.perrigogames.life4trials.api.AndroidDataReader
 import com.perrigogames.life4trials.api.AndroidUncachedDataReader
 import com.perrigogames.life4trials.api.RetrofitGithubDataAPI
 import com.perrigogames.life4trials.api.RetrofitLife4API
@@ -64,8 +68,11 @@ class Life4Application: MultiDexApplication() {
                         .also { startObjectboxBrowser(it) }
                 }
                 single { EventBus() }
+                single(named(IGNORES_FILE_NAME)) { AndroidDataReader(R.raw.ignore_lists_v2, IGNORES_FILE_NAME) }
                 single(named(PLACEMENTS_FILE_NAME)) { AndroidUncachedDataReader(R.raw.placements) }
-                single(named(TRIALS_FILE_NAME)) { AndroidUncachedDataReader(R.raw.placements) }
+                single(named(RANKS_FILE_NAME)) { AndroidDataReader(R.raw.ranks_v2, RANKS_FILE_NAME) }
+                single(named(SONGS_FILE_NAME)) { AndroidDataReader(R.raw.songs, SONGS_FILE_NAME) }
+                single(named(TRIALS_FILE_NAME)) { AndroidDataReader(R.raw.trials, TRIALS_FILE_NAME) }
                 single { SongRepo() }
                 single { TrialRepo() }
                 single { LadderResultRepo() }

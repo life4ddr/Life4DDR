@@ -1,6 +1,7 @@
 package com.perrigogames.life4.ktor
 
 import co.touchlab.stately.ensureNeverFrozen
+import com.perrigogames.life4.data.IgnoreListData
 import com.perrigogames.life4.data.TrialData
 import com.perrigogames.life4.isDebug
 import io.ktor.client.HttpClient
@@ -25,7 +26,7 @@ class GithubDataImpl: GithubDataAPI {
 
     override suspend fun getSongList(): String = client.get { github(GithubDataAPI.SONGS_FILE_NAME) }
 
-//    override suspend fun getIgnoreLists(): IgnoreListData = client.get { github(GithubDataAPI.IGNORES_FILE_NAME) }
+    override suspend fun getIgnoreLists(): IgnoreListData = client.get { github(GithubDataAPI.IGNORES_FILE_NAME) }
 
     override suspend fun getTrials(): TrialData = client.get { github(GithubDataAPI.TRIALS_FILE_NAME) }
 

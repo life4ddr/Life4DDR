@@ -1,14 +1,22 @@
-package com.perrigogames.life4trials.data
+@file:UseSerializers(
+    DifficultyClassSerializer::class,
+    PlayStyleSerializer::class,
+    ChartTypeSerializer::class,
+    ClearTypeSerializer::class)
 
-import com.google.gson.annotations.SerializedName
-import com.perrigogames.life4.enums.DifficultyClass
-import com.perrigogames.life4.enums.GameVersion
-import com.perrigogames.life4.data.MajorVersioned
+package com.perrigogames.life4.data
 
+import com.perrigogames.life4.enums.*
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
+import kotlinx.serialization.UseSerializers
+
+@Serializable
 enum class IgnoreUnlockType {
-    @SerializedName("single") SINGLE, // songs unlock one at a time in any order
-    @SerializedName("sequence") SEQUENTIAL, // songs unlock one at a time in a predetermined sequence
-    @SerializedName("all") ALL; // songs unlock all at once
+    @SerialName("single") SINGLE, // songs unlock one at a time in any order
+    @SerialName("sequence") SEQUENTIAL, // songs unlock one at a time in a predetermined sequence
+    @SerialName("all") ALL; // songs unlock all at once
 
     fun fromStoredState(stored: Long, listLength: Int): List<Boolean> = when(this) {
         SINGLE -> (0 until listLength).map { idx -> stored and 1L.shl(idx) != 0L}
@@ -23,10 +31,11 @@ enum class IgnoreUnlockType {
     }
 }
 
+@Serializable
 class IgnoreListData(val lists: List<IgnoreList>,
                      val groups: List<IgnoreGroup>,
                      override val version: Int,
-                     @SerializedName("major_version") override val majorVersion: Int):
+                     @SerialName("major_version") override val majorVersion: Int):
     MajorVersioned {
 
     private var mGroupMap: Map<String, IgnoreGroup>? = null
@@ -43,6 +52,7 @@ class IgnoreListData(val lists: List<IgnoreList>,
  * Data class to describe an ignore group, or a collection of songs
  * that are closely related, like a group that unlocks all at a time
  */
+@Serializable
 class IgnoreGroup(val id: String,
                   val name: String,
                   val unlock: IgnoreUnlockType? = null,
@@ -55,11 +65,12 @@ class IgnoreGroup(val id: String,
  * Data class to describe an ignore list, or a set of songs and
  * charts that do not appear in a particular game localization
  */
+@Serializable
 class IgnoreList(val id: String,
                  val name: String,
-                 @SerializedName("base_version") val baseVersion: GameVersion,
+                 @SerialName("base_version") val baseVersion: GameVersion,
                  val groups: List<String>? = null,
-                 @SerializedName("locked_groups") val lockedGroups: List<String>? = null,
+                 @SerialName("locked_groups") val lockedGroups: List<String>? = null,
                  val songs: List<IgnoredSong>? = null) {
 
     @Transient var resolvedSongs: MutableList<IgnoredSong>? = null
@@ -82,5 +93,6 @@ class IgnoreList(val id: String,
     }
 }
 
+@Serializable
 class IgnoredSong(val title: String,
-                  @SerializedName("difficulty_class") val difficultyClass: DifficultyClass? = null)
+                  @SerialName("difficulty_class") val difficultyClass: DifficultyClass? = null)

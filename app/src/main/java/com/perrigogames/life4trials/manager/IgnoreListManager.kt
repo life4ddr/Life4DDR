@@ -1,39 +1,26 @@
 package com.perrigogames.life4trials.manager
 
+import com.perrigogames.life4.api.IgnoreListRemoteData
+import com.perrigogames.life4.data.IgnoreGroup
+import com.perrigogames.life4.data.IgnoreList
+import com.perrigogames.life4.data.IgnoredSong
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.IGNORES_FILE_NAME
 import com.perrigogames.life4.model.BaseModel
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_IMPORT_GAME_VERSION
 import com.perrigogames.life4trials.api.AndroidDataReader
-import com.perrigogames.life4trials.api.MajorVersionedRemoteData
-import com.perrigogames.life4trials.api.RetrofitGithubDataAPI
-import com.perrigogames.life4trials.data.IgnoreGroup
-import com.perrigogames.life4trials.data.IgnoreList
-import com.perrigogames.life4trials.data.IgnoreListData
-import com.perrigogames.life4trials.data.IgnoredSong
 import com.perrigogames.life4trials.event.LadderRanksReplacedEvent
 import com.perrigogames.life4trials.repo.SongRepo
-import com.perrigogames.life4trials.util.DataUtil
 import org.greenrobot.eventbus.EventBus
-import org.koin.core.get
 import org.koin.core.inject
 
 class IgnoreListManager: BaseModel() {
 
     private val songRepo: SongRepo by inject()
     private val eventBus: EventBus by inject()
-    private val githubDataAPI: RetrofitGithubDataAPI = get()
     private val settingsManager: SettingsManager by inject()
 
-    private val ignoreLists = object: MajorVersionedRemoteData<IgnoreListData>(
-        AndroidDataReader(R.raw.ignore_lists_v2, IGNORES_FILE_NAME), 1) {
-        override suspend fun getRemoteResponse() = githubDataAPI.getIgnoreLists()
-        override fun createLocalDataFromText(text: String) = DataUtil.gson.fromJson(text, IgnoreListData::class.java)
-        override fun onNewDataLoaded(newData: IgnoreListData) {
-            super.onNewDataLoaded(newData)
-            newData.evaluateIgnoreLists()
-        }
-    }
+    private val ignoreLists = IgnoreListRemoteData(AndroidDataReader(R.raw.ignore_lists_v2, IGNORES_FILE_NAME))
 
     init {
         ignoreLists.start()
