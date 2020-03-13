@@ -12,13 +12,13 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import com.google.android.material.snackbar.Snackbar
+import com.perrigogames.life4.SettingsKeys.KEY_DEBUG_BYPASS_STAT_ENTRY
+import com.perrigogames.life4.SettingsKeys.KEY_DETAILS_ENFORCE_EXPERT
+import com.perrigogames.life4.SettingsKeys.KEY_DETAILS_PHOTO_SELECT
+import com.perrigogames.life4.SettingsKeys.KEY_DETAILS_UPDATE_GOAL
 import com.perrigogames.life4.data.*
 import com.perrigogames.life4trials.AndroidTrialStrings
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_DEBUG_BYPASS_STAT_ENTRY
-import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_DETAILS_ENFORCE_EXPERT
-import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_DETAILS_PHOTO_SELECT
-import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_DETAILS_UPDATE_GOAL
 import com.perrigogames.life4trials.manager.LadderManager
 import com.perrigogames.life4trials.manager.SettingsManager
 import com.perrigogames.life4trials.manager.TrialManager

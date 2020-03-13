@@ -7,11 +7,11 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
+import com.perrigogames.life4.SettingsKeys.KEY_DETAILS_PHOTO_SELECT
 import com.perrigogames.life4.data.Song
 import com.perrigogames.life4.data.Trial
 import com.perrigogames.life4.model.PlacementManager
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_DETAILS_PHOTO_SELECT
 import com.perrigogames.life4trials.manager.SettingsManager
 import com.perrigogames.life4trials.ui.songlist.SongListFragment
 import com.perrigogames.life4trials.view.RankHeaderView

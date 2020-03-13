@@ -2,13 +2,15 @@ package com.perrigogames.life4trials.manager
 
 import android.content.Context
 import android.content.Intent
+import com.perrigogames.life4.SettingsKeys.KEY_INFO_NAME
+import com.perrigogames.life4.SettingsKeys.KEY_INFO_RIVAL_CODE
+import com.perrigogames.life4.SettingsKeys.KEY_INFO_TWITTER_NAME
+import com.perrigogames.life4.SettingsKeys.KEY_INIT_STATE
 import com.perrigogames.life4.model.BaseModel
-import com.perrigogames.life4trials.activity.*
-import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_INFO_NAME
-import com.perrigogames.life4trials.manager.SettingsManager.Companion.KEY_INIT_STATE
-import com.perrigogames.life4trials.manager.SettingsManager.Companion.VAL_INIT_STATE_DONE
-import com.perrigogames.life4trials.manager.SettingsManager.Companion.VAL_INIT_STATE_PLACEMENTS
-import com.perrigogames.life4trials.manager.SettingsManager.Companion.VAL_INIT_STATE_RANKS
+import com.perrigogames.life4trials.activity.FirstRankSelectionActivity
+import com.perrigogames.life4trials.activity.FirstRunInfoActivity
+import com.perrigogames.life4trials.activity.PlacementListActivity
+import com.perrigogames.life4trials.activity.PlayerProfileActivity
 import org.koin.core.inject
 
 /**
@@ -52,14 +54,20 @@ class FirstRunManager: BaseModel() {
     fun setUserBasics(name: String, rivalCode: String?, twitterName: String?) {
         settingsManager.setUserString(KEY_INFO_NAME, name)
         if (!rivalCode.isNullOrEmpty()) {
-            settingsManager.setUserString(SettingsActivity.KEY_INFO_RIVAL_CODE, rivalCode)
+            settingsManager.setUserString(KEY_INFO_RIVAL_CODE, rivalCode)
         }
         if (!twitterName.isNullOrEmpty()) {
-            settingsManager.setUserString(SettingsActivity.KEY_INFO_TWITTER_NAME, twitterName)
+            settingsManager.setUserString(KEY_INFO_TWITTER_NAME, twitterName)
         }
     }
 
     private var stateString
         get() = settingsManager.getUserString(KEY_INIT_STATE, null)
         set(v) = settingsManager.setUserString(KEY_INIT_STATE, v)
+
+    companion object {
+        const val VAL_INIT_STATE_PLACEMENTS = "placements"
+        const val VAL_INIT_STATE_RANKS = "ranks"
+        const val VAL_INIT_STATE_DONE = "done"
+    }
 }

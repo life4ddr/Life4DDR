@@ -6,7 +6,6 @@ import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 import com.perrigogames.life4.model.BaseModel
 import com.perrigogames.life4trials.BuildConfig
-import com.perrigogames.life4trials.Life4Application
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.event.MajorUpdateProcessEvent
 import org.greenrobot.eventbus.EventBus
@@ -75,11 +74,6 @@ class SettingsManager: BaseModel() {
     }
 
     companion object {
-        const val KEY_INIT_STATE = "KEY_INIT_STATE"
-        const val VAL_INIT_STATE_PLACEMENTS = "placements"
-        const val VAL_INIT_STATE_RANKS = "ranks"
-        const val VAL_INIT_STATE_DONE = "done"
-
         const val KEY_TUTORIAL_PREFS = "tutorial_preferences"
         const val KEY_APP_CRASHED = "app_crashed"
         const val KEY_MAJOR_UPDATE = "major_update"

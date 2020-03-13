@@ -9,6 +9,9 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.FragmentActivity
+import com.perrigogames.life4.SettingsKeys.KEY_IMPORT_SKIP_DIRECTIONS
+import com.perrigogames.life4.SettingsKeys.KEY_INFO_RANK
+import com.perrigogames.life4.SettingsKeys.KEY_INFO_TARGET_RANK
 import com.perrigogames.life4.data.LadderRank
 import com.perrigogames.life4.enums.ClearType
 import com.perrigogames.life4.enums.DifficultyClass
@@ -17,9 +20,6 @@ import com.perrigogames.life4.ktor.GithubDataAPI.Companion.RANKS_FILE_NAME
 import com.perrigogames.life4.model.BaseModel
 import com.perrigogames.life4trials.BuildConfig
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_IMPORT_SKIP_DIRECTIONS
-import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_INFO_RANK
-import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_INFO_TARGET_RANK
 import com.perrigogames.life4trials.api.AndroidDataReader
 import com.perrigogames.life4trials.api.MajorVersionedRemoteData
 import com.perrigogames.life4trials.api.RetrofitGithubDataAPI

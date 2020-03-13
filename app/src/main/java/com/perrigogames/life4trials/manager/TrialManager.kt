@@ -6,6 +6,7 @@ import android.net.Uri
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.crashlytics.android.Crashlytics
+import com.perrigogames.life4.SettingsKeys.KEY_SUBMISSION_NOTIFICAION
 import com.perrigogames.life4.api.FetchListener
 import com.perrigogames.life4.api.TrialRemoteData
 import com.perrigogames.life4.data.TrialData
@@ -16,7 +17,6 @@ import com.perrigogames.life4.ktor.GithubDataAPI.Companion.TRIALS_FILE_NAME
 import com.perrigogames.life4.model.BaseModel
 import com.perrigogames.life4trials.BuildConfig
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_SUBMISSION_NOTIFICAION
 import com.perrigogames.life4trials.api.AndroidDataReader
 import com.perrigogames.life4trials.db.TrialSessionDB
 import com.perrigogames.life4trials.event.SavedRankUpdatedEvent

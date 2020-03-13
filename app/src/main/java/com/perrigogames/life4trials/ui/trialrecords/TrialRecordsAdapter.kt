@@ -12,8 +12,8 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.perrigogames.life4.SettingsKeys.KEY_RECORDS_REMAINING_EX
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_RECORDS_REMAINING_EX
 import com.perrigogames.life4trials.db.TrialSessionDB
 import com.perrigogames.life4trials.manager.SettingsManager
 import com.perrigogames.life4trials.manager.TrialManager

@@ -1,26 +1,27 @@
 package com.perrigogames.life4trials.manager
 
+import com.perrigogames.life4.SettingsKeys.KEY_IMPORT_GAME_VERSION
 import com.perrigogames.life4.api.IgnoreListRemoteData
+import com.perrigogames.life4.api.LocalDataReader
 import com.perrigogames.life4.data.IgnoreGroup
 import com.perrigogames.life4.data.IgnoreList
 import com.perrigogames.life4.data.IgnoredSong
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.IGNORES_FILE_NAME
 import com.perrigogames.life4.model.BaseModel
-import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_IMPORT_GAME_VERSION
-import com.perrigogames.life4trials.api.AndroidDataReader
 import com.perrigogames.life4trials.event.LadderRanksReplacedEvent
 import com.perrigogames.life4trials.repo.SongRepo
 import org.greenrobot.eventbus.EventBus
 import org.koin.core.inject
+import org.koin.core.qualifier.named
 
 class IgnoreListManager: BaseModel() {
 
     private val songRepo: SongRepo by inject()
     private val eventBus: EventBus by inject()
     private val settingsManager: SettingsManager by inject()
+    private val dataReader: LocalDataReader by inject(named(IGNORES_FILE_NAME))
 
-    private val ignoreLists = IgnoreListRemoteData(AndroidDataReader(R.raw.ignore_lists_v2, IGNORES_FILE_NAME))
+    private val ignoreLists = IgnoreListRemoteData(dataReader)
 
     init {
         ignoreLists.start()

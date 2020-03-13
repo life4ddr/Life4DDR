@@ -12,12 +12,12 @@ import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import com.perrigogames.life4.SettingsKeys.KEY_INFO_RIVAL_CODE
+import com.perrigogames.life4.SettingsKeys.KEY_INFO_TWITTER_NAME
 import com.perrigogames.life4.data.LadderRank
 import com.perrigogames.life4.data.Trial
 import com.perrigogames.life4.data.TrialRank
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_INFO_RIVAL_CODE
-import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_INFO_TWITTER_NAME
 import com.perrigogames.life4trials.manager.SettingsManager
 import com.perrigogames.life4trials.util.NotificationUtil.EXTRA_COPY_VALUE
 import org.koin.core.KoinComponent
