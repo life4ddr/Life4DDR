@@ -12,9 +12,9 @@ import com.perrigogames.life4.data.BaseRankGoal
 import com.perrigogames.life4.data.LadderRank
 import com.perrigogames.life4.data.RankEntry
 import com.perrigogames.life4trials.R
+import com.perrigogames.life4trials.drawableRes
+import com.perrigogames.life4trials.nameRes
 import com.perrigogames.life4trials.ui.ranklist.RankListFragment.OnRankListInteractionListener
-import com.perrigogames.life4trials.util.drawableRes
-import com.perrigogames.life4trials.util.nameRes
 import kotlinx.android.synthetic.main.item_rank_list.view.image_rank_icon
 import kotlinx.android.synthetic.main.item_rank_list.view.text_goal_title
 import kotlinx.android.synthetic.main.item_rank_list_goals.view.*

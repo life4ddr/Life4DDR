@@ -293,6 +293,7 @@
     <string name="esp">ESP</string>
     <string name="csp">CSP</string>
     <string name="and_s">and %s</string>
+    <string name="and_s_caps">AND %s</string>
     <string name="or_s">or %s</string>
     <string name="or_s_caps">OR %s</string>
     <string name="plural_number">%ds</string>

@@ -9,12 +9,12 @@ import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doAfterTextChanged
+import com.perrigogames.life4.MajorUpdateProcessEvent
 import com.perrigogames.life4.SettingsKeys.KEY_INFO_NAME
 import com.perrigogames.life4.SettingsKeys.KEY_INFO_RIVAL_CODE
 import com.perrigogames.life4.SettingsKeys.KEY_INFO_TWITTER_NAME
 import com.perrigogames.life4.data.ApiPlayer
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.event.MajorUpdateProcessEvent
 import com.perrigogames.life4trials.manager.FirstRunManager
 import com.perrigogames.life4trials.manager.LadderManager
 import com.perrigogames.life4trials.manager.PlayerManager

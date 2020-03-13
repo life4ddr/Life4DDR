@@ -17,11 +17,3 @@ var View.visibilityBool: Boolean
     c.resources.getIdentifier(id, "drawable", c.packageName).let {
         return if (it == 0) R.drawable.trial_default else it
     }
-
-var TrialSession.finalPhotoUri: Uri
-    get() = Uri.parse(finalPhotoUriString)
-    set(value) { finalPhotoUriString = value.toString() }
-
-var SongResult.photoUri: Uri
-    get() = Uri.parse(photoUriString)
-    set(value) { photoUriString = value.toString() }

@@ -23,7 +23,7 @@ import com.perrigogames.life4.enums.ClearType.*
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.manager.SettingsManager
 import com.perrigogames.life4trials.manager.TrialManager
-import com.perrigogames.life4trials.util.photoUri
+import com.perrigogames.life4trials.photoUri
 import com.perrigogames.life4trials.util.visibilityBool
 import kotlinx.android.synthetic.main.content_song_entry.*
 import org.koin.core.KoinComponent

@@ -4,16 +4,13 @@ import android.content.Context
 import android.util.Log
 import androidx.core.content.edit
 import androidx.preference.PreferenceManager
+import com.perrigogames.life4.MajorUpdate
+import com.perrigogames.life4.MajorUpdateProcessEvent
 import com.perrigogames.life4.model.BaseModel
 import com.perrigogames.life4trials.BuildConfig
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.event.MajorUpdateProcessEvent
 import org.greenrobot.eventbus.EventBus
 import org.koin.core.inject
-
-enum class MajorUpdate {
-    SONG_DB, A20_REQUIRED, DOUBLES_FIX
-}
 
 class SettingsManager: BaseModel() {
 
@@ -74,7 +71,6 @@ class SettingsManager: BaseModel() {
     }
 
     companion object {
-        const val KEY_TUTORIAL_PREFS = "tutorial_preferences"
         const val KEY_APP_CRASHED = "app_crashed"
         const val KEY_MAJOR_UPDATE = "major_update"
         const val KEY_SONG_LIST_VERSION = "song_list_version"

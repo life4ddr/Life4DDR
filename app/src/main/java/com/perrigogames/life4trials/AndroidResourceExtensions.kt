@@ -1,12 +1,14 @@
-package com.perrigogames.life4trials.util
+package com.perrigogames.life4trials
 
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import com.perrigogames.life4.data.*
+import com.perrigogames.life4.data.LadderRank
+import com.perrigogames.life4.data.LadderRankClass
+import com.perrigogames.life4.data.PlacementRank
+import com.perrigogames.life4.data.TrialRank
 import com.perrigogames.life4.enums.ClearType
 import com.perrigogames.life4.enums.DifficultyClass
-import com.perrigogames.life4trials.R
 
 val LadderRank.nameRes @StringRes get() = when(this) {
     LadderRank.WOOD1 -> R.drawable.wood_1

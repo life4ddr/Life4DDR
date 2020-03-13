@@ -14,11 +14,15 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.perrigogames.life4.SettingsKeys.KEY_RECORDS_REMAINING_EX
 import com.perrigogames.life4trials.R
+import com.perrigogames.life4trials.colorRes
 import com.perrigogames.life4trials.db.TrialSessionDB
 import com.perrigogames.life4trials.manager.SettingsManager
 import com.perrigogames.life4trials.manager.TrialManager
 import com.perrigogames.life4trials.ui.trialrecords.TrialRecordsFragment.OnRecordsListInteractionListener
-import com.perrigogames.life4trials.util.*
+import com.perrigogames.life4trials.util.DataUtil
+import com.perrigogames.life4trials.util.jacketResId
+import com.perrigogames.life4trials.util.locale
+import com.perrigogames.life4trials.util.visibilityBool
 import com.perrigogames.life4trials.view.RankImageView
 import com.perrigogames.life4trials.view.longNumberString
 import kotlinx.android.synthetic.main.item_trial_record.view.*

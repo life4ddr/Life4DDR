@@ -6,7 +6,6 @@ import android.graphics.BitmapFactory
 import android.os.Build
 import android.os.Environment
 import android.widget.ImageView
-import com.perrigogames.life4trials.R
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -98,15 +97,3 @@ val Context.locale: Locale get() = when {
     Build.VERSION.SDK_INT >= Build.VERSION_CODES.N -> resources.configuration.locales[0]
     else -> resources.configuration.locale
 }
-
-
-fun List<String>.toListString(c: Context, lastModifierFormatRes: Int = R.string.or_s): String = StringBuilder().apply {
-    this@toListString.forEachIndexed { index, d ->
-        append(when {
-            this@toListString.size == 1 -> d
-            index == this@toListString.lastIndex -> c.getString(lastModifierFormatRes, d)
-            index == this@toListString.lastIndex - 1 -> "$d "
-            else -> "$d, "
-        })
-    }
-}.toString()

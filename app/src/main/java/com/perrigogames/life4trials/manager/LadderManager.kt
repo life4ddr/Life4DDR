@@ -9,9 +9,13 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.FragmentActivity
+import com.perrigogames.life4.LadderRankUpdatedEvent
+import com.perrigogames.life4.LadderRanksReplacedEvent
 import com.perrigogames.life4.SettingsKeys.KEY_IMPORT_SKIP_DIRECTIONS
 import com.perrigogames.life4.SettingsKeys.KEY_INFO_RANK
 import com.perrigogames.life4.SettingsKeys.KEY_INFO_TARGET_RANK
+import com.perrigogames.life4.SongResultsImportCompletedEvent
+import com.perrigogames.life4.SongResultsUpdatedEvent
 import com.perrigogames.life4.api.FetchListener
 import com.perrigogames.life4.api.LadderRemoteData
 import com.perrigogames.life4.data.BaseRankGoal
@@ -27,10 +31,6 @@ import com.perrigogames.life4trials.BuildConfig
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.api.AndroidDataReader
 import com.perrigogames.life4trials.db.*
-import com.perrigogames.life4trials.event.LadderRankUpdatedEvent
-import com.perrigogames.life4trials.event.LadderRanksReplacedEvent
-import com.perrigogames.life4trials.event.SongResultsImportCompletedEvent
-import com.perrigogames.life4trials.event.SongResultsUpdatedEvent
 import com.perrigogames.life4trials.repo.LadderResultRepo
 import com.perrigogames.life4trials.repo.SongRepo
 import com.perrigogames.life4trials.ui.managerimport.ScoreManagerImportDirectionsDialog

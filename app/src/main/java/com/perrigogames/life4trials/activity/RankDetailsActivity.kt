@@ -6,13 +6,13 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.perrigogames.life4.LadderRanksReplacedEvent
 import com.perrigogames.life4.data.LadderRank
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.event.LadderRanksReplacedEvent
 import com.perrigogames.life4trials.manager.LadderManager
+import com.perrigogames.life4trials.nameRes
 import com.perrigogames.life4trials.ui.rankdetails.RankDetailsFragment
 import com.perrigogames.life4trials.ui.rankdetails.RankDetailsViewModel
-import com.perrigogames.life4trials.util.nameRes
 import com.perrigogames.life4trials.util.visibilityBool
 import com.perrigogames.life4trials.view.RankHeaderView
 import kotlinx.android.synthetic.main.activity_rank_details.*

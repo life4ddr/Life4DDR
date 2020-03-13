@@ -1,13 +1,10 @@
 package com.perrigogames.life4trials
 
 import android.content.Context
+import android.net.Uri
 import com.perrigogames.life4.PlatformStrings
-import com.perrigogames.life4.data.LadderRank
-import com.perrigogames.life4.data.LadderRankClass
-import com.perrigogames.life4.data.PlacementRank
-import com.perrigogames.life4.data.TrialRank
+import com.perrigogames.life4.data.*
 import com.perrigogames.life4.enums.ClearType
-import com.perrigogames.life4trials.util.*
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 
@@ -27,14 +24,27 @@ class AndroidPlatformStrings: PlatformStrings, KoinComponent {
     override fun clearString(ct: ClearType) = c.getString(ct.clearRes)
     override fun clearStringShort(ct: ClearType) = c.getString(ct.clearResShort)
 
-    override fun toListString(list: List<String>, caps: Boolean): String = StringBuilder().apply {
-        list.forEachIndexed { index, d ->
-            append(when {
-                list.size == 1 -> d
-                index == list.lastIndex -> c.getString(if (caps) R.string.or_s_caps else R.string.or_s, d)
-                index == list.lastIndex - 1 -> "$d "
-                else -> "$d, "
-            })
-        }
-    }.toString()
+    override fun toListString(list: List<String>, useAnd: Boolean, caps: Boolean): String = list.toListString(c, useAnd, caps)
 }
+
+fun List<String>.toListString(c: Context, useAnd: Boolean, caps: Boolean): String = StringBuilder().apply {
+    this@toListString.forEachIndexed { index, d ->
+        append(when {
+            this@toListString.size == 1 -> d
+            index == this@toListString.lastIndex -> c.getString(when {
+                useAnd -> if (caps) R.string.and_s_caps else R.string.and_s
+                else -> if (caps) R.string.or_s_caps else R.string.or_s
+            }, d)
+            index == this@toListString.lastIndex - 1 -> "$d "
+            else -> "$d, "
+        })
+    }
+}.toString()
+
+var TrialSession.finalPhotoUri: Uri
+    get() = Uri.parse(finalPhotoUriString)
+    set(value) { finalPhotoUriString = value.toString() }
+
+var SongResult.photoUri: Uri
+    get() = Uri.parse(photoUriString)
+    set(value) { photoUriString = value.toString() }

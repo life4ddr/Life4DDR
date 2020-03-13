@@ -6,11 +6,11 @@ import android.util.AttributeSet
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
-import com.perrigogames.life4trials.R
 import com.perrigogames.life4.data.LadderRank
-import com.perrigogames.life4trials.util.colorRes
-import com.perrigogames.life4trials.util.groupNameRes
-import com.perrigogames.life4trials.util.nameRes
+import com.perrigogames.life4trials.R
+import com.perrigogames.life4trials.colorRes
+import com.perrigogames.life4trials.groupNameRes
+import com.perrigogames.life4trials.nameRes
 import com.perrigogames.life4trials.util.visibilityBool
 import kotlinx.android.synthetic.main.view_rank_header.view.*
 

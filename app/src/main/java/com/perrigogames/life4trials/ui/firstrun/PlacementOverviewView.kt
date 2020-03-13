@@ -7,8 +7,8 @@ import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.perrigogames.life4.data.PlacementRank
 import com.perrigogames.life4.data.Song
-import com.perrigogames.life4trials.util.colorRes
-import com.perrigogames.life4trials.util.nameRes
+import com.perrigogames.life4trials.colorRes
+import com.perrigogames.life4trials.nameRes
 import kotlinx.android.synthetic.main.item_placement_overview.view.*
 
 class PlacementOverviewView @JvmOverloads constructor(context: Context,

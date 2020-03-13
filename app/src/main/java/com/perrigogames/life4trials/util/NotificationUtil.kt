@@ -18,7 +18,9 @@ import com.perrigogames.life4.data.LadderRank
 import com.perrigogames.life4.data.Trial
 import com.perrigogames.life4.data.TrialRank
 import com.perrigogames.life4trials.R
+import com.perrigogames.life4trials.drawableRes
 import com.perrigogames.life4trials.manager.SettingsManager
+import com.perrigogames.life4trials.nameRes
 import com.perrigogames.life4trials.util.NotificationUtil.EXTRA_COPY_VALUE
 import org.koin.core.KoinComponent
 import org.koin.core.inject

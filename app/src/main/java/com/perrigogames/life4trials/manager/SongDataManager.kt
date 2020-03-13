@@ -5,6 +5,8 @@ import android.os.Handler
 import android.util.Log
 import androidx.appcompat.app.AlertDialog
 import com.crashlytics.android.Crashlytics
+import com.perrigogames.life4.MajorUpdate
+import com.perrigogames.life4.MajorUpdateProcessEvent
 import com.perrigogames.life4.SettingsKeys.KEY_IMPORT_GAME_VERSION
 import com.perrigogames.life4.api.FetchListener
 import com.perrigogames.life4.api.SongListRemoteData
@@ -20,7 +22,6 @@ import com.perrigogames.life4trials.db.ChartDB
 import com.perrigogames.life4trials.db.ChartDB_
 import com.perrigogames.life4trials.db.SongDB
 import com.perrigogames.life4trials.db.SongDB_
-import com.perrigogames.life4trials.event.MajorUpdateProcessEvent
 import com.perrigogames.life4trials.manager.SettingsManager.Companion.KEY_SONG_LIST_VERSION
 import com.perrigogames.life4trials.repo.SongRepo
 import com.perrigogames.life4trials.util.openWebUrlFromRes

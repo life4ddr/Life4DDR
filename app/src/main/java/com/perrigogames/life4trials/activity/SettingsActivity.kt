@@ -10,6 +10,8 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.preference.*
+import com.perrigogames.life4.LadderRanksReplacedEvent
+import com.perrigogames.life4.LocalUserInfoUpdatedEvent
 import com.perrigogames.life4.SettingsKeys.KEY_CREDITS
 import com.perrigogames.life4.SettingsKeys.KEY_DEBUG
 import com.perrigogames.life4.SettingsKeys.KEY_DEBUG_DATA_DUMP
@@ -42,15 +44,13 @@ import com.perrigogames.life4.SettingsKeys.KEY_SHOP_DANGERSHARK
 import com.perrigogames.life4.SettingsKeys.KEY_SHOP_LIFE4
 import com.perrigogames.life4.SettingsKeys.KEY_SONG_RESULTS_CLEAR
 import com.perrigogames.life4.SettingsKeys.KEY_SUBMISSION_NOTIFICAION_TEST
+import com.perrigogames.life4.TrialListReplacedEvent
+import com.perrigogames.life4.TrialListUpdatedEvent
 import com.perrigogames.life4.data.LadderRank
 import com.perrigogames.life4.data.TrialRank
 import com.perrigogames.life4.data.TrialSession
 import com.perrigogames.life4trials.BuildConfig
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.event.LadderRanksReplacedEvent
-import com.perrigogames.life4trials.event.LocalUserInfoUpdatedEvent
-import com.perrigogames.life4trials.event.TrialListReplacedEvent
-import com.perrigogames.life4trials.event.TrialListUpdatedEvent
 import com.perrigogames.life4trials.manager.*
 import com.perrigogames.life4trials.util.NotificationUtil
 import com.perrigogames.life4trials.util.jacketResId

@@ -17,13 +17,13 @@ import com.perrigogames.life4.SettingsKeys.KEY_DETAILS_ENFORCE_EXPERT
 import com.perrigogames.life4.SettingsKeys.KEY_DETAILS_PHOTO_SELECT
 import com.perrigogames.life4.SettingsKeys.KEY_DETAILS_UPDATE_GOAL
 import com.perrigogames.life4.data.*
-import com.perrigogames.life4trials.AndroidTrialStrings
-import com.perrigogames.life4trials.R
+import com.perrigogames.life4trials.*
 import com.perrigogames.life4trials.manager.LadderManager
 import com.perrigogames.life4trials.manager.SettingsManager
 import com.perrigogames.life4trials.manager.TrialManager
 import com.perrigogames.life4trials.ui.songlist.SongListFragment
-import com.perrigogames.life4trials.util.*
+import com.perrigogames.life4trials.util.openWebUrlFromRes
+import com.perrigogames.life4trials.util.visibilityBool
 import com.perrigogames.life4trials.view.JacketCornerView
 import com.perrigogames.life4trials.view.RunningEXScoreView
 import com.perrigogames.life4trials.view.SongView
@@ -104,7 +104,7 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener, K
             text_event_timer.text = resources.getString(R.string.event_ends_format,
                 SimpleDateFormat("MMMM dd", Locale.US).format(trial.eventEnd))
             text_event_help.text = resources.getString(R.string.event_directions,
-                scoringGroup?.map { resources.getString(it.nameRes) }?.toListString(baseContext))
+                scoringGroup?.map { resources.getString(it.nameRes) }?.toListString(baseContext, useAnd = false, caps = false))
         } else {
             spinner_desired_rank.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, trialSession.availableRanks)
             spinner_desired_rank.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {

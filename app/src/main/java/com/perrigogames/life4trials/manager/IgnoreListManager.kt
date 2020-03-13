@@ -1,5 +1,6 @@
 package com.perrigogames.life4trials.manager
 
+import com.perrigogames.life4.LadderRanksReplacedEvent
 import com.perrigogames.life4.SettingsKeys.KEY_IMPORT_GAME_VERSION
 import com.perrigogames.life4.api.IgnoreListRemoteData
 import com.perrigogames.life4.api.LocalDataReader
@@ -8,7 +9,6 @@ import com.perrigogames.life4.data.IgnoreList
 import com.perrigogames.life4.data.IgnoredSong
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.IGNORES_FILE_NAME
 import com.perrigogames.life4.model.BaseModel
-import com.perrigogames.life4trials.event.LadderRanksReplacedEvent
 import com.perrigogames.life4trials.repo.SongRepo
 import org.greenrobot.eventbus.EventBus
 import org.koin.core.inject

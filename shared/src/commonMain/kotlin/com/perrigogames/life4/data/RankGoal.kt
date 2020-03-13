@@ -199,5 +199,5 @@ class MFCPointsGoal(val points: Int): BaseRankGoal() {
 @SerialName("multiple")
 class MultipleChoiceGoal(val options: List<BaseRankGoal>): BaseRankGoal() {
     override fun goalString(c: PlatformStrings) = c.toListString(
-        options.map { it.goalString(c).replace(".", "") }, true)
+        options.map { it.goalString(c).replace(".", "") }, useAnd = false, caps = true)
 }

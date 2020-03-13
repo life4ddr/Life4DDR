@@ -8,10 +8,6 @@ import com.perrigogames.life4.enums.ClearType
 import com.perrigogames.life4.enums.DifficultyClass
 import com.perrigogames.life4.enums.PlayStyle
 import com.perrigogames.life4.longNumberString
-import com.perrigogames.life4trials.util.clearResShort
-import com.perrigogames.life4trials.util.lampRes
-import com.perrigogames.life4trials.util.nameRes
-import com.perrigogames.life4trials.util.toListString
 
 class AndroidRankStrings(private val c: Context): RankStrings {
 
@@ -35,10 +31,10 @@ class AndroidRankStrings(private val c: Context): RankStrings {
     override fun getMFCPointString(count: Int): String = c.getString(R.string.rank_goal_mfc_points, count)
 
     override fun scoreSpecificSongDifficulty(score: Int, songs: List<String>, difficultyString: String): String =
-        c.getString(R.string.score_specific_song_difficulty, score.longNumberString(), songs.toListString(c, R.string.and_s), difficultyString)
+        c.getString(R.string.score_specific_song_difficulty, score.longNumberString(), songs.toListString(c, useAnd = true, caps = false), difficultyString)
 
     override fun clearSpecificSongDifficulty(clearType: ClearType, songs: List<String>, difficultyString: String): String =
-        c.getString(R.string.rank_goal_clear_specific, c.getString(clearType.clearResShort), songs.toListString(c, R.string.and_s), difficultyString)
+        c.getString(R.string.rank_goal_clear_specific, c.getString(clearType.clearResShort), songs.toListString(c, useAnd = true, caps = false), difficultyString)
 
     override fun lampDifficulty(clearType: ClearType, folderName: String, difficultyString: String): String =
         c.getString(R.string.rank_goal_lamp, c.getString(clearType.lampRes), folderName, difficultyString)
@@ -53,7 +49,7 @@ class AndroidRankStrings(private val c: Context): RankStrings {
         get() = c.getString(R.string.any_full_mix_or_letter)
 
     override fun difficultyString(difficultyNumbers: IntArray, plural: Boolean, useAnd: Boolean): String =
-        difficultyNumbers.map { d -> pluralNumber(d, plural) }.toListString(c, if (useAnd) R.string.and_s else R.string.or_s)
+        difficultyNumbers.map { d -> pluralNumber(d, plural) }.toListString(c, useAnd, caps = false)
 
     override fun difficultyAOrAn(leftText: String, difficulties: IntArray): String = when(difficulties[0]) {
         8, 11, 18 -> c.getString(R.string.rank_goal_difficulty_clear_single_an, leftText, difficultyString(difficulties, false))
@@ -95,7 +91,7 @@ class AndroidRankStrings(private val c: Context): RankStrings {
         c.getString(R.string.rank_goal_difficulty_clear, text, count, difficultyString(difficultyNumbers, true))
 
     override fun songExceptions(songExceptions: List<String>): String =
-        c.getString(R.string.exceptions_songs, songExceptions.toListString(c))
+        c.getString(R.string.exceptions_songs, songExceptions.toListString(c, useAnd = true, caps = false))
 
     override fun pluralNumber(number: Int, plural: Boolean): String =
         if (plural) c.getString(R.string.plural_number, number) else number.toString()

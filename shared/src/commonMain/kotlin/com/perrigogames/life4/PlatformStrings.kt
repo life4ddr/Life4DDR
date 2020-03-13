@@ -24,5 +24,5 @@ interface PlatformStrings {
     fun clearString(ct: ClearType): String
     fun clearStringShort(ct: ClearType): String
 
-    fun toListString(list: List<String>, caps: Boolean): String
+    fun toListString(list: List<String>, useAnd: Boolean, caps: Boolean): String
 }
