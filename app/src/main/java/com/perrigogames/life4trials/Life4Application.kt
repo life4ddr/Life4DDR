@@ -4,8 +4,8 @@ import android.content.Context
 import android.util.Log
 import androidx.multidex.MultiDexApplication
 import com.perrigogames.life4.initKoin
-import com.perrigogames.life4trials.api.GithubDataAPI
 import com.perrigogames.life4trials.api.Life4API
+import com.perrigogames.life4trials.api.RetrofitGithubDataAPI
 import com.perrigogames.life4trials.db.MyObjectBox
 import com.perrigogames.life4trials.manager.*
 import com.perrigogames.life4trials.repo.LadderResultRepo
@@ -51,7 +51,7 @@ class Life4Application: MultiDexApplication() {
                 single<Context> { this@Life4Application }
                 single { SettingsManager() }
                 single { life4Retrofit.create(Life4API::class.java) }
-                single { githubRetrofit.create(GithubDataAPI::class.java) }
+                single { githubRetrofit.create(RetrofitGithubDataAPI::class.java) }
                 single {
                     MyObjectBox.builder()
                         .androidContext(this@Life4Application)

@@ -11,12 +11,11 @@ import com.perrigogames.life4.enums.PlayStyle
 import com.perrigogames.life4.model.BaseModel
 import com.perrigogames.life4.util.indexOfOrEnd
 import com.perrigogames.life4trials.BuildConfig
-import com.perrigogames.life4trials.Life4Application
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_IMPORT_GAME_VERSION
 import com.perrigogames.life4trials.api.AndroidDataReader
-import com.perrigogames.life4trials.api.GithubDataAPI
 import com.perrigogames.life4trials.api.LocalRemoteData
+import com.perrigogames.life4trials.api.RetrofitGithubDataAPI
 import com.perrigogames.life4trials.db.ChartDB
 import com.perrigogames.life4trials.db.ChartDB_
 import com.perrigogames.life4trials.db.SongDB
@@ -24,7 +23,7 @@ import com.perrigogames.life4trials.db.SongDB_
 import com.perrigogames.life4trials.event.MajorUpdateProcessEvent
 import com.perrigogames.life4trials.manager.SettingsManager.Companion.KEY_SONG_LIST_VERSION
 import com.perrigogames.life4trials.repo.SongRepo
-import com.perrigogames.life4trials.util.*
+import com.perrigogames.life4trials.util.openWebUrlFromRes
 import io.objectbox.BoxStore
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -41,7 +40,7 @@ class SongDataManager: BaseModel() {
     private val context: Context by inject()
     private val songRepo: SongRepo by inject()
     private val ignoreListManager: IgnoreListManager by inject()
-    private val githubDataAPI: GithubDataAPI by inject()
+    private val githubDataAPI: RetrofitGithubDataAPI by inject()
     private val settingsManager: SettingsManager by inject()
     private val eventBus: EventBus by inject()
     private val objectBox: BoxStore by inject()

@@ -4,8 +4,8 @@ import com.perrigogames.life4.model.BaseModel
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_IMPORT_GAME_VERSION
 import com.perrigogames.life4trials.api.AndroidDataReader
-import com.perrigogames.life4trials.api.GithubDataAPI
 import com.perrigogames.life4trials.api.MajorVersionedRemoteData
+import com.perrigogames.life4trials.api.RetrofitGithubDataAPI
 import com.perrigogames.life4trials.data.IgnoreGroup
 import com.perrigogames.life4trials.data.IgnoreList
 import com.perrigogames.life4trials.data.IgnoreListData
@@ -20,7 +20,7 @@ class IgnoreListManager: BaseModel() {
 
     private val songRepo: SongRepo by inject()
     private val eventBus: EventBus by inject()
-    private val githubDataAPI: GithubDataAPI by inject()
+    private val githubDataAPI: RetrofitGithubDataAPI by inject()
     private val settingsManager: SettingsManager by inject()
 
     private val ignoreLists = object: MajorVersionedRemoteData<IgnoreListData>(

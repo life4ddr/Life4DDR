@@ -2,26 +2,31 @@ package com.perrigogames.life4trials.api
 
 import android.content.Context
 import androidx.annotation.RawRes
+import com.perrigogames.life4.api.LocalDataReader
+import com.perrigogames.life4.api.LocalUncachedDataReader
 import com.perrigogames.life4trials.util.loadRawString
+import com.perrigogames.life4trials.util.readFromFile
+import com.perrigogames.life4trials.util.saveToFile
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 
-class AndroidDataReader(@RawRes private val rawResId: Int,
-                        private val cachedFilename: String): LocalDataReader, KoinComponent {
+/**
+ * Android implementations of [LocalUncachedDataReader] and [LocalDataReader]
+ */
 
-    private val context: Context by inject()
+open class AndroidUncachedDataReader(@RawRes protected val rawResId: Int):
+    LocalUncachedDataReader, KoinComponent {
 
+    protected val context: Context by inject()
     override fun loadRawString(): String = context.loadRawString(rawResId)
+}
 
-    override fun loadCachedString(): String? {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+class AndroidDataReader(rawResId: Int, private val cachedFileName: String):
+    AndroidUncachedDataReader(rawResId), LocalDataReader {
 
-    override fun saveCachedString(data: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun loadCachedString(): String? = context.readFromFile(cachedFileName)
 
-    override fun deleteCachedString() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun saveCachedString(data: String) = context.saveToFile(cachedFileName, data)
+
+    override fun deleteCachedString() = context.deleteFile(cachedFileName)
 }

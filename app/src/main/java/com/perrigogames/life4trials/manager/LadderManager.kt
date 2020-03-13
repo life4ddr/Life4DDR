@@ -9,9 +9,9 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.FragmentActivity
+import com.perrigogames.life4.data.LadderRank
 import com.perrigogames.life4.enums.ClearType
 import com.perrigogames.life4.enums.DifficultyClass
-import com.perrigogames.life4.data.LadderRank
 import com.perrigogames.life4.enums.PlayStyle
 import com.perrigogames.life4.model.BaseModel
 import com.perrigogames.life4trials.BuildConfig
@@ -20,8 +20,8 @@ import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_IMPO
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_INFO_RANK
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_INFO_TARGET_RANK
 import com.perrigogames.life4trials.api.AndroidDataReader
-import com.perrigogames.life4trials.api.GithubDataAPI
 import com.perrigogames.life4trials.api.MajorVersionedRemoteData
+import com.perrigogames.life4trials.api.RetrofitGithubDataAPI
 import com.perrigogames.life4trials.data.*
 import com.perrigogames.life4trials.db.*
 import com.perrigogames.life4trials.event.LadderRankUpdatedEvent
@@ -45,7 +45,7 @@ class LadderManager: BaseModel() {
     private val context: Context by inject()
     private val songRepo: SongRepo by inject()
     private val ladderResults: LadderResultRepo by inject()
-    private val githubDataAPI: GithubDataAPI by inject()
+    private val githubDataAPI: RetrofitGithubDataAPI by inject()
     private val ignoreListManager: IgnoreListManager by inject()
     private val songDataManager: SongDataManager by inject()
     private val trialManager: TrialManager by inject()

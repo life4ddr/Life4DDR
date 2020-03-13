@@ -9,8 +9,8 @@ import org.koin.core.KoinComponent
 import kotlin.coroutines.CoroutineContext
 
 open class BaseModel : KoinComponent {
-    internal val mainScope = MainScope(Dispatchers.Main)
-    internal val ktorScope = MainScope(Dispatchers.Main)
+    val mainScope = MainScope(Dispatchers.Main)
+    val ktorScope = MainScope(Dispatchers.Main)
 
     open fun onDestroy() {
         mainScope.job.cancel()
@@ -20,7 +20,8 @@ open class BaseModel : KoinComponent {
     open fun onApplicationException() {}
 }
 
-internal class MainScope(private val mainContext: CoroutineContext) : CoroutineScope {
+//FIXME internal
+class MainScope(private val mainContext: CoroutineContext) : CoroutineScope {
     override val coroutineContext: CoroutineContext
         get() = mainContext + job + exceptionHandler
 
