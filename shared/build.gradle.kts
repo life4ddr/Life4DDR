@@ -92,8 +92,8 @@ kotlin {
     }
 
     xcodeSync {
-        projectPath = "../ios/KaMPStarteriOS.xcodeproj"
-        target = "LIFE4iOS"
+        projectPath = "../ios/LIFE4.xcodeproj"
+        target = "LIFE4"
     }
 }
 

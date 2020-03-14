@@ -16,7 +16,7 @@ object Versions {
     val sqlDelight = "1.2.1"
     val ktor = "1.2.6"
     val stately = "0.9.5"
-    val klock = "1.7.3"
+    val klock = "1.8.4"
     val lottie = "3.3.0"
     val eventbus = "3.1.1"
     val dexter = "5.0.0"
