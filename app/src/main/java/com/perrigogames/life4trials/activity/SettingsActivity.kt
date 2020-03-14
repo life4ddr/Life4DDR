@@ -10,8 +10,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.preference.*
-import com.perrigogames.life4.LadderRanksReplacedEvent
-import com.perrigogames.life4.LocalUserInfoUpdatedEvent
+import com.perrigogames.life4.*
 import com.perrigogames.life4.SettingsKeys.KEY_CREDITS
 import com.perrigogames.life4.SettingsKeys.KEY_DEBUG
 import com.perrigogames.life4.SettingsKeys.KEY_DEBUG_DATA_DUMP
@@ -44,15 +43,13 @@ import com.perrigogames.life4.SettingsKeys.KEY_SHOP_DANGERSHARK
 import com.perrigogames.life4.SettingsKeys.KEY_SHOP_LIFE4
 import com.perrigogames.life4.SettingsKeys.KEY_SONG_RESULTS_CLEAR
 import com.perrigogames.life4.SettingsKeys.KEY_SUBMISSION_NOTIFICAION_TEST
-import com.perrigogames.life4.TrialListReplacedEvent
-import com.perrigogames.life4.TrialListUpdatedEvent
 import com.perrigogames.life4.data.LadderRank
 import com.perrigogames.life4.data.TrialRank
 import com.perrigogames.life4.data.TrialSession
+import com.perrigogames.life4.model.SettingsManager
 import com.perrigogames.life4trials.BuildConfig
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.manager.*
-import com.perrigogames.life4trials.util.NotificationUtil
 import com.perrigogames.life4trials.util.jacketResId
 import com.perrigogames.life4trials.util.openWebUrlFromRes
 import org.greenrobot.eventbus.EventBus
@@ -91,6 +88,7 @@ class SettingsActivity : AppCompatActivity(), SettingsFragmentListener {
         protected val songDataManager: SongDataManager by inject()
         protected val ignoreListManager: IgnoreListManager by inject()
         protected val settingsManager: SettingsManager by inject()
+        protected val notifications: Notifications by inject()
         protected val eventBus: EventBus by inject()
 
         private var listener: SettingsFragmentListener? = null
@@ -247,7 +245,7 @@ class SettingsActivity : AppCompatActivity(), SettingsFragmentListener {
             preference(KEY_INFO_TWITTER_NAME).summary = settingsManager.getUserString(KEY_INFO_TWITTER_NAME)
 
             preferenceListener(KEY_SUBMISSION_NOTIFICAION_TEST) {
-                NotificationUtil.showUserInfoNotifications(context!!, 1579)
+                notifications.showUserInfoNotifications(1579)
                 true
             }
         }
@@ -328,15 +326,15 @@ class SettingsActivity : AppCompatActivity(), SettingsFragmentListener {
 
             preferenceListener(KEY_DEBUG_INDUCE_CRASH) { throw IllegalAccessException() }
             preferenceListener(KEY_DEBUG_NOTIF_PLACEMENT) {
-                NotificationUtil.showPlacementNotification(context!!, LadderRank.values().random())
+                notifications.showPlacementNotification(LadderRank.values().random())
                 true
             }
             preferenceListener(KEY_DEBUG_NOTIF_LADDER_RANK) {
-                NotificationUtil.showLadderRankChangedNotification(context!!, LadderRank.values().random())
+                notifications.showLadderRankChangedNotification(LadderRank.values().random())
                 true
             }
             preferenceListener(KEY_DEBUG_NOTIF_TRIAL_RANK) {
-                NotificationUtil.showTrialRankChangedNotification(context!!, trialManager.trials.random(), TrialRank.values().random())
+                notifications.showTrialRankChangedNotification(trialManager.trials.random(), TrialRank.values().random())
                 true
             }
             preferenceListener(KEY_DEBUG_NOTIF_A20) {

@@ -16,7 +16,7 @@ import com.perrigogames.life4.SettingsKeys.KEY_RECORDS_REMAINING_EX
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.colorRes
 import com.perrigogames.life4trials.db.TrialSessionDB
-import com.perrigogames.life4trials.manager.SettingsManager
+import com.perrigogames.life4.model.SettingsManager
 import com.perrigogames.life4trials.manager.TrialManager
 import com.perrigogames.life4trials.ui.trialrecords.TrialRecordsFragment.OnRecordsListInteractionListener
 import com.perrigogames.life4trials.util.DataUtil

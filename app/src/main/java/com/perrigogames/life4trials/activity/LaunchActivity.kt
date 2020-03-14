@@ -2,7 +2,8 @@ package com.perrigogames.life4trials.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.perrigogames.life4trials.manager.FirstRunManager
+import com.perrigogames.life4.model.FirstRunManager
+import com.perrigogames.life4trials.manager.launchIntent
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 
@@ -16,7 +17,7 @@ class LaunchActivity: AppCompatActivity(), KoinComponent {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        startActivity(firstRunManager.launchIntent)
+        startActivity(firstRunManager.launchIntent(this))
         finish()
     }
 }

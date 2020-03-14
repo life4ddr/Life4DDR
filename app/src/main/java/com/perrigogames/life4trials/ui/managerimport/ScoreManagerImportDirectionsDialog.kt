@@ -6,7 +6,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import com.perrigogames.life4.SettingsKeys.KEY_IMPORT_SKIP_DIRECTIONS
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.manager.SettingsManager
+import com.perrigogames.life4.model.SettingsManager
 import kotlinx.android.synthetic.main.dialog_manager_import_directions.view.*
 import org.koin.core.KoinComponent
 import org.koin.core.inject

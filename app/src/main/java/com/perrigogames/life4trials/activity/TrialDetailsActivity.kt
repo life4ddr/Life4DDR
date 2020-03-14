@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import com.google.android.material.snackbar.Snackbar
+import com.perrigogames.life4.PlatformStrings
 import com.perrigogames.life4.SettingsKeys.KEY_DEBUG_BYPASS_STAT_ENTRY
 import com.perrigogames.life4.SettingsKeys.KEY_DETAILS_ENFORCE_EXPERT
 import com.perrigogames.life4.SettingsKeys.KEY_DETAILS_PHOTO_SELECT
@@ -19,7 +20,7 @@ import com.perrigogames.life4.SettingsKeys.KEY_DETAILS_UPDATE_GOAL
 import com.perrigogames.life4.data.*
 import com.perrigogames.life4trials.*
 import com.perrigogames.life4trials.manager.LadderManager
-import com.perrigogames.life4trials.manager.SettingsManager
+import com.perrigogames.life4.model.SettingsManager
 import com.perrigogames.life4trials.manager.TrialManager
 import com.perrigogames.life4trials.ui.songlist.SongListFragment
 import com.perrigogames.life4trials.util.openWebUrlFromRes
@@ -40,6 +41,7 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener, K
     private val ladderManager: LadderManager by inject()
     private val trialManager: TrialManager by inject()
     private val settingsManager: SettingsManager by inject()
+    private val strings: PlatformStrings by inject()
 
     private val trialId: String by lazy { intent.extras!!.getString(ARG_TRIAL_ID) }
     private val trial: Trial get() = trialManager.findTrial(trialId)!!
@@ -215,7 +217,7 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener, K
         trialSession.goalRank = rank
 
         image_desired_rank.rank = rank.parent
-        text_goals_content.text = trialSession.trialGoalSet?.generateSingleGoalString(AndroidTrialStrings(this), trial)
+        text_goals_content.text = trialSession.trialGoalSet?.generateSingleGoalString(strings.trial, trial)
 
         songListFragment.shouldShowAdvancedSongDetails = trialSession.shouldShowAdvancedSongDetails
     }

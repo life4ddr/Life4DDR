@@ -12,9 +12,6 @@ import com.perrigogames.life4.enums.ClearType
  */
 interface PlatformStrings {
 
-    val rank: RankStrings
-    val trial: TrialStrings
-
     fun nameString(rank: LadderRank): String
     fun groupNameString(rank: LadderRank): String
     fun nameString(rank: TrialRank): String
@@ -25,4 +22,8 @@ interface PlatformStrings {
     fun clearStringShort(ct: ClearType): String
 
     fun toListString(list: List<String>, useAnd: Boolean, caps: Boolean): String
+
+    val rank: RankStrings
+    val trial: TrialStrings
+    val notification: NotificationStrings
 }

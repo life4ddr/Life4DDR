@@ -10,17 +10,17 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doAfterTextChanged
 import com.perrigogames.life4.MajorUpdateProcessEvent
+import com.perrigogames.life4.PlayerImportedEvent
 import com.perrigogames.life4.SettingsKeys.KEY_INFO_NAME
 import com.perrigogames.life4.SettingsKeys.KEY_INFO_RIVAL_CODE
 import com.perrigogames.life4.SettingsKeys.KEY_INFO_TWITTER_NAME
 import com.perrigogames.life4.data.ApiPlayer
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.manager.FirstRunManager
-import com.perrigogames.life4trials.manager.LadderManager
-import com.perrigogames.life4trials.manager.PlayerManager
-import com.perrigogames.life4trials.manager.SettingsManager
+import com.perrigogames.life4.model.FirstRunManager
+import com.perrigogames.life4trials.manager.*
 import com.perrigogames.life4trials.util.visibilityBool
 import com.perrigogames.life4trials.view.PlayerFoundView
+import com.russhwolf.settings.Settings
 import kotlinx.android.synthetic.main.activity_first_run_info.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -36,7 +36,7 @@ class FirstRunInfoActivity: AppCompatActivity(), KoinComponent {
     private val firstRunManager: FirstRunManager by inject()
     private val ladderManager: LadderManager by inject()
     private val playerManager: PlayerManager by inject()
-    private val settingsManager: SettingsManager by inject()
+    private val settings: Settings by inject()
     private val eventBus: EventBus by inject()
 
     private var lastNameCheck: String? = null
@@ -45,9 +45,9 @@ class FirstRunInfoActivity: AppCompatActivity(), KoinComponent {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_first_run_info)
 
-        field_name.setText(settingsManager.getUserString(KEY_INFO_NAME, ""))
-        field_rival_code.setText(settingsManager.getUserString(KEY_INFO_RIVAL_CODE, ""))
-        field_twitter.setText(settingsManager.getUserString(KEY_INFO_TWITTER_NAME, ""))
+        field_name.setText(settings.getString(KEY_INFO_NAME, ""))
+        field_rival_code.setText(settings.getString(KEY_INFO_RIVAL_CODE, ""))
+        field_twitter.setText(settings.getString(KEY_INFO_TWITTER_NAME, ""))
 
         field_name.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
             if (!hasFocus) {
@@ -92,7 +92,7 @@ class FirstRunInfoActivity: AppCompatActivity(), KoinComponent {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onPlayerImported(e: PlayerManager.PlayerImportedEvent) {
+    fun onPlayerImported(e: PlayerImportedEvent) {
         progress_name.visibilityBool = false
         if (lastNameCheck != null && e.apiPlayer?.name == lastNameCheck) {
             (getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager)
@@ -133,9 +133,9 @@ class FirstRunInfoActivity: AppCompatActivity(), KoinComponent {
         val placement = radio_method_placement.isChecked
         val rankList = radio_method_selection.isChecked
         val launchIntent = when {
-            placement -> firstRunManager.placementIntent
-            rankList -> firstRunManager.rankListIntent
-            else -> firstRunManager.finishProcessIntent
+            placement -> firstRunManager.placementIntent(this)
+            rankList -> firstRunManager.rankListIntent(this)
+            else -> firstRunManager.finishProcessIntent(this)
         }
 
         startActivity(launchIntent)
@@ -146,7 +146,7 @@ class FirstRunInfoActivity: AppCompatActivity(), KoinComponent {
         field_name.error = null
         firstRunManager.setUserBasics(player.name, player.playerRivalCode, player.twitterHandle)
         ladderManager.setUserRank(player.rank)
-        startActivity(firstRunManager.finishProcessIntent)
+        startActivity(firstRunManager.finishProcessIntent(this))
         finish()
     }
 

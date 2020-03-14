@@ -1,5 +1,6 @@
 package com.perrigogames.life4
 
+import com.perrigogames.life4.data.ApiPlayer
 import com.perrigogames.life4.data.Trial
 
 /** Event published when the app should process logic for a [MajorUpdate]
@@ -35,3 +36,6 @@ class LadderRankUpdatedEvent
 
 /** Event published when the rank list is updated, requiring it to be completely recreated. */
 class LadderRanksReplacedEvent
+
+/** Event published when a player is signed in from an external source. */
+class PlayerImportedEvent(val apiPlayer: ApiPlayer? = null)

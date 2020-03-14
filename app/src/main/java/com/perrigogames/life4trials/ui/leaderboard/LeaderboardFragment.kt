@@ -74,13 +74,13 @@ class LeaderboardFragment : Fragment(), KoinComponent {
         eventBus.unregister(this)
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onPlayerLadderUpdated(e: PlayerManager.PlayerLadderUpdatedEvent) {
-        e.apiPlayers?.let {
-            adapter.players = it
-            adapter.notifyDataSetChanged()
-        }
-    }
+//    @Subscribe(threadMode = ThreadMode.MAIN)
+//    fun onPlayerLadderUpdated(e: PlayerManager.PlayerLadderUpdatedEvent) {
+//        e.apiPlayers?.let {
+//            adapter.players = it
+//            adapter.notifyDataSetChanged()
+//        }
+//    }
 
     private fun setupLeaderboardContent() {
         when(leaderboardType) {

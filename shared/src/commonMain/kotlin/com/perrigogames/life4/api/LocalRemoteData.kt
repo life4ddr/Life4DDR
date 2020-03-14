@@ -167,7 +167,7 @@ abstract class KtorMajorVersionedRemoteData<T: MajorVersioned>(localReader: Loca
     KtorLocalRemoteData<T>(localReader, fetchListener) {
 
     //FIXME EventBus
-//    protected val eventBus: EventBus by inject()
+//    protected val eventBus: IEventBus by inject()
 
     /** Since the template is restricted to [MajorVersioned], use that version number. */
     override fun getDataVersion(data: T) = data.version

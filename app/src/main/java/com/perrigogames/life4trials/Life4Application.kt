@@ -3,6 +3,8 @@ package com.perrigogames.life4trials
 import android.content.Context
 import android.util.Log
 import androidx.multidex.MultiDexApplication
+import androidx.preference.PreferenceManager
+import com.perrigogames.life4.Notifications
 import com.perrigogames.life4.PlatformStrings
 import com.perrigogames.life4.api.LocalDataReader
 import com.perrigogames.life4.api.LocalUncachedDataReader
@@ -12,7 +14,10 @@ import com.perrigogames.life4.ktor.GithubDataAPI.Companion.PLACEMENTS_FILE_NAME
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.RANKS_FILE_NAME
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.SONGS_FILE_NAME
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.TRIALS_FILE_NAME
+import com.perrigogames.life4.model.FirstRunManager
+import com.perrigogames.life4.model.EventBusNotifier
 import com.perrigogames.life4.model.PlacementManager
+import com.perrigogames.life4.model.SettingsManager
 import com.perrigogames.life4trials.api.AndroidDataReader
 import com.perrigogames.life4trials.api.AndroidUncachedDataReader
 import com.perrigogames.life4trials.db.MyObjectBox
@@ -20,7 +25,7 @@ import com.perrigogames.life4trials.manager.*
 import com.perrigogames.life4trials.repo.LadderResultRepo
 import com.perrigogames.life4trials.repo.SongRepo
 import com.perrigogames.life4trials.repo.TrialRepo
-import com.perrigogames.life4trials.util.NotificationUtil
+import com.perrigogames.life4trials.util.AndroidNotifications
 import io.objectbox.BoxStore
 import io.objectbox.android.AndroidObjectBrowser
 import org.greenrobot.eventbus.EventBus
@@ -43,7 +48,6 @@ class Life4Application: MultiDexApplication() {
                 placementManager.onApplicationException()
                 songDataManager.onApplicationException()
                 trialManager.onApplicationException()
-                settingsManager.onApplicationException()
             }
 
             defaultHandler!!.uncaughtException(thread, exception)
@@ -66,6 +70,7 @@ class Life4Application: MultiDexApplication() {
                         .also { startObjectboxBrowser(it) }
                 }
                 single { EventBus() }
+                single<EventBusNotifier> { AndroidEventBusNotifier() }
                 single { SongRepo() }
                 single { TrialRepo() }
                 single { LadderResultRepo() }
@@ -75,12 +80,14 @@ class Life4Application: MultiDexApplication() {
                 single { TrialManager() }
                 single { LadderManager() }
                 single { PlayerManager() }
+                single<Notifications> { AndroidNotifications() }
             })
         }
 
-        NotificationUtil.setupNotifications(this)
-
-        ManagerContainer().settingsManager.handleMajorUpdate(this)
+        setupNotifications(this)
+        PreferenceManager.setDefaultValues(this, R.xml.root_preferences, false)
+        //FIXME major update
+//        ManagerContainer().settingsManager.handleMajorUpdate(this)
 //        if (BuildConfig.DEBUG) {
 //            FirebaseUtil.getId(this)
 //        }
@@ -99,6 +106,5 @@ class Life4Application: MultiDexApplication() {
         val placementManager: PlacementManager by inject()
         val songDataManager: SongDataManager by inject()
         val trialManager: TrialManager by inject()
-        val settingsManager: SettingsManager by inject()
     }
 }

@@ -9,6 +9,7 @@ import com.perrigogames.life4.data.IgnoreList
 import com.perrigogames.life4.data.IgnoredSong
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.IGNORES_FILE_NAME
 import com.perrigogames.life4.model.BaseModel
+import com.perrigogames.life4.model.SettingsManager
 import com.perrigogames.life4trials.repo.SongRepo
 import org.greenrobot.eventbus.EventBus
 import org.koin.core.inject

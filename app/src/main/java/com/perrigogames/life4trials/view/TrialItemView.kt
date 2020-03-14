@@ -13,7 +13,7 @@ import com.perrigogames.life4.SettingsKeys.KEY_LIST_TINT_COMPLETED
 import com.perrigogames.life4.data.Trial
 import com.perrigogames.life4.data.TrialRank
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.manager.SettingsManager
+import com.perrigogames.life4.model.SettingsManager
 import kotlinx.android.synthetic.main.item_trial_list_item.view.*
 import org.koin.core.KoinComponent
 import org.koin.core.inject

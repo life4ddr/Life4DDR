@@ -8,6 +8,5 @@ import org.koin.dsl.module
 
 actual val platformModule: Module = module {
     single<SqlDriver> { AndroidSqliteDriver(Life4Db.Schema, get(), "Life4Db") }
-    single { AndroidSettings.Factory(get()).create("LIFE4 Settings") }
-    single {  }
+    single { AndroidSettings.Factory(get()).create() }
 }

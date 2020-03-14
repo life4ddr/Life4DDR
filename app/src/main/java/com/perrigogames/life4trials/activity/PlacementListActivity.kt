@@ -8,7 +8,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.perrigogames.life4.model.PlacementManager
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.activity.PlacementDetailsActivity.Companion.RESULT_FINISHED
-import com.perrigogames.life4trials.manager.FirstRunManager
+import com.perrigogames.life4.model.FirstRunManager
+import com.perrigogames.life4trials.manager.finishProcessIntent
+import com.perrigogames.life4trials.manager.rankListIntent
 import com.perrigogames.life4trials.ui.firstrun.PlacementListAdapter
 import kotlinx.android.synthetic.main.activity_placement_list.*
 import org.koin.core.KoinComponent
@@ -35,18 +37,18 @@ class PlacementListActivity : AppCompatActivity(), KoinComponent {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_PLACEMENT_FINISH && resultCode == RESULT_FINISHED) {
-            startActivity(firstRunManager.finishProcessIntent)
+            startActivity(firstRunManager.finishProcessIntent(this))
             finish()
         }
     }
 
     fun onRanksClick(v: View) {
-        startActivity(firstRunManager.rankListIntent)
+        startActivity(firstRunManager.rankListIntent(this))
         finish()
     }
 
     fun onNoRankClick(v: View) {
-        startActivity(firstRunManager.finishProcessIntent)
+        startActivity(firstRunManager.finishProcessIntent(this))
         finish()
     }
 

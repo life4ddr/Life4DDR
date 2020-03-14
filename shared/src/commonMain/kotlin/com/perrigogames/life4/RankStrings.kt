@@ -27,9 +27,7 @@ interface RankStrings {
 
     // Song Set
 
-    /** TYPE, TYPE, and/or TYPE
-     *
-     */
+    /** TYPE, TYPE, and/or TYPE */
     fun difficultyClassString(playStyle: PlayStyle, difficulties: List<DifficultyClass>, requireAll: Boolean): String
     /** Score X on Y (Z). */
     fun scoreSpecificSongDifficulty(score: Int, songs: List<String>, difficultyString: String): String

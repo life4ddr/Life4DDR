@@ -6,6 +6,7 @@ import android.net.Uri
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.crashlytics.android.Crashlytics
+import com.perrigogames.life4.Notifications
 import com.perrigogames.life4.SavedRankUpdatedEvent
 import com.perrigogames.life4.SettingsKeys.KEY_SUBMISSION_NOTIFICAION
 import com.perrigogames.life4.TrialListReplacedEvent
@@ -17,13 +18,13 @@ import com.perrigogames.life4.data.TrialSession
 import com.perrigogames.life4.db.TrialDatabaseHelper
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.TRIALS_FILE_NAME
 import com.perrigogames.life4.model.BaseModel
+import com.perrigogames.life4.model.EventBusNotifier
+import com.perrigogames.life4.model.SettingsManager
 import com.perrigogames.life4trials.BuildConfig
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.api.AndroidDataReader
 import com.perrigogames.life4trials.db.TrialSessionDB
 import com.perrigogames.life4trials.repo.TrialRepo
-import com.perrigogames.life4trials.util.NotificationUtil
-import org.greenrobot.eventbus.EventBus
 import org.koin.core.inject
 
 class TrialManager: BaseModel() {
@@ -31,7 +32,8 @@ class TrialManager: BaseModel() {
     private val context: Context by inject()
     private val repo: TrialRepo by inject()
     private val settingsManager: SettingsManager by inject()
-    private val eventBus: EventBus by inject()
+    private val eventBus: EventBusNotifier by inject()
+    private val notifications: Notifications by inject()
     private val dbHelper: TrialDatabaseHelper by inject()
 
     private var trialData = TrialRemoteData(AndroidDataReader(R.raw.trials, TRIALS_FILE_NAME), object: FetchListener<TrialData> {
@@ -135,7 +137,7 @@ class TrialManager: BaseModel() {
                 .setNegativeButton(R.string.no) { _, _ -> onFinish() }
                 .setPositiveButton(R.string.yes) { _, _ ->
                     if (settingsManager.getUserFlag(KEY_SUBMISSION_NOTIFICAION, false)) {
-                        NotificationUtil.showUserInfoNotifications(context, session.currentTotalExScore)
+                        notifications.showUserInfoNotifications(session.currentTotalExScore)
                     }
                     context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(context.getString(R.string.url_trial_submission_form))))
                     onFinish()

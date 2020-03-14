@@ -8,8 +8,10 @@ import com.perrigogames.life4.data.LadderRank
 import com.perrigogames.life4.data.RankEntry
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.activity.RankDetailsActivity.Companion.RESULT_RANK_SELECTED
-import com.perrigogames.life4trials.manager.FirstRunManager
+import com.perrigogames.life4.model.FirstRunManager
 import com.perrigogames.life4trials.manager.LadderManager
+import com.perrigogames.life4trials.manager.finishProcessIntent
+import com.perrigogames.life4trials.manager.placementIntent
 import com.perrigogames.life4trials.ui.ranklist.RankListFragment
 import com.perrigogames.life4trials.ui.ranklist.RankListFragment.OnRankListInteractionListener
 import kotlinx.android.synthetic.main.content_rank_list.*
@@ -43,19 +45,19 @@ class FirstRankSelectionActivity : AppCompatActivity(), OnRankListInteractionLis
         if (requestCode == REQUEST_CODE_DETAIL_SELECTION) {
             if (resultCode == RESULT_RANK_SELECTED && data != null) {
                 ladderManager.setUserRank(LadderRank.parse(data.getLongExtra(RankDetailsActivity.EXTRA_RANK, 0)))
-                startActivity(firstRunManager.finishProcessIntent)
+                startActivity(firstRunManager.finishProcessIntent(this))
                 finish()
             }
         }
     }
 
     fun onPlacementsClick(v: View) {
-        startActivity(firstRunManager.placementIntent)
+        startActivity(firstRunManager.placementIntent(this))
         finish()
     }
 
     fun onNoRankClick(v: View) {
-        startActivity(firstRunManager.finishProcessIntent)
+        startActivity(firstRunManager.finishProcessIntent(this))
         finish()
     }
 

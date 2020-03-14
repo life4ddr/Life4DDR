@@ -5,8 +5,6 @@ import android.os.Handler
 import android.util.Log
 import androidx.appcompat.app.AlertDialog
 import com.crashlytics.android.Crashlytics
-import com.perrigogames.life4.MajorUpdate
-import com.perrigogames.life4.MajorUpdateProcessEvent
 import com.perrigogames.life4.SettingsKeys.KEY_IMPORT_GAME_VERSION
 import com.perrigogames.life4.api.FetchListener
 import com.perrigogames.life4.api.SongListRemoteData
@@ -15,6 +13,8 @@ import com.perrigogames.life4.enums.GameVersion
 import com.perrigogames.life4.enums.PlayStyle
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.SONGS_FILE_NAME
 import com.perrigogames.life4.model.BaseModel
+import com.perrigogames.life4.model.SettingsManager
+import com.perrigogames.life4.model.SettingsManager.Companion.KEY_SONG_LIST_VERSION
 import com.perrigogames.life4trials.BuildConfig
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.api.AndroidDataReader
@@ -22,13 +22,9 @@ import com.perrigogames.life4trials.db.ChartDB
 import com.perrigogames.life4trials.db.ChartDB_
 import com.perrigogames.life4trials.db.SongDB
 import com.perrigogames.life4trials.db.SongDB_
-import com.perrigogames.life4trials.manager.SettingsManager.Companion.KEY_SONG_LIST_VERSION
 import com.perrigogames.life4trials.repo.SongRepo
 import com.perrigogames.life4trials.util.openWebUrlFromRes
 import io.objectbox.BoxStore
-import org.greenrobot.eventbus.EventBus
-import org.greenrobot.eventbus.Subscribe
-import org.greenrobot.eventbus.ThreadMode
 import org.koin.core.inject
 
 
@@ -40,7 +36,6 @@ class SongDataManager: BaseModel() {
     private val songRepo: SongRepo by inject()
     private val ignoreListManager: IgnoreListManager by inject()
     private val settingsManager: SettingsManager by inject()
-    private val eventBus: EventBus by inject()
     private val objectBox: BoxStore by inject()
 
     private val songList = SongListRemoteData(AndroidDataReader(R.raw.songs, SONGS_FILE_NAME), object: FetchListener<String> {
@@ -50,19 +45,19 @@ class SongDataManager: BaseModel() {
     })
 
     init {
-        eventBus.register(this)
         songList.start()
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onMajorVersion(e: MajorUpdateProcessEvent) {
-        if (e.version == MajorUpdate.SONG_DB) {
-            initializeSongDatabase()
-        } else if (e.version == MajorUpdate.DOUBLES_FIX) {
-            chartBox.remove(getChartsByPlayStyle(PlayStyle.DOUBLE))
-            refreshSongDatabase(force = true)
-        }
-    }
+    //FIXME Major version
+//    @Subscribe(threadMode = ThreadMode.MAIN)
+//    fun onMajorVersion(e: MajorUpdateProcessEvent) {
+//        if (e.version == MajorUpdate.SONG_DB) {
+//            initializeSongDatabase()
+//        } else if (e.version == MajorUpdate.DOUBLES_FIX) {
+//            chartBox.remove(getChartsByPlayStyle(PlayStyle.DOUBLE))
+//            refreshSongDatabase(force = true)
+//        }
+//    }
 
     //
     // Song List Management

@@ -18,9 +18,9 @@ import com.karumi.dexter.listener.multi.CompositeMultiplePermissionsListener
 import com.karumi.dexter.listener.multi.SnackbarOnAnyDeniedMultiplePermissionsListener
 import com.perrigogames.life4.SettingsKeys.KEY_DETAILS_PHOTO_SELECT
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.manager.SettingsManager
 import com.perrigogames.life4trials.util.DataUtil
 import com.perrigogames.life4trials.util.locale
+import com.russhwolf.settings.Settings
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 import java.io.File
@@ -28,14 +28,14 @@ import java.io.IOException
 
 abstract class PhotoCaptureActivity: AppCompatActivity(), KoinComponent {
 
-    private val settingsManager: SettingsManager by inject()
+    private val settings: Settings by inject()
 
     protected var currentPhotoFile: File? = null
     private var currentUri: Uri? = null
 
     abstract val snackbarContainer: ViewGroup
 
-    protected fun acquirePhoto(selection: Boolean = settingsManager.getUserFlag(KEY_DETAILS_PHOTO_SELECT, false)) {
+    protected fun acquirePhoto(selection: Boolean = settings.getBoolean(KEY_DETAILS_PHOTO_SELECT, false)) {
         if (selection) {
             startPhotoSelectActivity(FLAG_IMAGE_SELECT)
         } else {

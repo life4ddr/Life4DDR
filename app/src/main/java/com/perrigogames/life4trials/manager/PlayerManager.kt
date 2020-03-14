@@ -1,5 +1,6 @@
 package com.perrigogames.life4trials.manager
 
+import com.perrigogames.life4.PlayerImportedEvent
 import com.perrigogames.life4.data.ApiPlayer
 import com.perrigogames.life4.model.BaseModel
 import com.perrigogames.life4trials.BuildConfig
@@ -36,16 +37,8 @@ class PlayerManager: BaseModel() {
             }
             withContext(Dispatchers.Main) {
                 if (BuildConfig.DEBUG && playerName == "KONNOR") {
-                    val player = ApiPlayer(
-                        1,
-                        playerName,
-                        "DIAMOND III",
-                        "",
-                        "@strogazer",
-                        "",
-                        "5142-3911",
-                        true
-                    )
+                    val player = ApiPlayer(1, playerName, "DIAMOND III", "",
+                        "@strogazer", "", "5142-3911", true)
                     eventBus.post(PlayerImportedEvent(player))
                 } else {
                     eventBus.post(PlayerImportedEvent())
@@ -56,7 +49,7 @@ class PlayerManager: BaseModel() {
 
     fun fetchLadderLeaderboards() {
         if (ladderPlayers.isNotEmpty()) {
-            eventBus.post(PlayerLadderUpdatedEvent(ladderPlayers))
+//            eventBus.post(PlayerLadderUpdatedEvent(ladderPlayers))
         } else {
 //            ladderJob?.cancel()
 //            ladderJob = CoroutineScope(Dispatchers.IO).launch {
@@ -87,7 +80,4 @@ class PlayerManager: BaseModel() {
 //        } //FIXME
 //        else -> true
 //    }
-
-    class PlayerImportedEvent(val apiPlayer: ApiPlayer? = null)
-    class PlayerLadderUpdatedEvent(val apiPlayers: List<ApiPlayer>? = null)
 }

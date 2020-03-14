@@ -17,7 +17,7 @@ import com.perrigogames.life4.data.LadderRank
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.db.GoalStatus
 import com.perrigogames.life4trials.manager.LadderManager
-import com.perrigogames.life4trials.manager.SettingsManager
+import com.perrigogames.life4.model.SettingsManager
 import com.perrigogames.life4trials.manager.SongDataManager
 import com.perrigogames.life4trials.manager.TrialManager
 import com.perrigogames.life4trials.ui.rankdetails.RankDetailsFragment
@@ -119,10 +119,8 @@ class PlayerProfileActivity : AppCompatActivity(), RankDetailsViewModel.OnGoalLi
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     fun onMajorVersion(e: MajorUpdateProcessEvent) {
-        when (e.version) {
-            SONG_DB -> ladderManager.onDatabaseMajorUpdate(this)
-            A20_REQUIRED -> songDataManager.onA20RequiredUpdate(this)
-        }
+//        when (e.version) {
+//        }
         eventBus.removeStickyEvent(e)
     }
 
