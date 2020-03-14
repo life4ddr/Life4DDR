@@ -18,6 +18,7 @@ import com.perrigogames.life4.data.ApiPlayer
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4.model.FirstRunManager
 import com.perrigogames.life4trials.manager.*
+import com.perrigogames.life4trials.util.onFieldChanged
 import com.perrigogames.life4trials.util.visibilityBool
 import com.perrigogames.life4trials.view.PlayerFoundView
 import com.russhwolf.settings.Settings
@@ -148,12 +149,5 @@ class FirstRunInfoActivity: AppCompatActivity(), KoinComponent {
         ladderManager.setUserRank(player.rank)
         startActivity(firstRunManager.finishProcessIntent(this))
         finish()
-    }
-
-    //TODO this can be a utility function elsewhere too
-    private inline fun EditText.onFieldChanged(crossinline block: (EditText, Editable) -> Unit) = this.let { field ->
-        field.doAfterTextChanged { text ->
-            text?.let { block(this, text) }
-        }
     }
 }

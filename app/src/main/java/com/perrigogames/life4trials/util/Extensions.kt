@@ -1,12 +1,12 @@
 package com.perrigogames.life4trials.util
 
 import android.content.Context
-import android.net.Uri
+import android.text.Editable
 import android.view.View
+import android.widget.EditText
 import androidx.annotation.DrawableRes
-import com.perrigogames.life4.data.SongResult
+import androidx.core.widget.doAfterTextChanged
 import com.perrigogames.life4.data.Trial
-import com.perrigogames.life4.data.TrialSession
 import com.perrigogames.life4trials.R
 
 var View.visibilityBool: Boolean
@@ -17,3 +17,9 @@ var View.visibilityBool: Boolean
     c.resources.getIdentifier(id, "drawable", c.packageName).let {
         return if (it == 0) R.drawable.trial_default else it
     }
+
+inline fun EditText.onFieldChanged(crossinline block: (EditText, Editable) -> Unit) = this.let { field ->
+    field.doAfterTextChanged { text ->
+        text?.let { block(this, text) }
+    }
+}
