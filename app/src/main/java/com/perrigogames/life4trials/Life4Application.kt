@@ -17,7 +17,7 @@ import com.perrigogames.life4.ktor.GithubDataAPI.Companion.TRIALS_FILE_NAME
 import com.perrigogames.life4.model.FirstRunManager
 import com.perrigogames.life4.model.EventBusNotifier
 import com.perrigogames.life4.model.PlacementManager
-import com.perrigogames.life4.model.SettingsManager
+import com.perrigogames.life4.model.MajorUpdateManager
 import com.perrigogames.life4trials.api.AndroidDataReader
 import com.perrigogames.life4trials.api.AndroidUncachedDataReader
 import com.perrigogames.life4trials.db.MyObjectBox
@@ -62,7 +62,6 @@ class Life4Application: MultiDexApplication() {
                 single<LocalDataReader>(named(RANKS_FILE_NAME)) { AndroidDataReader(R.raw.ranks_v2, RANKS_FILE_NAME) }
                 single<LocalDataReader>(named(SONGS_FILE_NAME)) { AndroidDataReader(R.raw.songs, SONGS_FILE_NAME) }
                 single<LocalDataReader>(named(TRIALS_FILE_NAME)) { AndroidDataReader(R.raw.trials, TRIALS_FILE_NAME) }
-                single { SettingsManager() }
                 single {
                     MyObjectBox.builder()
                         .androidContext(this@Life4Application)
@@ -74,7 +73,6 @@ class Life4Application: MultiDexApplication() {
                 single { SongRepo() }
                 single { TrialRepo() }
                 single { LadderResultRepo() }
-                single { FirstRunManager() }
                 single { IgnoreListManager() }
                 single { SongDataManager() }
                 single { TrialManager() }
@@ -86,8 +84,7 @@ class Life4Application: MultiDexApplication() {
 
         setupNotifications(this)
         PreferenceManager.setDefaultValues(this, R.xml.root_preferences, false)
-        //FIXME major update
-//        ManagerContainer().settingsManager.handleMajorUpdate(this)
+
 //        if (BuildConfig.DEBUG) {
 //            FirebaseUtil.getId(this)
 //        }

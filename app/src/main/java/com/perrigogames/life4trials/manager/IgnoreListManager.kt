@@ -9,8 +9,9 @@ import com.perrigogames.life4.data.IgnoreList
 import com.perrigogames.life4.data.IgnoredSong
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.IGNORES_FILE_NAME
 import com.perrigogames.life4.model.BaseModel
-import com.perrigogames.life4.model.SettingsManager
 import com.perrigogames.life4trials.repo.SongRepo
+import com.russhwolf.settings.Settings
+import com.russhwolf.settings.set
 import org.greenrobot.eventbus.EventBus
 import org.koin.core.inject
 import org.koin.core.qualifier.named
@@ -19,7 +20,7 @@ class IgnoreListManager: BaseModel() {
 
     private val songRepo: SongRepo by inject()
     private val eventBus: EventBus by inject()
-    private val settingsManager: SettingsManager by inject()
+    private val settings: Settings by inject()
     private val dataReader: LocalDataReader by inject(named(IGNORES_FILE_NAME))
 
     private val ignoreLists = IgnoreListRemoteData(dataReader)
@@ -43,7 +44,7 @@ class IgnoreListManager: BaseModel() {
     //
 
     val selectedVersion: String
-        get() = settingsManager.getUserString(KEY_IMPORT_GAME_VERSION, SongDataManager.DEFAULT_IGNORE_VERSION)!!
+        get() = settings.getString(KEY_IMPORT_GAME_VERSION, SongDataManager.DEFAULT_IGNORE_VERSION)
     val selectedIgnoreList: IgnoreList?
         get() = getIgnoreList(selectedVersion)
     val selectedIgnoreGroups: List<IgnoreGroup>?
@@ -81,7 +82,7 @@ class IgnoreListManager: BaseModel() {
     fun getUnlockGroup(id: String) = ignoreLists.data.groups.firstOrNull { it.id == id }
 
     fun getGroupUnlockState(id: String): Long {
-        return settingsManager.getUserLong("unlock_$id", 0L)
+        return settings.getLong("unlock_$id", 0L)
     }
 
     fun getGroupUnlockFlags(id: String): List<Boolean>? {
@@ -97,7 +98,7 @@ class IgnoreListManager: BaseModel() {
         ignoreLists.data.groups.mapNotNull { getGroupUnlockedSongs(it.id) }.flatten()
 
     fun setGroupUnlockState(id: String, state: Long) {
-        settingsManager.setUserLong("unlock_$id", state)
+        settings["unlock_$id"] = state
         invalidateIgnoredIds()
         eventBus.post(LadderRanksReplacedEvent())
     }

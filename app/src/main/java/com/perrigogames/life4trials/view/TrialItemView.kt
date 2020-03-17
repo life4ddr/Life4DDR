@@ -13,7 +13,7 @@ import com.perrigogames.life4.SettingsKeys.KEY_LIST_TINT_COMPLETED
 import com.perrigogames.life4.data.Trial
 import com.perrigogames.life4.data.TrialRank
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4.model.SettingsManager
+import com.russhwolf.settings.Settings
 import kotlinx.android.synthetic.main.item_trial_list_item.view.*
 import org.koin.core.KoinComponent
 import org.koin.core.inject
@@ -24,12 +24,12 @@ import org.koin.core.inject
 class TrialItemView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
     ConstraintLayout(context, attrs, defStyleAttr), KoinComponent {
 
-    private val settingsManager: SettingsManager by inject()
+    private val settings: Settings by inject()
 
     val tintCompleted: Boolean
-        get() = settingsManager.getUserFlag(KEY_LIST_TINT_COMPLETED, false)
+        get() = settings.getBoolean(KEY_LIST_TINT_COMPLETED, false)
     val showEx: Boolean
-        get() = trial?.isEvent == true || settingsManager.getUserFlag(KEY_LIST_SHOW_EX, false)
+        get() = trial?.isEvent == true || settings.getBoolean(KEY_LIST_SHOW_EX, false)
     private var usesBadgeList = false
 
     fun setCornerType(v: JacketCornerView.CornerType?) {
@@ -64,7 +64,7 @@ class TrialItemView @JvmOverloads constructor(context: Context, attrs: Attribute
     fun setExScore(exScore: Int?) {
         (image_rank as TrialJacketView).let { view ->
             view.showExRemaining = trial?.isEvent == true ||
-                    settingsManager.getUserFlag(KEY_LIST_SHOW_EX_REMAINING, false)
+                    settings.getBoolean(KEY_LIST_SHOW_EX_REMAINING, false)
             view.exScore = if (showEx) exScore else null
         }
     }

@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.appcompat.app.AlertDialog
 import com.crashlytics.android.Crashlytics
 import com.perrigogames.life4.SettingsKeys.KEY_IMPORT_GAME_VERSION
+import com.perrigogames.life4.SettingsKeys.KEY_SONG_LIST_VERSION
 import com.perrigogames.life4.api.FetchListener
 import com.perrigogames.life4.api.SongListRemoteData
 import com.perrigogames.life4.enums.DifficultyClass
@@ -13,8 +14,8 @@ import com.perrigogames.life4.enums.GameVersion
 import com.perrigogames.life4.enums.PlayStyle
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.SONGS_FILE_NAME
 import com.perrigogames.life4.model.BaseModel
-import com.perrigogames.life4.model.SettingsManager
-import com.perrigogames.life4.model.SettingsManager.Companion.KEY_SONG_LIST_VERSION
+import com.perrigogames.life4.model.MajorUpdate
+import com.perrigogames.life4.model.MajorUpdateManager
 import com.perrigogames.life4trials.BuildConfig
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.api.AndroidDataReader
@@ -24,6 +25,8 @@ import com.perrigogames.life4trials.db.SongDB
 import com.perrigogames.life4trials.db.SongDB_
 import com.perrigogames.life4trials.repo.SongRepo
 import com.perrigogames.life4trials.util.openWebUrlFromRes
+import com.russhwolf.settings.Settings
+import com.russhwolf.settings.set
 import io.objectbox.BoxStore
 import org.koin.core.inject
 
@@ -34,8 +37,9 @@ import org.koin.core.inject
 class SongDataManager: BaseModel() {
 
     private val songRepo: SongRepo by inject()
+    private val majorUpdates: MajorUpdateManager by inject()
     private val ignoreListManager: IgnoreListManager by inject()
-    private val settingsManager: SettingsManager by inject()
+    private val settings: Settings by inject()
     private val objectBox: BoxStore by inject()
 
     private val songList = SongListRemoteData(AndroidDataReader(R.raw.songs, SONGS_FILE_NAME), object: FetchListener<String> {
@@ -45,19 +49,11 @@ class SongDataManager: BaseModel() {
     })
 
     init {
+        if (majorUpdates.updates.contains(MajorUpdate.SONG_DB)) {
+            initializeSongDatabase()
+        }
         songList.start()
     }
-
-    //FIXME Major version
-//    @Subscribe(threadMode = ThreadMode.MAIN)
-//    fun onMajorVersion(e: MajorUpdateProcessEvent) {
-//        if (e.version == MajorUpdate.SONG_DB) {
-//            initializeSongDatabase()
-//        } else if (e.version == MajorUpdate.DOUBLES_FIX) {
-//            chartBox.remove(getChartsByPlayStyle(PlayStyle.DOUBLE))
-//            refreshSongDatabase(force = true)
-//        }
-//    }
 
     //
     // Song List Management
@@ -70,7 +66,7 @@ class SongDataManager: BaseModel() {
 
     private fun refreshSongDatabase(input: String = songList.data, force: Boolean = false) {
         val lines = input.lines()
-        if (force || settingsManager.getUserInt(KEY_SONG_LIST_VERSION, -1) < lines[0].toInt()) {
+        if (force || settings.getInt(KEY_SONG_LIST_VERSION, -1) < lines[0].toInt()) {
             val songContents = songRepo.getSongs()
 
             val dbSongs = mutableListOf<SongDB>()
@@ -118,13 +114,13 @@ class SongDataManager: BaseModel() {
             chartBox.put(dbCharts)
             songRepo.put(dbSongs)
             ignoreListManager.invalidateIgnoredIds()
-            settingsManager.setUserInt(KEY_SONG_LIST_VERSION, lines[0].toInt())
+            settings[KEY_SONG_LIST_VERSION] = lines[0].toInt()
         }
     }
 
     fun onA20RequiredUpdate(context: Context) {
         ignoreListManager.invalidateIgnoredIds()
-        settingsManager.setUserString(KEY_IMPORT_GAME_VERSION, DEFAULT_IGNORE_VERSION)
+        settings[KEY_IMPORT_GAME_VERSION] = DEFAULT_IGNORE_VERSION
         Handler().postDelayed({
             AlertDialog.Builder(context)
                 .setTitle(R.string.a20_update)

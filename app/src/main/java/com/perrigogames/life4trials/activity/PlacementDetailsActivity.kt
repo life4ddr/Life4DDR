@@ -12,9 +12,10 @@ import com.perrigogames.life4.data.Song
 import com.perrigogames.life4.data.Trial
 import com.perrigogames.life4.model.PlacementManager
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4.model.SettingsManager
 import com.perrigogames.life4trials.ui.songlist.SongListFragment
 import com.perrigogames.life4trials.view.RankHeaderView
+import com.russhwolf.settings.Settings
+import com.russhwolf.settings.set
 import kotlinx.android.synthetic.main.content_placement_details.*
 import org.koin.core.KoinComponent
 import org.koin.core.inject
@@ -23,7 +24,6 @@ import org.koin.core.inject
 class PlacementDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener, KoinComponent {
 
     private val placementManager: PlacementManager by inject()
-    private val settingsManager: SettingsManager by inject()
     private val placementId: String by lazy { intent.extras!!.getString(ARG_PLACEMENT_ID) }
     private val trial: Trial get() = placementManager.findPlacement(placementId)!!
 
@@ -44,9 +44,9 @@ class PlacementDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listene
 //            }
         }
 
-        switch_acquire_mode.isChecked = settingsManager.getUserFlag(KEY_DETAILS_PHOTO_SELECT, false)
+        switch_acquire_mode.isChecked = settings.getBoolean(KEY_DETAILS_PHOTO_SELECT, false)
         switch_acquire_mode.setOnCheckedChangeListener { _, isChecked ->
-            settingsManager.setUserFlag(KEY_DETAILS_PHOTO_SELECT, isChecked)
+            settings[KEY_DETAILS_PHOTO_SELECT] = isChecked
         }
 
         songListFragment = SongListFragment.newInstance(trial.id, tiled = false, useCurrentSession = false, useCamera = false)

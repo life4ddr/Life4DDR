@@ -9,7 +9,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.perrigogames.life4.*
-import com.perrigogames.life4.MajorUpdate.*
 import com.perrigogames.life4.SettingsKeys.KEY_INFO_NAME
 import com.perrigogames.life4.SettingsKeys.KEY_INFO_RIVAL_CODE
 import com.perrigogames.life4.data.BaseRankGoal
@@ -17,8 +16,6 @@ import com.perrigogames.life4.data.LadderRank
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.db.GoalStatus
 import com.perrigogames.life4trials.manager.LadderManager
-import com.perrigogames.life4.model.SettingsManager
-import com.perrigogames.life4trials.manager.SongDataManager
 import com.perrigogames.life4trials.manager.TrialManager
 import com.perrigogames.life4trials.ui.rankdetails.RankDetailsFragment
 import com.perrigogames.life4trials.ui.rankdetails.RankDetailsViewModel
@@ -26,6 +23,7 @@ import com.perrigogames.life4trials.util.CommonSizes
 import com.perrigogames.life4trials.util.openWebUrlFromRes
 import com.perrigogames.life4trials.util.visibilityBool
 import com.perrigogames.life4trials.view.JacketCornerView
+import com.russhwolf.settings.Settings
 import kotlinx.android.synthetic.main.activity_player_profile.*
 import kotlinx.android.synthetic.main.content_player_profile.*
 import kotlinx.android.synthetic.main.item_profile_mode_button.view.*
@@ -43,9 +41,8 @@ import org.koin.core.inject
 class PlayerProfileActivity : AppCompatActivity(), RankDetailsViewModel.OnGoalListInteractionListener, KoinComponent {
 
     private val ladderManager: LadderManager by inject()
-    private val songDataManager: SongDataManager by inject()
     private val trialManager: TrialManager by inject()
-    private val settingsManager: SettingsManager by inject()
+    private val settings: Settings by inject()
     private val eventBus: EventBus by inject()
 
     private var rank: LadderRank? = null
@@ -117,12 +114,11 @@ class PlayerProfileActivity : AppCompatActivity(), RankDetailsViewModel.OnGoalLi
         eventBus.removeStickyEvent(e)
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
-    fun onMajorVersion(e: MajorUpdateProcessEvent) {
-//        when (e.version) {
-//        }
-        eventBus.removeStickyEvent(e)
-    }
+    //FIXME MajorUpdate
+//    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+//    fun onMajorVersion(e: MajorUpdateProcessEvent) {
+//        eventBus.removeStickyEvent(e)
+//    }
 
     private fun setupContent() {
         view_mode_button_left.text_title.text = getString(R.string.trials)
@@ -143,8 +139,8 @@ class PlayerProfileActivity : AppCompatActivity(), RankDetailsViewModel.OnGoalLi
     }
 
     private fun updatePlayerContent() {
-        text_player_name.text = settingsManager.getUserString(KEY_INFO_NAME)
-        text_player_rival_code.text = settingsManager.getUserString(KEY_INFO_RIVAL_CODE)
+        text_player_name.text = settings.getStringOrNull(KEY_INFO_NAME)
+        text_player_rival_code.text = settings.getStringOrNull(KEY_INFO_RIVAL_CODE)
         text_player_rival_code.apply { visibilityBool = text.isNotEmpty() }
         rank = ladderManager.getUserRank()
         goalRank = ladderManager.getUserGoalRank()

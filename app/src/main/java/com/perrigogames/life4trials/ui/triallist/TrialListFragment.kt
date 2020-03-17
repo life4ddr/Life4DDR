@@ -16,9 +16,9 @@ import com.perrigogames.life4.TrialListUpdatedEvent
 import com.perrigogames.life4.data.Trial
 import com.perrigogames.life4.data.TrialType
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4.model.SettingsManager
 import com.perrigogames.life4trials.manager.TrialManager
 import com.perrigogames.life4trials.view.PaddingItemDecoration
+import com.russhwolf.settings.Settings
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -33,11 +33,11 @@ class TrialListFragment : Fragment(), KoinComponent {
     private lateinit var adapter: TrialListAdapter
 
     private val trialManager: TrialManager by inject()
-    private val settingsManager: SettingsManager by inject()
+    private val settings: Settings by inject()
     private val eventBus: EventBus by inject()
     private val trials: List<Trial> get() = trialManager.activeTrials
 
-    private val featureNew get() = settingsManager.getUserFlag(KEY_LIST_HIGHLIGHT_NEW, true)
+    private val featureNew get() = settings.getBoolean(KEY_LIST_HIGHLIGHT_NEW, true)
 
     private lateinit var recyclerView: RecyclerView
 

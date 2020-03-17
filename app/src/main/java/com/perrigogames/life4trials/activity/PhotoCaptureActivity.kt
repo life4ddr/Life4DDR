@@ -28,7 +28,7 @@ import java.io.IOException
 
 abstract class PhotoCaptureActivity: AppCompatActivity(), KoinComponent {
 
-    private val settings: Settings by inject()
+    protected val settings: Settings by inject()
 
     protected var currentPhotoFile: File? = null
     private var currentUri: Uri? = null

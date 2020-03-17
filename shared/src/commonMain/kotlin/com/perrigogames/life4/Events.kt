@@ -3,10 +3,6 @@ package com.perrigogames.life4
 import com.perrigogames.life4.data.ApiPlayer
 import com.perrigogames.life4.data.Trial
 
-/** Event published when the app should process logic for a [MajorUpdate]
- * @param version the [MajorUpdate] the app should respond to */
-class MajorUpdateProcessEvent(val version: MajorUpdate)
-
 /** Event published when a remote data source's major version is higher than the internal parser
  * can support, indicating the application should be updated */
 class DataRequiresAppUpdateEvent

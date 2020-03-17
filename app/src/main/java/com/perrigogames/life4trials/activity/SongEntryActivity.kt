@@ -20,11 +20,12 @@ import com.perrigogames.life4.data.SongResult
 import com.perrigogames.life4.data.TrialData
 import com.perrigogames.life4.enums.ClearType
 import com.perrigogames.life4.enums.ClearType.*
+import com.perrigogames.life4.getDebugBoolean
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4.model.SettingsManager
 import com.perrigogames.life4trials.manager.TrialManager
 import com.perrigogames.life4trials.photoUri
 import com.perrigogames.life4trials.util.visibilityBool
+import com.russhwolf.settings.Settings
 import kotlinx.android.synthetic.main.content_song_entry.*
 import org.koin.core.KoinComponent
 import org.koin.core.inject
@@ -33,7 +34,7 @@ import org.koin.core.inject
 class SongEntryActivity: AppCompatActivity(), KoinComponent {
 
     private val trialManager: TrialManager by inject()
-    private val settingsManager: SettingsManager by inject()
+    private val settings: Settings by inject()
     private val currentSession get() = trialManager.currentSession!!
 
     val result: SongResult? get() = currentSession.results[songIndex]
@@ -172,7 +173,7 @@ class SongEntryActivity: AppCompatActivity(), KoinComponent {
         allFields.forEach { it.error = null }
         checkErrorForValue(score, field_score)
         checkErrorForValue(ex, field_ex)
-        if (!settingsManager.getDebugFlag(KEY_DEBUG_ACCEPT_INVALID) &&
+        if (!settings.getDebugBoolean(KEY_DEBUG_ACCEPT_INVALID) &&
             allFields.any { it.visibility == VISIBLE && it.error != null }) {
             Toast.makeText(this, R.string.make_sure_fields_filled, Toast.LENGTH_SHORT).show()
         } else {

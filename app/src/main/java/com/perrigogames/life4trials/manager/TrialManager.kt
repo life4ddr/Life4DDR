@@ -19,19 +19,19 @@ import com.perrigogames.life4.db.TrialDatabaseHelper
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.TRIALS_FILE_NAME
 import com.perrigogames.life4.model.BaseModel
 import com.perrigogames.life4.model.EventBusNotifier
-import com.perrigogames.life4.model.SettingsManager
 import com.perrigogames.life4trials.BuildConfig
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.api.AndroidDataReader
 import com.perrigogames.life4trials.db.TrialSessionDB
 import com.perrigogames.life4trials.repo.TrialRepo
+import com.russhwolf.settings.Settings
 import org.koin.core.inject
 
 class TrialManager: BaseModel() {
 
     private val context: Context by inject()
     private val repo: TrialRepo by inject()
-    private val settingsManager: SettingsManager by inject()
+    private val settings: Settings by inject()
     private val eventBus: EventBusNotifier by inject()
     private val notifications: Notifications by inject()
     private val dbHelper: TrialDatabaseHelper by inject()
@@ -136,7 +136,7 @@ class TrialManager: BaseModel() {
                 .setCancelable(false)
                 .setNegativeButton(R.string.no) { _, _ -> onFinish() }
                 .setPositiveButton(R.string.yes) { _, _ ->
-                    if (settingsManager.getUserFlag(KEY_SUBMISSION_NOTIFICAION, false)) {
+                    if (settings.getBoolean(KEY_SUBMISSION_NOTIFICAION, false)) {
                         notifications.showUserInfoNotifications(session.currentTotalExScore)
                     }
                     context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(context.getString(R.string.url_trial_submission_form))))

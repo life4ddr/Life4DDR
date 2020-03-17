@@ -16,7 +16,6 @@ import com.perrigogames.life4.SettingsKeys.KEY_RECORDS_REMAINING_EX
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.colorRes
 import com.perrigogames.life4trials.db.TrialSessionDB
-import com.perrigogames.life4.model.SettingsManager
 import com.perrigogames.life4trials.manager.TrialManager
 import com.perrigogames.life4trials.ui.trialrecords.TrialRecordsFragment.OnRecordsListInteractionListener
 import com.perrigogames.life4trials.util.DataUtil
@@ -25,6 +24,7 @@ import com.perrigogames.life4trials.util.locale
 import com.perrigogames.life4trials.util.visibilityBool
 import com.perrigogames.life4trials.view.RankImageView
 import com.perrigogames.life4trials.view.longNumberString
+import com.russhwolf.settings.Settings
 import kotlinx.android.synthetic.main.item_trial_record.view.*
 import org.koin.core.KoinComponent
 import org.koin.core.inject
@@ -37,7 +37,7 @@ class TrialRecordsAdapter(private val mListener: OnRecordsListInteractionListene
     RecyclerView.Adapter<TrialRecordsAdapter.ViewHolder>(), KoinComponent {
 
     private val trialManager: TrialManager by inject()
-    private val settingsManager: SettingsManager by inject()
+    private val settings: Settings by inject()
 
     private lateinit var recordsList: List<TrialSessionDB>
     private val mOnClickListener: View.OnClickListener
@@ -110,7 +110,7 @@ class TrialRecordsAdapter(private val mListener: OnRecordsListInteractionListene
                     title.text = trial.name
 
                     val sessionEx = s.exScore ?: 0
-                    val shouldShowRemaining = settingsManager.getUserFlag(KEY_RECORDS_REMAINING_EX, false)
+                    val shouldShowRemaining = settings.getBoolean(KEY_RECORDS_REMAINING_EX, false)
                     val goalEx = if (shouldShowRemaining) sessionEx - trial.total_ex else trial.total_ex
                     exScore.text = context.getString(R.string.ex_score_fraction_format, sessionEx, goalEx)
                     exProgress.max = trial.total_ex

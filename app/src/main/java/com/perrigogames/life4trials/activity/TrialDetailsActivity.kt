@@ -18,9 +18,9 @@ import com.perrigogames.life4.SettingsKeys.KEY_DETAILS_ENFORCE_EXPERT
 import com.perrigogames.life4.SettingsKeys.KEY_DETAILS_PHOTO_SELECT
 import com.perrigogames.life4.SettingsKeys.KEY_DETAILS_UPDATE_GOAL
 import com.perrigogames.life4.data.*
+import com.perrigogames.life4.getDebugBoolean
 import com.perrigogames.life4trials.*
 import com.perrigogames.life4trials.manager.LadderManager
-import com.perrigogames.life4.model.SettingsManager
 import com.perrigogames.life4trials.manager.TrialManager
 import com.perrigogames.life4trials.ui.songlist.SongListFragment
 import com.perrigogames.life4trials.util.openWebUrlFromRes
@@ -29,6 +29,7 @@ import com.perrigogames.life4trials.view.JacketCornerView
 import com.perrigogames.life4trials.view.RunningEXScoreView
 import com.perrigogames.life4trials.view.SongView
 import com.perrigogames.life4trials.view.TrialJacketView
+import com.russhwolf.settings.set
 import kotlinx.android.synthetic.main.content_trial_details.*
 import org.koin.core.KoinComponent
 import org.koin.core.inject
@@ -40,7 +41,6 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener, K
 
     private val ladderManager: LadderManager by inject()
     private val trialManager: TrialManager by inject()
-    private val settingsManager: SettingsManager by inject()
     private val strings: PlatformStrings by inject()
 
     private val trialId: String by lazy { intent.extras!!.getString(ARG_TRIAL_ID) }
@@ -125,9 +125,9 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener, K
             }
         }
 
-        switch_acquire_mode.isChecked = settingsManager.getUserFlag(KEY_DETAILS_PHOTO_SELECT, false)
+        switch_acquire_mode.isChecked = settings.getBoolean(KEY_DETAILS_PHOTO_SELECT, false)
         switch_acquire_mode.setOnCheckedChangeListener { _, isChecked ->
-            settingsManager.setUserFlag(KEY_DETAILS_PHOTO_SELECT, isChecked)
+            settings[KEY_DETAILS_PHOTO_SELECT] = isChecked
         }
 
         text_author_credit.visibilityBool = trial.author != null
@@ -199,7 +199,7 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener, K
 
     fun onSubmitClick(v: View) {
         if (!trialSession.shouldShowAdvancedSongDetails ||
-            !settingsManager.getUserFlag(KEY_DETAILS_ENFORCE_EXPERT, true) ||
+            !settings.getBoolean(KEY_DETAILS_ENFORCE_EXPERT, true) ||
             trialSession.results.all { it!!.hasAdvancedStats }) {
 
             trialManager.submitResult(this) { finish() }
@@ -238,7 +238,7 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener, K
                 .setNegativeButton(R.string.cancel, null)
                 .setPositiveButton(R.string.okay) { _, _ -> concedeTrial() }
                 .show()
-        } else if (settingsManager.getUserFlag(KEY_DETAILS_UPDATE_GOAL, true) &&
+        } else if (settings.getBoolean(KEY_DETAILS_UPDATE_GOAL, true) &&
             currentGoal != null &&
             highestPossible.stableId != currentGoal.stableId) {
 
@@ -334,7 +334,7 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener, K
         if (isFinal) {
             onScoreSummaryPhotoTaken(uri)
         } else {
-            if (settingsManager.getDebugFlag(KEY_DEBUG_BYPASS_STAT_ENTRY)) {
+            if (settings.getDebugBoolean(KEY_DEBUG_BYPASS_STAT_ENTRY)) {
                 currentResult!!.randomize()
                 onEntryFinished(currentResult!!)
             } else {
@@ -352,7 +352,7 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener, K
             }
             currentResult!!.photoUri = uri
 
-            if (settingsManager.getDebugFlag(KEY_DEBUG_BYPASS_STAT_ENTRY)) {
+            if (settings.getDebugBoolean(KEY_DEBUG_BYPASS_STAT_ENTRY)) {
                 currentResult!!.randomize()
                 onEntryFinished(currentResult!!)
             } else {

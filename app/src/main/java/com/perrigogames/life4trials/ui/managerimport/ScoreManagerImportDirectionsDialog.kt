@@ -6,20 +6,21 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import com.perrigogames.life4.SettingsKeys.KEY_IMPORT_SKIP_DIRECTIONS
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4.model.SettingsManager
+import com.russhwolf.settings.Settings
+import com.russhwolf.settings.set
 import kotlinx.android.synthetic.main.dialog_manager_import_directions.view.*
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 
 class ScoreManagerImportDirectionsDialog(var listener: Listener? = null): DialogFragment(), KoinComponent {
 
-    private val settingsManager: SettingsManager by inject()
+    private val settings: Settings by inject()
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return requireActivity().let {
             val view = it.layoutInflater.inflate(R.layout.dialog_manager_import_directions, null)
             view.check_dont_show.setOnCheckedChangeListener { _, checked ->
-                settingsManager.setUserFlag(KEY_IMPORT_SKIP_DIRECTIONS, checked)
+                settings[KEY_IMPORT_SKIP_DIRECTIONS] = checked
             }
             AlertDialog.Builder(it)
                 .setView(view)

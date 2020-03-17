@@ -8,4 +8,5 @@ import org.koin.core.inject
 class AndroidEventBusNotifier: EventBusNotifier, KoinComponent {
     private val eventBus: EventBus by inject()
     override fun post(event: Any) = eventBus.post(event)
+    override fun postSticky(event: Any) = eventBus.postSticky(event)
 }

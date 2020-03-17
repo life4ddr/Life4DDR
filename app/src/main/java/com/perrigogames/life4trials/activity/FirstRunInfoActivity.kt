@@ -2,21 +2,17 @@ package com.perrigogames.life4trials.activity
 
 import android.app.Activity
 import android.os.Bundle
-import android.text.Editable
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.widget.doAfterTextChanged
-import com.perrigogames.life4.MajorUpdateProcessEvent
 import com.perrigogames.life4.PlayerImportedEvent
 import com.perrigogames.life4.SettingsKeys.KEY_INFO_NAME
 import com.perrigogames.life4.SettingsKeys.KEY_INFO_RIVAL_CODE
 import com.perrigogames.life4.SettingsKeys.KEY_INFO_TWITTER_NAME
 import com.perrigogames.life4.data.ApiPlayer
-import com.perrigogames.life4trials.R
 import com.perrigogames.life4.model.FirstRunManager
+import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.manager.*
 import com.perrigogames.life4trials.util.onFieldChanged
 import com.perrigogames.life4trials.util.visibilityBool
@@ -114,10 +110,11 @@ class FirstRunInfoActivity: AppCompatActivity(), KoinComponent {
         }
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
-    fun onMajorVersion(e: MajorUpdateProcessEvent) {
-        eventBus.removeStickyEvent(e)
-    }
+    //FIXME MajorUpdate
+//    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+//    fun onMajorVersion(e: MajorUpdateProcessEvent) {
+//        eventBus.removeStickyEvent(e)
+//    }
 
     fun onSignInClicked(v: View) {
         if (field_name.text.isEmpty()) {

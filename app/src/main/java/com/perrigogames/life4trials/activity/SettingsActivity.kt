@@ -46,12 +46,12 @@ import com.perrigogames.life4.SettingsKeys.KEY_SUBMISSION_NOTIFICAION_TEST
 import com.perrigogames.life4.data.LadderRank
 import com.perrigogames.life4.data.TrialRank
 import com.perrigogames.life4.data.TrialSession
-import com.perrigogames.life4.model.SettingsManager
 import com.perrigogames.life4trials.BuildConfig
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.manager.*
 import com.perrigogames.life4trials.util.jacketResId
 import com.perrigogames.life4trials.util.openWebUrlFromRes
+import com.russhwolf.settings.Settings
 import org.greenrobot.eventbus.EventBus
 import org.koin.core.KoinComponent
 import org.koin.core.inject
@@ -87,7 +87,7 @@ class SettingsActivity : AppCompatActivity(), SettingsFragmentListener {
         protected val playerManager: PlayerManager by inject()
         protected val songDataManager: SongDataManager by inject()
         protected val ignoreListManager: IgnoreListManager by inject()
-        protected val settingsManager: SettingsManager by inject()
+        protected val settings: Settings by inject()
         protected val notifications: Notifications by inject()
         protected val eventBus: EventBus by inject()
 
@@ -240,9 +240,9 @@ class SettingsActivity : AppCompatActivity(), SettingsFragmentListener {
                 }.toTypedArray()
             }
 
-            preference(KEY_INFO_NAME).summary = settingsManager.getUserString(KEY_INFO_NAME)
-            preference(KEY_INFO_RIVAL_CODE).summary = settingsManager.getUserString(KEY_INFO_RIVAL_CODE)
-            preference(KEY_INFO_TWITTER_NAME).summary = settingsManager.getUserString(KEY_INFO_TWITTER_NAME)
+            preference(KEY_INFO_NAME).summary = settings.getStringOrNull(KEY_INFO_NAME)
+            preference(KEY_INFO_RIVAL_CODE).summary = settings.getStringOrNull(KEY_INFO_RIVAL_CODE)
+            preference(KEY_INFO_TWITTER_NAME).summary = settings.getStringOrNull(KEY_INFO_TWITTER_NAME)
 
             preferenceListener(KEY_SUBMISSION_NOTIFICAION_TEST) {
                 notifications.showUserInfoNotifications(1579)

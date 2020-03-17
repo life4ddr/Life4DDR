@@ -2,6 +2,9 @@ package com.perrigogames.life4
 
 object SettingsKeys {
     const val KEY_INIT_STATE = "KEY_INIT_STATE"
+    const val KEY_SONG_LIST_VERSION = "song_list_version"
+    const val KEY_MAJOR_UPDATE = "major_update"
+
     const val KEY_LIST_TINT_COMPLETED = "KEY_LIST_TINT_COMPLETED"
     const val KEY_LIST_SHOW_EX = "KEY_LIST_SHOW_EX"
     const val KEY_LIST_SHOW_EX_REMAINING = "KEY_LIST_SHOW_EX_REMAINING"

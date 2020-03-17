@@ -27,7 +27,6 @@ import com.perrigogames.life4.enums.DifficultyClass
 import com.perrigogames.life4.enums.PlayStyle
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.RANKS_FILE_NAME
 import com.perrigogames.life4.model.BaseModel
-import com.perrigogames.life4.model.SettingsManager
 import com.perrigogames.life4trials.BuildConfig
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.api.AndroidDataReader
@@ -37,6 +36,8 @@ import com.perrigogames.life4trials.repo.SongRepo
 import com.perrigogames.life4trials.ui.managerimport.ScoreManagerImportDirectionsDialog
 import com.perrigogames.life4trials.ui.managerimport.ScoreManagerImportEntryDialog
 import com.perrigogames.life4trials.ui.managerimport.ScoreManagerImportProcessingDialog
+import com.russhwolf.settings.Settings
+import com.russhwolf.settings.set
 import io.objectbox.BoxStore
 import kotlinx.coroutines.*
 import org.greenrobot.eventbus.EventBus
@@ -50,7 +51,7 @@ class LadderManager: BaseModel() {
     private val ladderResults: LadderResultRepo by inject()
     private val ignoreListManager: IgnoreListManager by inject()
     private val songDataManager: SongDataManager by inject()
-    private val settingsManager: SettingsManager by inject()
+    private val settings: Settings by inject()
     private val eventBus: EventBus by inject()
     private val objectBox: BoxStore by inject()
 
@@ -74,26 +75,8 @@ class LadderManager: BaseModel() {
     //
     private val goalsBox get() = objectBox.boxFor(GoalStatusDB::class.java)
 
-    //
-    // Init
-    //
     init {
         ladderDataRemote.start()
-    }
-
-    fun onDatabaseMajorUpdate(context: Context) {
-        if (!ladderResults.isEmpty) {
-            ladderResults.clearRepo()
-            Handler().postDelayed({
-                AlertDialog.Builder(context)
-                    .setTitle(R.string.database_upgraded)
-                    .setMessage(R.string.database_replaced_reimport)
-                    .setPositiveButton(R.string.okay) { d, _ -> d.dismiss() }
-                    .setCancelable(true)
-                    .create()
-                    .show()
-            }, 10)
-        }
     }
 
     //
@@ -110,21 +93,21 @@ class LadderManager: BaseModel() {
     // Local User Rank
     //
     fun getUserRank(): LadderRank? =
-        LadderRank.parse(settingsManager.getUserString(KEY_INFO_RANK)?.toLongOrNull())
+        LadderRank.parse(settings.getStringOrNull(KEY_INFO_RANK)?.toLongOrNull())
 
     fun getUserGoalRank(): LadderRank? =
-        settingsManager.getUserString(KEY_INFO_TARGET_RANK)?.toLongOrNull()?.let { LadderRank.parse(it) }
+        settings.getStringOrNull(KEY_INFO_TARGET_RANK)?.toLongOrNull()?.let { LadderRank.parse(it) }
             ?: getUserRank()?.let { return LadderRank.values().getOrNull(it.ordinal + 1) }
             ?: LadderRank.WOOD1
 
     fun setUserRank(rank: LadderRank?) {
-        settingsManager.setUserString(KEY_INFO_RANK, rank?.stableId.toString())
-        settingsManager.setUserString(KEY_INFO_TARGET_RANK, "")
+        settings[KEY_INFO_RANK] = rank?.stableId.toString()
+        settings[KEY_INFO_TARGET_RANK] = ""
         eventBus.post(LadderRankUpdatedEvent())
     }
 
     fun setUserTargetRank(rank: LadderRank?) {
-        settingsManager.setUserString(KEY_INFO_TARGET_RANK, rank?.stableId.toString())
+        settings[KEY_INFO_TARGET_RANK] = rank?.stableId.toString()
         eventBus.post(LadderRankUpdatedEvent())
     }
 
@@ -248,7 +231,7 @@ class LadderManager: BaseModel() {
 //        else -> null
 //    }
 
-    private val shouldShowImportTutorial get() = !settingsManager.getUserFlag(KEY_IMPORT_SKIP_DIRECTIONS, false)
+    private val shouldShowImportTutorial get() = !settings.getBoolean(KEY_IMPORT_SKIP_DIRECTIONS, false)
 
     fun showImportFlow(activity: FragmentActivity) {
         if (shouldShowImportTutorial) {
