@@ -15,6 +15,8 @@ object Versions {
     val junit = "4.12"
     val sqlDelight = "1.2.1"
     val ktor = "1.2.6"
+    val ktorm = "2.5"
+    val sql_connector = "8.0.18"
     val stately = "0.9.5"
     val klock = "1.8.4"
     val lottie = "3.3.0"
@@ -91,6 +93,7 @@ object Deps {
         val runtimeJdk =    "com.squareup.sqldelight:runtime-jvm:${Versions.sqlDelight}"
         val driverIos =     "com.squareup.sqldelight:ios-driver:${Versions.sqlDelight}"
         val driverAndroid = "com.squareup.sqldelight:android-driver:${Versions.sqlDelight}"
+        val driverJvm =     "com.squareup.sqldelight:sqlite-driver:${Versions.sqlDelight}"
     }
     object ktor {
         val commonCore = "io.ktor:ktor-client-core:${Versions.ktor}"

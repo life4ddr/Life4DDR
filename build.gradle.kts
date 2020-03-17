@@ -16,6 +16,7 @@ buildscript {
         classpath("io.objectbox:objectbox-gradle-plugin:${Versions.objectbox}")
         classpath("com.google.gms:google-services:${Versions.googleServices}")
         classpath("io.fabric.tools:gradle:1.29.0")
+        classpath("com.github.jengelman.gradle.plugins:shadow:2.0.4")
 
         classpath(kotlin("gradle-plugin", Versions.kotlin))
         // NOTE: Do not place your application dependencies here; they belong

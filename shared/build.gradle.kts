@@ -22,6 +22,7 @@ android {
 
 kotlin {
     android()
+    jvm("api")
     //Revert to just ios() when gradle plugin can properly resolve it
     val onPhone = System.getenv("SDK_NAME")?.startsWith("iphoneos")?:false
     if(onPhone){
@@ -75,6 +76,22 @@ kotlin {
         implementation(Deps.AndroidXTest.runner)
         implementation(Deps.AndroidXTest.rules)
         implementation("org.robolectric:robolectric:4.3")
+    }
+
+    sourceSets["apiMain"].dependencies {
+        implementation(kotlin("stdlib", Versions.kotlin))
+        implementation(Deps.SqlDelight.driverJvm)
+        implementation(Deps.ktor.jvmCore)
+        implementation(Deps.ktor.jvmJson)
+        implementation(Deps.Coroutines.jdk)
+        implementation(Deps.ktor.androidSerialization)
+        implementation("com.squareup.sqldelight:sqlite-driver:1.2.2")
+    }
+
+    sourceSets["apiTest"].dependencies {
+        implementation(Deps.KotlinTest.jvm)
+        implementation(Deps.KotlinTest.junit)
+        implementation(Deps.Coroutines.jdk)
     }
 
     sourceSets["iosMain"].dependencies {
