@@ -1,0 +1,33 @@
+import com.perrigogames.life4.enums.GoalStatus;
+
+CREATE TABLE GoalState (
+goalId INTEGER NOT NULL PRIMARY KEY,
+status INTEGER AS GoalStatus DEFAULT 0,
+date TEXT NOT NULL
+);
+
+getAll:
+SELECT * FROM GoalState;
+
+getStatus:
+SELECT * FROM GoalState WHERE goalId = ?;
+
+getStatusList:
+SELECT * FROM GoalState WHERE goalId IN ?;
+
+setStatus:
+INSERT OR REPLACE INTO GoalState(goalId, status, date)
+VALUES (?,?,?);
+
+updateStatus:
+UPDATE GoalState
+SET status = ?
+WHERE goalId = ?;
+
+updateStatuses:
+UPDATE GoalState
+SET status = ?
+WHERE goalId IN ?;
+
+deleteAll:
+DELETE FROM GoalState;

@@ -6,6 +6,7 @@ import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Build
 import android.text.Html
+import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -68,6 +69,10 @@ class AndroidNotifications: Notifications(), KoinComponent {
                 .setAutoCancel(true)
                 .build())
         }
+    }
+
+    override fun showToast(message: String, long: Boolean) {
+        Toast.makeText(context, message, if (long) Toast.LENGTH_LONG else Toast.LENGTH_SHORT)
     }
 
     private fun userInfoNotification(@StringRes titleRes: Int, content: String) =

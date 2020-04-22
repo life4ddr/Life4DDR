@@ -3,6 +3,8 @@ package com.perrigogames.life4
 import com.perrigogames.life4.db.TrialDatabaseHelper
 import com.perrigogames.life4.ktor.GithubDataAPI
 import com.perrigogames.life4.ktor.GithubDataImpl
+import com.perrigogames.life4.ktor.Life4API
+import com.perrigogames.life4.ktor.Life4APIImpl
 import com.perrigogames.life4.model.FirstRunManager
 import com.perrigogames.life4.model.MajorUpdateManager
 import com.perrigogames.life4.model.PlacementManager
@@ -21,6 +23,7 @@ fun initKoin(appDeclaration: KoinAppDeclaration = {}) = startKoin {
 val coreModule = module {
     single { TrialDatabaseHelper(get()) }
     single<GithubDataAPI> { GithubDataImpl() }
+    single<Life4API> { Life4APIImpl() }
     single { Json(JsonConfiguration.Stable.copy(classDiscriminator = "t")) }
     single { PlacementManager() }
     single { FirstRunManager() }

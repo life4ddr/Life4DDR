@@ -1,6 +1,8 @@
 package com.perrigogames.life4.db
 
 import com.perrigogames.life4.Life4Db
+import com.perrigogames.life4.data.StableIdColumnAdapter
+import com.perrigogames.life4.enums.GoalStatus
 import com.soywiz.klock.DateTime
 import com.soywiz.klock.ISO8601
 import com.squareup.sqldelight.Query
@@ -9,7 +11,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class TrialDatabaseHelper(private val sqlDriver: SqlDriver) {
-    private val dbRef = Life4Db(sqlDriver)
+    private val dbRef = Life4Db(sqlDriver, GoalState.Adapter(StableIdColumnAdapter(GoalStatus.values())))
 
     internal fun dbClear() {
         sqlDriver.close()
@@ -17,11 +19,11 @@ class TrialDatabaseHelper(private val sqlDriver: SqlDriver) {
 
     fun allRecords(): Query<TrialSession> = dbRef.trialQueries.selectAll()
 
-    suspend fun insertSession(session: com.perrigogames.life4.data.TrialSession) = withContext(Dispatchers.Default) {
+    suspend fun insertSession(session: com.perrigogames.life4.data.TrialSession, datetime: DateTime? = null) = withContext(Dispatchers.Default) {
         dbRef.transaction {
             dbRef.trialQueries.insertSession(null,
                 session.trial.id,
-                DateTime.now().format(ISO8601.DATETIME_COMPLETE),
+                (datetime ?: DateTime.now()).format(ISO8601.DATETIME_COMPLETE),
                 session.goalRank!!.stableId,
                 session.goalObtained)
             session.results.forEachIndexed { idx, result ->
@@ -47,38 +49,19 @@ class TrialDatabaseHelper(private val sqlDriver: SqlDriver) {
         dbRef.trialQueries.deleteAll()
     }
 
-    //    fun saveRecord(session: TrialSession) {
-    //        val sessionDB = TrialSessionDB.from(session)
-    //        songBox.put(session.results.mapIndexed { idx, result ->
-    //            if (result != null) {
-    //                TrialSongResultDB.from(result, idx).also {
-    //                    it.session.target = sessionDB
-    //                }
-    //            } else null
-    //        }.filterNotNull())
-    //        sessionBox.put(sessionDB)
-    //    }
-    //
-    //    fun trialRecords(trialId: String): List<TrialSessionDB> {
-    //        sessionBox.query {
-    //            return equal(TrialSessionDB_.trialId, trialId).build().find()
-    //        }
-    //        return emptyList()
-    //    }
-    //
-    //    fun bestTrial(trialId: String): TrialSessionDB? = sessionBox.query()
-    //        .equal(TrialSessionDB_.trialId, trialId)
-    //        .equal(TrialSessionDB_.goalObtained, true)
-    //        .sort { o1, o2 -> o2.goalRankId.compareTo(o1.goalRankId)}
-    //        .build()
-    //        .find()
-    //        .firstOrNull()
-    //
-    //    fun bestTrials(): List<TrialSessionDB> = sessionBox.query()
-    //        .equal(TrialSessionDB_.goalObtained, true)
-    //        .sort { o1, o2 -> o2.goalRankId.compareTo(o1.goalRankId)}
-    //        .build()
-    //        .find()
-    //
-    //    fun getRankForTrial(trialId: String): TrialRank? = bestTrial(trialId)?.goalRank
+//    fun bestTrial(trialId: String): TrialSessionDB? = sessionBox.query()
+//        .equal(TrialSessionDB_.trialId, trialId)
+//        .equal(TrialSessionDB_.goalObtained, true)
+//        .sort { o1, o2 -> o2.goalRankId.compareTo(o1.goalRankId)}
+//        .build()
+//        .find()
+//        .firstOrNull()
+//
+//    fun bestTrials(): List<TrialSessionDB> = sessionBox.query()
+//        .equal(TrialSessionDB_.goalObtained, true)
+//        .sort { o1, o2 -> o2.goalRankId.compareTo(o1.goalRankId)}
+//        .build()
+//        .find()
+//
+//    fun getRankForTrial(trialId: String): TrialRank? = bestTrial(trialId)?.goalRank
 }

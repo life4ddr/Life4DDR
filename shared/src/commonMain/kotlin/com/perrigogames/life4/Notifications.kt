@@ -39,6 +39,8 @@ abstract class Notifications: KoinComponent {
 
     abstract fun showTrialRankChangedNotification(trial: Trial, rank: TrialRank)
 
+    abstract fun showToast(message: String, long: Boolean = false)
+
     companion object {
         var MULTI_NOTIFICATION_ID = 2000
             get() = field++

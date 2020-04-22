@@ -17,7 +17,6 @@ import com.perrigogames.life4.ktor.GithubDataAPI.Companion.TRIALS_FILE_NAME
 import com.perrigogames.life4.model.FirstRunManager
 import com.perrigogames.life4.model.EventBusNotifier
 import com.perrigogames.life4.model.PlacementManager
-import com.perrigogames.life4.model.MajorUpdateManager
 import com.perrigogames.life4trials.api.AndroidDataReader
 import com.perrigogames.life4trials.api.AndroidUncachedDataReader
 import com.perrigogames.life4trials.db.MyObjectBox

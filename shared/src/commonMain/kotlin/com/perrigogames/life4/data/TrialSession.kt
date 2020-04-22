@@ -4,7 +4,9 @@ import com.perrigogames.life4.enums.ClearType
 import com.perrigogames.life4.enums.ClearType.*
 import com.perrigogames.life4.response.TrialGoalSet
 import com.perrigogames.life4.util.hasCascade
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class TrialSession(val trial: Trial,
                         var goalRank: TrialRank?,
                         val results: Array<SongResult?> = arrayOfNulls(TrialData.TRIAL_LENGTH),
@@ -148,6 +150,7 @@ data class TrialSession(val trial: Trial,
     }
 }
 
+@Serializable
 data class SongResult(var song: Song,
                       var photoUriString: String? = null,
                       var score: Int? = null,

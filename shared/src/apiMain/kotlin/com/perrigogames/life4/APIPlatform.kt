@@ -6,12 +6,16 @@ actual val isDebug: Boolean get() = false
 
 actual fun currentTimeMillis(): Long = System.currentTimeMillis()
 
-internal actual fun log(key: String, message: String) {
+actual fun log(key: String, message: String) {
     print("")
 }
 
-internal actual fun printThrowable(t: Throwable) {
+actual fun printThrowable(t: Throwable) {
     t.printStackTrace()
 }
+
+actual fun logException(t: Throwable) {}
+actual fun setCrashInt(key: String, v: Int) {}
+actual fun setCrashString(key: String, v: String) {}
 
 actual fun Int.longNumberString(): String = DecimalFormat("#,###,###").format(this)

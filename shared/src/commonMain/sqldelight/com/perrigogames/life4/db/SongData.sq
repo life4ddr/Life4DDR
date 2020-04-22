@@ -1,0 +1,50 @@
+CREATE TABLE SongInfo (
+id INTEGER NOT NULL PRIMARY KEY,
+title TEXT NOT NULL,
+artist TEXT NOT NULL,
+version INTEGER NOT NULL,
+preview INTEGER AS Boolean DEFAULT 0
+);
+
+CREATE TABLE ChartInfo (
+id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+songId INTEGER NOT NULL,
+difficultyClass INTEGER DEFAULT 1,
+difficultyNumber INTEGER DEFAULT 0,
+playStyle INTEGER DEFAULT 1,
+FOREIGN KEY(songId) REFERENCES SongInfo
+);
+
+selectAll:
+SELECT * FROM SongInfo;
+
+selectSongById:
+SELECT * FROM SongInfo WHERE id = ?;
+
+selectSongByTitle:
+SELECT * FROM SongInfo WHERE title = ?;
+
+selectChartsForSong:
+SELECT * FROM ChartInfo WHERE songId = ?;
+
+selectChartsByDifficultyNumber:
+SELECT * FROM ChartInfo WHERE difficultyNumber = ?;
+
+selectChartsByDifficultyClass:
+SELECT * FROM ChartInfo WHERE difficultyClass = ?;
+
+insertSong:
+INSERT OR REPLACE INTO SongInfo(id, title, artist, version, preview)
+VALUES (?,?,?,?,?);
+
+insertChart:
+INSERT OR REPLACE INTO ChartInfo(id, songId, difficultyClass, difficultyNumber, playStyle)
+VALUES (?,?,?,?,?);
+
+deleteSong:
+DELETE FROM SongInfo WHERE id = ?;
+DELETE FROM ChartInfo WHERE songId = ?;
+
+deleteAll:
+DELETE FROM SongInfo;
+DELETE FROM ChartInfo;

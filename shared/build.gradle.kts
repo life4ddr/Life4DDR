@@ -65,6 +65,7 @@ kotlin {
         implementation(Deps.Coroutines.jdk)
         implementation(Deps.Coroutines.android)
         implementation(Deps.ktor.androidSerialization)
+        implementation(Deps.firebase_crashlytics)
     }
 
     sourceSets["androidTest"].dependencies {
