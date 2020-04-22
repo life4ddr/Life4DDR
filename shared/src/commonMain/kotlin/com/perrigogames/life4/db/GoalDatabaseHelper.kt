@@ -21,8 +21,8 @@ class GoalDatabaseHelper(private val sqlDriver: SqlDriver) {
 
     fun allStates(): Query<GoalState> = dbRef.goalStatusQueries.getAll()
 
-    fun statusForId(id: Long): GoalStatus? =
-        dbRef.goalStatusQueries.getStatus(id).executeAsList().firstOrNull()?.status
+    fun stateForId(id: Long): GoalState? =
+        dbRef.goalStatusQueries.getStatus(id).executeAsList().firstOrNull()
 
     fun statesForIdList(ids: List<Long>): Query<GoalState> = dbRef.goalStatusQueries.getStatusList(ids)
 
@@ -31,7 +31,7 @@ class GoalDatabaseHelper(private val sqlDriver: SqlDriver) {
     }
 
     suspend fun updateGoalState(goalId: Long, status: GoalStatus) = withContext(Dispatchers.Default) {
-        dbRef.goalStatusQueries.updateStatus(status, goalId)
+        dbRef.goalStatusQueries.updateStatus(status, DateTime.now().format(ISO8601.DATETIME_COMPLETE), goalId)
     }
 
     suspend fun deleteAll() = withContext(Dispatchers.Default) {

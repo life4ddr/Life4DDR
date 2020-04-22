@@ -83,6 +83,7 @@ class SettingsActivity : AppCompatActivity(), SettingsFragmentListener {
     abstract class BaseSettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedPreferenceChangeListener, KoinComponent {
 
         protected val ladderManager: LadderManager by inject()
+        protected val ladderDialogs: AndroidLadderDialogs by inject()
         protected val trialManager: TrialManager by inject()
         protected val playerManager: PlayerManager by inject()
         protected val songDataManager: SongDataManager by inject()
@@ -169,7 +170,7 @@ class SettingsActivity : AppCompatActivity(), SettingsFragmentListener {
                 true
             }
             preferenceListener(KEY_IMPORT_DATA) {
-                ladderManager.showImportFlow(activity!!)
+                ladderDialogs.showImportFlow(activity!!)
                 true
             }
 
@@ -298,7 +299,7 @@ class SettingsActivity : AppCompatActivity(), SettingsFragmentListener {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.clear_data_preferences, rootKey)
             preferenceListener(KEY_LADDER_CLEAR) {
-                ladderManager.clearGoalStates(context!!)
+                ladderManager.clearGoalStates()
                 true
             }
             preferenceListener(KEY_RECORDS_CLEAR) {
@@ -306,11 +307,11 @@ class SettingsActivity : AppCompatActivity(), SettingsFragmentListener {
                 true
             }
             preferenceListener(KEY_SONG_RESULTS_CLEAR) {
-                ladderManager.clearSongResults(context!!)
+                ladderManager.clearSongResults()
                 true
             }
             preferenceListener(KEY_REFRESH_SONG_DB) {
-                ladderManager.refreshSongDatabase(context!!)
+                ladderManager.refreshSongDatabase()
                 true
             }
         }

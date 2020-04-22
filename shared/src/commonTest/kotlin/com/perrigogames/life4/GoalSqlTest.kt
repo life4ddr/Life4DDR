@@ -20,8 +20,8 @@ abstract class GoalSqlTest {
 
     @Test
     fun `Correct Default Value`() = runTest {
-        val status = dbHelper.statusForId(99)
-        assertEquals(INCOMPLETE, status, "Should return INCOMPLETE when not explicitly defined")
+        val state = dbHelper.stateForId(99)
+        assertEquals(INCOMPLETE, state?.status, "Should return INCOMPLETE when not explicitly defined")
     }
 
     @Test
@@ -34,17 +34,17 @@ abstract class GoalSqlTest {
     fun `Select State By Id`() = runTest {
         val goals = dbHelper.allStates().executeAsList()
         val firstGoal = goals.first()
-        assertNotNull(dbHelper.statusForId(firstGoal.goalId), "Could not retrieve Goal by ID")
+        assertNotNull(dbHelper.stateForId(firstGoal.goalId), "Could not retrieve Goal by ID")
     }
 
     @Test
     fun `Overwrite Goal`() = runTest {
         val goals = dbHelper.allStates().executeAsList()
         val firstGoal = goals.first()
-        assertNotEquals(IGNORED, dbHelper.statusForId(firstGoal.goalId),
+        assertNotEquals(IGNORED, dbHelper.stateForId(firstGoal.goalId)?.status,
             "Won't be able to tell if an update takes place")
         dbHelper.insertGoalState(firstGoal.goalId, IGNORED)
-        assertEquals(IGNORED, dbHelper.statusForId(firstGoal.goalId),
+        assertEquals(IGNORED, dbHelper.stateForId(firstGoal.goalId)?.status,
             "Status was not properly updated")
     }
 
@@ -52,10 +52,10 @@ abstract class GoalSqlTest {
     fun `Update Goal`() = runTest {
         val goals = dbHelper.allStates().executeAsList()
         val firstGoal = goals.first()
-        assertNotEquals(IGNORED, dbHelper.statusForId(firstGoal.goalId),
+        assertNotEquals(IGNORED, dbHelper.stateForId(firstGoal.goalId)?.status,
             "Won't be able to tell if an update takes place")
         dbHelper.updateGoalState(firstGoal.goalId, IGNORED)
-        assertEquals(IGNORED, dbHelper.statusForId(firstGoal.goalId),
+        assertEquals(IGNORED, dbHelper.stateForId(firstGoal.goalId)?.status,
             "Status was not properly updated")
     }
 

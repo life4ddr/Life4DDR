@@ -13,8 +13,9 @@ import com.perrigogames.life4.SettingsKeys.KEY_INFO_NAME
 import com.perrigogames.life4.SettingsKeys.KEY_INFO_RIVAL_CODE
 import com.perrigogames.life4.data.BaseRankGoal
 import com.perrigogames.life4.data.LadderRank
+import com.perrigogames.life4.db.GoalState
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.db.GoalStatus
+import com.perrigogames.life4trials.manager.AndroidLadderDialogs
 import com.perrigogames.life4trials.manager.LadderManager
 import com.perrigogames.life4trials.manager.TrialManager
 import com.perrigogames.life4trials.ui.rankdetails.RankDetailsFragment
@@ -41,6 +42,7 @@ import org.koin.core.inject
 class PlayerProfileActivity : AppCompatActivity(), RankDetailsViewModel.OnGoalListInteractionListener, KoinComponent {
 
     private val ladderManager: LadderManager by inject()
+    private val ladderDialogs: AndroidLadderDialogs by inject()
     private val trialManager: TrialManager by inject()
     private val settings: Settings by inject()
     private val eventBus: EventBus by inject()
@@ -67,7 +69,7 @@ class PlayerProfileActivity : AppCompatActivity(), RankDetailsViewModel.OnGoalLi
         when (item.itemId) {
             R.id.action_settings -> startActivity(Intent(this, SettingsActivity::class.java))
             R.id.action_records -> startActivity(Intent(this, TrialRecordsActivity::class.java))
-            R.id.action_import_data -> ladderManager.showImportFlow(this)
+            R.id.action_import_data -> ladderDialogs.showImportFlow(this)
             else -> return super.onOptionsItemSelected(item)
         }
         return true
@@ -84,8 +86,6 @@ class PlayerProfileActivity : AppCompatActivity(), RankDetailsViewModel.OnGoalLi
             R.id.view_mode_button_right -> startActivity(Intent(this, SettingsActivity::class.java))
         }
     }
-
-    override fun onGoalStateChanged(item: BaseRankGoal, goalStatus: GoalStatus, hiddenGoals: Int) = Unit
 
     override fun onRankSubmitClicked() = openWebUrlFromRes(R.string.url_standard_submission_form)
 

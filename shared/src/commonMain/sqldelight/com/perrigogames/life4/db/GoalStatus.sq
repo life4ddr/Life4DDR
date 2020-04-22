@@ -2,7 +2,7 @@ import com.perrigogames.life4.enums.GoalStatus;
 
 CREATE TABLE GoalState (
 goalId INTEGER NOT NULL PRIMARY KEY,
-status INTEGER AS GoalStatus DEFAULT 0,
+status INTEGER AS GoalStatus NOT NULL DEFAULT 0,
 date TEXT NOT NULL
 );
 
@@ -21,12 +21,12 @@ VALUES (?,?,?);
 
 updateStatus:
 UPDATE GoalState
-SET status = ?
+SET status = ?, date = ?
 WHERE goalId = ?;
 
 updateStatuses:
 UPDATE GoalState
-SET status = ?
+SET status = ?, date = ?
 WHERE goalId IN ?;
 
 deleteAll:

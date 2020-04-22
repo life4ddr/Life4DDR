@@ -6,8 +6,8 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.perrigogames.life4.data.BaseRankGoal
 import com.perrigogames.life4.data.RankEntry
+import com.perrigogames.life4.db.GoalState
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.db.GoalStatusDB
 import com.perrigogames.life4trials.ui.rankdetails.RankDetailsViewModel.OnGoalListInteractionListener
 import com.perrigogames.life4trials.view.LadderGoalItemView
 import kotlinx.android.synthetic.main.item_no_goals.view.*
@@ -60,7 +60,7 @@ class RankGoalsAdapter(private val rank: RankEntry,
         fun getGoals(): List<BaseRankGoal>
         fun isGoalExpanded(item: BaseRankGoal): Boolean
         fun canIgnoreGoals(): Boolean
-        fun getGoalStatus(item: BaseRankGoal): GoalStatusDB
+        fun getGoalStatus(item: BaseRankGoal): GoalState
         //FIXME progress
 //        fun getGoalProgress(item: BaseRankGoal, playStyle: PlayStyle): LadderGoalProgress?
     }

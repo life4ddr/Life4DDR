@@ -12,11 +12,9 @@ import androidx.core.view.children
 import com.perrigogames.life4.PlatformStrings
 import com.perrigogames.life4.data.BaseRankGoal
 import com.perrigogames.life4.data.LadderGoalProgress
+import com.perrigogames.life4.db.GoalState
+import com.perrigogames.life4.enums.GoalStatus.*
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.db.GoalStatus
-import com.perrigogames.life4trials.db.GoalStatus.COMPLETE
-import com.perrigogames.life4trials.db.GoalStatus.IGNORED
-import com.perrigogames.life4trials.db.GoalStatusDB
 import com.perrigogames.life4trials.util.visibilityBool
 import kotlinx.android.synthetic.main.item_rank_goal.view.*
 import kotlinx.android.synthetic.main.row_song_detail.view.*
@@ -31,14 +29,14 @@ class LadderGoalItemView @JvmOverloads constructor(context: Context,
     private val platformStrings: PlatformStrings by inject()
 
     private var goal: BaseRankGoal? = null
-    private var goalDB: GoalStatusDB? = null
+    private var goalDB: GoalState? = null
     private var goalProgress: LadderGoalProgress? = null
     private var oldColors: ColorStateList? = null
 
     var listener: LadderGoalItemListener? = null
     var expanded: Boolean = false
 
-    private val currentState get() = goalDB?.status ?: GoalStatus.INCOMPLETE
+    private val currentState get() = goalDB?.status ?: INCOMPLETE
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
@@ -66,7 +64,7 @@ class LadderGoalItemView @JvmOverloads constructor(context: Context,
         button_ignore.setOnClickListener(null)
     }
 
-    fun setGoal(goal: BaseRankGoal, goalDB: GoalStatusDB? = null, goalProgress: LadderGoalProgress? = null) {
+    fun setGoal(goal: BaseRankGoal, goalDB: GoalState? = null, goalProgress: LadderGoalProgress? = null) {
         this.goal = goal
         this.goalDB = goalDB
         this.goalProgress = goalProgress
@@ -137,7 +135,7 @@ class LadderGoalItemView @JvmOverloads constructor(context: Context,
         alpha = if (currentState == IGNORED) 0.3f else 1.0f
     }
 
-    private inline fun ifHasDB(block: (BaseRankGoal, GoalStatusDB) -> Unit): Boolean {
+    private inline fun ifHasDB(block: (BaseRankGoal, GoalState) -> Unit): Boolean {
         goal?.let { g ->
             goalDB?.let { db -> block(g, db) }
         }
@@ -146,10 +144,10 @@ class LadderGoalItemView @JvmOverloads constructor(context: Context,
 
     interface LadderGoalItemListener {
 
-        fun onStateToggle(itemView: LadderGoalItemView, item: BaseRankGoal, goalDB: GoalStatusDB)
-        fun onIgnoreClicked(itemView: LadderGoalItemView, item: BaseRankGoal, goalDB: GoalStatusDB)
-        fun onExpandClicked(itemView: LadderGoalItemView, item: BaseRankGoal, goalDB: GoalStatusDB)
-        fun onLongPressed(itemView: LadderGoalItemView, item: BaseRankGoal, goalDB: GoalStatusDB)
+        fun onStateToggle(itemView: LadderGoalItemView, item: BaseRankGoal, goalDB: GoalState)
+        fun onIgnoreClicked(itemView: LadderGoalItemView, item: BaseRankGoal, goalDB: GoalState)
+        fun onExpandClicked(itemView: LadderGoalItemView, item: BaseRankGoal, goalDB: GoalState)
+        fun onLongPressed(itemView: LadderGoalItemView, item: BaseRankGoal, goalDB: GoalState)
     }
 
     companion object {

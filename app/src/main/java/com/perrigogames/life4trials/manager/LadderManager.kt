@@ -1,66 +1,54 @@
 package com.perrigogames.life4trials.manager
 
-import android.content.ClipData
-import android.content.ClipboardManager
-import android.content.Context
-import android.content.Intent
-import android.os.Handler
 import android.util.Log
-import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
-import androidx.fragment.app.FragmentActivity
-import com.perrigogames.life4.LadderRankUpdatedEvent
-import com.perrigogames.life4.LadderRanksReplacedEvent
-import com.perrigogames.life4.SettingsKeys.KEY_IMPORT_SKIP_DIRECTIONS
+import com.perrigogames.life4.*
 import com.perrigogames.life4.SettingsKeys.KEY_INFO_RANK
 import com.perrigogames.life4.SettingsKeys.KEY_INFO_TARGET_RANK
-import com.perrigogames.life4.SongResultsImportCompletedEvent
-import com.perrigogames.life4.SongResultsUpdatedEvent
 import com.perrigogames.life4.api.FetchListener
 import com.perrigogames.life4.api.LadderRemoteData
+import com.perrigogames.life4.api.LocalDataReader
 import com.perrigogames.life4.data.BaseRankGoal
 import com.perrigogames.life4.data.LadderRank
 import com.perrigogames.life4.data.LadderRankData
 import com.perrigogames.life4.data.LadderVersion
+import com.perrigogames.life4.db.GoalDatabaseHelper
+import com.perrigogames.life4.db.GoalState
+import com.perrigogames.life4.db.nowString
 import com.perrigogames.life4.enums.ClearType
 import com.perrigogames.life4.enums.DifficultyClass
+import com.perrigogames.life4.enums.GoalStatus
 import com.perrigogames.life4.enums.PlayStyle
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.RANKS_FILE_NAME
 import com.perrigogames.life4.model.BaseModel
+import com.perrigogames.life4.model.EventBusNotifier
 import com.perrigogames.life4trials.BuildConfig
-import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.api.AndroidDataReader
 import com.perrigogames.life4trials.db.*
 import com.perrigogames.life4trials.repo.LadderResultRepo
 import com.perrigogames.life4trials.repo.SongRepo
-import com.perrigogames.life4trials.ui.managerimport.ScoreManagerImportDirectionsDialog
-import com.perrigogames.life4trials.ui.managerimport.ScoreManagerImportEntryDialog
-import com.perrigogames.life4trials.ui.managerimport.ScoreManagerImportProcessingDialog
 import com.russhwolf.settings.Settings
 import com.russhwolf.settings.set
-import io.objectbox.BoxStore
 import kotlinx.coroutines.*
-import org.greenrobot.eventbus.EventBus
 import org.koin.core.inject
-import java.util.*
+import org.koin.core.qualifier.named
 
 class LadderManager: BaseModel() {
 
-    private val context: Context by inject()
     private val songRepo: SongRepo by inject()
     private val ladderResults: LadderResultRepo by inject()
     private val ignoreListManager: IgnoreListManager by inject()
     private val songDataManager: SongDataManager by inject()
     private val settings: Settings by inject()
-    private val eventBus: EventBus by inject()
-    private val objectBox: BoxStore by inject()
+    private val eventBus: EventBusNotifier by inject()
+    private val goalDBHelper: GoalDatabaseHelper by inject()
+    private val ladderDialogs: LadderDialogs by inject()
+    private val dataReader: LocalDataReader by inject(named(RANKS_FILE_NAME))
 
     //
     // Ladder Data
     //
-    private val ladderDataRemote = LadderRemoteData(AndroidDataReader(R.raw.ranks_v2, RANKS_FILE_NAME), object: FetchListener<LadderRankData> {
+    private val ladderDataRemote = LadderRemoteData(dataReader, object: FetchListener<LadderRankData> {
         override fun onFetchUpdated(data: LadderRankData) {
-            Toast.makeText(context, R.string.ranks_updated, Toast.LENGTH_SHORT).show()
+            ladderDialogs.showLadderUpdateToast()
             eventBus.post(LadderRanksReplacedEvent())
         }
     })
@@ -70,24 +58,9 @@ class LadderManager: BaseModel() {
             ladderData.gameVersions[version] ?: error("Rank requirements not found for version $version")
         }
 
-    //
-    // ObjectBoxes
-    //
-    private val goalsBox get() = objectBox.boxFor(GoalStatusDB::class.java)
-
     init {
         ladderDataRemote.start()
     }
-
-    //
-    // Queries
-    //
-    private val goalStatusQuery = goalsBox.query()
-        .equal(GoalStatusDB_.goalId, 0).parameterAlias("id")
-        .build()
-    private val goalMultiStatusQuery = goalsBox.query()
-        .`in`(GoalStatusDB_.goalId, LongArray(0)).parameterAlias("ids")
-        .build()
 
     //
     // Local User Rank
@@ -127,34 +100,19 @@ class LadderManager: BaseModel() {
     //
     // Goal State
     //
-    fun getGoalStatus(goal: BaseRankGoal): GoalStatusDB? =
-        goalStatusQuery.setParameter("id", goal.id.toLong()).findFirst()
+    fun getGoalState(goal: BaseRankGoal): GoalState? =
+        goalDBHelper.stateForId(goal.id.toLong())
 
-    fun getGoalStatuses(goals: List<BaseRankGoal>): List<GoalStatusDB> =
-        goalMultiStatusQuery.setParameters("ids", goals.map { it.id.toLong() }.toLongArray()).find()
+    fun getOrCreateGoalState(goal: BaseRankGoal): GoalState =
+        getGoalState(goal) ?: GoalState.Impl(goal.id.toLong(), GoalStatus.INCOMPLETE, nowString)
 
-    fun getOrCreateGoalStatus(goal: BaseRankGoal): GoalStatusDB {
-        var goalDB = getGoalStatus(goal)
-        if (goalDB == null) {
-            goalDB = GoalStatusDB(goal.id.toLong())
-            goalsBox.put(goalDB)
+    fun getGoalStateList(goals: List<BaseRankGoal>): List<GoalState> =
+        goalDBHelper.statesForIdList(goals.map { it.id.toLong() }).executeAsList()
+
+    fun setGoalState(id: Long, status: GoalStatus) {
+        mainScope.launch {
+            goalDBHelper.updateGoalState(id, status)
         }
-        return goalDB
-    }
-
-    fun setGoalState(goal: BaseRankGoal, status: GoalStatus) {
-        val statusDB = getGoalStatus(goal)
-        if (statusDB == null) {
-            goalsBox.put(GoalStatusDB(goal.id.toLong(), status))
-        } else {
-            setGoalState(statusDB, status)
-        }
-    }
-
-    fun setGoalState(goalDB: GoalStatusDB, status: GoalStatus) {
-        goalDB.date = Date()
-        goalDB.status = status
-        goalsBox.put(goalDB)
     }
 
     //
@@ -231,52 +189,6 @@ class LadderManager: BaseModel() {
 //        else -> null
 //    }
 
-    private val shouldShowImportTutorial get() = !settings.getBoolean(KEY_IMPORT_SKIP_DIRECTIONS, false)
-
-    fun showImportFlow(activity: FragmentActivity) {
-        if (shouldShowImportTutorial) {
-            showImportDirectionsDialog(activity)
-        } else {
-            showImportEntryDialog(activity)
-        }
-    }
-
-    private fun showImportDirectionsDialog(activity: FragmentActivity) {
-        ScoreManagerImportDirectionsDialog(object: ScoreManagerImportDirectionsDialog.Listener {
-            override fun onDialogCancelled() = Unit
-            override fun onCopyAndContinue() {
-                Toast.makeText(activity, context.getString(R.string.copied), Toast.LENGTH_SHORT).show()
-                (context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).primaryClip =
-                    ClipData.newPlainText("LIFE4 Data", context.getString(R.string.import_data_format))
-                showImportEntryDialog(activity)
-            }
-        }).show(activity.supportFragmentManager, ScoreManagerImportDirectionsDialog.TAG)
-    }
-
-    private fun showImportEntryDialog(activity: FragmentActivity) {
-        val intent = activity.packageManager.getLaunchIntentForPackage("jp.linanfine.dsma")
-        if (intent != null) {
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            activity.startActivity(intent)//null pointer check in case package name was not found
-        } else {
-            Toast.makeText(activity, context.getString(R.string.no_ddra_manager), Toast.LENGTH_SHORT).show()
-        }
-
-        ScoreManagerImportEntryDialog(object : ScoreManagerImportEntryDialog.Listener {
-            override fun onDialogCancelled() = Unit
-            override fun onHelpPressed() = showImportDirectionsDialog(activity)
-            override fun onDataSubmitted(data: String) = showImportProcessingDialog(activity, data)
-        }).show(activity.supportFragmentManager, ScoreManagerImportEntryDialog.TAG)
-    }
-
-    private fun showImportProcessingDialog(activity: FragmentActivity, dataString: String) {
-        val dialog = ScoreManagerImportProcessingDialog(object : ScoreManagerImportProcessingDialog.Listener {
-            override fun onDialogLoaded(managerListener: ManagerImportListener) = importManagerData(dataString, managerListener)
-            override fun onDialogCancelled() = cancelImportJob()
-        })
-        dialog.show(activity.supportFragmentManager, ScoreManagerImportEntryDialog.TAG)
-    }
-
     fun importManagerData(dataString: String, listener: ManagerImportListener? = null) {
         var success = 0
         var errors = 0
@@ -330,7 +242,7 @@ class LadderManager: BaseModel() {
                 }
             }
             withContext(Dispatchers.Main) {
-                Toast.makeText(context, context.getString(R.string.import_finished, success, errors), Toast.LENGTH_SHORT).show()
+                ladderDialogs.showImportFinishedToast()
                 ignoreListManager.invalidateIgnoredIds()
                 eventBus.post(SongResultsImportCompletedEvent())
                 if (success > 0) {
@@ -347,51 +259,28 @@ class LadderManager: BaseModel() {
         importJob = null
     }
 
-    fun clearGoalStates(c: Context) {
-        AlertDialog.Builder(c)
-            .setTitle(R.string.are_you_sure)
-            .setMessage(R.string.confirm_erase_trial_data)
-            .setPositiveButton(R.string.yes) { _, _ ->
-                goalsBox.removeAll()
-                ladderResults.clearRepo()
-                eventBus.post(LadderRankUpdatedEvent())
+    fun clearGoalStates() {
+        ladderDialogs.onClearGoalStates {
+            mainScope.launch {
+                goalDBHelper.deleteAll()
             }
-            .setNegativeButton(R.string.no, null)
-            .show()
+            ladderResults.clearRepo()
+            eventBus.post(LadderRankUpdatedEvent())
+        }
     }
 
-    fun clearSongResults(c: Context) {
-        AlertDialog.Builder(c)
-            .setTitle(R.string.are_you_sure)
-            .setMessage(R.string.confirm_erase_result_data)
-            .setPositiveButton(R.string.yes) { _, _ ->
-                ladderResults.clearRepo()
-                eventBus.post(SongResultsUpdatedEvent())
-            }
-            .setNegativeButton(R.string.no, null)
-            .show()
+    fun clearSongResults() {
+        ladderDialogs.onClearSongResults {
+            ladderResults.clearRepo()
+            eventBus.post(SongResultsUpdatedEvent())
+        }
     }
 
-    fun refreshSongDatabase(c: Context) {
-        AlertDialog.Builder(c)
-            .setTitle(R.string.are_you_sure)
-            .setMessage(R.string.confirm_refresh_song_db)
-            .setPositiveButton(R.string.yes) { _, _ ->
-                ladderResults.clearRepo()
-                songDataManager.initializeSongDatabase()
-                eventBus.post(SongResultsUpdatedEvent())
-            }
-            .setNegativeButton(R.string.no, null)
-            .show()
-    }
-
-    private fun getOrCreateResultsForCharts(charts: List<ChartDB>): List<LadderResultDB> {
-        return charts.map { chart ->
-            chart.plays.firstOrNull() ?: LadderResultDB().also { result ->
-                chart.plays.add(result)
-                songDataManager.updateChart(chart)
-                ladderResults.addResult(result)
-            }
+    fun refreshSongDatabase() {
+        ladderDialogs.onRefreshSongDatabase {
+            ladderResults.clearRepo()
+            songDataManager.initializeSongDatabase()
+            eventBus.post(SongResultsUpdatedEvent())
         }
     }
 
