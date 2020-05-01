@@ -22,7 +22,7 @@ import com.perrigogames.life4.enums.ClearType
 import com.perrigogames.life4.enums.ClearType.*
 import com.perrigogames.life4.getDebugBoolean
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.manager.TrialManager
+import com.perrigogames.life4.model.TrialManager
 import com.perrigogames.life4trials.photoUri
 import com.perrigogames.life4trials.util.visibilityBool
 import com.russhwolf.settings.Settings

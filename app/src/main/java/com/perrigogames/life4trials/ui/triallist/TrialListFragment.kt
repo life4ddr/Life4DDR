@@ -16,7 +16,7 @@ import com.perrigogames.life4.TrialListUpdatedEvent
 import com.perrigogames.life4.data.Trial
 import com.perrigogames.life4.data.TrialType
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.manager.TrialManager
+import com.perrigogames.life4.model.TrialManager
 import com.perrigogames.life4trials.view.PaddingItemDecoration
 import com.russhwolf.settings.Settings
 import org.greenrobot.eventbus.EventBus

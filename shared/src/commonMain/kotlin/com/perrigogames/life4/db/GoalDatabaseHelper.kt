@@ -1,23 +1,14 @@
 package com.perrigogames.life4.db
 
-import com.perrigogames.life4.Life4Db
-import com.perrigogames.life4.data.StableIdColumnAdapter
 import com.perrigogames.life4.enums.GoalStatus
 import com.soywiz.klock.DateTime
 import com.soywiz.klock.ISO8601
-import com.squareup.sqldelight.EnumColumnAdapter
 import com.squareup.sqldelight.Query
 import com.squareup.sqldelight.db.SqlDriver
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class GoalDatabaseHelper(private val sqlDriver: SqlDriver) {
-    //FIXME don't copy this block everywhere
-    private val dbRef = Life4Db(sqlDriver, GoalState.Adapter(StableIdColumnAdapter(GoalStatus.values())))
-
-    internal fun dbClear() {
-        sqlDriver.close()
-    }
+class GoalDatabaseHelper(sqlDriver: SqlDriver): DatabaseHelper(sqlDriver) {
 
     fun allStates(): Query<GoalState> = dbRef.goalStatusQueries.getAll()
 

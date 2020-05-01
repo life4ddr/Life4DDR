@@ -15,7 +15,7 @@ import androidx.transition.TransitionManager
 import com.perrigogames.life4.data.LadderRank
 import com.perrigogames.life4.data.RankEntry
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.manager.LadderManager
+import com.perrigogames.life4.model.LadderManager
 import com.perrigogames.life4trials.util.spannedText
 import com.perrigogames.life4trials.util.visibilityBool
 import com.perrigogames.life4trials.view.RankHeaderView

@@ -42,9 +42,6 @@
         <Preference
             app:key="KEY_DEBUG_NOTIF_TRIAL_RANK"
             app:title="Trial rank up"/>
-        <Preference
-            app:key="KEY_DEBUG_NOTIF_A20"
-            app:title="A20 Update"/>
     </PreferenceCategory>
     <PreferenceCategory>
         <Preference

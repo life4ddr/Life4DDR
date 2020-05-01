@@ -12,7 +12,7 @@ import com.perrigogames.life4.db.GoalState
 import com.perrigogames.life4.enums.GoalStatus
 import com.perrigogames.life4.enums.GoalStatus.*
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.manager.LadderManager
+import com.perrigogames.life4.model.LadderManager
 import com.perrigogames.life4trials.nameRes
 import com.perrigogames.life4trials.view.LadderGoalItemView
 

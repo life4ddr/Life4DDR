@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.perrigogames.life4.LadderRanksReplacedEvent
 import com.perrigogames.life4.data.LadderRank
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.manager.LadderManager
+import com.perrigogames.life4.model.LadderManager
 import com.perrigogames.life4trials.nameRes
 import com.perrigogames.life4trials.ui.rankdetails.RankDetailsFragment
 import com.perrigogames.life4trials.ui.rankdetails.RankDetailsViewModel

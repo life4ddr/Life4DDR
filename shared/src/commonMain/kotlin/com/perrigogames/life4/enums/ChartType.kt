@@ -1,5 +1,6 @@
 package com.perrigogames.life4.enums
 
+import com.perrigogames.life4.data.StableId
 import kotlinx.serialization.*
 import kotlinx.serialization.internal.StringDescriptor
 
@@ -7,8 +8,8 @@ import kotlinx.serialization.internal.StringDescriptor
  * Enum to describe a class of difficulty, inside which more specific difficulties
  * are more or less in the same range as each other.
  */
-enum class DifficultyClass(val stableId: Long,
-                           val aggregatePrefix: String) {
+enum class DifficultyClass(override val stableId: Long,
+                           val aggregatePrefix: String): StableId {
     BEGINNER(1, "b"),
     BASIC(2, "B"),
     DIFFICULT(3, "D"),
@@ -27,8 +28,8 @@ enum class DifficultyClass(val stableId: Long,
  * Enum to describe a style of play, distinguishing between charts that use one pad
  * versus charts that use both.
  */
-enum class PlayStyle(val stableId: Long,
-                     val aggregateSuffix: String) {
+enum class PlayStyle(override val stableId: Long,
+                     val aggregateSuffix: String): StableId {
     SINGLE(1, "SP"),
     DOUBLE(2, "DP");
 

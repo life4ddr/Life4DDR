@@ -1,8 +1,5 @@
 package com.perrigogames.life4.db
 
-import com.perrigogames.life4.Life4Db
-import com.perrigogames.life4.data.StableIdColumnAdapter
-import com.perrigogames.life4.enums.GoalStatus
 import com.soywiz.klock.DateTime
 import com.soywiz.klock.ISO8601
 import com.squareup.sqldelight.Query
@@ -10,24 +7,21 @@ import com.squareup.sqldelight.db.SqlDriver
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class TrialDatabaseHelper(private val sqlDriver: SqlDriver) {
-    private val dbRef = Life4Db(sqlDriver, GoalState.Adapter(StableIdColumnAdapter(GoalStatus.values())))
+class TrialDatabaseHelper(sqlDriver: SqlDriver): DatabaseHelper(sqlDriver) {
 
-    internal fun dbClear() {
-        sqlDriver.close()
-    }
+    private val queries get() = dbRef.trialQueries
 
-    fun allRecords(): Query<TrialSession> = dbRef.trialQueries.selectAll()
+    fun allRecords(): Query<TrialSession> = queries.selectAll()
 
     suspend fun insertSession(session: com.perrigogames.life4.data.TrialSession, datetime: DateTime? = null) = withContext(Dispatchers.Default) {
         dbRef.transaction {
-            dbRef.trialQueries.insertSession(null,
+            queries.insertSession(null,
                 session.trial.id,
                 (datetime ?: DateTime.now()).format(ISO8601.DATETIME_COMPLETE),
-                session.goalRank!!.stableId,
+                session.goalRank!!,
                 session.goalObtained)
             session.results.forEachIndexed { idx, result ->
-                dbRef.trialQueries.insertSong(null,
+                queries.insertSong(null,
                     0L, //FIXME
                     idx.toLong(),
                     result!!.score!!.toLong(),
@@ -42,12 +36,18 @@ class TrialDatabaseHelper(private val sqlDriver: SqlDriver) {
     }
 
     suspend fun deleteSession(id: Long) = withContext(Dispatchers.Default) {
-        dbRef.trialQueries.deleteSession(id)
+        queries.deleteSession(id)
     }
 
     suspend fun deleteAll() = withContext(Dispatchers.Default) {
-        dbRef.trialQueries.deleteAll()
+        queries.deleteAll()
     }
+
+    fun sessionsForTrial(trialId: String) = queries.selectByTrialId(trialId).executeAsList()
+
+    fun bestSession(trialId: String) = queries.selectBestSession(trialId).executeAsOneOrNull()
+
+    fun songsForSession(sessionId: Long) = queries.selectSessionSongs(sessionId).executeAsList()
 
 //    fun bestTrial(trialId: String): TrialSessionDB? = sessionBox.query()
 //        .equal(TrialSessionDB_.trialId, trialId)

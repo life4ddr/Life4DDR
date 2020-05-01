@@ -13,7 +13,6 @@ buildscript {
         classpath(Deps.xcodesync)
         classpath("org.jetbrains.kotlin:kotlin-serialization:${Versions.kotlin}")
 
-        classpath("io.objectbox:objectbox-gradle-plugin:${Versions.objectbox}")
         classpath("com.google.gms:google-services:${Versions.googleServices}")
         classpath("io.fabric.tools:gradle:1.29.0")
         classpath("com.github.jengelman.gradle.plugins:shadow:2.0.4")

@@ -17,7 +17,7 @@ import com.perrigogames.life4.data.SongResult
 import com.perrigogames.life4.model.PlacementManager
 import com.perrigogames.life4trials.BuildConfig
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.manager.TrialManager
+import com.perrigogames.life4.model.TrialManager
 import com.perrigogames.life4trials.view.PathImageView
 import com.perrigogames.life4trials.view.SongView
 import org.koin.core.KoinComponent

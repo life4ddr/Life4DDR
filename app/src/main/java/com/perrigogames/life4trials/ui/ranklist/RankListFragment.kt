@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.perrigogames.life4.LadderRanksReplacedEvent
 import com.perrigogames.life4.data.RankEntry
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.manager.LadderManager
+import com.perrigogames.life4.model.LadderManager
 import com.perrigogames.life4trials.ui.rankdetails.RankListAdapter
 import kotlinx.android.synthetic.main.fragment_rank_list.view.*
 import org.greenrobot.eventbus.EventBus

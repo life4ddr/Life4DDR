@@ -29,6 +29,7 @@ class TrialManager: BaseModel() {
     private val dbHelper: TrialDatabaseHelper by inject()
     private val life4Api: Life4API by inject()
     private val dataReader: LocalDataReader by inject(named(TRIALS_FILE_NAME))
+    private val trialDialogs: TrialDialogs by inject()
 
     private var trialData = TrialRemoteData(dataReader, object: FetchListener<TrialData> {
         override fun onFetchUpdated(data: TrialData) {
@@ -49,7 +50,7 @@ class TrialManager: BaseModel() {
         validateTrials()
     }
 
-    val allRecords get() = dbHelper.allRecords()
+    val allRecords get() = dbHelper.allRecords().executeAsList()
 
     private fun validateTrials() = trials.forEach { trial ->
         var sum = 0
@@ -75,40 +76,67 @@ class TrialManager: BaseModel() {
      * Commits the current session to internal storage.  [currentSession] is
      * no longer usable after calling this.
      */
-    fun saveSession() {
-        currentSession?.let { s ->
+    fun saveSession(session: TrialSession? = currentSession) {
+        session?.let { s ->
             mainScope.launch {
                 dbHelper.insertSession(s)
                 eventBus.post(SavedRankUpdatedEvent(s.trial))
             }
         }
-        currentSession = null
+        if (session == currentSession) {
+            currentSession = null
+        }
     }
 
-    //FIXME
-//    fun getRankForTrial(trialId: String) = repo.getRankForTrial(trialId)
+    fun getRankForTrial(trialId: String) = dbHelper.bestSession(trialId)?.goalRank
 
-    fun clearRecords() {
+    fun bestSession(trialId: String) = dbHelper.bestSession(trialId)
+
+    fun deleteSession(sessionId: Long) {
+        mainScope.launch {
+            dbHelper.deleteSession(sessionId)
+            eventBus.post(SavedRankUpdatedEvent())
+        }
+    }
+
+    fun clearSessions() {
         mainScope.launch {
             dbHelper.deleteAll()
             eventBus.post(SavedRankUpdatedEvent())
         }
     }
 
-    //FIXME
-//    fun bestTrial(trialId: String) = repo.bestTrial(trialId)
-//
-//    fun bestTrials(): List<com.perrigogames.life4.db.TrialSession> {
-//        val results = repo.bestTrials()
-//        return trials.mapNotNull {
-//            if (it.isEvent) null
-//            else results.firstOrNull { db -> db.trialId == it.id }
-//        }
-//    }
-
     fun startSession(trialId: String, initialGoal: TrialRank?): TrialSession {
         currentSession = TrialSession(findTrial(trialId)!!, initialGoal)
         return currentSession!!
+    }
+
+    fun submitResult(session: TrialSession = currentSession!!, onFinish: () -> Unit) {
+        when {
+            session.results.any { it?.passed != true } -> submitRankAndFinish(session, false, onFinish)
+            session.trial.isEvent -> submitRankAndFinish(session, true, onFinish)
+            else -> trialDialogs.showRankConfirmation(session.goalRank!!) { passed -> submitRankAndFinish(session, passed, onFinish) }
+        }
+    }
+
+    fun getSongsForSession(sessionId: Long) = dbHelper.songsForSession(sessionId)
+
+    private fun submitRankAndFinish(session: TrialSession, passed: Boolean, onFinish: () -> Unit) {
+        session.goalObtained = passed
+        saveSession(session)
+        if (passed) {
+            trialDialogs.showSessionSubmitConfirmation { submitOnline ->
+                if (submitOnline) {
+                    if (settings.getBoolean(SettingsKeys.KEY_SUBMISSION_NOTIFICAION, false)) {
+                        notifications.showUserInfoNotifications(session.currentTotalExScore)
+                    }
+                    trialDialogs.showTrialSubmissionWeb()
+                }
+                onFinish()
+            }
+        } else {
+            onFinish()
+        }
     }
 
     fun getRecordsFromNetwork() {
@@ -153,3 +181,15 @@ class TrialManager: BaseModel() {
         internal val RECORD_FETCH_TIMESTAMP_KEY = "TRIAL_FETCH_TIMESTAMP_KEY"
     }
 }
+
+
+//    fun getRankForTrial(trialId: String) = repo.getRankForTrial(trialId)
+//
+//    fun bestTrials(): List<TrialSessionDB> {
+//        val results = repo.bestTrials()
+//        return trials.mapNotNull {
+//            if (it.isEvent) null
+//            else results.firstOrNull { db -> db.trialId == it.id }
+//        }
+//    }
+//}

@@ -3,7 +3,7 @@ package com.perrigogames.life4trials.activity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.manager.SongDataManager
+import com.perrigogames.life4.model.SongDataManager
 import kotlinx.android.synthetic.main.activity_block_list_check.*
 import org.koin.core.KoinComponent
 import org.koin.core.inject
@@ -20,9 +20,10 @@ class SongRecordsListActivity : AppCompatActivity(), KoinComponent {
             songDataManager.getCurrentlyIgnoredSongs().forEach {
                 append("(${it.id}) ${it.version} - ${it.title}\n")
             }
-            songDataManager.getCurrentlyIgnoredCharts().forEach {
-                val target = it.song.target
-                append("(${it.id}) ${target.version} - ${target.title} (${it.difficultyClass})\n")
+            songDataManager.getCurrentlyIgnoredCharts().forEach { entry ->
+                entry.value.forEach { chart ->
+                    append("(${entry.key.id}) ${entry.key.version} - ${entry.key.title} (${chart.difficultyClass})\n")
+                }
             }
             toString()
         }

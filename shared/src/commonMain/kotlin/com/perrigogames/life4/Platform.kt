@@ -9,6 +9,7 @@ fun Settings.getDebugBoolean(key: String) = isDebug && getBoolean(key, false)
 expect fun currentTimeMillis(): Long
 
 internal expect fun log(key: String, message: String)
+internal expect fun logE(key: String, message: String)
 internal expect fun printThrowable(t: Throwable)
 internal expect fun logException(t: Throwable)
 internal expect fun setCrashInt(key: String, v: Int)

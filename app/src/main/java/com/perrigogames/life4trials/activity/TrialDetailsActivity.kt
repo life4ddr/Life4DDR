@@ -20,8 +20,8 @@ import com.perrigogames.life4.SettingsKeys.KEY_DETAILS_UPDATE_GOAL
 import com.perrigogames.life4.data.*
 import com.perrigogames.life4.getDebugBoolean
 import com.perrigogames.life4trials.*
-import com.perrigogames.life4trials.manager.LadderManager
-import com.perrigogames.life4trials.manager.TrialManager
+import com.perrigogames.life4.model.LadderManager
+import com.perrigogames.life4.model.TrialManager
 import com.perrigogames.life4trials.ui.songlist.SongListFragment
 import com.perrigogames.life4trials.util.openWebUrlFromRes
 import com.perrigogames.life4trials.util.visibilityBool
@@ -202,7 +202,7 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener, K
             !settings.getBoolean(KEY_DETAILS_ENFORCE_EXPERT, true) ||
             trialSession.results.all { it!!.hasAdvancedStats }) {
 
-            trialManager.submitResult(this) { finish() }
+            trialManager.submitResult { finish() }
         } else {
             Snackbar.make(container, R.string.breakdown_information_missing, Snackbar.LENGTH_LONG).show()
         }
@@ -259,7 +259,7 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener, K
     }
 
     private fun concedeTrial() {
-        trialManager.saveRecord(trialSession)
+        trialManager.saveSession(trialSession)
         finish()
     }
 

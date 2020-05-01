@@ -1,4 +1,4 @@
-package com.perrigogames.life4trials
+package com.perrigogames.life4trials.util
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -8,6 +8,7 @@ import android.os.Build
 import android.widget.Toast
 import com.perrigogames.life4.Notifications.Companion.EXTRA_COPY_VALUE
 import com.perrigogames.life4.Notifications.Companion.ID_USER_INFO_CHANNEL
+import com.perrigogames.life4trials.R
 
 
 class NotificationCopyHandler: BroadcastReceiver() {

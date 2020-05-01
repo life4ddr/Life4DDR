@@ -1,4 +1,4 @@
-package com.perrigogames.life4trials.manager
+package com.perrigogames.life4.model
 
 import com.perrigogames.life4.LadderRanksReplacedEvent
 import com.perrigogames.life4.SettingsKeys.KEY_IMPORT_GAME_VERSION
@@ -8,18 +8,14 @@ import com.perrigogames.life4.data.IgnoreGroup
 import com.perrigogames.life4.data.IgnoreList
 import com.perrigogames.life4.data.IgnoredSong
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.IGNORES_FILE_NAME
-import com.perrigogames.life4.model.BaseModel
-import com.perrigogames.life4trials.repo.SongRepo
 import com.russhwolf.settings.Settings
 import com.russhwolf.settings.set
-import org.greenrobot.eventbus.EventBus
 import org.koin.core.inject
 import org.koin.core.qualifier.named
 
 class IgnoreListManager: BaseModel() {
 
-    private val songRepo: SongRepo by inject()
-    private val eventBus: EventBus by inject()
+    private val eventBus: EventBusNotifier by inject()
     private val settings: Settings by inject()
     private val dataReader: LocalDataReader by inject(named(IGNORES_FILE_NAME))
 
@@ -50,30 +46,19 @@ class IgnoreListManager: BaseModel() {
     val selectedIgnoreGroups: List<IgnoreGroup>?
         get() = selectedIgnoreList?.groups?.map { id -> ignoreLists.data.groupsMap[id] ?: error("Invalid group name $id") }
 
-    private var mSelectedIgnoreSongIds: LongArray? = null
-    private var mSelectedIgnoreChartIds: LongArray? = null
+    private var mSelectedIgnoreSongIds: List<Long>? = null
 
-    val selectedIgnoreSongIds: LongArray
+    val selectedIgnoreSongIds: List<Long>
         get() {
             if (mSelectedIgnoreSongIds == null) {
                 val unlocks = getAllUnlockedSongs()
-                mSelectedIgnoreSongIds = selectedIgnoreList?.resolvedSongs?.filterNot { unlocks.contains(it) }?.map { it.title }?.toTypedArray()?.let { ignoreTitles ->
-                    val versionId = selectedIgnoreList!!.baseVersion.stableId
-                    songRepo.findBlockedSongs(ignoreTitles, versionId, versionId + 1).map { it.id }.toLongArray()
-                } ?: LongArray(0)
+                mSelectedIgnoreSongIds = selectedIgnoreList?.resolvedSongs
+                    ?.filterNot { unlocks.contains(it) }
+                    ?.map { it.id } ?: emptyList()
             }
             return mSelectedIgnoreSongIds!!
         }
-    val selectedIgnoreChartIds: LongArray
-        get() {
-            if (mSelectedIgnoreChartIds == null) {
-                mSelectedIgnoreChartIds = selectedIgnoreList?.resolvedCharts?.mapNotNull { chart ->
-                    val song = songRepo.findSongByTitle(chart.title)
-                    return@mapNotNull song?.charts?.firstOrNull { it.difficultyClass == chart.difficultyClass }?.id
-                }?.toLongArray() ?: LongArray(0)
-            }
-            return mSelectedIgnoreChartIds!!
-        }
+    val selectedIgnoreCharts get() = selectedIgnoreList?.resolvedCharts?.toList() ?: emptyList()
 
     //
     // Unlocks
@@ -81,21 +66,16 @@ class IgnoreListManager: BaseModel() {
 
     fun getUnlockGroup(id: String) = ignoreLists.data.groups.firstOrNull { it.id == id }
 
-    fun getGroupUnlockState(id: String): Long {
-        return settings.getLong("unlock_$id", 0L)
-    }
+    fun getGroupUnlockState(id: String) = settings.getLong("unlock_$id", 0L)
 
-    fun getGroupUnlockFlags(id: String): List<Boolean>? {
-        return getUnlockGroup(id)?.fromStoredState(getGroupUnlockState(id))
-    }
+    fun getGroupUnlockFlags(id: String): List<Boolean>? = getUnlockGroup(id)?.fromStoredState(getGroupUnlockState(id))
 
     fun getGroupUnlockedSongs(id: String): List<IgnoredSong>? {
         val flags = getGroupUnlockFlags(id)
         return getUnlockGroup(id)?.songs?.filterIndexed { idx, _ -> flags?.get(idx) ?: false }
     }
 
-    fun getAllUnlockedSongs(): List<IgnoredSong> =
-        ignoreLists.data.groups.mapNotNull { getGroupUnlockedSongs(it.id) }.flatten()
+    fun getAllUnlockedSongs(): List<IgnoredSong> = ignoreLists.data.groups.mapNotNull { getGroupUnlockedSongs(it.id) }.flatten()
 
     fun setGroupUnlockState(id: String, state: Long) {
         settings["unlock_$id"] = state
@@ -108,6 +88,5 @@ class IgnoreListManager: BaseModel() {
      */
     fun invalidateIgnoredIds() {
         mSelectedIgnoreSongIds = null
-        mSelectedIgnoreChartIds = null
     }
 }

@@ -10,6 +10,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.FragmentActivity
 import com.perrigogames.life4.LadderDialogs
 import com.perrigogames.life4.Notifications
+import com.perrigogames.life4.model.LadderManager
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.ui.managerimport.ScoreManagerImportDirectionsDialog
 import com.perrigogames.life4trials.ui.managerimport.ScoreManagerImportEntryDialog

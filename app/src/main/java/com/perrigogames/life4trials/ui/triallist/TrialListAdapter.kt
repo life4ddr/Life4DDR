@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.perrigogames.life4.data.Trial
 import com.perrigogames.life4.data.TrialType
-import com.perrigogames.life4trials.manager.TrialManager
+import com.perrigogames.life4.model.TrialManager
 import com.perrigogames.life4trials.view.JacketCornerView.CornerType.EVENT
 import com.perrigogames.life4trials.view.JacketCornerView.CornerType.NEW
 import com.perrigogames.life4trials.view.TrialItemView
@@ -22,7 +22,7 @@ class TrialListAdapter(private val trials: List<Trial>,
     private val trialManager: TrialManager by inject()
 
     private val mEventTrials get() = trials.filter { it.isEvent }
-    private val mNewTrials get() = trials.filter { !it.isEvent && it.new && trialManager.bestTrial(it.id) == null }
+    private val mNewTrials get() = trials.filter { !it.isEvent && it.new && trialManager.bestSession(it.id) == null }
     private val mOldTrials get() = trials.filterNot { t -> t.isEvent || newTrials.any { it.id == t.id } }
 
     private var eventTrials = mEventTrials
@@ -51,15 +51,15 @@ class TrialListAdapter(private val trials: List<Trial>,
         holder.trialItemView.trial = item
         holder.trialItemView.setCornerType(when {
             item.eventEnd != null -> EVENT
-            featureNew && item.new && trialManager.bestTrial(item.id) == null -> NEW
+            featureNew && item.new && trialManager.bestSession(item.id) == null -> NEW
             else -> null
         })
         holder.itemView.setOnClickListener { onItemClicked(item.id, item.type) }
-        val bestSession = trialManager.bestTrial(item.id)
+        val bestSession = trialManager.bestSession(item.id)
         if (!item.isEvent) {
             holder.trialItemView.setHighestRank(bestSession?.goalRank)
         }
-        holder.trialItemView.setExScore(bestSession?.exScore)
+        holder.trialItemView.setExScore(bestSession?.exScore?.toInt())
     }
 
     override fun getItemCount() = trials.size

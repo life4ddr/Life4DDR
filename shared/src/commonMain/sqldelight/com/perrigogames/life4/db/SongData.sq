@@ -1,31 +1,56 @@
+import com.perrigogames.life4.enums.DifficultyClass;
+import com.perrigogames.life4.enums.GameVersion;
+import com.perrigogames.life4.enums.PlayStyle;
+
 CREATE TABLE SongInfo (
 id INTEGER NOT NULL PRIMARY KEY,
 title TEXT NOT NULL,
-artist TEXT NOT NULL,
-version INTEGER NOT NULL,
+artist TEXT,
+version INTEGER AS GameVersion NOT NULL,
 preview INTEGER AS Boolean DEFAULT 0
 );
 
 CREATE TABLE ChartInfo (
-id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 songId INTEGER NOT NULL,
-difficultyClass INTEGER DEFAULT 1,
-difficultyNumber INTEGER DEFAULT 0,
-playStyle INTEGER DEFAULT 1,
+difficultyClass INTEGER AS DifficultyClass NOT NULL DEFAULT 1,
+playStyle INTEGER AS PlayStyle NOT NULL DEFAULT 1,
+difficultyNumber INTEGER NOT NULL DEFAULT 0,
+PRIMARY KEY(songId, difficultyClass, playStyle),
 FOREIGN KEY(songId) REFERENCES SongInfo
 );
 
-selectAll:
+allSongs:
 SELECT * FROM SongInfo;
+
+allSongsAndCharts:
+SELECT * FROM ChartInfo INNER JOIN SongInfo;
 
 selectSongById:
 SELECT * FROM SongInfo WHERE id = ?;
 
+selectSongByIdList:
+SELECT * FROM SongInfo WHERE id IN ?;
+
 selectSongByTitle:
 SELECT * FROM SongInfo WHERE title = ?;
 
+selectSongsForVersion:
+SELECT * FROM SongInfo WHERE version <= ? OR (version = ? AND preview = 1);
+
+selectChart:
+SELECT * FROM ChartInfo WHERE songId = ? AND playStyle = ? AND difficultyClass = ?;
+
 selectChartsForSong:
 SELECT * FROM ChartInfo WHERE songId = ?;
+
+selectChartsForSongList:
+SELECT * FROM ChartInfo WHERE songId IN ?;
+
+selectChartsForSongAndPlayStyle:
+SELECT * FROM ChartInfo WHERE songId = ? AND playStyle = ?;
+
+selectChartsForSongAndDifficulty:
+SELECT * FROM ChartInfo WHERE songId = ? AND difficultyClass = ?;
 
 selectChartsByDifficultyNumber:
 SELECT * FROM ChartInfo WHERE difficultyNumber = ?;
@@ -33,13 +58,22 @@ SELECT * FROM ChartInfo WHERE difficultyNumber = ?;
 selectChartsByDifficultyClass:
 SELECT * FROM ChartInfo WHERE difficultyClass = ?;
 
+selectStyleChartsByDifficultyNumber:
+SELECT * FROM ChartInfo WHERE difficultyNumber = ? AND playStyle = ?;
+
+selectStyleChartsByDifficultyClass:
+SELECT * FROM ChartInfo WHERE difficultyClass = ? AND playStyle = ?;
+
+selectChartsByPlayStyle:
+SELECT * FROM ChartInfo WHERE playStyle = ?;
+
 insertSong:
 INSERT OR REPLACE INTO SongInfo(id, title, artist, version, preview)
 VALUES (?,?,?,?,?);
 
 insertChart:
-INSERT OR REPLACE INTO ChartInfo(id, songId, difficultyClass, difficultyNumber, playStyle)
-VALUES (?,?,?,?,?);
+INSERT OR REPLACE INTO ChartInfo(songId, difficultyClass, difficultyNumber, playStyle)
+VALUES (?,?,?,?);
 
 deleteSong:
 DELETE FROM SongInfo WHERE id = ?;

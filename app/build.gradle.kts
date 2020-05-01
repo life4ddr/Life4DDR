@@ -7,7 +7,6 @@ plugins {
     kotlin("kapt")
     id("io.fabric")
     id("com.google.gms.google-services")
-    id("io.objectbox")
 }
 
 android {
@@ -93,8 +92,6 @@ dependencies {
     implementation(Deps.dexter)
     implementation(Deps.glide)
     implementation(Deps.gson)
-//    debugImplementation(Deps.objectbox_debug)
-//    releaseImplementation(Deps.objectbox_release)
 
     implementation(Deps.ktor.androidCore)
     implementation(Deps.SqlDelight.runtimeJdk)

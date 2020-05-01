@@ -8,7 +8,7 @@ import kotlinx.serialization.internal.StringDescriptor
  * Enum class representing a Rank that a player can earn in a LIFE4 Trial.
  */
 @Serializable
-enum class TrialRank(val stableId: Long, val parent: LadderRank) {
+enum class TrialRank(override val stableId: Long, val parent: LadderRank): StableId {
     WOOD(10, WOOD3),
     BRONZE(15, BRONZE3),
     SILVER(20, SILVER3),

@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
+import com.perrigogames.life4.db.TrialSession
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.db.TrialSessionDB
 import com.perrigogames.life4trials.ui.trialrecords.TrialRecordsFragment
 
 class TrialRecordsActivity : AppCompatActivity(), TrialRecordsFragment.OnRecordsListInteractionListener {
@@ -32,6 +32,6 @@ class TrialRecordsActivity : AppCompatActivity(), TrialRecordsFragment.OnRecords
         return true
     }
 
-    override fun onRecordsListInteraction(item: TrialSessionDB) {
+    override fun onRecordsListInteraction(item: TrialSession) {
     }
 }

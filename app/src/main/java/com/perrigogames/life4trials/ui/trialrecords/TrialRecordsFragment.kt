@@ -8,9 +8,9 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.perrigogames.life4.db.TrialSession
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.db.TrialSessionDB
-import com.perrigogames.life4trials.manager.TrialManager
+import com.perrigogames.life4.model.TrialManager
 import com.perrigogames.life4trials.util.visibilityBool
 import com.perrigogames.life4trials.view.ContextMenuRecyclerView.RecyclerViewContextMenuInfo
 import kotlinx.android.synthetic.main.fragment_trial_records.*
@@ -67,7 +67,7 @@ class TrialRecordsFragment : Fragment(), KoinComponent {
         val info = item.menuInfo as RecyclerViewContextMenuInfo
         //TODO check for Delete
         if (info.position >= 0) {
-            trialManager.deleteRecord(info.id)
+            trialManager.deleteSession(info.id)
             adapter.refreshTrials()
             adapter.notifyItemRangeRemoved(info.position, 1)
             updateEmptyLabelView()
@@ -86,7 +86,7 @@ class TrialRecordsFragment : Fragment(), KoinComponent {
      * activity.
      */
     interface OnRecordsListInteractionListener {
-        fun onRecordsListInteraction(item: TrialSessionDB)
+        fun onRecordsListInteraction(item: TrialSession)
     }
 
     companion object {

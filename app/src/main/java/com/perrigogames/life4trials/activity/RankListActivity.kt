@@ -11,7 +11,7 @@ import com.perrigogames.life4trials.activity.RankDetailsActivity.Companion.EXTRA
 import com.perrigogames.life4trials.activity.RankDetailsActivity.Companion.EXTRA_TARGET_RANK
 import com.perrigogames.life4trials.activity.RankDetailsActivity.Companion.RESULT_RANK_SELECTED
 import com.perrigogames.life4trials.activity.RankDetailsActivity.Companion.RESULT_RANK_TARGET_SELECTED
-import com.perrigogames.life4trials.manager.LadderManager
+import com.perrigogames.life4.model.LadderManager
 import com.perrigogames.life4trials.ui.ranklist.RankListFragment
 import com.perrigogames.life4trials.ui.ranklist.RankListFragment.OnRankListInteractionListener
 import com.perrigogames.life4trials.util.visibilityBool

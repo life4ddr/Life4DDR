@@ -13,24 +13,25 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.perrigogames.life4.SettingsKeys.KEY_RECORDS_REMAINING_EX
+import com.perrigogames.life4.db.TrialSession
+import com.perrigogames.life4.db.TrialSong
+import com.perrigogames.life4.longNumberString
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.colorRes
-import com.perrigogames.life4trials.db.TrialSessionDB
-import com.perrigogames.life4trials.manager.TrialManager
+import com.perrigogames.life4.model.TrialManager
 import com.perrigogames.life4trials.ui.trialrecords.TrialRecordsFragment.OnRecordsListInteractionListener
 import com.perrigogames.life4trials.util.DataUtil
 import com.perrigogames.life4trials.util.jacketResId
 import com.perrigogames.life4trials.util.locale
 import com.perrigogames.life4trials.util.visibilityBool
 import com.perrigogames.life4trials.view.RankImageView
-import com.perrigogames.life4trials.view.longNumberString
 import com.russhwolf.settings.Settings
 import kotlinx.android.synthetic.main.item_trial_record.view.*
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 
 /**
- * [RecyclerView.Adapter] that can display a [TrialSessionDB] and makes a call to the
+ * [RecyclerView.Adapter] that can display a [TrialSession] and makes a call to the
  * specified [OnRecordsListInteractionListener].
  */
 class TrialRecordsAdapter(private val mListener: OnRecordsListInteractionListener?) :
@@ -39,13 +40,13 @@ class TrialRecordsAdapter(private val mListener: OnRecordsListInteractionListene
     private val trialManager: TrialManager by inject()
     private val settings: Settings by inject()
 
-    private lateinit var recordsList: List<TrialSessionDB>
+    private lateinit var recordsList: List<TrialSession>
     private val mOnClickListener: View.OnClickListener
 
     init {
         refreshTrials()
         mOnClickListener = View.OnClickListener { v ->
-            mListener?.onRecordsListInteraction(v.tag as TrialSessionDB)
+            mListener?.onRecordsListInteraction(v.tag as TrialSession)
         }
     }
 
@@ -53,9 +54,7 @@ class TrialRecordsAdapter(private val mListener: OnRecordsListInteractionListene
         recordsList = trialManager.allRecords.reversed()
     }
 
-    override fun getItemId(position: Int): Long {
-        return recordsList[position].id
-    }
+    override fun getItemId(position: Int) = recordsList[position].id
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(LayoutInflater.from(parent.context)
@@ -64,7 +63,7 @@ class TrialRecordsAdapter(private val mListener: OnRecordsListInteractionListene
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = recordsList[position]
-        holder.session = item
+        holder.set(item, trialManager.getSongsForSession(item.id))
         with(holder.view) {
             tag = item
             setOnClickListener(mOnClickListener)
@@ -102,60 +101,56 @@ class TrialRecordsAdapter(private val mListener: OnRecordsListInteractionListene
             view.isLongClickable = true
         }
 
-        var session: TrialSessionDB? = null
-            set(s) {
-                field = s
-                if (s != null) {
-                    val trial = trialManager.findTrial(s.trialId)!!
-                    title.text = trial.name
+        fun set(session: TrialSession, songs: List<TrialSong>) {
+            val trial = trialManager.findTrial(session.trialId)!!
+            title.text = trial.name
 
-                    val sessionEx = s.exScore ?: 0
-                    val shouldShowRemaining = settings.getBoolean(KEY_RECORDS_REMAINING_EX, false)
-                    val goalEx = if (shouldShowRemaining) sessionEx - trial.total_ex else trial.total_ex
-                    exScore.text = context.getString(R.string.ex_score_fraction_format, sessionEx, goalEx)
-                    exProgress.max = trial.total_ex
-                    val progressPercent = AccelerateInterpolator(0.25f).getInterpolation(sessionEx.toFloat() / trial.total_ex)
-                    exProgress.progress = (progressPercent * sessionEx).toInt()
+            val sessionEx = songs.sumBy { it.exScore.toInt() }
+            val shouldShowRemaining = settings.getBoolean(KEY_RECORDS_REMAINING_EX, false)
+            val goalEx = if (shouldShowRemaining) sessionEx - trial.total_ex else trial.total_ex
+            exScore.text = context.getString(R.string.ex_score_fraction_format, sessionEx, goalEx)
+            exProgress.max = trial.total_ex
+            val progressPercent = AccelerateInterpolator(0.25f).getInterpolation(sessionEx.toFloat() / trial.total_ex)
+            exProgress.progress = (progressPercent * sessionEx).toInt()
 
-                    rankImage.rank = s.goalRank!!.parent
-                    rankImage.alpha = if (s.goalObtained) 1f else 0.3f
-                    date.text = DataUtil.humanNewlineTimestamp(context.locale, s.date)
+            rankImage.rank = session.goalRank.parent
+            rankImage.alpha = if (session.goalObtained) 1f else 0.3f
+            date.text = session.date
 
-                    val miniEntry = s.songResults.size == 0
-                    if (!miniEntry) {
-                        jacketBackground.setImageResource(trial.jacketResId(context))
+            val miniEntry = songs.isEmpty()
+            if (!miniEntry) {
+                jacketBackground.setImageResource(trial.jacketResId(context))
+            }
+
+            arrayOf(label1, label2, label3, label4, song1, song2, song3, song4, jacketBackground, exProgress).forEach {
+                it.visibilityBool = !miniEntry
+            }
+            view.text_record_song_base.visibility = if (miniEntry) View.GONE else View.INVISIBLE
+
+            arrayOf(label1, label2, label3, label4).forEachIndexed { idx, view ->
+                view.text = trial.songs[idx].name
+            }
+
+            arrayOf(song1, song2, song3, song4).forEachIndexed { idx, v ->
+                val songDb = songs.firstOrNull { it.position.toInt() == idx }
+                if (songDb != null) {
+                    v.text = context.getString(R.string.score_string_format,
+                        songDb.score.toInt().longNumberString(), songDb.exScore)
+                    if (songDb.passed) {
+                        v.setTextColor(oldColors)
+                    } else {
+                        v.setTextColor(ContextCompat.getColor(context, R.color.orange))
                     }
-
-                    arrayOf(label1, label2, label3, label4, song1, song2, song3, song4, jacketBackground, exProgress).forEach {
-                        it.visibilityBool = !miniEntry
-                    }
-                    view.text_record_song_base.visibility = if (miniEntry) View.GONE else View.INVISIBLE
-
-                    arrayOf(label1, label2, label3, label4).forEachIndexed { idx, view ->
-                        view.text = trial.songs[idx].name
-                    }
-
-                    arrayOf(song1, song2, song3, song4).forEachIndexed { idx, v ->
-                        val songDb = s.songResults.firstOrNull { it.position == idx }
-                        if (songDb != null) {
-                            v.text = context.getString(R.string.score_string_format,
-                                songDb.score.longNumberString(), songDb.exScore)
-                            if (songDb.passed) {
-                                v.setTextColor(oldColors)
-                            } else {
-                                v.setTextColor(ContextCompat.getColor(context, R.color.orange))
-                            }
-                        } else {
-                            v.text = context.getString(R.string.not_played)
-                            v.setTextColor(ContextCompat.getColor(context, R.color.orange))
-                        }
-                    }
-
-                    arrayOf(difficulty1, difficulty2, difficulty3, difficulty4).forEachIndexed { idx, view ->
-                        view.setBackgroundColor(ContextCompat.getColor(context, trial.songs[idx].difficultyClass.colorRes))
-                    }
+                } else {
+                    v.text = context.getString(R.string.not_played)
+                    v.setTextColor(ContextCompat.getColor(context, R.color.orange))
                 }
             }
+
+            arrayOf(difficulty1, difficulty2, difficulty3, difficulty4).forEachIndexed { idx, view ->
+                view.setBackgroundColor(ContextCompat.getColor(context, trial.songs[idx].difficultyClass.colorRes))
+            }
+        }
 
         override fun toString(): String {
             return super.toString() + " '$title'"

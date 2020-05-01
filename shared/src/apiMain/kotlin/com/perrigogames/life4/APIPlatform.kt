@@ -7,7 +7,11 @@ actual val isDebug: Boolean get() = false
 actual fun currentTimeMillis(): Long = System.currentTimeMillis()
 
 actual fun log(key: String, message: String) {
-    print("")
+    print("($key): $message")
+}
+
+actual fun logE(key: String, message: String) {
+    print("($key) ERROR: $message")
 }
 
 actual fun printThrowable(t: Throwable) {

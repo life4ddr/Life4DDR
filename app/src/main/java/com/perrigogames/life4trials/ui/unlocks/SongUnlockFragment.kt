@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.perrigogames.life4trials.manager.IgnoreListManager
+import com.perrigogames.life4.model.IgnoreListManager
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 

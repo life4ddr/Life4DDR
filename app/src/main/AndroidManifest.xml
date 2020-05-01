@@ -76,8 +76,6 @@
 
         <activity android:name=".activity.SongRecordsListCheckActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.LadderLeaderboardActivity"
-            android:screenOrientation="portrait" />
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
@@ -100,14 +98,6 @@
                 <action android:name="ACTION_COPY_CLIPBOARD" />
             </intent-filter>
         </receiver>
-
-        <service
-            android:name=".api.Life4FirebaseMessagingService"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
     </application>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />

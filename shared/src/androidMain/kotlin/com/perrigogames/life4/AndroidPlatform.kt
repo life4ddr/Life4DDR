@@ -8,8 +8,12 @@ actual val isDebug: Boolean get() = BuildConfig.DEBUG
 
 actual fun currentTimeMillis(): Long = System.currentTimeMillis()
 
-internal actual fun log(key: String, message: String): Unit {
+internal actual fun log(key: String, message: String) {
     Log.v(key, message)
+}
+
+internal actual fun logE(key: String, message: String) {
+    Log.e(key, message)
 }
 
 internal actual fun printThrowable(t: Throwable) {

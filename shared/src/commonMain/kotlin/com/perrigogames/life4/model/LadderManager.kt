@@ -1,6 +1,5 @@
-package com.perrigogames.life4trials.manager
+package com.perrigogames.life4.model
 
-import android.util.Log
 import com.perrigogames.life4.*
 import com.perrigogames.life4.SettingsKeys.KEY_INFO_RANK
 import com.perrigogames.life4.SettingsKeys.KEY_INFO_TARGET_RANK
@@ -11,20 +10,12 @@ import com.perrigogames.life4.data.BaseRankGoal
 import com.perrigogames.life4.data.LadderRank
 import com.perrigogames.life4.data.LadderRankData
 import com.perrigogames.life4.data.LadderVersion
-import com.perrigogames.life4.db.GoalDatabaseHelper
-import com.perrigogames.life4.db.GoalState
-import com.perrigogames.life4.db.nowString
+import com.perrigogames.life4.db.*
 import com.perrigogames.life4.enums.ClearType
 import com.perrigogames.life4.enums.DifficultyClass
 import com.perrigogames.life4.enums.GoalStatus
 import com.perrigogames.life4.enums.PlayStyle
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.RANKS_FILE_NAME
-import com.perrigogames.life4.model.BaseModel
-import com.perrigogames.life4.model.EventBusNotifier
-import com.perrigogames.life4trials.BuildConfig
-import com.perrigogames.life4trials.db.*
-import com.perrigogames.life4trials.repo.LadderResultRepo
-import com.perrigogames.life4trials.repo.SongRepo
 import com.russhwolf.settings.Settings
 import com.russhwolf.settings.set
 import kotlinx.coroutines.*
@@ -33,13 +24,13 @@ import org.koin.core.qualifier.named
 
 class LadderManager: BaseModel() {
 
-    private val songRepo: SongRepo by inject()
-    private val ladderResults: LadderResultRepo by inject()
     private val ignoreListManager: IgnoreListManager by inject()
     private val songDataManager: SongDataManager by inject()
     private val settings: Settings by inject()
     private val eventBus: EventBusNotifier by inject()
+    private val songDbHelper: SongDatabaseHelper by inject()
     private val goalDBHelper: GoalDatabaseHelper by inject()
+    private val resultDbHelper: ResultDatabaseHelper by inject()
     private val ladderDialogs: LadderDialogs by inject()
     private val dataReader: LocalDataReader by inject(named(RANKS_FILE_NAME))
 
@@ -192,7 +183,7 @@ class LadderManager: BaseModel() {
     fun importManagerData(dataString: String, listener: ManagerImportListener? = null) {
         var success = 0
         var errors = 0
-        importJob = CoroutineScope(Dispatchers.IO).launch {
+        importJob = mainScope.launch {
             val lines = dataString.lines()
             lines.forEach { entry ->
                 val entryParts = entry.trim().split(';')
@@ -221,12 +212,12 @@ class LadderManager: BaseModel() {
                         val playStyle = PlayStyle.parse(chartType)!!
                         val difficultyClass = DifficultyClass.parse(chartType)!!
 
-                        val songDB = songRepo.getSongByName(songName) ?: throw SongNotFoundException(songName)
-                        val chartDB = songDataManager.updateOrCreateChartForSong(songDB, playStyle, difficultyClass, difficultyNumber)
-                        val resultDB = updateOrCreateResultForChart(chartDB, score, clear)
+                        val songDB = songDbHelper.selectSongByTitle(songName) ?: throw SongNotFoundException(songName)
+                        val chartDB = songDbHelper.selectChart(songDB.id, playStyle, difficultyClass) ?: throw ChartNotFoundException(songDB.title, playStyle, difficultyClass, difficultyNumber)
+                        resultDbHelper.insertResult(chartDB, clear)
 
-                        if (BuildConfig.DEBUG && resultDB.clearType == ClearType.NO_PLAY) {
-                            Log.v("import", "${songDB.title} - ${chartDB.difficultyClass} (${chartDB.difficultyNumber})")
+                        if (isDebug && clear == ClearType.NO_PLAY) {
+                            log("import", "${songDB.title} - ${chartDB.difficultyClass} (${chartDB.difficultyNumber})")
                         }
                         success++
                         if (success % 2 == 0) {
@@ -234,7 +225,7 @@ class LadderManager: BaseModel() {
                         }
                     } catch (e: Exception) {
                         errors++
-                        Log.e("Exception", e.message ?: "")
+                        logE("Exception", e.message ?: "")
                         withContext(Dispatchers.Main) { listener?.onError(errors, "${entry}\n${e.message}") }
                     }
                 } else if (entry.isNotEmpty()) {
@@ -264,39 +255,23 @@ class LadderManager: BaseModel() {
             mainScope.launch {
                 goalDBHelper.deleteAll()
             }
-            ladderResults.clearRepo()
+            resultDbHelper.deleteAll()
             eventBus.post(LadderRankUpdatedEvent())
         }
     }
 
     fun clearSongResults() {
         ladderDialogs.onClearSongResults {
-            ladderResults.clearRepo()
+            resultDbHelper.deleteAll()
             eventBus.post(SongResultsUpdatedEvent())
         }
     }
 
     fun refreshSongDatabase() {
         ladderDialogs.onRefreshSongDatabase {
-            ladderResults.clearRepo()
+            resultDbHelper.deleteAll()
             songDataManager.initializeSongDatabase()
             eventBus.post(SongResultsUpdatedEvent())
-        }
-    }
-
-    private fun updateOrCreateResultForChart(chart: ChartDB, score: Int, clear: ClearType): LadderResultDB {
-        val result = chart.plays.firstOrNull()
-        result?.let {
-            if (it.score != score || it.clearType != clear) {
-                it.score = score
-                it.clearType = clear
-                ladderResults.addResult(it)
-            }
-        }
-        return result ?: LadderResultDB(score, clear).also {
-            chart.plays.add(it)
-            songDataManager.updateChart(chart)
-            ladderResults.addResult(it)
         }
     }
 

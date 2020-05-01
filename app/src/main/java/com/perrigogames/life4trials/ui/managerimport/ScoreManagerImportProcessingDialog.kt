@@ -6,8 +6,7 @@ import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.manager.LadderManager.ManagerImportListener
-import kotlinx.android.synthetic.main.dialog_manager_import_processing.*
+import com.perrigogames.life4.model.LadderManager.ManagerImportListener
 import kotlinx.android.synthetic.main.dialog_manager_import_processing.view.*
 
 /**

@@ -7,6 +7,7 @@ import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.preference.*
@@ -16,7 +17,6 @@ import com.perrigogames.life4.SettingsKeys.KEY_DEBUG
 import com.perrigogames.life4.SettingsKeys.KEY_DEBUG_DATA_DUMP
 import com.perrigogames.life4.SettingsKeys.KEY_DEBUG_INDUCE_CRASH
 import com.perrigogames.life4.SettingsKeys.KEY_DEBUG_LEADERBOARD
-import com.perrigogames.life4.SettingsKeys.KEY_DEBUG_NOTIF_A20
 import com.perrigogames.life4.SettingsKeys.KEY_DEBUG_NOTIF_LADDER_RANK
 import com.perrigogames.life4.SettingsKeys.KEY_DEBUG_NOTIF_PLACEMENT
 import com.perrigogames.life4.SettingsKeys.KEY_DEBUG_NOTIF_TRIAL_RANK
@@ -46,6 +46,7 @@ import com.perrigogames.life4.SettingsKeys.KEY_SUBMISSION_NOTIFICAION_TEST
 import com.perrigogames.life4.data.LadderRank
 import com.perrigogames.life4.data.TrialRank
 import com.perrigogames.life4.data.TrialSession
+import com.perrigogames.life4.model.*
 import com.perrigogames.life4trials.BuildConfig
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.manager.*
@@ -303,7 +304,12 @@ class SettingsActivity : AppCompatActivity(), SettingsFragmentListener {
                 true
             }
             preferenceListener(KEY_RECORDS_CLEAR) {
-                trialManager.clearRecords(context!!)
+                AlertDialog.Builder(activity!!)
+                    .setTitle(R.string.are_you_sure)
+                    .setMessage(R.string.confirm_erase_trial_data)
+                    .setPositiveButton(R.string.yes) { _, _ -> trialManager.clearSessions() }
+                    .setNegativeButton(R.string.no, null)
+                    .show()
                 true
             }
             preferenceListener(KEY_SONG_RESULTS_CLEAR) {
@@ -338,12 +344,8 @@ class SettingsActivity : AppCompatActivity(), SettingsFragmentListener {
                 notifications.showTrialRankChangedNotification(trialManager.trials.random(), TrialRank.values().random())
                 true
             }
-            preferenceListener(KEY_DEBUG_NOTIF_A20) {
-                songDataManager.onA20RequiredUpdate(context!!)
-                true
-            }
             preferenceListener(KEY_DEBUG_LEADERBOARD) {
-                (context as AppCompatActivity).startActivity(Intent(context, LadderLeaderboardActivity::class.java))
+//                (context as AppCompatActivity).startActivity(Intent(context, LadderLeaderboardActivity::class.java))
                 true
             }
             preferenceListener(KEY_DEBUG_DATA_DUMP) {
@@ -385,11 +387,9 @@ class SettingsActivity : AppCompatActivity(), SettingsFragmentListener {
                     key.startsWith(KEY_DEBUG_RANK_PREFIX) -> findPreference<DropDownPreference>(key)?.let { it ->
                         val rank = TrialRank.parse(it.entry.toString())
                         val trial = trialManager.findTrial(it.key.substring(KEY_DEBUG_RANK_PREFIX.length))!!
-                        val session = TrialSession(
-                            trial,
-                            if (trial.isEvent) null else rank
-                        ).apply { goalObtained = (rank != null) }
-                        trialManager.saveRecord(session)
+                        val session = TrialSession(trial, if (trial.isEvent) null else rank)
+                            .apply { goalObtained = (rank != null) }
+                        trialManager.saveSession(session)
                         it.summary = rank?.toString() ?: "NONE"
                     }
                 }

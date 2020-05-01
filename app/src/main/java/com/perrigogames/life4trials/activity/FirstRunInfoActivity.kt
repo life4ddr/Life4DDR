@@ -12,6 +12,8 @@ import com.perrigogames.life4.SettingsKeys.KEY_INFO_RIVAL_CODE
 import com.perrigogames.life4.SettingsKeys.KEY_INFO_TWITTER_NAME
 import com.perrigogames.life4.data.ApiPlayer
 import com.perrigogames.life4.model.FirstRunManager
+import com.perrigogames.life4.model.LadderManager
+import com.perrigogames.life4.model.PlayerManager
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.manager.*
 import com.perrigogames.life4trials.util.onFieldChanged

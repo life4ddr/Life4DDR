@@ -1,7 +1,6 @@
 package com.perrigogames.life4trials
 
 import android.content.Context
-import android.util.Log
 import androidx.multidex.MultiDexApplication
 import androidx.preference.PreferenceManager
 import com.perrigogames.life4.Notifications
@@ -14,19 +13,11 @@ import com.perrigogames.life4.ktor.GithubDataAPI.Companion.PLACEMENTS_FILE_NAME
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.RANKS_FILE_NAME
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.SONGS_FILE_NAME
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.TRIALS_FILE_NAME
-import com.perrigogames.life4.model.FirstRunManager
-import com.perrigogames.life4.model.EventBusNotifier
-import com.perrigogames.life4.model.PlacementManager
+import com.perrigogames.life4.model.*
 import com.perrigogames.life4trials.api.AndroidDataReader
 import com.perrigogames.life4trials.api.AndroidUncachedDataReader
-import com.perrigogames.life4trials.db.MyObjectBox
-import com.perrigogames.life4trials.manager.*
-import com.perrigogames.life4trials.repo.LadderResultRepo
-import com.perrigogames.life4trials.repo.SongRepo
-import com.perrigogames.life4trials.repo.TrialRepo
 import com.perrigogames.life4trials.util.AndroidNotifications
-import io.objectbox.BoxStore
-import io.objectbox.android.AndroidObjectBrowser
+import com.perrigogames.life4trials.util.setupNotifications
 import org.greenrobot.eventbus.EventBus
 import org.koin.core.KoinComponent
 import org.koin.core.inject
@@ -61,17 +52,8 @@ class Life4Application: MultiDexApplication() {
                 single<LocalDataReader>(named(RANKS_FILE_NAME)) { AndroidDataReader(R.raw.ranks_v2, RANKS_FILE_NAME) }
                 single<LocalDataReader>(named(SONGS_FILE_NAME)) { AndroidDataReader(R.raw.songs, SONGS_FILE_NAME) }
                 single<LocalDataReader>(named(TRIALS_FILE_NAME)) { AndroidDataReader(R.raw.trials, TRIALS_FILE_NAME) }
-                single {
-                    MyObjectBox.builder()
-                        .androidContext(this@Life4Application)
-                        .build()
-                        .also { startObjectboxBrowser(it) }
-                }
                 single { EventBus() }
                 single<EventBusNotifier> { AndroidEventBusNotifier() }
-                single { SongRepo() }
-                single { TrialRepo() }
-                single { LadderResultRepo() }
                 single { IgnoreListManager() }
                 single { SongDataManager() }
                 single { TrialManager() }
@@ -83,17 +65,6 @@ class Life4Application: MultiDexApplication() {
 
         setupNotifications(this)
         PreferenceManager.setDefaultValues(this, R.xml.root_preferences, false)
-
-//        if (BuildConfig.DEBUG) {
-//            FirebaseUtil.getId(this)
-//        }
-    }
-
-    private fun startObjectboxBrowser(objectBox: BoxStore) {
-        if (BuildConfig.DEBUG) {
-            val started = AndroidObjectBrowser(objectBox).start(this)
-            Log.i("ObjectBrowser", "Started: $started")
-        }
     }
 
     private inner class ManagerContainer: KoinComponent {

@@ -27,7 +27,6 @@ object Versions {
     val firebase = "16.0.9"
     val firebase_messaging = "19.0.0"
     val fabric = "2.10.0"
-    val objectbox = "2.4.0"
     val multiplatformSettings = "0.5"
     val coroutines = "1.3.3-native-mt"
     val koin = "3.0.1-khan-SNAPSHOT"
@@ -55,8 +54,6 @@ object Deps {
     val glide = "com.github.bumptech.glide:glide:${Versions.glide}"
     val gson = "com.google.code.gson:gson:${Versions.gson}"
     val glide_compiler = "com.github.bumptech.glide:compiler:${Versions.glide}"
-    val objectbox_debug = "io.objectbox:objectbox-android-objectbrowser:${Versions.objectbox}"
-    val objectbox_release = "io.objectbox:objectbox-android:${Versions.objectbox}"
 
     val android_gradle_plugin = "com.android.tools.build:gradle:${Versions.android_gradle_plugin}"
     val junit = "junit:junit:${Versions.junit}"

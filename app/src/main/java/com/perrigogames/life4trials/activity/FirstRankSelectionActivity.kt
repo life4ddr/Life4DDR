@@ -9,7 +9,7 @@ import com.perrigogames.life4.data.RankEntry
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.activity.RankDetailsActivity.Companion.RESULT_RANK_SELECTED
 import com.perrigogames.life4.model.FirstRunManager
-import com.perrigogames.life4trials.manager.LadderManager
+import com.perrigogames.life4.model.LadderManager
 import com.perrigogames.life4trials.manager.finishProcessIntent
 import com.perrigogames.life4trials.manager.placementIntent
 import com.perrigogames.life4trials.ui.ranklist.RankListFragment

@@ -1,5 +1,6 @@
 package com.perrigogames.life4.enums
 
+import com.perrigogames.life4.data.StableId
 import kotlinx.serialization.*
 import kotlinx.serialization.internal.StringDescriptor
 
@@ -10,7 +11,7 @@ import kotlinx.serialization.internal.StringDescriptor
  * @param clearRes the text for describing a clear ("Great Full Combo")
  * @param clearResShort the text for describing a clear as an abbreviation ("GFC", "PFC")
  */
-enum class ClearType(val stableId: Long, val serialized: List<String>, val passing: Boolean = true) {
+enum class ClearType(override val stableId: Long, val serialized: List<String>, val passing: Boolean = true): StableId {
     NO_PLAY(0, "no_play", false),
     FAIL(1, "fail", false),
     CLEAR(2, "clear"),

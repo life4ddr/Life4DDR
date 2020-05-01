@@ -1,9 +1,10 @@
 package com.perrigogames.life4.enums
 
+import com.perrigogames.life4.data.StableId
 import kotlinx.serialization.*
 import kotlinx.serialization.internal.LongDescriptor
 
-enum class GameVersion(val stableId: Long) {
+enum class GameVersion(override val stableId: Long): StableId {
     UNKNOWN(0),
     DDR_1ST_MIX(1),
     DDR_2ND_MIX(2),

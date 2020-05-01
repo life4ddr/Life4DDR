@@ -14,7 +14,6 @@ import com.perrigogames.life4.Notifications
 import com.perrigogames.life4.data.LadderRank
 import com.perrigogames.life4.data.Trial
 import com.perrigogames.life4.data.TrialRank
-import com.perrigogames.life4trials.NotificationCopyHandler
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.drawableRes
 import com.perrigogames.life4trials.nameRes
