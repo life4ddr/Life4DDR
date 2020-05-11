@@ -17,12 +17,8 @@ class GoalDatabaseHelper(sqlDriver: SqlDriver): DatabaseHelper(sqlDriver) {
 
     fun statesForIdList(ids: List<Long>): Query<GoalState> = dbRef.goalStatusQueries.getStatusList(ids)
 
-    suspend fun insertGoalState(goalId: Long, status: GoalStatus) = withContext(Dispatchers.Default) {
+    fun insertGoalState(goalId: Long, status: GoalStatus) {
         dbRef.goalStatusQueries.setStatus(goalId, status, DateTime.now().format(ISO8601.DATETIME_COMPLETE))
-    }
-
-    suspend fun updateGoalState(goalId: Long, status: GoalStatus) = withContext(Dispatchers.Default) {
-        dbRef.goalStatusQueries.updateStatus(status, DateTime.now().format(ISO8601.DATETIME_COMPLETE), goalId)
     }
 
     suspend fun deleteAll() = withContext(Dispatchers.Default) {

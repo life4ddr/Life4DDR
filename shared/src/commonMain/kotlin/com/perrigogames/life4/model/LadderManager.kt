@@ -101,9 +101,7 @@ class LadderManager: BaseModel() {
         goalDBHelper.statesForIdList(goals.map { it.id.toLong() }).executeAsList()
 
     fun setGoalState(id: Long, status: GoalStatus) {
-        mainScope.launch {
-            goalDBHelper.updateGoalState(id, status)
-        }
+        goalDBHelper.insertGoalState(id, status)
     }
 
     //

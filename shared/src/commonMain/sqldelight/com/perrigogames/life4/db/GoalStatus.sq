@@ -19,11 +19,6 @@ setStatus:
 INSERT OR REPLACE INTO GoalState(goalId, status, date)
 VALUES (?,?,?);
 
-updateStatus:
-UPDATE GoalState
-SET status = ?, date = ?
-WHERE goalId = ?;
-
 updateStatuses:
 UPDATE GoalState
 SET status = ?, date = ?

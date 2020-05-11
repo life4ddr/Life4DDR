@@ -104,3 +104,8 @@ dependencies {
 
     kapt(Deps.glide_compiler)
 }
+
+tasks.register<Copy>("copyDataFiles") {
+    from("../json")
+    into("./src/main/res/raw")
+}

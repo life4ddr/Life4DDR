@@ -8,6 +8,7 @@ object Versions {
 
     val kotlin = "1.3.61"
     val android_x = "1.1.0"
+    val android_x_constraint = "1.1.3"
     val android_x_lifecycle = "2.0.0"
     val android_gradle_plugin = "3.5.0"
     val buildToolsVersion = "29.0.0"
@@ -39,7 +40,7 @@ object Deps {
     val preferences_x = "androidx.preference:preference:${Versions.android_x}"
     val app_compat_x = "androidx.appcompat:appcompat:${Versions.android_x}"
     val material_x = "com.google.android.material:material:${Versions.android_x}"
-    val constraintlayout = "androidx.constraintlayout:constraintlayout:${Versions.android_x}"
+    val constraintlayout = "androidx.constraintlayout:constraintlayout:${Versions.android_x_constraint}"
     val lifecycle = "androidx.lifecycle:lifecycle-extensions:${Versions.android_x_lifecycle}"
     val recyclerview = "androidx.recyclerview:recyclerview:${Versions.android_x}"
     val viewmodel = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.android_x_lifecycle}"

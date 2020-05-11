@@ -58,10 +58,11 @@ class RankDetailsViewModel(private val context: Context,
                 COMPLETE -> INCOMPLETE
                 else -> COMPLETE
             })
-            updateVisibility(item, goalDB)
+            val newDB = ladderManager.getGoalState(item)!!
+            updateVisibility(item, newDB)
             updateCompleteCount()
             updateIgnoredStates()
-            goalListListener?.onGoalStateChanged(item, goalDB.status, 0)
+            goalListListener?.onGoalStateChanged(item, newDB.status, 0)
         }
 
         override fun onIgnoreClicked(itemView: LadderGoalItemView, item: BaseRankGoal, goalDB: GoalState) {

@@ -15,9 +15,9 @@ interface GithubDataAPI {
     suspend fun getTrials(): TrialData
 
     companion object {
-        const val IGNORES_FILE_NAME = "ignore_lists_v2.json"
+        const val IGNORES_FILE_NAME = "ignore_lists.json"
         const val PLACEMENTS_FILE_NAME = "placements.json"
-        const val RANKS_FILE_NAME = "ranks_v2.json"
+        const val RANKS_FILE_NAME = "ranks.json"
         const val SONGS_FILE_NAME = "songs.csv"
         const val TRIALS_FILE_NAME = "trials.json"
     }
