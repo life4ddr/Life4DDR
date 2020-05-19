@@ -100,7 +100,10 @@ dependencies {
     implementation(Deps.Coroutines.android)
     implementation(Deps.multiplatformSettings)
     implementation(Deps.koinCore)
-    testImplementation(Deps.junit)
+    androidTestImplementation(Deps.AndroidXTest.junit)
+    androidTestImplementation(Deps.AndroidXTest.runner)
+    androidTestImplementation(Deps.AndroidXTest.rules)
+    androidTestImplementation(Deps.AndroidXTest.espresso)
 
     kapt(Deps.glide_compiler)
 }

@@ -49,17 +49,6 @@ abstract class GoalSqlTest {
     }
 
     @Test
-    fun `Update Goal`() = runTest {
-        val goals = dbHelper.allStates().executeAsList()
-        val firstGoal = goals.first()
-        assertNotEquals(IGNORED, dbHelper.stateForId(firstGoal.goalId)?.status,
-            "Won't be able to tell if an update takes place")
-        dbHelper.updateGoalState(firstGoal.goalId, IGNORED)
-        assertEquals(IGNORED, dbHelper.stateForId(firstGoal.goalId)?.status,
-            "Status was not properly updated")
-    }
-
-    @Test
     fun `Delete All`() = runTest {
         dbHelper.insertGoalState(5, INCOMPLETE)
         dbHelper.insertGoalState(6, COMPLETE)

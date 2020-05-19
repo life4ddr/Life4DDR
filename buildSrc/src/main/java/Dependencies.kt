@@ -12,8 +12,8 @@ object Versions {
     val android_x_lifecycle = "2.0.0"
     val android_gradle_plugin = "3.5.0"
     val buildToolsVersion = "29.0.0"
+    val espresso = "3.1.0"
     val googleServices = "4.3.3"
-    val junit = "4.12"
     val sqlDelight = "1.2.1"
     val ktor = "1.2.6"
     val ktorm = "2.5"
@@ -57,7 +57,6 @@ object Deps {
     val glide_compiler = "com.github.bumptech.glide:compiler:${Versions.glide}"
 
     val android_gradle_plugin = "com.android.tools.build:gradle:${Versions.android_gradle_plugin}"
-    val junit = "junit:junit:${Versions.junit}"
     val stately =  "co.touchlab:stately:${Versions.stately}"
     val multiplatformSettings =  "com.russhwolf:multiplatform-settings:${Versions.multiplatformSettings}"
     val multiplatformSettingsTest = "com.russhwolf:multiplatform-settings-test:${Versions.multiplatformSettings}"
@@ -69,6 +68,7 @@ object Deps {
         val junit =  "androidx.test.ext:junit:${Versions.android_x}"
         val runner = "androidx.test:runner:${Versions.android_x}"
         val rules = "androidx.test:rules:${Versions.android_x}"
+        val espresso = "androidx.test.espresso:espresso-core:${Versions.espresso}"
     }
 
     object KotlinTest {
