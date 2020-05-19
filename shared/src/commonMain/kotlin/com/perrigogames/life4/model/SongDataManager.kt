@@ -38,10 +38,10 @@ class SongDataManager: BaseModel() {
     })
 
     init {
+        songList.start()
         if (majorUpdates.updates.contains(MajorUpdate.SONG_DB)) {
             initializeSongDatabase()
         }
-        songList.start()
     }
 
     //

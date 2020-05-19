@@ -1,5 +1,6 @@
 @file:UseSerializers(TrialTypeSerializer::class,
     TrialRankSerializer::class,
+    PlacementRankSerializer::class,
     DifficultyClassSerializer::class,
     PlayStyleSerializer::class,
     ChartTypeSerializer::class,

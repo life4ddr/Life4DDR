@@ -3,8 +3,11 @@ package com.perrigogames.life4trials.activity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.perrigogames.life4.model.FirstRunManager
+import com.perrigogames.life4.model.LadderManager
+import com.perrigogames.life4.model.SongDataManager
 import com.perrigogames.life4trials.manager.launchIntent
 import org.koin.core.KoinComponent
+import org.koin.core.get
 import org.koin.core.inject
 
 /**

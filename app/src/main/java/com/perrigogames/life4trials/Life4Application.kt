@@ -20,7 +20,7 @@ import com.perrigogames.life4trials.util.AndroidNotifications
 import com.perrigogames.life4trials.util.setupNotifications
 import org.greenrobot.eventbus.EventBus
 import org.koin.core.KoinComponent
-import org.koin.core.inject
+import org.koin.core.get
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
@@ -65,13 +65,15 @@ class Life4Application: MultiDexApplication() {
 
         setupNotifications(this)
         PreferenceManager.setDefaultValues(this, R.xml.root_preferences, false)
+
+        ManagerContainer() // instantiate the managers so that remote data gets pulled properly
     }
 
     private inner class ManagerContainer: KoinComponent {
-        val firstRunManager: FirstRunManager by inject()
-        val ladderManager: LadderManager by inject()
-        val placementManager: PlacementManager by inject()
-        val songDataManager: SongDataManager by inject()
-        val trialManager: TrialManager by inject()
+        val firstRunManager: FirstRunManager = get()
+        val ladderManager: LadderManager = get()
+        val placementManager: PlacementManager = get()
+        val songDataManager: SongDataManager = get()
+        val trialManager: TrialManager = get()
     }
 }
