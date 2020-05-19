@@ -11,33 +11,33 @@ import com.perrigogames.life4.enums.ClearType
 import com.perrigogames.life4.enums.DifficultyClass
 
 val LadderRank.nameRes @StringRes get() = when(this) {
-    LadderRank.WOOD1 -> R.drawable.wood_1
-    LadderRank.WOOD2 -> R.drawable.wood_2
-    LadderRank.WOOD3 -> R.drawable.wood_3
-    LadderRank.BRONZE1 -> R.drawable.bronze_1
-    LadderRank.BRONZE2 -> R.drawable.bronze_2
-    LadderRank.BRONZE3 -> R.drawable.bronze_3
-    LadderRank.SILVER1 -> R.drawable.silver_1
-    LadderRank.SILVER2 -> R.drawable.silver_2
-    LadderRank.SILVER3 -> R.drawable.silver_3
-    LadderRank.GOLD1 -> R.drawable.gold_1
-    LadderRank.GOLD2 -> R.drawable.gold_2
-    LadderRank.GOLD3 -> R.drawable.gold_3
-    LadderRank.PLATINUM1 -> R.drawable.platinum_1
-    LadderRank.PLATINUM2 -> R.drawable.platinum_2
-    LadderRank.PLATINUM3 -> R.drawable.platinum_3
-    LadderRank.DIAMOND1 -> R.drawable.diamond_1
-    LadderRank.DIAMOND2 -> R.drawable.diamond_2
-    LadderRank.DIAMOND3 -> R.drawable.diamond_3
-    LadderRank.COBALT1 -> R.drawable.cobalt_1
-    LadderRank.COBALT2 -> R.drawable.cobalt_2
-    LadderRank.COBALT3 -> R.drawable.cobalt_3
-    LadderRank.AMETHYST1 -> R.drawable.amethyst_1
-    LadderRank.AMETHYST2 -> R.drawable.amethyst_2
-    LadderRank.AMETHYST3 -> R.drawable.amethyst_3
-    LadderRank.EMERALD1 -> R.drawable.emerald_1
-    LadderRank.EMERALD2 -> R.drawable.emerald_2
-    LadderRank.EMERALD3 -> R.drawable.emerald_3
+    LadderRank.WOOD1 -> R.string.wood_1
+    LadderRank.WOOD2 -> R.string.wood_2
+    LadderRank.WOOD3 -> R.string.wood_3
+    LadderRank.BRONZE1 -> R.string.bronze_1
+    LadderRank.BRONZE2 -> R.string.bronze_2
+    LadderRank.BRONZE3 -> R.string.bronze_3
+    LadderRank.SILVER1 -> R.string.silver_1
+    LadderRank.SILVER2 -> R.string.silver_2
+    LadderRank.SILVER3 -> R.string.silver_3
+    LadderRank.GOLD1 -> R.string.gold_1
+    LadderRank.GOLD2 -> R.string.gold_2
+    LadderRank.GOLD3 -> R.string.gold_3
+    LadderRank.PLATINUM1 -> R.string.platinum_1
+    LadderRank.PLATINUM2 -> R.string.platinum_2
+    LadderRank.PLATINUM3 -> R.string.platinum_3
+    LadderRank.DIAMOND1 -> R.string.diamond_1
+    LadderRank.DIAMOND2 -> R.string.diamond_2
+    LadderRank.DIAMOND3 -> R.string.diamond_3
+    LadderRank.COBALT1 -> R.string.cobalt_1
+    LadderRank.COBALT2 -> R.string.cobalt_2
+    LadderRank.COBALT3 -> R.string.cobalt_3
+    LadderRank.AMETHYST1 -> R.string.amethyst_1
+    LadderRank.AMETHYST2 -> R.string.amethyst_2
+    LadderRank.AMETHYST3 -> R.string.amethyst_3
+    LadderRank.EMERALD1 -> R.string.emerald_1
+    LadderRank.EMERALD2 -> R.string.emerald_2
+    LadderRank.EMERALD3 -> R.string.emerald_3
 }
 
 val LadderRank.drawableRes @DrawableRes get() = when(this) {
