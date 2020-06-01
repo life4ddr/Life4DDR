@@ -14,7 +14,6 @@ import androidx.preference.*
 import com.perrigogames.life4.*
 import com.perrigogames.life4.SettingsKeys.KEY_CREDITS
 import com.perrigogames.life4.SettingsKeys.KEY_DEBUG
-import com.perrigogames.life4.SettingsKeys.KEY_DEBUG_DATA_DUMP
 import com.perrigogames.life4.SettingsKeys.KEY_DEBUG_INDUCE_CRASH
 import com.perrigogames.life4.SettingsKeys.KEY_DEBUG_LEADERBOARD
 import com.perrigogames.life4.SettingsKeys.KEY_DEBUG_NOTIF_LADDER_RANK
@@ -43,13 +42,15 @@ import com.perrigogames.life4.SettingsKeys.KEY_SHOP_DANGERSHARK
 import com.perrigogames.life4.SettingsKeys.KEY_SHOP_LIFE4
 import com.perrigogames.life4.SettingsKeys.KEY_SONG_RESULTS_CLEAR
 import com.perrigogames.life4.SettingsKeys.KEY_SUBMISSION_NOTIFICAION_TEST
+import com.perrigogames.life4.data.InProgressTrialSession
 import com.perrigogames.life4.data.LadderRank
 import com.perrigogames.life4.data.TrialRank
-import com.perrigogames.life4.data.TrialSession
+import com.perrigogames.life4.enums.PlayStyle
 import com.perrigogames.life4.model.*
 import com.perrigogames.life4trials.BuildConfig
+import com.perrigogames.life4trials.GetScoreList
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.manager.*
+import com.perrigogames.life4trials.manager.AndroidLadderDialogs
 import com.perrigogames.life4trials.util.jacketResId
 import com.perrigogames.life4trials.util.openWebUrlFromRes
 import com.russhwolf.settings.Settings
@@ -86,14 +87,16 @@ class SettingsActivity : AppCompatActivity(), SettingsFragmentListener {
         protected val ladderManager: LadderManager by inject()
         protected val ladderDialogs: AndroidLadderDialogs by inject()
         protected val trialManager: TrialManager by inject()
+        protected val trialSessionManager: TrialSessionManager by inject()
         protected val playerManager: PlayerManager by inject()
-        protected val songDataManager: SongDataManager by inject()
         protected val ignoreListManager: IgnoreListManager by inject()
         protected val settings: Settings by inject()
         protected val notifications: Notifications by inject()
         protected val eventBus: EventBus by inject()
 
         private var listener: SettingsFragmentListener? = null
+
+        protected val getScores = registerForActivityResult(GetScoreList()) { ladderDialogs.handleSkillAttackImport(activity!!, it) }
 
         override fun onPause() {
             super.onPause()
@@ -171,7 +174,16 @@ class SettingsActivity : AppCompatActivity(), SettingsFragmentListener {
                 true
             }
             preferenceListener(KEY_IMPORT_DATA) {
-                ladderDialogs.showImportFlow(activity!!)
+                var done = false
+                if (!settings.getBoolean(SettingsKeys.KEY_IMPORT_PREFER_LEGACY, false)) {
+                    try {
+                        getScores.launch(PlayStyle.SINGLE)
+                        done = true
+                    } catch (e: Exception) { }
+                }
+                if (!done) {
+                    ladderDialogs.showImportFlow(activity!!)
+                }
                 true
             }
 
@@ -348,10 +360,6 @@ class SettingsActivity : AppCompatActivity(), SettingsFragmentListener {
 //                (context as AppCompatActivity).startActivity(Intent(context, LadderLeaderboardActivity::class.java))
                 true
             }
-            preferenceListener(KEY_DEBUG_DATA_DUMP) {
-                songDataManager.dumpData()
-                true
-            }
             preferenceListener(KEY_DEBUG_SONG_RECORDS) {
                 (context as AppCompatActivity).startActivity(Intent(context, SongRecordsListCheckActivity::class.java))
                 true
@@ -387,9 +395,9 @@ class SettingsActivity : AppCompatActivity(), SettingsFragmentListener {
                     key.startsWith(KEY_DEBUG_RANK_PREFIX) -> findPreference<DropDownPreference>(key)?.let { it ->
                         val rank = TrialRank.parse(it.entry.toString())
                         val trial = trialManager.findTrial(it.key.substring(KEY_DEBUG_RANK_PREFIX.length))!!
-                        val session = TrialSession(trial, if (trial.isEvent) null else rank)
+                        val session = InProgressTrialSession(trial, if (trial.isEvent) null else rank)
                             .apply { goalObtained = (rank != null) }
-                        trialManager.saveSession(session)
+                        trialSessionManager.saveSession(session)
                         it.summary = rank?.toString() ?: "NONE"
                     }
                 }

@@ -3,8 +3,8 @@ package com.perrigogames.life4trials.view
 import android.content.Context
 import android.util.AttributeSet
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.perrigogames.life4.data.InProgressTrialSession
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4.data.TrialSession
 import kotlinx.android.synthetic.main.view_ex_score_view.view.*
 
 class RunningEXScoreView @JvmOverloads constructor(context: Context,
@@ -12,7 +12,7 @@ class RunningEXScoreView @JvmOverloads constructor(context: Context,
                                                    defStyleAttr: Int = 0) :
     ConstraintLayout(context, attrs, defStyleAttr) {
 
-    fun update(session: TrialSession) {
+    fun update(session: InProgressTrialSession) {
         progress_ex_score.apply {
             progress = session.currentTotalExScore
             secondaryProgress = session.currentMaxExScore

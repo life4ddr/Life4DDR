@@ -81,9 +81,13 @@ dependencies {
     implementation(Deps.constraintlayout)
     implementation(Deps.lifecycle)
     implementation(Deps.viewmodel)
+    implementation(Deps.activity)
+    implementation(Deps.fragment)
+    debugImplementation(Deps.fragment_testing)
     implementation(Deps.firebase)
     implementation(Deps.firebase_messaging)
     implementation(Deps.firebase_crashlytics)
+    implementation(Deps.stetho)
 
     implementation(Deps.koinCore)
     implementation(Deps.klock)

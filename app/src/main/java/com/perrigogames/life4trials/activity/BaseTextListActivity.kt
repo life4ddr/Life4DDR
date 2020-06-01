@@ -4,8 +4,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.perrigogames.life4.db.SongDatabaseHelper
 import com.perrigogames.life4.enums.PlayStyle
+import com.perrigogames.life4.model.IgnoreListManager
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4.model.SongDataManager
 import kotlinx.android.synthetic.main.activity_block_list_check.*
 import org.koin.core.KoinComponent
 import org.koin.core.inject
@@ -27,13 +27,13 @@ abstract class BaseTextListActivity : AppCompatActivity() {
 
 class BlockListCheckActivity: BaseTextListActivity(), KoinComponent {
 
-    private val songDataManager: SongDataManager by inject()
+    private val ignoreListManager: IgnoreListManager by inject()
 
     override fun buildText(builder: StringBuilder) {
-        songDataManager.getCurrentlyIgnoredSongs().forEach {
+        ignoreListManager.getCurrentlyIgnoredSongs().forEach {
             builder.append("(${it.id}) ${it.version} - ${it.title}\n")
         }
-        songDataManager.getCurrentlyIgnoredCharts().forEach { entry ->
+        ignoreListManager.getCurrentlyIgnoredCharts().forEach { entry ->
             entry.value.forEach { chart ->
                 builder.append("(${entry.key.id}) ${entry.key.version} - ${entry.key.title} (${chart.difficultyClass})\n")
             }

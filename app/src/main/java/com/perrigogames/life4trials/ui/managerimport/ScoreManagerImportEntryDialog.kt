@@ -19,7 +19,7 @@ class ScoreManagerImportEntryDialog(var listener: Listener? = null): DialogFragm
             AlertDialog.Builder(it)
                 .setView(view)
                 .setNegativeButton(R.string.help) { _, _ -> listener?.onHelpPressed() }
-                .setPositiveButton(R.string.okay) { _, _ -> listener?.onDataSubmitted(view.field_manager_data.text.toString()) }
+                .setPositiveButton(R.string.okay) { _, _ -> listener?.onDataSubmitted(view.field_manager_data.text.toString().split("\n")) }
                 .setOnCancelListener { listener?.onDialogCancelled() }
                 .create()
         } ?: throw IllegalStateException("Activity cannot be null")
@@ -28,7 +28,7 @@ class ScoreManagerImportEntryDialog(var listener: Listener? = null): DialogFragm
     interface Listener {
         fun onDialogCancelled()
         fun onHelpPressed()
-        fun onDataSubmitted(data: String)
+        fun onDataSubmitted(data: List<String>)
     }
 
     companion object {

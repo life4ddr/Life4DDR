@@ -7,8 +7,9 @@
       "name":  "FLOOR INFECTION",
       "unlock": "single",
       "songs": [
-        { "id": 623, "title": "ドキドキ☆流星トラップガール!!" },
-        { "id": 600, "title": "second spring storm" }
+        { "id": 600, "title": "ドキドキ☆流星トラップガール!!" },
+        { "id": 601, "title": "Strobe♡Girl" },
+        { "id": 602, "title": "second spring storm" }
       ]
     },
     {
@@ -16,24 +17,24 @@
       "name": "いちかのBEMANI投票選抜戦2019",
       "unlock": "single",
       "songs": [
-        { "id": 873, "title": "最小三倍完全数" },
-        { "id": 874, "title": "Afterimage d'automne" },
-        { "id": 875, "title": "BLACK JACKAL" },
-        { "id": 876, "title": "Six String Proof" },
-        { "id": 877, "title": "toy boxer" },
-        { "id": 878, "title": "Trill auf G" },
-        { "id": 879, "title": "voltississimo" },
-        { "id": 880, "title": "おーまい！らぶりー！すうぃーてぃ！だーりん！" },
-        { "id": 881, "title": "ミッドナイト☆WAR" }
+        { "id": 887, "title": "最小三倍完全数" },
+        { "id": 894, "title": "Afterimage d'automne" },
+        { "id": 889, "title": "BLACK JACKAL" },
+        { "id": 890, "title": "Six String Proof" },
+        { "id": 891, "title": "toy boxer" },
+        { "id": 888, "title": "Trill auf G" },
+        { "id": 893, "title": "voltississimo" },
+        { "id": 892, "title": "おーまい！らぶりー！すうぃーてぃ！だーりん！" },
+        { "id": 895, "title": "ミッドナイト☆WAR" }
       ]
     },
     {
       "id": "ace_extra_exclusive",
       "name":  "DDR A Extra Exclusive",
       "songs": [
-        { "id": 659, "title": "ACE FOR ACES", "difficulty_class": "challenge" },
-        { "id": 720, "title": "Pursuer" },
-        { "id": 747, "title": "Vanquish The Ghost" }
+        { "id": 757, "title": "ACE FOR ACES", "difficulty_class": "challenge" },
+        { "id": 797, "title": "Pursuer" },
+        { "id": 799, "title": "Vanquish The Ghost" }
       ]
     },
     {
@@ -41,7 +42,7 @@
       "name": "DDR A20 Extra Exclusive",
       "songs": [
         { "id": 837, "title": "ORCA" },
-        { "id": 849, "title": "Splash Gold" }
+        { "id": 878, "title": "Splash Gold" }
       ]
     },
     {
@@ -49,8 +50,8 @@
       "name": "The 8th KONAMI Arcade Championship Entry",
       "unlock": "all",
       "songs": [
-        { "id": 689, "title": "First Time" },
-        { "id": 671, "title": "Catch Our Fire!" }
+        { "id": 820, "title": "First Time" },
+        { "id": 819, "title": "Catch Our Fire!" }
       ]
     },
     {
@@ -58,8 +59,8 @@
       "name": "The 9th KONAMI Arcade Championship Entry",
       "unlock": "all",
       "songs": [
-        { "id": 888, "title": "ランカーキラーガール" },
-        { "id": 889, "title": "The History of the Future" }
+        { "id": 904, "title": "ランカーキラーガール" },
+        { "id": 905, "title": "The History of the Future" }
       ]
     },
     {
@@ -67,11 +68,11 @@
       "name": "DanceDanceRevolution 20th Anniversary Grand Finale",
       "unlock": "sequence",
       "songs": [
-        { "id": 658, "title": "#OurMemories", "difficulty_class": "challenge" },
-        { "id": 728, "title": "Show me your moves", "difficulty_class": "challenge" },
-        { "id": 672, "title": "CHAOS Terror-Tech Mix", "difficulty_class": "challenge" },
-        { "id": 717, "title": "POSSESSION (20th Anniversary Mix)", "difficulty_class": "challenge" },
-        { "id": 711, "title": "MAX 360", "difficulty_class": "challenge" }
+        { "id": 816, "title": "#OurMemories", "difficulty_class": "challenge" },
+        { "id": 812, "title": "Show me your moves", "difficulty_class": "challenge" },
+        { "id": 814, "title": "CHAOS Terror-Tech Mix", "difficulty_class": "challenge" },
+        { "id": 813, "title": "POSSESSION (20th Anniversary Mix)", "difficulty_class": "challenge" },
+        { "id": 815, "title": "MAX 360", "difficulty_class": "challenge" }
       ]
     },
     {
@@ -79,24 +80,24 @@
       "name": "DDR CHALLENGE Carnival",
       "unlock": "sequence",
       "songs": [
-        { "id": 799, "title": "無頼ック自己ライザー", "difficulty_class": "challenge" },
-        { "id": 857, "title": "タイガーランペイジ", "difficulty_class": "challenge" },
-        { "id": 865, "title": "腐れ外道とチョコレゐト", "difficulty_class": "challenge" },
-        { "id": 870, "title": "ホーンテッド★メイドランチ", "difficulty_class": "challenge" },
-        { "id": 838, "title": "Our Soul", "difficulty_class": "challenge" },
-        { "id": 823, "title": "DOWNER & UPPER", "difficulty_class": "challenge" },
-        { "id": 718, "title": "Prey", "difficulty_class": "challenge" }
+        { "id": 796, "title": "無頼ック自己ライザー", "difficulty_class": "challenge" },
+        { "id": 855, "title": "タイガーランペイジ", "difficulty_class": "challenge" },
+        { "id": 854, "title": "腐れ外道とチョコレゐト", "difficulty_class": "challenge" },
+        { "id": 897, "title": "ホーンテッド★メイドランチ", "difficulty_class": "challenge" },
+        { "id": 860, "title": "Our Soul", "difficulty_class": "challenge" },
+        { "id": 884, "title": "DOWNER & UPPER", "difficulty_class": "challenge" },
+        { "id": 809, "title": "Prey", "difficulty_class": "challenge" }
       ]
     },
     {
       "id": "a20_legend_license",
       "name": "\"Legend License\" Remixes",
       "songs": [
-        { "id": 816, "title": "BUTTERFLY (20th Anniversary Mix)" },
-        { "id": 817, "title": "CARTOON HEROES (20th Anniversary Mix)" },
-        { "id": 828, "title": "HAVE YOU NEVER BEEN MELLOW (20th Anniversary Mix)" },
-        { "id": 832, "title": "LONG TRAIN RUNNIN' (20th Anniversary Mix)" },
-        { "id": 844, "title": "SKY HIGH (20th Anniversary Mix)" }
+        { "id": 869, "title": "BUTTERFLY (20th Anniversary Mix)" },
+        { "id": 853, "title": "CARTOON HEROES (20th Anniversary Mix)" },
+        { "id": 839, "title": "HAVE YOU NEVER BEEN MELLOW (20th Anniversary Mix)" },
+        { "id": 858, "title": "LONG TRAIN RUNNIN' (20th Anniversary Mix)" },
+        { "id": 863, "title": "SKY HIGH (20th Anniversary Mix)" }
       ]
     },
     {
@@ -104,13 +105,13 @@
       "name": "GOLDEN LEAGUE SILVER Class",
       "unlock": "all",
       "songs": [
-        { "id": 812, "title": "Ace out" },
-        { "id": 814, "title": "Avenger" },
-        { "id": 827, "title": "Give Me" },
-        { "id": 834, "title": "New Era" },
-        { "id": 871, "title": "The World Ends Now" },
-        { "id": 872, "title": "Rampage Hero" },
-        { "id": 886, "title": "ALPACORE" }
+        { "id": 879, "title": "Ace out" },
+        { "id": 857, "title": "Avenger" },
+        { "id": 868, "title": "Give Me" },
+        { "id": 862, "title": "New Era" },
+        { "id": 886, "title": "The World Ends Now" },
+        { "id": 896, "title": "Rampage Hero" },
+        { "id": 901, "title": "ALPACORE" }
       ]
     },
     {
@@ -118,8 +119,8 @@
       "name": "GOLDEN LEAGUE GOLD Class",
       "unlock": "all",
       "songs": [
-        { "id": 887, "title": "Starlight in the Snow" },
-        { "id": 891, "title": "Glitch Angel" }
+        { "id": 917, "title": "Starlight in the Snow" },
+        { "id": 909, "title": "Glitch Angel" }
       ]
     }
   ],
@@ -131,42 +132,42 @@
       "locked_groups": [ "ace_extra_exclusive", "a20_anniversary_challenge", "a20_challenge_carnival" ],
       "groups": [ "floor_infection", "kac_2019" ],
       "songs": [
-        { "id": 656, "title": "39" },
-        { "id": 712, "title": "More One Night" },
-        { "id": 851, "title": "The Light" },
-        { "id": 791, "title": "愛言葉" },
-        { "id": 754, "title": "エイリアンエイリアン" },
-        { "id": 783, "title": "天ノ弱" },
-        { "id": 751, "title": "ありふれたせかいせいふく" },
-        { "id": 799, "title": "無頼ック自己ライザー" },
-        { "id": 763, "title": "チルノのパーフェクトさんすう教室" },
-        { "id": 778, "title": "初音ミクの消失" },
-        { "id": 781, "title": "向日葵サンセット" },
-        { "id": 782, "title": "君氏危うくも近うよれ" },
-        { "id": 865, "title": "腐れ外道とチョコレゐト" },
-        { "id": 860, "title": "ライアーダンス" },
-        { "id": 774, "title": "ロストワンの号哭" },
-        { "id": 784, "title": "妄想税" },
-        { "id": 800, "title": "脳漿炸裂ガール" },
-        { "id": 756, "title": "おねがいダーリン" },
-        { "id": 802, "title": "輪廻転生" },
-        { "id": 777, "title": "六兆年と一夜物語" },
-        { "id": 773, "title": "ロールプレイングゲーム" },
-        { "id": 798, "title": "炉心融解" },
-        { "id": 786, "title": "幸せになれる隠しコマンドがあるらしい" },
-        { "id": 762, "title": "すろぉもぉしょん" },
-        { "id": 857, "title": "タイガーランペイジ" },
-        { "id": 752, "title": "いーあるふぁんくらぶ" },
-        { "id": 771, "title": "ようこそジャパリパークへ" },
-        { "id": 657, "title": "*ハロー、プラネット。" },
-        { "id": 630, "title": "ミライプリズム" },
-        { "id": 539, "title": "ずっとみつめていて (Ryu☆Remix)" },
-        { "id": 405, "title": "BRILLIANT 2U (AKBK MIX)" },
-        { "id": 407, "title": "COME BACK TO MY HEART" },
-        { "id": 424, "title": "KEEP ON MOVIN' (Y&Co. DJ BOSS remix)" },
-        { "id": 441, "title": "PARANOiA (kskst mix)" },
-        { "id": 445, "title": "PUT YOUR FAITH IN ME (DA's Twinkly Disco Remix)" },
-        { "id": 466, "title": "TRIP MACHINE (xac nanoglide mix)" }
+        { "id": 826, "title": "39" },
+        { "id": 770, "title": "More One Night" },
+        { "id": 836, "title": "The Light" },
+        { "id": 821, "title": "愛言葉" },
+        { "id": 782, "title": "エイリアンエイリアン" },
+        { "id": 725, "title": "天ノ弱" },
+        { "id": 822, "title": "ありふれたせかいせいふく" },
+        { "id": 796, "title": "無頼ック自己ライザー" },
+        { "id": 676, "title": "チルノのパーフェクトさんすう教室" },
+        { "id": 760, "title": "初音ミクの消失" },
+        { "id": 762, "title": "向日葵サンセット" },
+        { "id": 763, "title": "君氏危うくも近うよれ" },
+        { "id": 854, "title": "腐れ外道とチョコレゐト" },
+        { "id": 856, "title": "ライアーダンス" },
+        { "id": 727, "title": "ロストワンの号哭" },
+        { "id": 825, "title": "妄想税" },
+        { "id": 759, "title": "脳漿炸裂ガール" },
+        { "id": 795, "title": "おねがいダーリン" },
+        { "id": 769, "title": "輪廻転生" },
+        { "id": 726, "title": "六兆年と一夜物語" },
+        { "id": 781, "title": "ロールプレイングゲーム" },
+        { "id": 785, "title": "炉心融解" },
+        { "id": 758, "title": "幸せになれる隠しコマンドがあるらしい" },
+        { "id": 823, "title": "すろぉもぉしょん" },
+        { "id": 855, "title": "タイガーランペイジ" },
+        { "id": 784, "title": "いーあるふぁんくらぶ" },
+        { "id": 768, "title": "ようこそジャパリパークへ" },
+        { "id": 824, "title": "*ハロー、プラネット。" },
+        { "id": 644, "title": "ミライプリズム" },
+        { "id": 502, "title": "ずっとみつめていて (Ryu☆Remix)" },
+        { "id": 486, "title": "BRILLIANT 2U (AKBK MIX)" },
+        { "id": 435, "title": "COME BACK TO MY HEART" },
+        { "id": 482, "title": "KEEP ON MOVIN' (Y&Co. DJ BOSS remix)" },
+        { "id": 487, "title": "PARANOiA (kskst mix)" },
+        { "id": 483, "title": "PUT YOUR FAITH IN ME (DA's Twinkly Disco Remix)" },
+        { "id": 484, "title": "TRIP MACHINE (xac nanoglide mix)" }
       ]
     },
     {
@@ -183,12 +184,12 @@
       "locked_groups": [ "a20_extra_exclusive", "a20_golden_league_silver", "a20_golden_league_gold", "a20_legend_license" ],
       "groups": [ "floor_infection", "kac_2020", "a20_anniversary_challenge", "ichica_2019", "a20_challenge_carnival" ],
       "songs": [
-        { "id": 890, "title": "令和" },
-        { "id": 778, "title": "初音ミクの消失" },
-        { "id": 774, "title": "ロストワンの号哭" },
-        { "id": 800, "title": "脳漿炸裂ガール" },
-        { "id": 786, "title": "幸せになれる隠しコマンドがあるらしい" },
-        { "id": 851, "title": "The Light" }
+        { "id": 906, "title": "令和" },
+        { "id": 760, "title": "初音ミクの消失" },
+        { "id": 727, "title": "ロストワンの号哭" },
+        { "id": 759, "title": "脳漿炸裂ガール" },
+        { "id": 758, "title": "幸せになれる隠しコマンドがあるらしい" },
+        { "id": 836, "title": "The Light" }
       ]
     },
     {

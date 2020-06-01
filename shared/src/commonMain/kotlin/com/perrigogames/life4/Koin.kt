@@ -5,9 +5,7 @@ import com.perrigogames.life4.ktor.GithubDataAPI
 import com.perrigogames.life4.ktor.GithubDataImpl
 import com.perrigogames.life4.ktor.Life4API
 import com.perrigogames.life4.ktor.Life4APIImpl
-import com.perrigogames.life4.model.FirstRunManager
-import com.perrigogames.life4.model.MajorUpdateManager
-import com.perrigogames.life4.model.PlacementManager
+import com.perrigogames.life4.model.*
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonConfiguration
 import org.koin.core.context.startKoin
@@ -31,6 +29,13 @@ val coreModule = module {
     single { PlacementManager() }
     single { FirstRunManager() }
     single { MajorUpdateManager() }
+    single { LadderManager() }
+    single { LadderProgressManager() }
+    single { TrialManager() }
+    single { TrialSessionManager() }
+    single { IgnoreListManager() }
+    single { SongDataManager() }
+    single { PlayerManager() }
 }
 
 expect val platformModule: Module

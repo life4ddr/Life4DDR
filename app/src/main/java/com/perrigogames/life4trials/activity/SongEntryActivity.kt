@@ -21,8 +21,8 @@ import com.perrigogames.life4.data.TrialData
 import com.perrigogames.life4.enums.ClearType
 import com.perrigogames.life4.enums.ClearType.*
 import com.perrigogames.life4.getDebugBoolean
+import com.perrigogames.life4.model.TrialSessionManager
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4.model.TrialManager
 import com.perrigogames.life4trials.photoUri
 import com.perrigogames.life4trials.util.visibilityBool
 import com.russhwolf.settings.Settings
@@ -33,9 +33,9 @@ import org.koin.core.inject
 
 class SongEntryActivity: AppCompatActivity(), KoinComponent {
 
-    private val trialManager: TrialManager by inject()
+    private val trialSessionManager: TrialSessionManager by inject()
     private val settings: Settings by inject()
-    private val currentSession get() = trialManager.currentSession!!
+    private val currentSession get() = trialSessionManager.currentSession!!
 
     val result: SongResult? get() = currentSession.results[songIndex]
     val song: Song get() = currentSession.trial.songs[songIndex]

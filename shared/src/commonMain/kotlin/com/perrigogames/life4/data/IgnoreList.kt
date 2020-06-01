@@ -101,7 +101,7 @@ class IgnoredSong(val id: Long,
                   @SerialName("play_style") val playStyle: PlayStyle? = null) {
 
     fun matches(chart: ChartInfo) =
-        chart.songId == id &&
+        chart.skillId == id &&
                 (difficultyClass == null || difficultyClass == chart.difficultyClass) &&
                 (playStyle == null || playStyle == chart.playStyle)
 

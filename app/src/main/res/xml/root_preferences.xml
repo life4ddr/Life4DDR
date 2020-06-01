@@ -13,6 +13,9 @@
         app:key="KEY_IMPORT_DATA"
         app:title="@string/import_manager_data"/>
     <CheckBoxPreference
+        app:key="KEY_IMPORT_PREFER_LEGACY"
+        app:title="@string/import_manager_legacy"/>
+    <CheckBoxPreference
         app:key="KEY_IMPORT_SKIP_DIRECTIONS"
         app:title="@string/import_skip_directions"/>
     <Preference

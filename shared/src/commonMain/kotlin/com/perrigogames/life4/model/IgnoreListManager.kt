@@ -7,6 +7,9 @@ import com.perrigogames.life4.api.LocalDataReader
 import com.perrigogames.life4.data.IgnoreGroup
 import com.perrigogames.life4.data.IgnoreList
 import com.perrigogames.life4.data.IgnoredSong
+import com.perrigogames.life4.db.ChartInfo
+import com.perrigogames.life4.db.SongDatabaseHelper
+import com.perrigogames.life4.db.SongInfo
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.IGNORES_FILE_NAME
 import com.russhwolf.settings.Settings
 import com.russhwolf.settings.set
@@ -18,6 +21,7 @@ class IgnoreListManager: BaseModel() {
     private val eventBus: EventBusNotifier by inject()
     private val settings: Settings by inject()
     private val dataReader: LocalDataReader by inject(named(IGNORES_FILE_NAME))
+    private val dbHelper: SongDatabaseHelper by inject()
 
     private val ignoreLists = IgnoreListRemoteData(dataReader)
 
@@ -89,4 +93,12 @@ class IgnoreListManager: BaseModel() {
     fun invalidateIgnoredIds() {
         mSelectedIgnoreSongIds = null
     }
+
+    fun getCurrentlyIgnoredSongs() = dbHelper.selectSongs(selectedIgnoreSongIds)
+
+    fun getCurrentlyIgnoredCharts(): Map<SongInfo, List<ChartInfo>> =
+        dbHelper.selectSongsAndCharts(selectedIgnoreCharts.map { it.id }).mapValues { entry ->
+            val validCharts = selectedIgnoreCharts.filter { it.id == entry.key.id }
+            entry.value.filter { info -> validCharts.any { it.matches(info)  } }
+        }
 }

@@ -10,26 +10,38 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.FragmentActivity
 import com.perrigogames.life4.LadderDialogs
 import com.perrigogames.life4.Notifications
+import com.perrigogames.life4.SettingsKeys.KEY_IMPORT_SKIP_DIRECTIONS
+import com.perrigogames.life4.model.LadderImporter
 import com.perrigogames.life4.model.LadderManager
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.ui.managerimport.ScoreManagerImportDirectionsDialog
 import com.perrigogames.life4trials.ui.managerimport.ScoreManagerImportEntryDialog
 import com.perrigogames.life4trials.ui.managerimport.ScoreManagerImportProcessingDialog
 import com.russhwolf.settings.Settings
+import org.koin.core.KoinComponent
 import org.koin.core.inject
 
-class AndroidLadderDialogs: LadderDialogs {
+class AndroidLadderDialogs: LadderDialogs, KoinComponent {
 
     private val context: Context by inject()
     private val notifications: Notifications by inject()
     private val ladderManager: LadderManager by inject()
     override val settings: Settings by inject()
 
-    private lateinit var activity: FragmentActivity
+    private var activity: FragmentActivity? = null
 
     fun showImportFlow(activity: FragmentActivity) {
         this.activity = activity
         super.showImportFlow()
+    }
+
+    fun handleSkillAttackImport(activity: FragmentActivity, data: List<String>?) {
+        if (!data.isNullOrEmpty()) {
+            this.activity = activity
+            showImportProcessingDialog(data, false)
+        } else if (!settings.getBoolean(KEY_IMPORT_SKIP_DIRECTIONS)) {
+            showImportFlow(activity)
+        }
     }
 
     override fun showImportDirectionsDialog() {
@@ -41,14 +53,14 @@ class AndroidLadderDialogs: LadderDialogs {
                     ClipData.newPlainText("LIFE4 Data", context.getString(R.string.import_data_format))
                 showImportEntryDialog()
             }
-        }).show(activity.supportFragmentManager, ScoreManagerImportDirectionsDialog.TAG)
+        }).show(activity!!.supportFragmentManager, ScoreManagerImportDirectionsDialog.TAG)
     }
 
     override fun showImportEntryDialog() {
-        val intent = activity.packageManager.getLaunchIntentForPackage("jp.linanfine.dsma")
+        val intent = activity!!.packageManager.getLaunchIntentForPackage("jp.linanfine.dsma")
         if (intent != null) {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            activity.startActivity(intent)//null pointer check in case package name was not found
+            activity!!.startActivity(intent)//null pointer check in case package name was not found
         } else {
             Toast.makeText(activity, context.getString(R.string.no_ddra_manager), Toast.LENGTH_SHORT).show()
         }
@@ -56,16 +68,17 @@ class AndroidLadderDialogs: LadderDialogs {
         ScoreManagerImportEntryDialog(object : ScoreManagerImportEntryDialog.Listener {
             override fun onDialogCancelled() = Unit
             override fun onHelpPressed() = showImportDirectionsDialog()
-            override fun onDataSubmitted(data: String) = showImportProcessingDialog(data)
-        }).show(activity.supportFragmentManager, ScoreManagerImportEntryDialog.TAG)
+            override fun onDataSubmitted(data: List<String>) = showImportProcessingDialog(data, true)
+        }).show(activity!!.supportFragmentManager, ScoreManagerImportEntryDialog.TAG)
     }
 
-    override fun showImportProcessingDialog(dataString: String) {
+    override fun showImportProcessingDialog(dataLines: List<String>, legacy: Boolean) {
+        val importer = LadderImporter(dataLines, legacy)
         val dialog = ScoreManagerImportProcessingDialog(object : ScoreManagerImportProcessingDialog.Listener {
-            override fun onDialogLoaded(managerListener: LadderManager.ManagerImportListener) = ladderManager.importManagerData(dataString, managerListener)
-            override fun onDialogCancelled() = ladderManager.cancelImportJob()
+            override fun onDialogLoaded(managerListener: LadderImporter.Listener) = importer.start(managerListener)
+            override fun onDialogCancelled() = importer.cancel()
         })
-        dialog.show(activity.supportFragmentManager, ScoreManagerImportEntryDialog.TAG)
+        dialog.show(activity!!.supportFragmentManager, ScoreManagerImportEntryDialog.TAG)
     }
 
     override fun onClearGoalStates(positive: () -> Unit) =

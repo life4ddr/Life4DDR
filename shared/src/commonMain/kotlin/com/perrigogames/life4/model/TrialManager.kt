@@ -5,8 +5,7 @@ import com.perrigogames.life4.api.FetchListener
 import com.perrigogames.life4.api.LocalDataReader
 import com.perrigogames.life4.api.TrialRemoteData
 import com.perrigogames.life4.data.TrialData
-import com.perrigogames.life4.data.TrialRank
-import com.perrigogames.life4.data.TrialSession
+import com.perrigogames.life4.data.InProgressTrialSession
 import com.perrigogames.life4.db.TrialDatabaseHelper
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.TRIALS_FILE_NAME
 import com.perrigogames.life4.ktor.Life4API
@@ -29,7 +28,6 @@ class TrialManager: BaseModel() {
     private val dbHelper: TrialDatabaseHelper by inject()
     private val life4Api: Life4API by inject()
     private val dataReader: LocalDataReader by inject(named(TRIALS_FILE_NAME))
-    private val trialDialogs: TrialDialogs by inject()
 
     private var trialData = TrialRemoteData(dataReader, object: FetchListener<TrialData> {
         override fun onFetchUpdated(data: TrialData) {
@@ -37,8 +35,6 @@ class TrialManager: BaseModel() {
             eventBus.post(TrialListReplacedEvent())
         }
     })
-
-    var currentSession: TrialSession? = null
 
     val trials get() = trialData.data.trials
     val activeTrials get() = trials.filter { !it.isEvent || it.isActiveEvent }
@@ -72,22 +68,6 @@ class TrialManager: BaseModel() {
 
     fun nextTrial(index: Int) = activeTrials.getOrNull(index + 1)
 
-    /**
-     * Commits the current session to internal storage.  [currentSession] is
-     * no longer usable after calling this.
-     */
-    fun saveSession(session: TrialSession? = currentSession) {
-        session?.let { s ->
-            mainScope.launch {
-                dbHelper.insertSession(s)
-                eventBus.post(SavedRankUpdatedEvent(s.trial))
-            }
-        }
-        if (session == currentSession) {
-            currentSession = null
-        }
-    }
-
     fun getRankForTrial(trialId: String) = dbHelper.bestSession(trialId)?.goalRank
 
     fun bestSession(trialId: String) = dbHelper.bestSession(trialId)
@@ -106,38 +86,7 @@ class TrialManager: BaseModel() {
         }
     }
 
-    fun startSession(trialId: String, initialGoal: TrialRank?): TrialSession {
-        currentSession = TrialSession(findTrial(trialId)!!, initialGoal)
-        return currentSession!!
-    }
-
-    fun submitResult(session: TrialSession = currentSession!!, onFinish: () -> Unit) {
-        when {
-            session.results.any { it?.passed != true } -> submitRankAndFinish(session, false, onFinish)
-            session.trial.isEvent -> submitRankAndFinish(session, true, onFinish)
-            else -> trialDialogs.showRankConfirmation(session.goalRank!!) { passed -> submitRankAndFinish(session, passed, onFinish) }
-        }
-    }
-
     fun getSongsForSession(sessionId: Long) = dbHelper.songsForSession(sessionId)
-
-    private fun submitRankAndFinish(session: TrialSession, passed: Boolean, onFinish: () -> Unit) {
-        session.goalObtained = passed
-        saveSession(session)
-        if (passed) {
-            trialDialogs.showSessionSubmitConfirmation { submitOnline ->
-                if (submitOnline) {
-                    if (settings.getBoolean(SettingsKeys.KEY_SUBMISSION_NOTIFICAION, false)) {
-                        notifications.showUserInfoNotifications(session.currentTotalExScore)
-                    }
-                    trialDialogs.showTrialSubmissionWeb()
-                }
-                onFinish()
-            }
-        } else {
-            onFinish()
-        }
-    }
 
     fun getRecordsFromNetwork() {
         fun isRecordListStale(now: Long): Boolean {
@@ -160,7 +109,7 @@ class TrialManager: BaseModel() {
         }
     }
 
-    private fun insertRecords(records: List<TrialSession>) {
+    private fun insertRecords(records: List<InProgressTrialSession>) {
         mainScope.launch {
             records.forEach {
                 dbHelper.insertSession(it)
@@ -177,19 +126,17 @@ class TrialManager: BaseModel() {
         }
     }
 
-    companion object {
-        internal val RECORD_FETCH_TIMESTAMP_KEY = "TRIAL_FETCH_TIMESTAMP_KEY"
-    }
-}
-
-
 //    fun getRankForTrial(trialId: String) = repo.getRankForTrial(trialId)
-//
-//    fun bestTrials(): List<TrialSessionDB> {
+
+//    fun bestTrials(): List<com.perrigogames.life4.db.TrialSession> {
 //        val results = repo.bestTrials()
 //        return trials.mapNotNull {
 //            if (it.isEvent) null
 //            else results.firstOrNull { db -> db.trialId == it.id }
 //        }
 //    }
-//}
+
+    companion object {
+        internal val RECORD_FETCH_TIMESTAMP_KEY = "TRIAL_FETCH_TIMESTAMP_KEY"
+    }
+}

@@ -6,11 +6,15 @@
 
 package com.perrigogames.life4.data
 
+import com.perrigogames.life4.GameConstants
 import com.perrigogames.life4.PlatformStrings
+import com.perrigogames.life4.db.ChartResult
+import com.perrigogames.life4.db.DetailedChartResult
 import com.perrigogames.life4.enums.*
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
+import kotlin.math.min
 
 /**
  * The base rank goal class, describing a single goal of a rank on the LIFE4 ladder.
@@ -25,8 +29,7 @@ sealed class BaseRankGoal {
 
     abstract fun goalString(c: PlatformStrings): String
 
-    //FIXME goal progress
-//    open fun getGoalProgress(possible: Int, results: List<ILadderResult>): LadderGoalProgress? = null
+    open fun getGoalProgress(possible: Int, results: List<DetailedChartResult>): LadderGoalProgress? = null
 }
 
 /**
@@ -143,26 +146,26 @@ class DifficultyClearGoal(@SerialName("d") val difficulty: Int? = null,
         }
     }
 
-//    override fun getGoalProgress(possible: Int, results: List<ILadderResult>): LadderGoalProgress? {
-//        return when {
-//            results.isEmpty() -> LadderGoalProgress(0, possible)
-//            count == null -> {
-//                val remaining = when {
-//                    score != null -> results.filter { !it.satisfiesClear(clearType) || it.score < score } // All X over Y
-//                    else -> results.filter { !it.satisfiesClear(clearType) } // Y lamp the X's folder
-//                }.sortedByDescending { it.score }
-//                val actualResultsSize = possible - (exceptions ?: 0)
-//                LadderGoalProgress(min(results.size - remaining.size, actualResultsSize), actualResultsSize, results = remaining)
-//            }
-//            else -> {
-//                val resultCount = when {
-//                    score != null -> results.count { it.score >= score } // X Ys over Z
-//                    else -> results.count { it.clearType.ordinal >= clearType.ordinal } // Y clear Z X's
-//                }
-//                LadderGoalProgress(min(count, resultCount), count)
-//            }
-//        }
-//    }
+    override fun getGoalProgress(possible: Int, results: List<DetailedChartResult>): LadderGoalProgress? {
+        return when {
+            results.isEmpty() -> LadderGoalProgress(0, possible)
+            count == null -> {
+                val remaining = when {
+                    score != null -> results.filter { !it.satisfiesClear(clearType) || it.score < score } // All X over Y
+                    else -> results.filter { !it.satisfiesClear(clearType) } // Y lamp the X's folder
+                }.sortedByDescending { it.score }
+                val actualResultsSize = possible - (exceptions ?: 0)
+                LadderGoalProgress(min(results.size - remaining.size, actualResultsSize), actualResultsSize, results = remaining)
+            }
+            else -> {
+                val resultCount = when {
+                    score != null -> results.count { it.score >= score } // X Ys over Z
+                    else -> results.count { it.clearType.ordinal >= clearType.ordinal } // Y clear Z X's
+                }
+                LadderGoalProgress(min(count, resultCount), count)
+            }
+        }
+    }
 
     private fun clearString(c: PlatformStrings): String =  when {
         exceptions != null -> throw IllegalArgumentException("Cannot combine exceptions with a set number")
@@ -185,10 +188,6 @@ class DifficultyClearGoal(@SerialName("d") val difficulty: Int? = null,
 class MFCPointsGoal(val points: Int): BaseRankGoal() {
 
     override fun goalString(c: PlatformStrings) = c.rank.getMFCPointString(points)
-
-//    override fun getGoalProgress(possible: Int, results: List<ILadderResult>) = LadderGoalProgress(results.sumBy {
-//        GameConstants.mfcPointsForDifficulty(it.chart.target.difficultyNumber)
-//    }, points)
 }
 
 /**

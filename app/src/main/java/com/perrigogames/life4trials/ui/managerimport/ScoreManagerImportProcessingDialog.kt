@@ -5,8 +5,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
+import com.perrigogames.life4.model.LadderImporter
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4.model.LadderManager.ManagerImportListener
 import kotlinx.android.synthetic.main.dialog_manager_import_processing.view.*
 
 /**
@@ -37,7 +37,7 @@ class ScoreManagerImportProcessingDialog(var listener: Listener? = null): Dialog
         } ?: throw IllegalStateException("Activity cannot be null")
     }
 
-    val managerListener: ManagerImportListener get() = object: ManagerImportListener {
+    val managerListener: LadderImporter.Listener get() = object: LadderImporter.Listener {
         override fun onCountUpdated(current: Int, total: Int) {
             contentView.text_progress.text = "$current/$total (${(current.toDouble() / total * 100).toInt()}%)"
             contentView.progress_amount.apply {
@@ -71,7 +71,7 @@ class ScoreManagerImportProcessingDialog(var listener: Listener? = null): Dialog
     }
 
     interface Listener {
-        fun onDialogLoaded(managerListener: ManagerImportListener)
+        fun onDialogLoaded(managerListener: LadderImporter.Listener)
         fun onDialogCancelled()
     }
 }

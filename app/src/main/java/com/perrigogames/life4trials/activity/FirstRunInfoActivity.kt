@@ -15,7 +15,9 @@ import com.perrigogames.life4.model.FirstRunManager
 import com.perrigogames.life4.model.LadderManager
 import com.perrigogames.life4.model.PlayerManager
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.manager.*
+import com.perrigogames.life4trials.manager.finishProcessIntent
+import com.perrigogames.life4trials.manager.placementIntent
+import com.perrigogames.life4trials.manager.rankListIntent
 import com.perrigogames.life4trials.util.onFieldChanged
 import com.perrigogames.life4trials.util.visibilityBool
 import com.perrigogames.life4trials.view.PlayerFoundView
@@ -111,12 +113,6 @@ class FirstRunInfoActivity: AppCompatActivity(), KoinComponent {
                 }.show()
         }
     }
-
-    //FIXME MajorUpdate
-//    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
-//    fun onMajorVersion(e: MajorUpdateProcessEvent) {
-//        eventBus.removeStickyEvent(e)
-//    }
 
     fun onSignInClicked(v: View) {
         if (field_name.text.isEmpty()) {

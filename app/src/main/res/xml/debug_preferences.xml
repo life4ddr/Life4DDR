@@ -5,11 +5,11 @@
             app:key="KEY_DEBUG_LEADERBOARD"
             app:title="Leaderboard Test"/>
         <Preference
-            app:key="KEY_DEBUG_DATA_DUMP"
-            app:title="Dump Song Data"/>
-        <Preference
             app:key="KEY_DEBUG_SONG_RECORDS"
             app:title="Song Records"/>
+        <Preference
+            app:key="KEY_DEBUG_NEW_GET_SCORE"
+            app:title="New Get Score"/>
         <Preference
             app:key="KEY_DEBUG_INDUCE_CRASH"
             app:title="Induce crash"/>

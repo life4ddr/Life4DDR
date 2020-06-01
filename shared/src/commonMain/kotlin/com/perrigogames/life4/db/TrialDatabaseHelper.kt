@@ -13,7 +13,7 @@ class TrialDatabaseHelper(sqlDriver: SqlDriver): DatabaseHelper(sqlDriver) {
 
     fun allRecords(): Query<TrialSession> = queries.selectAll()
 
-    suspend fun insertSession(session: com.perrigogames.life4.data.TrialSession, datetime: DateTime? = null) = withContext(Dispatchers.Default) {
+    suspend fun insertSession(session: com.perrigogames.life4.data.InProgressTrialSession, datetime: DateTime? = null) = withContext(Dispatchers.Default) {
         dbRef.transaction {
             queries.insertSession(null,
                 session.trial.id,

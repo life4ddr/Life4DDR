@@ -27,6 +27,21 @@ enum class ClearType(override val stableId: Long, val serialized: List<String>, 
         fun parse(stableId: Long?) = stableId?.let { id -> values().firstOrNull { it.stableId == id } }
 
         fun parse(v: String) = values().firstOrNull { it.serialized.contains(v) }
+
+        /**
+         * Parse the info received from a ScoreAttack update into a proper clear type
+         */
+        fun parseSA(grade: String, fullCombo: String): ClearType {
+            return when {
+                grade == "NoPlay" -> NO_PLAY
+                fullCombo == "MerverousFullCombo" -> MARVELOUS_FULL_COMBO
+                fullCombo == "PerfectFullCombo" -> PERFECT_FULL_COMBO
+                fullCombo == "FullCombo" -> GREAT_FULL_COMBO
+                fullCombo == "GoodFullCombo"-> GOOD_FULL_COMBO
+                fullCombo == "Life4"-> LIFE4_CLEAR
+                else -> NO_PLAY
+            }
+        }
     }
 }
 

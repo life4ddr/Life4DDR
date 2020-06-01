@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.perrigogames.life4.data.BaseRankGoal
+import com.perrigogames.life4.data.LadderGoalProgress
 import com.perrigogames.life4.data.RankEntry
 import com.perrigogames.life4.db.GoalState
 import com.perrigogames.life4trials.R
@@ -61,16 +62,14 @@ class RankGoalsAdapter(private val rank: RankEntry,
         fun isGoalExpanded(item: BaseRankGoal): Boolean
         fun canIgnoreGoals(): Boolean
         fun getGoalStatus(item: BaseRankGoal): GoalState
-        //FIXME progress
-//        fun getGoalProgress(item: BaseRankGoal, playStyle: PlayStyle): LadderGoalProgress?
+        fun getGoalProgress(item: BaseRankGoal): LadderGoalProgress?
     }
 
     inner class GoalViewHolder(val view: LadderGoalItemView) : RecyclerView.ViewHolder(view) {
         fun bind(goal: BaseRankGoal, dataSource: DataSource) {
             view.expanded = dataSource.isGoalExpanded(goal)
             view.canIgnore = dataSource.canIgnoreGoals()
-            //FIXME progress
-//            view.setGoal(goal, dataSource.getGoalStatus(goal), dataSource.getGoalProgress(goal, rank.playStyle))
+            view.setGoal(goal, dataSource.getGoalStatus(goal), dataSource.getGoalProgress(goal))
             view.setGoal(goal, dataSource.getGoalStatus(goal), null)
         }
     }

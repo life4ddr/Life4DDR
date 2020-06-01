@@ -4,6 +4,8 @@ import com.perrigogames.life4.api.LocalUncachedDataReader
 import com.perrigogames.life4.data.TrialData
 import com.perrigogames.life4.isDebug
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.PLACEMENTS_FILE_NAME
+import com.perrigogames.life4.logException
+import com.perrigogames.life4.setCrashString
 import kotlinx.serialization.json.Json
 import org.koin.core.inject
 import org.koin.core.qualifier.named
@@ -29,8 +31,7 @@ class PlacementManager: BaseModel() {
 
     override fun onApplicationException() {
         if (!isDebug) {
-            //FIXME Crashlytics
-//            Crashlytics.setString("placements", placements.joinToString { it.id })
+            setCrashString("placements", placements.joinToString { it.id })
         }
     }
 }

@@ -60,24 +60,29 @@ class SongDataManager: BaseModel() {
                     if (idx == 0 || line.isEmpty()) {
                         return@forEachIndexed
                     }
-                    val data = line.split(";")
+                    val data = line.split('\t')
                     val id = data[0].toLong()
-                    val title = data[1]
+                    val skillId = data[1]
+                    val title = data[2]
+                    val artist = data[3]
                     var preview = false
-                    val mix = GameVersion.parse(data[2].let {
+                    val mix = GameVersion.parse(data[4].let {
                         it.toLongOrNull() ?: it.substring(0, it.length - 1).let { seg ->
                             preview = true
                             seg.toLong()
                         }
                     }) ?: GameVersion.values().last().also {
-                        logException(Exception("No game version found for text \"${data[2]}\""))
+                        logException(Exception("No game version found for text \"${data[4]}\""))
                     }
-                    dbHelper.insertSong(id, title, null, mix, preview)
-                    PlayStyle.values().forEachIndexed { sIdx, style ->
-                        DifficultyClass.values().forEachIndexed { dIdx, diff ->
-                            val diffStr = data[3 + ((sIdx * DifficultyClass.values().size) + dIdx)]
-                            if (diffStr.isNotEmpty()) {
-                                dbHelper.insertChart(id, diff, diffStr.toLong(), style)
+                    dbHelper.insertSong(id, skillId, title, artist, mix, preview)
+                    var count = 5
+                    PlayStyle.values().forEach { style ->
+                        DifficultyClass.values().forEach { diff ->
+                            if (style != PlayStyle.DOUBLE || diff != DifficultyClass.BEGINNER) {
+                                val diffStr = data[count++]
+                                if (diffStr.isNotEmpty()) {
+                                    dbHelper.insertChart(id, diff, diffStr.toLong(), style)
+                                }
                             }
                         }
                     }
@@ -86,45 +91,6 @@ class SongDataManager: BaseModel() {
                 settings[KEY_SONG_LIST_VERSION] = lines[0].toInt()
             }
         }
-    }
-
-    fun getCurrentlyIgnoredSongs() = dbHelper.selectSongs(ignoreListManager.selectedIgnoreSongIds)
-
-    fun getCurrentlyIgnoredCharts(): Map<SongInfo, List<ChartInfo>> =
-        dbHelper.selectSongsAndCharts(ignoreListManager.selectedIgnoreCharts.map { it.id }).mapValues { entry ->
-            val validCharts = ignoreListManager.selectedIgnoreCharts.filter { it.id == entry.key.id }
-            entry.value.filter { info -> validCharts.any { it.matches(info)  } }
-        }
-
-    fun dumpData() {
-        //FIXME
-//        val songStrings = dbHelper.songs().map { song ->
-//            val builder = StringBuilder("${song.title};")
-//            val chartsCopy = song.charts.toMutableList()
-//            PlayStyle.values().forEach { style ->
-//                DifficultyClass.values().forEach { diff ->
-//                    val chart = chartsCopy.firstOrNull { it.playStyle == style && it.difficultyClass == diff }
-//                    if (chart != null) {
-//                        chartsCopy.remove(chart)
-//                        builder.append("${chart.difficultyNumber};")
-//                    } else {
-//                        builder.append(";")
-//                    }
-//                }
-//            }
-//            builder.toString()
-//        }.toMutableList()
-//        with(StringBuilder()) {
-//            while (songStrings.isNotEmpty()) {
-//                repeat((0..10).count()) {
-//                    if (songStrings.isNotEmpty()) {
-//                        append("${songStrings.removeAt(0)}[][]")
-//                    }
-//                }
-//                log("SongDataManager", this.toString())
-//                setLength(0)
-//            }
-//        }
     }
 
     companion object {

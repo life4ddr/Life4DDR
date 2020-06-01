@@ -1,10 +1,8 @@
 package com.perrigogames.life4
 
 import com.russhwolf.settings.Settings
-import org.koin.core.KoinComponent
-import org.koin.core.inject
 
-interface LadderDialogs: KoinComponent {
+interface LadderDialogs {
 
     val settings: Settings
     private val shouldShowImportTutorial get() = !settings.getBoolean(SettingsKeys.KEY_IMPORT_SKIP_DIRECTIONS, false)
@@ -23,7 +21,7 @@ interface LadderDialogs: KoinComponent {
 
     fun showImportDirectionsDialog()
     fun showImportEntryDialog()
-    fun showImportProcessingDialog(dataString: String)
+    fun showImportProcessingDialog(dataLines: List<String>, legacy: Boolean)
 
     fun showLadderUpdateToast()
     fun showImportFinishedToast()

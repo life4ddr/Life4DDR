@@ -3,6 +3,9 @@ package com.perrigogames.life4trials
 import android.content.Context
 import androidx.multidex.MultiDexApplication
 import androidx.preference.PreferenceManager
+import com.facebook.stetho.Stetho
+import com.facebook.stetho.Stetho.DefaultDumperPluginsBuilder
+import com.perrigogames.life4.LadderDialogs
 import com.perrigogames.life4.Notifications
 import com.perrigogames.life4.PlatformStrings
 import com.perrigogames.life4.api.LocalDataReader
@@ -16,6 +19,7 @@ import com.perrigogames.life4.ktor.GithubDataAPI.Companion.TRIALS_FILE_NAME
 import com.perrigogames.life4.model.*
 import com.perrigogames.life4trials.api.AndroidDataReader
 import com.perrigogames.life4trials.api.AndroidUncachedDataReader
+import com.perrigogames.life4trials.manager.AndroidLadderDialogs
 import com.perrigogames.life4trials.util.AndroidNotifications
 import com.perrigogames.life4trials.util.setupNotifications
 import org.greenrobot.eventbus.EventBus
@@ -29,6 +33,15 @@ class Life4Application: MultiDexApplication() {
 
     override fun onCreate() {
         super.onCreate()
+        Stetho.initialize(Stetho.newInitializerBuilder(this)
+            .enableDumpapp {
+                DefaultDumperPluginsBuilder(this)
+//                    .provide(MyDumperPlugin())
+                    .finish()
+            }
+            .enableWebKitInspector(Stetho.defaultInspectorModulesProvider(this))
+            .build()
+        )
 
         val defaultHandler = Thread.getDefaultUncaughtExceptionHandler()
         Thread.setDefaultUncaughtExceptionHandler { thread, exception ->
@@ -52,13 +65,10 @@ class Life4Application: MultiDexApplication() {
                 single<LocalDataReader>(named(RANKS_FILE_NAME)) { AndroidDataReader(R.raw.ranks, RANKS_FILE_NAME) }
                 single<LocalDataReader>(named(SONGS_FILE_NAME)) { AndroidDataReader(R.raw.songs, SONGS_FILE_NAME) }
                 single<LocalDataReader>(named(TRIALS_FILE_NAME)) { AndroidDataReader(R.raw.trials, TRIALS_FILE_NAME) }
+                single { AndroidLadderDialogs() }
+                single<LadderDialogs> { AndroidLadderDialogs() }
                 single { EventBus() }
                 single<EventBusNotifier> { AndroidEventBusNotifier() }
-                single { IgnoreListManager() }
-                single { SongDataManager() }
-                single { TrialManager() }
-                single { LadderManager() }
-                single { PlayerManager() }
                 single<Notifications> { AndroidNotifications() }
             })
         }

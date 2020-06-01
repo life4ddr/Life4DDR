@@ -9,13 +9,16 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.perrigogames.life4.*
+import com.perrigogames.life4.SettingsKeys.KEY_IMPORT_PREFER_LEGACY
 import com.perrigogames.life4.SettingsKeys.KEY_INFO_NAME
 import com.perrigogames.life4.SettingsKeys.KEY_INFO_RIVAL_CODE
 import com.perrigogames.life4.data.LadderRank
-import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.manager.AndroidLadderDialogs
+import com.perrigogames.life4.enums.PlayStyle
 import com.perrigogames.life4.model.LadderManager
 import com.perrigogames.life4.model.TrialManager
+import com.perrigogames.life4trials.GetScoreList
+import com.perrigogames.life4trials.R
+import com.perrigogames.life4trials.manager.AndroidLadderDialogs
 import com.perrigogames.life4trials.ui.rankdetails.RankDetailsFragment
 import com.perrigogames.life4trials.ui.rankdetails.RankDetailsViewModel
 import com.perrigogames.life4trials.util.CommonSizes
@@ -48,6 +51,8 @@ class PlayerProfileActivity : AppCompatActivity(), RankDetailsViewModel.OnGoalLi
     private var rank: LadderRank? = null
     private var goalRank: LadderRank? = null
 
+    private val getScores = registerForActivityResult(GetScoreList()) { ladderDialogs.handleSkillAttackImport(this, it) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme_NoActionBar)
         super.onCreate(savedInstanceState)
@@ -67,7 +72,18 @@ class PlayerProfileActivity : AppCompatActivity(), RankDetailsViewModel.OnGoalLi
         when (item.itemId) {
             R.id.action_settings -> startActivity(Intent(this, SettingsActivity::class.java))
             R.id.action_records -> startActivity(Intent(this, TrialRecordsActivity::class.java))
-            R.id.action_import_data -> ladderDialogs.showImportFlow(this)
+            R.id.action_import_data -> {
+                var done = false
+                if (!settings.getBoolean(KEY_IMPORT_PREFER_LEGACY, false)) {
+                    try {
+                        getScores.launch(PlayStyle.SINGLE)
+                        done = true
+                    } catch (e: Exception) { }
+                }
+                if (!done) {
+                    ladderDialogs.showImportFlow(this)
+                }
+            }
             else -> return super.onOptionsItemSelected(item)
         }
         return true
@@ -111,12 +127,6 @@ class PlayerProfileActivity : AppCompatActivity(), RankDetailsViewModel.OnGoalLi
             .create().show()
         eventBus.removeStickyEvent(e)
     }
-
-    //FIXME MajorUpdate
-//    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
-//    fun onMajorVersion(e: MajorUpdateProcessEvent) {
-//        eventBus.removeStickyEvent(e)
-//    }
 
     private fun setupContent() {
         view_mode_button_left.text_title.text = getString(R.string.trials)

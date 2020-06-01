@@ -14,8 +14,8 @@ import androidx.transition.ChangeTransform
 import androidx.transition.TransitionManager
 import com.perrigogames.life4.data.LadderRank
 import com.perrigogames.life4.data.RankEntry
-import com.perrigogames.life4trials.R
 import com.perrigogames.life4.model.LadderManager
+import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.util.spannedText
 import com.perrigogames.life4trials.util.visibilityBool
 import com.perrigogames.life4trials.view.RankHeaderView
@@ -47,7 +47,7 @@ class RankDetailsFragment : Fragment(), KoinComponent {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val view = inflater.inflate(R.layout.fragment_rank_details, container, false) as ConstraintLayout
 
-        viewModel = RankDetailsViewModel(view.context, rankEntry, options, ladderManager, goalListListener)
+        viewModel = RankDetailsViewModel(view.context, rankEntry, options, goalListListener)
 
         if (options.showHeader) {
             (view.stub_rank_header.inflate() as RankHeaderView).let {

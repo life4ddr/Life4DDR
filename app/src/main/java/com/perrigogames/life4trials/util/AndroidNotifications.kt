@@ -39,7 +39,7 @@ class AndroidNotifications: Notifications(), KoinComponent {
 
     override fun showPlacementNotification(rank: LadderRank) {
         with(NotificationManagerCompat.from(context)) {
-            val message = "The results are in!  You are ranked <b>${context.getString(rank.nameRes)}</b>!" // FIXME
+            val message = context.getString(R.string.notification_placement_body, context.getString(rank.nameRes))
             notify(MULTI_NOTIFICATION_ID, userInfoNotification("WELCOME!")
                 .setStyle(htmlStyle(message))
                 .setLargeIcon(BitmapFactory.decodeResource(context.resources, rank.drawableRes))
@@ -50,7 +50,7 @@ class AndroidNotifications: Notifications(), KoinComponent {
 
     override fun showLadderRankChangedNotification(rank: LadderRank) {
         with(NotificationManagerCompat.from(context)) {
-            val message = "You've advanced to the rank of <b>${context.getString(rank.nameRes)}</b>!" // FIXME
+            val message = context.getString(R.string.notification_rank_body, context.getString(rank.nameRes))
             notify(MULTI_NOTIFICATION_ID, userInfoNotification("RANK UP!")
                 .setStyle(htmlStyle(message))
                 .setLargeIcon(BitmapFactory.decodeResource(context.resources, rank.drawableRes))
@@ -61,7 +61,7 @@ class AndroidNotifications: Notifications(), KoinComponent {
 
     override fun showTrialRankChangedNotification(trial: Trial, rank: TrialRank) {
         with(NotificationManagerCompat.from(context)) {
-            val message = "You've earned <b>${context.getString(rank.nameRes)}</b> on the ${trial.name} trial!" // FIXME
+            val message = context.getString(R.string.notification_trial_body, context.getString(rank.nameRes), trial.name)
             notify(MULTI_NOTIFICATION_ID, userInfoNotification("RANK UP! ${trial.name}")
                 .setStyle(htmlStyle(message))
                 .setLargeIcon(BitmapFactory.decodeResource(context.resources, rank.drawableRes))

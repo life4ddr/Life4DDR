@@ -1,7 +1,6 @@
 package com.perrigogames.life4.ktor
 
-import com.perrigogames.life4.data.LadderRankData
-import com.perrigogames.life4.data.TrialSession
+import com.perrigogames.life4.data.InProgressTrialSession
 import kotlinx.serialization.Serializable
 
 /**
@@ -14,5 +13,5 @@ interface Life4API {
 
 @Serializable
 data class RecordResult(
-    val records: List<TrialSession>
+    val records: List<InProgressTrialSession>
 )

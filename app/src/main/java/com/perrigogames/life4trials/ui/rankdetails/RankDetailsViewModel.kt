@@ -11,10 +11,13 @@ import com.perrigogames.life4.data.RankEntry
 import com.perrigogames.life4.db.GoalState
 import com.perrigogames.life4.enums.GoalStatus
 import com.perrigogames.life4.enums.GoalStatus.*
-import com.perrigogames.life4trials.R
 import com.perrigogames.life4.model.LadderManager
+import com.perrigogames.life4.model.LadderProgressManager
+import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.nameRes
 import com.perrigogames.life4trials.view.LadderGoalItemView
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 
 /**
  * A [ViewModel] that manages manipulating and displaying a series of [BaseRankGoal]s
@@ -23,8 +26,10 @@ import com.perrigogames.life4trials.view.LadderGoalItemView
 class RankDetailsViewModel(private val context: Context,
                            private val rankEntry: RankEntry?,
                            private val options: RankDetailsFragment.Options,
-                           private val ladderManager: LadderManager,
-                           private val goalListListener: OnGoalListInteractionListener?) : ViewModel() {
+                           private val goalListListener: OnGoalListInteractionListener?) : ViewModel(), KoinComponent {
+
+    private val ladderManager: LadderManager by inject()
+    private val ladderProgressManager: LadderProgressManager by inject()
 
     private val targetEntry: RankEntry? by lazy { when {
         !options.showNextGoals -> rankEntry
@@ -91,8 +96,7 @@ class RankDetailsViewModel(private val context: Context,
         override fun isGoalExpanded(item: BaseRankGoal) = expandedItems.contains(item)
         override fun canIgnoreGoals(): Boolean = canIgnoreGoals
         override fun getGoalStatus(item: BaseRankGoal) = ladderManager.getOrCreateGoalState(item)
-        //FIXME progress
-//        override fun getGoalProgress(item: BaseRankGoal, playStyle: PlayStyle) = ladderManager.getGoalProgress(item, playStyle)
+        override fun getGoalProgress(item: BaseRankGoal) = ladderProgressManager.getGoalProgress(item)
     }
 
     val adapter: RankGoalsAdapter? = targetEntry?.let { RankGoalsAdapter(it, dataSource, goalItemListener, goalListListener) }

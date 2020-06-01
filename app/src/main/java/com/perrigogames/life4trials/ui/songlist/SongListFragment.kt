@@ -15,9 +15,10 @@ import com.crashlytics.android.Crashlytics
 import com.perrigogames.life4.data.Song
 import com.perrigogames.life4.data.SongResult
 import com.perrigogames.life4.model.PlacementManager
+import com.perrigogames.life4.model.TrialManager
+import com.perrigogames.life4.model.TrialSessionManager
 import com.perrigogames.life4trials.BuildConfig
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4.model.TrialManager
 import com.perrigogames.life4trials.view.PathImageView
 import com.perrigogames.life4trials.view.SongView
 import org.koin.core.KoinComponent
@@ -30,9 +31,10 @@ class SongListFragment : Fragment(), KoinComponent {
 
     private val placementManager: PlacementManager by inject()
     private val trialManager: TrialManager by inject()
+    private val trialSessionManager: TrialSessionManager by inject()
 
     private val trial get() = trialManager.findTrial(trialId!!) ?: placementManager.findPlacement(trialId!!)!!
-    private val results get() = if (useCurrentSession) trialManager.currentSession!!.results else null
+    private val results get() = if (useCurrentSession) trialSessionManager.currentSession!!.results else null
 
     private var trialId: String? = null
     private var tiled: Boolean = false

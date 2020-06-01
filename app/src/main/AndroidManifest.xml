@@ -76,6 +76,14 @@
 
         <activity android:name=".activity.SongRecordsListCheckActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".GetScoreList$DummyGetScoreActivity"
+            android:screenOrientation="portrait">
+
+            <intent-filter>
+                <action android:name="jp.linanfine.dsma.GET_SCORE_DATA" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"

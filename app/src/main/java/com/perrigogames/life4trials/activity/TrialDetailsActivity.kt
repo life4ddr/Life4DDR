@@ -19,9 +19,10 @@ import com.perrigogames.life4.SettingsKeys.KEY_DETAILS_PHOTO_SELECT
 import com.perrigogames.life4.SettingsKeys.KEY_DETAILS_UPDATE_GOAL
 import com.perrigogames.life4.data.*
 import com.perrigogames.life4.getDebugBoolean
-import com.perrigogames.life4trials.*
 import com.perrigogames.life4.model.LadderManager
 import com.perrigogames.life4.model.TrialManager
+import com.perrigogames.life4.model.TrialSessionManager
+import com.perrigogames.life4trials.*
 import com.perrigogames.life4trials.ui.songlist.SongListFragment
 import com.perrigogames.life4trials.util.openWebUrlFromRes
 import com.perrigogames.life4trials.util.visibilityBool
@@ -41,6 +42,7 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener, K
 
     private val ladderManager: LadderManager by inject()
     private val trialManager: TrialManager by inject()
+    private val trialSessionManager: TrialSessionManager by inject()
     private val strings: PlatformStrings by inject()
 
     private val trialId: String by lazy { intent.extras!!.getString(ARG_TRIAL_ID) }
@@ -60,7 +62,7 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener, K
 
     override val snackbarContainer: ViewGroup get() = container
 
-    private lateinit var trialSession: TrialSession
+    private lateinit var trialSession: InProgressTrialSession
     private var currentIndex: Int? = null
     private var modified = false
         set(v) {
@@ -85,7 +87,7 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener, K
         supportActionBar?.title = trial.name
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        trialSession = trialManager.startSession(trialId, initialRank)
+        trialSession = trialSessionManager.startSession(trialId, initialRank)
         updateEXScoreMeter()
 
         (image_rank as TrialJacketView).let { jacket ->
@@ -202,7 +204,7 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener, K
             !settings.getBoolean(KEY_DETAILS_ENFORCE_EXPERT, true) ||
             trialSession.results.all { it!!.hasAdvancedStats }) {
 
-            trialManager.submitResult { finish() }
+            trialSessionManager.submitResult { finish() }
         } else {
             Snackbar.make(container, R.string.breakdown_information_missing, Snackbar.LENGTH_LONG).show()
         }
@@ -259,7 +261,7 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener, K
     }
 
     private fun concedeTrial() {
-        trialManager.saveSession(trialSession)
+        trialSessionManager.saveSession(trialSession)
         finish()
     }
 

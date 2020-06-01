@@ -198,12 +198,16 @@
     <string name="twitter_name">Twitter Name</string>
     <string name="show_notifications">Show info notifications during submission</string>
     <string name="test_notifications">Test Info Notifications</string>
+    <string name="notification_placement_body">The results are in!  You are ranked <b>%s</b>!</string>
+    <string name="notification_rank_body">You\'ve advanced to the rank of <b>%s</b>!</string>
+    <string name="notification_trial_body">You\'ve earned <b>%s</b> on the %s trial!</string>
     <string name="rank_goals">Rank Goals</string>
     <string name="clear_data">Clear Data</string>
     <string name="clear_goal_states">Clear Goal States</string>
     <string name="clear_song_results">Clear Song Results</string>
     <string name="score_manager_import">Score Manager Import</string>
     <string name="import_manager_data">Import manager data</string>
+    <string name="import_manager_legacy">Use legacy import</string>
     <string name="import_skip_directions">Skip import directions</string>
     <string name="photo_select">Use photo picker</string>
     <string name="import_finished">Import finished.</string>

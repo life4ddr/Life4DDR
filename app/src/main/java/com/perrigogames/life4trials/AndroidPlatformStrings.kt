@@ -207,7 +207,7 @@ fun List<String>.toListString(c: Context, useAnd: Boolean, caps: Boolean): Strin
     }
 }.toString()
 
-var TrialSession.finalPhotoUri: Uri
+var InProgressTrialSession.finalPhotoUri: Uri
     get() = Uri.parse(finalPhotoUriString)
     set(value) { finalPhotoUriString = value.toString() }
 

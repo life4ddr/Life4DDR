@@ -7,10 +7,10 @@ import com.perrigogames.life4.util.hasCascade
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class TrialSession(val trial: Trial,
-                        var goalRank: TrialRank?,
-                        val results: Array<SongResult?> = arrayOfNulls(TrialData.TRIAL_LENGTH),
-                        var finalPhotoUriString: String? = null) {
+data class InProgressTrialSession(val trial: Trial,
+                                  var goalRank: TrialRank?,
+                                  val results: Array<SongResult?> = arrayOfNulls(TrialData.TRIAL_LENGTH),
+                                  var finalPhotoUriString: String? = null) {
 
     val hasStarted: Boolean get() = results.filterNotNull().any { it.score != null }
 
@@ -29,7 +29,7 @@ data class TrialSession(val trial: Trial,
         if (other == null) return false
         if (this::class != other::class) return false
 
-        other as TrialSession
+        other as InProgressTrialSession
 
         if (trial != other.trial) return false
         if (!results.contentEquals(other.results)) return false

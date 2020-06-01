@@ -6,10 +6,7 @@ import com.perrigogames.life4.SettingsKeys.KEY_INFO_TARGET_RANK
 import com.perrigogames.life4.api.FetchListener
 import com.perrigogames.life4.api.LadderRemoteData
 import com.perrigogames.life4.api.LocalDataReader
-import com.perrigogames.life4.data.BaseRankGoal
-import com.perrigogames.life4.data.LadderRank
-import com.perrigogames.life4.data.LadderRankData
-import com.perrigogames.life4.data.LadderVersion
+import com.perrigogames.life4.data.*
 import com.perrigogames.life4.db.*
 import com.perrigogames.life4.enums.ClearType
 import com.perrigogames.life4.enums.DifficultyClass
@@ -28,7 +25,6 @@ class LadderManager: BaseModel() {
     private val songDataManager: SongDataManager by inject()
     private val settings: Settings by inject()
     private val eventBus: EventBusNotifier by inject()
-    private val songDbHelper: SongDatabaseHelper by inject()
     private val goalDBHelper: GoalDatabaseHelper by inject()
     private val resultDbHelper: ResultDatabaseHelper by inject()
     private val ladderDialogs: LadderDialogs by inject()
@@ -104,150 +100,6 @@ class LadderManager: BaseModel() {
         goalDBHelper.insertGoalState(id, status)
     }
 
-    //
-    // Imported Score Data
-    //
-    private var importJob: Job? = null
-
-    //FIXME progress
-//    fun getGoalProgress(goal: BaseRankGoal, playStyle: PlayStyle): LadderGoalProgress? = when (goal) {
-//        is DifficultyClearGoal -> {
-//            val charts = if (goal.count == null) {
-//                songDataManager.getFilteredChartsByDifficulty(goal.difficultyNumbers, playStyle).filterNot {
-//                    ignoreListManager.selectedIgnoreChartIds.contains(it.id) ||
-//                    ignoreListManager.selectedIgnoreSongIds.contains(it.song.targetId) ||
-//                    goal.songExceptions?.contains(it.song.target.title) == true }
-//            } else songDataManager.getChartsByDifficulty(goal.difficultyNumbers, playStyle)
-//            val chartIds = charts.map { it.id }.toLongArray()
-//            val results = ladderResults.getResultsById(chartIds).toMutableList()
-//            if (results.isEmpty()) {
-//                null // return
-//            } else {
-//                val resultIds = results.map { it.chart.target.id }.toSortedSet()
-//                val notFound = getOrCreateResultsForCharts(charts.filterNot { resultIds.contains(it.id) })
-//                results.addAll(notFound)
-//                goal.getGoalProgress(charts.size, results) // return
-//            }
-//        }
-//        is TrialGoal -> {
-//            val trials = trialManager.bestTrials().filter {
-//                if (goal.restrictDifficulty) {
-//                    it.goalRankId == goal.rank.stableId.toInt()
-//                } else {
-//                    it.goalRankId >= goal.rank.stableId
-//                }
-//            }
-//            LadderGoalProgress(trials.size, goal.count) // return
-//        }
-//        is MFCPointsGoal -> {
-//            goal.getGoalProgress(goal.points, ladderResults.getMFCs())
-//        }
-//        is SongSetClearGoal -> when {
-//            goal.songs != null -> {
-//                val songs = goal.songs.mapNotNull { songRepo.getSongByName(it) }
-//                val charts = goal.difficulties.map { diff ->
-//                    songs.mapNotNull { song -> song.charts.firstOrNull {
-//                        it.difficultyClass == diff && it.playStyle == playStyle
-//                    } }
-//                }.flatten()
-//                if (goal.score != null) { // clear chart with target score
-//                    if (charts.size == 1) { // single chart, show the score
-//                        val currentScore = charts[0].plays.maxBy { it.score }?.score
-//                        currentScore?.let { curr ->
-//                            LadderGoalProgress(
-//                                curr,
-//                                goal.score,
-//                                showMax = false
-//                            )
-//                        }
-//                    } else { // multiple charts, show songs satisfied
-//                        val doneCount = charts.count { chart ->
-//                            (chart.plays.maxBy { it.score }?.score ?: 0) > goal.score
-//                        }
-//                        LadderGoalProgress(doneCount, charts.size)
-//                    }
-//                } else { // simply clear chart
-//                    val doneCount = charts.count {
-//                        it.plays.maxBy { play -> play.clearType.stableId }?.clearType?.passing ?: false
-//                    }
-//                    LadderGoalProgress(doneCount, charts.size)
-//                }
-//            }
-//            else -> null
-//        }
-//        else -> null
-//    }
-
-    fun importManagerData(dataString: String, listener: ManagerImportListener? = null) {
-        var success = 0
-        var errors = 0
-        importJob = mainScope.launch {
-            val lines = dataString.lines()
-            lines.forEach { entry ->
-                val entryParts = entry.trim().split(';')
-                if (entryParts.size >= 4) {
-                    // format = %p:b:B:D:E:C%%y:SP:DP%;%d%;%s0%;%l%;%f:mfc:pfc:gfc:fc:life4:clear%;%e%;%a%;%t%
-                    try {
-                        val chartType = entryParts[0] // ESP
-                        val difficultyNumber = entryParts[1].toInt()
-                        val score = entryParts[2].toInt()
-                        // need 5 and 6 first
-                        val clears = entryParts[5].toIntOrNull() ?: 0
-
-                        var clear = ClearType.parse(entryParts[4])!!
-                        if (clear == ClearType.CLEAR) {
-                            when {
-                                entryParts[3] == "-" -> clear = ClearType.NO_PLAY
-                                entryParts[3] == "E" -> clear = when {
-                                    clears > 0 -> ClearType.CLEAR
-                                    else -> ClearType.FAIL
-                                }
-                            }
-                        }
-
-                        val songName = entryParts.subList(entryParts.size - 1, entryParts.size).joinToString(";")
-
-                        val playStyle = PlayStyle.parse(chartType)!!
-                        val difficultyClass = DifficultyClass.parse(chartType)!!
-
-                        val songDB = songDbHelper.selectSongByTitle(songName) ?: throw SongNotFoundException(songName)
-                        val chartDB = songDbHelper.selectChart(songDB.id, playStyle, difficultyClass) ?: throw ChartNotFoundException(songDB.title, playStyle, difficultyClass, difficultyNumber)
-                        resultDbHelper.insertResult(chartDB, clear)
-
-                        if (isDebug && clear == ClearType.NO_PLAY) {
-                            log("import", "${songDB.title} - ${chartDB.difficultyClass} (${chartDB.difficultyNumber})")
-                        }
-                        success++
-                        if (success % 2 == 0) {
-                            withContext(Dispatchers.Main) { listener?.onCountUpdated(success + errors, lines.size - 1) }
-                        }
-                    } catch (e: Exception) {
-                        errors++
-                        logE("Exception", e.message ?: "")
-                        withContext(Dispatchers.Main) { listener?.onError(errors, "${entry}\n${e.message}") }
-                    }
-                } else if (entry.isNotEmpty()) {
-                    errors++
-                }
-            }
-            withContext(Dispatchers.Main) {
-                ladderDialogs.showImportFinishedToast()
-                ignoreListManager.invalidateIgnoredIds()
-                eventBus.post(SongResultsImportCompletedEvent())
-                if (success > 0) {
-                    eventBus.post(SongResultsUpdatedEvent())
-                }
-                importJob = null
-                listener?.onCompleted()
-            }
-        }
-    }
-
-    fun cancelImportJob() {
-        importJob?.cancel()
-        importJob = null
-    }
-
     fun clearGoalStates() {
         ladderDialogs.onClearGoalStates {
             mainScope.launch {
@@ -271,14 +123,5 @@ class LadderManager: BaseModel() {
             songDataManager.initializeSongDatabase()
             eventBus.post(SongResultsUpdatedEvent())
         }
-    }
-
-    /**
-     * Listener class for the manager import process
-     */
-    interface ManagerImportListener {
-        fun onCountUpdated(current: Int, total: Int)
-        fun onError(totalCount: Int, message: String)
-        fun onCompleted()
     }
 }
