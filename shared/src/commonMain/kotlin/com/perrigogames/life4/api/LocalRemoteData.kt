@@ -1,7 +1,9 @@
 package com.perrigogames.life4.api
 
+import com.perrigogames.life4.DataRequiresAppUpdateEvent
 import com.perrigogames.life4.data.MajorVersioned
 import com.perrigogames.life4.model.BaseModel
+import com.perrigogames.life4.model.EventBusNotifier
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -166,15 +168,14 @@ abstract class KtorMajorVersionedRemoteData<T: MajorVersioned>(localReader: Loca
                                                                fetchListener: FetchListener<T>? = null):
     KtorLocalRemoteData<T>(localReader, fetchListener) {
 
-    //FIXME EventBus
-//    protected val eventBus: IEventBus by inject()
+    protected val eventBus: EventBusNotifier by inject()
 
     /** Since the template is restricted to [MajorVersioned], use that version number. */
     override fun getDataVersion(data: T) = data.version
 
     override fun checkResponse(response: T) = super.checkResponse(response) && when {
         shouldUpdateApp(response) -> {
-//            eventBus.postSticky(DataRequiresAppUpdateEvent())
+            eventBus.postSticky(DataRequiresAppUpdateEvent())
             false
         }
         else -> true
@@ -182,7 +183,7 @@ abstract class KtorMajorVersionedRemoteData<T: MajorVersioned>(localReader: Loca
 
     override fun onNewDataLoaded(newData: T) {
         if (shouldUpdateApp(newData)) {
-//            eventBus.postSticky(DataRequiresAppUpdateEvent())
+            eventBus.postSticky(DataRequiresAppUpdateEvent())
         } else {
             super.onNewDataLoaded(newData)
         }
