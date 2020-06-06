@@ -188,7 +188,7 @@ class SongEntryActivity: AppCompatActivity(), KoinComponent {
                 }
                 it.passed = checkbox_passed.isChecked
             }
-            setResult(Activity.RESULT_OK)
+            setResult(Activity.RESULT_OK, intent)
             finish()
         }
     }

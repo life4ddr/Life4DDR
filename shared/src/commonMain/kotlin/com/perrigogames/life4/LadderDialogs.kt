@@ -1,5 +1,6 @@
 package com.perrigogames.life4
 
+import com.perrigogames.life4.model.LadderImporter
 import com.russhwolf.settings.Settings
 
 interface LadderDialogs {
@@ -21,7 +22,7 @@ interface LadderDialogs {
 
     fun showImportDirectionsDialog()
     fun showImportEntryDialog()
-    fun showImportProcessingDialog(dataLines: List<String>, legacy: Boolean)
+    fun showImportProcessingDialog(dataLines: List<String>, opMode: LadderImporter.OpMode)
 
     fun showLadderUpdateToast()
     fun showImportFinishedToast()

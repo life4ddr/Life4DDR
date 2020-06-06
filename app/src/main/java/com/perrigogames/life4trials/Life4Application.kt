@@ -5,12 +5,9 @@ import androidx.multidex.MultiDexApplication
 import androidx.preference.PreferenceManager
 import com.facebook.stetho.Stetho
 import com.facebook.stetho.Stetho.DefaultDumperPluginsBuilder
-import com.perrigogames.life4.LadderDialogs
-import com.perrigogames.life4.Notifications
-import com.perrigogames.life4.PlatformStrings
+import com.perrigogames.life4.*
 import com.perrigogames.life4.api.LocalDataReader
 import com.perrigogames.life4.api.LocalUncachedDataReader
-import com.perrigogames.life4.initKoin
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.IGNORES_FILE_NAME
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.PLACEMENTS_FILE_NAME
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.RANKS_FILE_NAME
@@ -20,6 +17,7 @@ import com.perrigogames.life4.model.*
 import com.perrigogames.life4trials.api.AndroidDataReader
 import com.perrigogames.life4trials.api.AndroidUncachedDataReader
 import com.perrigogames.life4trials.manager.AndroidLadderDialogs
+import com.perrigogames.life4trials.manager.AndroidTrialNavigation
 import com.perrigogames.life4trials.util.AndroidNotifications
 import com.perrigogames.life4trials.util.setupNotifications
 import org.greenrobot.eventbus.EventBus
@@ -65,11 +63,16 @@ class Life4Application: MultiDexApplication() {
                 single<LocalDataReader>(named(RANKS_FILE_NAME)) { AndroidDataReader(R.raw.ranks, RANKS_FILE_NAME) }
                 single<LocalDataReader>(named(SONGS_FILE_NAME)) { AndroidDataReader(R.raw.songs, SONGS_FILE_NAME) }
                 single<LocalDataReader>(named(TRIALS_FILE_NAME)) { AndroidDataReader(R.raw.trials, TRIALS_FILE_NAME) }
-                single { AndroidLadderDialogs() }
-                single<LadderDialogs> { AndroidLadderDialogs() }
                 single { EventBus() }
                 single<EventBusNotifier> { AndroidEventBusNotifier() }
                 single<Notifications> { AndroidNotifications() }
+
+                val ladderDialogs = AndroidLadderDialogs()
+                single { ladderDialogs }
+                single<LadderDialogs> { ladderDialogs }
+                val trialDialogs = AndroidTrialNavigation()
+                single { trialDialogs }
+                single<TrialNavigation> { trialDialogs }
             })
         }
 

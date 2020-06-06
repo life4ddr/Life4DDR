@@ -5,11 +5,9 @@ import com.perrigogames.life4.db.ResultDatabaseHelper
 import com.perrigogames.life4.db.SongDatabaseHelper
 import com.perrigogames.life4.enums.ClearType
 import com.perrigogames.life4.enums.DifficultyClass
-import com.perrigogames.life4.enums.DifficultyClass.*
+import com.perrigogames.life4.enums.DifficultyClass.BEGINNER
 import com.perrigogames.life4.enums.PlayStyle
-import com.perrigogames.life4.enums.PlayStyle.*
-import com.perrigogames.life4.log
-import com.perrigogames.life4.logE
+import com.perrigogames.life4.enums.PlayStyle.DOUBLE
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -27,7 +25,7 @@ import org.koin.core.inject
  *  chart, which led to a lot of duplication.
  */
 class LadderImporter(private val dataLines: List<String>,
-                     private val legacy: Boolean): BaseModel() {
+                     private val opMode: OpMode = OpMode.AUTO): BaseModel() {
 
     private val ignoreListManager: IgnoreListManager by inject()
     private val songDbHelper: SongDatabaseHelper by inject()
@@ -45,13 +43,11 @@ class LadderImporter(private val dataLines: List<String>,
         errors = 0
         this.listener = listener
         importJob = MainScope(Dispatchers.Unconfined).launch {
-            dataLines.forEach {
-                if (legacy) {
-                    parseLegacyManagerLine(it)
-                } else {
-                    parseManagerLine(it)
-                }
-            }
+            dataLines.forEach { when (opMode) {
+                OpMode.AUTO -> autoParseManagerLine(it)
+                OpMode.LEGACY -> parseLegacyManagerLine(it)
+                OpMode.SA -> parseManagerLine(it)
+            } }
             withContext(Dispatchers.Main) {
                 ladderDialogs.showImportFinishedToast()
                 ignoreListManager.invalidateIgnoredIds()
@@ -62,6 +58,15 @@ class LadderImporter(private val dataLines: List<String>,
                 importJob = null
                 listener?.onCompleted()
             }
+        }
+    }
+
+    private suspend fun autoParseManagerLine(entry: String) {
+        val chunk = entry.substring(0, 10)
+        when {
+            chunk.count { it == ';' } >= 2 -> parseLegacyManagerLine(entry)
+            chunk.count { it == '\t' } >= 2 -> parseManagerLine(entry)
+            else -> signalError("Unable to determine input mode")
         }
     }
 
@@ -182,4 +187,6 @@ class LadderImporter(private val dataLines: List<String>,
         fun onError(totalCount: Int, message: String)
         fun onCompleted()
     }
+
+    enum class OpMode { LEGACY, SA, AUTO }
 }

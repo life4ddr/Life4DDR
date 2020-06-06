@@ -1,5 +1,6 @@
 package com.perrigogames.life4.db
 
+import com.perrigogames.life4.data.InProgressTrialSession
 import com.soywiz.klock.DateTime
 import com.soywiz.klock.ISO8601
 import com.squareup.sqldelight.Query
@@ -13,16 +14,16 @@ class TrialDatabaseHelper(sqlDriver: SqlDriver): DatabaseHelper(sqlDriver) {
 
     fun allRecords(): Query<TrialSession> = queries.selectAll()
 
-    suspend fun insertSession(session: com.perrigogames.life4.data.InProgressTrialSession, datetime: DateTime? = null) = withContext(Dispatchers.Default) {
+    suspend fun insertSession(session: InProgressTrialSession, datetime: DateTime? = null) = withContext(Dispatchers.Default) {
         dbRef.transaction {
             queries.insertSession(null,
                 session.trial.id,
                 (datetime ?: DateTime.now()).format(ISO8601.DATETIME_COMPLETE),
                 session.goalRank!!,
                 session.goalObtained)
+            val sId = queries.lastInsertRowId().executeAsOne()
             session.results.forEachIndexed { idx, result ->
-                queries.insertSong(null,
-                    0L, //FIXME
+                queries.insertSong(null, sId,
                     idx.toLong(),
                     result!!.score!!.toLong(),
                     result.exScore!!.toLong(),

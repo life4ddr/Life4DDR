@@ -55,6 +55,9 @@ insertSong:
 INSERT OR REPLACE INTO TrialSong(id, sessionId, position, score, exScore, misses, goods, greats, perfects, passed)
 VALUES (?,?,?,?,?,?,?,?,?,?);
 
+lastInsertRowId:
+SELECT last_insert_rowid();
+
 deleteSession:
 DELETE FROM TrialSession WHERE id = ?;
 DELETE FROM TrialSong WHERE sessionId = ?;

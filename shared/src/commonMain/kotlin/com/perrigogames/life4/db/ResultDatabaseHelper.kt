@@ -38,7 +38,5 @@ class ResultDatabaseHelper(sqlDriver: SqlDriver): DatabaseHelper(sqlDriver) {
 
     fun selectMFCs() = queries.selectMFCs().executeAsList()
 
-    fun deleteAll() {
-        queries.deleteAll()
-    }
+    fun deleteAll() = queries.deleteAll()
 }
