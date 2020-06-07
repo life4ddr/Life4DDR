@@ -24,7 +24,7 @@ import org.koin.core.inject
  * In Legacy mode, input lines are interpreted using the old copy-paste style data lines, where each line was only a single
  *  chart, which led to a lot of duplication.
  */
-class LadderImporter(private val dataLines: List<String>,
+class LadderImporter(private var dataLines: List<String>,
                      private val opMode: OpMode = OpMode.AUTO): BaseModel() {
 
     private val ignoreListManager: IgnoreListManager by inject()
@@ -41,6 +41,7 @@ class LadderImporter(private val dataLines: List<String>,
     fun start(listener: Listener? = null) {
         success = 0
         errors = 0
+        dataLines = dataLines.filterNot { it.isEmpty() }
         this.listener = listener
         importJob = MainScope(Dispatchers.Unconfined).launch {
             dataLines.forEach { when (opMode) {
@@ -62,10 +63,10 @@ class LadderImporter(private val dataLines: List<String>,
     }
 
     private suspend fun autoParseManagerLine(entry: String) {
-        val chunk = entry.substring(0, 10)
+        val chunk = entry.substring(0, 6)
         when {
-            chunk.count { it == ';' } >= 2 -> parseLegacyManagerLine(entry)
-            chunk.count { it == '\t' } >= 2 -> parseManagerLine(entry)
+            chunk.count { it == ';' } >= 1 -> parseLegacyManagerLine(entry)
+            chunk.count { it == '\t' } >= 1 -> parseManagerLine(entry)
             else -> signalError("Unable to determine input mode")
         }
     }
