@@ -1,6 +1,7 @@
 package com.perrigogames.life4.db
 
 import com.perrigogames.life4.data.InProgressTrialSession
+import com.perrigogames.life4.data.TrialRank
 import com.soywiz.klock.DateTime
 import com.soywiz.klock.ISO8601
 import com.squareup.sqldelight.Query
@@ -48,21 +49,7 @@ class TrialDatabaseHelper(sqlDriver: SqlDriver): DatabaseHelper(sqlDriver) {
 
     fun bestSession(trialId: String) = queries.selectBestSession(trialId).executeAsOneOrNull()
 
-    fun songsForSession(sessionId: Long) = queries.selectSessionSongs(sessionId).executeAsList()
+    fun bestSessions() = queries.selectBestSessions().executeAsList()
 
-//    fun bestTrial(trialId: String): TrialSessionDB? = sessionBox.query()
-//        .equal(TrialSessionDB_.trialId, trialId)
-//        .equal(TrialSessionDB_.goalObtained, true)
-//        .sort { o1, o2 -> o2.goalRankId.compareTo(o1.goalRankId)}
-//        .build()
-//        .find()
-//        .firstOrNull()
-//
-//    fun bestTrials(): List<TrialSessionDB> = sessionBox.query()
-//        .equal(TrialSessionDB_.goalObtained, true)
-//        .sort { o1, o2 -> o2.goalRankId.compareTo(o1.goalRankId)}
-//        .build()
-//        .find()
-//
-//    fun getRankForTrial(trialId: String): TrialRank? = bestTrial(trialId)?.goalRank
+    fun songsForSession(sessionId: Long) = queries.selectSessionSongs(sessionId).executeAsList()
 }

@@ -6,6 +6,7 @@ import com.perrigogames.life4.api.LocalDataReader
 import com.perrigogames.life4.api.TrialRemoteData
 import com.perrigogames.life4.data.TrialData
 import com.perrigogames.life4.data.InProgressTrialSession
+import com.perrigogames.life4.db.SelectBestSessions
 import com.perrigogames.life4.db.TrialDatabaseHelper
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.TRIALS_FILE_NAME
 import com.perrigogames.life4.ktor.Life4API
@@ -72,6 +73,14 @@ class TrialManager: BaseModel() {
 
     fun bestSession(trialId: String) = dbHelper.bestSession(trialId)
 
+    fun bestSessions(): List<SelectBestSessions> {
+        val results = dbHelper.bestSessions()
+        return trials.mapNotNull {
+            if (it.isEvent) null
+            else results.firstOrNull { db -> db.trialId == it.id }
+        }
+    }
+
     fun deleteSession(sessionId: Long) {
         mainScope.launch {
             dbHelper.deleteSession(sessionId)
@@ -125,16 +134,6 @@ class TrialManager: BaseModel() {
             setCrashString("trials", trials.joinToString { it.id })
         }
     }
-
-//    fun getRankForTrial(trialId: String) = repo.getRankForTrial(trialId)
-
-//    fun bestTrials(): List<com.perrigogames.life4.db.TrialSession> {
-//        val results = repo.bestTrials()
-//        return trials.mapNotNull {
-//            if (it.isEvent) null
-//            else results.firstOrNull { db -> db.trialId == it.id }
-//        }
-//    }
 
     companion object {
         internal val RECORD_FETCH_TIMESTAMP_KEY = "TRIAL_FETCH_TIMESTAMP_KEY"

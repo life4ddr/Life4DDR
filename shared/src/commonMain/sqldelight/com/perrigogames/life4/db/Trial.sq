@@ -40,6 +40,13 @@ INNER JOIN TrialSessionExScore ON TrialSession.id = TrialSessionExScore.sessionI
 WHERE trialId = ? AND goalObtained != 0
 ORDER BY goalRank, TrialSessionExScore.exScore DESC LIMIT 1;
 
+selectBestSessions:
+SELECT * FROM TrialSession
+INNER JOIN TrialSessionExScore ON TrialSession.id = TrialSessionExScore.sessionId
+WHERE goalObtained != 0
+GROUP BY trialId
+ORDER BY goalRank, TrialSessionExScore.exScore DESC LIMIT 1;
+
 selectSessionSongs:
 SELECT * FROM TrialSong WHERE sessionId = ?;
 
