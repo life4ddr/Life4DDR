@@ -82,7 +82,7 @@ class AndroidLadderDialogs: LadderDialogs, KoinComponent {
     }
 
     override fun onClearGoalStates(positive: () -> Unit) =
-        displayAreYouSureDialog(R.string.confirm_erase_trial_data, positive)
+        displayAreYouSureDialog(R.string.confirm_erase_goal_data, positive)
 
     override fun onClearSongResults(positive: () -> Unit) =
         displayAreYouSureDialog(R.string.confirm_erase_result_data, positive)
@@ -94,8 +94,14 @@ class AndroidLadderDialogs: LadderDialogs, KoinComponent {
 
     override fun showImportFinishedToast() = notifications.showToast(context.getString(R.string.import_finished))
 
+    fun withActivity(activity: FragmentActivity, block: AndroidLadderDialogs.() -> Unit) {
+        this.activity = activity
+        block.invoke(this)
+        this.activity = null
+    }
+
     private inline fun displayAreYouSureDialog(@StringRes messageText: Int, crossinline positive: () -> Unit) {
-        AlertDialog.Builder(context)
+        AlertDialog.Builder(activity!!)
             .setTitle(R.string.are_you_sure)
             .setMessage(messageText)
             .setPositiveButton(R.string.yes) { _, _ -> positive() }

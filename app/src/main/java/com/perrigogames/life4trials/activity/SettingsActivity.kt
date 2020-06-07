@@ -320,7 +320,9 @@ class SettingsActivity : AppCompatActivity(), SettingsFragmentListener {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.clear_data_preferences, rootKey)
             preferenceListener(KEY_LADDER_CLEAR) {
-                ladderManager.clearGoalStates()
+                ladderDialogs.withActivity(activity!!) {
+                    ladderManager.clearGoalStates()
+                }
                 true
             }
             preferenceListener(KEY_RECORDS_CLEAR) {
@@ -329,15 +331,19 @@ class SettingsActivity : AppCompatActivity(), SettingsFragmentListener {
                     .setMessage(R.string.confirm_erase_trial_data)
                     .setPositiveButton(R.string.yes) { _, _ -> trialManager.clearSessions() }
                     .setNegativeButton(R.string.no, null)
-                    .show()
+                    .show() //FIXME extract
                 true
             }
             preferenceListener(KEY_SONG_RESULTS_CLEAR) {
-                ladderManager.clearSongResults()
+                ladderDialogs.withActivity(activity!!) {
+                    ladderManager.clearSongResults()
+                }
                 true
             }
             preferenceListener(KEY_REFRESH_SONG_DB) {
-                ladderManager.refreshSongDatabase()
+                ladderDialogs.withActivity(activity!!) {
+                    ladderManager.refreshSongDatabase()
+                }
                 true
             }
         }

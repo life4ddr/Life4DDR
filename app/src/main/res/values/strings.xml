@@ -124,10 +124,10 @@
     <string name="trial_submit_dialog_prompt">Photos are saved to your SD card\'s Pictures/LIFE4 folder. These photos can be uploaded to LIFE4\'s Submission Page manually.\n\nWould you like to be taken there now?</string>
     <string name="trial_not_saved">This Trial has not been saved!</string>
 
+    <string name="confirm_erase_goal_data">Are you sure you want to clear all saved goal states?</string>
     <string name="confirm_erase_trial_data">Are you sure you want to clear all saved rank data?</string>
     <string name="confirm_erase_result_data">Are you sure you want to clear all song result data?</string>
     <string name="confirm_refresh_song_db">Are you sure you want to refresh the local song database?\n\nYou will need to reimport your Score Manager data.</string>
-    <string name="confirm_erase_goal_data">Are you sure you want to clear all saved goal data?</string>
 
     <!-- Format Strings -->
     <string name="goal_progress_format">"%d / %d"</string>
