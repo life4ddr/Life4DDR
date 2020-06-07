@@ -33,16 +33,16 @@ class LadderProgressManager: BaseModel() {
 //                goal.getGoalProgress(charts.size, results) // return
 //            }
 //        }
-//        is TrialGoal -> {
-//            val trials = trialManager.bestTrials().filter {
-//                if (goal.restrictDifficulty) {
-//                    it.goalRank.stableId == goal.rank.stableId
-//                } else {
-//                    it.goalRank.stableId >= goal.rank.stableId
-//                }
-//            }
-//            LadderGoalProgress(trials.size, goal.count) // return
-//        }
+        is TrialGoal -> {
+            val trials = trialManager.bestSessions().filter {
+                if (goal.restrictDifficulty) {
+                    it.goalRank.stableId == goal.rank.stableId
+                } else {
+                    it.goalRank.stableId >= goal.rank.stableId
+                }
+            }
+            LadderGoalProgress(trials.size, goal.count) // return
+        }
         is MFCPointsGoal -> {
             LadderGoalProgress(ladderResults.selectMFCs().sumBy {
                 GameConstants.mfcPointsForDifficulty(it.difficultyNumber.toInt())

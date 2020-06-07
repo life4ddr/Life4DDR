@@ -24,6 +24,8 @@ import com.perrigogames.life4.SettingsKeys.KEY_FEEDBACK
 import com.perrigogames.life4.SettingsKeys.KEY_FIND_US_TWITTER
 import com.perrigogames.life4.SettingsKeys.KEY_IMPORT_DATA
 import com.perrigogames.life4.SettingsKeys.KEY_IMPORT_GAME_VERSION
+import com.perrigogames.life4.SettingsKeys.KEY_IMPORT_PREFER_LEGACY
+import com.perrigogames.life4.SettingsKeys.KEY_IMPORT_SKIP_DIRECTIONS
 import com.perrigogames.life4.SettingsKeys.KEY_IMPORT_VIEW_LIST
 import com.perrigogames.life4.SettingsKeys.KEY_INFO_IMPORT
 import com.perrigogames.life4.SettingsKeys.KEY_INFO_NAME
@@ -175,7 +177,7 @@ class SettingsActivity : AppCompatActivity(), SettingsFragmentListener {
             }
             preferenceListener(KEY_IMPORT_DATA) {
                 var done = false
-                if (!settings.getBoolean(SettingsKeys.KEY_IMPORT_PREFER_LEGACY, false)) {
+                if (!settings.getBoolean(KEY_IMPORT_PREFER_LEGACY, false)) {
                     try {
                         getScores.launch(PlayStyle.SINGLE)
                         done = true
@@ -185,6 +187,9 @@ class SettingsActivity : AppCompatActivity(), SettingsFragmentListener {
                     ladderDialogs.showImportFlow(activity!!)
                 }
                 true
+            }
+            findPreference<CheckBoxPreference>(KEY_IMPORT_SKIP_DIRECTIONS)?.let {
+                it.isEnabled = settings.getBoolean(KEY_IMPORT_PREFER_LEGACY)
             }
 
             preferenceListener(KEY_SHOP_LIFE4) {
@@ -232,6 +237,9 @@ class SettingsActivity : AppCompatActivity(), SettingsFragmentListener {
                     KEY_INFO_IMPORT -> findPreference<EditTextPreference>(key)?.let {
                         it.text?.let { text -> playerManager.importPlayerInfo(text) }
                         it.text = null
+                    }
+                    KEY_IMPORT_PREFER_LEGACY -> findPreference<CheckBoxPreference>(KEY_IMPORT_SKIP_DIRECTIONS)?.let {
+                        it.isEnabled = settings.getBoolean(key)
                     }
                 }
             }

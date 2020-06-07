@@ -11,6 +11,7 @@ import com.perrigogames.life4.enums.DifficultyClass
 import com.perrigogames.life4.enums.GameVersion
 import com.perrigogames.life4.enums.PlayStyle
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.SONGS_FILE_NAME
+import com.perrigogames.life4.logE
 import com.perrigogames.life4.logException
 import com.russhwolf.settings.Settings
 import com.russhwolf.settings.set
@@ -54,41 +55,45 @@ class SongDataManager: BaseModel() {
 
     private fun refreshSongDatabase(input: String = songList.data, force: Boolean = false) {
         mainScope.launch {
-            val lines = input.lines()
-            if (force || settings.getInt(KEY_SONG_LIST_VERSION, -1) < lines[0].toInt()) {
-                lines.forEachIndexed { idx, line ->
-                    if (idx == 0 || line.isEmpty()) {
-                        return@forEachIndexed
-                    }
-                    val data = line.split('\t')
-                    val id = data[0].toLong()
-                    val skillId = data[1]
-                    val title = data[2]
-                    val artist = data[3]
-                    var preview = false
-                    val mix = GameVersion.parse(data[4].let {
-                        it.toLongOrNull() ?: it.substring(0, it.length - 1).let { seg ->
-                            preview = true
-                            seg.toLong()
+            try {
+                val lines = input.lines()
+                if (force || settings.getInt(KEY_SONG_LIST_VERSION, -1) < lines[0].toInt()) {
+                    lines.forEachIndexed { idx, line ->
+                        if (idx == 0 || line.isEmpty()) {
+                            return@forEachIndexed
                         }
-                    }) ?: GameVersion.values().last().also {
-                        logException(Exception("No game version found for text \"${data[4]}\""))
-                    }
-                    dbHelper.insertSong(id, skillId, title, artist, mix, preview)
-                    var count = 5
-                    PlayStyle.values().forEach { style ->
-                        DifficultyClass.values().forEach { diff ->
-                            if (style != PlayStyle.DOUBLE || diff != DifficultyClass.BEGINNER) {
-                                val diffStr = data[count++]
-                                if (diffStr.isNotEmpty()) {
-                                    dbHelper.insertChart(id, diff, diffStr.toLong(), style)
+                        val data = line.split('\t')
+                        val id = data[0].toLong()
+                        val skillId = data[1]
+                        val title = data[2]
+                        val artist = data[3]
+                        var preview = false
+                        val mix = GameVersion.parse(data[4].let {
+                            it.toLongOrNull() ?: it.substring(0, it.length - 1).let { seg ->
+                                preview = true
+                                seg.toLong()
+                            }
+                        }) ?: GameVersion.values().last().also {
+                            logException(Exception("No game version found for text \"${data[4]}\""))
+                        }
+                        dbHelper.insertSong(id, skillId, title, artist, mix, preview)
+                        var count = 5
+                        PlayStyle.values().forEach { style ->
+                            DifficultyClass.values().forEach { diff ->
+                                if (style != PlayStyle.DOUBLE || diff != DifficultyClass.BEGINNER) {
+                                    val diffStr = data[count++]
+                                    if (diffStr.isNotEmpty()) {
+                                        dbHelper.insertChart(id, diff, diffStr.toLong(), style)
+                                    }
                                 }
                             }
                         }
                     }
+                    ignoreListManager.invalidateIgnoredIds()
+                    settings[KEY_SONG_LIST_VERSION] = lines[0].toInt()
                 }
-                ignoreListManager.invalidateIgnoredIds()
-                settings[KEY_SONG_LIST_VERSION] = lines[0].toInt()
+            } catch (e: Exception) {
+                logE("SongData", e.message ?: "")
             }
         }
     }

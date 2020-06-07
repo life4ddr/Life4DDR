@@ -70,7 +70,6 @@ class RankGoalsAdapter(private val rank: RankEntry,
             view.expanded = dataSource.isGoalExpanded(goal)
             view.canIgnore = dataSource.canIgnoreGoals()
             view.setGoal(goal, dataSource.getGoalStatus(goal), dataSource.getGoalProgress(goal))
-            view.setGoal(goal, dataSource.getGoalStatus(goal), null)
         }
     }
 
