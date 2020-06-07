@@ -20,9 +20,7 @@ import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.colorRes
 import com.perrigogames.life4.model.TrialManager
 import com.perrigogames.life4trials.ui.trialrecords.TrialRecordsFragment.OnRecordsListInteractionListener
-import com.perrigogames.life4trials.util.DataUtil
 import com.perrigogames.life4trials.util.jacketResId
-import com.perrigogames.life4trials.util.locale
 import com.perrigogames.life4trials.util.visibilityBool
 import com.perrigogames.life4trials.view.RankImageView
 import com.russhwolf.settings.Settings
@@ -34,32 +32,26 @@ import org.koin.core.inject
  * [RecyclerView.Adapter] that can display a [TrialSession] and makes a call to the
  * specified [OnRecordsListInteractionListener].
  */
-class TrialRecordsAdapter(private val mListener: OnRecordsListInteractionListener?) :
+class TrialRecordsAdapter(private val viewModel: TrialRecordsViewModel,
+                          private val mListener: OnRecordsListInteractionListener?) :
     RecyclerView.Adapter<TrialRecordsAdapter.ViewHolder>(), KoinComponent {
 
     private val trialManager: TrialManager by inject()
     private val settings: Settings by inject()
 
-    private lateinit var recordsList: List<TrialSession>
+    private val recordsList: List<TrialSession> get() = viewModel.records.value ?: emptyList()
     private val mOnClickListener: View.OnClickListener
 
     init {
-        refreshTrials()
         mOnClickListener = View.OnClickListener { v ->
             mListener?.onRecordsListInteraction(v.tag as TrialSession)
         }
     }
 
-    fun refreshTrials() {
-        recordsList = trialManager.allRecords.reversed()
-    }
-
     override fun getItemId(position: Int) = recordsList[position].id
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_trial_record, parent, false))
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
+        ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_trial_record, parent, false))
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = recordsList[position]

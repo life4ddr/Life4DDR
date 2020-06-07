@@ -27,26 +27,18 @@ class TrialRecordsFragment : Fragment(), KoinComponent {
     private lateinit var viewModel: TrialRecordsViewModel
     private var listener: OnRecordsListInteractionListener? = null
 
-    override fun onCreateView(inflater: LayoutInflater,
-                              container: ViewGroup?,
-                              savedInstanceState: Bundle?): View {
-        return inflater.inflate(R.layout.fragment_trial_records, container, false)
-    }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
+        inflater.inflate(R.layout.fragment_trial_records, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        viewModel = ViewModelProviders.of(this).get(TrialRecordsViewModel::class.java)
         recycler_records_list.apply {
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-            adapter = TrialRecordsAdapter(listener)
+            adapter = TrialRecordsAdapter(viewModel, listener)
             addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
             updateEmptyLabelView()
         }
         registerForContextMenu(recycler_records_list)
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(TrialRecordsViewModel::class.java)
-        // TODO: Use the ViewModel
     }
 
     override fun onAttach(context: Context) {
@@ -67,8 +59,7 @@ class TrialRecordsFragment : Fragment(), KoinComponent {
         val info = item.menuInfo as RecyclerViewContextMenuInfo
         //TODO check for Delete
         if (info.position >= 0) {
-            trialManager.deleteSession(info.id)
-            adapter.refreshTrials()
+            viewModel.removeRecord(info.id)
             adapter.notifyItemRangeRemoved(info.position, 1)
             updateEmptyLabelView()
         }
