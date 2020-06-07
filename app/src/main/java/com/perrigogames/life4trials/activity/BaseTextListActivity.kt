@@ -3,6 +3,7 @@ package com.perrigogames.life4trials.activity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.perrigogames.life4.db.SongDatabaseHelper
+import com.perrigogames.life4.db.aggregateDiffStyleString
 import com.perrigogames.life4.enums.PlayStyle
 import com.perrigogames.life4.model.IgnoreListManager
 import com.perrigogames.life4trials.R
@@ -35,7 +36,7 @@ class BlockListCheckActivity: BaseTextListActivity(), KoinComponent {
         }
         ignoreListManager.getCurrentlyIgnoredCharts().forEach { entry ->
             entry.value.forEach { chart ->
-                builder.append("(${entry.key.id}) ${entry.key.version} - ${entry.key.title} (${chart.difficultyClass})\n")
+                builder.append("(${entry.key.id}) ${entry.key.version} - ${entry.key.title} (${chart.aggregateDiffStyleString})\n")
             }
         }
     }

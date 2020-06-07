@@ -58,3 +58,5 @@ class SongDatabaseHelper(sqlDriver: SqlDriver): DatabaseHelper(sqlDriver) {
 
     fun deleteAll() = queries.deleteAll()
 }
+
+val ChartInfo.aggregateDiffStyleString get() = difficultyClass.aggregateString(playStyle)
