@@ -9,11 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.perrigogames.life4.enums.PlayStyle
 import com.perrigogames.life4.enums.PlayStyle.SINGLE
 
-class GetScoreList: ActivityResultContract<PlayStyle, List<String>>() {
-    override fun createIntent(context: Context, playStyle: PlayStyle?) =
-        Intent(ACTION_RETRIEVE_SCORE).apply {
-            putExtra(EXTRA_PLAY_STYLE, (playStyle ?: SINGLE).stableId)
-        }
+class GetScoreList: ActivityResultContract<Unit, List<String>>() {
+    override fun createIntent(context: Context, u: Unit?) = Intent(ACTION_RETRIEVE_SCORE)
 
     override fun parseResult(resultCode: Int, result: Intent?): List<String>? {
         resultCode == Activity.RESULT_OK || return null
@@ -436,7 +433,6 @@ class GetScoreList: ActivityResultContract<PlayStyle, List<String>>() {
 
     companion object {
         const val ACTION_RETRIEVE_SCORE = "jp.linanfine.dsma.GET_SCORE_DATA"
-        const val EXTRA_PLAY_STYLE = "life4.intent.extra.score.PLAY_STYLE"
         const val EXTRA_RESULT = "life4.intent.extra.score.RESULT"
     }
 }

@@ -76,7 +76,7 @@ class PlayerProfileActivity : AppCompatActivity(), RankDetailsViewModel.OnGoalLi
                 var done = false
                 if (!settings.getBoolean(KEY_IMPORT_PREFER_LEGACY, false)) {
                     try {
-                        getScores.launch(PlayStyle.SINGLE)
+                        getScores.launch(Unit)
                         done = true
                     } catch (e: Exception) { }
                 }
