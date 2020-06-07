@@ -1,4 +1,7 @@
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+    <Preference
+        app:fragment="com.perrigogames.life4trials.activity.SettingsActivity$UserInfoSettingsFragment"
+        app:title="@string/edit_user_info"/>
     <DropDownPreference
         app:defaultValue="A20_US"
         app:key="KEY_IMPORT_GAME_VERSION"
@@ -6,18 +9,6 @@
     <Preference
         app:key="KEY_MANAGE_UNLOCKS"
         app:title="@string/manage_song_unlocks"/>
-    <Preference
-        app:fragment="com.perrigogames.life4trials.activity.SettingsActivity$UserInfoSettingsFragment"
-        app:title="@string/edit_user_info"/>
-    <Preference
-        app:key="KEY_IMPORT_DATA"
-        app:title="@string/import_manager_data"/>
-    <CheckBoxPreference
-        app:key="KEY_IMPORT_PREFER_LEGACY"
-        app:title="@string/import_manager_legacy"/>
-    <CheckBoxPreference
-        app:key="KEY_IMPORT_SKIP_DIRECTIONS"
-        app:title="@string/import_skip_directions"/>
     <Preference
         app:key="KEY_IMPORT_VIEW_LIST"
         app:title="@string/action_view_blocklist"/>
@@ -29,6 +20,19 @@
     <Preference
         app:fragment="com.perrigogames.life4trials.activity.SettingsActivity$ClearDataFragment"
         app:title="@string/clear_data"/>
+
+    <PreferenceCategory app:title="@string/score_manager_import">
+        <Preference
+            app:key="KEY_IMPORT_DATA"
+            app:title="@string/import_manager_data"/>
+        <CheckBoxPreference
+            app:key="KEY_IMPORT_PREFER_LEGACY"
+            app:title="@string/import_manager_legacy"
+            app:summary="@string/import_manager_legacy_description"/>
+        <CheckBoxPreference
+            app:key="KEY_IMPORT_SKIP_DIRECTIONS"
+            app:title="@string/import_skip_directions"/>
+    </PreferenceCategory>
 
     <PreferenceCategory app:title="@string/help_and_feedback">
         <Preference

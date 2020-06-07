@@ -208,6 +208,7 @@
     <string name="score_manager_import">Score Manager Import</string>
     <string name="import_manager_data">Import manager data</string>
     <string name="import_manager_legacy">Use legacy import</string>
+    <string name="import_manager_legacy_description">Legacy import shows the old copy/paste method for importing scores</string>
     <string name="import_skip_directions">Skip import directions</string>
     <string name="photo_select">Use photo picker</string>
     <string name="import_finished">Import finished.</string>
