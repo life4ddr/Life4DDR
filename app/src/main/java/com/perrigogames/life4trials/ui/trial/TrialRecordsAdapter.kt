@@ -1,4 +1,4 @@
-package com.perrigogames.life4trials.ui.trialrecords
+package com.perrigogames.life4trials.ui.trial
 
 import android.content.Context
 import android.content.res.ColorStateList
@@ -19,7 +19,7 @@ import com.perrigogames.life4.longNumberString
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.colorRes
 import com.perrigogames.life4.model.TrialManager
-import com.perrigogames.life4trials.ui.trialrecords.TrialRecordsFragment.OnRecordsListInteractionListener
+import com.perrigogames.life4trials.ui.trial.TrialRecordsFragment.OnRecordsListInteractionListener
 import com.perrigogames.life4trials.util.jacketResId
 import com.perrigogames.life4trials.util.visibilityBool
 import com.perrigogames.life4trials.view.RankImageView

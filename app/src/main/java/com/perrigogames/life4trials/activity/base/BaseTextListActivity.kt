@@ -1,4 +1,4 @@
-package com.perrigogames.life4trials.activity
+package com.perrigogames.life4trials.activity.base
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

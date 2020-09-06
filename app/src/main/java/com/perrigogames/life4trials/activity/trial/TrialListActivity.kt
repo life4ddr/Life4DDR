@@ -1,4 +1,4 @@
-package com.perrigogames.life4trials.activity
+package com.perrigogames.life4trials.activity.trial
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,7 +7,9 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4.data.TrialType
-import com.perrigogames.life4trials.ui.triallist.TrialListFragment
+import com.perrigogames.life4trials.activity.firstrun.PlacementDetailsActivity
+import com.perrigogames.life4trials.activity.settings.SettingsActivity
+import com.perrigogames.life4trials.ui.trial.TrialListFragment
 import kotlinx.android.synthetic.main.activity_trial_list.*
 
 /**
@@ -33,7 +35,12 @@ class TrialListActivity : AppCompatActivity(), TrialListFragment.OnTrialListInte
         when (trialType) {
             TrialType.EVENT,
             TrialType.TRIAL -> startActivity(TrialDetailsActivity.intent(this, trialId))
-            TrialType.PLACEMENT -> startActivity(PlacementDetailsActivity.intent(this, trialId))
+            TrialType.PLACEMENT -> startActivity(
+                PlacementDetailsActivity.intent(
+                    this,
+                    trialId
+                )
+            )
         }
     }
 

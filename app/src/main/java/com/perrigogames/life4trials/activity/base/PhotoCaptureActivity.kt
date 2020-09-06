@@ -1,4 +1,4 @@
-package com.perrigogames.life4trials.activity
+package com.perrigogames.life4trials.activity.base
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -105,7 +105,7 @@ abstract class PhotoCaptureActivity: AppCompatActivity(), KoinComponent {
                 }
                 RESULT_CANCELED -> onPhotoCancelled()
             }
-            FLAG_IMAGE_SELECT-> when (resultCode) {
+            FLAG_IMAGE_SELECT -> when (resultCode) {
                 RESULT_OK -> {
                     currentUri = data!!.data!!
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {

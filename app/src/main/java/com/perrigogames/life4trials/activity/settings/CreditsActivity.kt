@@ -1,4 +1,4 @@
-package com.perrigogames.life4trials.activity
+package com.perrigogames.life4trials.activity.settings
 
 import android.os.Bundle
 import android.util.TypedValue.COMPLEX_UNIT_PX

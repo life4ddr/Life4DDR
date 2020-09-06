@@ -1,4 +1,4 @@
-package com.perrigogames.life4trials.activity
+package com.perrigogames.life4trials.activity.firstrun
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.perrigogames.life4.model.PlacementManager
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.activity.PlacementDetailsActivity.Companion.RESULT_FINISHED
+import com.perrigogames.life4trials.activity.firstrun.PlacementDetailsActivity.Companion.RESULT_FINISHED
 import com.perrigogames.life4.model.FirstRunManager
 import com.perrigogames.life4trials.manager.finishProcessIntent
 import com.perrigogames.life4trials.manager.rankListIntent
@@ -30,7 +30,9 @@ class PlacementListActivity : AppCompatActivity(), KoinComponent {
 
         recycler_placements.layoutManager = LinearLayoutManager(this)
         recycler_placements.adapter = PlacementListAdapter(placementManager.placements) { id ->
-            startActivityForResult(PlacementDetailsActivity.intent(this, id), REQUEST_PLACEMENT_FINISH)
+            startActivityForResult(PlacementDetailsActivity.intent(this, id),
+                REQUEST_PLACEMENT_FINISH
+            )
         }
     }
 

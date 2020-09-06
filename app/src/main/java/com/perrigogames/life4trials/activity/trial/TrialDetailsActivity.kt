@@ -1,4 +1,4 @@
-package com.perrigogames.life4trials.activity
+package com.perrigogames.life4trials.activity.trial
 
 import android.app.AlertDialog
 import android.content.Context
@@ -23,6 +23,7 @@ import com.perrigogames.life4.model.LadderManager
 import com.perrigogames.life4.model.TrialManager
 import com.perrigogames.life4.model.TrialSessionManager
 import com.perrigogames.life4trials.*
+import com.perrigogames.life4trials.activity.base.PhotoCaptureActivity
 import com.perrigogames.life4trials.manager.AndroidTrialNavigation
 import com.perrigogames.life4trials.ui.songlist.SongListFragment
 import com.perrigogames.life4trials.util.openWebUrlFromRes
@@ -176,7 +177,12 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener, K
         val prev = v.id == R.id.button_navigate_previous
         val targetTrial = if (prev) trialManager.previousTrial(trialId) else trialManager.nextTrial(trialId)
         if (targetTrial != null){
-            startActivity(intent(this, targetTrial.id))
+            startActivity(
+                intent(
+                    this,
+                    targetTrial.id
+                )
+            )
             finish()
         }
     }
@@ -286,7 +292,9 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener, K
         Intent(this, SongEntryActivity::class.java).also { i ->
             i.putExtra(SongEntryActivity.ARG_SONG_INDEX, index)
             i.putExtra(SongEntryActivity.ARG_ADVANCED_DETAIL, trialSession.shouldShowAdvancedSongDetails)
-            startActivityForResult(i, FLAG_SCORE_ENTER)
+            startActivityForResult(i,
+                FLAG_SCORE_ENTER
+            )
         }
     }
 

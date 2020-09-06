@@ -1,4 +1,4 @@
-package com.perrigogames.life4trials.ui.triallist
+package com.perrigogames.life4trials.ui.trial
 
 import android.content.Context
 import android.os.Bundle

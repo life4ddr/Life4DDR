@@ -3,10 +3,10 @@ package com.perrigogames.life4trials.manager
 import android.content.Context
 import android.content.Intent
 import com.perrigogames.life4.model.FirstRunManager
-import com.perrigogames.life4trials.activity.FirstRankSelectionActivity
-import com.perrigogames.life4trials.activity.FirstRunInfoActivity
-import com.perrigogames.life4trials.activity.PlacementListActivity
-import com.perrigogames.life4trials.activity.PlayerProfileActivity
+import com.perrigogames.life4trials.activity.firstrun.FirstRankSelectionActivity
+import com.perrigogames.life4trials.activity.firstrun.FirstRunInfoActivity
+import com.perrigogames.life4trials.activity.firstrun.PlacementListActivity
+import com.perrigogames.life4trials.activity.profile.PlayerProfileActivity
 
 fun FirstRunManager.launchIntent(context: Context): Intent = when {
     requireSignin -> Intent(context, FirstRunInfoActivity::class.java)

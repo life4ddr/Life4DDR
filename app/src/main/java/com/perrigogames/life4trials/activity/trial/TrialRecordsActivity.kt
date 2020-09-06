@@ -1,4 +1,4 @@
-package com.perrigogames.life4trials.activity
+package com.perrigogames.life4trials.activity.trial
 
 import android.os.Bundle
 import android.view.MenuItem
@@ -6,7 +6,7 @@ import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.perrigogames.life4.db.TrialSession
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.ui.trialrecords.TrialRecordsFragment
+import com.perrigogames.life4trials.ui.trial.TrialRecordsFragment
 
 class TrialRecordsActivity : AppCompatActivity(), TrialRecordsFragment.OnRecordsListInteractionListener {
 

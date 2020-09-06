@@ -1,4 +1,4 @@
-package com.perrigogames.life4trials.activity
+package com.perrigogames.life4trials.activity.profile
 
 import android.content.Context
 import android.content.Intent
@@ -85,12 +85,16 @@ class RankDetailsActivity : AppCompatActivity(), RankHeaderView.NavigationListen
     fun onRankListUpdated(e: LadderRanksReplacedEvent) = setupRank(rank)
 
     fun useRankClicked(v: View) {
-        setResult(RESULT_RANK_SELECTED, Intent().putExtra(EXTRA_RANK, rank?.stableId))
+        setResult(
+            RESULT_RANK_SELECTED, Intent().putExtra(
+                EXTRA_RANK, rank?.stableId))
         finish()
     }
 
     fun useRankTargetClicked(v: View) {
-        setResult(RESULT_RANK_TARGET_SELECTED, Intent().putExtra(EXTRA_TARGET_RANK, rank?.stableId))
+        setResult(
+            RESULT_RANK_TARGET_SELECTED, Intent().putExtra(
+                EXTRA_TARGET_RANK, rank?.stableId))
         finish()
     }
 

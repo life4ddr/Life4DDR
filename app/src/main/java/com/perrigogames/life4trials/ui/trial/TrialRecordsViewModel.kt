@@ -1,4 +1,4 @@
-package com.perrigogames.life4trials.ui.trialrecords
+package com.perrigogames.life4trials.ui.trial
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

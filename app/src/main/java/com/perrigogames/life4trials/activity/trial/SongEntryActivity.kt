@@ -1,4 +1,4 @@
-package com.perrigogames.life4trials.activity
+package com.perrigogames.life4trials.activity.trial
 
 import android.app.Activity
 import android.app.AlertDialog

@@ -1,4 +1,4 @@
-package com.perrigogames.life4trials.activity
+package com.perrigogames.life4trials.activity.settings
 
 import android.content.*
 import android.content.Intent.ACTION_SENDTO
@@ -48,12 +48,13 @@ import com.perrigogames.life4.data.InProgressTrialSession
 import com.perrigogames.life4.data.LadderRank
 import com.perrigogames.life4.data.TrialRank
 import com.perrigogames.life4.db.TrialDatabaseHelper
-import com.perrigogames.life4.enums.PlayStyle
 import com.perrigogames.life4.model.*
 import com.perrigogames.life4trials.BuildConfig
 import com.perrigogames.life4trials.GetScoreList
 import com.perrigogames.life4trials.GetTrialData
 import com.perrigogames.life4trials.R
+import com.perrigogames.life4trials.activity.base.BlockListCheckActivity
+import com.perrigogames.life4trials.activity.base.SongRecordsListCheckActivity
 import com.perrigogames.life4trials.manager.AndroidLadderDialogs
 import com.perrigogames.life4trials.util.jacketResId
 import com.perrigogames.life4trials.util.openWebUrlFromRes
@@ -63,13 +64,16 @@ import org.koin.core.KoinComponent
 import org.koin.core.inject
 
 
-class SettingsActivity : AppCompatActivity(), SettingsFragmentListener {
+class SettingsActivity : AppCompatActivity(),
+    SettingsFragmentListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.settings_activity)
         supportFragmentManager.beginTransaction()
-            .replace(R.id.settings, SettingsFragment())
+            .replace(R.id.settings,
+                SettingsFragment()
+            )
             .commit()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }

@@ -32,4 +32,4 @@
     @org.greenrobot.eventbus.Subscribe <methods>;
 }
 -keep enum org.greenrobot.eventbus.ThreadMode { *; }
--keep class com.perrigogames.life4trials.activity.SettingsActivity$*
+-keep class com.perrigogames.life4trials.activity.settings.SettingsActivity$*

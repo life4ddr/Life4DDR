@@ -1,7 +1,6 @@
-package com.perrigogames.life4trials.activity
+package com.perrigogames.life4trials.activity.settings
 
 import android.os.Bundle
-import android.view.Menu
 import android.view.MenuItem
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity

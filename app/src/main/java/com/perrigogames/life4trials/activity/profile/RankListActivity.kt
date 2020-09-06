@@ -1,4 +1,4 @@
-package com.perrigogames.life4trials.activity
+package com.perrigogames.life4trials.activity.profile
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,10 +7,10 @@ import androidx.appcompat.app.AppCompatActivity
 import com.perrigogames.life4.data.LadderRank
 import com.perrigogames.life4.data.RankEntry
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.activity.RankDetailsActivity.Companion.EXTRA_RANK
-import com.perrigogames.life4trials.activity.RankDetailsActivity.Companion.EXTRA_TARGET_RANK
-import com.perrigogames.life4trials.activity.RankDetailsActivity.Companion.RESULT_RANK_SELECTED
-import com.perrigogames.life4trials.activity.RankDetailsActivity.Companion.RESULT_RANK_TARGET_SELECTED
+import com.perrigogames.life4trials.activity.profile.RankDetailsActivity.Companion.EXTRA_RANK
+import com.perrigogames.life4trials.activity.profile.RankDetailsActivity.Companion.EXTRA_TARGET_RANK
+import com.perrigogames.life4trials.activity.profile.RankDetailsActivity.Companion.RESULT_RANK_SELECTED
+import com.perrigogames.life4trials.activity.profile.RankDetailsActivity.Companion.RESULT_RANK_TARGET_SELECTED
 import com.perrigogames.life4.model.LadderManager
 import com.perrigogames.life4trials.ui.ranklist.RankListFragment
 import com.perrigogames.life4trials.ui.ranklist.RankListFragment.OnRankListInteractionListener
@@ -40,7 +40,9 @@ class RankListActivity : AppCompatActivity(), OnRankListInteractionListener, Koi
     }
 
     override fun onListFragmentInteraction(item: RankEntry?) =
-        startActivityForResult(RankDetailsActivity.intent(this, item?.rank), REQUEST_CODE_DETAIL_SELECTION)
+        startActivityForResult(RankDetailsActivity.intent(this, item?.rank),
+            REQUEST_CODE_DETAIL_SELECTION
+        )
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)

@@ -1,4 +1,4 @@
-package com.perrigogames.life4trials.activity
+package com.perrigogames.life4trials.activity.firstrun
 
 import android.content.Context
 import android.content.Intent
@@ -12,9 +12,9 @@ import com.perrigogames.life4.data.Song
 import com.perrigogames.life4.data.Trial
 import com.perrigogames.life4.model.PlacementManager
 import com.perrigogames.life4trials.R
+import com.perrigogames.life4trials.activity.base.PhotoCaptureActivity
 import com.perrigogames.life4trials.ui.songlist.SongListFragment
 import com.perrigogames.life4trials.view.RankHeaderView
-import com.russhwolf.settings.Settings
 import com.russhwolf.settings.set
 import kotlinx.android.synthetic.main.content_placement_details.*
 import org.koin.core.KoinComponent
@@ -64,7 +64,12 @@ class PlacementDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listene
 
     fun navigationButtonClicked(placement: Trial?) {
         if (placement != null) {
-            startActivity(intent(this, placement.id))
+            startActivity(
+                intent(
+                    this,
+                    placement.id
+                )
+            )
             finish()
         }
     }

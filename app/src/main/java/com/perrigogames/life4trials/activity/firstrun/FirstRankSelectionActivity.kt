@@ -1,4 +1,4 @@
-package com.perrigogames.life4trials.activity
+package com.perrigogames.life4trials.activity.firstrun
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,9 +7,10 @@ import androidx.appcompat.app.AppCompatActivity
 import com.perrigogames.life4.data.LadderRank
 import com.perrigogames.life4.data.RankEntry
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.activity.RankDetailsActivity.Companion.RESULT_RANK_SELECTED
+import com.perrigogames.life4trials.activity.profile.RankDetailsActivity.Companion.RESULT_RANK_SELECTED
 import com.perrigogames.life4.model.FirstRunManager
 import com.perrigogames.life4.model.LadderManager
+import com.perrigogames.life4trials.activity.profile.RankDetailsActivity
 import com.perrigogames.life4trials.manager.finishProcessIntent
 import com.perrigogames.life4trials.manager.placementIntent
 import com.perrigogames.life4trials.ui.ranklist.RankListFragment
@@ -38,7 +39,14 @@ class FirstRankSelectionActivity : AppCompatActivity(), OnRankListInteractionLis
     }
 
     override fun onListFragmentInteraction(item: RankEntry?) =
-        startActivityForResult(RankDetailsActivity.intent(this, item?.rank, false), REQUEST_CODE_DETAIL_SELECTION)
+        startActivityForResult(
+            RankDetailsActivity.intent(
+                this,
+                item?.rank,
+                false
+            ),
+            REQUEST_CODE_DETAIL_SELECTION
+        )
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    tools:context="com.perrigogames.life4trials.activity.FirstRunInfoActivity">
+    tools:context="com.perrigogames.life4trials.activity.firstrun.FirstRunInfoActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

@@ -1,4 +1,4 @@
-package com.perrigogames.life4trials.activity
+package com.perrigogames.life4trials.activity.profile
 
 import android.content.Intent
 import android.os.Bundle
@@ -13,11 +13,13 @@ import com.perrigogames.life4.SettingsKeys.KEY_IMPORT_PREFER_LEGACY
 import com.perrigogames.life4.SettingsKeys.KEY_INFO_NAME
 import com.perrigogames.life4.SettingsKeys.KEY_INFO_RIVAL_CODE
 import com.perrigogames.life4.data.LadderRank
-import com.perrigogames.life4.enums.PlayStyle
 import com.perrigogames.life4.model.LadderManager
 import com.perrigogames.life4.model.TrialManager
 import com.perrigogames.life4trials.GetScoreList
 import com.perrigogames.life4trials.R
+import com.perrigogames.life4trials.activity.settings.SettingsActivity
+import com.perrigogames.life4trials.activity.trial.TrialListActivity
+import com.perrigogames.life4trials.activity.trial.TrialRecordsActivity
 import com.perrigogames.life4trials.manager.AndroidLadderDialogs
 import com.perrigogames.life4trials.ui.rankdetails.RankDetailsFragment
 import com.perrigogames.life4trials.ui.rankdetails.RankDetailsViewModel
