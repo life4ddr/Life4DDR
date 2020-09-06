@@ -1,12 +1,11 @@
 package com.perrigogames.life4trials.activity
 
-import android.content.Context
-import android.content.Intent
+import android.content.*
 import android.content.Intent.ACTION_SENDTO
-import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -28,6 +27,7 @@ import com.perrigogames.life4.SettingsKeys.KEY_IMPORT_PREFER_LEGACY
 import com.perrigogames.life4.SettingsKeys.KEY_IMPORT_SKIP_DIRECTIONS
 import com.perrigogames.life4.SettingsKeys.KEY_IMPORT_VIEW_LIST
 import com.perrigogames.life4.SettingsKeys.KEY_INFO_IMPORT
+import com.perrigogames.life4.SettingsKeys.KEY_INFO_IMPORT_TRIALS
 import com.perrigogames.life4.SettingsKeys.KEY_INFO_NAME
 import com.perrigogames.life4.SettingsKeys.KEY_INFO_RANK
 import com.perrigogames.life4.SettingsKeys.KEY_INFO_RIVAL_CODE
@@ -47,10 +47,12 @@ import com.perrigogames.life4.SettingsKeys.KEY_SUBMISSION_NOTIFICAION_TEST
 import com.perrigogames.life4.data.InProgressTrialSession
 import com.perrigogames.life4.data.LadderRank
 import com.perrigogames.life4.data.TrialRank
+import com.perrigogames.life4.db.TrialDatabaseHelper
 import com.perrigogames.life4.enums.PlayStyle
 import com.perrigogames.life4.model.*
 import com.perrigogames.life4trials.BuildConfig
 import com.perrigogames.life4trials.GetScoreList
+import com.perrigogames.life4trials.GetTrialData
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.manager.AndroidLadderDialogs
 import com.perrigogames.life4trials.util.jacketResId
@@ -89,6 +91,7 @@ class SettingsActivity : AppCompatActivity(), SettingsFragmentListener {
         protected val ladderManager: LadderManager by inject()
         protected val ladderDialogs: AndroidLadderDialogs by inject()
         protected val trialManager: TrialManager by inject()
+        protected val trialDb: TrialDatabaseHelper by inject()
         protected val trialSessionManager: TrialSessionManager by inject()
         protected val playerManager: PlayerManager by inject()
         protected val ignoreListManager: IgnoreListManager by inject()
@@ -99,6 +102,7 @@ class SettingsActivity : AppCompatActivity(), SettingsFragmentListener {
         private var listener: SettingsFragmentListener? = null
 
         protected val getScores = registerForActivityResult(GetScoreList()) { ladderDialogs.handleSkillAttackImport(activity!!, it) }
+        protected val getTrials = registerForActivityResult(GetTrialData()) { trialDb.importRecordExportStrings(it) }
 
         override fun onPause() {
             super.onPause()
@@ -311,6 +315,15 @@ class SettingsActivity : AppCompatActivity(), SettingsFragmentListener {
             preferenceListener(KEY_LIST_SHOW_EX_REMAINING, listUpdateListener)
             preferenceListener(KEY_LIST_TINT_COMPLETED, listUpdateListener)
             preferenceListener(KEY_LIST_HIGHLIGHT_NEW, listReplaceListener)
+
+            preferenceListener(KEY_INFO_IMPORT_TRIALS) {
+                try {
+                    getTrials.launch(Unit)
+                } catch (e: Exception) {
+                    Toast.makeText(activity!!, R.string.import_trials_toast_failure, Toast.LENGTH_SHORT).show()
+                }
+                true
+            }
         }
     }
 

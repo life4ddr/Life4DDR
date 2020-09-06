@@ -8,6 +8,7 @@ import com.perrigogames.life4.data.TrialData
 import com.perrigogames.life4.data.InProgressTrialSession
 import com.perrigogames.life4.db.SelectBestSessions
 import com.perrigogames.life4.db.TrialDatabaseHelper
+import com.perrigogames.life4.db.TrialSession
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.TRIALS_FILE_NAME
 import com.perrigogames.life4.ktor.Life4API
 import com.russhwolf.settings.Settings

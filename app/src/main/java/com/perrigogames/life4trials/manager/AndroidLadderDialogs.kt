@@ -94,7 +94,7 @@ class AndroidLadderDialogs: LadderDialogs, KoinComponent {
 
     override fun showImportFinishedToast() = notifications.showToast(context.getString(R.string.import_finished))
 
-    fun withActivity(activity: FragmentActivity, block: AndroidLadderDialogs.() -> Unit) {
+    fun withActivity(activity: FragmentActivity, block: (AndroidLadderDialogs) -> Unit) {
         this.activity = activity
         block.invoke(this)
         this.activity = null

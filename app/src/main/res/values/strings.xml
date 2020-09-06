@@ -210,6 +210,12 @@
     <string name="import_manager_legacy">Use legacy import</string>
     <string name="import_manager_legacy_description">Legacy import shows the old copy/paste method for importing scores</string>
     <string name="import_skip_directions">Skip import directions</string>
+    <string name="trial_import">Trial Import</string>
+    <string name="import_trials">Import trials</string>
+    <string name="import_trials_description">Import your Trial data from another copy of the app (v3.3+)</string>
+    <string name="import_trials_description_long">From another copy of the LIFE4 app, copy the stored Trial </string>
+    <string name="import_trials_toast_success">Trials imported</string>
+    <string name="import_trials_toast_failure">Failed to import Trial data</string>
     <string name="photo_select">Use photo picker</string>
     <string name="import_finished">Import finished.</string>
     <string name="import_finished_errors">Import finished with %d errors.</string>

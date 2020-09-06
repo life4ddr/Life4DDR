@@ -35,7 +35,7 @@ class RankGoalsAdapter(private val rank: RankEntry,
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when(viewType) {
             VIEW_TYPE_GOAL -> {
-                val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_rank_goal, parent, false) as LadderGoalItemView
+                val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_rank_goal_v2, parent, false) as LadderGoalItemView
                 itemView.listener = listener
                 GoalViewHolder(itemView)
             }

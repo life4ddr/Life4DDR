@@ -25,13 +25,13 @@ FOREIGN KEY(sessionId) REFERENCES TrialSession
 CREATE VIEW TrialSessionExScore AS
 SELECT sessionId, SUM(exScore) AS exScore FROM TrialSong GROUP BY sessionId;
 
-selectAll:
+selectAllSessions:
 SELECT * FROM TrialSession;
 
-selectById:
+selectSessionById:
 SELECT * FROM TrialSession WHERE id = ?;
 
-selectByTrialId:
+selectSessionByTrialId:
 SELECT * FROM TrialSession WHERE trialId = ?;
 
 selectBestSession:
@@ -46,6 +46,9 @@ INNER JOIN TrialSessionExScore ON TrialSession.id = TrialSessionExScore.sessionI
 WHERE goalObtained != 0
 GROUP BY trialId
 ORDER BY goalRank, TrialSessionExScore.exScore DESC LIMIT 1;
+
+selectAllSongs:
+SELECT * FROM TrialSong;
 
 selectSessionSongs:
 SELECT * FROM TrialSong WHERE sessionId = ?;
@@ -69,6 +72,8 @@ deleteSession:
 DELETE FROM TrialSession WHERE id = ?;
 DELETE FROM TrialSong WHERE sessionId = ?;
 
-deleteAll:
+deleteAllSongs:
 DELETE FROM TrialSong;
+
+deleteAllSessions:
 DELETE FROM TrialSession;

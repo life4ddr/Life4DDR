@@ -76,11 +76,9 @@
 
         <activity android:name=".activity.SongRecordsListCheckActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".GetScoreList$DummyGetScoreActivity"
-            android:screenOrientation="portrait">
-
+        <activity android:name=".TrialDataActivity">
             <intent-filter>
-                <action android:name="jp.linanfine.dsma.GET_SCORE_DATA" />
+                <action android:name="life4.intent.GET_TRIAL_DATA" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>

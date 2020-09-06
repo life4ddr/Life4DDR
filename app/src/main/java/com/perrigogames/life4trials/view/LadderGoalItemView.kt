@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.TableLayout
 import android.widget.TableRow
+import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.children
@@ -28,7 +29,7 @@ import org.koin.core.inject
 class LadderGoalItemView @JvmOverloads constructor(context: Context,
                                                    attrs: AttributeSet? = null,
                                                    defStyleAttr: Int = 0) :
-    ConstraintLayout(context, attrs, defStyleAttr), KoinComponent {
+    CardView(context, attrs, defStyleAttr), KoinComponent {
 
     private val platformStrings: PlatformStrings by inject()
 

@@ -35,6 +35,10 @@
     </PreferenceCategory>
 
     <PreferenceCategory app:title="@string/trial_records">
+        <Preference
+            app:key="KEY_INFO_IMPORT_TRIALS"
+            app:title="@string/import_trials"
+            app:summary="@string/import_trials_description"/>
         <CheckBoxPreference
             app:key="KEY_RECORDS_REMAINING_EX"
             app:summary="@string/show_remaining_instead_total"
