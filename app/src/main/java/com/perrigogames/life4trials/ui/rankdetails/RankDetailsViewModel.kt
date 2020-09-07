@@ -134,8 +134,8 @@ class RankDetailsViewModel(private val context: Context,
             else -> allGoals
         }
         goalSequence.forEachIndexed { idx, goal ->
-            val status = goalStatuses.first { it.goalId == goal.id.toLong() }
-            if (status.status == COMPLETE) {
+            val status = goalStatuses.firstOrNull { it.goalId == goal.id.toLong() }
+            if (status?.status == COMPLETE) {
                 when {
                     options.hideCompleted -> {
                         val targetIdx = allGoals.size - (idx + 1)

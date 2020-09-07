@@ -22,6 +22,12 @@ import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.colorRes
 import com.perrigogames.life4trials.util.visibilityBool
 import kotlinx.android.synthetic.main.item_rank_goal.view.*
+import kotlinx.android.synthetic.main.item_rank_goal.view.button_ignore
+import kotlinx.android.synthetic.main.item_rank_goal.view.button_status_icon
+import kotlinx.android.synthetic.main.item_rank_goal.view.table_expand_details
+import kotlinx.android.synthetic.main.item_rank_goal.view.text_goal_subtitle
+import kotlinx.android.synthetic.main.item_rank_goal.view.text_goal_title
+import kotlinx.android.synthetic.main.item_rank_goal_v2.view.*
 import kotlinx.android.synthetic.main.row_song_detail.view.*
 import org.koin.core.KoinComponent
 import org.koin.core.inject
@@ -125,6 +131,8 @@ class LadderGoalItemView @JvmOverloads constructor(context: Context,
             }
         }
         text_goal_subtitle.visibilityBool = goalProgress?.let { it.progress != 0 && it.max != 0 } ?: false
+
+        progress_amount.visibilityBool = goalProgress != null
     }
 
     private fun updateIgnoreState() {

@@ -16,8 +16,10 @@ import com.perrigogames.life4.data.LadderRank
 import com.perrigogames.life4.data.RankEntry
 import com.perrigogames.life4.model.LadderManager
 import com.perrigogames.life4trials.R
+import com.perrigogames.life4trials.util.CommonSizes
 import com.perrigogames.life4trials.util.spannedText
 import com.perrigogames.life4trials.util.visibilityBool
+import com.perrigogames.life4trials.view.PaddingItemDecoration
 import com.perrigogames.life4trials.view.RankHeaderView
 import kotlinx.android.synthetic.main.fragment_rank_details.*
 import kotlinx.android.synthetic.main.fragment_rank_details.view.*
@@ -81,6 +83,8 @@ class RankDetailsFragment : Fragment(), KoinComponent {
             if (viewModel.shouldShowGoals) {
                 adapter = viewModel.adapter
                 layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+                val padding = CommonSizes.contentPaddingMed(resources)
+                addItemDecoration(PaddingItemDecoration(padding, 0, padding, padding))
             }
         }
 
