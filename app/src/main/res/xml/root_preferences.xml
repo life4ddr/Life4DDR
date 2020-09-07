@@ -1,6 +1,6 @@
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
     <Preference
-        app:fragment="com.perrigogames.life4trials.activity.SettingsActivity$UserInfoSettingsFragment"
+        app:fragment="com.perrigogames.life4trials.activity.settings.SettingsActivity$UserInfoSettingsFragment"
         app:title="@string/edit_user_info"/>
     <DropDownPreference
         app:defaultValue="A20_US"
@@ -14,11 +14,11 @@
         app:title="@string/action_view_blocklist"/>
 
     <Preference
-        app:fragment="com.perrigogames.life4trials.activity.SettingsActivity$TrialSettingsFragment"
+        app:fragment="com.perrigogames.life4trials.activity.settings.SettingsActivity$TrialSettingsFragment"
         app:title="@string/trial_settings"/>
 
     <Preference
-        app:fragment="com.perrigogames.life4trials.activity.SettingsActivity$ClearDataFragment"
+        app:fragment="com.perrigogames.life4trials.activity.settings.SettingsActivity$ClearDataFragment"
         app:title="@string/clear_data"/>
 
     <PreferenceCategory app:title="@string/score_manager_import">
@@ -54,7 +54,7 @@
             app:key="KEY_CREDITS"
             app:title="@string/credits"/>
         <Preference
-            app:fragment="com.perrigogames.life4trials.activity.SettingsActivity$DebugSettingsFragment"
+            app:fragment="com.perrigogames.life4trials.activity.settings.SettingsActivity$DebugSettingsFragment"
             app:key="KEY_DEBUG"
             app:title="Debug Settings"/>
     </PreferenceCategory>
