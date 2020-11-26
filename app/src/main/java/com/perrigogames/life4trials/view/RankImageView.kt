@@ -19,7 +19,7 @@ class RankImageView @JvmOverloads constructor(context: Context, attrs: Attribute
     var rank: LadderRank? = null
         set(v) {
             field = v
-            setImageDrawable(ContextCompat.getDrawable(context, (v ?: LadderRank.WOOD1).drawableRes))
+            setImageDrawable(ContextCompat.getDrawable(context, (v ?: LadderRank.COPPER1).drawableRes))
             imageAlpha = if (v != null) 255 else 128
             colorFilter = if (v != null) null else
                 ColorMatrixColorFilter(ColorMatrix().apply { setSaturation(0f) })

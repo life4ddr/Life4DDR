@@ -49,18 +49,18 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener, K
     private val trialNavigation: AndroidTrialNavigation by inject()
 
     private val trialId: String by lazy { intent.extras!!.getString(ARG_TRIAL_ID) }
-    private val trial: Trial get() = trialManager.findTrial(trialId)!!
+    private val trial: Trial by lazy { trialManager.findTrial(trialId)!! }
 
     private val storedRank: TrialRank? get() = trialManager.getRankForTrial(trial.id)
     private val initialRank: TrialRank by lazy {
         if (trial.isEvent)
             TrialRank.fromLadderRank(ladderManager.getUserRank(), true) ?:
-            TrialRank.WOOD
+            TrialRank.COPPER
         else
-            storedRank?.next ?:
+            storedRank?.let { trial.rankAfter(it) } ?:
             intent.extras?.getInt(ARG_INITIAL_RANK, -1)?.let { if (it >= 0) TrialRank.values()[it] else null } ?:
             TrialRank.fromLadderRank(ladderManager.getUserRank(), false) ?:
-            TrialRank.WOOD
+            TrialRank.COPPER
     }
 
     override val snackbarContainer: ViewGroup get() = container
@@ -107,7 +107,7 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener, K
 
         if (trial.isEvent) {
             val userRank = ladderManager.getUserRank()
-            val scoringGroup = trial.findScoringGroup(TrialRank.fromLadderRank(userRank, true) ?: TrialRank.WOOD)
+            val scoringGroup = trial.findScoringGroup(TrialRank.fromLadderRank(userRank, true) ?: TrialRank.COPPER)
             text_event_timer.text = resources.getString(R.string.event_ends_format,
                 SimpleDateFormat("MMMM dd", Locale.US).format(trial.eventEnd))
             text_event_help.text = resources.getString(R.string.event_directions,

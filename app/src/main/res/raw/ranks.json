@@ -127,7 +127,7 @@
 		{ "id": 4304, "t": "difficulty", "d": 15 },
 		{ "id": 4305, "t": "difficulty", "d": 16, "count": 1, "score": 975000 },
 		{ "id": 4306, "t": "difficulty", "d": 16 },
-		{ "id": 4307, "t": "difficulty", "d": 17, "count": 20 },
+		{ "id": 4307, "t": "difficulty", "d": 17, "count": 10 },
 		{ "id": 4308, "t": "set", "difficulty_numbers": [17, 17, 17] },
 		{ "id": 4309, "t": "difficulty", "d": 18, "count": 5 },
 		{ "id": 4310, "t": "trial", "rank": "gold", "count": 1 },
@@ -320,19 +320,19 @@
 			"unlock_requirement": "amethyst1",
 			"rank_requirements": [
 				{
-					"rank": "wood1",
+					"rank": "copper1",
 					"play_style": "single",
 					"requirements": 4,
 					"goal_ids": [ 1001, 1002, 1003, 1004, 1005, 1006, 1007, 1008 ]
 				},
 				{
-					"rank": "wood2",
+					"rank": "copper2",
 					"play_style": "single",
 					"requirements": 4,
 					"goal_ids": [ 1101, 1102, 1103, 1104, 1105, 1106, 1107, 1108 ]
 				},
 				{
-					"rank": "wood3",
+					"rank": "copper3",
 					"play_style": "single",
 					"requirements": 4,
 					"goal_ids": [ 1201, 1202, 1203, 1204, 1205, 1206, 1207, 1208 ]
@@ -394,17 +394,17 @@
 				{
 					"rank": "platinum1",
 					"play_style": "single",
-					"goal_ids": [ 9101, 5101, 9102, 5103, 9103, 9104, 9105, 9106, 9107 ]
+					"goal_ids": [ 9101, 5101, 9102, 5103, 9103, 9104, 9105, 9106, 9107, 5110 ]
 				},
 				{
 					"rank": "platinum2",
 					"play_style": "single",
-					"goal_ids": [ 9201, 5101, 9202, 5103, 9203, 9204, 5105, 9205, 9206, 9207 ]
+					"goal_ids": [ 9201, 5101, 9202, 5103, 9203, 9204, 5105, 9205, 9206, 9207, 5110 ]
 				},
 				{
 					"rank": "platinum3",
 					"play_style": "single",
-					"goal_ids": [ 9301, 5101, 9302, 5103, 9303, 9304, 5105, 9305, 9306, 5107, 9307 ]
+					"goal_ids": [ 9301, 5101, 9302, 5103, 9303, 9304, 5105, 9305, 9306, 5107, 9307, 5110 ]
 				},
 				{
 					"rank": "diamond1",
@@ -472,19 +472,19 @@
 			"unlock_requirement": "amethyst1",
 			"rank_requirements": [
 				{
-					"rank": "wood1",
+					"rank": "copper1",
 					"play_style": "single",
 					"requirements": 4,
 					"goal_ids": [ 1001, 1002, 1003, 1004, 1005, 1006, 1007, 1008 ]
 				},
 				{
-					"rank": "wood2",
+					"rank": "copper2",
 					"play_style": "single",
 					"requirements": 4,
 					"goal_ids": [ 1101, 1102, 1103, 1104, 1105, 1106, 1107, 1108 ]
 				},
 				{
-					"rank": "wood3",
+					"rank": "copper3",
 					"play_style": "single",
 					"requirements": 4,
 					"goal_ids": [ 1201, 1202, 1203, 1204, 1205, 1206, 1207, 1208 ]

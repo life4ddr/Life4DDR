@@ -9,7 +9,7 @@ import kotlinx.serialization.internal.StringDescriptor
  */
 @Serializable
 enum class TrialRank(override val stableId: Long, val parent: LadderRank): StableId {
-    WOOD(10, WOOD3),
+    COPPER(10, COPPER3),
     BRONZE(15, BRONZE3),
     SILVER(20, SILVER3),
     GOLD(25, GOLD3),
@@ -18,18 +18,6 @@ enum class TrialRank(override val stableId: Long, val parent: LadderRank): Stabl
     COBALT(35, COBALT3),
     AMETHYST(40, AMETHYST3),
     EMERALD(45, EMERALD3);
-
-    val next get() = when(this) {
-        WOOD -> BRONZE
-        BRONZE -> SILVER
-        SILVER -> GOLD
-        GOLD -> DIAMOND // PLATINUM isn't really used for Trials
-        PLATINUM -> DIAMOND
-        DIAMOND -> COBALT
-        COBALT -> AMETHYST
-        AMETHYST -> EMERALD
-        EMERALD -> EMERALD
-    }
 
     /**
      * Generates a list of this and all [TrialRank]s that are higher than this.
@@ -45,17 +33,17 @@ enum class TrialRank(override val stableId: Long, val parent: LadderRank): Stabl
 
         fun parse(stableId: Long): TrialRank? = values().firstOrNull { it.stableId == stableId }
 
-        fun fromLadderRank(userRank: LadderRank?, parsePlatinum: Boolean) = when(userRank) {
+        fun fromLadderRank(userRank: LadderRank?, parsePlatinum: Boolean) = when(userRank?.group) {
             null -> null
-            WOOD1, WOOD2, WOOD3 -> WOOD
-            BRONZE1, BRONZE2, BRONZE3 -> BRONZE
-            SILVER1, SILVER2, SILVER3 -> SILVER
-            GOLD1, GOLD2, GOLD3 -> GOLD
-            PLATINUM1, PLATINUM2, PLATINUM3 -> if (parsePlatinum) PLATINUM else GOLD
-            DIAMOND1, DIAMOND2, DIAMOND3 -> DIAMOND
-            COBALT1, COBALT2, COBALT3 -> COBALT
-            AMETHYST1, AMETHYST2, AMETHYST3 -> AMETHYST
-            EMERALD1, EMERALD2, EMERALD3 -> EMERALD
+            LadderRankClass.COPPER -> COPPER
+            LadderRankClass.BRONZE -> BRONZE
+            LadderRankClass.SILVER -> SILVER
+            LadderRankClass.GOLD -> GOLD
+            LadderRankClass.PLATINUM -> if (parsePlatinum) PLATINUM else GOLD
+            LadderRankClass.DIAMOND -> DIAMOND
+            LadderRankClass.COBALT -> COBALT
+            LadderRankClass.AMETHYST -> AMETHYST
+            LadderRankClass.EMERALD -> EMERALD
         }
     }
 }

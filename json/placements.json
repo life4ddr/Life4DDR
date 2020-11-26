@@ -3,10 +3,10 @@
   "major_version": 1,
   "trials": [
     {
-      "id": "wood_placement",
-      "name": "WOOD",
+      "id": "copper_placement",
+      "name": "COPPER",
       "type": "placement",
-      "placement_rank": "wood",
+      "placement_rank": "copper",
       "songs": [
         { "name": "TECH-NOID", "difficulty": 5, "difficulty_class": "basic", "ex": 537, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/TECH-NOID/TECH-NOID-jacket.png"},
         { "name": "ZEPHYRANTHES", "difficulty": 7, "difficulty_class": "basic", "ex": 834, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/ZEPHYRANTHES/ZEPHYRANTHES-jacket.png"},

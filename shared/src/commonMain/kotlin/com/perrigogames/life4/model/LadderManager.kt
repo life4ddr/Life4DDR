@@ -8,10 +8,7 @@ import com.perrigogames.life4.api.LadderRemoteData
 import com.perrigogames.life4.api.LocalDataReader
 import com.perrigogames.life4.data.*
 import com.perrigogames.life4.db.*
-import com.perrigogames.life4.enums.ClearType
-import com.perrigogames.life4.enums.DifficultyClass
 import com.perrigogames.life4.enums.GoalStatus
-import com.perrigogames.life4.enums.PlayStyle
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.RANKS_FILE_NAME
 import com.russhwolf.settings.Settings
 import com.russhwolf.settings.set
@@ -58,7 +55,7 @@ class LadderManager: BaseModel() {
     fun getUserGoalRank(): LadderRank? =
         settings.getStringOrNull(KEY_INFO_TARGET_RANK)?.toLongOrNull()?.let { LadderRank.parse(it) }
             ?: getUserRank()?.let { return LadderRank.values().getOrNull(it.ordinal + 1) }
-            ?: LadderRank.WOOD1
+            ?: LadderRank.COPPER1
 
     fun setUserRank(rank: LadderRank?) {
         settings[KEY_INFO_RANK] = rank?.stableId.toString()

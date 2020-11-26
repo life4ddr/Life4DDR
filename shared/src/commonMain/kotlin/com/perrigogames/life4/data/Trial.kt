@@ -19,9 +19,9 @@ import kotlinx.serialization.*
 import kotlinx.serialization.internal.StringDescriptor
 
 @Serializable
-class TrialData(override val version: Int,
-                @SerialName("major_version") override val majorVersion: Int,
-                val trials: List<Trial>): MajorVersioned {
+data class TrialData(override val version: Int,
+                     @SerialName("major_version") override val majorVersion: Int,
+                     val trials: List<Trial>): MajorVersioned {
 
     companion object {
         const val HIGHEST_DIFFICULTY = 20
@@ -33,21 +33,21 @@ class TrialData(override val version: Int,
 }
 
 @Serializable
-class Trial(val id: String,
-            val name: String,
-            val author: String? = null,
-            val type: TrialType,
-            @SerialName("placement_rank") val placementRank: PlacementRank? = null,
-            val new: Boolean = false,
-            @SerialName("event_start") val eventStart: DateTimeWrapper? = null,
-            @SerialName("event_end") val eventEnd: DateTimeWrapper? = null,
-            @SerialName("scoring_groups") val scoringGroups: List<List<TrialRank>>? = null,
-            val difficulty: Int? = null,
-            val goals: List<TrialGoalSet>? = null,
-            @SerialName("total_ex") val total_ex: Int = 0,
-            @SerialName("cover_url") val coverUrl: String? = null,
-            @SerialName("cover_override") val coverOverride: Boolean = false,
-            val songs: List<Song>) {
+data class Trial(val id: String,
+                 val name: String,
+                 val author: String? = null,
+                 val type: TrialType,
+                 @SerialName("placement_rank") val placementRank: PlacementRank? = null,
+                 val new: Boolean = false,
+                 @SerialName("event_start") val eventStart: DateTimeWrapper? = null,
+                 @SerialName("event_end") val eventEnd: DateTimeWrapper? = null,
+                 @SerialName("scoring_groups") val scoringGroups: List<List<TrialRank>>? = null,
+                 val difficulty: Int? = null,
+                 val goals: List<TrialGoalSet>? = null,
+                 @SerialName("total_ex") val total_ex: Int = 0,
+                 @SerialName("cover_url") val coverUrl: String? = null,
+                 @SerialName("cover_override") val coverOverride: Boolean = false,
+                 val songs: List<Song>) {
 
     val isEvent get() = type == TrialType.EVENT && eventStart != null && eventEnd != null
     val isActiveEvent get() = isEvent && (eventStart!!.value until eventEnd!!.value).contains(DateTime.now())
@@ -62,14 +62,25 @@ class Trial(val id: String,
     fun findScoringGroup(rank: TrialRank) = scoringGroups?.first { it.contains(rank) }
 
     val isExValid get() = songs.sumBy { it.ex }.let { it == 0 || it == total_ex }
+
+    fun rankAfter(rank: TrialRank): TrialRank? {
+        return goals?.let { goals ->
+            val startIdx = goals.indexOfFirst { it.rank == rank }
+            val idx = Math.max(
+                startIdx + 1,
+                goals.size
+            )
+            return goals[idx].rank
+        }
+    }
 }
 
 @Serializable
-class Song(val name: String,
-           @SerialName("difficulty") val difficultyNumber: Int,
-           @SerialName("difficulty_class") val difficultyClass: DifficultyClass,
-           val ex: Int,
-           val url: String? = null)
+data class Song(val name: String,
+                @SerialName("difficulty") val difficultyNumber: Int,
+                @SerialName("difficulty_class") val difficultyClass: DifficultyClass,
+                val ex: Int,
+                val url: String? = null)
 
 @Serializable
 enum class TrialType {

@@ -4,13 +4,13 @@ import kotlinx.serialization.*
 import kotlinx.serialization.internal.StringDescriptor
 
 enum class PlacementRank(val stableId: Long, val parent: LadderRankClass) {
-    WOOD(20, LadderRankClass.WOOD),
+    COPPER(20, LadderRankClass.COPPER),
     BRONZE(25, LadderRankClass.BRONZE),
     SILVER(20, LadderRankClass.SILVER),
     GOLD(25, LadderRankClass.GOLD);
 
     fun toLadderRank() = when(this) {
-        WOOD -> LadderRank.WOOD3
+        COPPER -> LadderRank.COPPER3
         BRONZE -> LadderRank.BRONZE3
         SILVER -> LadderRank.SILVER3
         GOLD -> LadderRank.GOLD3
