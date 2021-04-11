@@ -53,12 +53,20 @@ enum class LadderRank(val stableId: Long,
     EMERALD2(91, EMERALD),
     EMERALD3(92, EMERALD),
     EMERALD4(93, EMERALD),
-    EMERALD5(94, EMERALD);
+    EMERALD5(94, EMERALD),
+    ONYX1(100, ONYX),
+    ONYX2(101, ONYX),
+    ONYX3(102, ONYX),
+    ONYX4(103, ONYX),
+    ONYX5(104, ONYX),
+    ;
 
     companion object {
         fun parse(s: String?): LadderRank? = try {
             s?.let {
                 valueOf(it.toUpperCase()
+                    .replace(" IV", "4")
+                    .replace(" V", "5")
                     .replace(" III", "3")
                     .replace(" II", "2")
                     .replace(" I", "1"))
@@ -73,7 +81,7 @@ enum class LadderRank(val stableId: Long,
  * Enum describing the groups that Ranks are put into.
  */
 enum class LadderRankClass {
-    COPPER, BRONZE, SILVER, GOLD, PLATINUM, DIAMOND, COBALT, AMETHYST, EMERALD
+    COPPER, BRONZE, SILVER, GOLD, PLATINUM, DIAMOND, COBALT, AMETHYST, EMERALD, ONYX
 }
 
 @Serializer(forClass = LadderRank::class)

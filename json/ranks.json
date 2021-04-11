@@ -338,6 +338,18 @@
 					"goal_ids": [ 1201, 1202, 1203, 1204, 1205, 1206, 1207, 1208 ]
 				},
 				{
+					"rank": "copper4",
+					"play_style": "single",
+					"requirements": 4,
+					"goal_ids": [ 1201 ]
+				},
+				{
+					"rank": "copper5",
+					"play_style": "single",
+					"requirements": 4,
+					"goal_ids": [ 1201 ]
+				},
+				{
 					"rank": "bronze1",
 					"play_style": "single",
 					"requirements": 4,
@@ -354,6 +366,18 @@
 					"play_style": "single",
 					"requirements": 6,
 					"goal_ids": [ 2301, 2302, 2303, 2304, 2305, 2306, 2307, 2308, 2309 ]
+				},
+				{
+					"rank": "bronze4",
+					"play_style": "single",
+					"requirements": 6,
+					"goal_ids": [ 2301 ]
+				},
+				{
+					"rank": "bronze5",
+					"play_style": "single",
+					"requirements": 6,
+					"goal_ids": [ 2301 ]
 				},
 				{
 					"rank": "silver1",
@@ -374,6 +398,18 @@
 					"goal_ids": [ 3301, 3302, 3303, 3304, 3305, 3306, 3307, 3308, 3309, 3310, 3311, 3312, 3313 ]
 				},
 				{
+					"rank": "silver4",
+					"play_style": "single",
+					"requirements": 6,
+					"goal_ids": [ 3301 ]
+				},
+				{
+					"rank": "silver5",
+					"play_style": "single",
+					"requirements": 6,
+					"goal_ids": [ 3301 ]
+				},
+				{
 					"rank": "gold1",
 					"play_style": "single",
 					"requirements": 6,
@@ -392,6 +428,18 @@
 					"goal_ids": [ 4313, 4314, 4302, 4304, 4315, 4306, 4318, 4316, 4307, 4308, 4317, 4310, 5101, 4312 ]
 				},
 				{
+					"rank": "gold4",
+					"play_style": "single",
+					"requirements": 8,
+					"goal_ids": [ 4313 ]
+				},
+				{
+					"rank": "gold5",
+					"play_style": "single",
+					"requirements": 8,
+					"goal_ids": [ 4313 ]
+				},
+				{
 					"rank": "platinum1",
 					"play_style": "single",
 					"goal_ids": [ 9101, 5101, 9102, 5103, 9103, 9104, 9105, 9106, 9107, 5110 ]
@@ -405,6 +453,16 @@
 					"rank": "platinum3",
 					"play_style": "single",
 					"goal_ids": [ 9301, 5101, 9302, 5103, 9303, 9304, 5105, 9305, 9306, 5107, 9307, 5110 ]
+				},
+				{
+					"rank": "platinum4",
+					"play_style": "single",
+					"goal_ids": [ 9301 ]
+				},
+				{
+					"rank": "platinum5",
+					"play_style": "single",
+					"goal_ids": [ 9301 ]
 				},
 				{
 					"rank": "diamond1",
@@ -422,6 +480,16 @@
 					"goal_ids": [ 5301, 5302, 5103, 5314, 5305, 5105, 5315, 5107, 5316, 5310, 5311, 5312, 5313 ]
 				},
 				{
+					"rank": "diamond4",
+					"play_style": "single",
+					"goal_ids": [ 5301 ]
+				},
+				{
+					"rank": "diamond5",
+					"play_style": "single",
+					"goal_ids": [ 5301 ]
+				},
+				{
 					"rank": "cobalt1",
 					"play_style": "single",
 					"goal_ids": [ 6101, 6102, 6103, 6113, 6114, 5105, 6115, 6107, 5107, 6116, 5310, 6117, 6111, 6112 ]
@@ -435,6 +503,16 @@
 					"rank": "cobalt3",
 					"play_style": "single",
 					"goal_ids": [ 6201, 6312, 6303, 6304, 6305, 6306, 6307, 5310, 6308, 6309, 6310, 6311 ]
+				},
+				{
+					"rank": "cobalt4",
+					"play_style": "single",
+					"goal_ids": [ 6201 ]
+				},
+				{
+					"rank": "cobalt5",
+					"play_style": "single",
+					"goal_ids": [ 6201 ]
 				},
 				{
 					"rank": "amethyst1",
@@ -452,6 +530,16 @@
 					"goal_ids": [ 7101, 7303, 7315, 7305, 7306, 7307, 7316, 7309, 7310, 7317, 7318, 7313, 7314 ]
 				},
 				{
+					"rank": "amethyst4",
+					"play_style": "single",
+					"goal_ids": [ 7101 ]
+				},
+				{
+					"rank": "amethyst5",
+					"play_style": "single",
+					"goal_ids": [ 7101 ]
+				},
+				{
 					"rank": "emerald1",
 					"play_style": "single",
 					"goal_ids": [ 7101, 8102, 8103, 8112, 8105, 8106, 8107, 8108, 8109, 8113, 8111 ]
@@ -465,6 +553,16 @@
 					"rank": "emerald3",
 					"play_style": "single",
 					"goal_ids": [ 7101, 8102, 8303, 8314, 8305, 8306, 8307, 8308, 8309, 8310, 8315, 8312, 8313 ]
+				},
+				{
+					"rank": "emerald4",
+					"play_style": "single",
+					"goal_ids": [ 7101 ]
+				},
+				{
+					"rank": "emerald5",
+					"play_style": "single",
+					"goal_ids": [ 7101 ]
 				}
 			]
 		},

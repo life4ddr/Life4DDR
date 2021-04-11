@@ -17,7 +17,9 @@ enum class TrialRank(override val stableId: Long, val parent: LadderRank): Stabl
     DIAMOND(30, DIAMOND3),
     COBALT(35, COBALT3),
     AMETHYST(40, AMETHYST3),
-    EMERALD(45, EMERALD3);
+    EMERALD(45, EMERALD3),
+    ONYX(50, ONYX3),
+    ;
 
     /**
      * Generates a list of this and all [TrialRank]s that are higher than this.
@@ -43,7 +45,8 @@ enum class TrialRank(override val stableId: Long, val parent: LadderRank): Stabl
             LadderRankClass.DIAMOND -> DIAMOND
             LadderRankClass.COBALT -> COBALT
             LadderRankClass.AMETHYST -> AMETHYST
-            LadderRankClass.EMERALD -> EMERALD
+            LadderRankClass.EMERALD -> ONYX
+            LadderRankClass.ONYX -> ONYX
         }
     }
 }

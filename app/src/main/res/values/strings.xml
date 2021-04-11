@@ -306,6 +306,12 @@
     <string name="emerald_3">EMERALD III</string>
     <string name="emerald_4">EMERALD IV</string>
     <string name="emerald_5">EMERALD V</string>
+    <string name="onyx">ONYX</string>
+    <string name="onyx_1">ONYX I</string>
+    <string name="onyx_2">ONYX II</string>
+    <string name="onyx_3">ONYX III</string>
+    <string name="onyx_4">ONYX IV</string>
+    <string name="onyx_5">ONYX V</string>
 
     <!-- Trial Rank Strings -->
     <string name="set_numbers_multiple_same_format">%d different %d\'s</string>

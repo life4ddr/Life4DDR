@@ -22,15 +22,15 @@ android {
 
 kotlin {
     android()
-    jvm("api")
+//    jvm("api")
     //Revert to just ios() when gradle plugin can properly resolve it
-    val onPhone = System.getenv("SDK_NAME")?.startsWith("iphoneos")?:false
-    if(onPhone){
-        iosArm64("ios")
-    }else{
-        iosX64("ios")
-    }
-    targets.getByName<KotlinNativeTarget>("ios").compilations["main"].kotlinOptions.freeCompilerArgs += "-Xobjc-generics"
+//    val onPhone = System.getenv("SDK_NAME")?.startsWith("iphoneos")?:false
+//    if(onPhone){
+//        iosArm64("ios")
+//    }else{
+//        iosX64("ios")
+//    }
+//    targets.getByName<KotlinNativeTarget>("ios").compilations["main"].kotlinOptions.freeCompilerArgs += "-Xobjc-generics"
 
     version = "1.0"
 
@@ -79,14 +79,14 @@ kotlin {
         implementation("org.robolectric:robolectric:4.3")
     }
 
-    sourceSets["iosMain"].dependencies {
-        implementation(Deps.SqlDelight.driverIos)
-        implementation(Deps.ktor.ios, Deps.coroutinesExcludeNative)
-        implementation(Deps.ktor.iosCore, Deps.coroutinesExcludeNative)
-        implementation(Deps.ktor.iosJson, Deps.coroutinesExcludeNative)
-        implementation(Deps.Coroutines.native)
-        implementation(Deps.ktor.iosSerialization)
-    }
+//    sourceSets["iosMain"].dependencies {
+//        implementation(Deps.SqlDelight.driverIos)
+//        implementation(Deps.ktor.ios, Deps.coroutinesExcludeNative)
+//        implementation(Deps.ktor.iosCore, Deps.coroutinesExcludeNative)
+//        implementation(Deps.ktor.iosJson, Deps.coroutinesExcludeNative)
+//        implementation(Deps.Coroutines.native)
+//        implementation(Deps.ktor.iosSerialization)
+//    }
 
     cocoapods {
         summary = "Common library for LIFE4DDR logic"
