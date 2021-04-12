@@ -11,7 +11,7 @@ import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
-import com.crashlytics.android.Crashlytics
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.perrigogames.life4.data.Song
 import com.perrigogames.life4.data.SongResult
 import com.perrigogames.life4.model.PlacementManager
@@ -70,7 +70,7 @@ class SongListFragment : Fragment(), KoinComponent {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         if (!BuildConfig.DEBUG) {
-            Crashlytics.log("${javaClass.simpleName}: onCreateView: $trialId")
+            FirebaseCrashlytics.getInstance().log("${javaClass.simpleName}: onCreateView: $trialId")
         }
         layout = inflater.inflate(R.layout.fragment_song_list, container, false) as LinearLayout
         trial.songs.forEachIndexed(this::addSongView)

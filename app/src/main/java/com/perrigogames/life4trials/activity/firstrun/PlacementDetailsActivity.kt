@@ -24,7 +24,7 @@ import org.koin.core.inject
 class PlacementDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener, KoinComponent {
 
     private val placementManager: PlacementManager by inject()
-    private val placementId: String by lazy { intent.extras!!.getString(ARG_PLACEMENT_ID) }
+    private val placementId: String by lazy { intent.extras!!.getString(ARG_PLACEMENT_ID)!! }
     private val trial: Trial get() = placementManager.findPlacement(placementId)!!
 
     override val snackbarContainer: ViewGroup get() = container

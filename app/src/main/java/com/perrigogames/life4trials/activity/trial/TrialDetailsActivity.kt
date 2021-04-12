@@ -48,7 +48,7 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener, K
     private val strings: PlatformStrings by inject()
     private val trialNavigation: AndroidTrialNavigation by inject()
 
-    private val trialId: String by lazy { intent.extras!!.getString(ARG_TRIAL_ID) }
+    private val trialId: String by lazy { intent.extras!!.getString(ARG_TRIAL_ID)!! }
     private val trial: Trial by lazy { trialManager.findTrial(trialId)!! }
 
     private val storedRank: TrialRank? get() = trialManager.getRankForTrial(trial.id)
@@ -316,8 +316,8 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener, K
         }
     }
 
-    override fun onContextItemSelected(item: MenuItem?): Boolean {
-        when(item?.itemId) {
+    override fun onContextItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
             R.id.action_gallery -> acquirePhoto(selection = true)
             R.id.action_camera -> acquirePhoto(selection = false)
             R.id.action_edit -> startEditActivity(currentIndex!!)

@@ -10,7 +10,7 @@ plugins {
 }
 
 android {
-    compileSdkVersion(28)
+    compileSdkVersion(Versions.compile_sdk)
     defaultConfig {
         minSdkVersion(Versions.min_sdk)
         targetSdkVersion(Versions.target_sdk)
@@ -65,6 +65,7 @@ kotlin {
         implementation(Deps.Coroutines.jdk)
         implementation(Deps.Coroutines.android)
         implementation(Deps.ktor.androidSerialization)
+        implementation(project.dependencies.platform(Deps.firebase))
         implementation(Deps.firebase_crashlytics)
     }
 

@@ -49,8 +49,8 @@ class AndroidLadderDialogs: LadderDialogs, KoinComponent {
             override fun onDialogCancelled() = Unit
             override fun onCopyAndContinue() {
                 Toast.makeText(activity, context.getString(R.string.copied), Toast.LENGTH_SHORT).show()
-                (context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).primaryClip =
-                    ClipData.newPlainText("LIFE4 Data", context.getString(R.string.import_data_format))
+                (context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).setPrimaryClip(
+                    ClipData.newPlainText("LIFE4 Data", context.getString(R.string.import_data_format)))
                 showImportEntryDialog()
             }
         }).show(activity!!.supportFragmentManager, ScoreManagerImportDirectionsDialog.TAG)

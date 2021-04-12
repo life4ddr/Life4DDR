@@ -5,8 +5,8 @@ plugins {
     kotlin("android")
     kotlin("android.extensions")
     kotlin("kapt")
-    id("io.fabric")
     id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
 }
 
 android {
@@ -84,9 +84,10 @@ dependencies {
     implementation(Deps.activity)
     implementation(Deps.fragment)
     debugImplementation(Deps.fragment_testing)
-    implementation(Deps.firebase)
+    implementation(platform(Deps.firebase))
     implementation(Deps.firebase_messaging)
     implementation(Deps.firebase_crashlytics)
+    implementation(Deps.firebase_analytics)
     implementation(Deps.stetho)
 
     implementation(Deps.koinCore)

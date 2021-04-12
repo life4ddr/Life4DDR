@@ -5,7 +5,6 @@ buildscript {
     repositories {
         google()
         jcenter()
-        maven(url = "https://maven.fabric.io/public")
     }
     dependencies {
         classpath(Deps.android_gradle_plugin)
@@ -14,7 +13,7 @@ buildscript {
         classpath("org.jetbrains.kotlin:kotlin-serialization:${Versions.kotlin}")
 
         classpath("com.google.gms:google-services:${Versions.googleServices}")
-        classpath("io.fabric.tools:gradle:1.29.0")
+        classpath("com.google.firebase:firebase-crashlytics-gradle:2.5.2")
         classpath("com.github.jengelman.gradle.plugins:shadow:2.0.4")
 
         classpath(kotlin("gradle-plugin", Versions.kotlin))
