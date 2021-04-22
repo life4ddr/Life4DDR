@@ -8,9 +8,9 @@
 
 package com.perrigogames.life4.response
 
-import com.perrigogames.life4.TrialStrings
 import com.perrigogames.life4.data.*
 import com.perrigogames.life4.enums.*
+import com.perrigogames.life4.TrialStrings
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers

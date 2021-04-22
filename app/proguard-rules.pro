@@ -24,7 +24,7 @@
     public static **[] values();
     public static ** valueOf(java.lang.String);
 }
--keep class com.perrigogames.life4trials.data.** { *; }
+-keep class com.perrigogames.life4.data.** { *; }
 
 ## EventBus
 -keepattributes *Annotation*
@@ -32,4 +32,4 @@
     @org.greenrobot.eventbus.Subscribe <methods>;
 }
 -keep enum org.greenrobot.eventbus.ThreadMode { *; }
--keep class com.perrigogames.life4trials.activity.settings.SettingsActivity$*
+-keep class com.perrigogames.life4.activity.settings.SettingsActivity$*

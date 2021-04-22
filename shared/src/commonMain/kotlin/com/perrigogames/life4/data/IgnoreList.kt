@@ -6,8 +6,8 @@
 
 package com.perrigogames.life4.data
 
-import com.perrigogames.life4.db.ChartInfo
 import com.perrigogames.life4.enums.*
+import com.perrigogames.life4.db.ChartInfo
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
@@ -47,6 +47,10 @@ class IgnoreListData(val lists: List<IgnoreList>,
         }
 
     fun evaluateIgnoreLists() = lists.forEach { it.evaluateSongGroups(groups) }
+
+    companion object {
+        const val IGNORE_LIST_MAJOR_VERSION = 1
+    }
 }
 
 /**

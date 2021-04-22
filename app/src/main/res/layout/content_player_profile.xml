@@ -34,7 +34,7 @@
         app:layout_constraintTop_toBottomOf="@id/text_player_name"
         tools:text="1234-5678" />
 
-    <com.perrigogames.life4trials.view.RankImageView
+    <com.perrigogames.life4.android.view.RankImageView
         android:id="@+id/image_rank"
         android:layout_width="64dp"
         android:layout_height="64dp"

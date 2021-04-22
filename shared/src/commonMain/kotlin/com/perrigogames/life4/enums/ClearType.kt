@@ -2,7 +2,11 @@ package com.perrigogames.life4.enums
 
 import com.perrigogames.life4.data.StableId
 import kotlinx.serialization.*
-import kotlinx.serialization.internal.StringDescriptor
+import kotlinx.serialization.descriptors.PrimitiveKind
+import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
+import kotlinx.serialization.descriptors.SerialDescriptor
+import kotlinx.serialization.encoding.Decoder
+import kotlinx.serialization.encoding.Encoder
 
 /**
  * Enum to describe the possible ways to finish a song, and consequently an
@@ -47,11 +51,11 @@ enum class ClearType(override val stableId: Long, val serialized: List<String>, 
 
 @Serializer(forClass = ClearType::class)
 object ClearTypeSerializer: KSerializer<ClearType> {
-    override val descriptor: SerialDescriptor = StringDescriptor
+    override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("clearType", PrimitiveKind.STRING)
     override fun deserialize(decoder: Decoder) = ClearType.parse(
         decoder.decodeString()
     )!!
-    override fun serialize(encoder: Encoder, obj: ClearType) {
-        encoder.encodeString(obj.serialized.first())
+    override fun serialize(encoder: Encoder, value: ClearType) {
+        encoder.encodeString(value.serialized.first())
     }
 }

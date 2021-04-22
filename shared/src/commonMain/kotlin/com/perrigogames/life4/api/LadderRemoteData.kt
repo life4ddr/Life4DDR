@@ -12,9 +12,9 @@ class LadderRemoteData(reader: LocalDataReader,
     private val githubKtor: GithubDataAPI by inject()
 
     override fun createLocalDataFromText(text: String): LadderRankData {
-        return json.parse(LadderRankData.serializer(), text)
+        return json.decodeFromString(LadderRankData.serializer(), text)
     }
 
     override suspend fun getRemoteResponse() = githubKtor.getLadderRanks()
-    override fun createTextToData(data: LadderRankData) = json.stringify(LadderRankData.serializer(), data)
+    override fun createTextToData(data: LadderRankData) = json.encodeToString(LadderRankData.serializer(), data)
 }

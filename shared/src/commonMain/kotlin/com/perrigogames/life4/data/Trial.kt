@@ -1,10 +1,12 @@
-@file:UseSerializers(TrialTypeSerializer::class,
+@file:UseSerializers(
+    TrialTypeSerializer::class,
     TrialRankSerializer::class,
     PlacementRankSerializer::class,
     DifficultyClassSerializer::class,
     PlayStyleSerializer::class,
     ChartTypeSerializer::class,
-    DateTimeIsoSerializer::class)
+    InstantIso8601Serializer::class,
+)
 
 package com.perrigogames.life4.data
 
@@ -13,10 +15,16 @@ import com.perrigogames.life4.enums.DifficultyClass
 import com.perrigogames.life4.enums.DifficultyClassSerializer
 import com.perrigogames.life4.enums.PlayStyleSerializer
 import com.perrigogames.life4.response.TrialGoalSet
-import com.soywiz.klock.DateTime
-import com.soywiz.klock.until
+import kotlinx.datetime.Clock
+import kotlinx.datetime.Instant
+import kotlinx.datetime.serializers.InstantIso8601Serializer
 import kotlinx.serialization.*
-import kotlinx.serialization.internal.StringDescriptor
+import kotlinx.serialization.descriptors.PrimitiveKind
+import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
+import kotlinx.serialization.descriptors.SerialDescriptor
+import kotlinx.serialization.encoding.Decoder
+import kotlinx.serialization.encoding.Encoder
+import kotlin.math.max
 
 @Serializable
 data class TrialData(override val version: Int,
@@ -29,6 +37,8 @@ data class TrialData(override val version: Int,
         const val MAX_SCORE = 1000000
         const val SCORE_PENALTY_PERFECT = 10
         const val AAA_SCORE = 990000
+
+        const val TRIAL_DATA_REMOTE_VERSION = 3
     }
 }
 
@@ -39,8 +49,8 @@ data class Trial(val id: String,
                  val type: TrialType,
                  @SerialName("placement_rank") val placementRank: PlacementRank? = null,
                  val new: Boolean = false,
-                 @SerialName("event_start") val eventStart: DateTimeWrapper? = null,
-                 @SerialName("event_end") val eventEnd: DateTimeWrapper? = null,
+                 @SerialName("event_start") val eventStart: Instant? = null,
+                 @SerialName("event_end") val eventEnd: Instant? = null,
                  @SerialName("scoring_groups") val scoringGroups: List<List<TrialRank>>? = null,
                  val difficulty: Int? = null,
                  val goals: List<TrialGoalSet>? = null,
@@ -50,7 +60,7 @@ data class Trial(val id: String,
                  val songs: List<Song>) {
 
     val isEvent get() = type == TrialType.EVENT && eventStart != null && eventEnd != null
-    val isActiveEvent get() = isEvent && (eventStart!!.value until eventEnd!!.value).contains(DateTime.now())
+    val isActiveEvent get() = isEvent && (eventStart!!.rangeTo(eventEnd!!)).contains(Clock.System.now())
 
     fun goalSet(rank: TrialRank?): TrialGoalSet? = goals?.find { it.rank == rank }
 
@@ -66,7 +76,7 @@ data class Trial(val id: String,
     fun rankAfter(rank: TrialRank): TrialRank? {
         return goals?.let { goals ->
             val startIdx = goals.indexOfFirst { it.rank == rank }
-            val idx = Math.max(
+            val idx = max(
                 startIdx + 1,
                 goals.size
             )
@@ -91,9 +101,9 @@ enum class TrialType {
 
 @Serializer(forClass = TrialType::class)
 object TrialTypeSerializer: KSerializer<TrialType> {
-    override val descriptor: SerialDescriptor = StringDescriptor
+    override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("trialType", PrimitiveKind.STRING)
     override fun deserialize(decoder: Decoder) = TrialType.valueOf(decoder.decodeString().toUpperCase())
-    override fun serialize(encoder: Encoder, obj: TrialType) {
-        encoder.encodeString(obj.name.toLowerCase())
+    override fun serialize(encoder: Encoder, value: TrialType) {
+        encoder.encodeString(value.name.toLowerCase())
     }
 }

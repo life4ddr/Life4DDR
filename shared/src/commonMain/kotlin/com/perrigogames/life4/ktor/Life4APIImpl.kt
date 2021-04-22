@@ -1,9 +1,6 @@
 package com.perrigogames.life4.ktor
 
 import co.touchlab.stately.ensureNeverFrozen
-import com.perrigogames.life4.data.IgnoreListData
-import com.perrigogames.life4.data.LadderRankData
-import com.perrigogames.life4.data.TrialData
 import com.perrigogames.life4.isDebug
 import io.ktor.client.HttpClient
 import io.ktor.client.features.json.JsonFeature

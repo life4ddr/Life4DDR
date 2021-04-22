@@ -22,7 +22,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed"/>
 
-    <com.perrigogames.life4trials.view.RankImageView
+    <com.perrigogames.life4.android.view.RankImageView
         android:id="@+id/image_rank"
         android:layout_width="128dp"
         android:layout_height="128dp"

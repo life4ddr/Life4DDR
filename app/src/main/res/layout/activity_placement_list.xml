@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.perrigogames.life4trials.activity.firstrun.PlacementListActivity">
+    tools:context="com.perrigogames.life4.activity.firstrun.PlacementListActivity">
 
     <TextView
         android:id="@+id/text_placement_directions"

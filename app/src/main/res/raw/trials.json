@@ -1,6 +1,6 @@
 {
-  "version": 3,
-  "major_version": 2,
+  "version": 1,
+  "major_version": 3,
   "trials": [
     {
       "id": "devotion",
@@ -10,10 +10,15 @@
       "goals": [
         {
           "rank": "silver",
-          "score": [965000, 940000, 940000, 900000]
+          "score": [960000, 940000, 940000, 900000]
         }, {
           "rank": "gold",
           "score": [995000, 990000, 985000, 985000]
+        }, {
+          "rank": "platinum",
+          "score": [990000, 990000, 990000, 990000],
+          "clear": ["perfect"],
+          "ex_missing": 200
         }, {
           "rank": "diamond",
           "judge": 5,
@@ -21,7 +26,7 @@
         }, {
           "rank": "cobalt",
           "judge": 2,
-          "ex_missing": 65
+          "ex_missing": 70
         }, {
           "rank": "amethyst",
           "judge": 1,
@@ -30,6 +35,10 @@
           "rank": "emerald",
           "judge": 1,
           "ex_missing": 20
+        }, {
+          "rank": "onyx",
+          "judge": 1,
+          "ex_missing": 12
         }
       ],
       "total_ex": 3702,
@@ -55,21 +64,30 @@
           "rank": "gold",
           "score": [995000, 995000, 990000, 990000]
         }, {
+          "rank": "platinum",
+          "score": [990000, 990000, 990000, 990000],
+          "clear": ["perfect"],
+          "ex_missing": 160
+        }, {
           "rank": "diamond",
-          "judge": 3,
-          "ex_missing": 90
+          "judge": 4,
+          "ex_missing": 100
         }, {
           "rank": "cobalt",
-          "judge": 1,
-          "ex_missing": 55
+          "judge": 2,
+          "ex_missing": 60
         }, {
           "rank": "amethyst",
           "judge": 1,
-          "ex_missing": 25
+          "ex_missing": 30
         }, {
           "rank": "emerald",
           "judge": 1,
-          "ex_missing": 12
+          "ex_missing": 16
+        }, {
+          "rank": "onyx",
+          "judge": 1,
+          "ex_missing": 10
         }
       ],
       "total_ex": 4056,
@@ -88,10 +106,15 @@
       "goals": [
         {
           "rank": "silver",
-          "score": [965000, 925000, 925000, 925000]
+          "score": [960000, 925000, 925000, 925000]
         }, {
           "rank": "gold",
-          "score": [995000, 990000, 990000, 985000]
+          "score": [990000, 990000, 990000, 985000]
+        }, {
+          "rank": "platinum",
+          "score": [990000, 990000, 990000, 990000],
+          "clear": ["perfect"],
+          "ex_missing": 230
         }, {
           "rank": "diamond",
           "judge": 6,
@@ -107,7 +130,11 @@
         }, {
           "rank": "emerald",
           "judge": 1,
-          "ex_missing": 25
+          "ex_missing": 30
+        }, {
+          "rank": "onyx",
+          "judge": 1,
+          "ex_missing": 18
         }
       ],
       "total_ex": 4569,
@@ -129,18 +156,22 @@
       "goals": [
         {
           "rank": "silver",
-          "score": [875000, 875000, 875000, 875000]
+          "score": [890000, 890000, 890000, 890000]
         }, {
           "rank": "gold",
-          "score": [990000, 990000, 975000, 975000]
+          "score": [980000, 980000, 965000, 965000]
+        }, {
+          "rank": "platinum",
+          "score": [990000, 990000, 990000, 985000],
+          "ex_missing": 250
         }, {
           "rank": "diamond",
-          "judge": 7,
-          "ex_missing": 160
+          "judge": 10,
+          "ex_missing": 180
         }, {
           "rank": "cobalt",
-          "judge": 3,
-          "ex_missing": 90
+          "judge": 5,
+          "ex_missing": 110
         }, {
           "rank": "amethyst",
           "judge": 2,
@@ -149,6 +180,10 @@
           "rank": "emerald",
           "judge": 2,
           "ex_missing": 40
+        }, {
+          "rank": "onyx",
+          "judge": 2,
+          "ex_missing": 25
         }
       ],
       "total_ex": 5169,
@@ -160,25 +195,29 @@
       ]
     },
     {
-      "id": "mainframe",
-      "name": "Mainframe",
+      "id": "gospel",
+      "name": "Gospel",
       "type": "trial",
       "difficulty": 13,
       "goals": [
         {
           "rank": "silver",
-          "score": [900000, 900000, 900000, 900000]
+          "score": [940000, 900000, 900000, 900000]
         }, {
           "rank": "gold",
-          "score": [990000, 990000, 975000, 975000]
+          "score": [975000, 975000, 975000, 965000]
+        }, {
+          "rank": "platinum",
+          "score": [995000, 995000, 990000, 990000],
+          "ex_missing": 250
         }, {
           "rank": "diamond",
           "judge": 10,
-          "ex_missing": 150
+          "ex_missing": 180
         }, {
           "rank": "cobalt",
           "judge": 5,
-          "ex_missing": 100
+          "ex_missing": 110
         }, {
           "rank": "amethyst",
           "judge": 2,
@@ -187,6 +226,56 @@
           "rank": "emerald",
           "judge": 2,
           "ex_missing": 40
+        }, {
+          "rank": "onyx",
+          "judge": 2,
+          "ex_missing": 25
+        }
+      ],
+      "total_ex": 5280,
+      "songs": [
+        { "name": "Healing Vision ~Angelic Mix~", "difficulty": 13, "difficulty_class": "expert", "ex": 1437, "url": "https://zenius-i-vanisher.com/simfiles/DDRMAX%20-Dance%20Dance%20Revolution%206thMIX-%20%28AC%29%20%28Japan%29/Healing%20Vision~Angelic%20mix~/Healing%20Vision~Angelic%20mix~-jacket.png" },
+        { "name": "Cross", "difficulty": 13, "difficulty_class": "expert", "ex": 1410, "url": "https://zenius-i-vanisher.com/simfiles/DDR%20A20%20%28Beta%29/CROSS/CROSS-jacket.png" },
+        { "name": "Paranoia Rebirth", "difficulty": 13, "difficulty_class": "expert", "ex": 1299, "url": "https://zenius-i-vanisher.com/simfiles/Dance%20Dance%20Revolution%203rdMIX%20%28AC%29%20%28Japan%29/PARANOiA%20Rebirth/PARANOiA%20Rebirth-jacket.png" },
+        { "name": "You Are A Star", "difficulty": 12, "difficulty_class": "expert", "ex": 1134, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X2%20%28AC%29%20%28Japan%29/You%20are%20a%20Star/You%20are%20a%20Star-jacket.png" }
+      ]
+    },
+    {
+      "id": "mainframe",
+      "name": "Mainframe",
+      "type": "trial",
+      "difficulty": 13,
+      "goals": [
+        {
+          "rank": "silver",
+          "score": [915000, 915000, 875000, 875000]
+        }, {
+          "rank": "gold",
+          "score": [980000, 980000, 965000, 965000]
+        }, {
+          "rank": "platinum",
+          "score": [990000, 990000, 990000, 985000],
+          "ex_missing": 240
+        }, {
+          "rank": "diamond",
+          "judge": 10,
+          "ex_missing": 160
+        }, {
+          "rank": "cobalt",
+          "judge": 5,
+          "ex_missing": 110
+        }, {
+          "rank": "amethyst",
+          "judge": 2,
+          "ex_missing": 65
+        }, {
+          "rank": "emerald",
+          "judge": 2,
+          "ex_missing": 45
+        }, {
+          "rank": "onyx",
+          "judge": 2,
+          "ex_missing": 30
         }
       ],
       "total_ex": 4428,
@@ -206,18 +295,22 @@
       "goals": [
         {
           "rank": "silver",
-          "score": [900000, 900000, 900000, 900000]
+          "score": [915000, 915000, 875000, 875000]
         }, {
           "rank": "gold",
-          "score": [965000, 965000, 985000, 985000]
+          "score": [980000, 980000, 960000, 960000]
+        }, {
+          "rank": "platinum",
+          "score": [990000, 990000, 990000, 985000],
+          "ex_missing": 325
         }, {
           "rank": "diamond",
           "judge": 15,
-          "ex_missing": 220
+          "ex_missing": 230
         }, {
           "rank": "cobalt",
-          "judge": 5,
-          "ex_missing": 130
+          "judge": 6,
+          "ex_missing": 140
         }, {
           "rank": "amethyst",
           "judge": 2,
@@ -225,7 +318,11 @@
         }, {
           "rank": "emerald",
           "judge": 2,
-          "ex_missing": 50
+          "ex_missing": 55
+        }, {
+          "rank": "onyx",
+          "judge": 2,
+          "ex_missing": 35
         }
       ],
       "total_ex": 5142,
@@ -244,13 +341,17 @@
       "goals": [
         {
           "rank": "silver",
-          "score": [875000, 875000, 875000, 875000]
+          "score": [900000, 900000, 900000, 875000]
         }, {
           "rank": "gold",
-          "score": [980000, 980000, 970000, 970000]
+          "score": [980000, 980000, 960000, 960000]
+        }, {
+          "rank": "platinum",
+          "score": [990000, 990000, 990000, 985000],
+          "ex_missing": 330
         }, {
           "rank": "diamond",
-          "judge": 20,
+          "judge": 15,
           "ex_missing": 240
         }, {
           "rank": "cobalt",
@@ -263,7 +364,11 @@
         }, {
           "rank": "emerald",
           "judge": 2,
-          "ex_missing": 50
+          "ex_missing": 55
+        }, {
+          "rank": "onyx",
+          "judge": 2,
+          "ex_missing": 35
         }
       ],
       "total_ex": 5073,
@@ -282,13 +387,17 @@
       "goals": [
         {
           "rank": "silver",
-          "score": [875000, 875000, 875000, 875000]
+          "score": [900000, 900000, 875000, 875000]
         }, {
           "rank": "gold",
-          "score": [985000, 985000, 970000, 970000]
+          "score": [980000, 980000, 965000, 965000]
+        }, {
+          "rank": "platinum",
+          "score": [990000, 990000, 990000, 985000],
+          "ex_missing": 350
         }, {
           "rank": "diamond",
-          "judge": 18,
+          "judge": 16,
           "ex_missing": 240
         }, {
           "rank": "cobalt",
@@ -300,8 +409,12 @@
           "ex_missing": 90
         }, {
           "rank": "emerald",
+          "judge": 4,
+          "ex_missing": 65
+        }, {
+          "rank": "onyx",
           "judge": 3,
-          "ex_missing": 60
+          "ex_missing": 40
         }
       ],
       "total_ex": 4974,
@@ -328,8 +441,8 @@
         { "name": "Bloody Tears（IIDX EDITION）", "difficulty": 11, "difficulty_class": "expert", "ex": 795, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20SuperNOVA2%20%28AC%29%20%28Japan%29/Bloody%20Tears%20%28IIDX%20EDITION%29/Bloody%20Tears%20%28IIDX%20EDITION%29-jacket.png" }
       ],
       "scoring_groups": [["copper", "bronze", "silver"], ["gold"], ["platinum"], ["diamond"], ["cobalt"], ["amethyst", "emerald"]],
-      "event_start": "20191001T000000",
-      "event_end": "20191101T000000"
+      "event_start": "2019-10-01T00:00:00Z",
+      "event_end": "2019-11-01T00:00:00Z"
     },
     {
       "id": "daybreak",
@@ -338,27 +451,36 @@
       "difficulty": 14,
       "goals": [
         {
-          "rank": "silver"
+          "rank": "silver",
+          "clear_indexed": ["clear", "clear", "clear", "fail"],
+          "score_indexed": [0, 0, 0, 500000]
         }, {
           "rank": "gold",
-          "score": [990000, 970000, 970000, 970000],
-          "miss": 7
+          "score": [975000, 975000, 960000, 960000],
+          "miss": 10
+        }, {
+          "rank": "platinum",
+          "score": [990000, 990000, 980000, 980000]
         }, {
           "rank": "diamond",
-          "judge": 10,
-          "ex_missing": 180
+          "judge": 18,
+          "ex_missing": 200
         }, {
           "rank": "cobalt",
-          "judge": 3,
+          "judge": 8,
           "ex_missing": 120
         }, {
           "rank": "amethyst",
-          "judge": 2,
+          "judge": 4,
           "ex_missing": 65
         }, {
           "rank": "emerald",
+          "judge": 3,
+          "ex_missing": 45
+        }, {
+          "rank": "onyx",
           "judge": 2,
-          "ex_missing": 40
+          "ex_missing": 30
         }
       ],
       "total_ex": 5463,
@@ -379,15 +501,18 @@
         {
           "rank": "silver",
           "clear_indexed": ["clear", "clear", "clear", "fail"],
-          "score_indexed": [0, 0, 0, 700000]
+          "score_indexed": [0, 0, 0, 500000]
         }, {
           "rank": "gold",
-          "score": [980000, 980000, 960000, 960000],
+          "score": [975000, 975000, 960000, 960000],
           "miss": 10
+        }, {
+          "rank": "platinum",
+          "score": [985000, 985000, 980000, 980000]
         }, {
           "rank": "diamond",
           "judge": 18,
-          "ex_missing": 250
+          "ex_missing": 225
         }, {
           "rank": "cobalt",
           "judge": 8,
@@ -395,11 +520,15 @@
         }, {
           "rank": "amethyst",
           "judge": 6,
-          "ex_missing": 80
+          "ex_missing": 75
         }, {
           "rank": "emerald",
-          "judge": 3,
+          "judge": 4,
           "ex_missing": 50
+        }, {
+          "rank": "onyx",
+          "judge": 3,
+          "ex_missing": 35
         }
       ],
       "total_ex": 5544,
@@ -411,6 +540,52 @@
       ]
     },
     {
+      "id": "superstar",
+      "name": "Superstar",
+      "type": "trial",
+      "difficulty": 14,
+      "goals": [
+        {
+          "rank": "silver",
+          "clear_indexed": ["clear", "clear", "clear", "fail"],
+          "score_indexed": [0, 0, 0, 500000]
+        }, {
+          "rank": "gold",
+          "score": [965000, 965000, 965000, 950000]
+        }, {
+          "rank": "platinum",
+          "score": [985000, 985000, 975000, 975000]
+        }, {
+          "rank": "diamond",
+          "judge": 20,
+          "ex_missing": 240
+        }, {
+          "rank": "cobalt",
+          "judge": 8,
+          "ex_missing": 150
+        }, {
+          "rank": "amethyst",
+          "judge": 6,
+          "ex_missing": 90
+        }, {
+          "rank": "emerald",
+          "judge": 4,
+          "ex_missing": 60
+        }, {
+          "rank": "onyx",
+          "judge": 3,
+          "ex_missing": 40
+        }
+      ],
+      "total_ex": 5517,
+      "songs": [
+        { "name": "Top the Charts", "difficulty": 14, "difficulty_class": "challenge", "ex": 1401, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202013%20%28AC%29%20%28Japan%29/Top%20The%20Charts/Top%20The%20Charts-jacket.png" },
+        { "name": "F4SH10N", "difficulty": 14, "difficulty_class": "expert", "ex": 1293, "url": "https://zenius-i-vanisher.com/simfiles/DDR%20A20%20%28Beta%29/F4SH10N/F4SH10N-jacket.png" },
+        { "name": "Squeeze", "difficulty": 15, "difficulty_class": "expert", "ex": 1464, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202014%20%28AC%29%20%28Japan%29/Squeeze/Squeeze-jacket.png" },
+        { "name": "Diamond Night", "difficulty": 14, "difficulty_class": "challenge", "ex": 1359, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202013%20%28AC%29%20%28Japan%29/Diamond%20Night/Diamond%20Night-jacket.png" }
+      ]
+    },
+    {
       "id": "countdown",
       "name": "Countdown",
       "type": "trial",
@@ -418,28 +593,35 @@
       "author": "Nebel",
       "goals": [
         {
-          "rank": "silver"
+          "rank": "silver",
+          "clear_indexed": ["clear", "clear", "clear", "fail"],
+          "score_indexed": [0, 0, 0, 400000]
         }, {
           "rank": "gold",
-          "score": [980000, 980000, 950000, 950000],
-          "miss": 7
+          "score": [950000, 950000, 950000, 925000]
+        }, {
+          "rank": "platinum",
+          "score": [975000, 975000, 975000, 960000]
         }, {
           "rank": "diamond",
-          "score": [990000, 990000],
-          "judge": 10,
-          "ex_missing": 250
+          "judge": 25,
+          "ex_missing": 260
         }, {
           "rank": "cobalt",
-          "score": [990000, 990000, 990000, 990000],
-          "ex_missing": 160
+          "judge": 12,
+          "ex_missing": 180
         }, {
           "rank": "amethyst",
           "judge": 7,
-          "ex_missing": 100
+          "ex_missing": 110
         }, {
           "rank": "emerald",
-          "judge": 4,
+          "judge": 5,
           "ex_missing": 75
+        }, {
+          "rank": "onyx",
+          "judge": 4,
+          "ex_missing": 50
         }
       ],
       "total_ex": 5460,
@@ -457,11 +639,15 @@
       "difficulty": 15,
       "goals": [
         {
-          "rank": "silver"
+          "rank": "silver",
+          "clear_indexed": ["clear", "clear", "clear", "fail"],
+          "score_indexed": [0, 0, 0, 300000]
         }, {
           "rank": "gold",
-          "score": [985000, 970000, 970000],
-          "score_indexed": [0, 0, 950000, 0]
+          "score": [980000, 960000, 960000, 920000]
+        }, {
+          "rank": "platinum",
+          "score": [980000, 980000, 980000, 960000]
         }, {
           "rank": "diamond",
           "score": [990000, 990000, 990000],
@@ -473,12 +659,16 @@
           "ex_missing": 180
         }, {
           "rank": "amethyst",
-          "judge": 3,
-          "ex_missing": 100
+          "judge": 6,
+          "ex_missing": 110
         }, {
           "rank": "emerald",
-          "judge": 2,
-          "ex_missing": 65
+          "judge": 4,
+          "ex_missing": 75
+        }, {
+          "rank": "onyx",
+          "judge": 3,
+          "ex_missing": 50
         }
       ],
       "total_ex": 6615,
@@ -496,11 +686,15 @@
       "difficulty": 15,
       "goals": [
         {
-          "rank": "silver"
+          "rank": "silver",
+          "clear_indexed": ["clear", "clear", "clear", "fail"],
+          "score_indexed": [0, 0, 0, 400000]
         }, {
           "rank": "gold",
-          "score": [980000, 950000, 950000, 950000],
-          "miss": 7
+          "score": [965000, 965000, 940000, 940000]
+        }, {
+          "rank": "platinum",
+          "score": [980000, 980000, 980000, 970000]
         }, {
           "rank": "diamond",
           "score": [990000, 990000, 985000, 985000],
@@ -511,12 +705,16 @@
           "ex_missing": 180
         }, {
           "rank": "amethyst",
-          "judge": 2,
-          "ex_missing": 90
+          "judge": 5,
+          "ex_missing": 100
         }, {
           "rank": "emerald",
-          "judge": 2,
-          "ex_missing": 65
+          "judge": 4,
+          "ex_missing": 75
+        }, {
+          "rank": "onyx",
+          "judge": 3,
+          "ex_missing": 50
         }
       ],
       "total_ex": 6270,
@@ -534,26 +732,35 @@
       "difficulty": 15,
       "goals": [
         {
-          "rank": "silver"
+          "rank": "silver",
+          "clear_indexed": ["clear", "clear", "clear", "fail"],
+          "score_indexed": [0, 0, 0, 300000]
         }, {
           "rank": "gold",
-          "score": [985000, 950000, 950000, 950000]
+          "score": [965000, 965000, 940000, 940000]
+        }, {
+          "rank": "platinum",
+          "score": [980000, 980000, 980000, 970000]
         }, {
           "rank": "diamond",
           "score": [990000, 990000, 980000, 980000],
           "ex_missing": 350
         }, {
           "rank": "cobalt",
-          "judge": 6,
+          "judge": 10,
           "ex_missing": 175
         }, {
           "rank": "amethyst",
-          "judge": 2,
+          "judge": 5,
           "ex_missing": 85
         }, {
           "rank": "emerald",
+          "judge": 3,
+          "ex_missing": 55
+        }, {
+          "rank": "onyx",
           "judge": 2,
-          "ex_missing": 50
+          "ex_missing": 30
         }
       ],
       "total_ex": 6735,
@@ -573,11 +780,14 @@
         {
           "rank": "silver",
           "clear_indexed": ["clear", "clear", "clear", "fail"],
-          "score_indexed": [0, 0, 0, 450000]
+          "score_indexed": [0, 0, 0, 300000]
         },{
           "rank": "gold",
-          "score": [970000, 970000, 950000, 950000]
+          "score": [965000, 965000, 940000, 940000]
         },{
+          "rank": "platinum",
+          "score": [980000, 980000, 970000, 970000]
+        }, {
           "rank": "diamond",
           "score": [985000, 985000, 985000, 975000],
           "ex_missing": 350
@@ -587,12 +797,16 @@
           "ex_missing": 200
         },{
           "rank": "amethyst",
-          "judge": 5,
+          "judge": 6,
           "ex_missing": 100
         },{
           "rank": "emerald",
-          "judge": 3,
+          "judge": 4,
           "ex_missing": 65
+        }, {
+          "rank": "onyx",
+          "judge": 3,
+          "ex_missing": 40
         }
       ],
       "total_ex": 7446,
@@ -604,34 +818,88 @@
       ]
     },
     {
+      "id": "mythos",
+      "name": "Mythos",
+      "type": "trial",
+      "difficulty": 15,
+      "goals": [
+        {
+          "rank": "silver",
+          "clear_indexed": ["clear", "clear", "clear", "fail"],
+          "score_indexed": [0, 0, 0, 300000]
+        },{
+          "rank": "gold",
+          "score": [970000, 915000, 915000, 915000]
+        },{
+          "rank": "platinum",
+          "score": [990000, 965000, 965000, 950000]
+        }, {
+          "rank": "diamond",
+          "score": [970000, 970000, 970000, 970000],
+          "clear": ["life4", "life4", "life4", "life4"],
+          "ex_missing": 370
+        },{
+          "rank": "cobalt",
+          "judge": 15,
+          "ex_missing": 220
+        },{
+          "rank": "amethyst",
+          "judge": 8,
+          "ex_missing": 150
+        },{
+          "rank": "emerald",
+          "judge": 6,
+          "ex_missing": 90
+        }, {
+          "rank": "onyx",
+          "judge": 4,
+          "ex_missing": 55
+        }
+      ],
+      "total_ex": 6471,
+      "songs": [
+        { "name": "Ishtar", "difficulty": 14, "difficulty_class": "expert", "ex": 1266, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28International%29/Ishtar/Ishtar-jacket.png" },
+        { "name": "Wadatsumi", "difficulty": 16, "difficulty_class": "expert", "ex": 1875, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202014%20%28AC%29%20%28Japan%29/Wadatsumi/Wadatsumi-jacket.png" },
+        { "name": "Helios", "difficulty": 16, "difficulty_class": "expert", "ex": 1902, "url": "https://zenius-i-vanisher.com/simfiles/DDR%20A20%20%28Beta%29/Helios/Helios-jacket.png" },
+        { "name": "Valkyrie Dimension", "difficulty": 15, "difficulty_class": "difficult", "ex": 1428, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X2%20%28AC%29%20%28Japan%29/Valkyrie%20dimension/Valkyrie%20dimension-jacket.png" }
+      ]
+    },
+    {
       "id": "pharaoh",
       "name": "Pharaoh",
       "type": "trial",
       "difficulty": 15,
       "goals": [
         {
-          "rank": "silver"
+          "rank": "silver",
+          "clear_indexed": ["clear", "clear", "clear", "fail"],
+          "score_indexed": [0, 0, 0, 300000]
         }, {
           "rank": "gold",
-          "score": [975000, 940000, 940000, 940000]
+          "score": [950000, 950000, 950000, 920000]
+        }, {
+          "rank": "platinum",
+          "score": [980000, 980000, 960000, 960000]
         }, {
           "rank": "diamond",
-          "score": [980000, 980000, 980000, 980000],
-          "miss": 5,
+          "score": [985000, 985000, 975000, 975000],
           "ex_missing": 300
         }, {
           "rank": "cobalt",
-          "score": [990000, 990000, 990000, 990000],
-          "judge": 10,
-          "ex_missing": 170
+          "judge": 14,
+          "ex_missing": 180
         }, {
           "rank": "amethyst",
-          "judge": 2,
-          "ex_missing": 100
+          "judge": 6,
+          "ex_missing": 110
         }, {
           "rank": "emerald",
-          "judge": 2,
-          "ex_missing": 70
+          "judge": 5,
+          "ex_missing": 75
+        }, {
+          "rank": "onyx",
+          "judge": 4,
+          "ex_missing": 50
         }
       ],
       "total_ex": 6870,
@@ -643,6 +911,52 @@
       ]
     },
     {
+      "id": "rendition",
+      "name": "Rendition",
+      "type": "trial",
+      "difficulty": 15,
+      "goals": [
+        {
+          "rank": "silver",
+          "clear_indexed": ["clear", "clear", "clear", "fail"],
+          "score_indexed": [0, 0, 0, 300000]
+        }, {
+          "rank": "gold",
+          "score": [950000, 950000, 950000, 910000]
+        }, {
+          "rank": "platinum",
+          "score": [975000, 975000, 975000, 950000]
+        }, {
+          "rank": "diamond",
+          "score": [980000, 980000, 980000, 970000],
+          "ex_missing": 370
+        }, {
+          "rank": "cobalt",
+          "judge": 15,
+          "ex_missing": 220
+        }, {
+          "rank": "amethyst",
+          "judge": 8,
+          "ex_missing": 130
+        }, {
+          "rank": "emerald",
+          "judge": 5,
+          "ex_missing": 80
+        }, {
+          "rank": "onyx",
+          "judge": 4,
+          "ex_missing": 55
+        }
+      ],
+      "total_ex": 7236,
+      "songs": [
+        { "name": "BRILLIANT 2U (AKBK MIX)", "difficulty": 15, "difficulty_class": "expert", "ex": 1767, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X3%20VS%202ndMIX%20%28AC%29%20%28Japan%29/BRILLIANT%202U%20%28AKBK%20MIX%29/BRILLIANT%202U%20%28AKBK%20MIX%29-jacket.png" },
+        { "name": "MAX 300 (Super-Max-Me Mix)", "difficulty": 15, "difficulty_class": "expert", "ex": 1938, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20SuperNOVA%20%28AC%29%20%28International%29/MAX%20300%20%28Super-Max-Me%20Mix%29/MAX%20300%20%28Super-Max-Me%20Mix%29-jacket.png" },
+        { "name": "POSSESSION (20th Anniversary Mix)", "difficulty": 16, "difficulty_class": "expert", "ex": 1998, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28International%29/POSSESSION%20%2820th%20Anniversary%20Mix%29/POSSESSION%20%2820th%20Anniversary%20Mix%29-jacket.png" },
+        { "name": "PARANOiA KCET ~clean mix~", "difficulty": 15, "difficulty_class": "challenge", "ex": 1533, "url": "https://zenius-i-vanisher.com/simfiles/Dance%20Dance%20Revolution%202ndMIX%20LINK%20Version%20%28AC%29%20%28Japan%29/PARANOiA%20KCET%20~clean%20mix~/PARANOiA%20KCET%20~clean%20mix~-jacket.png" }
+      ]
+    },
+    {
       "id": "wanderlust",
       "name": "Wanderlust",
       "type": "trial",
@@ -650,28 +964,34 @@
       "author": "Magnet",
       "goals": [
         {
-          "rank": "silver"
+          "rank": "silver",
+          "clear_indexed": ["clear", "clear", "clear", "fail"]
         }, {
           "rank": "gold",
-          "score": [950000, 950000, 910000, 910000]
+          "score": [945000, 945000, 945000, 890000]
+        }, {
+          "rank": "platinum",
+          "score": [970000, 970000, 970000, 930000]
         }, {
           "rank": "diamond",
-          "score": [975000, 975000, 975000, 975000],
-          "miss": 7,
-          "ex_missing": 375
+          "score": [980000, 980000, 955000, 955000],
+          "ex_missing": 425
         }, {
           "rank": "cobalt",
-          "score": [990000, 990000, 990000, 990000],
-          "judge": 12,
-          "ex_missing": 225
+          "judge": 18,
+          "ex_missing": 250
         }, {
           "rank": "amethyst",
-          "judge": 3,
-          "ex_missing": 125
+          "judge": 8,
+          "ex_missing": 150
         }, {
           "rank": "emerald",
-          "judge": 2,
-          "ex_missing": 70
+          "judge": 6,
+          "ex_missing": 90
+        }, {
+          "rank": "onyx",
+          "judge": 4,
+          "ex_missing": 60
         }
       ],
       "total_ex": 6957,
@@ -690,15 +1010,13 @@
       "author": "Magnet",
       "goals": [
         {
-          "rank": "silver",
-          "clear_indexed": ["clear", "clear", "clear", "fail"],
-          "score_indexed": [0, 0, 0, 300000]
-        },{
           "rank": "gold",
-          "score": [965000, 965000, 950000, 950000]
+          "score": [950000, 950000, 915000, 915000]
         },{
+          "rank": "platinum"
+        }, {
           "rank": "diamond",
-          "score": [990000, 990000, 975000, 975000],
+          "score": [980000, 980000, 960000, 960000],
           "miss_each": 3
         },{
           "rank": "cobalt",
@@ -706,12 +1024,16 @@
           "ex_missing": 250
         },{
           "rank": "amethyst",
-          "judge": 5,
-          "ex_missing": 135
+          "judge": 8,
+          "ex_missing": 140
         },{
           "rank": "emerald",
-          "judge": 3,
-          "ex_missing": 65
+          "judge": 5,
+          "ex_missing": 70
+        }, {
+          "rank": "onyx",
+          "judge": 4,
+          "ex_missing": 45
         }
       ],
       "total_ex": 7116,
@@ -730,23 +1052,30 @@
       "goals": [
         {
           "rank": "gold",
-          "score": [960000, 960000, 940000, 940000]
+          "score": [940000, 940000, 910000, 910000]
+        }, {
+          "rank": "platinum",
+          "score": [970000, 970000, 950000, 950000]
         }, {
           "rank": "diamond",
-          "score": [985000, 985000, 970000, 970000],
+          "score": [980000, 980000, 980000, 970000],
           "miss": 10
         }, {
           "rank": "cobalt",
           "score": [990000, 990000, 990000, 990000],
-          "ex_missing": 260
+          "ex_missing": 280
         }, {
           "rank": "amethyst",
-          "judge": 5,
-          "ex_missing": 150
+          "judge": 8,
+          "ex_missing": 160
         }, {
           "rank": "emerald",
-          "judge": 3,
-          "ex_missing": 90
+          "judge": 5,
+          "ex_missing": 100
+        }, {
+          "rank": "onyx",
+          "judge": 4,
+          "ex_missing": 70
         }
       ],
       "total_ex": 7161,
@@ -765,24 +1094,30 @@
       "goals": [
         {
           "rank": "gold",
-          "score": [940000, 940000, 925000, 925000]
+          "score": [910000, 910000, 910000, 910000]
+        }, {
+          "rank": "platinum",
+          "score": [965000, 965000, 950000, 950000]
         }, {
           "rank": "diamond",
-          "score": [990000, 990000, 975000, 975000],
+          "score": [985000, 985000, 970000, 970000],
           "miss": 10
         }, {
           "rank": "cobalt",
           "score": [990000, 990000, 990000, 990000],
-          "judge": 10,
-          "ex_missing": 250
+          "ex_missing": 280
         }, {
           "rank": "amethyst",
-          "judge": 3,
-          "ex_missing": 130
+          "judge": 8,
+          "ex_missing": 150
         }, {
           "rank": "emerald",
-          "judge": 3,
-          "ex_missing": 75
+          "judge": 5,
+          "ex_missing": 90
+        }, {
+          "rank": "onyx",
+          "judge": 4,
+          "ex_missing": 60
         }
       ],
       "total_ex": 6951,
@@ -790,7 +1125,7 @@
         { "name": "I'm so Happy", "difficulty": 16, "difficulty_class": "challenge", "ex": 1653, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X2%20%28AC%29%20%28Japan%29/I%27m%20so%20Happy/I%27m%20so%20Happy-jacket.png" },
         { "name": "Cosy Catastrophe", "difficulty": 16, "difficulty_class": "expert", "ex": 1677, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/Cosy%20Catastrophe/Cosy%20Catastrophe-jacket.png" },
         { "name": "Life is beautiful", "difficulty": 16, "difficulty_class": "expert", "ex": 1959, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/Life%20is%20beautiful/Life%20is%20beautiful-jacket.png" },
-        { "name": "CHAOS Terror-Tech Mix", "difficulty": 16, "difficulty_class": "expert", "ex": 1662, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/CHAOS%20Terror-Tech%20Mix/CHAOS%20Terror-Tech%20Mix-jacket.png" }
+        { "name": "CHAOS Terror-Tech Mix", "difficulty": 15, "difficulty_class": "expert", "ex": 1662, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/CHAOS%20Terror-Tech%20Mix/CHAOS%20Terror-Tech%20Mix-jacket.png" }
       ]
     },
     {
@@ -801,22 +1136,29 @@
       "goals": [
         {
           "rank": "gold",
-          "score": [950000, 950000, 850000, 850000]
+          "score": [950000, 950000, 875000, 875000]
+        }, {
+          "rank": "platinum",
+          "score": [980000, 980000, 920000, 920000]
         }, {
           "rank": "diamond",
-          "score": [990000, 990000, 960000, 935000]
+          "score": [985000, 985000, 940000, 940000]
         }, {
           "rank": "cobalt",
-          "score": [990000, 990000, 990000, 980000],
-          "ex_missing": 275
+          "score": [990000, 990000, 990000, 975000],
+          "ex_missing": 300
         }, {
           "rank": "amethyst",
           "judge": 8,
-          "ex_missing": 160
+          "ex_missing": 170
         }, {
           "rank": "emerald",
+          "judge": 6,
+          "ex_missing": 110
+        }, {
+          "rank": "onyx",
           "judge": 5,
-          "ex_missing": 100
+          "ex_missing": 70
         }
       ],
       "total_ex": 6750,
@@ -838,7 +1180,10 @@
       "goals": [
         {
           "rank": "gold",
-          "score": [940000, 940000, 900000, 900000]
+          "score": [915000, 915000, 870000, 870000]
+        }, {
+          "rank": "platinum",
+          "score": [950000, 950000, 920000, 920000]
         }, {
           "rank": "diamond",
           "score": [980000, 980000, 960000, 960000],
@@ -846,16 +1191,19 @@
         }, {
           "rank": "cobalt",
           "score": [990000, 990000],
-          "miss": 5,
-          "ex_missing": 300
+          "ex_missing": 320
         }, {
           "rank": "amethyst",
-          "judge": 5,
+          "judge": 10,
           "ex_missing": 180
         }, {
           "rank": "emerald",
+          "judge": 6,
+          "ex_missing": 110
+        }, {
+          "rank": "onyx",
           "judge": 5,
-          "ex_missing": 100
+          "ex_missing": 70
         }
       ],
       "total_ex": 7311,
@@ -873,22 +1221,27 @@
       "difficulty": 17,
       "goals": [
         {
-          "rank": "gold"
+          "rank": "platinum",
+          "score": [900000, 900000, 875000, 875000]
         }, {
           "rank": "diamond",
           "score": [950000, 950000, 925000, 925000]
         }, {
           "rank": "cobalt",
-          "score": [990000, 990000, 975000, 975000],
+          "score": [985000, 970000, 970000, 970000],
           "ex_missing": 600
         }, {
           "rank": "amethyst",
           "judge": 20,
-          "ex_missing": 300
+          "ex_missing": 350
         }, {
           "rank": "emerald",
-          "judge": 10,
-          "ex_missing": 200
+          "judge": 12,
+          "ex_missing": 225
+        }, {
+          "rank": "onyx",
+          "judge": 8,
+          "ex_missing": 160
         }
       ],
       "total_ex": 7749,
@@ -906,29 +1259,34 @@
       "difficulty": 17,
       "goals": [
         {
-          "rank": "gold"
+          "rank": "platinum",
+          "score": [900000, 900000, 875000, 875000]
         }, {
           "rank": "diamond",
-          "score": [940000, 940000, 925000, 925000]
+          "score": [940000, 940000, 940000, 925000]
         }, {
           "rank": "cobalt",
-          "score": [990000, 975000, 975000, 975000],
-          "ex_missing": 500
+          "score": [985000, 970000, 970000, 970000],
+          "ex_missing": 600
         }, {
           "rank": "amethyst",
-          "judge": 15,
-          "ex_missing": 275
+          "judge": 20,
+          "ex_missing": 300
         }, {
           "rank": "emerald",
-          "judge": 10,
-          "ex_missing": 175
+          "judge": 12,
+          "ex_missing": 200
+        }, {
+          "rank": "onyx",
+          "judge": 8,
+          "ex_missing": 150
         }
       ],
       "total_ex": 7470,
       "songs": [
         { "name": "RISING FIRE HAWK", "difficulty": 17, "difficulty_class": "challenge", "ex": 2025, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/RISING%20FIRE%20HAWK/RISING%20FIRE%20HAWK-jacket.png" },
         { "name": "SABER WING (AKIRA ISHIHARA Headshot mix)", "difficulty": 17, "difficulty_class": "challenge", "ex": 1569, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X%20%28AC%29%20%28Japan%29/SABER%20WING%20%28AKIRA%20ISHIHARA%20Headshot%20mix%29/SABER%20WING%20%28AKIRA%20ISHIHARA%20Headshot%20mix%29-jacket.png" },
-        { "name": "Air Heroes", "difficulty": 17, "difficulty_class": "challenge", "ex": 1971, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202013%20%28AC%29%20%28Japan%29/Air%20Heroes/Air%20Heroes-jacket.png" },
+        { "name": "Air Heroes", "difficulty": 18, "difficulty_class": "challenge", "ex": 1971, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202013%20%28AC%29%20%28Japan%29/Air%20Heroes/Air%20Heroes-jacket.png" },
         { "name": "Reach The Sky, Without you", "difficulty": 17, "difficulty_class": "expert", "ex": 1905, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/Reach%20The%20Sky%2C%20Without%20you/Reach%20The%20Sky%2C%20Without%20you-jacket.png" }
       ]
     },
@@ -940,22 +1298,23 @@
       "author": "matias8823 + Kingly",
       "goals": [
         {
-          "rank": "gold",
-          "clear_indexed": ["clear", "clear", "clear", "fail"]
-        },{
           "rank": "diamond",
           "score": [925000, 925000, 850000, 850000]
         },{
           "rank": "cobalt",
-          "score": [950000, 950000, 950000, 925000]
+          "score": [940000, 940000, 940000, 925000]
         },{
           "rank": "amethyst",
-          "score": [990000, 990000, 965000, 965000],
-          "ex_missing": 525
+          "score": [990000, 990000, 960000, 960000],
+          "ex_missing": 600
         },{
           "rank": "emerald",
-          "score": [990000, 990000, 990000, 980000],
-          "ex_missing": 300
+          "score": [985000, 985000, 985000, 975000],
+          "ex_missing": 340
+        }, {
+          "rank": "onyx",
+          "score": [990000, 990000, 990000, 990000],
+          "ex_missing": 225
         }
       ],
       "total_ex": 8817,
@@ -976,15 +1335,19 @@
           "rank": "diamond"
         }, {
           "rank": "cobalt",
-          "score": [950000, 950000, 950000, 925000]
+          "score": [940000, 940000, 940000, 900000]
         }, {
           "rank": "amethyst",
-          "score": [990000, 960000, 960000, 960000],
-          "ex_missing": 600
+          "score": [975000, 975000, 950000, 950000],
+          "ex_missing": 700
         }, {
           "rank": "emerald",
-          "score": [990000, 990000, 980000, 980000],
+          "score": [985000, 985000, 985000, 975000],
           "ex_missing": 400
+        }, {
+          "rank": "onyx",
+          "score": [990000, 990000, 990000, 990000],
+          "ex_missing": 250
         }
       ],
       "total_ex": 9396,

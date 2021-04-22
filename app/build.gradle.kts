@@ -11,9 +11,9 @@ plugins {
 
 android {
     compileSdkVersion(Versions.compile_sdk)
-    buildToolsVersion = Versions.buildToolsVersion
+    buildToolsVersion = Versions.Android.build_tools_version
     defaultConfig {
-        applicationId = "com.perrigogames.life4trials"
+        applicationId = "com.perrigogames.life4.android"
         minSdkVersion(Versions.min_sdk)
         targetSdkVersion(Versions.target_sdk)
         versionCode = 56
@@ -36,13 +36,12 @@ android {
     buildTypes {
         getByName("debug") {
             applicationIdSuffix = ".debug"
-            manifestPlaceholders = mapOf(Pair("providerName", "com.perrigogames.fileprovider.debug"))
-//            ext.enableCrashlytics = false
+            addManifestPlaceholders(mapOf(Pair("providerName", "com.perrigogames.fileprovider.debug")))
         }
         getByName("release")  {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-            manifestPlaceholders = mapOf(Pair("providerName", "com.perrigogames.fileprovider"))
+            addManifestPlaceholders(mapOf(Pair("providerName", "com.perrigogames.fileprovider")))
             signingConfig = signingConfigs.findByName("upload")
         }
     }
@@ -64,6 +63,9 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
     // Disable the google services plugin for debug
 //    applicationVariants.firstOrNull { it.name.contains("debug") }.let { variant ->
 //        project.tasks.getByName("process" + variant.name.capitalize() + "GoogleServices").enabled = false
@@ -71,19 +73,19 @@ android {
 }
 
 dependencies {
-    implementation(kotlin("stdlib-jdk7", KotlinCompilerVersion.VERSION))
+    implementation(kotlin("stdlib-jdk8", KotlinCompilerVersion.VERSION))
     implementation(project(":shared"))
-    implementation(Deps.recyclerview)
-    implementation(Deps.core_ktx)
-    implementation(Deps.preferences_x)
-    implementation(Deps.app_compat_x)
-    implementation(Deps.material_x)
-    implementation(Deps.constraintlayout)
-    implementation(Deps.lifecycle)
-    implementation(Deps.viewmodel)
-    implementation(Deps.activity)
-    implementation(Deps.fragment)
-    debugImplementation(Deps.fragment_testing)
+    implementation(Deps.AndroidX.recyclerView)
+    implementation(Deps.AndroidX.core_ktx)
+    implementation(Deps.AndroidX.preferences)
+    implementation(Deps.AndroidX.appcompat)
+    implementation(Deps.AndroidX.material)
+    implementation(Deps.AndroidX.constraintlayout)
+    implementation(Deps.AndroidX.lifecycle_runtime)
+    implementation(Deps.AndroidX.lifecycle_viewmodel)
+    implementation(Deps.AndroidX.activity)
+    implementation(Deps.AndroidX.fragment)
+    debugImplementation(Deps.AndroidX.fragment_testing)
     implementation(platform(Deps.firebase))
     implementation(Deps.firebase_messaging)
     implementation(Deps.firebase_crashlytics)
@@ -91,14 +93,13 @@ dependencies {
     implementation(Deps.stetho)
 
     implementation(Deps.koinCore)
-    implementation(Deps.klock)
     implementation(Deps.lottie)
     implementation(Deps.eventbus)
     implementation(Deps.dexter)
     implementation(Deps.glide)
-    implementation(Deps.gson)
+    implementation(Deps.kotlinxDateTime)
 
-    implementation(Deps.ktor.androidCore)
+    implementation(Deps.Ktor.androidCore)
     implementation(Deps.SqlDelight.runtimeJdk)
     implementation(Deps.SqlDelight.driverAndroid)
     implementation(Deps.Coroutines.jdk)

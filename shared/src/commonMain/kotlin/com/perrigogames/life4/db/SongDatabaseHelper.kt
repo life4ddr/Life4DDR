@@ -3,6 +3,8 @@ package com.perrigogames.life4.db
 import com.perrigogames.life4.enums.DifficultyClass
 import com.perrigogames.life4.enums.GameVersion
 import com.perrigogames.life4.enums.PlayStyle
+import com.perrigogames.life4.db.ChartInfo
+import com.perrigogames.life4.db.SongInfo
 import com.squareup.sqldelight.db.SqlDriver
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -23,7 +25,8 @@ class SongDatabaseHelper(sqlDriver: SqlDriver): DatabaseHelper(sqlDriver) {
     suspend fun insertChart(songId: Long,
                             difficultyClass: DifficultyClass,
                             difficultyNumber: Long,
-                            playStyle: PlayStyle) = withContext(Dispatchers.Default) {
+                            playStyle: PlayStyle
+    ) = withContext(Dispatchers.Default) {
         queries.insertChart(songId, difficultyClass, difficultyNumber, playStyle)
     }
 

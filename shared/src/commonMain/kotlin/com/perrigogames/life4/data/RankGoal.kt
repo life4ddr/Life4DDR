@@ -1,4 +1,5 @@
-@file:UseSerializers(DifficultyClassSerializer::class,
+@file:UseSerializers(
+    DifficultyClassSerializer::class,
     PlayStyleSerializer::class,
     ClearTypeSerializer::class,
     LadderRankSerializer::class,
@@ -6,9 +7,8 @@
 
 package com.perrigogames.life4.data
 
-import com.perrigogames.life4.GameConstants
 import com.perrigogames.life4.PlatformStrings
-import com.perrigogames.life4.db.ChartResult
+import com.perrigogames.life4.enums.*
 import com.perrigogames.life4.db.DetailedChartResult
 import com.perrigogames.life4.enums.*
 import kotlinx.serialization.SerialName
@@ -53,25 +53,28 @@ class CaloriesRankGoal(val count: Int): BaseRankGoal() {
 @Serializable
 @SerialName("songs")
 class SongSetClearGoal(@SerialName("clear_type") private val clearType: ClearType = ClearType.CLEAR,
-                       @SerialName("require_all_difficulties") private val requireAllDifficulties: Boolean = true,
-                       val count: Int? = null,
-                       val difficulties: List<DifficultyClass>,
+                       @SerialName("folder_count") val folderCount: Int? = null,
+                       @SerialName("song_count") val songCount: Int? = null,
+                       private val difficulties: String,
                        val folder: String? = null,
                        val score: Int? = null,
                        val songs: List<String>? = null): BaseRankGoal() {
 
     override fun goalString(c: PlatformStrings): String = when {
         score != null && songs != null -> c.rank.scoreSpecificSongDifficulty(score, songs, difficultyString(c))
-        count == null && songs != null -> c.rank.clearSpecificSongDifficulty(clearType, songs, difficultyString(c))
-        count == null -> c.rank.lampDifficulty(clearType, folderName(c), difficultyString(c))
-        count == 1 -> c.rank.clearSingle(clearType, difficultyString(c))
-        else -> c.rank.clearCount(clearType, count, difficultyString(c))
+        songCount == null && songs != null -> c.rank.clearSpecificSongDifficulty(clearType, songs, difficultyString(c))
+        songCount == null -> c.rank.lampDifficulty(clearType, folderName(c), difficultyString(c))
+        songCount == 1 -> c.rank.clearSingle(clearType, difficultyString(c))
+        else -> c.rank.clearCount(clearType, songCount, difficultyString(c))
     }
 
-    private fun difficultyString(c: PlatformStrings): String =
-        difficulties.joinToString(separator = difficultySeparator) { (it + playStyle).toString() }
+    val difficultySet: DifficultyClassSet
+        get() = DifficultyClassSet.parse(difficulties)
 
-    private val difficultySeparator get() = if (requireAllDifficulties) " + " else " / "
+    private fun difficultyString(c: PlatformStrings): String =
+        difficultySet.set.joinToString(separator = difficultySeparator) { (it + playStyle).toString() }
+
+    private val difficultySeparator get() = if (difficultySet.requireAll) " + " else " / "
 
     private fun folderName(c: PlatformStrings) = folder ?: c.rank.anyFullMixOrLetterString
 }
@@ -121,20 +124,26 @@ class TrialGoal(val rank: TrialRank,
 @SerialName("difficulty")
 class DifficultyClearGoal(@SerialName("d") val difficulty: Int? = null,
                           @SerialName("difficulty_numbers") private val mDifficultyNumbers: IntArray? = null,
+                          private val difficulties: String? = null,
                           @SerialName("clear_type") private val mClearType: ClearType? = null,
                           val count: Int? = null,
                           val songs: List<String>? = null,
                           val score: Int? = null,
+                          @SerialName("average_score") val averageScore: Int? = null,
                           val exceptions: Int? = null,
                           @SerialName("song_exceptions") val songExceptions: List<String>? = null): BaseRankGoal() {
 
     val clearType: ClearType get() = mClearType ?: ClearType.CLEAR
 
-    val difficultyNumbers: IntArray get() = when {
-        mDifficultyNumbers != null -> mDifficultyNumbers
-        difficulty != null -> intArrayOf(difficulty)
-        else -> throw IllegalArgumentException("Must implement difficulty or difficulty_numbers")
-    }
+    val difficultyNumbers: IntArray
+        get() = when {
+            mDifficultyNumbers != null -> mDifficultyNumbers
+            difficulty != null -> intArrayOf(difficulty)
+            else -> throw IllegalArgumentException("Must implement difficulty or difficulty_numbers")
+        }
+
+    val difficultySet: DifficultyClassSet?
+        get() = difficulties?.let { DifficultyClassSet.parse(it) }
 
     override fun goalString(c: PlatformStrings): String {
         return if (count == null) when {

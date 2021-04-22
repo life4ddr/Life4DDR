@@ -3,6 +3,8 @@ package com.perrigogames.life4.db
 import com.perrigogames.life4.enums.ClearType
 import com.perrigogames.life4.enums.DifficultyClass
 import com.perrigogames.life4.enums.PlayStyle
+import com.perrigogames.life4.db.ChartInfo
+import com.perrigogames.life4.db.SongInfo
 import com.perrigogames.life4.model.LadderImporter
 import com.squareup.sqldelight.db.SqlDriver
 import kotlinx.coroutines.Dispatchers

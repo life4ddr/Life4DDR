@@ -8,6 +8,8 @@ import com.perrigogames.life4.enums.DifficultyClass
 import com.perrigogames.life4.enums.DifficultyClass.BEGINNER
 import com.perrigogames.life4.enums.PlayStyle
 import com.perrigogames.life4.enums.PlayStyle.DOUBLE
+import com.perrigogames.life4.log
+import com.perrigogames.life4.logE
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -25,7 +27,8 @@ import org.koin.core.inject
  *  chart, which led to a lot of duplication.
  */
 class LadderImporter(private var dataLines: List<String>,
-                     private val opMode: OpMode = OpMode.AUTO): BaseModel() {
+                     private val opMode: OpMode = OpMode.AUTO
+): BaseModel() {
 
     private val ignoreListManager: IgnoreListManager by inject()
     private val songDbHelper: SongDatabaseHelper by inject()
@@ -173,7 +176,8 @@ class LadderImporter(private var dataLines: List<String>,
                       val score: Long,
                       val clearType: ClearType,
                       val playStyle: PlayStyle,
-                      val difficultyClass: DifficultyClass)
+                      val difficultyClass: DifficultyClass
+    )
 
     fun cancel() {
         importJob?.cancel()

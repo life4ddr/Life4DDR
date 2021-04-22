@@ -45,7 +45,7 @@
     </PreferenceCategory>
     <PreferenceCategory>
         <Preference
-            app:fragment="com.perrigogames.life4trials.activity.SettingsActivity$DebugTrialRanksFragment"
+            app:fragment="com.perrigogames.life4.activity.SettingsActivity$DebugTrialRanksFragment"
             app:title="Trial Ranks"/>
     </PreferenceCategory>
 </PreferenceScreen>

@@ -2,7 +2,11 @@ package com.perrigogames.life4.enums
 
 import com.perrigogames.life4.data.StableId
 import kotlinx.serialization.*
-import kotlinx.serialization.internal.LongDescriptor
+import kotlinx.serialization.descriptors.PrimitiveKind
+import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
+import kotlinx.serialization.descriptors.SerialDescriptor
+import kotlinx.serialization.encoding.Decoder
+import kotlinx.serialization.encoding.Encoder
 
 enum class GameVersion(override val stableId: Long): StableId {
     UNKNOWN(0),
@@ -31,11 +35,11 @@ enum class GameVersion(override val stableId: Long): StableId {
 
 @Serializer(forClass = GameVersion::class)
 object GameVersionSerializer: KSerializer<GameVersion> {
-    override val descriptor: SerialDescriptor = LongDescriptor
+    override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("gameVersion", PrimitiveKind.LONG)
     override fun deserialize(decoder: Decoder) = GameVersion.parse(
         decoder.decodeLong()
     )!!
-    override fun serialize(encoder: Encoder, obj: GameVersion) {
-        encoder.encodeLong(obj.stableId)
+    override fun serialize(encoder: Encoder, value: GameVersion) {
+        encoder.encodeLong(value.stableId)
     }
 }

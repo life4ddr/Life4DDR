@@ -1,7 +1,11 @@
 package com.perrigogames.life4.data
 
 import kotlinx.serialization.*
-import kotlinx.serialization.internal.StringDescriptor
+import kotlinx.serialization.descriptors.PrimitiveKind
+import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
+import kotlinx.serialization.descriptors.SerialDescriptor
+import kotlinx.serialization.encoding.Decoder
+import kotlinx.serialization.encoding.Encoder
 
 enum class PlacementRank(val stableId: Long, val parent: LadderRankClass) {
     COPPER(20, LadderRankClass.COPPER),
@@ -19,9 +23,9 @@ enum class PlacementRank(val stableId: Long, val parent: LadderRankClass) {
 
 @Serializer(forClass = PlacementRank::class)
 object PlacementRankSerializer: KSerializer<PlacementRank> {
-    override val descriptor: SerialDescriptor = StringDescriptor
+    override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("placementRank", PrimitiveKind.STRING)
     override fun deserialize(decoder: Decoder) = PlacementRank.valueOf(decoder.decodeString().toUpperCase())
-    override fun serialize(encoder: Encoder, obj: PlacementRank) {
-        encoder.encodeString(obj.name.toLowerCase())
+    override fun serialize(encoder: Encoder, value: PlacementRank) {
+        encoder.encodeString(value.name.toLowerCase())
     }
 }

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.perrigogames.life4trials.activity.SingleSongTournamentActivity"
+    tools:context="com.perrigogames.life4.activity.SingleSongTournamentActivity"
     tools:showIn="@layout/activity_single_song_tournament">
 
     <androidx.appcompat.widget.AppCompatTextView

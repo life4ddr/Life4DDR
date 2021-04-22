@@ -1,11 +1,12 @@
 package com.perrigogames.life4
 
+import com.perrigogames.life4.Life4Db
 import com.russhwolf.settings.AppleSettings
 import com.squareup.sqldelight.db.SqlDriver
 import com.squareup.sqldelight.drivers.ios.NativeSqliteDriver
 import org.koin.dsl.module
 
-fun initKoin() = initKoin{}
+fun initKoin() = initKoin {}
 
 actual val platformModule = module {
     single<SqlDriver> { NativeSqliteDriver(Life4Db.Schema, "life4db") }

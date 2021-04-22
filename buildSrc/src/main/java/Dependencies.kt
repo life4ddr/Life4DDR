@@ -1,60 +1,63 @@
-import org.gradle.api.artifacts.ExternalModuleDependency
-import org.gradle.kotlin.dsl.exclude
-
 object Versions {
     const val min_sdk = 18
     const val target_sdk = 30
     const val compile_sdk = 30
 
-    const val kotlin = "1.3.61"
-    const val android_x = "1.1.0"
-    const val android_x_constraint = "1.1.3"
-    const val android_x_lifecycle = "2.1.0"
-    const val android_x_activity = "1.2.0-alpha05"
-    const val android_x_fragment = "1.3.0-alpha05"
-    const val android_gradle_plugin = "4.0.0"
-    const val buildToolsVersion = "29.0.2"
+    const val kotlin = "1.4.30"
+    const val cocoapodsext = "0.12"
     const val espresso = "3.1.0"
     const val googleServices = "4.3.5"
-    const val sqlDelight = "1.2.1"
-    const val ktor = "1.2.6"
-    const val ktorm = "2.5"
-    const val sql_connector = "8.0.18"
-    const val stately = "0.9.5"
-    const val klock = "1.8.4"
+    const val sqlDelight = "1.4.4"
+    const val kermit = "0.1.8"
+    const val ktor = "1.5.2"
+    const val stately = "1.1.4"
+    const val ktlint_gradle_plugin = "9.4.1"
     const val lottie = "3.3.0"
     const val eventbus = "3.1.1"
     const val dexter = "5.0.0"
     const val glide = "4.9.0"
     const val gson = "2.8.2"
+    const val robolectric = "4.5.1"
     const val firebase = "27.0.0"
     const val stetho = "1.5.1"
-    const val multiplatformSettings = "0.5"
+    const val multiplatformSettings = "0.7.4"
     const val coroutines = "1.3.3-native-mt"
-    const val koin = "3.0.1-khan-SNAPSHOT"
-    const val xcodesync = "0.2"
+    const val koin = "3.0.0-alpha-4"
+    const val kotlinxDateTime = "0.1.1"
+
+    object Android {
+        const val build_tools_version = "30.0.3"
+        const val gradle_plugin = "4.1.1"
+    }
+
+    object AndroidX {
+        const val activity = "1.2.0-alpha05"
+        const val appcompat = "1.2.0"
+        const val constraintlayout = "2.0.4"
+        const val core = "1.3.2"
+        const val fragment = "1.3.0-alpha05"
+        const val lifecycle = "2.2.0"
+        const val material = "1.3.0"
+        const val preference = "1.1.1"
+        const val recyclerview = "1.2.0"
+        const val swipeRefresh = "1.1.0"
+        const val test = "1.3.0"
+        const val test_ext = "1.1.2"
+    }
 }
 
 object Deps {
-    const val core_ktx = "androidx.core:core-ktx:${Versions.android_x}"
-    const val preferences_x = "androidx.preference:preference:${Versions.android_x}"
-    const val app_compat_x = "androidx.appcompat:appcompat:${Versions.android_x}"
-    const val material_x = "com.google.android.material:material:${Versions.android_x}"
-    const val constraintlayout = "androidx.constraintlayout:constraintlayout:${Versions.android_x_constraint}"
-    const val lifecycle = "androidx.lifecycle:lifecycle-extensions:${Versions.android_x_lifecycle}"
-    const val recyclerview = "androidx.recyclerview:recyclerview:${Versions.android_x}"
-    const val viewmodel = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.android_x_lifecycle}"
-    const val activity = "androidx.activity:activity-ktx:${Versions.android_x_activity}"
-    const val fragment = "androidx.fragment:fragment-ktx:${Versions.android_x_fragment}"
-    const val fragment_testing = "androidx.fragment:fragment-testing:${Versions.android_x_fragment}"
+    const val android_gradle_plugin = "com.android.tools.build:gradle:${Versions.Android.gradle_plugin}"
+    const val cocoapodsext = "co.touchlab:kotlinnativecocoapods:${Versions.cocoapodsext}"
     const val firebase = "com.google.firebase:firebase-bom:${Versions.firebase}"
     const val firebase_messaging = "com.google.firebase:firebase-messaging-ktx"
     const val firebase_crashlytics = "com.google.firebase:firebase-crashlytics-ktx"
     const val firebase_analytics = "com.google.firebase:firebase-analytics-ktx"
 
     const val stetho = "com.facebook.stetho:stetho:${Versions.stetho}"
+    const val kermit = "co.touchlab:kermit:${Versions.kermit}"
 
-    const val klock = "com.soywiz.korlibs.klock:klock:${Versions.klock}"
+    const val kotlinxDateTime = "org.jetbrains.kotlinx:kotlinx-datetime:${Versions.kotlinxDateTime}"
     const val lottie = "com.airbnb.android:lottie:${Versions.lottie}"
     const val eventbus = "org.greenrobot:eventbus:${Versions.eventbus}"
     const val dexter = "com.karumi:dexter:${Versions.dexter}"
@@ -62,18 +65,38 @@ object Deps {
     const val gson = "com.google.code.gson:gson:${Versions.gson}"
     const val glide_compiler = "com.github.bumptech.glide:compiler:${Versions.glide}"
 
-    const val android_gradle_plugin = "com.android.tools.build:gradle:${Versions.android_gradle_plugin}"
-    const val stately =  "co.touchlab:stately:${Versions.stately}"
+    const val stately =  "co.touchlab:stately-common:${Versions.stately}"
     const val multiplatformSettings =  "com.russhwolf:multiplatform-settings:${Versions.multiplatformSettings}"
     const val multiplatformSettingsTest = "com.russhwolf:multiplatform-settings-test:${Versions.multiplatformSettings}"
-    const val koinCore = "co.touchlab:koin-core:${Versions.koin}"
-    const val xcodesync = "co.touchlab:kotlinxcodesync:${Versions.xcodesync}"
+    const val robolectric = "org.robolectric:robolectric:${Versions.robolectric}"
+    const val koinCore = "org.koin:koin-core:${Versions.koin}"
+    const val koinTest = "org.koin:koin-test:${Versions.koin}"
+
+    object AndroidX {
+        const val activity = "androidx.activity:activity-ktx:${Versions.AndroidX.activity}"
+        const val appcompat = "androidx.appcompat:appcompat:${Versions.AndroidX.appcompat}"
+        const val core_ktx = "androidx.core:core-ktx:${Versions.AndroidX.core}"
+        const val constraintlayout = "androidx.constraintlayout:constraintlayout:${Versions.AndroidX.constraintlayout}"
+        const val fragment = "androidx.fragment:fragment-ktx:${Versions.AndroidX.fragment}"
+        const val fragment_testing = "androidx.fragment:fragment-testing:${Versions.AndroidX.fragment}"
+        const val material = "com.google.android.material:material:${Versions.AndroidX.material}"
+        const val preferences = "androidx.preference:preference:${Versions.AndroidX.preference}"
+        const val recyclerView = "androidx.recyclerview:recyclerview:${Versions.AndroidX.recyclerview}"
+        const val swipeRefresh = "androidx.swiperefreshlayout:swiperefreshlayout:${Versions.AndroidX.swipeRefresh}"
+
+        const val lifecycle_runtime = "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.AndroidX.lifecycle}"
+        const val lifecycle_viewmodel = "androidx.lifecycle:lifecycle-viewmodel:${Versions.AndroidX.lifecycle}"
+        const val lifecycle_viewmodel_extensions = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.AndroidX.lifecycle}"
+        const val lifecycle_livedata = "androidx.lifecycle:lifecycle-livedata:${Versions.AndroidX.lifecycle}"
+        const val lifecycle_extension = "androidx.lifecycle:lifecycle-extensions:${Versions.AndroidX.lifecycle}"
+        const val koin_viewmodel = "org.koin:koin-androidx-viewmodel:${Versions.koin}"
+    }
 
     object AndroidXTest {
-        const val core =  "androidx.test:core:${Versions.android_x}"
-        const val junit =  "androidx.test.ext:junit:${Versions.android_x}"
-        const val runner = "androidx.test:runner:${Versions.android_x}"
-        const val rules = "androidx.test:rules:${Versions.android_x}"
+        const val core =  "androidx.test:core:${Versions.AndroidX.test}"
+        const val junit =  "androidx.test.ext:junit:${Versions.AndroidX.test_ext}"
+        const val runner = "androidx.test:runner:${Versions.AndroidX.test}"
+        const val rules = "androidx.test:rules:${Versions.AndroidX.test}"
         const val espresso = "androidx.test.espresso:espresso-core:${Versions.espresso}"
     }
 
@@ -92,27 +115,19 @@ object Deps {
         const val test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.coroutines}"
     }
     object SqlDelight{
-        const val gradle =        "com.squareup.sqldelight:gradle-plugin:${Versions.sqlDelight}"
-        const val runtime =       "com.squareup.sqldelight:runtime:${Versions.sqlDelight}"
-        const val runtimeJdk =    "com.squareup.sqldelight:runtime-jvm:${Versions.sqlDelight}"
-        const val driverIos =     "com.squareup.sqldelight:ios-driver:${Versions.sqlDelight}"
+        const val gradle = "com.squareup.sqldelight:gradle-plugin:${Versions.sqlDelight}"
+        const val runtime = "com.squareup.sqldelight:runtime:${Versions.sqlDelight}"
+        const val coroutinesExtensions = "com.squareup.sqldelight:coroutines-extensions:${Versions.sqlDelight}"
+        const val runtimeJdk = "com.squareup.sqldelight:runtime-jvm:${Versions.sqlDelight}"
+        const val driverIos = "com.squareup.sqldelight:native-driver:${Versions.sqlDelight}"
         const val driverAndroid = "com.squareup.sqldelight:android-driver:${Versions.sqlDelight}"
-        const val driverJvm =     "com.squareup.sqldelight:sqlite-driver:${Versions.sqlDelight}"
     }
-    object ktor {
+    object Ktor {
         const val commonCore = "io.ktor:ktor-client-core:${Versions.ktor}"
         const val commonJson = "io.ktor:ktor-client-json:${Versions.ktor}"
-        const val jvmCore =     "io.ktor:ktor-client-core-jvm:${Versions.ktor}"
+        const val commonLogging = "io.ktor:ktor-client-logging:${Versions.ktor}"
         const val androidCore = "io.ktor:ktor-client-okhttp:${Versions.ktor}"
-        const val jvmJson =     "io.ktor:ktor-client-json-jvm:${Versions.ktor}"
-        const val ios =         "io.ktor:ktor-client-ios:${Versions.ktor}"
-        const val iosCore =     "io.ktor:ktor-client-core-native:${Versions.ktor}"
-        const val iosJson =     "io.ktor:ktor-client-json-native:${Versions.ktor}"
+        const val ios = "io.ktor:ktor-client-ios:${Versions.ktor}"
         const val commonSerialization ="io.ktor:ktor-client-serialization:${Versions.ktor}"
-        const val androidSerialization ="io.ktor:ktor-client-serialization-jvm:${Versions.ktor}"
-        const val iosSerialization ="io.ktor:ktor-client-serialization-native:${Versions.ktor}"
-    }
-    val coroutinesExcludeNative: ExternalModuleDependency.() -> Unit = {
-        exclude(group = "org.jetbrains.kotlinx", module = "kotlinx-coroutines-core-native")
     }
 }

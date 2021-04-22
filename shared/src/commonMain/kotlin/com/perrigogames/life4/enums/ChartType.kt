@@ -2,7 +2,11 @@ package com.perrigogames.life4.enums
 
 import com.perrigogames.life4.data.StableId
 import kotlinx.serialization.*
-import kotlinx.serialization.internal.StringDescriptor
+import kotlinx.serialization.descriptors.PrimitiveKind
+import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
+import kotlinx.serialization.descriptors.SerialDescriptor
+import kotlinx.serialization.encoding.Decoder
+import kotlinx.serialization.encoding.Encoder
 
 /**
  * Enum to describe a class of difficulty, inside which more specific difficulties
@@ -42,7 +46,8 @@ enum class PlayStyle(override val stableId: Long,
 }
 
 data class ChartType(val style: PlayStyle,
-                     val difficulty: DifficultyClass) {
+                     val difficulty: DifficultyClass
+) {
     override fun toString(): String = difficulty.aggregatePrefix + style.aggregateSuffix
 }
 
@@ -51,34 +56,34 @@ operator fun DifficultyClass.plus(style: PlayStyle) = ChartType(style, this)
 
 @Serializer(forClass = DifficultyClass::class)
 object DifficultyClassSerializer: KSerializer<DifficultyClass> {
-    override val descriptor: SerialDescriptor = StringDescriptor
+    override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("difficultyClass", PrimitiveKind.STRING)
     override fun deserialize(decoder: Decoder) = decoder.decodeString().let {
         DifficultyClass.parse(it) ?: DifficultyClass.valueOf(it.toUpperCase())
     }
-    override fun serialize(encoder: Encoder, obj: DifficultyClass) {
-        encoder.encodeString(obj.name.toLowerCase())
+    override fun serialize(encoder: Encoder, value: DifficultyClass) {
+        encoder.encodeString(value.name.toLowerCase())
     }
 }
 
 @Serializer(forClass = PlayStyle::class)
 object PlayStyleSerializer: KSerializer<PlayStyle> {
-    override val descriptor: SerialDescriptor = StringDescriptor
+    override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("playStyle", PrimitiveKind.STRING)
     override fun deserialize(decoder: Decoder) = decoder.decodeString().let {
         PlayStyle.parse(it) ?: PlayStyle.valueOf(it.toUpperCase())
     }
-    override fun serialize(encoder: Encoder, obj: PlayStyle) {
-        encoder.encodeString(obj.name.toLowerCase())
+    override fun serialize(encoder: Encoder, value: PlayStyle) {
+        encoder.encodeString(value.name.toLowerCase())
     }
 }
 
 @Serializer(forClass = ChartType::class)
 object ChartTypeSerializer: KSerializer<ChartType> {
-    override val descriptor: SerialDescriptor = StringDescriptor
+    override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("chartType", PrimitiveKind.STRING)
     override fun deserialize(decoder: Decoder): ChartType {
         val input = decoder.decodeString()
         return ChartType(PlayStyle.parse(input)!!, DifficultyClass.parse(input)!!)
     }
-    override fun serialize(encoder: Encoder, obj: ChartType) {
-        encoder.encodeString("${obj.difficulty.aggregatePrefix}${obj.style.aggregateSuffix}")
+    override fun serialize(encoder: Encoder, value: ChartType) {
+        encoder.encodeString("${value.difficulty.aggregatePrefix}${value.style.aggregateSuffix}")
     }
 }

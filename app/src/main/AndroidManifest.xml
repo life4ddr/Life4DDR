@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:dist="http://schemas.android.com/apk/distribution"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.perrigogames.life4trials">
+    package="com.perrigogames.life4.android">
 
     <application
         android:name=".Life4Application"
@@ -98,7 +98,7 @@
         </provider>
 
         <receiver
-            android:name=".util.NotificationCopyHandler"
+            android:name="com.perrigogames.life4.android.util.NotificationCopyHandler"
             android:enabled="true">
             <intent-filter>
                 <action android:name="ACTION_COPY_CLIPBOARD" />

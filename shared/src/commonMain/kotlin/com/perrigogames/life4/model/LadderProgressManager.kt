@@ -1,7 +1,10 @@
 package com.perrigogames.life4.model
 
+import com.perrigogames.life4.data.BaseRankGoal
+import com.perrigogames.life4.data.LadderGoalProgress
+import com.perrigogames.life4.data.MFCPointsGoal
+import com.perrigogames.life4.data.TrialGoal
 import com.perrigogames.life4.GameConstants
-import com.perrigogames.life4.data.*
 import com.perrigogames.life4.db.ResultDatabaseHelper
 import com.perrigogames.life4.db.SongDatabaseHelper
 import org.koin.core.inject

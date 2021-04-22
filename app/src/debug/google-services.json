@@ -8,20 +8,12 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:506665394803:android:bcacb26634ec8cef",
+        "mobilesdk_app_id": "1:506665394803:android:b07ceb2698a7aae32ec006",
         "android_client_info": {
-          "package_name": "com.perrigogames.life4trials"
+          "package_name": "com.perrigogames.life4.android"
         }
       },
       "oauth_client": [
-        {
-          "client_id": "506665394803-3q82ghafl6oirhh6v62hbirnkhp1es1m.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.perrigogames.life4trials",
-            "certificate_hash": "6456eadc6f5a7625dd17d4cbd9689437ca8bef81"
-          }
-        },
         {
           "client_id": "506665394803-45ndgafnmn79j4j9e77to6u1tb6mf9jp.apps.googleusercontent.com",
           "client_type": 3
@@ -45,9 +37,9 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:506665394803:android:5442261220761ee92ec006",
+        "mobilesdk_app_id": "1:506665394803:android:a790ad13f48a52ae2ec006",
         "android_client_info": {
-          "package_name": "com.perrigogames.life4trials.debug"
+          "package_name": "com.perrigogames.life4.android.debug"
         }
       },
       "oauth_client": [

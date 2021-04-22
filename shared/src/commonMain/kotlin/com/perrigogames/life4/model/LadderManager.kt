@@ -1,18 +1,27 @@
 package com.perrigogames.life4.model
 
-import com.perrigogames.life4.*
+import com.perrigogames.life4.LadderDialogs
+import com.perrigogames.life4.LadderRankUpdatedEvent
+import com.perrigogames.life4.LadderRanksReplacedEvent
+import com.perrigogames.life4.data.BaseRankGoal
+import com.perrigogames.life4.db.GoalDatabaseHelper
 import com.perrigogames.life4.SettingsKeys.KEY_INFO_RANK
 import com.perrigogames.life4.SettingsKeys.KEY_INFO_TARGET_RANK
+import com.perrigogames.life4.SongResultsUpdatedEvent
 import com.perrigogames.life4.api.FetchListener
 import com.perrigogames.life4.api.LadderRemoteData
 import com.perrigogames.life4.api.LocalDataReader
-import com.perrigogames.life4.data.*
+import com.perrigogames.life4.data.LadderRank
+import com.perrigogames.life4.data.LadderRankData
+import com.perrigogames.life4.data.LadderVersion
+import com.perrigogames.life4.db.ResultDatabaseHelper
 import com.perrigogames.life4.db.*
 import com.perrigogames.life4.enums.GoalStatus
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.RANKS_FILE_NAME
 import com.russhwolf.settings.Settings
 import com.russhwolf.settings.set
 import kotlinx.coroutines.*
+import kotlinx.datetime.Clock
 import org.koin.core.inject
 import org.koin.core.qualifier.named
 
@@ -88,7 +97,7 @@ class LadderManager: BaseModel() {
         goalDBHelper.stateForId(goal.id.toLong())
 
     fun getOrCreateGoalState(goal: BaseRankGoal): GoalState =
-        getGoalState(goal) ?: GoalState.Impl(goal.id.toLong(), GoalStatus.INCOMPLETE, nowString)
+        getGoalState(goal) ?: GoalState(goal.id.toLong(), GoalStatus.INCOMPLETE, Clock.System.now().toString())
 
     fun getGoalStateList(goals: List<BaseRankGoal>): List<GoalState> =
         goalDBHelper.statesForIdList(goals.map { it.id.toLong() }).executeAsList()

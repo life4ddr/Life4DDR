@@ -2,12 +2,14 @@ package com.perrigogames.life4.db
 
 import com.perrigogames.life4.data.InProgressTrialSession
 import com.perrigogames.life4.data.TrialRank
-import com.soywiz.klock.DateTime
-import com.soywiz.klock.ISO8601
+import com.perrigogames.life4.db.TrialSession
+import com.perrigogames.life4.db.TrialSong
 import com.squareup.sqldelight.Query
 import com.squareup.sqldelight.db.SqlDriver
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import kotlinx.datetime.Clock
+import kotlinx.datetime.Instant
 
 class TrialDatabaseHelper(sqlDriver: SqlDriver): DatabaseHelper(sqlDriver) {
 
@@ -17,11 +19,14 @@ class TrialDatabaseHelper(sqlDriver: SqlDriver): DatabaseHelper(sqlDriver) {
 
     fun allSongs(): Query<TrialSong> = queries.selectAllSongs()
 
-    suspend fun insertSession(session: InProgressTrialSession, datetime: DateTime? = null) = withContext(Dispatchers.Default) {
+    suspend fun insertSession(
+        session: InProgressTrialSession,
+        datetime: Instant? = null
+    ) = withContext(Dispatchers.Default) {
         dbRef.transaction {
             queries.insertSession(null,
                 session.trial.id,
-                (datetime ?: DateTime.now()).format(ISO8601.DATETIME_COMPLETE),
+                (datetime ?: Clock.System.now()).toString(),
                 session.goalRank!!,
                 session.goalObtained)
             val sId = queries.lastInsertRowId().executeAsOne()
@@ -76,14 +81,16 @@ class TrialDatabaseHelper(sqlDriver: SqlDriver): DatabaseHelper(sqlDriver) {
 
                 val songs = mutableListOf<TrialInputSong>()
                 while(segs.isNotEmpty()) {
-                    songs.add(TrialInputSong(
+                    songs.add(
+                        TrialInputSong(
                         segs.removeAt(0).toLong(),
                         segs.removeAt(0).toLong(),
                         segs.removeAt(0).toLong(),
                         segs.removeAt(0).toLong(),
                         segs.removeAt(0).toLong(),
                         segs.removeAt(0).toLong(),
-                        segs.removeAt(0).toBoolean()))
+                        segs.removeAt(0).toBoolean())
+                    )
                 }
                 val matches = records.any { record ->
                     record.key.trialId == trialId && record.value.map { it.exScore } == songs.map { it.exScore }

@@ -1,13 +1,15 @@
 package com.perrigogames.life4
 
-import com.perrigogames.life4.db.*
+import com.perrigogames.life4.db.GoalDatabaseHelper
+import com.perrigogames.life4.db.ResultDatabaseHelper
+import com.perrigogames.life4.db.SongDatabaseHelper
+import com.perrigogames.life4.db.TrialDatabaseHelper
 import com.perrigogames.life4.ktor.GithubDataAPI
 import com.perrigogames.life4.ktor.GithubDataImpl
 import com.perrigogames.life4.ktor.Life4API
 import com.perrigogames.life4.ktor.Life4APIImpl
 import com.perrigogames.life4.model.*
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonConfiguration
 import org.koin.core.context.startKoin
 import org.koin.core.module.Module
 import org.koin.dsl.KoinAppDeclaration
@@ -25,7 +27,7 @@ val coreModule = module {
     single { TrialDatabaseHelper(get()) }
     single<GithubDataAPI> { GithubDataImpl() }
     single<Life4API> { Life4APIImpl() }
-    single { Json(JsonConfiguration.Stable.copy(classDiscriminator = "t")) }
+    single { Json { classDiscriminator = "t" } }
     single { PlacementManager() }
     single { FirstRunManager() }
     single { MajorUpdateManager() }

@@ -4,9 +4,7 @@ import com.perrigogames.life4.SettingsKeys.KEY_SONG_LIST_VERSION
 import com.perrigogames.life4.api.FetchListener
 import com.perrigogames.life4.api.LocalDataReader
 import com.perrigogames.life4.api.SongListRemoteData
-import com.perrigogames.life4.db.ChartInfo
 import com.perrigogames.life4.db.SongDatabaseHelper
-import com.perrigogames.life4.db.SongInfo
 import com.perrigogames.life4.enums.DifficultyClass
 import com.perrigogames.life4.enums.GameVersion
 import com.perrigogames.life4.enums.PlayStyle
@@ -18,7 +16,6 @@ import com.russhwolf.settings.set
 import kotlinx.coroutines.launch
 import org.koin.core.inject
 import org.koin.core.qualifier.named
-import kotlin.jvm.Transient
 
 
 /**
