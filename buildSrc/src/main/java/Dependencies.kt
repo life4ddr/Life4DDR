@@ -48,11 +48,8 @@ object Versions {
 
 object Deps {
     const val android_gradle_plugin = "com.android.tools.build:gradle:${Versions.Android.gradle_plugin}"
+    const val google_services = "com.google.gms:google-services:${Versions.googleServices}"
     const val cocoapodsext = "co.touchlab:kotlinnativecocoapods:${Versions.cocoapodsext}"
-    const val firebase = "com.google.firebase:firebase-bom:${Versions.firebase}"
-    const val firebase_messaging = "com.google.firebase:firebase-messaging-ktx"
-    const val firebase_crashlytics = "com.google.firebase:firebase-crashlytics-ktx"
-    const val firebase_analytics = "com.google.firebase:firebase-analytics-ktx"
 
     const val stetho = "com.facebook.stetho:stetho:${Versions.stetho}"
     const val kermit = "co.touchlab:kermit:${Versions.kermit}"
@@ -71,6 +68,13 @@ object Deps {
     const val robolectric = "org.robolectric:robolectric:${Versions.robolectric}"
     const val koinCore = "org.koin:koin-core:${Versions.koin}"
     const val koinTest = "org.koin:koin-test:${Versions.koin}"
+
+    object Firebase {
+        const val bom = "com.google.firebase:firebase-bom:${Versions.firebase}"
+        const val messaging = "com.google.firebase:firebase-messaging-ktx"
+        const val crashlytics = "com.google.firebase:firebase-crashlytics-ktx"
+        const val analytics = "com.google.firebase:firebase-analytics-ktx"
+    }
 
     object AndroidX {
         const val activity = "androidx.activity:activity-ktx:${Versions.AndroidX.activity}"

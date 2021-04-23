@@ -54,7 +54,7 @@
             app:key="KEY_CREDITS"
             app:title="@string/credits"/>
         <Preference
-            app:fragment="com.perrigogames.life4.activity.settings.SettingsActivity$DebugSettingsFragment"
+            app:fragment="com.perrigogames.life4.android.activity.settings.SettingsActivity$DebugSettingsFragment"
             app:key="KEY_DEBUG"
             app:title="Debug Settings"/>
     </PreferenceCategory>

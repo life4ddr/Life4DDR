@@ -69,8 +69,8 @@ kotlin {
         implementation(Deps.SqlDelight.driverAndroid)
         implementation(Deps.Coroutines.android)
         implementation(Deps.Ktor.androidCore)
-        implementation(project.dependencies.platform(Deps.firebase))
-        implementation(Deps.firebase_crashlytics)
+        implementation(project.dependencies.platform(Deps.Firebase.bom))
+        implementation(Deps.Firebase.crashlytics)
     }
 
     sourceSets["androidTest"].dependencies {

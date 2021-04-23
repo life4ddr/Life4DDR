@@ -13,7 +13,7 @@ buildscript {
         classpath(Deps.cocoapodsext)
         classpath("org.jetbrains.kotlin:kotlin-serialization:${Versions.kotlin}")
 
-        classpath("com.google.gms:google-services:${Versions.googleServices}")
+        classpath(Deps.google_services)
         classpath("com.google.firebase:firebase-crashlytics-gradle:2.5.2")
         classpath("com.github.jengelman.gradle.plugins:shadow:2.0.4")
 
