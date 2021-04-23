@@ -1,4 +1,4 @@
-package com.perrigogames.life4.android.ui.rankdetails
+package com.perrigogames.life4.android.ui.ranklist
 
 import android.view.LayoutInflater
 import android.view.View
@@ -34,15 +34,11 @@ class RankListAdapter(private val mValues: List<RankEntry>,
 
     private val platformStrings: PlatformStrings by inject()
 
-    private val mOnClickListener: View.OnClickListener
-
-    init {
-        mOnClickListener = View.OnClickListener { v ->
-            val item = v.tag as? RankEntry
-            // Notify the active callbacks interface (the activity, if the fragment is attached to
-            // one) that an item has been selected.
-            mListener?.onListFragmentInteraction(item)
-        }
+    private val mOnClickListener: View.OnClickListener = View.OnClickListener { v ->
+        val item = v.tag as? RankEntry
+        // Notify the active callbacks interface (the activity, if the fragment is attached to
+        // one) that an item has been selected.
+        mListener?.onListFragmentInteraction(item)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
