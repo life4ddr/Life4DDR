@@ -60,6 +60,11 @@ class SongUnlockAdapter: RecyclerView.Adapter<SongUnlockAdapter.BaseUnlockViewHo
             selectionListener = listener
 
             itemView.check_all_unlock.visibilityBool = usesCheckbox
+            itemView.button_clear.visibilityBool = !usesCheckbox
+            itemView.button_clear.setOnClickListener {
+                unlockViews.forEach { it.isChecked = false }
+                reportUnlockViewsSelection()
+            }
             itemView.text_title.text = title
             itemView.text_title.setOnClickListener {
                 itemView.check_all_unlock.apply { isChecked = !isChecked }
@@ -93,6 +98,10 @@ class SongUnlockAdapter: RecyclerView.Adapter<SongUnlockAdapter.BaseUnlockViewHo
                 button.isChecked = selection[idx]
             }
         }
+
+        protected fun reportUnlockViewsSelection() {
+            selectionListener(unlockViews.map { it.isChecked })
+        }
     }
 
     /**
@@ -106,7 +115,7 @@ class SongUnlockAdapter: RecyclerView.Adapter<SongUnlockAdapter.BaseUnlockViewHo
             super.bind(title, unlockItems, listener)
             itemView.check_all_unlock.setOnCheckedChangeListener { _, checked ->
                 unlockViews.forEach { it.isChecked = checked }
-                selectionListener(unlockViews.map { checked })
+                reportUnlockViewsSelection()
             }
         }
 
@@ -128,7 +137,7 @@ class SongUnlockAdapter: RecyclerView.Adapter<SongUnlockAdapter.BaseUnlockViewHo
         override fun createUnlockItemView(context: Context, index: Int) = RadioButton(context).apply {
             setOnClickListener {
                 unlockViews.forEachIndexed { idx, button -> button.isChecked = idx.toLong() < index.toLong() + 1 }
-                selectionListener(unlockViews.map { it.isChecked })
+                reportUnlockViewsSelection()
             }
         }
     }
@@ -140,7 +149,7 @@ class SongUnlockAdapter: RecyclerView.Adapter<SongUnlockAdapter.BaseUnlockViewHo
 
         override fun createUnlockItemView(context: Context, index: Int) = CheckBox(context).apply {
             setOnClickListener {
-                selectionListener(unlockViews.map { it.isChecked })
+                reportUnlockViewsSelection()
             }
         }
     }
