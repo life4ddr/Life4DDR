@@ -39,13 +39,13 @@ class RankDetailsViewModel(private val context: Context,
 
     private val hidesCompleteTasks = options.hideCompleted // resolves immediately, determines eligibility for toggling hidden on/off
 
-    private val allGoals: List<BaseRankGoal> by lazy { targetEntry!!.goals }
+    private val allGoals: List<BaseRankGoal> by lazy { targetEntry!!.goals + targetEntry!!.mandatoryGoals }
     private val activeGoals: MutableList<BaseRankGoal> by lazy { createActiveGoals() }
 
     private fun createActiveGoals() = when {
         targetEntry == null -> mutableListOf()
         options.hideCompleted -> {
-            val completedGoals = ladderManager.getGoalStateList(targetEntry!!.goals).filter { it.status == COMPLETE }.map { it.goalId }
+            val completedGoals = ladderManager.getGoalStateList(allGoals).filter { it.status == COMPLETE }.map { it.goalId }
             targetEntry!!.goals.filterNot { completedGoals.contains(it.id.toLong()) }.toMutableList()
         }
         else -> allGoals.toMutableList()
@@ -94,6 +94,7 @@ class RankDetailsViewModel(private val context: Context,
     private val dataSource = object: RankGoalsAdapter.DataSource {
         override fun getGoals() = activeGoals
         override fun isGoalExpanded(item: BaseRankGoal) = expandedItems.contains(item)
+        override fun isGoalMandatory(item: BaseRankGoal) = targetEntry?.mandatoryGoals?.contains(item) == true
         override fun canIgnoreGoals(): Boolean = canIgnoreGoals
         override fun getGoalStatus(item: BaseRankGoal) = ladderManager.getOrCreateGoalState(item)
         override fun getGoalProgress(item: BaseRankGoal) = ladderProgressManager.getGoalProgress(item)

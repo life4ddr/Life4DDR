@@ -60,6 +60,7 @@ class RankGoalsAdapter(private val rank: RankEntry,
 
     interface DataSource {
         fun getGoals(): List<BaseRankGoal>
+        fun isGoalMandatory(item: BaseRankGoal): Boolean
         fun isGoalExpanded(item: BaseRankGoal): Boolean
         fun canIgnoreGoals(): Boolean
         fun getGoalStatus(item: BaseRankGoal): GoalState
@@ -69,7 +70,7 @@ class RankGoalsAdapter(private val rank: RankEntry,
     inner class GoalViewHolder(val view: LadderGoalItemView) : RecyclerView.ViewHolder(view) {
         fun bind(goal: BaseRankGoal, dataSource: DataSource) {
             view.expanded = dataSource.isGoalExpanded(goal)
-            view.canIgnore = dataSource.canIgnoreGoals()
+            view.canIgnore = dataSource.canIgnoreGoals() && !dataSource.isGoalMandatory(goal)
             view.setGoal(goal, dataSource.getGoalStatus(goal), dataSource.getGoalProgress(goal))
         }
     }
