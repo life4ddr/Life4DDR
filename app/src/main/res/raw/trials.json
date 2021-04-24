@@ -48,8 +48,7 @@
         { "name": "SEDUCTION", "difficulty": 12, "difficulty_class": "expert", "ex": 1194, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20SuperNOVA%20%28AC%29%20%28International%29/SEDUCTION/SEDUCTION-jacket.png" },
         { "name": "She is my wife", "difficulty": 12, "difficulty_class": "expert", "ex": 981, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X2%20%28AC%29%20%28Japan%29/She%20is%20my%20wife/She%20is%20my%20wife-jacket.png" }
       ],
-      "cover_url": "",
-      "new": true
+      "cover_url": ""
     },
     {
       "id": "heartbreak",
@@ -145,8 +144,7 @@
         { "name": "Life is beautiful", "difficulty": 12, "difficulty_class": "difficult", "ex": 1329, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28International%29/Life%20is%20beautiful/Life%20is%20beautiful-jacket.png" }
       ],
       "cover_url": "",
-      "author": "plasmaaa",
-      "new": true
+      "author": "plasmaaa"
     },
     {
       "id": "celestial",
@@ -199,6 +197,7 @@
       "name": "Gospel",
       "type": "trial",
       "difficulty": 13,
+      "new": true,
       "goals": [
         {
           "rank": "silver",
@@ -425,8 +424,7 @@
         { "name": "桜", "difficulty": 13, "difficulty_class": "expert", "ex": 1341, "url": "https://zenius-i-vanisher.com/simfiles/Dance%20Dance%20Revolution%20EXTREME%20%28AC%29%20%28Japan%29/SAKURA/SAKURA-jacket.png" }
       ],
       "cover_url": "",
-      "author": "Sam-Thak",
-      "new": true
+      "author": "Sam-Thak"
     },
     {
       "id": "hallowed",
@@ -544,6 +542,7 @@
       "name": "Superstar",
       "type": "trial",
       "difficulty": 14,
+      "new": true,
       "goals": [
         {
           "rank": "silver",
@@ -822,6 +821,7 @@
       "name": "Mythos",
       "type": "trial",
       "difficulty": 15,
+      "new": true,
       "goals": [
         {
           "rank": "silver",
@@ -915,6 +915,7 @@
       "name": "Rendition",
       "type": "trial",
       "difficulty": 15,
+      "new": true,
       "goals": [
         {
           "rank": "silver",
@@ -1169,8 +1170,7 @@
         { "name": "UNBELIEVABLE (Sparky remix)", "difficulty": 15, "difficulty_class": "expert", "ex": 1635, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X3%20VS%202ndMIX%20%28AC%29%20%28Japan%29/UNBELIEVABLE%20%28Sparky%20remix%29/UNBELIEVABLE%20%28Sparky%20remix%29-jacket.png" }
       ],
       "cover_url": "",
-      "author": "CRMARTIN",
-      "new": true
+      "author": "CRMARTIN"
     },
     {
       "id": "inhuman",

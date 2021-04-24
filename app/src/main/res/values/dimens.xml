@@ -14,7 +14,7 @@
     <dimen name="placement_details_rank_size">160dp</dimen>
     <dimen name="size_detail_nav_debug">48dp</dimen>
     <dimen name="jacket_difficulty_size">40dp</dimen>
-    <dimen name="rank_goal_list_icon_size">72dp</dimen>
+    <dimen name="rank_goal_list_icon_size">64dp</dimen>
     <dimen name="rank_goal_icon_size">42dp</dimen>
     <dimen name="rank_goal_icon_size_v2">32dp</dimen>
     <dimen name="rank_goal_hide_icon_size">32dp</dimen>

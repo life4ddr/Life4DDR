@@ -35,7 +35,7 @@ class RankListActivity : AppCompatActivity(), OnRankListInteractionListener, Koi
         layout_container.removeAllViews()
         supportFragmentManager.beginTransaction()
             .add(R.id.layout_container,
-                RankListFragment.newInstance(3))
+                RankListFragment.newInstance(5))
             .commit()
     }
 

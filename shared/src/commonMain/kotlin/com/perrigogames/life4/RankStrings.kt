@@ -54,15 +54,16 @@ interface RankStrings {
         difficultyAOrAn(leftText, intArrayOf(difficulty))
     fun difficultyAOrAn(leftText: String, difficulties: IntArray): String
 
-    fun scoreString(score: Int, count: Int, difficulties: IntArray): String
-    fun scoreAllString(score: Int, clearType: ClearType, difficulty: Int): String
-    fun folderLamp(clearType: ClearType, difficulty: Int): String
+    fun scoreString(score: Int, averageScore: Int?, count: Int, difficulties: IntArray): String
+    fun scoreAllString(score: Int, averageScore: Int?, clearType: ClearType, difficulty: Int): String
+    fun folderLamp(clearType: ClearType, difficulty: Int, averageScore: Int?): String
     fun clearSingleDifficulty(clearType: ClearType, difficulties: IntArray): String
     fun scoreSingleDifficulty(score: Int, difficulties: IntArray): String
     fun difficultyClear(text: String, count: Int, difficultyNumbers: IntArray): String
     fun exceptions(exceptions: Int): String
     fun songExceptions(songExceptions: List<String>): String
     fun pluralNumber(number: Int, plural: Boolean): String
+    fun averageSuffix(average: Int?, useAnd: Boolean): String
 
     /**
      * %s %d different %s.

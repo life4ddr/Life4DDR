@@ -8,7 +8,6 @@ import com.perrigogames.life4.RankStrings
 import com.perrigogames.life4.TrialStrings
 import com.perrigogames.life4.data.*
 import com.perrigogames.life4.*
-import com.perrigogames.life4.data.*
 import com.perrigogames.life4.enums.ClearType
 import com.perrigogames.life4.enums.DifficultyClass
 import com.perrigogames.life4.enums.PlayStyle
@@ -58,7 +57,12 @@ class AndroidPlatformStrings: PlatformStrings, KoinComponent {
             c.getString(R.string.rank_goal_clear_specific, c.getString(clearType.clearResShort), songs.toListString(c, useAnd = true, caps = false), difficultyString)
 
         override fun lampDifficulty(clearType: ClearType, folderName: String, difficultyString: String): String =
-            c.getString(R.string.rank_goal_lamp, c.getString(clearType.lampRes), folderName, difficultyString)
+            c.getString(
+                R.string.rank_goal_lamp,
+                c.getString(clearType.lampRes),
+                folderName,
+                difficultyString
+            )
 
         override fun clearSingle(clearType: ClearType, difficultyString: String): String =
             c.getString(R.string.rank_goal_clear_count_single, c.getString(clearType.clearResShort), difficultyString)
@@ -77,27 +81,54 @@ class AndroidPlatformStrings: PlatformStrings, KoinComponent {
             else -> c.getString(R.string.rank_goal_difficulty_clear_single_a, leftText, difficultyString(difficulties, false))
         }
 
-        override fun scoreString(score: Int, count: Int, difficulties: IntArray): String = when {
-            score == TrialData.MAX_SCORE -> throw IllegalArgumentException("Use 'marvelous' clear type instead of specifying 1000000")
-            score == TrialData.AAA_SCORE -> clearString(count, difficulties, c.getString(R.string.clear_aaa))
-            count == 1 -> scoreSingleDifficulty(score, difficulties)
-            else -> c.getString(R.string.rank_goal_difficulty_score, score.longNumberString(), count, difficultyString(difficulties, true))
-        }
-
-        override fun scoreAllString(score: Int, clearType: ClearType, difficulty: Int): String = when (score) {
-            TrialData.MAX_SCORE -> throw IllegalArgumentException("Use 'marvelous' clear type instead of specifying 1000000")
-            TrialData.AAA_SCORE -> when (clearType) {
-                ClearType.CLEAR -> c.getString(R.string.rank_goal_difficulty_aaa_all, difficulty)
-                else -> c.getString(R.string.rank_goal_difficulty_aaa_all_lamp, difficulty, c.getString(clearType.lampRes))
-            }
-            else -> when (clearType) {
-                ClearType.CLEAR -> c.getString(R.string.rank_goal_difficulty_score_all, difficultyString(difficulty, true), score.longNumberString())
-                else -> c.getString(R.string.rank_goal_difficulty_score_all_lamp, difficultyString(difficulty, true), score.longNumberString(), c.getString(clearType.lampRes))
+        override fun scoreString(score: Int, averageScore: Int?, count: Int, difficulties: IntArray): String {
+            return when {
+                score == TrialData.MAX_SCORE -> throw IllegalArgumentException("Use 'marvelous' clear type instead of specifying 1000000")
+                score == TrialData.AAA_SCORE -> clearString(count, difficulties, c.getString(R.string.clear_aaa))
+                count == 1 -> scoreSingleDifficulty(score, difficulties)
+                else -> c.getString(R.string.rank_goal_difficulty_score, score.longNumberString(), count, difficultyString(difficulties, true))
             }
         }
 
-        override fun folderLamp(clearType: ClearType, difficulty: Int): String =
-            c.getString(R.string.rank_goal_difficulty_lamp, c.getString(clearType.lampRes), difficulty)
+        override fun scoreAllString(score: Int, averageScore: Int?, clearType: ClearType, difficulty: Int): String {
+            return when (score) {
+                TrialData.MAX_SCORE -> throw IllegalArgumentException("Use 'marvelous' clear type instead of specifying 1000000")
+                TrialData.AAA_SCORE -> when (clearType) {
+                    ClearType.CLEAR -> c.getString(
+                        R.string.rank_goal_difficulty_aaa_all,
+                        difficulty
+                    )
+                    else -> c.getString(
+                        R.string.rank_goal_difficulty_aaa_all_lamp,
+                        difficulty,
+                        c.getString(clearType.lampRes)
+                    )
+                }
+                else -> when (clearType) {
+                    ClearType.CLEAR -> c.getString(
+                        R.string.rank_goal_difficulty_score_all,
+                        difficultyString(difficulty, true),
+                        score.longNumberString(),
+                        averageSuffix(averageScore, useAnd = false),
+                    )
+                    else -> c.getString(
+                        R.string.rank_goal_difficulty_score_all_lamp,
+                        difficultyString(difficulty, true),
+                        score.longNumberString(),
+                        c.getString(clearType.lampRes),
+                        averageSuffix(averageScore, useAnd = true),
+                    )
+                }
+            }
+        }
+
+        override fun folderLamp(clearType: ClearType, difficulty: Int, averageScore: Int?): String =
+            c.getString(
+                R.string.rank_goal_difficulty_lamp,
+                c.getString(clearType.lampRes),
+                difficulty,
+                averageSuffix(averageScore, useAnd = false)
+            )
 
         override fun clearSingleDifficulty(clearType: ClearType, difficulties: IntArray): String =
             difficultyAOrAn(c.getString(clearType.clearResShort), difficulties)
@@ -116,6 +147,14 @@ class AndroidPlatformStrings: PlatformStrings, KoinComponent {
 
         override fun pluralNumber(number: Int, plural: Boolean): String =
             if (plural) c.getString(R.string.plural_number, number) else number.toString()
+
+        override fun averageSuffix(average: Int?, useAnd: Boolean): String = average?.let { average ->
+            c.getString(if (useAnd) {
+                R.string.rank_goal_difficulty_and_average
+            } else {
+                R.string.rank_goal_difficulty_with_average
+            }, average.longNumberString())
+        }.orEmpty()
 
         override fun difficultyClassString(playStyle: PlayStyle, difficulties: List<DifficultyClass>, requireAll: Boolean): String =
             difficulties.joinToString(separator = if (requireAll) " + " else " / ") { it.aggregateString(playStyle) }

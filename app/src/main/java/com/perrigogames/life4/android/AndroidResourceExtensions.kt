@@ -63,6 +63,59 @@ val LadderRank.nameRes @StringRes get() = when(this) {
     LadderRank.ONYX5 -> R.string.onyx_5
 }
 
+val LadderRank.categoryNameRes @StringRes get() = when(this) {
+    LadderRank.COPPER1,
+    LadderRank.BRONZE1,
+    LadderRank.SILVER1,
+    LadderRank.GOLD1,
+    LadderRank.PLATINUM1,
+    LadderRank.DIAMOND1,
+    LadderRank.COBALT1,
+    LadderRank.AMETHYST1,
+    LadderRank.EMERALD1,
+    LadderRank.ONYX1 -> R.string.roman_1
+    LadderRank.COPPER2,
+    LadderRank.BRONZE2,
+    LadderRank.SILVER2,
+    LadderRank.GOLD2,
+    LadderRank.PLATINUM2,
+    LadderRank.DIAMOND2,
+    LadderRank.COBALT2,
+    LadderRank.AMETHYST2,
+    LadderRank.EMERALD2,
+    LadderRank.ONYX2 -> R.string.roman_2
+    LadderRank.COPPER3,
+    LadderRank.BRONZE3,
+    LadderRank.SILVER3,
+    LadderRank.GOLD3,
+    LadderRank.PLATINUM3,
+    LadderRank.DIAMOND3,
+    LadderRank.COBALT3,
+    LadderRank.AMETHYST3,
+    LadderRank.EMERALD3,
+    LadderRank.ONYX3 -> R.string.roman_3
+    LadderRank.COPPER4,
+    LadderRank.BRONZE4,
+    LadderRank.SILVER4,
+    LadderRank.GOLD4,
+    LadderRank.PLATINUM4,
+    LadderRank.DIAMOND4,
+    LadderRank.COBALT4,
+    LadderRank.AMETHYST4,
+    LadderRank.EMERALD4,
+    LadderRank.ONYX4 -> R.string.roman_4
+    LadderRank.COPPER5,
+    LadderRank.BRONZE5,
+    LadderRank.SILVER5,
+    LadderRank.GOLD5,
+    LadderRank.PLATINUM5,
+    LadderRank.DIAMOND5,
+    LadderRank.COBALT5,
+    LadderRank.AMETHYST5,
+    LadderRank.EMERALD5,
+    LadderRank.ONYX5 -> R.string.roman_5
+}
+
 val LadderRank.drawableRes @DrawableRes get() = when(this) {
     LadderRank.COPPER1 -> R.drawable.copper_1
     LadderRank.COPPER2 -> R.drawable.copper_2

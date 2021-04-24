@@ -10,7 +10,6 @@ package com.perrigogames.life4.data
 import com.perrigogames.life4.PlatformStrings
 import com.perrigogames.life4.enums.*
 import com.perrigogames.life4.db.DetailedChartResult
-import com.perrigogames.life4.enums.*
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
@@ -147,10 +146,10 @@ class DifficultyClearGoal(@SerialName("d") val difficulty: Int? = null,
 
     override fun goalString(c: PlatformStrings): String {
         return if (count == null) when {
-            score != null -> c.rank.scoreAllString(score, clearType, difficulty!!) + exceptionString(c) // All X over Y
-            else -> c.rank.folderLamp(clearType, difficulty!!) + exceptionString(c) // Y lamp the X's folder
+            score != null -> c.rank.scoreAllString(score, averageScore, clearType, difficulty!!) + exceptionString(c) // All X over Y
+            else -> c.rank.folderLamp(clearType, difficulty!!, averageScore) + exceptionString(c) // Y lamp the X's folder
         } else when {
-            score != null -> c.rank.scoreString(score, count, difficultyNumbers) // X Ys over Z
+            score != null -> c.rank.scoreString(score, averageScore, count, difficultyNumbers) // X Ys over Z
             else -> clearString(c) // Y clear Z X's
         }
     }

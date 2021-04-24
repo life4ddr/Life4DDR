@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.perrigogames.life4.LadderRanksReplacedEvent
 import com.perrigogames.life4.data.RankEntry
 import com.perrigogames.life4.android.R
+import com.perrigogames.life4.data.LadderRankClass
 import com.perrigogames.life4.model.LadderManager
 import kotlinx.android.synthetic.main.fragment_rank_list.view.*
 import org.greenrobot.eventbus.EventBus
@@ -38,17 +39,13 @@ class RankListFragment : Fragment(), KoinComponent {
         val view = inflater.inflate(R.layout.fragment_rank_list, container, false)
 
         with(view.recycler_rank_list as RecyclerView) {
-            layoutManager = when {
-                columnCount <= 1 -> LinearLayoutManager(context)
-                else -> GridLayoutManager(context, columnCount).apply {
-                    spanSizeLookup = object: GridLayoutManager.SpanSizeLookup() {
-                        override fun getSpanSize(pos: Int) =
-                            if (pos == 0) columnCount
-                            else 1
-                    }
-                }
+            val ranks = rankData
+                .rankRequirements
+                .groupBy { it.rank.group }
+            adapter = RankListAdapter(ranks, ladderManager.getUserRank(), listener)
+            layoutManager = GridLayoutManager(context, columnCount).apply {
+                spanSizeLookup = (adapter as RankListAdapter).spanSizeLookup(columnCount)
             }
-            adapter = RankListAdapter(rankData.rankRequirements, ladderManager.getUserRank(), columnCount == 1, listener)
         }
         return view
     }

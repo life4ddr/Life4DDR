@@ -60,12 +60,14 @@
     <string name="rank_goal_difficulty_clear_single">%s %s.</string>
     <string name="rank_goal_difficulty_clear_single_a">%s a %s.</string>
     <string name="rank_goal_difficulty_clear_single_an">%s an %s.</string>
-    <string name="rank_goal_difficulty_lamp">%s the %d\'s folder.</string>
+    <string name="rank_goal_difficulty_lamp">%s the %d\'s folder%s.</string>
     <string name="rank_goal_difficulty_score">%s %d %s.</string>
-    <string name="rank_goal_difficulty_score_all">All %s over %s.</string>
-    <string name="rank_goal_difficulty_score_all_lamp">All %s over %s with a %s.</string>
+    <string name="rank_goal_difficulty_score_all">All %s over %s%s.</string>
+    <string name="rank_goal_difficulty_score_all_lamp">All %s over %s with a %s%s.</string>
     <string name="rank_goal_difficulty_aaa_all">AAA every %d.</string>
     <string name="rank_goal_difficulty_aaa_all_lamp">AAA every %d with a %s.</string>
+    <string name="rank_goal_difficulty_with_average">" with an average score of %s"</string>
+    <string name="rank_goal_difficulty_and_average">" and an average score of %s"</string>
     <string name="rank_goal_mfc_points">Earn %d MFC Points.</string>
     <string name="exceptions">" (%dE)"</string>
     <string name="exceptions_songs">" (except %s)"</string>
@@ -312,6 +314,11 @@
     <string name="onyx_3">ONYX III</string>
     <string name="onyx_4">ONYX IV</string>
     <string name="onyx_5">ONYX V</string>
+    <string name="roman_1">I</string>
+    <string name="roman_2">II</string>
+    <string name="roman_3">III</string>
+    <string name="roman_4">IV</string>
+    <string name="roman_5">V</string>
 
     <!-- Trial Rank Strings -->
     <string name="set_numbers_multiple_same_format">%d different %d\'s</string>
