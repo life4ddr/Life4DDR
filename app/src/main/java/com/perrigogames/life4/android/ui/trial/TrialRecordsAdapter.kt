@@ -99,10 +99,10 @@ class TrialRecordsAdapter(private val viewModel: TrialRecordsViewModel,
 
             val sessionEx = songs.sumBy { it.exScore.toInt() }
             val shouldShowRemaining = settings.getBoolean(KEY_RECORDS_REMAINING_EX, false)
-            val goalEx = if (shouldShowRemaining) sessionEx - trial.total_ex else trial.total_ex
+            val goalEx = if (shouldShowRemaining) sessionEx - trial.totalEx else trial.totalEx
             exScore.text = context.getString(R.string.ex_score_fraction_format, sessionEx, goalEx)
-            exProgress.max = trial.total_ex
-            val progressPercent = AccelerateInterpolator(0.25f).getInterpolation(sessionEx.toFloat() / trial.total_ex)
+            exProgress.max = trial.totalEx
+            val progressPercent = AccelerateInterpolator(0.25f).getInterpolation(sessionEx.toFloat() / trial.totalEx)
             exProgress.progress = (progressPercent * sessionEx).toInt()
 
             rankImage.rank = session.goalRank.parent

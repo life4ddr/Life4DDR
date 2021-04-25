@@ -41,6 +41,6 @@ class TrialRemoteData(reader: LocalDataReader,
 
     private fun validateTrialData(data: TrialData) {
         data.trials.firstOrNull { !it.isExValid }?.let { trial -> throw Exception(
-            "Trial ${trial.name} (${trial.total_ex}) has improper EX scores: ${trial.songs.map { it.ex }.joinToString()}") }
+            "Trial ${trial.name} (${trial.totalEx}) has improper EX scores: ${trial.songs.map { it.ex }.joinToString()}") }
     }
 }

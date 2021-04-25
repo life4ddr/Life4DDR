@@ -24,7 +24,6 @@ sealed class BaseRankGoal {
 
     open val id: Int = -1
     @SerialName("s") open val playStyle: PlayStyle = PlayStyle.SINGLE
-    @SerialName("m") open val mandatory: Boolean = false
 
     abstract fun goalString(c: PlatformStrings): String
 

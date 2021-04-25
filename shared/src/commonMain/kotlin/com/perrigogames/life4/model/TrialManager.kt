@@ -55,9 +55,9 @@ class TrialManager: BaseModel() {
     private fun validateTrials() = trials.forEach { trial ->
         var sum = 0
         trial.songs.forEach { sum += it.ex }
-        if (sum != trial.total_ex) {
+        if (sum != trial.totalEx) {
             if (!isDebug) {
-                logException(Exception("Trial ${trial.name} has improper EX values: total_ex=${trial.total_ex}, sum=$sum"))
+                logException(Exception("Trial ${trial.name} has improper EX values: total_ex=${trial.totalEx}, sum=$sum"))
             }
         }
     }

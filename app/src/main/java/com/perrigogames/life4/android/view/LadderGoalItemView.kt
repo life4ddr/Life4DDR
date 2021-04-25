@@ -41,6 +41,7 @@ class LadderGoalItemView @JvmOverloads constructor(context: Context,
     private var goal: BaseRankGoal? = null
     private var goalDB: GoalState? = null
     private var goalProgress: LadderGoalProgress? = null
+    private var mandatory: Boolean = true
     private var oldColors: ColorStateList? = null
 
     var listener: LadderGoalItemListener? = null
@@ -74,10 +75,16 @@ class LadderGoalItemView @JvmOverloads constructor(context: Context,
         button_ignore.setOnClickListener(null)
     }
 
-    fun setGoal(goal: BaseRankGoal, goalDB: GoalState? = null, goalProgress: LadderGoalProgress? = null) {
+    fun setGoal(
+        goal: BaseRankGoal,
+        goalDB: GoalState? = null,
+        goalProgress: LadderGoalProgress? = null,
+        mandatory: Boolean,
+    ) {
         this.goal = goal
         this.goalDB = goalDB
         this.goalProgress = goalProgress
+        this.mandatory = mandatory
         updateData()
     }
 
@@ -136,7 +143,7 @@ class LadderGoalItemView @JvmOverloads constructor(context: Context,
 
     private fun updateIgnoreState() {
         button_ignore.visibility = when {
-            goal?.mandatory == true -> View.GONE // mandatory goals never show ignore, reclaim space
+            mandatory -> View.GONE // mandatory goals never show ignore, reclaim space
             canIgnore || currentState == IGNORED -> View.VISIBLE // show ignore if you're allowed to, or if you're already ignored
             else -> View.INVISIBLE // ignore function is hidden, don't reclaim space
         }

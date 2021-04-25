@@ -62,7 +62,7 @@ class RankEntry(val rank: LadderRank,
 
     val requirements: Int get() = requirementsOpt?.plus(mandatoryGoalCount) ?: goals.size
 
-    val allowedIgnores: Int get() = requirementsOpt?.let { req -> goals.count { !it.mandatory } - req } ?: 0
+    val allowedIgnores: Int get() = requirementsOpt?.let { req -> goals.size - req } ?: 0
 
     val difficultyGoals: List<DifficultyClearGoal> get() = goals.mapNotNull { it as? DifficultyClearGoal }
 }
