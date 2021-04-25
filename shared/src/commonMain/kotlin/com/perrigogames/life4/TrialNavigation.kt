@@ -1,7 +1,7 @@
 package com.perrigogames.life4
 
 import com.perrigogames.life4.data.InProgressTrialSession
-import com.perrigogames.life4.data.TrialRank
+import com.perrigogames.life4.enums.TrialRank
 import com.perrigogames.life4.model.TrialSessionManager
 import com.russhwolf.settings.Settings
 import org.koin.core.KoinComponent

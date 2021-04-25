@@ -11,7 +11,7 @@ import com.perrigogames.life4.SongResultsUpdatedEvent
 import com.perrigogames.life4.api.FetchListener
 import com.perrigogames.life4.api.LadderRemoteData
 import com.perrigogames.life4.api.LocalDataReader
-import com.perrigogames.life4.data.LadderRank
+import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.data.LadderRankData
 import com.perrigogames.life4.data.LadderVersion
 import com.perrigogames.life4.db.ResultDatabaseHelper

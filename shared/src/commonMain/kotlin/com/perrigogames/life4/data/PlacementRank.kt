@@ -1,5 +1,7 @@
 package com.perrigogames.life4.data
 
+import com.perrigogames.life4.enums.LadderRank
+import com.perrigogames.life4.enums.LadderRankClass
 import kotlinx.serialization.*
 import kotlinx.serialization.descriptors.PrimitiveKind
 import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor

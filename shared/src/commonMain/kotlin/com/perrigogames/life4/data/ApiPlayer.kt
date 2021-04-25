@@ -1,5 +1,6 @@
 package com.perrigogames.life4.data
 
+import com.perrigogames.life4.enums.LadderRank
 import kotlinx.serialization.SerialName
 
 class ApiPlayer(

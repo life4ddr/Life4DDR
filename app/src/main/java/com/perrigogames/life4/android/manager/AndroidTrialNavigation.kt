@@ -6,7 +6,7 @@ import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.FragmentActivity
 import com.perrigogames.life4.TrialNavigation
-import com.perrigogames.life4.data.TrialRank
+import com.perrigogames.life4.enums.TrialRank
 import com.perrigogames.life4.android.R
 
 

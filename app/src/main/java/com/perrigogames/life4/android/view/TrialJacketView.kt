@@ -13,7 +13,7 @@ import androidx.core.content.res.ResourcesCompat
 import com.bumptech.glide.Glide
 import com.perrigogames.life4.android.R
 import com.perrigogames.life4.data.Trial
-import com.perrigogames.life4.data.TrialRank
+import com.perrigogames.life4.enums.TrialRank
 import com.perrigogames.life4.android.colorRes
 import com.perrigogames.life4.android.drawableRes
 import com.perrigogames.life4.android.util.jacketResId

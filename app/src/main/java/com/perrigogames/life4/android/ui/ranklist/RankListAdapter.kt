@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.perrigogames.life4.data.LadderRank
+import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.data.RankEntry
 import com.perrigogames.life4.android.R
 import com.perrigogames.life4.android.categoryNameRes
@@ -16,10 +16,9 @@ import com.perrigogames.life4.android.drawableRes
 import com.perrigogames.life4.android.nameRes
 import com.perrigogames.life4.android.ui.ranklist.RankListFragment.OnRankListInteractionListener
 import com.perrigogames.life4.android.view.RankImageView
-import com.perrigogames.life4.data.LadderRankClass
+import com.perrigogames.life4.enums.LadderRankClass
 import kotlinx.android.synthetic.main.item_rank_list.view.image_rank_icon
 import kotlinx.android.synthetic.main.item_rank_list.view.text_goal_title
-import kotlinx.android.synthetic.main.item_rank_list_goals.view.*
 import org.koin.core.KoinComponent
 
 /**

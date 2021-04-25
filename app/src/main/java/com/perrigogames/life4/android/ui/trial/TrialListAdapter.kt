@@ -4,7 +4,7 @@ import android.content.Context
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.perrigogames.life4.data.Trial
-import com.perrigogames.life4.data.TrialType
+import com.perrigogames.life4.enums.TrialType
 import com.perrigogames.life4.model.TrialManager
 import com.perrigogames.life4.android.view.JacketCornerView.CornerType.EVENT
 import com.perrigogames.life4.android.view.JacketCornerView.CornerType.NEW

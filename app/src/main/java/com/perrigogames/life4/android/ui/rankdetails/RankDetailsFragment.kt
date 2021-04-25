@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.ChangeTransform
 import androidx.transition.TransitionManager
-import com.perrigogames.life4.data.LadderRank
+import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.data.RankEntry
 import com.perrigogames.life4.model.LadderManager
 import com.perrigogames.life4.android.R

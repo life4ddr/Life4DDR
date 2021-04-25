@@ -36,7 +36,10 @@ sealed class BaseRankGoal {
  */
 @Serializable
 @SerialName("calories")
-class CaloriesRankGoal(val count: Int): BaseRankGoal() {
+class CaloriesRankGoal(
+    val count: Int,
+): BaseRankGoal() {
+
     override fun goalString(c: PlatformStrings) = c.rank.getCalorieCountString(count)
 }
 
@@ -50,13 +53,18 @@ class CaloriesRankGoal(val count: Int): BaseRankGoal() {
  */
 @Serializable
 @SerialName("songs")
-class SongSetClearGoal(@SerialName("clear_type") private val clearType: ClearType = ClearType.CLEAR,
-                       @SerialName("folder_count") val folderCount: Int? = null,
-                       @SerialName("song_count") val songCount: Int? = null,
-                       private val difficulties: String,
-                       val folder: String? = null,
-                       val score: Int? = null,
-                       val songs: List<String>? = null): BaseRankGoal() {
+class SongSetClearGoal(
+    private val difficulties: String,
+    @SerialName("clear_type") private val clearType: ClearType = ClearType.CLEAR,
+    @SerialName("folder_count") val folderCount: Int? = null,
+    @SerialName("song_count") val songCount: Int? = null,
+    val folder: String? = null,
+    val score: Int? = null,
+    val songs: List<String>? = null,
+): BaseRankGoal() {
+
+    val difficultySet: DifficultyClassSet
+        get() = DifficultyClassSet.parse(difficulties)
 
     override fun goalString(c: PlatformStrings): String = when {
         score != null && songs != null -> c.rank.scoreSpecificSongDifficulty(score, songs, difficultyString(c))
@@ -65,9 +73,6 @@ class SongSetClearGoal(@SerialName("clear_type") private val clearType: ClearTyp
         songCount == 1 -> c.rank.clearSingle(clearType, difficultyString(c))
         else -> c.rank.clearCount(clearType, songCount, difficultyString(c))
     }
-
-    val difficultySet: DifficultyClassSet
-        get() = DifficultyClassSet.parse(difficulties)
 
     private fun difficultyString(c: PlatformStrings): String =
         difficultySet.set.joinToString(separator = difficultySeparator) { (it + playStyle).toString() }
@@ -83,7 +88,10 @@ class SongSetClearGoal(@SerialName("clear_type") private val clearType: ClearTyp
  */
 @Serializable
 @SerialName("set")
-class SongSetGoal(@SerialName("difficulty_numbers") val difficulties: IntArray): BaseRankGoal() {
+class SongSetGoal(
+    @SerialName("difficulty_numbers") val difficulties: IntArray,
+): BaseRankGoal() {
+
     override fun goalString(c: PlatformStrings) = c.rank.getSongSetString(difficulties)
 }
 
@@ -94,9 +102,12 @@ class SongSetGoal(@SerialName("difficulty_numbers") val difficulties: IntArray):
  */
 @Serializable
 @SerialName("trial")
-class TrialGoal(val rank: TrialRank,
-                val count: Int = 1,
-                @SerialName("restrict") val restrictDifficulty: Boolean = false): BaseRankGoal() {
+class TrialGoal(
+    val rank: TrialRank,
+    val count: Int = 1,
+    @SerialName("restrict") val restrictDifficulty: Boolean = false,
+): BaseRankGoal() {
+
     override fun goalString(c: PlatformStrings) = c.rank.getTrialCountString(rank, count)
 }
 
@@ -120,18 +131,21 @@ class TrialGoal(val rank: TrialRank,
  */
 @Serializable
 @SerialName("difficulty")
-class DifficultyClearGoal(@SerialName("d") val difficulty: Int? = null,
-                          @SerialName("difficulty_numbers") private val mDifficultyNumbers: IntArray? = null,
-                          private val difficulties: String? = null,
-                          @SerialName("clear_type") private val mClearType: ClearType? = null,
-                          val count: Int? = null,
-                          val songs: List<String>? = null,
-                          val score: Int? = null,
-                          @SerialName("average_score") val averageScore: Int? = null,
-                          val exceptions: Int? = null,
-                          @SerialName("song_exceptions") val songExceptions: List<String>? = null): BaseRankGoal() {
+class DifficultyClearGoal(
+    @SerialName("d") val difficulty: Int? = null,
+    @SerialName("difficulty_numbers") private val mDifficultyNumbers: IntArray? = null,
+    private val difficulties: String? = null,
+    @SerialName("clear_type") private val mClearType: ClearType? = null,
+    val count: Int? = null,
+    val songs: List<String>? = null,
+    val score: Int? = null,
+    @SerialName("average_score") val averageScore: Int? = null,
+    val exceptions: Int? = null,
+    @SerialName("song_exceptions") val songExceptions: List<String>? = null,
+): BaseRankGoal() {
 
-    val clearType: ClearType get() = mClearType ?: ClearType.CLEAR
+    val clearType: ClearType
+        get() = mClearType ?: ClearType.CLEAR
 
     val difficultyNumbers: IntArray
         get() = when {
@@ -153,7 +167,7 @@ class DifficultyClearGoal(@SerialName("d") val difficulty: Int? = null,
         }
     }
 
-    override fun getGoalProgress(possible: Int, results: List<DetailedChartResult>): LadderGoalProgress? {
+    override fun getGoalProgress(possible: Int, results: List<DetailedChartResult>): LadderGoalProgress {
         return when {
             results.isEmpty() -> LadderGoalProgress(0, possible)
             count == null -> {
@@ -192,7 +206,9 @@ class DifficultyClearGoal(@SerialName("d") val difficulty: Int? = null,
  */
 @Serializable
 @SerialName("mfc_points")
-class MFCPointsGoal(val points: Int): BaseRankGoal() {
+data class MFCPointsGoal(
+    val points: Int,
+): BaseRankGoal() {
 
     override fun goalString(c: PlatformStrings) = c.rank.getMFCPointString(points)
 }
@@ -203,7 +219,13 @@ class MFCPointsGoal(val points: Int): BaseRankGoal() {
  */
 @Serializable
 @SerialName("multiple")
-class MultipleChoiceGoal(val options: List<BaseRankGoal>): BaseRankGoal() {
+data class MultipleChoiceGoal(
+    val options: List<BaseRankGoal>,
+): BaseRankGoal() {
+
     override fun goalString(c: PlatformStrings) = c.toListString(
-        options.map { it.goalString(c).replace(".", "") }, useAnd = false, caps = true)
+        options.map { it.goalString(c).replace(".", "") },
+        useAnd = false,
+        caps = true
+    )
 }

@@ -32,6 +32,7 @@ import com.perrigogames.life4.android.ui.songlist.SongListFragment
 import com.perrigogames.life4.android.util.openWebUrlFromRes
 import com.perrigogames.life4.android.util.visibilityBool
 import com.perrigogames.life4.android.view.*
+import com.perrigogames.life4.enums.TrialRank
 import com.perrigogames.life4.getDebugBoolean
 import com.russhwolf.settings.set
 import kotlinx.android.synthetic.main.content_trial_details.*
@@ -361,7 +362,7 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener, K
             onScoreSummaryPhotoTaken(uri)
         } else {
             if (currentResult == null) {
-                currentResult = SongResult(trial.songs[currentIndex!!])
+                currentResult = SongResult(trial.songs[currentIndex!!], null)
             }
             currentResult!!.photoUri = uri
 

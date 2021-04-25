@@ -11,9 +11,9 @@ import androidx.annotation.StringRes
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.perrigogames.life4.Notifications
-import com.perrigogames.life4.data.LadderRank
+import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.data.Trial
-import com.perrigogames.life4.data.TrialRank
+import com.perrigogames.life4.enums.TrialRank
 import com.perrigogames.life4.android.R
 import com.perrigogames.life4.android.drawableRes
 import com.perrigogames.life4.android.nameRes

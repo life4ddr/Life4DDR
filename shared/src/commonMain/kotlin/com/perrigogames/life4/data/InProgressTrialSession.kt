@@ -2,23 +2,30 @@ package com.perrigogames.life4.data
 
 import com.perrigogames.life4.enums.ClearType
 import com.perrigogames.life4.enums.ClearType.*
+import com.perrigogames.life4.enums.TrialRank
 import com.perrigogames.life4.response.TrialGoalSet
 import com.perrigogames.life4.util.hasCascade
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
 
 @Serializable
-data class InProgressTrialSession(val trial: Trial,
-                                  var goalRank: TrialRank?,
-                                  val results: Array<SongResult?> = arrayOfNulls(TrialData.TRIAL_LENGTH),
-                                  var finalPhotoUriString: String? = null) {
+data class InProgressTrialSession(
+    val trial: Trial,
+    var goalRank: TrialRank?,
+    val results: Array<SongResult?> = arrayOfNulls(TrialData.TRIAL_LENGTH),
+    var finalPhotoUriString: String? = null,
+) {
 
-    val hasStarted: Boolean get() = results.filterNotNull().any { it.score != null }
+    @Transient var goalObtained: Boolean = false
 
-    var goalObtained: Boolean = false
+    val hasStarted: Boolean
+        get() = results.filterNotNull().any { it.score != null }
 
-    val hasFinalPhoto get() = finalPhotoUriString != null
+    val hasFinalPhoto
+        get() = finalPhotoUriString != null
 
-    val availableRanks: Array<TrialRank> = trial.goals?.map { it.rank }?.toTypedArray() ?: emptyArray()
+    val availableRanks: Array<TrialRank>
+        get() = trial.goals?.map { it.rank }?.toTypedArray() ?: emptyArray()
 
     val shouldShowAdvancedSongDetails: Boolean
         get() = (if (!hasStarted) trial.highestGoal() else trialGoalSet)
@@ -49,41 +56,46 @@ data class InProgressTrialSession(val trial: Trial,
     /**
      * Calculates the number of combined misses in the current session.
      */
-    val currentMisses: Int? get() = results.filterNotNull().sumBy { it.misses ?: 0 }
+    val currentMisses: Int get() = results.filterNotNull().sumBy { it.misses ?: 0 }
 
     /**
      * Calculates the number of combined bad judgments in the current session.
      */
-    val currentBadJudgments: Int? get() = results.filterNotNull().sumBy { it.badJudges ?: 0 }
+    val currentBadJudgments: Int get() = results.filterNotNull().sumBy { it.badJudges ?: 0 }
 
     /**
      * Calculates the number of combined misses in the current session. This
      * function will return null if ANY of the results lacks a misses value.
      */
-    val currentValidatedMisses: Int? get() = results.filterNotNull().let { current ->
-        if (current.any { it.misses == null }) {
-            null
-        } else currentMisses
-    }
+    val currentValidatedMisses: Int?
+        get() = results.filterNotNull().let { current ->
+            if (current.any { it.misses == null }) {
+                null
+            } else currentMisses
+        }
 
     /**
      * Calculates the number of combined bad judgments in the current session. This
      * function will return null if ANY of the results lacks a bad judgments value.
      */
-    val currentValidatedBadJudgments: Int? get() = results.filterNotNull().let { current ->
-        if (current.any { it.badJudges == null }) {
-            null
-        } else currentBadJudgments
-    }
+    val currentValidatedBadJudgments: Int?
+        get() = results.filterNotNull().let { current ->
+            if (current.any { it.badJudges == null }) {
+                null
+            } else currentBadJudgments
+        }
 
     /** Calculates the current total EX the player has obtained for this session */
-    val currentTotalExScore: Int get() = results.filterNotNull().sumBy { it.exScore!! }
+    val currentTotalExScore: Int
+        get() = results.filterNotNull().sumBy { it.exScore!! }
 
     /** Calculates the highest EX that a player could obtain on the songs that have been currently completed */
-    val currentMaxExScore: Int get() = trial.songs.mapIndexed { idx, item -> if (results[idx] != null) item.ex else 0  }.sumBy { it }
+    val currentMaxExScore: Int
+        get() = trial.songs.mapIndexed { idx, item -> if (results[idx] != null) item.ex else 0  }.sumBy { it }
 
     /** Calculates the amount of EX that is missing, which only counts the songs that have been completed */
-    val missingExScore: Int get() = currentMaxExScore - currentTotalExScore
+    val missingExScore: Int
+        get() = currentMaxExScore - currentTotalExScore
 
     /** Calculates a player's rough projected EX score, assuming they get the same percentage of EX on the rest of the set as
      * they have on their already completed songs. */
@@ -94,12 +106,14 @@ data class InProgressTrialSession(val trial: Trial,
         }
 
     /** Calculates the amount of EX still available on songs that haven't been played */
-    val remainingExScore: Int get() = currentTotalExScore - trial.totalEx
+    val remainingExScore: Int
+        get() = currentTotalExScore - trial.totalEx
 
-    val highestPossibleRank: TrialRank? get() {
-        val availableRanks = trial.goals?.map { it.rank }?.sortedBy { it.stableId }
-        return availableRanks?.lastOrNull { isRankSatisfied(it) }
-    }
+    val highestPossibleRank: TrialRank?
+        get() {
+            val availableRanks = trial.goals?.map { it.rank }?.sortedBy { it.stableId }
+            return availableRanks?.lastOrNull { isRankSatisfied(it) }
+        }
 
     fun isRankSatisfied(rank: TrialRank): Boolean {
         var satisfied = true
@@ -151,15 +165,17 @@ data class InProgressTrialSession(val trial: Trial,
 }
 
 @Serializable
-data class SongResult(var song: Song,
-                      var photoUriString: String? = null,
-                      var score: Int? = null,
-                      var exScore: Int? = null,
-                      var misses: Int? = null,
-                      var goods: Int? = null,
-                      var greats: Int? = null,
-                      var perfects: Int? = null,
-                      var passed: Boolean = true) {
+data class SongResult(
+    var song: Song,
+    var photoUriString: String?,
+    var score: Int? = null,
+    var exScore: Int? = null,
+    var misses: Int? = null,
+    var goods: Int? = null,
+    var greats: Int? = null,
+    var perfects: Int? = null,
+    var passed: Boolean = true,
+) {
 
     val badJudges get() = if (hasAdvancedStats) misses!! + goods!! + greats!! else null
 

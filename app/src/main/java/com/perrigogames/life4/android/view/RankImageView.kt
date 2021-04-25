@@ -7,7 +7,7 @@ import android.util.AttributeSet
 import android.widget.ImageView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.content.ContextCompat
-import com.perrigogames.life4.data.LadderRank
+import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.android.drawableRes
 
 /**

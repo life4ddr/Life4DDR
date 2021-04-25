@@ -8,9 +8,7 @@ import com.perrigogames.life4.RankStrings
 import com.perrigogames.life4.TrialStrings
 import com.perrigogames.life4.data.*
 import com.perrigogames.life4.*
-import com.perrigogames.life4.enums.ClearType
-import com.perrigogames.life4.enums.DifficultyClass
-import com.perrigogames.life4.enums.PlayStyle
+import com.perrigogames.life4.enums.*
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 

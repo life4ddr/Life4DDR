@@ -1,8 +1,8 @@
 package com.perrigogames.life4
 
-import com.perrigogames.life4.data.LadderRank
+import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.data.Trial
-import com.perrigogames.life4.data.TrialRank
+import com.perrigogames.life4.enums.TrialRank
 import com.russhwolf.settings.Settings
 import org.koin.core.KoinComponent
 import org.koin.core.inject

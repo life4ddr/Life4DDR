@@ -1,9 +1,7 @@
 package com.perrigogames.life4.db
 
 import com.perrigogames.life4.data.InProgressTrialSession
-import com.perrigogames.life4.data.TrialRank
-import com.perrigogames.life4.db.TrialSession
-import com.perrigogames.life4.db.TrialSong
+import com.perrigogames.life4.enums.TrialRank
 import com.squareup.sqldelight.Query
 import com.squareup.sqldelight.db.SqlDriver
 import kotlinx.coroutines.Dispatchers

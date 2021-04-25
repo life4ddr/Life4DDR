@@ -11,7 +11,7 @@ import com.perrigogames.life4.SettingsKeys.KEY_LIST_SHOW_EX
 import com.perrigogames.life4.SettingsKeys.KEY_LIST_SHOW_EX_REMAINING
 import com.perrigogames.life4.SettingsKeys.KEY_LIST_TINT_COMPLETED
 import com.perrigogames.life4.data.Trial
-import com.perrigogames.life4.data.TrialRank
+import com.perrigogames.life4.enums.TrialRank
 import com.perrigogames.life4.android.R
 import com.russhwolf.settings.Settings
 import kotlinx.android.synthetic.main.item_trial_list_item.view.*

@@ -14,7 +14,7 @@ import com.perrigogames.life4.SettingsKeys.KEY_LIST_HIGHLIGHT_NEW
 import com.perrigogames.life4.TrialListReplacedEvent
 import com.perrigogames.life4.TrialListUpdatedEvent
 import com.perrigogames.life4.data.Trial
-import com.perrigogames.life4.data.TrialType
+import com.perrigogames.life4.enums.TrialType
 import com.perrigogames.life4.android.R
 import com.perrigogames.life4.model.TrialManager
 import com.perrigogames.life4.android.view.PaddingItemDecoration
@@ -71,7 +71,7 @@ class TrialListFragment : Fragment(), KoinComponent {
         recyclerView.addItemDecoration(PaddingItemDecoration(resources.getDimensionPixelSize(R.dimen.content_padding_med)))
 
         val displayMetrics = DisplayMetrics()
-        activity!!.windowManager.defaultDisplay.getMetrics(displayMetrics)
+        requireActivity().windowManager.defaultDisplay.getMetrics(displayMetrics)
         recyclerView.layoutManager = GridLayoutManager(context,
             if (displayMetrics.widthPixels > displayMetrics.heightPixels) 4 else 2)
     }

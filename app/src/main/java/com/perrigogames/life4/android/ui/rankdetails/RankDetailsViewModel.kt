@@ -6,7 +6,7 @@ import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.perrigogames.life4.data.BaseRankGoal
-import com.perrigogames.life4.data.LadderRank
+import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.data.RankEntry
 import com.perrigogames.life4.db.GoalState
 import com.perrigogames.life4.enums.GoalStatus

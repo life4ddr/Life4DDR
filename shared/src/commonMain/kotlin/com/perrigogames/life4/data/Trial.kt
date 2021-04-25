@@ -10,10 +10,7 @@
 
 package com.perrigogames.life4.data
 
-import com.perrigogames.life4.enums.ChartTypeSerializer
-import com.perrigogames.life4.enums.DifficultyClass
-import com.perrigogames.life4.enums.DifficultyClassSerializer
-import com.perrigogames.life4.enums.PlayStyleSerializer
+import com.perrigogames.life4.enums.*
 import com.perrigogames.life4.response.TrialGoalSet
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
@@ -27,9 +24,11 @@ import kotlinx.serialization.encoding.Encoder
 import kotlin.math.max
 
 @Serializable
-data class TrialData(override val version: Int,
-                     @SerialName("major_version") override val majorVersion: Int,
-                     val trials: List<Trial>): MajorVersioned {
+data class TrialData(
+    override val version: Int,
+    @SerialName("major_version") override val majorVersion: Int,
+    val trials: List<Trial>,
+): MajorVersioned {
 
     companion object {
         const val HIGHEST_DIFFICULTY = 20
@@ -43,24 +42,28 @@ data class TrialData(override val version: Int,
 }
 
 @Serializable
-data class Trial(val id: String,
-                 val name: String,
-                 val author: String? = null,
-                 val type: TrialType,
-                 @SerialName("placement_rank") val placementRank: PlacementRank? = null,
-                 val new: Boolean = false,
-                 @SerialName("event_start") val eventStart: Instant? = null,
-                 @SerialName("event_end") val eventEnd: Instant? = null,
-                 @SerialName("scoring_groups") val scoringGroups: List<List<TrialRank>>? = null,
-                 val difficulty: Int? = null,
-                 val goals: List<TrialGoalSet>? = null,
-                 @SerialName("total_ex") val totalEx: Int = 0,
-                 @SerialName("cover_url") val coverUrl: String? = null,
-                 @SerialName("cover_override") val coverOverride: Boolean = false,
-                 val songs: List<Song>) {
+data class Trial(
+    val id: String,
+    val name: String,
+    val author: String? = null,
+    val new: Boolean = false,
+    val type: TrialType,
+    @SerialName("placement_rank") val placementRank: PlacementRank? = null,
+    val songs: List<Song>,
+    @SerialName("event_start") val eventStart: Instant? = null,
+    @SerialName("event_end") val eventEnd: Instant? = null,
+    @SerialName("scoring_groups") val scoringGroups: List<List<TrialRank>>? = null,
+    val difficulty: Int? = null,
+    val goals: List<TrialGoalSet>? = null,
+    @SerialName("total_ex") val totalEx: Int = 0,
+    @SerialName("cover_url") val coverUrl: String? = null,
+    @SerialName("cover_override") val coverOverride: Boolean = false,
+) {
 
-    val isEvent get() = type == TrialType.EVENT && eventStart != null && eventEnd != null
-    val isActiveEvent get() = isEvent && (eventStart!!.rangeTo(eventEnd!!)).contains(Clock.System.now())
+    val isEvent: Boolean
+        get() = type == TrialType.EVENT && eventStart != null && eventEnd != null
+    val isActiveEvent: Boolean
+        get() = isEvent && (eventStart!!.rangeTo(eventEnd!!)).contains(Clock.System.now())
 
     fun goalSet(rank: TrialRank?): TrialGoalSet? = goals?.find { it.rank == rank }
 
@@ -86,24 +89,10 @@ data class Trial(val id: String,
 }
 
 @Serializable
-data class Song(val name: String,
-                @SerialName("difficulty") val difficultyNumber: Int,
-                @SerialName("difficulty_class") val difficultyClass: DifficultyClass,
-                val ex: Int,
-                val url: String? = null)
-
-@Serializable
-enum class TrialType {
-    @SerialName("trial") TRIAL,
-    @SerialName("placement") PLACEMENT,
-    @SerialName("event") EVENT
-}
-
-@Serializer(forClass = TrialType::class)
-object TrialTypeSerializer: KSerializer<TrialType> {
-    override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("trialType", PrimitiveKind.STRING)
-    override fun deserialize(decoder: Decoder) = TrialType.valueOf(decoder.decodeString().toUpperCase())
-    override fun serialize(encoder: Encoder, value: TrialType) {
-        encoder.encodeString(value.name.toLowerCase())
-    }
-}
+data class Song(
+    val name: String,
+    @SerialName("difficulty") val difficultyNumber: Int,
+    @SerialName("difficulty_class") val difficultyClass: DifficultyClass,
+    val ex: Int,
+    val url: String? = null,
+)

@@ -4,9 +4,7 @@
 
 package com.perrigogames.life4.data
 
-import com.perrigogames.life4.enums.GameVersion
-import com.perrigogames.life4.enums.PlayStyle
-import com.perrigogames.life4.enums.PlayStyleSerializer
+import com.perrigogames.life4.enums.*
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
@@ -17,10 +15,12 @@ import kotlinx.serialization.UseSerializers
  * be earned in LIFE4 and the goals required to obtain each.
  */
 @Serializable
-class LadderRankData(override val version: Int,
-                     @SerialName("major_version") override val majorVersion: Int,
-                     @SerialName("goals") val goals: List<BaseRankGoal>,
-                     @SerialName("game_versions") val gameVersions: Map<GameVersion, LadderVersion>): MajorVersioned {
+data class LadderRankData(
+    override val version: Int,
+    @SerialName("major_version") override val majorVersion: Int,
+    @SerialName("goals") val goals: List<BaseRankGoal>,
+    @SerialName("game_versions") val gameVersions: Map<GameVersion, LadderVersion>,
+): MajorVersioned {
 
     init {
         gameVersions.values.flatMap { it.rankRequirements }.forEach {  entry ->
@@ -42,27 +42,35 @@ class LadderRankData(override val version: Int,
 }
 
 @Serializable
-class LadderVersion(@SerialName("unlock_requirement") val unlockRequirement: LadderRank,
-                    @SerialName("rank_requirements") val rankRequirements: List<RankEntry>)
+data class LadderVersion(
+    @SerialName("unlock_requirement") val unlockRequirement: LadderRank,
+    @SerialName("rank_requirements") val rankRequirements: List<RankEntry>,
+)
 
 /**
  * Describes a single rank in [LadderRankData] and the goals required to obtain it.
  */
 @Serializable
-class RankEntry(val rank: LadderRank,
-                @SerialName("play_style") val playStyle: PlayStyle,
-                @SerialName("goal_ids") val goalIds: List<Int>? = null,
-                @SerialName("mandatory_goal_ids") val mandatoryGoalIds: List<Int>? = null,
-                @SerialName("requirements") private val requirementsOpt: Int? = null) {
+data class RankEntry(
+    val rank: LadderRank,
+    @SerialName("play_style") val playStyle: PlayStyle,
+    @SerialName("goal_ids") val goalIds: List<Int>? = null,
+    @SerialName("mandatory_goal_ids") val mandatoryGoalIds: List<Int>? = null,
+    @SerialName("requirements") private val requirementsOpt: Int? = null,
+) {
 
     @Transient var goals = emptyList<BaseRankGoal>()
     @Transient var mandatoryGoals = emptyList<BaseRankGoal>()
 
-    private val mandatoryGoalCount get() = mandatoryGoals.count()
+    private val mandatoryGoalCount
+        get() = mandatoryGoals.count()
 
-    val requirements: Int get() = requirementsOpt?.plus(mandatoryGoalCount) ?: goals.size
+    val requirements: Int
+        get() = requirementsOpt?.plus(mandatoryGoalCount) ?: goals.size
 
-    val allowedIgnores: Int get() = requirementsOpt?.let { req -> goals.size - req } ?: 0
+    val allowedIgnores: Int
+        get() = requirementsOpt?.let { req -> goals.size - req } ?: 0
 
-    val difficultyGoals: List<DifficultyClearGoal> get() = goals.mapNotNull { it as? DifficultyClearGoal }
+    val difficultyGoals: List<DifficultyClearGoal>
+        get() = goals.mapNotNull { it as? DifficultyClearGoal }
 }

@@ -45,8 +45,8 @@ import com.perrigogames.life4.SettingsKeys.KEY_SHOP_LIFE4
 import com.perrigogames.life4.SettingsKeys.KEY_SONG_RESULTS_CLEAR
 import com.perrigogames.life4.SettingsKeys.KEY_SUBMISSION_NOTIFICAION_TEST
 import com.perrigogames.life4.data.InProgressTrialSession
-import com.perrigogames.life4.data.LadderRank
-import com.perrigogames.life4.data.TrialRank
+import com.perrigogames.life4.enums.LadderRank
+import com.perrigogames.life4.enums.TrialRank
 import com.perrigogames.life4.db.TrialDatabaseHelper
 import com.perrigogames.life4.model.*
 import com.perrigogames.life4.android.BuildConfig

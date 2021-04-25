@@ -3,10 +3,10 @@ package com.perrigogames.life4.android
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import com.perrigogames.life4.data.LadderRank
-import com.perrigogames.life4.data.LadderRankClass
+import com.perrigogames.life4.enums.LadderRank
+import com.perrigogames.life4.enums.LadderRankClass
 import com.perrigogames.life4.data.PlacementRank
-import com.perrigogames.life4.data.TrialRank
+import com.perrigogames.life4.enums.TrialRank
 import com.perrigogames.life4.enums.ClearType
 import com.perrigogames.life4.enums.DifficultyClass
 

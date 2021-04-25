@@ -16,15 +16,17 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
-data class TrialGoalSet(val rank: TrialRank,
-                        val clear: List<ClearType>? = null,
-                        @SerialName("clear_indexed") val clearIndexed: List<ClearType>? = null,
-                        val score: List<Int>? = null,
-                        @SerialName("score_indexed") val scoreIndexed: List<Int>? = null,
-                        val judge: Int? = null,
-                        val miss: Int? = null,
-                        @SerialName("miss_each") val missEach: Int? = null,
-                        @SerialName("ex_missing") val exMissing: Int? = null) {
+data class TrialGoalSet(
+    val rank: TrialRank,
+    val clear: List<ClearType>? = null,
+    @SerialName("clear_indexed") val clearIndexed: List<ClearType>? = null,
+    val score: List<Int>? = null,
+    @SerialName("score_indexed") val scoreIndexed: List<Int>? = null,
+    val judge: Int? = null,
+    val miss: Int? = null,
+    @SerialName("miss_each") val missEach: Int? = null,
+    @SerialName("ex_missing") val exMissing: Int? = null,
+) {
 
     val goalTypes: List<GoalType>
         get() = mutableListOf<GoalType>().apply {

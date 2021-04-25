@@ -7,12 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.perrigogames.life4.LadderRanksReplacedEvent
 import com.perrigogames.life4.data.RankEntry
 import com.perrigogames.life4.android.R
-import com.perrigogames.life4.data.LadderRankClass
 import com.perrigogames.life4.model.LadderManager
 import kotlinx.android.synthetic.main.fragment_rank_list.view.*
 import org.greenrobot.eventbus.EventBus

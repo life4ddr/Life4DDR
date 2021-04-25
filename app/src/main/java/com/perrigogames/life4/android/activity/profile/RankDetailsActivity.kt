@@ -7,7 +7,7 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.perrigogames.life4.LadderRanksReplacedEvent
-import com.perrigogames.life4.data.LadderRank
+import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.android.R
 import com.perrigogames.life4.model.LadderManager
 import com.perrigogames.life4.android.nameRes

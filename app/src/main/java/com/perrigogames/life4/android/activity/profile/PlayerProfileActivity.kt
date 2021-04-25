@@ -12,7 +12,7 @@ import com.perrigogames.life4.*
 import com.perrigogames.life4.SettingsKeys.KEY_IMPORT_PREFER_LEGACY
 import com.perrigogames.life4.SettingsKeys.KEY_INFO_NAME
 import com.perrigogames.life4.SettingsKeys.KEY_INFO_RIVAL_CODE
-import com.perrigogames.life4.data.LadderRank
+import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.model.LadderManager
 import com.perrigogames.life4.model.TrialManager
 import com.perrigogames.life4.android.GetScoreList

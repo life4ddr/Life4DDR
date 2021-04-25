@@ -6,7 +6,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.perrigogames.life4.android.R
-import com.perrigogames.life4.data.TrialType
+import com.perrigogames.life4.enums.TrialType
 import com.perrigogames.life4.android.activity.firstrun.PlacementDetailsActivity
 import com.perrigogames.life4.android.activity.settings.SettingsActivity
 import com.perrigogames.life4.android.ui.trial.TrialListFragment

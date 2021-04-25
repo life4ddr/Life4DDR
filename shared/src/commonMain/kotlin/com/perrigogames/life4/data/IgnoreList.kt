@@ -33,13 +33,14 @@ enum class IgnoreUnlockType {
 }
 
 @Serializable
-class IgnoreListData(val lists: List<IgnoreList>,
-                     val groups: List<IgnoreGroup>,
-                     override val version: Int,
-                     @SerialName("major_version") override val majorVersion: Int):
-    MajorVersioned {
+data class IgnoreListData(
+    val lists: List<IgnoreList>,
+    val groups: List<IgnoreGroup>,
+    override val version: Int,
+    @SerialName("major_version") override val majorVersion: Int,
+): MajorVersioned {
 
-    private var mGroupMap: Map<String, IgnoreGroup>? = null
+    @Transient private var mGroupMap: Map<String, IgnoreGroup>? = null
     val groupsMap: Map<String, IgnoreGroup>
         get() {
             mGroupMap = mGroupMap ?: groups.associateBy { it.id }
@@ -58,10 +59,12 @@ class IgnoreListData(val lists: List<IgnoreList>,
  * that are closely related, like a group that unlocks all at a time
  */
 @Serializable
-class IgnoreGroup(val id: String,
-                  val name: String,
-                  val unlock: IgnoreUnlockType? = null,
-                  val songs: List<IgnoredSong>) {
+data class IgnoreGroup(
+    val id: String,
+    val name: String,
+    val songs: List<IgnoredSong>,
+    val unlock: IgnoreUnlockType? = null,
+) {
 
     fun fromStoredState(stored: Long) = unlock?.fromStoredState(stored, songs.size)
 }
@@ -71,12 +74,14 @@ class IgnoreGroup(val id: String,
  * charts that do not appear in a particular game localization
  */
 @Serializable
-class IgnoreList(val id: String,
-                 val name: String,
-                 @SerialName("base_version") val baseVersion: GameVersion,
-                 val groups: List<String>? = null,
-                 @SerialName("locked_groups") val lockedGroups: List<String>? = null,
-                 val songs: List<IgnoredSong>? = null) {
+data class IgnoreList(
+    val id: String,
+    val name: String,
+    val groups: List<String>? = null,
+    val songs: List<IgnoredSong>? = null,
+    @SerialName("locked_groups") val lockedGroups: List<String>? = null,
+    @SerialName("base_version") val baseVersion: GameVersion,
+) {
 
     @Transient var resolvedSongs: MutableList<IgnoredSong>? = null
     @Transient var resolvedCharts: MutableList<IgnoredSong>? = null
@@ -99,10 +104,12 @@ class IgnoreList(val id: String,
 }
 
 @Serializable
-class IgnoredSong(val id: Long,
-                  val title: String,
-                  @SerialName("difficulty_class") val difficultyClass: DifficultyClass? = null,
-                  @SerialName("play_style") val playStyle: PlayStyle? = null) {
+data class IgnoredSong(
+    val id: Long,
+    val title: String,
+    @SerialName("difficulty_class") val difficultyClass: DifficultyClass? = null,
+    @SerialName("play_style") val playStyle: PlayStyle? = null,
+) {
 
     fun matches(chart: ChartInfo) =
         chart.skillId == id &&
