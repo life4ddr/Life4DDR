@@ -8,15 +8,18 @@ import androidx.annotation.StringRes
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.res.ResourcesCompat
 import com.perrigogames.life4.android.R
+import com.perrigogames.life4.android.databinding.ViewJacketCornerBinding
 import com.perrigogames.life4.android.util.visibilityBool
 import com.perrigogames.life4.android.view.JacketCornerView.CornerType.EVENT
 import com.perrigogames.life4.android.view.JacketCornerView.CornerType.NEW
-import kotlinx.android.synthetic.main.view_jacket_corner.view.*
 
-class JacketCornerView @JvmOverloads constructor(context: Context,
-                                                 attrs: AttributeSet? = null,
-                                                 defStyleAttr: Int = 0) :
-    ConstraintLayout(context, attrs, defStyleAttr) {
+class JacketCornerView @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
+) : ConstraintLayout(context, attrs, defStyleAttr) {
+
+    private val binding = ViewJacketCornerBinding.bind(this)
 
     var cornerType: CornerType? = null
         set(v) {
@@ -29,17 +32,17 @@ class JacketCornerView @JvmOverloads constructor(context: Context,
         }
 
     private fun hideCorner() {
-        image_corner.visibilityBool = false
-        text_corner.visibilityBool = false
+        binding.imageCorner.visibilityBool = false
+        binding.textCorner.visibilityBool = false
     }
 
     private fun updateCorner(@DrawableRes drawableId: Int, @StringRes textId: Int, @ColorRes textColorId: Int) {
-        image_corner.visibilityBool = true
-        text_corner.visibilityBool = true
+        binding.imageCorner.visibilityBool = true
+        binding.textCorner.visibilityBool = true
 
-        image_corner.setImageDrawable(ResourcesCompat.getDrawable(resources, drawableId, context.theme))
-        text_corner.text = resources.getString(textId)
-        text_corner.setTextColor(ResourcesCompat.getColor(resources, textColorId, context.theme))
+        binding.imageCorner.setImageDrawable(ResourcesCompat.getDrawable(resources, drawableId, context.theme))
+        binding.textCorner.text = resources.getString(textId)
+        binding.textCorner.setTextColor(ResourcesCompat.getColor(resources, textColorId, context.theme))
     }
 
     enum class CornerType { NEW, EVENT }

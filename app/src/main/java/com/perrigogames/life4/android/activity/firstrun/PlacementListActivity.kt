@@ -5,14 +5,13 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.perrigogames.life4.model.PlacementManager
-import com.perrigogames.life4.android.R
 import com.perrigogames.life4.android.activity.firstrun.PlacementDetailsActivity.Companion.RESULT_FINISHED
-import com.perrigogames.life4.model.FirstRunManager
+import com.perrigogames.life4.android.databinding.ActivityPlacementListBinding
 import com.perrigogames.life4.android.manager.finishProcessIntent
 import com.perrigogames.life4.android.manager.rankListIntent
 import com.perrigogames.life4.android.ui.firstrun.PlacementListAdapter
-import kotlinx.android.synthetic.main.activity_placement_list.*
+import com.perrigogames.life4.model.FirstRunManager
+import com.perrigogames.life4.model.PlacementManager
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 
@@ -24,12 +23,15 @@ class PlacementListActivity : AppCompatActivity(), KoinComponent {
     private val firstRunManager: FirstRunManager by inject()
     private val placementManager: PlacementManager by inject()
 
+    private lateinit var binding: ActivityPlacementListBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_placement_list)
+        binding = ActivityPlacementListBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        recycler_placements.layoutManager = LinearLayoutManager(this)
-        recycler_placements.adapter = PlacementListAdapter(placementManager.placements) { id ->
+        binding.recyclerPlacements.layoutManager = LinearLayoutManager(this)
+        binding.recyclerPlacements.adapter = PlacementListAdapter(placementManager.placements) { id ->
             startActivityForResult(PlacementDetailsActivity.intent(this, id),
                 REQUEST_PLACEMENT_FINISH
             )

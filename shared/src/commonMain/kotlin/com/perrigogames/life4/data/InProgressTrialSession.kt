@@ -122,13 +122,13 @@ data class InProgressTrialSession(
             satisfied = (missingExScore <= goal.exMissing)
         }
         if (satisfied && goal.judge != null) {
-            satisfied = currentBadJudgments?.let { it <= goal.judge } ?: true
+            satisfied = currentBadJudgments.let { it <= goal.judge }
         }
         if (satisfied && goal.miss != null) {
-            satisfied = currentMisses?.let { it <= goal.miss } ?: true
+            satisfied = currentMisses.let { it <= goal.miss }
         }
         if (satisfied && goal.missEach != null) {
-            satisfied = currentMisses?.let { it <= goal.missEach } ?: true
+            satisfied = currentMisses.let { it <= goal.missEach }
         }
 
         val scores = results.map { it?.score }

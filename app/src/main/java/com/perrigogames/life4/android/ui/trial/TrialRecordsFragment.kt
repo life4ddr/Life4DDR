@@ -10,34 +10,37 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.perrigogames.life4.db.TrialSession
 import com.perrigogames.life4.android.R
+import com.perrigogames.life4.android.databinding.FragmentTrialRecordsBinding
 import com.perrigogames.life4.model.TrialManager
 import com.perrigogames.life4.android.util.visibilityBool
 import com.perrigogames.life4.android.view.ContextMenuRecyclerView.RecyclerViewContextMenuInfo
-import kotlinx.android.synthetic.main.fragment_trial_records.*
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 
 
 class TrialRecordsFragment : Fragment(), KoinComponent {
 
-    private val trialManager: TrialManager by inject()
+    private val adapter get() = (binding.recyclerRecordsList as RecyclerView).adapter as TrialRecordsAdapter
 
-    private val adapter get() = (recycler_records_list as RecyclerView).adapter as TrialRecordsAdapter
+    private var _binding: FragmentTrialRecordsBinding? = null
+    private val binding get() = _binding!!
 
     private val viewModel: TrialRecordsViewModel by viewModels()
     private var listener: OnRecordsListInteractionListener? = null
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
-        inflater.inflate(R.layout.fragment_trial_records, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        _binding = FragmentTrialRecordsBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        (recycler_records_list as RecyclerView).apply {
+        (binding.recyclerRecordsList as RecyclerView).apply {
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
             adapter = TrialRecordsAdapter(viewModel, listener)
             addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
             updateEmptyLabelView()
         }
-        registerForContextMenu(recycler_records_list)
+        registerForContextMenu(binding.recyclerRecordsList)
     }
 
     override fun onAttach(context: Context) {
@@ -51,7 +54,7 @@ class TrialRecordsFragment : Fragment(), KoinComponent {
 
     override fun onCreateContextMenu(menu: ContextMenu, v: View, menuInfo: ContextMenu.ContextMenuInfo?) {
         super.onCreateContextMenu(menu, v, menuInfo)
-        activity!!.menuInflater.inflate(R.menu.menu_record, menu)
+        requireActivity().menuInflater.inflate(R.menu.menu_record, menu)
     }
 
     override fun onContextItemSelected(item: MenuItem): Boolean {
@@ -66,7 +69,7 @@ class TrialRecordsFragment : Fragment(), KoinComponent {
     }
 
     private fun updateEmptyLabelView() {
-        text_no_records.visibilityBool = adapter.itemCount <= 0
+        binding.textNoRecords.visibilityBool = adapter.itemCount <= 0
     }
 
     /**

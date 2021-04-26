@@ -146,12 +146,12 @@ class AndroidPlatformStrings: PlatformStrings, KoinComponent {
         override fun pluralNumber(number: Int, plural: Boolean): String =
             if (plural) c.getString(R.string.plural_number, number) else number.toString()
 
-        override fun averageSuffix(average: Int?, useAnd: Boolean): String = average?.let { average ->
+        override fun averageSuffix(average: Int?, useAnd: Boolean): String = average?.let { avg ->
             c.getString(if (useAnd) {
                 R.string.rank_goal_difficulty_and_average
             } else {
                 R.string.rank_goal_difficulty_with_average
-            }, average.longNumberString())
+            }, avg.longNumberString())
         }.orEmpty()
 
         override fun difficultyClassString(playStyle: PlayStyle, difficulties: List<DifficultyClass>, requireAll: Boolean): String =

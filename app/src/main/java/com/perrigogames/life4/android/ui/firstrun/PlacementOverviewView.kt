@@ -8,22 +8,24 @@ import com.bumptech.glide.Glide
 import com.perrigogames.life4.data.PlacementRank
 import com.perrigogames.life4.data.Song
 import com.perrigogames.life4.android.colorRes
+import com.perrigogames.life4.android.databinding.ItemPlacementOverviewBinding
 import com.perrigogames.life4.android.nameRes
-import com.perrigogames.life4.android.view.RankImageView
-import kotlinx.android.synthetic.main.item_placement_overview.view.*
 
-class PlacementOverviewView @JvmOverloads constructor(context: Context,
-                                                      attrs: AttributeSet? = null,
-                                                      defStyleAttr: Int = 0) :
-    ConstraintLayout(context, attrs, defStyleAttr) {
+class PlacementOverviewView @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
+) : ConstraintLayout(context, attrs, defStyleAttr) {
+
+    private val binding = ItemPlacementOverviewBinding.bind(this)
 
     var rank: PlacementRank? = null
         set(v) {
             field = v
             v?.let { rank ->
-                (image_rank as RankImageView).rank = rank.toLadderRank()
-                text_placement_title.text = context.getString(rank.nameRes)
-                text_placement_title.setTextColor(ContextCompat.getColor(context, rank.parent.colorRes))
+                binding.imageRank.rank = rank.toLadderRank()
+                binding.textPlacementTitle.text = context.getString(rank.nameRes)
+                binding.textPlacementTitle.setTextColor(ContextCompat.getColor(context, rank.parent.colorRes))
             }
         }
 
@@ -31,15 +33,15 @@ class PlacementOverviewView @JvmOverloads constructor(context: Context,
         set(v) {
             field = v
             v?.let { songs ->
-                Glide.with(this).load(songs[0].url).into(image_song_1)
-                text_song_1.text = songs[0].difficultyNumber.toString()
-                text_song_1.setTextColor(ContextCompat.getColor(context, songs[0].difficultyClass.colorRes))
-                Glide.with(this).load(songs[1].url).into(image_song_2)
-                text_song_2.text = songs[1].difficultyNumber.toString()
-                text_song_2.setTextColor(ContextCompat.getColor(context, songs[1].difficultyClass.colorRes))
-                Glide.with(this).load(songs[2].url).into(image_song_3)
-                text_song_3.text = songs[2].difficultyNumber.toString()
-                text_song_3.setTextColor(ContextCompat.getColor(context, songs[2].difficultyClass.colorRes))
+                Glide.with(this).load(songs[0].url).into(binding.imageSong1)
+                binding.textSong1.text = songs[0].difficultyNumber.toString()
+                binding.textSong1.setTextColor(ContextCompat.getColor(context, songs[0].difficultyClass.colorRes))
+                Glide.with(this).load(songs[1].url).into(binding.imageSong2)
+                binding.textSong2.text = songs[1].difficultyNumber.toString()
+                binding.textSong2.setTextColor(ContextCompat.getColor(context, songs[1].difficultyClass.colorRes))
+                Glide.with(this).load(songs[2].url).into(binding.imageSong3)
+                binding.textSong3.text = songs[2].difficultyNumber.toString()
+                binding.textSong3.setTextColor(ContextCompat.getColor(context, songs[2].difficultyClass.colorRes))
             }
         }
 }

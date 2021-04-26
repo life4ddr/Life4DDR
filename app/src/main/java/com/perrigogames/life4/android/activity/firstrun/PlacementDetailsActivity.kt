@@ -13,10 +13,12 @@ import com.perrigogames.life4.data.Trial
 import com.perrigogames.life4.model.PlacementManager
 import com.perrigogames.life4.android.R
 import com.perrigogames.life4.android.activity.base.PhotoCaptureActivity
+import com.perrigogames.life4.android.databinding.ActivityBlockListCheckBinding
+import com.perrigogames.life4.android.databinding.ContentPlacementDetailsBinding
 import com.perrigogames.life4.android.ui.songlist.SongListFragment
 import com.perrigogames.life4.android.view.RankHeaderView
+import com.perrigogames.life4.model.TrialManager
 import com.russhwolf.settings.set
-import kotlinx.android.synthetic.main.content_placement_details.*
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 
@@ -27,15 +29,18 @@ class PlacementDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listene
     private val placementId: String by lazy { intent.extras!!.getString(ARG_PLACEMENT_ID)!! }
     private val trial: Trial get() = placementManager.findPlacement(placementId)!!
 
-    override val snackbarContainer: ViewGroup get() = container
+    private lateinit var binding: ContentPlacementDetailsBinding
+
+    override val snackbarContainer: ViewGroup get() = binding.container
 
     private lateinit var songListFragment: SongListFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.content_placement_details)
+        binding = ContentPlacementDetailsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        (layout_rank_header as RankHeaderView).apply {
+        binding.layoutRankHeader.root.apply {
             rank = trial.placementRank!!.toLadderRank()
             genericTitles = true
 //            navigationListener = object : RankHeaderView.NavigationListener {
@@ -44,8 +49,8 @@ class PlacementDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listene
 //            }
         }
 
-        switch_acquire_mode.isChecked = settings.getBoolean(KEY_DETAILS_PHOTO_SELECT, false)
-        switch_acquire_mode.setOnCheckedChangeListener { _, isChecked ->
+        binding.switchAcquireMode.isChecked = settings.getBoolean(KEY_DETAILS_PHOTO_SELECT, false)
+        binding.switchAcquireMode.setOnCheckedChangeListener { _, isChecked ->
             settings[KEY_DETAILS_PHOTO_SELECT] = isChecked
         }
 
@@ -58,7 +63,7 @@ class PlacementDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listene
     override fun onResume() {
         super.onResume()
         try {
-            scroll_details.scrollTo(0, 0)
+            binding.scrollDetails.scrollTo(0, 0)
         } catch (_: NullPointerException) {}
     }
 
@@ -83,7 +88,6 @@ class PlacementDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listene
     fun onFinalizeClick(v: View) = acquirePhoto()
 
     private fun doSubmit() {
-//        life4app.trialManager.saveRecord(session)
         AlertDialog.Builder(this)
             .setTitle(R.string.confirm_placement_title)
             .setMessage(R.string.trial_submit_dialog_prompt)

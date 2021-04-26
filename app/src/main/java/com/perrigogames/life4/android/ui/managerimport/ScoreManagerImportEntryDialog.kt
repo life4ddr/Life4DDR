@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import com.perrigogames.life4.android.R
-import kotlinx.android.synthetic.main.dialog_manager_import_entry.view.*
+import com.perrigogames.life4.android.databinding.DialogManagerImportEntryBinding
 
 /**
  * A custom Dialog class that prompts the user for a data string from an
@@ -15,11 +15,11 @@ class ScoreManagerImportEntryDialog(var listener: Listener? = null): DialogFragm
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
-            val view = requireActivity().layoutInflater.inflate(R.layout.dialog_manager_import_entry, null)
+            val binding = DialogManagerImportEntryBinding.inflate(it.layoutInflater)
             AlertDialog.Builder(it)
-                .setView(view)
+                .setView(binding.root)
                 .setNegativeButton(R.string.help) { _, _ -> listener?.onHelpPressed() }
-                .setPositiveButton(R.string.okay) { _, _ -> listener?.onDataSubmitted(view.field_manager_data.text.toString().split("\n")) }
+                .setPositiveButton(R.string.okay) { _, _ -> listener?.onDataSubmitted(binding.fieldManagerData.text.toString().split("\n")) }
                 .setOnCancelListener { listener?.onDialogCancelled() }
                 .create()
         } ?: throw IllegalStateException("Activity cannot be null")

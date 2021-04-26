@@ -7,12 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.perrigogames.life4.LadderRanksReplacedEvent
 import com.perrigogames.life4.data.RankEntry
-import com.perrigogames.life4.android.R
+import com.perrigogames.life4.android.databinding.FragmentRankListBinding
 import com.perrigogames.life4.model.LadderManager
-import kotlinx.android.synthetic.main.fragment_rank_list.view.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -26,6 +24,10 @@ class RankListFragment : Fragment(), KoinComponent {
 
     private val ladderManager: LadderManager by inject()
     private val eventBus: EventBus by inject()
+
+    private var _binding: FragmentRankListBinding? = null
+    private val binding get() = _binding!!
+
     private val rankData get() = ladderManager.currentRequirements
 
     private val columnCount: Int
@@ -33,10 +35,11 @@ class RankListFragment : Fragment(), KoinComponent {
 
     private var listener: OnRankListInteractionListener? = null
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_rank_list, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        _binding = FragmentRankListBinding.inflate(inflater, container, false)
+        val view = binding.root
 
-        with(view.recycler_rank_list as RecyclerView) {
+        with(binding.recyclerRankList) {
             val ranks = rankData
                 .rankRequirements
                 .groupBy { it.rank.group }
@@ -46,6 +49,11 @@ class RankListFragment : Fragment(), KoinComponent {
             }
         }
         return view
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onAttach(context: Context) {
@@ -66,7 +74,7 @@ class RankListFragment : Fragment(), KoinComponent {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onRankListUpdated(e: LadderRanksReplacedEvent) {
-        view?.recycler_rank_list?.adapter?.notifyDataSetChanged()
+        binding.recyclerRankList.adapter?.notifyDataSetChanged()
     }
 
     /**

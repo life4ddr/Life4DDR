@@ -15,6 +15,7 @@ import com.perrigogames.life4.model.FirstRunManager
 import com.perrigogames.life4.model.LadderManager
 import com.perrigogames.life4.model.PlayerManager
 import com.perrigogames.life4.android.R
+import com.perrigogames.life4.android.databinding.ActivityFirstRunInfoBinding
 import com.perrigogames.life4.android.manager.finishProcessIntent
 import com.perrigogames.life4.android.manager.placementIntent
 import com.perrigogames.life4.android.manager.rankListIntent
@@ -22,7 +23,6 @@ import com.perrigogames.life4.android.util.onFieldChanged
 import com.perrigogames.life4.android.util.visibilityBool
 import com.perrigogames.life4.android.view.PlayerFoundView
 import com.russhwolf.settings.Settings
-import kotlinx.android.synthetic.main.activity_first_run_info.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -40,22 +40,25 @@ class FirstRunInfoActivity: AppCompatActivity(), KoinComponent {
     private val settings: Settings by inject()
     private val eventBus: EventBus by inject()
 
+    private lateinit var binding: ActivityFirstRunInfoBinding
+
     private var lastNameCheck: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_first_run_info)
+        binding = ActivityFirstRunInfoBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        field_name.setText(settings.getString(KEY_INFO_NAME, ""))
-        field_rival_code.setText(settings.getString(KEY_INFO_RIVAL_CODE, ""))
-        field_twitter.setText(settings.getString(KEY_INFO_TWITTER_NAME, ""))
+        binding.fieldName.setText(settings.getString(KEY_INFO_NAME, ""))
+        binding.fieldRivalCode.setText(settings.getString(KEY_INFO_RIVAL_CODE, ""))
+        binding.fieldTwitter.setText(settings.getString(KEY_INFO_TWITTER_NAME, ""))
 
-        field_name.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
+        binding.fieldName.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
             if (!hasFocus) {
-                onNameFinished(field_name.text.toString())
+                onNameFinished(binding.fieldName.text.toString())
             }
         }
-        field_rival_code.onFieldChanged { field, text ->
+        binding.fieldRivalCode.onFieldChanged { field, text ->
             if (text.length == 5) {
                 val firstHalf = text.substring(0..3)
                 field.setText(
@@ -64,14 +67,14 @@ class FirstRunInfoActivity: AppCompatActivity(), KoinComponent {
                 field.setSelection(field.text.length)
             }
         }
-        field_twitter.onFieldChanged { field, text ->
+        binding.fieldTwitter.onFieldChanged { field, text ->
             if (text.length == 1 && text[0] != '@') {
                 field.setText("@$text")
                 field.setSelection(field.text.length)
             }
         }
 
-        radio_method_placement.isChecked = true
+        binding.radioMethodPlacement.isChecked = true
     }
 
     override fun onStart() {
@@ -88,13 +91,13 @@ class FirstRunInfoActivity: AppCompatActivity(), KoinComponent {
         if (lastNameCheck == null || lastNameCheck != name) {
             lastNameCheck = name
             playerManager.importPlayerInfo(name)
-            progress_name.visibilityBool = true
+            binding.progressName.visibilityBool = true
         }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onPlayerImported(e: PlayerImportedEvent) {
-        progress_name.visibilityBool = false
+        binding.progressName.visibilityBool = false
         if (lastNameCheck != null && e.apiPlayer?.name == lastNameCheck) {
             (getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager)
                 .hideSoftInputFromWindow(currentFocus?.windowToken, 0)
@@ -108,26 +111,26 @@ class FirstRunInfoActivity: AppCompatActivity(), KoinComponent {
                 .setView(content)
                 .setPositiveButton(R.string.yes) { _, _ -> onAcceptImportedPlayer(e.apiPlayer!!) }
                 .setNegativeButton(R.string.no) { _, _ ->
-                    field_name.setText("")
-                    field_name.requestFocus()
+                    binding.fieldName.setText("")
+                    binding.fieldName.requestFocus()
                 }.show()
         }
     }
 
     fun onSignInClicked(v: View) {
-        if (field_name.text.isEmpty()) {
-            field_name.error = getString(R.string.error_name_required)
+        if (binding.fieldName.text.isEmpty()) {
+            binding.fieldName.error = getString(R.string.error_name_required)
             return
         }
 
-        field_name.error = null
+        binding.fieldName.error = null
         firstRunManager.setUserBasics(
-            field_name.text.toString(),
-            field_rival_code.text.toString(),
-            field_twitter.text.toString())
+            binding.fieldName.text.toString(),
+            binding.fieldRivalCode.text.toString(),
+            binding.fieldTwitter.text.toString())
 
-        val placement = radio_method_placement.isChecked
-        val rankList = radio_method_selection.isChecked
+        val placement = binding.radioMethodPlacement.isChecked
+        val rankList = binding.radioMethodSelection.isChecked
         val launchIntent = when {
             placement -> firstRunManager.placementIntent(this)
             rankList -> firstRunManager.rankListIntent(this)
@@ -139,7 +142,7 @@ class FirstRunInfoActivity: AppCompatActivity(), KoinComponent {
     }
 
     private fun onAcceptImportedPlayer(player: ApiPlayer) {
-        field_name.error = null
+        binding.fieldName.error = null
         firstRunManager.setUserBasics(player.name, player.playerRivalCode, player.twitterHandle)
         ladderManager.setUserRank(player.rank)
         startActivity(firstRunManager.finishProcessIntent(this))

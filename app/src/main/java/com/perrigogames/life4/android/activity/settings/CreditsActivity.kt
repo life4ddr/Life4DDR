@@ -8,13 +8,16 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.perrigogames.life4.android.R
-import kotlinx.android.synthetic.main.activity_credits.*
+import com.perrigogames.life4.android.databinding.ActivityCreditsBinding
 
 class CreditsActivity: AppCompatActivity() {
 
+    private lateinit var binding: ActivityCreditsBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_credits)
+        binding = ActivityCreditsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         val defaultParams = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT).apply {
             bottomMargin = resources.getDimensionPixelOffset(R.dimen.content_padding_large)
@@ -24,7 +27,7 @@ class CreditsActivity: AppCompatActivity() {
                 text = credit
                 setTextSize(COMPLEX_UNIT_PX, resources.getDimensionPixelSize(R.dimen.text_large).toFloat())
             }
-            container_credits.addView(view, defaultParams)
+            binding.containerCredits.addView(view, defaultParams)
         }
     }
 }

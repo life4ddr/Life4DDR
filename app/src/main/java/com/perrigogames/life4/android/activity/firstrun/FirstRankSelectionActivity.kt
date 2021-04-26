@@ -11,11 +11,11 @@ import com.perrigogames.life4.android.activity.profile.RankDetailsActivity.Compa
 import com.perrigogames.life4.model.FirstRunManager
 import com.perrigogames.life4.model.LadderManager
 import com.perrigogames.life4.android.activity.profile.RankDetailsActivity
+import com.perrigogames.life4.android.databinding.ActivityFirstRankListBinding
 import com.perrigogames.life4.android.manager.finishProcessIntent
 import com.perrigogames.life4.android.manager.placementIntent
 import com.perrigogames.life4.android.ui.ranklist.RankListFragment
 import com.perrigogames.life4.android.ui.ranklist.RankListFragment.OnRankListInteractionListener
-import kotlinx.android.synthetic.main.content_rank_list.*
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 
@@ -27,11 +27,14 @@ class FirstRankSelectionActivity : AppCompatActivity(), OnRankListInteractionLis
     private val firstRunManager: FirstRunManager by inject()
     private val ladderManager: LadderManager by inject()
 
+    private lateinit var binding: ActivityFirstRankListBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_first_rank_list)
+        binding = ActivityFirstRankListBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        layout_container.removeAllViews()
+        binding.includeRankList.layoutContainer.removeAllViews()
         supportFragmentManager.beginTransaction()
             .add(R.id.layout_container,
                 RankListFragment.newInstance(3))

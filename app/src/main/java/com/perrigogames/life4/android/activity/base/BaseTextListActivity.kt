@@ -2,22 +2,24 @@ package com.perrigogames.life4.android.activity.base
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.perrigogames.life4.android.R
+import com.perrigogames.life4.android.databinding.ActivityBlockListCheckBinding
 import com.perrigogames.life4.db.SongDatabaseHelper
 import com.perrigogames.life4.db.aggregateDiffStyleString
 import com.perrigogames.life4.enums.PlayStyle
 import com.perrigogames.life4.model.IgnoreListManager
-import kotlinx.android.synthetic.main.activity_block_list_check.*
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 
 abstract class BaseTextListActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityBlockListCheckBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_block_list_check)
+        binding = ActivityBlockListCheckBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        text_songs.text = with(StringBuilder()) {
+        binding.textSongs.text = with(StringBuilder()) {
             buildText(this)
             toString()
         }

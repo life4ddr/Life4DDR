@@ -4,23 +4,26 @@ import android.content.Context
 import android.util.AttributeSet
 import android.widget.LinearLayout
 import android.widget.TextView
+import com.perrigogames.life4.android.databinding.ViewPlayerFoundBinding
 import com.perrigogames.life4.data.ApiPlayer
 import com.perrigogames.life4.android.util.visibilityBool
-import kotlinx.android.synthetic.main.view_player_found.view.*
 
-class PlayerFoundView @JvmOverloads constructor(context: Context,
-                                                attrs: AttributeSet? = null,
-                                                defStyleAttr: Int = 0) :
-    LinearLayout(context, attrs, defStyleAttr) {
+class PlayerFoundView @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
+) : LinearLayout(context, attrs, defStyleAttr) {
+
+    private val binding = ViewPlayerFoundBinding.bind(this)
 
     var apiPlayer: ApiPlayer? = null
         set(v) {
             field = v
             if (v != null) {
-                (image_rank as RankImageView).rank = v.rank
-                setField(text_player_name, v.name)
-                setField(text_player_rival_code, v.playerRivalCode)
-                setField(text_player_twitter, v.twitterHandle)
+                binding.imageRank.rank = v.rank
+                setField(binding.textPlayerName, v.name)
+                setField(binding.textPlayerRivalCode, v.playerRivalCode)
+                setField(binding.textPlayerTwitter, v.twitterHandle)
             }
         }
 

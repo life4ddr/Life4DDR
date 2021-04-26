@@ -9,13 +9,13 @@ import androidx.appcompat.app.AppCompatActivity
 import com.perrigogames.life4.LadderRanksReplacedEvent
 import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.android.R
+import com.perrigogames.life4.android.databinding.ActivityRankDetailsBinding
 import com.perrigogames.life4.model.LadderManager
 import com.perrigogames.life4.android.nameRes
 import com.perrigogames.life4.android.ui.rankdetails.RankDetailsFragment
 import com.perrigogames.life4.android.ui.rankdetails.RankDetailsViewModel
 import com.perrigogames.life4.android.util.visibilityBool
 import com.perrigogames.life4.android.view.RankHeaderView
-import kotlinx.android.synthetic.main.activity_rank_details.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -27,6 +27,8 @@ class RankDetailsActivity : AppCompatActivity(), RankHeaderView.NavigationListen
     private val ladderManager: LadderManager by inject()
     private val eventBus: EventBus by inject()
 
+    private lateinit var binding: ActivityRankDetailsBinding
+
     private var rank: LadderRank? = null
     private var showNextGoals: Boolean = false
 
@@ -34,7 +36,8 @@ class RankDetailsActivity : AppCompatActivity(), RankHeaderView.NavigationListen
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_rank_details)
+        binding = ActivityRankDetailsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         if (savedInstanceState == null) {
             setupRank(LadderRank.parse(intent.getLongExtra(ARG_RANK, 0)))
         }
@@ -100,15 +103,15 @@ class RankDetailsActivity : AppCompatActivity(), RankHeaderView.NavigationListen
 
     private fun setupRank(rank: LadderRank?) {
         this.rank = rank
-        button_use_rank.text = when {
+        binding.buttonUseRank.text = when {
             rank != null -> getString(R.string.i_am_rank_format, getString(rank.nameRes))
             else -> getString(R.string.i_have_no_rank)
         }
 
         val targetRank = if (showNextGoals) ladderManager.nextEntry(rank)?.rank else rank
-        button_work_toward_rank.visibilityBool = showWorkToward && targetRank != null
+        binding.buttonWorkTowardRank.visibilityBool = showWorkToward && targetRank != null
         (targetRank)?.let { t ->
-            button_work_toward_rank.text = getString(R.string.work_towards_rank_format, getString(t.nameRes))
+            binding.buttonWorkTowardRank.text = getString(R.string.work_towards_rank_format, getString(t.nameRes))
         }
 
         supportFragmentManager.beginTransaction()

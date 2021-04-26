@@ -104,10 +104,12 @@ class TrialDatabaseHelper(sqlDriver: SqlDriver): DatabaseHelper(sqlDriver) {
     }
 }
 
-class TrialInputSong(val score: Long,
-                     val exScore: Long,
-                     val misses: Long,
-                     val goods: Long,
-                     val greats: Long,
-                     val perfects: Long,
-                     val passed: Boolean)
+class TrialInputSong(
+    val score: Long,
+    val exScore: Long,
+    val misses: Long,
+    val goods: Long,
+    val greats: Long,
+    val perfects: Long,
+    val passed: Boolean,
+)

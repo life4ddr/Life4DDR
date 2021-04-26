@@ -7,7 +7,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import com.perrigogames.life4.model.LadderImporter
 import com.perrigogames.life4.android.R
-import kotlinx.android.synthetic.main.dialog_manager_import_processing.view.*
+import com.perrigogames.life4.android.databinding.DialogManagerImportProcessingBinding
 
 /**
  * A custom Dialog class that prompts the user for a data string from an
@@ -17,14 +17,20 @@ class ScoreManagerImportProcessingDialog(var listener: Listener? = null): Dialog
 
     lateinit var contentView: View
     lateinit var dialog: AlertDialog
+    private lateinit var binding: DialogManagerImportProcessingBinding
 
     private var errors = 0
     private var shouldClose = true
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
-            contentView = requireActivity().layoutInflater.inflate(R.layout.dialog_manager_import_processing, null)
-            contentView.button_close.setOnClickListener {
+            binding = DialogManagerImportProcessingBinding.inflate(
+                requireActivity().layoutInflater,
+                null,
+                false
+            )
+            contentView = binding.root
+            binding.buttonClose.setOnClickListener {
                 listener?.onDialogCancelled()
                 dialog.dismiss()
             }
@@ -37,17 +43,17 @@ class ScoreManagerImportProcessingDialog(var listener: Listener? = null): Dialog
         } ?: throw IllegalStateException("Activity cannot be null")
     }
 
-    val managerListener: LadderImporter.Listener get() = object: LadderImporter.Listener {
+    private val managerListener: LadderImporter.Listener get() = object: LadderImporter.Listener {
         override fun onCountUpdated(current: Int, total: Int) {
-            contentView.text_progress.text = "$current/$total (${(current.toDouble() / total * 100).toInt()}%)"
-            contentView.progress_amount.apply {
+            binding.textProgress.text = "$current/$total (${(current.toDouble() / total * 100).toInt()}%)"
+            binding.progressAmount.apply {
                 max = total
                 progress = current
             }
         }
 
         override fun onError(totalCount: Int, message: String) {
-            contentView.text_error_log.append("$message\n----\n")
+            binding.textErrorLog.append("$message\n----\n")
             errors = totalCount
             shouldClose = false
         }
@@ -55,14 +61,14 @@ class ScoreManagerImportProcessingDialog(var listener: Listener? = null): Dialog
         override fun onCompleted() {
             context?.let {
                 if (!shouldClose) {
-                    contentView.lottie_background.pauseAnimation()
-                    contentView.lottie_background.visibility = View.GONE
-                    contentView.text_progress.text = if (errors > 0) {
+                    binding.lottieBackground.pauseAnimation()
+                    binding.lottieBackground.visibility = View.GONE
+                    binding.textProgress.text = if (errors > 0) {
                         getString(R.string.import_finished_errors, errors)
                     } else {
                         getString(R.string.import_finished)
                     }
-                    contentView.button_close.text = getString(R.string.close)
+                    binding.buttonClose.text = getString(R.string.close)
                 } else {
                     dialog.dismiss()
                 }

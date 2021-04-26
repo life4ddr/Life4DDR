@@ -11,12 +11,11 @@ import com.perrigogames.life4.android.activity.profile.RankDetailsActivity.Compa
 import com.perrigogames.life4.android.activity.profile.RankDetailsActivity.Companion.EXTRA_TARGET_RANK
 import com.perrigogames.life4.android.activity.profile.RankDetailsActivity.Companion.RESULT_RANK_SELECTED
 import com.perrigogames.life4.android.activity.profile.RankDetailsActivity.Companion.RESULT_RANK_TARGET_SELECTED
+import com.perrigogames.life4.android.databinding.ActivityRankListBinding
 import com.perrigogames.life4.model.LadderManager
 import com.perrigogames.life4.android.ui.ranklist.RankListFragment
 import com.perrigogames.life4.android.ui.ranklist.RankListFragment.OnRankListInteractionListener
 import com.perrigogames.life4.android.util.visibilityBool
-import kotlinx.android.synthetic.main.activity_rank_list.*
-import kotlinx.android.synthetic.main.content_rank_list.*
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 
@@ -27,12 +26,15 @@ class RankListActivity : AppCompatActivity(), OnRankListInteractionListener, Koi
 
     private val ladderManager: LadderManager by inject()
 
+    private lateinit var binding: ActivityRankListBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_rank_list)
-        button_remove_rank.visibilityBool = ladderManager.getUserRank() != null
+        binding = ActivityRankListBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        binding.buttonRemoveRank.visibilityBool = ladderManager.getUserRank() != null
 
-        layout_container.removeAllViews()
+        binding.content.layoutContainer.removeAllViews()
         supportFragmentManager.beginTransaction()
             .add(R.id.layout_container,
                 RankListFragment.newInstance(5))

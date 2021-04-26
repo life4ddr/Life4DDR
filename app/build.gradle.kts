@@ -3,7 +3,6 @@ import org.jetbrains.kotlin.config.KotlinCompilerVersion
 plugins {
     id("com.android.application")
     kotlin("android")
-    kotlin("android.extensions")
     kotlin("kapt")
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
@@ -32,6 +31,9 @@ android {
         exclude("META-INF/NOTICE.txt")
         exclude("META-INF/notice.txt")
         exclude("META-INF/ASL2.0")
+    }
+    buildFeatures {
+        viewBinding = true
     }
     buildTypes {
         getByName("debug") {

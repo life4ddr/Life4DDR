@@ -70,8 +70,7 @@ class TrialListFragment : Fragment(), KoinComponent {
         recyclerView.adapter = adapter
         recyclerView.addItemDecoration(PaddingItemDecoration(resources.getDimensionPixelSize(R.dimen.content_padding_med)))
 
-        val displayMetrics = DisplayMetrics()
-        requireActivity().windowManager.defaultDisplay.getMetrics(displayMetrics)
+        val displayMetrics = resources.displayMetrics
         recyclerView.layoutManager = GridLayoutManager(context,
             if (displayMetrics.widthPixels > displayMetrics.heightPixels) 4 else 2)
     }

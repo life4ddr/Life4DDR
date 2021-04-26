@@ -23,6 +23,7 @@ import com.perrigogames.life4.model.TrialManager
 import com.perrigogames.life4.model.TrialSessionManager
 import com.perrigogames.life4.android.R
 import com.perrigogames.life4.android.activity.base.PhotoCaptureActivity
+import com.perrigogames.life4.android.databinding.ContentTrialDetailsBinding
 import com.perrigogames.life4.android.finalPhotoUri
 import com.perrigogames.life4.android.manager.AndroidTrialNavigation
 import com.perrigogames.life4.android.nameRes
@@ -35,7 +36,6 @@ import com.perrigogames.life4.android.view.*
 import com.perrigogames.life4.enums.TrialRank
 import com.perrigogames.life4.getDebugBoolean
 import com.russhwolf.settings.set
-import kotlinx.android.synthetic.main.content_trial_details.*
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 import java.text.SimpleDateFormat
@@ -43,6 +43,8 @@ import java.util.*
 
 
 class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener, KoinComponent {
+
+    private lateinit var binding: ContentTrialDetailsBinding
 
     private val ladderManager: LadderManager by inject()
     private val trialManager: TrialManager by inject()
@@ -65,15 +67,15 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener, K
             TrialRank.COPPER
     }
 
-    override val snackbarContainer: ViewGroup get() = container
+    override val snackbarContainer: ViewGroup get() = binding.container
 
     private val trialSession get() = trialSessionManager.currentSession!!
     private var currentIndex: Int? = null
     private var modified = false
         set(v) {
             field = v
-            button_navigate_previous.visibilityBool = !v
-            button_navigate_next.visibilityBool = !v
+            binding.buttonNavigatePrevious.visibilityBool = !v
+            binding.buttonNavigateNext.visibilityBool = !v
         }
     private var isNewEntry = false
     private var isFinal = false
@@ -88,35 +90,36 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener, K
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.content_trial_details)
+        binding = ContentTrialDetailsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         supportActionBar?.title = trial.name
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         trialSessionManager.startSession(trialId, initialRank)
         updateEXScoreMeter()
 
-        (image_rank as TrialJacketView).let { jacket ->
+        binding.imageRank.root.let { jacket ->
             jacket.trial = trial
             jacket.rank = storedRank
             jacket.setCornerType(if (trial.isEvent) JacketCornerView.CornerType.EVENT else null)
         }
 
-        text_event_help.visibilityBool = trial.isEvent
-        text_event_timer.visibilityBool = trial.isEvent
-        image_desired_rank.visibility = if (trial.isEvent) View.INVISIBLE else View.VISIBLE
-        spinner_desired_rank.visibility = if (trial.isEvent) View.INVISIBLE else View.VISIBLE
-        text_goals_content.visibilityBool = !trial.isEvent
+        binding.textEventHelp.visibilityBool = trial.isEvent
+        binding.textEventTimer.visibilityBool = trial.isEvent
+        binding.imageDesiredRank.visibility = if (trial.isEvent) View.INVISIBLE else View.VISIBLE
+        binding.spinnerDesiredRank.visibility = if (trial.isEvent) View.INVISIBLE else View.VISIBLE
+        binding.textGoalsContent.visibilityBool = !trial.isEvent
 
         if (trial.isEvent) {
             val userRank = ladderManager.getUserRank()
             val scoringGroup = trial.findScoringGroup(TrialRank.fromLadderRank(userRank, true) ?: TrialRank.COPPER)
-            text_event_timer.text = resources.getString(R.string.event_ends_format,
+            binding.textEventTimer.text = resources.getString(R.string.event_ends_format,
                 SimpleDateFormat("MMMM dd", Locale.US).format(trial.eventEnd))
-            text_event_help.text = resources.getString(R.string.event_directions,
+            binding.textEventHelp.text = resources.getString(R.string.event_directions,
                 scoringGroup?.map { resources.getString(it.nameRes) }?.toListString(baseContext, useAnd = false, caps = false))
         } else {
-            spinner_desired_rank.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, trialSession.availableRanks)
-            spinner_desired_rank.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            binding.spinnerDesiredRank.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, trialSession.availableRanks)
+            binding.spinnerDesiredRank.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onNothingSelected(parent: AdapterView<*>?) = Unit
 
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
@@ -128,17 +131,17 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener, K
                     .sortedBy { it.stableId }
                     .lastOrNull { initialRank.stableId >= it.stableId }
                     ?: ranks.first()
-                spinner_desired_rank.setSelection(ranks.indexOf(initialSpinnerRank))
+                binding.spinnerDesiredRank.setSelection(ranks.indexOf(initialSpinnerRank))
             }
         }
 
-        switch_acquire_mode.isChecked = settings.getBoolean(KEY_DETAILS_PHOTO_SELECT, false)
-        switch_acquire_mode.setOnCheckedChangeListener { _, isChecked ->
+        binding.switchAcquireMode.isChecked = settings.getBoolean(KEY_DETAILS_PHOTO_SELECT, false)
+        binding.switchAcquireMode.setOnCheckedChangeListener { _, isChecked ->
             settings[KEY_DETAILS_PHOTO_SELECT] = isChecked
         }
 
-        text_author_credit.visibilityBool = trial.author != null
-        trial.author?.let { text_author_credit.text = getString(R.string.author_credit_format, it) }
+        binding.textAuthorCredit.visibilityBool = trial.author != null
+        trial.author?.let { binding.textAuthorCredit.text = getString(R.string.author_credit_format, it) }
 
         songListFragment = SongListFragment.newInstance(trial.id, tiled = false, useCurrentSession = true)
         supportFragmentManager.beginTransaction()
@@ -216,7 +219,7 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener, K
 
             trialNavigation.submitResult(this) { finish() }
         } else {
-            Snackbar.make(container, R.string.breakdown_information_missing, Snackbar.LENGTH_LONG).show()
+            Snackbar.make(binding.container, R.string.breakdown_information_missing, Snackbar.LENGTH_LONG).show()
         }
     }
 
@@ -228,17 +231,17 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener, K
     private fun setRank(rank: TrialRank) {
         trialSession.goalRank = rank
 
-        (image_desired_rank as RankImageView).rank = rank.parent
-        text_goals_content.text = trialSession.trialGoalSet?.generateSingleGoalString(strings.trial, trial)
+        binding.imageDesiredRank.rank = rank.parent
+        binding.textGoalsContent.text = trialSession.trialGoalSet?.generateSingleGoalString(strings.trial, trial)
 
         songListFragment.shouldShowAdvancedSongDetails = trialSession.shouldShowAdvancedSongDetails
     }
 
     private fun updateCompleteState() {
         val allSongsComplete = trialSession.results.filterNotNull().size == TrialData.TRIAL_LENGTH
-        button_concede.visibilityBool = !allSongsComplete
-        button_finalize.visibilityBool = allSongsComplete && !trialSession.hasFinalPhoto
-        button_submit.visibilityBool = allSongsComplete && trialSession.hasFinalPhoto
+        binding.buttonConcede.visibilityBool = !allSongsComplete
+        binding.buttonFinalize.visibilityBool = allSongsComplete && !trialSession.hasFinalPhoto
+        binding.buttonSubmit.visibilityBool = allSongsComplete && trialSession.hasFinalPhoto
     }
 
     private fun updateHighestPossibleRank() {
@@ -254,18 +257,18 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener, K
             currentGoal != null &&
             highestPossible.stableId != currentGoal.stableId) {
 
-            spinner_desired_rank.setSelection(trialSession.availableRanks.indexOf(highestPossible))
+            binding.spinnerDesiredRank.setSelection(trialSession.availableRanks.indexOf(highestPossible))
         }
     }
 
     private fun updateEXScoreMeter() {
-        (include_ex_score as RunningEXScoreView).update(trialSession)
+        binding.includeExScore.root.update(trialSession)
     }
 
     private fun scrollToBottom() {
-        scroll_details.post {
+        binding.scrollDetails.post {
             try {
-                scroll_details.scrollTo(0, scroll_details.height)
+                binding.scrollDetails.scrollTo(0, binding.scrollDetails.height)
             } catch (_: NullPointerException) { }
         }
     }

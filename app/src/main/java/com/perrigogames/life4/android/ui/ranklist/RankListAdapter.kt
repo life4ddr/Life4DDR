@@ -1,10 +1,9 @@
 package com.perrigogames.life4.android.ui.ranklist
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -12,23 +11,25 @@ import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.data.RankEntry
 import com.perrigogames.life4.android.R
 import com.perrigogames.life4.android.categoryNameRes
+import com.perrigogames.life4.android.databinding.ItemNoRankBinding
+import com.perrigogames.life4.android.databinding.ItemRankHeaderBinding
+import com.perrigogames.life4.android.databinding.ItemRankListBinding
 import com.perrigogames.life4.android.drawableRes
 import com.perrigogames.life4.android.nameRes
+import com.perrigogames.life4.android.ui.ranklist.RankListAdapter.BaseViewHolder.*
 import com.perrigogames.life4.android.ui.ranklist.RankListFragment.OnRankListInteractionListener
-import com.perrigogames.life4.android.view.RankImageView
 import com.perrigogames.life4.enums.LadderRankClass
-import kotlinx.android.synthetic.main.item_rank_list.view.image_rank_icon
-import kotlinx.android.synthetic.main.item_rank_list.view.text_goal_title
 import org.koin.core.KoinComponent
 
 /**
  * [RecyclerView.Adapter] that can display a [RankEntry] and makes a call to the
  * specified [OnRankListInteractionListener].
  */
-class RankListAdapter(private val mValues: Map<LadderRankClass, List<RankEntry>>,
-                      private val selectedRank: LadderRank?,
-                      private val mListener: OnRankListInteractionListener?) :
-    RecyclerView.Adapter<RankListAdapter.ViewHolder>(), KoinComponent {
+class RankListAdapter(
+    mValues: Map<LadderRankClass, List<RankEntry>>,
+    private val selectedRank: LadderRank?,
+    private val mListener: OnRankListInteractionListener?,
+) : RecyclerView.Adapter<RankListAdapter.BaseViewHolder>(), KoinComponent {
 
     private val itemsList = mValues.flatMap { entry ->
         listOf(entry.key) + entry.value
@@ -41,36 +42,32 @@ class RankListAdapter(private val mValues: Map<LadderRankClass, List<RankEntry>>
         mListener?.onListFragmentInteraction(item)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val layoutId = when (viewType) {
-            TYPE_NO_RANK -> R.layout.item_no_rank
-            TYPE_RANK_HEADER -> R.layout.item_rank_header
-            TYPE_RANK -> R.layout.item_rank_list
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
+        val inflater = LayoutInflater.from(parent.context)
+        return when (viewType) {
+            TYPE_NO_RANK -> NoRankViewHolder(ItemNoRankBinding.inflate(inflater))
+            TYPE_RANK_HEADER -> RankHeaderViewHolder(ItemRankHeaderBinding.inflate(inflater))
+            TYPE_RANK -> RankViewHolder(ItemRankListBinding.inflate(inflater))
             else -> error("Invalid layoutId")
         }
-        return ViewHolder(
-            LayoutInflater
-                .from(parent.context)
-                .inflate(layoutId, parent, false)
-        )
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
         when (getItemViewType(position)) {
             TYPE_NO_RANK -> {
-                holder.mView.setOnClickListener(mOnClickListener)
+                holder.setOnClickListener(mOnClickListener)
             }
             TYPE_RANK_HEADER -> {
-                holder.setRankClass(itemsList[position - 1] as LadderRankClass)
-                holder.mView.setOnClickListener(mOnClickListener)
+                (holder as RankHeaderViewHolder).setRankClass(itemsList[position - 1] as LadderRankClass)
+                holder.setOnClickListener(mOnClickListener)
             }
             TYPE_RANK -> {
                 val entry = itemsList[position - 1] as RankEntry
-                holder.setRank(entry.rank)
+                (holder as RankViewHolder).setRank(entry.rank)
                 holder.highlighted = entry.rank == selectedRank
 
-                with(holder.mView) {
-                    tag = entry
+                with(holder) {
+                    setTag(entry)
                     setOnClickListener(mOnClickListener)
                 }
             }
@@ -95,31 +92,47 @@ class RankListAdapter(private val mValues: Map<LadderRankClass, List<RankEntry>>
         }
     }
 
-    inner class ViewHolder(val mView: View) : RecyclerView.ViewHolder(mView) {
-        private val icon: ImageView get() = (mView.image_rank_icon as RankImageView)
-        private val title: TextView get() = mView.text_goal_title
+    sealed class BaseViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-        var highlighted = false
-            set(v) {
-                field = v
-                if (v) {
-                    mView.setBackgroundResource(R.drawable.drawable_rounded_light)
-                } else {
-                    mView.background = null
+        protected val context: Context get() = itemView.context
+
+        fun setTag(tag: Any) {
+            itemView.tag = tag
+        }
+
+        fun setOnClickListener(onClickListener: View.OnClickListener) {
+            itemView.setOnClickListener(onClickListener)
+        }
+
+        class NoRankViewHolder(val binding: ItemNoRankBinding) : BaseViewHolder(binding.root)
+
+        class RankHeaderViewHolder(val binding: ItemRankHeaderBinding) : BaseViewHolder(binding.root) {
+
+            fun setRankClass(rankClass: LadderRankClass) {
+                binding.root.text = context.getString(rankClass.nameRes)
+            }
+        }
+
+        class RankViewHolder(val binding: ItemRankListBinding) : BaseViewHolder(binding.root) {
+
+            var highlighted = false
+                set(v) {
+                    field = v
+                    if (v) {
+                        binding.root.setBackgroundResource(R.drawable.drawable_rounded_light)
+                    } else {
+                        binding.root.background = null
+                    }
                 }
+
+            fun setRank(rank: LadderRank) {
+                binding.imageRankIcon.setImageDrawable(ContextCompat.getDrawable(context, rank.drawableRes))
+                binding.textGoalTitle.text = context.getString(rank.categoryNameRes)
             }
 
-        fun setRank(rank: LadderRank) {
-            icon.setImageDrawable(ContextCompat.getDrawable(mView.context, rank.drawableRes))
-            title.text = mView.context.getString(rank.categoryNameRes)
-        }
-
-        fun setRankClass(rankClass: LadderRankClass) {
-            (mView as TextView).text = mView.context.getString(rankClass.nameRes)
-        }
-
-        override fun toString(): String {
-            return super.toString() + " '$title'"
+            override fun toString(): String {
+                return super.toString() + " '${binding.textGoalTitle}'"
+            }
         }
     }
 

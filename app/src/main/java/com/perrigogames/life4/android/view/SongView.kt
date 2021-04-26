@@ -15,14 +15,19 @@ import com.perrigogames.life4.enums.ClearType.PERFECT_FULL_COMBO
 import com.perrigogames.life4.longNumberString
 import com.perrigogames.life4.android.R
 import com.perrigogames.life4.android.colorRes
-import kotlinx.android.synthetic.main.item_song_list_item.view.*
+import com.perrigogames.life4.android.databinding.ItemSongListItemBinding
 
 /**
  * A [View] designed to show the qualities of a [Song], including the jacket, difficulty,
  * and a player's score if wanted.
  */
-class SongView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
-    ConstraintLayout(context, attrs, defStyleAttr) {
+class SongView @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
+) : ConstraintLayout(context, attrs, defStyleAttr) {
+
+    private val binding = ItemSongListItemBinding.bind(this)
 
     var song: Song? = null
         set(v) {
@@ -52,17 +57,17 @@ class SongView @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
 
     fun update() {
         if (oldColors == null) {
-            oldColors = text_song_result.textColors
+            oldColors = binding.textSongResult.textColors
         }
 
         song?.let { s ->
-            text_song_title.text = s.name
-            (text_song_difficulty as DifficultyTextView).setDifficulty(s.difficultyClass, s.difficultyNumber)
+            binding.textSongTitle.text = s.name
+            binding.textSongDifficulty.setDifficulty(s.difficultyClass, s.difficultyNumber)
 
-            text_song_result.text = result?.let { r ->
+            binding.textSongResult.text = result?.let { r ->
                 resources.getString(R.string.score_string_format, r.score?.longNumberString(), r.exScore)
             }
-            text_song_details.text = result?.let { r ->
+            binding.textSongDetails.text = result?.let { r ->
                 if (r.badJudges != null && r.perfects != null && r.perfects != -1) {
                     resources.getString(R.string.score_string_summary_format_expert, r.badJudges, r.perfects, s.ex)
                 } else if (r.misses != null && r.badJudges != null) {
@@ -71,17 +76,17 @@ class SongView @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
             } ?: resources.getString(R.string.ex_score_string_format, s.ex)
 
             if (shouldShowCamera) {
-                image_photo_icon.visibility = View.VISIBLE
+                binding.imagePhotoIcon.visibility = View.VISIBLE
                 val tintColor = if (result?.photoUriString != null) {
                     if (shouldShowAdvancedSongDetails && result?.hasAdvancedStats != true) R.color.orange
                     else R.color.colorPrimary
                 } else R.color.gray
-                image_photo_icon.setColorFilter(ContextCompat.getColor(context, tintColor))
+                binding.imagePhotoIcon.setColorFilter(ContextCompat.getColor(context, tintColor))
             } else {
-                image_photo_icon.visibility = View.GONE
+                binding.imagePhotoIcon.visibility = View.GONE
             }
 
-            text_song_result.apply {
+            binding.textSongResult.apply {
                 setTypeface(null, Typeface.NORMAL)
                 when {
                     result?.passed == false -> setTextColor(ContextCompat.getColor(context, R.color.orange))
@@ -93,12 +98,12 @@ class SongView @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
                         setTextColor(ContextCompat.getColor(context, R.color.perfect))
                         setTypeface(null, Typeface.BOLD)
                     }
-                    else -> text_song_result.setTextColor(oldColors)
+                    else -> binding.textSongResult.setTextColor(oldColors)
                 }
             }
 
-                Glide.with(this).load(s.url).into(image_song_jacket)
-                image_song_jacket.setBackgroundColor(ContextCompat.getColor(context, s.difficultyClass.colorRes))
+                Glide.with(this).load(s.url).into(binding.imageSongJacket)
+                binding.imageSongJacket.setBackgroundColor(ContextCompat.getColor(context, s.difficultyClass.colorRes))
         }
     }
 }

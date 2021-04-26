@@ -20,6 +20,7 @@ import com.perrigogames.life4.android.R
 import com.perrigogames.life4.android.activity.settings.SettingsActivity
 import com.perrigogames.life4.android.activity.trial.TrialListActivity
 import com.perrigogames.life4.android.activity.trial.TrialRecordsActivity
+import com.perrigogames.life4.android.databinding.ActivityPlayerProfileBinding
 import com.perrigogames.life4.android.manager.AndroidLadderDialogs
 import com.perrigogames.life4.android.ui.rankdetails.RankDetailsFragment
 import com.perrigogames.life4.android.ui.rankdetails.RankDetailsViewModel
@@ -29,9 +30,6 @@ import com.perrigogames.life4.android.util.visibilityBool
 import com.perrigogames.life4.android.view.JacketCornerView
 import com.perrigogames.life4.android.view.RankImageView
 import com.russhwolf.settings.Settings
-import kotlinx.android.synthetic.main.activity_player_profile.*
-import kotlinx.android.synthetic.main.content_player_profile.*
-import kotlinx.android.synthetic.main.item_profile_mode_button.view.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -51,6 +49,8 @@ class PlayerProfileActivity : AppCompatActivity(), RankDetailsViewModel.OnGoalLi
     private val settings: Settings by inject()
     private val eventBus: EventBus by inject()
 
+    private lateinit var binding: ActivityPlayerProfileBinding
+
     private var rank: LadderRank? = null
     private var goalRank: LadderRank? = null
 
@@ -59,8 +59,9 @@ class PlayerProfileActivity : AppCompatActivity(), RankDetailsViewModel.OnGoalLi
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme_NoActionBar)
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_player_profile)
-        setSupportActionBar(toolbar)
+        binding = ActivityPlayerProfileBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        setSupportActionBar(binding.toolbar)
         eventBus.register(this)
 
         setupContent()
@@ -132,31 +133,44 @@ class PlayerProfileActivity : AppCompatActivity(), RankDetailsViewModel.OnGoalLi
     }
 
     private fun setupContent() {
-        view_mode_button_left.text_title.text = getString(R.string.trials)
-        view_mode_button_left.image_background.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.life4_trials_logo_invert))
-        view_mode_button_right.text_title.text = getString(R.string.action_settings)
-        view_mode_button_right.image_background.apply {
-            setImageDrawable(ContextCompat.getDrawable(this@PlayerProfileActivity, R.drawable.ic_cogwheel))
-            setColorFilter(ContextCompat.getColor(this@PlayerProfileActivity, R.color.white))
-            scaleX = 0.7f
-            scaleY = 0.7f
-            setPadding(0, CommonSizes.contentPaddingLarge(resources) + CommonSizes.contentPaddingMed(resources), 0, 0)
+        val context = this
+
+        binding.content.viewModeButtonLeft.apply {
+            textTitle.text = getString(R.string.trials)
+            imageBackground.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.life4_trials_logo_invert))
+        }
+        binding.content.viewModeButtonRight.apply {
+            textTitle.text = getString(R.string.action_settings)
+            imageBackground.apply {
+                setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_cogwheel))
+                setColorFilter(ContextCompat.getColor(context, R.color.white))
+                scaleX = 0.7f
+                scaleY = 0.7f
+                setPadding(
+                    0,
+                    CommonSizes.contentPaddingLarge(resources) + CommonSizes.contentPaddingMed(resources),
+                    0,
+                    0
+                )
+            }
         }
 
-        view_corner_view_left.visibilityBool = trialManager.hasEventTrial
-        (view_corner_view_left as JacketCornerView).cornerType = JacketCornerView.CornerType.EVENT
+        binding.content.viewCornerViewLeft.root.apply {
+            visibilityBool = trialManager.hasEventTrial
+            cornerType = JacketCornerView.CornerType.EVENT
+        }
 
         updatePlayerContent()
     }
 
     private fun updatePlayerContent() {
-        text_player_name.text = settings.getStringOrNull(KEY_INFO_NAME)
-        text_player_rival_code.text = settings.getStringOrNull(KEY_INFO_RIVAL_CODE)
-        text_player_rival_code.apply { visibilityBool = text.isNotEmpty() }
+        binding.content.textPlayerName.text = settings.getStringOrNull(KEY_INFO_NAME)
+        binding.content.textPlayerRivalCode.text = settings.getStringOrNull(KEY_INFO_RIVAL_CODE)
+        binding.content.textPlayerRivalCode.apply { visibilityBool = text.isNotEmpty() }
         rank = ladderManager.getUserRank()
         goalRank = ladderManager.getUserGoalRank()
 
-        (image_rank as RankImageView).also {
+        binding.content.imageRank.also {
             it.setOnClickListener { startActivity(Intent(this, RankListActivity::class.java)) }
             it.rank = rank
         }

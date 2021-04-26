@@ -9,8 +9,8 @@ import com.perrigogames.life4.android.R
 import com.perrigogames.life4.enums.TrialType
 import com.perrigogames.life4.android.activity.firstrun.PlacementDetailsActivity
 import com.perrigogames.life4.android.activity.settings.SettingsActivity
+import com.perrigogames.life4.android.databinding.ActivityTrialListBinding
 import com.perrigogames.life4.android.ui.trial.TrialListFragment
-import kotlinx.android.synthetic.main.activity_trial_list.*
 
 /**
  * Activity for presenting the list of trials to the user. Tapping on a trial will open
@@ -18,11 +18,14 @@ import kotlinx.android.synthetic.main.activity_trial_list.*
  */
 class TrialListActivity : AppCompatActivity(), TrialListFragment.OnTrialListInteractionListener {
 
+    private lateinit var binding: ActivityTrialListBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme_NoActionBar)
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_trial_list)
-        setSupportActionBar(toolbar)
+        binding = ActivityTrialListBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        setSupportActionBar(binding.toolbar)
 
         supportFragmentManager.beginTransaction()
             .replace(R.id.container_fragment, TrialListFragment())

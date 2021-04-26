@@ -22,16 +22,18 @@ import com.perrigogames.life4.enums.ClearType
 import com.perrigogames.life4.enums.ClearType.*
 import com.perrigogames.life4.model.TrialSessionManager
 import com.perrigogames.life4.android.R
+import com.perrigogames.life4.android.databinding.ContentSongEntryBinding
 import com.perrigogames.life4.android.photoUri
 import com.perrigogames.life4.android.util.visibilityBool
 import com.perrigogames.life4.getDebugBoolean
 import com.russhwolf.settings.Settings
-import kotlinx.android.synthetic.main.content_song_entry.*
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 
 
 class SongEntryActivity: AppCompatActivity(), KoinComponent {
+
+    private lateinit var binding: ContentSongEntryBinding
 
     private val trialSessionManager: TrialSessionManager by inject()
     private val settings: Settings by inject()
@@ -54,16 +56,28 @@ class SongEntryActivity: AppCompatActivity(), KoinComponent {
         }
 
     // Lists of fields for easy iteration
-    private val advancedFields: List<EditText> by lazy { listOf(field_misses, field_goods, field_greats, field_perfects) }
-    private val allFields: List<EditText> by lazy { listOf(field_score, field_ex) + advancedFields }
+    private val advancedFields: List<EditText> by lazy {
+        listOf(
+            binding.fieldMisses,
+            binding.fieldGoods,
+            binding.fieldGreats,
+            binding.fieldPerfects
+        )
+    }
+    private val allFields: List<EditText> by lazy {
+        listOf(
+            binding.fieldScore,
+            binding.fieldEx
+        ) + advancedFields
+    }
 
     // Entered field values
-    private val score: Int? get() = try { field_score.text.toString().toInt() } catch (e: NumberFormatException) { null }
-    private val ex: Int? get() = try { field_ex.text.toString().toInt() } catch (e: NumberFormatException) { null }
-    private val misses: Int? get() = try { field_misses.text.toString().toInt() } catch (e: NumberFormatException) { null }
-    private val goods: Int? get() = try { field_goods.text.toString().toInt() } catch (e: NumberFormatException) { null }
-    private val greats: Int? get() = try { field_greats.text.toString().toInt() } catch (e: NumberFormatException) { null }
-    private val perfects: Int? get() = try { field_perfects.text.toString().toInt() } catch (e: NumberFormatException) { null }
+    private val score: Int? get() = try { binding.fieldScore.text.toString().toInt() } catch (e: NumberFormatException) { null }
+    private val ex: Int? get() = try { binding.fieldEx.text.toString().toInt() } catch (e: NumberFormatException) { null }
+    private val misses: Int? get() = try { binding.fieldMisses.text.toString().toInt() } catch (e: NumberFormatException) { null }
+    private val goods: Int? get() = try { binding.fieldGoods.text.toString().toInt() } catch (e: NumberFormatException) { null }
+    private val greats: Int? get() = try { binding.fieldGreats.text.toString().toInt() } catch (e: NumberFormatException) { null }
+    private val perfects: Int? get() = try { binding.fieldPerfects.text.toString().toInt() } catch (e: NumberFormatException) { null }
 
     private val textWatcher = object: TextWatcher {
         override fun afterTextChanged(s: Editable?) {
@@ -78,8 +92,8 @@ class SongEntryActivity: AppCompatActivity(), KoinComponent {
             if (clearType.stableId >= PERFECT_FULL_COMBO.stableId) {
                 modified = true
                 val intVal = s?.toString()?.toIntOrNull() ?: 0
-                field_score.setText((TrialData.MAX_SCORE - (intVal * TrialData.SCORE_PENALTY_PERFECT)).toString())
-                field_ex.setText((song.ex - intVal).toString())
+                binding.fieldScore.setText((TrialData.MAX_SCORE - (intVal * TrialData.SCORE_PENALTY_PERFECT)).toString())
+                binding.fieldEx.setText((song.ex - intVal).toString())
             }
         }
 
@@ -89,50 +103,51 @@ class SongEntryActivity: AppCompatActivity(), KoinComponent {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.content_song_entry)
+        binding = ContentSongEntryBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         val res = result?.let {
             val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, it.photoUri)
-            image_photo.setImageDrawable(BitmapDrawable(resources, bitmap))
-            button_retake.setOnClickListener { retakePhoto() }
-            button_done.setOnClickListener { completeEntry() }
+            binding.imagePhoto.setImageDrawable(BitmapDrawable(resources, bitmap))
+            binding.buttonRetake.setOnClickListener { retakePhoto() }
+            binding.buttonDone.setOnClickListener { completeEntry() }
 
-            button_clear.setOnClickListener { clearType = CLEAR }
-            button_fc.isEnabled = requiresAdvancedDetail
-            button_fc.setOnClickListener { clearType = GOOD_FULL_COMBO }
-            button_pfc.setOnClickListener { clearType = PERFECT_FULL_COMBO }
-            button_mfc.setOnClickListener { clearType = MARVELOUS_FULL_COMBO }
+            binding.buttonClear.setOnClickListener { clearType = CLEAR }
+            binding.buttonFc.isEnabled = requiresAdvancedDetail
+            binding.buttonFc.setOnClickListener { clearType = GOOD_FULL_COMBO }
+            binding.buttonPfc.setOnClickListener { clearType = PERFECT_FULL_COMBO }
+            binding.buttonMfc.setOnClickListener { clearType = MARVELOUS_FULL_COMBO }
 
-            checkbox_passed.isChecked = it.passed
+            binding.checkboxPassed.isChecked = it.passed
 
             if (it.score != null) {
-                field_score.text = SpannableStringBuilder(it.score.toString())
+                binding.fieldScore.text = SpannableStringBuilder(it.score.toString())
             }
             if (it.exScore != null) {
-                field_ex.text = SpannableStringBuilder(it.exScore.toString())
+                binding.fieldEx.text = SpannableStringBuilder(it.exScore.toString())
             }
             if (it.misses != null) {
-                field_misses.text = SpannableStringBuilder(it.misses.toString())
+                binding.fieldMisses.text = SpannableStringBuilder(it.misses.toString())
             }
             if (it.goods != null) {
-                field_goods.text = SpannableStringBuilder(it.goods.toString())
+                binding.fieldGoods.text = SpannableStringBuilder(it.goods.toString())
             }
             if (it.greats != null) {
-                field_greats.text = SpannableStringBuilder(it.greats.toString())
+                binding.fieldGreats.text = SpannableStringBuilder(it.greats.toString())
             }
             if (it.perfects != null) {
-                field_perfects.text = SpannableStringBuilder(it.perfects.toString())
+                binding.fieldPerfects.text = SpannableStringBuilder(it.perfects.toString())
             }
-            field_score.addTextChangedListener(textWatcher)
-            field_ex.addTextChangedListener(textWatcher)
+            binding.fieldScore.addTextChangedListener(textWatcher)
+            binding.fieldEx.addTextChangedListener(textWatcher)
 
-            field_perfects.addTextChangedListener(perfectTextWatcher)
+            binding.fieldPerfects.addTextChangedListener(perfectTextWatcher)
 
             advancedFieldVisibility = requiresAdvancedDetail
 
-            if (field_score.requestFocus()) {
+            if (binding.fieldScore.requestFocus()) {
                 (getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager)
-                    .showSoftInput(field_score, InputMethodManager.SHOW_IMPLICIT)
+                    .showSoftInput(binding.fieldScore, InputMethodManager.SHOW_IMPLICIT)
             }
         }
         if (res == null) {
@@ -145,17 +160,17 @@ class SongEntryActivity: AppCompatActivity(), KoinComponent {
             field = type
             if (type == PERFECT_FULL_COMBO) {
                 advancedFieldVisibility = true
-                field_perfects.requestFocus()
+                binding.fieldPerfects.requestFocus()
             } else {
                 advancedFieldVisibility = requiresAdvancedDetail
             }
-            updateFieldEditable(field_score, type, PERFECT_FULL_COMBO)
-            updateFieldEditable(field_ex, type, PERFECT_FULL_COMBO)
-            updateFieldEditable(field_misses, type, GOOD_FULL_COMBO)
-            updateFieldEditable(field_goods, type, GREAT_FULL_COMBO)
-            updateFieldEditable(field_greats, type, PERFECT_FULL_COMBO)
-            updateFieldEditable(field_perfects, type, MARVELOUS_FULL_COMBO, type == PERFECT_FULL_COMBO)
-            field_ex.nextFocusDownId = when (type) {
+            updateFieldEditable(binding.fieldScore, type, PERFECT_FULL_COMBO)
+            updateFieldEditable(binding.fieldEx, type, PERFECT_FULL_COMBO)
+            updateFieldEditable(binding.fieldMisses, type, GOOD_FULL_COMBO)
+            updateFieldEditable(binding.fieldGoods, type, GREAT_FULL_COMBO)
+            updateFieldEditable(binding.fieldGreats, type, PERFECT_FULL_COMBO)
+            updateFieldEditable(binding.fieldPerfects, type, MARVELOUS_FULL_COMBO, type == PERFECT_FULL_COMBO)
+            binding.fieldEx.nextFocusDownId = when (type) {
                 MARVELOUS_FULL_COMBO -> 0
                 PERFECT_FULL_COMBO -> R.id.field_perfects
                 GREAT_FULL_COMBO -> R.id.field_greats
@@ -171,8 +186,8 @@ class SongEntryActivity: AppCompatActivity(), KoinComponent {
 
     private fun completeEntry() {
         allFields.forEach { it.error = null }
-        checkErrorForValue(score, field_score)
-        checkErrorForValue(ex, field_ex)
+        checkErrorForValue(score, binding.fieldScore)
+        checkErrorForValue(ex, binding.fieldEx)
         if (!settings.getDebugBoolean(KEY_DEBUG_ACCEPT_INVALID) &&
             allFields.any { it.visibility == VISIBLE && it.error != null }) {
             Toast.makeText(this, R.string.make_sure_fields_filled, Toast.LENGTH_SHORT).show()
@@ -186,7 +201,7 @@ class SongEntryActivity: AppCompatActivity(), KoinComponent {
                     it.greats = greats
                     it.perfects = perfects
                 }
-                it.passed = checkbox_passed.isChecked
+                it.passed = binding.checkboxPassed.isChecked
             }
             setResult(Activity.RESULT_OK, intent)
             finish()

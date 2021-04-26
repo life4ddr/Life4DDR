@@ -5,9 +5,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.perrigogames.life4.activity.profile.RankListActivity">
+    tools:context=".activity.profile.RankListActivity">
 
-    <include layout="@layout/content_rank_list"
+    <include
+        android:id="@+id/content"
+        layout="@layout/content_rank_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@id/button_remove_rank"
