@@ -3,6 +3,8 @@ package com.perrigogames.life4.android.activity.firstrun
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.appcompat.app.AppCompatActivity
 import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.data.RankEntry
@@ -29,50 +31,40 @@ class FirstRankSelectionActivity : AppCompatActivity(), OnRankListInteractionLis
 
     private lateinit var binding: ActivityFirstRankListBinding
 
+    private val getRankDetails = registerForActivityResult(StartActivityForResult()) { result ->
+        if (result.resultCode == RESULT_RANK_SELECTED && result.data != null) {
+            ladderManager.setUserRank(
+                LadderRank.parse(result.data!!.getLongExtra(RankDetailsActivity.EXTRA_RANK, 0))
+            )
+            startActivity(firstRunManager.finishProcessIntent(this))
+            finish()
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityFirstRankListBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.includeRankList.layoutContainer.removeAllViews()
+        binding.buttonPlacements.setOnClickListener { onPlacementsClick() }
+        binding.buttonNoRank.setOnClickListener { onNoRankClick() }
+
+        binding.layoutContainer.removeAllViews()
         supportFragmentManager.beginTransaction()
-            .add(R.id.layout_container,
-                RankListFragment.newInstance(3))
+            .add(R.id.layout_container, RankListFragment.newInstance())
             .commit()
     }
 
     override fun onListFragmentInteraction(item: RankEntry?) =
-        startActivityForResult(
-            RankDetailsActivity.intent(
-                this,
-                item?.rank,
-                false
-            ),
-            REQUEST_CODE_DETAIL_SELECTION
-        )
+        getRankDetails.launch(RankDetailsActivity.intent(this, item?.rank, false))
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_CODE_DETAIL_SELECTION) {
-            if (resultCode == RESULT_RANK_SELECTED && data != null) {
-                ladderManager.setUserRank(LadderRank.parse(data.getLongExtra(RankDetailsActivity.EXTRA_RANK, 0)))
-                startActivity(firstRunManager.finishProcessIntent(this))
-                finish()
-            }
-        }
-    }
-
-    fun onPlacementsClick(v: View) {
+    fun onPlacementsClick() {
         startActivity(firstRunManager.placementIntent(this))
         finish()
     }
 
-    fun onNoRankClick(v: View) {
+    fun onNoRankClick() {
         startActivity(firstRunManager.finishProcessIntent(this))
         finish()
-    }
-
-    companion object {
-        const val REQUEST_CODE_DETAIL_SELECTION = 1022
     }
 }

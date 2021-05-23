@@ -42,6 +42,9 @@ class RankDetailsActivity : AppCompatActivity(), RankHeaderView.NavigationListen
             setupRank(LadderRank.parse(intent.getLongExtra(ARG_RANK, 0)))
         }
 
+        binding.buttonUseRank.setOnClickListener { useRankClicked() }
+        binding.buttonWorkTowardRank.setOnClickListener { useRankTargetClicked() }
+
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setTitle(rank?.nameRes ?: R.string.no_rank)
     }
@@ -87,14 +90,14 @@ class RankDetailsActivity : AppCompatActivity(), RankHeaderView.NavigationListen
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onRankListUpdated(e: LadderRanksReplacedEvent) = setupRank(rank)
 
-    fun useRankClicked(v: View) {
+    private fun useRankClicked() {
         setResult(
             RESULT_RANK_SELECTED, Intent().putExtra(
                 EXTRA_RANK, rank?.stableId))
         finish()
     }
 
-    fun useRankTargetClicked(v: View) {
+    private fun useRankTargetClicked() {
         setResult(
             RESULT_RANK_TARGET_SELECTED, Intent().putExtra(
                 EXTRA_TARGET_RANK, rank?.stableId))

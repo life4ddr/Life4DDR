@@ -11,6 +11,7 @@ import kotlinx.serialization.encoding.Encoder
 /**
  * Enum class representing a Rank that a player can earn in LIFE4.
  */
+@ExperimentalSerializationApi
 @Serializable(with = LadderRankSerializer::class)
 enum class LadderRank(val stableId: Long,
                       val group: LadderRankClass
@@ -90,6 +91,7 @@ enum class LadderRankClass {
     COPPER, BRONZE, SILVER, GOLD, PLATINUM, DIAMOND, COBALT, AMETHYST, EMERALD, ONYX
 }
 
+@ExperimentalSerializationApi
 @Serializer(forClass = LadderRank::class)
 object LadderRankSerializer: KSerializer<LadderRank> {
     override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("ladderRank", PrimitiveKind.STRING)

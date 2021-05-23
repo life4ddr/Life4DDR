@@ -3,13 +3,13 @@ package com.perrigogames.life4.android.ui.trial
 import android.content.Context
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.perrigogames.life4.data.Trial
-import com.perrigogames.life4.enums.TrialType
-import com.perrigogames.life4.model.TrialManager
 import com.perrigogames.life4.android.view.JacketCornerView.CornerType.EVENT
 import com.perrigogames.life4.android.view.JacketCornerView.CornerType.NEW
 import com.perrigogames.life4.android.view.TrialItemView
 import com.perrigogames.life4.android.view.TrialItemView.TrialViewHolder
+import com.perrigogames.life4.data.Trial
+import com.perrigogames.life4.enums.TrialType
+import com.perrigogames.life4.model.TrialManager
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 
@@ -41,8 +41,7 @@ class TrialListAdapter(private val trials: List<Trial>,
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         TrialViewHolder(when (viewType) {
-            ID_LIST -> TrialItemView.inflateListItem(context, parent, false)
-            ID_TILE -> TrialItemView.inflateTileItem(context, parent, false)
+            ID_TILE -> TrialItemView.inflate(context, parent, false)
             else -> throw IllegalArgumentException("Unsupported trial view type: $viewType")
         })
 
@@ -85,7 +84,6 @@ class TrialListAdapter(private val trials: List<Trial>,
     }
 
     companion object {
-        const val ID_LIST = 0
         const val ID_TILE = 1
     }
 }

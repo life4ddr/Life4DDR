@@ -1,5 +1,5 @@
 object Versions {
-    const val min_sdk = 18
+    const val min_sdk = 21
     const val target_sdk = 30
     const val compile_sdk = 30
 

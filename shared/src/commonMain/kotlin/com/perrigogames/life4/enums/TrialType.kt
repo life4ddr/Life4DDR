@@ -1,9 +1,6 @@
 package com.perrigogames.life4.enums
 
-import kotlinx.serialization.KSerializer
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
-import kotlinx.serialization.Serializer
+import kotlinx.serialization.*
 import kotlinx.serialization.descriptors.PrimitiveKind
 import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
 import kotlinx.serialization.descriptors.SerialDescriptor
@@ -17,6 +14,7 @@ enum class TrialType {
     @SerialName("event") EVENT
 }
 
+@ExperimentalSerializationApi
 @Serializer(forClass = TrialType::class)
 object TrialTypeSerializer: KSerializer<TrialType> {
     override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("trialType", PrimitiveKind.STRING)

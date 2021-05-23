@@ -74,6 +74,8 @@ class FirstRunInfoActivity: AppCompatActivity(), KoinComponent {
             }
         }
 
+        binding.buttonContinue.setOnClickListener { onSignInClicked() }
+
         binding.radioMethodPlacement.isChecked = true
     }
 
@@ -102,7 +104,7 @@ class FirstRunInfoActivity: AppCompatActivity(), KoinComponent {
             (getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager)
                 .hideSoftInputFromWindow(currentFocus?.windowToken, 0)
 
-            val content = layoutInflater.inflate(R.layout.view_player_found, null, false) as PlayerFoundView
+            val content = PlayerFoundView(this)
             content.apiPlayer = e.apiPlayer
 
             AlertDialog.Builder(this)
@@ -117,7 +119,7 @@ class FirstRunInfoActivity: AppCompatActivity(), KoinComponent {
         }
     }
 
-    fun onSignInClicked(v: View) {
+    fun onSignInClicked() {
         if (binding.fieldName.text.isEmpty()) {
             binding.fieldName.error = getString(R.string.error_name_required)
             return

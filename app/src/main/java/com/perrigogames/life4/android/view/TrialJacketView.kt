@@ -3,6 +3,7 @@ package com.perrigogames.life4.android.view
 import android.content.Context
 import android.graphics.drawable.ColorDrawable
 import android.util.AttributeSet
+import android.view.LayoutInflater
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
@@ -12,18 +13,23 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import com.bumptech.glide.Glide
 import com.perrigogames.life4.android.R
-import com.perrigogames.life4.data.Trial
-import com.perrigogames.life4.enums.TrialRank
 import com.perrigogames.life4.android.colorRes
-import com.perrigogames.life4.android.databinding.ViewTrialJacketBinding
+import com.perrigogames.life4.android.databinding.MergeTrialJacketBinding
 import com.perrigogames.life4.android.drawableRes
 import com.perrigogames.life4.android.util.jacketResId
 import com.perrigogames.life4.android.util.visibilityBool
+import com.perrigogames.life4.data.Trial
+import com.perrigogames.life4.enums.TrialRank
 
 class TrialJacketView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
     ConstraintLayout(context, attrs, defStyleAttr) {
 
-    private val binding = ViewTrialJacketBinding.bind(this)
+    private val binding: MergeTrialJacketBinding
+
+    init {
+        LayoutInflater.from(context).inflate(R.layout.merge_trial_jacket, this)
+        binding = MergeTrialJacketBinding.bind(this)
+    }
 
     var tintOnRank: TrialRank? = null
         set(v) {
@@ -76,7 +82,7 @@ class TrialJacketView @JvmOverloads constructor(context: Context, attrs: Attribu
         }
 
     fun setCornerType(v: JacketCornerView.CornerType?) {
-        binding.viewJacketCorner.root.cornerType = v
+        binding.viewJacketCorner.cornerType = v
     }
 
     private fun updateRankTint() {

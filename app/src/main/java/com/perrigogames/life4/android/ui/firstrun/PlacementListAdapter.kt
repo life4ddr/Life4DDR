@@ -6,13 +6,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.perrigogames.life4.android.R
 import com.perrigogames.life4.data.Trial
 
-class PlacementListAdapter(private val placements: List<Trial>,
-                           private val onPlacementSelected: (String) -> Unit):
-    RecyclerView.Adapter<PlacementListAdapter.PlacementViewHolder>() {
+class PlacementListAdapter(
+    private val placements: List<Trial>,
+    private val onPlacementSelected: (String) -> Unit
+): RecyclerView.Adapter<PlacementListAdapter.PlacementViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlacementViewHolder =
-        PlacementViewHolder(LayoutInflater.from(parent.context).inflate(
-            R.layout.item_placement_overview, parent, false) as PlacementOverviewView)
+        PlacementViewHolder(
+            LayoutInflater.from(parent.context).inflate(
+            R.layout.item_placement_overview, parent, false) as PlacementOverviewView
+        )
 
     override fun getItemCount() = placements.size
 

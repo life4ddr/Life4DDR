@@ -7,8 +7,6 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.perrigogames.life4.enums.LadderRank
-import com.perrigogames.life4.data.RankEntry
 import com.perrigogames.life4.android.R
 import com.perrigogames.life4.android.categoryNameRes
 import com.perrigogames.life4.android.databinding.ItemNoRankBinding
@@ -18,6 +16,8 @@ import com.perrigogames.life4.android.drawableRes
 import com.perrigogames.life4.android.nameRes
 import com.perrigogames.life4.android.ui.ranklist.RankListAdapter.BaseViewHolder.*
 import com.perrigogames.life4.android.ui.ranklist.RankListFragment.OnRankListInteractionListener
+import com.perrigogames.life4.data.RankEntry
+import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.enums.LadderRankClass
 import org.koin.core.KoinComponent
 
@@ -45,9 +45,9 @@ class RankListAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         return when (viewType) {
-            TYPE_NO_RANK -> NoRankViewHolder(ItemNoRankBinding.inflate(inflater))
-            TYPE_RANK_HEADER -> RankHeaderViewHolder(ItemRankHeaderBinding.inflate(inflater))
-            TYPE_RANK -> RankViewHolder(ItemRankListBinding.inflate(inflater))
+            TYPE_NO_RANK -> NoRankViewHolder(ItemNoRankBinding.inflate(inflater, parent, false))
+            TYPE_RANK_HEADER -> RankHeaderViewHolder(ItemRankHeaderBinding.inflate(inflater, parent, false))
+            TYPE_RANK -> RankViewHolder(ItemRankListBinding.inflate(inflater, parent, false))
             else -> error("Invalid layoutId")
         }
     }

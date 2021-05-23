@@ -3,10 +3,13 @@ package com.perrigogames.life4.android.activity.base
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.media.MediaScannerConnection
 import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.result.contract.ActivityResultContracts.*
 import androidx.annotation.RequiresPermission
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
@@ -35,22 +38,58 @@ abstract class PhotoCaptureActivity: AppCompatActivity(), KoinComponent {
 
     abstract val snackbarContainer: ViewGroup
 
+    private val getPhotoCapture = registerForActivityResult(StartActivityForResult()) { result ->
+        when (result.resultCode) {
+            RESULT_OK -> {
+                resizeImage(currentPhotoFile!!, currentUri!!)
+                MediaScannerConnection.scanFile(
+                    this,
+                    arrayOf(currentPhotoFile.toString()),
+                    null,
+                    null
+                )
+                onPhotoTaken(currentUri!!)
+            }
+            RESULT_CANCELED -> onPhotoCancelled()
+        }
+        currentPhotoFile = null
+        currentUri = null
+    }
+
+    private val getPhotoSelection = registerForActivityResult(StartActivityForResult()) { result ->
+        when (result.resultCode) {
+            RESULT_OK -> {
+                currentUri = result.data!!.data!!
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    val takeFlags = result.data!!.flags and (Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+                    contentResolver.takePersistableUriPermission(currentUri!!, takeFlags)
+                }
+                onPhotoChosen(currentUri!!)
+            }
+            RESULT_CANCELED -> onPhotoCancelled()
+        }
+        currentPhotoFile = null
+        currentUri = null
+    }
+
     protected fun acquirePhoto(selection: Boolean = settings.getBoolean(KEY_DETAILS_PHOTO_SELECT, false)) {
         if (selection) {
-            startPhotoSelectActivity(FLAG_IMAGE_SELECT)
+            startPhotoSelectActivity()
         } else {
-            startCameraActivity(FLAG_IMAGE_CAPTURE)
+            startCameraActivity()
         }
     }
 
     @SuppressLint("MissingPermission")
-    private fun startCameraActivity(intentFlag: Int) = Dexter.withActivity(this)
+    private fun startCameraActivity() = Dexter.withActivity(this)
         .withPermissions(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-        .withListener(snackbarListener(R.string.camera_permission_description_popup) { sendCameraIntent(intentFlag) })
+        .withListener(snackbarListener(R.string.camera_permission_description_popup) {
+            sendCameraIntent()
+        })
         .check()
 
     @RequiresPermission(allOf = [Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE])
-    private fun sendCameraIntent(intentFlag: Int) {
+    private fun sendCameraIntent() {
         Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { intent ->
             intent.resolveActivity(packageManager)?.also {
                 try { // Create the File where the photo should go
@@ -62,63 +101,34 @@ abstract class PhotoCaptureActivity: AppCompatActivity(), KoinComponent {
                     currentUri = FileProvider.getUriForFile(this, getString(R.string.file_provider_name), it)
                     onNewPhotoCreated(currentUri!!)
                     intent.putExtra(MediaStore.EXTRA_OUTPUT, currentUri)
-                    startActivityForResult(intent, intentFlag)
+                    getPhotoCapture.launch(intent)
                 }
             }
         }
     }
 
     @SuppressLint("MissingPermission")
-    private fun startPhotoSelectActivity(intentFlag: Int) = Dexter.withActivity(this)
+    private fun startPhotoSelectActivity() = Dexter.withActivity(this)
         .withPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-        .withListener(snackbarListener(R.string.gallery_permission_description_popup) { sendPhotoSelectIntent(intentFlag) })
+        .withListener(snackbarListener(R.string.gallery_permission_description_popup) {
+            sendPhotoSelectIntent()
+        })
         .check()
 
     @RequiresPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-    private fun sendPhotoSelectIntent(intentFlag: Int) {
+    private fun sendPhotoSelectIntent() {
         if (Build.VERSION.SDK_INT < 19) {
-            Intent().also { i ->
+            Intent(Intent.ACTION_GET_CONTENT).also { i ->
                 i.type = "image/*"
-                i.action = Intent.ACTION_GET_CONTENT
-                startActivityForResult(Intent.createChooser(i, resources.getString(R.string.add_gallery)), intentFlag)
+                getPhotoSelection.launch(Intent.createChooser(i, resources.getString(R.string.add_gallery)))
             }
         } else {
             Intent(Intent.ACTION_OPEN_DOCUMENT).also { i ->
                 i.addCategory(Intent.CATEGORY_OPENABLE)
                 i.type = "image/jpeg"
-                startActivityForResult(i, intentFlag)
+                getPhotoSelection.launch(i)
             }
         }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        when(requestCode) {
-            FLAG_IMAGE_CAPTURE -> when (resultCode) {
-                RESULT_OK -> {
-                    resizeImage(currentPhotoFile!!, currentUri!!)
-                    Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE).also { mediaScanIntent ->
-                        mediaScanIntent.data = Uri.fromFile(currentPhotoFile)
-                        sendBroadcast(mediaScanIntent)
-                    }
-                    onPhotoTaken(currentUri!!)
-                }
-                RESULT_CANCELED -> onPhotoCancelled()
-            }
-            FLAG_IMAGE_SELECT -> when (resultCode) {
-                RESULT_OK -> {
-                    currentUri = data!!.data!!
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                        val takeFlags = data.flags and (Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
-                        contentResolver.takePersistableUriPermission(currentUri!!, takeFlags)
-                    }
-                    onPhotoChosen(currentUri!!)
-                }
-                RESULT_CANCELED -> onPhotoCancelled()
-            }
-        }
-        currentPhotoFile = null
-        currentUri = null
     }
 
     abstract fun onPhotoTaken(uri: Uri)
@@ -141,10 +151,5 @@ abstract class PhotoCaptureActivity: AppCompatActivity(), KoinComponent {
             object: BaseMultiplePermissionsListener() {
                 override fun onPermissionsChecked(report: MultiplePermissionsReport?) { listener(report) }
             })
-    }
-
-    companion object {
-        const val FLAG_IMAGE_CAPTURE = 101 // capturing for a new song
-        const val FLAG_IMAGE_SELECT = 102 // selecting a local photo for a new song
     }
 }

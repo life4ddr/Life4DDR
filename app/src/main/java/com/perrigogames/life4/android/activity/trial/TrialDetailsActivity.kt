@@ -11,30 +11,31 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import com.google.android.material.snackbar.Snackbar
 import com.perrigogames.life4.PlatformStrings
 import com.perrigogames.life4.SettingsKeys.KEY_DEBUG_BYPASS_STAT_ENTRY
 import com.perrigogames.life4.SettingsKeys.KEY_DETAILS_ENFORCE_EXPERT
 import com.perrigogames.life4.SettingsKeys.KEY_DETAILS_PHOTO_SELECT
 import com.perrigogames.life4.SettingsKeys.KEY_DETAILS_UPDATE_GOAL
-import com.perrigogames.life4.data.*
-import com.perrigogames.life4.model.LadderManager
-import com.perrigogames.life4.model.TrialManager
-import com.perrigogames.life4.model.TrialSessionManager
-import com.perrigogames.life4.android.R
+import com.perrigogames.life4.android.*
 import com.perrigogames.life4.android.activity.base.PhotoCaptureActivity
 import com.perrigogames.life4.android.databinding.ContentTrialDetailsBinding
-import com.perrigogames.life4.android.finalPhotoUri
 import com.perrigogames.life4.android.manager.AndroidTrialNavigation
-import com.perrigogames.life4.android.nameRes
-import com.perrigogames.life4.android.photoUri
-import com.perrigogames.life4.android.toListString
 import com.perrigogames.life4.android.ui.songlist.SongListFragment
 import com.perrigogames.life4.android.util.openWebUrlFromRes
 import com.perrigogames.life4.android.util.visibilityBool
-import com.perrigogames.life4.android.view.*
+import com.perrigogames.life4.android.view.JacketCornerView
+import com.perrigogames.life4.android.view.SongView
+import com.perrigogames.life4.data.Song
+import com.perrigogames.life4.data.SongResult
+import com.perrigogames.life4.data.Trial
+import com.perrigogames.life4.data.TrialData
 import com.perrigogames.life4.enums.TrialRank
 import com.perrigogames.life4.getDebugBoolean
+import com.perrigogames.life4.model.LadderManager
+import com.perrigogames.life4.model.TrialManager
+import com.perrigogames.life4.model.TrialSessionManager
 import com.russhwolf.settings.set
 import org.koin.core.KoinComponent
 import org.koin.core.inject
@@ -80,6 +81,14 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener, K
     private var isNewEntry = false
     private var isFinal = false
 
+    private val editEntry = registerForActivityResult(StartActivityForResult()) { result ->
+        when (result.resultCode) {
+            RESULT_OK -> onEntryFinished(currentResult!!)
+            SongEntryActivity.RESULT_RETAKE -> acquirePhoto()
+            RESULT_CANCELED -> onEntryCancelled()
+        }
+    }
+
     private lateinit var songListFragment: SongListFragment
 
     private var currentResult: SongResult?
@@ -98,7 +107,7 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener, K
         trialSessionManager.startSession(trialId, initialRank)
         updateEXScoreMeter()
 
-        binding.imageRank.root.let { jacket ->
+        binding.imageRank.let { jacket ->
             jacket.trial = trial
             jacket.rank = storedRank
             jacket.setCornerType(if (trial.isEvent) JacketCornerView.CornerType.EVENT else null)
@@ -135,13 +144,20 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener, K
             }
         }
 
-        binding.switchAcquireMode.isChecked = settings.getBoolean(KEY_DETAILS_PHOTO_SELECT, false)
-        binding.switchAcquireMode.setOnCheckedChangeListener { _, isChecked ->
-            settings[KEY_DETAILS_PHOTO_SELECT] = isChecked
+        binding.includePhotoSourceSelector.switchAcquireMode.apply {
+            isChecked = settings.getBoolean(KEY_DETAILS_PHOTO_SELECT, false)
+            setOnCheckedChangeListener { _, isChecked ->
+                settings[KEY_DETAILS_PHOTO_SELECT] = isChecked
+            }
         }
 
         binding.textAuthorCredit.visibilityBool = trial.author != null
         trial.author?.let { binding.textAuthorCredit.text = getString(R.string.author_credit_format, it) }
+
+        binding.buttonConcede.setOnClickListener { onConcedeClick() }
+        binding.buttonFinalize.setOnClickListener { onFinalizeClick() }
+        binding.buttonLeaderboard.setOnClickListener { onLeaderboardClick() }
+        binding.buttonSubmit.setOnClickListener { onSubmitClick() }
 
         songListFragment = SongListFragment.newInstance(trial.id, tiled = false, useCurrentSession = true)
         supportFragmentManager.beginTransaction()
@@ -182,12 +198,7 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener, K
         val prev = v.id == R.id.button_navigate_previous
         val targetTrial = if (prev) trialManager.previousTrial(trialId) else trialManager.nextTrial(trialId)
         if (targetTrial != null){
-            startActivity(
-                intent(
-                    this,
-                    targetTrial.id
-                )
-            )
+            startActivity(intent(this, targetTrial.id))
             finish()
         }
     }
@@ -202,9 +213,9 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener, K
         }
     }
 
-    fun onLeaderboardClick(v: View) = openWebUrlFromRes(R.string.url_trial, trial.id)
+    private fun onLeaderboardClick() = openWebUrlFromRes(R.string.url_trial, trial.id)
 
-    fun onConcedeClick(v: View) {
+    private fun onConcedeClick() {
         AlertDialog.Builder(this).setTitle(R.string.are_you_sure)
             .setMessage(getString(R.string.trial_concede_confirmation_format, trial.name, trialSession.goalRank))
             .setNegativeButton(R.string.cancel, null)
@@ -212,7 +223,7 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener, K
             .show()
     }
 
-    fun onSubmitClick(v: View) {
+    private fun onSubmitClick() {
         if (!trialSession.shouldShowAdvancedSongDetails ||
             !settings.getBoolean(KEY_DETAILS_ENFORCE_EXPERT, true) ||
             trialSession.results.all { it!!.hasAdvancedStats }) {
@@ -223,7 +234,7 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener, K
         }
     }
 
-    fun onFinalizeClick(v: View) {
+    private fun onFinalizeClick() {
         isFinal = true
         acquirePhoto()
     }
@@ -262,7 +273,7 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener, K
     }
 
     private fun updateEXScoreMeter() {
-        binding.includeExScore.root.update(trialSession)
+        binding.includeExScore.update(trialSession)
     }
 
     private fun scrollToBottom() {
@@ -294,13 +305,12 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener, K
     }
 
     private fun startEditActivity(index: Int) {
-        Intent(this, SongEntryActivity::class.java).also { i ->
-            i.putExtra(SongEntryActivity.ARG_SONG_INDEX, index)
-            i.putExtra(SongEntryActivity.ARG_ADVANCED_DETAIL, trialSession.shouldShowAdvancedSongDetails)
-            startActivityForResult(i,
-                FLAG_SCORE_ENTER
-            )
-        }
+        editEntry.launch(
+            Intent(this, SongEntryActivity::class.java).apply {
+                putExtra(SongEntryActivity.ARG_SONG_INDEX, index)
+                putExtra(SongEntryActivity.ARG_ADVANCED_DETAIL, trialSession.shouldShowAdvancedSongDetails)
+            }
+        )
     }
 
     private fun onScoreSummaryPhotoTaken(uri: Uri) {
@@ -308,17 +318,6 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener, K
         songListFragment.addResultsPhotoView(uri)
         updateCompleteState()
         scrollToBottom()
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        when(requestCode) {
-            FLAG_SCORE_ENTER -> when (resultCode) {
-                RESULT_OK -> onEntryFinished(currentResult!!)
-                SongEntryActivity.RESULT_RETAKE -> acquirePhoto()
-                RESULT_CANCELED -> onEntryCancelled()
-            }
-        }
     }
 
     override fun onContextItemSelected(item: MenuItem): Boolean {

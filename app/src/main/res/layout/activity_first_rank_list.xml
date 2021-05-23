@@ -18,9 +18,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
-    <include
-        android:id="@+id/include_rank_list"
-        layout="@layout/content_rank_list"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="@dimen/content_padding_med"

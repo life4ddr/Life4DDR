@@ -67,7 +67,7 @@ data class Trial(
 
     fun goalSet(rank: TrialRank?): TrialGoalSet? = goals?.find { it.rank == rank }
 
-    fun highestGoal(): TrialGoalSet? = goals?.maxBy { it.rank.stableId }
+    fun highestGoal(): TrialGoalSet? = goals?.maxByOrNull { it.rank.stableId }
 
     /**
      * Return the scoring group for a user with a particular rank.

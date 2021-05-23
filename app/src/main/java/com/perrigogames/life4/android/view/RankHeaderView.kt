@@ -3,13 +3,14 @@ package com.perrigogames.life4.android.view
 import android.content.Context
 import android.content.res.ColorStateList
 import android.util.AttributeSet
+import android.view.LayoutInflater
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.android.R
 import com.perrigogames.life4.android.colorRes
-import com.perrigogames.life4.android.databinding.ViewRankHeaderBinding
+import com.perrigogames.life4.android.databinding.MergeRankHeaderBinding
 import com.perrigogames.life4.android.groupNameRes
 import com.perrigogames.life4.android.nameRes
 import com.perrigogames.life4.android.util.visibilityBool
@@ -25,7 +26,12 @@ class RankHeaderView @JvmOverloads constructor(
 
     private lateinit var oldColors: ColorStateList
 
-    private val binding = ViewRankHeaderBinding.bind(this)
+    private val binding: MergeRankHeaderBinding
+
+    init {
+        LayoutInflater.from(context).inflate(R.layout.merge_rank_header, this)
+        binding = MergeRankHeaderBinding.bind(this)
+    }
 
     override fun onFinishInflate() {
         super.onFinishInflate()

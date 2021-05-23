@@ -1,7 +1,7 @@
 package com.perrigogames.life4.android
 
+import android.app.Application
 import android.content.Context
-import androidx.multidex.MultiDexApplication
 import androidx.preference.PreferenceManager
 import com.facebook.stetho.Stetho
 import com.facebook.stetho.Stetho.DefaultDumperPluginsBuilder
@@ -25,7 +25,7 @@ import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 
-class Life4Application: MultiDexApplication() {
+class Life4Application: Application() {
 
     override fun onCreate() {
         super.onCreate()

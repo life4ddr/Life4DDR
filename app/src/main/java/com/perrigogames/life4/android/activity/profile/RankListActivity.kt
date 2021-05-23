@@ -3,6 +3,8 @@ package com.perrigogames.life4.android.activity.profile
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.appcompat.app.AppCompatActivity
 import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.data.RankEntry
@@ -28,42 +30,37 @@ class RankListActivity : AppCompatActivity(), OnRankListInteractionListener, Koi
 
     private lateinit var binding: ActivityRankListBinding
 
+    private val viewRankDetails = registerForActivityResult(StartActivityForResult()) { result ->
+        when (result.resultCode) {
+            RESULT_RANK_SELECTED -> {
+                ladderManager.setUserRank(LadderRank.parse(result.data!!.getLongExtra(EXTRA_RANK, 0)))
+            }
+            RESULT_RANK_TARGET_SELECTED -> {
+                ladderManager.setUserTargetRank(LadderRank.parse(result.data!!.getLongExtra(EXTRA_TARGET_RANK, 0)))
+            }
+            else -> return@registerForActivityResult
+        }
+        finish()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRankListBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.buttonRemoveRank.visibilityBool = ladderManager.getUserRank() != null
+        binding.buttonRemoveRank.setOnClickListener { onRemoveRankClick() }
 
-        binding.content.layoutContainer.removeAllViews()
+        binding.layoutContainer.removeAllViews()
         supportFragmentManager.beginTransaction()
-            .add(R.id.layout_container,
-                RankListFragment.newInstance(5))
+            .add(R.id.layout_container, RankListFragment.newInstance())
             .commit()
     }
 
     override fun onListFragmentInteraction(item: RankEntry?) =
-        startActivityForResult(RankDetailsActivity.intent(this, item?.rank),
-            REQUEST_CODE_DETAIL_SELECTION
-        )
+        viewRankDetails.launch(RankDetailsActivity.intent(this, item?.rank))
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_CODE_DETAIL_SELECTION && data != null) {
-            when (resultCode) {
-                RESULT_RANK_SELECTED -> ladderManager.setUserRank(LadderRank.parse(data.getLongExtra(EXTRA_RANK, 0)))
-                RESULT_RANK_TARGET_SELECTED -> ladderManager.setUserTargetRank(LadderRank.parse(data.getLongExtra(EXTRA_TARGET_RANK, 0)))
-                else -> return
-            }
-            finish()
-        }
-    }
-
-    fun onRemoveRankClick(v: View) {
+    private fun onRemoveRankClick() {
         ladderManager.setUserRank(null)
         finish()
-    }
-
-    companion object {
-        const val REQUEST_CODE_DETAIL_SELECTION = 1022
     }
 }

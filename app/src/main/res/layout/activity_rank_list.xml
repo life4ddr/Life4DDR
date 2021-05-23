@@ -7,9 +7,8 @@
     android:layout_height="match_parent"
     tools:context=".activity.profile.RankListActivity">
 
-    <include
-        android:id="@+id/content"
-        layout="@layout/content_rank_list"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@id/button_remove_rank"
@@ -20,7 +19,6 @@
         style="@style/BottomProgressButtonRightBorder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="onRemoveRankClick"
         android:text="@string/remove_rank"
         app:layout_constraintBottom_toBottomOf="parent"/>
 

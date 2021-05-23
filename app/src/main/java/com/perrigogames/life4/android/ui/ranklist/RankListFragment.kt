@@ -37,7 +37,6 @@ class RankListFragment : Fragment(), KoinComponent {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentRankListBinding.inflate(inflater, container, false)
-        val view = binding.root
 
         with(binding.recyclerRankList) {
             val ranks = rankData
@@ -48,7 +47,7 @@ class RankListFragment : Fragment(), KoinComponent {
                 spanSizeLookup = (adapter as RankListAdapter).spanSizeLookup(columnCount)
             }
         }
-        return view
+        return binding.root
     }
 
     override fun onDestroyView() {
@@ -92,7 +91,7 @@ class RankListFragment : Fragment(), KoinComponent {
         const val ARG_COLUMN_COUNT = "ARG_COLUMN_COUNT"
 
         @JvmStatic
-        fun newInstance(columnCount: Int = 1) =
+        fun newInstance(columnCount: Int = 5) =
             RankListFragment().apply {
                 arguments = Bundle().apply {
                     putInt(ARG_COLUMN_COUNT, columnCount)

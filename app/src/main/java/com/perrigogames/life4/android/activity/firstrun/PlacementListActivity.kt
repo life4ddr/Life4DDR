@@ -1,8 +1,7 @@
 package com.perrigogames.life4.android.activity.firstrun
 
-import android.content.Intent
 import android.os.Bundle
-import android.view.View
+import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.perrigogames.life4.android.activity.firstrun.PlacementDetailsActivity.Companion.RESULT_FINISHED
@@ -25,6 +24,13 @@ class PlacementListActivity : AppCompatActivity(), KoinComponent {
 
     private lateinit var binding: ActivityPlacementListBinding
 
+    private val startPlacement = registerForActivityResult(StartActivityForResult()) { result ->
+        if (result.resultCode == RESULT_FINISHED) {
+            startActivity(firstRunManager.finishProcessIntent(this))
+            finish()
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPlacementListBinding.inflate(layoutInflater)
@@ -32,31 +38,20 @@ class PlacementListActivity : AppCompatActivity(), KoinComponent {
 
         binding.recyclerPlacements.layoutManager = LinearLayoutManager(this)
         binding.recyclerPlacements.adapter = PlacementListAdapter(placementManager.placements) { id ->
-            startActivityForResult(PlacementDetailsActivity.intent(this, id),
-                REQUEST_PLACEMENT_FINISH
-            )
+            startPlacement.launch(PlacementDetailsActivity.intent(this, id))
         }
+
+        binding.buttonRanks.setOnClickListener { onRanksClick() }
+        binding.buttonNoRank.setOnClickListener { onNoRankClick() }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_PLACEMENT_FINISH && resultCode == RESULT_FINISHED) {
-            startActivity(firstRunManager.finishProcessIntent(this))
-            finish()
-        }
-    }
-
-    fun onRanksClick(v: View) {
+    private fun onRanksClick() {
         startActivity(firstRunManager.rankListIntent(this))
         finish()
     }
 
-    fun onNoRankClick(v: View) {
+    private fun onNoRankClick() {
         startActivity(firstRunManager.finishProcessIntent(this))
         finish()
-    }
-
-    companion object {
-        const val REQUEST_PLACEMENT_FINISH = 4655
     }
 }

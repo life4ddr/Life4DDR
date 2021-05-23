@@ -70,7 +70,4 @@ data class RankEntry(
 
     val allowedIgnores: Int
         get() = requirementsOpt?.let { req -> goals.size - req } ?: 0
-
-    val difficultyGoals: List<DifficultyClearGoal>
-        get() = goals.mapNotNull { it as? DifficultyClearGoal }
 }

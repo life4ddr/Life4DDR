@@ -4,20 +4,17 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import com.perrigogames.life4.SettingsKeys.KEY_DETAILS_PHOTO_SELECT
-import com.perrigogames.life4.data.Song
-import com.perrigogames.life4.data.Trial
-import com.perrigogames.life4.model.PlacementManager
 import com.perrigogames.life4.android.R
 import com.perrigogames.life4.android.activity.base.PhotoCaptureActivity
-import com.perrigogames.life4.android.databinding.ActivityBlockListCheckBinding
 import com.perrigogames.life4.android.databinding.ContentPlacementDetailsBinding
 import com.perrigogames.life4.android.ui.songlist.SongListFragment
 import com.perrigogames.life4.android.view.RankHeaderView
-import com.perrigogames.life4.model.TrialManager
+import com.perrigogames.life4.data.Song
+import com.perrigogames.life4.data.Trial
+import com.perrigogames.life4.model.PlacementManager
 import com.russhwolf.settings.set
 import org.koin.core.KoinComponent
 import org.koin.core.inject
@@ -40,19 +37,23 @@ class PlacementDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listene
         binding = ContentPlacementDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.layoutRankHeader.root.apply {
+        binding.layoutRankHeader.apply {
             rank = trial.placementRank!!.toLadderRank()
             genericTitles = true
-//            navigationListener = object : RankHeaderView.NavigationListener {
-//                override fun onPreviousClicked() = navigationButtonClicked(placementManager.previousPlacement(placementId))
-//                override fun onNextClicked() = navigationButtonClicked(placementManager.nextPlacement(placementId))
-//            }
+            navigationListener = object : RankHeaderView.NavigationListener {
+                override fun onPreviousClicked() = navigationButtonClicked(placementManager.previousPlacement(placementId))
+                override fun onNextClicked() = navigationButtonClicked(placementManager.nextPlacement(placementId))
+            }
         }
 
-        binding.switchAcquireMode.isChecked = settings.getBoolean(KEY_DETAILS_PHOTO_SELECT, false)
-        binding.switchAcquireMode.setOnCheckedChangeListener { _, isChecked ->
-            settings[KEY_DETAILS_PHOTO_SELECT] = isChecked
+        binding.includePhotoSourceSelector.switchAcquireMode.apply {
+            isChecked = settings.getBoolean(KEY_DETAILS_PHOTO_SELECT, false)
+            setOnCheckedChangeListener { _, isChecked ->
+                settings[KEY_DETAILS_PHOTO_SELECT] = isChecked
+            }
         }
+
+        binding.buttonFinalize.setOnClickListener { onFinalizeClick() }
 
         songListFragment = SongListFragment.newInstance(trial.id, tiled = false, useCurrentSession = false, useCamera = false)
         supportFragmentManager.beginTransaction()
@@ -69,12 +70,7 @@ class PlacementDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listene
 
     fun navigationButtonClicked(placement: Trial?) {
         if (placement != null) {
-            startActivity(
-                intent(
-                    this,
-                    placement.id
-                )
-            )
+            startActivity(intent(this, placement.id))
             finish()
         }
     }
@@ -85,7 +81,7 @@ class PlacementDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listene
 
     override fun onPhotoCancelled() = Unit
 
-    fun onFinalizeClick(v: View) = acquirePhoto()
+    fun onFinalizeClick() = acquirePhoto()
 
     private fun doSubmit() {
         AlertDialog.Builder(this)

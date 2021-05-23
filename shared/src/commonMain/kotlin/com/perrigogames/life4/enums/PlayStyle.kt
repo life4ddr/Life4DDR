@@ -1,6 +1,7 @@
 package com.perrigogames.life4.enums
 
 import com.perrigogames.life4.data.StableId
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializer
 import kotlinx.serialization.descriptors.PrimitiveKind
@@ -26,6 +27,7 @@ enum class PlayStyle(override val stableId: Long,
     }
 }
 
+@ExperimentalSerializationApi
 @Serializer(forClass = PlayStyle::class)
 object PlayStyleSerializer: KSerializer<PlayStyle> {
     override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("playStyle", PrimitiveKind.STRING)

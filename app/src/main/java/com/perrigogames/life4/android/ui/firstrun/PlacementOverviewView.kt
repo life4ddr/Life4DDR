@@ -2,14 +2,16 @@ package com.perrigogames.life4.android.ui.firstrun
 
 import android.content.Context
 import android.util.AttributeSet
+import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
+import com.perrigogames.life4.android.R
+import com.perrigogames.life4.android.colorRes
+import com.perrigogames.life4.android.databinding.MergePlacementOverviewBinding
+import com.perrigogames.life4.android.nameRes
 import com.perrigogames.life4.data.PlacementRank
 import com.perrigogames.life4.data.Song
-import com.perrigogames.life4.android.colorRes
-import com.perrigogames.life4.android.databinding.ItemPlacementOverviewBinding
-import com.perrigogames.life4.android.nameRes
 
 class PlacementOverviewView @JvmOverloads constructor(
     context: Context,
@@ -17,7 +19,12 @@ class PlacementOverviewView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
 
-    private val binding = ItemPlacementOverviewBinding.bind(this)
+    private val binding: MergePlacementOverviewBinding
+
+    init {
+        LayoutInflater.from(context).inflate(R.layout.merge_placement_overview, this)
+        binding = MergePlacementOverviewBinding.bind(this)
+    }
 
     var rank: PlacementRank? = null
         set(v) {

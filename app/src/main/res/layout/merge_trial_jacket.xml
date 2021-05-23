@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.perrigogames.life4.android.view.TrialJacketView
+<merge
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -103,9 +103,8 @@
         tools:src="@drawable/silver_3"
         tools:visibility="visible"/>
 
-    <include
+    <com.perrigogames.life4.android.view.JacketCornerView
         android:id="@+id/view_jacket_corner"
-        layout="@layout/view_jacket_corner"
         android:layout_width="@dimen/jacket_corner_size"
         android:layout_height="@dimen/jacket_corner_size"
         app:layout_constraintBottom_toBottomOf="@id/image_trial_jacket"
@@ -139,4 +138,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/image_badge_highest_center"
         tools:text="8647 EX"/>
-</com.perrigogames.life4.android.view.TrialJacketView>
+</merge>

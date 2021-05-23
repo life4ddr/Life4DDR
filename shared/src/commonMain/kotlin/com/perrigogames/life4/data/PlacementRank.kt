@@ -15,6 +15,7 @@ enum class PlacementRank(val stableId: Long, val parent: LadderRankClass) {
     SILVER(20, LadderRankClass.SILVER),
     GOLD(25, LadderRankClass.GOLD);
 
+    @ExperimentalSerializationApi
     fun toLadderRank() = when(this) {
         COPPER -> LadderRank.COPPER3
         BRONZE -> LadderRank.BRONZE3
@@ -23,6 +24,7 @@ enum class PlacementRank(val stableId: Long, val parent: LadderRankClass) {
     }
 }
 
+@ExperimentalSerializationApi
 @Serializer(forClass = PlacementRank::class)
 object PlacementRankSerializer: KSerializer<PlacementRank> {
     override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("placementRank", PrimitiveKind.STRING)

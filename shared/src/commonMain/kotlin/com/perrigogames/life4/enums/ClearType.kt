@@ -49,6 +49,7 @@ enum class ClearType(override val stableId: Long, val serialized: List<String>, 
     }
 }
 
+@ExperimentalSerializationApi
 @Serializer(forClass = ClearType::class)
 object ClearTypeSerializer: KSerializer<ClearType> {
     override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("clearType", PrimitiveKind.STRING)

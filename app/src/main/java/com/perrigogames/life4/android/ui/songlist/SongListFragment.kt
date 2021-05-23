@@ -92,8 +92,7 @@ class SongListFragment : Fragment(), KoinComponent {
     }
 
     private fun addSongView(idx: Int, song: Song) {
-        val newView = layoutInflater.inflate(R.layout.item_song_list_item, layout, false)
-        songViews.add(idx, (newView as SongView).also {
+        val newView = SongView(requireContext()).also {
             it.layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
             it.tag = idx
             it.song = song
@@ -102,7 +101,8 @@ class SongListFragment : Fragment(), KoinComponent {
             }
             it.shouldShowCamera = useCamera
             it.setOnClickListener { listener?.onSongSelected(song, idx) }
-        })
+        }
+        songViews.add(idx, newView)
         layout.addView(newView)
     }
 

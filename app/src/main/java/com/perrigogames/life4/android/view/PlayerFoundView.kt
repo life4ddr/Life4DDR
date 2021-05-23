@@ -2,9 +2,11 @@ package com.perrigogames.life4.android.view
 
 import android.content.Context
 import android.util.AttributeSet
-import android.widget.LinearLayout
+import android.view.LayoutInflater
 import android.widget.TextView
-import com.perrigogames.life4.android.databinding.ViewPlayerFoundBinding
+import androidx.constraintlayout.widget.ConstraintLayout
+import com.perrigogames.life4.android.R
+import com.perrigogames.life4.android.databinding.MergePlayerFoundBinding
 import com.perrigogames.life4.data.ApiPlayer
 import com.perrigogames.life4.android.util.visibilityBool
 
@@ -12,9 +14,14 @@ class PlayerFoundView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
-) : LinearLayout(context, attrs, defStyleAttr) {
+) : ConstraintLayout(context, attrs, defStyleAttr) {
 
-    private val binding = ViewPlayerFoundBinding.bind(this)
+    private val binding: MergePlayerFoundBinding
+
+    init {
+        LayoutInflater.from(context).inflate(R.layout.merge_player_found, this)
+        binding = MergePlayerFoundBinding.bind(this)
+    }
 
     var apiPlayer: ApiPlayer? = null
         set(v) {

@@ -1,21 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.perrigogames.life4.android.view.TrialItemView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:layout_width="200dp">
-
-    <include
-        android:id="@+id/image_rank"
-        layout="@layout/view_trial_jacket"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="@dimen/content_padding_med"
-        app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:background="@color/colorAccent"/>
-</com.perrigogames.life4.android.view.TrialItemView>
+    />

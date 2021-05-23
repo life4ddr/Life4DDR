@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Typeface
 import android.util.AttributeSet
+import android.view.LayoutInflater
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
@@ -16,6 +17,7 @@ import com.perrigogames.life4.longNumberString
 import com.perrigogames.life4.android.R
 import com.perrigogames.life4.android.colorRes
 import com.perrigogames.life4.android.databinding.ItemSongListItemBinding
+import com.perrigogames.life4.android.databinding.MergePlayerFoundBinding
 
 /**
  * A [View] designed to show the qualities of a [Song], including the jacket, difficulty,
@@ -27,7 +29,12 @@ class SongView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
 
-    private val binding = ItemSongListItemBinding.bind(this)
+    private val binding: ItemSongListItemBinding
+
+    init {
+        LayoutInflater.from(context).inflate(R.layout.item_song_list_item, this)
+        binding = ItemSongListItemBinding.bind(this)
+    }
 
     var song: Song? = null
         set(v) {

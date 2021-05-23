@@ -155,7 +155,7 @@ class PlayerProfileActivity : AppCompatActivity(), RankDetailsViewModel.OnGoalLi
             }
         }
 
-        binding.content.viewCornerViewLeft.root.apply {
+        binding.content.viewCornerViewLeft.apply {
             visibilityBool = trialManager.hasEventTrial
             cornerType = JacketCornerView.CornerType.EVENT
         }

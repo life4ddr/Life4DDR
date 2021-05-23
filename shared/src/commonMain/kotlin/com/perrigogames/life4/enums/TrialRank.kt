@@ -56,6 +56,7 @@ enum class TrialRank(override val stableId: Long, val parent: LadderRank): Stabl
     }
 }
 
+@ExperimentalSerializationApi
 @Serializer(forClass = TrialRank::class)
 object TrialRankSerializer: KSerializer<TrialRank> {
     override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("trialRank", PrimitiveKind.STRING)

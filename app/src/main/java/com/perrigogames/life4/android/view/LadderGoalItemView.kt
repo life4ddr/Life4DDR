@@ -6,22 +6,21 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.TableLayout
-import android.widget.TableRow
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import com.perrigogames.life4.PlatformStrings
+import com.perrigogames.life4.android.R
+import com.perrigogames.life4.android.colorRes
+import com.perrigogames.life4.android.databinding.MergeRankGoalV2Binding
+import com.perrigogames.life4.android.databinding.RowSongDetailBinding
+import com.perrigogames.life4.android.util.visibilityBool
 import com.perrigogames.life4.data.BaseRankGoal
 import com.perrigogames.life4.data.LadderGoalProgress
 import com.perrigogames.life4.db.GoalState
 import com.perrigogames.life4.enums.ClearType
 import com.perrigogames.life4.enums.GoalStatus.*
 import com.perrigogames.life4.longNumberString
-import com.perrigogames.life4.android.R
-import com.perrigogames.life4.android.colorRes
-import com.perrigogames.life4.android.databinding.ItemRankGoalV2Binding
-import com.perrigogames.life4.android.databinding.RowSongDetailBinding
-import com.perrigogames.life4.android.util.visibilityBool
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 
@@ -33,7 +32,12 @@ class LadderGoalItemView @JvmOverloads constructor(
 
     private val platformStrings: PlatformStrings by inject()
 
-    private val binding = ItemRankGoalV2Binding.bind(this)
+    private val binding: MergeRankGoalV2Binding
+
+    init {
+        LayoutInflater.from(context).inflate(R.layout.merge_rank_goal_v2, this)
+        binding = MergeRankGoalV2Binding.bind(this)
+    }
 
     private var goal: BaseRankGoal? = null
     private var goalDB: GoalState? = null

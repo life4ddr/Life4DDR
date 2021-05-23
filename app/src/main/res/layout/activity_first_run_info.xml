@@ -154,7 +154,6 @@
             style="@style/BottomProgressButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="onSignInClicked"
             android:text="@string/sign_in"
             app:layout_constraintBottom_toBottomOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>

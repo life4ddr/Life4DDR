@@ -1,6 +1,7 @@
 package com.perrigogames.life4.enums
 
 import com.perrigogames.life4.data.StableId
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializer
 import kotlinx.serialization.descriptors.PrimitiveKind
@@ -29,6 +30,7 @@ enum class DifficultyClass(override val stableId: Long,
     }
 }
 
+@ExperimentalSerializationApi
 @Serializer(forClass = DifficultyClass::class)
 object DifficultyClassSerializer: KSerializer<DifficultyClass> {
     override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("difficultyClass", PrimitiveKind.STRING)

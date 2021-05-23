@@ -2,18 +2,15 @@ package com.perrigogames.life4.android.ui.rankdetails
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
+import com.perrigogames.life4.android.R
+import com.perrigogames.life4.android.databinding.ItemNoGoalsBinding
+import com.perrigogames.life4.android.ui.rankdetails.RankDetailsViewModel.OnGoalListInteractionListener
+import com.perrigogames.life4.android.view.LadderGoalItemView
 import com.perrigogames.life4.data.BaseRankGoal
 import com.perrigogames.life4.data.LadderGoalProgress
 import com.perrigogames.life4.data.RankEntry
 import com.perrigogames.life4.db.GoalState
-import com.perrigogames.life4.android.R
-import com.perrigogames.life4.android.databinding.ItemNoGoalsBinding
-import com.perrigogames.life4.android.databinding.ItemRankGoalV2Binding
-import com.perrigogames.life4.android.ui.rankdetails.RankDetailsViewModel.OnGoalListInteractionListener
-import com.perrigogames.life4.android.view.LadderGoalItemView
-import com.perrigogames.life4.android.view.RankImageView
 import kotlin.math.max
 
 /**
@@ -38,9 +35,10 @@ class RankGoalsAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when(viewType) {
             VIEW_TYPE_GOAL -> {
-                val binding = ItemRankGoalV2Binding.inflate(LayoutInflater.from(parent.context), parent, false)
-                binding.root.listener = listener
-                GoalViewHolder(binding)
+                val view = LayoutInflater.from(parent.context)
+                    .inflate(R.layout.item_rank_goal_v2, parent, false) as LadderGoalItemView
+                view.listener = listener
+                GoalViewHolder(view)
             }
             else -> NoGoalViewHolder(noGoalBinding(parent))
         }
@@ -69,12 +67,12 @@ class RankGoalsAdapter(
         fun getGoalProgress(item: BaseRankGoal): LadderGoalProgress?
     }
 
-    inner class GoalViewHolder(val binding: ItemRankGoalV2Binding) : RecyclerView.ViewHolder(binding.root) {
+    inner class GoalViewHolder(val view: LadderGoalItemView) : RecyclerView.ViewHolder(view) {
         fun bind(goal: BaseRankGoal, dataSource: DataSource) {
             val mandatory = dataSource.isGoalMandatory(goal)
-            binding.root.expanded = dataSource.isGoalExpanded(goal)
-            binding.root.canIgnore = dataSource.canIgnoreGoals() && !mandatory
-            binding.root.setGoal(goal, dataSource.getGoalStatus(goal), dataSource.getGoalProgress(goal), mandatory)
+            view.expanded = dataSource.isGoalExpanded(goal)
+            view.canIgnore = dataSource.canIgnoreGoals() && !mandatory
+            view.setGoal(goal, dataSource.getGoalStatus(goal), dataSource.getGoalProgress(goal), mandatory)
         }
     }
 

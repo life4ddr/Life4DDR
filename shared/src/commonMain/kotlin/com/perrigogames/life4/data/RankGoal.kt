@@ -3,7 +3,9 @@
     PlayStyleSerializer::class,
     ClearTypeSerializer::class,
     LadderRankSerializer::class,
-    TrialRankSerializer::class)
+    TrialRankSerializer::class,
+    DifficultyClassSetSerializer::class,
+)
 
 package com.perrigogames.life4.data
 
@@ -44,45 +46,6 @@ class CaloriesRankGoal(
 }
 
 /**
- * A specialized rank goal requiring the player to clear all of the songResults in a generic folder.
- * @param mClearType the set of difficulty numbers (ordered) that must be cleared, defaults to [ClearType.CLEAR]
- * @param mRequireAllDifficulties whether to require the user to do each of the difficulties or simply one of their choice, defaults to true
- * @param difficulties the difficulties that the folder must be cleared on
- * @param folder the specific folder that needs to be finished, null indicates any folder can be used
- * @param songs the list of specific songResults that need to be completed (this overrides [folder])
- */
-@Serializable
-@SerialName("songs")
-class SongSetClearGoal(
-    private val difficulties: String,
-    @SerialName("clear_type") private val clearType: ClearType = ClearType.CLEAR,
-    @SerialName("folder_count") val folderCount: Int? = null,
-    @SerialName("song_count") val songCount: Int? = null,
-    val folder: String? = null,
-    val score: Int? = null,
-    val songs: List<String>? = null,
-): BaseRankGoal() {
-
-    val difficultySet: DifficultyClassSet
-        get() = DifficultyClassSet.parse(difficulties)
-
-    override fun goalString(c: PlatformStrings): String = when {
-        score != null && songs != null -> c.rank.scoreSpecificSongDifficulty(score, songs, difficultyString(c))
-        songCount == null && songs != null -> c.rank.clearSpecificSongDifficulty(clearType, songs, difficultyString(c))
-        songCount == null -> c.rank.lampDifficulty(clearType, folderName(c), difficultyString(c))
-        songCount == 1 -> c.rank.clearSingle(clearType, difficultyString(c))
-        else -> c.rank.clearCount(clearType, songCount, difficultyString(c))
-    }
-
-    private fun difficultyString(c: PlatformStrings): String =
-        difficultySet.set.joinToString(separator = difficultySeparator) { (it + playStyle).toString() }
-
-    private val difficultySeparator get() = if (difficultySet.requireAll) " + " else " / "
-
-    private fun folderName(c: PlatformStrings) = folder ?: c.rank.anyFullMixOrLetterString
-}
-
-/**
  * A specialized rank goal requiring the player to clear a special set of songResults in one full round of play.
  * @param difficulties the set of difficulty numbers (ordered) that must be cleared
  */
@@ -112,6 +75,19 @@ class TrialGoal(
 }
 
 /**
+ * A specialized goal requiring the user to obtain a certain number of "MFC Points"
+ * @param points the number of MFC Points the player is required to obtain
+ */
+@Serializable
+@SerialName("mfc_points")
+data class MFCPointsGoal(
+    val points: Int,
+): BaseRankGoal() {
+
+    override fun goalString(c: PlatformStrings) = c.rank.getMFCPointString(points)
+}
+
+/**
  * A specialized rank goal requiring players to clear songResults of a particular difficulty in special ways.
  * For example,
  * - clearing 3 different 12's with LIFE4 enabled
@@ -130,87 +106,70 @@ class TrialGoal(
  *   meet these requirements
  */
 @Serializable
-@SerialName("difficulty")
-class DifficultyClearGoal(
+@SerialName("songs")
+class SongsClearGoal(
     @SerialName("d") val difficulty: Int? = null,
-    @SerialName("difficulty_numbers") private val mDifficultyNumbers: IntArray? = null,
-    private val difficulties: String? = null,
-    @SerialName("clear_type") private val mClearType: ClearType? = null,
-    val count: Int? = null,
+    private val difficulties: DifficultyClassSet? = null,
     val songs: List<String>? = null,
-    val score: Int? = null,
-    @SerialName("average_score") val averageScore: Int? = null,
+    val folder: String? = null,
+    @SerialName("folder_count") val folderCount: Int? = null,
+    @SerialName("song_count") val songCount: Int? = null,
     val exceptions: Int? = null,
     @SerialName("song_exceptions") val songExceptions: List<String>? = null,
+    val score: Int? = null,
+    @SerialName("average_score") val averageScore: Int? = null,
+    @SerialName("clear_type") private val mClearType: ClearType? = null,
 ): BaseRankGoal() {
 
     val clearType: ClearType
         get() = mClearType ?: ClearType.CLEAR
 
-    val difficultyNumbers: IntArray
-        get() = when {
-            mDifficultyNumbers != null -> mDifficultyNumbers
-            difficulty != null -> intArrayOf(difficulty)
-            else -> throw IllegalArgumentException("Must implement difficulty or difficulty_numbers")
-        }
-
-    val difficultySet: DifficultyClassSet?
-        get() = difficulties?.let { DifficultyClassSet.parse(it) }
-
     override fun goalString(c: PlatformStrings): String {
-        return if (count == null) when {
-            score != null -> c.rank.scoreAllString(score, averageScore, clearType, difficulty!!) + exceptionString(c) // All X over Y
-            else -> c.rank.folderLamp(clearType, difficulty!!, averageScore) + exceptionString(c) // Y lamp the X's folder
-        } else when {
-            score != null -> c.rank.scoreString(score, averageScore, count, difficultyNumbers) // X Ys over Z
-            else -> clearString(c) // Y clear Z X's
-        }
+//        return if (count == null) when {
+//            score != null -> c.rank.scoreAllString(score, averageScore, clearType, difficulty!!) + exceptionString(c) // All X over Y
+//            else -> c.rank.folderLamp(clearType, difficulty!!, averageScore) + exceptionString(c) // Y lamp the X's folder
+//        } else when {
+//            score != null -> c.rank.scoreString(score, averageScore, count, difficultyNumbers) // X Ys over Z
+//            else -> clearString(c) // Y clear Z X's
+//        }
+        return "Coming soon" // TODO
     }
 
     override fun getGoalProgress(possible: Int, results: List<DetailedChartResult>): LadderGoalProgress {
-        return when {
-            results.isEmpty() -> LadderGoalProgress(0, possible)
-            count == null -> {
-                val remaining = when {
-                    score != null -> results.filter { !it.satisfiesClear(clearType) || it.score < score } // All X over Y
-                    else -> results.filter { !it.satisfiesClear(clearType) } // Y lamp the X's folder
-                }.sortedByDescending { it.score }
-                val actualResultsSize = possible - (exceptions ?: 0)
-                LadderGoalProgress(min(results.size - remaining.size, actualResultsSize), actualResultsSize, results = remaining)
-            }
-            else -> {
-                val resultCount = when {
-                    score != null -> results.count { it.score >= score } // X Ys over Z
-                    else -> results.count { it.clearType.ordinal >= clearType.ordinal } // Y clear Z X's
-                }
-                LadderGoalProgress(min(count, resultCount), count)
-            }
-        }
+//        return when {
+//            results.isEmpty() -> LadderGoalProgress(0, possible)
+//            count == null -> {
+//                val remaining = when {
+//                    score != null -> results.filter { !it.satisfiesClear(clearType) || it.score < score } // All X over Y
+//                    else -> results.filter { !it.satisfiesClear(clearType) } // Y lamp the X's folder
+//                }.sortedByDescending { it.score }
+//                val actualResultsSize = possible - (exceptions ?: 0)
+//                LadderGoalProgress(min(results.size - remaining.size, actualResultsSize), actualResultsSize, results = remaining)
+//            }
+//            else -> {
+//                val resultCount = when {
+//                    score != null -> results.count { it.score >= score } // X Ys over Z
+//                    else -> results.count { it.clearType.ordinal >= clearType.ordinal } // Y clear Z X's
+//                }
+//                LadderGoalProgress(min(count, resultCount), count)
+//            }
+//        }
+        return LadderGoalProgress( // TODO
+            progress = 1,
+            max = 2,
+        )
     }
 
-    private fun clearString(c: PlatformStrings): String =  when {
-        exceptions != null -> throw IllegalArgumentException("Cannot combine exceptions with a set number")
-        else -> c.rank.clearString(count!!, difficultyNumbers, clearType)
-    }
+//    private fun clearString(c: PlatformStrings): String =  when {
+//        exceptions != null -> throw IllegalArgumentException("Cannot combine exceptions with a set number")
+//        else -> c.rank.clearString(count!!, difficultyNumbers, clearType)
+//    }
 
-    private fun exceptionString(c: PlatformStrings) = when {
-        exceptions != null -> c.rank.exceptions(exceptions)
-        songExceptions != null -> c.rank.songExceptions(songExceptions)
-        else -> ""
-    }
-}
-
-/**
- * A specialized goal requiring the user to obtain a certain number of "MFC Points"
- * @param points the number of MFC Points the player is required to obtain
- */
-@Serializable
-@SerialName("mfc_points")
-data class MFCPointsGoal(
-    val points: Int,
-): BaseRankGoal() {
-
-    override fun goalString(c: PlatformStrings) = c.rank.getMFCPointString(points)
+//    private fun exceptionString(c: PlatformStrings) = when {
+//        exceptions != null -> c.rank.exceptions(exceptions)
+//        songExceptions != null -> c.rank.songExceptions(songExceptions)
+//        else -> ""
+//    }
 }
 
 /**

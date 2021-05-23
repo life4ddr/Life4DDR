@@ -2,6 +2,7 @@ package com.perrigogames.life4.android.view
 
 import android.content.Context
 import android.util.AttributeSet
+import android.view.LayoutInflater
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
@@ -19,7 +20,12 @@ class JacketCornerView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
 
-    private val binding = ViewJacketCornerBinding.bind(this)
+    private val binding: ViewJacketCornerBinding
+
+    init {
+        LayoutInflater.from(context).inflate(R.layout.view_jacket_corner, this)
+        binding = ViewJacketCornerBinding.bind(this)
+    }
 
     var cornerType: CornerType? = null
         set(v) {

@@ -55,9 +55,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/image_rank" />
 
-    <include
+    <com.perrigogames.life4.android.view.JacketCornerView
         android:id="@+id/view_corner_view_left"
-        layout="@layout/view_jacket_corner"
         android:layout_width="@dimen/jacket_corner_size"
         android:layout_height="@dimen/jacket_corner_size"
         android:visibility="gone"
