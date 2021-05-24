@@ -72,7 +72,7 @@
         android:layout_width="16dp"
         android:layout_height="16dp"
         android:src="@drawable/ic_scroll_arrow_to_right"
-        android:tint="@color/white"
+        app:tint="@color/white"
         android:layout_marginEnd="@dimen/content_padding_large"
         android:layout_marginRight="@dimen/content_padding_large"
         app:layout_constraintBottom_toBottomOf="@id/text_directions"

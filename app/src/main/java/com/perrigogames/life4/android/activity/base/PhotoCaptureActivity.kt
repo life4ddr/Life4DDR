@@ -2,14 +2,16 @@ package com.perrigogames.life4.android.activity.base
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.ContentValues
 import android.content.Intent
 import android.media.MediaScannerConnection
 import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
 import android.view.ViewGroup
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.activity.result.contract.ActivityResultContracts.*
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
+import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
@@ -27,6 +29,7 @@ import com.russhwolf.settings.Settings
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 import java.io.File
+import java.io.FileDescriptor
 import java.io.IOException
 
 abstract class PhotoCaptureActivity: AppCompatActivity(), KoinComponent {
@@ -41,7 +44,11 @@ abstract class PhotoCaptureActivity: AppCompatActivity(), KoinComponent {
     private val getPhotoCapture = registerForActivityResult(StartActivityForResult()) { result ->
         when (result.resultCode) {
             RESULT_OK -> {
-                resizeImage(currentPhotoFile!!, currentUri!!)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                    savePhotoToMediaStore(currentUri!!)
+                } else {
+                    resizeImage(currentPhotoFile!!, currentUri!!)
+                }
                 MediaScannerConnection.scanFile(
                     this,
                     arrayOf(currentPhotoFile.toString()),
@@ -60,10 +67,8 @@ abstract class PhotoCaptureActivity: AppCompatActivity(), KoinComponent {
         when (result.resultCode) {
             RESULT_OK -> {
                 currentUri = result.data!!.data!!
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                    val takeFlags = result.data!!.flags and (Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
-                    contentResolver.takePersistableUriPermission(currentUri!!, takeFlags)
-                }
+                val takeFlags = result.data!!.flags and (Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+                contentResolver.takePersistableUriPermission(currentUri!!, takeFlags)
                 onPhotoChosen(currentUri!!)
             }
             RESULT_CANCELED -> onPhotoCancelled()
@@ -93,7 +98,7 @@ abstract class PhotoCaptureActivity: AppCompatActivity(), KoinComponent {
         Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { intent ->
             intent.resolveActivity(packageManager)?.also {
                 try { // Create the File where the photo should go
-                    DataUtil.createTempFile(locale)
+                    DataUtil.createTempFile(this, locale)
                 } catch (ex: IOException) {
                     null // Error occurred while creating the File
                 }?.also {
@@ -117,17 +122,45 @@ abstract class PhotoCaptureActivity: AppCompatActivity(), KoinComponent {
 
     @RequiresPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
     private fun sendPhotoSelectIntent() {
-        if (Build.VERSION.SDK_INT < 19) {
-            Intent(Intent.ACTION_GET_CONTENT).also { i ->
-                i.type = "image/*"
-                getPhotoSelection.launch(Intent.createChooser(i, resources.getString(R.string.add_gallery)))
+        Intent(Intent.ACTION_OPEN_DOCUMENT).also { i ->
+            i.addCategory(Intent.CATEGORY_OPENABLE)
+            i.type = "image/jpeg"
+            getPhotoSelection.launch(i)
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.Q)
+    private fun savePhotoToMediaStore(oldPhotoUri: Uri) {
+        val resolver = applicationContext.contentResolver
+        val photoCollection =
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                MediaStore.Images.Media.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY)
+            } else {
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI
             }
+
+        val newPhotos = ContentValues().apply {
+            put(MediaStore.Images.Media.DISPLAY_NAME, "foo.jpg")
+            put(MediaStore.Images.Media.IS_PENDING, 1)
+            put(MediaStore.Images.ImageColumns.RELATIVE_PATH, "Pictures/LIFE4")
+        }
+
+        val newPhotoUri = resolver.insert(photoCollection, newPhotos)
+
+        if (newPhotoUri == null) {
+            onPhotoSaveError()
         } else {
-            Intent(Intent.ACTION_OPEN_DOCUMENT).also { i ->
-                i.addCategory(Intent.CATEGORY_OPENABLE)
-                i.type = "image/jpeg"
-                getPhotoSelection.launch(i)
+            resolver.openFileDescriptor(newPhotoUri, "w", null).use { pfd ->
+                if (pfd == null) {
+                    onPhotoSaveError()
+                } else {
+                    resizeImage(pfd.fileDescriptor, oldPhotoUri)
+                }
             }
+
+            newPhotos.clear()
+            newPhotos.put(MediaStore.Audio.Media.IS_PENDING, 0)
+            resolver.update(newPhotoUri, newPhotos, null, null)
         }
     }
 
@@ -139,11 +172,20 @@ abstract class PhotoCaptureActivity: AppCompatActivity(), KoinComponent {
 
     abstract fun onPhotoCancelled()
 
+    private fun onPhotoSaveError() =
+        Toast.makeText(this, R.string.photo_save_error, Toast.LENGTH_SHORT)
+            .show()
+
     protected fun resizeImage(out: File, photoUri: Uri) =
         DataUtil.resizeImage(out, 1440, 1440, MediaStore.Images.Media.getBitmap(contentResolver, photoUri))
 
-    private inline fun snackbarListener(@StringRes stringRes: Int,
-                                        crossinline listener: (MultiplePermissionsReport?) -> Unit): CompositeMultiplePermissionsListener {
+    protected fun resizeImage(out: FileDescriptor, photoUri: Uri) =
+        DataUtil.resizeImage(out, 1440, 1440, MediaStore.Images.Media.getBitmap(contentResolver, photoUri))
+
+    private inline fun snackbarListener(
+        @StringRes stringRes: Int,
+        crossinline listener: (MultiplePermissionsReport?) -> Unit
+    ): CompositeMultiplePermissionsListener {
         return CompositeMultiplePermissionsListener(SnackbarOnAnyDeniedMultiplePermissionsListener.Builder
             .with(snackbarContainer, stringRes)
             .withOpenSettingsButton("Settings")

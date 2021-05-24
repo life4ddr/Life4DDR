@@ -1,34 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:padding="@dimen/content_padding_med"
+    android:gravity="center">
 
     <ImageView
         android:id="@+id/image_camera_icon"
         android:layout_width="16dp"
         android:layout_height="16dp"
-        android:layout_margin="@dimen/content_padding_med"
         android:contentDescription="@string/icon"
         android:src="@drawable/ic_photo_camera"
-        android:tint="@color/white" />
+        app:tint="@color/white"
+        />
 
-    <Switch
+    <com.google.android.material.switchmaterial.SwitchMaterial
         android:id="@+id/switch_acquire_mode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/content_padding_med"
         android:layout_marginEnd="@dimen/content_padding_med"
-        android:layout_marginRight="@dimen/content_padding_med"
-        android:layout_marginBottom="@dimen/content_padding_med" />
+        />
 
     <ImageView
         android:id="@+id/image_folder_icon"
         android:layout_width="16dp"
         android:layout_height="16dp"
-        android:layout_margin="@dimen/content_padding_med"
         android:contentDescription="@string/icon"
         android:src="@drawable/ic_file_folder"
-        android:tint="@color/white" />
+        app:tint="@color/white"
+        />
 
 </LinearLayout>

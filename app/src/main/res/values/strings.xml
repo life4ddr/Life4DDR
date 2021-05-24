@@ -118,6 +118,7 @@
     <string name="trial_concede_confirmation_format">This Trial will be saved to your records as incomplete for %s (%s).\n\nYou will NOT get a chance to log your failed song if you haven\'t already.</string>
     <string name="photo_save_confirmation">This photo will not be saved.</string>
     <string name="details_save_confirmation">Your changes will not be saved.</string>
+    <string name="photo_save_error">Error creating photo</string>
 
     <string name="confirm_trial_title">Confirm Trial Submission</string>
     <string name="confirm_placement_title">Confirm Placement Submission</string>

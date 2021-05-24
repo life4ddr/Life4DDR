@@ -96,7 +96,7 @@
                 android:scaleType="fitXY"
                 android:src="@drawable/ic_scroll_arrow_to_left"
                 android:textStyle="bold"
-                android:tint="@color/white"
+                app:tint="@color/white"
                 app:layout_constraintBottom_toBottomOf="@id/image_rank"
                 app:layout_constraintEnd_toStartOf="@id/image_rank"
                 app:layout_constraintTop_toTopOf="@id/image_rank" />
@@ -112,7 +112,7 @@
                 android:scaleType="fitXY"
                 android:src="@drawable/ic_scroll_arrow_to_right"
                 android:textStyle="bold"
-                android:tint="@color/white"
+                app:tint="@color/white"
                 app:layout_constraintBottom_toBottomOf="@id/image_rank"
                 app:layout_constraintStart_toEndOf="@id/image_rank"
                 app:layout_constraintTop_toTopOf="@id/image_rank" />
@@ -133,9 +133,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/content_padding_med"
-                android:layout_marginRight="@dimen/content_padding_med"
                 app:layout_constraintBottom_toBottomOf="@id/image_desired_rank"
-                app:layout_constraintEnd_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/image_desired_rank" />
 
             <TextView
