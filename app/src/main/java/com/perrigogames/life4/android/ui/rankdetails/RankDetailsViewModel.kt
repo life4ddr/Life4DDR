@@ -1,6 +1,6 @@
 package com.perrigogames.life4.android.ui.rankdetails
 
-import android.content.Context
+import android.content.res.Resources
 import android.util.Log
 import android.view.View
 import androidx.lifecycle.MutableLiveData
@@ -25,7 +25,7 @@ import org.koin.core.inject
  * attributable to a certain rank.
  */
 class RankDetailsViewModel(
-    private val context: Context,
+    private val resources: Resources,
     private val rankEntry: RankEntry?,
     private val options: RankDetailsFragment.Options,
     private val goalListListener: OnGoalListInteractionListener?,
@@ -46,20 +46,44 @@ class RankDetailsViewModel(
     private val allGoals: List<BaseRankGoal> by lazy { targetEntry!!.goals + targetEntry!!.mandatoryGoals }
     // Goals that should be shown to the user based on completion state
     private val activeGoals: MutableList<BaseRankGoal> by lazy { createActiveGoals() }
+    private var mActiveGoalCategories: List<Any>? = null
+    private val activeGoalCategories: List<Any>
+        get() {
+            if (mActiveGoalCategories == null) {
+                regenerateCategoriesList()
+            }
+            return mActiveGoalCategories!!
+        }
 
     private fun createActiveGoals() = when {
         targetEntry == null -> mutableListOf()
         options.hideCompleted -> {
             val completedGoals = ladderManager.getGoalStateList(allGoals).filter { it.status == COMPLETE }.map { it.goalId }
-            targetEntry!!.goals.filterNot { completedGoals.contains(it.id.toLong()) }.toMutableList()
+            allGoals.filterNot { completedGoals.contains(it.id.toLong()) }.toMutableList()
         }
         else -> allGoals.toMutableList()
+    }
+
+    private fun regenerateCategoriesList() {
+        mActiveGoalCategories = activeGoals.groupBy { goal ->
+            if (goal is SongsClearGoal) {
+                goal.diffNum
+            } else {
+                null
+            }
+        }.flatMap { pair ->
+            val headerString = pair.key?.let { diffNum ->
+                resources.getString(R.string.level_header, diffNum)
+            } ?: resources.getString(R.string.other_goals)
+            listOf<Any>(headerString) + pair.value
+        }
     }
 
     private val expandedItems = mutableListOf<BaseRankGoal>()
     private val completeItemCount get() = ladderManager.getGoalStateList(allGoals).count { it.status == COMPLETE }
     private val hiddenItemCount get() = ladderManager.getGoalStateList(allGoals).count { it.status == IGNORED }
     private var canIgnoreGoals: Boolean = true
+    private val usesDiffNumberSections: Boolean = targetEntry?.let { it.rank >= LadderRank.PLATINUM1 } ?: false
 
     private val goalItemListener: LadderGoalItemView.LadderGoalItemListener = object: LadderGoalItemView.LadderGoalItemListener {
 
@@ -68,11 +92,7 @@ class RankDetailsViewModel(
                 COMPLETE -> INCOMPLETE
                 else -> COMPLETE
             })
-            val newDB = ladderManager.getGoalState(item)!!
-            updateVisibility(item, newDB)
-            updateCompleteCount()
-            updateIgnoredStates()
-            goalListListener?.onGoalStateChanged(item, newDB.status, 0)
+            refreshDbItem(itemView, item)
         }
 
         override fun onIgnoreClicked(itemView: LadderGoalItemView, item: BaseRankGoal, goalDB: GoalState) {
@@ -80,15 +100,25 @@ class RankDetailsViewModel(
                 IGNORED -> INCOMPLETE
                 else -> IGNORED
             })
-            updateVisibility(item, goalDB)
+            refreshDbItem(itemView, item)
+        }
+
+        private fun refreshDbItem(itemView: LadderGoalItemView, item: BaseRankGoal) {
+            val newDB = ladderManager.getGoalState(item)!!
+            updateVisibility(item, newDB)
             updateCompleteCount()
             updateIgnoredStates()
-            goalListListener?.onGoalStateChanged(item, goalDB.status, 0)
+            goalListListener?.onGoalStateChanged(item, newDB.status, 0)
+            itemView.setGoalState(newDB)
         }
 
         override fun onExpandClicked(itemView: LadderGoalItemView, item: BaseRankGoal, goalDB: GoalState) {
             expandedItems.remove(item) || expandedItems.add(item)
-            adapter!!.notifyItemChanged(activeGoals.indexOf(item))
+            if (usesDiffNumberSections) {
+                adapter!!.notifyItemChanged(activeGoalCategories.indexOf(item))
+            } else {
+                adapter!!.notifyItemChanged(activeGoals.indexOf(item))
+            }
         }
 
         override fun onLongPressed(itemView: LadderGoalItemView, item: BaseRankGoal, goalDB: GoalState) {
@@ -98,19 +128,7 @@ class RankDetailsViewModel(
 
     private val dataSource = object: RankGoalsAdapter.DataSource {
         override fun getGoals() = activeGoals
-        override fun getGoalCategories(): List<Any> =
-            activeGoals.groupBy { goal ->
-                if (goal is SongsClearGoal) {
-                    goal.diffNum
-                } else {
-                    null
-                }
-            }.flatMap { pair ->
-                val headerString = pair.key?.let { diffNum ->
-                    context.getString(R.string.level_header, diffNum)
-                } ?: context.getString(R.string.other_goals)
-                listOf<Any>(headerString) + pair.value
-            }
+        override fun getGoalCategories(): List<Any> = activeGoalCategories
         override fun isGoalExpanded(item: BaseRankGoal) = expandedItems.contains(item)
         override fun isGoalMandatory(item: BaseRankGoal) = targetEntry?.mandatoryGoals?.contains(item) == true
         override fun canIgnoreGoals(): Boolean = canIgnoreGoals
@@ -122,7 +140,7 @@ class RankDetailsViewModel(
         RankGoalsAdapter(
             rank = target,
             dataSource = dataSource,
-            diffNumberSections = target.rank >= LadderRank.PLATINUM1,
+            diffNumberSections = usesDiffNumberSections,
             listener = goalItemListener,
             goalListListener = goalListListener
         )
@@ -130,22 +148,22 @@ class RankDetailsViewModel(
     val shouldShowGoals get() = adapter != null
 
     val directionsText = MutableLiveData<String>()
-    val completedStatusText = MutableLiveData<String>()
-    val completedStatusVisibility = MutableLiveData<Int>()
-    val completedStatusArrowVisibility = MutableLiveData<Int>()
-    val completedStatusArrowRotation = MutableLiveData<Float>()
+    val countStatusText = MutableLiveData<String>()
+    val countStatusVisibility = MutableLiveData<Int>()
+    val countStatusArrowVisibility = MutableLiveData<Int>()
+    val countStatusArrowRotation = MutableLiveData<Float>()
 
     init {
-        val rankName = targetEntry?.rank?.nameRes?.let { context.getString(it) }
-        directionsText.value = rankName?.let { context.resources.getString(R.string.rank_directions, it) } ?: ""
-        completedStatusArrowVisibility.value = if (hidesCompleteTasks) View.VISIBLE else View.GONE
+        val rankName = targetEntry?.rank?.nameRes?.let { resources.getString(it) }
+        directionsText.value = rankName?.let { resources.getString(R.string.rank_directions, it) } ?: ""
+        countStatusArrowVisibility.value = if (hidesCompleteTasks) View.VISIBLE else View.GONE
         if (shouldShowGoals) {
             updateCompleteCount()
             updateIgnoredStates()
         }
     }
 
-    fun onGoalsCompleteClicked() {
+    fun onGoalsCountClicked() {
         if (hidesCompleteTasks) {
             toggleHideCompletedGoals()
         }
@@ -184,7 +202,7 @@ class RankDetailsViewModel(
             adapter?.notifyDataSetChanged()
         }
 
-        completedStatusArrowRotation.value = if (options.hideCompleted) 0f else 90f
+        countStatusArrowRotation.value = if (options.hideCompleted) 0f else 90f
     }
 
     /**
@@ -192,9 +210,24 @@ class RankDetailsViewModel(
      */
     fun updateVisibility(goal: BaseRankGoal, goalDB: GoalState) {
         if (goalDB.status == COMPLETE && options.hideCompleted) {
-            val index = activeGoals.indexOf(goal)
-            activeGoals.removeAt(index)
-            adapter!!.notifyItemRemoved(index)
+            if (usesDiffNumberSections) {
+                val index = activeGoalCategories.indexOf(goal)
+                fun categoryCount() = activeGoalCategories.count { it is String }
+
+                val previousCategoryCount = categoryCount()
+                activeGoals.remove(goal)
+                regenerateCategoriesList()
+                val categoryRemoved = categoryCount() != previousCategoryCount
+
+                adapter!!.notifyItemRemoved(index)
+                if (categoryRemoved) {
+                    adapter.notifyItemRemoved(index - 1) // category header is always one cell behind
+                }
+            } else {
+                val index = activeGoals.indexOf(goal)
+                activeGoals.removeAt(index)
+                adapter!!.notifyItemRemoved(index)
+            }
             if (activeGoals.isEmpty()) {
                 adapter.notifyItemInserted(0)
             }
@@ -202,8 +235,12 @@ class RankDetailsViewModel(
     }
 
     private fun updateCompleteCount() {
-        completedStatusVisibility.value = View.VISIBLE
-        completedStatusText.value = context.getString(R.string.goals_completed_format, completeItemCount, targetEntry?.requirements ?: 0)
+        countStatusVisibility.value = View.VISIBLE
+        countStatusText.value = resources.getString(
+            R.string.goals_completed_format,
+            completeItemCount,
+            targetEntry?.requirements ?: 0
+        )
     }
 
     private fun updateIgnoredStates() {

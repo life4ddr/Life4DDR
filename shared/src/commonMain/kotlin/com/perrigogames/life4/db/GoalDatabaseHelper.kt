@@ -1,6 +1,5 @@
 package com.perrigogames.life4.db
 
-import com.perrigogames.life4.db.GoalState
 import com.perrigogames.life4.enums.GoalStatus
 import com.squareup.sqldelight.Query
 import com.squareup.sqldelight.db.SqlDriver

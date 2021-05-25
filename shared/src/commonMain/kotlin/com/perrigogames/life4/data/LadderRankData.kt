@@ -78,7 +78,7 @@ data class RankEntry(
         get() = mandatoryGoals.count()
 
     val requirements: Int
-        get() = requirementsOpt?.plus(mandatoryGoalCount) ?: goals.size
+        get() = requirementsOpt?.plus(mandatoryGoalCount) ?: (goals.size + mandatoryGoals.size)
 
     val allowedIgnores: Int
         get() = requirementsOpt?.let { req -> goals.size - req } ?: 0

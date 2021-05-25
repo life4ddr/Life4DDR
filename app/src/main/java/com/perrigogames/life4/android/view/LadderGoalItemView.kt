@@ -54,11 +54,9 @@ class LadderGoalItemView @JvmOverloads constructor(
         super.onAttachedToWindow()
         binding.buttonStatusIcon.setOnClickListener { ifHasDB { g, db ->
             listener?.onStateToggle(this, g, db)
-            updateData()
         } }
         binding.buttonIgnore.setOnClickListener { ifHasDB { g, db ->
             listener?.onIgnoreClicked(this, g, db)
-            updateData()
         } }
         setOnClickListener { ifHasDB { g, db ->
             if (binding.tableExpandDetails.childCount > 0) {
@@ -86,6 +84,11 @@ class LadderGoalItemView @JvmOverloads constructor(
         this.goalDB = goalDB
         this.goalProgress = goalProgress
         this.mandatory = mandatory
+        updateData()
+    }
+
+    fun setGoalState(goalDB: GoalState) {
+        this.goalDB = goalDB
         updateData()
     }
 

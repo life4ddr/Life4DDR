@@ -7,14 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.ChangeTransform
 import androidx.transition.TransitionManager
-import com.perrigogames.life4.enums.LadderRank
-import com.perrigogames.life4.data.RankEntry
-import com.perrigogames.life4.model.LadderManager
 import com.perrigogames.life4.android.R
 import com.perrigogames.life4.android.databinding.FragmentRankDetailsBinding
 import com.perrigogames.life4.android.util.CommonSizes
@@ -22,6 +18,9 @@ import com.perrigogames.life4.android.util.spannedText
 import com.perrigogames.life4.android.util.visibilityBool
 import com.perrigogames.life4.android.view.PaddingItemDecoration
 import com.perrigogames.life4.android.view.RankHeaderView
+import com.perrigogames.life4.data.RankEntry
+import com.perrigogames.life4.enums.LadderRank
+import com.perrigogames.life4.model.LadderManager
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 import java.io.Serializable
@@ -51,7 +50,7 @@ class RankDetailsFragment : Fragment(), KoinComponent {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentRankDetailsBinding.inflate(inflater, container, false)
         val view = binding.root
-        viewModel = RankDetailsViewModel(requireContext(), rankEntry, options, goalListListener)
+        viewModel = RankDetailsViewModel(resources, rankEntry, options, goalListListener)
 
         if (options.showHeader) {
             (binding.stubRankHeader.inflate() as RankHeaderView).let {
@@ -59,30 +58,30 @@ class RankDetailsFragment : Fragment(), KoinComponent {
                 it.navigationListener = navigationListener
             }
             (binding.textDirections.layoutParams as ConstraintLayout.LayoutParams).topToBottom = R.id.layout_rank_header
-            (binding.textGoalsComplete.layoutParams as ConstraintLayout.LayoutParams).topToBottom = R.id.layout_rank_header
+            (binding.textGoalsCount.layoutParams as ConstraintLayout.LayoutParams).topToBottom = R.id.layout_rank_header
         }
 
         viewModel.directionsText.observe(viewLifecycleOwner) { binding.textDirections.text = it.spannedText }
-        viewModel.completedStatusText.observe(viewLifecycleOwner) { binding.textGoalsComplete.text = it }
-        viewModel.completedStatusVisibility.observe(viewLifecycleOwner) { v ->
-            binding.textGoalsComplete.visibility = v
+        viewModel.countStatusText.observe(viewLifecycleOwner) { binding.textGoalsCount.text = it }
+        viewModel.countStatusVisibility.observe(viewLifecycleOwner) { v ->
+            binding.textGoalsCount.visibility = v
             (binding.recyclerRankDetails.layoutParams as ConstraintLayout.LayoutParams).let { params ->
                 params.topToBottom = when {
-                    v != View.GONE -> R.id.text_goals_complete
+                    v != View.GONE -> R.id.text_goals_count
                     options.showHeader -> R.id.layout_rank_header
                     else -> R.id.stub_rank_header
                 }
             }
         }
-        viewModel.completedStatusArrowVisibility.observe(viewLifecycleOwner) { v ->
-            binding.imageGoalsCompleteArrow.visibility = v
+        viewModel.countStatusArrowVisibility.observe(viewLifecycleOwner) { v ->
+            binding.imageGoalsCountArrow.visibility = v
         }
-        viewModel.completedStatusArrowRotation.observe(viewLifecycleOwner) { r ->
+        viewModel.countStatusArrowRotation.observe(viewLifecycleOwner) { r ->
             TransitionManager.beginDelayedTransition(
                 view,
                 ChangeTransform().excludeTarget(binding.recyclerRankDetails, true)
             )
-            binding.imageGoalsCompleteArrow.rotation = r
+            binding.imageGoalsCountArrow.rotation = r
         }
 
         binding.recyclerRankDetails.apply {
@@ -102,8 +101,8 @@ class RankDetailsFragment : Fragment(), KoinComponent {
             visibilityBool = options.allowNextSwitcher
             setOnCheckedChangeListener { _, checked -> goalListListener?.onNextSwitchToggled(checked) }
         }
-        binding.textGoalsComplete.setOnClickListener { onCompletedTextClicked() }
-        binding.imageGoalsCompleteArrow.setOnClickListener { onCompletedTextClicked() }
+        binding.textGoalsCount.setOnClickListener { onGoalsCountTextClicked() }
+        binding.imageGoalsCountArrow.setOnClickListener { onGoalsCountTextClicked() }
 
         return view
     }
@@ -113,8 +112,8 @@ class RankDetailsFragment : Fragment(), KoinComponent {
         _binding = null
     }
 
-    private fun onCompletedTextClicked() {
-        viewModel.onGoalsCompleteClicked()
+    private fun onGoalsCountTextClicked() {
+        viewModel.onGoalsCountClicked()
         binding.recyclerRankDetails.scrollToPosition(0)
     }
 
@@ -142,13 +141,14 @@ class RankDetailsFragment : Fragment(), KoinComponent {
         const val KEY_RANK = "KEY_RANK"
         const val KEY_OPTIONS = "KEY_OPTIONS"
 
-        fun newInstance(rank: LadderRank?,
-                        options: Options = Options()) =
-            RankDetailsFragment().apply {
-                arguments = Bundle().apply {
-                    putLong(KEY_RANK, rank?.stableId ?: 0)
-                    putSerializable(KEY_OPTIONS, options)
-                }
+        fun newInstance(
+            rank: LadderRank?,
+            options: Options = Options()
+        ) = RankDetailsFragment().apply {
+            arguments = Bundle().apply {
+                putLong(KEY_RANK, rank?.stableId ?: 0)
+                putSerializable(KEY_OPTIONS, options)
             }
+        }
     }
 }
