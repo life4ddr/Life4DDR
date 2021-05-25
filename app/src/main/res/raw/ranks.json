@@ -24,18 +24,18 @@
 		{ "id": 2010, "t": "songs", "diff_class": "EC", "song_count": 3, "clear_type": "perfect" },
 		{ "id": 2501, "t": "songs", "diff_class": "B", "songs": ["EGOISM 440", "ENDYMION", "Over the “Period”", "Paranoia Revolution", "Valkyrie Dimension"] },
 		{ "id": 2502, "t": "songs", "diff_class": "D", "songs": ["EGOISM 440", "ENDYMION", "Over the “Period”", "Paranoia Revolution", "Valkyrie Dimension"] },
-		{ "id": 2503, "t": "songs", "diff_class": "C", "songs": ["ENDYMION"], "score": 700000 },
-		{ "id": 2504, "t": "songs", "diff_class": "C", "songs": ["ENDYMION"], "score": 725000 },
-		{ "id": 2505, "t": "songs", "diff_class": "C", "songs": ["ENDYMION"], "score": 750000 },
-		{ "id": 2506, "t": "songs", "diff_class": "C", "songs": ["ENDYMION"], "score": 765000 },
-		{ "id": 2507, "t": "songs", "diff_class": "C", "songs": ["ENDYMION"], "score": 775000 },
-		{ "id": 2508, "t": "songs", "diff_class": "C", "songs": ["ENDYMION"], "score": 790000 },
-		{ "id": 2509, "t": "songs", "diff_class": "C", "songs": ["ENDYMION"], "score": 800000 },
-		{ "id": 2510, "t": "songs", "diff_class": "C", "songs": ["ENDYMION"], "score": 810000 },
-		{ "id": 2511, "t": "songs", "diff_class": "C", "songs": ["ENDYMION"], "score": 820000 },
-		{ "id": 2512, "t": "songs", "diff_class": "C", "songs": ["ENDYMION"], "score": 830000 },
-		{ "id": 2513, "t": "songs", "diff_class": "C", "songs": ["ENDYMION"], "score": 840000 },
-		{ "id": 2514, "t": "songs", "diff_class": "C", "songs": ["ENDYMION"], "score": 850000 },
+		{ "id": 2503, "t": "songs", "d": 19, "diff_class": "C", "songs": ["ENDYMION"], "score": 700000 },
+		{ "id": 2504, "t": "songs", "d": 19, "diff_class": "C", "songs": ["ENDYMION"], "score": 725000 },
+		{ "id": 2505, "t": "songs", "d": 19, "diff_class": "C", "songs": ["ENDYMION"], "score": 750000 },
+		{ "id": 2506, "t": "songs", "d": 19, "diff_class": "C", "songs": ["ENDYMION"], "score": 765000 },
+		{ "id": 2507, "t": "songs", "d": 19, "diff_class": "C", "songs": ["ENDYMION"], "score": 775000 },
+		{ "id": 2508, "t": "songs", "d": 19, "diff_class": "C", "songs": ["ENDYMION"], "score": 790000 },
+		{ "id": 2509, "t": "songs", "d": 19, "diff_class": "C", "songs": ["ENDYMION"], "score": 800000 },
+		{ "id": 2510, "t": "songs", "d": 19, "diff_class": "C", "songs": ["ENDYMION"], "score": 810000 },
+		{ "id": 2511, "t": "songs", "d": 19, "diff_class": "C", "songs": ["ENDYMION"], "score": 820000 },
+		{ "id": 2512, "t": "songs", "d": 19, "diff_class": "C", "songs": ["ENDYMION"], "score": 830000 },
+		{ "id": 2513, "t": "songs", "d": 19, "diff_class": "C", "songs": ["ENDYMION"], "score": 840000 },
+		{ "id": 2514, "t": "songs", "d": 19, "diff_class": "C", "songs": ["ENDYMION"], "score": 850000 },
 		{ "id": 3001, "t": "set", "diff_nums": [4, 4, 4] },
 		{ "id": 3002, "t": "set", "diff_nums": [5, 5, 5] },
 		{ "id": 3003, "t": "set", "diff_nums": [6, 6, 6] },
@@ -744,34 +744,34 @@
 				{
 					"rank": "platinum2",
 					"play_style": "single",
-					"mandatory_goal_ids": [ 7021, 7030, 7533, 7514, 8034, 8009, 8529, 8507, 9030, 9005, 9501, 4007 ]
+					"mandatory_goal_ids": [ 7021, 7030, 7532, 7533, 7514, 8034, 8009, 8529, 8507, 9030, 9005, 9501, 4007 ]
 				},
 				{
 					"rank": "platinum3",
 					"play_style": "single",
-					"mandatory_goal_ids": [ 7023, 7032, 7534, 7518, 8038, 8012, 8531, 8508, 9033, 9006, 9517, 4007 ]
+					"mandatory_goal_ids": [ 7023, 7032, 7532, 7534, 7518, 8038, 8012, 8531, 8508, 9033, 9006, 9517, 4007 ]
 				},
 				{
 					"rank": "platinum4",
 					"play_style": "single",
-					"mandatory_goal_ids": [ 7024, 7535, 7520, 8039, 8016, 8534, 8509, 9036, 9007, 9517, 4008 ]
+					"mandatory_goal_ids": [ 7024, 7532, 7535, 7520, 8039, 8016, 8534, 8509, 9036, 9007, 9517, 4008 ]
 				},
 				{
 					"rank": "platinum5",
 					"play_style": "single",
-					"mandatory_goal_ids": [ 7027, 7536, 7502, 7562, 8040, 8018, 8539, 8510, 9039, 9008, 9520, 4013 ]
+					"mandatory_goal_ids": [ 7027, 7532, 7536, 7502, 7562, 8040, 8018, 8539, 8510, 9039, 9008, 9520, 4013 ]
 				},
 
 
 				{
 					"rank": "diamond1",
 					"play_style": "single",
-					"mandatory_goal_ids": [ 7537, 7509, 8041, 8021, 8540, 8511, 9042, 9009, 9523, 4013 ]
+					"mandatory_goal_ids": [ 7532, 7537, 7509, 8041, 8021, 8540, 8511, 9042, 9009, 9523, 4013 ]
 				},
 				{
 					"rank": "diamond2",
 					"play_style": "single",
-					"mandatory_goal_ids": [ 7538, 7512, 8042, 8023, 8541, 8514, 9043, 9010, 9528, 9502, 4013 ]
+					"mandatory_goal_ids": [ 7532, 7538, 7512, 8042, 8023, 8541, 8514, 9043, 9010, 9528, 9502, 4013 ]
 				},
 				{
 					"rank": "diamond3",

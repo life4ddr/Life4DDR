@@ -5,17 +5,18 @@ import android.util.Log
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.perrigogames.life4.data.BaseRankGoal
-import com.perrigogames.life4.enums.LadderRank
-import com.perrigogames.life4.data.RankEntry
-import com.perrigogames.life4.db.GoalState
-import com.perrigogames.life4.enums.GoalStatus
-import com.perrigogames.life4.enums.GoalStatus.*
-import com.perrigogames.life4.model.LadderManager
-import com.perrigogames.life4.model.LadderProgressManager
 import com.perrigogames.life4.android.R
 import com.perrigogames.life4.android.nameRes
 import com.perrigogames.life4.android.view.LadderGoalItemView
+import com.perrigogames.life4.data.BaseRankGoal
+import com.perrigogames.life4.data.RankEntry
+import com.perrigogames.life4.data.SongsClearGoal
+import com.perrigogames.life4.db.GoalState
+import com.perrigogames.life4.enums.GoalStatus
+import com.perrigogames.life4.enums.GoalStatus.*
+import com.perrigogames.life4.enums.LadderRank
+import com.perrigogames.life4.model.LadderManager
+import com.perrigogames.life4.model.LadderProgressManager
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 
@@ -23,10 +24,12 @@ import org.koin.core.inject
  * A [ViewModel] that manages manipulating and displaying a series of [BaseRankGoal]s
  * attributable to a certain rank.
  */
-class RankDetailsViewModel(private val context: Context,
-                           private val rankEntry: RankEntry?,
-                           private val options: RankDetailsFragment.Options,
-                           private val goalListListener: OnGoalListInteractionListener?) : ViewModel(), KoinComponent {
+class RankDetailsViewModel(
+    private val context: Context,
+    private val rankEntry: RankEntry?,
+    private val options: RankDetailsFragment.Options,
+    private val goalListListener: OnGoalListInteractionListener?,
+) : ViewModel(), KoinComponent {
 
     private val ladderManager: LadderManager by inject()
     private val ladderProgressManager: LadderProgressManager by inject()
@@ -39,7 +42,9 @@ class RankDetailsViewModel(private val context: Context,
 
     private val hidesCompleteTasks = options.hideCompleted // resolves immediately, determines eligibility for toggling hidden on/off
 
+    // All goals for the current target rank
     private val allGoals: List<BaseRankGoal> by lazy { targetEntry!!.goals + targetEntry!!.mandatoryGoals }
+    // Goals that should be shown to the user based on completion state
     private val activeGoals: MutableList<BaseRankGoal> by lazy { createActiveGoals() }
 
     private fun createActiveGoals() = when {
@@ -93,6 +98,19 @@ class RankDetailsViewModel(private val context: Context,
 
     private val dataSource = object: RankGoalsAdapter.DataSource {
         override fun getGoals() = activeGoals
+        override fun getGoalCategories(): List<Any> =
+            activeGoals.groupBy { goal ->
+                if (goal is SongsClearGoal) {
+                    goal.diffNum
+                } else {
+                    null
+                }
+            }.flatMap { pair ->
+                val headerString = pair.key?.let { diffNum ->
+                    context.getString(R.string.level_header, diffNum)
+                } ?: context.getString(R.string.other_goals)
+                listOf<Any>(headerString) + pair.value
+            }
         override fun isGoalExpanded(item: BaseRankGoal) = expandedItems.contains(item)
         override fun isGoalMandatory(item: BaseRankGoal) = targetEntry?.mandatoryGoals?.contains(item) == true
         override fun canIgnoreGoals(): Boolean = canIgnoreGoals
@@ -100,7 +118,15 @@ class RankDetailsViewModel(private val context: Context,
         override fun getGoalProgress(item: BaseRankGoal) = ladderProgressManager.getGoalProgress(item)
     }
 
-    val adapter: RankGoalsAdapter? = targetEntry?.let { RankGoalsAdapter(it, dataSource, goalItemListener, goalListListener) }
+    val adapter: RankGoalsAdapter? = targetEntry?.let { target ->
+        RankGoalsAdapter(
+            rank = target,
+            dataSource = dataSource,
+            diffNumberSections = target.rank >= LadderRank.PLATINUM1,
+            listener = goalItemListener,
+            goalListListener = goalListListener
+        )
+    }
     val shouldShowGoals get() = adapter != null
 
     val directionsText = MutableLiveData<String>()

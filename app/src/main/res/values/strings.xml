@@ -152,9 +152,11 @@
     <string name="author_credit_format">Created by %s</string>
     <string name="event_directions">In this event, you\'re competing against everyone with a %s Rank.  Aim for the highest combined EX Score!</string>
     <string name="event_ends_format">Event ends %s</string>
+    <string name="level_header">Level %d</string>
 
     <!-- Short/Common Strings -->
     <string name="goals">Goals:</string>
+    <string name="other_goals">Other Goals</string>
     <string name="are_you_sure">Are you sure?</string>
     <string name="finalize">Finalize</string>
     <string name="submit">Submit</string>
@@ -411,7 +413,7 @@
     <string name="question_mark">\?</string>
     <string name="manager_import_tutorial_1">In the DDR A Manager app, enter a list of songs you want to copy and press the MENU button.</string>
     <string name="manager_import_tutorial_2">Click \'Copy to clipboard\'.</string>
-    <string name="manager_import_tutorial_3">Click \'Edit copy formats...\'.</string>
+    <string name="manager_import_tutorial_3">Click \'Edit copy formats…\'.</string>
     <string name="manager_import_tutorial_4">Paste the copied format text into one of the formats boxes that you don\'t already use.</string>
     <string name="manager_import_tutorial_5">Return to the Copy dialog and select the newly added format.</string>
     <string name="manager_import_tutorial_6">Then return to LIFE4 and paste the copied score data.</string>

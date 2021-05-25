@@ -2,6 +2,7 @@ package com.perrigogames.life4.android.ui.rankdetails
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.perrigogames.life4.android.R
 import com.perrigogames.life4.android.databinding.ItemNoGoalsBinding
@@ -20,6 +21,7 @@ import kotlin.math.max
 class RankGoalsAdapter(
     private val rank: RankEntry,
     private val dataSource: DataSource,
+    private val diffNumberSections: Boolean = false,
     var listener: LadderGoalItemView.LadderGoalItemListener? = null,
     var goalListListener: OnGoalListInteractionListener? = null
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -40,31 +42,59 @@ class RankGoalsAdapter(
                 view.listener = listener
                 GoalViewHolder(view)
             }
+            VIEW_TYPE_GOAL_HEADER -> {
+                val view = LayoutInflater.from(parent.context)
+                    .inflate(R.layout.item_rank_goal_header, parent, false) as TextView
+                GoalHeaderViewHolder(view)
+            }
             else -> NoGoalViewHolder(noGoalBinding(parent))
         }
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) = when (holder) {
         is GoalViewHolder -> {
-            val item = dataSource.getGoals()[position]
+            val item = if (diffNumberSections) {
+                dataSource.getGoalCategories()
+            } else {
+                dataSource.getGoals()
+            }[position] as BaseRankGoal
             holder.bind(item, dataSource)
             holder.itemView.tag = item
+        }
+        is GoalHeaderViewHolder -> {
+            holder.bind(dataSource.getGoalCategories()[position] as String)
         }
         else -> Unit
     }
 
-    // Used to avoid the duplicate items recycling
-    override fun getItemViewType(position: Int): Int = if (dataSource.getGoals().isEmpty()) VIEW_TYPE_NO_GOAL else VIEW_TYPE_GOAL
+    override fun getItemViewType(position: Int): Int = when {
+        dataSource.getGoals().isEmpty() -> VIEW_TYPE_NO_GOAL
+        diffNumberSections && dataSource.getGoalCategories()[position] is String -> VIEW_TYPE_GOAL_HEADER
+        else -> VIEW_TYPE_GOAL
+    }
 
-    override fun getItemCount(): Int = max(dataSource.getGoals().size, 1)
+    override fun getItemCount(): Int {
+        return max(1, if (diffNumberSections) {
+            dataSource.getGoalCategories().size
+        } else {
+            dataSource.getGoals().size
+        })
+    }
 
     interface DataSource {
         fun getGoals(): List<BaseRankGoal>
+        fun getGoalCategories(): List<Any>  // either BaseRankGoal or String
         fun isGoalMandatory(item: BaseRankGoal): Boolean
         fun isGoalExpanded(item: BaseRankGoal): Boolean
         fun canIgnoreGoals(): Boolean
         fun getGoalStatus(item: BaseRankGoal): GoalState
         fun getGoalProgress(item: BaseRankGoal): LadderGoalProgress?
+    }
+
+    inner class GoalHeaderViewHolder(val view: TextView) : RecyclerView.ViewHolder(view) {
+        fun bind(headerText: String) {
+            view.text = headerText
+        }
     }
 
     inner class GoalViewHolder(val view: LadderGoalItemView) : RecyclerView.ViewHolder(view) {
@@ -86,5 +116,6 @@ class RankGoalsAdapter(
     companion object {
         const val VIEW_TYPE_GOAL = 5
         const val VIEW_TYPE_NO_GOAL = 6
+        const val VIEW_TYPE_GOAL_HEADER = 7
     }
 }

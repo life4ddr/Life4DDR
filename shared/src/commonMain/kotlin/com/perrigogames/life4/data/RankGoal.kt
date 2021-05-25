@@ -137,14 +137,14 @@ class SongsClearGoal(
         diffClassSet != null && folderCount != null
 
     private fun songGroupString(c: PlatformStrings): String = when {
+        folderCount != null -> c.rank.folderString(folderCount)
+        folder != null -> c.rank.folderString(folder)
+        songs != null -> c.rank.songListString(songs)
         diffNum != null -> if (songCount != null) {
             c.rank.diffNumCount(songCount, diffNum)
         } else {
             c.rank.diffNumAll(diffNum)
         }
-        folderCount != null -> c.rank.folderString(folderCount)
-        folder != null -> c.rank.folderString(folder)
-        songs != null -> c.rank.songListString(songs)
         songCount != null -> c.rank.songCountString(songCount)
         else -> {
             logE("GoalValidation", "Goal $id has no song group string")
