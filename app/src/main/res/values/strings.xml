@@ -3,7 +3,7 @@
 
     <string name="file_provider_name">com.perrigogames.fileprovider</string>
 
-    <!-- Settings Strings -->
+    <!-- region Settings Strings -->
     <string name="action_settings">Settings</string>
     <string name="action_clear_record_data">Clear Trial Records</string>
     <string name="action_refresh_song_db">Refresh Song Database</string>
@@ -15,6 +15,7 @@
     <string name="action_shop_dangershark">Shop DangerShark</string>
     <string name="description_shop_life4">Purchase physical LIFE4 gear</string>
     <string name="description_shop_dangershark">Purchase merch from our partner DangerShark</string>
+    <!-- endregion -->
 
     <!-- Trial Goal Strings -->
     <string name="clear_first_songs">%s the first %d songs.</string>
@@ -44,33 +45,33 @@
     <string name="no_bad_judgments">PFC all songs.</string>
     <string name="no_missing_ex">MFC all songs.</string>
     <string name="no_misses">Full combo all songs.</string>
+    <!-- endregion -->
 
-    <!-- RankEntry Goal Strings -->
+    <!-- region RankEntry Goal Strings -->
     <string name="rank_goal_calories">Burn %d calories in one day.</string>
     <string name="rank_goal_single_score">Score %s on any level %d.</string>
     <string name="rank_goal_lamp">Earn a %s on %s (%s).</string>
-    <string name="rank_goal_set_different">Complete a set of %s.</string>
-    <string name="rank_goal_set_sequential">Complete %s in a row.</string>
+    <string name="rank_goal_set_different">%s a set of %s.</string>
+    <string name="rank_goal_set_sequential">%s %s in a row.</string>
     <string name="rank_goal_clear_count">%s %d songs on %s.</string>
     <string name="rank_goal_clear_count_single">%s a song on %s.</string>
     <string name="rank_goal_clear_specific">%s %s on %s.</string>
     <string name="rank_goal_clear_trial">Earn %s on %d Trials.</string>
     <string name="rank_goal_clear_trial_single">Earn %s on any Trial.</string>
-    <string name="rank_goal_difficulty_clear">%s %d different %s.</string>
-    <string name="rank_goal_difficulty_clear_single">%s %s.</string>
-    <string name="rank_goal_difficulty_clear_single_a">%s a %s.</string>
-    <string name="rank_goal_difficulty_clear_single_an">%s an %s.</string>
-    <string name="rank_goal_difficulty_lamp">%s the %d\'s folder%s.</string>
-    <string name="rank_goal_difficulty_score">%s %d %s.</string>
-    <string name="rank_goal_difficulty_score_all">All %s over %s%s.</string>
-    <string name="rank_goal_difficulty_score_all_lamp">All %s over %s with a %s%s.</string>
-    <string name="rank_goal_difficulty_aaa_all">AAA every %d.</string>
-    <string name="rank_goal_difficulty_aaa_all_lamp">AAA every %d with a %s.</string>
-    <string name="rank_goal_difficulty_with_average">" with an average score of %s"</string>
-    <string name="rank_goal_difficulty_and_average">" and an average score of %s"</string>
+    <string name="rank_goal_diff_clear_single">%s %s.</string>
+    <string name="rank_goal_diff_clear_single_a">a %s.</string>
+    <string name="rank_goal_diff_clear_single_an">an %s.</string>
+    <string name="rank_goal_diff_score">Score %s on %s.</string>
+    <string name="rank_goal_diff_score_aaa">AAA %s.</string>
+    <string name="rank_goal_diff_average">Score an average of %s on %s.</string>
     <string name="rank_goal_mfc_points">Earn %d MFC Points.</string>
-    <string name="exceptions">" (%dE)"</string>
-    <string name="exceptions_songs">" (except %s)"</string>
+    <string name="exceptions_num_modifier">"%s (except %d)"</string>
+    <string name="exceptions_songs_modifier">"%s (except %s)"</string>
+
+    <string name="all_items">all %s\'s</string>
+    <string name="num_items">%d %s\'s</string>
+    <string name="a_item">a %s</string>
+    <string name="an_item">an %s</string>
 
     <string name="fail">Fail</string>
     <string name="clear">Clear</string>
@@ -95,7 +96,9 @@
     <string name="score">Score</string>
     <string name="ex_score">EX Score</string>
     <string name="misses">Misses</string>
+    <!-- endregion -->
 
+    <!-- region Photo Selection Strings -->
     <string name="use_photo">Use Photo</string>
     <string name="take_photo">Take Photo</string>
     <string name="retake_photo">Retake Photo</string>
@@ -110,6 +113,7 @@
     <string name="gallery_permission_title">Gallery Permission</string>
     <string name="gallery_permission_description_popup">This app needs permission to access your photos to use them for LIFE4 verification.</string>
     <string name="status_error">We found a problem: %1$s</string>
+    <!-- endregion -->
 
     <string name="trial_failed">Trial Failed!</string>
     <string name="trial_fail_confirmation">Would you like to Concede and save this Trial attempt?</string>
@@ -253,7 +257,7 @@
 
     <string name="breakdown_information_missing">One or more of your songs are missing step breakdowns.</string>
 
-    <!-- Rank Strings -->
+    <!-- region Rank Strings -->
     <string name="none">NONE</string>
     <string name="copper">COPPER</string>
     <string name="copper_1">COPPER I</string>
@@ -320,10 +324,11 @@
     <string name="roman_3">III</string>
     <string name="roman_4">IV</string>
     <string name="roman_5">V</string>
+    <!-- endregion -->
 
     <!-- Trial Rank Strings -->
-    <string name="set_numbers_multiple_same_format">%d different %d\'s</string>
-    <string name="set_numbers_3_format">%d, %d, and %d</string>
+    <string name="set_numbers_multiple_same_format">%d different L%d\'s</string>
+    <string name="set_numbers_3_format">L%d, L%d, and L%d</string>
     <string name="make_sure_fields_filled">Make sure all fields are filled in.</string>
     <string name="tap_to_copy">Tap to copy \"%s\"</string>
     <string name="copied">Copied!</string>
@@ -340,7 +345,12 @@
     <string name="or_s">or %s</string>
     <string name="or_s_caps">OR %s</string>
     <string name="plural_number">%ds</string>
-    <string name="any_full_mix_or_letter">any full mix or letter folder</string>
+
+    <string name="difficulty_modifier">%s on %s</string>
+    <string name="specific_folder">the %s folder</string>
+    <string name="any_folder">any Mix or Letter folder</string>
+    <string name="any_folder_plural">any %d Mix or Letter folders</string>
+    <string name="song_count">any %d songs</string>
     <string name="choose_list">Choose 1: %s</string>
     <string name="action_progress_matrix">Progress Matrix</string>
     <string name="action_game_version">Game Version</string>
@@ -394,8 +404,6 @@
 
     <string name="database_upgraded">Song Database Upgraded</string>
     <string name="database_replaced_reimport">The internal song database has been upgraded.\n\nIf you imported your scores from the DDR A Score Manager, you will need to do this again to ensure compatibility.\n\nYou\'ll only need to do this once.</string>
-    <string name="a20_update">A20 Is Here!</string>
-    <string name="a20_update_explanation">LIFE4 will now be incorporating songs from DDR A20 into the LIFE4 Ranking System.\n\nIf you don\'t have regular access to DDR A20, you can select DDR A from the Settings menu.</string>
     <string name="more_info">More Info</string>
 
     <string name="update_your_app">Update Your App!</string>

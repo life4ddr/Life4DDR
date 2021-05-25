@@ -5,6 +5,7 @@
 package com.perrigogames.life4.data
 
 import com.perrigogames.life4.enums.*
+import com.perrigogames.life4.logE
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
@@ -23,9 +24,20 @@ data class LadderRankData(
 ): MajorVersioned {
 
     init {
+        validate()
         gameVersions.values.flatMap { it.rankRequirements }.forEach {  entry ->
             entry.goalIds?.let { entry.goals = mapIdsToGoals(it) }
             entry.mandatoryGoalIds?.let { entry.mandatoryGoals = mapIdsToGoals(it) }
+        }
+    }
+
+    private fun validate() {
+        goals.forEach { goal ->
+            (goal as? SongsClearGoal)?.validate()?.let { valid ->
+                if (!valid) {
+                    logE("GoalValidation", "Goal ${goal.id} is invalid")
+                }
+            }
         }
     }
 

@@ -10,12 +10,12 @@
 package com.perrigogames.life4.data
 
 import com.perrigogames.life4.PlatformStrings
-import com.perrigogames.life4.enums.*
 import com.perrigogames.life4.db.DetailedChartResult
+import com.perrigogames.life4.enums.*
+import com.perrigogames.life4.logE
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
-import kotlin.math.min
 
 /**
  * The base rank goal class, describing a single goal of a rank on the LIFE4 ladder.
@@ -52,10 +52,14 @@ class CaloriesRankGoal(
 @Serializable
 @SerialName("set")
 class SongSetGoal(
-    @SerialName("difficulty_numbers") val difficulties: IntArray,
+    @SerialName("diff_nums") val difficulties: IntArray,
+    @SerialName("clear_type") private val mClearType: ClearType? = null,
 ): BaseRankGoal() {
 
-    override fun goalString(c: PlatformStrings) = c.rank.getSongSetString(difficulties)
+    val clearType: ClearType
+        get() = mClearType ?: ClearType.CLEAR
+
+    override fun goalString(c: PlatformStrings) = c.rank.getSongSetString(clearType, difficulties)
 }
 
 /**
@@ -93,29 +97,20 @@ data class MFCPointsGoal(
  * - clearing 3 different 12's with LIFE4 enabled
  * - clearing all 17's with 950k or more points
  * - PFC-ing all 15's with the exception of 5 songResults
- * @param difficulty the difficulty number to be judged
- * @param mDifficultyNumbers the set of difficulty numbers to be judged. This overrides [difficulty] and is
- *   intended to be different options (PFC 3 9s or 10s to indicate a user could do a mix of difficulties)
- * @param mClearType the [ClearType] that needs to be obtained for each song, defaults to [ClearType.CLEAR]
- * @param count the number of songResults that need to be cleared from the difficulty, null indicates the
- *   entire folder must be cleared. Cannot be used with [songs]
- * @param songs specifies specific songResults that must be cleared. Overrides [count]
- * @param score the score that must be obtained by each song, null indicates that only [clearType] is
- *   necessary
- * @param exceptions if [count] is null, indicates the number of songResults in the folder that do not need to
- *   meet these requirements
  */
 @Serializable
 @SerialName("songs")
 class SongsClearGoal(
-    @SerialName("d") val difficulty: Int? = null,
-    private val difficulties: DifficultyClassSet? = null,
+    @SerialName("d") val diffNum: Int? = null,
+    @SerialName("diff_class") private val diffClassSet: DifficultyClassSet? = null,
     val songs: List<String>? = null,
     val folder: String? = null,
+
     @SerialName("folder_count") val folderCount: Int? = null,
     @SerialName("song_count") val songCount: Int? = null,
     val exceptions: Int? = null,
     @SerialName("song_exceptions") val songExceptions: List<String>? = null,
+
     val score: Int? = null,
     @SerialName("average_score") val averageScore: Int? = null,
     @SerialName("clear_type") private val mClearType: ClearType? = null,
@@ -124,52 +119,58 @@ class SongsClearGoal(
     val clearType: ClearType
         get() = mClearType ?: ClearType.CLEAR
 
-    override fun goalString(c: PlatformStrings): String {
-//        return if (count == null) when {
-//            score != null -> c.rank.scoreAllString(score, averageScore, clearType, difficulty!!) + exceptionString(c) // All X over Y
-//            else -> c.rank.folderLamp(clearType, difficulty!!, averageScore) + exceptionString(c) // Y lamp the X's folder
-//        } else when {
-//            score != null -> c.rank.scoreString(score, averageScore, count, difficultyNumbers) // X Ys over Z
-//            else -> clearString(c) // Y clear Z X's
-//        }
-        return "Coming soon" // TODO
+    fun validate(): Boolean {
+        var count = 0
+        if (score != null) count += 1
+        if (averageScore != null) count += 1
+        if (mClearType != null) count += 1
+        return count <= 1
+    }
+
+    override fun goalString(c: PlatformStrings): String = when {
+        score != null -> c.rank.scoreString(score, songGroupString(c))
+        averageScore != null -> c.rank.averageScoreString(averageScore, songGroupString(c))
+        else -> c.rank.clearString(clearType, shouldUseLamp, songGroupString(c))
+    }
+
+    private val shouldUseLamp =
+        diffClassSet != null && folderCount != null
+
+    private fun songGroupString(c: PlatformStrings): String = when {
+        diffNum != null -> if (songCount != null) {
+            c.rank.diffNumCount(songCount, diffNum)
+        } else {
+            c.rank.diffNumAll(diffNum)
+        }
+        folderCount != null -> c.rank.folderString(folderCount)
+        folder != null -> c.rank.folderString(folder)
+        songs != null -> c.rank.songListString(songs)
+        songCount != null -> c.rank.songCountString(songCount)
+        else -> {
+            logE("GoalValidation", "Goal $id has no song group string")
+            "???????"
+        }
+    }
+        .difficultySection(c)
+        .exceptionSection(c)
+
+    private fun String.difficultySection(c: PlatformStrings) = when {
+        diffClassSet != null -> c.rank.difficultyClassSetModifier(this, diffClassSet, playStyle)
+        else -> this
+    }
+
+    private fun String.exceptionSection(c: PlatformStrings) = when {
+        exceptions != null -> c.rank.exceptionsModifier(this, exceptions)
+        songExceptions != null -> c.rank.songExceptionsModifier(this, songExceptions)
+        else -> this
     }
 
     override fun getGoalProgress(possible: Int, results: List<DetailedChartResult>): LadderGoalProgress {
-//        return when {
-//            results.isEmpty() -> LadderGoalProgress(0, possible)
-//            count == null -> {
-//                val remaining = when {
-//                    score != null -> results.filter { !it.satisfiesClear(clearType) || it.score < score } // All X over Y
-//                    else -> results.filter { !it.satisfiesClear(clearType) } // Y lamp the X's folder
-//                }.sortedByDescending { it.score }
-//                val actualResultsSize = possible - (exceptions ?: 0)
-//                LadderGoalProgress(min(results.size - remaining.size, actualResultsSize), actualResultsSize, results = remaining)
-//            }
-//            else -> {
-//                val resultCount = when {
-//                    score != null -> results.count { it.score >= score } // X Ys over Z
-//                    else -> results.count { it.clearType.ordinal >= clearType.ordinal } // Y clear Z X's
-//                }
-//                LadderGoalProgress(min(count, resultCount), count)
-//            }
-//        }
         return LadderGoalProgress( // TODO
             progress = 1,
             max = 2,
         )
     }
-
-//    private fun clearString(c: PlatformStrings): String =  when {
-//        exceptions != null -> throw IllegalArgumentException("Cannot combine exceptions with a set number")
-//        else -> c.rank.clearString(count!!, difficultyNumbers, clearType)
-//    }
-
-//    private fun exceptionString(c: PlatformStrings) = when {
-//        exceptions != null -> c.rank.exceptions(exceptions)
-//        songExceptions != null -> c.rank.songExceptions(songExceptions)
-//        else -> ""
-//    }
 }
 
 /**
