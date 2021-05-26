@@ -2,30 +2,34 @@ package com.perrigogames.life4.android.ui.trial
 
 import android.content.Context
 import android.content.res.ColorStateList
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateInterpolator
-import android.widget.ImageView
-import android.widget.ProgressBar
-import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.perrigogames.life4.SettingsKeys.KEY_RECORDS_REMAINING_EX
-import com.perrigogames.life4.db.TrialSession
-import com.perrigogames.life4.db.TrialSong
-import com.perrigogames.life4.longNumberString
 import com.perrigogames.life4.android.R
 import com.perrigogames.life4.android.colorRes
 import com.perrigogames.life4.android.databinding.ItemTrialRecordBinding
-import com.perrigogames.life4.model.TrialManager
 import com.perrigogames.life4.android.ui.trial.TrialRecordsFragment.OnRecordsListInteractionListener
 import com.perrigogames.life4.android.util.jacketResId
 import com.perrigogames.life4.android.util.visibilityBool
+import com.perrigogames.life4.db.TrialSession
+import com.perrigogames.life4.db.TrialSong
+import com.perrigogames.life4.longNumberString
+import com.perrigogames.life4.model.TrialManager
 import com.russhwolf.settings.Settings
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toInstant
+import kotlinx.datetime.toJavaLocalDateTime
+import kotlinx.datetime.toLocalDateTime
 import org.koin.core.KoinComponent
 import org.koin.core.inject
+import java.text.SimpleDateFormat
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 /**
  * [RecyclerView.Adapter] that can display a [TrialSession] and makes a call to the
@@ -104,7 +108,26 @@ class TrialRecordsAdapter(
 
             binding.imageRankIcon.rank = session.goalRank.parent
             binding.imageRankIcon.alpha = if (session.goalObtained) 1f else 0.3f
-            binding.textRecordDate.text = session.date
+
+            val dateTime = session.date.toInstant().toLocalDateTime(TimeZone.currentSystemDefault())
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                binding.textRecordDate.text =
+                    DateTimeFormatter.ofPattern("yyyy-MM-dd\nhh:mm a").format(
+                        dateTime.toJavaLocalDateTime()
+                    )
+            } else {
+                val calendar = Calendar.getInstance()
+                calendar.set(
+                    dateTime.year,
+                    dateTime.monthNumber,
+                    dateTime.dayOfMonth,
+                    dateTime.hour,
+                    dateTime.minute,
+                    dateTime.second
+                )
+                binding.textRecordDate.text = SimpleDateFormat("yyyy-MM-dd\nHH:mm:ss").format(calendar.time)
+            }
+
 
             val miniEntry = songs.isEmpty()
             if (!miniEntry) {
