@@ -1,7 +1,10 @@
 package com.perrigogames.life4.enums
 
 import com.perrigogames.life4.enums.LadderRankClass.*
-import kotlinx.serialization.*
+import kotlinx.serialization.ExperimentalSerializationApi
+import kotlinx.serialization.KSerializer
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.Serializer
 import kotlinx.serialization.descriptors.PrimitiveKind
 import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
 import kotlinx.serialization.descriptors.SerialDescriptor
@@ -13,8 +16,9 @@ import kotlinx.serialization.encoding.Encoder
  */
 @ExperimentalSerializationApi
 @Serializable(with = LadderRankSerializer::class)
-enum class LadderRank(val stableId: Long,
-                      val group: LadderRankClass
+enum class LadderRank(
+    val stableId: Long,
+    val group: LadderRankClass,
 ) {
     COPPER1(20, COPPER),
     COPPER2(21, COPPER),

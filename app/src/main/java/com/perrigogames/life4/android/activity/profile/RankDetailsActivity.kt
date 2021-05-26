@@ -4,25 +4,28 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.perrigogames.life4.LadderRanksReplacedEvent
-import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.android.R
 import com.perrigogames.life4.android.databinding.ActivityRankDetailsBinding
-import com.perrigogames.life4.model.LadderManager
 import com.perrigogames.life4.android.nameRes
 import com.perrigogames.life4.android.ui.rankdetails.RankDetailsFragment
 import com.perrigogames.life4.android.ui.rankdetails.RankDetailsViewModel
 import com.perrigogames.life4.android.util.visibilityBool
 import com.perrigogames.life4.android.view.RankHeaderView
+import com.perrigogames.life4.enums.LadderRank
+import com.perrigogames.life4.model.LadderManager
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 
-class RankDetailsActivity : AppCompatActivity(), RankHeaderView.NavigationListener, RankDetailsViewModel.OnGoalListInteractionListener, KoinComponent {
+class RankDetailsActivity : AppCompatActivity(),
+    RankHeaderView.NavigationListener,
+    RankDetailsViewModel.OnGoalListInteractionListener,
+    KoinComponent
+{
 
     private val ladderManager: LadderManager by inject()
     private val eventBus: EventBus by inject()
@@ -46,7 +49,6 @@ class RankDetailsActivity : AppCompatActivity(), RankHeaderView.NavigationListen
         binding.buttonWorkTowardRank.setOnClickListener { useRankTargetClicked() }
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setTitle(rank?.nameRes ?: R.string.no_rank)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -91,35 +93,39 @@ class RankDetailsActivity : AppCompatActivity(), RankHeaderView.NavigationListen
     fun onRankListUpdated(e: LadderRanksReplacedEvent) = setupRank(rank)
 
     private fun useRankClicked() {
-        setResult(
-            RESULT_RANK_SELECTED, Intent().putExtra(
-                EXTRA_RANK, rank?.stableId))
+        setResult(RESULT_RANK_SELECTED, Intent().putExtra(EXTRA_RANK, rank?.stableId))
         finish()
     }
 
     private fun useRankTargetClicked() {
-        setResult(
-            RESULT_RANK_TARGET_SELECTED, Intent().putExtra(
-                EXTRA_TARGET_RANK, rank?.stableId))
+        setResult(RESULT_RANK_TARGET_SELECTED, Intent().putExtra(EXTRA_TARGET_RANK, rank?.stableId))
         finish()
     }
 
     private fun setupRank(rank: LadderRank?) {
         this.rank = rank
+        supportActionBar?.setTitle(rank?.nameRes ?: R.string.no_rank)
         binding.buttonUseRank.text = when {
             rank != null -> getString(R.string.i_am_rank_format, getString(rank.nameRes))
             else -> getString(R.string.i_have_no_rank)
         }
 
         val targetRank = if (showNextGoals) ladderManager.nextEntry(rank)?.rank else rank
-        binding.buttonWorkTowardRank.visibilityBool = showWorkToward && targetRank != null
-        (targetRank)?.let { t ->
-            binding.buttonWorkTowardRank.text = getString(R.string.work_towards_rank_format, getString(t.nameRes))
+        binding.buttonWorkTowardRank.apply {
+            visibilityBool = showWorkToward && targetRank != null
+            (targetRank)?.let { t ->
+                text = getString(R.string.work_towards_rank_format, getString(t.nameRes))
+            }
         }
 
+        val fragment = RankDetailsFragment.newInstance(
+            rank,
+            RankDetailsFragment.Options(
+                showNextGoals = showNextGoals
+            ),
+        )
         supportFragmentManager.beginTransaction()
-            .replace(R.id.container, RankDetailsFragment.newInstance(
-                rank, RankDetailsFragment.Options(showNextGoals = showNextGoals)))
+            .replace(R.id.container, fragment)
             .commitNow()
     }
 
