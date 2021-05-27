@@ -19,21 +19,21 @@
 
     <!-- Trial Goal Strings -->
     <string name="clear_first_songs">%s the first %d songs.</string>
-    <string name="score_songs">Score %s on at least %d songs.</string>
+    <string name="score_songs">Score %s+ on at least %d songs.</string>
     <string name="aaa_songs">AAA at least %d songs.</string>
     <string name="mfc_songs">MFC at least %d songs.</string>
-    <string name="score_other_songs">Score %s on at least %d other songs.</string>
+    <string name="score_other_songs">Score %s+ on at least %d other songs.</string>
     <string name="aaa_other_songs">AAA at least %d other songs.</string>
     <string name="mfc_other_songs">MFC at least %d other songs.</string>
-    <string name="score_specific_song">Score %s on %s.</string>
-    <string name="score_specific_song_difficulty">Score %s on %s (%s).</string>
+    <string name="score_specific_song">Score %s+ on %s.</string>
+    <string name="score_specific_song_difficulty">Score %s+ on %s (%s).</string>
     <string name="aaa_specific_song">AAA %s.</string>
     <string name="mfc_specific_song">MFC %s.</string>
     <string name="clear_every_song">%s every song.</string>
-    <string name="score_every_song">Score %s on every song.</string>
+    <string name="score_every_song">Score %s+ on every song.</string>
     <string name="aaa_every_song">AAA every song.</string>
     <string name="mfc_every_song">MFC every song.</string>
-    <string name="score_on_remainder">Score %s on all other songs.</string>
+    <string name="score_on_remainder">Score %s+ on all other songs.</string>
     <string name="aaa_on_remainder">AAA all other songs.</string>
     <string name="mfc_on_remainder">MFC all other songs.</string>
     <string name="bad_judgments_count">%d or fewer Greats, Goods, and Misses.</string>
@@ -49,19 +49,12 @@
 
     <!-- region RankEntry Goal Strings -->
     <string name="rank_goal_calories">Burn %d calories in one day.</string>
-    <string name="rank_goal_single_score">Score %s on any level %d.</string>
-    <string name="rank_goal_lamp">Earn a %s on %s (%s).</string>
     <string name="rank_goal_set_different">%s a set of %s.</string>
     <string name="rank_goal_set_sequential">%s %s in a row.</string>
-    <string name="rank_goal_clear_count">%s %d songs on %s.</string>
-    <string name="rank_goal_clear_count_single">%s a song on %s.</string>
-    <string name="rank_goal_clear_specific">%s %s on %s.</string>
     <string name="rank_goal_clear_trial">Earn %s on %d Trials.</string>
     <string name="rank_goal_clear_trial_single">Earn %s on any Trial.</string>
     <string name="rank_goal_diff_clear_single">%s %s.</string>
-    <string name="rank_goal_diff_clear_single_a">a %s.</string>
-    <string name="rank_goal_diff_clear_single_an">an %s.</string>
-    <string name="rank_goal_diff_score">Score %s on %s.</string>
+    <string name="rank_goal_diff_score">Score %s+ on %s.</string>
     <string name="rank_goal_diff_score_aaa">AAA %s.</string>
     <string name="rank_goal_diff_average">Score an average of %s on %s.</string>
     <string name="rank_goal_mfc_points">Earn %d MFC Points.</string>
@@ -69,7 +62,7 @@
     <string name="exceptions_songs_modifier">"%s (except %s)"</string>
 
     <string name="all_items">all %s\'s</string>
-    <string name="num_items">%d %s\'s</string>
+    <string name="num_items">any %d %s\'s</string>
     <string name="a_item">a %s</string>
     <string name="an_item">an %s</string>
 

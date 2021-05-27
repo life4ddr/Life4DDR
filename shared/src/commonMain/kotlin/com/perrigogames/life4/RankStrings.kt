@@ -49,7 +49,11 @@ interface RankStrings {
     fun exceptionsModifier(groupString: String, exceptions: Int): String  // (5E)
     fun songExceptionsModifier(groupString: String, songExceptions: List<String>): String  // (except SongA, SongB, and SongC)
 
-    fun diffNumSingle(diffNum: Int): String  // a L15 / an L8
-    fun diffNumCount(count: Int, diffNum: Int): String  // 3 L5s
-    fun diffNumAll(diffNum: Int): String  // all L14s
+    fun diffNumSingle(diffNum: Int, allowsHigherDiffNum: Boolean): String  // a L15 / an L8
+    fun diffNumCount(count: Int, diffNum: Int, allowsHigherDiffNum: Boolean): String  // 3 L5s
+    fun diffNumAll(diffNum: Int, allowsHigherDiffNum: Boolean): String  // all L14s
+    fun higherDiffNumSuffix(allowsHigherDiffNum: Boolean): String = when (allowsHigherDiffNum) {
+        true -> "+"
+        false -> ""
+    }
 }

@@ -102,6 +102,7 @@ data class MFCPointsGoal(
 @SerialName("songs")
 class SongsClearGoal(
     @SerialName("d") val diffNum: Int? = null,
+    @SerialName("higher_diff") val allowsHigherDiffNum: Boolean = false,
     @SerialName("diff_class") private val diffClassSet: DifficultyClassSet? = null,
     val songs: List<String>? = null,
     val folder: String? = null,
@@ -141,9 +142,9 @@ class SongsClearGoal(
         folder != null -> c.rank.folderString(folder)
         songs != null -> c.rank.songListString(songs)
         diffNum != null -> if (songCount != null) {
-            c.rank.diffNumCount(songCount, diffNum)
+            c.rank.diffNumCount(songCount, diffNum, allowsHigherDiffNum)
         } else {
-            c.rank.diffNumAll(diffNum)
+            c.rank.diffNumAll(diffNum, allowsHigherDiffNum)
         }
         songCount != null -> c.rank.songCountString(songCount)
         else -> {

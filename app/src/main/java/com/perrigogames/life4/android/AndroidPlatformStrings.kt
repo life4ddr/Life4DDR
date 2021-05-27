@@ -86,23 +86,23 @@ class AndroidPlatformStrings: PlatformStrings, KoinComponent {
             songCount,
         )
 
-        override fun diffNumSingle(diffNum: Int): String = c.getString(
+        override fun diffNumSingle(diffNum: Int, allowsHigherDiffNum: Boolean): String = c.getString(
             R.string.a_item,
-            "L$diffNum",
+            "L$diffNum${higherDiffNumSuffix(allowsHigherDiffNum)}",
         )
 
-        override fun diffNumCount(count: Int, diffNum: Int): String = when(count) {
-            1 -> diffNumSingle(diffNum)
+        override fun diffNumCount(count: Int, diffNum: Int, allowsHigherDiffNum: Boolean): String = when(count) {
+            1 -> diffNumSingle(diffNum, allowsHigherDiffNum)
             else -> c.getString(
                 R.string.num_items,
                 count,
-                "L$diffNum",
+                "L$diffNum${higherDiffNumSuffix(allowsHigherDiffNum)}",
             )
         }
 
-        override fun diffNumAll(diffNum: Int): String = c.getString(
+        override fun diffNumAll(diffNum: Int, allowsHigherDiffNum: Boolean): String = c.getString(
             R.string.all_items,
-            "L$diffNum",
+            "L$diffNum${higherDiffNumSuffix(allowsHigherDiffNum)}",
         )
 
         override fun scoreString(score: Int, groupString: String): String = when (score) {
