@@ -8,8 +8,6 @@ import com.perrigogames.life4.enums.DifficultyClass
 import com.perrigogames.life4.enums.DifficultyClass.BEGINNER
 import com.perrigogames.life4.enums.PlayStyle
 import com.perrigogames.life4.enums.PlayStyle.DOUBLE
-import com.perrigogames.life4.log
-import com.perrigogames.life4.logE
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -26,8 +24,9 @@ import org.koin.core.inject
  * In Legacy mode, input lines are interpreted using the old copy-paste style data lines, where each line was only a single
  *  chart, which led to a lot of duplication.
  */
-class LadderImporter(private var dataLines: List<String>,
-                     private val opMode: OpMode = OpMode.AUTO
+class LadderImporter(
+    private var dataLines: List<String>,
+    private val opMode: OpMode = OpMode.AUTO,
 ): BaseModel() {
 
     private val ignoreListManager: IgnoreListManager by inject()
@@ -172,11 +171,12 @@ class LadderImporter(private var dataLines: List<String>,
         withContext(Dispatchers.Main) { listener?.onError(errors, message) }
     }
 
-    class SASongEntry(var skillId: String?,
-                      val score: Long,
-                      val clearType: ClearType,
-                      val playStyle: PlayStyle,
-                      val difficultyClass: DifficultyClass
+    class SASongEntry(
+        var skillId: String?,
+        val score: Long,
+        val clearType: ClearType,
+        val playStyle: PlayStyle,
+        val difficultyClass: DifficultyClass,
     )
 
     fun cancel() {

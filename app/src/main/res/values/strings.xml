@@ -207,11 +207,7 @@
     <string name="clear_data">Clear Data</string>
     <string name="clear_goal_states">Clear Goal States</string>
     <string name="clear_song_results">Clear Song Results</string>
-    <string name="score_manager_import">Score Manager Import</string>
-    <string name="import_manager_data">Import manager data</string>
-    <string name="import_manager_legacy">Use legacy import</string>
-    <string name="import_manager_legacy_description">Legacy import shows the old copy/paste method for importing scores</string>
-    <string name="import_skip_directions">Skip import directions</string>
+    <string name="import_manager_data">Import Score Manager data</string>
     <string name="trial_import">Trial Import</string>
     <string name="import_trials">Import trials</string>
     <string name="import_trials_description">Import your Trial data from another copy of the app (v3.3+)</string>
@@ -385,10 +381,10 @@
     <string name="placement_description">To participate in Rank Placement, you must complete the following songs in a single set.\n\n• The songs can be played in any order.\n• Extra Stage is optional. If you earn an Extra Stage, you can use it to improve a previous score.\n• The ONLY photo that is required is one of the final results screen, showing the scores for each song played. (Click \"Finalize\" to take this photo)</string>
     <string name="remove_rank">Remove Rank</string>
     <string name="copy_and_continue">Copy and Continue</string>
-    <string name="no_ddra_manager">You don\'t seem to have the DDR A Score Manager app installed.</string>
+    <string name="no_ddra_manager">You don\'t seem to have the DDR Score Manager app installed.</string>
     <string name="show_notifications_title">Show Info Notifications</string>
     <string name="no_rank">NO RANK</string>
-    <string name="import_ddra_data_short">DDR A Manager Import</string>
+    <string name="import_ddra_data_short">Score Manager Import</string>
 
     <string name="ranks_updated">Rank Requirements have been updated!</string>
     <string name="trials_updated">Trials have been updated!</string>
@@ -404,7 +400,7 @@
     <string name="update_your_app">Update Your App!</string>
     <string name="remote_data_needs_update">This version of the LIFE4 app is not compatible with some of the newest updates.\n\nPlease update your LIFE4 app to get the most current experience!</string>
     <string name="question_mark">\?</string>
-    <string name="manager_import_tutorial_1">In the DDR A Manager app, enter a list of songs you want to copy and press the MENU button.</string>
+    <string name="manager_import_tutorial_1">In the Score Manager app, enter a list of songs you want to copy and press the MENU button.</string>
     <string name="manager_import_tutorial_2">Click \'Copy to clipboard\'.</string>
     <string name="manager_import_tutorial_3">Click \'Edit copy formats…\'.</string>
     <string name="manager_import_tutorial_4">Paste the copied format text into one of the formats boxes that you don\'t already use.</string>

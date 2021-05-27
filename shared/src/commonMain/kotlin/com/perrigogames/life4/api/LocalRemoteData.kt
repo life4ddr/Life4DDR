@@ -104,8 +104,10 @@ abstract class KtorRemoteData<T: Any>: BaseModel(), RemoteData<T>, KoinComponent
  * A wrapper around a data type that is both fetched from an external source and stored locally.
  * It contains logic to determine the most up-to-date version of any data and use the most recent.
  */
-abstract class KtorLocalRemoteData<T: Any>(protected val localReader: LocalDataReader,
-                                           protected var fetchListener: FetchListener<T>? = null): KtorRemoteData<T>() {
+abstract class KtorLocalRemoteData<T: Any>(
+    protected val localReader: LocalDataReader,
+    protected var fetchListener: FetchListener<T>? = null
+): KtorRemoteData<T>() {
 
     val json: Json by inject()
 
@@ -163,10 +165,11 @@ abstract class KtorLocalRemoteData<T: Any>(protected val localReader: LocalDataR
  * It also checks a major version of the data against the major version supported by the interpreter
  * to prevent unreadable data from crashing older versions of the app that won't parse properly.
  */
-abstract class KtorMajorVersionedRemoteData<T: MajorVersioned>(localReader: LocalDataReader,
-                                                               val majorVersion: Int,
-                                                               fetchListener: FetchListener<T>? = null):
-    KtorLocalRemoteData<T>(localReader, fetchListener) {
+abstract class KtorMajorVersionedRemoteData<T: MajorVersioned>(
+    localReader: LocalDataReader,
+    val majorVersion: Int,
+    fetchListener: FetchListener<T>? = null
+): KtorLocalRemoteData<T>(localReader, fetchListener) {
 
     protected val eventBus: EventBusNotifier by inject()
 

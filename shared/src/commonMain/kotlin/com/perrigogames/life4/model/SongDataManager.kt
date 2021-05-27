@@ -4,11 +4,14 @@ import com.perrigogames.life4.SettingsKeys.KEY_SONG_LIST_VERSION
 import com.perrigogames.life4.api.FetchListener
 import com.perrigogames.life4.api.LocalDataReader
 import com.perrigogames.life4.api.SongListRemoteData
+import com.perrigogames.life4.db.ChartInfo
 import com.perrigogames.life4.db.SongDatabaseHelper
+import com.perrigogames.life4.db.SongInfo
 import com.perrigogames.life4.enums.DifficultyClass
 import com.perrigogames.life4.enums.GameVersion
 import com.perrigogames.life4.enums.PlayStyle
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.SONGS_FILE_NAME
+import com.perrigogames.life4.log
 import com.perrigogames.life4.logE
 import com.perrigogames.life4.logException
 import com.russhwolf.settings.Settings
@@ -55,6 +58,10 @@ class SongDataManager: BaseModel() {
             try {
                 val lines = input.lines()
                 if (force || settings.getInt(KEY_SONG_LIST_VERSION, -1) < lines[0].toInt()) {
+
+                    val songs = mutableListOf<SongInfo>()
+                    val charts = mutableListOf<ChartInfo>()
+
                     lines.forEachIndexed { idx, line ->
                         if (idx == 0 || line.isEmpty()) {
                             return@forEachIndexed
@@ -62,30 +69,38 @@ class SongDataManager: BaseModel() {
                         val data = line.split('\t')
                         val id = data[0].toLong()
                         val skillId = data[1]
-                        val title = data[2]
-                        val artist = data[3]
+
                         var preview = false
-                        val mix = GameVersion.parse(data[4].let {
+                        val mixCode = data[2]
+                        val mix = GameVersion.parse(mixCode.let {
                             it.toLongOrNull() ?: it.substring(0, it.length - 1).let { seg ->
                                 preview = true
                                 seg.toLong()
                             }
                         }) ?: GameVersion.values().last().also {
-                            logException(Exception("No game version found for text \"${data[4]}\""))
+                            logException(Exception("No game version found for mix code \"$mixCode\""))
                         }
-                        dbHelper.insertSong(id, skillId, title, artist, mix, preview)
-                        var count = 5
+
+                        val title = data[12]
+                        val artist = data[13]
+
+                        songs.add(SongInfo(skillId, id, title, artist, mix, preview))
+                        var count = 3
                         PlayStyle.values().forEach { style ->
                             DifficultyClass.values().forEach { diff ->
                                 if (style != PlayStyle.DOUBLE || diff != DifficultyClass.BEGINNER) {
-                                    val diffStr = data[count++]
-                                    if (diffStr.isNotEmpty()) {
-                                        dbHelper.insertChart(id, diff, diffStr.toLong(), style)
+                                    val diffNum = data[count++].toLong()
+                                    if (diffNum != -1L) {
+                                        charts.add(ChartInfo(id, diff, style, diffNum))
                                     }
                                 }
                             }
                         }
+
+                        log("SongImport", "Importing ${songs.last().title}")
                     }
+                    dbHelper.insertSongsAndCharts(songs, charts)
+
                     ignoreListManager.invalidateIgnoredIds()
                     settings[KEY_SONG_LIST_VERSION] = lines[0].toInt()
                 }

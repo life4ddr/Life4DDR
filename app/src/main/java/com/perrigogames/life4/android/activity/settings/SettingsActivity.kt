@@ -7,6 +7,7 @@ import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -24,8 +25,6 @@ import com.perrigogames.life4.SettingsKeys.KEY_FEEDBACK
 import com.perrigogames.life4.SettingsKeys.KEY_FIND_US_TWITTER
 import com.perrigogames.life4.SettingsKeys.KEY_IMPORT_DATA
 import com.perrigogames.life4.SettingsKeys.KEY_IMPORT_GAME_VERSION
-import com.perrigogames.life4.SettingsKeys.KEY_IMPORT_PREFER_LEGACY
-import com.perrigogames.life4.SettingsKeys.KEY_IMPORT_SKIP_DIRECTIONS
 import com.perrigogames.life4.SettingsKeys.KEY_IMPORT_VIEW_LIST
 import com.perrigogames.life4.SettingsKeys.KEY_INFO_IMPORT
 import com.perrigogames.life4.SettingsKeys.KEY_INFO_NAME
@@ -105,7 +104,7 @@ class SettingsActivity : AppCompatActivity(),
 
         private var listener: SettingsFragmentListener? = null
 
-        protected val getScores = registerForActivityResult(GetScoreList()) { ladderDialogs.handleSkillAttackImport(activity!!, it) }
+        protected val getScores = registerForActivityResult(GetScoreList()) { ladderDialogs.handleSkillAttackImport(requireActivity(), it) }
         protected val getTrials = registerForActivityResult(GetTrialData()) { trialDb.importRecordExportStrings(it) }
 
         override fun onPause() {
@@ -116,7 +115,7 @@ class SettingsActivity : AppCompatActivity(),
         override fun onResume() {
             super.onResume()
             preferenceScreen.sharedPreferences.registerOnSharedPreferenceChangeListener(this)
-            listener!!.onFragmentEntered(fragmentName() ?: context!!.getString(R.string.action_settings))
+            listener!!.onFragmentEntered(fragmentName() ?: requireContext().getString(R.string.action_settings))
         }
 
         override fun onAttach(context: Context) {
@@ -150,16 +149,17 @@ class SettingsActivity : AppCompatActivity(),
         protected inline fun checkBox(target: PreferenceGroup = preferenceScreen, block: CheckBoxPreference.() -> Unit) =
             target.addPreference(CheckBoxPreference(context).apply(block))
 
-        protected inline fun category(key: String,
-                                      title: String,
-                                      target: PreferenceGroup = preferenceScreen,
-                                      block: PreferenceCategory.() -> Unit) =
-            PreferenceCategory(context).also {
-                it.key = key
-                it.title = title
-                target.addPreference(it)
-                it.apply(block)
-            }
+        protected inline fun category(
+            key: String,
+            title: String,
+            target: PreferenceGroup = preferenceScreen,
+            block: PreferenceCategory.() -> Unit
+        ) = PreferenceCategory(context).also {
+            it.key = key
+            it.title = title
+            target.addPreference(it)
+            it.apply(block)
+        }
 
         override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) = Unit
     }
@@ -184,20 +184,16 @@ class SettingsActivity : AppCompatActivity(),
                 true
             }
             preferenceListener(KEY_IMPORT_DATA) {
-                var done = false
-                if (!settings.getBoolean(KEY_IMPORT_PREFER_LEGACY, false)) {
-                    try {
-                        getScores.launch(Unit)
-                        done = true
-                    } catch (e: Exception) { }
-                }
-                if (!done) {
-                    ladderDialogs.showImportFlow(activity!!)
+                try {
+                    getScores.launch(Unit)
+                } catch (e: Exception) {
+                    Toast.makeText(
+                        requireContext(),
+                        R.string.no_ddra_manager,
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
                 true
-            }
-            findPreference<CheckBoxPreference>(KEY_IMPORT_SKIP_DIRECTIONS)?.let {
-                it.isEnabled = settings.getBoolean(KEY_IMPORT_PREFER_LEGACY)
             }
 
             preferenceListener(KEY_SHOP_LIFE4) {
@@ -246,16 +242,13 @@ class SettingsActivity : AppCompatActivity(),
                         it.text?.let { text -> playerManager.importPlayerInfo(text) }
                         it.text = null
                     }
-                    KEY_IMPORT_PREFER_LEGACY -> findPreference<CheckBoxPreference>(KEY_IMPORT_SKIP_DIRECTIONS)?.let {
-                        it.isEnabled = settings.getBoolean(key)
-                    }
                 }
             }
         }
     }
 
     class UserInfoSettingsFragment : BaseSettingsFragment() {
-        override fun fragmentName() = context!!.getString(R.string.edit_user_info)
+        override fun fragmentName() = requireContext().getString(R.string.edit_user_info)
 
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.user_info_preferences, rootKey)
@@ -301,7 +294,7 @@ class SettingsActivity : AppCompatActivity(),
     }
 
     class TrialSettingsFragment : BaseSettingsFragment() {
-        override fun fragmentName() = context!!.getString(R.string.trial_settings)
+        override fun fragmentName() = requireContext().getString(R.string.trial_settings)
 
         private val listUpdateListener: (Preference) -> Boolean = {
             eventBus.post(TrialListUpdatedEvent())
@@ -324,7 +317,7 @@ class SettingsActivity : AppCompatActivity(),
 //                try {
 //                    getTrials.launch(Unit)
 //                } catch (e: Exception) {
-//                    Toast.makeText(activity!!, R.string.import_trials_toast_failure, Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(requireActivity(), R.string.import_trials_toast_failure, Toast.LENGTH_SHORT).show()
 //                }
 //                true
 //            }
@@ -332,18 +325,18 @@ class SettingsActivity : AppCompatActivity(),
     }
 
     class ClearDataFragment : BaseSettingsFragment() {
-        override fun fragmentName() = context!!.getString(R.string.clear_data)
+        override fun fragmentName() = requireContext().getString(R.string.clear_data)
 
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.clear_data_preferences, rootKey)
             preferenceListener(KEY_LADDER_CLEAR) {
-                ladderDialogs.withActivity(activity!!) {
+                ladderDialogs.withActivity(requireActivity()) {
                     ladderManager.clearGoalStates()
                 }
                 true
             }
             preferenceListener(KEY_RECORDS_CLEAR) {
-                AlertDialog.Builder(activity!!)
+                AlertDialog.Builder(requireActivity())
                     .setTitle(R.string.are_you_sure)
                     .setMessage(R.string.confirm_erase_trial_data)
                     .setPositiveButton(R.string.yes) { _, _ -> trialManager.clearSessions() }
@@ -352,13 +345,13 @@ class SettingsActivity : AppCompatActivity(),
                 true
             }
             preferenceListener(KEY_SONG_RESULTS_CLEAR) {
-                ladderDialogs.withActivity(activity!!) {
+                ladderDialogs.withActivity(requireActivity()) {
                     ladderManager.clearSongResults()
                 }
                 true
             }
             preferenceListener(KEY_REFRESH_SONG_DB) {
-                ladderDialogs.withActivity(activity!!) {
+                ladderDialogs.withActivity(requireActivity()) {
                     ladderManager.refreshSongDatabase()
                 }
                 true
@@ -412,7 +405,7 @@ class SettingsActivity : AppCompatActivity(),
                 preferenceScreen.addPreference(DropDownPreference(context).apply {
                     key = "$KEY_DEBUG_RANK_PREFIX${trial.id}"
                     title = trial.name
-                    icon = ContextCompat.getDrawable(context, trial.jacketResId(context!!))
+                    icon = ContextCompat.getDrawable(context, trial.jacketResId(requireContext()))
                     summary = trialManager.getRankForTrial(trial.id)?.toString() ?: "NONE"
                     entries = ranksArray
                     entryValues = ranksArray

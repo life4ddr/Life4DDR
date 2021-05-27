@@ -5,9 +5,9 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
-import com.perrigogames.life4.model.LadderImporter
 import com.perrigogames.life4.android.R
 import com.perrigogames.life4.android.databinding.DialogManagerImportProcessingBinding
+import com.perrigogames.life4.model.LadderImporter
 
 /**
  * A custom Dialog class that prompts the user for a data string from an
@@ -79,5 +79,9 @@ class ScoreManagerImportProcessingDialog(var listener: Listener? = null): Dialog
     interface Listener {
         fun onDialogLoaded(managerListener: LadderImporter.Listener)
         fun onDialogCancelled()
+    }
+
+    companion object {
+        const val TAG = "ImportProcessingDialog"
     }
 }

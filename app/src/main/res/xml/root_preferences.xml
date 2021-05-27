@@ -1,61 +1,70 @@
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <Preference
         app:fragment="com.perrigogames.life4.android.activity.settings.SettingsActivity$UserInfoSettingsFragment"
-        app:title="@string/edit_user_info"/>
+        app:title="@string/edit_user_info"
+        />
     <DropDownPreference
         app:defaultValue="A20_US"
         app:key="KEY_IMPORT_GAME_VERSION"
-        app:title="@string/action_game_version"/>
+        app:title="@string/action_game_version"
+        />
+    <Preference
+        app:key="KEY_IMPORT_DATA"
+        app:title="@string/import_manager_data"
+        />
     <Preference
         app:key="KEY_MANAGE_UNLOCKS"
-        app:title="@string/manage_song_unlocks"/>
+        app:title="@string/manage_song_unlocks"
+        />
     <Preference
         app:key="KEY_IMPORT_VIEW_LIST"
-        app:title="@string/action_view_blocklist"/>
-
-    <Preference
+        app:title="@string/action_view_blocklist"
+        />
+    <com.perrigogames.life4.android.preference.BadgePreference
         app:fragment="com.perrigogames.life4.android.activity.settings.SettingsActivity$TrialSettingsFragment"
-        app:title="@string/trial_settings"/>
-
-    <Preference
+        app:title="@string/trial_settings"
+        app:badge="@drawable/ic_scroll_arrow_to_right"
+        app:badgeTint="@color/white_70"
+        />
+    <com.perrigogames.life4.android.preference.BadgePreference
         app:fragment="com.perrigogames.life4.android.activity.settings.SettingsActivity$ClearDataFragment"
-        app:title="@string/clear_data"/>
-
-    <PreferenceCategory app:title="@string/score_manager_import">
-        <Preference
-            app:key="KEY_IMPORT_DATA"
-            app:title="@string/import_manager_data"/>
-        <CheckBoxPreference
-            app:key="KEY_IMPORT_PREFER_LEGACY"
-            app:title="@string/import_manager_legacy"
-            app:summary="@string/import_manager_legacy_description"/>
-        <CheckBoxPreference
-            app:key="KEY_IMPORT_SKIP_DIRECTIONS"
-            app:title="@string/import_skip_directions"/>
-    </PreferenceCategory>
+        app:title="@string/clear_data"
+        app:badge="@drawable/ic_scroll_arrow_to_right"
+        app:badgeTint="@color/white_70"
+        />
 
     <PreferenceCategory app:title="@string/help_and_feedback">
         <Preference
             app:key="KEY_SHOP_LIFE4"
             app:summary="@string/description_shop_life4"
-            app:title="@string/action_shop_life4"/>
+            app:title="@string/action_shop_life4"
+            />
         <Preference
             app:key="KEY_SHOP_DANGERSHARK"
             app:summary="@string/description_shop_dangershark"
-            app:title="@string/action_shop_dangershark"/>
+            app:title="@string/action_shop_dangershark"
+            />
         <Preference
             app:key="KEY_FEEDBACK"
             app:summary="@string/send_feedback_summary"
-            app:title="@string/send_feedback"/>
+            app:title="@string/send_feedback"
+            />
         <Preference
             app:key="KEY_FIND_US_TWITTER"
-            app:title="@string/find_us_on_twitter"/>
+            app:title="@string/find_us_on_twitter"
+            />
         <Preference
             app:key="KEY_CREDITS"
-            app:title="@string/credits"/>
-        <Preference
+            app:title="@string/credits"
+            />
+        <com.perrigogames.life4.android.preference.BadgePreference
             app:fragment="com.perrigogames.life4.android.activity.settings.SettingsActivity$DebugSettingsFragment"
             app:key="KEY_DEBUG"
-            app:title="Debug Settings"/>
+            app:title="Debug Settings"
+            app:badge="@drawable/ic_scroll_arrow_to_right"
+            app:badgeTint="@color/white_70"
+            />
     </PreferenceCategory>
 </PreferenceScreen>

@@ -3,8 +3,7 @@ package com.perrigogames.life4.db
 import com.perrigogames.life4.enums.DifficultyClass
 import com.perrigogames.life4.enums.GameVersion
 import com.perrigogames.life4.enums.PlayStyle
-import com.perrigogames.life4.db.ChartInfo
-import com.perrigogames.life4.db.SongInfo
+import com.perrigogames.life4.log
 import com.squareup.sqldelight.db.SqlDriver
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -13,21 +12,39 @@ class SongDatabaseHelper(sqlDriver: SqlDriver): DatabaseHelper(sqlDriver) {
 
     private val queries = dbRef.songDataQueries
 
-    suspend fun insertSong(id: Long,
-                           skillId: String,
-                           title: String,
-                           artist: String?,
-                           version: GameVersion,
-                           preview: Boolean) = withContext(Dispatchers.Default) {
+    suspend fun insertSong(
+        id: Long,
+        skillId: String,
+        title: String,
+        artist: String?,
+        version: GameVersion,
+        preview: Boolean,
+    ) = withContext(Dispatchers.Default) {
         queries.insertSong(skillId, id, title, artist, version, preview)
     }
 
-    suspend fun insertChart(songId: Long,
-                            difficultyClass: DifficultyClass,
-                            difficultyNumber: Long,
-                            playStyle: PlayStyle
+    suspend fun insertChart(
+        songId: Long,
+        difficultyClass: DifficultyClass,
+        difficultyNumber: Long,
+        playStyle: PlayStyle,
     ) = withContext(Dispatchers.Default) {
         queries.insertChart(songId, difficultyClass, difficultyNumber, playStyle)
+    }
+
+    suspend fun insertSongsAndCharts(
+        songs: List<SongInfo>,
+        charts: List<ChartInfo>,
+    ) = withContext(Dispatchers.Default) {
+        queries.transaction {
+            songs.forEach { song ->
+                queries.insertSong(song.skillId, song.id, song.title, song.artist, song.version, song.preview)
+            }
+            charts.forEach { chart ->
+                queries.insertChart(chart.skillId, chart.difficultyClass, chart.difficultyNumber, chart.playStyle)
+            }
+        }
+        log("SongImport", "Import committed")
     }
 
     fun selectSong(id: Long) = queries.selectSongById(id).executeAsOneOrNull()

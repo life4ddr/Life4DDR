@@ -5,16 +5,13 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.perrigogames.life4.*
-import com.perrigogames.life4.SettingsKeys.KEY_IMPORT_PREFER_LEGACY
 import com.perrigogames.life4.SettingsKeys.KEY_INFO_NAME
 import com.perrigogames.life4.SettingsKeys.KEY_INFO_RIVAL_CODE
-import com.perrigogames.life4.enums.LadderRank
-import com.perrigogames.life4.model.LadderManager
-import com.perrigogames.life4.model.TrialManager
 import com.perrigogames.life4.android.GetScoreList
 import com.perrigogames.life4.android.R
 import com.perrigogames.life4.android.activity.settings.SettingsActivity
@@ -28,7 +25,9 @@ import com.perrigogames.life4.android.util.CommonSizes
 import com.perrigogames.life4.android.util.openWebUrlFromRes
 import com.perrigogames.life4.android.util.visibilityBool
 import com.perrigogames.life4.android.view.JacketCornerView
-import com.perrigogames.life4.android.view.RankImageView
+import com.perrigogames.life4.enums.LadderRank
+import com.perrigogames.life4.model.LadderManager
+import com.perrigogames.life4.model.TrialManager
 import com.russhwolf.settings.Settings
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -77,15 +76,14 @@ class PlayerProfileActivity : AppCompatActivity(), RankDetailsViewModel.OnGoalLi
             R.id.action_settings -> startActivity(Intent(this, SettingsActivity::class.java))
             R.id.action_records -> startActivity(Intent(this, TrialRecordsActivity::class.java))
             R.id.action_import_data -> {
-                var done = false
-                if (!settings.getBoolean(KEY_IMPORT_PREFER_LEGACY, false)) {
-                    try {
-                        getScores.launch(Unit)
-                        done = true
-                    } catch (e: Exception) { }
-                }
-                if (!done) {
-                    ladderDialogs.showImportFlow(this)
+                try {
+                    getScores.launch(Unit)
+                } catch (e: Exception) {
+                    Toast.makeText(
+                        this,
+                        R.string.no_ddra_manager,
+                        Toast.LENGTH_LONG,
+                    ).show()
                 }
             }
             else -> return super.onOptionsItemSelected(item)
