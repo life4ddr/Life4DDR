@@ -3,6 +3,8 @@ package com.perrigogames.life4.android.ui.firstrun
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
@@ -10,6 +12,7 @@ import com.perrigogames.life4.android.R
 import com.perrigogames.life4.android.colorRes
 import com.perrigogames.life4.android.databinding.MergePlacementOverviewBinding
 import com.perrigogames.life4.android.nameRes
+import com.perrigogames.life4.android.util.circularProgressDrawable
 import com.perrigogames.life4.data.PlacementRank
 import com.perrigogames.life4.data.Song
 
@@ -40,15 +43,18 @@ class PlacementOverviewView @JvmOverloads constructor(
         set(v) {
             field = v
             v?.let { songs ->
-                Glide.with(this).load(songs[0].url).into(binding.imageSong1)
-                binding.textSong1.text = songs[0].difficultyNumber.toString()
-                binding.textSong1.setTextColor(ContextCompat.getColor(context, songs[0].difficultyClass.colorRes))
-                Glide.with(this).load(songs[1].url).into(binding.imageSong2)
-                binding.textSong2.text = songs[1].difficultyNumber.toString()
-                binding.textSong2.setTextColor(ContextCompat.getColor(context, songs[1].difficultyClass.colorRes))
-                Glide.with(this).load(songs[2].url).into(binding.imageSong3)
-                binding.textSong3.text = songs[2].difficultyNumber.toString()
-                binding.textSong3.setTextColor(ContextCompat.getColor(context, songs[2].difficultyClass.colorRes))
+                loadSong(songs[0], binding.imageSong1, binding.textSong1)
+                loadSong(songs[1], binding.imageSong2, binding.textSong2)
+                loadSong(songs[2], binding.imageSong3, binding.textSong3)
             }
         }
+
+    private fun loadSong(song: Song, image: ImageView, text: TextView) {
+        Glide.with(this)
+            .load(song.url)
+            .placeholder(circularProgressDrawable(context))
+            .into(image)
+        text.text = song.difficultyNumber.toString()
+        text.setTextColor(ContextCompat.getColor(context, song.difficultyClass.colorRes))
+    }
 }

@@ -25,7 +25,8 @@
                 android:layout_height="200dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                />
 
             <TextView
                 android:id="@+id/text_description"
@@ -33,27 +34,31 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/content_padding_large"
                 android:text="@string/placement_description"
-                app:layout_constraintBottom_toTopOf="@id/container_song_list_fragment"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/layout_rank_header" />
+                app:layout_constraintTop_toBottomOf="@id/layout_rank_header"
+                app:layout_constraintBottom_toTopOf="@id/container_song_list_fragment"
+                />
 
             <FrameLayout
                 android:id="@+id/container_song_list_fragment"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/include_photo_source_selector"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_description" />
+                app:layout_constraintTop_toBottomOf="@id/text_description"
+                />
 
             <include
                 android:id="@+id/include_photo_source_selector"
                 layout="@layout/view_photo_source_selector"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="@id/container_song_list_fragment"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/container_song_list_fragment"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
@@ -66,6 +71,7 @@
         android:text="@string/finalize"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

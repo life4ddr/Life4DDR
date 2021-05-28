@@ -16,6 +16,7 @@ import com.perrigogames.life4.android.R
 import com.perrigogames.life4.android.colorRes
 import com.perrigogames.life4.android.databinding.MergeTrialJacketBinding
 import com.perrigogames.life4.android.drawableRes
+import com.perrigogames.life4.android.util.circularProgressDrawable
 import com.perrigogames.life4.android.util.jacketResId
 import com.perrigogames.life4.android.util.visibilityBool
 import com.perrigogames.life4.data.Trial
@@ -48,7 +49,10 @@ class TrialJacketView @JvmOverloads constructor(context: Context, attrs: Attribu
             if (v != null) {
                 val resId = v.jacketResId(context)
                 if (v.coverUrl != null && (resId == R.drawable.trial_default || v.coverOverride)) {
-                    Glide.with(this).load(v.coverUrl).into(binding.imageTrialJacket)
+                    Glide.with(this)
+                        .load(v.coverUrl)
+                        .placeholder(circularProgressDrawable(context))
+                        .into(binding.imageTrialJacket)
                 } else {
                     if (resId == R.drawable.trial_default) {
                         binding.textTrialTitle.visibility = View.VISIBLE

@@ -89,7 +89,7 @@ class PlacementDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listene
             .setMessage(R.string.trial_submit_dialog_prompt)
             .setNegativeButton(R.string.no) { _, _ -> finishWithResult() }
             .setPositiveButton(R.string.yes) { _, _ ->
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.url_standard_submission_form))))
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.url_new_user_submission_form))))
                 finishWithResult()
             }
             .show()

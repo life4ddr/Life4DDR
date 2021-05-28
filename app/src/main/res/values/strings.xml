@@ -169,8 +169,9 @@
 
     <!-- URLs -->
     <string name="url_trial">https://life4ddr.com/%s</string>
-    <string name="url_standard_submission_form">https://docs.google.com/forms/d/e/1FAIpQLSfAddd3xcfPP91RqCGhoAXLqHebOM1LsRD5FKdsPl_OoF5nNw/viewform</string>
-    <string name="url_trial_submission_form">https://docs.google.com/forms/d/e/1FAIpQLSeB4OQlbMjulyQU7-fGnMIHHRsob1skJPBC_tHETfzaVtQpAA/viewform</string>
+    <string name="url_new_user_submission_form">https://forms.gle/dwKFmsVfGHfgzwcH8</string>
+    <string name="url_standard_submission_form">https://forms.gle/h9eQL3vXmrTGVCoh6</string>
+    <string name="url_trial_submission_form">https://forms.gle/vgwX27HXioP3329r7</string>
     <string name="url_a20_update">https://life4ddr.com/requirements/</string>
     <string name="url_shop_life4">https://life4.bigcartel.com/</string>
     <string name="url_shop_dangershark">https://www.dangershark.com/</string>
@@ -379,8 +380,8 @@
     <string name="player_found">Player Profile Found</string>
     <string name="player_found_prompt">We found this player on LIFE4 already.\nIs this you?</string>
 
-    <string name="placement_overview">Placement Sets are a quick way to get into the LIFE4 system or better learn where you should begin.\n\nYou choose which rank you want to try and place into.\n\nWhen choosing a placement set, select which set you think you will most accurately be able to showcase your skill level in.\n\nDon’t worry about choosing the wrong set; you will still be placed accordingly.</string>
-    <string name="placement_description">To participate in Rank Placement, you must complete the following songs in a single set.\n\n• The songs can be played in any order.\n• Extra Stage is optional. If you earn an Extra Stage, you can use it to improve a previous score.\n• The ONLY photo that is required is one of the final results screen, showing the scores for each song played. (Click \"Finalize\" to take this photo)</string>
+    <string name="placement_overview">Placement Sets are a quick way to get into the LIFE4 system or better learn where you should begin.\n\nWhen choosing a placement set, select which set you think will most accurately showcase your skill level.\n\nDon’t worry about choosing the wrong set; you will still be placed accordingly.</string>
+    <string name="placement_description">• Complete all songs in a single set and in any order.\n• Extra Stage is optional. If you earn an Extra Stage, you can use it to improve a previous score.\n• The ONLY photo that is required is one of the final results screen, showing the scores for each song played. (Click \"Finalize\" to take this photo)</string>
     <string name="remove_rank">Remove Rank</string>
     <string name="copy_and_continue">Copy and Continue</string>
     <string name="no_ddra_manager">You don\'t seem to have the DDR Score Manager app installed.</string>

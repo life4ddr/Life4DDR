@@ -9,15 +9,15 @@ import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
+import com.perrigogames.life4.android.R
+import com.perrigogames.life4.android.colorRes
+import com.perrigogames.life4.android.databinding.ItemSongListItemBinding
+import com.perrigogames.life4.android.util.circularProgressDrawable
 import com.perrigogames.life4.data.Song
 import com.perrigogames.life4.data.SongResult
 import com.perrigogames.life4.enums.ClearType.MARVELOUS_FULL_COMBO
 import com.perrigogames.life4.enums.ClearType.PERFECT_FULL_COMBO
 import com.perrigogames.life4.longNumberString
-import com.perrigogames.life4.android.R
-import com.perrigogames.life4.android.colorRes
-import com.perrigogames.life4.android.databinding.ItemSongListItemBinding
-import com.perrigogames.life4.android.databinding.MergePlayerFoundBinding
 
 /**
  * A [View] designed to show the qualities of a [Song], including the jacket, difficulty,
@@ -109,7 +109,10 @@ class SongView @JvmOverloads constructor(
                 }
             }
 
-                Glide.with(this).load(s.url).into(binding.imageSongJacket)
+                Glide.with(this)
+                    .load(s.url)
+                    .placeholder(circularProgressDrawable(context))
+                    .into(binding.imageSongJacket)
                 binding.imageSongJacket.setBackgroundColor(ContextCompat.getColor(context, s.difficultyClass.colorRes))
         }
     }

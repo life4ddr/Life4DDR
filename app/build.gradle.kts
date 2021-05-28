@@ -87,6 +87,7 @@ dependencies {
     implementation(Deps.AndroidX.lifecycle_viewmodel)
     implementation(Deps.AndroidX.activity)
     implementation(Deps.AndroidX.fragment)
+    implementation(Deps.AndroidX.swipeRefresh)
     debugImplementation(Deps.AndroidX.fragment_testing)
     implementation(platform(Deps.Firebase.bom))
     implementation(Deps.Firebase.messaging)
