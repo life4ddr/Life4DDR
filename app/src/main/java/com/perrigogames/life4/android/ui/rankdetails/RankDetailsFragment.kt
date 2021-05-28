@@ -130,8 +130,7 @@ class RankDetailsFragment : Fragment(), KoinComponent {
     }
 
     data class Options(
-        var hideCompleted: Boolean = false,
-        val hideIgnored: Boolean = false,
+        var hideNonActive: Boolean = false,
         val showHeader: Boolean = true,
         val showNextGoals: Boolean = false,
         val allowNextSwitcher: Boolean = true

@@ -178,8 +178,7 @@ class PlayerProfileActivity : AppCompatActivity(), RankDetailsViewModel.OnGoalLi
         }
 
         val options = RankDetailsFragment.Options(
-            hideCompleted = true,
-            hideIgnored = false,
+            hideNonActive = true,
             showHeader = false,
             showNextGoals = false,
             allowNextSwitcher = false)

@@ -21,7 +21,6 @@ import kotlin.math.max
 class RankGoalsAdapter(
     private val rank: RankEntry,
     private val dataSource: DataSource,
-    private val diffNumberSections: Boolean = false,
     var listener: LadderGoalItemView.LadderGoalItemListener? = null,
     var goalListListener: OnGoalListInteractionListener? = null
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -53,37 +52,28 @@ class RankGoalsAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) = when (holder) {
         is GoalViewHolder -> {
-            val item = if (diffNumberSections) {
-                dataSource.getGoalCategories()
-            } else {
-                dataSource.getGoals()
-            }[position] as BaseRankGoal
+            val item = dataSource.getGoals()[position] as BaseRankGoal
             holder.bind(item, dataSource)
             holder.itemView.tag = item
         }
         is GoalHeaderViewHolder -> {
-            holder.bind(dataSource.getGoalCategories()[position] as String)
+            holder.bind(dataSource.getGoals()[position] as String)
         }
         else -> Unit
     }
 
     override fun getItemViewType(position: Int): Int = when {
         dataSource.getGoals().isEmpty() -> VIEW_TYPE_NO_GOAL
-        diffNumberSections && dataSource.getGoalCategories()[position] is String -> VIEW_TYPE_GOAL_HEADER
+        dataSource.getGoals()[position] is String -> VIEW_TYPE_GOAL_HEADER
         else -> VIEW_TYPE_GOAL
     }
 
     override fun getItemCount(): Int {
-        return max(1, if (diffNumberSections) {
-            dataSource.getGoalCategories().size
-        } else {
-            dataSource.getGoals().size
-        })
+        return max(1, dataSource.getGoals().size)
     }
 
     interface DataSource {
-        fun getGoals(): List<BaseRankGoal>
-        fun getGoalCategories(): List<Any>  // either BaseRankGoal or String
+        fun getGoals(): List<Any> // either BaseRankGoal or String
         fun isGoalMandatory(item: BaseRankGoal): Boolean
         fun isGoalExpanded(item: BaseRankGoal): Boolean
         fun canIgnoreGoals(): Boolean

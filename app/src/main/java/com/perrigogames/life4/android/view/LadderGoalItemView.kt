@@ -5,8 +5,8 @@ import android.content.res.ColorStateList
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.FrameLayout
 import android.widget.TableLayout
-import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import com.perrigogames.life4.PlatformStrings
@@ -28,7 +28,7 @@ class LadderGoalItemView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
-) : CardView(context, attrs, defStyleAttr), KoinComponent {
+) : FrameLayout(context, attrs, defStyleAttr), KoinComponent {
 
     private val platformStrings: PlatformStrings by inject()
 
@@ -155,7 +155,7 @@ class LadderGoalItemView @JvmOverloads constructor(
             canIgnore || currentState == IGNORED -> View.VISIBLE // show ignore if you're allowed to, or if you're already ignored
             else -> View.INVISIBLE // ignore function is hidden, don't reclaim space
         }
-        alpha = if (currentState == IGNORED) 0.3f else 1.0f
+        binding.container.alpha = if (currentState == IGNORED) 0.3f else 1.0f
     }
 
     private inline fun ifHasDB(block: (BaseRankGoal, GoalState) -> Unit): Boolean {
