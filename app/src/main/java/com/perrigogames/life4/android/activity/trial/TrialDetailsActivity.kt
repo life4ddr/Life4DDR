@@ -213,6 +213,10 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener, K
         }
     }
 
+    override fun onFinalImageSelected() {
+        onFinalizeClick()
+    }
+
     private fun onLeaderboardClick() = openWebUrlFromRes(R.string.url_trial, trial.id)
 
     private fun onConcedeClick() {
@@ -390,8 +394,6 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener, K
     companion object {
         const val ARG_TRIAL_ID = "ARG_PLACEMENT_ID"
         const val ARG_INITIAL_RANK = "ARG_INITIAL_RANK"
-
-        const val FLAG_SCORE_ENTER = 7 // to enter the score screen
 
         fun intent(c: Context, trialId: String, initialRank: TrialRank? = null) =
             Intent(c, TrialDetailsActivity::class.java).apply {

@@ -12,15 +12,15 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import com.google.firebase.crashlytics.FirebaseCrashlytics
+import com.perrigogames.life4.BuildConfig
+import com.perrigogames.life4.android.R
+import com.perrigogames.life4.android.view.PathImageView
+import com.perrigogames.life4.android.view.SongView
 import com.perrigogames.life4.data.Song
 import com.perrigogames.life4.data.SongResult
 import com.perrigogames.life4.model.PlacementManager
 import com.perrigogames.life4.model.TrialManager
 import com.perrigogames.life4.model.TrialSessionManager
-import com.perrigogames.life4.BuildConfig
-import com.perrigogames.life4.android.R
-import com.perrigogames.life4.android.view.PathImageView
-import com.perrigogames.life4.android.view.SongView
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 
@@ -115,6 +115,7 @@ class SongListFragment : Fragment(), KoinComponent {
                 }
                 it.scaleType = ImageView.ScaleType.FIT_CENTER
                 it.uri = uri
+                it.setOnClickListener { listener?.onFinalImageSelected() }
             }
             layout.addView(setResultsImageView)
         }
@@ -126,6 +127,7 @@ class SongListFragment : Fragment(), KoinComponent {
 
     interface Listener {
         fun onSongSelected(song: Song, position: Int)
+        fun onFinalImageSelected() = Unit
     }
 
     companion object {

@@ -26,22 +26,26 @@
                 android:minHeight="32dp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/button_status_icon"
+                app:layout_constraintEnd_toStartOf="@id/text_goal_subtitle"
                 app:layout_constraintBottom_toTopOf="@id/progress_amount"
                 android:layout_marginStart="@dimen/content_padding_large"
                 android:layout_marginTop="@dimen/content_padding_med"
                 android:layout_marginBottom="@dimen/content_padding_med"
-                tools:text="Pass 5 15's." />
+                tools:text="Pass 5 15's."
+                />
 
             <TextView
                 android:id="@+id/text_goal_subtitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
-                tools:text="2 songs remaining"
-                app:layout_constraintBottom_toBottomOf="@id/text_goal_title"
+                android:textSize="@dimen/text_tiny"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/progress_amount"
                 app:layout_constraintEnd_toStartOf="@id/button_status_icon"
-                tools:visibility="visible"/>
+                tools:text="345/420"
+                tools:visibility="visible"
+                />
 
             <CheckBox
                 android:id="@+id/button_status_icon"
@@ -49,7 +53,8 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="@id/text_goal_title"
                 app:layout_constraintBottom_toBottomOf="@id/text_goal_title"
-                app:layout_constraintEnd_toStartOf="@id/button_ignore" />
+                app:layout_constraintEnd_toStartOf="@id/button_ignore"
+                />
 
             <androidx.appcompat.widget.AppCompatCheckBox
                 android:id="@+id/button_ignore"
@@ -62,7 +67,8 @@
                 app:layout_constraintTop_toTopOf="@id/text_goal_title"
                 app:layout_constraintBottom_toBottomOf="@id/text_goal_title"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:backgroundTint="@color/colorAccent" />
+                app:backgroundTint="@color/colorAccent"
+                />
 
             <ProgressBar
                 android:id="@+id/progress_amount"
@@ -75,7 +81,8 @@
                 app:layout_constraintTop_toBottomOf="@id/text_goal_title"
                 app:layout_constraintBottom_toTopOf="@id/table_expand_details"
                 tools:max="3075"
-                tools:progress="2455"/>
+                tools:progress="2455"
+                />
 
             <TableLayout
                 android:id="@+id/table_expand_details"
@@ -85,7 +92,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                tools:visibility="gone"/>
+                tools:visibility="gone"
+                />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

@@ -14,9 +14,8 @@ object Versions {
     const val ktlint_gradle_plugin = "9.4.1"
     const val lottie = "3.3.0"
     const val eventbus = "3.1.1"
-    const val dexter = "5.0.0"
+    const val dexter = "6.2.2"
     const val glide = "4.9.0"
-    const val gson = "2.8.2"
     const val robolectric = "4.5.1"
     const val firebase = "27.0.0"
     const val stetho = "1.5.1"
@@ -59,7 +58,6 @@ object Deps {
     const val eventbus = "org.greenrobot:eventbus:${Versions.eventbus}"
     const val dexter = "com.karumi:dexter:${Versions.dexter}"
     const val glide = "com.github.bumptech.glide:glide:${Versions.glide}"
-    const val gson = "com.google.code.gson:gson:${Versions.gson}"
     const val glide_compiler = "com.github.bumptech.glide:compiler:${Versions.glide}"
 
     const val stately =  "co.touchlab:stately-common:${Versions.stately}"

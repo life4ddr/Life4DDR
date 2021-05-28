@@ -15,13 +15,10 @@ import com.perrigogames.life4.response.TrialGoalSet
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import kotlinx.datetime.serializers.InstantIso8601Serializer
-import kotlinx.serialization.*
-import kotlinx.serialization.descriptors.PrimitiveKind
-import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
-import kotlinx.serialization.descriptors.SerialDescriptor
-import kotlinx.serialization.encoding.Decoder
-import kotlinx.serialization.encoding.Encoder
-import kotlin.math.max
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.UseSerializers
+import kotlin.math.min
 
 @Serializable
 data class TrialData(
@@ -79,9 +76,9 @@ data class Trial(
     fun rankAfter(rank: TrialRank): TrialRank? {
         return goals?.let { goals ->
             val startIdx = goals.indexOfFirst { it.rank == rank }
-            val idx = max(
+            val idx = min(
                 startIdx + 1,
-                goals.size
+                goals.size - 1
             )
             return goals[idx].rank
         }

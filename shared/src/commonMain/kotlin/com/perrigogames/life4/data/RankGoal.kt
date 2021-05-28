@@ -188,5 +188,5 @@ data class MultipleChoiceGoal(
         options.map { it.goalString(c).replace(".", "") },
         useAnd = false,
         caps = true
-    )
+    ) + "."
 }

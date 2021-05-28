@@ -169,9 +169,9 @@
 
     <!-- URLs -->
     <string name="url_trial">https://life4ddr.com/%s</string>
-    <string name="url_new_user_submission_form">https://forms.gle/dwKFmsVfGHfgzwcH8</string>
-    <string name="url_standard_submission_form">https://forms.gle/h9eQL3vXmrTGVCoh6</string>
-    <string name="url_trial_submission_form">https://forms.gle/vgwX27HXioP3329r7</string>
+    <string name="url_new_user_submission_form">https://docs.google.com/forms/d/e/1FAIpQLSfewCjH2DmRe_gAfbzxpfJZ-g5AiR3kcV5fzE6q69aVT5pLNA/viewform</string>
+    <string name="url_standard_submission_form">https://docs.google.com/forms/d/e/1FAIpQLScUe6q9nIlBBIiCULW7wwfvIvM9eGPS8fQFDSO8D4DmEQzJtQ/viewform</string>
+    <string name="url_trial_submission_form">https://docs.google.com/forms/d/e/1FAIpQLScCIeCXSs-OCYQevGS8l_VQHS9WI1jofWg67KIPXYaC-hJLbA/viewform</string>
     <string name="url_a20_update">https://life4ddr.com/requirements/</string>
     <string name="url_shop_life4">https://life4.bigcartel.com/</string>
     <string name="url_shop_dangershark">https://www.dangershark.com/</string>

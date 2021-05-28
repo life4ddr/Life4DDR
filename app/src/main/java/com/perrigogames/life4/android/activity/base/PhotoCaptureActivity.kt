@@ -29,7 +29,6 @@ import com.russhwolf.settings.Settings
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 import java.io.File
-import java.io.FileDescriptor
 import java.io.IOException
 
 abstract class PhotoCaptureActivity: AppCompatActivity(), KoinComponent {
@@ -47,7 +46,14 @@ abstract class PhotoCaptureActivity: AppCompatActivity(), KoinComponent {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                     savePhotoToMediaStore(currentUri!!)
                 } else {
-                    resizeImage(currentPhotoFile!!, currentUri!!)
+                    DataUtil.resizeImage(
+                        currentPhotoFile!!,
+                        PHOTO_SIZE,
+                        PHOTO_SIZE,
+                        MediaStore.Images.Media.getBitmap(
+                            contentResolver, currentUri!!
+                        )
+                    )
                 }
                 MediaScannerConnection.scanFile(
                     this,
@@ -130,7 +136,7 @@ abstract class PhotoCaptureActivity: AppCompatActivity(), KoinComponent {
     }
 
     @RequiresApi(Build.VERSION_CODES.Q)
-    private fun savePhotoToMediaStore(oldPhotoUri: Uri) {
+    private fun savePhotoToMediaStore(oldPhotoUri: Uri, filename: String = DataUtil.tempFilenameFromLocale(locale)) {
         val resolver = applicationContext.contentResolver
         val photoCollection =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
@@ -140,7 +146,7 @@ abstract class PhotoCaptureActivity: AppCompatActivity(), KoinComponent {
             }
 
         val newPhotos = ContentValues().apply {
-            put(MediaStore.Images.Media.DISPLAY_NAME, "foo.jpg")
+            put(MediaStore.Images.Media.DISPLAY_NAME, "$filename.jpg")
             put(MediaStore.Images.Media.IS_PENDING, 1)
             put(MediaStore.Images.ImageColumns.RELATIVE_PATH, "Pictures/LIFE4")
         }
@@ -154,7 +160,14 @@ abstract class PhotoCaptureActivity: AppCompatActivity(), KoinComponent {
                 if (pfd == null) {
                     onPhotoSaveError()
                 } else {
-                    resizeImage(pfd.fileDescriptor, oldPhotoUri)
+                    DataUtil.resizeImage(
+                        pfd.fileDescriptor,
+                        PHOTO_SIZE,
+                        PHOTO_SIZE,
+                        MediaStore.Images.Media.getBitmap(
+                            contentResolver, oldPhotoUri
+                        )
+                    )
                 }
             }
 
@@ -173,25 +186,28 @@ abstract class PhotoCaptureActivity: AppCompatActivity(), KoinComponent {
     abstract fun onPhotoCancelled()
 
     private fun onPhotoSaveError() =
-        Toast.makeText(this, R.string.photo_save_error, Toast.LENGTH_SHORT)
-            .show()
-
-    protected fun resizeImage(out: File, photoUri: Uri) =
-        DataUtil.resizeImage(out, 1440, 1440, MediaStore.Images.Media.getBitmap(contentResolver, photoUri))
-
-    protected fun resizeImage(out: FileDescriptor, photoUri: Uri) =
-        DataUtil.resizeImage(out, 1440, 1440, MediaStore.Images.Media.getBitmap(contentResolver, photoUri))
+        Toast.makeText(
+            this,
+            R.string.photo_save_error,
+            Toast.LENGTH_SHORT
+        ).show()
 
     private inline fun snackbarListener(
         @StringRes stringRes: Int,
         crossinline listener: (MultiplePermissionsReport?) -> Unit
     ): CompositeMultiplePermissionsListener {
-        return CompositeMultiplePermissionsListener(SnackbarOnAnyDeniedMultiplePermissionsListener.Builder
-            .with(snackbarContainer, stringRes)
-            .withOpenSettingsButton("Settings")
-            .build(),
+        return CompositeMultiplePermissionsListener(
+            SnackbarOnAnyDeniedMultiplePermissionsListener.Builder
+                .with(snackbarContainer, stringRes)
+                .withOpenSettingsButton("Settings")
+                .build(),
             object: BaseMultiplePermissionsListener() {
                 override fun onPermissionsChecked(report: MultiplePermissionsReport?) { listener(report) }
-            })
+            }
+        )
+    }
+
+    companion object {
+        const val PHOTO_SIZE = 1440
     }
 }

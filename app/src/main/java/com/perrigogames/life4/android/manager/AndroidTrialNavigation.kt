@@ -6,8 +6,8 @@ import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.FragmentActivity
 import com.perrigogames.life4.TrialNavigation
-import com.perrigogames.life4.enums.TrialRank
 import com.perrigogames.life4.android.R
+import com.perrigogames.life4.enums.TrialRank
 
 
 class AndroidTrialNavigation: TrialNavigation() {
@@ -36,16 +36,17 @@ class AndroidTrialNavigation: TrialNavigation() {
         activity!!.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(activity!!.getString(R.string.url_trial_submission_form))))
     }
 
-    private fun showYesNoDialog(@StringRes titleRes: Int,
-                                @StringRes messageRes: Int? = null,
-                                cancelable: Boolean = true,
-                                result: (Boolean) -> Unit,
-                                message: String = messageRes?.let { activity!!.getString(it) } ?: "") =
-        AlertDialog.Builder(activity!!)
-            .setTitle(titleRes)
-            .setMessage(message)
-            .setCancelable(cancelable)
-            .setPositiveButton(R.string.yes) { _, _ -> result(true) }
-            .setNegativeButton(R.string.no) { _, _ -> result(false) }
-            .show()
+    private fun showYesNoDialog(
+        @StringRes titleRes: Int,
+        @StringRes messageRes: Int? = null,
+        cancelable: Boolean = true,
+        result: (Boolean) -> Unit,
+        message: String = messageRes?.let { activity!!.getString(it) } ?: ""
+    ) = AlertDialog.Builder(activity!!)
+        .setTitle(titleRes)
+        .setMessage(message)
+        .setCancelable(cancelable)
+        .setPositiveButton(R.string.yes) { _, _ -> result(true) }
+        .setNegativeButton(R.string.no) { _, _ -> result(false) }
+        .show()
 }
