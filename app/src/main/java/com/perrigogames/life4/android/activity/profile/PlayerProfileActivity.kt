@@ -75,6 +75,10 @@ class PlayerProfileActivity : AppCompatActivity(), RankDetailsViewModel.OnGoalLi
         when (item.itemId) {
             R.id.action_settings -> startActivity(Intent(this, SettingsActivity::class.java))
             R.id.action_records -> startActivity(Intent(this, TrialRecordsActivity::class.java))
+            R.id.action_web_profile -> openWebUrlFromRes(
+                R.string.url_player_profile,
+                settings.getStringOrNull(KEY_INFO_NAME)
+            )
             R.id.action_import_data -> {
                 try {
                     getScores.launch(Unit)

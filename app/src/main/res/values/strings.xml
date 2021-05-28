@@ -11,6 +11,7 @@
     <string name="action_import">Import Ranks</string>
     <string name="action_records">Records</string>
     <string name="action_trial_records">Trial Records</string>
+    <string name="action_web_profile">Web Profile</string>
     <string name="action_shop_life4">Shop LIFE4</string>
     <string name="action_shop_dangershark">Shop DangerShark</string>
     <string name="description_shop_life4">Purchase physical LIFE4 gear</string>
@@ -174,6 +175,7 @@
     <string name="url_shop_life4">https://life4.bigcartel.com/</string>
     <string name="url_shop_dangershark">https://www.dangershark.com/</string>
     <string name="url_twitter">https://twitter.com/life4ddr/</string>
+    <string name="url_player_profile">https://life4ddr.com/profile/%s</string>
 
     <!-- Content descriptions -->
     <string name="jacket_artwork_for_trial">jacket artwork for trial</string>

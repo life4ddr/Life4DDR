@@ -3,18 +3,26 @@
       xmlns:tools="http://schemas.android.com/tools"
       tools:context=".activity.trial.TrialListActivity">
 
+    <item android:id="@+id/action_web_profile"
+        android:orderInCategory="150"
+        android:title="@string/action_web_profile"
+        app:showAsAction="never"
+        />
     <item android:id="@+id/action_records"
         android:orderInCategory="190"
         android:title="@string/action_trial_records"
-        app:showAsAction="never"/>
+        app:showAsAction="never"
+        />
     <item android:id="@+id/action_import_data"
         android:orderInCategory="250"
         android:title="@string/import_ddra_data_short"
         android:visible="true"
-        app:showAsAction="never"/>
+        app:showAsAction="never"
+        />
     <item android:id="@+id/action_settings"
         android:orderInCategory="300"
         android:title="@string/action_settings"
         android:visible="true"
-        app:showAsAction="never"/>
+        app:showAsAction="never"
+        />
 </menu>
