@@ -8,17 +8,20 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.perrigogames.life4.db.TrialSession
+import com.perrigogames.life4.TrialListUpdatedEvent
 import com.perrigogames.life4.android.R
 import com.perrigogames.life4.android.databinding.FragmentTrialRecordsBinding
-import com.perrigogames.life4.model.TrialManager
 import com.perrigogames.life4.android.util.visibilityBool
 import com.perrigogames.life4.android.view.ContextMenuRecyclerView.RecyclerViewContextMenuInfo
+import com.perrigogames.life4.db.TrialSession
+import org.greenrobot.eventbus.EventBus
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 
 
 class TrialRecordsFragment : Fragment(), KoinComponent {
+
+    private val eventBus: EventBus by inject()
 
     private val adapter get() = (binding.recyclerRecordsList as RecyclerView).adapter as TrialRecordsAdapter
 
@@ -64,6 +67,7 @@ class TrialRecordsFragment : Fragment(), KoinComponent {
             viewModel.removeRecord(info.id)
             adapter.notifyItemRangeRemoved(info.position, 1)
             updateEmptyLabelView()
+            eventBus.post(TrialListUpdatedEvent())
         }
         return super.onContextItemSelected(item)
     }

@@ -18,7 +18,9 @@ abstract class TrialNavigation: KoinComponent {
         when {
             session.highestPossibleRank == null -> submitRankAndFinish(session, false, onFinish)
             session.trial.isEvent -> submitRankAndFinish(session, true, onFinish)
-            else -> showRankConfirmation(session.goalRank!!) { passed -> submitRankAndFinish(session, passed, onFinish) }
+            else -> showRankConfirmation(session.goalRank!!) { passed ->
+                submitRankAndFinish(session, passed, onFinish)
+            }
         }
     }
 

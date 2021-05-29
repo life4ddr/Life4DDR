@@ -129,6 +129,10 @@ class LadderGoalItemView @JvmOverloads constructor(
             } else {
                 binding.textGoalSubtitle.setTextColor(oldColors)
             }
+            binding.progressAmount.apply {
+                progress = it.progress
+                max = it.max
+            }
             it.results?.forEach { result ->
                 val rowBinding = retrieveTableRowBinding(
                     binding.tableExpandDetails,
