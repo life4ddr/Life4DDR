@@ -31,6 +31,7 @@ val coreModule = module {
     single { PlacementManager() }
     single { FirstRunManager() }
     single { MajorUpdateManager() }
+    single { MotdManager() }
     single { LadderManager() }
     single { LadderProgressManager() }
     single { TrialManager() }

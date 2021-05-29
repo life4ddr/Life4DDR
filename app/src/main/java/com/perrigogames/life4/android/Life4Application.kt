@@ -18,6 +18,7 @@ import com.perrigogames.life4.android.manager.AndroidLadderDialogs
 import com.perrigogames.life4.android.manager.AndroidTrialNavigation
 import com.perrigogames.life4.android.util.AndroidNotifications
 import com.perrigogames.life4.android.util.setupNotifications
+import com.perrigogames.life4.ktor.GithubDataAPI.Companion.MOTD_FILE_NAME
 import org.greenrobot.eventbus.EventBus
 import org.koin.core.KoinComponent
 import org.koin.core.get
@@ -83,6 +84,7 @@ class Life4Application: Application() {
     private inner class ManagerContainer: KoinComponent {
         val firstRunManager: FirstRunManager = get()
         val ladderManager: LadderManager = get()
+        val motdManager: MotdManager = get()
         val placementManager: PlacementManager = get()
         val songDataManager: SongDataManager = get()
         val trialManager: TrialManager = get()

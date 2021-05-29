@@ -42,6 +42,7 @@ kotlin {
     sourceSets["commonMain"].dependencies {
         implementation(Deps.SqlDelight.runtime)
         implementation(Deps.SqlDelight.coroutinesExtensions)
+        implementation(Deps.KotlinTest.reflect)
         implementation(Deps.Ktor.commonCore)
         implementation(Deps.Ktor.commonJson)
         implementation(Deps.Ktor.commonLogging)

@@ -3,6 +3,11 @@
       xmlns:tools="http://schemas.android.com/tools"
       tools:context=".activity.trial.TrialListActivity">
 
+    <item android:id="@+id/action_show_motd"
+        android:orderInCategory="120"
+        android:title="@string/action_show_motd"
+        app:showAsAction="never"
+        />
     <item android:id="@+id/action_web_profile"
         android:orderInCategory="150"
         android:title="@string/action_web_profile"

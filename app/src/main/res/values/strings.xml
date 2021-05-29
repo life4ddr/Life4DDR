@@ -11,6 +11,7 @@
     <string name="action_import">Import Ranks</string>
     <string name="action_records">Records</string>
     <string name="action_trial_records">Trial Records</string>
+    <string name="action_show_motd">Message of the Day</string>
     <string name="action_web_profile">Web Profile</string>
     <string name="action_shop_life4">Shop LIFE4</string>
     <string name="action_shop_dangershark">Shop DangerShark</string>
@@ -160,6 +161,7 @@
     <string name="no">No</string>
     <string name="arrow_left">←</string>
     <string name="arrow_right">→</string>
+    <string name="error">Error</string>
 
     <!-- Welcome/FTUE -->
     <string name="welcome_to">WELCOME TO</string>
@@ -403,6 +405,7 @@
     <string name="update_your_app">Update Your App!</string>
     <string name="remote_data_needs_update">This version of the LIFE4 app is not compatible with some of the newest updates.\n\nPlease update your LIFE4 app to get the most current experience!</string>
     <string name="question_mark">\?</string>
+    <string name="motd_unavailable">The Message of the Day is unavailable.</string>
     <string name="manager_import_tutorial_1">In the Score Manager app, enter a list of songs you want to copy and press the MENU button.</string>
     <string name="manager_import_tutorial_2">Click \'Copy to clipboard\'.</string>
     <string name="manager_import_tutorial_3">Click \'Edit copy formats…\'.</string>
@@ -422,6 +425,7 @@
         <item>Camera, Cancel, Cogwheel, Eye, Folder, Scroll Left, Scroll Right, and Star icons by
             https://www.flaticon.com/authors/daniel-bruce from www.flaticon.com
         </item>
+        <item>Close icon by https://www.flaticon.com/authors/pixel-perfect from www.flaticon.com</item>
         <item>Fixtures icon by https://www.flaticon.com/authors/Freepik from www.flaticon.com</item>
         <item>Coded by @CodingCabbit</item>
         <item>Inspired by the awesome team at @LIFE4DDR</item>

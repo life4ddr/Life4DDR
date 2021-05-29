@@ -1,6 +1,7 @@
 package com.perrigogames.life4
 
 import com.perrigogames.life4.data.ApiPlayer
+import com.perrigogames.life4.data.MessageOfTheDay
 import com.perrigogames.life4.data.Trial
 
 /** Event published when a remote data source's major version is higher than the internal parser
@@ -35,3 +36,6 @@ class LadderRanksReplacedEvent
 
 /** Event published when a player is signed in from an external source. */
 class PlayerImportedEvent(val apiPlayer: ApiPlayer? = null)
+
+/** Event published when a new message of the day should be shown. */
+class MotdEvent(val motd: MessageOfTheDay)

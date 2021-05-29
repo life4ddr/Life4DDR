@@ -19,6 +19,7 @@ import com.perrigogames.life4.android.activity.trial.TrialListActivity
 import com.perrigogames.life4.android.activity.trial.TrialRecordsActivity
 import com.perrigogames.life4.android.databinding.ActivityPlayerProfileBinding
 import com.perrigogames.life4.android.manager.AndroidLadderDialogs
+import com.perrigogames.life4.android.ui.dialogs.MotdDialog
 import com.perrigogames.life4.android.ui.rankdetails.RankDetailsFragment
 import com.perrigogames.life4.android.ui.rankdetails.RankDetailsViewModel
 import com.perrigogames.life4.android.util.CommonSizes
@@ -73,6 +74,7 @@ class PlayerProfileActivity : AppCompatActivity(), RankDetailsViewModel.OnGoalLi
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            R.id.action_show_motd -> showMotd()
             R.id.action_settings -> startActivity(Intent(this, SettingsActivity::class.java))
             R.id.action_records -> startActivity(Intent(this, TrialRecordsActivity::class.java))
             R.id.action_web_profile -> openWebUrlFromRes(
@@ -83,11 +85,8 @@ class PlayerProfileActivity : AppCompatActivity(), RankDetailsViewModel.OnGoalLi
                 try {
                     getScores.launch(Unit)
                 } catch (e: Exception) {
-                    Toast.makeText(
-                        this,
-                        R.string.no_ddra_manager,
-                        Toast.LENGTH_LONG,
-                    ).show()
+                    Toast.makeText(this, R.string.no_ddra_manager, Toast.LENGTH_LONG,)
+                        .show()
                 }
             }
             else -> return super.onOptionsItemSelected(item)
@@ -133,6 +132,14 @@ class PlayerProfileActivity : AppCompatActivity(), RankDetailsViewModel.OnGoalLi
             .create().show()
         eventBus.removeStickyEvent(e)
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    fun onMotdReceived(e: MotdEvent) {
+        showMotd()
+        eventBus.removeStickyEvent(e)
+    }
+
+    private fun showMotd() = MotdDialog().show(supportFragmentManager, MotdDialog.TAG)
 
     private fun setupContent() {
         val context = this

@@ -1,4 +1,4 @@
-package com.perrigogames.life4.android.ui.managerimport
+package com.perrigogames.life4.android.ui.dialogs
 
 import android.app.Dialog
 import android.os.Bundle
@@ -23,24 +23,18 @@ class ScoreManagerImportProcessingDialog(var listener: Listener? = null): Dialog
     private var shouldClose = true
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        return activity?.let {
-            binding = DialogManagerImportProcessingBinding.inflate(
-                requireActivity().layoutInflater,
-                null,
-                false
-            )
-            contentView = binding.root
-            binding.buttonClose.setOnClickListener {
-                listener?.onDialogCancelled()
-                dialog.dismiss()
-            }
-            dialog = AlertDialog.Builder(it)
-                .setView(contentView)
-                .setCancelable(false)
-                .create()
-            contentView.post { listener?.onDialogLoaded(managerListener) }
-            dialog
-        } ?: throw IllegalStateException("Activity cannot be null")
+        binding = DialogManagerImportProcessingBinding.inflate(requireActivity().layoutInflater, null, false)
+        contentView = binding.root
+        binding.buttonClose.setOnClickListener {
+            listener?.onDialogCancelled()
+            dialog.dismiss()
+        }
+        dialog = AlertDialog.Builder(requireActivity())
+            .setView(contentView)
+            .setCancelable(false)
+            .create()
+        contentView.post { listener?.onDialogLoaded(managerListener) }
+        return dialog
     }
 
     private val managerListener: LadderImporter.Listener get() = object: LadderImporter.Listener {

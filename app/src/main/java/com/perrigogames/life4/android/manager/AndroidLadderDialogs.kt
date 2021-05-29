@@ -7,7 +7,7 @@ import androidx.fragment.app.FragmentActivity
 import com.perrigogames.life4.LadderDialogs
 import com.perrigogames.life4.Notifications
 import com.perrigogames.life4.android.R
-import com.perrigogames.life4.android.ui.managerimport.ScoreManagerImportProcessingDialog
+import com.perrigogames.life4.android.ui.dialogs.ScoreManagerImportProcessingDialog
 import com.perrigogames.life4.model.LadderImporter
 import com.perrigogames.life4.model.LadderImporter.OpMode.SA
 import com.russhwolf.settings.Settings
