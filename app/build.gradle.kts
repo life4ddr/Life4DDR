@@ -19,7 +19,7 @@ android {
         versionName = "3.2"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled = true
-        signingConfig = signingConfigs.findByName("upload")
+        signingConfig = signingConfigs.findByName("release")
     }
     packagingOptions {
         exclude("META-INF/*.kotlin_module")
@@ -38,21 +38,21 @@ android {
     buildTypes {
         getByName("debug") {
             applicationIdSuffix = ".debug"
-            addManifestPlaceholders(mapOf(Pair("providerName", "com.perrigogames.fileprovider.debug")))
+            addManifestPlaceholders(mapOf(Pair("providerName", "com.perrigogames.life4.fileprovider.debug")))
         }
         getByName("release")  {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-            addManifestPlaceholders(mapOf(Pair("providerName", "com.perrigogames.fileprovider")))
-            signingConfig = signingConfigs.findByName("upload")
+            addManifestPlaceholders(mapOf(Pair("providerName", "com.perrigogames.life4.fileprovider")))
+            signingConfig = signingConfigs.findByName("release")
         }
     }
     signingConfigs {
-        register("upload") {
-            storeFile = file("../../keystores/upload-keystore.jks")
-            keyPassword = "FlOnG9T#0sNe41bXjKtVJi75Y"
-            storePassword = "FlOnG9T#0sNe41bXjKtVJi75Y"
-            keyAlias = "upload"
+        create("release") {
+            storeFile = file("../../keystores/life4android.jks")
+            storePassword = "TdyQWzynsV7h8PW9Qrw1x6LSb8vbfbZ0"
+            keyAlias = "release"
+            keyPassword = "Z7SZsZoITrpVRDb2C44f24BqvqyYI94G"
         }
     }
     lintOptions {
