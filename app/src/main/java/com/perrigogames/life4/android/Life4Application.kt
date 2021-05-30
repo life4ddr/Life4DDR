@@ -58,6 +58,7 @@ class Life4Application: Application() {
                 single<Context> { this@Life4Application }
                 single<PlatformStrings> { AndroidPlatformStrings() }
                 single<LocalDataReader>(named(IGNORES_FILE_NAME)) { AndroidDataReader(R.raw.ignore_lists, IGNORES_FILE_NAME) }
+                single<LocalDataReader>(named(MOTD_FILE_NAME)) { AndroidDataReader(R.raw.motd, MOTD_FILE_NAME) }
                 single<LocalUncachedDataReader>(named(PLACEMENTS_FILE_NAME)) { AndroidUncachedDataReader(R.raw.placements) }
                 single<LocalDataReader>(named(RANKS_FILE_NAME)) { AndroidDataReader(R.raw.ranks, RANKS_FILE_NAME) }
                 single<LocalDataReader>(named(SONGS_FILE_NAME)) { AndroidDataReader(R.raw.songs, SONGS_FILE_NAME) }
