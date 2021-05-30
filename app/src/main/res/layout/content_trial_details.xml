@@ -160,7 +160,7 @@
                 android:textColor="@color/perfect"
                 android:visibility="gone"
                 app:layout_constraintBottom_toTopOf="@id/barrier_header_accessories"
-                app:layout_constraintEnd_toEndOf="@id/image_folder_icon"
+                app:layout_constraintEnd_toEndOf="@id/include_photo_source_selector"
                 app:layout_constraintTop_toBottomOf="@id/image_rank"
                 tools:text="@string/event_ends_format"
                 tools:visibility="visible" />
@@ -197,7 +197,7 @@
                 android:text="@string/event_directions"
                 android:visibility="gone"
                 app:layout_constraintBottom_toTopOf="@id/barrier_top_content"
-                app:layout_constraintEnd_toStartOf="@id/image_camera_icon"
+                app:layout_constraintEnd_toStartOf="@id/include_photo_source_selector"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/barrier_header_accessories"
                 tools:visibility="visible" />
