@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="shared-api-1.0">
+    <output-path>C:\Users\Corey\Development\Life4DDR\shared\build\libs</output-path>
+    <root id="archive" name="shared-api-1.0.jar">
+      <element id="module-output" name="LIFE4DDR.shared.apiMain" />
+    </root>
+  </artifact>
+</component>

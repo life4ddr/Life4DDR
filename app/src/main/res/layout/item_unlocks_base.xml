@@ -25,13 +25,25 @@
         android:layout_marginTop="@dimen/content_padding_large"
         android:layout_marginBottom="@dimen/content_padding_large"
         android:layout_marginEnd="@dimen/content_padding_large"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_goneMarginStart="@dimen/content_padding_large"
         tools:text="DDR A20 Anniversary"
         android:textSize="@dimen/text_large"
         app:layout_constraintStart_toEndOf="@id/check_all_unlock"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/button_clear"
         app:layout_constraintBottom_toTopOf="@id/layout_unlock_container"/>
+
+    <ImageButton
+        android:id="@+id/button_clear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/content_padding_large"
+        android:background="@null"
+        android:src="@android:drawable/ic_menu_close_clear_cancel"
+        app:layout_constraintTop_toTopOf="@id/text_title"
+        app:layout_constraintBottom_toBottomOf="@id/text_title"
+        app:layout_constraintStart_toEndOf="@id/text_title"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <LinearLayout
         android:id="@+id/layout_unlock_container"

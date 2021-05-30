@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.TrialListActivity">
+    tools:context=".activity.trial.TrialListActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -27,7 +27,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:context=".activity.TrialListActivity"
+        tools:context=".activity.trial.TrialListActivity"
         tools:showIn="@layout/activity_trial_list"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -42,7 +42,7 @@
             android:id="@+id/text_step_1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="In the DDR A Manager app, enter a list of songs you want to copy and press the MENU button."
+            android:text="In the Score Manager app, enter a list of songs you want to copy and press the MENU button."
             app:layout_constraintBottom_toBottomOf="@id/image_step_1"
             app:layout_constraintEnd_toEndOf="@id/guideline_text_end"
             app:layout_constraintStart_toStartOf="@id/guideline_start"

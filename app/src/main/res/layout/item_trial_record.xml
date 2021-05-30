@@ -36,7 +36,7 @@
         app:layout_constraintTop_toTopOf="@id/image_rank_icon"
         tools:text="04/20/2710" />
 
-    <com.perrigogames.life4trials.view.RankImageView
+    <com.perrigogames.life4.android.view.RankImageView
         android:id="@+id/image_rank_icon"
         android:layout_width="@dimen/record_rank_icon_size"
         android:layout_height="@dimen/record_rank_icon_size"

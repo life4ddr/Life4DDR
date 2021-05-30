@@ -1,4 +1,0 @@
-rootProject.name = 'Life4'
-include ':app'
-include ':common'
-include ':common-jvm'

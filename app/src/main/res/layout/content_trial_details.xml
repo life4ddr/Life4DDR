@@ -12,7 +12,6 @@
         style="@style/BottomProgressButtonRightBorder"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:onClick="onLeaderboardClick"
         android:text="@string/leaderboard"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/guideline_panel_buttons"
@@ -24,7 +23,6 @@
         style="@style/BottomProgressButtonLeftBorder"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:onClick="onConcedeClick"
         android:text="@string/concede"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -36,7 +34,6 @@
         style="@style/BottomProgressButtonLeftBorder"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:onClick="onFinalizeClick"
         android:text="@string/finalize"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -49,7 +46,6 @@
         style="@style/BottomProgressButtonLeftBorder"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:onClick="onSubmitClick"
         android:text="@string/submit"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -79,9 +75,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/include_ex_score" />
 
-            <include
+            <com.perrigogames.life4.android.view.RunningEXScoreView
                 android:id="@+id/include_ex_score"
-                layout="@layout/view_ex_score_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/content_padding_med"
@@ -101,7 +96,7 @@
                 android:scaleType="fitXY"
                 android:src="@drawable/ic_scroll_arrow_to_left"
                 android:textStyle="bold"
-                android:tint="@color/white"
+                app:tint="@color/white"
                 app:layout_constraintBottom_toBottomOf="@id/image_rank"
                 app:layout_constraintEnd_toStartOf="@id/image_rank"
                 app:layout_constraintTop_toTopOf="@id/image_rank" />
@@ -117,34 +112,10 @@
                 android:scaleType="fitXY"
                 android:src="@drawable/ic_scroll_arrow_to_right"
                 android:textStyle="bold"
-                android:tint="@color/white"
+                app:tint="@color/white"
                 app:layout_constraintBottom_toBottomOf="@id/image_rank"
                 app:layout_constraintStart_toEndOf="@id/image_rank"
                 app:layout_constraintTop_toTopOf="@id/image_rank" />
-
-            <ImageView
-                android:id="@+id/image_camera_icon"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_margin="@dimen/content_padding_med"
-                android:contentDescription="@string/icon"
-                android:src="@drawable/ic_photo_camera"
-                android:tint="@color/white"
-                app:layout_constraintBottom_toBottomOf="@id/image_desired_rank"
-                app:layout_constraintEnd_toStartOf="@id/switch_acquire_mode"
-                app:layout_constraintTop_toTopOf="@id/image_desired_rank" />
-
-            <ImageView
-                android:id="@+id/image_folder_icon"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_margin="@dimen/content_padding_med"
-                android:contentDescription="@string/icon"
-                android:src="@drawable/ic_file_folder"
-                android:tint="@color/white"
-                app:layout_constraintBottom_toBottomOf="@id/image_desired_rank"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/image_desired_rank" />
 
             <Spinner
                 android:id="@+id/spinner_desired_rank"
@@ -156,14 +127,14 @@
                 app:layout_constraintTop_toTopOf="@id/image_desired_rank"
                 tools:visibility="invisible"/>
 
-            <Switch
-                android:id="@+id/switch_acquire_mode"
+            <include
+                android:id="@+id/include_photo_source_selector"
+                layout="@layout/view_photo_source_selector"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/content_padding_med"
-                android:layout_marginRight="@dimen/content_padding_med"
                 app:layout_constraintBottom_toBottomOf="@id/image_desired_rank"
-                app:layout_constraintEnd_toStartOf="@id/image_folder_icon"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/image_desired_rank" />
 
             <TextView
@@ -245,7 +216,7 @@
                 app:barrierDirection="bottom"
                 app:constraint_referenced_ids="text_goals_content,text_event_help"/>
 
-            <com.perrigogames.life4trials.view.RankImageView
+            <com.perrigogames.life4.android.view.RankImageView
                 android:id="@+id/image_desired_rank"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
@@ -259,9 +230,8 @@
                 tools:background="@color/colorAccent"
                 tools:visibility="invisible" />
 
-            <include
+            <com.perrigogames.life4.android.view.TrialJacketView
                 android:id="@+id/image_rank"
-                layout="@layout/view_trial_jacket"
                 android:layout_width="@dimen/trial_details_main_thumb_size"
                 android:layout_height="@dimen/trial_details_main_thumb_size"
                 android:layout_marginTop="@dimen/content_padding_large"

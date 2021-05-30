@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <com.perrigogames.life4trials.view.RankImageView
+    <com.perrigogames.life4.android.view.RankImageView
         android:id="@+id/image_rank_icon"
         android:layout_width="@dimen/rank_goal_icon_size"
         android:layout_height="@dimen/rank_goal_icon_size"

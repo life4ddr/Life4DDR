@@ -1,0 +1,34 @@
+import com.perrigogames.life4.enums.ClearType;
+import com.perrigogames.life4.enums.DifficultyClass;
+import com.perrigogames.life4.enums.GameVersion;
+import com.perrigogames.life4.enums.PlayStyle;
+
+CREATE TABLE ChartResult (
+skillId TEXT NOT NULL,
+difficultyClass INTEGER AS DifficultyClass NOT NULL DEFAULT 1,
+playStyle INTEGER AS PlayStyle NOT NULL DEFAULT 1,
+clearType INTEGER AS ClearType NOT NULL DEFAULT 0,
+score INTEGER NOT NULL DEFAULT 0,
+exScore INTEGER,
+FOREIGN KEY(skillId, difficultyClass, playStyle) REFERENCES ChartInfo(skillId, difficultyClass, playStyle)
+);
+
+CREATE VIEW DetailedChartResult AS
+SELECT * FROM ChartResult
+INNER JOIN ChartInfo ON ChartResult.skillId = ChartInfo.skillId
+INNER JOIN SongInfo ON ChartInfo.skillId = SongInfo.skillId
+AND ChartResult.difficultyClass = ChartInfo.difficultyClass
+AND ChartResult.playStyle = ChartInfo.playStyle;
+
+selectAll:
+SELECT * FROM DetailedChartResult;
+
+selectMFCs:
+SELECT * FROM DetailedChartResult WHERE clearType = 7;
+
+insertResult:
+INSERT OR REPLACE INTO ChartResult(skillId, difficultyClass, playStyle, clearType, score, exScore)
+VALUES (?,?,?,?,?,?);
+
+deleteAll:
+DELETE FROM ChartResult;
