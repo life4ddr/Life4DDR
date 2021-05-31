@@ -18,7 +18,7 @@ object Versions {
     const val glide = "4.9.0"
     const val robolectric = "4.5.1"
     const val firebase = "27.0.0"
-    const val stetho = "1.5.1"
+    const val stetho = "1.6.0"
     const val multiplatformSettings = "0.7.4"
     const val coroutines = "1.3.3-native-mt"
     const val koin = "3.0.0-alpha-4"

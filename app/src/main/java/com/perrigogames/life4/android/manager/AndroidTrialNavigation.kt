@@ -1,5 +1,6 @@
 package com.perrigogames.life4.android.manager
 
+import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import androidx.annotation.StringRes
@@ -12,7 +13,7 @@ import com.perrigogames.life4.enums.TrialRank
 
 class AndroidTrialNavigation: TrialNavigation() {
 
-    private var activity: FragmentActivity? = null
+    private var activity: Activity? = null
 
     fun submitResult(activity: FragmentActivity, onFinish: () -> Unit) {
         this.activity = activity
@@ -32,8 +33,10 @@ class AndroidTrialNavigation: TrialNavigation() {
         showYesNoDialog(R.string.trial_submit_dialog_title, R.string.trial_submit_dialog_prompt, false, result)
     }
 
-    override fun showTrialSubmissionWeb() {
-        activity!!.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(activity!!.getString(R.string.url_trial_submission_form))))
+    override fun showTrialSubmissionWeb() = showTrialSubmissionWeb(activity!!)
+
+    fun showTrialSubmissionWeb(activity: Activity) {
+        activity.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(activity.getString(R.string.url_trial_submission_form))))
     }
 
     private fun showYesNoDialog(

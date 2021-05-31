@@ -3,8 +3,6 @@ package com.perrigogames.life4.android
 import android.app.Application
 import android.content.Context
 import androidx.preference.PreferenceManager
-import com.facebook.stetho.Stetho
-import com.facebook.stetho.Stetho.DefaultDumperPluginsBuilder
 import com.perrigogames.life4.*
 import com.perrigogames.life4.api.LocalDataReader
 import com.perrigogames.life4.api.LocalUncachedDataReader
@@ -30,16 +28,6 @@ class Life4Application: Application() {
 
     override fun onCreate() {
         super.onCreate()
-        Stetho.initialize(Stetho.newInitializerBuilder(this)
-            .enableDumpapp {
-                DefaultDumperPluginsBuilder(this)
-//                    .provide(MyDumperPlugin())
-                    .finish()
-            }
-            .enableWebKitInspector(Stetho.defaultInspectorModulesProvider(this))
-            .build()
-        )
-
         val defaultHandler = Thread.getDefaultUncaughtExceptionHandler()
         Thread.setDefaultUncaughtExceptionHandler { thread, exception ->
             ManagerContainer().apply {

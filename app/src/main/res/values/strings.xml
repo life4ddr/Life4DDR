@@ -13,6 +13,7 @@
     <string name="action_trial_records">Trial Records</string>
     <string name="action_show_motd">Message of the Day</string>
     <string name="action_web_profile">Web Profile</string>
+    <string name="action_open_trial_submission">Open Trial Submission</string>
     <string name="action_shop_life4">Shop LIFE4</string>
     <string name="action_shop_dangershark">Shop DangerShark</string>
     <string name="description_shop_life4">Purchase physical LIFE4 gear</string>

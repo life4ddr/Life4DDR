@@ -21,22 +21,22 @@ class TrialDatabaseHelper(sqlDriver: SqlDriver): DatabaseHelper(sqlDriver) {
         session: InProgressTrialSession,
         datetime: Instant? = null
     ) = withContext(Dispatchers.Default) {
+        queries.insertSession(null,
+            session.trial.id,
+            (datetime ?: Clock.System.now()).toString(),
+            session.goalRank!!,
+            session.goalObtained)
+        val sId = queries.lastInsertRowId().executeAsOne()
         dbRef.transaction {
-            queries.insertSession(null,
-                session.trial.id,
-                (datetime ?: Clock.System.now()).toString(),
-                session.goalRank!!,
-                session.goalObtained)
-            val sId = queries.lastInsertRowId().executeAsOne()
             session.results.forEachIndexed { idx, result ->
                 queries.insertSong(null, sId,
                     idx.toLong(),
                     result!!.score!!.toLong(),
                     result.exScore!!.toLong(),
-                    result.misses!!.toLong(),
-                    result.goods!!.toLong(),
-                    result.greats!!.toLong(),
-                    result.perfects!!.toLong(),
+                    result.misses?.toLong(),
+                    result.goods?.toLong(),
+                    result.greats?.toLong(),
+                    result.perfects?.toLong(),
                     result.passed)
             }
         }
