@@ -1,9 +1,12 @@
 package com.perrigogames.life4.model
 
+import com.perrigogames.life4.DataRequiresAppUpdateEvent
 import com.perrigogames.life4.SettingsKeys.KEY_SONG_LIST_VERSION
-import com.perrigogames.life4.api.FetchListener
-import com.perrigogames.life4.api.LocalDataReader
+import com.perrigogames.life4.api.base.FetchListener
+import com.perrigogames.life4.api.base.LocalDataReader
 import com.perrigogames.life4.api.SongListRemoteData
+import com.perrigogames.life4.api.base.CompositeData
+import com.perrigogames.life4.data.SongList
 import com.perrigogames.life4.db.ChartInfo
 import com.perrigogames.life4.db.SongDatabaseHelper
 import com.perrigogames.life4.db.SongInfo
@@ -32,10 +35,12 @@ class SongDataManager: BaseModel() {
     private val settings: Settings by inject()
     private val dataReader: LocalDataReader by inject(named(SONGS_FILE_NAME))
 
-    private val songList = SongListRemoteData(dataReader, object: FetchListener<String> {
-        override fun onFetchUpdated(data: String) {
+    private val songList = SongListRemoteData(dataReader, object: CompositeData.NewDataListener<SongList> {
+        override fun onDataVersionChanged(data: SongList) {
             refreshSongDatabase(data)
         }
+
+        override fun onMajorVersionBlock() = Unit
     })
 
     init {
@@ -53,10 +58,10 @@ class SongDataManager: BaseModel() {
         refreshSongDatabase(force = true)
     }
 
-    private fun refreshSongDatabase(input: String = songList.data, force: Boolean = false) {
+    private fun refreshSongDatabase(input: SongList = songList.data, force: Boolean = false) {
         mainScope.launch {
             try {
-                val lines = input.lines()
+                val lines = input.songLines
                 if (force || settings.getInt(KEY_SONG_LIST_VERSION, -1) < lines[0].toInt()) {
 
                     val songs = mutableListOf<SongInfo>()

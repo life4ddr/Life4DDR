@@ -1,9 +1,10 @@
 package com.perrigogames.life4.model
 
 import com.perrigogames.life4.*
-import com.perrigogames.life4.api.FetchListener
-import com.perrigogames.life4.api.LocalDataReader
+import com.perrigogames.life4.api.base.FetchListener
+import com.perrigogames.life4.api.base.LocalDataReader
 import com.perrigogames.life4.api.TrialRemoteData
+import com.perrigogames.life4.api.base.CompositeData
 import com.perrigogames.life4.data.TrialData
 import com.perrigogames.life4.data.InProgressTrialSession
 import com.perrigogames.life4.db.SelectBestSessions
@@ -33,11 +34,13 @@ class TrialManager: BaseModel() {
     private val life4Api: Life4API by inject()
     private val dataReader: LocalDataReader by inject(named(TRIALS_FILE_NAME))
 
-    private var trialData = TrialRemoteData(dataReader, object: FetchListener<TrialData> {
-        override fun onFetchUpdated(data: TrialData) {
+    private var trialData = TrialRemoteData(dataReader, object: CompositeData.NewDataListener<TrialData> {
+        override fun onDataVersionChanged(data: TrialData) {
             notifications.showToast("${data.trials.size} Trials found!")
             eventBus.post(TrialListReplacedEvent())
         }
+
+        override fun onMajorVersionBlock() = eventBus.postSticky(DataRequiresAppUpdateEvent())
     })
 
     val trials get() = trialData.data.trials
@@ -133,7 +136,7 @@ class TrialManager: BaseModel() {
         if (!isDebug) {
             setCrashInt("trials_version", trialData.data.version)
             setCrashInt("trials_major_version", trialData.data.majorVersion)
-            setCrashInt("trials_engine", trialData.majorVersion)
+            setCrashInt("trials_engine", trialData.data.majorVersion)
             setCrashString("trials", trials.joinToString { it.id })
         }
     }

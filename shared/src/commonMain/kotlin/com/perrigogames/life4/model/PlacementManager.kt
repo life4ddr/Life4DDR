@@ -1,6 +1,6 @@
 package com.perrigogames.life4.model
 
-import com.perrigogames.life4.api.LocalUncachedDataReader
+import com.perrigogames.life4.api.base.LocalUncachedDataReader
 import com.perrigogames.life4.data.TrialData
 import com.perrigogames.life4.isDebug
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.PLACEMENTS_FILE_NAME

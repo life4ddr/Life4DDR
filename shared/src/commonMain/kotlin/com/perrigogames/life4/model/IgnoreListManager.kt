@@ -3,7 +3,7 @@ package com.perrigogames.life4.model
 import com.perrigogames.life4.LadderRanksReplacedEvent
 import com.perrigogames.life4.SettingsKeys.KEY_IMPORT_GAME_VERSION
 import com.perrigogames.life4.api.IgnoreListRemoteData
-import com.perrigogames.life4.api.LocalDataReader
+import com.perrigogames.life4.api.base.LocalDataReader
 import com.perrigogames.life4.data.IgnoreGroup
 import com.perrigogames.life4.data.IgnoreList
 import com.perrigogames.life4.data.IgnoredSong
@@ -24,10 +24,7 @@ class IgnoreListManager: BaseModel() {
     private val dbHelper: SongDatabaseHelper by inject()
 
     private val ignoreLists = IgnoreListRemoteData(dataReader)
-
-    init {
-        ignoreLists.start()
-    }
+        .apply { start() }
 
     //
     // General Ignorelist

@@ -1,16 +1,14 @@
 package com.perrigogames.life4.model
 
-import com.perrigogames.life4.LadderDialogs
-import com.perrigogames.life4.LadderRankUpdatedEvent
-import com.perrigogames.life4.LadderRanksReplacedEvent
+import com.perrigogames.life4.*
 import com.perrigogames.life4.data.BaseRankGoal
 import com.perrigogames.life4.db.GoalDatabaseHelper
 import com.perrigogames.life4.SettingsKeys.KEY_INFO_RANK
 import com.perrigogames.life4.SettingsKeys.KEY_INFO_TARGET_RANK
-import com.perrigogames.life4.SongResultsUpdatedEvent
-import com.perrigogames.life4.api.FetchListener
+import com.perrigogames.life4.api.base.FetchListener
 import com.perrigogames.life4.api.LadderRemoteData
-import com.perrigogames.life4.api.LocalDataReader
+import com.perrigogames.life4.api.base.CompositeData
+import com.perrigogames.life4.api.base.LocalDataReader
 import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.data.LadderRankData
 import com.perrigogames.life4.data.LadderVersion
@@ -39,21 +37,20 @@ class LadderManager: BaseModel() {
     //
     // Ladder Data
     //
-    private val ladderDataRemote = LadderRemoteData(dataReader, object: FetchListener<LadderRankData> {
-        override fun onFetchUpdated(data: LadderRankData) {
+    private val ladderDataRemote = LadderRemoteData(dataReader, object: CompositeData.NewDataListener<LadderRankData> {
+        override fun onDataVersionChanged(data: LadderRankData) {
             ladderDialogs.showLadderUpdateToast()
             eventBus.post(LadderRanksReplacedEvent())
         }
-    })
+
+        override fun onMajorVersionBlock() = eventBus.postSticky(DataRequiresAppUpdateEvent())
+    }).apply { start() }
+
     val ladderData: LadderRankData get() = ladderDataRemote.data
     val currentRequirements: LadderVersion
         get() = ignoreListManager.selectedIgnoreList!!.baseVersion.let { version ->
             ladderData.gameVersions[version] ?: error("Rank requirements not found for version $version")
         }
-
-    init {
-        ladderDataRemote.start()
-    }
 
     //
     // Local User Rank

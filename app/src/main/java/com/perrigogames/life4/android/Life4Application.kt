@@ -4,8 +4,8 @@ import android.app.Application
 import android.content.Context
 import androidx.preference.PreferenceManager
 import com.perrigogames.life4.*
-import com.perrigogames.life4.api.LocalDataReader
-import com.perrigogames.life4.api.LocalUncachedDataReader
+import com.perrigogames.life4.api.base.LocalDataReader
+import com.perrigogames.life4.api.base.LocalUncachedDataReader
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.IGNORES_FILE_NAME
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.PLACEMENTS_FILE_NAME
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.RANKS_FILE_NAME

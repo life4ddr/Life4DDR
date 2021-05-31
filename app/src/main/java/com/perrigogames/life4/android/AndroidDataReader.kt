@@ -3,8 +3,8 @@ package com.perrigogames.life4.android
 import android.content.Context
 import android.util.Log
 import androidx.annotation.RawRes
-import com.perrigogames.life4.api.LocalDataReader
-import com.perrigogames.life4.api.LocalUncachedDataReader
+import com.perrigogames.life4.api.base.LocalDataReader
+import com.perrigogames.life4.api.base.LocalUncachedDataReader
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 import java.io.*

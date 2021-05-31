@@ -1,21 +1,32 @@
 package com.perrigogames.life4.api
 
+import com.perrigogames.life4.api.base.*
+import com.perrigogames.life4.data.LadderRankData
 import com.perrigogames.life4.data.MessageOfTheDay
 import com.perrigogames.life4.ktor.GithubDataAPI
-import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
+import org.koin.core.KoinComponent
 import org.koin.core.inject
 
 class MotdLocalRemoteData(
     reader: LocalDataReader,
-    listener: FetchListener<MessageOfTheDay>? = null
-): KtorLocalRemoteData<MessageOfTheDay>(reader, listener) {
+    listener: NewDataListener<MessageOfTheDay>? = null,
+): CompositeData<MessageOfTheDay>(listener), KoinComponent {
 
+    private val json: Json by inject()
     private val githubKtor: GithubDataAPI by inject()
 
-    override suspend fun getRemoteResponse() = githubKtor.getMotd()
+    private val converter = MessageOfTheDayConverter()
 
-    override fun createLocalDataFromText(text: String) = json.decodeFromString(MessageOfTheDay.serializer(), text)
+    override val rawData = LocalData(reader, converter)
+    override val cacheData = CachedData(reader, converter, converter)
+    override val remoteData = object: RemoteData<MessageOfTheDay>() {
+        override suspend fun getRemoteResponse() = githubKtor.getMotd()
+    }
 
-    override fun createTextToData(data: MessageOfTheDay) = json.encodeToString(data)
+    private inner class MessageOfTheDayConverter: Converter<MessageOfTheDay> {
+        override fun create(s: String) = json.decodeFromString(MessageOfTheDay.serializer(), s)
+        override fun create(data: MessageOfTheDay) = json.encodeToString(MessageOfTheDay.serializer(), data)
+    }
 }
