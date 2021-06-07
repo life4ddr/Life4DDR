@@ -68,7 +68,7 @@ class SongDataManager: BaseModel() {
                     val charts = mutableListOf<ChartInfo>()
 
                     lines.forEachIndexed { idx, line ->
-                        if (idx == 0 || line.isEmpty()) {
+                        if (line.isEmpty()) {
                             return@forEachIndexed
                         }
                         val data = line.split('\t')
