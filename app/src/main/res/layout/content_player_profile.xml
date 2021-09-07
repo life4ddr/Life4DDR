@@ -12,7 +12,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/content_padding_large"
-        android:layout_marginLeft="@dimen/content_padding_large"
         android:fontFamily="@font/avenir"
         android:textSize="32sp"
         android:textStyle="bold"
@@ -26,7 +25,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/content_padding_large"
-        android:layout_marginLeft="@dimen/content_padding_large"
         android:textSize="20sp"
         android:textStyle="italic"
         app:layout_constraintBottom_toBottomOf="@id/image_rank"
@@ -43,13 +41,27 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@drawable/gold_3" />
 
+    <TextView
+        android:id="@+id/text_change_rank"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="@string/change_rank"
+        android:visibility="gone"
+        android:textSize="@dimen/text_tiny"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:gravity="center"
+        app:layout_constraintTop_toTopOf="@id/image_rank"
+        app:layout_constraintBottom_toBottomOf="@id/image_rank"
+        app:layout_constraintStart_toStartOf="@id/image_rank"
+        app:layout_constraintEnd_toEndOf="@id/image_rank" />
+
     <include
         android:id="@+id/view_mode_button_left"
         layout="@layout/item_profile_mode_button"
         android:layout_width="0dp"
         android:layout_height="90dp"
         android:layout_marginStart="@dimen/content_padding_large"
-        android:layout_marginLeft="@dimen/content_padding_large"
         android:layout_marginTop="@dimen/content_padding_large"
         app:layout_constraintEnd_toStartOf="@id/view_mode_button_right"
         app:layout_constraintStart_toStartOf="parent"
