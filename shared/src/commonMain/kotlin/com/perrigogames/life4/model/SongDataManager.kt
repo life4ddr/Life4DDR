@@ -1,11 +1,9 @@
 package com.perrigogames.life4.model
 
-import com.perrigogames.life4.DataRequiresAppUpdateEvent
 import com.perrigogames.life4.SettingsKeys.KEY_SONG_LIST_VERSION
-import com.perrigogames.life4.api.base.FetchListener
-import com.perrigogames.life4.api.base.LocalDataReader
 import com.perrigogames.life4.api.SongListRemoteData
 import com.perrigogames.life4.api.base.CompositeData
+import com.perrigogames.life4.api.base.LocalDataReader
 import com.perrigogames.life4.data.SongList
 import com.perrigogames.life4.db.ChartInfo
 import com.perrigogames.life4.db.SongDatabaseHelper
@@ -42,6 +40,7 @@ class SongDataManager: BaseModel() {
 
         override fun onMajorVersionBlock() = Unit
     })
+    val dataVersionString get() = songList.versionString
 
     init {
         songList.start()

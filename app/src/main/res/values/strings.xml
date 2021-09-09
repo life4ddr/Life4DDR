@@ -397,6 +397,7 @@
     <string name="trials_updated">Trials have been updated!</string>
 
     <string name="credits">Credits</string>
+    <string name="versions">Versions</string>
     <string name="rank_directions">To earn <![CDATA[<b><font color=#ffffff>%s</font></b>]]>:</string>
     <string name="no_rank_goals">It\'s free to not have a rank, but it\'s more fun if you play through some goals!</string>
 
