@@ -15,8 +15,8 @@ android {
         applicationId = "com.perrigogames.life4.android"
         minSdkVersion(Versions.min_sdk)
         targetSdkVersion(Versions.target_sdk)
-        versionCode = 60
-        versionName = "4.0"
+        versionCode = 61
+        versionName = "4.0.1"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled = true
         signingConfig = signingConfigs.findByName("release")
