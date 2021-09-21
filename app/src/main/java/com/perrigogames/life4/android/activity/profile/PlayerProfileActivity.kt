@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import com.perrigogames.life4.*
 import com.perrigogames.life4.SettingsKeys.KEY_INFO_NAME
 import com.perrigogames.life4.SettingsKeys.KEY_INFO_RIVAL_CODE
@@ -183,6 +184,7 @@ class PlayerProfileActivity : AppCompatActivity(), RankDetailsViewModel.OnGoalLi
             it.setOnClickListener { startActivity(Intent(this, RankListActivity::class.java)) }
             it.rank = rank
         }
+        binding.content.textChangeRank.isVisible = rank == null
 
         val options = RankDetailsFragment.Options(
             hideNonActive = true,

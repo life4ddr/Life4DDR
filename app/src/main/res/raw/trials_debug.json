@@ -25,10 +25,10 @@
       ],
       "total_ex": 10000,
       "songs": [
-        { "name": "Confession", "difficulty": 14, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202013%20%28AC%29%20%28Japan%29/Confession/Confession-jacket.png"},
-        { "name": "Astrogazer", "difficulty": 15, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/Astrogazer/Astrogazer-jacket.png"},
-        { "name": "Elemental Creation", "difficulty": 17, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202013%20%28AC%29%20%28Japan%29/Elemental%20Creation/Elemental%20Creation-jacket.png"},
-        { "name": "Vanquish The Ghost", "difficulty": 16, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/Vanquish%20The%20Ghost/Vanquish%20The%20Ghost-jacket.png" }
+        { "name": "Confession", "difficulty": 14, "difficulty_class": "expert", "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Confession-jacket.webp"},
+        { "name": "Astrogazer", "difficulty": 15, "difficulty_class": "expert", "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Astrogazer-jacket.webp"},
+        { "name": "Elemental Creation", "difficulty": 17, "difficulty_class": "expert", "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Elemental+Creation-jacket.webp"},
+        { "name": "Vanquish The Ghost", "difficulty": 16, "difficulty_class": "expert", "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Vanquish+The+Ghost-jacket.webp" }
       ]
     },
     {
@@ -43,35 +43,12 @@
       ],
       "total_ex": 6315,
       "songs": [
-        { "name": "Second Heaven", "difficulty": 14, "ex": 1446, "difficulty_class": "challenge", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X2%20%28AC%29%20%28Japan%29/Second%20Heaven/Second%20Heaven-jacket.png"},
-        { "name": "BRILLIANT 2U (AKBK MIX)", "difficulty": 15, "ex": 1767, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X3%20VS%202ndMIX%20%28AC%29%20%28Japan%29/BRILLIANT%202U%20%28AKBK%20MIX%29/BRILLIANT%202U%20%28AKBK%20MIX%29-jacket.png"},
-        { "name": "FIRE FIRE", "difficulty": 14, "ex": 1728, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X2%20%28AC%29%20%28Japan%29/FIRE%20FIRE/FIRE%20FIRE-jacket.png"},
-        { "name": "PARANOiA ～HADES～", "difficulty": 15, "ex": 1374, "difficulty_class": "difficult", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20SuperNOVA2%20%28AC%29%20%28Japan%29/PARANOiA%20~HADES~/PARANOiA%20~HADES~-jacket.png" }
+        { "name": "Second Heaven", "difficulty": 14, "ex": 1446, "difficulty_class": "challenge", "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Second+Heaven-jacket.webp"},
+        { "name": "BRILLIANT 2U (AKBK MIX)", "difficulty": 15, "ex": 1767, "difficulty_class": "expert", "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/BRILLIANT+2U+(AKBK+MIX)-jacket.webp"},
+        { "name": "FIRE FIRE", "difficulty": 14, "ex": 1728, "difficulty_class": "expert", "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/FIRE+FIRE-jacket.webp"},
+        { "name": "PARANOiA ～HADES～", "difficulty": 15, "ex": 1374, "difficulty_class": "difficult", "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/PARANOiA+~HADES~-jacket.webp" }
       ],
       "cover_url": "https://thumbs.dreamstime.com/b/blood-guts-gore-background-2432397.jpg"
-    },
-    {
-      "id": "timemachine",
-      "name": "Time Machine",
-      "type": "trial",
-      "difficulty": 13,
-      "goals": [
-        {
-          "rank": "silver"
-        }, {
-          "rank": "emerald",
-          "score_indexed": [1000000, 0, 0, 0],
-          "judge": 0,
-          "ex_missing": 70
-        }
-      ],
-      "total_ex": 10000,
-      "songs": [
-        { "name": "TimeHollow", "difficulty": 10, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X%20%28AC%29%20%28Japan%29/TimeHollow/TimeHollow-jacket.png" },
-        { "name": "V ～for EXTREME～", "difficulty": 13, "difficulty_class": "challenge", "url": "https://zenius-i-vanisher.com/simfiles/Dance%20Dance%20Revolution%20EXTREME%20%28AC%29%20%28Japan%29/V%20~for%20EXTREME~/V%20~for%20EXTREME~-jacket.png"},
-        { "name": "No.13", "difficulty": 13, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20SuperNOVA%20%28AC%29%20%28International%29/No.13/No.13-jacket.png"},
-        { "name": "Ubertreffen", "difficulty": 13, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X%20%28AC%29%20%28Japan%29/Ubertreffen/Ubertreffen-jacket.png"}
-      ]
     },
     {
       "id": "debug",
@@ -103,10 +80,10 @@
       "cover_url": "https://life4ddr.com/wp-content/uploads/2019/03/kitten-iStock.jpg",
       "total_ex": 10000,
       "songs": [
-        { "name": "AAAAAAAAAA", "difficulty": 18, "difficulty_class": "beginner", "url": ""},
-        { "name": "BBBBBBBBBB", "difficulty": 19, "difficulty_class": "basic", "url": ""},
-        { "name": "CCCCCCCCCC", "difficulty": 20, "difficulty_class": "difficult", "url": ""},
-        { "name": "DDDDDDDDDD", "difficulty": 21, "difficulty_class": "challenge", "url": "" }
+        { "name": "AAAAAAAAAA", "difficulty": 18, "difficulty_class": "beginner", "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/"},
+        { "name": "BBBBBBBBBB", "difficulty": 19, "difficulty_class": "basic", "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/"},
+        { "name": "CCCCCCCCCC", "difficulty": 20, "difficulty_class": "difficult", "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/"},
+        { "name": "DDDDDDDDDD", "difficulty": 21, "difficulty_class": "challenge", "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/" }
       ]
     }
   ]

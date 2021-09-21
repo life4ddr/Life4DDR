@@ -18,6 +18,11 @@ abstract class CompositeData<T: Versioned>(
 
     lateinit var data: T
 
+    val versionString: String
+        get() = (data as? MajorVersioned)?.let {
+            "${it.majorVersion}.${it.version}"
+        } ?: data.version.toString()
+
     private var majorVersion: Int? = null
 
     fun start() {

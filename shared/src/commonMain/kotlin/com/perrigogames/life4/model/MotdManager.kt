@@ -3,10 +3,9 @@ package com.perrigogames.life4.model
 import com.perrigogames.life4.DataRequiresAppUpdateEvent
 import com.perrigogames.life4.MotdEvent
 import com.perrigogames.life4.SettingsKeys.KEY_LAST_MOTD
-import com.perrigogames.life4.api.base.FetchListener
-import com.perrigogames.life4.api.base.LocalDataReader
 import com.perrigogames.life4.api.MotdLocalRemoteData
 import com.perrigogames.life4.api.base.CompositeData
+import com.perrigogames.life4.api.base.LocalDataReader
 import com.perrigogames.life4.data.MessageOfTheDay
 import com.perrigogames.life4.ktor.GithubDataAPI
 import com.russhwolf.settings.Settings
@@ -30,6 +29,7 @@ class MotdManager: BaseModel() {
 
         override fun onMajorVersionBlock() = eventBus.postSticky(DataRequiresAppUpdateEvent())
     }).apply { start() }
+    val dataVersionString get() = motdRemote.versionString
 
     val currentMotd: MessageOfTheDay
         get() = motdRemote.data
