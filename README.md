@@ -1,5 +1,5 @@
-# LIFE4DDR Trials
-An Android application to easily browse, track and manage your LIFE4 Trials.
+# LIFE4DDR Android App
+An Android application to easily browse, track and manage your LIFE4 progress.
 
 [Homepage](http://life4ddr.com)
 
