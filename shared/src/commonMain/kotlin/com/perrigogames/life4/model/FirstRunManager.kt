@@ -6,7 +6,7 @@ import com.perrigogames.life4.SettingsKeys.KEY_INFO_TWITTER_NAME
 import com.perrigogames.life4.SettingsKeys.KEY_INIT_STATE
 import com.russhwolf.settings.Settings
 import com.russhwolf.settings.set
-import org.koin.core.inject
+import org.koin.core.component.inject
 
 /**
  * A manager class that tracks where a user is in the first run process and

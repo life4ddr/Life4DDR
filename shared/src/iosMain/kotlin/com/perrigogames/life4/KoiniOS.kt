@@ -1,11 +1,10 @@
 package com.perrigogames.life4
 
-import co.touchlab.kermit.Kermit
-import co.touchlab.kermit.NSLogLogger
 import com.russhwolf.settings.AppleSettings
 import com.russhwolf.settings.Settings
 import com.squareup.sqldelight.db.SqlDriver
 import com.squareup.sqldelight.drivers.native.NativeSqliteDriver
+import io.ktor.client.engine.darwin.*
 import kotlinx.cinterop.ObjCClass
 import kotlinx.cinterop.getOriginalKotlinClass
 import org.koin.core.Koin
@@ -19,19 +18,17 @@ fun initKoinIos(
     userDefaults: NSUserDefaults,
     appInfo: AppInfo,
     doOnStartup: () -> Unit
-): KoinApplication = initKoin {
+): KoinApplication = initKoin(
     module {
         single<Settings> { AppleSettings(userDefaults) }
         single { appInfo }
         single { doOnStartup }
     }
-}
+)
 
 actual val platformModule = module {
     single<SqlDriver> { NativeSqliteDriver(Life4Db.Schema, "Life4Db") }
-
-    val baseKermit = Kermit(NSLogLogger()).withTag("Life4")
-    factory { (tag: String?) -> if (tag != null) baseKermit.withTag(tag) else baseKermit }
+    single { Darwin.create() }
 }
 
 fun Koin.get(objCClass: ObjCClass, qualifier: Qualifier?, parameter: Any): Any {

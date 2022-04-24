@@ -1,3 +1,4 @@
+@file:OptIn(ExperimentalSerializationApi::class)
 @file:UseSerializers(
     DifficultyClassSerializer::class,
     PlayStyleSerializer::class,
@@ -10,12 +11,10 @@
 package com.perrigogames.life4.data
 
 import com.perrigogames.life4.PlatformStrings
-import com.perrigogames.life4.db.DetailedChartResult
+import com.perrigogames.life4.db.ChartResultPair
 import com.perrigogames.life4.enums.*
 import com.perrigogames.life4.logE
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
-import kotlinx.serialization.UseSerializers
+import kotlinx.serialization.*
 
 /**
  * The base rank goal class, describing a single goal of a rank on the LIFE4 ladder.
@@ -29,7 +28,7 @@ sealed class BaseRankGoal {
 
     abstract fun goalString(c: PlatformStrings): String
 
-    open fun getGoalProgress(possible: Int, results: List<DetailedChartResult>): LadderGoalProgress? = null
+    open fun getGoalProgress(possible: Int, results: List<ChartResultPair>): LadderGoalProgress? = null
 }
 
 /**
@@ -51,7 +50,7 @@ class CaloriesRankGoal(
  */
 @Serializable
 @SerialName("set")
-class SongSetGoal(
+class DifficultySetGoal(
     @SerialName("diff_nums") val difficulties: IntArray,
     @SerialName("clear_type") private val mClearType: ClearType? = null,
 ): BaseRankGoal() {
@@ -67,6 +66,7 @@ class SongSetGoal(
  * @param rank the [TrialRank] that the user needs to earn
  * @param count the number of trials that need to be cleared with [rank]
  */
+@OptIn(ExperimentalSerializationApi::class)
 @Serializable
 @SerialName("trial")
 class TrialGoal(
@@ -96,16 +96,16 @@ data class MFCPointsGoal(
  * For example,
  * - clearing 3 different 12's with LIFE4 enabled
  * - clearing all 17's with 950k or more points
- * - PFC-ing all 15's with the exception of 5 songResults
+ * - PFC-ing all 15's except for 5 songResults
  */
 @Serializable
 @SerialName("songs")
 class SongsClearGoal(
     @SerialName("d") val diffNum: Int? = null,
     @SerialName("higher_diff") val allowsHigherDiffNum: Boolean = false,
-    @SerialName("diff_class") private val diffClassSet: DifficultyClassSet? = null,
+    @SerialName("diff_class") val diffClassSet: DifficultyClassSet? = null,
     val songs: List<String>? = null,
-    val folder: String? = null,
+    private val folder: String? = null,
 
     @SerialName("folder_count") val folderCount: Int? = null,
     @SerialName("song_count") val songCount: Int? = null,
@@ -116,6 +116,17 @@ class SongsClearGoal(
     @SerialName("average_score") val averageScore: Int? = null,
     @SerialName("clear_type") private val mClearType: ClearType? = null,
 ): BaseRankGoal() {
+
+    @Transient
+    val folderType: FolderType? = folder.let {
+        val version = GameVersion.parse(folder)
+        return@let when {
+            it == null -> null
+            version != null -> FolderType.Version(version)
+            it.length == 1 -> FolderType.Letter(it[0])
+            else -> error("Illegal folder type")
+        }
+    }
 
     val clearType: ClearType
         get() = mClearType ?: ClearType.CLEAR
@@ -166,11 +177,16 @@ class SongsClearGoal(
         else -> this
     }
 
-    override fun getGoalProgress(possible: Int, results: List<DetailedChartResult>): LadderGoalProgress {
+    override fun getGoalProgress(possible: Int, results: List<ChartResultPair>): LadderGoalProgress {
         return LadderGoalProgress( // TODO
             progress = 1,
             max = 2,
         )
+    }
+
+    sealed class FolderType {
+        class Letter(val letter: Char): FolderType()
+        class Version(val version: GameVersion): FolderType()
     }
 }
 

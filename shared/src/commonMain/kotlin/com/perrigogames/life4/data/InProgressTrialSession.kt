@@ -5,9 +5,11 @@ import com.perrigogames.life4.enums.ClearType.*
 import com.perrigogames.life4.enums.TrialRank
 import com.perrigogames.life4.response.TrialGoalSet
 import com.perrigogames.life4.util.hasCascade
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
 
+@OptIn(ExperimentalSerializationApi::class)
 @Serializable
 data class InProgressTrialSession(
     val trial: Trial,
@@ -56,12 +58,12 @@ data class InProgressTrialSession(
     /**
      * Calculates the number of combined misses in the current session.
      */
-    val currentMisses: Int get() = results.filterNotNull().sumBy { it.misses ?: 0 }
+    val currentMisses: Int get() = results.filterNotNull().sumOf { it.misses ?: 0 }
 
     /**
      * Calculates the number of combined bad judgments in the current session.
      */
-    val currentBadJudgments: Int get() = results.filterNotNull().sumBy { it.badJudges ?: 0 }
+    val currentBadJudgments: Int get() = results.filterNotNull().sumOf { it.badJudges ?: 0 }
 
     /**
      * Calculates the number of combined misses in the current session. This
@@ -87,11 +89,11 @@ data class InProgressTrialSession(
 
     /** Calculates the current total EX the player has obtained for this session */
     val currentTotalExScore: Int
-        get() = results.filterNotNull().sumBy { it.exScore!! }
+        get() = results.filterNotNull().sumOf { it.exScore!! }
 
     /** Calculates the highest EX that a player could obtain on the songs that have been currently completed */
     val currentMaxExScore: Int
-        get() = trial.songs.mapIndexed { idx, item -> if (results[idx] != null) item.ex else 0  }.sumBy { it }
+        get() = trial.songs.mapIndexed { idx, item -> if (results[idx] != null) item.ex else 0  }.sumOf { it }
 
     /** Calculates the amount of EX that is missing, which only counts the songs that have been completed */
     val missingExScore: Int

@@ -26,8 +26,8 @@ import com.perrigogames.life4.android.R
 import com.perrigogames.life4.android.util.DataUtil
 import com.perrigogames.life4.android.util.locale
 import com.russhwolf.settings.Settings
-import org.koin.core.KoinComponent
-import org.koin.core.inject
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 import java.io.File
 import java.io.IOException
 

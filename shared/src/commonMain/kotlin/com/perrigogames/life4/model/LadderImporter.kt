@@ -1,8 +1,8 @@
 package com.perrigogames.life4.model
 
+import co.touchlab.kermit.Logger
 import com.perrigogames.life4.*
 import com.perrigogames.life4.db.ResultDatabaseHelper
-import com.perrigogames.life4.db.SongDatabaseHelper
 import com.perrigogames.life4.enums.ClearType
 import com.perrigogames.life4.enums.DifficultyClass
 import com.perrigogames.life4.enums.DifficultyClass.BEGINNER
@@ -12,7 +12,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.koin.core.inject
+import org.koin.core.component.inject
 
 /**
  * Model class to facilitate importing ladder data from an external source. Data is provided as a List<String> with each
@@ -29,8 +29,10 @@ class LadderImporter(
     private val opMode: OpMode = OpMode.AUTO,
 ): BaseModel() {
 
+    private val saLogger: Logger by injectLogger("SAImport")
+    private val legacyLogger: Logger by injectLogger("Import")
     private val ignoreListManager: IgnoreListManager by inject()
-    private val songDbHelper: SongDatabaseHelper by inject()
+    private val songDataManager: SongDataManager by inject()
     private val resultDbHelper: ResultDatabaseHelper by inject()
     private val ladderDialogs: LadderDialogs by inject()
     private val eventBus: EventBusNotifier by inject()
@@ -53,7 +55,7 @@ class LadderImporter(
             } }
             withContext(Dispatchers.Main) {
                 ladderDialogs.showImportFinishedToast()
-                ignoreListManager.invalidateIgnoredIds()
+//                ignoreListManager.invalidateIgnoredIds() FIXME
                 eventBus.post(SongResultsImportCompletedEvent())
                 if (success > 0) {
                     eventBus.post(SongResultsUpdatedEvent())
@@ -76,7 +78,7 @@ class LadderImporter(
     private suspend fun parseManagerLine(entry: String) {
         val entryParts = entry.trim().split('\t').toMutableList()
         if (entryParts.size == 39) {
-            val id = entryParts.removeAt(0)
+            /*val id =*/ entryParts.removeAt(0)
             val charts = PlayStyle.values().flatMap { playStyle ->
                 DifficultyClass.values().mapNotNull { difficulty ->
                     if (playStyle == DOUBLE && difficulty == BEGINNER) { null }
@@ -84,7 +86,7 @@ class LadderImporter(
                         val grade = entryParts.removeAt(0)
                         val score = entryParts.removeAt(0).toLong()
                         val fullCombo = entryParts.removeAt(0)
-                        val combo = entryParts.removeAt(0).toInt()
+                        /*val combo =*/ entryParts.removeAt(0).toInt()
                         if (grade == "NoPlay") {
                             null
                         } else {
@@ -98,11 +100,14 @@ class LadderImporter(
             charts.forEach { it.skillId = skillId }
 
             val songName = entryParts.removeAt(0).replace('+', ' ')
-            val songDb = songDbHelper.selectSongBySkillID(skillId)
+            val hasSong = songDataManager.songs.firstOrNull { it.skillId == skillId } != null
             if (isDebug) {
-                log("SAImport", "$songName ($skillId) - ${charts.size} found, dbExist=${songDb != null}")
+                if (songName.startsWith("ZETA")) {
+                    saLogger.v("ZETA")
+                }
+                saLogger.v("$songName ($skillId) - ${charts.size} found, dbExist=$hasSong")
             }
-            if (songDb != null) {
+            if (hasSong) {
                 resultDbHelper.insertSAResults(charts)
                 success++
                 signalUpdate()
@@ -141,19 +146,20 @@ class LadderImporter(
                 val playStyle = PlayStyle.parse(chartType)!!
                 val difficultyClass = DifficultyClass.parse(chartType)!!
 
-                val songDB = songDbHelper.selectSongByTitle(songName) ?: throw SongNotFoundException(songName)
-                val chartDB = songDbHelper.selectChart(songDB.id, playStyle, difficultyClass) ?: throw ChartNotFoundException(songDB.title, playStyle, difficultyClass, difficultyNumber)
-                resultDbHelper.insertResult(songDB, chartDB, clear, score)
+                val detailedChart = songDataManager.detailedCharts.firstOrNull {
+                    it.title == songName && it.playStyle == playStyle && it.difficultyClass == difficultyClass
+                } ?: throw ChartNotFoundException(songName, playStyle, difficultyClass, difficultyNumber)
+                resultDbHelper.insertResult(detailedChart, clear, score)
 
                 if (isDebug && clear == ClearType.NO_PLAY) {
-                    log("import", "${songDB.title} - ${chartDB.difficultyClass} (${chartDB.difficultyNumber})")
+                    legacyLogger.v("${detailedChart.title} - ${detailedChart.difficultyClass} (${detailedChart.difficultyNumber})")
                 }
                 success++
                 if (success % 2 == 0) {
                     signalUpdate()
                 }
             } catch (e: Exception) {
-                logE("Exception", e.message ?: "")
+                legacyLogger.e(e.message ?: "")
                 signalError("${entry}\n${e.message}")
             }
         } else if (entry.isNotEmpty()) {
@@ -161,8 +167,9 @@ class LadderImporter(
         }
     }
 
-    private suspend fun signalUpdate(current: Int = success + errors,
-                                     total: Int = dataLines.size - 1) {
+    private suspend fun signalUpdate(
+        current: Int = success + errors,
+        total: Int = dataLines.size - 1) {
         withContext(Dispatchers.Main) { listener?.onCountUpdated(current, total) }
     }
 

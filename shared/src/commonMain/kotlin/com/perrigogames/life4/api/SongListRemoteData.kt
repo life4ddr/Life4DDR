@@ -1,12 +1,10 @@
 package com.perrigogames.life4.api
 
 import com.perrigogames.life4.api.base.*
-import com.perrigogames.life4.data.MessageOfTheDay
 import com.perrigogames.life4.data.SongList
 import com.perrigogames.life4.ktor.GithubDataAPI
-import com.perrigogames.life4.util.indexOfOrEnd
-import org.koin.core.KoinComponent
-import org.koin.core.inject
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
 class SongListRemoteData(
     reader: LocalDataReader,

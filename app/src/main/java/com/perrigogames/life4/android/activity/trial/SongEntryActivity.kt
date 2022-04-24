@@ -15,20 +15,20 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.perrigogames.life4.SettingsKeys.KEY_DEBUG_ACCEPT_INVALID
+import com.perrigogames.life4.android.R
+import com.perrigogames.life4.android.databinding.ContentSongEntryBinding
+import com.perrigogames.life4.android.photoUri
+import com.perrigogames.life4.android.util.visibilityBool
 import com.perrigogames.life4.data.Song
 import com.perrigogames.life4.data.SongResult
 import com.perrigogames.life4.data.TrialData
 import com.perrigogames.life4.enums.ClearType
 import com.perrigogames.life4.enums.ClearType.*
-import com.perrigogames.life4.model.TrialSessionManager
-import com.perrigogames.life4.android.R
-import com.perrigogames.life4.android.databinding.ContentSongEntryBinding
-import com.perrigogames.life4.android.photoUri
-import com.perrigogames.life4.android.util.visibilityBool
 import com.perrigogames.life4.getDebugBoolean
+import com.perrigogames.life4.model.TrialSessionManager
 import com.russhwolf.settings.Settings
-import org.koin.core.KoinComponent
-import org.koin.core.inject
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
 
 class SongEntryActivity: AppCompatActivity(), KoinComponent {

@@ -7,7 +7,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.koin.core.inject
+import org.koin.core.component.inject
 
 /**
  * A manager class that handles player data. This includes the local

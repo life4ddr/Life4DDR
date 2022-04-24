@@ -17,8 +17,8 @@ import com.perrigogames.life4.enums.GoalStatus.*
 import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.model.LadderManager
 import com.perrigogames.life4.model.LadderProgressManager
-import org.koin.core.KoinComponent
-import org.koin.core.inject
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
 /**
  * A [ViewModel] that manages manipulating and displaying a series of [BaseRankGoal]s

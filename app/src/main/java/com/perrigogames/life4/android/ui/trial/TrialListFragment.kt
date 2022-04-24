@@ -2,7 +2,6 @@ package com.perrigogames.life4.android.ui.trial
 
 import android.content.Context
 import android.os.Bundle
-import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,17 +12,17 @@ import com.perrigogames.life4.SavedRankUpdatedEvent
 import com.perrigogames.life4.SettingsKeys.KEY_LIST_HIGHLIGHT_NEW
 import com.perrigogames.life4.TrialListReplacedEvent
 import com.perrigogames.life4.TrialListUpdatedEvent
+import com.perrigogames.life4.android.R
+import com.perrigogames.life4.android.view.PaddingItemDecoration
 import com.perrigogames.life4.data.Trial
 import com.perrigogames.life4.enums.TrialType
-import com.perrigogames.life4.android.R
 import com.perrigogames.life4.model.TrialManager
-import com.perrigogames.life4.android.view.PaddingItemDecoration
 import com.russhwolf.settings.Settings
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
-import org.koin.core.KoinComponent
-import org.koin.core.inject
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
 /**
  * A [Fragment] for displaying a list of [Trial]s in a [RecyclerView].

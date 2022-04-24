@@ -19,9 +19,11 @@ import com.russhwolf.settings.Settings
 import com.russhwolf.settings.set
 import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
-import org.koin.core.inject
+import kotlinx.serialization.ExperimentalSerializationApi
+import org.koin.core.component.inject
 import org.koin.core.qualifier.named
 
+@OptIn(ExperimentalSerializationApi::class)
 class LadderManager: BaseModel() {
 
     private val ignoreListManager: IgnoreListManager by inject()

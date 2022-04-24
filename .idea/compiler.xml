@@ -2,10 +2,6 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel target="14">
-      <module name="com.perrigogames.life4api.api.jvmMain" target="1.6" />
-      <module name="com.perrigogames.life4api.api.jvmTest" target="1.6" />
-      <module name="LIFE4DDR.shared.apiMain" target="1.6" />
-      <module name="LIFE4DDR.shared.apiTest" target="1.6" />
       <module name="LIFE4DDR.shared.commonMain" target="1.6" />
       <module name="LIFE4DDR.shared.commonTest" target="1.6" />
     </bytecodeTargetLevel>

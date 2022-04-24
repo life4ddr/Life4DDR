@@ -1,7 +1,6 @@
 package com.perrigogames.life4
 
 import android.util.Log
-import com.google.firebase.crashlytics.FirebaseCrashlytics
 import java.text.DecimalFormat
 
 actual val isDebug: Boolean get() = BuildConfig.DEBUG
@@ -21,19 +20,15 @@ internal actual fun printThrowable(t: Throwable) {
 }
 
 internal actual fun logMessage(m: String) {
-    FirebaseCrashlytics.getInstance().log(m)
 }
 
 internal actual fun logException(t: Throwable) {
-    FirebaseCrashlytics.getInstance().recordException(t)
 }
 
 internal actual fun setCrashInt(key: String, v: Int) {
-    FirebaseCrashlytics.getInstance().setCustomKey(key, v)
 }
 
 internal actual fun setCrashString(key: String, v: String) {
-    FirebaseCrashlytics.getInstance().setCustomKey(key, v)
 }
 
 actual fun Int.longNumberString(): String = DecimalFormat("#,###,###").format(this)

@@ -5,16 +5,14 @@ buildscript {
     repositories {
         google()
         mavenCentral()
-        jcenter()
+        maven("https://plugins.gradle.org/m2/")
     }
     dependencies {
-        classpath(Deps.android_gradle_plugin)
-        classpath(Deps.SqlDelight.gradle)
-        classpath(Deps.cocoapodsext)
-        classpath("org.jetbrains.kotlin:kotlin-serialization:${Versions.kotlin}")
-
-        classpath(Deps.google_services)
-        classpath("com.google.firebase:firebase-crashlytics-gradle:2.5.2")
+        classpath(Deps.Gradle.android)
+        classpath(Deps.Gradle.kotlinSerialization)
+        classpath(Deps.Gradle.ktlint)
+        classpath(Deps.Gradle.sqlDelight)
+        classpath(kotlin("gradle-plugin", Versions.kotlin))
         classpath("com.github.jengelman.gradle.plugins:shadow:2.0.4")
 
         classpath(kotlin("gradle-plugin", Versions.kotlin))
@@ -41,8 +39,7 @@ allprojects {
 subprojects {
     apply(plugin = "org.jlleitschuh.gradle.ktlint")
 
-    ktlint {
-        version.set("0.37.2")
+    configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
         enableExperimentalRules.set(true)
         verbose.set(true)
         filter {

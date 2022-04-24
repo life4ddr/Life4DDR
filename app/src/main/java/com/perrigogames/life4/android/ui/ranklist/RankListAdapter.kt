@@ -19,7 +19,7 @@ import com.perrigogames.life4.android.ui.ranklist.RankListFragment.OnRankListInt
 import com.perrigogames.life4.data.RankEntry
 import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.enums.LadderRankClass
-import org.koin.core.KoinComponent
+import org.koin.core.component.KoinComponent
 
 /**
  * [RecyclerView.Adapter] that can display a [RankEntry] and makes a call to the

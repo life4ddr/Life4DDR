@@ -11,24 +11,26 @@ import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
-import com.google.firebase.crashlytics.FirebaseCrashlytics
+import co.touchlab.kermit.Logger
 import com.perrigogames.life4.BuildConfig
 import com.perrigogames.life4.android.R
 import com.perrigogames.life4.android.view.PathImageView
 import com.perrigogames.life4.android.view.SongView
 import com.perrigogames.life4.data.Song
 import com.perrigogames.life4.data.SongResult
+import com.perrigogames.life4.injectLogger
 import com.perrigogames.life4.model.PlacementManager
 import com.perrigogames.life4.model.TrialManager
 import com.perrigogames.life4.model.TrialSessionManager
-import org.koin.core.KoinComponent
-import org.koin.core.inject
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
 /**
  * A [Fragment] designed to display a list of [SongView]s in a vertical arrangement.
  */
 class SongListFragment : Fragment(), KoinComponent {
 
+    private val logger: Logger by injectLogger("SongListFragment")
     private val placementManager: PlacementManager by inject()
     private val trialManager: TrialManager by inject()
     private val trialSessionManager: TrialSessionManager by inject()
@@ -70,7 +72,7 @@ class SongListFragment : Fragment(), KoinComponent {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         if (!BuildConfig.DEBUG) {
-            FirebaseCrashlytics.getInstance().log("${javaClass.simpleName}: onCreateView: $trialId")
+            logger.v("${javaClass.simpleName}: onCreateView: $trialId")
         }
         layout = inflater.inflate(R.layout.fragment_song_list, container, false) as LinearLayout
         trial.songs.forEachIndexed(this::addSongView)

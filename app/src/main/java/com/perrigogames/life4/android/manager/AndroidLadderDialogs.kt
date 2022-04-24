@@ -11,8 +11,8 @@ import com.perrigogames.life4.android.ui.dialogs.ScoreManagerImportProcessingDia
 import com.perrigogames.life4.model.LadderImporter
 import com.perrigogames.life4.model.LadderImporter.OpMode.SA
 import com.russhwolf.settings.Settings
-import org.koin.core.KoinComponent
-import org.koin.core.inject
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
 class AndroidLadderDialogs: LadderDialogs, KoinComponent {
 

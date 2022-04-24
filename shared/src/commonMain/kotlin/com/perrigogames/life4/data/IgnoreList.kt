@@ -1,3 +1,4 @@
+@file:OptIn(ExperimentalSerializationApi::class)
 @file:UseSerializers(
     DifficultyClassSerializer::class,
     PlayStyleSerializer::class,
@@ -6,12 +7,9 @@
 
 package com.perrigogames.life4.data
 
+import com.perrigogames.life4.db.DetailedChartInfo
 import com.perrigogames.life4.enums.*
-import com.perrigogames.life4.db.ChartInfo
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
-import kotlinx.serialization.Transient
-import kotlinx.serialization.UseSerializers
+import kotlinx.serialization.*
 
 @Serializable
 enum class IgnoreUnlockType {
@@ -66,7 +64,7 @@ data class IgnoreGroup(
     val unlock: IgnoreUnlockType? = null,
 ) {
 
-    fun fromStoredState(stored: Long) = unlock?.fromStoredState(stored, songs.size)
+    fun fromStoredState(stored: Long): List<Boolean> = (unlock ?: IgnoreUnlockType.ALL).fromStoredState(stored, songs.size)
 }
 
 /**
@@ -77,44 +75,40 @@ data class IgnoreGroup(
 data class IgnoreList(
     val id: String,
     val name: String,
-    val groups: List<String>? = null,
-    val songs: List<IgnoredSong>? = null,
-    @SerialName("locked_groups") val lockedGroups: List<String>? = null,
+    val groups: List<String> = emptyList(),
+    val songs: List<IgnoredSong> = emptyList(),
+    @SerialName("locked_groups") val lockedGroups: List<String> = emptyList(),
     @SerialName("base_version") val baseVersion: GameVersion,
 ) {
 
-    @Transient var resolvedSongs: MutableList<IgnoredSong>? = null
-    @Transient var resolvedCharts: MutableList<IgnoredSong>? = null
+    @Transient var allIgnores: MutableList<IgnoredSong>? = null
 
     fun evaluateSongGroups(groupMap: List<IgnoreGroup>) {
-        resolvedSongs = mutableListOf<IgnoredSong>().also { resolved ->
-            songs?.let { resolved.addAll(it) }
-            lockedGroups?.map { id -> groupMap.firstOrNull { it.id == id } ?: error("Undefined group $id") }
-                ?.flatMap { it.songs }
-                ?.let { resolved.addAll(it) }
+        allIgnores = mutableListOf<IgnoredSong>().also { resolved ->
+            resolved.addAll(songs)
+            lockedGroups.map { id -> groupMap.firstOrNull { it.id == id } ?: error("Undefined group $id") }
+                .flatMap { it.songs }
+                .let { resolved.addAll(it) }
             // TODO the unlock system will want to alter these lists
-            groups?.map { id -> groupMap.firstOrNull { it.id == id } ?: error("Undefined group $id") }
-                ?.flatMap { it.songs }
-                ?.let { resolved.addAll(it) }
+            groups.map { id -> groupMap.firstOrNull { it.id == id } ?: error("Undefined group $id") }
+                .flatMap { it.songs }
+                .let { resolved.addAll(it) }
         }
-
-        resolvedCharts = resolvedSongs!!.filter { it.difficultyClass != null }.toMutableList()
-        resolvedSongs = resolvedSongs!!.filter { it.difficultyClass == null }.toMutableList()
     }
 }
 
 @Serializable
 data class IgnoredSong(
-    val id: Long,
+    val skillId: String,
     val title: String,
     @SerialName("difficulty_class") val difficultyClass: DifficultyClass? = null,
     @SerialName("play_style") val playStyle: PlayStyle? = null,
 ) {
 
-    fun matches(chart: ChartInfo) =
-        chart.skillId == id &&
+    fun matches(chart: DetailedChartInfo) =
+        chart.songSkillId == skillId &&
                 (difficultyClass == null || difficultyClass == chart.difficultyClass) &&
                 (playStyle == null || playStyle == chart.playStyle)
 
-    override fun toString(): String = "$id - $title ($difficultyClass, $playStyle)"
+    override fun toString(): String = "$skillId - $title ($difficultyClass, $playStyle)"
 }

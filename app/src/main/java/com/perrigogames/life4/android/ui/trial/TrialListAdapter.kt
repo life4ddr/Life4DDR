@@ -10,8 +10,8 @@ import com.perrigogames.life4.android.view.TrialItemView.TrialViewHolder
 import com.perrigogames.life4.data.Trial
 import com.perrigogames.life4.enums.TrialType
 import com.perrigogames.life4.model.TrialManager
-import org.koin.core.KoinComponent
-import org.koin.core.inject
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
 class TrialListAdapter(private val trials: List<Trial>,
                        var featureNew: Boolean = false,

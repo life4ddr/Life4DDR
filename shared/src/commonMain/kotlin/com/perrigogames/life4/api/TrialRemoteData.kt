@@ -1,14 +1,11 @@
 package com.perrigogames.life4.api
 
 import com.perrigogames.life4.api.base.*
-import com.perrigogames.life4.data.SongList
 import com.perrigogames.life4.data.TrialData
-import com.perrigogames.life4.data.TrialData.Companion.TRIAL_DATA_REMOTE_VERSION
-import com.perrigogames.life4.isDebug
 import com.perrigogames.life4.ktor.GithubDataAPI
 import kotlinx.serialization.json.Json
-import org.koin.core.KoinComponent
-import org.koin.core.inject
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
 class TrialRemoteData(
     reader: LocalDataReader,

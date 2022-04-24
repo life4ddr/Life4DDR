@@ -2,12 +2,16 @@ package com.perrigogames.life4.android.view
 
 import android.content.Context
 import android.content.res.ColorStateList
+import android.graphics.Typeface
+import android.os.Build
+import android.text.Html
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.TableLayout
 import androidx.core.content.ContextCompat
+import androidx.core.text.HtmlCompat
 import androidx.core.view.children
 import com.perrigogames.life4.PlatformStrings
 import com.perrigogames.life4.android.R
@@ -21,8 +25,8 @@ import com.perrigogames.life4.db.GoalState
 import com.perrigogames.life4.enums.ClearType
 import com.perrigogames.life4.enums.GoalStatus.*
 import com.perrigogames.life4.longNumberString
-import org.koin.core.KoinComponent
-import org.koin.core.inject
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
 class LadderGoalItemView @JvmOverloads constructor(
     context: Context,
@@ -59,7 +63,7 @@ class LadderGoalItemView @JvmOverloads constructor(
             listener?.onIgnoreClicked(this, g, db)
         } }
         setOnClickListener { ifHasDB { g, db ->
-            if (binding.tableExpandDetails.childCount > 0) {
+            if (!goalProgress?.results.isNullOrEmpty()) {
                 listener?.onExpandClicked(this, g, db)
             }
         } }
@@ -133,18 +137,30 @@ class LadderGoalItemView @JvmOverloads constructor(
                 progress = it.progress
                 max = it.max
             }
-            it.results?.forEach { result ->
+            it.results?.forEach { (chart, result) ->
+                val formattedTitle = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    Html.fromHtml(chart.title, HtmlCompat.FROM_HTML_MODE_LEGACY)
+                } else {
+                    Html.fromHtml(chart.title)
+                }
+
                 val rowBinding = retrieveTableRowBinding(
                     binding.tableExpandDetails,
                     result.score.toInt().longNumberString(),
-                    result.title
+                    formattedTitle.toString()
                 )
                 if (result.clearType > ClearType.CLEAR) {
                     rowBinding.textScore.setTextColor(ContextCompat.getColor(context, result.clearType.colorRes))
                 } else {
                     rowBinding.textScore.setTextColor(oldColors)
                 }
+                rowBinding.textScore.typeface = if (result.clearType < ClearType.CLEAR) {
+                    Typeface.DEFAULT
+                } else {
+                    Typeface.DEFAULT_BOLD
+                }
                 rowBinding.textTitle.setTextColor(ContextCompat.getColor(context, result.difficultyClass.colorRes))
+                rowBinding.root.tag = rowBinding
                 binding.tableExpandDetails.addView(rowBinding.root)
             }
         }

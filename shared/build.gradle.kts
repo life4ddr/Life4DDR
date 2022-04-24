@@ -1,103 +1,131 @@
 plugins {
     kotlin("multiplatform")
-    kotlin("plugin.serialization")
-    id("co.touchlab.native.cocoapods")
+    kotlin("native.cocoapods")
+    id("kotlinx-serialization")
     id("com.android.library")
     id("com.squareup.sqldelight")
 }
 
 android {
-    compileSdkVersion(Versions.compile_sdk)
+    compileSdk = Versions.compile_sdk
     defaultConfig {
-        minSdkVersion(Versions.min_sdk)
-        targetSdkVersion(Versions.target_sdk)
-        versionCode = 1
-        versionName = "1.0"
+        minSdk = Versions.min_sdk
+        targetSdk = Versions.target_sdk
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
+        }
+    }
+
+    lint {
+        isWarningsAsErrors = true
+        isAbortOnError = true
+    }
+}
+
+version = 1.2
+
+android {
+    configurations {
+        create("androidTestApi")
+        create("androidTestDebugApi")
+        create("androidTestReleaseApi")
+        create("testApi")
+        create("testDebugApi")
+        create("testReleaseApi")
     }
 }
 
 kotlin {
     android()
-//    jvm("api")
-    // Revert to just ios() when gradle plugin can properly resolve it
-    val onPhone = System.getenv("SDK_NAME")?.startsWith("iphoneos") ?: false
-    if (onPhone) {
-        iosArm64("ios")
-    } else {
-        iosX64("ios")
-    }
-
-    version = "1.0"
+    ios()
+    // Note: iosSimulatorArm64 target requires that all dependencies have M1 support
+    iosSimulatorArm64()
 
     sourceSets {
         all {
             languageSettings.apply {
-                useExperimentalAnnotation("kotlin.RequiresOptIn")
-                useExperimentalAnnotation("kotlinx.coroutines.ExperimentalCoroutinesApi")
+                optIn("kotlin.RequiresOptIn")
+                optIn("kotlinx.coroutines.ExperimentalCoroutinesApi")
             }
         }
     }
 
-    sourceSets["commonMain"].dependencies {
-        implementation(Deps.SqlDelight.runtime)
-        implementation(Deps.SqlDelight.coroutinesExtensions)
-        implementation(Deps.KotlinTest.reflect)
-        implementation(Deps.Ktor.commonCore)
-        implementation(Deps.Ktor.commonJson)
-        implementation(Deps.Ktor.commonLogging)
-        implementation(Deps.Ktor.commonSerialization)
-        implementation(Deps.Coroutines.common) {
-            version {
-                strictly(Versions.coroutines)
+    sourceSets {
+        val commonMain by getting {
+            dependencies {
+                implementation(Deps.koinCore)
+                implementation(Deps.Coroutines.core)
+                implementation(Deps.SqlDelight.coroutinesExtensions)
+                implementation(Deps.Ktor.core)
+                implementation(Deps.Ktor.logging)
+                implementation(Deps.Ktor.serialization)
+                implementation(Deps.Ktor.contentNegotiation)
+                implementation(Deps.Reaktive.base)
+                implementation(Deps.Reaktive.annotations)
+                implementation(Deps.Reaktive.coroutines)
+                implementation(Deps.stately)
+                implementation(Deps.multiplatformSettings)
+                implementation(Deps.kotlinxDateTime)
+                api(Deps.kermit)
             }
         }
-        implementation(Deps.stately)
-        implementation(Deps.multiplatformSettings)
-        implementation(Deps.koinCore)
-        implementation(Deps.kotlinxDateTime)
-        api(Deps.kermit)
+        val commonTest by getting {
+            dependencies {
+                implementation(Deps.kotlinTest)
+                implementation(Deps.multiplatformSettingsTest)
+                implementation(Deps.koinTest)
+                implementation(Deps.turbine)
+                implementation(Deps.Coroutines.test)
+                implementation(Deps.Ktor.clientMock)
+                implementation(Deps.Reaktive.testing)
+            }
+        }
+        val androidMain by getting {
+            dependencies {
+                implementation(Deps.AndroidX.Lifecycle.viewmodel)
+                implementation(Deps.SqlDelight.android)
+                implementation(Deps.Ktor.okhttp)
+            }
+        }
+        val androidTest by getting {
+            dependencies {
+                implementation(Deps.junit)
+                implementation(Deps.Coroutines.test)
+                implementation(Deps.robolectric)
+            }
+        }
+        val iosMain by getting {
+            dependencies {
+                implementation(Deps.SqlDelight.native)
+                implementation(Deps.Ktor.ios)
+                implementation(Deps.Coroutines.core)
+            }
+        }
+        val iosTest by getting
+        val iosSimulatorArm64Main by getting {
+            dependsOn(iosMain)
+        }
+        val iosSimulatorArm64Test by getting {
+            dependsOn(iosTest)
+        }
     }
 
-    sourceSets["commonTest"].dependencies {
-        implementation(Deps.multiplatformSettingsTest)
-        implementation(Deps.KotlinTest.common)
-        implementation(Deps.KotlinTest.annotations)
-    }
+    sourceSets.matching { it.name.endsWith("Test") }
+        .configureEach {
+            languageSettings.optIn("kotlin.time.ExperimentalTime")
+        }
 
-    sourceSets["androidMain"].dependencies {
-        implementation(kotlin("stdlib", Versions.kotlin))
-        implementation(Deps.SqlDelight.driverAndroid)
-        implementation(Deps.Coroutines.android)
-        implementation(Deps.Ktor.androidCore)
-        implementation(project.dependencies.platform(Deps.Firebase.bom))
-        implementation(Deps.Firebase.crashlytics)
-    }
-
-    sourceSets["androidTest"].dependencies {
-        implementation(Deps.KotlinTest.jvm)
-        implementation(Deps.KotlinTest.junit)
-        implementation(Deps.AndroidXTest.core)
-        implementation(Deps.AndroidXTest.junit)
-        implementation(Deps.AndroidXTest.runner)
-        implementation(Deps.AndroidXTest.rules)
-        implementation(Deps.Coroutines.test)
-        implementation(Deps.robolectric)
-    }
-
-    sourceSets["iosMain"].dependencies {
-        implementation(Deps.SqlDelight.driverIos)
-        implementation(Deps.Ktor.ios)
-    }
-
-    cocoapodsext {
+    cocoapods {
         summary = "Common library for LIFE4DDR logic"
         homepage = "https://github.com/PerrigoGames/Life4DDR-Trials"
         framework {
-            isStatic = false
-            export(Deps.kermit)
-            transitiveExport = true
+            isStatic = false // SwiftUI preview requires dynamic framework
         }
+        ios.deploymentTarget = "12.4"
+        podfile = project.file("../ios/Podfile")
     }
 }
 

@@ -12,7 +12,8 @@ import com.perrigogames.life4.ktor.GithubDataAPI.Companion.TRIALS_FILE_NAME
 import com.perrigogames.life4.ktor.Life4API
 import com.russhwolf.settings.Settings
 import kotlinx.coroutines.launch
-import org.koin.core.inject
+import kotlinx.serialization.ExperimentalSerializationApi
+import org.koin.core.component.inject
 import org.koin.core.qualifier.named
 
 /**
@@ -21,6 +22,7 @@ import org.koin.core.qualifier.named
  * - the current Trial in progress (the 'session')
  * - records for Trials the player has previously completed ('records')
  */
+@OptIn(ExperimentalSerializationApi::class)
 class TrialManager: BaseModel() {
 
     private val settings: Settings by inject()

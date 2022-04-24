@@ -32,9 +32,9 @@ enum class PlayStyle(override val stableId: Long,
 object PlayStyleSerializer: KSerializer<PlayStyle> {
     override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("playStyle", PrimitiveKind.STRING)
     override fun deserialize(decoder: Decoder) = decoder.decodeString().let {
-        PlayStyle.parse(it) ?: PlayStyle.valueOf(it.toUpperCase())
+        PlayStyle.parse(it) ?: PlayStyle.valueOf(it.uppercase())
     }
     override fun serialize(encoder: Encoder, value: PlayStyle) {
-        encoder.encodeString(value.name.toLowerCase())
+        encoder.encodeString(value.name.lowercase())
     }
 }

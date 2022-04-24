@@ -16,8 +16,8 @@ import com.perrigogames.life4.data.Song
 import com.perrigogames.life4.data.Trial
 import com.perrigogames.life4.model.PlacementManager
 import com.russhwolf.settings.set
-import org.koin.core.KoinComponent
-import org.koin.core.inject
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
 
 class PlacementDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener, KoinComponent {

@@ -1,15 +1,17 @@
 package com.perrigogames.life4
 
+import com.perrigogames.life4.data.PlacementRank
+import com.perrigogames.life4.enums.ClearType
 import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.enums.LadderRankClass
-import com.perrigogames.life4.data.PlacementRank
 import com.perrigogames.life4.enums.TrialRank
-import com.perrigogames.life4.enums.ClearType
+import kotlinx.serialization.ExperimentalSerializationApi
 
 /**
  * An interface for providing text relating to LIFE4 data types to the
  * shared module.
  */
+@OptIn(ExperimentalSerializationApi::class)
 interface PlatformStrings {
 
     fun nameString(rank: LadderRank): String

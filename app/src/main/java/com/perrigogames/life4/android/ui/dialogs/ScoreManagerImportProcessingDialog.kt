@@ -7,6 +7,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import com.perrigogames.life4.android.R
 import com.perrigogames.life4.android.databinding.DialogManagerImportProcessingBinding
+import com.perrigogames.life4.android.util.spannedText
 import com.perrigogames.life4.model.LadderImporter
 
 /**
@@ -47,7 +48,7 @@ class ScoreManagerImportProcessingDialog(var listener: Listener? = null): Dialog
         }
 
         override fun onError(totalCount: Int, message: String) {
-            binding.textErrorLog.append("$message\n----\n")
+            binding.textErrorLog.append("$message<br>----<br>".spannedText)
             errors = totalCount
             shouldClose = false
         }

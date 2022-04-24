@@ -11,14 +11,14 @@ import androidx.annotation.StringRes
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.perrigogames.life4.Notifications
-import com.perrigogames.life4.enums.LadderRank
-import com.perrigogames.life4.data.Trial
-import com.perrigogames.life4.enums.TrialRank
 import com.perrigogames.life4.android.R
 import com.perrigogames.life4.android.drawableRes
 import com.perrigogames.life4.android.nameRes
-import org.koin.core.KoinComponent
-import org.koin.core.inject
+import com.perrigogames.life4.data.Trial
+import com.perrigogames.life4.enums.LadderRank
+import com.perrigogames.life4.enums.TrialRank
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
 class AndroidNotifications: Notifications(), KoinComponent {
 
@@ -40,7 +40,7 @@ class AndroidNotifications: Notifications(), KoinComponent {
     override fun showPlacementNotification(rank: LadderRank) {
         with(NotificationManagerCompat.from(context)) {
             val message = context.getString(R.string.notification_placement_body, context.getString(rank.nameRes))
-            notify(MULTI_NOTIFICATION_ID, userInfoNotification("WELCOME!")
+            notify(multiNotificationId, userInfoNotification("WELCOME!")
                 .setStyle(htmlStyle(message))
                 .setLargeIcon(BitmapFactory.decodeResource(context.resources, rank.drawableRes))
                 .setAutoCancel(true)
@@ -51,7 +51,7 @@ class AndroidNotifications: Notifications(), KoinComponent {
     override fun showLadderRankChangedNotification(rank: LadderRank) {
         with(NotificationManagerCompat.from(context)) {
             val message = context.getString(R.string.notification_rank_body, context.getString(rank.nameRes))
-            notify(MULTI_NOTIFICATION_ID, userInfoNotification("RANK UP!")
+            notify(multiNotificationId, userInfoNotification("RANK UP!")
                 .setStyle(htmlStyle(message))
                 .setLargeIcon(BitmapFactory.decodeResource(context.resources, rank.drawableRes))
                 .setAutoCancel(true)
@@ -62,7 +62,7 @@ class AndroidNotifications: Notifications(), KoinComponent {
     override fun showTrialRankChangedNotification(trial: Trial, rank: TrialRank) {
         with(NotificationManagerCompat.from(context)) {
             val message = context.getString(R.string.notification_trial_body, context.getString(rank.nameRes), trial.name)
-            notify(MULTI_NOTIFICATION_ID, userInfoNotification("RANK UP! ${trial.name}")
+            notify(multiNotificationId, userInfoNotification("RANK UP! ${trial.name}")
                 .setStyle(htmlStyle(message))
                 .setLargeIcon(BitmapFactory.decodeResource(context.resources, rank.drawableRes))
                 .setAutoCancel(true)

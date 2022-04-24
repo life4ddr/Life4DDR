@@ -1,13 +1,18 @@
 package com.perrigogames.life4
 
-import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.data.Trial
+import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.enums.TrialRank
 import com.russhwolf.settings.Settings
-import org.koin.core.KoinComponent
-import org.koin.core.inject
+import kotlinx.serialization.ExperimentalSerializationApi
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
+@OptIn(ExperimentalSerializationApi::class)
 abstract class Notifications: KoinComponent {
+
+    protected var multiNotificationId = 2000
+        get() = field++
 
     private val settings: Settings by inject()
     private val platStrings: PlatformStrings by inject()
@@ -42,8 +47,6 @@ abstract class Notifications: KoinComponent {
     abstract fun showToast(message: String, long: Boolean = false)
 
     companion object {
-        var MULTI_NOTIFICATION_ID = 2000
-            get() = field++
 
         const val ID_USER_INFO_CHANNEL = "ID_USER_INFO_CHANNEL"
         const val ID_UPDATES_CHANNEL = "ID_UPDATES_CHANNEL"

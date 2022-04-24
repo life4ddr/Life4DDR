@@ -45,7 +45,6 @@ import com.perrigogames.life4.SettingsKeys.KEY_SONG_RESULTS_CLEAR
 import com.perrigogames.life4.SettingsKeys.KEY_SUBMISSION_NOTIFICAION_TEST
 import com.perrigogames.life4.android.BuildConfig
 import com.perrigogames.life4.android.GetScoreList
-import com.perrigogames.life4.android.GetTrialData
 import com.perrigogames.life4.android.R
 import com.perrigogames.life4.android.activity.base.BlockListCheckActivity
 import com.perrigogames.life4.android.activity.base.SongRecordsListCheckActivity
@@ -59,8 +58,8 @@ import com.perrigogames.life4.enums.TrialRank
 import com.perrigogames.life4.model.*
 import com.russhwolf.settings.Settings
 import org.greenrobot.eventbus.EventBus
-import org.koin.core.KoinComponent
-import org.koin.core.inject
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
 
 class SettingsActivity : AppCompatActivity(),
@@ -105,7 +104,6 @@ class SettingsActivity : AppCompatActivity(),
         private var listener: SettingsFragmentListener? = null
 
         protected val getScores = registerForActivityResult(GetScoreList()) { ladderDialogs.handleSkillAttackImport(requireActivity(), it) }
-        protected val getTrials = registerForActivityResult(GetTrialData()) { trialDb.importRecordExportStrings(it) }
 
         override fun onPause() {
             super.onPause()
@@ -236,7 +234,7 @@ class SettingsActivity : AppCompatActivity(),
             if (key != null) {
                 when (key) {
                     KEY_IMPORT_GAME_VERSION -> {
-                        ignoreListManager.invalidateIgnoredIds()
+//                        ignoreListManager.invalidateIgnoredIds() FIXME
                         findPreference<DropDownPreference>(key)?.let {
                             it.summary = ignoreListManager.getIgnoreList(it.value).name
                         }

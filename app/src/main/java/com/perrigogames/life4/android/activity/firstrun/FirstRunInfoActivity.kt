@@ -10,10 +10,6 @@ import com.perrigogames.life4.PlayerImportedEvent
 import com.perrigogames.life4.SettingsKeys.KEY_INFO_NAME
 import com.perrigogames.life4.SettingsKeys.KEY_INFO_RIVAL_CODE
 import com.perrigogames.life4.SettingsKeys.KEY_INFO_TWITTER_NAME
-import com.perrigogames.life4.data.ApiPlayer
-import com.perrigogames.life4.model.FirstRunManager
-import com.perrigogames.life4.model.LadderManager
-import com.perrigogames.life4.model.PlayerManager
 import com.perrigogames.life4.android.R
 import com.perrigogames.life4.android.databinding.ActivityFirstRunInfoBinding
 import com.perrigogames.life4.android.manager.finishProcessIntent
@@ -22,12 +18,16 @@ import com.perrigogames.life4.android.manager.rankListIntent
 import com.perrigogames.life4.android.util.onFieldChanged
 import com.perrigogames.life4.android.util.visibilityBool
 import com.perrigogames.life4.android.view.PlayerFoundView
+import com.perrigogames.life4.data.ApiPlayer
+import com.perrigogames.life4.model.FirstRunManager
+import com.perrigogames.life4.model.LadderManager
+import com.perrigogames.life4.model.PlayerManager
 import com.russhwolf.settings.Settings
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
-import org.koin.core.KoinComponent
-import org.koin.core.inject
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
 /**
  * An [AppCompatActivity] shown to the user when their initial stats are empty.

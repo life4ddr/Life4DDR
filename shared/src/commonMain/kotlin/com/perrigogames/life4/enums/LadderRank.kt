@@ -75,7 +75,7 @@ enum class LadderRank(
     companion object {
         fun parse(s: String?): LadderRank? = try {
             s?.let {
-                valueOf(it.toUpperCase()
+                valueOf(it.uppercase()
                     .replace(" IV", "4")
                     .replace(" V", "5")
                     .replace(" III", "3")
@@ -101,6 +101,6 @@ object LadderRankSerializer: KSerializer<LadderRank> {
     override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("ladderRank", PrimitiveKind.STRING)
     override fun deserialize(decoder: Decoder) = LadderRank.parse(decoder.decodeString())!!
     override fun serialize(encoder: Encoder, value: LadderRank) {
-        encoder.encodeString(value.name.toLowerCase())
+        encoder.encodeString(value.name.lowercase())
     }
 }

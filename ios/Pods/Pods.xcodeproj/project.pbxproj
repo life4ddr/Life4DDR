@@ -9,9 +9,9 @@
 /* Begin PBXAggregateTarget section */
 		8777C9F6889E59EFFD631D80AEE9048B /* shared */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = 46EB2E00000100 /* Build configuration list for PBXAggregateTarget "shared" */;
+			buildConfigurationList = 46EB2E00000120 /* Build configuration list for PBXAggregateTarget "shared" */;
 			buildPhases = (
-				46EB2E000002D0 /* [CP-User] Build shared */,
+				46EB2E00000300 /* [CP-User] Build shared */,
 			);
 			dependencies = (
 			);
@@ -20,13 +20,13 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		46EB2E00000210 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46EB2E00000200 /* Foundation.framework */; };
-		46EB2E00000280 /* Pods-LIFE4-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 46EB2E00000270 /* Pods-LIFE4-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		46EB2E000002C0 /* Pods-LIFE4-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 46EB2E000002B0 /* Pods-LIFE4-dummy.m */; };
+		46EB2E00000230 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46EB2E00000220 /* Foundation.framework */; };
+		46EB2E000002A0 /* Pods-LIFE4-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 46EB2E00000290 /* Pods-LIFE4-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		46EB2E000002F0 /* Pods-LIFE4-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 46EB2E000002E0 /* Pods-LIFE4-dummy.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		46EB2E000002E0 /* PBXContainerItemProxy */ = {
+		46EB2E00000310 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 46EB2E00000000 /* Project object */;
 			proxyType = 1;
@@ -37,27 +37,29 @@
 
 /* Begin PBXFileReference section */
 		46EB2E000000C0 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		46EB2E000000E0 /* shared.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = shared.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		46EB2E00000140 /* shared.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = shared.debug.xcconfig; sourceTree = "<group>"; };
-		46EB2E00000150 /* shared.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = shared.release.xcconfig; sourceTree = "<group>"; };
-		46EB2E00000200 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		46EB2E00000230 /* Pods-LIFE4.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-LIFE4.release.xcconfig"; sourceTree = "<group>"; };
-		46EB2E00000240 /* Pods-LIFE4.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-LIFE4.debug.xcconfig"; sourceTree = "<group>"; };
-		46EB2E00000250 /* Pods-LIFE4-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-LIFE4-Info.plist"; sourceTree = "<group>"; };
-		46EB2E00000260 /* Pods-LIFE4.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-LIFE4.modulemap"; sourceTree = "<group>"; };
-		46EB2E00000270 /* Pods-LIFE4-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-LIFE4-umbrella.h"; sourceTree = "<group>"; };
-		46EB2E00000290 /* Pods-LIFE4-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-LIFE4-acknowledgements.plist"; sourceTree = "<group>"; };
-		46EB2E000002A0 /* Pods-LIFE4-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-LIFE4-acknowledgements.markdown"; sourceTree = "<group>"; };
-		46EB2E000002B0 /* Pods-LIFE4-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-LIFE4-dummy.m"; sourceTree = "<group>"; };
+		46EB2E000000E0 /* shared.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = shared.framework; path = build/cocoapods/framework/shared.framework; sourceTree = "<group>"; };
+		46EB2E00000100 /* shared.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = shared.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		46EB2E00000160 /* shared.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = shared.debug.xcconfig; sourceTree = "<group>"; };
+		46EB2E00000170 /* shared.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = shared.release.xcconfig; sourceTree = "<group>"; };
+		46EB2E00000220 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		46EB2E00000250 /* Pods-LIFE4.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-LIFE4.release.xcconfig"; sourceTree = "<group>"; };
+		46EB2E00000260 /* Pods-LIFE4.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-LIFE4.debug.xcconfig"; sourceTree = "<group>"; };
+		46EB2E00000270 /* Pods-LIFE4-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-LIFE4-Info.plist"; sourceTree = "<group>"; };
+		46EB2E00000280 /* Pods-LIFE4.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-LIFE4.modulemap"; sourceTree = "<group>"; };
+		46EB2E00000290 /* Pods-LIFE4-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-LIFE4-umbrella.h"; sourceTree = "<group>"; };
+		46EB2E000002B0 /* Pods-LIFE4-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-LIFE4-frameworks.sh"; sourceTree = "<group>"; };
+		46EB2E000002C0 /* Pods-LIFE4-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-LIFE4-acknowledgements.plist"; sourceTree = "<group>"; };
+		46EB2E000002D0 /* Pods-LIFE4-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-LIFE4-acknowledgements.markdown"; sourceTree = "<group>"; };
+		46EB2E000002E0 /* Pods-LIFE4-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-LIFE4-dummy.m"; sourceTree = "<group>"; };
 		64F7B3EBA103D4E2DF4270C44B01028D /* Pods_LIFE4.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_LIFE4.framework; path = "Pods-LIFE4.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		46EB2E000001D0 /* Frameworks */ = {
+		46EB2E000001F0 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				46EB2E00000210 /* Foundation.framework in Frameworks */,
+				46EB2E00000230 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -86,7 +88,7 @@
 		46EB2E00000060 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				46EB2E000001F0 /* iOS */,
+				46EB2E00000210 /* iOS */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -94,7 +96,7 @@
 		46EB2E00000070 /* Targets Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				46EB2E00000220 /* Pods-LIFE4 */,
+				46EB2E00000240 /* Pods-LIFE4 */,
 			);
 			name = "Targets Support Files";
 			sourceTree = "<group>";
@@ -110,50 +112,60 @@
 		46EB2E000000B0 /* shared */ = {
 			isa = PBXGroup;
 			children = (
-				46EB2E000000D0 /* Pod */,
-				46EB2E00000130 /* Support Files */,
+				46EB2E000000D0 /* Frameworks */,
+				46EB2E000000F0 /* Pod */,
+				46EB2E00000150 /* Support Files */,
 			);
 			name = shared;
 			path = ../../shared;
 			sourceTree = "<group>";
 		};
-		46EB2E000000D0 /* Pod */ = {
+		46EB2E000000D0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				46EB2E000000E0 /* shared.podspec */,
+				46EB2E000000E0 /* shared.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		46EB2E000000F0 /* Pod */ = {
+			isa = PBXGroup;
+			children = (
+				46EB2E00000100 /* shared.podspec */,
 			);
 			name = Pod;
 			sourceTree = "<group>";
 		};
-		46EB2E00000130 /* Support Files */ = {
+		46EB2E00000150 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				46EB2E00000140 /* shared.debug.xcconfig */,
-				46EB2E00000150 /* shared.release.xcconfig */,
+				46EB2E00000160 /* shared.debug.xcconfig */,
+				46EB2E00000170 /* shared.release.xcconfig */,
 			);
 			name = "Support Files";
 			path = "../ios/Pods/Target Support Files/shared";
 			sourceTree = "<group>";
 		};
-		46EB2E000001F0 /* iOS */ = {
+		46EB2E00000210 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				46EB2E00000200 /* Foundation.framework */,
+				46EB2E00000220 /* Foundation.framework */,
 			);
 			name = iOS;
 			sourceTree = "<group>";
 		};
-		46EB2E00000220 /* Pods-LIFE4 */ = {
+		46EB2E00000240 /* Pods-LIFE4 */ = {
 			isa = PBXGroup;
 			children = (
-				46EB2E00000260 /* Pods-LIFE4.modulemap */,
-				46EB2E000002A0 /* Pods-LIFE4-acknowledgements.markdown */,
-				46EB2E00000290 /* Pods-LIFE4-acknowledgements.plist */,
-				46EB2E000002B0 /* Pods-LIFE4-dummy.m */,
-				46EB2E00000250 /* Pods-LIFE4-Info.plist */,
-				46EB2E00000270 /* Pods-LIFE4-umbrella.h */,
-				46EB2E00000240 /* Pods-LIFE4.debug.xcconfig */,
-				46EB2E00000230 /* Pods-LIFE4.release.xcconfig */,
+				46EB2E00000280 /* Pods-LIFE4.modulemap */,
+				46EB2E000002D0 /* Pods-LIFE4-acknowledgements.markdown */,
+				46EB2E000002C0 /* Pods-LIFE4-acknowledgements.plist */,
+				46EB2E000002E0 /* Pods-LIFE4-dummy.m */,
+				46EB2E000002B0 /* Pods-LIFE4-frameworks.sh */,
+				46EB2E00000270 /* Pods-LIFE4-Info.plist */,
+				46EB2E00000290 /* Pods-LIFE4-umbrella.h */,
+				46EB2E00000260 /* Pods-LIFE4.debug.xcconfig */,
+				46EB2E00000250 /* Pods-LIFE4.release.xcconfig */,
 			);
 			name = "Pods-LIFE4";
 			path = "Target Support Files/Pods-LIFE4";
@@ -162,11 +174,11 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		46EB2E000001B0 /* Headers */ = {
+		46EB2E000001D0 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				46EB2E00000280 /* Pods-LIFE4-umbrella.h in Headers */,
+				46EB2E000002A0 /* Pods-LIFE4-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -175,17 +187,17 @@
 /* Begin PBXNativeTarget section */
 		3F7C94793997AF0BF1BD2127412F3B29 /* Pods-LIFE4 */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 46EB2E00000170 /* Build configuration list for PBXNativeTarget "Pods-LIFE4" */;
+			buildConfigurationList = 46EB2E00000190 /* Build configuration list for PBXNativeTarget "Pods-LIFE4" */;
 			buildPhases = (
-				46EB2E000001B0 /* Headers */,
-				46EB2E000001C0 /* Sources */,
-				46EB2E000001D0 /* Frameworks */,
-				46EB2E000001E0 /* Resources */,
+				46EB2E000001D0 /* Headers */,
+				46EB2E000001E0 /* Sources */,
+				46EB2E000001F0 /* Frameworks */,
+				46EB2E00000200 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				46EB2E000002F0 /* PBXTargetDependency */,
+				46EB2E00000320 /* PBXTargetDependency */,
 			);
 			name = "Pods-LIFE4";
 			productName = "Pods-LIFE4";
@@ -198,8 +210,8 @@
 		46EB2E00000000 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1100;
-				LastUpgradeCheck = 1100;
+				LastSwiftUpdateCheck = 1240;
+				LastUpgradeCheck = 1240;
 			};
 			buildConfigurationList = 46EB2E00000030 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 9.3";
@@ -221,7 +233,7 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		46EB2E000001E0 /* Resources */ = {
+		46EB2E00000200 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -231,7 +243,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		46EB2E000002D0 /* [CP-User] Build shared */ = {
+		46EB2E00000300 /* [CP-User] Build shared */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -239,27 +251,27 @@
 			name = "[CP-User] Build shared";
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "                set -ev\n                REPO_ROOT=\"$PODS_TARGET_SRCROOT\"\n                \"$REPO_ROOT/../gradlew\" -p \"$REPO_ROOT\" :shared:syncFramework                     -Pkotlin.native.cocoapods.target=$KOTLIN_TARGET                     -Pkotlin.native.cocoapods.configuration=$CONFIGURATION                     -Pkotlin.native.cocoapods.cflags=\"$OTHER_CFLAGS\"                     -Pkotlin.native.cocoapods.paths.headers=\"$HEADER_SEARCH_PATHS\"                     -Pkotlin.native.cocoapods.paths.frameworks=\"$FRAMEWORK_SEARCH_PATHS\"\n";
+			shellScript = "                if [ \"YES\" = \"$COCOAPODS_SKIP_KOTLIN_BUILD\" ]; then\n                  echo \"Skipping Gradle build task invocation due to COCOAPODS_SKIP_KOTLIN_BUILD environment variable set to \"YES\"\"\n                  exit 0\n                fi\n                set -ev\n                REPO_ROOT=\"$PODS_TARGET_SRCROOT\"\n                \"$REPO_ROOT/../gradlew\" -p \"$REPO_ROOT\" $KOTLIN_PROJECT_PATH:syncFramework                     -Pkotlin.native.cocoapods.platform=$PLATFORM_NAME                     -Pkotlin.native.cocoapods.archs=\"$ARCHS\"                     -Pkotlin.native.cocoapods.configuration=\"$CONFIGURATION\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		46EB2E000001C0 /* Sources */ = {
+		46EB2E000001E0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				46EB2E000002C0 /* Pods-LIFE4-dummy.m in Sources */,
+				46EB2E000002F0 /* Pods-LIFE4-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		46EB2E000002F0 /* PBXTargetDependency */ = {
+		46EB2E00000320 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = shared;
 			target = 8777C9F6889E59EFFD631D80AEE9048B /* shared */;
-			targetProxy = 46EB2E000002E0 /* PBXContainerItemProxy */;
+			targetProxy = 46EB2E00000310 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -268,6 +280,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -290,6 +303,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -332,6 +346,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -354,6 +369,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -388,13 +404,14 @@
 			};
 			name = Release;
 		};
-		46EB2E00000110 /* Release */ = {
+		46EB2E00000130 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 46EB2E00000150 /* shared.release.xcconfig */;
+			baseConfigurationReference = 46EB2E00000170 /* shared.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -405,13 +422,14 @@
 			};
 			name = Release;
 		};
-		46EB2E00000120 /* Debug */ = {
+		46EB2E00000140 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 46EB2E00000140 /* shared.debug.xcconfig */;
+			baseConfigurationReference = 46EB2E00000160 /* shared.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -421,12 +439,11 @@
 			};
 			name = Debug;
 		};
-		46EB2E00000180 /* Release */ = {
+		46EB2E000001A0 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 46EB2E00000230 /* Pods-LIFE4.release.xcconfig */;
+			baseConfigurationReference = 46EB2E00000250 /* Pods-LIFE4.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
@@ -459,12 +476,11 @@
 			};
 			name = Release;
 		};
-		46EB2E00000190 /* Debug */ = {
+		46EB2E000001B0 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 46EB2E00000240 /* Pods-LIFE4.debug.xcconfig */;
+			baseConfigurationReference = 46EB2E00000260 /* Pods-LIFE4.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
@@ -508,20 +524,20 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		46EB2E00000100 /* Build configuration list for PBXAggregateTarget "shared" */ = {
+		46EB2E00000120 /* Build configuration list for PBXAggregateTarget "shared" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				46EB2E00000120 /* Debug */,
-				46EB2E00000110 /* Release */,
+				46EB2E00000140 /* Debug */,
+				46EB2E00000130 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		46EB2E00000170 /* Build configuration list for PBXNativeTarget "Pods-LIFE4" */ = {
+		46EB2E00000190 /* Build configuration list for PBXNativeTarget "Pods-LIFE4" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				46EB2E00000190 /* Debug */,
-				46EB2E00000180 /* Release */,
+				46EB2E000001B0 /* Debug */,
+				46EB2E000001A0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

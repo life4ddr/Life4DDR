@@ -1,3 +1,4 @@
+@file:OptIn(ExperimentalSerializationApi::class)
 @file:UseSerializers(
     TrialTypeSerializer::class,
     TrialRankSerializer::class,
@@ -15,6 +16,7 @@ import com.perrigogames.life4.response.TrialGoalSet
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import kotlinx.datetime.serializers.InstantIso8601Serializer
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
@@ -71,7 +73,7 @@ data class Trial(
      */
     fun findScoringGroup(rank: TrialRank) = scoringGroups?.first { it.contains(rank) }
 
-    val isExValid get() = songs.sumBy { it.ex }.let { it == 0 || it == totalEx }
+    val isExValid get() = songs.sumOf { it.ex }.let { it == 0 || it == totalEx }
 
     fun rankAfter(rank: TrialRank): TrialRank? {
         return goals?.let { goals ->

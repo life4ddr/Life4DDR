@@ -43,7 +43,7 @@ enum class ClearType(override val stableId: Long, val serialized: List<String>, 
                 fullCombo == "FullCombo" -> GREAT_FULL_COMBO
                 fullCombo == "GoodFullCombo"-> GOOD_FULL_COMBO
                 fullCombo == "Life4"-> LIFE4_CLEAR
-                else -> NO_PLAY
+                else -> CLEAR
             }
         }
     }

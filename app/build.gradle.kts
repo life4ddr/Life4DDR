@@ -4,17 +4,15 @@ plugins {
     id("com.android.application")
     kotlin("android")
     kotlin("kapt")
-    id("com.google.gms.google-services")
-    id("com.google.firebase.crashlytics")
 }
 
 android {
-    compileSdkVersion(Versions.compile_sdk)
+    compileSdk = Versions.compile_sdk
     buildToolsVersion = Versions.Android.build_tools_version
     defaultConfig {
         applicationId = "com.perrigogames.life4.android"
-        minSdkVersion(Versions.min_sdk)
-        targetSdkVersion(Versions.target_sdk)
+        minSdk = Versions.min_sdk
+        targetSdk = Versions.target_sdk
         versionCode = 61
         versionName = "4.0.1"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -22,15 +20,15 @@ android {
         signingConfig = signingConfigs.findByName("release")
     }
     packagingOptions {
-        exclude("META-INF/*.kotlin_module")
-        exclude("META-INF/DEPENDENCIES")
-        exclude("META-INF/LICENSE")
-        exclude("META-INF/LICENSE.txt")
-        exclude("META-INF/license.txt")
-        exclude("META-INF/NOTICE")
-        exclude("META-INF/NOTICE.txt")
-        exclude("META-INF/notice.txt")
-        exclude("META-INF/ASL2.0")
+        resources.excludes.add("META-INF/*.kotlin_module")
+        resources.excludes.add("META-INF/DEPENDENCIES")
+        resources.excludes.add("META-INF/LICENSE")
+        resources.excludes.add("META-INF/LICENSE.txt")
+        resources.excludes.add("META-INF/license.txt")
+        resources.excludes.add("META-INF/NOTICE")
+        resources.excludes.add("META-INF/NOTICE.txt")
+        resources.excludes.add("META-INF/notice.txt")
+        resources.excludes.add("META-INF/ASL2.0")
     }
     buildFeatures {
         viewBinding = true
@@ -83,17 +81,11 @@ dependencies {
     implementation(Deps.AndroidX.appcompat)
     implementation(Deps.AndroidX.material)
     implementation(Deps.AndroidX.constraintlayout)
-    implementation(Deps.AndroidX.lifecycle_runtime)
-    implementation(Deps.AndroidX.lifecycle_viewmodel)
+    implementation(Deps.AndroidX.Lifecycle.runtime)
+    implementation(Deps.AndroidX.Lifecycle.viewmodel)
     implementation(Deps.AndroidX.activity)
     implementation(Deps.AndroidX.fragment)
     implementation(Deps.AndroidX.swipeRefresh)
-    debugImplementation(Deps.AndroidX.fragment_testing)
-    implementation(platform(Deps.Firebase.bom))
-    implementation(Deps.Firebase.messaging)
-    implementation(Deps.Firebase.crashlytics)
-    implementation(Deps.Firebase.analytics)
-    implementation(Deps.stetho)
 
     implementation(Deps.koinCore)
     implementation(Deps.lottie)
@@ -102,17 +94,11 @@ dependencies {
     implementation(Deps.glide)
     implementation(Deps.kotlinxDateTime)
 
-    implementation(Deps.Ktor.androidCore)
     implementation(Deps.SqlDelight.runtimeJdk)
-    implementation(Deps.SqlDelight.driverAndroid)
-    implementation(Deps.Coroutines.jdk)
-    implementation(Deps.Coroutines.android)
+    implementation(Deps.SqlDelight.android)
     implementation(Deps.multiplatformSettings)
     implementation(Deps.koinCore)
-    androidTestImplementation(Deps.AndroidXTest.junit)
-    androidTestImplementation(Deps.AndroidXTest.runner)
-    androidTestImplementation(Deps.AndroidXTest.rules)
-    androidTestImplementation(Deps.AndroidXTest.espresso)
+    androidTestImplementation(Deps.junit)
 
     kapt(Deps.glide_compiler)
 }

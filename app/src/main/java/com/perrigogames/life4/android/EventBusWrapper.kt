@@ -2,8 +2,8 @@ package com.perrigogames.life4.android
 
 import com.perrigogames.life4.model.EventBusNotifier
 import org.greenrobot.eventbus.EventBus
-import org.koin.core.KoinComponent
-import org.koin.core.inject
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
 class AndroidEventBusNotifier: EventBusNotifier, KoinComponent {
     private val eventBus: EventBus by inject()

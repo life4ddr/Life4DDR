@@ -12,19 +12,26 @@ preview INTEGER AS Boolean DEFAULT 0
 );
 
 CREATE TABLE ChartInfo (
-skillId INTEGER NOT NULL,
+songSkillId TEXT NOT NULL,
 difficultyClass INTEGER AS DifficultyClass NOT NULL DEFAULT 1,
 playStyle INTEGER AS PlayStyle NOT NULL DEFAULT 1,
 difficultyNumber INTEGER NOT NULL DEFAULT 0,
-PRIMARY KEY(skillId, difficultyClass, playStyle),
-FOREIGN KEY(skillId) REFERENCES SongInfo
+PRIMARY KEY(songSkillId, difficultyClass, playStyle),
+FOREIGN KEY(songSkillId) REFERENCES SongInfo
 );
+
+CREATE VIEW DetailedChartInfo AS
+SELECT * FROM ChartInfo
+INNER JOIN SongInfo ON ChartInfo.songSkillId = SongInfo.skillId;
 
 allSongs:
 SELECT * FROM SongInfo;
 
-allSongsAndCharts:
-SELECT * FROM ChartInfo INNER JOIN SongInfo;
+allCharts:
+SELECT * FROM ChartInfo;
+
+allDetailedCharts:
+SELECT * FROM DetailedChartInfo;
 
 selectSongById:
 SELECT * FROM SongInfo WHERE id = ?;
@@ -44,50 +51,53 @@ SELECT * FROM SongInfo WHERE title = ?;
 selectSongByTitleList:
 SELECT * FROM SongInfo WHERE title IN ?;
 
+selectSongByLike:
+SELECT * FROM SongInfo WHERE title LIKE ?;
+
 selectSongsForVersion:
 SELECT * FROM SongInfo WHERE version <= ? OR (version = ? AND preview = 1);
 
 selectChart:
-SELECT * FROM ChartInfo WHERE skillId = ? AND playStyle = ? AND difficultyClass = ?;
+SELECT * FROM DetailedChartInfo WHERE skillId = ? AND playStyle = ? AND difficultyClass = ?;
 
 selectChartsForSong:
-SELECT * FROM ChartInfo WHERE skillId = ?;
+SELECT * FROM DetailedChartInfo WHERE skillId = ?;
 
 selectChartsForSongList:
-SELECT * FROM ChartInfo WHERE skillId IN ?;
+SELECT * FROM DetailedChartInfo WHERE skillId IN ?;
 
 selectChartsForSongAndPlayStyle:
-SELECT * FROM ChartInfo WHERE skillId = ? AND playStyle = ?;
+SELECT * FROM DetailedChartInfo WHERE skillId = ? AND playStyle = ?;
 
 selectChartsForSongAndDifficulty:
-SELECT * FROM ChartInfo WHERE skillId = ? AND difficultyClass = ?;
+SELECT * FROM DetailedChartInfo WHERE skillId = ? AND difficultyClass = ?;
 
 selectChartsByDifficultyNumber:
-SELECT * FROM ChartInfo WHERE difficultyNumber = ?;
+SELECT * FROM DetailedChartInfo WHERE difficultyNumber = ?;
 
 selectChartsByDifficultyClass:
-SELECT * FROM ChartInfo WHERE difficultyClass = ?;
+SELECT * FROM DetailedChartInfo WHERE difficultyClass = ?;
 
 selectStyleChartsByDifficultyNumber:
-SELECT * FROM ChartInfo WHERE difficultyNumber = ? AND playStyle = ?;
+SELECT * FROM DetailedChartInfo WHERE difficultyNumber = ? AND playStyle = ?;
 
 selectStyleChartsByDifficultyClass:
-SELECT * FROM ChartInfo WHERE difficultyClass = ? AND playStyle = ?;
+SELECT * FROM DetailedChartInfo WHERE difficultyClass = ? AND playStyle = ?;
 
 selectChartsByPlayStyle:
-SELECT * FROM ChartInfo WHERE playStyle = ?;
+SELECT * FROM DetailedChartInfo WHERE playStyle = ?;
 
 insertSong:
 INSERT OR REPLACE INTO SongInfo(skillId, id, title, artist, version, preview)
 VALUES (?,?,?,?,?,?);
 
 insertChart:
-INSERT OR REPLACE INTO ChartInfo(skillId, difficultyClass, difficultyNumber, playStyle)
+INSERT OR REPLACE INTO ChartInfo(songSkillId, difficultyClass, difficultyNumber, playStyle)
 VALUES (?,?,?,?);
 
 deleteSong:
-DELETE FROM SongInfo WHERE id = ?;
-DELETE FROM ChartInfo WHERE skillId = ?;
+DELETE FROM SongInfo WHERE skillId = ?;
+DELETE FROM ChartInfo WHERE songSkillId = ?;
 
 deleteAll:
 DELETE FROM SongInfo;

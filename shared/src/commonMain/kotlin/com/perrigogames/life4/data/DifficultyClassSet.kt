@@ -15,6 +15,8 @@ class DifficultyClassSet(
     val requireAll: Boolean,
 ) {
 
+    fun match(difficultyClass: DifficultyClass) = set.contains(difficultyClass)
+
     override fun toString(): String =
         set.joinToString(
             separator = "",

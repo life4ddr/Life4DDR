@@ -15,8 +15,8 @@ import com.perrigogames.life4.android.util.visibilityBool
 import com.perrigogames.life4.android.view.ContextMenuRecyclerView.RecyclerViewContextMenuInfo
 import com.perrigogames.life4.db.TrialSession
 import org.greenrobot.eventbus.EventBus
-import org.koin.core.KoinComponent
-import org.koin.core.inject
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
 
 class TrialRecordsFragment : Fragment(), KoinComponent {

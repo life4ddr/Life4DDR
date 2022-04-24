@@ -8,8 +8,8 @@ import androidx.fragment.app.DialogFragment
 import com.perrigogames.life4.android.BuildConfig
 import com.perrigogames.life4.android.databinding.ActivityVersionsBinding
 import com.perrigogames.life4.model.*
-import org.koin.core.KoinComponent
-import org.koin.core.inject
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
 class VersionsDialog: DialogFragment(), KoinComponent {
 

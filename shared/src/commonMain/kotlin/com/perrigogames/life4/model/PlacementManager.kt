@@ -6,7 +6,7 @@ import com.perrigogames.life4.isDebug
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.PLACEMENTS_FILE_NAME
 import com.perrigogames.life4.setCrashString
 import kotlinx.serialization.json.Json
-import org.koin.core.inject
+import org.koin.core.component.inject
 import org.koin.core.qualifier.named
 
 class PlacementManager: BaseModel() {

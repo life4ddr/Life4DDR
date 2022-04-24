@@ -5,8 +5,8 @@ import android.net.Uri
 import com.perrigogames.life4.*
 import com.perrigogames.life4.data.*
 import com.perrigogames.life4.enums.*
-import org.koin.core.KoinComponent
-import org.koin.core.inject
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
 class AndroidPlatformStrings: PlatformStrings, KoinComponent {
 

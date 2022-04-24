@@ -1,31 +1,46 @@
 package com.perrigogames.life4.android.activity.base
 
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import com.perrigogames.life4.android.R
 import com.perrigogames.life4.android.databinding.ActivityBlockListCheckBinding
-import com.perrigogames.life4.db.SongDatabaseHelper
+import com.perrigogames.life4.android.util.spannedText
 import com.perrigogames.life4.db.aggregateDiffStyleString
 import com.perrigogames.life4.enums.PlayStyle
 import com.perrigogames.life4.model.IgnoreListManager
-import org.koin.core.KoinComponent
-import org.koin.core.inject
+import com.perrigogames.life4.model.SongDataManager
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
 abstract class BaseTextListActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityBlockListCheckBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.AppTheme_NoActionBar)
         super.onCreate(savedInstanceState)
         binding = ActivityBlockListCheckBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setSupportActionBar(binding.toolbar)
 
         binding.textSongs.text = with(StringBuilder()) {
             buildText(this)
-            toString()
+            toString().spannedText
         }
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     abstract fun buildText(builder: StringBuilder)
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> finish()
+            else -> return super.onOptionsItemSelected(item)
+        }
+        return true
+    }
 }
 
 class BlockListCheckActivity: BaseTextListActivity(), KoinComponent {
@@ -33,26 +48,24 @@ class BlockListCheckActivity: BaseTextListActivity(), KoinComponent {
     private val ignoreListManager: IgnoreListManager by inject()
 
     override fun buildText(builder: StringBuilder) {
-        ignoreListManager.getCurrentlyIgnoredSongs().forEach {
-            builder.append("(${it.id}) ${it.version} - ${it.title}\n")
-        }
-        ignoreListManager.getCurrentlyIgnoredCharts().forEach { entry ->
-            entry.value.forEach { chart ->
-                builder.append("(${entry.key.id}) ${entry.key.version} - ${entry.key.title} (${chart.aggregateDiffStyleString})\n")
-            }
+        ignoreListManager.currentlyIgnoredCharts.forEach { entry ->
+            with(entry) { builder.append("($id) $version - $title ($aggregateDiffStyleString)<br>") }
         }
     }
 }
 
 class SongRecordsListCheckActivity: BaseTextListActivity(), KoinComponent {
 
-    private val songDb: SongDatabaseHelper by inject()
+    private val songDataManager: SongDataManager by inject()
 
     override fun buildText(builder: StringBuilder) {
-        songDb.allSongs().forEach { song ->
-            val difficulties = songDb.selectChartsForSong(song.id, PlayStyle.SINGLE)
-                .joinToString(separator = " / ") { "${it.difficultyNumber}" }
-            builder.append("${song.title} - $difficulties\n")
+        songDataManager.groupedCharts.forEach { (song, charts) ->
+            val difficulties = charts
+                .filter { it.playStyle == PlayStyle.SINGLE }
+                .joinToString(separator = " / ") {
+                    it.difficultyNumber.toString()
+                }
+            builder.append("${song.title}  /  ${song.artist}<br>${song.skillId}<br>$difficulties<br>")
         }
     }
 }

@@ -8,14 +8,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.perrigogames.life4.LadderRanksReplacedEvent
-import com.perrigogames.life4.data.RankEntry
 import com.perrigogames.life4.android.databinding.FragmentRankListBinding
+import com.perrigogames.life4.data.RankEntry
 import com.perrigogames.life4.model.LadderManager
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
-import org.koin.core.KoinComponent
-import org.koin.core.inject
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
 /**
  * Fragment displaying the list of ladder ranks that can be obtained.

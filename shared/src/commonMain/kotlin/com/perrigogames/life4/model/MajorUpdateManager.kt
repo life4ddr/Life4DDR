@@ -4,7 +4,7 @@ import com.perrigogames.life4.SettingsKeys.KEY_MAJOR_UPDATE
 import com.perrigogames.life4.log
 import com.russhwolf.settings.Settings
 import com.russhwolf.settings.set
-import org.koin.core.inject
+import org.koin.core.component.inject
 
 enum class MajorUpdate {
     SONG_DB, A20_REQUIRED, DOUBLES_FIX

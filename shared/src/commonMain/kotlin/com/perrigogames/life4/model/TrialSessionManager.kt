@@ -4,12 +4,14 @@ import com.perrigogames.life4.Notifications
 import com.perrigogames.life4.SavedRankUpdatedEvent
 import com.perrigogames.life4.TrialNavigation
 import com.perrigogames.life4.data.InProgressTrialSession
-import com.perrigogames.life4.enums.TrialRank
 import com.perrigogames.life4.db.TrialDatabaseHelper
+import com.perrigogames.life4.enums.TrialRank
 import com.russhwolf.settings.Settings
 import kotlinx.coroutines.launch
-import org.koin.core.inject
+import kotlinx.serialization.ExperimentalSerializationApi
+import org.koin.core.component.inject
 
+@OptIn(ExperimentalSerializationApi::class)
 class TrialSessionManager: BaseModel() {
 
     private val trialManager: TrialManager by inject()

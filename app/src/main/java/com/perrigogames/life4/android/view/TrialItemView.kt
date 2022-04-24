@@ -15,8 +15,8 @@ import com.perrigogames.life4.android.databinding.MergeTrialTileItemBinding
 import com.perrigogames.life4.data.Trial
 import com.perrigogames.life4.enums.TrialRank
 import com.russhwolf.settings.Settings
-import org.koin.core.KoinComponent
-import org.koin.core.inject
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
 /**
  * A custom [View] for displaying a single [Trial].

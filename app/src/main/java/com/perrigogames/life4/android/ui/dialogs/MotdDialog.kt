@@ -16,8 +16,8 @@ import com.perrigogames.life4.android.util.circularProgressDrawable
 import com.perrigogames.life4.model.MotdManager
 import com.russhwolf.settings.Settings
 import com.russhwolf.settings.set
-import org.koin.core.KoinComponent
-import org.koin.core.inject
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
 class MotdDialog: DialogFragment(), KoinComponent {
 

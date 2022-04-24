@@ -11,8 +11,8 @@ import com.perrigogames.life4.android.manager.rankListIntent
 import com.perrigogames.life4.android.ui.firstrun.PlacementListAdapter
 import com.perrigogames.life4.model.FirstRunManager
 import com.perrigogames.life4.model.PlacementManager
-import org.koin.core.KoinComponent
-import org.koin.core.inject
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
 /**
  * An [AppCompatActivity] displaying the list of Placement sets for the user to select one to play.

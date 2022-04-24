@@ -1,3 +1,4 @@
+@file:OptIn(ExperimentalSerializationApi::class)
 @file:UseSerializers(
     TrialTypeSerializer::class,
     TrialRankSerializer::class,
@@ -8,9 +9,11 @@
 
 package com.perrigogames.life4.response
 
-import com.perrigogames.life4.data.*
-import com.perrigogames.life4.enums.*
 import com.perrigogames.life4.TrialStrings
+import com.perrigogames.life4.data.Trial
+import com.perrigogames.life4.data.TrialData
+import com.perrigogames.life4.enums.*
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
@@ -56,6 +59,7 @@ data class TrialGoalSet(
         }
     }
 
+    @Suppress("UNUSED_PARAMETER")
     private fun generateSpecificClearGoalStrings(s: TrialStrings, trial: Trial, strings: MutableList<String>) {
         strings.add("TODO: we don't need this right now") //TODO
     }

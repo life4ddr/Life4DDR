@@ -1,13 +1,11 @@
 package com.perrigogames.life4.api
 
 import com.perrigogames.life4.api.base.*
-import com.perrigogames.life4.data.IgnoreListData
 import com.perrigogames.life4.data.LadderRankData
-import com.perrigogames.life4.data.LadderRankData.Companion.LADDER_RANK_MAJOR_VERSION
 import com.perrigogames.life4.ktor.GithubDataAPI
 import kotlinx.serialization.json.Json
-import org.koin.core.KoinComponent
-import org.koin.core.inject
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
 class LadderRemoteData(
     reader: LocalDataReader,

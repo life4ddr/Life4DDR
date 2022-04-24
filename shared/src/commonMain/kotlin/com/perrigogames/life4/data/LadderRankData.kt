@@ -1,3 +1,4 @@
+@file:OptIn(ExperimentalSerializationApi::class)
 @file:UseSerializers(
     PlayStyleSerializer::class,
     LadderRankSerializer::class)
@@ -6,10 +7,7 @@ package com.perrigogames.life4.data
 
 import com.perrigogames.life4.enums.*
 import com.perrigogames.life4.logE
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
-import kotlinx.serialization.Transient
-import kotlinx.serialization.UseSerializers
+import kotlinx.serialization.*
 
 /**
  * Data class for deserializing the ranks_v2_v2.json file. Describes all of the ranks_v2 that can
@@ -62,6 +60,7 @@ data class LadderVersion(
 /**
  * Describes a single rank in [LadderRankData] and the goals required to obtain it.
  */
+@OptIn(ExperimentalSerializationApi::class)
 @Serializable
 data class RankEntry(
     val rank: LadderRank,

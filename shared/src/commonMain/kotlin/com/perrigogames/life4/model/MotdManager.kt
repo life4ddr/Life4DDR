@@ -10,7 +10,7 @@ import com.perrigogames.life4.data.MessageOfTheDay
 import com.perrigogames.life4.ktor.GithubDataAPI
 import com.russhwolf.settings.Settings
 import com.russhwolf.settings.set
-import org.koin.core.inject
+import org.koin.core.component.inject
 import org.koin.core.qualifier.named
 
 class MotdManager: BaseModel() {
@@ -29,8 +29,8 @@ class MotdManager: BaseModel() {
 
         override fun onMajorVersionBlock() = eventBus.postSticky(DataRequiresAppUpdateEvent())
     }).apply { start() }
+
     val dataVersionString get() = motdRemote.versionString
 
-    val currentMotd: MessageOfTheDay
-        get() = motdRemote.data
+    val currentMotd: MessageOfTheDay get() = motdRemote.data
 }

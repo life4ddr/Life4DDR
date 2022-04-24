@@ -4,7 +4,9 @@ import com.perrigogames.life4.data.DifficultyClassSet
 import com.perrigogames.life4.enums.ClearType
 import com.perrigogames.life4.enums.PlayStyle
 import com.perrigogames.life4.enums.TrialRank
+import kotlinx.serialization.ExperimentalSerializationApi
 
+@OptIn(ExperimentalSerializationApi::class)
 interface RankStrings {
 
     /** Burn X calories in one day. */

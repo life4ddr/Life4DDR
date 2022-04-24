@@ -2,10 +2,10 @@ package com.perrigogames.life4.android.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.perrigogames.life4.model.FirstRunManager
 import com.perrigogames.life4.android.manager.launchIntent
-import org.koin.core.KoinComponent
-import org.koin.core.inject
+import com.perrigogames.life4.model.FirstRunManager
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
 /**
  * The first launched activity, determines the path through the startup flow that should be taken
