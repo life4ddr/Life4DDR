@@ -1,3 +1,5 @@
+@file:Suppress("EXPERIMENTAL_API_USAGE")
+
 package com.perrigogames.life4.android.view
 
 import android.content.Context
@@ -7,9 +9,10 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.perrigogames.life4.android.R
 import com.perrigogames.life4.android.databinding.MergePlayerFoundBinding
-import com.perrigogames.life4.data.ApiPlayer
 import com.perrigogames.life4.android.util.visibilityBool
+import com.perrigogames.life4.data.ApiPlayer
 
+@Deprecated("Migrated to Compose")
 class PlayerFoundView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,

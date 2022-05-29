@@ -1,3 +1,5 @@
+@file:Suppress("EXPERIMENTAL_API_USAGE")
+
 package com.perrigogames.life4.android.view
 
 import android.content.Context
@@ -7,12 +9,13 @@ import android.util.AttributeSet
 import android.widget.ImageView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.content.ContextCompat
-import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.android.drawableRes
+import com.perrigogames.life4.enums.LadderRank
 
 /**
  * A subclass of [ImageView] that can display the icon of a [LadderRank]
  */
+@Deprecated("Migrated to Compose")
 class RankImageView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
     AppCompatImageView(context, attrs, defStyleAttr) {
 

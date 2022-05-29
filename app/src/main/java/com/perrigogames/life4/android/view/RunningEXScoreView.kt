@@ -8,6 +8,7 @@ import com.perrigogames.life4.android.R
 import com.perrigogames.life4.android.databinding.MergeExScoreViewBinding
 import com.perrigogames.life4.data.TrialEXProgress
 
+@Deprecated("Migrated to Compose")
 class RunningEXScoreView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,

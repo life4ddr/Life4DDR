@@ -4,10 +4,11 @@ import android.content.Context
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
-import com.perrigogames.life4.enums.DifficultyClass
 import com.perrigogames.life4.android.R
 import com.perrigogames.life4.android.colorRes
+import com.perrigogames.life4.enums.DifficultyClass
 
+@Deprecated("Migrated to Compose")
 class DifficultyTextView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = android.R.attr.textViewStyle) :
     AppCompatTextView(context, attrs, defStyleAttr) {
 

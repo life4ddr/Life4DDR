@@ -3,7 +3,7 @@ object Versions {
     const val target_sdk = 31
     const val compile_sdk = 31
 
-    const val kotlin = "1.6.20"
+    const val kotlin = "1.6.21"
     const val ktlint_gradle_plugin = "10.2.1"
     const val glide = "4.13.1"
     const val multiplatformSettings = "0.8.1"
@@ -59,6 +59,19 @@ object Deps {
 
             const val runtime = "androidx.lifecycle:lifecycle-runtime-ktx:$version"
             const val viewmodel = "androidx.lifecycle:lifecycle-viewmodel:$version"
+        }
+
+        object Compose {
+            const val baseVersion = "1.2.0-beta02"
+
+            const val ui = "androidx.compose.ui:ui:$baseVersion"
+            const val uiTooling = "androidx.compose.ui:ui-tooling:$baseVersion"
+            const val foundation = "androidx.compose.foundation:foundation:$baseVersion"
+            const val material = "androidx.compose.material:material:$baseVersion"
+            const val materialIcons = "androidx.compose.material:material-icons-core:$baseVersion"
+            const val materialIconsExtended = "androidx.compose.material:material-icons-extended:$baseVersion"
+            const val activity = "androidx.activity:activity-compose:1.4.0"
+            const val appCompatTheme = "com.google.accompanist:accompanist-appcompat-theme:0.16.0"
         }
     }
 

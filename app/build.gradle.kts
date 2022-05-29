@@ -32,6 +32,7 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        compose = true
     }
     buildTypes {
         getByName("debug") {
@@ -53,7 +54,7 @@ android {
             keyPassword = "Z7SZsZoITrpVRDb2C44f24BqvqyYI94G"
         }
     }
-    lintOptions {
+    lint {
         isAbortOnError = false
     }
     testOptions {
@@ -66,10 +67,9 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-    // Disable the google services plugin for debug
-//    applicationVariants.firstOrNull { it.name.contains("debug") }.let { variant ->
-//        project.tasks.getByName("process" + variant.name.capitalize() + "GoogleServices").enabled = false
-//    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = Deps.AndroidX.Compose.baseVersion
+    }
 }
 
 dependencies {
@@ -86,6 +86,12 @@ dependencies {
     implementation(Deps.AndroidX.activity)
     implementation(Deps.AndroidX.fragment)
     implementation(Deps.AndroidX.swipeRefresh)
+    implementation(Deps.AndroidX.Compose.ui)
+    implementation(Deps.AndroidX.Compose.uiTooling)
+    implementation(Deps.AndroidX.Compose.foundation)
+    implementation(Deps.AndroidX.Compose.material)
+    implementation(Deps.AndroidX.Compose.activity)
+    implementation(Deps.AndroidX.Compose.appCompatTheme)
 
     implementation(Deps.koinCore)
     implementation(Deps.lottie)
