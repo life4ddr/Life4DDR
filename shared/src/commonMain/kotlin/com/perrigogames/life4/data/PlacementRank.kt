@@ -14,8 +14,8 @@ import kotlinx.serialization.encoding.Encoder
 enum class PlacementRank(val stableId: Long, val parent: LadderRankClass) {
     COPPER(20, LadderRankClass.COPPER),
     BRONZE(25, LadderRankClass.BRONZE),
-    SILVER(20, LadderRankClass.SILVER),
-    GOLD(25, LadderRankClass.GOLD);
+    SILVER(30, LadderRankClass.SILVER),
+    GOLD(35, LadderRankClass.GOLD);
 
     @ExperimentalSerializationApi
     fun toLadderRank() = when(this) {
