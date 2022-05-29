@@ -10,10 +10,15 @@ import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 
-class DifficultyClassSet(
+data class DifficultyClassSet(
     val set: List<DifficultyClass>,
     val requireAll: Boolean,
 ) {
+
+    constructor(
+        difficulty: DifficultyClass,
+        requireAll: Boolean
+    ) : this(listOf(difficulty), requireAll)
 
     fun match(difficultyClass: DifficultyClass) = set.contains(difficultyClass)
 
