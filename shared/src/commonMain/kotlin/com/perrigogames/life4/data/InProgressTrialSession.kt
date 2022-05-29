@@ -63,7 +63,7 @@ data class InProgressTrialSession(
     /**
      * Calculates the number of combined bad judgments in the current session.
      */
-    val currentBadJudgments: Int get() = results.filterNotNull().sumOf { it.badJudges ?: 0 }
+    val currentBadJudgments: Int get() = results.filterNotNull().sumOf { it.badJudges ?: it.misses ?: 0 }
 
     /**
      * Calculates the number of combined misses in the current session. This
@@ -87,29 +87,26 @@ data class InProgressTrialSession(
             } else currentBadJudgments
         }
 
+    val progress: TrialEXProgress
+        get() = TrialEXProgress(
+            currentExScore = currentTotalExScore,
+            currentMaxExScore = currentMaxExScore,
+            maxExScore = trial.totalEx,
+        )
+
     /** Calculates the current total EX the player has obtained for this session */
-    val currentTotalExScore: Int
+    private val currentTotalExScore: Int
         get() = results.filterNotNull().sumOf { it.exScore!! }
 
     /** Calculates the highest EX that a player could obtain on the songs that have been currently completed */
-    val currentMaxExScore: Int
-        get() = trial.songs.mapIndexed { idx, item -> if (results[idx] != null) item.ex else 0  }.sumOf { it }
+    private val currentMaxExScore: Int
+        get() = trial.songs.mapIndexed { idx, item ->
+            results[idx]?.exScore ?: item.ex
+        }.sumOf { it }
 
     /** Calculates the amount of EX that is missing, which only counts the songs that have been completed */
-    val missingExScore: Int
+    private val missingExScore: Int
         get() = currentMaxExScore - currentTotalExScore
-
-    /** Calculates a player's rough projected EX score, assuming they get the same percentage of EX on the rest of the set as
-     * they have on their already completed songs. */
-    val projectedExScore: Int
-        get() {
-            val projectedMaxPercent = currentTotalExScore.toDouble() / currentMaxExScore.toDouble()
-            return (trial.totalEx * projectedMaxPercent).toInt()
-        }
-
-    /** Calculates the amount of EX still available on songs that haven't been played */
-    val remainingExScore: Int
-        get() = currentTotalExScore - trial.totalEx
 
     val highestPossibleRank: TrialRank?
         get() {
@@ -124,13 +121,13 @@ data class InProgressTrialSession(
             satisfied = (missingExScore <= goal.exMissing)
         }
         if (satisfied && goal.judge != null) {
-            satisfied = currentBadJudgments.let { it <= goal.judge }
+            satisfied = currentBadJudgments <= goal.judge
         }
         if (satisfied && goal.miss != null) {
-            satisfied = currentMisses.let { it <= goal.miss }
+            satisfied = currentMisses <= goal.miss
         }
         if (satisfied && goal.missEach != null) {
-            satisfied = currentMisses.let { it <= goal.missEach }
+            satisfied = currentMisses <= goal.missEach
         }
 
         val scores = results.map { it?.score }

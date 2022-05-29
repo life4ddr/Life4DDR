@@ -1,3 +1,5 @@
+@file:Suppress("EXPERIMENTAL_API_USAGE")
+
 package com.perrigogames.life4.android.activity.trial
 
 import android.app.AlertDialog
@@ -277,7 +279,7 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener, K
     }
 
     private fun updateEXScoreMeter() {
-        binding.includeExScore.update(trialSession)
+        binding.includeExScore.update(trialSession.progress)
     }
 
     private fun scrollToBottom() {

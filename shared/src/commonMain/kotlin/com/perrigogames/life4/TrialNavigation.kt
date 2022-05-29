@@ -37,7 +37,7 @@ abstract class TrialNavigation: KoinComponent {
             showSessionSubmitConfirmation { submitOnline ->
                 if (submitOnline) {
                     if (settings.getBoolean(SettingsKeys.KEY_SUBMISSION_NOTIFICAION, false)) {
-                        notifications.showUserInfoNotifications(session.currentTotalExScore)
+                        notifications.showUserInfoNotifications(session.progress.currentExScore)
                     }
                     showTrialSubmissionWeb()
                 }

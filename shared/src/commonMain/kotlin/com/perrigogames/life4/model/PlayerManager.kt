@@ -25,13 +25,25 @@ class PlayerManager: BaseModel() {
             }
             withContext(Dispatchers.Main) {
                 if (isDebug && playerName == "KONNOR") {
-                    val player = ApiPlayer(1, playerName, "DIAMOND III", "",
-                        "@strogazer", "", "5142-3911", true)
-                    eventBus.post(PlayerImportedEvent(player))
+                    eventBus.post(PlayerImportedEvent(TEST_API_PLAYER))
                 } else {
                     eventBus.post(PlayerImportedEvent())
                 }
             }
         }
+    }
+
+    companion object {
+
+        val TEST_API_PLAYER = ApiPlayer(
+            id = 1,
+            name = "KONNOR",
+            rankString = "DIAMOND III",
+            playerDateEarned = "",
+            twitterHandle = "@strogazer",
+            discordHandle = "",
+            playerRivalCode = "5142-3911",
+            activeStatus = true,
+        )
     }
 }
