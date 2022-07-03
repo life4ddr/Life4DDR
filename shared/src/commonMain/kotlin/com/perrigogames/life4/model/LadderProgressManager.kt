@@ -36,10 +36,14 @@ class LadderProgressManager: BaseModel() {
                 val playStyleMatch = goal.playStyle == it.playStyle
                 diffNumMatch && diffClassMatch && playStyleMatch && when {
                     goal.diffNum != null -> true
-                    goal.diffClassSet != null && goal.songs != null -> goal.songs.contains(it.title)
-                    goal.diffClassSet != null && goal.folderType != null -> when (goal.folderType) {
-                        is FolderType.Letter -> it.title.startsWith(goal.folderType.letter)
-                        is FolderType.Version -> it.version == goal.folderType.version
+                    goal.diffClassSet != null -> when {
+                        goal.songs != null -> goal.songs.contains(it.title)
+                        goal.folderType != null -> when (goal.folderType) {
+                            is FolderType.Letter -> it.title.startsWith(goal.folderType.letter)
+                            is FolderType.Version -> it.version == goal.folderType.version
+                        }
+                        goal.folderCount != null -> return null //FIXME
+                        else -> error("Illegal goal configuration: ${goal.id}")
                     }
                     else -> error("Illegal goal configuration: ${goal.id}")
                 }
