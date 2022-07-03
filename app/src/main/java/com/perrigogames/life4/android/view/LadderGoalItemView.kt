@@ -3,15 +3,12 @@ package com.perrigogames.life4.android.view
 import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Typeface
-import android.os.Build
-import android.text.Html
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.TableLayout
 import androidx.core.content.ContextCompat
-import androidx.core.text.HtmlCompat
 import androidx.core.view.children
 import com.perrigogames.life4.PlatformStrings
 import com.perrigogames.life4.android.R
@@ -150,16 +147,17 @@ class LadderGoalItemView @JvmOverloads constructor(
                 max = 100
             }
             it.results?.forEach { (chart, result) ->
-                val formattedTitle = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    Html.fromHtml(chart.title, HtmlCompat.FROM_HTML_MODE_LEGACY)
-                } else {
-                    Html.fromHtml(chart.title)
-                }
+//                val formattedTitle = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+//                    Html.fromHtml(chart.title, HtmlCompat.FROM_HTML_MODE_LEGACY)
+//                } else {
+//                    Html.fromHtml(chart.title)
+//                }
 
                 val rowBinding = retrieveTableRowBinding(
                     binding.tableExpandDetails,
                     result.score.toInt().longNumberString(),
-                    formattedTitle.toString()
+//                    formattedTitle.toString(),
+                    chart.title,
                 )
                 if (result.clearType > ClearType.CLEAR) {
                     rowBinding.textScore.setTextColor(ContextCompat.getColor(context, result.clearType.colorRes))
