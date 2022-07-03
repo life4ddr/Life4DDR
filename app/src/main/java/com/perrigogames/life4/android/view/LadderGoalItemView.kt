@@ -21,9 +21,11 @@ import com.perrigogames.life4.android.databinding.RowSongDetailBinding
 import com.perrigogames.life4.android.util.visibilityBool
 import com.perrigogames.life4.data.BaseRankGoal
 import com.perrigogames.life4.data.LadderGoalProgress
+import com.perrigogames.life4.data.userType
 import com.perrigogames.life4.db.GoalState
 import com.perrigogames.life4.enums.ClearType
 import com.perrigogames.life4.enums.GoalStatus.*
+import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.longNumberString
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -43,6 +45,7 @@ class LadderGoalItemView @JvmOverloads constructor(
         binding = MergeRankGoalV2Binding.bind(this)
     }
 
+    private var rank: LadderRank? = null
     private var goal: BaseRankGoal? = null
     private var goalDB: GoalState? = null
     private var goalProgress: LadderGoalProgress? = null
@@ -82,11 +85,13 @@ class LadderGoalItemView @JvmOverloads constructor(
         goal: BaseRankGoal,
         goalDB: GoalState? = null,
         goalProgress: LadderGoalProgress? = null,
+        rank: LadderRank,
         mandatory: Boolean,
     ) {
         this.goal = goal
         this.goalDB = goalDB
         this.goalProgress = goalProgress
+        this.rank = rank
         this.mandatory = mandatory
         updateData()
     }
@@ -107,7 +112,13 @@ class LadderGoalItemView @JvmOverloads constructor(
             oldColors = binding.textGoalSubtitle.textColors
         }
 
-        binding.textGoalTitle.text = goal?.goalString(platformStrings) ?: ""
+        binding.textGoalTitle.text = goal?.let {
+            try {
+                "${it.userType(rank!!)} - ${it.goalString(platformStrings)}"
+            } catch (e: IllegalStateException) {
+                "!${it.id} - ${it.goalString(platformStrings)}"
+            }
+        } ?: ""
         binding.buttonStatusIcon.isChecked = currentState == COMPLETE
 
         updateExpand()

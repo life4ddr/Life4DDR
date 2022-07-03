@@ -1,9 +1,11 @@
 package com.perrigogames.life4.android
 
+import android.content.res.Resources
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import com.perrigogames.life4.data.PlacementRank
+import com.perrigogames.life4.data.RankGoalUserType
 import com.perrigogames.life4.enums.*
 
 val LadderRank.nameRes @StringRes get() = when(this) {
@@ -307,4 +309,28 @@ val ClearType.clearResShort @StringRes get() = when(this) {
     ClearType.PERFECT_FULL_COMBO -> R.string.clear_pfc_short
     ClearType.MARVELOUS_FULL_COMBO -> R.string.clear_mfc_short
     else -> clearRes
+}
+
+fun RankGoalUserType.titleString(res: Resources): String = when(this) {
+    RankGoalUserType.LEVEL_12 -> res.getString(R.string.level_header, 12)
+    RankGoalUserType.LEVEL_13 -> res.getString(R.string.level_header, 13)
+    RankGoalUserType.LEVEL_14 -> res.getString(R.string.level_header, 14)
+    RankGoalUserType.LEVEL_15 -> res.getString(R.string.level_header, 15)
+    RankGoalUserType.LEVEL_16 -> res.getString(R.string.level_header, 16)
+    RankGoalUserType.LEVEL_17 -> res.getString(R.string.level_header, 17)
+    RankGoalUserType.LEVEL_18 -> res.getString(R.string.level_header, 18)
+    RankGoalUserType.LEVEL_19 -> res.getString(R.string.level_header, 19)
+    RankGoalUserType.PFC -> res.getString(R.string.rank_goal_category_pfcs)
+    RankGoalUserType.AAA -> res.getString(R.string.clear_aaa)
+    RankGoalUserType.AA_PLUS -> res.getString(R.string.clear_aa_plus)
+    RankGoalUserType.AA -> res.getString(R.string.clear_aa)
+    RankGoalUserType.A_PLUS -> res.getString(R.string.clear_a_plus)
+    RankGoalUserType.A -> res.getString(R.string.clear_a)
+    RankGoalUserType.COMBO -> res.getString(R.string.rank_goal_category_combo)
+    RankGoalUserType.LIFE4 -> res.getString(R.string.rank_goal_category_life4)
+    RankGoalUserType.MFC -> res.getString(R.string.rank_goal_category_mfcs)
+    RankGoalUserType.SINGLE_CLEAR -> res.getString(R.string.rank_goal_category_single_clear)
+    RankGoalUserType.SET_CLEAR -> res.getString(R.string.rank_goal_category_set_clear)
+    RankGoalUserType.CALORIES -> res.getString(R.string.rank_goal_category_calories)
+    RankGoalUserType.TRIALS -> res.getString(R.string.rank_goal_category_trials)
 }

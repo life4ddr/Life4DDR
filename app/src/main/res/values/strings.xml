@@ -50,6 +50,17 @@
     <string name="no_misses">Full combo all songs.</string>
     <!-- endregion -->
 
+    <!-- region RankEntry Goal Categories -->
+    <string name="rank_goal_category_trials">Trials</string>
+    <string name="rank_goal_category_calories">Calories</string>
+    <string name="rank_goal_category_mfcs">MFCs</string>
+    <string name="rank_goal_category_pfcs">PFCs</string>
+    <string name="rank_goal_category_combo">Combo</string>
+    <string name="rank_goal_category_life4">LIFE4</string>
+    <string name="rank_goal_category_single_clear">Single Clear</string>
+    <string name="rank_goal_category_set_clear">Set Clear</string>
+    <!-- endregion -->
+
     <!-- region RankEntry Goal Strings -->
     <string name="rank_goal_calories">Burn %d calories in one day.</string>
     <string name="rank_goal_set_different">%s a set of %s.</string>
@@ -71,6 +82,10 @@
 
     <string name="fail">Fail</string>
     <string name="clear">Clear</string>
+    <string name="clear_a">A</string>
+    <string name="clear_a_plus">A+</string>
+    <string name="clear_aa">AA</string>
+    <string name="clear_aa_plus">AA+</string>
     <string name="clear_aaa">AAA</string>
     <string name="clear_life4">LIFE4 clear</string>
     <string name="clear_fc">Full Combo</string>

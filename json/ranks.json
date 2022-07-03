@@ -614,31 +614,31 @@
 					"rank": "copper1",
 					"play_style": "single",
 					"requirements": 4,
-					"goal_ids": [ 1001, 2001, 6003, 6001, 6006, 3001, 6010, 6012 ]
+					"goal_ids": [ 1001, 6003, 6001, 3001, 6012 ]
 				},
 				{
 					"rank": "copper2",
 					"play_style": "single",
 					"requirements": 4,
-					"goal_ids": [ 1002, 2002, 6007, 6002, 6011, 3002, 6017, 6019 ]
+					"goal_ids": [ 1002, 6007, 6002, 3002, 6019 ]
 				},
 				{
 					"rank": "copper3",
 					"play_style": "single",
 					"requirements": 4,
-					"goal_ids": [ 1003, 2003, 6013, 6005, 6018, 3003, 6023, 6025 ]
+					"goal_ids": [ 1003, 6013, 6005, 3003, 6025 ]
 				},
 				{
 					"rank": "copper4",
 					"play_style": "single",
 					"requirements": 4,
-					"goal_ids": [ 1004, 2004, 6020, 6009, 6024, 3004, 6032, 6501 ]
+					"goal_ids": [ 1004, 6020, 6009, 3004, 6501 ]
 				},
 				{
 					"rank": "copper5",
 					"play_style": "single",
 					"requirements": 4,
-					"goal_ids": [ 1005, 2005, 6026, 6015, 6033, 3005, 6512, 6515 ]
+					"goal_ids": [ 1005, 6026, 6015, 3005, 6515 ]
 				},
 
 
@@ -646,31 +646,31 @@
 					"rank": "bronze1",
 					"play_style": "single",
 					"requirements": 4,
-					"goal_ids": [ 1006, 3016, 6027, 6022, 6513, 3006, 6522, 7001 ]
+					"goal_ids": [ 1006, 3016, 6027, 6022, 3006, 7001 ]
 				},
 				{
 					"rank": "bronze2",
 					"play_style": "single",
 					"requirements": 4,
-					"goal_ids": [ 1007, 3017, 6028, 6029, 6514, 3007, 6523, 7011 ]
+					"goal_ids": [ 1007, 3017, 6028, 6029, 3007 ]
 				},
 				{
 					"rank": "bronze3",
 					"play_style": "single",
 					"requirements": 5,
-					"goal_ids": [ 1008, 3018, 2007, 6502, 6031, 6523, 3008, 7011, 7013 ]
+					"goal_ids": [ 1008, 3018, 6502, 6031, 3008, 7013 ]
 				},
 				{
 					"rank": "bronze4",
 					"play_style": "single",
 					"requirements": 4,
-					"goal_ids": [ 1009, 3019, 6503, 6508, 6524, 3009, 7012, 7025 ]
+					"goal_ids": [ 1009, 3019, 6503, 6508, 3009 ]
 				},
 				{
 					"rank": "bronze5",
 					"play_style": "single",
 					"requirements": 6,
-					"goal_ids": [ 1010, 2501, 2006, 6504, 6510, 7012, 3009, 7025, 7501 ]
+					"goal_ids": [ 1010, 6504, 6510, 3009, 7501 ]
 				},
 
 
@@ -678,31 +678,31 @@
 					"rank": "silver1",
 					"play_style": "single",
 					"requirements": 5,
-					"goal_ids": [ 6004, 2008, 6505, 6516, 6520, 7029, 3010, 7513, 8001 ]
+					"goal_ids": [ 6004, 6505, 6516, 6520, 3010, 8001 ]
 				},
 				{
 					"rank": "silver2",
 					"play_style": "single",
 					"requirements": 5,
-					"goal_ids": [ 6008, 2009, 6506, 6517, 7002, 7007, 7031, 7517, 8017 ]
+					"goal_ids": [ 6008, 6506, 6517, 7002, 7007 ]
 				},
 				{
 					"rank": "silver3",
 					"play_style": "single",
 					"requirements": 6,
-					"goal_ids": [ 6014, 2010, 6518, 7003, 7014, 7009, 7521, 3011, 8017, 8501 ]
+					"goal_ids": [ 6014, 6518, 7003, 7014, 7009, 3011, 8501 ]
 				},
 				{
 					"rank": "silver4",
 					"play_style": "single",
 					"requirements": 5,
-					"goal_ids": [ 6021, 6507, 6525, 7004, 7015, 7503, 7019, 8020, 8519 ]
+					"goal_ids": [ 6021, 6507, 7004, 7015, 7503, 7019 ]
 				},
 				{
 					"rank": "silver5",
 					"play_style": "single",
 					"requirements": 7,
-					"goal_ids": [ 6030, 6016, 7005, 7016, 8002, 7022, 8020, 3012, 8519, 9001, 4001 ]
+					"goal_ids": [ 6030, 6016, 7005, 7016, 8002, 7022, 3012, 9001, 4001 ]
 				},
 
 

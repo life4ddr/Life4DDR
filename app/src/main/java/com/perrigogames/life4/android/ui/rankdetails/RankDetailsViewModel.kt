@@ -7,10 +7,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.perrigogames.life4.android.R
 import com.perrigogames.life4.android.nameRes
+import com.perrigogames.life4.android.titleString
 import com.perrigogames.life4.android.view.LadderGoalItemView
 import com.perrigogames.life4.data.BaseRankGoal
 import com.perrigogames.life4.data.RankEntry
-import com.perrigogames.life4.data.SongsClearGoal
+import com.perrigogames.life4.data.userType
 import com.perrigogames.life4.db.GoalState
 import com.perrigogames.life4.enums.GoalStatus
 import com.perrigogames.life4.enums.GoalStatus.*
@@ -62,24 +63,18 @@ class RankDetailsViewModel(
         }
 
     private val activeGoalCategories: List<Any>
-        get() = activeGoals.groupBy { goal ->
-            if (goal is SongsClearGoal) {
-                goal.diffNum
-            } else {
-                null
-            }
-        }.flatMap { pair ->
-            val headerString = pair.key?.let { diffNum ->
-                resources.getString(R.string.level_header, diffNum)
-            } ?: resources.getString(R.string.other_goals)
-            listOf<Any>(headerString) + pair.value
-        }
+        get() = rankEntry?.rank?.let { rank ->
+            activeGoals.groupBy { it.userType(rank) }
+                .flatMap { (userType, goals) ->
+                    listOf<Any>(userType.titleString(resources)) + goals
+                }
+        } ?: emptyList()
 
     private val expandedItems = mutableListOf<BaseRankGoal>()
     private val completeItemCount get() = ladderManager.getGoalStateList(allGoals).count { it.status == COMPLETE }
     private val hiddenItemCount get() = ladderManager.getGoalStateList(allGoals).count { it.status == IGNORED }
     private var canIgnoreGoals: Boolean = true
-    private val usesDiffNumberSections: Boolean = targetEntry?.let { it.rank >= LadderRank.PLATINUM1 } ?: false
+    private val usesDiffNumberSections: Boolean = targetEntry != null
 
     private val goalItemListener: LadderGoalItemView.LadderGoalItemListener = object: LadderGoalItemView.LadderGoalItemListener {
 
