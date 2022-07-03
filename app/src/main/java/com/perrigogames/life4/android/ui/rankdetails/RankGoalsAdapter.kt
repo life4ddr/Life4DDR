@@ -92,13 +92,7 @@ class RankGoalsAdapter(
             val mandatory = dataSource.isGoalMandatory(goal)
             view.expanded = dataSource.isGoalExpanded(goal)
             view.canIgnore = dataSource.canIgnoreGoals() && !mandatory
-            view.setGoal(
-                goal = goal,
-                goalDB = dataSource.getGoalStatus(goal),
-                goalProgress = dataSource.getGoalProgress(goal),
-                rank = rank.rank,
-                mandatory = mandatory,
-            )
+            view.setGoal(goal, dataSource.getGoalStatus(goal), dataSource.getGoalProgress(goal), mandatory)
         }
     }
 
