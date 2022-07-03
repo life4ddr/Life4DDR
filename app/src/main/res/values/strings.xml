@@ -57,6 +57,7 @@
     <string name="rank_goal_category_pfcs">PFCs</string>
     <string name="rank_goal_category_combo">Combo</string>
     <string name="rank_goal_category_life4">LIFE4</string>
+    <string name="rank_goal_category_single_score">Single Score</string>
     <string name="rank_goal_category_single_clear">Single Clear</string>
     <string name="rank_goal_category_set_clear">Set Clear</string>
     <!-- endregion -->

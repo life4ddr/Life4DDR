@@ -24,6 +24,7 @@ import com.perrigogames.life4.data.LadderGoalProgress
 import com.perrigogames.life4.db.GoalState
 import com.perrigogames.life4.enums.ClearType
 import com.perrigogames.life4.enums.GoalStatus.*
+import com.perrigogames.life4.isDebug
 import com.perrigogames.life4.longNumberString
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -107,7 +108,13 @@ class LadderGoalItemView @JvmOverloads constructor(
             oldColors = binding.textGoalSubtitle.textColors
         }
 
-        binding.textGoalTitle.text = goal?.goalString(platformStrings) ?: ""
+        binding.textGoalTitle.text = goal?.let { goal ->
+            if (isDebug) {
+                "(${goal.id}) ${goal.goalString(platformStrings)}"
+            } else {
+                goal.goalString(platformStrings)
+            }
+        } ?: ""
         binding.buttonStatusIcon.isChecked = currentState == COMPLETE
 
         updateExpand()

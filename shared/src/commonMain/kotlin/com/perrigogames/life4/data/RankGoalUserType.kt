@@ -17,14 +17,10 @@ enum class RankGoalUserType {
     LEVEL_18,
     LEVEL_19,
     PFC,
-    AAA,
-    AA_PLUS,
-    AA,
-    A_PLUS,
-    A, //
     COMBO,
     LIFE4,
-    MFC, //
+    MFC,
+    SINGLE_SCORE,
     SINGLE_CLEAR,
     SET_CLEAR,
     CALORIES,
@@ -41,7 +37,11 @@ fun BaseRankGoal.userType(rank: LadderRank): RankGoalUserType {
         is SongsClearGoal -> {
             if (rank.group <= LadderRankClass.SILVER) {
                 if (songCount != null && songCount == 1) {
-                    return RankGoalUserType.SINGLE_CLEAR
+                    return if (score != null) {
+                        RankGoalUserType.SINGLE_SCORE
+                    } else {
+                        RankGoalUserType.SINGLE_CLEAR
+                    }
                 }
             }
             if (rank.group >= LadderRankClass.PLATINUM) {
@@ -70,14 +70,5 @@ private fun Int.toLevelUserType() = when (this) {
     17 -> RankGoalUserType.LEVEL_17
     18 -> RankGoalUserType.LEVEL_18
     19 -> RankGoalUserType.LEVEL_19
-    else -> null
-}
-
-private fun Int.toScoreUserType() = when (this) {
-    990_000 -> RankGoalUserType.AAA
-    950_000 -> RankGoalUserType.AA_PLUS
-    900_000 -> RankGoalUserType.AA
-    850_000 -> RankGoalUserType.A_PLUS
-    800_000 -> RankGoalUserType.A
     else -> null
 }

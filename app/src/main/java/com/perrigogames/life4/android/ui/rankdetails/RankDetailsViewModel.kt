@@ -65,6 +65,7 @@ class RankDetailsViewModel(
     private val activeGoalCategories: List<Any>
         get() = rankEntry?.rank?.let { rank ->
             activeGoals.groupBy { it.userType(rank) }
+                .toSortedMap()
                 .flatMap { (userType, goals) ->
                     listOf<Any>(userType.titleString(resources)) + goals
                 }
