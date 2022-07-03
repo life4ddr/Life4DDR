@@ -3,12 +3,8 @@ package com.perrigogames.life4.android
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import com.perrigogames.life4.enums.LadderRank
-import com.perrigogames.life4.enums.LadderRankClass
 import com.perrigogames.life4.data.PlacementRank
-import com.perrigogames.life4.enums.TrialRank
-import com.perrigogames.life4.enums.ClearType
-import com.perrigogames.life4.enums.DifficultyClass
+import com.perrigogames.life4.enums.*
 
 val LadderRank.nameRes @StringRes get() = when(this) {
     LadderRank.COPPER1 -> R.string.copper_1
@@ -46,6 +42,11 @@ val LadderRank.nameRes @StringRes get() = when(this) {
     LadderRank.COBALT3 -> R.string.cobalt_3
     LadderRank.COBALT4 -> R.string.cobalt_4
     LadderRank.COBALT5 -> R.string.cobalt_5
+    LadderRank.PEARL1 -> R.string.pearl_1
+    LadderRank.PEARL2 -> R.string.pearl_2
+    LadderRank.PEARL3 -> R.string.pearl_3
+    LadderRank.PEARL4 -> R.string.pearl_4
+    LadderRank.PEARL5 -> R.string.pearl_5
     LadderRank.AMETHYST1 -> R.string.amethyst_1
     LadderRank.AMETHYST2 -> R.string.amethyst_2
     LadderRank.AMETHYST3 -> R.string.amethyst_3
@@ -71,6 +72,7 @@ val LadderRank.categoryNameRes @StringRes get() = when(this) {
     LadderRank.PLATINUM1,
     LadderRank.DIAMOND1,
     LadderRank.COBALT1,
+    LadderRank.PEARL1,
     LadderRank.AMETHYST1,
     LadderRank.EMERALD1,
     LadderRank.ONYX1 -> R.string.roman_1
@@ -81,6 +83,7 @@ val LadderRank.categoryNameRes @StringRes get() = when(this) {
     LadderRank.PLATINUM2,
     LadderRank.DIAMOND2,
     LadderRank.COBALT2,
+    LadderRank.PEARL2,
     LadderRank.AMETHYST2,
     LadderRank.EMERALD2,
     LadderRank.ONYX2 -> R.string.roman_2
@@ -91,6 +94,7 @@ val LadderRank.categoryNameRes @StringRes get() = when(this) {
     LadderRank.PLATINUM3,
     LadderRank.DIAMOND3,
     LadderRank.COBALT3,
+    LadderRank.PEARL3,
     LadderRank.AMETHYST3,
     LadderRank.EMERALD3,
     LadderRank.ONYX3 -> R.string.roman_3
@@ -101,6 +105,7 @@ val LadderRank.categoryNameRes @StringRes get() = when(this) {
     LadderRank.PLATINUM4,
     LadderRank.DIAMOND4,
     LadderRank.COBALT4,
+    LadderRank.PEARL4,
     LadderRank.AMETHYST4,
     LadderRank.EMERALD4,
     LadderRank.ONYX4 -> R.string.roman_4
@@ -111,6 +116,7 @@ val LadderRank.categoryNameRes @StringRes get() = when(this) {
     LadderRank.PLATINUM5,
     LadderRank.DIAMOND5,
     LadderRank.COBALT5,
+    LadderRank.PEARL5,
     LadderRank.AMETHYST5,
     LadderRank.EMERALD5,
     LadderRank.ONYX5 -> R.string.roman_5
@@ -152,6 +158,11 @@ val LadderRank.drawableRes @DrawableRes get() = when(this) {
     LadderRank.COBALT3 -> R.drawable.cobalt_3
     LadderRank.COBALT4 -> R.drawable.cobalt_4
     LadderRank.COBALT5 -> R.drawable.cobalt_5
+    LadderRank.PEARL1 -> R.drawable.cobalt_1 //FIXME
+    LadderRank.PEARL2 -> R.drawable.cobalt_2 //FIXME
+    LadderRank.PEARL3 -> R.drawable.cobalt_3 //FIXME
+    LadderRank.PEARL4 -> R.drawable.cobalt_4 //FIXME
+    LadderRank.PEARL5 -> R.drawable.cobalt_5 //FIXME
     LadderRank.AMETHYST1 -> R.drawable.amethyst_1
     LadderRank.AMETHYST2 -> R.drawable.amethyst_2
     LadderRank.AMETHYST3 -> R.drawable.amethyst_3
@@ -180,6 +191,7 @@ val LadderRankClass.nameRes @StringRes get() = when(this) {
     LadderRankClass.PLATINUM -> R.string.platinum
     LadderRankClass.DIAMOND -> R.string.diamond
     LadderRankClass.COBALT -> R.string.cobalt
+    LadderRankClass.PEARL -> R.string.pearl
     LadderRankClass.AMETHYST -> R.string.amethyst
     LadderRankClass.EMERALD -> R.string.emerald
     LadderRankClass.ONYX -> R.string.onyx
@@ -193,6 +205,7 @@ val LadderRankClass.colorRes @ColorRes get() = when(this) {
     LadderRankClass.PLATINUM -> R.color.platinum
     LadderRankClass.DIAMOND -> R.color.diamond
     LadderRankClass.COBALT -> R.color.cobalt
+    LadderRankClass.PEARL -> R.color.cobalt //FIXME
     LadderRankClass.AMETHYST -> R.color.amethyst
     LadderRankClass.EMERALD -> R.color.emerald
     LadderRankClass.ONYX -> R.color.onyx
@@ -206,6 +219,7 @@ val TrialRank.nameRes @StringRes get() = when(this) {
     TrialRank.PLATINUM -> R.string.platinum
     TrialRank.DIAMOND -> R.string.diamond
     TrialRank.COBALT -> R.string.cobalt
+    TrialRank.PEARL -> R.string.pearl
     TrialRank.AMETHYST -> R.string.amethyst
     TrialRank.EMERALD -> R.string.emerald
     TrialRank.ONYX -> R.string.onyx
@@ -219,6 +233,7 @@ val TrialRank.drawableRes @DrawableRes get() = when(this) {
     TrialRank.PLATINUM -> R.drawable.platinum_3
     TrialRank.DIAMOND -> R.drawable.diamond_3
     TrialRank.COBALT -> R.drawable.cobalt_3
+    TrialRank.PEARL -> R.drawable.cobalt_3 //FIXME
     TrialRank.AMETHYST -> R.drawable.amethyst_3
     TrialRank.EMERALD -> R.drawable.emerald_3
     TrialRank.ONYX -> R.drawable.onyx_3

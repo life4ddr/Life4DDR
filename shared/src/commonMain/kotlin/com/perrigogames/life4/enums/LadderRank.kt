@@ -55,6 +55,11 @@ enum class LadderRank(
     COBALT3(72, COBALT),
     COBALT4(73, COBALT),
     COBALT5(74, COBALT),
+    PEARL1(75, PEARL),
+    PEARL2(76, PEARL),
+    PEARL3(77, PEARL),
+    PEARL4(78, PEARL),
+    PEARL5(79, PEARL),
     AMETHYST1(80, AMETHYST),
     AMETHYST2(81, AMETHYST),
     AMETHYST3(82, AMETHYST),
@@ -92,7 +97,7 @@ enum class LadderRank(
  * Enum describing the groups that Ranks are put into.
  */
 enum class LadderRankClass {
-    COPPER, BRONZE, SILVER, GOLD, PLATINUM, DIAMOND, COBALT, AMETHYST, EMERALD, ONYX
+    COPPER, BRONZE, SILVER, GOLD, PLATINUM, DIAMOND, COBALT, PEARL, AMETHYST, EMERALD, ONYX
 }
 
 @ExperimentalSerializationApi

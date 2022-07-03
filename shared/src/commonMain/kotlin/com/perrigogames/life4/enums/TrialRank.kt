@@ -18,16 +18,17 @@ import kotlinx.serialization.encoding.Encoder
 @Serializable
 @ExperimentalSerializationApi
 enum class TrialRank(override val stableId: Long, val parent: LadderRank): StableId {
-    COPPER(10, COPPER3),
-    BRONZE(15, BRONZE3),
-    SILVER(20, SILVER3),
-    GOLD(25, GOLD3),
-    PLATINUM(27, PLATINUM3),
-    DIAMOND(30, DIAMOND3),
-    COBALT(35, COBALT3),
-    AMETHYST(40, AMETHYST3),
-    EMERALD(45, EMERALD3),
-    ONYX(50, ONYX3),
+    COPPER(10, COPPER5),
+    BRONZE(15, BRONZE5),
+    SILVER(20, SILVER5),
+    GOLD(25, GOLD5),
+    PLATINUM(27, PLATINUM5),
+    DIAMOND(30, DIAMOND5),
+    COBALT(35, COBALT5),
+    PEARL(38, PEARL5),
+    AMETHYST(40, AMETHYST5),
+    EMERALD(45, EMERALD5),
+    ONYX(50, ONYX5),
     ;
 
     /**
@@ -53,6 +54,7 @@ enum class TrialRank(override val stableId: Long, val parent: LadderRank): Stabl
             LadderRankClass.PLATINUM -> if (parsePlatinum) PLATINUM else GOLD
             LadderRankClass.DIAMOND -> DIAMOND
             LadderRankClass.COBALT -> COBALT
+            LadderRankClass.PEARL -> PEARL
             LadderRankClass.AMETHYST -> AMETHYST
             LadderRankClass.EMERALD -> ONYX
             LadderRankClass.ONYX -> ONYX

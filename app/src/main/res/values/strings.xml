@@ -298,6 +298,12 @@
     <string name="cobalt_3">COBALT III</string>
     <string name="cobalt_4">COBALT IV</string>
     <string name="cobalt_5">COBALT V</string>
+    <string name="pearl">PEARL</string>
+    <string name="pearl_1">PEARL I</string>
+    <string name="pearl_2">PEARL II</string>
+    <string name="pearl_3">PEARL III</string>
+    <string name="pearl_4">PEARL IV</string>
+    <string name="pearl_5">PEARL V</string>
     <string name="amethyst">AMETHYST</string>
     <string name="amethyst_1">AMETHYST I</string>
     <string name="amethyst_2">AMETHYST II</string>
