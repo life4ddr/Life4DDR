@@ -124,9 +124,13 @@ class LadderGoalItemView @JvmOverloads constructor(
     private fun updateProgress() {
         goalProgress?.let {
             binding.textGoalSubtitle.text = if (!it.showMax) {
-                it.progress.longNumberString()
+                it.progress.toInt().longNumberString()
             } else {
-                context.getString(R.string.goal_progress_format, it.progress, it.max)
+                context.getString(
+                    R.string.goal_progress_format,
+                    it.progress.tightFormat(),
+                    it.max.tightFormat()
+                )
             }
             if (it.progress >= it.max) {
                 binding.textGoalSubtitle.setTextColor(ContextCompat.getColor(context, R.color.gold))
@@ -134,8 +138,9 @@ class LadderGoalItemView @JvmOverloads constructor(
                 binding.textGoalSubtitle.setTextColor(oldColors)
             }
             binding.progressAmount.apply {
-                progress = it.progress
-                max = it.max
+                val percentInt = ((it.progress * 100) / it.max).toInt()
+                progress = percentInt
+                max = 100
             }
             it.results?.forEach { (chart, result) ->
                 val formattedTitle = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -164,7 +169,7 @@ class LadderGoalItemView @JvmOverloads constructor(
                 binding.tableExpandDetails.addView(rowBinding.root)
             }
         }
-        binding.textGoalSubtitle.visibilityBool = goalProgress?.let { it.progress != 0 && it.max != 0 } ?: false
+        binding.textGoalSubtitle.visibilityBool = goalProgress?.let { it.progress != 0.0 && it.max != 0.0 } ?: false
 
         binding.progressAmount.visibilityBool = goalProgress != null
     }
@@ -183,6 +188,14 @@ class LadderGoalItemView @JvmOverloads constructor(
             goalDB?.let { db -> block(g, db) }
         }
         return true
+    }
+
+    private fun Double.tightFormat(): String {
+        return if (this / this.toInt() != 1.0) {
+            "%.2f".format(this)
+        } else {
+            this.toInt().toString()
+        }
     }
 
     interface LadderGoalItemListener {

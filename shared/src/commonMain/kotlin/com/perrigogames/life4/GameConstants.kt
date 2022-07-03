@@ -2,18 +2,18 @@ package com.perrigogames.life4
 
 object GameConstants {
 
-    fun mfcPointsForDifficulty(difficulty: Int) = when(difficulty) {
-        1 -> 0.1f
-        2, 3 -> 0.25f
-        4, 5, 6 -> 0.5f
-        7, 8, 9 -> 1
-        10 -> 1.5f
-        11 -> 2
-        12 -> 4
-        13 -> 6
-        14 -> 8
-        15 -> 15
-        16, 17, 18, 19, 20 -> 25
-        else -> 0
+    fun mfcPointsForDifficulty(difficulty: Int): Double = when(difficulty) {
+        1 -> 0.1
+        2, 3 -> 0.25
+        4, 5, 6 -> 0.5
+        7, 8, 9 -> 1.0
+        10 -> 1.5
+        11 -> 2.0
+        12 -> 4.0
+        13 -> 6.0
+        14 -> 8.0
+        15 -> 15.0
+        16, 17, 18, 19, 20 -> 25.0
+        else -> 0.0
     }
 }

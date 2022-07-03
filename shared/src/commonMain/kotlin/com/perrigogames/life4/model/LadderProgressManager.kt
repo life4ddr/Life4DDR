@@ -89,10 +89,12 @@ class LadderProgressManager: BaseModel() {
             LadderGoalProgress(trials.size, goal.count) // return
         }
         is MFCPointsGoal -> {
-            val pairs = songDataManager.matchWithDetailedCharts(ladderResults.selectMFCs())
-            LadderGoalProgress(pairs.sumOf {
-                GameConstants.mfcPointsForDifficulty(it.chart.difficultyNumber.toInt())
-            }, goal.points)
+            val points = songDataManager
+                .matchWithDetailedCharts(ladderResults.selectMFCs())
+                .sumOf {
+                    GameConstants.mfcPointsForDifficulty(it.chart.difficultyNumber.toInt())
+                }
+            LadderGoalProgress(points, goal.points.toDouble())
         }
         else -> null
     }

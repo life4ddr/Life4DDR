@@ -133,7 +133,7 @@
     <string name="confirm_refresh_song_db">Are you sure you want to refresh the local song database?\n\nYou will need to reimport your Score Manager data.</string>
 
     <!-- Format Strings -->
-    <string name="goal_progress_format">"%d / %d"</string>
+    <string name="goal_progress_format">"%s / %s"</string>
     <string name="goal_remaining_format">"%d / %d left"</string>
     <string name="ex_score_fraction_format">"%d/%d EX"</string>
     <string name="difficulty_string_format">"%s (%d)"</string>

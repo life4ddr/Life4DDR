@@ -9,11 +9,18 @@ import com.perrigogames.life4.enums.ClearType
  * a particular goal
  */
 class LadderGoalProgress(
-    val progress: Int,
-    val max: Int,
+    val progress: Double,
+    val max: Double,
     val showMax: Boolean = true,
-    val results: List<ChartResultPair>? = null
+    val results: List<ChartResultPair>? = null,
 ) {
+
+    constructor(
+        progress: Int,
+        max: Int,
+        showMax: Boolean = true,
+        results: List<ChartResultPair>? = null,
+    ) : this(progress.toDouble(), max.toDouble(), showMax, results)
 
     fun isComplete() = progress == max && max > 0
 }
