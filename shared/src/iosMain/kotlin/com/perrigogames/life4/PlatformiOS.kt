@@ -12,9 +12,7 @@ internal actual fun printThrowable(t: Throwable) {
 }
 
 //FIXME
-internal actual fun log(key: String, message: String) = Unit
 internal actual fun logE(key: String, message: String) = Unit
-internal actual fun logMessage(m: String) = Unit
 internal actual fun logException(t: Throwable) = Unit
 internal actual fun setCrashInt(key: String, v: Int) = Unit
 internal actual fun setCrashString(key: String, v: String) = Unit

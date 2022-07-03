@@ -1,15 +1,18 @@
 package com.perrigogames.life4.db
 
+import co.touchlab.kermit.Logger
 import com.perrigogames.life4.enums.DifficultyClass
 import com.perrigogames.life4.enums.GameVersion
 import com.perrigogames.life4.enums.PlayStyle
-import com.perrigogames.life4.log
+import com.perrigogames.life4.injectLogger
 import com.squareup.sqldelight.db.SqlDriver
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import org.koin.core.component.KoinComponent
 
-class SongDatabaseHelper(sqlDriver: SqlDriver): DatabaseHelper(sqlDriver) {
+class SongDatabaseHelper(sqlDriver: SqlDriver): DatabaseHelper(sqlDriver), KoinComponent {
 
+    private val logger: Logger by injectLogger("SongDatabase")
     private val queries = dbRef.songDataQueries
 
     suspend fun insertSong(
@@ -44,7 +47,7 @@ class SongDatabaseHelper(sqlDriver: SqlDriver): DatabaseHelper(sqlDriver) {
                 queries.insertChart(chart.songSkillId, chart.difficultyClass, chart.difficultyNumber, chart.playStyle)
             }
         }
-        log("SongImport", "Import committed")
+        logger.i("Import committed")
     }
 
     fun selectSongBySkillID(title: String) = queries.selectSongBySkillId(title).executeAsOneOrNull()
