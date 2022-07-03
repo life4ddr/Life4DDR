@@ -31,9 +31,9 @@ class LadderImporter(
 
     private val saLogger: Logger by injectLogger("SAImport")
     private val legacyLogger: Logger by injectLogger("Import")
-    private val ignoreListManager: IgnoreListManager by inject()
     private val songDataManager: SongDataManager by inject()
     private val resultDbHelper: ResultDatabaseHelper by inject()
+    private val ladderProgressManager: LadderProgressManager by inject()
     private val ladderDialogs: LadderDialogs by inject()
     private val eventBus: EventBusNotifier by inject()
 
@@ -61,6 +61,7 @@ class LadderImporter(
                     eventBus.post(SongResultsUpdatedEvent())
                 }
                 importJob = null
+                ladderProgressManager.refreshCachedResults()
                 listener?.onCompleted()
             }
         }

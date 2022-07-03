@@ -31,7 +31,7 @@ class LadderManager: BaseModel() {
     private val settings: Settings by inject()
     private val eventBus: EventBusNotifier by inject()
     private val goalDBHelper: GoalDatabaseHelper by inject()
-    private val resultDbHelper: ResultDatabaseHelper by inject()
+    private val ladderProgressManager: LadderProgressManager by inject()
     private val ladderDialogs: LadderDialogs by inject()
     private val dataReader: LocalDataReader by inject(named(RANKS_FILE_NAME))
 
@@ -111,21 +111,21 @@ class LadderManager: BaseModel() {
             mainScope.launch {
                 goalDBHelper.deleteAll()
             }
-            resultDbHelper.deleteAll()
+            ladderProgressManager.clearAllResults()
             eventBus.post(LadderRankUpdatedEvent())
         }
     }
 
     fun clearSongResults() {
         ladderDialogs.onClearSongResults {
-            resultDbHelper.deleteAll()
+            ladderProgressManager.clearAllResults()
             eventBus.post(SongResultsUpdatedEvent())
         }
     }
 
     fun refreshSongDatabase() {
         ladderDialogs.onRefreshSongDatabase {
-            resultDbHelper.deleteAll()
+            ladderProgressManager.clearAllResults()
             songDataManager.initializeSongDatabase()
             eventBus.post(SongResultsUpdatedEvent())
         }

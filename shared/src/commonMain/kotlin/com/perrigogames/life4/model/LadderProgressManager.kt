@@ -4,10 +4,7 @@ import co.touchlab.kermit.Logger
 import com.perrigogames.life4.GameConstants
 import com.perrigogames.life4.data.*
 import com.perrigogames.life4.data.SongsClearGoal.FolderType
-import com.perrigogames.life4.db.ChartResultPair
-import com.perrigogames.life4.db.ResultDatabaseHelper
-import com.perrigogames.life4.db.matches
-import com.perrigogames.life4.db.toResult
+import com.perrigogames.life4.db.*
 import com.perrigogames.life4.injectLogger
 import kotlinx.serialization.ExperimentalSerializationApi
 import org.koin.core.component.inject
@@ -20,7 +17,12 @@ class LadderProgressManager: BaseModel() {
     private val songDataManager: SongDataManager by inject()
     private val resultDbHelper: ResultDatabaseHelper by inject()
     private val trialManager: TrialManager by inject()
-    private val ladderResults: ResultDatabaseHelper by inject()
+
+    private lateinit var resultsList: List<ChartResult>
+
+    init {
+        refreshCachedResults()
+    }
 
     fun getGoalProgress(goal: BaseRankGoal): LadderGoalProgress? = when (goal) {
         is SongsClearGoal -> {
@@ -51,9 +53,9 @@ class LadderProgressManager: BaseModel() {
 
             val ignores = ignoreListManager.getCurrentlyLockedSongs()
 
-            val results = resultDbHelper.selectCharts(
-                charts.map { it.skillId }
-            ).toMutableList()
+            val chartIds = charts.map { it.skillId }
+            val results = resultsList.filter { chartIds.contains(it.skillId) }
+                .toMutableList()
 
             val satisfied = mutableListOf<ChartResultPair>()
             val unsatisfied = mutableListOf<ChartResultPair>()
@@ -94,12 +96,21 @@ class LadderProgressManager: BaseModel() {
         }
         is MFCPointsGoal -> {
             val points = songDataManager
-                .matchWithDetailedCharts(ladderResults.selectMFCs())
+                .matchWithDetailedCharts(resultDbHelper.selectMFCs())
                 .sumOf {
                     GameConstants.mfcPointsForDifficulty(it.chart.difficultyNumber.toInt())
                 }
             LadderGoalProgress(points, goal.points.toDouble())
         }
         else -> null
+    }
+
+    fun refreshCachedResults() {
+        resultsList = resultDbHelper.selectAll()
+    }
+
+    fun clearAllResults() {
+        resultDbHelper.deleteAll()
+        resultsList = emptyList()
     }
 }
