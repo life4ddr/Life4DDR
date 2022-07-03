@@ -114,10 +114,6 @@ class SongDataManager: BaseModel() {
                         }
 
                         logger.d("Importing $title / $artist (${data.joinToString()})")
-                        if (songs.last().skillId == "P1boP1O60bdI16i6lqqd1Q8ioiPbolqd") {
-                            logger.d(songs.last().skillId)
-                            logger.d(songs.last().title)
-                        }
                     }
                     dbHelper.insertSongsAndCharts(songs, charts)
 

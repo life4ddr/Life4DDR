@@ -9,7 +9,6 @@ import com.perrigogames.life4.data.IgnoreGroup
 import com.perrigogames.life4.data.IgnoreList
 import com.perrigogames.life4.data.IgnoredSong
 import com.perrigogames.life4.db.DetailedChartInfo
-import com.perrigogames.life4.db.aggregateDiffStyleString
 import com.perrigogames.life4.injectLogger
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.IGNORES_FILE_NAME
 import com.russhwolf.settings.Settings
@@ -98,23 +97,11 @@ class IgnoreListManager: BaseModel() {
     private fun List<IgnoredSong>.resolveCharts(): Set<DetailedChartInfo> {
         val tempCharts = songDataManager.detailedCharts.toMutableList()
         return this.flatMap { ignore ->
-            if (ignore.difficultyClass == null) {
-                tempCharts.filter { chart ->
-                    chart.skillId == ignore.skillId
-                }
-            } else {
-                try {
-                    listOf(tempCharts.first { chart ->
-                        chart.skillId == ignore.skillId && chart.difficultyClass == ignore.difficultyClass
-                    })
-                } catch (e: NoSuchElementException) {
-                    logger.e("Failed ignore ${ignore.skillId}/${ignore.difficultyClass}")
-                    tempCharts.groupBy { it.skillId }
-                        .forEach { (skillId, charts) ->
-                            logger.e("$skillId: ${charts[0].title} (${charts.joinToString("/") { it.aggregateDiffStyleString }})")
-                        }
-                    throw e
-                }
+            tempCharts.filter { chart ->
+                chart.skillId == ignore.skillId &&
+                        ignore.difficultyClass?.let {
+                            it == chart.difficultyClass
+                        } == true
             }.also { tempCharts.removeAll(it) }
         }.toSet()
     }
