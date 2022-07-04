@@ -37,10 +37,10 @@ fun BaseRankGoal.userType(rank: LadderRank): RankGoalUserType {
         is SongsClearGoal -> {
             if (rank.group <= LadderRankClass.SILVER) {
                 if (songCount != null && songCount == 1) {
-                    return if (score != null) {
-                        RankGoalUserType.SINGLE_SCORE
-                    } else {
-                        RankGoalUserType.SINGLE_CLEAR
+                    return when {
+                        score != null -> RankGoalUserType.SINGLE_SCORE
+                        clearType == ClearType.PERFECT_FULL_COMBO -> RankGoalUserType.PFC
+                        else -> RankGoalUserType.SINGLE_CLEAR
                     }
                 }
             }

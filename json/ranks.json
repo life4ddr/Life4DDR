@@ -154,26 +154,26 @@
 		{ "id": 6009, "t": "songs", "d": 6, "song_count": 3, "clear_type": "life4" },
 		{ "id": 6010, "t": "songs", "d": 6, "song_count": 5 },
 		{ "id": 6011, "t": "songs", "d": 6, "song_count": 10 },
-		{ "id": 6012, "t": "songs", "d": 7, "song_count": 1 },
+		{ "id": 6012, "t": "songs", "d": 7, "song_count": 1, "higher_diff": true },
 		{ "id": 6013, "t": "songs", "d": 7, "song_count": 1, "score": 800000, "higher_diff": true },
 		{ "id": 6014, "t": "songs", "d": 7, "song_count": 1, "clear_type": "perfect", "diff_class": "DEC", "higher_diff": true },
 		{ "id": 6015, "t": "songs", "d": 7, "song_count": 3, "clear_type": "life4" },
 		{ "id": 6016, "t": "songs", "d": 7, "song_count": 3, "clear_type": "perfect", "diff_class": "DEC", "higher_diff": true },
 		{ "id": 6017, "t": "songs", "d": 7, "song_count": 5 },
 		{ "id": 6018, "t": "songs", "d": 7, "song_count": 10 },
-		{ "id": 6019, "t": "songs", "d": 8, "song_count": 1 },
+		{ "id": 6019, "t": "songs", "d": 8, "song_count": 1, "higher_diff": true },
 		{ "id": 6020, "t": "songs", "d": 8, "song_count": 1, "score": 800000, "higher_diff": true },
-		{ "id": 6021, "t": "songs", "d": 8, "song_count": 1, "clear_type": "perfect", "diff_class": "EC", "higher_diff": true },
+		{ "id": 6021, "t": "songs", "d": 8, "song_count": 1, "clear_type": "perfect", "higher_diff": true },
 		{ "id": 6022, "t": "songs", "d": 8, "song_count": 3, "clear_type": "life4" },
 		{ "id": 6034, "t": "songs", "d": 8, "song_count": 3, "clear_type": "perfect", "diff_class": "DEC", "higher_diff": true },
 		{ "id": 6023, "t": "songs", "d": 8, "song_count": 5 },
 		{ "id": 6024, "t": "songs", "d": 8, "song_count": 10 },
-		{ "id": 6025, "t": "songs", "d": 9, "song_count": 1 },
+		{ "id": 6025, "t": "songs", "d": 9, "song_count": 1, "higher_diff": true },
 		{ "id": 6026, "t": "songs", "d": 9, "song_count": 1, "score": 800000, "higher_diff": true },
 		{ "id": 6027, "t": "songs", "d": 9, "song_count": 1, "score": 840000, "higher_diff": true },
 		{ "id": 6028, "t": "songs", "d": 9, "song_count": 1, "score": 875000, "higher_diff": true },
 		{ "id": 6029, "t": "songs", "d": 9, "song_count": 1, "clear_type": "life4" },
-		{ "id": 6030, "t": "songs", "d": 9, "song_count": 1, "clear_type": "perfect", "diff_class": "EC", "higher_diff": true },
+		{ "id": 6030, "t": "songs", "d": 9, "song_count": 1, "clear_type": "perfect", "higher_diff": true },
 		{ "id": 6031, "t": "songs", "d": 9, "song_count": 3, "clear_type": "life4" },
 		{ "id": 6035, "t": "songs", "d": 9, "song_count": 3, "clear_type": "perfect", "diff_class": "DEC", "higher_diff": true },
 		{ "id": 6032, "t": "songs", "d": 9, "song_count": 5 },
@@ -275,7 +275,29 @@
 		{ "id": 6123, "t": "songs", "d": 14, "song_count": 1, "clear_type": "good", "higher_diff": true },
 		{ "id": 6124, "t": "songs", "d": 14, "song_count": 1, "clear_type": "great", "higher_diff": true },
 
-		{ "id": 6501, "t": "songs", "d": 10, "song_count": 1 },
+		{ "id": 6125, "t": "songs", "d": 3, "song_count": 1, "score": 990000, "higher_diff": true },
+		{ "id": 6126, "t": "songs", "d": 4, "song_count": 1, "score": 990000, "higher_diff": true },
+		{ "id": 6127, "t": "songs", "d": 5, "song_count": 1, "score": 990000, "higher_diff": true },
+		{ "id": 6128, "t": "songs", "d": 6, "song_count": 1, "score": 990000, "higher_diff": true },
+		{ "id": 6129, "t": "songs", "d": 7, "song_count": 1, "score": 990000, "higher_diff": true },
+		{ "id": 6130, "t": "songs", "d": 8, "song_count": 1, "score": 990000, "higher_diff": true },
+		{ "id": 6131, "t": "songs", "d": 9, "song_count": 1, "score": 990000, "higher_diff": true },
+		{ "id": 6132, "t": "songs", "d": 10, "song_count": 1, "score": 990000, "higher_diff": true },
+		{ "id": 6133, "t": "songs", "d": 11, "song_count": 1, "score": 990000, "higher_diff": true },
+		{ "id": 6134, "t": "songs", "d": 12, "song_count": 1, "score": 990000, "higher_diff": true },
+
+		{ "id": 6135, "t": "songs", "d": 3, "song_count": 1, "clear_type": "perfect", "higher_diff": true },
+		{ "id": 6136, "t": "songs", "d": 4, "song_count": 1, "clear_type": "perfect", "higher_diff": true },
+		{ "id": 6137, "t": "songs", "d": 5, "song_count": 1, "clear_type": "perfect", "higher_diff": true },
+		{ "id": 6138, "t": "songs", "d": 6, "song_count": 1, "clear_type": "perfect", "higher_diff": true },
+		{ "id": 6139, "t": "songs", "d": 7, "song_count": 1, "clear_type": "perfect", "higher_diff": true },
+		{ "id": 6140, "t": "songs", "d": 8, "song_count": 3, "clear_type": "perfect", "higher_diff": true },
+		{ "id": 6141, "t": "songs", "d": 9, "song_count": 3, "clear_type": "perfect", "higher_diff": true },
+		{ "id": 6142, "t": "songs", "d": 10, "song_count": 3, "clear_type": "perfect", "higher_diff": true },
+		{ "id": 6143, "t": "songs", "d": 11, "song_count": 3, "clear_type": "perfect", "higher_diff": true },
+		{ "id": 6144, "t": "songs", "d": 12, "song_count": 3, "clear_type": "perfect", "higher_diff": true },
+
+		{ "id": 6501, "t": "songs", "d": 10, "song_count": 1, "higher_diff": true },
 		{ "id": 6502, "t": "songs", "d": 10, "song_count": 1, "score": 840000, "higher_diff": true },
 		{ "id": 6503, "t": "songs", "d": 10, "song_count": 1, "score": 875000, "higher_diff": true },
 		{ "id": 6504, "t": "songs", "d": 10, "song_count": 1, "score": 900000, "higher_diff": true },
@@ -283,17 +305,17 @@
 		{ "id": 6506, "t": "songs", "d": 10, "song_count": 1, "score": 970000 },
 		{ "id": 6507, "t": "songs", "d": 10, "song_count": 1, "score": 990000 },
 		{ "id": 6508, "t": "songs", "d": 10, "song_count": 1, "clear_type": "life4" },
-		{ "id": 6509, "t": "songs", "d": 10, "song_count": 1, "clear_type": "perfect", "diff_class": "EC", "higher_diff": true },
+		{ "id": 6509, "t": "songs", "d": 10, "song_count": 1, "clear_type": "perfect", "higher_diff": true },
 		{ "id": 6510, "t": "songs", "d": 10, "song_count": 3, "clear_type": "life4" },
 		{ "id": 6511, "t": "songs", "d": 10, "song_count": 3, "clear_type": "perfect", "diff_class": "DEC", "higher_diff": true },
 		{ "id": 6512, "t": "songs", "d": 10, "song_count": 5 },
 		{ "id": 6513, "t": "songs", "d": 10, "song_count": 10 },
 		{ "id": 6514, "t": "songs", "d": 10, "song_count": 20 },
-		{ "id": 6515, "t": "songs", "d": 11, "song_count": 1 },
+		{ "id": 6515, "t": "songs", "d": 11, "song_count": 1, "higher_diff": true },
 		{ "id": 6516, "t": "songs", "d": 11, "song_count": 1, "score": 900000, "higher_diff": true },
 		{ "id": 6517, "t": "songs", "d": 11, "song_count": 1, "score": 940000 },
 		{ "id": 6518, "t": "songs", "d": 11, "song_count": 1, "score": 970000 },
-		{ "id": 6519, "t": "songs", "d": 11, "song_count": 1, "clear_type": "perfect", "diff_class": "EC", "higher_diff": true },
+		{ "id": 6519, "t": "songs", "d": 11, "song_count": 1, "clear_type": "perfect", "higher_diff": true },
 		{ "id": 6525, "t": "songs", "d": 11, "song_count": 3, "score": 980000 },
 		{ "id": 6520, "t": "songs", "d": 11, "song_count": 3, "clear_type": "life4" },
 		{ "id": 6521, "t": "songs", "d": 11, "song_count": 3, "clear_type": "perfect", "diff_class": "DEC", "higher_diff": true },
@@ -301,23 +323,23 @@
 		{ "id": 6523, "t": "songs", "d": 11, "song_count": 10 },
 		{ "id": 6524, "t": "songs", "d": 11, "song_count": 20 },
 		
-		{ "id": 7001, "t": "songs", "d": 12, "song_count": 1 },
+		{ "id": 7001, "t": "songs", "d": 12, "song_count": 1, "higher_diff": true },
 		{ "id": 7002, "t": "songs", "d": 12, "song_count": 1, "score": 900000, "higher_diff": true },
 		{ "id": 7003, "t": "songs", "d": 12, "song_count": 1, "score": 940000 },
 		{ "id": 7004, "t": "songs", "d": 12, "song_count": 1, "score": 970000 },
 		{ "id": 7005, "t": "songs", "d": 12, "song_count": 1, "score": 980000 },
 		{ "id": 7006, "t": "songs", "d": 12, "song_count": 1, "score": 990000 },
 		{ "id": 7007, "t": "songs", "d": 12, "song_count": 1, "clear_type": "life4" },
-		{ "id": 7008, "t": "songs", "d": 12, "song_count": 1, "clear_type": "perfect", "diff_class": "EC", "higher_diff": true },
+		{ "id": 7008, "t": "songs", "d": 12, "song_count": 1, "clear_type": "perfect", "higher_diff": true },
 		{ "id": 7009, "t": "songs", "d": 12, "song_count": 3, "clear_type": "life4" },
 		{ "id": 7010, "t": "songs", "d": 12, "song_count": 3, "clear_type": "perfect", "diff_class": "EC", "higher_diff": true },
 		{ "id": 7011, "t": "songs", "d": 12, "song_count": 5 },
 		{ "id": 7012, "t": "songs", "d": 12, "song_count": 10 },
-		{ "id": 7013, "t": "songs", "d": 13, "song_count": 1 },
+		{ "id": 7013, "t": "songs", "d": 13, "song_count": 1, "higher_diff": true },
 		{ "id": 7014, "t": "songs", "d": 13, "song_count": 1, "score": 900000, "higher_diff": true },
 		{ "id": 7015, "t": "songs", "d": 13, "song_count": 1, "score": 940000 },
 		{ "id": 7016, "t": "songs", "d": 13, "song_count": 1, "score": 960000 },
-		{ "id": 7017, "t": "songs", "d": 13, "song_count": 1, "score": 980000 },
+		{ "id": 7017, "t": "songs", "d": 13, "song_count": 1, "score": 975000 },
 		{ "id": 7018, "t": "songs", "d": 13, "song_count": 1, "score": 985000 },
 		{ "id": 7033, "t": "songs", "d": 13, "song_count": 1, "score": 990000 },
 		{ "id": 7019, "t": "songs", "d": 13, "song_count": 1, "clear_type": "life4" },
@@ -337,13 +359,23 @@
 		{ "id": 7031, "t": "songs", "d": 13, "song_count": 20 },
 		{ "id": 7032, "t": "songs", "d": 13, "song_count": 20, "score": 990000 },
 
-		{ "id": 7501, "t": "songs", "d": 14, "song_count": 1 },
+		{ "id": 7036, "t": "songs", "d": 12, "song_count": 2, "score": 990000 },
+		{ "id": 7037, "t": "songs", "d": 12, "song_count": 5, "score": 990000 },
+		{ "id": 7038, "t": "songs", "d": 12, "song_count": 10, "score": 990000 },
+		{ "id": 7039, "t": "songs", "d": 12, "song_count": 15, "score": 990000 },
+		{ "id": 7040, "t": "songs", "d": 12, "song_count": 20, "score": 990000 },
+		{ "id": 7041, "t": "songs", "d": 13, "song_count": 2, "score": 990000 },
+		{ "id": 7042, "t": "songs", "d": 13, "song_count": 4, "score": 990000 },
+		{ "id": 7043, "t": "songs", "d": 13, "song_count": 8, "score": 990000 },
+		{ "id": 7044, "t": "songs", "d": 14, "song_count": 1, "score": 990000 },
+
+		{ "id": 7501, "t": "songs", "d": 14, "song_count": 1, "higher_diff": true },
 		{ "id": 7502, "t": "songs", "d": 14, "song_count": 1, "clear_type": "perfect" },
 		{ "id": 7503, "t": "songs", "d": 14, "song_count": 1, "score": 900000, "higher_diff": true },
-		{ "id": 7504, "t": "songs", "d": 14, "song_count": 1, "score": 950000 },
-		{ "id": 7505, "t": "songs", "d": 14, "song_count": 1, "score": 965000 },
+		{ "id": 7504, "t": "songs", "d": 14, "song_count": 1, "score": 925000 },
+		{ "id": 7505, "t": "songs", "d": 14, "song_count": 1, "score": 950000 },
 		{ "id": 7506, "t": "songs", "d": 14, "song_count": 1, "score": 975000 },
-		{ "id": 7507, "t": "songs", "d": 14, "song_count": 1, "score": 990000 },
+		{ "id": 7507, "t": "songs", "d": 14, "song_count": 1, "score": 985000 },
 		{ "id": 7508, "t": "songs", "d": 14, "song_count": 2, "score": 990000 },
 		{ "id": 7509, "t": "songs", "d": 14, "song_count": 2, "clear_type": "perfect" },
 		{ "id": 7510, "t": "songs", "d": 14, "song_count": 3, "score": 980000 },
@@ -357,17 +389,17 @@
 		{ "id": 7518, "t": "songs", "d": 14, "song_count": 10, "score": 990000 },
 		{ "id": 7519, "t": "songs", "d": 14, "song_count": 12, "clear_type": "perfect" },
 		{ "id": 7520, "t": "songs", "d": 14, "song_count": 15, "score": 990000 },
-		{ "id": 7521, "t": "songs", "d": 14, "song_count": 20 },
+		{ "id": 7521, "t": "songs", "d": 14, "song_count": 25 },
 		{ "id": 7562, "t": "songs", "d": 14, "song_count": 20, "score": 990000 },
 		{ "id": 7522, "t": "songs", "d": 14, "song_count": 25, "clear_type": "perfect" },
 		{ "id": 7523, "t": "songs", "d": 14, "song_count": 30 },
 		{ "id": 7524, "t": "songs", "d": 14, "song_count": 40 },
 		{ "id": 7525, "t": "songs", "d": 14, "song_count": 40, "clear_type": "perfect" },
-		{ "id": 7526, "t": "songs", "d": 14, "song_count": 50 },
+		{ "id": 7526, "t": "songs", "d": 14, "song_count": 55 },
 		{ "id": 7527, "t": "songs", "d": 14, "song_count": 55, "clear_type": "perfect" },
-		{ "id": 7528, "t": "songs", "d": 14, "song_count": 60 },
+		{ "id": 7528, "t": "songs", "d": 14, "song_count": 70 },
 		{ "id": 7529, "t": "songs", "d": 14, "song_count": 70, "clear_type": "perfect" },
-		{ "id": 7530, "t": "songs", "d": 14, "song_count": 75 },
+		{ "id": 7530, "t": "songs", "d": 14, "song_count": 85 },
 		{ "id": 7531, "t": "songs", "d": 14, "song_count": 90, "clear_type": "perfect" },
 		{ "id": 7532, "t": "songs", "d": 14 },
 		{ "id": 7563, "t": "songs", "d": 14, "clear_type": "life4" },
@@ -403,12 +435,17 @@
 		{ "id": 7560, "t": "songs", "d": 14, "average_score": 999850 },
 		{ "id": 7561, "t": "songs", "d": 14, "average_score": 999860 },
 
-		{ "id": 8001, "t": "songs", "d": 15, "song_count": 1 },
-		{ "id": 8002, "t": "songs", "d": 15, "song_count": 1, "score": 900000 },
-		{ "id": 8003, "t": "songs", "d": 15, "song_count": 1, "score": 915000 },
-		{ "id": 8004, "t": "songs", "d": 15, "song_count": 1, "score": 930000 },
-		{ "id": 8005, "t": "songs", "d": 15, "song_count": 1, "score": 950000 },
-		{ "id": 8006, "t": "songs", "d": 15, "song_count": 1, "score": 960000 },
+		{ "id": 7566, "t": "songs", "d": 14, "song_count": 1 },
+		{ "id": 7567, "t": "songs", "d": 15, "song_count": 1 },
+		{ "id": 7568, "t": "songs", "d": 16, "song_count": 1 },
+		{ "id": 7569, "t": "songs", "d": 17, "song_count": 1 },
+
+		{ "id": 8001, "t": "songs", "d": 15, "song_count": 1, "higher_diff": true },
+		{ "id": 8002, "t": "songs", "d": 15, "song_count": 1, "score": 875000 },
+		{ "id": 8003, "t": "songs", "d": 15, "song_count": 1, "score": 900000 },
+		{ "id": 8004, "t": "songs", "d": 15, "song_count": 1, "score": 925000 },
+		{ "id": 8005, "t": "songs", "d": 15, "song_count": 1, "score": 940000 },
+		{ "id": 8006, "t": "songs", "d": 15, "song_count": 1, "score": 950000 },
 		{ "id": 8007, "t": "songs", "d": 15, "song_count": 1, "score": 975000 },
 		{ "id": 8008, "t": "songs", "d": 15, "song_count": 1, "score": 980000 },
 		{ "id": 8009, "t": "songs", "d": 15, "song_count": 1, "score": 985000 },
@@ -472,12 +509,12 @@
 		{ "id": 8064, "t": "songs", "d": 15, "average_score": 999780 },
 		{ "id": 8065, "t": "songs", "d": 15, "average_score": 999800 },
 
-		{ "id": 8501, "t": "songs", "d": 16, "song_count": 1 },
-		{ "id": 8502, "t": "songs", "d": 16, "song_count": 1, "score": 900000 },
-		{ "id": 8503, "t": "songs", "d": 16, "song_count": 1, "score": 910000 },
-		{ "id": 8504, "t": "songs", "d": 16, "song_count": 1, "score": 930000 },
-		{ "id": 8505, "t": "songs", "d": 16, "song_count": 1, "score": 945000 },
-		{ "id": 8506, "t": "songs", "d": 16, "song_count": 1, "score": 950000 },
+		{ "id": 8501, "t": "songs", "d": 16, "song_count": 1, "higher_diff": true },
+		{ "id": 8502, "t": "songs", "d": 16, "song_count": 1, "score": 825000 },
+		{ "id": 8503, "t": "songs", "d": 16, "song_count": 1, "score": 850000 },
+		{ "id": 8504, "t": "songs", "d": 16, "song_count": 1, "score": 875000 },
+		{ "id": 8505, "t": "songs", "d": 16, "song_count": 1, "score": 890000 },
+		{ "id": 8506, "t": "songs", "d": 16, "song_count": 1, "score": 900000 },
 		{ "id": 8507, "t": "songs", "d": 16, "song_count": 1, "score": 960000 },
 		{ "id": 8508, "t": "songs", "d": 16, "song_count": 1, "score": 970000 },
 		{ "id": 8509, "t": "songs", "d": 16, "song_count": 1, "score": 980000 },
@@ -541,12 +578,12 @@
 		{ "id": 8563, "t": "songs", "d": 16, "average_score": 999720 },
 		{ "id": 8564, "t": "songs", "d": 16, "average_score": 999750 },
 
-		{ "id": 9001, "t": "songs", "d": 17, "song_count": 1 },
-		{ "id": 9002, "t": "songs", "d": 17, "song_count": 1, "score": 850000 },
-		{ "id": 9003, "t": "songs", "d": 17, "song_count": 1, "score": 875000 },
-		{ "id": 9004, "t": "songs", "d": 17, "song_count": 1, "score": 900000 },
-		{ "id": 9005, "t": "songs", "d": 17, "song_count": 1, "score": 920000 },
-		{ "id": 9006, "t": "songs", "d": 17, "song_count": 1, "score": 935000 },
+		{ "id": 9001, "t": "songs", "d": 17, "song_count": 1, "higher_diff": true },
+		{ "id": 9002, "t": "songs", "d": 17, "song_count": 1, "score": 750000 },
+		{ "id": 9003, "t": "songs", "d": 17, "song_count": 1, "score": 775000 },
+		{ "id": 9004, "t": "songs", "d": 17, "song_count": 1, "score": 800000 },
+		{ "id": 9005, "t": "songs", "d": 17, "song_count": 1, "score": 825000 },
+		{ "id": 9006, "t": "songs", "d": 17, "song_count": 1, "score": 850000 },
 		{ "id": 9007, "t": "songs", "d": 17, "song_count": 1, "score": 945000 },
 		{ "id": 9008, "t": "songs", "d": 17, "song_count": 1, "score": 955000 },
 		{ "id": 9009, "t": "songs", "d": 17, "song_count": 1, "score": 960000 },
@@ -744,128 +781,131 @@
 				{
 					"rank": "bronze1",
 					"play_style": "single",
-					"requirements": 4,
-					"goal_ids": [ 6045, 6060, 6074, 6087, 1006, 3016, 6027, 6022, 3003, 7001 ]
+					"requirements": 6,
+					"goal_ids": [ 6125, 6087, 6074, 6060, 6045, 6113, 6100, 6019, 3003, 1006 ]
 				},
 				{
 					"rank": "bronze2",
 					"play_style": "single",
-					"requirements": 4,
-					"goal_ids": [ 6046, 6061, 6075, 6088, 1007, 3017, 6028, 6029, 3004 ]
+					"requirements": 6,
+					"goal_ids": [ 6126, 6088, 6075, 6061, 6046, 6114, 6101, 6025, 3004, 1007 ]
 				},
 				{
 					"rank": "bronze3",
 					"play_style": "single",
-					"requirements": 5,
-					"goal_ids": [ 6047, 6062, 6076, 6089, 1008, 3018, 6502, 6031, 3005, 7013 ]
+					"requirements": 6,
+					"goal_ids": [ 6127, 6089, 6076, 6062, 6047, 6115, 6102, 6501, 3005, 1008 ]
 				},
 				{
 					"rank": "bronze4",
 					"play_style": "single",
-					"requirements": 4,
-					"goal_ids": [ 6048, 6063, 6077, 6090, 1009, 3019, 6503, 6508, 3006 ]
+					"requirements": 6,
+					"goal_ids": [ 6128, 6090, 6077, 6063, 6048, 6116, 6103, 6515, 3006, 1009 ]
 				},
 				{
 					"rank": "bronze5",
 					"play_style": "single",
 					"requirements": 6,
-					"goal_ids": [ 6049, 6064, 6078, 6091, 1010, 6504, 6510, 3007, 7501 ]
+					"goal_ids": [ 6129, 6091, 6078, 6064, 6049, 6117, 6104, 7001, 3007, 1010 ]
 				},
 
 
 				{
 					"rank": "silver1",
 					"play_style": "single",
-					"requirements": 5,
-					"goal_ids": [ 6050, 6065, 6079, 6092, 6004, 6505, 6516, 6520, 3010, 8001 ]
+					"requirements": 6,
+					"goal_ids": [ 4001, 6130, 6092, 6079, 6065, 6050, 6135, 6118, 6105, 7013, 3008 ]
 				},
 				{
 					"rank": "silver2",
 					"play_style": "single",
-					"requirements": 5,
-					"goal_ids": [ 6051, 6066, 6080, 6093, 6008, 6506, 6517, 7002, 7007 ]
+					"requirements": 6,
+					"goal_ids": [ 4001, 6131, 6093, 6080, 6066, 6051, 6136, 6119, 6106, 7501, 3009 ]
 				},
 				{
 					"rank": "silver3",
 					"play_style": "single",
 					"requirements": 6,
-					"goal_ids": [ 6052, 6067, 6081, 6094, 6014, 6518, 7003, 7014, 7009, 3011, 8501 ]
+					"goal_ids": [ 4001, 6132, 6094, 6081, 6067, 6052, 6137, 6120, 6107, 8001, 3010 ],
+					"mandatory_goal_ids": [ 7566 ]
 				},
 				{
 					"rank": "silver4",
 					"play_style": "single",
-					"requirements": 5,
-					"goal_ids": [ 6053, 6068, 6082, 6095, 6021, 6507, 7004, 7015, 7503, 7019 ]
+					"requirements": 6,
+					"goal_ids": [ 4001, 6133, 6095, 6082, 6068, 6053, 6138, 6121, 6108, 8501, 3011 ],
+					"mandatory_goal_ids": [ 7567, 7513  ]
 				},
 				{
 					"rank": "silver5",
 					"play_style": "single",
 					"requirements": 7,
-					"goal_ids": [ 6054, 6069, 6083, 6096, 6030, 6016, 7005, 7016, 8002, 7022, 3012, 9001, 4001 ]
+					"goal_ids": [ 4001, 6134, 6096, 6083, 6069, 6054, 6139, 6122, 6109, 9001, 3012 ],
+					"mandatory_goal_ids": [ 7517, 8017 ]
 				},
 
 
 				{
 					"rank": "gold1",
 					"play_style": "single",
-					"requirements": 8,
-					"goal_ids": [ 6509, 6034, 7006, 7017, 7504, 8003, 7511, 2502, 8025, 8522, 3013, 9001 ],
-					"mandatory_goal_ids": [ 7523, 5501 ]
+					"requirements": 7,
+					"goal_ids": [ 4001, 7036, 7017, 7504, 8002, 8502, 9002, 6140, 6110, 9501, 3013 ],
+					"mandatory_goal_ids": [ 6021, 7521, 8020 ]
 				},
 				{
 					"rank": "gold2",
 					"play_style": "single",
 					"requirements": 7,
-					"goal_ids": [ 6519, 6035, 7018, 7505, 8004, 8502, 8010, 8027, 8525, 9019, 4003 ],
-					"mandatory_goal_ids": [ 7524, 5502 ]
+					"goal_ids": [ 4001, 7037, 7033, 7505, 8003, 8503, 9003, 6141, 6110, 9501, 3013 ],
+					"mandatory_goal_ids": [ 6030, 7524, 8025 ]
 				},
 				{
 					"rank": "gold3",
 					"play_style": "single",
-					"requirements": 8,
-					"goal_ids": [ 7008, 6511, 7033, 7506, 8005, 8503, 9002, 8014, 9022, 3014, 7532 ],
-					"mandatory_goal_ids": [ 7526, 8027, 5503 ]
+					"requirements": 7,
+					"goal_ids": [ 4002, 7038, 7041, 7506, 8004, 8504, 9004, 6142, 6123, 9501, 3014 ],
+					"mandatory_goal_ids": [ 6509, 7526, 8027, 7568 ]
 				},
 				{
 					"rank": "gold4",
 					"play_style": "single",
 					"requirements": 7,
-					"goal_ids": [ 7010, 6521, 7035, 7510, 8006, 8504, 9003, 8512, 9025, 7532, 8038 ],
-					"mandatory_goal_ids": [ 7528, 8029, 5504 ]
+					"goal_ids": [ 4002, 7039, 7042, 7507, 8005, 8505, 9005, 6143, 6123, 9501, 3014 ],
+					"mandatory_goal_ids": [ 6519, 7528, 8029, 8519 ]
 				},
 				{
 					"rank": "gold5",
 					"play_style": "single",
-					"requirements": 9,
-					"goal_ids": [ 7034, 7026, 7507, 8007, 8505, 9004, 8516, 9027, 3015, 9501, 4007, 8038, 8539 ],
-					"mandatory_goal_ids": [ 7530, 8030, 5505 ]
+					"requirements": 7,
+					"goal_ids": [ 4007, 7040, 7043, 7044, 8006, 8506, 9006, 6144, 6124, 9501, 3015 ],
+					"mandatory_goal_ids": [ 7008, 7530, 8030, 8522, 7569 ]
 				},
 
 
 				{
 					"rank": "platinum1",
 					"play_style": "single",
-					"mandatory_goal_ids": [ 7020, 7028, 7532, 7508, 8032, 8008, 8527, 8506, 9028, 9004, 9501, 4007 ]
+					"mandatory_goal_ids": [  ]
 				},
 				{
 					"rank": "platinum2",
 					"play_style": "single",
-					"mandatory_goal_ids": [ 7021, 7030, 7532, 7533, 7514, 8034, 8009, 8529, 8507, 9030, 9005, 9501, 4007 ]
+					"mandatory_goal_ids": [  ]
 				},
 				{
 					"rank": "platinum3",
 					"play_style": "single",
-					"mandatory_goal_ids": [ 7023, 7032, 7532, 7534, 7518, 8038, 8012, 8531, 8508, 9033, 9006, 9517, 4007 ]
+					"mandatory_goal_ids": [  ]
 				},
 				{
 					"rank": "platinum4",
 					"play_style": "single",
-					"mandatory_goal_ids": [ 7024, 7532, 7535, 7520, 8038, 8039, 8016, 8534, 8509, 9036, 9007, 9517, 4008 ]
+					"mandatory_goal_ids": [  ]
 				},
 				{
 					"rank": "platinum5",
 					"play_style": "single",
-					"mandatory_goal_ids": [ 7027, 7532, 7536, 7502, 7562, 8038, 8040, 8018, 8539, 8510, 9039, 9008, 9520, 4013 ]
+					"mandatory_goal_ids": [  ]
 				},
 
 
