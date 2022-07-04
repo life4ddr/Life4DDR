@@ -5,6 +5,7 @@ package com.perrigogames.life4.data
 import com.perrigogames.life4.enums.ClearType
 import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.enums.LadderRankClass
+import com.perrigogames.life4.enums.LadderRankClass.SILVER
 import kotlinx.serialization.ExperimentalSerializationApi
 
 enum class RankGoalUserType {
@@ -21,6 +22,7 @@ enum class RankGoalUserType {
     LIFE4,
     MFC,
     SINGLE_SCORE,
+    CLEAR,
     SINGLE_CLEAR,
     SET_CLEAR,
     CALORIES,
@@ -35,19 +37,19 @@ fun BaseRankGoal.userType(rank: LadderRank): RankGoalUserType {
         is DifficultySetGoal -> RankGoalUserType.SET_CLEAR
         is MFCPointsGoal -> RankGoalUserType.MFC
         is SongsClearGoal -> {
-            if (rank.group <= LadderRankClass.SILVER) {
-                if (songCount != null && songCount == 1) {
-                    return when {
-                        score != null -> RankGoalUserType.SINGLE_SCORE
-                        clearType == ClearType.PERFECT_FULL_COMBO -> RankGoalUserType.PFC
-                        else -> RankGoalUserType.SINGLE_CLEAR
-                    }
+            if (rank.group <= SILVER) {
+                return when {
+                    score != null -> RankGoalUserType.SINGLE_SCORE
+                    songCount != null && songCount == 1 -> RankGoalUserType.SINGLE_CLEAR
+                    else -> RankGoalUserType.CLEAR
                 }
             }
-            if (rank.group >= LadderRankClass.PLATINUM) {
-                if (diffNum != null && diffNum >= 14) {
-                    diffNum.toLevelUserType()?.let { return it }
-                }
+            if (diffNum != null &&
+                diffNum >= 12 &&
+                !allowsHigherDiffNum &&
+                rank.group >= LadderRankClass.GOLD
+            ) {
+                diffNum.toLevelUserType()?.let { return it }
             }
             return when (clearType) {
                 ClearType.PERFECT_FULL_COMBO -> RankGoalUserType.PFC

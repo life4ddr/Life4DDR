@@ -44,7 +44,7 @@ class RankDetailsViewModel(
     private val hidesCompleteTasks = options.hideNonActive // resolves immediately, determines eligibility for toggling hidden on/off
 
     // All goals for the current target rank
-    private val allGoals: List<BaseRankGoal> by lazy { targetEntry!!.goals + targetEntry!!.mandatoryGoals }
+    private val allGoals: List<BaseRankGoal> by lazy { targetEntry!!.mandatoryGoals + targetEntry!!.goals }
     // Goals that should be shown to the user based on completion state
     private var lastActiveGoals: List<BaseRankGoal> = activeGoals
     private var lastActiveGoalCategories: List<Any> = activeGoalCategories
@@ -75,7 +75,6 @@ class RankDetailsViewModel(
     private val completeItemCount get() = ladderManager.getGoalStateList(allGoals).count { it.status == COMPLETE }
     private val hiddenItemCount get() = ladderManager.getGoalStateList(allGoals).count { it.status == IGNORED }
     private var canIgnoreGoals: Boolean = true
-    private val usesDiffNumberSections: Boolean = targetEntry != null
 
     private val goalItemListener: LadderGoalItemView.LadderGoalItemListener = object: LadderGoalItemView.LadderGoalItemListener {
 
@@ -106,11 +105,7 @@ class RankDetailsViewModel(
 
         override fun onExpandClicked(itemView: LadderGoalItemView, item: BaseRankGoal, goalDB: GoalState) {
             expandedItems.remove(item) || expandedItems.add(item)
-            adapter!!.notifyItemChanged(if (usesDiffNumberSections) {
-                lastActiveGoalCategories.indexOf(item)
-            } else {
-                lastActiveGoals.indexOf(item)
-            })
+            adapter!!.notifyItemChanged(lastActiveGoalCategories.indexOf(item))
         }
 
         override fun onLongPressed(itemView: LadderGoalItemView, item: BaseRankGoal, goalDB: GoalState) {
@@ -119,10 +114,7 @@ class RankDetailsViewModel(
     }
 
     private val dataSource = object: RankGoalsAdapter.DataSource {
-        override fun getGoals() = when {
-            usesDiffNumberSections -> lastActiveGoalCategories
-            else -> lastActiveGoals
-        }
+        override fun getGoals() = lastActiveGoalCategories
         override fun isGoalExpanded(item: BaseRankGoal) = expandedItems.contains(item)
         override fun isGoalMandatory(item: BaseRankGoal) = targetEntry?.mandatoryGoals?.contains(item) == true
         override fun canIgnoreGoals(): Boolean = canIgnoreGoals
@@ -170,16 +162,10 @@ class RankDetailsViewModel(
 
     private fun refreshAllVisibilities(isGrowing: Boolean) {
         // Update the live lists so data sources have new information, but keep copies we can operate on
-        val oldList = when (usesDiffNumberSections) {
-            true -> lastActiveGoalCategories
-            false -> lastActiveGoals
-        }
+        val oldList = lastActiveGoalCategories
         lastActiveGoals = activeGoals
         lastActiveGoalCategories = activeGoalCategories
-        val newList = when (usesDiffNumberSections) {
-            true -> lastActiveGoalCategories
-            false -> lastActiveGoals
-        }
+        val newList = lastActiveGoalCategories
 
         if (isGrowing) { // new list is longer, add items sequentially
             var oldIdx = 0
@@ -221,7 +207,7 @@ class RankDetailsViewModel(
 
     private fun updateIgnoredStates() {
         val prevIgnore = canIgnoreGoals
-        canIgnoreGoals = hiddenItemCount < targetEntry?.allowedIgnores ?: 0
+        canIgnoreGoals = hiddenItemCount < (targetEntry?.allowedIgnores ?: 0)
         if (prevIgnore != canIgnoreGoals) {
             adapter!!.notifyDataSetChanged()
         }

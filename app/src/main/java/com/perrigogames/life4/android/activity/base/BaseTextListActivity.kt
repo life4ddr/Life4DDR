@@ -59,7 +59,7 @@ class SongRecordsListCheckActivity: BaseTextListActivity(), KoinComponent {
     private val songDataManager: SongDataManager by inject()
 
     override fun buildText(builder: StringBuilder) {
-        songDataManager.groupedCharts.forEach { (song, charts) ->
+        songDataManager.chartsGroupedBySong.forEach { (song, charts) ->
             val difficulties = charts
                 .filter { it.playStyle == PlayStyle.SINGLE }
                 .joinToString(separator = " / ") {

@@ -29,6 +29,8 @@ fun initKoin(appModule: Module) = startKoin {
     koin.get<Logger> { parametersOf(null) }.also { kermit ->
         kermit.v { "App Id ${koin.get<AppInfo>().appId}" }
     }
+    // Init song data and ladder progress
+    koin.get<SongDataCoordinator>()
 }
 
 val coreModule = module {
@@ -49,6 +51,7 @@ val coreModule = module {
     single { TrialSessionManager() }
     single { IgnoreListManager() }
     single { SongDataManager() }
+    single { SongDataCoordinator() }
     single { PlayerManager() }
 
     // platformLogWriter() is a relatively simple config option, useful for local debugging. For production

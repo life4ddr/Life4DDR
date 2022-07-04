@@ -52,7 +52,6 @@ import com.perrigogames.life4.android.manager.AndroidLadderDialogs
 import com.perrigogames.life4.android.util.jacketResId
 import com.perrigogames.life4.android.util.openWebUrlFromRes
 import com.perrigogames.life4.data.InProgressTrialSession
-import com.perrigogames.life4.db.TrialDatabaseHelper
 import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.enums.TrialRank
 import com.perrigogames.life4.model.*
@@ -92,8 +91,8 @@ class SettingsActivity : AppCompatActivity(),
 
         protected val ladderManager: LadderManager by inject()
         protected val ladderDialogs: AndroidLadderDialogs by inject()
+        protected val songDataCoordinator: SongDataCoordinator by inject()
         protected val trialManager: TrialManager by inject()
-        protected val trialDb: TrialDatabaseHelper by inject()
         protected val trialSessionManager: TrialSessionManager by inject()
         protected val playerManager: PlayerManager by inject()
         protected val ignoreListManager: IgnoreListManager by inject()
@@ -348,13 +347,13 @@ class SettingsActivity : AppCompatActivity(),
             }
             preferenceListener(KEY_SONG_RESULTS_CLEAR) {
                 ladderDialogs.withActivity(requireActivity()) {
-                    ladderManager.clearSongResults()
+                    songDataCoordinator.clearSongResults()
                 }
                 true
             }
             preferenceListener(KEY_REFRESH_SONG_DB) {
                 ladderDialogs.withActivity(requireActivity()) {
-                    ladderManager.refreshSongDatabase()
+                    songDataCoordinator.refreshSongDatabase()
                 }
                 true
             }

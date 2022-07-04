@@ -61,7 +61,7 @@ class LadderImporter(
                     eventBus.post(SongResultsUpdatedEvent())
                 }
                 importJob = null
-                ladderProgressManager.refreshCachedResults()
+                ladderProgressManager.refresh()
                 listener?.onCompleted()
             }
         }
@@ -103,9 +103,6 @@ class LadderImporter(
             val songName = entryParts.removeAt(0).replace('+', ' ')
             val hasSong = songDataManager.songs.firstOrNull { it.skillId == skillId } != null
             if (isDebug) {
-                if (songName.startsWith("ZETA")) {
-                    saLogger.v("ZETA")
-                }
                 saLogger.v("$songName ($skillId) - ${charts.size} found, dbExist=$hasSong")
             }
             if (hasSong) {

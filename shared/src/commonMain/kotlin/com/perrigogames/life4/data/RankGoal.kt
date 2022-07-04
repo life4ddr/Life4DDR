@@ -23,6 +23,9 @@ import kotlinx.serialization.*
 @Serializable
 sealed class BaseRankGoal {
 
+    @kotlin.jvm.Transient
+    var isMandatory: Boolean = false
+
     open val id: Int = -1
     @SerialName("s") open val playStyle: PlayStyle = PlayStyle.SINGLE
 

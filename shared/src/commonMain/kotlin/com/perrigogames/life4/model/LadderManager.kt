@@ -1,6 +1,9 @@
 package com.perrigogames.life4.model
 
-import com.perrigogames.life4.*
+import com.perrigogames.life4.DataRequiresAppUpdateEvent
+import com.perrigogames.life4.LadderDialogs
+import com.perrigogames.life4.LadderRankUpdatedEvent
+import com.perrigogames.life4.LadderRanksReplacedEvent
 import com.perrigogames.life4.SettingsKeys.KEY_INFO_RANK
 import com.perrigogames.life4.SettingsKeys.KEY_INFO_TARGET_RANK
 import com.perrigogames.life4.api.LadderRemoteData
@@ -11,7 +14,6 @@ import com.perrigogames.life4.data.LadderRankData
 import com.perrigogames.life4.data.LadderVersion
 import com.perrigogames.life4.db.GoalDatabaseHelper
 import com.perrigogames.life4.db.GoalState
-import com.perrigogames.life4.db.ResultDatabaseHelper
 import com.perrigogames.life4.enums.GoalStatus
 import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.RANKS_FILE_NAME
@@ -27,7 +29,6 @@ import org.koin.core.qualifier.named
 class LadderManager: BaseModel() {
 
     private val ignoreListManager: IgnoreListManager by inject()
-    private val songDataManager: SongDataManager by inject()
     private val settings: Settings by inject()
     private val eventBus: EventBusNotifier by inject()
     private val goalDBHelper: GoalDatabaseHelper by inject()
@@ -51,7 +52,7 @@ class LadderManager: BaseModel() {
 
     val ladderData: LadderRankData get() = ladderDataRemote.data
     val currentRequirements: LadderVersion
-        get() = ignoreListManager.selectedIgnoreList!!.baseVersion.let { version ->
+        get() = ignoreListManager.selectedIgnoreList.baseVersion.let { version ->
             ladderData.gameVersions[version] ?: error("Rank requirements not found for version $version")
         }
 
@@ -113,21 +114,6 @@ class LadderManager: BaseModel() {
             }
             ladderProgressManager.clearAllResults()
             eventBus.post(LadderRankUpdatedEvent())
-        }
-    }
-
-    fun clearSongResults() {
-        ladderDialogs.onClearSongResults {
-            ladderProgressManager.clearAllResults()
-            eventBus.post(SongResultsUpdatedEvent())
-        }
-    }
-
-    fun refreshSongDatabase() {
-        ladderDialogs.onRefreshSongDatabase {
-            ladderProgressManager.clearAllResults()
-            songDataManager.initializeSongDatabase()
-            eventBus.post(SongResultsUpdatedEvent())
         }
     }
 }

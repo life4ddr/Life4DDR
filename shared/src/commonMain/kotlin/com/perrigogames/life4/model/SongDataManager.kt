@@ -41,14 +41,31 @@ class SongDataManager: BaseModel() {
     })
     val dataVersionString get() = songList.versionString
 
-    var songs: List<SongInfo> = dbHelper.allSongs()
-    var detailedCharts: List<DetailedChartInfo> = dbHelper.allDetailedCharts()
-    var groupedCharts: Map<SongInfo, List<DetailedChartInfo>> = generateGroupedCharts()
+    lateinit var songs: List<SongInfo>
+    lateinit var detailedCharts: List<DetailedChartInfo>
+    lateinit var chartsGroupedBySong: Map<SongInfo, List<DetailedChartInfo>>
+    lateinit var chartsGroupedByDifficulty: Map<PlayStyle, Map<Long, List<DetailedChartInfo>>>
 
-    init {
+    internal fun start() {
         songList.start()
-        if (majorUpdates.updates.contains(MajorUpdate.SONG_DB)) {
-            initializeSongDatabase()
+        if (majorUpdates.updates.contains(MajorUpdate.SONG_DB)) { // initial launch
+            refreshSongDatabase(delete = true)
+        } else {
+            refreshMemoryData()
+        }
+    }
+
+    fun getChartGroup(
+        playStyle: PlayStyle,
+        difficultyNumber: Long,
+        allowHigherDifficulty: Boolean = false,
+    ): List<DetailedChartInfo> {
+        return if (allowHigherDifficulty) {
+            chartsGroupedByDifficulty[playStyle]!!
+                .filterKeys { it >= difficultyNumber }
+                .flatMap { (_, songs) -> songs }
+        } else {
+            chartsGroupedByDifficulty[playStyle]!![difficultyNumber]!!
         }
     }
 
@@ -64,16 +81,18 @@ class SongDataManager: BaseModel() {
     //
     // Song List Management
     //
-    fun initializeSongDatabase() {
-        dbHelper.deleteAll()
-        refreshSongDatabase(force = true)
-    }
-
-    private fun refreshSongDatabase(input: SongList = songList.data, force: Boolean = false) {
+    internal fun refreshSongDatabase(
+        input: SongList = songList.data,
+        force: Boolean = false,
+        delete: Boolean = false,
+    ) {
+        if (delete) {
+            dbHelper.deleteAll()
+        }
         mainScope.launch {
             try {
                 val lines = input.songLines
-                if (force || settings.getInt(KEY_SONG_LIST_VERSION, -1) < input.version) {
+                if (force || delete || settings.getInt(KEY_SONG_LIST_VERSION, -1) < input.version) {
 
                     val songs = mutableListOf<SongInfo>()
                     val charts = mutableListOf<ChartInfo>()
@@ -130,16 +149,16 @@ class SongDataManager: BaseModel() {
     private fun refreshMemoryData() {
         songs = dbHelper.allSongs()
         detailedCharts = dbHelper.allDetailedCharts()
-        groupedCharts = generateGroupedCharts()
-    }
 
-    private fun generateGroupedCharts(): Map<SongInfo, List<DetailedChartInfo>> {
-        val tempSongs = dbHelper.allSongs().toMutableList()
-        return detailedCharts.groupBy { it.skillId }
-            .mapKeys { (skillId, _) ->
-                tempSongs.first { it.skillId == skillId }.also {
-                    tempSongs.remove(it)
-                }
+        // group by song
+        val sortedCharts = detailedCharts.groupBy { it.skillId }
+        chartsGroupedBySong = dbHelper.allSongs()
+            .associateWith { sortedCharts[it.skillId]!! }
+
+        // group by play style and difficulty
+        chartsGroupedByDifficulty = detailedCharts.groupBy { it.playStyle }
+            .mapValues { (_, charts) ->
+                charts.groupBy { it.difficultyNumber }
             }
     }
 

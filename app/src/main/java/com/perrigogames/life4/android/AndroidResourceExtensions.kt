@@ -323,6 +323,7 @@ fun RankGoalUserType.titleString(res: Resources): String = when(this) {
     RankGoalUserType.PFC -> res.getString(R.string.rank_goal_category_pfcs)
     RankGoalUserType.COMBO -> res.getString(R.string.rank_goal_category_combo)
     RankGoalUserType.LIFE4 -> res.getString(R.string.rank_goal_category_life4)
+    RankGoalUserType.CLEAR -> res.getString(R.string.clear)
     RankGoalUserType.MFC -> res.getString(R.string.rank_goal_category_mfcs)
     RankGoalUserType.SINGLE_SCORE -> res.getString(R.string.rank_goal_category_single_score)
     RankGoalUserType.SINGLE_CLEAR -> res.getString(R.string.rank_goal_category_single_clear)
