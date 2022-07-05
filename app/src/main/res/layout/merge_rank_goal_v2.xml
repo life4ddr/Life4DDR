@@ -41,18 +41,9 @@
                 android:textSize="@dimen/text_tiny"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toTopOf="@id/progress_amount"
-                app:layout_constraintEnd_toStartOf="@id/button_status_icon"
+                app:layout_constraintEnd_toStartOf="@id/button_ignore"
                 tools:text="345/420"
                 tools:visibility="visible"
-                />
-
-            <CheckBox
-                android:id="@+id/button_status_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="@id/text_goal_title"
-                app:layout_constraintBottom_toBottomOf="@id/text_goal_title"
-                app:layout_constraintEnd_toStartOf="@id/button_ignore"
                 />
 
             <androidx.appcompat.widget.AppCompatCheckBox
@@ -65,8 +56,17 @@
                 android:scaleY="0.7"
                 app:layout_constraintTop_toTopOf="@id/text_goal_title"
                 app:layout_constraintBottom_toBottomOf="@id/text_goal_title"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/button_status_icon"
                 app:backgroundTint="@color/colorAccent"
+                />
+
+            <CheckBox
+                android:id="@+id/button_status_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="@id/text_goal_title"
+                app:layout_constraintBottom_toBottomOf="@id/text_goal_title"
+                app:layout_constraintEnd_toEndOf="parent"
                 />
 
             <ProgressBar

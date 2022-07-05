@@ -44,4 +44,10 @@
     <color name="great">#00CC10</color>
     <color name="perfect">#DDDD55</color>
     <color name="marvelous">#EEEEEE</color>
+    <color name="clear_transparent">#AFDDDD00</color>
+    <color name="life4_transparent">#AFDD0000</color>
+    <color name="good_transparent">#AF0070FF</color>
+    <color name="great_transparent">#AF00CC10</color>
+    <color name="perfect_transparent">#AFDDDD55</color>
+    <color name="marvelous_transparent">#AFEEEEEE</color>
 </resources>

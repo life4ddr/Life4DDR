@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.TableLayout
+import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import com.perrigogames.life4.PlatformStrings
@@ -35,10 +36,14 @@ class LadderGoalItemView @JvmOverloads constructor(
     private val platformStrings: PlatformStrings by inject()
 
     private val binding: MergeRankGoalV2Binding
+    private val originalBackgroundTint: ColorStateList?
+    private val originalTextColor: ColorStateList?
 
     init {
         LayoutInflater.from(context).inflate(R.layout.merge_rank_goal_v2, this)
         binding = MergeRankGoalV2Binding.bind(this)
+        originalBackgroundTint = binding.container.backgroundTintList
+        originalTextColor = binding.textGoalTitle.textColors
     }
 
     private var goal: BaseRankGoal? = null
@@ -81,11 +86,20 @@ class LadderGoalItemView @JvmOverloads constructor(
         goalDB: GoalState? = null,
         goalProgress: LadderGoalProgress? = null,
         mandatory: Boolean,
+        @ColorRes backgroundTintId: Int? = null,
     ) {
         this.goal = goal
         this.goalDB = goalDB
         this.goalProgress = goalProgress
         this.mandatory = mandatory
+        binding.container.backgroundTintList = backgroundTintId?.let { tint ->
+            ContextCompat.getColorStateList(context, tint)
+        } ?: originalBackgroundTint
+        binding.textGoalTitle.setTextColor(
+            if (backgroundTintId != null) {
+                ContextCompat.getColorStateList(context, R.color.color_white)
+            } else originalTextColor
+        )
         updateData()
     }
 
@@ -182,8 +196,9 @@ class LadderGoalItemView @JvmOverloads constructor(
     private fun updateIgnoreState() {
         binding.buttonIgnore.visibility = when {
             mandatory -> View.GONE // mandatory goals never show ignore, reclaim space
+            currentState == COMPLETE -> View.GONE // don't offer to hide completed goals
             canIgnore || currentState == IGNORED -> View.VISIBLE // show ignore if you're allowed to, or if you're already ignored
-            else -> View.INVISIBLE // ignore function is hidden, don't reclaim space
+            else -> View.GONE // ignore function is hidden, reclaim space
         }
         binding.container.alpha = if (currentState == IGNORED) 0.3f else 1.0f
     }

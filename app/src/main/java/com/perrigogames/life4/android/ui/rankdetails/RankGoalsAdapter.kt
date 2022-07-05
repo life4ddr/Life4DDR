@@ -3,6 +3,7 @@ package com.perrigogames.life4.android.ui.rankdetails
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.annotation.ColorRes
 import androidx.recyclerview.widget.RecyclerView
 import com.perrigogames.life4.android.R
 import com.perrigogames.life4.android.databinding.ItemNoGoalsBinding
@@ -11,7 +12,9 @@ import com.perrigogames.life4.android.view.LadderGoalItemView
 import com.perrigogames.life4.data.BaseRankGoal
 import com.perrigogames.life4.data.LadderGoalProgress
 import com.perrigogames.life4.data.RankEntry
+import com.perrigogames.life4.data.SongsClearGoal
 import com.perrigogames.life4.db.GoalState
+import com.perrigogames.life4.enums.ClearType
 import kotlin.math.max
 
 /**
@@ -92,7 +95,34 @@ class RankGoalsAdapter(
             val mandatory = dataSource.isGoalMandatory(goal)
             view.expanded = dataSource.isGoalExpanded(goal)
             view.canIgnore = dataSource.canIgnoreGoals() && !mandatory
-            view.setGoal(goal, dataSource.getGoalStatus(goal), dataSource.getGoalProgress(goal), mandatory)
+            view.setGoal(
+                goal = goal,
+                goalDB = dataSource.getGoalStatus(goal),
+                goalProgress = dataSource.getGoalProgress(goal),
+                mandatory = mandatory,
+                backgroundTintId = goal.goalBackgroundColor(),
+            )
+        }
+
+        @ColorRes private fun BaseRankGoal.goalBackgroundColor(): Int? {
+            (this as? SongsClearGoal)?.let { goal ->
+                if (goal.songCount == null &&
+                    goal.songs == null &&
+                    goal.score == null &&
+                    goal.averageScore == null
+                ) {
+                    return when(goal.clearType) {
+                        ClearType.CLEAR -> R.color.color_goal_background_clear
+                        ClearType.LIFE4_CLEAR -> R.color.color_goal_background_life4
+                        ClearType.GOOD_FULL_COMBO -> R.color.color_goal_background_good
+                        ClearType.GREAT_FULL_COMBO -> R.color.color_goal_background_great
+                        ClearType.PERFECT_FULL_COMBO -> R.color.color_goal_background_perfect
+                        ClearType.MARVELOUS_FULL_COMBO -> R.color.color_goal_background_marvelous
+                        else -> null
+                    }
+                }
+            }
+            return null
         }
     }
 
