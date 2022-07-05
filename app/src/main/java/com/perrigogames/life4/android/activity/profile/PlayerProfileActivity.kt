@@ -20,6 +20,7 @@ import com.perrigogames.life4.android.activity.trial.TrialListActivity
 import com.perrigogames.life4.android.activity.trial.TrialRecordsActivity
 import com.perrigogames.life4.android.databinding.ActivityPlayerProfileBinding
 import com.perrigogames.life4.android.manager.AndroidLadderDialogs
+import com.perrigogames.life4.android.ui.dialogs.ManualScoreEntryDialog
 import com.perrigogames.life4.android.ui.dialogs.MotdDialog
 import com.perrigogames.life4.android.ui.rankdetails.RankDetailsFragment
 import com.perrigogames.life4.android.ui.rankdetails.RankDetailsViewModel
@@ -141,6 +142,8 @@ class PlayerProfileActivity : AppCompatActivity(), RankDetailsViewModel.OnGoalLi
     }
 
     private fun showMotd() = MotdDialog().show(supportFragmentManager, MotdDialog.TAG)
+
+    private fun showAddScoreDialog() = ManualScoreEntryDialog().show(supportFragmentManager, MotdDialog.TAG)
 
     private fun setupContent() {
         val context = this

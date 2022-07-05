@@ -29,30 +29,54 @@ class LadderProgressManager: BaseModel() {
 
     fun getGoalProgress(goal: BaseRankGoal): LadderGoalProgress? = when (goal) {
         is SongsClearGoal -> {
-            if (goal.songCount == 1 && goal.score != null && goal.diffNum != null) {
-                var cumHighestScore = 0L
-                val topValidScore = matchedResults.filter { (chart, result) ->
-                    val maxLevel = if (goal.allowsHigherDiffNum) 999 else goal.diffNum
-                    result?.score?.let { score ->
-                        if (score < cumHighestScore) {
-                            return@filter false
-                        } else {
-                            cumHighestScore = score
-                        }
-                    } ?: return@filter false
-                    chart.playStyle == goal.playStyle &&
-                            (goal.diffNum..maxLevel).contains(chart.difficultyNumber)
-                }
-                    .entries
-                    .maxByOrNull { (_, result) -> result!!.score }
-                    ?.value?.score ?: 0
+            // single song score goal
+            if (goal.score != null && goal.diffNum != null) {
+                if (goal.songCount == 1) { // single song above score
+                    var cumHighestScore = 0L
+                    val topValidScore = matchedResults.filter { (chart, result) ->
+                        result?.score?.let { score ->
+                            if (score < cumHighestScore) {
+                                return@filter false
+                            } else {
+                                cumHighestScore = score
+                            }
+                        } ?: return@filter false
+                        val maxLevel = if (goal.allowsHigherDiffNum) 999 else goal.diffNum
+                        chart.playStyle == goal.playStyle &&
+                                (goal.diffNum..maxLevel).contains(chart.difficultyNumber)
+                    }
+                        .entries
+                        .maxByOrNull { (_, result) -> result!!.score }
+                        ?.value?.score ?: 0
 
-                val currentScore = max(topValidScore, goal.score.toLong())
-                LadderGoalProgress(
-                    progress = currentScore.toInt(),
-                    max = goal.score,
-                    showMax = false,
-                )
+                    val currentScore = max(topValidScore, goal.score.toLong())
+                    LadderGoalProgress(
+                        progress = currentScore.toInt(),
+                        max = goal.score,
+                        showMax = false,
+                    )
+                } else if (goal.songCount == null) { // all songs over score
+                    val underScores = matchedResults.filter { (chart, result) ->
+                        val maxLevel = if (goal.allowsHigherDiffNum) 999 else goal.diffNum
+                        val resultScore = result?.score ?: 0
+                        chart.playStyle == goal.playStyle &&
+                                (goal.diffNum..maxLevel).contains(chart.difficultyNumber) &&
+                                resultScore > goal.score
+                    }
+                        .entries
+                        .sortedBy { (_, result) -> result?.score ?: 0 }
+                        .toMutableList()
+
+                    for (i in 1..(goal.exceptions ?: 0)) {
+                        underScores.removeAt(0)
+                    }
+                    val currentScore = underScores.firstOrNull()?.value?.score?.toInt() ?: goal.score
+                    LadderGoalProgress(
+                        progress = currentScore,
+                        max = goal.score,
+                        showMax = false,
+                    )
+                }
             }
 //            val charts = songDataManager.detailedCharts
 //                .filter {

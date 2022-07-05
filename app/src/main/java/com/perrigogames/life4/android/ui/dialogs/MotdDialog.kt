@@ -3,7 +3,6 @@ package com.perrigogames.life4.android.ui.dialogs
 import android.app.Dialog
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
-import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.text.HtmlCompat
@@ -24,7 +23,6 @@ class MotdDialog: DialogFragment(), KoinComponent {
     private val motdManager: MotdManager by inject()
     private val settings: Settings by inject()
 
-    lateinit var contentView: View
     private lateinit var binding: DialogMotdBinding
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -53,9 +51,8 @@ class MotdDialog: DialogFragment(), KoinComponent {
 
         settings[SettingsKeys.KEY_LAST_MOTD] = motd.version
 
-        contentView = binding.root
         return AlertDialog.Builder(requireActivity())
-            .setView(contentView)
+            .setView(binding.root)
             .setCancelable(false)
             .create()
     }
