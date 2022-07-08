@@ -160,11 +160,11 @@ val LadderRank.drawableRes @DrawableRes get() = when(this) {
     LadderRank.COBALT3 -> R.drawable.cobalt_3
     LadderRank.COBALT4 -> R.drawable.cobalt_4
     LadderRank.COBALT5 -> R.drawable.cobalt_5
-    LadderRank.PEARL1 -> R.drawable.cobalt_1 //FIXME
-    LadderRank.PEARL2 -> R.drawable.cobalt_2 //FIXME
-    LadderRank.PEARL3 -> R.drawable.cobalt_3 //FIXME
-    LadderRank.PEARL4 -> R.drawable.cobalt_4 //FIXME
-    LadderRank.PEARL5 -> R.drawable.cobalt_5 //FIXME
+    LadderRank.PEARL1 -> R.drawable.pearl_1
+    LadderRank.PEARL2 -> R.drawable.pearl_2
+    LadderRank.PEARL3 -> R.drawable.pearl_3
+    LadderRank.PEARL4 -> R.drawable.pearl_4
+    LadderRank.PEARL5 -> R.drawable.pearl_5
     LadderRank.AMETHYST1 -> R.drawable.amethyst_1
     LadderRank.AMETHYST2 -> R.drawable.amethyst_2
     LadderRank.AMETHYST3 -> R.drawable.amethyst_3
