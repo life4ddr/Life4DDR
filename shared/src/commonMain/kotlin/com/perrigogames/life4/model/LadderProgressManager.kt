@@ -68,6 +68,9 @@ class LadderProgressManager: BaseModel() {
                         .toMutableList()
 
                     for (i in 1..(goal.exceptions ?: 0)) {
+                        if (underScores.isEmpty()) {
+                            break
+                        }
                         underScores.removeAt(0)
                     }
                     val currentScore = underScores.firstOrNull()?.value?.score?.toInt() ?: goal.score

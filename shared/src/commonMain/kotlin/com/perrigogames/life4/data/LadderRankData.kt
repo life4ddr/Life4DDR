@@ -67,6 +67,7 @@ data class RankEntry(
     @SerialName("play_style") val playStyle: PlayStyle,
     @SerialName("goal_ids") val goalIds: List<Int>? = null,
     @SerialName("mandatory_goal_ids") val mandatoryGoalIds: List<Int>? = null,
+    val substitutions: List<Int>? = null,
     @SerialName("requirements") private val requirementsOpt: Int? = null,
 ) {
 
