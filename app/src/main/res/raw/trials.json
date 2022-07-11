@@ -1,6 +1,6 @@
 {
-  "version": 5,
-  "major_version": 3,
+  "version": 1,
+  "major_version": 4,
   "trials": [
     {
       "id": "devotion",
@@ -18,13 +18,17 @@
           "rank": "platinum",
           "score": [990000, 990000, 990000, 990000],
           "clear": ["perfect"],
-          "ex_missing": 200
+          "ex_missing": 220
         }, {
           "rank": "diamond",
+          "judge": 8,
+          "ex_missing": 160
+        }, {
+          "rank": "cobalt",
           "judge": 5,
           "ex_missing": 120
         }, {
-          "rank": "cobalt",
+          "rank": "pearl",
           "judge": 2,
           "ex_missing": 70
         }, {
@@ -55,6 +59,7 @@
       "name": "Heartbreak",
       "type": "trial",
       "difficulty": 12,
+      "state": "retired",
       "goals": [
         {
           "rank": "silver",
@@ -66,13 +71,17 @@
           "rank": "platinum",
           "score": [990000, 990000, 990000, 990000],
           "clear": ["perfect"],
-          "ex_missing": 160
+          "ex_missing": 180
         }, {
           "rank": "diamond",
+          "judge": 8,
+          "ex_missing": 130
+        }, {
+          "rank": "cobalt",
           "judge": 4,
           "ex_missing": 100
         }, {
-          "rank": "cobalt",
+          "rank": "pearl",
           "judge": 2,
           "ex_missing": 60
         }, {
@@ -113,13 +122,17 @@
           "rank": "platinum",
           "score": [990000, 990000, 990000, 990000],
           "clear": ["perfect"],
-          "ex_missing": 230
+          "ex_missing": 250
         }, {
           "rank": "diamond",
+          "judge": 10,
+          "ex_missing": 180
+        }, {
+          "rank": "cobalt",
           "judge": 6,
           "ex_missing": 140
         }, {
-          "rank": "cobalt",
+          "rank": "pearl",
           "judge": 3,
           "ex_missing": 75
         }, {
@@ -147,6 +160,57 @@
       "author": "plasmaaa"
     },
     {
+      "id": "confectionary",
+      "name": "Confectionary",
+      "type": "trial",
+      "difficulty": 12,
+      "state": "new",
+      "goals": [
+        {
+          "rank": "silver",
+          "score": [940000, 940000, 920000, 920000]
+        }, {
+          "rank": "gold",
+          "score": [985000, 985000, 985000, 980000]
+        }, {
+          "rank": "platinum",
+          "score": [996000, 996000, 990000, 900000],
+          "ex_missing": 260
+        }, {
+          "rank": "diamond",
+          "judge": 12,
+          "ex_missing": 200
+        }, {
+          "rank": "cobalt",
+          "judge": 8,
+          "ex_missing": 160
+        }, {
+          "rank": "pearl",
+          "judge": 4,
+          "ex_missing": 90
+        }, {
+          "rank": "amethyst",
+          "judge": 2,
+          "ex_missing": 50
+        }, {
+          "rank": "emerald",
+          "judge": 2,
+          "ex_missing": 35
+        }, {
+          "rank": "onyx",
+          "judge": 2,
+          "ex_missing": 20
+        }
+      ],
+      "total_ex": 4908,
+      "songs": [
+        { "name": "SODA GALAXY", "difficulty": 12, "difficulty_class": "expert", "ex": 1254, "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/SODA_GALAXY.webp" },
+        { "name": "CHOCOLATE PHILOSOPHY", "difficulty": 13, "difficulty_class": "challenge", "ex": 1260, "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/CHOCOLATE_PHILOSOPHY.webp" },
+        { "name": "Strawberry Chu Chu", "difficulty": 13, "difficulty_class": "expert", "ex": 1254, "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Strawberry_Chu_Chu.webp" },
+        { "name": "Candy (X-Special)", "difficulty": 12, "difficulty_class": "challenge", "ex": 1140, "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/CANDY(X-Special).webp" }
+      ]
+    },
+    {
       "id": "celestial",
       "name": "Celestial",
       "type": "trial",
@@ -161,22 +225,26 @@
         }, {
           "rank": "platinum",
           "score": [990000, 990000, 990000, 985000],
-          "ex_missing": 250
+          "ex_missing": 270
         }, {
           "rank": "diamond",
+          "judge": 15,
+          "ex_missing": 220
+        }, {
+          "rank": "cobalt",
           "judge": 10,
           "ex_missing": 180
         }, {
-          "rank": "cobalt",
+          "rank": "pearl",
           "judge": 5,
           "ex_missing": 110
         }, {
           "rank": "amethyst",
-          "judge": 2,
+          "judge": 3,
           "ex_missing": 60
         }, {
           "rank": "emerald",
-          "judge": 2,
+          "judge": 3,
           "ex_missing": 40
         }, {
           "rank": "onyx",
@@ -197,7 +265,6 @@
       "name": "Gospel",
       "type": "trial",
       "difficulty": 13,
-      "new": true,
       "goals": [
         {
           "rank": "silver",
@@ -208,27 +275,31 @@
         }, {
           "rank": "platinum",
           "score": [995000, 995000, 990000, 990000],
-          "ex_missing": 250
+          "ex_missing": 270
         }, {
           "rank": "diamond",
+          "judge": 15,
+          "ex_missing": 220
+        }, {
+          "rank": "cobalt",
           "judge": 10,
           "ex_missing": 180
         }, {
-          "rank": "cobalt",
+          "rank": "pearl",
           "judge": 5,
           "ex_missing": 110
         }, {
           "rank": "amethyst",
           "judge": 2,
-          "ex_missing": 60
+          "ex_missing": 55
         }, {
           "rank": "emerald",
           "judge": 2,
-          "ex_missing": 40
+          "ex_missing": 35
         }, {
           "rank": "onyx",
           "judge": 2,
-          "ex_missing": 25
+          "ex_missing": 20
         }
       ],
       "total_ex": 5280,
@@ -247,25 +318,29 @@
       "goals": [
         {
           "rank": "silver",
-          "score": [915000, 915000, 875000, 875000]
+          "score": [910000, 910000, 875000, 875000]
         }, {
           "rank": "gold",
           "score": [980000, 980000, 965000, 965000]
         }, {
           "rank": "platinum",
           "score": [990000, 990000, 990000, 985000],
-          "ex_missing": 240
+          "ex_missing": 260
         }, {
           "rank": "diamond",
+          "judge": 15,
+          "ex_missing": 200
+        }, {
+          "rank": "cobalt",
           "judge": 10,
           "ex_missing": 160
         }, {
-          "rank": "cobalt",
+          "rank": "pearl",
           "judge": 5,
           "ex_missing": 110
         }, {
           "rank": "amethyst",
-          "judge": 2,
+          "judge": 3,
           "ex_missing": 65
         }, {
           "rank": "emerald",
@@ -291,6 +366,7 @@
       "type": "trial",
       "difficulty": 13,
       "author": "Kingly",
+      "state": "retired",
       "goals": [
         {
           "rank": "silver",
@@ -301,13 +377,17 @@
         }, {
           "rank": "platinum",
           "score": [990000, 990000, 990000, 985000],
-          "ex_missing": 325
+          "ex_missing": 345
         }, {
           "rank": "diamond",
+          "judge": 25,
+          "ex_missing": 280
+        }, {
+          "rank": "cobalt",
           "judge": 15,
           "ex_missing": 230
         }, {
-          "rank": "cobalt",
+          "rank": "pearl",
           "judge": 6,
           "ex_missing": 140
         }, {
@@ -340,29 +420,33 @@
       "goals": [
         {
           "rank": "silver",
-          "score": [900000, 900000, 900000, 875000]
+          "score": [900000, 900000, 900000, 850000]
         }, {
           "rank": "gold",
           "score": [980000, 980000, 960000, 960000]
         }, {
           "rank": "platinum",
           "score": [990000, 990000, 990000, 985000],
-          "ex_missing": 330
+          "ex_missing": 340
         }, {
           "rank": "diamond",
+          "judge": 25,
+          "ex_missing": 290
+        }, {
+          "rank": "cobalt",
           "judge": 15,
           "ex_missing": 240
         }, {
-          "rank": "cobalt",
+          "rank": "pearl",
           "judge": 6,
           "ex_missing": 150
         }, {
           "rank": "amethyst",
-          "judge": 3,
+          "judge": 4,
           "ex_missing": 80
         }, {
           "rank": "emerald",
-          "judge": 2,
+          "judge": 3,
           "ex_missing": 55
         }, {
           "rank": "onyx",
@@ -386,7 +470,7 @@
       "goals": [
         {
           "rank": "silver",
-          "score": [900000, 900000, 875000, 875000]
+          "score": [900000, 900000, 860000, 860000]
         }, {
           "rank": "gold",
           "score": [980000, 980000, 965000, 965000]
@@ -396,10 +480,14 @@
           "ex_missing": 350
         }, {
           "rank": "diamond",
+          "judge": 25,
+          "ex_missing": 290
+        }, {
+          "rank": "cobalt",
           "judge": 16,
           "ex_missing": 240
         }, {
-          "rank": "cobalt",
+          "rank": "pearl",
           "judge": 8,
           "ex_missing": 150
         }, {
@@ -425,6 +513,58 @@
       ],
       "cover_url": "",
       "author": "Sam-Thak"
+    },
+    {
+      "id": "storybook",
+      "name": "Storybook",
+      "type": "trial",
+      "difficulty": 13,
+      "state": "new",
+      "goals": [
+        {
+          "rank": "silver",
+          "score": [900000, 900000, 900000, 875000]
+        }, {
+          "rank": "gold",
+          "score": [980000, 980000, 970000, 970000]
+        }, {
+          "rank": "platinum",
+          "score": [990000, 990000, 990000, 985000],
+          "ex_missing": 280
+        }, {
+          "rank": "diamond",
+          "judge": 20,
+          "ex_missing": 220
+        }, {
+          "rank": "cobalt",
+          "judge": 12,
+          "ex_missing": 190
+        }, {
+          "rank": "pearl",
+          "judge": 5,
+          "ex_missing": 130
+        }, {
+          "rank": "amethyst",
+          "judge": 2,
+          "ex_missing": 75
+        }, {
+          "rank": "emerald",
+          "judge": 2,
+          "ex_missing": 50
+        }, {
+          "rank": "onyx",
+          "judge": 2,
+          "ex_missing": 35
+        }
+      ],
+      "total_ex": 5361,
+      "songs": [
+        { "name": "Une mage blanche", "difficulty": 13, "difficulty_class": "expert", "ex": 1548, "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Une_mage_blanche.webp" },
+        { "name": "STERLING SILVER", "difficulty": 13, "difficulty_class": "expert", "ex": 1476, "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/STERLING_SILVER.webp" },
+        { "name": "Towards the TOWER", "difficulty": 12, "difficulty_class": "expert", "ex": 1104, "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Towards_the_TOWER.webp" },
+        { "name": "Neverland", "difficulty": 12, "difficulty_class": "difficult", "ex": 1233, "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Neverland.webp" }
+      ],
+      "cover_url": ""
     },
     {
       "id": "hallowed",
@@ -461,10 +601,14 @@
           "score": [990000, 990000, 980000, 980000]
         }, {
           "rank": "diamond",
+          "judge": 30,
+          "ex_missing": 250
+        }, {
+          "rank": "cobalt",
           "judge": 18,
           "ex_missing": 200
         }, {
-          "rank": "cobalt",
+          "rank": "pearl",
           "judge": 8,
           "ex_missing": 120
         }, {
@@ -509,10 +653,14 @@
           "score": [985000, 985000, 985000, 980000]
         }, {
           "rank": "diamond",
+          "judge": 30,
+          "ex_missing": 285
+        }, {
+          "rank": "cobalt",
           "judge": 18,
           "ex_missing": 225
         }, {
-          "rank": "cobalt",
+          "rank": "pearl",
           "judge": 8,
           "ex_missing": 140
         }, {
@@ -525,7 +673,7 @@
           "ex_missing": 50
         }, {
           "rank": "onyx",
-          "judge": 3,
+          "judge": 2,
           "ex_missing": 35
         }
       ],
@@ -542,7 +690,6 @@
       "name": "Superstar",
       "type": "trial",
       "difficulty": 14,
-      "new": true,
       "goals": [
         {
           "rank": "silver",
@@ -550,16 +697,20 @@
           "score_indexed": [0, 0, 0, 500000]
         }, {
           "rank": "gold",
-          "score": [965000, 965000, 965000, 950000]
+          "score": [960000, 960000, 960000, 925000]
         }, {
           "rank": "platinum",
-          "score": [985000, 985000, 985000, 975000]
+          "score": [985000, 985000, 985000, 970000]
         }, {
           "rank": "diamond",
+          "judge": 30,
+          "ex_missing": 320
+        }, {
+          "rank": "cobalt",
           "judge": 20,
           "ex_missing": 240
         }, {
-          "rank": "cobalt",
+          "rank": "pearl",
           "judge": 8,
           "ex_missing": 150
         }, {
@@ -590,6 +741,7 @@
       "type": "trial",
       "difficulty": 14,
       "author": "Nebel",
+      "state": "retired",
       "goals": [
         {
           "rank": "silver",
@@ -603,10 +755,14 @@
           "score": [975000, 975000, 975000, 960000]
         }, {
           "rank": "diamond",
+          "judge": 40,
+          "ex_missing": 350
+        }, {
+          "rank": "cobalt",
           "judge": 25,
           "ex_missing": 260
         }, {
-          "rank": "cobalt",
+          "rank": "pearl",
           "judge": 12,
           "ex_missing": 180
         }, {
@@ -632,6 +788,57 @@
       ]
     },
     {
+      "id": "sidequest",
+      "name": "Sidequest",
+      "type": "trial",
+      "difficulty": 14,
+      "state": "new",
+      "goals": [
+        {
+          "rank": "silver",
+          "clear_indexed": ["clear", "clear", "clear", "fail"],
+          "score_indexed": [0, 0, 0, 250000]
+        }, {
+          "rank": "gold",
+          "score": [975000, 975000, 925000, 925000]
+        }, {
+          "rank": "platinum",
+          "score": [985000, 985000, 965000, 965000]
+        }, {
+          "rank": "diamond",
+          "judge": 30,
+          "ex_missing": 320
+        }, {
+          "rank": "cobalt",
+          "judge": 20,
+          "ex_missing": 240
+        }, {
+          "rank": "pearl",
+          "judge": 8,
+          "ex_missing": 160
+        }, {
+          "rank": "amethyst",
+          "judge": 6,
+          "ex_missing": 90
+        }, {
+          "rank": "emerald",
+          "judge": 4,
+          "ex_missing": 60
+        }, {
+          "rank": "onyx",
+          "judge": 3,
+          "ex_missing": 40
+        }
+      ],
+      "total_ex": 6762,
+      "songs": [
+        { "name": "Be a Hero!", "difficulty": 13, "difficulty_class": "difficult", "ex": 1740, "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Be_a_Hero!.webp" },
+        { "name": "ロールプレイングゲーム", "difficulty": 14, "difficulty_class": "expert", "ex": 1623, "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Role-playing_game.webp" },
+        { "name": "彼方のリフレシア", "difficulty": 15, "difficulty_class": "expert", "ex": 1695, "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Kanata_no_Reflesia.webp" },
+        { "name": "Boss Rush", "difficulty": 14, "difficulty_class": "difficult", "ex": 1704, "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Boss+Rush-jacket.webp" }
+      ]
+    },
+    {
       "id": "hellscape",
       "name": "Hellscape",
       "type": "trial",
@@ -643,17 +850,22 @@
           "score_indexed": [0, 0, 0, 300000]
         }, {
           "rank": "gold",
-          "score": [980000, 960000, 960000, 920000]
+          "score": [970000, 950000, 950000, 890000]
         }, {
           "rank": "platinum",
-          "score": [980000, 980000, 980000, 960000]
+          "score": [975000, 975000, 975000, 950000]
         }, {
           "rank": "diamond",
+          "score": [990000, 990000, 990000],
+          "score_indexed": [0, 0, 980000, 0],
+          "ex_missing": 375
+        }, {
+          "rank": "cobalt",
           "score": [990000, 990000, 990000],
           "score_indexed": [0, 0, 985000, 0],
           "ex_missing": 300
         }, {
-          "rank": "cobalt",
+          "rank": "pearl",
           "judge": 10,
           "ex_missing": 180
         }, {
@@ -690,16 +902,20 @@
           "score_indexed": [0, 0, 0, 400000]
         }, {
           "rank": "gold",
-          "score": [965000, 965000, 940000, 940000]
+          "score": [950000, 950000, 915000, 915000]
         }, {
           "rank": "platinum",
-          "score": [980000, 980000, 980000, 970000]
+          "score": [975000, 975000, 975000, 960000]
         }, {
           "rank": "diamond",
+          "score": [990000, 990000, 980000, 980000],
+          "ex_missing": 375
+        }, {
+          "rank": "cobalt",
           "score": [990000, 990000, 985000, 985000],
           "ex_missing": 300
         }, {
-          "rank": "cobalt",
+          "rank": "pearl",
           "judge": 10,
           "ex_missing": 180
         }, {
@@ -736,16 +952,20 @@
           "score_indexed": [0, 0, 0, 300000]
         }, {
           "rank": "gold",
-          "score": [965000, 965000, 940000, 940000]
+          "score": [925000, 925000, 900000, 900000]
         }, {
           "rank": "platinum",
-          "score": [980000, 980000, 980000, 970000]
+          "score": [970000, 970000, 970000, 955000]
         }, {
           "rank": "diamond",
+          "score": [990000, 990000, 975000, 975000],
+          "ex_missing": 420
+        }, {
+          "rank": "cobalt",
           "score": [990000, 990000, 980000, 980000],
           "ex_missing": 350
         }, {
-          "rank": "cobalt",
+          "rank": "pearl",
           "judge": 10,
           "ex_missing": 175
         }, {
@@ -759,7 +979,7 @@
         }, {
           "rank": "onyx",
           "judge": 2,
-          "ex_missing": 30
+          "ex_missing": 35
         }
       ],
       "total_ex": 6735,
@@ -782,26 +1002,30 @@
           "score_indexed": [0, 0, 0, 300000]
         },{
           "rank": "gold",
-          "score": [965000, 965000, 940000, 940000]
+          "score": [925000, 925000, 900000, 900000]
         },{
           "rank": "platinum",
-          "score": [980000, 980000, 970000, 970000]
+          "score": [970000, 970000, 955000, 955000]
         }, {
           "rank": "diamond",
-          "score": [985000, 985000, 985000, 975000],
+          "score": [985000, 985000, 970000, 970000],
           "ex_missing": 350
         },{
           "rank": "cobalt",
+          "score": [985000, 985000, 985000, 980000],
+          "ex_missing": 3350
+        },{
+          "rank": "pearl",
           "judge": 10,
           "ex_missing": 200
-        },{
+        }, {
           "rank": "amethyst",
           "judge": 6,
           "ex_missing": 100
         },{
           "rank": "emerald",
           "judge": 4,
-          "ex_missing": 65
+          "ex_missing": 70
         }, {
           "rank": "onyx",
           "judge": 3,
@@ -821,7 +1045,6 @@
       "name": "Mythos",
       "type": "trial",
       "difficulty": 15,
-      "new": true,
       "goals": [
         {
           "rank": "silver",
@@ -829,31 +1052,35 @@
           "score_indexed": [0, 0, 0, 300000]
         },{
           "rank": "gold",
-          "score": [970000, 915000, 915000, 915000]
+          "score": [960000, 860000, 860000, 860000]
         },{
           "rank": "platinum",
-          "score": [990000, 965000, 965000, 950000]
+          "score": [990000, 935000, 935000, 920000]
         }, {
           "rank": "diamond",
+          "score": [955000, 955000, 955000, 955000],
+          "ex_missing": 450
+        },{
+          "rank": "cobalt",
           "score": [970000, 970000, 970000, 970000],
           "clear": ["life4", "life4", "life4", "life4"],
           "ex_missing": 370
         },{
-          "rank": "cobalt",
+          "rank": "pearl",
           "judge": 15,
           "ex_missing": 220
-        },{
+        }, {
           "rank": "amethyst",
           "judge": 8,
           "ex_missing": 150
         },{
           "rank": "emerald",
           "judge": 6,
-          "ex_missing": 90
+          "ex_missing": 100
         }, {
           "rank": "onyx",
           "judge": 4,
-          "ex_missing": 55
+          "ex_missing": 60
         }
       ],
       "total_ex": 6471,
@@ -876,26 +1103,30 @@
           "score_indexed": [0, 0, 0, 300000]
         }, {
           "rank": "gold",
-          "score": [950000, 950000, 950000, 920000]
+          "score": [900000, 900000, 900000, 870000]
         }, {
           "rank": "platinum",
-          "score": [980000, 980000, 960000, 960000]
+          "score": [970000, 970000, 930000, 930000]
         }, {
           "rank": "diamond",
+          "score": [980000, 980000, 960000, 960000],
+          "ex_missing": 375
+        }, {
+          "rank": "cobalt",
           "score": [985000, 985000, 975000, 975000],
           "ex_missing": 300
         }, {
-          "rank": "cobalt",
+          "rank": "pearl",
           "judge": 14,
           "ex_missing": 180
         }, {
           "rank": "amethyst",
           "judge": 6,
-          "ex_missing": 110
+          "ex_missing": 120
         }, {
           "rank": "emerald",
           "judge": 5,
-          "ex_missing": 75
+          "ex_missing": 80
         }, {
           "rank": "onyx",
           "judge": 4,
@@ -915,7 +1146,6 @@
       "name": "Rendition",
       "type": "trial",
       "difficulty": 15,
-      "new": true,
       "goals": [
         {
           "rank": "silver",
@@ -923,16 +1153,20 @@
           "score_indexed": [0, 0, 0, 300000]
         }, {
           "rank": "gold",
-          "score": [950000, 950000, 950000, 910000]
+          "score": [900000, 900000, 900000, 860000]
         }, {
           "rank": "platinum",
-          "score": [975000, 975000, 975000, 950000]
+          "score": [965000, 965000, 965000, 920000]
         }, {
           "rank": "diamond",
+          "score": [975000, 975000, 975000, 955000],
+          "ex_missing": 450
+        }, {
+          "rank": "cobalt",
           "score": [980000, 980000, 980000, 970000],
           "ex_missing": 370
         }, {
-          "rank": "cobalt",
+          "rank": "pearl",
           "judge": 15,
           "ex_missing": 220
         }, {
@@ -942,7 +1176,7 @@
         }, {
           "rank": "emerald",
           "judge": 5,
-          "ex_missing": 80
+          "ex_missing": 85
         }, {
           "rank": "onyx",
           "judge": 4,
@@ -969,26 +1203,30 @@
           "clear_indexed": ["clear", "clear", "clear", "fail"]
         }, {
           "rank": "gold",
-          "score": [945000, 945000, 945000, 890000]
+          "score": [890000, 890000, 890000, 840000]
         }, {
           "rank": "platinum",
-          "score": [970000, 970000, 970000, 930000]
+          "score": [960000, 960000, 960000, 890000]
         }, {
           "rank": "diamond",
+          "score": [980000, 980000, 940000, 940000],
+          "ex_missing": 550
+        }, {
+          "rank": "cobalt",
           "score": [980000, 980000, 955000, 955000],
           "ex_missing": 425
         }, {
-          "rank": "cobalt",
+          "rank": "pearl",
           "judge": 18,
           "ex_missing": 250
         }, {
           "rank": "amethyst",
           "judge": 8,
-          "ex_missing": 150
+          "ex_missing": 160
         }, {
           "rank": "emerald",
           "judge": 6,
-          "ex_missing": 90
+          "ex_missing": 100
         }, {
           "rank": "onyx",
           "judge": 4,
@@ -1012,19 +1250,23 @@
       "goals": [
         {
           "rank": "gold",
-          "score": [950000, 950000, 915000, 915000]
+          "score": [900000, 900000, 865000, 865000]
         },{
           "rank": "platinum",
-          "score": [980000, 980000, 960000, 960000]
+          "score": [970000, 970000, 930000, 930000]
         }, {
           "rank": "diamond",
+          "score": [980000, 980000, 960000, 960000],
+          "miss": 12
+        },{
+          "rank": "cobalt",
           "score": [985000, 985000, 975000, 975000],
           "miss": 10
         },{
-          "rank": "cobalt",
+          "rank": "pearl",
           "score": [990000, 990000, 990000, 990000],
           "ex_missing": 250
-        },{
+        }, {
           "rank": "amethyst",
           "judge": 8,
           "ex_missing": 140
@@ -1054,16 +1296,20 @@
       "goals": [
         {
           "rank": "gold",
-          "score": [940000, 940000, 910000, 910000]
+          "score": [890000, 890000, 860000, 860000]
         }, {
           "rank": "platinum",
-          "score": [970000, 970000, 950000, 950000]
+          "score": [960000, 960000, 920000, 920000]
         }, {
           "rank": "diamond",
+          "score": [970000, 970000, 970000, 955000],
+          "miss": 12
+        }, {
+          "rank": "cobalt",
           "score": [980000, 980000, 980000, 970000],
           "miss": 10
         }, {
-          "rank": "cobalt",
+          "rank": "pearl",
           "score": [990000, 990000, 990000, 990000],
           "ex_missing": 280
         }, {
@@ -1096,30 +1342,34 @@
       "goals": [
         {
           "rank": "gold",
-          "score": [910000, 910000, 910000, 910000]
+          "score": [860000, 860000, 860000, 860000]
         }, {
           "rank": "platinum",
-          "score": [965000, 965000, 950000, 950000]
+          "score": [935000, 935000, 920000, 920000]
         }, {
           "rank": "diamond",
+          "score": [970000, 970000, 955000, 955000],
+          "miss": 12
+        }, {
+          "rank": "cobalt",
           "score": [985000, 985000, 970000, 970000],
           "miss": 10
         }, {
-          "rank": "cobalt",
+          "rank": "pearl",
           "score": [990000, 990000, 990000, 990000],
           "ex_missing": 280
         }, {
           "rank": "amethyst",
           "judge": 8,
-          "ex_missing": 150
+          "ex_missing": 170
         }, {
           "rank": "emerald",
           "judge": 5,
-          "ex_missing": 90
+          "ex_missing": 110
         }, {
           "rank": "onyx",
           "judge": 4,
-          "ex_missing": 60
+          "ex_missing": 70
         }
       ],
       "total_ex": 6951,
@@ -1138,29 +1388,32 @@
       "goals": [
         {
           "rank": "gold",
-          "score": [950000, 950000, 875000, 875000]
+          "score": [900000, 900000, 835000, 835000]
         }, {
           "rank": "platinum",
-          "score": [980000, 980000, 920000, 920000]
+          "score": [970000, 970000, 890000, 890000]
         }, {
           "rank": "diamond",
-          "score": [985000, 985000, 940000, 940000]
+          "score": [980000, 980000, 930000, 930000]
         }, {
           "rank": "cobalt",
+          "score": [985000, 985000, 940000, 940000]
+        }, {
+          "rank": "pearl",
           "score": [990000, 990000, 990000, 975000],
           "ex_missing": 300
         }, {
           "rank": "amethyst",
           "judge": 8,
-          "ex_missing": 170
+          "ex_missing": 180
         }, {
           "rank": "emerald",
           "judge": 6,
-          "ex_missing": 110
+          "ex_missing": 120
         }, {
           "rank": "onyx",
           "judge": 5,
-          "ex_missing": 70
+          "ex_missing": 75
         }
       ],
       "total_ex": 6750,
@@ -1181,16 +1434,20 @@
       "goals": [
         {
           "rank": "gold",
-          "score": [915000, 915000, 870000, 870000]
+          "score": [865000, 865000, 800000, 800000]
         }, {
           "rank": "platinum",
-          "score": [950000, 950000, 920000, 920000]
+          "score": [920000, 920000, 870000, 870000]
         }, {
           "rank": "diamond",
-          "score": [980000, 980000, 960000, 960000],
+          "score": [970000, 970000, 920000, 920000],
           "miss": 10
         }, {
           "rank": "cobalt",
+          "score": [980000, 980000, 960000, 960000],
+          "miss": 10
+        }, {
+          "rank": "pearl",
           "score": [990000, 990000],
           "ex_missing": 320
         }, {
@@ -1223,12 +1480,15 @@
       "goals": [
         {
           "rank": "platinum",
-          "score": [900000, 900000, 875000, 875000]
+          "score": [850000, 850000, 825000, 825000]
         }, {
           "rank": "diamond",
-          "score": [950000, 950000, 925000, 925000]
+          "score": [915000, 915000, 890000, 890000]
         }, {
           "rank": "cobalt",
+          "score": [950000, 950000, 925000, 925000]
+        }, {
+          "rank": "pearl",
           "score": [985000, 970000, 970000, 970000],
           "ex_missing": 600
         }, {
@@ -1237,11 +1497,11 @@
           "ex_missing": 350
         }, {
           "rank": "emerald",
-          "judge": 12,
+          "judge": 15,
           "ex_missing": 225
         }, {
           "rank": "onyx",
-          "judge": 8,
+          "judge": 10,
           "ex_missing": 160
         }
       ],
@@ -1261,12 +1521,15 @@
       "goals": [
         {
           "rank": "platinum",
-          "score": [900000, 900000, 875000, 875000]
+          "score": [850000, 850000, 800000, 800000]
         }, {
           "rank": "diamond",
-          "score": [940000, 940000, 940000, 925000]
+          "score": [910000, 910000, 875000, 875000]
         }, {
           "rank": "cobalt",
+          "score": [940000, 940000, 940000, 925000]
+        }, {
+          "rank": "pearl",
           "score": [985000, 970000, 970000, 970000],
           "ex_missing": 600
         }, {
@@ -1275,20 +1538,58 @@
           "ex_missing": 300
         }, {
           "rank": "emerald",
-          "judge": 12,
+          "judge": 15,
           "ex_missing": 200
         }, {
           "rank": "onyx",
-          "judge": 8,
+          "judge": 10,
           "ex_missing": 150
         }
       ],
       "total_ex": 7470,
       "songs": [
         { "name": "RISING FIRE HAWK", "difficulty": 17, "difficulty_class": "challenge", "ex": 2025, "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/RISING+FIRE+HAWK-jacket.webp" },
-        { "name": "SABER WING (AKIRA ISHIHARA Headshot mix)", "difficulty": 17, "difficulty_class": "challenge", "ex": 1569, "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/SABER+WING+(AKIRA+ISHIHARA+Headshot+mix)-jacket.webp" },
+        { "name": "SABER WING (Akira Ishihara Headshot mix)", "difficulty": 17, "difficulty_class": "challenge", "ex": 1569, "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/SABER+WING+(AKIRA+ISHIHARA+Headshot+mix)-jacket.webp" },
         { "name": "Air Heroes", "difficulty": 18, "difficulty_class": "challenge", "ex": 1971, "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Air+Heroes-jacket.webp" },
         { "name": "Reach The Sky, Without you", "difficulty": 17, "difficulty_class": "expert", "ex": 1905, "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Reach+The+Sky,+Without+you-jacket.webp" }
+      ]
+    },
+    {
+      "id": "dogfight",
+      "name": "Dogfight",
+      "type": "trial",
+      "difficulty": 18,
+      "state": "new",
+      "goals": [
+        {
+          "rank": "diamond",
+          "score": [875000, 875000, 800000, 800000]
+        },{
+          "rank": "cobalt",
+          "score": [925000, 925000, 840000, 840000]
+        },{
+          "rank": "pearl",
+          "score": [950000, 950000, 915000, 915000]
+        }, {
+          "rank": "amethyst",
+          "score": [985000, 985000, 950000, 950000],
+          "ex_missing": 650
+        },{
+          "rank": "emerald",
+          "score": [985000, 985000, 985000, 975000],
+          "ex_missing": 360
+        }, {
+          "rank": "onyx",
+          "score": [990000, 990000, 990000, 990000],
+          "ex_missing": 225
+        }
+      ],
+      "total_ex": 8817,
+      "songs": [
+        { "name": "ACE FOR ACES", "difficulty": 18, "difficulty_class": "challenge", "ex": 2406, "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/ACE_FOR_ACES.webp" },
+        { "name": "Trigger", "difficulty": 18, "difficulty_class": "challenge", "ex": 1875, "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Trigger.webp" },
+        { "name": "ÆTHER", "difficulty": 17, "difficulty_class": "expert", "ex": 2130, "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/AETHER.webp" },
+        { "name": "SABER WING (Akira Ishihara Headshot mix)", "difficulty": 17, "difficulty_class": "challenge", "ex": 1569, "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/SABER+WING+(AKIRA+ISHIHARA+Headshot+mix)-jacket.webp" }
       ]
     },
     {
@@ -1300,11 +1601,14 @@
       "goals": [
         {
           "rank": "diamond",
-          "score": [925000, 925000, 850000, 850000]
+          "score": [875000, 875000, 800000, 800000]
         },{
           "rank": "cobalt",
-          "score": [940000, 940000, 940000, 925000]
+          "score": [925000, 925000, 850000, 850000]
         },{
+          "rank": "pearl",
+          "score": [940000, 940000, 940000, 925000]
+        }, {
           "rank": "amethyst",
           "score": [990000, 990000, 960000, 960000],
           "ex_missing": 600
@@ -1331,11 +1635,12 @@
       "name": "Origin",
       "type": "trial",
       "difficulty": 18,
+      "state": "retired",
       "goals": [
         {
-          "rank": "diamond"
+          "rank": "cobalt"
         }, {
-          "rank": "cobalt",
+          "rank": "pearl",
           "score": [940000, 940000, 940000, 900000]
         }, {
           "rank": "amethyst",
