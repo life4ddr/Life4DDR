@@ -38,7 +38,7 @@ val coreModule = module {
     single { ResultDatabaseHelper(get()) }
     single { SongDatabaseHelper(get()) }
     single { TrialDatabaseHelper(get()) }
-    single<GithubDataAPI> { GithubDataImpl(get()) }
+    single<GithubDataAPI> { GithubDataImpl() }
     single<Life4API> { Life4APIImpl(get()) }
     single { Json { classDiscriminator = "t" } }
     single { PlacementManager() }

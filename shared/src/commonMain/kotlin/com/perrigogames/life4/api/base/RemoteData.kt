@@ -32,6 +32,7 @@ abstract class RemoteData<T: Any>: BaseModel(), DelayedDataSource<T> {
                     }
                 }
             } catch (e: Exception){
+                println(e)
                 withContext(Dispatchers.Main) { listener.onFetchFailed(e) }
             }
         }

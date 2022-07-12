@@ -1,19 +1,22 @@
 package com.perrigogames.life4.ktor
 
+import co.touchlab.kermit.Logger
 import co.touchlab.stately.ensureNeverFrozen
 import com.perrigogames.life4.api.baseHttpClient
 import com.perrigogames.life4.data.IgnoreListData
 import com.perrigogames.life4.data.LadderRankData
 import com.perrigogames.life4.data.MessageOfTheDay
 import com.perrigogames.life4.data.TrialData
+import com.perrigogames.life4.injectLogger
 import com.perrigogames.life4.isDebug
 import io.ktor.client.call.*
 import io.ktor.client.request.*
 import io.ktor.http.*
 import org.koin.core.component.KoinComponent
 
-class GithubDataImpl(private val log: co.touchlab.kermit.Logger): GithubDataAPI, KoinComponent {
+class GithubDataImpl: GithubDataAPI, KoinComponent {
 
+    private val log: Logger by injectLogger("GithubData")
     private val client = baseHttpClient(log)
 
     init {

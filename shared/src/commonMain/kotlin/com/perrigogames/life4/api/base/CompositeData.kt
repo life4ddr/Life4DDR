@@ -28,7 +28,7 @@ abstract class CompositeData<T: Versioned>(
     fun start() {
         loadRawData()
         loadCachedData()
-        onNewDataAvailable() // reveal local data before fetching remote
+        listener?.onDataLoaded(data)
         loadRemoteData()
     }
 
@@ -63,7 +63,7 @@ abstract class CompositeData<T: Versioned>(
                     listener?.onMajorVersionBlock()
                 } else if (newData.version > data.version) { // new version is higher, use it and save it to cache
                     data = newData
-                    onNewDataAvailable()
+                    listener?.onDataLoaded(data)
                     cacheData?.saveNewCache(data)
                     listener?.onDataVersionChanged(data)
                 }
@@ -76,14 +76,21 @@ abstract class CompositeData<T: Versioned>(
         })
     }
 
-    /**
-     * Invoked when the data is set internally.
-     */
-    protected open fun onNewDataAvailable() = Unit
-
     interface NewDataListener<T: Versioned> {
-        fun onDataVersionChanged(data: T)
-        fun onMajorVersionBlock()
+        /**
+         * Invoked the first time data is loaded and any time the currently loaded data is changed
+         */
+        fun onDataLoaded(data: T) {}
+
+        /**
+         * Invoked when a new data set has a compatible minor version update and has been applied internally
+         */
+        fun onDataVersionChanged(data: T) {}
+
+        /**
+         * Invoked when a new data set has an incompatible major version and cannot be loaded
+         */
+        fun onMajorVersionBlock() {}
     }
 
     open fun shouldUpdate(newData: T): Boolean =

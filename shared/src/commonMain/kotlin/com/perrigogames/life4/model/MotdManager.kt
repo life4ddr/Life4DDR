@@ -27,7 +27,9 @@ class MotdManager: BaseModel() {
             }
         }
 
-        override fun onMajorVersionBlock() = eventBus.postSticky(DataRequiresAppUpdateEvent())
+        override fun onMajorVersionBlock() {
+            eventBus.postSticky(DataRequiresAppUpdateEvent())
+        }
     }).apply { start() }
 
     val dataVersionString get() = motdRemote.versionString

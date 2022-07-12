@@ -39,13 +39,15 @@ class LadderManager: BaseModel() {
     //
     // Ladder Data
     //
-    private val ladderDataRemote = LadderRemoteData(dataReader, object: CompositeData.NewDataListener<LadderRankData> {
+    private val ladderDataRemote = LadderRemoteData(dataReader, object : CompositeData.NewDataListener<LadderRankData> {
         override fun onDataVersionChanged(data: LadderRankData) {
             ladderDialogs.showLadderUpdateToast()
             eventBus.post(LadderRanksReplacedEvent())
         }
 
-        override fun onMajorVersionBlock() = eventBus.postSticky(DataRequiresAppUpdateEvent())
+        override fun onMajorVersionBlock() {
+            eventBus.postSticky(DataRequiresAppUpdateEvent())
+        }
     }).apply { start() }
 
     val dataVersionString get() = ladderDataRemote.versionString

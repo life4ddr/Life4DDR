@@ -4,9 +4,11 @@ import co.touchlab.kermit.Logger
 import com.perrigogames.life4.LadderRanksReplacedEvent
 import com.perrigogames.life4.SettingsKeys.KEY_IMPORT_GAME_VERSION
 import com.perrigogames.life4.api.IgnoreListRemoteData
+import com.perrigogames.life4.api.base.CompositeData
 import com.perrigogames.life4.api.base.LocalDataReader
 import com.perrigogames.life4.data.IgnoreGroup
 import com.perrigogames.life4.data.IgnoreList
+import com.perrigogames.life4.data.IgnoreListData
 import com.perrigogames.life4.data.IgnoredSong
 import com.perrigogames.life4.db.DetailedChartInfo
 import com.perrigogames.life4.injectLogger
@@ -24,7 +26,11 @@ class IgnoreListManager: BaseModel() {
     private val dataReader: LocalDataReader by inject(named(IGNORES_FILE_NAME))
     private val songDataManager: SongDataManager by inject()
 
-    private val ignoreLists = IgnoreListRemoteData(dataReader)
+    private val ignoreLists = IgnoreListRemoteData(dataReader, object : CompositeData.NewDataListener<IgnoreListData> {
+        override fun onDataLoaded(data: IgnoreListData) {
+            data.evaluateIgnoreLists()
+        }
+    })
         .apply { start() }
 
     val dataVersionString get() = ignoreLists.versionString

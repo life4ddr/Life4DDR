@@ -27,17 +27,18 @@ class SongDataManager: BaseModel() {
 
     private val dbHelper: SongDatabaseHelper by inject()
     private val majorUpdates: MajorUpdateManager by inject()
-    private val ignoreListManager: IgnoreListManager by inject()
     private val settings: Settings by inject()
     private val dataReader: LocalDataReader by inject(named(SONGS_FILE_NAME))
     private val logger: Logger by injectLogger("SongDataManager")
 
     private val songList = SongListRemoteData(dataReader, object: CompositeData.NewDataListener<SongList> {
+        override fun onDataLoaded(data: SongList) {
+            refreshMemoryData()
+        }
+
         override fun onDataVersionChanged(data: SongList) {
             refreshSongDatabase(data)
         }
-
-        override fun onMajorVersionBlock() = Unit
     })
     val dataVersionString get() = songList.versionString
 

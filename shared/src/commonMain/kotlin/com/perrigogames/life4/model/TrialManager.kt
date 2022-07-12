@@ -38,7 +38,9 @@ class TrialManager: BaseModel() {
             eventBus.post(TrialListReplacedEvent())
         }
 
-        override fun onMajorVersionBlock() = eventBus.postSticky(DataRequiresAppUpdateEvent())
+        override fun onMajorVersionBlock() {
+            eventBus.postSticky(DataRequiresAppUpdateEvent())
+        }
     })
     val dataVersionString get() = trialData.versionString
 

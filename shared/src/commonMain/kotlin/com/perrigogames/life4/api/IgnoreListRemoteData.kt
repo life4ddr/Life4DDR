@@ -27,8 +27,4 @@ class IgnoreListRemoteData(
         override fun create(s: String) = json.decodeFromString(IgnoreListData.serializer(), s)
         override fun create(data: IgnoreListData) = json.encodeToString(IgnoreListData.serializer(), data)
     }
-
-    override fun onNewDataAvailable() {
-        data.evaluateIgnoreLists()
-    }
 }
