@@ -45,7 +45,7 @@ data class Trial(
     val id: String,
     val name: String,
     val author: String? = null,
-    val new: Boolean = false,
+    val state: TrialState = TrialState.ACTIVE,
     val type: TrialType,
     @SerialName("placement_rank") val placementRank: PlacementRank? = null,
     val songs: List<Song>,
@@ -63,6 +63,7 @@ data class Trial(
         get() = type == TrialType.EVENT && eventStart != null && eventEnd != null
     val isActiveEvent: Boolean
         get() = isEvent && (eventStart!!.rangeTo(eventEnd!!)).contains(Clock.System.now())
+    val new = state == TrialState.NEW
 
     fun goalSet(rank: TrialRank?): TrialGoalSet? = goals?.find { it.rank == rank }
 
