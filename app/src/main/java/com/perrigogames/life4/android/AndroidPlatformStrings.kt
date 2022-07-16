@@ -57,7 +57,7 @@ class AndroidPlatformStrings: PlatformStrings, KoinComponent {
             else c.getString(R.string.rank_goal_clear_trial, c.getString(rank.nameRes), count)
         }
 
-        override fun getMFCPointString(count: Int): String = c.getString(R.string.rank_goal_mfc_points, count)
+        override fun getMFCPointString(count: Double): String = c.getString(R.string.rank_goal_mfc_points, count)
 
         override fun folderString(
             folderCount: Int,

@@ -6,12 +6,12 @@
     LadderRankSerializer::class,
     TrialRankSerializer::class,
     DifficultyClassSetSerializer::class,
+    RankGoalUserTypeSerializer::class,
 )
 
 package com.perrigogames.life4.data
 
 import com.perrigogames.life4.PlatformStrings
-import com.perrigogames.life4.db.ChartResultPair
 import com.perrigogames.life4.enums.*
 import com.perrigogames.life4.logE
 import kotlinx.serialization.*
@@ -23,15 +23,53 @@ import kotlinx.serialization.*
 @Serializable
 sealed class BaseRankGoal {
 
-    @kotlin.jvm.Transient
-    var isMandatory: Boolean = false
+    @Transient var isMandatory: Boolean = false
 
-    open val id: Int = -1
+    abstract val id: Int
     @SerialName("s") open val playStyle: PlayStyle = PlayStyle.SINGLE
 
     abstract fun goalString(c: PlatformStrings): String
+}
 
-    open fun getGoalProgress(possible: Int, results: List<ChartResultPair>): LadderGoalProgress? = null
+/**
+ * An extension of the [BaseRankGoal] that groups similar statuses with one or more "stacked"
+ * values, which can stand in for multiple ranks that inherit the base values.
+ */
+@Serializable
+sealed class StackedRankGoal : BaseRankGoal() {
+
+    val stacks: Map<String, List<Double?>> = emptyMap()
+
+    @Transient val expandedGoalCount: Int = stacks.values.maxOf { it.size }
+
+    @Transient open val expandedGoals: List<BaseRankGoal> by lazy {
+        List(expandedGoalCount) { idx ->
+            StackedRankGoalWrapper(this, idx)
+        }
+    }
+
+    fun getIntValue(index: Int, key: String) = stacks[key]?.getOrNull(index)?.toInt()
+    fun getDoubleValue(index: Int, key: String) = stacks[key]?.getOrNull(index)
+
+    override fun goalString(c: PlatformStrings) = error("Cannot call standard goalString on stacked goal")
+    abstract fun goalString(index: Int, c: PlatformStrings): String
+}
+
+/**
+ * A wrapper around a [StackedRankGoal] to allow a single part of that stack to be utilized in
+ * main app functions.
+ */
+class StackedRankGoalWrapper(
+    val mainGoal: StackedRankGoal,
+    val index: Int,
+) : BaseRankGoal() {
+
+    override val id = mainGoal.id + index
+
+    fun getIntValue(key: String) = mainGoal.getIntValue(index, key)
+    fun getDoubleValue(key: String) = mainGoal.getDoubleValue(index, key)
+
+    override fun goalString(c: PlatformStrings) = mainGoal.goalString(index, c)
 }
 
 /**
@@ -40,11 +78,16 @@ sealed class BaseRankGoal {
  */
 @Serializable
 @SerialName("calories")
-class CaloriesRankGoal(
-    val count: Int,
-): BaseRankGoal() {
+class CaloriesStackedRankGoal(
+    override val id: Int,
+): StackedRankGoal() {
 
-    override fun goalString(c: PlatformStrings) = c.rank.getCalorieCountString(count)
+    override fun goalString(index: Int, c: PlatformStrings) =
+        c.rank.getCalorieCountString(getIntValue(index, KEY_CALORIES)!!)
+
+    companion object {
+        const val KEY_CALORIES = "calories"
+    }
 }
 
 /**
@@ -54,6 +97,7 @@ class CaloriesRankGoal(
 @Serializable
 @SerialName("set")
 class DifficultySetGoal(
+    override val id: Int,
     @SerialName("diff_nums") val difficulties: IntArray,
     @SerialName("clear_type") private val mClearType: ClearType? = null,
 ): BaseRankGoal() {
@@ -72,13 +116,18 @@ class DifficultySetGoal(
 @OptIn(ExperimentalSerializationApi::class)
 @Serializable
 @SerialName("trial")
-class TrialGoal(
+class TrialStackedGoal(
+    override val id: Int,
     val rank: TrialRank,
-    val count: Int = 1,
     @SerialName("restrict") val restrictDifficulty: Boolean = false,
-): BaseRankGoal() {
+): StackedRankGoal() {
 
-    override fun goalString(c: PlatformStrings) = c.rank.getTrialCountString(rank, count)
+    override fun goalString(index: Int, c: PlatformStrings) =
+        c.rank.getTrialCountString(rank, getIntValue(index, KEY_TRIALS_COUNT)!!)
+
+    companion object {
+        const val KEY_TRIALS_COUNT = "count"
+    }
 }
 
 /**
@@ -87,11 +136,16 @@ class TrialGoal(
  */
 @Serializable
 @SerialName("mfc_points")
-data class MFCPointsGoal(
-    val points: Int,
-): BaseRankGoal() {
+class MFCPointsStackedGoal(
+    override val id: Int,
+): StackedRankGoal() {
 
-    override fun goalString(c: PlatformStrings) = c.rank.getMFCPointString(points)
+    override fun goalString(index: Int, c: PlatformStrings) =
+        c.rank.getMFCPointString(getDoubleValue(index, KEY_MFC_POINTS)!!)
+
+    companion object {
+        const val KEY_MFC_POINTS = "mfc_points"
+    }
 }
 
 /**
@@ -104,8 +158,10 @@ data class MFCPointsGoal(
 @Serializable
 @SerialName("songs")
 class SongsClearGoal(
+    override val id: Int,
+    @SerialName("user_type") val userType: RankGoalUserType? = null,
     @SerialName("d") val diffNum: Int? = null,
-    @SerialName("higher_diff") val allowsHigherDiffNum: Boolean = false,
+    @SerialName("allow_higher") val allowsHigherDiffNum: Boolean = false,
     @SerialName("diff_class") val diffClassSet: DifficultyClassSet? = null,
     val songs: List<String>? = null,
     private val folder: String? = null,
@@ -180,16 +236,72 @@ class SongsClearGoal(
         else -> this
     }
 
-    override fun getGoalProgress(possible: Int, results: List<ChartResultPair>): LadderGoalProgress {
-        return LadderGoalProgress( // TODO
-            progress = 1,
-            max = 2,
-        )
-    }
-
     sealed class FolderType {
         class Letter(val letter: Char): FolderType()
         class Version(val version: GameVersion): FolderType()
+    }
+}
+
+/**
+ * A specialized rank goal requiring players to clear songResults of a particular difficulty in special ways.
+ * For example,
+ * - clearing 3 different 12's with LIFE4 enabled
+ * - clearing all 17's with 950k or more points
+ * - PFC-ing all 15's except for 5 songResults
+ *
+ * This is the stacked variant of [SongsClearGoal] and supports stacks for the keys "diff_num", "folder_count",
+ * "song_count", "exceptions", "score", and "average_score".
+ */
+@Serializable
+@SerialName("songs_stack")
+data class SongsClearStackedGoal(
+    override val id: Int,
+    @SerialName("user_type") val userType: RankGoalUserType? = null,
+    @SerialName("d") val diffNum: Int? = null,
+    @SerialName("allow_higher") val allowsHigherDiffNum: Boolean = false,
+    @SerialName("diff_class") val diffClassSet: DifficultyClassSet? = null,
+    val songs: List<String>? = null,
+    private val folder: String? = null,
+
+    @SerialName("folder_count") val folderCount: Int? = null,
+    @SerialName("song_count") val songCount: Int? = null,
+    val exceptions: Int? = null,
+    @SerialName("song_exceptions") val songExceptions: List<String>? = null,
+
+    val score: Int? = null,
+    @SerialName("average_score") val averageScore: Int? = null,
+    @SerialName("clear_type") private val mClearType: ClearType? = null,
+) : StackedRankGoal() {
+
+    override val expandedGoals: List<BaseRankGoal>
+        get() = List(expandedGoalCount) { idx ->
+            SongsClearGoal(
+                id = id + idx,
+                userType = userType,
+                diffNum = getIntValue(idx, KEY_DIFFICULTY_NUM) ?: diffNum,
+                allowsHigherDiffNum,
+                diffClassSet,
+                songs,
+                folder,
+                folderCount = getIntValue(idx, KEY_FOLDER_COUNT) ?: folderCount,
+                songCount = getIntValue(idx, KEY_SONG_COUNT) ?: songCount,
+                exceptions = getIntValue(idx, KEY_EXCEPTIONS) ?: exceptions,
+                songExceptions,
+                score = getIntValue(idx, KEY_SCORE) ?: score,
+                averageScore = getIntValue(idx, KEY_AVERAGE_SCORE) ?: averageScore,
+                mClearType,
+            )
+        }
+
+    override fun goalString(index: Int, c: PlatformStrings) = expandedGoals[index].goalString(c)
+
+    companion object {
+        const val KEY_DIFFICULTY_NUM = "diff_num"
+        const val KEY_FOLDER_COUNT = "folder_count"
+        const val KEY_SONG_COUNT = "song_count"
+        const val KEY_EXCEPTIONS = "exceptions"
+        const val KEY_SCORE = "score"
+        const val KEY_AVERAGE_SCORE = "average_score"
     }
 }
 
@@ -200,6 +312,7 @@ class SongsClearGoal(
 @Serializable
 @SerialName("multiple")
 data class MultipleChoiceGoal(
+    override val id: Int,
     val options: List<BaseRankGoal>,
 ): BaseRankGoal() {
 

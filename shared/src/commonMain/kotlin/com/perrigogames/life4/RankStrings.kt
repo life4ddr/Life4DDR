@@ -25,7 +25,7 @@ interface RankStrings {
     fun getTrialCountString(rank: TrialRank, count: Int): String
 
     /** Earn X MFC Points. */
-    fun getMFCPointString(count: Int): String
+    fun getMFCPointString(count: Double): String
 
     // Song Set
     fun folderString(folderCount: Int): String  // any Mix or Letter folder / any 3 Mix or Letter folders

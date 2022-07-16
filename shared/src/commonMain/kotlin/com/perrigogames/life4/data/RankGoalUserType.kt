@@ -7,36 +7,53 @@ import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.enums.LadderRankClass
 import com.perrigogames.life4.enums.LadderRankClass.SILVER
 import kotlinx.serialization.ExperimentalSerializationApi
+import kotlinx.serialization.KSerializer
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.Serializer
+import kotlinx.serialization.descriptors.PrimitiveKind
+import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
+import kotlinx.serialization.descriptors.SerialDescriptor
+import kotlinx.serialization.encoding.Decoder
+import kotlinx.serialization.encoding.Encoder
 
-enum class RankGoalUserType {
-    LEVEL_12,
-    LEVEL_13,
-    LEVEL_14,
-    LEVEL_15,
-    LEVEL_16,
-    LEVEL_17,
-    LEVEL_18,
-    LEVEL_19,
-    PFC,
-    COMBO,
-    LIFE4,
-    MFC,
-    SINGLE_SCORE,
-    CLEAR,
-    SINGLE_CLEAR,
-    SET_CLEAR,
-    CALORIES,
-    TRIALS,
+@Serializable
+enum class RankGoalUserType constructor(val serialized: String) {
+    LEVEL_12("12"),
+    LEVEL_13("13"),
+    LEVEL_14("14"),
+    LEVEL_15("15"),
+    LEVEL_16("16"),
+    LEVEL_17("17"),
+    LEVEL_18("18"),
+    LEVEL_19("19"),
+    PFC("pfc"),
+    COMBO("combo"),
+    LIFE4("life4"),
+    MFC("mfc"),
+    SINGLE_SCORE("single_score"),
+    CLEAR("clear"),
+    SINGLE_CLEAR("single_clear"),
+    SET_CLEAR("set_clear"),
+    CALORIES("calories"),
+    TRIALS("trials"),
     ;
+
+    companion object {
+        fun parse(v: String) = values().firstOrNull { it.serialized == v }
+    }
 }
 
 fun BaseRankGoal.userType(rank: LadderRank): RankGoalUserType {
     return when (this) {
-        is CaloriesRankGoal -> RankGoalUserType.CALORIES
-        is TrialGoal -> RankGoalUserType.TRIALS
+        is StackedRankGoalWrapper -> mainGoal.userType(rank)
+        is CaloriesStackedRankGoal -> RankGoalUserType.CALORIES
+        is TrialStackedGoal -> RankGoalUserType.TRIALS
         is DifficultySetGoal -> RankGoalUserType.SET_CLEAR
-        is MFCPointsGoal -> RankGoalUserType.MFC
+        is MFCPointsStackedGoal -> RankGoalUserType.MFC
         is SongsClearGoal -> {
+            if (this.userType != null) {
+                return this.userType
+            }
             if (rank.group <= SILVER) {
                 return when {
                     score != null -> RankGoalUserType.SINGLE_SCORE
@@ -46,7 +63,6 @@ fun BaseRankGoal.userType(rank: LadderRank): RankGoalUserType {
             }
             if (diffNum != null &&
                 diffNum >= 12 &&
-                !allowsHigherDiffNum &&
                 rank.group >= LadderRankClass.GOLD
             ) {
                 diffNum.toLevelUserType()?.let { return it }
@@ -73,4 +89,14 @@ private fun Int.toLevelUserType() = when (this) {
     18 -> RankGoalUserType.LEVEL_18
     19 -> RankGoalUserType.LEVEL_19
     else -> null
+}
+
+@ExperimentalSerializationApi
+@Serializer(forClass = RankGoalUserType::class)
+object RankGoalUserTypeSerializer: KSerializer<RankGoalUserType> {
+    override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("rankGoalUserType", PrimitiveKind.STRING)
+    override fun deserialize(decoder: Decoder) = RankGoalUserType.parse(decoder.decodeString())!!
+    override fun serialize(encoder: Encoder, value: RankGoalUserType) {
+        encoder.encodeString(value.serialized)
+    }
 }

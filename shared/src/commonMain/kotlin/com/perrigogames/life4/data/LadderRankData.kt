@@ -21,12 +21,24 @@ data class LadderRankData(
     @SerialName("game_versions") val gameVersions: Map<GameVersion, LadderVersion>,
 ): MajorVersioned {
 
+    @Transient
+    private val wrappedGoals: List<BaseRankGoal> by lazy {
+        goals.filterIsInstance<StackedRankGoal>()
+            .flatMap { it.expandedGoals }
+    }
+
     init {
         validate()
-        gameVersions.values.flatMap { it.rankRequirements }.forEach {  entry ->
-            entry.goalIds?.let { entry.goals = mapIdsToGoals(it) }
-            entry.mandatoryGoalIds?.let { entry.mandatoryGoals = mapIdsToGoals(it) }
-        }
+        gameVersions.values
+            .flatMap { it.rankRequirements }
+            .forEach {  entry ->
+                try {
+                    entry.goalIds?.let { entry.goals = mapIdsToGoals(it) }
+                    entry.mandatoryGoalIds?.let { entry.mandatoryGoals = mapIdsToGoals(it) }
+                } catch (e: IllegalStateException) {
+                    println(e.message)
+                }
+            }
     }
 
     private fun validate() {
@@ -41,6 +53,7 @@ data class LadderRankData(
 
     private fun mapIdsToGoals(ids: List<Int>): List<BaseRankGoal> {
         return ids.map { id ->
+            wrappedGoals.firstOrNull { it.id == id } ?:
             goals.firstOrNull { it.id == id } ?:
             error("ID not found: $id")
         }

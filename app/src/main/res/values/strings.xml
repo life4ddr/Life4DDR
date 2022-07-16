@@ -72,7 +72,7 @@
     <string name="rank_goal_diff_score">Score %s+ on %s.</string>
     <string name="rank_goal_diff_score_aaa">AAA %s.</string>
     <string name="rank_goal_diff_average">Score an average of %s on %s.</string>
-    <string name="rank_goal_mfc_points">Earn %d MFC Points.</string>
+    <string name="rank_goal_mfc_points">Earn %.1f MFC Points.</string>
     <string name="exceptions_num_modifier">"%s (except %d)"</string>
     <string name="exceptions_songs_modifier">"%s (except %s)"</string>
 

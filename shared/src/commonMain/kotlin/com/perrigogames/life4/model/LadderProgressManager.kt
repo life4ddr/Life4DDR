@@ -145,23 +145,29 @@ class LadderProgressManager: BaseModel() {
                 showMax = true,
             )
         }
-        is TrialGoal -> {
-            val trials = trialManager.bestSessions().filter {
-                if (goal.restrictDifficulty) {
-                    it.goalRank.stableId == goal.rank.stableId
-                } else {
-                    it.goalRank.stableId >= goal.rank.stableId
+        is StackedRankGoalWrapper -> when (goal.mainGoal) {
+            is TrialStackedGoal -> {
+                val trials = trialManager.bestSessions().filter {
+                    if (goal.mainGoal.restrictDifficulty) {
+                        it.goalRank.stableId == goal.mainGoal.rank.stableId
+                    } else {
+                        it.goalRank.stableId >= goal.mainGoal.rank.stableId
+                    }
                 }
+                LadderGoalProgress(trials.size, goal.getIntValue(TrialStackedGoal.KEY_TRIALS_COUNT)!!)
             }
-            LadderGoalProgress(trials.size, goal.count) // return
-        }
-        is MFCPointsGoal -> {
-            val points = songDataManager
-                .matchWithDetailedCharts(resultDbHelper.selectMFCs())
-                .sumOf {
-                    GameConstants.mfcPointsForDifficulty(it.chart.difficultyNumber.toInt())
-                }
-            LadderGoalProgress(points, goal.points.toDouble())
+            is MFCPointsStackedGoal -> {
+                val points = songDataManager
+                    .matchWithDetailedCharts(resultDbHelper.selectMFCs())
+                    .sumOf {
+                        GameConstants.mfcPointsForDifficulty(it.chart.difficultyNumber.toInt())
+                    }
+                LadderGoalProgress(
+                    progress = points,
+                    max = goal.getIntValue(MFCPointsStackedGoal.KEY_MFC_POINTS)!!.toDouble()
+                )
+            }
+            else -> null
         }
         else -> null
     }
