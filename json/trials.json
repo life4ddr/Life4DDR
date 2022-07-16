@@ -565,7 +565,7 @@
         { "name": "Towards the TOWER", "difficulty": 12, "difficulty_class": "expert", "ex": 1104, "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Towards_the_TOWER.webp" },
         { "name": "Neverland", "difficulty": 12, "difficulty_class": "difficult", "ex": 1233, "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Neverland.webp" }
       ],
-      "cover_url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/trials/mdpi/storybook.webp",
+      "cover_url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/trials/mdpi/storybook.webp"
     },
     {
       "id": "hallowed",
