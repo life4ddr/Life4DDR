@@ -18,8 +18,10 @@ import com.perrigogames.life4.android.R
 import com.perrigogames.life4.android.activity.settings.SettingsActivity
 import com.perrigogames.life4.android.activity.trial.TrialListActivity
 import com.perrigogames.life4.android.activity.trial.TrialRecordsActivity
+import com.perrigogames.life4.android.colorRes
 import com.perrigogames.life4.android.databinding.ActivityPlayerProfileBinding
 import com.perrigogames.life4.android.manager.AndroidLadderDialogs
+import com.perrigogames.life4.android.nameRes
 import com.perrigogames.life4.android.ui.dialogs.ManualScoreEntryDialog
 import com.perrigogames.life4.android.ui.dialogs.MotdDialog
 import com.perrigogames.life4.android.ui.rankdetails.RankDetailsFragment
@@ -187,6 +189,14 @@ class PlayerProfileActivity : AppCompatActivity(), RankDetailsViewModel.OnGoalLi
             it.setOnClickListener { startActivity(Intent(this, RankListActivity::class.java)) }
             it.rank = rank
         }
+
+        if (rank != null) {
+            binding.content.textRank.apply {
+                text = resources.getString(rank!!.nameRes)
+                setTextColor(ContextCompat.getColor(context, rank!!.colorRes))
+            }
+        }
+        binding.content.textRank.isVisible = rank != null
         binding.content.textChangeRank.isVisible = rank == null
 
         val options = RankDetailsFragment.Options(
