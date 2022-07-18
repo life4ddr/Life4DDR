@@ -207,7 +207,7 @@ val LadderRankClass.colorRes @ColorRes get() = when(this) {
     LadderRankClass.PLATINUM -> R.color.platinum
     LadderRankClass.DIAMOND -> R.color.diamond
     LadderRankClass.COBALT -> R.color.cobalt
-    LadderRankClass.PEARL -> R.color.cobalt //FIXME
+    LadderRankClass.PEARL -> R.color.pearl
     LadderRankClass.AMETHYST -> R.color.amethyst
     LadderRankClass.EMERALD -> R.color.emerald
     LadderRankClass.ONYX -> R.color.onyx
