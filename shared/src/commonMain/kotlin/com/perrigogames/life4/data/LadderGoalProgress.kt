@@ -23,6 +23,8 @@ class LadderGoalProgress(
     ) : this(progress.toDouble(), max.toDouble(), showMax, results)
 
     fun isComplete() = progress == max && max > 0
+
+    override fun toString() = "$progress / $max (show=$showMax)${results?.count()?.let { ", $it" } ?: ""}"
 }
 
 fun ChartResult.satisfiesClear(type: ClearType) = clearType.ordinal >= type.ordinal

@@ -132,5 +132,6 @@ kotlin {
 sqldelight {
     database("Life4Db") {
         packageName = "com.perrigogames.life4"
+        dialect = "sqlite:3.24"
     }
 }

@@ -11,6 +11,7 @@
 
 package com.perrigogames.life4.data
 
+import com.perrigogames.life4.GameConstants.HIGHEST_DIFFICULTY
 import com.perrigogames.life4.PlatformStrings
 import com.perrigogames.life4.enums.*
 import com.perrigogames.life4.logE
@@ -176,6 +177,8 @@ class SongsClearGoal(
     @SerialName("clear_type") private val mClearType: ClearType? = null,
 ): BaseRankGoal() {
 
+    val safeExceptions: Int = exceptions ?: 0
+
     @Transient
     val folderType: FolderType? = folder.let {
         val version = GameVersion.parse(folder)
@@ -196,6 +199,18 @@ class SongsClearGoal(
         if (averageScore != null) count += 1
         if (mClearType != null) count += 1
         return count <= 1
+    }
+
+    val diffNumRange: IntRange? by lazy {
+        if (diffNum == null) null
+        else {
+            val maxLevel = if (allowsHigherDiffNum) HIGHEST_DIFFICULTY else diffNum
+            (diffNum..maxLevel)
+        }
+    }
+
+    inline fun forEachDiffNum(block: (Int) -> Unit) {
+        diffNumRange?.forEachIndexed { _, diff -> block(diff) }
     }
 
     override fun goalString(c: PlatformStrings): String = when {

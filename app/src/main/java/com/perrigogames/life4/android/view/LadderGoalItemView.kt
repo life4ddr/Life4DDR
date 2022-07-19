@@ -22,6 +22,7 @@ import com.perrigogames.life4.data.LadderGoalProgress
 import com.perrigogames.life4.db.GoalState
 import com.perrigogames.life4.enums.ClearType
 import com.perrigogames.life4.enums.GoalStatus.*
+import com.perrigogames.life4.injectLogger
 import com.perrigogames.life4.isDebug
 import com.perrigogames.life4.longNumberString
 import org.koin.core.component.KoinComponent
@@ -34,6 +35,7 @@ class LadderGoalItemView @JvmOverloads constructor(
 ) : FrameLayout(context, attrs, defStyleAttr), KoinComponent {
 
     private val platformStrings: PlatformStrings by inject()
+    private val logger by injectLogger("GoalItemView")
 
     private val binding: MergeRankGoalV2Binding
     private val originalBackgroundTint: ColorStateList?
@@ -88,6 +90,7 @@ class LadderGoalItemView @JvmOverloads constructor(
         mandatory: Boolean,
         @ColorRes backgroundTintId: Int? = null,
     ) {
+        logger.v("Goal ${goal.id} has progress $goalProgress")
         this.goal = goal
         this.goalDB = goalDB
         this.goalProgress = goalProgress
@@ -183,7 +186,7 @@ class LadderGoalItemView @JvmOverloads constructor(
                 } else {
                     Typeface.DEFAULT_BOLD
                 }
-                rowBinding.textTitle.setTextColor(ContextCompat.getColor(context, result.difficultyClass.colorRes))
+                rowBinding.textTitle.setTextColor(ContextCompat.getColor(context, chart.difficultyClass.colorRes))
                 rowBinding.root.tag = rowBinding
                 binding.tableExpandDetails.addView(rowBinding.root)
             }

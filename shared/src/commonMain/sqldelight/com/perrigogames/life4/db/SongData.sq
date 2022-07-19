@@ -12,11 +12,11 @@ preview INTEGER AS Boolean DEFAULT 0
 );
 
 CREATE TABLE ChartInfo (
+id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 songSkillId TEXT NOT NULL,
 difficultyClass INTEGER AS DifficultyClass NOT NULL DEFAULT 1,
 playStyle INTEGER AS PlayStyle NOT NULL DEFAULT 1,
 difficultyNumber INTEGER NOT NULL DEFAULT 0,
-PRIMARY KEY(songSkillId, difficultyClass, playStyle),
 FOREIGN KEY(songSkillId) REFERENCES SongInfo
 );
 

@@ -80,7 +80,7 @@ class LadderImporter(
         val entryParts = entry.trim().split('\t').toMutableList()
         if (entryParts.size == 39) {
             /*val id =*/ entryParts.removeAt(0)
-            val charts = PlayStyle.values().flatMap { playStyle ->
+            val entries = PlayStyle.values().flatMap { playStyle ->
                 DifficultyClass.values().mapNotNull { difficulty ->
                     if (playStyle == DOUBLE && difficulty == BEGINNER) { null }
                     else {
@@ -98,17 +98,30 @@ class LadderImporter(
             }
 
             val skillId = entryParts.removeAt(0)
-            charts.forEach { it.skillId = skillId }
-
             val songName = entryParts.removeAt(0).replace('+', ' ')
-            val hasSong = songDataManager.songs.firstOrNull { it.skillId == skillId } != null
-            if (isDebug) {
-                saLogger.v("$songName ($skillId) - ${charts.size} found, dbExist=$hasSong")
-            }
-            if (hasSong) {
-                resultDbHelper.insertSAResults(charts)
-                success++
-                signalUpdate()
+
+            val charts = songDataManager.songs.firstOrNull { it.skillId == skillId }
+                ?.let { song ->
+                    songDataManager.chartsGroupedBySong[song]
+                }
+            if (charts != null) {
+                entries.forEach {
+                    it.chartId = charts.first { chart ->
+                        chart.playStyle == it.playStyle &&
+                                chart.difficultyClass == it.difficultyClass
+                    }.id
+                }
+                val hasSong = songDataManager.songs.firstOrNull { it.skillId == skillId } != null
+                if (isDebug) {
+                    saLogger.v("$songName ($skillId) - ${entries.size} found, ${entries.joinToString { it.score.toString() }}, dbExist=$hasSong")
+                }
+                if (hasSong) {
+                    resultDbHelper.insertSAResults(entries)
+                    success++
+                    signalUpdate()
+                } else {
+                    signalError("Song \"$songName\" ($skillId) not found in the database")
+                }
             } else {
                 signalError("Song \"$songName\" ($skillId) not found in the database")
             }
@@ -177,7 +190,7 @@ class LadderImporter(
     }
 
     class SASongEntry(
-        var skillId: String?,
+        var chartId: Long?,
         val score: Long,
         val clearType: ClearType,
         val playStyle: PlayStyle,

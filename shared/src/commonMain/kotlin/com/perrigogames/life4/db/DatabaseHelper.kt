@@ -15,8 +15,6 @@ abstract class DatabaseHelper(private val sqlDriver: SqlDriver) {
             StableIdColumnAdapter(PlayStyle.values())
         ),
         ChartResult.Adapter(
-            StableIdColumnAdapter(DifficultyClass.values()),
-            StableIdColumnAdapter(PlayStyle.values()),
             StableIdColumnAdapter(ClearType.values())
         ),
         GoalState.Adapter(

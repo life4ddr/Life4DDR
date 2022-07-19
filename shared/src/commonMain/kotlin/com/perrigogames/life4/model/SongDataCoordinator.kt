@@ -17,8 +17,9 @@ class SongDataCoordinator : BaseModel() {
     private val eventBus: EventBusNotifier by inject()
 
     init {
-        songDataManager.start()
-        ladderProgressManager.refresh()
+        songDataManager.start {
+            ladderProgressManager.refresh()
+        }
     }
 
     fun clearSongResults() {

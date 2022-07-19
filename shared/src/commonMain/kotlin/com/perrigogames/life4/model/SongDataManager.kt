@@ -47,7 +47,10 @@ class SongDataManager: BaseModel() {
     lateinit var chartsGroupedBySong: Map<SongInfo, List<DetailedChartInfo>>
     lateinit var chartsGroupedByDifficulty: Map<PlayStyle, Map<Long, List<DetailedChartInfo>>>
 
-    internal fun start() {
+    private var callback: (() -> Unit)? = null
+
+    internal fun start(callback: (() -> Unit)?) {
+        this.callback = callback
         songList.start()
         if (majorUpdates.updates.contains(MajorUpdate.SONG_DB)) { // initial launch
             refreshSongDatabase(delete = true)
@@ -91,6 +94,7 @@ class SongDataManager: BaseModel() {
             dbHelper.deleteAll()
         }
         mainScope.launch {
+            var chartId = 1L
             try {
                 val lines = input.songLines
                 if (force || delete || settings.getInt(KEY_SONG_LIST_VERSION, -1) < input.version) {
@@ -127,7 +131,7 @@ class SongDataManager: BaseModel() {
                                 if (style != PlayStyle.DOUBLE || diff != DifficultyClass.BEGINNER) {
                                     val diffNum = data[count++].toLong()
                                     if (diffNum != -1L) {
-                                        charts.add(ChartInfo(skillId, diff, style, diffNum))
+                                        charts.add(ChartInfo(chartId++, skillId, diff, style, diffNum))
                                     }
                                 }
                             }
@@ -161,6 +165,8 @@ class SongDataManager: BaseModel() {
             .mapValues { (_, charts) ->
                 charts.groupBy { it.difficultyNumber }
             }
+
+        callback?.invoke()
     }
 
     companion object {

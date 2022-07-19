@@ -7,9 +7,7 @@ data class ChartResultPair(
 
 fun DetailedChartInfo.matches(other: ChartResult?) = when (other) {
     null -> false
-    else -> skillId == other.skillId &&
-            playStyle == other.playStyle &&
-            difficultyClass == other.difficultyClass
+    else -> id == other.chartId
 }
 
 fun ChartResult.matches(other: DetailedChartInfo?) = other?.matches(this) ?: false
