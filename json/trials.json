@@ -51,8 +51,7 @@
         { "name": "Secret Rendez-vous", "difficulty": 12, "difficulty_class": "expert", "ex": 747, "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Secret+Rendez-vous-jacket.webp" },
         { "name": "SEDUCTION", "difficulty": 12, "difficulty_class": "expert", "ex": 1194, "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/SEDUCTION-jacket.webp" },
         { "name": "She is my wife", "difficulty": 12, "difficulty_class": "expert", "ex": 981, "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/She+is+my+wife-jacket.webp" }
-      ],
-      "cover_url": ""
+      ]
     },
     {
       "id": "heartbreak",
@@ -156,7 +155,6 @@
         { "name": "A Brighter Day", "difficulty": 12, "difficulty_class": "challenge", "ex": 1149, "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/A+Brighter+Day-jacket.webp" },
         { "name": "Life is beautiful", "difficulty": 12, "difficulty_class": "difficult", "ex": 1329, "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Life+is+beautiful-jacket.webp" }
       ],
-      "cover_url": "",
       "author": "plasmaaa"
     },
     {
@@ -208,8 +206,7 @@
         { "name": "CHOCOLATE PHILOSOPHY", "difficulty": 13, "difficulty_class": "challenge", "ex": 1260, "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/CHOCOLATE_PHILOSOPHY.webp" },
         { "name": "Strawberry Chu Chu", "difficulty": 13, "difficulty_class": "expert", "ex": 1254, "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Strawberry_Chu_Chu.webp" },
         { "name": "Candy (X-Special)", "difficulty": 12, "difficulty_class": "challenge", "ex": 1140, "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/CANDY(X-Special).webp" }
-      ],
-      "cover_url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/trials/mdpi/confectionary.webp"
+      ]
     },
     {
       "id": "celestial",
@@ -512,7 +509,6 @@
         { "name": "exotic ethnic", "difficulty": 13, "difficulty_class": "expert", "ex": 1356, "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/exotic+ethnic-jacket.webp" },
         { "name": "桜", "difficulty": 13, "difficulty_class": "expert", "ex": 1341, "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/SAKURA-jacket.webp" }
       ],
-      "cover_url": "",
       "author": "Sam-Thak"
     },
     {
@@ -564,13 +560,13 @@
         { "name": "STERLING SILVER", "difficulty": 13, "difficulty_class": "expert", "ex": 1476, "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/STERLING_SILVER.webp" },
         { "name": "Towards the TOWER", "difficulty": 12, "difficulty_class": "expert", "ex": 1104, "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Towards_the_TOWER.webp" },
         { "name": "Neverland", "difficulty": 12, "difficulty_class": "difficult", "ex": 1233, "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Neverland.webp" }
-      ],
-      "cover_url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/trials/mdpi/storybook.webp"
+      ]
     },
     {
       "id": "hallowed",
       "name": "Hallowed",
       "type": "event",
+      "state": "retired",
       "difficulty": 13,
       "total_ex": 4950,
       "songs": [
@@ -837,8 +833,7 @@
         { "name": "ロールプレイングゲーム", "difficulty": 14, "difficulty_class": "expert", "ex": 1623, "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Role-playing_game.webp" },
         { "name": "彼方のリフレシア", "difficulty": 15, "difficulty_class": "expert", "ex": 1695, "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Kanata_no_Reflesia.webp" },
         { "name": "Boss Rush", "difficulty": 14, "difficulty_class": "difficult", "ex": 1704, "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Boss+Rush-jacket.webp" }
-      ],
-      "cover_url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/trials/mdpi/sidequest.webp"
+      ]
     },
     {
       "id": "hellscape",
@@ -1425,7 +1420,6 @@
         { "name": "Blew My Mind", "difficulty": 16, "difficulty_class": "expert", "ex": 1803, "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Blew+My+Mind-jacket.webp" },
         { "name": "UNBELIEVABLE (Sparky remix)", "difficulty": 15, "difficulty_class": "expert", "ex": 1635, "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/UNBELIEVABLE+(Sparky+remix)-jacket.webp" }
       ],
-      "cover_url": "",
       "author": "CRMARTIN"
     },
     {
@@ -1592,8 +1586,7 @@
         { "name": "Trigger", "difficulty": 18, "difficulty_class": "challenge", "ex": 1875, "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Trigger.webp" },
         { "name": "ÆTHER", "difficulty": 17, "difficulty_class": "expert", "ex": 2130, "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/AETHER.webp" },
         { "name": "SABER WING (Akira Ishihara Headshot mix)", "difficulty": 17, "difficulty_class": "challenge", "ex": 1569, "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/SABER+WING+(AKIRA+ISHIHARA+Headshot+mix)-jacket.webp" }
-      ],
-      "cover_url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/trials/mdpi/dogfight.webp"
+      ]
     },
     {
       "id": "quantum",

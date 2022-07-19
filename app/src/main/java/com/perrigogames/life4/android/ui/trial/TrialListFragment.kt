@@ -17,6 +17,7 @@ import com.perrigogames.life4.android.view.PaddingItemDecoration
 import com.perrigogames.life4.data.Trial
 import com.perrigogames.life4.enums.TrialType
 import com.perrigogames.life4.model.TrialManager
+import com.perrigogames.life4.viewmodel.TrialListState
 import com.russhwolf.settings.Settings
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -34,7 +35,6 @@ class TrialListFragment : Fragment(), KoinComponent {
     private val trialManager: TrialManager by inject()
     private val settings: Settings by inject()
     private val eventBus: EventBus by inject()
-    private val trials: List<Trial> get() = trialManager.activeTrials
 
     private val featureNew get() = settings.getBoolean(KEY_LIST_HIGHLIGHT_NEW, true)
 
@@ -64,32 +64,40 @@ class TrialListFragment : Fragment(), KoinComponent {
         listener = null
     }
 
+    private fun createState() = TrialListState(
+        trials = trialManager.trials,
+        sessions = trialManager.bestSessions(),
+        featureNew = featureNew,
+    )
+
     private fun createTiledAdapter() {
-        adapter = TrialListAdapter(trials, featureNew) { id, type -> onTrialSelected(id, type) }
+        val state = createState()
+        adapter = TrialListAdapter(state) { id, type -> onTrialSelected(id, type) }
         recyclerView.adapter = adapter
         recyclerView.addItemDecoration(PaddingItemDecoration(resources.getDimensionPixelSize(R.dimen.content_padding_med)))
 
         val displayMetrics = resources.displayMetrics
-        recyclerView.layoutManager = GridLayoutManager(context,
-            if (displayMetrics.widthPixels > displayMetrics.heightPixels) 4 else 2)
+        val spanCount = if (displayMetrics.widthPixels > displayMetrics.heightPixels) 4 else 2
+        recyclerView.layoutManager = GridLayoutManager(context, spanCount).apply {
+            spanSizeLookup = adapter.spanSizeLookup
+        }
     }
 
     private fun onTrialSelected(trialId: String, trialType: TrialType) = listener?.onTrialSelected(trialId, trialType)
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onRankUpdated(e: SavedRankUpdatedEvent) {
-        adapter.updateNewTrialsList()
+        adapter.state = createState()
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onListUpdated(e: TrialListUpdatedEvent) {
-        adapter.updateNewTrialsList()
+        adapter.state = createState()
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onListReplaced(e: TrialListReplacedEvent) {
-        adapter.featureNew = featureNew
-        adapter.updateNewTrialsList()
+        adapter.state = createState()
     }
 
     interface OnTrialListInteractionListener {

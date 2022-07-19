@@ -20,6 +20,8 @@ import com.perrigogames.life4.android.util.circularProgressDrawable
 import com.perrigogames.life4.android.util.jacketResId
 import com.perrigogames.life4.android.util.visibilityBool
 import com.perrigogames.life4.data.Trial
+import com.perrigogames.life4.data.TrialState
+import com.perrigogames.life4.enums.TrialJacketCorner
 import com.perrigogames.life4.enums.TrialRank
 
 class TrialJacketView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
@@ -46,6 +48,7 @@ class TrialJacketView @JvmOverloads constructor(context: Context, attrs: Attribu
             binding.textTrialDifficulty.visibilityBool = v?.difficulty != null
             binding.textTrialDifficulty.text = v?.difficulty?.toString()
             binding.textTrialTitle.visibility = View.GONE
+            binding.imageTrialJacket.alpha = if (v?.state == TrialState.RETIRED) 0.5f else 1f
             if (v != null) {
                 val resId = v.jacketResId(context)
                 if (v.coverUrl != null && (resId == R.drawable.trial_default || v.coverOverride)) {
@@ -85,7 +88,7 @@ class TrialJacketView @JvmOverloads constructor(context: Context, attrs: Attribu
             updateExScore()
         }
 
-    fun setCornerType(v: JacketCornerView.CornerType?) {
+    fun setCornerType(v: TrialJacketCorner?) {
         binding.viewJacketCorner.cornerType = v
     }
 

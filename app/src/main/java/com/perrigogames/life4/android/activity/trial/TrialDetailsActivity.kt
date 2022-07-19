@@ -28,11 +28,12 @@ import com.perrigogames.life4.android.manager.AndroidTrialNavigation
 import com.perrigogames.life4.android.ui.songlist.SongListFragment
 import com.perrigogames.life4.android.util.openWebUrlFromRes
 import com.perrigogames.life4.android.util.visibilityBool
-import com.perrigogames.life4.android.view.JacketCornerView
 import com.perrigogames.life4.android.view.SongView
 import com.perrigogames.life4.data.Song
 import com.perrigogames.life4.data.SongResult
 import com.perrigogames.life4.data.Trial
+import com.perrigogames.life4.data.TrialState
+import com.perrigogames.life4.enums.TrialJacketCorner
 import com.perrigogames.life4.enums.TrialRank
 import com.perrigogames.life4.getDebugBoolean
 import com.perrigogames.life4.model.LadderManager
@@ -103,7 +104,9 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener, K
         super.onCreate(savedInstanceState)
         binding = ContentTrialDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        supportActionBar?.title = trial.name
+        supportActionBar?.title = if (trial.isRetired)
+            getString(R.string.retired_suffix_format, trial.name)
+        else trial.name
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         trialSessionManager.startSession(trialId, initialRank)
@@ -112,7 +115,7 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener, K
         binding.imageRank.let { jacket ->
             jacket.trial = trial
             jacket.rank = storedRank
-            jacket.setCornerType(if (trial.isEvent) JacketCornerView.CornerType.EVENT else null)
+            jacket.setCornerType(if (trial.isEvent) TrialJacketCorner.EVENT else null)
         }
 
         binding.textEventHelp.visibilityBool = trial.isEvent
@@ -160,6 +163,10 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener, K
         binding.buttonFinalize.setOnClickListener { onFinalizeClick() }
         binding.buttonLeaderboard.setOnClickListener { onLeaderboardClick() }
         binding.buttonSubmit.setOnClickListener { onSubmitClick() }
+
+        if (trial.state == TrialState.RETIRED) {
+            onRetiredTrialStart()
+        }
 
         songListFragment = SongListFragment.newInstance(trial.id, tiled = false, useCurrentSession = true)
         supportFragmentManager.beginTransaction()
@@ -230,7 +237,9 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener, K
     }
 
     private fun onSubmitClick() {
-        if (!trialSession.shouldShowAdvancedSongDetails ||
+        if (trial.isRetired) {
+            onRetiredTrialFinish()
+        } else if (!trialSession.shouldShowAdvancedSongDetails ||
             !settings.getBoolean(KEY_DETAILS_ENFORCE_EXPERT, true) ||
             trialSession.results.all { it!!.hasAdvancedStats }) {
 
@@ -238,6 +247,21 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener, K
         } else {
             Snackbar.make(binding.container, R.string.breakdown_information_missing, Snackbar.LENGTH_LONG).show()
         }
+    }
+
+    private fun onRetiredTrialStart() {
+        AlertDialog.Builder(this).setTitle(R.string.trial_retired_dialog_title)
+            .setMessage(getString(R.string.trial_retired_dialog_description_format, trial.name))
+            .setNegativeButton(R.string.cancel) { _, _ -> finish() }
+            .setPositiveButton(R.string.okay, null)
+            .show()
+    }
+
+    private fun onRetiredTrialFinish() {
+        AlertDialog.Builder(this).setTitle(R.string.trial_retired_dialog_title)
+            .setMessage(getString(R.string.trial_submit_retired_dialog_prompt_format, trial.name))
+            .setPositiveButton(R.string.okay) { _, _ -> finish() }
+            .show()
     }
 
     private fun onFinalizeClick() {

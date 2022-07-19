@@ -132,15 +132,19 @@
     <string name="trial_fail_no_rank_confirmation">It is no longer possible to earn a rank on %s.\n\nWould you like to Concede and save this Trial attempt?</string>
     <string name="trial_close_confirmation">The progress made in this Trial will not be saved.</string>
     <string name="trial_concede_confirmation_format">This Trial will be saved to your records as incomplete for %s (%s).\n\nYou will NOT get a chance to log your failed song if you haven\'t already.</string>
+    <string name="trial_retired_dialog_title">Retired</string>
+    <string name="trial_retired_dialog_description_format">LIFE4 no longer accepts new submissions for %s.\n\nYou may still track your progress, but it will not be saved in the app and cannot be submitted to earn a rank.</string>
     <string name="photo_save_confirmation">This photo will not be saved.</string>
     <string name="details_save_confirmation">Your changes will not be saved.</string>
     <string name="photo_save_error">Error creating photo</string>
+    <string name="retired_suffix_format">%s (Retired)</string>
 
     <string name="confirm_trial_title">Confirm Trial Submission</string>
     <string name="confirm_placement_title">Confirm Placement Submission</string>
     <string name="trial_submit_dialog_title">Submit Scores</string>
     <string name="trial_submit_dialog_rank_confirmation">Did you pass all requirements for %s rank?</string>
     <string name="trial_submit_dialog_prompt">Photos are saved to your SD card\'s Pictures/LIFE4 folder. These photos can be uploaded to LIFE4\'s Submission Page manually.\n\nWould you like to be taken there now?</string>
+    <string name="trial_submit_retired_dialog_prompt_format">Photos are saved to your SD card\'s Pictures/LIFE4 folder.\n\nSince %s has been retired, your progress will not be saved and your scores cannot be submitted to earn a rank.</string>
     <string name="trial_not_saved">This Trial has not been saved!</string>
 
     <string name="confirm_erase_goal_data">Are you sure you want to clear all saved goal states?</string>

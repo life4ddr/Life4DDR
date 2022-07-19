@@ -11,8 +11,7 @@ import androidx.core.content.res.ResourcesCompat
 import com.perrigogames.life4.android.R
 import com.perrigogames.life4.android.databinding.ViewJacketCornerBinding
 import com.perrigogames.life4.android.util.visibilityBool
-import com.perrigogames.life4.android.view.JacketCornerView.CornerType.EVENT
-import com.perrigogames.life4.android.view.JacketCornerView.CornerType.NEW
+import com.perrigogames.life4.enums.TrialJacketCorner
 
 class JacketCornerView @JvmOverloads constructor(
     context: Context,
@@ -27,12 +26,12 @@ class JacketCornerView @JvmOverloads constructor(
         binding = ViewJacketCornerBinding.bind(this)
     }
 
-    var cornerType: CornerType? = null
+    var cornerType: TrialJacketCorner? = null
         set(v) {
             field = v
             cornerType.let { when(it) {
-                EVENT -> updateCorner(R.drawable.triangle_event, R.string.event_tag, R.color.black_50)
-                NEW -> updateCorner(R.drawable.triangle_new, R.string.new_tag, R.color.white)
+                TrialJacketCorner.EVENT -> updateCorner(R.drawable.triangle_event, R.string.event_tag, R.color.black_50)
+                TrialJacketCorner.NEW -> updateCorner(R.drawable.triangle_new, R.string.new_tag, R.color.white)
                 else -> hideCorner()
             }}
         }
@@ -50,6 +49,4 @@ class JacketCornerView @JvmOverloads constructor(
         binding.textCorner.text = resources.getString(textId)
         binding.textCorner.setTextColor(ResourcesCompat.getColor(resources, textColorId, context.theme))
     }
-
-    enum class CornerType { NEW, EVENT }
 }

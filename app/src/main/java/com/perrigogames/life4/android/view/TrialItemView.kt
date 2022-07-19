@@ -6,13 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.recyclerview.widget.RecyclerView
 import com.perrigogames.life4.SettingsKeys.KEY_LIST_SHOW_EX
 import com.perrigogames.life4.SettingsKeys.KEY_LIST_SHOW_EX_REMAINING
 import com.perrigogames.life4.SettingsKeys.KEY_LIST_TINT_COMPLETED
 import com.perrigogames.life4.android.R
 import com.perrigogames.life4.android.databinding.MergeTrialTileItemBinding
 import com.perrigogames.life4.data.Trial
+import com.perrigogames.life4.enums.TrialJacketCorner
 import com.perrigogames.life4.enums.TrialRank
 import com.russhwolf.settings.Settings
 import org.koin.core.component.KoinComponent
@@ -41,7 +41,7 @@ class TrialItemView @JvmOverloads constructor(
     private val showEx: Boolean
         get() = trial?.isEvent == true || settings.getBoolean(KEY_LIST_SHOW_EX, false)
 
-    fun setCornerType(v: JacketCornerView.CornerType?) {
+    fun setCornerType(v: TrialJacketCorner?) {
         binding.imageRank.setCornerType(v)
     }
 
@@ -65,8 +65,6 @@ class TrialItemView @JvmOverloads constructor(
             view.exScore = if (showEx) exScore else null
         }
     }
-
-    class TrialViewHolder(val trialItemView: TrialItemView): RecyclerView.ViewHolder(trialItemView)
 
     companion object {
 

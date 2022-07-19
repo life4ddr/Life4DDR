@@ -1,89 +1,87 @@
 package com.perrigogames.life4.android.ui.trial
 
 import android.content.Context
+import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.perrigogames.life4.android.view.JacketCornerView.CornerType.EVENT
-import com.perrigogames.life4.android.view.JacketCornerView.CornerType.NEW
+import com.perrigogames.life4.android.R
+import com.perrigogames.life4.android.view.HeaderViewHolder
 import com.perrigogames.life4.android.view.TrialItemView
-import com.perrigogames.life4.android.view.TrialItemView.TrialViewHolder
-import com.perrigogames.life4.data.Trial
 import com.perrigogames.life4.enums.TrialType
 import com.perrigogames.life4.model.TrialManager
+import com.perrigogames.life4.viewmodel.TrialListState
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-class TrialListAdapter(private val trials: List<Trial>,
-                       var featureNew: Boolean = false,
-                       private val onItemClicked: (String, TrialType) -> Unit):
-    RecyclerView.Adapter<TrialViewHolder>(), KoinComponent {
+class TrialListAdapter(
+    initialState: TrialListState,
+    private val onItemClicked: (String, TrialType) -> Unit
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), KoinComponent {
 
     private val context: Context by inject()
     private val trialManager: TrialManager by inject()
 
-    private val mEventTrials get() = trials.filter { it.isEvent }
-    private val mNewTrials get() = trials.filter { !it.isEvent && it.new && trialManager.bestSession(it.id) == null }
-    private val mOldTrials get() = trials.filterNot { t -> t.isEvent || newTrials.any { it.id == t.id } }
-
-    private var eventTrials = mEventTrials
-    private var newTrials = mNewTrials
-    private var oldTrials = mOldTrials
-    private val eSize get() = eventTrials.size
-    private val nSize get() = newTrials.size
-    private val oSize get() = oldTrials.size
-
-    fun updateNewTrialsList() {
-        eventTrials = mEventTrials
-        newTrials = mNewTrials
-        oldTrials = mOldTrials
+    var state: TrialListState = initialState
+    set(value) {
+        field = value
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-        TrialViewHolder(when (viewType) {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = when (viewType) {
+        ID_HEADER -> HeaderViewHolder(
+            LayoutInflater.from(parent.context)
+                .inflate(R.layout.item_rank_goal_header, parent, false) as TextView
+        )
+        ID_TILE -> TrialViewHolder(when (viewType) {
             ID_TILE -> TrialItemView.inflate(context, parent, false)
             else -> throw IllegalArgumentException("Unsupported trial view type: $viewType")
         })
+        else -> error("Unsupported view type $viewType")
+    }
 
-    override fun onBindViewHolder(holder: TrialViewHolder, position: Int) {
-        val item = itemForPosition(position)
-        holder.trialItemView.trial = item
-        holder.trialItemView.setCornerType(when {
-            item.eventEnd != null -> EVENT
-            featureNew && item.new && trialManager.bestSession(item.id) == null -> NEW
-            else -> null
-        })
-        holder.itemView.setOnClickListener { onItemClicked(item.id, item.type) }
-        val bestSession = trialManager.bestSession(item.id)
-        if (!item.isEvent) {
-            holder.trialItemView.setHighestRank(bestSession?.goalRank)
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        val genericItem = state.displayTrials[position]
+        when (holder) {
+            is HeaderViewHolder -> {
+                val headerText = (genericItem as TrialListState.TrialListItem.Header).text
+                holder.bind(headerText)
+            }
+            is TrialViewHolder -> {
+                val item = genericItem as TrialListState.TrialListItem.Trial
+                holder.trialItemView.trial = item.trial
+                holder.trialItemView.setCornerType(item.corner)
+                holder.itemView.setOnClickListener { onItemClicked(item.trial.id, item.trial.type) }
+                val bestSession = trialManager.bestSession(item.trial.id)
+                if (!item.trial.isEvent) {
+                    holder.trialItemView.setHighestRank(bestSession?.goalRank)
+                }
+                holder.trialItemView.setExScore(bestSession?.exScore?.toInt())
+            }
         }
-        holder.trialItemView.setExScore(bestSession?.exScore?.toInt())
     }
 
-    override fun getItemCount() = trials.size
+    override fun getItemCount() = state.displayTrials.size
 
-    override fun getItemViewType(position: Int) = ID_TILE
-
-    fun notifyTrialChanged(trial: Trial) {
-        notifyItemChanged(positionForItem(trial), trial)
+    override fun getItemViewType(position: Int) = when(state.displayTrials[position]) {
+        is TrialListState.TrialListItem.Header -> ID_HEADER
+        is TrialListState.TrialListItem.Trial -> ID_TILE
     }
 
-    private fun positionForItem(item: Trial) = when {
-        item.isEvent -> eventTrials.indexOf(item)
-        !featureNew -> trials.indexOf(item) + eSize
-        newTrials.contains(item) -> newTrials.indexOf(item) + eSize
-        else -> oldTrials.indexOf(item) + nSize + eSize
+    val spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+        override fun getSpanSize(position: Int): Int {
+            return when (state.displayTrials[position]) {
+                is TrialListState.TrialListItem.Header -> 2
+                is TrialListState.TrialListItem.Trial -> 1
+            }
+        }
     }
 
-    private fun itemForPosition(position: Int) = when {
-        position < eSize -> eventTrials[position] // events always at the front
-        !featureNew -> trials[position - eSize] // basic list
-        position < nSize + eSize -> newTrials[position - eSize] // new trials up front
-        else -> oldTrials[position - nSize - eSize] // followed by the old
-    }
+    class TrialViewHolder(val trialItemView: TrialItemView): RecyclerView.ViewHolder(trialItemView)
 
     companion object {
         const val ID_TILE = 1
+        const val ID_HEADER = 2
     }
 }

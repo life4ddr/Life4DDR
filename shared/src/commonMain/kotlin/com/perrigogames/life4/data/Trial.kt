@@ -53,8 +53,8 @@ data class Trial(
     @SerialName("cover_override") val coverOverride: Boolean = false,
 ) {
 
-    val isEvent: Boolean
-        get() = type == TrialType.EVENT && eventStart != null && eventEnd != null
+    val isRetired: Boolean = state == TrialState.RETIRED
+    val isEvent: Boolean = type == TrialType.EVENT && eventStart != null && eventEnd != null
     val isActiveEvent: Boolean
         get() = isEvent && (eventStart!!.rangeTo(eventEnd!!)).contains(Clock.System.now())
     val new = state == TrialState.NEW

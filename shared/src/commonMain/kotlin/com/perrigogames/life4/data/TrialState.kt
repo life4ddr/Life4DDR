@@ -14,6 +14,7 @@ import kotlinx.serialization.encoding.Encoder
 @Serializable(with = TrialStateSerializer::class)
 enum class TrialState(val jsonName: String) {
     NEW("new"),
+    EVENT("event"),
     RETIRED("retired"),
     ACTIVE("active"),
     ;

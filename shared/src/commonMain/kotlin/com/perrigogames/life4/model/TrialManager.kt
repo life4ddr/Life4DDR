@@ -45,9 +45,7 @@ class TrialManager: BaseModel() {
     val dataVersionString get() = trialData.versionString
 
     val trials get() = trialData.data.trials
-    val activeTrials get() = trials.filter { !it.isEvent || it.isActiveEvent }
     val hasEventTrial get() = trials.count { it.isActiveEvent } > 0
-    val eventTrials get() = trials.filter { it.isEvent }
 
     init {
         trialData.start()
@@ -68,13 +66,13 @@ class TrialManager: BaseModel() {
 
     fun findTrial(id: String) = trials.firstOrNull { it.id == id }
 
-    fun previousTrial(id: String) = previousTrial(activeTrials.indexOfFirst { it.id == id })
+    fun previousTrial(id: String) = previousTrial(trials.indexOfFirst { it.id == id })
 
-    fun previousTrial(index: Int) = activeTrials.getOrNull(index - 1)
+    fun previousTrial(index: Int) = trials.getOrNull(index - 1)
 
-    fun nextTrial(id: String) = nextTrial(activeTrials.indexOfFirst { it.id == id })
+    fun nextTrial(id: String) = nextTrial(trials.indexOfFirst { it.id == id })
 
-    fun nextTrial(index: Int) = activeTrials.getOrNull(index + 1)
+    fun nextTrial(index: Int) = trials.getOrNull(index + 1)
 
     fun getRankForTrial(trialId: String) = dbHelper.bestSession(trialId)?.goalRank
 

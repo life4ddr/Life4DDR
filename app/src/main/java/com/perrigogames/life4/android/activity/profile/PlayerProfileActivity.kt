@@ -29,8 +29,8 @@ import com.perrigogames.life4.android.ui.rankdetails.RankDetailsViewModel
 import com.perrigogames.life4.android.util.CommonSizes
 import com.perrigogames.life4.android.util.openWebUrlFromRes
 import com.perrigogames.life4.android.util.visibilityBool
-import com.perrigogames.life4.android.view.JacketCornerView
 import com.perrigogames.life4.enums.LadderRank
+import com.perrigogames.life4.enums.TrialJacketCorner
 import com.perrigogames.life4.model.LadderManager
 import com.perrigogames.life4.model.TrialManager
 import com.russhwolf.settings.Settings
@@ -172,7 +172,7 @@ class PlayerProfileActivity : AppCompatActivity(), RankDetailsViewModel.OnGoalLi
 
         binding.content.viewCornerViewLeft.apply {
             visibilityBool = trialManager.hasEventTrial
-            cornerType = JacketCornerView.CornerType.EVENT
+            cornerType = TrialJacketCorner.EVENT
         }
 
         updatePlayerContent()
