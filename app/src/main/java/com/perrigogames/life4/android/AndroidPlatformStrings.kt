@@ -3,7 +3,10 @@ package com.perrigogames.life4.android
 import android.content.Context
 import android.net.Uri
 import com.perrigogames.life4.*
-import com.perrigogames.life4.data.*
+import com.perrigogames.life4.data.DifficultyClassSet
+import com.perrigogames.life4.data.InProgressTrialSession
+import com.perrigogames.life4.data.PlacementRank
+import com.perrigogames.life4.data.SongResult
 import com.perrigogames.life4.enums.*
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -106,8 +109,8 @@ class AndroidPlatformStrings: PlatformStrings, KoinComponent {
         )
 
         override fun scoreString(score: Int, groupString: String): String = when (score) {
-            TrialData.MAX_SCORE -> throw IllegalArgumentException("Use MFC clear type")
-            TrialData.AAA_SCORE -> c.getString(
+            GameConstants.MAX_SCORE -> throw IllegalArgumentException("Use MFC clear type")
+            GameConstants.AAA_SCORE -> c.getString(
                 R.string.rank_goal_diff_score_aaa,
                 groupString,
             )
@@ -180,32 +183,32 @@ class AndroidPlatformStrings: PlatformStrings, KoinComponent {
     override val trial = object: TrialStrings {
 
         override fun scoreSingleSong(score: Int, song: String) = when (score) {
-            TrialData.AAA_SCORE -> "• " + c.getString(R.string.aaa_specific_song, song)
-            TrialData.MAX_SCORE -> "• " + c.getString(R.string.mfc_specific_song, song)
+            GameConstants.AAA_SCORE -> "• " + c.getString(R.string.aaa_specific_song, song)
+            GameConstants.MAX_SCORE -> "• " + c.getString(R.string.mfc_specific_song, song)
             else -> "• " + c.getString(R.string.score_specific_song, scoreString(score), song)
         }
 
         override fun scoreCountSongs(score: Int, count: Int) = when (score) {
-            TrialData.AAA_SCORE -> "• " + c.getString(R.string.aaa_songs, count)
-            TrialData.MAX_SCORE -> "• " + c.getString(R.string.mfc_songs, count)
+            GameConstants.AAA_SCORE -> "• " + c.getString(R.string.aaa_songs, count)
+            GameConstants.MAX_SCORE -> "• " + c.getString(R.string.mfc_songs, count)
             else -> "• " + c.getString(R.string.score_songs, scoreString(score), count)
         }
 
         override fun scoreCountOtherSongs(score: Int, count: Int) = when (score) {
-            TrialData.AAA_SCORE -> "• " + c.getString(R.string.aaa_other_songs, count)
-            TrialData.MAX_SCORE -> "• " + c.getString(R.string.mfc_other_songs, count)
+            GameConstants.AAA_SCORE -> "• " + c.getString(R.string.aaa_other_songs, count)
+            GameConstants.MAX_SCORE -> "• " + c.getString(R.string.mfc_other_songs, count)
             else -> "• " + c.getString(R.string.score_other_songs, scoreString(score), count)
         }
 
         override fun scoreEverySong(score: Int) = when (score) {
-            TrialData.AAA_SCORE -> "• " + c.getString(R.string.aaa_every_song)
-            TrialData.MAX_SCORE -> "• " + c.getString(R.string.mfc_every_song)
+            GameConstants.AAA_SCORE -> "• " + c.getString(R.string.aaa_every_song)
+            GameConstants.MAX_SCORE -> "• " + c.getString(R.string.mfc_every_song)
             else -> "• " + c.getString(R.string.score_every_song, scoreString(score))
         }
 
         override fun scoreEveryOtherSong(score: Int) = when (score) {
-            TrialData.AAA_SCORE -> "• " + c.getString(R.string.aaa_on_remainder)
-            TrialData.MAX_SCORE -> "• " + c.getString(R.string.mfc_on_remainder)
+            GameConstants.AAA_SCORE -> "• " + c.getString(R.string.aaa_on_remainder)
+            GameConstants.MAX_SCORE -> "• " + c.getString(R.string.mfc_on_remainder)
             else -> "• " + c.getString(R.string.score_on_remainder, scoreString(score))
         }
 

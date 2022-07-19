@@ -14,6 +14,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.perrigogames.life4.GameConstants
 import com.perrigogames.life4.SettingsKeys.KEY_DEBUG_ACCEPT_INVALID
 import com.perrigogames.life4.android.R
 import com.perrigogames.life4.android.databinding.ContentSongEntryBinding
@@ -21,7 +22,6 @@ import com.perrigogames.life4.android.photoUri
 import com.perrigogames.life4.android.util.visibilityBool
 import com.perrigogames.life4.data.Song
 import com.perrigogames.life4.data.SongResult
-import com.perrigogames.life4.data.TrialData
 import com.perrigogames.life4.enums.ClearType
 import com.perrigogames.life4.enums.ClearType.*
 import com.perrigogames.life4.getDebugBoolean
@@ -92,7 +92,7 @@ class SongEntryActivity: AppCompatActivity(), KoinComponent {
             if (clearType.stableId >= PERFECT_FULL_COMBO.stableId) {
                 modified = true
                 val intVal = s?.toString()?.toIntOrNull() ?: 0
-                binding.fieldScore.setText((TrialData.MAX_SCORE - (intVal * TrialData.SCORE_PENALTY_PERFECT)).toString())
+                binding.fieldScore.setText((GameConstants.MAX_SCORE - (intVal * GameConstants.SCORE_PENALTY_PERFECT)).toString())
                 binding.fieldEx.setText((song.ex - intVal).toString())
             }
         }

@@ -1,5 +1,6 @@
 package com.perrigogames.life4.data
 
+import com.perrigogames.life4.GameConstants
 import com.perrigogames.life4.enums.ClearType
 import com.perrigogames.life4.enums.ClearType.*
 import com.perrigogames.life4.enums.TrialRank
@@ -14,7 +15,7 @@ import kotlinx.serialization.Transient
 data class InProgressTrialSession(
     val trial: Trial,
     var goalRank: TrialRank?,
-    val results: Array<SongResult?> = arrayOfNulls(TrialData.TRIAL_LENGTH),
+    val results: Array<SongResult?> = arrayOfNulls(GameConstants.TRIAL_LENGTH),
     var finalPhotoUriString: String? = null,
 ) {
 

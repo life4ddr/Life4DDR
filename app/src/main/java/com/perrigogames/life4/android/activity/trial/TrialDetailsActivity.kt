@@ -15,6 +15,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import com.google.android.material.snackbar.Snackbar
+import com.perrigogames.life4.GameConstants
 import com.perrigogames.life4.PlatformStrings
 import com.perrigogames.life4.SettingsKeys.KEY_DEBUG_BYPASS_STAT_ENTRY
 import com.perrigogames.life4.SettingsKeys.KEY_DETAILS_ENFORCE_EXPERT
@@ -32,7 +33,6 @@ import com.perrigogames.life4.android.view.SongView
 import com.perrigogames.life4.data.Song
 import com.perrigogames.life4.data.SongResult
 import com.perrigogames.life4.data.Trial
-import com.perrigogames.life4.data.TrialData
 import com.perrigogames.life4.enums.TrialRank
 import com.perrigogames.life4.getDebugBoolean
 import com.perrigogames.life4.model.LadderManager
@@ -255,7 +255,7 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener, K
     }
 
     private fun updateCompleteState() {
-        val allSongsComplete = trialSession.results.filterNotNull().size == TrialData.TRIAL_LENGTH
+        val allSongsComplete = trialSession.results.filterNotNull().size == GameConstants.TRIAL_LENGTH
         binding.buttonConcede.visibilityBool = !allSongsComplete
         binding.buttonFinalize.visibilityBool = allSongsComplete && !trialSession.hasFinalPhoto
         binding.buttonSubmit.visibilityBool = allSongsComplete && trialSession.hasFinalPhoto

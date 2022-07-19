@@ -9,9 +9,9 @@
 
 package com.perrigogames.life4.response
 
+import com.perrigogames.life4.GameConstants
 import com.perrigogames.life4.TrialStrings
 import com.perrigogames.life4.data.Trial
-import com.perrigogames.life4.data.TrialData
 import com.perrigogames.life4.enums.*
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.SerialName
@@ -98,7 +98,7 @@ data class TrialGoalSet(
                 scoreGroups[i] = (scoreGroups[i] ?: mutableListOf()).apply { add(index) }
             }
 
-            val allSongs = scores.size == TrialData.TRIAL_LENGTH
+            val allSongs = scores.size == GameConstants.TRIAL_LENGTH
 
             if (scoreGroups.size == 1 && allSongs) {
                 strings.add(s.scoreEverySong(scores[0]))
@@ -127,7 +127,7 @@ data class TrialGoalSet(
                 scoreCounts[it] = (scoreCounts[it] ?: 0) + 1
             }
 
-            val allSongs = scoreSort.size == TrialData.TRIAL_LENGTH
+            val allSongs = scoreSort.size == GameConstants.TRIAL_LENGTH
             val minimumScore = scoreSort.last()
 
             if (scoreCounts.size == 1) {
