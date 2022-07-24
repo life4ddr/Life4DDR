@@ -576,8 +576,8 @@
         { "name": "Bloody Tears（IIDX EDITION）", "difficulty": 11, "difficulty_class": "expert", "ex": 795, "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Bloody+Tears+(IIDX+EDITION)-jacket.webp" }
       ],
       "scoring_groups": [["copper", "bronze", "silver"], ["gold"], ["platinum"], ["diamond"], ["cobalt"], ["amethyst", "emerald"]],
-      "event_start": "2019-10-01T00:00:00Z",
-      "event_end": "2019-11-01T00:00:00Z"
+      "event_start": "2019-10-01T00:00:00",
+      "event_end": "2019-11-01T00:00:00"
     },
     {
       "id": "daybreak",

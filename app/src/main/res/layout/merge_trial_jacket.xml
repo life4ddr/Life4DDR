@@ -5,7 +5,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout"
+    tools:layout_width="300dp"
+    tools:layout_height="300dp"
+    >
 
     <ImageView
         android:id="@+id/image_trial_jacket"
@@ -18,7 +22,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_width="200dp" />
+        />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/text_trial_title"
@@ -34,8 +38,9 @@
         app:layout_constraintEnd_toEndOf="@id/image_trial_jacket"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="@id/image_trial_jacket"
-        tools:text="Clockwork Clockwork"
-        tools:visibility="gone"/>
+        tools:text="Clockwork"
+        tools:visibility="visible"
+        />
 
     <ImageView
         android:id="@+id/image_trial_difficulty"
@@ -45,7 +50,8 @@
         android:alpha="0.5"
         android:src="@drawable/circle"
         app:layout_constraintLeft_toLeftOf="@id/image_trial_jacket"
-        app:layout_constraintTop_toTopOf="@id/image_trial_jacket"/>
+        app:layout_constraintTop_toTopOf="@id/image_trial_jacket"
+        />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/text_trial_difficulty"
@@ -60,7 +66,8 @@
         app:layout_constraintEnd_toEndOf="@id/image_trial_difficulty"
         app:layout_constraintStart_toStartOf="@id/image_trial_difficulty"
         app:layout_constraintTop_toTopOf="@id/image_trial_difficulty"
-        tools:text="17"/>
+        tools:text="17"
+        />
 
     <ImageView
         android:id="@+id/view_foreground_tint"
@@ -73,7 +80,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="visible"/>
+        tools:visibility="visible"
+        />
 
     <ImageView
         android:id="@+id/image_badge_highest_center"
@@ -89,7 +97,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed"
         app:layout_constraintWidth_percent="0.5"
-        tools:visibility="visible"/>
+        tools:visibility="visible"
+        />
 
     <ImageView
         android:id="@+id/image_badge_highest"
@@ -101,14 +110,16 @@
         app:layout_constraintEnd_toEndOf="@id/image_trial_jacket"
         app:layout_constraintTop_toTopOf="@id/image_trial_jacket"
         tools:src="@drawable/silver_3"
-        tools:visibility="visible"/>
+        tools:visibility="visible"
+        />
 
     <com.perrigogames.life4.android.view.JacketCornerView
         android:id="@+id/view_jacket_corner"
         android:layout_width="@dimen/jacket_corner_size"
         android:layout_height="@dimen/jacket_corner_size"
         app:layout_constraintBottom_toBottomOf="@id/image_trial_jacket"
-        app:layout_constraintEnd_toEndOf="@id/image_trial_jacket"/>
+        app:layout_constraintEnd_toEndOf="@id/image_trial_jacket"
+        />
 
     <TextView
         android:id="@+id/text_ex_score"
@@ -123,7 +134,8 @@
         app:layout_constraintBottom_toBottomOf="@id/image_badge_highest"
         app:layout_constraintEnd_toStartOf="@id/image_badge_highest"
         app:layout_constraintTop_toTopOf="@id/image_badge_highest"
-        tools:text="8647 EX" />
+        tools:text="8647 EX"
+        />
 
     <TextView
         android:id="@+id/text_ex_score_center"
@@ -137,5 +149,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/image_badge_highest_center"
-        tools:text="8647 EX"/>
+        tools:text="8647 EX"
+        />
 </merge>

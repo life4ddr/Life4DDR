@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.perrigogames.life4.android.R
 import com.perrigogames.life4.android.view.HeaderViewHolder
-import com.perrigogames.life4.android.view.TrialItemView
+import com.perrigogames.life4.android.view.TrialJacketView
 import com.perrigogames.life4.enums.TrialType
 import com.perrigogames.life4.model.TrialManager
 import com.perrigogames.life4.viewmodel.TrialListState
@@ -35,7 +35,7 @@ class TrialListAdapter(
                 .inflate(R.layout.item_rank_goal_header, parent, false) as TextView
         )
         ID_TILE -> TrialViewHolder(when (viewType) {
-            ID_TILE -> TrialItemView.inflate(context, parent, false)
+            ID_TILE -> TrialJacketView.inflate(context, parent, false)
             else -> throw IllegalArgumentException("Unsupported trial view type: $viewType")
         })
         else -> error("Unsupported view type $viewType")
@@ -45,19 +45,22 @@ class TrialListAdapter(
         val genericItem = state.displayTrials[position]
         when (holder) {
             is HeaderViewHolder -> {
-                val headerText = (genericItem as TrialListState.TrialListItem.Header).text
+                val headerText = (genericItem as TrialListState.Item.Header).text
                 holder.bind(headerText)
             }
             is TrialViewHolder -> {
-                val item = genericItem as TrialListState.TrialListItem.Trial
-                holder.trialItemView.trial = item.trial
-                holder.trialItemView.setCornerType(item.corner)
-                holder.itemView.setOnClickListener { onItemClicked(item.trial.id, item.trial.type) }
-                val bestSession = trialManager.bestSession(item.trial.id)
-                if (!item.trial.isEvent) {
-                    holder.trialItemView.setHighestRank(bestSession?.goalRank)
+                val item = genericItem as TrialListState.Item.Trial
+                holder.trialItemView.bind(item.viewModel)
+                holder.itemView.setOnClickListener {
+                    onItemClicked(item.viewModel.trial.id, item.viewModel.trial.type)
                 }
-                holder.trialItemView.setExScore(bestSession?.exScore?.toInt())
+                val bestSession = trialManager.bestSession(item.viewModel.trial.id)
+
+                //FIXME migrate
+//                if (!item.viewModel.trial.isEvent) {
+//                    holder.trialItemView.setHighestRank(bestSession?.goalRank)
+//                }
+//                holder.trialItemView.setExScore(bestSession?.exScore?.toInt())
             }
         }
     }
@@ -65,20 +68,20 @@ class TrialListAdapter(
     override fun getItemCount() = state.displayTrials.size
 
     override fun getItemViewType(position: Int) = when(state.displayTrials[position]) {
-        is TrialListState.TrialListItem.Header -> ID_HEADER
-        is TrialListState.TrialListItem.Trial -> ID_TILE
+        is TrialListState.Item.Header -> ID_HEADER
+        is TrialListState.Item.Trial -> ID_TILE
     }
 
     val spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
         override fun getSpanSize(position: Int): Int {
             return when (state.displayTrials[position]) {
-                is TrialListState.TrialListItem.Header -> 2
-                is TrialListState.TrialListItem.Trial -> 1
+                is TrialListState.Item.Header -> 2
+                is TrialListState.Item.Trial -> 1
             }
         }
     }
 
-    class TrialViewHolder(val trialItemView: TrialItemView): RecyclerView.ViewHolder(trialItemView)
+    class TrialViewHolder(val trialItemView: TrialJacketView): RecyclerView.ViewHolder(trialItemView)
 
     companion object {
         const val ID_TILE = 1

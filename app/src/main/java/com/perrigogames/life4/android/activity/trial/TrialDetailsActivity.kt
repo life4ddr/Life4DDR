@@ -39,7 +39,9 @@ import com.perrigogames.life4.getDebugBoolean
 import com.perrigogames.life4.model.LadderManager
 import com.perrigogames.life4.model.TrialManager
 import com.perrigogames.life4.model.TrialSessionManager
+import com.perrigogames.life4.viewmodel.TrialJacketViewModel
 import com.russhwolf.settings.set
+import kotlinx.datetime.toJavaLocalDateTime
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import java.text.SimpleDateFormat
@@ -112,11 +114,13 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener, K
         trialSessionManager.startSession(trialId, initialRank)
         updateEXScoreMeter()
 
-        binding.imageRank.let { jacket ->
-            jacket.trial = trial
-            jacket.rank = storedRank
-            jacket.setCornerType(if (trial.isEvent) TrialJacketCorner.EVENT else null)
-        }
+        binding.imageRank.bind(
+            TrialJacketViewModel(
+                trial = trial,
+                rank = storedRank,
+                overrideCorner = TrialJacketCorner.NONE,
+            )
+        )
 
         binding.textEventHelp.visibilityBool = trial.isEvent
         binding.textEventTimer.visibilityBool = trial.isEvent
@@ -127,8 +131,13 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener, K
         if (trial.isEvent) {
             val userRank = ladderManager.getUserRank()
             val scoringGroup = trial.findScoringGroup(TrialRank.fromLadderRank(userRank, true) ?: TrialRank.COPPER)
-            binding.textEventTimer.text = resources.getString(R.string.event_ends_format,
-                SimpleDateFormat("MMMM dd", Locale.US).format(trial.eventEnd))
+            val formatString =
+                if (trial.isActiveEvent) R.string.event_ends_future_format
+                else R.string.event_ends_past_format
+            binding.textEventTimer.text = resources.getString(formatString,
+                SimpleDateFormat("d MMMM dd", Locale.US)
+                    .format(trial.eventEnd!!.toJavaLocalDateTime())
+            )
             binding.textEventHelp.text = resources.getString(R.string.event_directions,
                 scoringGroup?.map { resources.getString(it.nameRes) }?.toListString(baseContext, useAnd = false, caps = false))
         } else {

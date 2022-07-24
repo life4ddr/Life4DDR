@@ -167,7 +167,8 @@
     <string name="score_string_summary_format_expert">"%d &lt;Great\n%d Perfect"\n%d EX</string>
     <string name="author_credit_format">Created by %s</string>
     <string name="event_directions">In this event, you\'re competing against everyone with a %s Rank.  Aim for the highest combined EX Score!</string>
-    <string name="event_ends_format">Event ends %s</string>
+    <string name="event_ends_past_format">Event ended on %s</string>
+    <string name="event_ends_future_format">Event ends %s</string>
     <string name="level_header">Level %d</string>
 
     <!-- Short/Common Strings -->

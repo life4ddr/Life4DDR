@@ -4,6 +4,7 @@ import com.perrigogames.life4.data.Trial
 import com.perrigogames.life4.data.TrialState
 import com.perrigogames.life4.db.SelectBestSessions
 import com.perrigogames.life4.enums.TrialJacketCorner
+import com.perrigogames.life4.enums.TrialRank
 
 /**
  * A View state describing the Trial list and its contents
@@ -18,51 +19,49 @@ data class TrialListState(
         sessions.firstOrNull { it.trialId == trial.id }
     }
 
-    private fun trialItem(trial: Trial) = TrialListItem.Trial(
+    private fun trialViewModel(trial: Trial) = TrialJacketViewModel(
         trial = trial,
         session = matchedTrials[trial],
-        corner = when {
-            trial.isActiveEvent -> TrialJacketCorner.EVENT
-            featureNew && trial.new && matchedTrials[trial] == null -> TrialJacketCorner.NEW
-            else -> null
-        }
+        rank = matchedTrials[trial]?.goalRank,
+        exScore = matchedTrials[trial]?.exScore?.toInt(),
+        tintOnRank = TrialRank.values().last(),
+        showExRemaining = false,
     )
 
-    val displayTrials: List<TrialListItem> by lazy {
-        val event = mutableListOf<TrialListItem.Trial>()
-        val new = mutableListOf<TrialListItem.Trial>()
-        val active = mutableListOf<TrialListItem.Trial>()
-        val retired = mutableListOf<TrialListItem.Trial>()
+    val displayTrials: List<Item> by lazy {
+        val event = mutableListOf<Item.Trial>()
+        val new = mutableListOf<Item.Trial>()
+        val active = mutableListOf<Item.Trial>()
+        val retired = mutableListOf<Item.Trial>()
 
-        trials.map { trialItem(it) }
+        trials.map { trialViewModel(it) }
             .forEach { item ->
                 when {
-                    item.corner == TrialJacketCorner.EVENT -> event
-                    item.corner == TrialJacketCorner.NEW -> new
                     item.trial.state == TrialState.RETIRED -> retired
+                    item.cornerType == TrialJacketCorner.EVENT -> event
+                    item.cornerType == TrialJacketCorner.NEW -> new
                     else -> active
-                }.add(item)
+                }.add(Item.Trial(item))
             }
 
         //FIXME i18n
-        mutableListOf<TrialListItem>(
-            TrialListItem.Header("Active Trials")
+        mutableListOf<Item>(
+            Item.Header("Active Trials")
         ).apply {
             addAll(event)
             addAll(new)
             addAll(active)
-            add(TrialListItem.Header("Retired Trials"))
+            add(Item.Header("Retired Trials"))
             addAll(retired)
         }
     }
 
-    sealed class TrialListItem {
+    sealed class Item {
 
         class Trial(
-            val trial: com.perrigogames.life4.data.Trial,
-            val session: SelectBestSessions?,
-            val corner: TrialJacketCorner?,
-        ) : TrialListItem()
-        class Header(val text: String) : TrialListItem()
+            val viewModel: TrialJacketViewModel,
+        ) : Item()
+
+        class Header(val text: String) : Item()
     }
 }

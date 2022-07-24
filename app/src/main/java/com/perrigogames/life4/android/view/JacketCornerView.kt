@@ -26,14 +26,14 @@ class JacketCornerView @JvmOverloads constructor(
         binding = ViewJacketCornerBinding.bind(this)
     }
 
-    var cornerType: TrialJacketCorner? = null
+    var cornerType: TrialJacketCorner = TrialJacketCorner.NONE
         set(v) {
             field = v
-            cornerType.let { when(it) {
+            when(cornerType) {
                 TrialJacketCorner.EVENT -> updateCorner(R.drawable.triangle_event, R.string.event_tag, R.color.black_50)
                 TrialJacketCorner.NEW -> updateCorner(R.drawable.triangle_new, R.string.new_tag, R.color.white)
-                else -> hideCorner()
-            }}
+                TrialJacketCorner.NONE -> hideCorner()
+            }
         }
 
     private fun hideCorner() {

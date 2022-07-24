@@ -14,8 +14,10 @@ package com.perrigogames.life4.data
 import com.perrigogames.life4.enums.*
 import com.perrigogames.life4.response.TrialGoalSet
 import kotlinx.datetime.Clock
-import kotlinx.datetime.Instant
+import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.TimeZone
 import kotlinx.datetime.serializers.InstantIso8601Serializer
+import kotlinx.datetime.toLocalDateTime
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -43,8 +45,8 @@ data class Trial(
     val type: TrialType,
     @SerialName("placement_rank") val placementRank: PlacementRank? = null,
     val songs: List<Song>,
-    @SerialName("event_start") val eventStart: Instant? = null,
-    @SerialName("event_end") val eventEnd: Instant? = null,
+    @SerialName("event_start") val eventStart: LocalDateTime? = null,
+    @SerialName("event_end") val eventEnd: LocalDateTime? = null,
     @SerialName("scoring_groups") val scoringGroups: List<List<TrialRank>>? = null,
     val difficulty: Int? = null,
     val goals: List<TrialGoalSet>? = null,
@@ -56,7 +58,9 @@ data class Trial(
     val isRetired: Boolean = state == TrialState.RETIRED
     val isEvent: Boolean = type == TrialType.EVENT && eventStart != null && eventEnd != null
     val isActiveEvent: Boolean
-        get() = isEvent && (eventStart!!.rangeTo(eventEnd!!)).contains(Clock.System.now())
+        get() = isEvent && (eventStart!!.rangeTo(eventEnd!!)).contains(
+            Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
+        )
     val new = state == TrialState.NEW
 
     fun goalSet(rank: TrialRank?): TrialGoalSet? = goals?.find { it.rank == rank }
