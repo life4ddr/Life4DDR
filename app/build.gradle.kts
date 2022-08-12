@@ -93,6 +93,7 @@ dependencies {
     implementation(Deps.AndroidX.Compose.activity)
     implementation(Deps.AndroidX.Compose.appCompatTheme)
 
+//    implementation(Deps.appintro)
     implementation(Deps.koinCore)
     implementation(Deps.lottie)
     implementation(Deps.eventbus)

@@ -24,6 +24,7 @@ object Deps {
     const val lottie = "com.airbnb.android:lottie:5.0.3"
     const val eventbus = "org.greenrobot:eventbus:3.3.1"
     const val dexter = "com.karumi:dexter:6.2.2"
+    const val appintro = "com.github.AppIntro:AppIntro:6.1.0"
     const val glide = "com.github.bumptech.glide:glide:${Versions.glide}"
     const val glide_compiler = "com.github.bumptech.glide:compiler:${Versions.glide}"
 
