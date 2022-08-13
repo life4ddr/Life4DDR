@@ -10,6 +10,7 @@ import com.perrigogames.life4.db.SelectBestSessions
 import com.perrigogames.life4.db.TrialDatabaseHelper
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.TRIALS_FILE_NAME
 import com.perrigogames.life4.ktor.Life4API
+import com.perrigogames.life4.viewmodel.TrialListState
 import com.russhwolf.settings.Settings
 import kotlinx.coroutines.launch
 import kotlinx.serialization.ExperimentalSerializationApi
@@ -85,6 +86,13 @@ class TrialManager: BaseModel() {
             else results.firstOrNull { db -> db.trialId == it.id }
         }
     }
+
+    fun createViewState() = TrialListState(
+        trials = trials,
+        sessions = bestSessions(),
+        featureNew = settings.getBoolean(SettingsKeys.KEY_LIST_HIGHLIGHT_NEW, true),
+        featureUnplayed = settings.getBoolean(SettingsKeys.KEY_LIST_HIGHLIGHT_UNPLAYED, true),
+    )
 
     fun deleteSession(sessionId: Long) {
         mainScope.launch {

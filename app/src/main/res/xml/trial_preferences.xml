@@ -17,6 +17,10 @@
             app:defaultValue="true"
             app:key="KEY_LIST_HIGHLIGHT_NEW"
             app:title="@string/highlight_new_trials"/>
+        <CheckBoxPreference
+            app:defaultValue="true"
+            app:key="KEY_LIST_HIGHLIGHT_UNPLAYED"
+            app:title="@string/highlight_unplayed_trials"/>
     </PreferenceCategory>
 
     <PreferenceCategory app:title="@string/trial_details">

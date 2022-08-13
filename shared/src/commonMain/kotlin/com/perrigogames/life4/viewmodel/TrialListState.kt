@@ -10,9 +10,10 @@ import com.perrigogames.life4.enums.TrialRank
  * A View state describing the Trial list and its contents
  */
 data class TrialListState(
-    private val trials: List<Trial>,
+    val trials: List<Trial>,
     private val sessions: List<SelectBestSessions>,
     val featureNew: Boolean = false,
+    val featureUnplayed: Boolean = false,
 ) {
 
     private val matchedTrials = trials.associateWith { trial ->
@@ -29,17 +30,19 @@ data class TrialListState(
     )
 
     val displayTrials: List<Item> by lazy {
+        val retired = mutableListOf<Item.Trial>()
         val event = mutableListOf<Item.Trial>()
         val new = mutableListOf<Item.Trial>()
+        val unplayed = mutableListOf<Item.Trial>()
         val active = mutableListOf<Item.Trial>()
-        val retired = mutableListOf<Item.Trial>()
 
         trials.map { trialViewModel(it) }
             .forEach { item ->
                 when {
                     item.trial.state == TrialState.RETIRED -> retired
                     item.cornerType == TrialJacketCorner.EVENT -> event
-                    item.cornerType == TrialJacketCorner.NEW -> new
+                    featureNew && item.cornerType == TrialJacketCorner.NEW -> new
+                    featureUnplayed && item.session == null -> unplayed
                     else -> active
                 }.add(Item.Trial(item))
             }
@@ -50,6 +53,7 @@ data class TrialListState(
         ).apply {
             addAll(event)
             addAll(new)
+            addAll(unplayed)
             addAll(active)
             add(Item.Header("Retired Trials"))
             addAll(retired)
@@ -60,8 +64,13 @@ data class TrialListState(
 
         class Trial(
             val viewModel: TrialJacketViewModel,
-        ) : Item()
+        ) : Item() {
 
-        class Header(val text: String) : Item()
+            override fun toString() = "Trial: ${viewModel.trial.name}"
+        }
+
+        class Header(val text: String) : Item() {
+            override fun toString() = "Header: $text"
+        }
     }
 }

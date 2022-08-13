@@ -18,8 +18,14 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled = true
         signingConfig = signingConfigs.findByName("release")
+        vectorDrawables {
+            useSupportLibrary = true
+        }
     }
     packagingOptions {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        }
         resources.excludes.add("META-INF/*.kotlin_module")
         resources.excludes.add("META-INF/DEPENDENCIES")
         resources.excludes.add("META-INF/LICENSE")
@@ -91,6 +97,7 @@ dependencies {
     implementation(Deps.AndroidX.Compose.foundation)
     implementation(Deps.AndroidX.Compose.material)
     implementation(Deps.AndroidX.Compose.activity)
+    implementation(Deps.AndroidX.Compose.constraintLayout)
     implementation(Deps.AndroidX.Compose.appCompatTheme)
 
 //    implementation(Deps.appintro)

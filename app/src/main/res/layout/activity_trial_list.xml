@@ -21,13 +21,10 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <FrameLayout
-        android:id="@+id/container_fragment"
+    <androidx.compose.ui.platform.ComposeView
+        android:id="@+id/container_compose"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:context=".activity.trial.TrialListActivity"
-        tools:showIn="@layout/activity_trial_list"/>
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

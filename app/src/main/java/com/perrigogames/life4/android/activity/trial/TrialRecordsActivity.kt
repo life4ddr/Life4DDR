@@ -13,11 +13,11 @@ class TrialRecordsActivity : AppCompatActivity(), TrialRecordsFragment.OnRecords
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(FrameLayout(this).also {
-            it.id = R.id.container_fragment
+            it.id = R.id.container_compose
         })
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.container_fragment, TrialRecordsFragment.newInstance())
+                .replace(R.id.container_compose, TrialRecordsFragment.newInstance())
                 .commitNow()
         }
 

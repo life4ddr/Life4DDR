@@ -19,6 +19,7 @@ import com.perrigogames.life4.android.databinding.MergeTrialJacketBinding
 import com.perrigogames.life4.android.drawableRes
 import com.perrigogames.life4.android.util.circularProgressDrawable
 import com.perrigogames.life4.android.util.jacketResId
+import com.perrigogames.life4.android.util.shouldFetchJacket
 import com.perrigogames.life4.android.util.visibilityBool
 import com.perrigogames.life4.viewmodel.TrialJacketViewModel
 
@@ -46,7 +47,7 @@ class TrialJacketView @JvmOverloads constructor(
         binding.viewJacketCorner.cornerType = item.cornerType
 
         val resId = trial.jacketResId(context)
-        if (trial.coverUrl != null && (resId == R.drawable.trial_default || trial.coverOverride)) {
+        if (trial.shouldFetchJacket(context)) {
             Glide.with(this)
                 .load(trial.coverUrl)
                 .placeholder(circularProgressDrawable(context))

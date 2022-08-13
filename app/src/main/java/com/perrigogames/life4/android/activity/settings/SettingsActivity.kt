@@ -33,6 +33,7 @@ import com.perrigogames.life4.SettingsKeys.KEY_INFO_RIVAL_CODE
 import com.perrigogames.life4.SettingsKeys.KEY_INFO_TWITTER_NAME
 import com.perrigogames.life4.SettingsKeys.KEY_LADDER_CLEAR
 import com.perrigogames.life4.SettingsKeys.KEY_LIST_HIGHLIGHT_NEW
+import com.perrigogames.life4.SettingsKeys.KEY_LIST_HIGHLIGHT_UNPLAYED
 import com.perrigogames.life4.SettingsKeys.KEY_LIST_SHOW_EX
 import com.perrigogames.life4.SettingsKeys.KEY_LIST_SHOW_EX_REMAINING
 import com.perrigogames.life4.SettingsKeys.KEY_LIST_TINT_COMPLETED
@@ -313,6 +314,7 @@ class SettingsActivity : AppCompatActivity(),
             preferenceListener(KEY_LIST_SHOW_EX_REMAINING, listUpdateListener)
             preferenceListener(KEY_LIST_TINT_COMPLETED, listUpdateListener)
             preferenceListener(KEY_LIST_HIGHLIGHT_NEW, listReplaceListener)
+            preferenceListener(KEY_LIST_HIGHLIGHT_UNPLAYED, listReplaceListener)
 
 //            preferenceListener(KEY_INFO_IMPORT_TRIALS) {
 //                try {

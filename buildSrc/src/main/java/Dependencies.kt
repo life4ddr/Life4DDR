@@ -72,6 +72,7 @@ object Deps {
             const val materialIcons = "androidx.compose.material:material-icons-core:$baseVersion"
             const val materialIconsExtended = "androidx.compose.material:material-icons-extended:$baseVersion"
             const val activity = "androidx.activity:activity-compose:1.4.0"
+            const val constraintLayout = "androidx.constraintlayout:constraintlayout-compose:1.0.1"
             const val appCompatTheme = "com.google.accompanist:accompanist-appcompat-theme:0.16.0"
         }
     }

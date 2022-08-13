@@ -45,7 +45,7 @@ SELECT * FROM TrialSession
 INNER JOIN TrialSessionExScore ON TrialSession.id = TrialSessionExScore.sessionId
 WHERE goalObtained != 0
 GROUP BY trialId
-ORDER BY goalRank, TrialSessionExScore.exScore DESC LIMIT 1;
+ORDER BY goalRank, TrialSessionExScore.exScore DESC;
 
 selectAllSongs:
 SELECT * FROM TrialSong;

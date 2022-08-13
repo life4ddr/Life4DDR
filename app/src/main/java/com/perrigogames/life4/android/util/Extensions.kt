@@ -18,6 +18,9 @@ var View.visibilityBool: Boolean
         return if (it == 0) R.drawable.trial_default else it
     }
 
+fun Trial.shouldFetchJacket(c: Context): Boolean =
+    coverUrl != null && (jacketResId(c) == R.drawable.trial_default || coverOverride)
+
 inline fun EditText.onFieldChanged(crossinline block: (EditText, Editable) -> Unit) = this.let { field ->
     field.doAfterTextChanged { text ->
         text?.let { block(this, text) }
