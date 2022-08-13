@@ -89,6 +89,7 @@ dependencies {
     implementation(Deps.AndroidX.constraintlayout)
     implementation(Deps.AndroidX.Lifecycle.runtime)
     implementation(Deps.AndroidX.Lifecycle.viewmodel)
+    implementation(Deps.AndroidX.Lifecycle.viewmodelCompose)
     implementation(Deps.AndroidX.activity)
     implementation(Deps.AndroidX.fragment)
     implementation(Deps.AndroidX.swipeRefresh)

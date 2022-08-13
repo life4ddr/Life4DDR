@@ -56,10 +56,11 @@ object Deps {
         const val swipeRefresh = "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
 
         object Lifecycle {
-            const val version = "2.2.0"
+            const val version = "2.5.1"
 
             const val runtime = "androidx.lifecycle:lifecycle-runtime-ktx:$version"
             const val viewmodel = "androidx.lifecycle:lifecycle-viewmodel:$version"
+            const val viewmodelCompose = "androidx.lifecycle:lifecycle-viewmodel-compose:$version"
         }
 
         object Compose {
@@ -113,5 +114,28 @@ object Deps {
         const val serialization = "io.ktor:ktor-serialization-kotlinx-json:$version"
         const val contentNegotiation = "io.ktor:ktor-client-content-negotiation:$version"
         const val clientMock = "io.ktor:ktor-client-mock:$version"
+    }
+
+    object MokoMvvm {
+        const val version = "0.13.1"
+        object Common {
+            const val core = "dev.icerock.moko:mvvm-core:$version"
+            const val flow = "dev.icerock.moko:mvvm-flow:$version"
+            const val livedata = "dev.icerock.moko:mvvm-livedata:$version"
+            const val state = "dev.icerock.moko:mvvm-state:$version"
+            const val livedataResources = "dev.icerock.moko:mvvm-livedata-resources:$version"
+        }
+
+        const val commonTest = "dev.icerock.moko:mvvm-test:$version"
+
+        object Android {
+            const val flowCompose = "dev.icerock.moko:mvvm-flow-compose:$version"
+            const val livedataCompose = "dev.icerock.moko:mvvm-livedata-compose:$version"
+            const val livedataMaterial = "dev.icerock.moko:mvvm-livedata-material:$version"
+            const val livedataGlide = "dev.icerock.moko:mvvm-livedata-glide:$version"
+            const val livedataSwipeRefresh = "dev.icerock.moko:mvvm-livedata-swiperefresh:$version"
+            const val databinding = "dev.icerock.moko:mvvm-databinding:$version"
+            const val viewbinding = "dev.icerock.moko:mvvm-viewbinding:$version"
+        }
     }
 }

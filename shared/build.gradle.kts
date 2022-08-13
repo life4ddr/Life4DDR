@@ -70,6 +70,9 @@ kotlin {
                 implementation(Deps.multiplatformSettings)
                 implementation(Deps.kotlinxDateTime)
                 api(Deps.kermit)
+                api(Deps.MokoMvvm.Common.core)
+                api(Deps.MokoMvvm.Common.flow)
+                api(Deps.MokoMvvm.Common.livedata)
             }
         }
         val commonTest by getting {
@@ -81,6 +84,7 @@ kotlin {
                 implementation(Deps.Coroutines.test)
                 implementation(Deps.Ktor.clientMock)
                 implementation(Deps.Reaktive.testing)
+                implementation(Deps.MokoMvvm.commonTest)
             }
         }
         val androidMain by getting {
@@ -88,6 +92,8 @@ kotlin {
                 implementation(Deps.AndroidX.Lifecycle.viewmodel)
                 implementation(Deps.SqlDelight.android)
                 implementation(Deps.Ktor.okhttp)
+                api(Deps.MokoMvvm.Android.livedataCompose)
+                api(Deps.MokoMvvm.Android.livedataGlide)
             }
         }
         val androidTest by getting {
