@@ -27,6 +27,7 @@ object Deps {
     const val appintro = "com.github.AppIntro:AppIntro:6.1.0"
     const val glide = "com.github.bumptech.glide:glide:${Versions.glide}"
     const val glide_compiler = "com.github.bumptech.glide:compiler:${Versions.glide}"
+    const val coil = "io.coil-kt:coil-compose:2.1.0"
 
     const val multiplatformSettings =  "com.russhwolf:multiplatform-settings:${Versions.multiplatformSettings}"
     const val multiplatformSettingsTest = "com.russhwolf:multiplatform-settings-test:${Versions.multiplatformSettings}"

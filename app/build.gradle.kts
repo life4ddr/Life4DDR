@@ -107,6 +107,7 @@ dependencies {
     implementation(Deps.eventbus)
     implementation(Deps.dexter)
     implementation(Deps.glide)
+    implementation(Deps.coil)
     implementation(Deps.kotlinxDateTime)
 
     implementation(Deps.SqlDelight.runtimeJdk)

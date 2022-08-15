@@ -166,8 +166,8 @@ data class InProgressTrialSession(
 
 @Serializable
 data class SongResult(
-    var song: Song,
-    var photoUriString: String?,
+    val song: Song,
+    var photoUriString: String? = null,
     var score: Int? = null,
     var exScore: Int? = null,
     var misses: Int? = null,

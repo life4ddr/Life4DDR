@@ -1,5 +1,6 @@
 package com.perrigogames.life4.android.ui.trial
 
+import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.Checkbox
@@ -17,18 +18,12 @@ import com.perrigogames.life4.android.R
 import com.perrigogames.life4.android.compose.LIFE4DDRTheme
 import com.perrigogames.life4.android.compose.Paddings
 import com.perrigogames.life4.viewmodel.SongEntryViewModel
+import com.perrigogames.life4.viewmodel.SongEntryViewModel.InputFieldState
 import dev.icerock.moko.mvvm.createViewModelFactory
 
 @Composable
 fun SongEntryControls(
-    songIndex: Int,
-    showAdvanced: Boolean,
-    requireAllData: Boolean,
-    viewModel: SongEntryViewModel = viewModel(
-        factory = createViewModelFactory {
-            SongEntryViewModel(songIndex, showAdvanced, requireAllData)
-        }
-    ),
+    viewModel: SongEntryViewModel,
 ) {
     val scoreText: String by viewModel.scoreText.collectAsState()
     val exScoreText: String by viewModel.exScoreText.collectAsState()
@@ -37,6 +32,13 @@ fun SongEntryControls(
     val greatsText: String by viewModel.greatsText.collectAsState()
     val perfectsText: String by viewModel.perfectsText.collectAsState()
 
+    val scoreState: InputFieldState by viewModel.scoreState.collectAsState()
+    val exScoreState: InputFieldState by viewModel.exScoreState.collectAsState()
+    val missesState: InputFieldState by viewModel.missesState.collectAsState()
+    val goodsState: InputFieldState by viewModel.goodsState.collectAsState()
+    val greatsState: InputFieldState by viewModel.greatsState.collectAsState()
+    val perfectsState: InputFieldState by viewModel.perfectsState.collectAsState()
+
     val passedChecked: Boolean by viewModel.passedChecked.collectAsState()
 
     Column {
@@ -44,65 +46,92 @@ fun SongEntryControls(
             horizontalArrangement = Arrangement.spacedBy(Paddings.SMALL),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            TextField(
-                value = scoreText,
-                onValueChange = { viewModel.scoreText.value = it },
-                modifier = Modifier.weight(0.5f),
-                placeholder = {
-                    Text(text = stringResource(id = R.string.score))
-                }
+            SongTextInput(
+                text = scoreText,
+                state = scoreState,
+                placeholderRes = R.string.score,
+                modifier = Modifier.weight(0.4f),
+                onTextValueChange = { viewModel.scoreText.value = it }
             )
-            TextField(
-                value = exScoreText,
-                onValueChange = { viewModel.exScoreText.value = it },
+            SongTextInput(
+                text = exScoreText,
+                state = exScoreState,
+                placeholderRes = R.string.ex_score,
                 modifier = Modifier.weight(0.25f),
-                placeholder = {
-                    Text(text = stringResource(id = R.string.ex_score))
-                }
+                onTextValueChange = { viewModel.exScoreText.value = it }
             )
 
-            Checkbox(
-                checked = passedChecked,
-                onCheckedChange = { viewModel.passedChecked.value = it }
-            )
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Checkbox(
+                    checked = passedChecked,
+                    onCheckedChange = { viewModel.passedChecked.value = it },
+                )
+                Text(
+                    text = stringResource(id = R.string.passed),
+                    modifier = Modifier.padding(end = Paddings.MEDIUM)
+                )
+            }
         }
         Row(
             horizontalArrangement = Arrangement.spacedBy(Paddings.SMALL),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            TextField(
-                value = missesText,
-                onValueChange = { viewModel.missesText.value = it },
+            SongTextInput(
+                text = missesText,
+                state = missesState,
+                placeholderRes = R.string.misses,
                 modifier = Modifier.weight(0.25f),
-                placeholder = {
-                    Text(text = stringResource(id = R.string.misses))
-                }
+                onTextValueChange = { viewModel.missesText.value = it }
             )
-            TextField(
-                value = goodsText,
-                onValueChange = { viewModel.goodsText.value = it },
+            SongTextInput(
+                text = goodsText,
+                state = goodsState,
+                placeholderRes = R.string.goods,
                 modifier = Modifier.weight(0.25f),
-                placeholder = {
-                    Text(text = stringResource(id = R.string.goods))
-                }
+                onTextValueChange = { viewModel.goodsText.value = it }
             )
-            TextField(
-                value = greatsText,
-                onValueChange = { viewModel.greatsText.value = it },
+            SongTextInput(
+                text = greatsText,
+                state = greatsState,
+                placeholderRes = R.string.greats,
                 modifier = Modifier.weight(0.25f),
-                placeholder = {
-                    Text(text = stringResource(id = R.string.greats))
-                }
+                onTextValueChange = { viewModel.greatsText.value = it }
             )
-            TextField(
-                value = perfectsText,
-                onValueChange = { viewModel.perfectsText.value = it },
+            SongTextInput(
+                text = perfectsText,
+                state = perfectsState,
+                placeholderRes = R.string.perfects,
                 modifier = Modifier.weight(0.25f),
-                placeholder = {
-                    Text(text = stringResource(id = R.string.perfects))
-                }
+                onTextValueChange = { viewModel.perfectsText.value = it }
             )
         }
+    }
+}
+
+@Composable
+private fun SongTextInput(
+    text: String,
+    state: InputFieldState,
+    spaceInvisible: Boolean = true,
+    @StringRes placeholderRes: Int,
+    modifier: Modifier = Modifier,
+    onTextValueChange: (String) -> Unit,
+) {
+    if (state.visible) {
+        TextField(
+            value = text,
+            enabled = state.enabled,
+            isError = state.hasError,
+            onValueChange = onTextValueChange,
+            modifier = modifier,
+            placeholder = {
+                Text(text = stringResource(id = placeholderRes))
+            }
+        )
+    } else if (spaceInvisible) {
+        Spacer(modifier = modifier)
     }
 }
 
@@ -152,7 +181,11 @@ fun SongClearWidgetsPreview() {
     LIFE4DDRTheme {
         Column {
             SongClearButtons(modifier = Modifier.fillMaxWidth()) {}
-            SongEntryControls(songIndex = 0, showAdvanced = true, requireAllData = false)
+            SongEntryControls(viewModel(
+                factory = createViewModelFactory {
+                    SongEntryViewModel(0, SongEntryViewModel.EntryState.FULL, false)
+                }
+            ))
         }
     }
 }
