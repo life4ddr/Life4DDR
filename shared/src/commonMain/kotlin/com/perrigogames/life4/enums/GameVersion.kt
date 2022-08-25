@@ -29,7 +29,8 @@ enum class GameVersion(override val stableId: Long): StableId {
     DDR_2014(15),
     ACE(16),
     A20(17),
-    A20_PLUS(18);
+    A20_PLUS(18),
+    A3(19);
 
     companion object {
         fun parse(stableId: Long?) = stableId?.let { id ->
