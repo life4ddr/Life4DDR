@@ -194,6 +194,10 @@ class SongsClearGoal(
         get() = mClearType ?: ClearType.CLEAR
 
     fun validate(): Boolean {
+        if (averageScore != null && allowsHigherDiffNum) {
+            return false // averages only supported for a single difficulty
+        }
+
         var count = 0
         if (score != null) count += 1
         if (averageScore != null) count += 1

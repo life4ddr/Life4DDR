@@ -5,19 +5,25 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
+import co.touchlab.kermit.Logger
 import com.perrigogames.life4.android.R
 import com.perrigogames.life4.android.databinding.DialogManagerImportProcessingBinding
 import com.perrigogames.life4.android.util.spannedText
+import com.perrigogames.life4.injectLogger
 import com.perrigogames.life4.model.LadderImporter
+import org.koin.core.component.KoinComponent
 
 /**
  * A custom Dialog class that prompts the user for a data string from an
  * external source to import into LIFE4.
  */
-class ScoreManagerImportProcessingDialog(var listener: Listener? = null): DialogFragment() {
+class ScoreManagerImportProcessingDialog(var listener: Listener? = null): DialogFragment(), KoinComponent {
 
     lateinit var contentView: View
     lateinit var dialog: AlertDialog
+
+    private val logger: Logger by injectLogger("ScoreManagerImport")
+
     private lateinit var binding: DialogManagerImportProcessingBinding
 
     private var errors = 0
@@ -49,6 +55,7 @@ class ScoreManagerImportProcessingDialog(var listener: Listener? = null): Dialog
 
         override fun onError(totalCount: Int, message: String) {
             binding.textErrorLog.append("$message<br>----<br>".spannedText)
+            logger.e(message)
             errors = totalCount
             shouldClose = false
         }

@@ -25,6 +25,7 @@ import com.perrigogames.life4.enums.GoalStatus.*
 import com.perrigogames.life4.injectLogger
 import com.perrigogames.life4.isDebug
 import com.perrigogames.life4.longNumberString
+import com.perrigogames.life4.model.safeScore
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
@@ -172,16 +173,17 @@ class LadderGoalItemView @JvmOverloads constructor(
 
                 val rowBinding = retrieveTableRowBinding(
                     binding.tableExpandDetails,
-                    result.score.toInt().longNumberString(),
+                    (result.safeScore).toInt().longNumberString(),
 //                    formattedTitle.toString(),
                     chart.title,
                 )
-                if (result.clearType > ClearType.CLEAR) {
-                    rowBinding.textScore.setTextColor(ContextCompat.getColor(context, result.clearType.colorRes))
+                val clearType = result?.clearType ?: ClearType.NO_PLAY
+                if (clearType > ClearType.CLEAR) {
+                    rowBinding.textScore.setTextColor(ContextCompat.getColor(context, clearType.colorRes))
                 } else {
                     rowBinding.textScore.setTextColor(oldColors)
                 }
-                rowBinding.textScore.typeface = if (result.clearType < ClearType.CLEAR) {
+                rowBinding.textScore.typeface = if (clearType < ClearType.CLEAR) {
                     Typeface.DEFAULT
                 } else {
                     Typeface.DEFAULT_BOLD

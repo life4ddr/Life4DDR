@@ -3,14 +3,12 @@ package com.perrigogames.life4.model
 import co.touchlab.kermit.Logger
 import com.perrigogames.life4.GameConstants
 import com.perrigogames.life4.data.*
-import com.perrigogames.life4.db.ChartResult
-import com.perrigogames.life4.db.DetailedChartInfo
 import com.perrigogames.life4.db.ResultDatabaseHelper
-import com.perrigogames.life4.enums.PlayStyle
+import com.perrigogames.life4.enums.ClearType
 import com.perrigogames.life4.injectLogger
-import com.perrigogames.life4.isDebug
 import kotlinx.serialization.ExperimentalSerializationApi
 import org.koin.core.component.inject
+import kotlin.math.max
 import kotlin.math.min
 
 @OptIn(ExperimentalSerializationApi::class)
@@ -22,92 +20,25 @@ class LadderProgressManager: BaseModel() {
     private val resultDbHelper: ResultDatabaseHelper by inject()
     private val trialManager: TrialManager by inject()
 
-    private lateinit var matchedResults: Map<PlayStyle, Map<Int, Map<DetailedChartInfo, ChartResult?>>>
-    private lateinit var populatedResults: Map<PlayStyle, Map<Int, Map<DetailedChartInfo, ChartResult>>>
+    private val chartResultOrganizer = ChartResultOrganizer()
 
-    fun mapToResults(charts: List<DetailedChartInfo>): Map<DetailedChartInfo, ChartResult?> {
-        return charts.associateWith {
-            getResultsMap(it.playStyle, it.difficultyNumber.toInt(), onlyPopulated = false)[it]
-        }
+    fun refresh() {
+        chartResultOrganizer.refresh()
     }
 
     fun getGoalProgress(goal: BaseRankGoal): LadderGoalProgress? {
         when (goal) {
             is SongsClearGoal -> {
                 if (goal.diffNum != null) {
-                    if (goal.score != null) { // score-based goal
-                        if (goal.songCount == 1) { // single song above score
-                            var topValidScore = 0L
-                            goal.forEachDiffNum { diff ->
-                                getResults(goal.playStyle, diff, onlyPopulated = true)
-                                    .forEach {result ->
-                                        if (result!!.score > topValidScore) {
-                                            topValidScore = result.score
-                                        }
-                                        if (topValidScore >= goal.score) {
-                                            return LadderGoalProgress(
-                                                progress = goal.score,
-                                                max = goal.score,
-                                                showMax = false,
-                                            )
-                                        }
-                                    }
-                            }
-
-                            val currentScore = min(topValidScore, goal.score.toLong())
-                            return LadderGoalProgress(
-                                progress = currentScore.toInt(),
-                                max = goal.score,
-                                showMax = false,
-                            )
-                        } else if (goal.songCount == null) { // all songs over score
-                            val eligibleResults = goal.diffNumRange!!.flatMap { diffNum ->
-                                getResults(goal.playStyle, diffNum, onlyPopulated = false)
-                            }
-                            val underScores = eligibleResults
-                                .filter { (it?.score ?: 0) < goal.score }
-                                .sortedBy { it?.score ?: 0 }
-                                .toMutableList()
-
-                            for (i in 1..goal.safeExceptions) {
-                                if (underScores.isEmpty()) {
-                                    break
-                                }
-                                underScores.removeAt(0)
-                            }
-                            return LadderGoalProgress(
-                                progress = underScores.count(),
-                                max = eligibleResults.count() - goal.safeExceptions,
-                                showMax = false,
-                            )
+                    return when {
+                        goal.score != null -> when (goal.songCount) { // score-based goal
+                            null -> allSongsScoreProgress(goal)
+                            else -> countSongsScoreProgress(goal)
                         }
-                    } else if (goal.averageScore != null) { // average score type
-
-                    } else { // clear type
-                        if (goal.songCount != null) { // number of songs with clear
-                            var remainingSongs = goal.songCount
-                            goal.forEachDiffNum { diff ->
-                                getResults(goal.playStyle, diff, onlyPopulated = true)
-                                    .forEach { result ->
-                                        if (result!!.clearType >= goal.clearType) {
-                                            remainingSongs -= 1
-                                        }
-                                        if (remainingSongs == 0) {
-                                            return LadderGoalProgress(
-                                                progress = goal.songCount,
-                                                max = goal.songCount,
-                                                showMax = true,
-                                            )
-                                        }
-                                    }
-                            }
-                            return LadderGoalProgress(
-                                progress = goal.songCount - remainingSongs,
-                                max = goal.songCount,
-                                showMax = true,
-                            )
-                        } else { // all songs with clear
-
+                        goal.averageScore != null -> allSongsAverageScoreProgress(goal)
+                        else -> when { // clear type
+                            goal.songCount != null -> countSongsClearProgress(goal)
+                            else -> allSongsClearProgress(goal)
                         }
                     }
                 }
@@ -128,7 +59,10 @@ class LadderProgressManager: BaseModel() {
                             it.goalRank.stableId >= goal.mainGoal.rank.stableId
                         }
                     }
-                    return LadderGoalProgress(trials.size, goal.getIntValue(TrialStackedGoal.KEY_TRIALS_COUNT)!!)
+                    return LadderGoalProgress(
+                        progress = trials.size,
+                        max = goal.getIntValue(TrialStackedGoal.KEY_TRIALS_COUNT)!!
+                    )
                 }
                 is MFCPointsStackedGoal -> {
                     val points = songDataManager
@@ -147,57 +81,127 @@ class LadderProgressManager: BaseModel() {
         }
     }
 
-    private fun getResultsMap(
-        playStyle: PlayStyle,
-        diffNum: Int,
-        onlyPopulated: Boolean
-    ): Map<DetailedChartInfo, ChartResult?> {
-        val target = if (onlyPopulated) populatedResults else matchedResults
-        return target[playStyle]!![diffNum]!!
-    }
-
-    private fun getResults(
-        playStyle: PlayStyle,
-        diffNum: Int,
-        onlyPopulated: Boolean
-    ) : Collection<ChartResult?> = getResultsMap(playStyle, diffNum, onlyPopulated).values
-
-    internal fun refresh() {
-        val tempResults = resultDbHelper.selectAll().toMutableSet()
-        matchedResults = songDataManager.detailedCharts
-            .groupBy { it.playStyle }
-            .mapValues { (_, charts) ->
-                charts.groupBy { it.difficultyNumber.toInt() }
-                    .mapValues { (_, charts2) ->
-                        charts2.associateWith { chart ->
-                            tempResults.firstOrNull { result ->
-                                chart.id == result.chartId
-                            }.also { tempResults.remove(it) }
-                        }
-                    }
+    private fun countSongsScoreProgress(goal: SongsClearGoal): LadderGoalProgress {
+        var completed = 0
+        var topValidScore = 0L
+        goal.forEachDiffNum { diff ->
+            val results = chartResultOrganizer.getResults(
+                playStyle = goal.playStyle,
+                diffNum = diff,
+                populated = true,
+                filterIgnored = false,
+            )
+            val validResults = results.scoresInRange(bottom = goal.score)
+            if (validResults.first().result.safeScore > topValidScore) {
+                topValidScore = validResults.first().result.safeScore
             }
 
-        @Suppress("UNCHECKED_CAST")
-        populatedResults = matchedResults.mapValues { (_, chartMap) ->
-            chartMap.mapValues { (_, chartMap2) ->
-                chartMap2.filterValues { it != null } as Map<DetailedChartInfo, ChartResult>
+            completed += validResults.size
+            if (completed >= goal.songCount!!) {
+                return@forEachDiffNum
             }
         }
 
-        if (isDebug) {
-            populatedResults.forEach { (_, a) ->
-                a.forEach { (_, b) ->
-                    b.forEach { (chart, result) ->
-                        logger.v("Result: ${chart.toStringExt()} / ${result.toStringExt()}")
+        return if (goal.songCount == 1) {
+            val currentScore = min(topValidScore, goal.score!!.toLong())
+            LadderGoalProgress(
+                progress = currentScore.toInt(),
+                max = goal.score,
+                showMax = false,
+            )
+        } else {
+            LadderGoalProgress(
+                progress = min(completed, goal.songCount!!),
+                max = goal.songCount,
+                showMax = true,
+            )
+        }
+    }
+
+    private fun countSongsClearProgress(goal: SongsClearGoal): LadderGoalProgress {
+        var completed = 0
+        goal.forEachDiffNum { diff ->
+            val results = chartResultOrganizer.getResults(
+                playStyle = goal.playStyle,
+                diffNum = diff,
+                populated = true,
+                filterIgnored = false,
+            )
+            results.byScoreInTenThousands.forEach { (_, results) ->
+                results.forEach { (_, result) ->
+                    if (result!!.clearType >= goal.clearType) {
+                        completed++
+                    }
+                    if (completed >= goal.songCount!!) {
+                        return@forEachDiffNum
                     }
                 }
             }
         }
+
+        return LadderGoalProgress(
+            progress = completed,
+            max = goal.songCount!!,
+            showMax = true,
+        )
+    }
+
+    private fun allSongsScoreProgress(goal: SongsClearGoal): LadderGoalProgress {
+        val results = chartResultOrganizer.getResults(
+            playStyle = goal.playStyle,
+            diffNum = goal.diffNum!!,
+            populated = false,
+            filterIgnored = true,
+        )
+
+        val belowRequirement = results.scoresInRange(top = goal.score!! - 1)
+        val missingSongs = max(0, belowRequirement.size - (goal.exceptions ?: 0))
+        return LadderGoalProgress(
+            progress = results.results.size - missingSongs,
+            max = results.results.size,
+            showMax = true,
+            results = belowRequirement,
+        )
+    }
+
+    private fun allSongsAverageScoreProgress(goal: SongsClearGoal): LadderGoalProgress {
+        val results = chartResultOrganizer.getResults(
+            playStyle = goal.playStyle,
+            diffNum = goal.diffNum!!,
+            populated = false,
+            filterIgnored = true,
+        )
+
+        val belowRequirement = results.scoresInRange(top = goal.averageScore!! - 1)
+        return LadderGoalProgress(
+            progress = min(results.averageScore.toInt(), goal.averageScore),
+            max = goal.averageScore,
+            showMax = false,
+            results = belowRequirement,
+        )
+    }
+
+    private fun allSongsClearProgress(goal: SongsClearGoal): LadderGoalProgress {
+        val results = chartResultOrganizer.getResults(
+            playStyle = goal.playStyle,
+            diffNum = goal.diffNum!!,
+            populated = false,
+            filterIgnored = true,
+        )
+
+        val belowRequirement = (0 until goal.clearType.ordinal)
+            .flatMap { results.byClearType[ClearType.values()[it]] ?: emptyList() }
+        val missingSongs = belowRequirement.size - (goal.exceptions ?: 0)
+        return LadderGoalProgress(
+            progress = results.results.size - missingSongs,
+            max = results.results.size,
+            showMax = true,
+            results = belowRequirement,
+        )
     }
 
     internal fun clearAllResults() {
         resultDbHelper.deleteAll()
-        matchedResults = emptyMap()
-        populatedResults = emptyMap()
+        chartResultOrganizer.refresh()
     }
 }

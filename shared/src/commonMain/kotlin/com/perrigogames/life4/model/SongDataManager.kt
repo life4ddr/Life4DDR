@@ -170,7 +170,7 @@ class SongDataManager: BaseModel() {
     }
 
     companion object {
-        const val DEFAULT_IGNORE_VERSION = "A20_US"
+        const val DEFAULT_IGNORE_VERSION = "A3_US"
     }
 }
 
