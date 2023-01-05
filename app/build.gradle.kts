@@ -114,7 +114,15 @@ dependencies {
     implementation(Deps.SqlDelight.android)
     implementation(Deps.multiplatformSettings)
     implementation(Deps.koinCore)
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.1")
+    implementation("androidx.activity:activity-compose:1.3.1")
+    implementation("androidx.compose.ui:ui:${rootProject.extra["compose_ui_version"]}")
+    implementation("androidx.compose.ui:ui-tooling-preview:${rootProject.extra["compose_ui_version"]}")
+    implementation("androidx.compose.material:material:1.1.1")
     androidTestImplementation(Deps.junit)
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4:${rootProject.extra["compose_ui_version"]}")
+    debugImplementation("androidx.compose.ui:ui-tooling:${rootProject.extra["compose_ui_version"]}")
+    debugImplementation("androidx.compose.ui:ui-test-manifest:${rootProject.extra["compose_ui_version"]}")
 
     kapt(Deps.glide_compiler)
 }

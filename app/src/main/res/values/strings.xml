@@ -463,4 +463,5 @@
         <item>Inspired by the awesome team at @LIFE4DDR</item>
     </array>
     <string name="title_activity_trial_jacket_test">TrialJacketTestActivity</string>
+    <string name="title_activity_debug_score_entry">DebugScoreEntryActivity</string>
 </resources>

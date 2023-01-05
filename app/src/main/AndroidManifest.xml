@@ -26,6 +26,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".DebugScoreEntryActivity"
+            android:exported="false"
+            android:label="@string/title_activity_debug_score_entry"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".activity.LaunchActivity"
             android:exported="true"
             android:screenOrientation="portrait"

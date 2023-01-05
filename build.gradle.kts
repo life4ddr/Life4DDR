@@ -2,6 +2,7 @@
 
 buildscript {
 
+    val compose_ui_version by extra("1.1.1")
     repositories {
         google()
         mavenCentral()
@@ -23,6 +24,7 @@ buildscript {
 
 plugins {
     id("org.jlleitschuh.gradle.ktlint") version Versions.ktlint_gradle_plugin
+    id("org.jetbrains.kotlin.android") version "1.6.10" apply false
 }
 
 allprojects {
