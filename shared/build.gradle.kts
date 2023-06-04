@@ -1,16 +1,16 @@
 plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
-    id("kotlinx-serialization")
+    kotlin("plugin.serialization")
     id("com.android.library")
     id("com.squareup.sqldelight")
 }
 
 android {
-    compileSdk = Versions.compile_sdk
+    compileSdk = libs.versions.compileSdk.get().toInt()
     defaultConfig {
-        minSdk = Versions.min_sdk
-        targetSdk = Versions.target_sdk
+        minSdk = libs.versions.minSdk.get().toInt()
+        targetSdk = libs.versions.targetSdk.get().toInt()
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     testOptions {
@@ -20,23 +20,13 @@ android {
     }
 
     lint {
-        isWarningsAsErrors = true
-        isAbortOnError = true
+        warningsAsErrors = true
+        abortOnError = true
     }
+    namespace = "com.perrigogames.life4ddr"
 }
 
 version = 1.2
-
-android {
-    configurations {
-        create("androidTestApi")
-        create("androidTestDebugApi")
-        create("androidTestReleaseApi")
-        create("testApi")
-        create("testDebugApi")
-        create("testReleaseApi")
-    }
-}
 
 kotlin {
     android()
@@ -49,65 +39,46 @@ kotlin {
             languageSettings.apply {
                 optIn("kotlin.RequiresOptIn")
                 optIn("kotlinx.coroutines.ExperimentalCoroutinesApi")
+                optIn("kotlin.time.ExperimentalTime")
             }
         }
-    }
-
-    sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(Deps.koinCore)
-                implementation(Deps.Coroutines.core)
-                implementation(Deps.SqlDelight.coroutinesExtensions)
-                implementation(Deps.Ktor.core)
-                implementation(Deps.Ktor.logging)
-                implementation(Deps.Ktor.serialization)
-                implementation(Deps.Ktor.contentNegotiation)
-                implementation(Deps.Reaktive.base)
-                implementation(Deps.Reaktive.annotations)
-                implementation(Deps.Reaktive.coroutines)
-                implementation(Deps.stately)
-                implementation(Deps.multiplatformSettings)
-                implementation(Deps.kotlinxDateTime)
-                api(Deps.kermit)
-                api(Deps.MokoMvvm.Common.core)
-                api(Deps.MokoMvvm.Common.flow)
-                api(Deps.MokoMvvm.Common.livedata)
+                implementation(libs.koin.core)
+                implementation(libs.coroutines.core)
+                implementation(libs.sqlDelight.coroutinesExt)
+                implementation(libs.bundles.ktor.common)
+                implementation(libs.touchlab.stately)
+                implementation(libs.multiplatformSettings.common)
+                implementation(libs.kotlinx.dateTime)
+                implementation(libs.bundles.reaktive.common)
+                api(libs.touchlab.kermit)
+                api(libs.bundles.moko.mvvm.common)
             }
         }
         val commonTest by getting {
             dependencies {
-                implementation(Deps.kotlinTest)
-                implementation(Deps.multiplatformSettingsTest)
-                implementation(Deps.koinTest)
-                implementation(Deps.turbine)
-                implementation(Deps.Coroutines.test)
-                implementation(Deps.Ktor.clientMock)
-                implementation(Deps.Reaktive.testing)
-                implementation(Deps.MokoMvvm.commonTest)
+                implementation(libs.bundles.shared.commonTest)
             }
         }
         val androidMain by getting {
             dependencies {
-                implementation(Deps.AndroidX.Lifecycle.viewmodel)
-                implementation(Deps.SqlDelight.android)
-                implementation(Deps.Ktor.okhttp)
-                api(Deps.MokoMvvm.Android.livedataCompose)
-                api(Deps.MokoMvvm.Android.livedataGlide)
+                implementation(libs.androidx.lifecycle.viewmodel)
+                implementation(libs.sqlDelight.android)
+                implementation(libs.ktor.client.okHttp)
+                implementation(libs.moko.mvvm.android.livedata.compose)
+                implementation(libs.moko.mvvm.android.livedata.glide)
             }
         }
-        val androidTest by getting {
+        val androidUnitTest by getting {
             dependencies {
-                implementation(Deps.junit)
-                implementation(Deps.Coroutines.test)
-                implementation(Deps.robolectric)
+                implementation(libs.bundles.shared.androidTest)
             }
         }
         val iosMain by getting {
             dependencies {
-                implementation(Deps.SqlDelight.native)
-                implementation(Deps.Ktor.ios)
-                implementation(Deps.Coroutines.core)
+                implementation(libs.sqlDelight.native)
+                implementation(libs.ktor.client.ios)
             }
         }
         val iosTest by getting
@@ -126,9 +97,10 @@ kotlin {
 
     cocoapods {
         summary = "Common library for LIFE4DDR logic"
-        homepage = "https://github.com/PerrigoGames/Life4DDR-Trials"
+        homepage = "https://github.com/PerrigoGames/Life4DDR"
         framework {
             isStatic = false // SwiftUI preview requires dynamic framework
+            linkerOpts("-lsqlite3")
         }
         ios.deploymentTarget = "12.4"
         podfile = project.file("../ios/Podfile")

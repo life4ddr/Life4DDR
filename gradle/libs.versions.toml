@@ -1,0 +1,194 @@
+[versions]
+kotlin = "1.8.0"
+
+## SDK Versions
+minSdk = "21"
+targetSdk = "33"
+compileSdk = "33"
+
+# Dependencies
+android-gradle-plugin = "7.4.1"
+ktlint-gradle = "11.2.0"
+gradle-versions = "0.42.0"
+
+compose = "1.4.0-alpha03"
+composeCompiler = "1.4.0-dev-k1.8.0-33c0ad36f83"
+compose-constraintlayout = "1.0.1"
+
+android-desugaring = "1.1.8" # Don't bump to 1.2.x until AGP is 7.3.x
+androidx-core = "1.9.0"
+androidx-test-junit = "1.1.3"
+androidx-activity-compose = "1.5.1"
+androidx-lifecycle = "2.5.1"
+androidx-recyclerview = "1.2.0"
+androidx-preference = "1.1.1"
+androidx-appcompat = "1.2.0"
+androidx-material = "1.3.0"
+androidx-constraintlayout = "2.0.4"
+androidx-activity = "1.2.0-alpha05"
+androidx-fragment = "1.3.0-alpha05"
+
+junit = "4.13.2"
+
+coroutines = "1.6.4"
+kotlinx-datetime = "0.4.0"
+ktor = "2.1.1"
+
+robolectric = "4.8.2"
+
+kermit = "1.2.2"
+stately = "1.2.3"
+
+accompanist-swiperefresh = "0.25.1"
+accompanist-appcompat-theme = "0.16.0"
+koin = "3.2.0"
+multiplatformSettings = "1.0.0-alpha01"
+turbine = "0.12.1"
+sqlDelight = "1.5.5"
+lottie = "5.0.3"
+eventbus = "3.3.1"
+dexter = "6.2.2"
+glide = "4.13.1"
+coil = "2.1.0"
+reaktive = "1.2.1"
+moko-mvvm = "0.13.1"
+
+[libraries]
+android-desugaring = { module = "com.android.tools:desugar_jdk_libs", version.ref = "android-desugaring" }
+androidx-core = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
+androidx-lifecycle-runtime = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidx-lifecycle" }
+androidx-lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "androidx-lifecycle" }
+androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "androidx-lifecycle" }
+androidx-recyclerview = { module = "androidx.recyclerview:recyclerview", version.ref = "androidx-recyclerview" }
+androidx-preference = { module = "androidx.preference:preference", version.ref = "androidx-preference" }
+androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appcompat" }
+androidx-material = { module = "com.google.android.material:material", version.ref = "androidx-material" }
+androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "androidx-constraintlayout" }
+androidx-activity = { module = "androidx.activity:activity-ktx", version.ref = "androidx-activity" }
+androidx-fragment = { module = "androidx.fragment:fragment-ktx", version.ref = "androidx-fragment" }
+androidx-test-junit = { module = "androidx.test.ext:junit-ktx", version.ref = "androidx-test-junit" }
+
+compose-compiler = { module = "androidx.compose.compiler:compiler", version.ref = "composeCompiler" }
+compose-ui = { module = "androidx.compose.ui:ui", version.ref = "compose" }
+compose-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
+compose-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "compose" }
+compose-material = { module = "androidx.compose.material:material", version.ref = "compose" }
+compose-activity = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity-compose" }
+compose-constraintlayout = { module = "androidx.constraintlayout:constraintlayout-compose", version.ref = "compose-constraintlayout" }
+
+coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
+
+google-accompanist-swipeRefresh = { module = "com.google.accompanist:accompanist-swiperefresh", version.ref = "accompanist-swiperefresh" }
+google-accompanist-appcompat-theme = { module = "com.google.accompanist:accompanist-appcompat-theme", version.ref = "accompanist-appcompat-theme" }
+
+junit = { module = "junit:junit", version.ref = "junit" }
+
+koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
+koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
+koin-test = { module = "io.insert-koin:koin-test", version.ref = "koin" }
+
+kotlinx-dateTime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-datetime" }
+
+ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+ktor-client-ios = { module = "io.ktor:ktor-client-ios", version.ref = "ktor" }
+ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor" }
+ktor-client-okHttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
+ktor-client-serialization = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
+ktor-client-contentNegotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
+ktor-client-mock = { module = "io.ktor:ktor-client-mock", version.ref = "ktor" }
+
+multiplatformSettings-common = { module = "com.russhwolf:multiplatform-settings", version.ref = "multiplatformSettings" }
+multiplatformSettings-test = { module = "com.russhwolf:multiplatform-settings-test", version.ref = "multiplatformSettings" }
+
+roboelectric = { module = "org.robolectric:robolectric", version.ref = "robolectric" }
+
+sqlDelight-android = { module = "com.squareup.sqldelight:android-driver", version.ref = "sqlDelight" }
+sqlDelight-jvm = { module = "com.squareup.sqldelight:sqlite-driver", version.ref = "sqlDelight" }
+sqlDelight-coroutinesExt = { module = "com.squareup.sqldelight:coroutines-extensions", version.ref = "sqlDelight" }
+sqlDelight-native = { module = "com.squareup.sqldelight:native-driver", version.ref = "sqlDelight" }
+sqlDelight-runtime = { module = "com.squareup.sqldelight:runtime", version.ref = "sqlDelight" }
+
+touchlab-kermit = { module = "co.touchlab:kermit", version.ref = "kermit" }
+touchlab-stately = { module = "co.touchlab:stately-common", version.ref = "stately" }
+
+"reaktive-base" = { module = "com.badoo.reaktive:reaktive", version.ref = "reaktive" }
+"reaktive-annotations" = { module = "com.badoo.reaktive:reaktive-annotations", version.ref = "reaktive" }
+"reaktive-coroutines" = { module = "com.badoo.reaktive:coroutines-interop", version.ref = "reaktive" }
+"reaktive-testing" = { module = "com.badoo.reaktive:reaktive-testing", version.ref = "reaktive" }
+
+"moko-mvvm-core" = { module = "dev.icerock.moko:mvvm-core", version.ref = "moko-mvvm" }
+"moko-mvvm-flow" = { module = "dev.icerock.moko:mvvm-flow", version.ref = "moko-mvvm" }
+"moko-mvvm-livedata" = { module = "dev.icerock.moko:mvvm-livedata", version.ref = "moko-mvvm" }
+"moko-mvvm-state" = { module = "dev.icerock.moko:mvvm-state", version.ref = "moko-mvvm" }
+"moko-mvvm-livedata-resources" = { module = "dev.icerock.moko:mvvm-livedata-resources", version.ref = "moko-mvvm" }
+"moko-mvvm-test" = { module = "dev.icerock.moko:mvvm-test", version.ref = "moko-mvvm" }
+"moko-mvvm-android-livedata-compose" = { module = "dev.icerock.moko:mvvm-livedata-compose", version.ref = "moko-mvvm" }
+"moko-mvvm-android-livedata-glide" = { module = "dev.icerock.moko:mvvm-livedata-glide", version.ref = "moko-mvvm" }
+
+turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
+kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
+lottie = { module = "com.airbnb.android:lottie", version.ref = "lottie" }
+eventbus = { module = "org.greenrobot:eventbus", version.ref = "eventbus" }
+dexter = { module = "com.karumi:dexter", version.ref = "dexter" }
+glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
+coil = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
+
+[plugins]
+ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint-gradle" }
+gradleVersions = { id = "com.github.ben-manes.versions", version.ref = "gradle-versions" }
+
+[bundles]
+app-ui = [
+    "compose-compiler",
+    "androidx-core",
+    "androidx-lifecycle-runtime",
+    "androidx-lifecycle-viewmodel",
+    "androidx-recyclerview",
+    "androidx-preference",
+    "androidx-appcompat",
+    "androidx-material",
+    "androidx-constraintlayout",
+    "androidx-activity",
+    "androidx-fragment",
+    "compose-ui",
+    "compose-tooling",
+    "compose-foundation",
+    "compose-material",
+    "compose-activity",
+    "compose-constraintlayout",
+    "google-accompanist-swipeRefresh",
+    "google-accompanist-appcompat-theme"
+]
+ktor-common = [
+    "ktor-client-core",
+    "ktor-client-logging",
+    "ktor-client-serialization",
+    "ktor-client-contentNegotiation"
+]
+reaktive-common = [
+    "reaktive-base",
+    "reaktive-annotations",
+    "reaktive-coroutines"
+]
+moko-mvvm-common = [
+    "moko-mvvm-core",
+    "moko-mvvm-flow",
+    "moko-mvvm-livedata"
+]
+shared-commonTest = [
+    "kotlin-test",
+    "multiplatformSettings-test",
+    "koin-test",
+    "turbine",
+    "coroutines-test",
+    "ktor-client-mock",
+    "reaktive-testing",
+    "moko-mvvm-test"
+]
+shared-androidTest = [
+    "androidx-test-junit",
+    "coroutines-test",
+    "roboelectric",
+    "sqlDelight-jvm"
+]

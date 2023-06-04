@@ -12,7 +12,6 @@
 .DS_Store
 /app/build
 /build
-/buildSrc/build
 /shared/build
 /captures
 .externalNativeBuild

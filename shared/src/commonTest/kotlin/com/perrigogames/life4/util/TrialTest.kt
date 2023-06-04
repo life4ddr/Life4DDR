@@ -5,6 +5,7 @@ package com.perrigogames.life4.util
 import com.perrigogames.life4.data.Song
 import com.perrigogames.life4.data.SongResult
 import com.perrigogames.life4.data.Trial
+import com.perrigogames.life4.data.TrialState
 import com.perrigogames.life4.enums.DifficultyClass
 import com.perrigogames.life4.enums.TrialRank.*
 import com.perrigogames.life4.enums.TrialType
@@ -17,7 +18,6 @@ fun testTrial(
     id = "id",
     name = "Test Trial",
     author = "Author",
-    new = false,
     type = TrialType.TRIAL,
     placementRank = null,
     songs = listOf(

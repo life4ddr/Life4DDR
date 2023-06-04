@@ -1,44 +1,25 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
-
-buildscript {
-
-    val compose_ui_version by extra("1.1.1")
-    repositories {
-        google()
-        mavenCentral()
-        maven("https://plugins.gradle.org/m2/")
-    }
-    dependencies {
-        classpath(Deps.Gradle.android)
-        classpath(Deps.Gradle.kotlinSerialization)
-        classpath(Deps.Gradle.ktlint)
-        classpath(Deps.Gradle.sqlDelight)
-        classpath(kotlin("gradle-plugin", Versions.kotlin))
-        classpath("com.github.jengelman.gradle.plugins:shadow:2.0.4")
-
-        classpath(kotlin("gradle-plugin", Versions.kotlin))
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build gradle files
-    }
-}
-
 plugins {
-    id("org.jlleitschuh.gradle.ktlint") version Versions.ktlint_gradle_plugin
-    id("org.jetbrains.kotlin.android") version "1.6.10" apply false
+    alias(libs.plugins.gradleVersions)
+    alias(libs.plugins.ktlint) apply false
+
+    kotlin("multiplatform") version libs.versions.kotlin.get() apply false
+    kotlin("plugin.serialization") version libs.versions.kotlin.get() apply false
+    id("com.squareup.sqldelight") version libs.versions.sqlDelight.get() apply false
+    id("com.android.library") version libs.versions.android.gradle.plugin.get() apply false
 }
 
 allprojects {
     repositories {
         google()
         mavenCentral()
-        maven(url = "https://kotlin.bintray.com/kotlinx")
-        maven(url = "https://dl.bintray.com/ekito/koin")
-        maven(url = "https://oss.sonatype.org/content/repositories/snapshots/")
-        maven(url = "https://www.jitpack.io")
+        maven("https://androidx.dev/storage/compose-compiler/repository/")
+        maven("https://maven.pkg.jetbrains.space/kotlin/p/kotlin/dev/")
     }
 }
 
 subprojects {
+    // TODO libs doesn't resolve if we do this
+    // apply(plugin = libs.plugins.ktlint.get().pluginId)
     apply(plugin = "org.jlleitschuh.gradle.ktlint")
 
     configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {

@@ -3,7 +3,7 @@ package com.perrigogames.life4
 import android.util.Log
 import java.text.DecimalFormat
 
-actual val isDebug: Boolean get() = BuildConfig.DEBUG
+actual val isDebug: Boolean get() = false // FIXME
 
 actual fun currentTimeMillis(): Long = System.currentTimeMillis()
 

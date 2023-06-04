@@ -4,10 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
+import androidx.compose.material.*
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -37,56 +37,38 @@ import org.koin.core.component.inject
  */
 class TrialListActivity : AppCompatActivity(), KoinComponent {
 
-    private val eventBus: EventBus by inject()
     private val trialManager: TrialManager by inject()
     private val trialNavigation: AndroidTrialNavigation by inject()
-
-    private lateinit var binding: ActivityTrialListBinding
 
     private var viewState by mutableStateOf(trialManager.createViewState())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme_NoActionBar)
         super.onCreate(savedInstanceState)
-        binding = ActivityTrialListBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        setSupportActionBar(binding.toolbar)
-
-        binding.containerCompose.setContent {
+        setContent {
+            val scaffoldState = rememberScaffoldState(rememberDrawerState(DrawerValue.Open))
             LIFE4DDRTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    TrialJacketList(
-                        displayList = viewState.displayTrials,
-                        onTrialSelected = this@TrialListActivity::onTrialSelected,
+                    Scaffold(
+                        scaffoldState = scaffoldState,
+                        topBar = {
+                            TopAppBar(
+                                title = { Text(text = getString(R.string.trials)) }
+                            )
+                        },
+                        content = { padding ->
+                            TrialJacketList(
+                                displayList = viewState.displayTrials,
+                                onTrialSelected = this@TrialListActivity::onTrialSelected,
+                            )
+                        }
                     )
                 }
             }
         }
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        eventBus.register(this)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        eventBus.unregister(this)
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onRankUpdated(e: SavedRankUpdatedEvent) {
-        viewState = trialManager.createViewState()
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onListUpdated(e: TrialListUpdatedEvent) {
-        viewState = trialManager.createViewState()
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onListReplaced(e: TrialListReplacedEvent) {
-        viewState = trialManager.createViewState()
     }
 
     private fun onTrialSelected(trial: Trial) = when (trial.type) {
