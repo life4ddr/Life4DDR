@@ -23,7 +23,7 @@ android {
         warningsAsErrors = true
         abortOnError = true
     }
-    namespace = "com.perrigogames.life4ddr"
+    namespace = "com.perrigogames.life4"
 }
 
 version = 1.2

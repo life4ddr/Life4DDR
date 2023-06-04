@@ -5,6 +5,7 @@ import com.perrigogames.life4.api.TrialRemoteData
 import com.perrigogames.life4.api.base.CompositeData
 import com.perrigogames.life4.api.base.LocalDataReader
 import com.perrigogames.life4.data.InProgressTrialSession
+import com.perrigogames.life4.data.Trial
 import com.perrigogames.life4.data.TrialData
 import com.perrigogames.life4.db.SelectBestSessions
 import com.perrigogames.life4.db.TrialDatabaseHelper
@@ -12,6 +13,8 @@ import com.perrigogames.life4.ktor.GithubDataAPI.Companion.TRIALS_FILE_NAME
 import com.perrigogames.life4.ktor.Life4API
 import com.perrigogames.life4.viewmodel.TrialListState
 import com.russhwolf.settings.Settings
+import dev.icerock.moko.mvvm.livedata.LiveData
+import dev.icerock.moko.mvvm.livedata.MutableLiveData
 import kotlinx.coroutines.launch
 import kotlinx.serialization.ExperimentalSerializationApi
 import org.koin.core.component.inject
@@ -24,7 +27,7 @@ import org.koin.core.qualifier.named
  * - records for Trials the player has previously completed ('records')
  */
 @OptIn(ExperimentalSerializationApi::class)
-class TrialManager: BaseModel() {
+class TrialManager: BaseModel(), CompositeData.NewDataListener<TrialData> {
 
     private val settings: Settings by inject()
     private val eventBus: EventBusNotifier by inject()
@@ -33,20 +36,24 @@ class TrialManager: BaseModel() {
     private val life4Api: Life4API by inject()
     private val dataReader: LocalDataReader by inject(named(TRIALS_FILE_NAME))
 
-    private var trialData = TrialRemoteData(dataReader, object: CompositeData.NewDataListener<TrialData> {
-        override fun onDataVersionChanged(data: TrialData) {
-            notifications.showToast("${data.trials.size} Trials found!")
-            eventBus.post(TrialListReplacedEvent())
-        }
+    private var trialData = TrialRemoteData(dataReader, this)
 
-        override fun onMajorVersionBlock() {
-            eventBus.postSticky(DataRequiresAppUpdateEvent())
-        }
-    })
+    override fun onDataVersionChanged(data: TrialData) {
+        notifications.showToast("${data.trials.size} Trials found!")
+        _trialsFlow.value = trialData.data.trials
+    }
+
+    override fun onMajorVersionBlock() {
+        eventBus.postSticky(DataRequiresAppUpdateEvent())
+    }
+
     val dataVersionString get() = trialData.versionString
 
-    val trials get() = trialData.data.trials
+    val trials get() = trialsFlow.value
     val hasEventTrial get() = trials.count { it.isActiveEvent } > 0
+
+    private val _trialsFlow: MutableLiveData<List<Trial>> = MutableLiveData(emptyList())
+    val trialsFlow: LiveData<List<Trial>> = _trialsFlow
 
     init {
         trialData.start()

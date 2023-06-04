@@ -1,6 +1,5 @@
 package com.perrigogames.life4.data
 
-import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Serializer
@@ -10,7 +9,6 @@ import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 
-@ExperimentalSerializationApi
 @Serializable(with = TrialStateSerializer::class)
 enum class TrialState(val jsonName: String) {
     NEW("new"),
@@ -24,7 +22,6 @@ enum class TrialState(val jsonName: String) {
     }
 }
 
-@ExperimentalSerializationApi
 @Serializer(forClass = TrialState::class)
 object TrialStateSerializer: KSerializer<TrialState> {
     override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("ladderRank", PrimitiveKind.STRING)

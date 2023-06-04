@@ -1,12 +1,10 @@
-import org.jetbrains.kotlin.config.KotlinCompilerVersion
-
 plugins {
     id("com.android.application")
     kotlin("android")
 }
 
 android {
-    namespace = "co.touchlab.kampkit.android"
+    namespace = "com.perrigogames.life4.android"
     compileSdk = libs.versions.compileSdk.get().toInt()
     defaultConfig {
         applicationId = "com.perrigogames.life4.android"

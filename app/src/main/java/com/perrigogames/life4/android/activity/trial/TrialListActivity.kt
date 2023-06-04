@@ -12,22 +12,15 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import com.perrigogames.life4.SavedRankUpdatedEvent
-import com.perrigogames.life4.TrialListReplacedEvent
-import com.perrigogames.life4.TrialListUpdatedEvent
 import com.perrigogames.life4.android.R
 import com.perrigogames.life4.android.activity.firstrun.PlacementDetailsActivity
 import com.perrigogames.life4.android.activity.settings.SettingsActivity
 import com.perrigogames.life4.android.compose.LIFE4DDRTheme
-import com.perrigogames.life4.android.databinding.ActivityTrialListBinding
 import com.perrigogames.life4.android.manager.AndroidTrialNavigation
 import com.perrigogames.life4.android.ui.trial.TrialJacketList
 import com.perrigogames.life4.data.Trial
 import com.perrigogames.life4.enums.TrialType
 import com.perrigogames.life4.model.TrialManager
-import org.greenrobot.eventbus.EventBus
-import org.greenrobot.eventbus.Subscribe
-import org.greenrobot.eventbus.ThreadMode
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
