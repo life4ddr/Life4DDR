@@ -1,13 +1,15 @@
 package com.perrigogames.life4.model
 
 import co.touchlab.kermit.Logger
-import com.perrigogames.life4.*
+import com.perrigogames.life4.LadderDialogs
 import com.perrigogames.life4.db.ResultDatabaseHelper
 import com.perrigogames.life4.enums.ClearType
 import com.perrigogames.life4.enums.DifficultyClass
 import com.perrigogames.life4.enums.DifficultyClass.BEGINNER
 import com.perrigogames.life4.enums.PlayStyle
 import com.perrigogames.life4.enums.PlayStyle.DOUBLE
+import com.perrigogames.life4.injectLogger
+import com.perrigogames.life4.isDebug
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -35,7 +37,6 @@ class LadderImporter(
     private val resultDbHelper: ResultDatabaseHelper by inject()
     private val ladderProgressManager: LadderProgressManager by inject()
     private val ladderDialogs: LadderDialogs by inject()
-    private val eventBus: EventBusNotifier by inject()
 
     private var success = 0
     private var errors = 0
@@ -56,9 +57,9 @@ class LadderImporter(
             withContext(Dispatchers.Main) {
                 ladderDialogs.showImportFinishedToast()
 //                ignoreListManager.invalidateIgnoredIds() FIXME
-                eventBus.post(SongResultsImportCompletedEvent())
+                // FIXME eventBus.post(SongResultsImportCompletedEvent())
                 if (success > 0) {
-                    eventBus.post(SongResultsUpdatedEvent())
+                    // FIXME eventBus.post(SongResultsUpdatedEvent())
                 }
                 importJob = null
                 ladderProgressManager.refresh()

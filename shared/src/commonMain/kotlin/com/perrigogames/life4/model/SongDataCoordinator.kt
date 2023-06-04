@@ -1,7 +1,6 @@
 package com.perrigogames.life4.model
 
 import com.perrigogames.life4.LadderDialogs
-import com.perrigogames.life4.SongResultsUpdatedEvent
 import org.koin.core.component.inject
 
 /**
@@ -14,7 +13,6 @@ class SongDataCoordinator : BaseModel() {
     private val songDataManager: SongDataManager by inject()
     private val ladderProgressManager: LadderProgressManager by inject()
     private val ladderDialogs: LadderDialogs by inject()
-    private val eventBus: EventBusNotifier by inject()
 
     init {
         songDataManager.start {
@@ -25,7 +23,7 @@ class SongDataCoordinator : BaseModel() {
     fun clearSongResults() {
         ladderDialogs.onClearSongResults {
             ladderProgressManager.clearAllResults()
-            eventBus.post(SongResultsUpdatedEvent())
+            // FIXME eventBus.post(SongResultsUpdatedEvent())
         }
     }
 
@@ -33,7 +31,7 @@ class SongDataCoordinator : BaseModel() {
         ladderDialogs.onRefreshSongDatabase {
             ladderProgressManager.clearAllResults()
             songDataManager.refreshSongDatabase(delete = true)
-            eventBus.post(SongResultsUpdatedEvent())
+            // FIXME eventBus.post(SongResultsUpdatedEvent())
         }
     }
 }

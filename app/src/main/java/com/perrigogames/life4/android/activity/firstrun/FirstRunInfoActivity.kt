@@ -23,9 +23,6 @@ import com.perrigogames.life4.model.FirstRunManager
 import com.perrigogames.life4.model.LadderManager
 import com.perrigogames.life4.model.PlayerManager
 import com.russhwolf.settings.Settings
-import org.greenrobot.eventbus.EventBus
-import org.greenrobot.eventbus.Subscribe
-import org.greenrobot.eventbus.ThreadMode
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
@@ -38,7 +35,6 @@ class FirstRunInfoActivity: AppCompatActivity(), KoinComponent {
     private val ladderManager: LadderManager by inject()
     private val playerManager: PlayerManager by inject()
     private val settings: Settings by inject()
-    private val eventBus: EventBus by inject()
 
     private lateinit var binding: ActivityFirstRunInfoBinding
 
@@ -79,16 +75,6 @@ class FirstRunInfoActivity: AppCompatActivity(), KoinComponent {
         binding.radioMethodPlacement.isChecked = true
     }
 
-    override fun onStart() {
-        super.onStart()
-        eventBus.register(this)
-    }
-
-    override fun onStop() {
-        super.onStop()
-        eventBus.unregister(this)
-    }
-
     private fun onNameFinished(name: String) {
         if (lastNameCheck == null || lastNameCheck != name) {
             lastNameCheck = name
@@ -97,7 +83,7 @@ class FirstRunInfoActivity: AppCompatActivity(), KoinComponent {
         }
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
+    // FIXME EventBus
     fun onPlayerImported(e: PlayerImportedEvent) {
         binding.progressName.visibilityBool = false
         if (lastNameCheck != null && e.apiPlayer?.name == lastNameCheck) {

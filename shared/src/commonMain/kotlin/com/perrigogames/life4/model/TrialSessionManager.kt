@@ -1,7 +1,6 @@
 package com.perrigogames.life4.model
 
 import com.perrigogames.life4.Notifications
-import com.perrigogames.life4.SavedRankUpdatedEvent
 import com.perrigogames.life4.TrialNavigation
 import com.perrigogames.life4.data.InProgressTrialSession
 import com.perrigogames.life4.db.TrialDatabaseHelper
@@ -17,7 +16,6 @@ class TrialSessionManager: BaseModel() {
     private val trialManager: TrialManager by inject()
     private val trialNavigation: TrialNavigation by inject()
     private val settings: Settings by inject()
-    private val eventBus: EventBusNotifier by inject()
     private val notifications: Notifications by inject()
     private val dbHelper: TrialDatabaseHelper by inject()
 
@@ -36,7 +34,7 @@ class TrialSessionManager: BaseModel() {
         session?.let { s ->
             mainScope.launch {
                 dbHelper.insertSession(s)
-                eventBus.post(SavedRankUpdatedEvent(s.trial))
+                // FIXME eventBus.post(SavedRankUpdatedEvent(s.trial))
             }
         }
         if (session == currentSession) {

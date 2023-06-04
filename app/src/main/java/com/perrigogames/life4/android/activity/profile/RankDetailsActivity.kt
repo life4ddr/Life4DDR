@@ -15,9 +15,6 @@ import com.perrigogames.life4.android.util.visibilityBool
 import com.perrigogames.life4.android.view.RankHeaderView
 import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.model.LadderManager
-import org.greenrobot.eventbus.EventBus
-import org.greenrobot.eventbus.Subscribe
-import org.greenrobot.eventbus.ThreadMode
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
@@ -28,7 +25,6 @@ class RankDetailsActivity : AppCompatActivity(),
 {
 
     private val ladderManager: LadderManager by inject()
-    private val eventBus: EventBus by inject()
 
     private lateinit var binding: ActivityRankDetailsBinding
 
@@ -79,17 +75,7 @@ class RankDetailsActivity : AppCompatActivity(),
         setupRank(rank)
     }
 
-    override fun onStart() {
-        super.onStart()
-        eventBus.register(this)
-    }
-
-    override fun onStop() {
-        super.onStop()
-        eventBus.unregister(this)
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
+    // FIXME EventBus
     fun onRankListUpdated(e: LadderRanksReplacedEvent) = setupRank(rank)
 
     private fun useRankClicked() {

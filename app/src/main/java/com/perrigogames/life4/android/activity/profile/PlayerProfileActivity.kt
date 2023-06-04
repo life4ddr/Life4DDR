@@ -34,9 +34,6 @@ import com.perrigogames.life4.enums.TrialJacketCorner
 import com.perrigogames.life4.model.LadderManager
 import com.perrigogames.life4.model.TrialManager
 import com.russhwolf.settings.Settings
-import org.greenrobot.eventbus.EventBus
-import org.greenrobot.eventbus.Subscribe
-import org.greenrobot.eventbus.ThreadMode
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
@@ -51,7 +48,6 @@ class PlayerProfileActivity : AppCompatActivity(), RankDetailsViewModel.OnGoalLi
     private val ladderDialogs: AndroidLadderDialogs by inject()
     private val trialManager: TrialManager by inject()
     private val settings: Settings by inject()
-    private val eventBus: EventBus by inject()
 
     private lateinit var binding: ActivityPlayerProfileBinding
 
@@ -66,7 +62,6 @@ class PlayerProfileActivity : AppCompatActivity(), RankDetailsViewModel.OnGoalLi
         binding = ActivityPlayerProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
-        eventBus.register(this)
 
         setupContent()
     }
@@ -98,11 +93,6 @@ class PlayerProfileActivity : AppCompatActivity(), RankDetailsViewModel.OnGoalLi
         return true
     }
 
-    override fun onDestroy() {
-        eventBus.unregister(this)
-        super.onDestroy()
-    }
-
     fun onExtraViewClicked(v: View) {
         when (v.id) {
             R.id.view_mode_button_left -> startActivity(Intent(this, TrialListActivity::class.java))
@@ -112,35 +102,33 @@ class PlayerProfileActivity : AppCompatActivity(), RankDetailsViewModel.OnGoalLi
 
     override fun onRankSubmitClicked() = openWebUrlFromRes(R.string.url_standard_submission_form)
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
+    // FIXME EventBus
     fun onLadderRankModified(e: LadderRankUpdatedEvent) = updatePlayerContent()
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
+    // FIXME EventBus
     fun onTrialListReplaced(e: TrialListReplacedEvent) = updatePlayerContent()
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
+    // FIXME EventBus
     fun onTrialListUpdated(e: TrialListUpdatedEvent) = updatePlayerContent()
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
+    // FIXME EventBus
     fun onSongResultsUpdated(e: SongResultsUpdatedEvent) = updatePlayerContent()
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
+    // FIXME EventBus
     fun onRankListUpdated(e: LadderRanksReplacedEvent) = updatePlayerContent()
 
-    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    // FIXME EventBus sticky
     fun onDataRequiresAppUpdate(e: DataRequiresAppUpdateEvent) {
         AlertDialog.Builder(this)
             .setTitle(R.string.update_your_app)
             .setMessage(R.string.remote_data_needs_update)
             .setPositiveButton(R.string.okay, null)
             .create().show()
-        eventBus.removeStickyEvent(e)
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    // FIXME EventBus sticky
     fun onMotdReceived(e: MotdEvent) {
         showMotd()
-        eventBus.removeStickyEvent(e)
     }
 
     private fun showMotd() = MotdDialog().show(supportFragmentManager, MotdDialog.TAG)

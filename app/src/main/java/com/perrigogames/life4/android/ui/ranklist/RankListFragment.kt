@@ -11,9 +11,6 @@ import com.perrigogames.life4.LadderRanksReplacedEvent
 import com.perrigogames.life4.android.databinding.FragmentRankListBinding
 import com.perrigogames.life4.data.RankEntry
 import com.perrigogames.life4.model.LadderManager
-import org.greenrobot.eventbus.EventBus
-import org.greenrobot.eventbus.Subscribe
-import org.greenrobot.eventbus.ThreadMode
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
@@ -23,7 +20,6 @@ import org.koin.core.component.inject
 class RankListFragment : Fragment(), KoinComponent {
 
     private val ladderManager: LadderManager by inject()
-    private val eventBus: EventBus by inject()
 
     private var _binding: FragmentRankListBinding? = null
     private val binding get() = _binding!!
@@ -62,16 +58,14 @@ class RankListFragment : Fragment(), KoinComponent {
         } else {
             throw RuntimeException("$context must implement OnRankListInteractionListener")
         }
-        eventBus.register(this)
     }
 
     override fun onDetach() {
         super.onDetach()
         listener = null
-        eventBus.unregister(this)
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
+    // FIXME EventBus
     fun onRankListUpdated(e: LadderRanksReplacedEvent) {
         binding.recyclerRankList.adapter?.notifyDataSetChanged()
     }

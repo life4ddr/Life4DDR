@@ -25,9 +25,6 @@ class SongResultsImportCompletedEvent
 /** Event published when the list of saved song results changes. */
 class SongResultsUpdatedEvent
 
-/** Event published when the local user's name, rival code, Twitter handle etc. change. */
-class LocalUserInfoUpdatedEvent
-
 /** Event published when the local user's rank is updated. */
 class LadderRankUpdatedEvent
 

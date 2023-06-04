@@ -57,7 +57,6 @@ import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.enums.TrialRank
 import com.perrigogames.life4.model.*
 import com.russhwolf.settings.Settings
-import org.greenrobot.eventbus.EventBus
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
@@ -99,7 +98,6 @@ class SettingsActivity : AppCompatActivity(),
         protected val ignoreListManager: IgnoreListManager by inject()
         protected val settings: Settings by inject()
         protected val notifications: Notifications by inject()
-        protected val eventBus: EventBus by inject()
 
         private var listener: SettingsFragmentListener? = null
 
@@ -238,7 +236,7 @@ class SettingsActivity : AppCompatActivity(),
                         findPreference<DropDownPreference>(key)?.let {
                             it.summary = ignoreListManager.getIgnoreList(it.value).name
                         }
-                        eventBus.post(LadderRanksReplacedEvent())
+                        // FIXME eventBus.post(LadderRanksReplacedEvent())
                     }
                     KEY_INFO_IMPORT -> findPreference<EditTextPreference>(key)?.let {
                         it.text?.let { text -> playerManager.importPlayerInfo(text) }
@@ -280,7 +278,7 @@ class SettingsActivity : AppCompatActivity(),
                 when (key) {
                     KEY_INFO_NAME, KEY_INFO_RIVAL_CODE, KEY_INFO_TWITTER_NAME -> {
                         findPreference<EditTextPreference>(key)?.let { it.summary = it.text }
-                        eventBus.post(LocalUserInfoUpdatedEvent())
+                        // FIXME eventBus.post(LocalUserInfoUpdatedEvent())
                     }
                     KEY_INFO_RANK -> {
                         findPreference<DropDownPreference>(key)?.let {
@@ -299,11 +297,11 @@ class SettingsActivity : AppCompatActivity(),
         override fun fragmentName() = requireContext().getString(R.string.trial_settings)
 
         private val listUpdateListener: (Preference) -> Boolean = {
-            eventBus.post(TrialListUpdatedEvent())
+            // FIXME eventBus.post(TrialListUpdatedEvent())
             true
         }
         private val listReplaceListener: (Preference) -> Boolean = {
-            eventBus.post(TrialListReplacedEvent())
+            // FIXME eventBus.post(TrialListReplacedEvent())
             true
         }
 

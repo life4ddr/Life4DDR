@@ -16,9 +16,6 @@ import com.perrigogames.life4.android.view.PaddingItemDecoration
 import com.perrigogames.life4.data.Trial
 import com.perrigogames.life4.enums.TrialType
 import com.perrigogames.life4.model.TrialManager
-import org.greenrobot.eventbus.EventBus
-import org.greenrobot.eventbus.Subscribe
-import org.greenrobot.eventbus.ThreadMode
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
@@ -30,7 +27,6 @@ class TrialListFragment : Fragment(), KoinComponent {
     private lateinit var adapter: TrialListAdapter
 
     private val trialManager: TrialManager by inject()
-    private val eventBus: EventBus by inject()
 
     private lateinit var recyclerView: RecyclerView
 
@@ -49,12 +45,10 @@ class TrialListFragment : Fragment(), KoinComponent {
         } else {
             throw RuntimeException("$context must implement Listener")
         }
-        eventBus.register(this)
     }
 
     override fun onDetach() {
         super.onDetach()
-        eventBus.unregister(this)
         listener = null
     }
 
@@ -73,17 +67,17 @@ class TrialListFragment : Fragment(), KoinComponent {
 
     private fun onTrialSelected(trialId: String, trialType: TrialType) = listener?.onTrialSelected(trialId, trialType)
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
+    // FIXME EventBus
     fun onRankUpdated(e: SavedRankUpdatedEvent) {
         adapter.state = trialManager.createViewState()
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
+    // FIXME EventBus
     fun onListUpdated(e: TrialListUpdatedEvent) {
         adapter.state = trialManager.createViewState()
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
+    // FIXME EventBus
     fun onListReplaced(e: TrialListReplacedEvent) {
         adapter.state = trialManager.createViewState()
     }

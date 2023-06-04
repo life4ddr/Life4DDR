@@ -1,9 +1,6 @@
 package com.perrigogames.life4.model
 
-import com.perrigogames.life4.DataRequiresAppUpdateEvent
 import com.perrigogames.life4.LadderDialogs
-import com.perrigogames.life4.LadderRankUpdatedEvent
-import com.perrigogames.life4.LadderRanksReplacedEvent
 import com.perrigogames.life4.SettingsKeys.KEY_INFO_RANK
 import com.perrigogames.life4.SettingsKeys.KEY_INFO_TARGET_RANK
 import com.perrigogames.life4.api.LadderRemoteData
@@ -30,7 +27,6 @@ class LadderManager: BaseModel() {
 
     private val ignoreListManager: IgnoreListManager by inject()
     private val settings: Settings by inject()
-    private val eventBus: EventBusNotifier by inject()
     private val goalDBHelper: GoalDatabaseHelper by inject()
     private val ladderProgressManager: LadderProgressManager by inject()
     private val ladderDialogs: LadderDialogs by inject()
@@ -42,11 +38,11 @@ class LadderManager: BaseModel() {
     private val ladderDataRemote = LadderRemoteData(dataReader, object : CompositeData.NewDataListener<LadderRankData> {
         override fun onDataVersionChanged(data: LadderRankData) {
             ladderDialogs.showLadderUpdateToast()
-            eventBus.post(LadderRanksReplacedEvent())
+            // FIXME eventBus.post(LadderRanksReplacedEvent())
         }
 
         override fun onMajorVersionBlock() {
-            eventBus.postSticky(DataRequiresAppUpdateEvent())
+            // FIXME eventBus.postSticky(DataRequiresAppUpdateEvent())
         }
     }).apply { start() }
 
@@ -72,12 +68,12 @@ class LadderManager: BaseModel() {
     fun setUserRank(rank: LadderRank?) {
         settings[KEY_INFO_RANK] = rank?.stableId.toString()
         settings[KEY_INFO_TARGET_RANK] = ""
-        eventBus.post(LadderRankUpdatedEvent())
+        // FIXME eventBus.post(LadderRankUpdatedEvent())
     }
 
     fun setUserTargetRank(rank: LadderRank?) {
         settings[KEY_INFO_TARGET_RANK] = rank?.stableId.toString()
-        eventBus.post(LadderRankUpdatedEvent())
+        // FIXME eventBus.post(LadderRankUpdatedEvent())
     }
 
     //
@@ -115,7 +111,7 @@ class LadderManager: BaseModel() {
                 goalDBHelper.deleteAll()
             }
             ladderProgressManager.clearAllResults()
-            eventBus.post(LadderRankUpdatedEvent())
+            // FIXME eventBus.post(LadderRankUpdatedEvent())
         }
     }
 }

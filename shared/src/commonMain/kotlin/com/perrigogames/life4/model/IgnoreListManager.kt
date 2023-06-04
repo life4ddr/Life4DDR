@@ -1,7 +1,6 @@
 package com.perrigogames.life4.model
 
 import co.touchlab.kermit.Logger
-import com.perrigogames.life4.LadderRanksReplacedEvent
 import com.perrigogames.life4.SettingsKeys.KEY_IMPORT_GAME_VERSION
 import com.perrigogames.life4.api.IgnoreListRemoteData
 import com.perrigogames.life4.api.base.CompositeData
@@ -21,7 +20,6 @@ import org.koin.core.qualifier.named
 class IgnoreListManager: BaseModel() {
 
     private val logger: Logger by injectLogger("IgnoreList")
-    private val eventBus: EventBusNotifier by inject()
     private val settings: Settings by inject()
     private val dataReader: LocalDataReader by inject(named(IGNORES_FILE_NAME))
     private val songDataManager: SongDataManager by inject()
@@ -97,7 +95,7 @@ class IgnoreListManager: BaseModel() {
 
     fun setGroupUnlockState(id: String, state: Long) {
         settings["unlock_$id"] = state
-        eventBus.post(LadderRanksReplacedEvent())
+        // FIXME eventBus.post(LadderRanksReplacedEvent())
     }
 
     private fun List<IgnoredSong>.resolveCharts(): Set<DetailedChartInfo> {

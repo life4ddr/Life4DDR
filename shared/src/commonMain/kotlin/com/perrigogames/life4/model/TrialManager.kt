@@ -30,7 +30,6 @@ import org.koin.core.qualifier.named
 class TrialManager: BaseModel(), CompositeData.NewDataListener<TrialData> {
 
     private val settings: Settings by inject()
-    private val eventBus: EventBusNotifier by inject()
     private val notifications: Notifications by inject()
     private val dbHelper: TrialDatabaseHelper by inject()
     private val life4Api: Life4API by inject()
@@ -44,7 +43,7 @@ class TrialManager: BaseModel(), CompositeData.NewDataListener<TrialData> {
     }
 
     override fun onMajorVersionBlock() {
-        eventBus.postSticky(DataRequiresAppUpdateEvent())
+        // FIXME eventBus.postSticky(DataRequiresAppUpdateEvent())
     }
 
     val dataVersionString get() = trialData.versionString
@@ -104,14 +103,14 @@ class TrialManager: BaseModel(), CompositeData.NewDataListener<TrialData> {
     fun deleteSession(sessionId: Long) {
         mainScope.launch {
             dbHelper.deleteSession(sessionId)
-            eventBus.post(SavedRankUpdatedEvent())
+            // FIXME eventBus.post(SavedRankUpdatedEvent())
         }
     }
 
     fun clearSessions() {
         mainScope.launch {
             dbHelper.deleteAll()
-            eventBus.post(SavedRankUpdatedEvent())
+            // FIXME eventBus.post(SavedRankUpdatedEvent())
         }
     }
 

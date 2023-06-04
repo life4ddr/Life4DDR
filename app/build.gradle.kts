@@ -75,7 +75,6 @@ dependencies {
     testImplementation(libs.junit)
 
     implementation(libs.lottie)
-    implementation(libs.eventbus)
     implementation(libs.dexter)
     implementation(libs.glide)
     implementation(libs.coil)

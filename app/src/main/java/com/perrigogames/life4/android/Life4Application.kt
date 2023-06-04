@@ -18,7 +18,6 @@ import com.perrigogames.life4.ktor.GithubDataAPI.Companion.RANKS_FILE_NAME
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.SONGS_FILE_NAME
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.TRIALS_FILE_NAME
 import com.perrigogames.life4.model.*
-import org.greenrobot.eventbus.EventBus
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.get
 import org.koin.core.qualifier.named
@@ -54,8 +53,6 @@ class Life4Application: Application() {
                 single<LocalDataReader>(named(RANKS_FILE_NAME)) { AndroidDataReader(R.raw.ranks, RANKS_FILE_NAME) }
                 single<LocalDataReader>(named(SONGS_FILE_NAME)) { AndroidDataReader(R.raw.songs, SONGS_FILE_NAME) }
                 single<LocalDataReader>(named(TRIALS_FILE_NAME)) { AndroidDataReader(R.raw.trials, TRIALS_FILE_NAME) }
-                single { EventBus() }
-                single<EventBusNotifier> { AndroidEventBusNotifier() }
                 single<Notifications> { AndroidNotifications() }
 
                 val ladderDialogs = AndroidLadderDialogs()
