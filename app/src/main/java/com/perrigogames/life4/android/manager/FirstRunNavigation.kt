@@ -1,31 +1,19 @@
 package com.perrigogames.life4.android.manager
 
-import android.content.Context
+import android.app.Activity
 import android.content.Intent
-import com.perrigogames.life4.model.FirstRunManager
 import com.perrigogames.life4.android.activity.firstrun.FirstRankSelectionActivity
-import com.perrigogames.life4.android.activity.firstrun.FirstRunInfoActivity
 import com.perrigogames.life4.android.activity.firstrun.PlacementListActivity
 import com.perrigogames.life4.android.activity.profile.PlayerProfileActivity
+import com.perrigogames.life4.model.settings.InitState
 
-fun FirstRunManager.launchIntent(context: Context): Intent = when {
-    requireSignin -> Intent(context, FirstRunInfoActivity::class.java)
-    showPlacements -> placementIntent(context)
-    showRankList -> rankListIntent(context)
-    else -> finishProcessIntent(context)
+fun Activity.replaceWithInitActivity(initState: InitState) {
+    startActivity(Intent(this, initState.intentClass))
+    finish()
 }
 
-fun FirstRunManager.placementIntent(context: Context): Intent {
-    stateString = FirstRunManager.VAL_INIT_STATE_PLACEMENTS
-    return Intent(context, PlacementListActivity::class.java)
-}
-
-fun FirstRunManager.rankListIntent(context: Context): Intent {
-    stateString = FirstRunManager.VAL_INIT_STATE_RANKS
-    return Intent(context, FirstRankSelectionActivity::class.java)
-}
-
-fun FirstRunManager.finishProcessIntent(context: Context): Intent {
-    stateString = FirstRunManager.VAL_INIT_STATE_DONE
-    return Intent(context, PlayerProfileActivity::class.java)
+val InitState.intentClass get() = when (this) {
+    InitState.DONE -> PlayerProfileActivity::class.java
+    InitState.RANKS -> FirstRankSelectionActivity::class.java
+    InitState.PLACEMENTS -> PlacementListActivity::class.java
 }

@@ -400,8 +400,8 @@
     <string name="field_hint_rival_code">Rival Code (Optional)</string>
     <string name="field_hint_twitter">Twitter Name (Optional)</string>
     <string name="error_name_required">Name is required</string>
-    <string name="intro_rank_method_placement">Play a Placement set to get a temporary rank</string>
-    <string name="intro_rank_method_selection">Select my rank from the list (you can change it later)</string>
+    <string name="intro_rank_method_placement">Play a Placement set</string>
+    <string name="intro_rank_method_selection">Select a rank from the list</string>
     <string name="intro_rank_method_no_rank">Start from the beginning</string>
     <string name="sign_in">Sign In</string>
     <string name="change_rank_later">You can change your Rank in the Settings menu later.</string>
@@ -464,4 +464,21 @@
     </array>
     <string name="title_activity_trial_jacket_test">TrialJacketTestActivity</string>
     <string name="title_activity_debug_score_entry">DebugScoreEntryActivity</string>
+
+    <string name="first_run_landing_header">Welcome to LIFE4!</string>
+    <string name="first_run_landing_description">Are you new here?</string>
+    <string name="first_run_username_new_header">Select a username</string>
+    <string name="first_run_username_existing_header">Enter your LIFE4 username</string>
+    <string name="first_run_username_description">This is the name LIFE4 knows you by. You can make it the same name you go by on the DDR machine, or you can create a new one.</string>
+    <string name="first_run_rival_code_header">Enter your rival code</string>
+    <string name="first_run_rival_code_description_1">This is DDR\'s numeric ID for rivals matching. It\'s the number formatted XXXX-XXXX that is shown to you every time you log in to play DDR.</string>
+    <string name="first_run_rival_code_description_2">You may leave this blank and change it at any time.</string>
+    <string name="first_run_social_header">Use any social networks?</string>
+    <string name="first_run_social_description">These are optional and cosmetic only; the LIFE4 app does NOT connect to any of these services.</string>
+    <string name="first_run_social_add_new">Add new connection…</string>
+    <string name="first_run_rank_selection_header">What\'s your rank?</string>
+    <string name="first_run_rank_selection_footer">You can always change this rank later.</string>
+
+    <string name="username">Username</string>
+
 </resources>

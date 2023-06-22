@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 import com.perrigogames.life4.android.R
 import com.perrigogames.life4.android.activity.firstrun.PlacementDetailsActivity
 import com.perrigogames.life4.android.activity.settings.SettingsActivity
-import com.perrigogames.life4.android.compose.LIFE4DDRTheme
+import com.perrigogames.life4.android.compose.LIFE4Theme
 import com.perrigogames.life4.android.manager.AndroidTrialNavigation
 import com.perrigogames.life4.android.ui.trial.TrialJacketList
 import com.perrigogames.life4.data.Trial
@@ -40,7 +40,7 @@ class TrialListActivity : AppCompatActivity(), KoinComponent {
         super.onCreate(savedInstanceState)
         setContent {
             val scaffoldState = rememberScaffoldState(rememberDrawerState(DrawerValue.Open))
-            LIFE4DDRTheme {
+            LIFE4Theme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background

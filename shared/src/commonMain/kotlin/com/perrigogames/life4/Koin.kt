@@ -12,6 +12,8 @@ import com.perrigogames.life4.ktor.GithubDataImpl
 import com.perrigogames.life4.ktor.Life4API
 import com.perrigogames.life4.ktor.Life4APIImpl
 import com.perrigogames.life4.model.*
+import com.perrigogames.life4.model.settings.FirstRunSettingsManager
+import com.perrigogames.life4.model.settings.InfoSettingsManager
 import kotlinx.serialization.json.Json
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -42,7 +44,6 @@ val coreModule = module {
     single<Life4API> { Life4APIImpl(get()) }
     single { Json { classDiscriminator = "t" } }
     single { PlacementManager() }
-    single { FirstRunManager() }
     single { MajorUpdateManager() }
     single { MotdManager() }
     single { LadderManager() }
@@ -53,6 +54,8 @@ val coreModule = module {
     single { SongDataManager() }
     single { SongDataCoordinator() }
     single { PlayerManager() }
+    single { InfoSettingsManager() }
+    single { FirstRunSettingsManager() }
 
     // platformLogWriter() is a relatively simple config option, useful for local debugging. For production
     // uses you *may* want to have a more robust configuration from the native platform. In KaMP Kit,

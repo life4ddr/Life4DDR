@@ -9,7 +9,7 @@ import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.perrigogames.life4.android.compose.LIFE4DDRTheme
+import com.perrigogames.life4.android.compose.LIFE4Theme
 import com.perrigogames.life4.android.ui.trial.TrialJacketList
 import com.perrigogames.life4.data.Song
 import com.perrigogames.life4.data.Trial
@@ -25,7 +25,7 @@ class TrialJacketTestActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            LIFE4DDRTheme {
+            LIFE4Theme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
@@ -43,7 +43,7 @@ class TrialJacketTestActivity : ComponentActivity() {
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
-    LIFE4DDRTheme {
+    LIFE4Theme {
         TrialJacketList(
             displayList = TEST_DATA,
             onTrialSelected = {},

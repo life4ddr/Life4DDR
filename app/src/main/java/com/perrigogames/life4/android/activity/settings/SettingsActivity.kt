@@ -12,7 +12,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.preference.*
-import com.perrigogames.life4.*
+import com.perrigogames.life4.Notifications
 import com.perrigogames.life4.SettingsKeys.KEY_CREDITS
 import com.perrigogames.life4.SettingsKeys.KEY_DEBUG
 import com.perrigogames.life4.SettingsKeys.KEY_DEBUG_INDUCE_CRASH
@@ -30,7 +30,6 @@ import com.perrigogames.life4.SettingsKeys.KEY_INFO_IMPORT
 import com.perrigogames.life4.SettingsKeys.KEY_INFO_NAME
 import com.perrigogames.life4.SettingsKeys.KEY_INFO_RANK
 import com.perrigogames.life4.SettingsKeys.KEY_INFO_RIVAL_CODE
-import com.perrigogames.life4.SettingsKeys.KEY_INFO_TWITTER_NAME
 import com.perrigogames.life4.SettingsKeys.KEY_LADDER_CLEAR
 import com.perrigogames.life4.SettingsKeys.KEY_LIST_HIGHLIGHT_NEW
 import com.perrigogames.life4.SettingsKeys.KEY_LIST_HIGHLIGHT_UNPLAYED
@@ -265,7 +264,8 @@ class SettingsActivity : AppCompatActivity(),
 
             preference(KEY_INFO_NAME).summary = settings.getStringOrNull(KEY_INFO_NAME)
             preference(KEY_INFO_RIVAL_CODE).summary = settings.getStringOrNull(KEY_INFO_RIVAL_CODE)
-            preference(KEY_INFO_TWITTER_NAME).summary = settings.getStringOrNull(KEY_INFO_TWITTER_NAME)
+            // FIXME support more platforms
+//            preference(KEY_INFO_TWITTER_NAME).summary = settings.getStringOrNull(KEY_INFO_TWITTER_NAME)
 
             preferenceListener(KEY_SUBMISSION_NOTIFICAION_TEST) {
                 notifications.showUserInfoNotifications(1579)
@@ -276,7 +276,7 @@ class SettingsActivity : AppCompatActivity(),
         override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
             if (key != null) {
                 when (key) {
-                    KEY_INFO_NAME, KEY_INFO_RIVAL_CODE, KEY_INFO_TWITTER_NAME -> {
+                    KEY_INFO_NAME, KEY_INFO_RIVAL_CODE -> {
                         findPreference<EditTextPreference>(key)?.let { it.summary = it.text }
                         // FIXME eventBus.post(LocalUserInfoUpdatedEvent())
                     }

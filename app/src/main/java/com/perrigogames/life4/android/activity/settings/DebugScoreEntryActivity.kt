@@ -15,7 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import com.perrigogames.life4.GameConstants
-import com.perrigogames.life4.android.activity.settings.ui.theme.LIFE4DDRTheme
+import com.perrigogames.life4.android.compose.LIFE4Theme
 import com.perrigogames.life4.android.compose.Paddings
 import java.lang.Integer.max
 import java.lang.Long.max
@@ -25,7 +25,7 @@ class DebugScoreEntryActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            LIFE4DDRTheme {
+            LIFE4Theme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
@@ -168,7 +168,7 @@ private data class SongSpecifier(
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview2() {
-    LIFE4DDRTheme {
+    LIFE4Theme {
         Surface(
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colors.background

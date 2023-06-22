@@ -15,7 +15,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.perrigogames.life4.android.R
-import com.perrigogames.life4.android.compose.LIFE4DDRTheme
+import com.perrigogames.life4.android.compose.LIFE4Theme
 import com.perrigogames.life4.android.compose.Paddings
 import com.perrigogames.life4.viewmodel.SongEntryViewModel
 import com.perrigogames.life4.viewmodel.SongEntryViewModel.InputFieldState
@@ -178,7 +178,7 @@ enum class SongClearButtonType {
 @Composable
 @Preview
 fun SongClearWidgetsPreview() {
-    LIFE4DDRTheme {
+    LIFE4Theme {
         Column {
             SongClearButtons(modifier = Modifier.fillMaxWidth()) {}
             SongEntryControls(viewModel(

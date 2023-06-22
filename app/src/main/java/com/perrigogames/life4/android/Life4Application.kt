@@ -32,7 +32,6 @@ class Life4Application: Application() {
 
         Thread.setDefaultUncaughtExceptionHandler { thread, exception ->
             ManagerContainer().apply {
-                firstRunManager.onApplicationException()
                 ladderManager.onApplicationException()
                 placementManager.onApplicationException()
                 songDataManager.onApplicationException()
@@ -75,7 +74,6 @@ class Life4Application: Application() {
     }
 
     private inner class ManagerContainer: KoinComponent {
-        val firstRunManager: FirstRunManager = get()
         val ladderManager: LadderManager = get()
         val motdManager: MotdManager = get()
         val placementManager: PlacementManager = get()

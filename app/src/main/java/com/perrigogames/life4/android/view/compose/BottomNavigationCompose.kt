@@ -1,4 +1,4 @@
-package com.perrigogames.life4.android.ui
+package com.perrigogames.life4.android.view.compose
 
 import android.widget.Button
 import androidx.compose.foundation.layout.Row
@@ -6,7 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.viewinterop.AndroidView
 import com.perrigogames.life4.android.R
-import com.perrigogames.life4.android.compose.LIFE4DDRTheme
+import com.perrigogames.life4.android.compose.LIFE4Theme
 
 @Composable
 fun BottomNavigationButtons(
@@ -49,7 +49,7 @@ fun BottomNavigationButtons(
 @Composable
 @Preview
 fun BottomNavigationButtonsPreview() {
-    LIFE4DDRTheme {
+    LIFE4Theme {
         BottomNavigationButtons(
             leftText = "Cancel",
             rightText = "Continue",

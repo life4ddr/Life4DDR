@@ -1,3 +1,13 @@
+buildscript {
+    repositories {
+        gradlePluginPortal()
+    }
+
+    dependencies {
+        classpath("dev.icerock.moko:resources-generator:0.23.0")
+    }
+}
+
 plugins {
     alias(libs.plugins.gradleVersions)
     alias(libs.plugins.ktlint) apply false

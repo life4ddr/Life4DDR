@@ -7,14 +7,14 @@ import com.perrigogames.life4.android.R
 import com.perrigogames.life4.android.activity.profile.RankDetailsActivity
 import com.perrigogames.life4.android.activity.profile.RankDetailsActivity.Companion.RESULT_RANK_SELECTED
 import com.perrigogames.life4.android.databinding.ActivityFirstRankListBinding
-import com.perrigogames.life4.android.manager.finishProcessIntent
-import com.perrigogames.life4.android.manager.placementIntent
+import com.perrigogames.life4.android.manager.replaceWithInitActivity
 import com.perrigogames.life4.android.ui.ranklist.RankListFragment
 import com.perrigogames.life4.android.ui.ranklist.RankListFragment.OnRankListInteractionListener
 import com.perrigogames.life4.data.RankEntry
 import com.perrigogames.life4.enums.LadderRank
-import com.perrigogames.life4.model.FirstRunManager
 import com.perrigogames.life4.model.LadderManager
+import com.perrigogames.life4.model.settings.FirstRunSettingsManager
+import com.perrigogames.life4.model.settings.InitState
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
@@ -23,7 +23,7 @@ import org.koin.core.component.inject
  */
 class FirstRankSelectionActivity : AppCompatActivity(), OnRankListInteractionListener, KoinComponent {
 
-    private val firstRunManager: FirstRunManager by inject()
+    private val firstRunSettings: FirstRunSettingsManager by inject()
     private val ladderManager: LadderManager by inject()
 
     private lateinit var binding: ActivityFirstRankListBinding
@@ -33,7 +33,8 @@ class FirstRankSelectionActivity : AppCompatActivity(), OnRankListInteractionLis
             ladderManager.setUserRank(
                 LadderRank.parse(result.data!!.getLongExtra(RankDetailsActivity.EXTRA_RANK, 0))
             )
-            startActivity(firstRunManager.finishProcessIntent(this))
+            firstRunSettings.setInitState(InitState.DONE)
+            replaceWithInitActivity(InitState.DONE)
             finish()
         }
     }
@@ -55,13 +56,7 @@ class FirstRankSelectionActivity : AppCompatActivity(), OnRankListInteractionLis
     override fun onListFragmentInteraction(item: RankEntry?) =
         getRankDetails.launch(RankDetailsActivity.intent(this, item?.rank, false))
 
-    fun onPlacementsClick() {
-        startActivity(firstRunManager.placementIntent(this))
-        finish()
-    }
+    fun onPlacementsClick() = replaceWithInitActivity(InitState.PLACEMENTS)
 
-    fun onNoRankClick() {
-        startActivity(firstRunManager.finishProcessIntent(this))
-        finish()
-    }
+    fun onNoRankClick() = replaceWithInitActivity(InitState.DONE)
 }

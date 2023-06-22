@@ -18,12 +18,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.perrigogames.life4.android.R
-import com.perrigogames.life4.android.compose.LIFE4DDRTheme
+import com.perrigogames.life4.android.compose.LIFE4Theme
 import com.perrigogames.life4.android.databinding.ContentSongEntryBinding
-import com.perrigogames.life4.android.ui.BottomNavigationButtons
 import com.perrigogames.life4.android.ui.trial.SongClearButtonType
 import com.perrigogames.life4.android.ui.trial.SongClearButtons
 import com.perrigogames.life4.android.ui.trial.SongEntryControls
+import com.perrigogames.life4.android.view.compose.BottomNavigationButtons
 import com.perrigogames.life4.data.Song
 import com.perrigogames.life4.data.SongResult
 import com.perrigogames.life4.model.TrialSessionManager
@@ -69,7 +69,7 @@ class SongEntryActivity: AppCompatActivity(), KoinComponent {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            LIFE4DDRTheme {
+            LIFE4Theme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
@@ -152,7 +152,7 @@ class SongEntryActivity: AppCompatActivity(), KoinComponent {
                 onLeftButtonClicked = { retakePhoto() },
                 onRightButtonClicked = {
                     if (viewModel.submit()) {
-                        setResult(Activity.RESULT_OK, intent)
+                        setResult(RESULT_OK, intent)
                         finish()
                     } else {
                         Toast.makeText(this@SongEntryActivity, R.string.make_sure_fields_filled, Toast.LENGTH_SHORT).show()

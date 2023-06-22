@@ -1,16 +1,18 @@
 package com.perrigogames.life4.android.activity.firstrun
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.perrigogames.life4.android.activity.firstrun.PlacementDetailsActivity.Companion.RESULT_FINISHED
 import com.perrigogames.life4.android.databinding.ActivityPlacementListBinding
-import com.perrigogames.life4.android.manager.finishProcessIntent
-import com.perrigogames.life4.android.manager.rankListIntent
+import com.perrigogames.life4.android.manager.intentClass
+import com.perrigogames.life4.android.manager.replaceWithInitActivity
 import com.perrigogames.life4.android.ui.firstrun.PlacementListAdapter
-import com.perrigogames.life4.model.FirstRunManager
 import com.perrigogames.life4.model.PlacementManager
+import com.perrigogames.life4.model.settings.FirstRunSettingsManager
+import com.perrigogames.life4.model.settings.InitState
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
@@ -19,14 +21,14 @@ import org.koin.core.component.inject
  */
 class PlacementListActivity : AppCompatActivity(), KoinComponent {
 
-    private val firstRunManager: FirstRunManager by inject()
+    private val firstRunSettings: FirstRunSettingsManager by inject()
     private val placementManager: PlacementManager by inject()
 
     private lateinit var binding: ActivityPlacementListBinding
 
     private val startPlacement = registerForActivityResult(StartActivityForResult()) { result ->
         if (result.resultCode == RESULT_FINISHED) {
-            startActivity(firstRunManager.finishProcessIntent(this))
+            startActivity(Intent(this, InitState.DONE.intentClass))
             finish()
         }
     }
@@ -45,13 +47,7 @@ class PlacementListActivity : AppCompatActivity(), KoinComponent {
         binding.buttonNoRank.setOnClickListener { onNoRankClick() }
     }
 
-    private fun onRanksClick() {
-        startActivity(firstRunManager.rankListIntent(this))
-        finish()
-    }
+    private fun onRanksClick() = replaceWithInitActivity(InitState.RANKS)
 
-    private fun onNoRankClick() {
-        startActivity(firstRunManager.finishProcessIntent(this))
-        finish()
-    }
+    private fun onNoRankClick() = replaceWithInitActivity(InitState.DONE)
 }

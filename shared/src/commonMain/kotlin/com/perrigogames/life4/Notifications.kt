@@ -24,11 +24,11 @@ abstract class Notifications: KoinComponent {
                 notifyCopyableMessage(ID_NOTIF_RIVAL_CODE, strings.rivalCodeTitle, rivalCode)
             }
         }
-        settings.getStringOrNull(SettingsKeys.KEY_INFO_TWITTER_NAME)?.let { twitterName ->
-            if (twitterName.isNotEmpty()) {
-                notifyCopyableMessage(ID_NOTIF_TWITTER_HANDLE, strings.twitterNameTitle, twitterName)
-            }
-        }
+//        settings.getStringOrNull(SettingsKeys.KEY_INFO_TWITTER_NAME)?.let { twitterName ->
+//            if (twitterName.isNotEmpty()) {
+//                notifyCopyableMessage(ID_NOTIF_TWITTER_HANDLE, strings.twitterNameTitle, twitterName)
+//            }
+//        }
         notifyCopyableMessage(ID_NOTIF_EX_SCORE, strings.exScoreTitle, exScore.toString())
     }
 

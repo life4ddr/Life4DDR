@@ -4,6 +4,7 @@ plugins {
     kotlin("plugin.serialization")
     id("com.android.library")
     id("com.squareup.sqldelight")
+    id("dev.icerock.mobile.multiplatform-resources")
 }
 
 android {
@@ -50,10 +51,12 @@ kotlin {
                 implementation(libs.bundles.ktor.common)
                 implementation(libs.touchlab.stately)
                 implementation(libs.multiplatformSettings.common)
+                implementation(libs.multiplatformSettings.coroutines)
                 implementation(libs.kotlinx.dateTime)
                 implementation(libs.bundles.reaktive.common)
                 api(libs.touchlab.kermit)
                 api(libs.bundles.moko.mvvm.common)
+                api(libs.bundles.moko.resources.common)
             }
         }
         val commonTest by getting {
@@ -68,6 +71,8 @@ kotlin {
                 implementation(libs.ktor.client.okHttp)
                 implementation(libs.moko.mvvm.android.livedata.compose)
                 implementation(libs.moko.mvvm.android.livedata.glide)
+                implementation(libs.multiplatformSettings.datastore)
+                implementation(libs.androidx.datastore)
             }
         }
         val androidUnitTest by getting {
@@ -112,4 +117,9 @@ sqldelight {
         packageName = "com.perrigogames.life4"
         dialect = "sqlite:3.24"
     }
+}
+
+multiplatformResources {
+    multiplatformResourcesPackage = "com.perrigogames.life4"
+//    multiplatformResourcesVisibility = MRVisibility.Internal // optional, default Public
 }
