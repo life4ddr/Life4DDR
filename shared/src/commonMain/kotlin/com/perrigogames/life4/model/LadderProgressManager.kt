@@ -27,6 +27,7 @@ class LadderProgressManager: BaseModel() {
     }
 
     fun getGoalProgress(goal: BaseRankGoal): LadderGoalProgress? {
+        println("Goal ${goal.id}: $goal")
         when (goal) {
             is SongsClearGoal -> {
                 if (goal.diffNum != null) {
@@ -92,7 +93,7 @@ class LadderProgressManager: BaseModel() {
                 filterIgnored = false,
             )
             val validResults = results.scoresInRange(bottom = goal.score)
-            if (validResults.first().result.safeScore > topValidScore) {
+            if (validResults.firstOrNull()?.result.safeScore > topValidScore) {
                 topValidScore = validResults.first().result.safeScore
             }
 
