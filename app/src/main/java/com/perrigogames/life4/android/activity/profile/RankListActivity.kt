@@ -3,6 +3,7 @@ package com.perrigogames.life4.android.activity.profile
 import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.perrigogames.life4.android.R
 import com.perrigogames.life4.android.activity.profile.RankDetailsActivity.Companion.EXTRA_RANK
 import com.perrigogames.life4.android.activity.profile.RankDetailsActivity.Companion.EXTRA_TARGET_RANK
@@ -15,6 +16,7 @@ import com.perrigogames.life4.android.util.visibilityBool
 import com.perrigogames.life4.data.RankEntry
 import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.model.LadderManager
+import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
@@ -44,8 +46,13 @@ class RankListActivity : AppCompatActivity(), OnRankListInteractionListener, Koi
         super.onCreate(savedInstanceState)
         binding = ActivityRankListBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.buttonRemoveRank.visibilityBool = ladderManager.getUserRank() != null
         binding.buttonRemoveRank.setOnClickListener { onRemoveRankClick() }
+
+        lifecycleScope.launch {
+            ladderManager.rank.collect {
+                binding.buttonRemoveRank.visibilityBool = it != null
+            }
+        }
 
         binding.layoutContainer.removeAllViews()
         supportFragmentManager.beginTransaction()

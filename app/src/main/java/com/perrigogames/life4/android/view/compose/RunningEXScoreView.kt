@@ -1,6 +1,8 @@
 package com.perrigogames.life4.android.view.compose
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.LinearProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -16,12 +18,11 @@ import com.perrigogames.life4.android.R
 import com.perrigogames.life4.data.TrialEXProgress
 
 @Composable
-fun RunningEXScore(progress: TrialEXProgress) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .wrapContentHeight()
-    ) {
+fun RunningEXScore(
+    progress: TrialEXProgress,
+    modifier: Modifier = Modifier,
+) {
+    Row(modifier = modifier) {
         val missingText = stringResource(
             R.string.ex_score_missing_string_format,
             progress.currentExScore,

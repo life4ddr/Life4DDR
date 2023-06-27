@@ -38,7 +38,7 @@ class RankListFragment : Fragment(), KoinComponent {
             val ranks = rankData
                 .rankRequirements
                 .groupBy { it.rank.group }
-            adapter = RankListAdapter(ranks, ladderManager.getUserRank(), listener)
+            adapter = RankListAdapter(ranks, ladderManager.currentRank, listener)
             layoutManager = GridLayoutManager(context, columnCount).apply {
                 spanSizeLookup = (adapter as RankListAdapter).spanSizeLookup(columnCount)
             }

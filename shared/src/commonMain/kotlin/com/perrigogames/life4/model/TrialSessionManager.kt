@@ -1,11 +1,8 @@
 package com.perrigogames.life4.model
 
-import com.perrigogames.life4.Notifications
-import com.perrigogames.life4.TrialNavigation
 import com.perrigogames.life4.data.InProgressTrialSession
 import com.perrigogames.life4.db.TrialDatabaseHelper
 import com.perrigogames.life4.enums.TrialRank
-import com.russhwolf.settings.Settings
 import kotlinx.coroutines.launch
 import kotlinx.serialization.ExperimentalSerializationApi
 import org.koin.core.component.inject
@@ -14,9 +11,6 @@ import org.koin.core.component.inject
 class TrialSessionManager: BaseModel() {
 
     private val trialManager: TrialManager by inject()
-    private val trialNavigation: TrialNavigation by inject()
-    private val settings: Settings by inject()
-    private val notifications: Notifications by inject()
     private val dbHelper: TrialDatabaseHelper by inject()
 
     var currentSession: InProgressTrialSession? = null

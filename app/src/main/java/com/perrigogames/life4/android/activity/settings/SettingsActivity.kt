@@ -10,7 +10,6 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.preference.*
 import com.perrigogames.life4.Notifications
 import com.perrigogames.life4.SettingsKeys.KEY_CREDITS
@@ -49,9 +48,7 @@ import com.perrigogames.life4.android.R
 import com.perrigogames.life4.android.activity.base.BlockListCheckActivity
 import com.perrigogames.life4.android.activity.base.SongRecordsListCheckActivity
 import com.perrigogames.life4.android.manager.AndroidLadderDialogs
-import com.perrigogames.life4.android.util.jacketResId
 import com.perrigogames.life4.android.util.openWebUrlFromRes
-import com.perrigogames.life4.data.InProgressTrialSession
 import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.enums.TrialRank
 import com.perrigogames.life4.model.*
@@ -394,41 +391,41 @@ class SettingsActivity : AppCompatActivity(),
         override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) = Unit
     }
 
-    class DebugTrialRanksFragment : BaseSettingsFragment() {
-        override fun fragmentName() = "Trial Ranks"
-
-        override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-            setPreferencesFromResource(R.xml.empty_preferences, rootKey)
-            val ranksList = TrialRank.values().map { it.toString() }.toMutableList()
-            ranksList.add(0, "NONE")
-            val ranksArray = ranksList.toTypedArray()
-            trialManager.trials.filter { it.goals != null && it.goals!!.isNotEmpty() }.forEach { trial ->
-                preferenceScreen.addPreference(DropDownPreference(context).apply {
-                    key = "$KEY_DEBUG_RANK_PREFIX${trial.id}"
-                    title = trial.name
-                    icon = ContextCompat.getDrawable(context, trial.jacketResId(requireContext()))
-                    summary = trialManager.getRankForTrial(trial.id)?.toString() ?: "NONE"
-                    entries = ranksArray
-                    entryValues = ranksArray
-                })
-            }
-        }
-
-        override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
-            if (key != null) {
-                when {
-                    key.startsWith(KEY_DEBUG_RANK_PREFIX) -> findPreference<DropDownPreference>(key)?.let { it ->
-                        val rank = TrialRank.parse(it.entry.toString())
-                        val trial = trialManager.findTrial(it.key.substring(KEY_DEBUG_RANK_PREFIX.length))!!
-                        val session = InProgressTrialSession(trial, if (trial.isEvent) null else rank)
-                            .apply { goalObtained = (rank != null) }
-                        trialSessionManager.saveSession(session)
-                        it.summary = rank?.toString() ?: "NONE"
-                    }
-                }
-            }
-        }
-    }
+//    class DebugTrialRanksFragment : BaseSettingsFragment() {
+//        override fun fragmentName() = "Trial Ranks"
+//
+//        override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+//            setPreferencesFromResource(R.xml.empty_preferences, rootKey)
+//            val ranksList = TrialRank.values().map { it.toString() }.toMutableList()
+//            ranksList.add(0, "NONE")
+//            val ranksArray = ranksList.toTypedArray()
+//            trialManager.trials.filter { it.goals != null && it.goals!!.isNotEmpty() }.forEach { trial ->
+//                preferenceScreen.addPreference(DropDownPreference(context).apply {
+//                    key = "$KEY_DEBUG_RANK_PREFIX${trial.id}"
+//                    title = trial.name
+//                    icon = ContextCompat.getDrawable(context, trial.jacketResId(requireContext()))
+//                    summary = trialManager.getRankForTrial(trial.id)?.toString() ?: "NONE"
+//                    entries = ranksArray
+//                    entryValues = ranksArray
+//                })
+//            }
+//        }
+//
+//        override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
+//            if (key != null) {
+//                when {
+//                    key.startsWith(KEY_DEBUG_RANK_PREFIX) -> findPreference<DropDownPreference>(key)?.let { it ->
+//                        val rank = TrialRank.parse(it.entry.toString())
+//                        val trial = trialManager.findTrial(it.key.substring(KEY_DEBUG_RANK_PREFIX.length))!!
+//                        val session = InProgressTrialSession(trial, if (trial.isEvent) null else rank)
+//                            .apply { goalObtained = (rank != null) }
+//                        trialSessionManager.saveSession(session)
+//                        it.summary = rank?.toString() ?: "NONE"
+//                    }
+//                }
+//            }
+//        }
+//    }
 
     companion object {
         private const val KEY_DEBUG_RANK_PREFIX = "KEY_DEBUG_RANK_PREFIX"

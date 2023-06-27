@@ -77,6 +77,7 @@ androidx-datastore = { module = "androidx.datastore:datastore-preferences", vers
 
 compose-compiler = { module = "androidx.compose.compiler:compiler", version.ref = "composeCompiler" }
 compose-ui = { module = "androidx.compose.ui:ui", version.ref = "compose" }
+compose-ui-viewbinding = { module = "androidx.compose.ui:ui-viewbinding", version.ref = "compose" }
 compose-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
 compose-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "compose" }
 compose-material = { module = "androidx.compose.material:material", version.ref = "compose" }
@@ -169,6 +170,7 @@ app-ui = [
     "androidx-swiperefresh",
     "androidx-datastore",
     "compose-ui",
+    "compose-ui-viewbinding",
     "compose-tooling",
     "compose-foundation",
     "compose-material",

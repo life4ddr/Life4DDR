@@ -20,7 +20,6 @@ import com.perrigogames.life4.PlatformStrings
 import com.perrigogames.life4.SettingsKeys.KEY_DEBUG_BYPASS_STAT_ENTRY
 import com.perrigogames.life4.SettingsKeys.KEY_DETAILS_ENFORCE_EXPERT
 import com.perrigogames.life4.SettingsKeys.KEY_DETAILS_PHOTO_SELECT
-import com.perrigogames.life4.SettingsKeys.KEY_DETAILS_UPDATE_GOAL
 import com.perrigogames.life4.android.*
 import com.perrigogames.life4.android.activity.base.PhotoCaptureActivity
 import com.perrigogames.life4.android.databinding.ContentTrialDetailsBinding
@@ -33,13 +32,11 @@ import com.perrigogames.life4.data.Song
 import com.perrigogames.life4.data.SongResult
 import com.perrigogames.life4.data.Trial
 import com.perrigogames.life4.data.TrialState
-import com.perrigogames.life4.enums.TrialJacketCorner
 import com.perrigogames.life4.enums.TrialRank
 import com.perrigogames.life4.getDebugBoolean
 import com.perrigogames.life4.model.LadderManager
 import com.perrigogames.life4.model.TrialManager
 import com.perrigogames.life4.model.TrialSessionManager
-import com.perrigogames.life4.viewmodel.TrialJacketViewModel
 import com.russhwolf.settings.set
 import kotlinx.datetime.toJavaLocalDateTime
 import org.koin.core.component.KoinComponent
@@ -60,18 +57,6 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener, K
 
     private val trialId: String by lazy { intent.extras!!.getString(ARG_TRIAL_ID)!! }
     private val trial: Trial by lazy { trialManager.findTrial(trialId)!! }
-
-    private val storedRank: TrialRank? get() = trialManager.getRankForTrial(trial.id)
-    private val initialRank: TrialRank by lazy {
-        if (trial.isEvent)
-            TrialRank.fromLadderRank(ladderManager.getUserRank(), true) ?:
-            TrialRank.COPPER
-        else
-            storedRank?.let { trial.rankAfter(it) } ?:
-            intent.extras?.getInt(ARG_INITIAL_RANK, -1)?.let { if (it >= 0) TrialRank.values()[it] else null } ?:
-            TrialRank.fromLadderRank(ladderManager.getUserRank(), false) ?:
-            TrialRank.COPPER
-    }
 
     override val snackbarContainer: ViewGroup get() = binding.container
 
@@ -111,16 +96,15 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener, K
         else trial.name
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        trialSessionManager.startSession(trialId, initialRank)
         updateEXScoreMeter()
 
-        binding.imageRank.bind(
-            TrialJacketViewModel(
-                trial = trial,
-                rank = storedRank,
-                overrideCorner = TrialJacketCorner.NONE,
-            )
-        )
+//        binding.imageRank.bind(
+//            TrialJacketViewModel(
+//                trial = trial,
+//                rank = storedRank,
+//                overrideCorner = TrialJacketCorner.NONE,
+//            )
+//        )
 
         binding.textEventHelp.visibilityBool = trial.isEvent
         binding.textEventTimer.visibilityBool = trial.isEvent
@@ -129,7 +113,7 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener, K
         binding.textGoalsContent.visibilityBool = !trial.isEvent
 
         if (trial.isEvent) {
-            val userRank = ladderManager.getUserRank()
+            val userRank = ladderManager.currentRank
             val scoringGroup = trial.findScoringGroup(TrialRank.fromLadderRank(userRank, true) ?: TrialRank.COPPER)
             val formatString =
                 if (trial.isActiveEvent) R.string.event_ends_future_format
@@ -149,13 +133,13 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener, K
                     setRank(trialSession.availableRanks[position])
                 }
             }
-            trialSession.availableRanks.let { ranks ->
-                val initialSpinnerRank = ranks
-                    .sortedBy { it.stableId }
-                    .lastOrNull { initialRank.stableId >= it.stableId }
-                    ?: ranks.first()
-                binding.spinnerDesiredRank.setSelection(ranks.indexOf(initialSpinnerRank))
-            }
+//            trialSession.availableRanks.let { ranks ->
+//                val initialSpinnerRank = ranks
+//                    .sortedBy { it.stableId }
+//                    .lastOrNull { initialRank.stableId >= it.stableId }
+//                    ?: ranks.first()
+//                binding.spinnerDesiredRank.setSelection(ranks.indexOf(initialSpinnerRank))
+//            }
         }
 
         binding.includePhotoSourceSelector.switchAcquireMode.apply {
@@ -295,20 +279,18 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener, K
     }
 
     private fun updateHighestPossibleRank() {
-        val currentGoal = trialSession.goalRank
-        val highestPossible = trialSession.highestPossibleRank
-        if (highestPossible == null) {
-            AlertDialog.Builder(this).setTitle(R.string.trial_failed)
-                .setMessage(getString(R.string.trial_fail_no_rank_confirmation, trial.name))
-                .setNegativeButton(R.string.cancel, null)
-                .setPositiveButton(R.string.okay) { _, _ -> concedeTrial() }
-                .show()
-        } else if (settings.getBoolean(KEY_DETAILS_UPDATE_GOAL, true) &&
-            currentGoal != null &&
-            highestPossible.stableId != currentGoal.stableId) {
-
-            binding.spinnerDesiredRank.setSelection(trialSession.availableRanks.indexOf(highestPossible))
-        }
+//        if (highestPossible == null) {
+//            AlertDialog.Builder(this).setTitle(R.string.trial_failed)
+//                .setMessage(getString(R.string.trial_fail_no_rank_confirmation, trial.name))
+//                .setNegativeButton(R.string.cancel, null)
+//                .setPositiveButton(R.string.okay) { _, _ -> concedeTrial() }
+//                .show()
+//        } else if (settings.getBoolean(KEY_DETAILS_UPDATE_GOAL, true) &&
+//            currentGoal != null &&
+//            highestPossible.stableId != currentGoal.stableId) {
+//
+//            binding.spinnerDesiredRank.setSelection(trialSession.availableRanks.indexOf(highestPossible))
+//        }
     }
 
     private fun updateEXScoreMeter() {

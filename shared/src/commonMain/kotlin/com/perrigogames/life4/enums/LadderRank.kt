@@ -77,6 +77,8 @@ enum class LadderRank(
     ONYX5(104, ONYX),
     ;
 
+    val next: LadderRank? get() = values().getOrNull(ordinal + 1)
+
     companion object {
         fun parse(s: String?): LadderRank? = try {
             s?.let {

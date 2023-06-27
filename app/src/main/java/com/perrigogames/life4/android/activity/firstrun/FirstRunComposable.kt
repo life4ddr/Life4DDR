@@ -20,7 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.input.key.onKeyEvent
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -35,7 +35,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.perrigogames.life4.android.R
 import com.perrigogames.life4.android.compose.LIFE4Theme
-import com.perrigogames.life4.android.compose.Typography
+import com.perrigogames.life4.android.compose.primaryButtonColors
 import com.perrigogames.life4.data.SocialNetwork
 import com.perrigogames.life4.model.settings.InitState
 import com.perrigogames.life4.viewmodel.FirstRunInfoViewModel
@@ -71,6 +71,7 @@ fun FirstRunScreen(
                 .fillMaxHeight()
         ) {
             FirstRunHeader(
+                showWelcome = currentState is FirstRunState.Landing,
                 modifier = Modifier.fillMaxWidth(0.9f)
             )
 
@@ -105,6 +106,7 @@ fun FirstRunScreen(
             Button(
                 onClick = { viewModel.navigateNext() },
                 content = { Text("Next") },
+                colors = primaryButtonColors(),
                 modifier = Modifier.align(Alignment.BottomEnd)
                     .focusRequester(focusRequester)
                     .padding(16.dp)
@@ -115,14 +117,29 @@ fun FirstRunScreen(
 
 @Composable
 fun FirstRunHeader(
+    showWelcome: Boolean,
     modifier: Modifier = Modifier,
 ) {
-    Image(
-        painter = painterResource(R.drawable.life4_logo_invert),
-        contentScale = ContentScale.Fit,
-        contentDescription = "LIFE4 logo",
-        modifier = modifier.fillMaxWidth(0.65f)
-    )
+    Column(modifier = modifier) {
+        if (showWelcome) {
+            Text(
+                text = stringResource(R.string.first_run_landing_header),
+                color = MaterialTheme.colorScheme.onSurface,
+                style = MaterialTheme.typography.headlineMedium,
+                modifier = Modifier
+                    .align(alignment = Alignment.CenterHorizontally)
+                    .padding(bottom = 8.dp),
+            )
+        }
+        Image(
+            painter = painterResource(R.drawable.life4_logo_invert),
+            colorFilter = ColorFilter.tint(
+                color = MaterialTheme.colorScheme.onSurface,
+            ),
+            contentScale = ContentScale.Fit,
+            contentDescription = null,
+        )
+    }
 }
 
 @Composable
@@ -131,30 +148,20 @@ fun FirstRunNewUser(
     onNewUserSelected: (Boolean) -> Unit,
 ) {
     Column(modifier = modifier) {
-        val centerAlign = Modifier.align(alignment = Alignment.CenterHorizontally)
-        Text(
-            text = stringResource(R.string.first_run_landing_header),
-            color = Color.White,
-            style = Typography.headlineMedium,
-            modifier = centerAlign,
-        )
-        Spacer(modifier = Modifier.size(16.dp))
         Text(
             text = stringResource(R.string.first_run_landing_description),
-            color = Color.White,
-            style = Typography.bodyMedium,
-            modifier = centerAlign,
+            color = MaterialTheme.colorScheme.onSurface,
+            style = MaterialTheme.typography.bodyMedium,
+            modifier = Modifier.align(alignment = Alignment.CenterHorizontally),
         )
         Spacer(modifier = Modifier.size(16.dp))
         Row(
             horizontalArrangement = Arrangement.Center,
-            modifier = centerAlign,
+            modifier = Modifier.align(alignment = Alignment.CenterHorizontally),
         ) {
             Button(
                 onClick = { onNewUserSelected(true) },
-                colors = ButtonDefaults.buttonColors(
-                    contentColor = Color.White,
-                ),
+                colors = primaryButtonColors(),
                 content = { Text(
                     text = stringResource(R.string.yes),
                 ) },
@@ -163,9 +170,7 @@ fun FirstRunNewUser(
             Spacer(modifier = Modifier.size(8.dp))
             Button(
                 onClick = { onNewUserSelected(false) },
-                colors = ButtonDefaults.buttonColors(
-                    contentColor = Color.White,
-                ),
+                colors = primaryButtonColors(),
                 content = { Text(
                     text = stringResource(R.string.no),
                 ) },
@@ -189,8 +194,8 @@ fun FirstRunUsername(
     Column(modifier = modifier) {
         Text(
             text = state.headerText.toString(LocalContext.current),
-            color = Color.White,
-            style = Typography.headlineMedium,
+            color = MaterialTheme.colorScheme.onSurface,
+            style = MaterialTheme.typography.headlineMedium,
         )
         Spacer(
             modifier = Modifier.size(16.dp)
@@ -198,8 +203,8 @@ fun FirstRunUsername(
         state.descriptionText?.let { description ->
             Text(
                 text = description.toString(LocalContext.current),
-                color = Color.White,
-                style = Typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurface,
+                style = MaterialTheme.typography.bodyMedium,
             )
             Spacer(
                 modifier = Modifier.size(16.dp)
@@ -208,8 +213,8 @@ fun FirstRunUsername(
         OutlinedTextField(
             value = username,
             colors = OutlinedTextFieldDefaults.colors(
-                unfocusedTextColor = Color.White,
-                focusedTextColor = Color.White,
+                unfocusedTextColor = MaterialTheme.colorScheme.onSurface,
+                focusedTextColor = MaterialTheme.colorScheme.onSurface,
             ),
             label = { Text(
                 text = stringResource(R.string.username),
@@ -249,20 +254,20 @@ fun FirstRunRivalCode(
     Column(modifier = modifier) {
         Text(
             text = stringResource(R.string.first_run_rival_code_header),
-            color = Color.White,
-            style = Typography.headlineMedium,
+            color = MaterialTheme.colorScheme.onSurface,
+            style = MaterialTheme.typography.headlineMedium,
         )
         Spacer(modifier = Modifier.size(16.dp))
         Text(
             text = stringResource(R.string.first_run_rival_code_description_1),
-            color = Color.White,
-            style = Typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurface,
+            style = MaterialTheme.typography.bodyMedium,
         )
         Spacer(modifier = Modifier.size(8.dp))
         Text(
             text = stringResource(R.string.first_run_rival_code_description_2),
-            color = Color.White,
-            style = Typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurface,
+            style = MaterialTheme.typography.bodyMedium,
         )
         RivalCodeEntry(
             rivalCode = rivalCode,
@@ -291,7 +296,7 @@ fun RivalCodeEntry(
                 }
             }
         },
-        textStyle = Typography.labelMedium,
+        textStyle = MaterialTheme.typography.labelMedium,
         keyboardOptions = KeyboardOptions(
             keyboardType = KeyboardType.Number,
         ),
@@ -305,13 +310,17 @@ fun RivalCodeEntry(
                 fun Cell(text: String) {
                     Text(
                         text = text,
-                        color = Color.White,
-                        style = Typography.headlineMedium,
+                        color = MaterialTheme.colorScheme.onSurface,
+                        style = MaterialTheme.typography.headlineSmall,
                         textAlign = TextAlign.Center,
                         modifier = Modifier
                             .weight(1f)
                             .aspectRatio(0.75f)
-                            .border(1.dp, Color.White, RoundedCornerShape(8.dp)),
+                            .border(
+                                width = 1.dp,
+                                color = MaterialTheme.colorScheme.onSurface,
+                                shape = RoundedCornerShape(8.dp)
+                            ),
                     )
                 }
 
@@ -325,8 +334,8 @@ fun RivalCodeEntry(
                 }
                 Text(
                     text = "-",
-                    color = Color.White,
-                    style = Typography.headlineMedium,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    style = MaterialTheme.typography.headlineMedium,
                 )
                 repeat(4) { idx ->
                     val char = when {
@@ -353,14 +362,14 @@ fun FirstRunSocials(
     Column(modifier = modifier) {
         Text(
             text = stringResource(R.string.first_run_social_header),
-            color = Color.White,
-            style = Typography.headlineMedium,
+            color = MaterialTheme.colorScheme.onSurface,
+            style = MaterialTheme.typography.headlineMedium,
         )
         Spacer(modifier = Modifier.size(16.dp))
         Text(
             text = stringResource(R.string.first_run_social_description),
-            color = Color.White,
-            style = Typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurface,
+            style = MaterialTheme.typography.bodyMedium,
         )
         LazyColumn(
             modifier = Modifier
@@ -372,7 +381,7 @@ fun FirstRunSocials(
                     content = {
                         Text(
                             text = stringResource(R.string.first_run_social_add_new),
-                            color = Color.White
+                            color = MaterialTheme.colorScheme.onSurface
                         )
                     }
                 )
@@ -381,12 +390,12 @@ fun FirstRunSocials(
                 Row {
                     Text(
                         text = "$network: ",
-                        color = Color.White,
+                        color = MaterialTheme.colorScheme.onSurface,
                         fontWeight = FontWeight.Bold
                     )
                     Text(
                         text = name,
-                        color = Color.White,
+                        color = MaterialTheme.colorScheme.onSurface,
                     )
                 }
             }
@@ -409,10 +418,10 @@ fun FirstRunRankMethod(
         ) {
             Button(
                 onClick = { viewModel.rankMethodSelected(method) },
+                colors = primaryButtonColors(),
                 content = { Text(
                     text = text,
                     textAlign = TextAlign.Center,
-                    color = Color.White,
                 ) },
                 modifier = Modifier.align(Alignment.CenterHorizontally)
             )
@@ -420,8 +429,9 @@ fun FirstRunRankMethod(
 
         Text(
             text = stringResource(R.string.first_run_rank_selection_header),
-            color = Color.White,
-            style = Typography.headlineMedium,
+            color = MaterialTheme.colorScheme.onSurface,
+            style = MaterialTheme.typography.headlineMedium,
+            modifier = Modifier.align(Alignment.CenterHorizontally)
         )
         Spacer(modifier = Modifier.size(16.dp))
         OptionButton(
@@ -440,8 +450,8 @@ fun FirstRunRankMethod(
         Text(
             text = stringResource(R.string.first_run_rank_selection_footer),
             textAlign = TextAlign.Center,
-            color = Color.White,
-            style = Typography.labelMedium,
+            color = MaterialTheme.colorScheme.onSurface,
+            style = MaterialTheme.typography.labelMedium,
             modifier = Modifier.fillMaxWidth(),
         )
     }
@@ -451,7 +461,7 @@ fun FirstRunRankMethod(
 @Preview(widthDp = 480)
 fun FirstRunHeaderPreview() {
     LIFE4Theme {
-        FirstRunHeader()
+        FirstRunHeader(true)
     }
 }
 
@@ -528,6 +538,7 @@ fun FirstRunScreenPreview() {
                     .fillMaxHeight()
             ) {
                 FirstRunHeader(
+                    showWelcome = currentState is FirstRunState.Landing,
                     modifier = Modifier.fillMaxWidth(0.9f)
                 )
 
@@ -544,6 +555,7 @@ fun FirstRunScreenPreview() {
             if (currentState.showNextButton) {
                 Button(
                     onClick = {},
+                    colors = primaryButtonColors(),
                     content = { Text("Next") },
                     modifier = Modifier.align(Alignment.BottomEnd)
                         .padding(16.dp)

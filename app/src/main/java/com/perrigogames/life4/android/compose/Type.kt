@@ -29,18 +29,21 @@ val Typography = Typography(
         letterSpacing = 0.sp
     ),
     titleLarge = TextStyle(
+        fontFamily = FontFamilies.AVENIR_NEXT,
         fontWeight = FontWeight.SemiBold,
         fontSize = 22.sp,
         lineHeight = 28.sp,
         letterSpacing = 0.sp
     ),
     titleMedium = TextStyle(
+        fontFamily = FontFamilies.AVENIR_NEXT,
         fontWeight = FontWeight.SemiBold,
         fontSize = 16.sp,
         lineHeight = 24.sp,
         letterSpacing = 0.15.sp
     ),
     titleSmall = TextStyle(
+        fontFamily = FontFamilies.AVENIR_NEXT,
         fontWeight = FontWeight.Bold,
         fontSize = 14.sp,
         lineHeight = 20.sp,

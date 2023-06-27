@@ -48,10 +48,10 @@ GROUP BY trialId
 ORDER BY goalRank, TrialSessionExScore.exScore DESC;
 
 selectAllSongs:
-SELECT * FROM TrialSong;
+SELECT * FROM TrialSong AS TrialSongs;
 
 selectSessionSongs:
-SELECT * FROM TrialSong WHERE sessionId = ?;
+SELECT * FROM TrialSong AS TrialSongs WHERE sessionId = ?;
 
 insertSession:
 INSERT OR REPLACE INTO TrialSession(id, trialId, date, goalRank, goalObtained)

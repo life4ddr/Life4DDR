@@ -16,7 +16,6 @@ import com.russhwolf.settings.Settings
 import dev.icerock.moko.mvvm.livedata.LiveData
 import dev.icerock.moko.mvvm.livedata.MutableLiveData
 import kotlinx.coroutines.launch
-import kotlinx.serialization.ExperimentalSerializationApi
 import org.koin.core.component.inject
 import org.koin.core.qualifier.named
 
@@ -26,7 +25,6 @@ import org.koin.core.qualifier.named
  * - the current Trial in progress (the 'session')
  * - records for Trials the player has previously completed ('records')
  */
-@OptIn(ExperimentalSerializationApi::class)
 class TrialManager: BaseModel(), CompositeData.NewDataListener<TrialData> {
 
     private val settings: Settings by inject()
@@ -81,10 +79,6 @@ class TrialManager: BaseModel(), CompositeData.NewDataListener<TrialData> {
 
     fun nextTrial(index: Int) = trials.getOrNull(index + 1)
 
-    fun getRankForTrial(trialId: String) = dbHelper.bestSession(trialId)?.goalRank
-
-    fun bestSession(trialId: String) = dbHelper.bestSession(trialId)
-
     fun bestSessions(): List<SelectBestSessions> {
         val results = dbHelper.bestSessions()
         return trials.mapNotNull {
@@ -103,14 +97,12 @@ class TrialManager: BaseModel(), CompositeData.NewDataListener<TrialData> {
     fun deleteSession(sessionId: Long) {
         mainScope.launch {
             dbHelper.deleteSession(sessionId)
-            // FIXME eventBus.post(SavedRankUpdatedEvent())
         }
     }
 
     fun clearSessions() {
         mainScope.launch {
             dbHelper.deleteAll()
-            // FIXME eventBus.post(SavedRankUpdatedEvent())
         }
     }
 

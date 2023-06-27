@@ -1,8 +1,6 @@
 package com.perrigogames.life4.model
 
 import com.perrigogames.life4.LadderDialogs
-import com.perrigogames.life4.SettingsKeys.KEY_INFO_RANK
-import com.perrigogames.life4.SettingsKeys.KEY_INFO_TARGET_RANK
 import com.perrigogames.life4.api.LadderRemoteData
 import com.perrigogames.life4.api.base.CompositeData
 import com.perrigogames.life4.api.base.LocalDataReader
@@ -14,8 +12,10 @@ import com.perrigogames.life4.db.GoalState
 import com.perrigogames.life4.enums.GoalStatus
 import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.RANKS_FILE_NAME
-import com.russhwolf.settings.Settings
-import com.russhwolf.settings.set
+import com.perrigogames.life4.model.settings.LadderSettingsManager
+import dev.icerock.moko.mvvm.flow.cMutableStateFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
 import kotlinx.serialization.ExperimentalSerializationApi
@@ -26,10 +26,10 @@ import org.koin.core.qualifier.named
 class LadderManager: BaseModel() {
 
     private val ignoreListManager: IgnoreListManager by inject()
-    private val settings: Settings by inject()
     private val goalDBHelper: GoalDatabaseHelper by inject()
     private val ladderProgressManager: LadderProgressManager by inject()
     private val ladderDialogs: LadderDialogs by inject()
+    private val ladderSettings: LadderSettingsManager by inject()
     private val dataReader: LocalDataReader by inject(named(RANKS_FILE_NAME))
 
     //
@@ -57,23 +57,27 @@ class LadderManager: BaseModel() {
     //
     // Local User Rank
     //
-    fun getUserRank(): LadderRank? =
-        LadderRank.parse(settings.getStringOrNull(KEY_INFO_RANK)?.toLongOrNull())
+    private val _rank = MutableStateFlow<LadderRank?>(null).cMutableStateFlow()
+    val rank: StateFlow<LadderRank?> = _rank
+    val currentRank: LadderRank? get() = rank.value
 
-    fun getUserGoalRank(): LadderRank? =
-        settings.getStringOrNull(KEY_INFO_TARGET_RANK)?.toLongOrNull()?.let { LadderRank.parse(it) }
-            ?: getUserRank()?.let { return LadderRank.values().getOrNull(it.ordinal + 1) }
-            ?: LadderRank.COPPER1
+    private val _targetRank = MutableStateFlow<LadderRank?>(null).cMutableStateFlow()
+    val targetRank: StateFlow<LadderRank?> = _targetRank
+
+    init {
+        mainScope.launch {
+            ladderSettings.rank.collect { _rank.emit(it) }
+            ladderSettings.targetRank.collect { _targetRank.emit(it) }
+        }
+    }
 
     fun setUserRank(rank: LadderRank?) {
-        settings[KEY_INFO_RANK] = rank?.stableId.toString()
-        settings[KEY_INFO_TARGET_RANK] = ""
-        // FIXME eventBus.post(LadderRankUpdatedEvent())
+        ladderSettings.setRank(rank)
+        ladderSettings.setTargetRank(null)
     }
 
     fun setUserTargetRank(rank: LadderRank?) {
-        settings[KEY_INFO_TARGET_RANK] = rank?.stableId.toString()
-        // FIXME eventBus.post(LadderRankUpdatedEvent())
+        ladderSettings.setTargetRank(rank)
     }
 
     //

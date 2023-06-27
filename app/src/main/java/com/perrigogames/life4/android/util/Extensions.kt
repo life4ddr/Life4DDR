@@ -5,9 +5,14 @@ import android.text.Editable
 import android.view.View
 import android.widget.EditText
 import androidx.annotation.DrawableRes
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.size
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.Dp
 import androidx.core.widget.doAfterTextChanged
-import com.perrigogames.life4.data.Trial
 import com.perrigogames.life4.android.R
+import com.perrigogames.life4.data.Trial
 
 var View.visibilityBool: Boolean
     get() = visibility == View.VISIBLE
@@ -26,3 +31,6 @@ inline fun EditText.onFieldChanged(crossinline block: (EditText, Editable) -> Un
         text?.let { block(this, text) }
     }
 }
+
+@Composable
+fun SizedSpacer(size: Dp) = Spacer(modifier = Modifier.size(size))

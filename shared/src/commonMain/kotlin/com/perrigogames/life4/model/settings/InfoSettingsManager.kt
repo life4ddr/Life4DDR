@@ -13,7 +13,11 @@ import kotlinx.serialization.ExperimentalSerializationApi
 class InfoSettingsManager : SettingsManager() {
 
     val userName: Flow<String> = settings.getStringFlow(SettingsKeys.KEY_INFO_NAME, "")
+
     val rivalCode: Flow<String> = settings.getStringFlow(SettingsKeys.KEY_INFO_RIVAL_CODE, "")
+
+    val rivalCodeDisplay: Flow<String> = rivalCode.map { "${it.substring(0..3)}-${it.substring(4..7)}" }
+
     val userRank: Flow<LadderRank?> = settings.getLongOrNullFlow(SettingsKeys.KEY_INFO_RANK)
         .map { LadderRank.parse(it) }
 

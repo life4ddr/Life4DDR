@@ -54,7 +54,7 @@ class TrialListAdapter(
                 holder.itemView.setOnClickListener {
                     onItemClicked(item.viewModel.trial.id, item.viewModel.trial.type)
                 }
-                val bestSession = trialManager.bestSession(item.viewModel.trial.id)
+//                val bestSession = trialManager.bestSession(item.viewModel.trial.id)
 
                 //FIXME migrate
 //                if (!item.viewModel.trial.isEvent) {

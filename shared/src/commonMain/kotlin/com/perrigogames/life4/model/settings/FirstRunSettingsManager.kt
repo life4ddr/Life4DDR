@@ -1,10 +1,12 @@
 package com.perrigogames.life4.model.settings
 
 import com.perrigogames.life4.SettingsKeys
+import com.russhwolf.settings.ExperimentalSettingsApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalSettingsApi::class)
 class FirstRunSettingsManager : SettingsManager() {
 
     val initState: Flow<InitState?> = settings.getStringOrNullFlow(SettingsKeys.KEY_INIT_STATE)

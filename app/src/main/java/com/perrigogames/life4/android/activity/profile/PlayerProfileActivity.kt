@@ -4,33 +4,32 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.Toast
+import androidx.activity.compose.setContent
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
-import com.perrigogames.life4.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.viewinterop.AndroidViewBinding
+import com.perrigogames.life4.DataRequiresAppUpdateEvent
+import com.perrigogames.life4.MotdEvent
 import com.perrigogames.life4.SettingsKeys.KEY_INFO_NAME
-import com.perrigogames.life4.SettingsKeys.KEY_INFO_RIVAL_CODE
 import com.perrigogames.life4.android.GetScoreList
 import com.perrigogames.life4.android.R
 import com.perrigogames.life4.android.activity.settings.SettingsActivity
 import com.perrigogames.life4.android.activity.trial.TrialListActivity
 import com.perrigogames.life4.android.activity.trial.TrialRecordsActivity
-import com.perrigogames.life4.android.colorRes
+import com.perrigogames.life4.android.compose.LIFE4Theme
 import com.perrigogames.life4.android.databinding.ActivityPlayerProfileBinding
+import com.perrigogames.life4.android.databinding.ContainerFragmentRankDetailsBinding
 import com.perrigogames.life4.android.manager.AndroidLadderDialogs
-import com.perrigogames.life4.android.nameRes
 import com.perrigogames.life4.android.ui.dialogs.ManualScoreEntryDialog
 import com.perrigogames.life4.android.ui.dialogs.MotdDialog
 import com.perrigogames.life4.android.ui.rankdetails.RankDetailsFragment
 import com.perrigogames.life4.android.ui.rankdetails.RankDetailsViewModel
-import com.perrigogames.life4.android.util.CommonSizes
 import com.perrigogames.life4.android.util.openWebUrlFromRes
-import com.perrigogames.life4.android.util.visibilityBool
 import com.perrigogames.life4.enums.LadderRank
-import com.perrigogames.life4.enums.TrialJacketCorner
 import com.perrigogames.life4.model.LadderManager
 import com.perrigogames.life4.model.TrialManager
 import com.russhwolf.settings.Settings
@@ -59,11 +58,33 @@ class PlayerProfileActivity : AppCompatActivity(), RankDetailsViewModel.OnGoalLi
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme_NoActionBar)
         super.onCreate(savedInstanceState)
-        binding = ActivityPlayerProfileBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        setSupportActionBar(binding.toolbar)
+        setContent {
+            LIFE4Theme {
+                Column(
+                    modifier = Modifier.fillMaxSize()
+                ) {
+                    PlayerProfile(
+                        onAction = ::handleAction
+                    )
+                    AndroidViewBinding(ContainerFragmentRankDetailsBinding::inflate) {
+                        val options = RankDetailsFragment.Options(
+                            hideNonActive = true,
+                            showHeader = false,
+                            showNextGoals = false,
+                            allowNextSwitcher = false)
+                        supportFragmentManager.beginTransaction()
+                            .replace(R.id.container_current_goals, RankDetailsFragment.newInstance(goalRank, options))
+                            .commitNowAllowingStateLoss()
+                    }
+                }
+            }
+        }
+    }
 
-        setupContent()
+    private fun handleAction(action: PlayerProfileAction) = when (action) {
+        PlayerProfileAction.ChangeRank -> startActivity(Intent(this, RankListActivity::class.java))
+        PlayerProfileAction.Settings -> startActivity(Intent(this, SettingsActivity::class.java))
+        PlayerProfileAction.Trials -> startActivity(Intent(this, TrialListActivity::class.java))
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -93,29 +114,7 @@ class PlayerProfileActivity : AppCompatActivity(), RankDetailsViewModel.OnGoalLi
         return true
     }
 
-    fun onExtraViewClicked(v: View) {
-        when (v.id) {
-            R.id.view_mode_button_left -> startActivity(Intent(this, TrialListActivity::class.java))
-            R.id.view_mode_button_right -> startActivity(Intent(this, SettingsActivity::class.java))
-        }
-    }
-
     override fun onRankSubmitClicked() = openWebUrlFromRes(R.string.url_standard_submission_form)
-
-    // FIXME EventBus
-    fun onLadderRankModified(e: LadderRankUpdatedEvent) = updatePlayerContent()
-
-    // FIXME EventBus
-    fun onTrialListReplaced(e: TrialListReplacedEvent) = updatePlayerContent()
-
-    // FIXME EventBus
-    fun onTrialListUpdated(e: TrialListUpdatedEvent) = updatePlayerContent()
-
-    // FIXME EventBus
-    fun onSongResultsUpdated(e: SongResultsUpdatedEvent) = updatePlayerContent()
-
-    // FIXME EventBus
-    fun onRankListUpdated(e: LadderRanksReplacedEvent) = updatePlayerContent()
 
     // FIXME EventBus sticky
     fun onDataRequiresAppUpdate(e: DataRequiresAppUpdateEvent) {
@@ -135,65 +134,30 @@ class PlayerProfileActivity : AppCompatActivity(), RankDetailsViewModel.OnGoalLi
 
     private fun showAddScoreDialog() = ManualScoreEntryDialog().show(supportFragmentManager, MotdDialog.TAG)
 
-    private fun setupContent() {
-        val context = this
+//    private fun setupContent() {
+//        binding.content.viewCornerViewLeft.apply {
+//            visibilityBool = trialManager.hasEventTrial
+//            cornerType = TrialJacketCorner.EVENT
+//        }
+//    }
 
-        binding.content.viewModeButtonLeft.apply {
-            textTitle.text = getString(R.string.trials)
-            imageBackground.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.life4_trials_logo_invert))
-        }
-        binding.content.viewModeButtonRight.apply {
-            textTitle.text = getString(R.string.action_settings)
-            imageBackground.apply {
-                setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_cogwheel))
-                setColorFilter(ContextCompat.getColor(context, R.color.white))
-                scaleX = 0.7f
-                scaleY = 0.7f
-                setPadding(
-                    0,
-                    CommonSizes.contentPaddingLarge(resources) + CommonSizes.contentPaddingMed(resources),
-                    0,
-                    0
-                )
-            }
-        }
-
-        binding.content.viewCornerViewLeft.apply {
-            visibilityBool = trialManager.hasEventTrial
-            cornerType = TrialJacketCorner.EVENT
-        }
-
-        updatePlayerContent()
-    }
-
-    private fun updatePlayerContent() {
-        binding.content.textPlayerName.text = settings.getStringOrNull(KEY_INFO_NAME)
-        binding.content.textPlayerRivalCode.text = settings.getStringOrNull(KEY_INFO_RIVAL_CODE)
-        binding.content.textPlayerRivalCode.apply { visibilityBool = text.isNotEmpty() }
-        rank = ladderManager.getUserRank()
-        goalRank = ladderManager.getUserGoalRank()
-
-        binding.content.imageRank.also {
-            it.setOnClickListener { startActivity(Intent(this, RankListActivity::class.java)) }
-            it.rank = rank
-        }
-
-        if (rank != null) {
-            binding.content.textRank.apply {
-                text = resources.getString(rank!!.nameRes)
-                setTextColor(ContextCompat.getColor(context, rank!!.colorRes))
-            }
-        }
-        binding.content.textRank.isVisible = rank != null
-        binding.content.textChangeRank.isVisible = rank == null
-
-        val options = RankDetailsFragment.Options(
-            hideNonActive = true,
-            showHeader = false,
-            showNextGoals = false,
-            allowNextSwitcher = false)
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.container_current_goals, RankDetailsFragment.newInstance(goalRank, options))
-            .commitNowAllowingStateLoss()
-    }
+//    private fun updatePlayerContent() {
+//        if (rank != null) {
+//            binding.content.textRank.apply {
+//                text = resources.getString(rank!!.nameRes)
+//                setTextColor(ContextCompat.getColor(context, rank!!.colorRes))
+//            }
+//        }
+//        binding.content.textRank.isVisible = rank != null
+//        binding.content.textChangeRank.isVisible = rank == null
+//
+//        val options = RankDetailsFragment.Options(
+//            hideNonActive = true,
+//            showHeader = false,
+//            showNextGoals = false,
+//            allowNextSwitcher = false)
+//        supportFragmentManager.beginTransaction()
+//            .replace(R.id.container_current_goals, RankDetailsFragment.newInstance(goalRank, options))
+//            .commitNowAllowingStateLoss()
+//    }
 }

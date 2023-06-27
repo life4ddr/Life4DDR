@@ -3,6 +3,7 @@ package com.perrigogames.life4.android.activity.firstrun
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.material.Surface
 import com.perrigogames.life4.android.compose.LIFE4Theme
 import com.perrigogames.life4.android.manager.replaceWithInitActivity
 import org.koin.core.component.KoinComponent
@@ -16,10 +17,12 @@ class FirstRunInfoActivity: AppCompatActivity(), KoinComponent {
         super.onCreate(savedInstanceState)
         setContent {
             LIFE4Theme {
-                FirstRunScreen(
-                    onComplete = ::replaceWithInitActivity,
-                    onClose = { finish() },
-                )
+                Surface {
+                    FirstRunScreen(
+                        onComplete = ::replaceWithInitActivity,
+                        onClose = { finish() },
+                    )
+                }
             }
         }
     }

@@ -54,13 +54,11 @@ fun DefaultPreview() {
 private val TEST_DATA: List<TrialListState.Item> = listOf(
     testTrialItem(
         trial = testTrial(1, difficulty = 9),
-        overrideCorner = TrialJacketCorner.NONE,
         rank = null,
         exScore = null,
     ),
     testTrialItem(
         trial = testTrial(2, difficulty = 13),
-        overrideCorner = TrialJacketCorner.NONE,
         rank = TrialRank.SILVER,
         exScore = 3000,
     ),
@@ -72,7 +70,6 @@ private val TEST_DATA: List<TrialListState.Item> = listOf(
     ),
     testTrialItem(
         trial = testTrial(4, "Named Trial", difficulty = 18),
-        overrideCorner = TrialJacketCorner.NONE,
         rank = TrialRank.ONYX,
         exScore = 4000,
     ),
@@ -86,7 +83,7 @@ private val TEST_DATA: List<TrialListState.Item> = listOf(
 
 private fun testTrialItem(
     trial: Trial,
-    overrideCorner: TrialJacketCorner? = TrialJacketCorner.NONE,
+    overrideCorner: TrialJacketCorner? = null,
     rank: TrialRank? = null,
     exScore: Int? = null,
 ) = TrialListState.Item.Trial(

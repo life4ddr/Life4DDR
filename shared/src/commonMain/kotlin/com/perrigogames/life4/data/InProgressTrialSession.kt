@@ -1,6 +1,5 @@
 package com.perrigogames.life4.data
 
-import com.perrigogames.life4.GameConstants
 import com.perrigogames.life4.enums.ClearType
 import com.perrigogames.life4.enums.ClearType.*
 import com.perrigogames.life4.enums.TrialRank
@@ -14,8 +13,8 @@ import kotlinx.serialization.Transient
 @Serializable
 data class InProgressTrialSession(
     val trial: Trial,
-    var goalRank: TrialRank?,
-    val results: Array<SongResult?> = arrayOfNulls(GameConstants.TRIAL_LENGTH),
+    var goalRank: TrialRank? = null,
+    val results: Array<SongResult?> = arrayOfNulls(trial.songs.size),
     var finalPhotoUriString: String? = null,
 ) {
 
@@ -24,7 +23,7 @@ data class InProgressTrialSession(
     val hasStarted: Boolean
         get() = results.filterNotNull().any { it.score != null }
 
-    val hasFinalPhoto
+    val hasFinalPhoto: Boolean
         get() = finalPhotoUriString != null
 
     val availableRanks: Array<TrialRank>
