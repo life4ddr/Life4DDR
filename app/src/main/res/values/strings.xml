@@ -403,9 +403,6 @@
     <string name="field_hint_rival_code">Rival Code (Optional)</string>
     <string name="field_hint_twitter">Twitter Name (Optional)</string>
     <string name="error_name_required">Name is required</string>
-    <string name="intro_rank_method_placement">Play a Placement set</string>
-    <string name="intro_rank_method_selection">Select a rank from the list</string>
-    <string name="intro_rank_method_no_rank">Start from the beginning</string>
     <string name="sign_in">Sign In</string>
     <string name="change_rank_later">You can change your Rank in the Settings menu later.</string>
     <string name="placements">Placement Sets</string>

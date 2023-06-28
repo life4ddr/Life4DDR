@@ -15,15 +15,13 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.input.key.onKeyEvent
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -36,10 +34,14 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.perrigogames.life4.android.R
 import com.perrigogames.life4.android.compose.LIFE4Theme
 import com.perrigogames.life4.android.compose.primaryButtonColors
+import com.perrigogames.life4.android.view.compose.ErrorText
 import com.perrigogames.life4.data.SocialNetwork
 import com.perrigogames.life4.model.settings.InitState
 import com.perrigogames.life4.viewmodel.FirstRunInfoViewModel
+import com.perrigogames.life4.viewmodel.FirstRunPath
 import com.perrigogames.life4.viewmodel.FirstRunState
+import com.perrigogames.life4.viewmodel.FirstRunStep
+import com.perrigogames.life4.viewmodel.FirstRunStep.*
 import dev.icerock.moko.mvvm.createViewModelFactory
 
 @Composable
@@ -50,9 +52,7 @@ fun FirstRunScreen(
     onComplete: (InitState) -> Unit,
     onClose: () -> Unit,
 ) {
-    val state: FirstRunState by viewModel.state.collectAsState(FirstRunState.Landing)
-    val currentState = state
-    val focusRequester = remember { FocusRequester() }
+    val state: FirstRunState by viewModel.state.collectAsState(FirstRunState(step = Landing))
 
     BackHandler {
         if (!viewModel.navigateBack()) {
@@ -71,44 +71,46 @@ fun FirstRunScreen(
                 .fillMaxHeight()
         ) {
             FirstRunHeader(
-                showWelcome = currentState is FirstRunState.Landing,
+                showWelcome = state.step == Landing,
                 modifier = Modifier.fillMaxWidth(0.9f)
             )
 
-            when (currentState) {
-                FirstRunState.Landing -> {
+            when (state.step) {
+                Landing -> {
                     FirstRunNewUser { viewModel.newUserSelected(it) }
                 }
-                is FirstRunState.Username -> {
+                is Username -> {
                     FirstRunUsername(
                         viewModel = viewModel,
-                        focusRequester = focusRequester,
-                        state = currentState,
+                        state = state,
                     )
                 }
-                is FirstRunState.RivalCode -> {
+                is RivalCode -> {
                     FirstRunRivalCode(
                         viewModel = viewModel,
-                        focusRequester = focusRequester,
+                        state = state,
                     )
                 }
-                is FirstRunState.SocialHandles -> {
+                SocialHandles -> {
                     FirstRunSocials(viewModel = viewModel)
                 }
-                FirstRunState.InitialRankSelection -> {
-                    FirstRunRankMethod(viewModel = viewModel)
+                InitialRankSelection -> {
+                    FirstRunRankMethod(
+                        state = state,
+                        onRankMethodSelected = viewModel::rankMethodSelected
+                    )
                 }
-                is FirstRunState.Completed -> { onComplete(currentState.method) }
+                Completed -> { onComplete(state.rankSelection!!) }
+                else -> error("Unsupported step ${state.step}")
             }
         }
 
-        if (currentState.showNextButton) {
+        if (state.step.showNextButton) {
             Button(
                 onClick = { viewModel.navigateNext() },
                 content = { Text("Next") },
                 colors = primaryButtonColors(),
                 modifier = Modifier.align(Alignment.BottomEnd)
-                    .focusRequester(focusRequester)
                     .padding(16.dp)
             )
         }
@@ -151,7 +153,7 @@ fun FirstRunNewUser(
         Text(
             text = stringResource(R.string.first_run_landing_description),
             color = MaterialTheme.colorScheme.onSurface,
-            style = MaterialTheme.typography.bodyMedium,
+            style = MaterialTheme.typography.titleLarge,
             modifier = Modifier.align(alignment = Alignment.CenterHorizontally),
         )
         Spacer(modifier = Modifier.size(16.dp))
@@ -183,23 +185,25 @@ fun FirstRunNewUser(
 @Composable
 fun FirstRunUsername(
     modifier: Modifier = Modifier,
-    state: FirstRunState.Username,
-    focusRequester: FocusRequester? = null,
+    state: FirstRunState,
     viewModel: FirstRunInfoViewModel = viewModel(
         factory = createViewModelFactory { FirstRunInfoViewModel() }
     ),
 ) {
     val username: String by viewModel.username.collectAsState()
+    val focusManager = LocalFocusManager.current
 
     Column(modifier = modifier) {
-        Text(
-            text = state.headerText.toString(LocalContext.current),
-            color = MaterialTheme.colorScheme.onSurface,
-            style = MaterialTheme.typography.headlineMedium,
-        )
-        Spacer(
-            modifier = Modifier.size(16.dp)
-        )
+        state.headerText?.let { header ->
+            Text(
+                text = header.toString(LocalContext.current),
+                color = MaterialTheme.colorScheme.onSurface,
+                style = MaterialTheme.typography.headlineMedium,
+            )
+            Spacer(
+                modifier = Modifier.size(16.dp)
+            )
+        }
         state.descriptionText?.let { description ->
             Text(
                 text = description.toString(LocalContext.current),
@@ -224,15 +228,17 @@ fun FirstRunUsername(
                 imeAction = ImeAction.Done
             ),
             keyboardActions = KeyboardActions(
-                onDone = { focusRequester?.requestFocus() },
+                onDone = { focusManager.clearFocus() },
             ),
+            supportingText = {
+                (state.step as Username).usernameError?.let { error ->
+                    ErrorText(error.toString(LocalContext.current))
+                }
+            },
             onValueChange = { text: String -> viewModel.username.value = text },
             modifier = Modifier.onKeyEvent {
-                return@onKeyEvent if (
-                    it.nativeKeyEvent.keyCode == KeyEvent.KEYCODE_ENTER &&
-                    focusRequester != null
-                ) {
-                    focusRequester.requestFocus()
+                return@onKeyEvent if (it.nativeKeyEvent.keyCode == KeyEvent.KEYCODE_ENTER) {
+                    focusManager.clearFocus()
                     true
                 } else false
             }
@@ -244,10 +250,10 @@ fun FirstRunUsername(
 @Composable
 fun FirstRunRivalCode(
     modifier: Modifier = Modifier,
+    state: FirstRunState,
     viewModel: FirstRunInfoViewModel = viewModel(
         factory = createViewModelFactory { FirstRunInfoViewModel() }
     ),
-    focusRequester: FocusRequester? = null,
 ) {
     val rivalCode: String by viewModel.rivalCode.collectAsState()
 
@@ -274,8 +280,10 @@ fun FirstRunRivalCode(
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
                 .padding(vertical = 32.dp),
-            focusRequester = focusRequester,
         ) { viewModel.rivalCode.value = it }
+        (state.step as RivalCode).rivalCodeError?.let { error ->
+            ErrorText(error.toString(LocalContext.current))
+        }
     }
 }
 
@@ -283,16 +291,17 @@ fun FirstRunRivalCode(
 fun RivalCodeEntry(
     rivalCode: String,
     modifier: Modifier = Modifier,
-    focusRequester: FocusRequester? = null,
     onTextChanged: (String) -> Unit = {},
 ) {
+    val focusManager = LocalFocusManager.current
+
     BasicTextField(
         value = rivalCode,
         onValueChange = {
             if (it.length <= 8) {
                 onTextChanged(it)
                 if (it.length == 8) {
-                    focusRequester?.requestFocus()
+                    focusManager.clearFocus()
                 }
             }
         },
@@ -405,22 +414,20 @@ fun FirstRunSocials(
 
 @Composable
 fun FirstRunRankMethod(
+    state: FirstRunState,
     modifier: Modifier = Modifier,
-    viewModel: FirstRunInfoViewModel = viewModel(
-        factory = createViewModelFactory { FirstRunInfoViewModel() }
-    ),
+    onRankMethodSelected: (InitState) -> Unit = {},
 ) {
     Column(modifier = modifier) {
         @Composable
         fun OptionButton(
-            text: String,
             method: InitState,
         ) {
             Button(
-                onClick = { viewModel.rankMethodSelected(method) },
+                onClick = { onRankMethodSelected(method) },
                 colors = primaryButtonColors(),
                 content = { Text(
-                    text = text,
+                    text = method.description.toString(LocalContext.current),
                     textAlign = TextAlign.Center,
                 ) },
                 modifier = Modifier.align(Alignment.CenterHorizontally)
@@ -434,18 +441,10 @@ fun FirstRunRankMethod(
             modifier = Modifier.align(Alignment.CenterHorizontally)
         )
         Spacer(modifier = Modifier.size(16.dp))
-        OptionButton(
-            text = stringResource(R.string.intro_rank_method_no_rank),
-            method = InitState.DONE,
-        )
-        OptionButton(
-            text = stringResource(R.string.intro_rank_method_placement),
-            method = InitState.PLACEMENTS,
-        )
-        OptionButton(
-            text = stringResource(R.string.intro_rank_method_selection),
-            method = InitState.RANKS,
-        )
+
+        state.path!!.allowedRankSelectionTypes().forEach {
+            OptionButton(it)
+        }
         Spacer(modifier = Modifier.size(16.dp))
         Text(
             text = stringResource(R.string.first_run_rank_selection_footer),
@@ -477,7 +476,7 @@ fun FirstRunNewUserPreview() {
 @Preview(widthDp = 480)
 fun FirstRunUsernameNewPreview() {
     LIFE4Theme {
-        FirstRunUsername(state = FirstRunState.Username(isNewUser = true))
+        FirstRunUsername(state = debugState(step = Username(), newUser = true))
     }
 }
 
@@ -485,7 +484,7 @@ fun FirstRunUsernameNewPreview() {
 @Preview(widthDp = 480)
 fun FirstRunUsernameExistingPreview() {
     LIFE4Theme {
-        FirstRunUsername(state = FirstRunState.Username(isNewUser = false))
+        FirstRunUsername(state = debugState(step = Username(), newUser = false))
     }
 }
 
@@ -493,7 +492,7 @@ fun FirstRunUsernameExistingPreview() {
 @Preview(widthDp = 480)
 fun FirstRunRivalCodePreview() {
     LIFE4Theme {
-        FirstRunRivalCode()
+        FirstRunRivalCode(state = debugState(step = RivalCode()))
     }
 }
 
@@ -517,14 +516,14 @@ fun FirstRunSocialsPreview() {
 @Preview(widthDp = 480)
 fun FirstRunRankMethodPreview() {
     LIFE4Theme {
-        FirstRunRankMethod()
+        FirstRunRankMethod(state = debugState(step = InitialRankSelection))
     }
 }
 
 @Composable
 @Preview(widthDp = 480, heightDp = 720)
 fun FirstRunScreenPreview() {
-    val currentState: FirstRunState = FirstRunState.SocialHandles(true)
+    val currentState = debugState(step = Username())
 
     LIFE4Theme {
         Box(
@@ -538,21 +537,22 @@ fun FirstRunScreenPreview() {
                     .fillMaxHeight()
             ) {
                 FirstRunHeader(
-                    showWelcome = currentState is FirstRunState.Landing,
+                    showWelcome = currentState.step == Landing,
                     modifier = Modifier.fillMaxWidth(0.9f)
                 )
 
-                when (currentState) {
-                    FirstRunState.Landing -> { FirstRunNewUser {} }
-                    is FirstRunState.Username -> { FirstRunUsername(state = currentState) }
-                    is FirstRunState.RivalCode -> { FirstRunRivalCode() }
-                    is FirstRunState.SocialHandles -> { FirstRunSocials() }
-                    FirstRunState.InitialRankSelection -> { FirstRunRankMethod() }
-                    is FirstRunState.Completed -> {}
+                when (currentState.step) {
+                    Landing -> { FirstRunNewUser {} }
+                    is Username -> { FirstRunUsername(state = currentState) }
+                    is RivalCode -> { FirstRunRivalCode(state = currentState) }
+                    SocialHandles -> { FirstRunSocials() }
+                    InitialRankSelection -> { FirstRunRankMethod(state = currentState) }
+                    Completed -> {}
+                    else -> {}
                 }
             }
 
-            if (currentState.showNextButton) {
+            if (currentState.step.showNextButton) {
                 Button(
                     onClick = {},
                     colors = primaryButtonColors(),
@@ -564,3 +564,14 @@ fun FirstRunScreenPreview() {
         }
     }
 }
+
+private fun debugState(
+    step: FirstRunStep,
+    newUser: Boolean = true,
+) = FirstRunState(
+    step = step,
+    path = when (newUser) {
+        true -> FirstRunPath.NEW_USER_LOCAL
+        false -> FirstRunPath.EXISTING_USER_LOCAL
+    },
+)

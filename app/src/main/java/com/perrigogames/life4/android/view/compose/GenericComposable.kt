@@ -1,0 +1,17 @@
+package com.perrigogames.life4.android.view.compose
+
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+
+@Composable
+fun ErrorText(
+    text: String,
+    modifier: Modifier = Modifier.fillMaxWidth()
+) = Text(
+    text = text,
+    modifier = modifier,
+    color = MaterialTheme.colorScheme.error,
+)

@@ -1,7 +1,11 @@
 package com.perrigogames.life4.model.settings
 
+import com.perrigogames.life4.MR
 import com.perrigogames.life4.SettingsKeys
 import com.russhwolf.settings.ExperimentalSettingsApi
+import dev.icerock.moko.resources.desc.Resource
+import dev.icerock.moko.resources.desc.ResourceStringDesc
+import dev.icerock.moko.resources.desc.StringDesc
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
@@ -19,10 +23,10 @@ class FirstRunSettingsManager : SettingsManager() {
     }
 }
 
-enum class InitState(val key: String) {
-    PLACEMENTS("placements"),
-    RANKS("ranks"),
-    DONE("done"),
+enum class InitState(val key: String, val description: ResourceStringDesc) {
+    PLACEMENTS(key = "placements", description = StringDesc.Resource(MR.strings.first_run_rank_method_placement)),
+    RANKS(key = "ranks", description = StringDesc.Resource(MR.strings.first_run_rank_method_selection)),
+    DONE(key = "done", description = StringDesc.Resource(MR.strings.first_run_rank_method_no_rank)),
     ;
 
     companion object {

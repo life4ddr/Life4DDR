@@ -106,7 +106,7 @@ fun LIFE4Theme(
             val window = (view.context as Activity).window
 //            window.statusBarColor = colorScheme.primary.toArgb()
             window.statusBarColor = seed.toArgb()
-            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = darkTheme
+            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = false
         }
     }
 
