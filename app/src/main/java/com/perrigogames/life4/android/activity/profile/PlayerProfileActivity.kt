@@ -10,8 +10,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.viewinterop.AndroidViewBinding
 import com.perrigogames.life4.DataRequiresAppUpdateEvent
 import com.perrigogames.life4.MotdEvent
 import com.perrigogames.life4.SettingsKeys.KEY_INFO_NAME
@@ -22,11 +22,9 @@ import com.perrigogames.life4.android.activity.trial.TrialListActivity
 import com.perrigogames.life4.android.activity.trial.TrialRecordsActivity
 import com.perrigogames.life4.android.compose.LIFE4Theme
 import com.perrigogames.life4.android.databinding.ActivityPlayerProfileBinding
-import com.perrigogames.life4.android.databinding.ContainerFragmentRankDetailsBinding
 import com.perrigogames.life4.android.manager.AndroidLadderDialogs
 import com.perrigogames.life4.android.ui.dialogs.ManualScoreEntryDialog
 import com.perrigogames.life4.android.ui.dialogs.MotdDialog
-import com.perrigogames.life4.android.ui.rankdetails.RankDetailsFragment
 import com.perrigogames.life4.android.ui.rankdetails.RankDetailsViewModel
 import com.perrigogames.life4.android.util.openWebUrlFromRes
 import com.perrigogames.life4.enums.LadderRank
@@ -66,15 +64,8 @@ class PlayerProfileActivity : AppCompatActivity(), RankDetailsViewModel.OnGoalLi
                     PlayerProfile(
                         onAction = ::handleAction
                     )
-                    AndroidViewBinding(ContainerFragmentRankDetailsBinding::inflate) {
-                        val options = RankDetailsFragment.Options(
-                            hideNonActive = true,
-                            showHeader = false,
-                            showNextGoals = false,
-                            allowNextSwitcher = false)
-                        supportFragmentManager.beginTransaction()
-                            .replace(R.id.container_current_goals, RankDetailsFragment.newInstance(goalRank, options))
-                            .commitNowAllowingStateLoss()
+                    LazyColumn {
+
                     }
                 }
             }
