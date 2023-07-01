@@ -8,10 +8,10 @@ import androidx.compose.ui.Modifier
 
 @Composable
 fun ErrorText(
-    text: String,
-    modifier: Modifier = Modifier.fillMaxWidth()
+    modifier: Modifier = Modifier.fillMaxWidth(),
+    text: @Composable () -> String?,
 ) = Text(
-    text = text,
+    text = text() ?: "",
     modifier = modifier,
     color = MaterialTheme.colorScheme.error,
 )

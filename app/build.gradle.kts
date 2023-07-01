@@ -20,7 +20,8 @@ android {
         }
     }
     packagingOptions {
-        resources.excludes.add("META-INF/*.kotlin_module")
+        // FIXME
+//        resources.excludes.add("META-INF/*.kotlin_module")
     }
     buildFeatures {
         viewBinding = true

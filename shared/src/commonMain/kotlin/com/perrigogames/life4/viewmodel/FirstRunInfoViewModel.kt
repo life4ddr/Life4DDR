@@ -4,8 +4,20 @@ import com.perrigogames.life4.MR
 import com.perrigogames.life4.data.SocialNetwork
 import com.perrigogames.life4.model.settings.InfoSettingsManager
 import com.perrigogames.life4.model.settings.InitState
-import com.perrigogames.life4.model.settings.InitState.*
-import com.perrigogames.life4.viewmodel.FirstRunStep.*
+import com.perrigogames.life4.model.settings.InitState.DONE
+import com.perrigogames.life4.model.settings.InitState.PLACEMENTS
+import com.perrigogames.life4.model.settings.InitState.RANKS
+import com.perrigogames.life4.viewmodel.FirstRunError.RivalCodeError
+import com.perrigogames.life4.viewmodel.FirstRunError.UsernameError
+import com.perrigogames.life4.viewmodel.FirstRunStep.Landing
+import com.perrigogames.life4.viewmodel.FirstRunStep.PathStep
+import com.perrigogames.life4.viewmodel.FirstRunStep.PathStep.Completed
+import com.perrigogames.life4.viewmodel.FirstRunStep.PathStep.InitialRankSelection
+import com.perrigogames.life4.viewmodel.FirstRunStep.PathStep.Password
+import com.perrigogames.life4.viewmodel.FirstRunStep.PathStep.RivalCode
+import com.perrigogames.life4.viewmodel.FirstRunStep.PathStep.SocialHandles
+import com.perrigogames.life4.viewmodel.FirstRunStep.PathStep.Username
+import com.perrigogames.life4.viewmodel.FirstRunStep.PathStep.UsernamePassword
 import dev.icerock.moko.mvvm.flow.cMutableStateFlow
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
 import dev.icerock.moko.resources.desc.Resource
@@ -17,6 +29,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
+import kotlin.reflect.KClass
 
 class FirstRunInfoViewModel : ViewModel(), KoinComponent {
 
@@ -26,11 +39,17 @@ class FirstRunInfoViewModel : ViewModel(), KoinComponent {
     val rivalCode = MutableStateFlow("").cMutableStateFlow()
     val socialNetworks = MutableStateFlow<MutableMap<SocialNetwork, String>>(mutableMapOf()).cMutableStateFlow()
 
-    private val _stateStack = MutableStateFlow(listOf(FirstRunState(step = Landing))).cMutableStateFlow()
-    val state: Flow<FirstRunState> = _stateStack.map { it.last() }
+    private val _stateStack = MutableStateFlow<List<FirstRunStep>>(listOf(Landing)).cMutableStateFlow()
+    val state: Flow<FirstRunStep> = _stateStack.map { it.last() }
 
-    private val currentState get() = _stateStack.value.last()
-    private val currentPath get() = currentState.path
+    private val currentStep: FirstRunStep get() = _stateStack.value.last()
+    private val currentPath: FirstRunPath? get() = (currentStep as? PathStep)?.path
+
+    private val _errors = MutableStateFlow<List<FirstRunError>>(emptyList()).cMutableStateFlow()
+    val errors: Flow<List<FirstRunError>> = _errors
+
+    inline fun <reified T : FirstRunError> errorOfType() : Flow<T?> =
+        errors.map { errors -> errors.firstOrNull { it is T } as? T }
 
     init {
         viewModelScope.launch {
@@ -46,10 +65,24 @@ class FirstRunInfoViewModel : ViewModel(), KoinComponent {
             true -> FirstRunPath.NEW_USER_LOCAL
             false -> FirstRunPath.EXISTING_USER_LOCAL
         }
-        _stateStack.value += FirstRunState(
-            path = path,
-            step = path.steps[0],
-        )
+        _stateStack.value += createStateClass(path, clazz = path.steps[0])
+    }
+
+    private fun <T : FirstRunStep> createStateClass(
+        path: FirstRunPath = currentPath!!,
+        rankMethod: InitState? = null,
+        clazz: KClass<T>,
+    ) : FirstRunStep {
+        return when (clazz) {
+            Username::class -> Username(path)
+            Password::class -> Password(path)
+            UsernamePassword::class -> UsernamePassword(path)
+            RivalCode::class -> RivalCode(path)
+            SocialHandles::class -> SocialHandles(path)
+            InitialRankSelection::class -> InitialRankSelection(path)
+            Completed::class -> Completed(path, rankMethod!!)
+            else -> error("Invalid class ${clazz.simpleName}")
+        }
     }
 
     fun rankMethodSelected(method: InitState) {
@@ -58,22 +91,15 @@ class FirstRunInfoViewModel : ViewModel(), KoinComponent {
             rivalCode = rivalCode.value,
             socialNetworks = socialNetworks.value,
         )
-        _stateStack.value += currentState.copy(
-            step = currentState.nextStep,
-            rankSelection = method,
-        )
+        _stateStack.value += createStateClass(rankMethod = method, clazz = nextStep)
     }
 
     fun navigateNext() {
-        when (val currentStep = currentState.step) {
+        when (currentStep) {
             is Username -> {
                 if (username.value.isEmpty()) {
-                    replaceStep(currentStep.copy(
-                        usernameError = StringDesc.Resource(MR.strings.first_run_error_username))
-                    )
+                    emitError(UsernameError())
                     return
-                } else {
-                    replaceStep(currentStep.copy(usernameError = null))
                 }
             }
             is Password -> {
@@ -86,36 +112,38 @@ class FirstRunInfoViewModel : ViewModel(), KoinComponent {
             is RivalCode -> {
                 val length = rivalCode.value.length
                 if (length != 0 && length != 8) {
-                    replaceStep(currentStep.copy(
-                        rivalCodeError = StringDesc.Resource(MR.strings.first_run_error_rival_code))
-                    )
+                    emitError(RivalCodeError())
                     return
-                } else {
-                    replaceStep(currentStep.copy(rivalCodeError = null))
                 }
             }
             else -> {}
         }
-        appendState(currentState.copy(
-            step = currentState.nextStep,
-        ))
+        clearError()
+        appendState(createStateClass(clazz = nextStep))
         println("${_stateStack.value.size} / ${_stateStack.value.last()}")
     }
 
-    private fun appendState(state: FirstRunState) {
-        _stateStack.value += state
+    private fun appendState(step: FirstRunStep) {
+        _stateStack.value += step
     }
 
-    private fun replaceState(state: FirstRunState) {
-        _stateStack.value = _stateStack.value.toMutableList().also { stack ->
-            stack.removeLast()
-            stack.add(state)
+    private fun emitError(vararg errors: FirstRunError) {
+        _errors.value = listOf(*errors)
+    }
+
+    private fun clearError() {
+        if (_errors.value.isNotEmpty()) {
+            _errors.value = emptyList()
         }
     }
 
-    private fun replaceStep(step: FirstRunStep) {
-        replaceState(currentState.copy(step = step))
-    }
+    private val nextStep: KClass<out FirstRunStep>
+        get() {
+            val path = currentPath
+            require(path != null) { "Must select a path to advance the step" }
+            val currentIndex = path.steps.indexOfFirst { it == currentStep::class }
+            return path.steps[currentIndex + 1]
+        }
 
     fun navigateBack(): Boolean {
         if (_stateStack.value.size == 1) {
@@ -123,48 +151,19 @@ class FirstRunInfoViewModel : ViewModel(), KoinComponent {
         }
         val popped = _stateStack.value.last()
         _stateStack.value -= popped
+        clearError()
         return true
-    }
-}
-
-data class FirstRunState(
-    val step: FirstRunStep,
-    val path: FirstRunPath? = null,
-    val rankSelection: InitState? = null,
-) {
-
-    val nextStep: FirstRunStep
-        get() {
-            require(path != null) { "Must select a path to advance the step" }
-            val currentIndex = path.steps.indexOfFirst { it::class == step::class }
-            return path.steps[currentIndex + 1]
-        }
-
-    val headerText: ResourceStringDesc? = when (step) {
-        is Username -> when (path?.isNewUser ?: true) {
-            true -> StringDesc.Resource(MR.strings.first_run_username_new_header)
-            false -> StringDesc.Resource(MR.strings.first_run_username_existing_header)
-        }
-        else -> null
-    }
-
-    val descriptionText: ResourceStringDesc? = when (step) {
-        is Username -> when (path?.isNewUser ?: true) {
-            true -> StringDesc.Resource(MR.strings.first_run_username_description)
-            else -> null
-        }
-        else -> null
     }
 }
 
 enum class FirstRunPath(
     val isNewUser: Boolean,
-    vararg val steps: FirstRunStep
+    vararg val steps: KClass<out FirstRunStep>
 ) {
-    NEW_USER_LOCAL (isNewUser = true, Username(), RivalCode(), InitialRankSelection, Completed),
-    NEW_USER_REMOTE (isNewUser = true, Username(), Password(), RivalCode(), InitialRankSelection),
-    EXISTING_USER_LOCAL (isNewUser = false, Username(), RivalCode(), InitialRankSelection, Completed),
-    EXISTING_USER_REMOTE (isNewUser = false, UsernamePassword(), Completed),
+    NEW_USER_LOCAL (isNewUser = true, Username::class, RivalCode::class, InitialRankSelection::class, Completed::class),
+    NEW_USER_REMOTE (isNewUser = true, Username::class, Password::class, RivalCode::class, InitialRankSelection::class),
+    EXISTING_USER_LOCAL (isNewUser = false, Username::class, RivalCode::class, InitialRankSelection::class, Completed::class),
+    EXISTING_USER_REMOTE (isNewUser = false, UsernamePassword::class, Completed::class),
     ;
 
     fun allowedRankSelectionTypes(): List<InitState> = when (this) {
@@ -180,26 +179,61 @@ sealed class FirstRunStep(
 ) {
     object Landing : FirstRunStep(showNextButton = false)
 
-    data class Username(
-        val usernameError: ResourceStringDesc? = null
-    ) : FirstRunStep()
+    sealed class PathStep(
+        showNextButton: Boolean = true,
+    ) : FirstRunStep(showNextButton) {
 
-    data class Password(
-        val passwordError: ResourceStringDesc? = null
-    ) : FirstRunStep()
+        abstract val path: FirstRunPath
+        data class Username(
+            override val path: FirstRunPath,
+        ) : PathStep() {
+            val headerText: ResourceStringDesc = when (path.isNewUser) {
+                true -> StringDesc.Resource(MR.strings.first_run_username_new_header)
+                false -> StringDesc.Resource(MR.strings.first_run_username_existing_header)
+            }
 
-    data class UsernamePassword(
-        val usernameError: ResourceStringDesc? = null,
-        val passwordError: ResourceStringDesc? = null,
-    ) : FirstRunStep()
+            val descriptionText: ResourceStringDesc? = when (path.isNewUser) {
+                true -> StringDesc.Resource(MR.strings.first_run_username_description)
+                else -> null
+            }
+        }
 
-    data class RivalCode(
-        val rivalCodeError: ResourceStringDesc? = null,
-    ) : FirstRunStep()
+        data class Password(override val path: FirstRunPath) : PathStep()
 
-    object SocialHandles : FirstRunStep()
+        data class UsernamePassword(override val path: FirstRunPath) : PathStep()
 
-    object InitialRankSelection : FirstRunStep(showNextButton = false)
+        data class RivalCode(
+            override val path: FirstRunPath,
+            val rivalCodeError: RivalCodeError? = null,
+        ) : PathStep()
 
-    object Completed : FirstRunStep(showNextButton = false)
+        data class SocialHandles(override val path: FirstRunPath) : PathStep()
+
+        data class InitialRankSelection(
+            override val path: FirstRunPath,
+            val availableMethods: List<InitState> = path.allowedRankSelectionTypes(),
+        ) : PathStep(showNextButton = false)
+
+        data class Completed(
+            override val path: FirstRunPath,
+            val rankSelection: InitState,
+        ) : PathStep(showNextButton = false)
+    }
+}
+
+sealed class FirstRunError {
+
+    abstract val errorText: StringDesc
+
+    class UsernameError(
+        override val errorText: StringDesc = StringDesc.Resource(MR.strings.first_run_error_username)
+    ) : FirstRunError()
+
+    class PasswordError(
+        override val errorText: StringDesc // = StringDesc.Resource(MR.strings.first_run_error_password)
+    ) : FirstRunError()
+
+    class RivalCodeError(
+        override val errorText: StringDesc = StringDesc.Resource(MR.strings.first_run_error_rival_code)
+    ) : FirstRunError()
 }
