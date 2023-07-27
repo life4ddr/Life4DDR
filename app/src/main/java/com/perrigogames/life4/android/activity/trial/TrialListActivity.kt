@@ -7,6 +7,7 @@ import android.view.MenuItem
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -56,6 +57,7 @@ class TrialListActivity : AppCompatActivity(), KoinComponent {
                             TrialJacketList(
                                 displayList = viewState.displayTrials,
                                 onTrialSelected = this@TrialListActivity::onTrialSelected,
+                                modifier = Modifier.padding(padding)
                             )
                         }
                     )

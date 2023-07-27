@@ -32,12 +32,14 @@ import com.perrigogames.life4.viewmodel.TrialListState
 fun TrialJacketList(
     displayList: List<TrialListState.Item>,
     onTrialSelected: (Trial) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     LazyVerticalGrid(
         columns = GridCells.Adaptive(minSize = 180.dp),
         contentPadding = PaddingValues(Paddings.MEDIUM),
         horizontalArrangement = Arrangement.spacedBy(Paddings.MEDIUM),
         verticalArrangement = Arrangement.spacedBy(Paddings.MEDIUM),
+        modifier = modifier,
     ) {
         displayList.forEach { displayItem ->
             when (displayItem) {
