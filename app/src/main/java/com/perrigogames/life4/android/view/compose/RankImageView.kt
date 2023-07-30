@@ -3,6 +3,7 @@
 package com.perrigogames.life4.android.view.compose
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.size
@@ -26,6 +27,7 @@ fun RankImage(
     rank: LadderRank?,
     modifier: Modifier = Modifier,
     size: Dp = dimensionResource(R.dimen.profile_found_rank_size),
+    onClick: () -> Unit = {},
 ) {
     val painter = painterResource(
         rank?.drawableRes ?: R.drawable.copper_1
@@ -39,6 +41,7 @@ fun RankImage(
         modifier = modifier
             .size(size)
             .alpha(if (rank != null) 1F else 0.3F)
+            .clickable { onClick() }
     )
 }
 

@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalSerializationApi::class)
+
 package com.perrigogames.life4.enums
 
 import com.perrigogames.life4.enums.LadderRankClass.*
@@ -14,7 +16,6 @@ import kotlinx.serialization.encoding.Encoder
 /**
  * Enum class representing a Rank that a player can earn in LIFE4.
  */
-@ExperimentalSerializationApi
 @Serializable(with = LadderRankSerializer::class)
 enum class LadderRank(
     val stableId: Long,
@@ -99,7 +100,21 @@ enum class LadderRank(
  * Enum describing the groups that Ranks are put into.
  */
 enum class LadderRankClass {
-    COPPER, BRONZE, SILVER, GOLD, PLATINUM, DIAMOND, COBALT, PEARL, AMETHYST, EMERALD, ONYX
+    COPPER, BRONZE, SILVER, GOLD, PLATINUM, DIAMOND, COBALT, PEARL, AMETHYST, EMERALD, ONYX;
+
+    fun toLadderRank() = when(this) {
+        COPPER -> LadderRank.COPPER5
+        BRONZE -> LadderRank.BRONZE5
+        SILVER -> LadderRank.SILVER5
+        GOLD -> LadderRank.GOLD5
+        PLATINUM -> LadderRank.PLATINUM5
+        DIAMOND -> LadderRank.DIAMOND5
+        COBALT -> LadderRank.COBALT5
+        PEARL -> LadderRank.PEARL5
+        AMETHYST -> LadderRank.AMETHYST5
+        EMERALD -> LadderRank.EMERALD5
+        ONYX -> LadderRank.ONYX5
+    }
 }
 
 @ExperimentalSerializationApi
