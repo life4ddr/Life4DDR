@@ -7,7 +7,7 @@ pluginManagement {
     }
 }
 
-include(":app", ":shared")
+include(":app", ":shared", ":editor")
 rootProject.name = "LIFE4DDR"
 
 enableFeaturePreview("VERSION_CATALOGS")
