@@ -19,6 +19,7 @@ class LadderProgressManager: BaseModel() {
     private val songDataManager: SongDataManager by inject()
     private val resultDbHelper: ResultDatabaseHelper by inject()
     private val trialManager: TrialManager by inject()
+    private val trialRecordsManager: TrialRecordsManager by inject()
 
     private val chartResultOrganizer = ChartResultOrganizer()
 
@@ -53,7 +54,7 @@ class LadderProgressManager: BaseModel() {
             }
             is StackedRankGoalWrapper -> when (goal.mainGoal) {
                 is TrialStackedGoal -> {
-                    val trials = trialManager.bestSessions().filter {
+                    val trials = trialRecordsManager.bestSessions().filter {
                         if (goal.mainGoal.restrictDifficulty) {
                             it.goalRank.stableId == goal.mainGoal.rank.stableId
                         } else {

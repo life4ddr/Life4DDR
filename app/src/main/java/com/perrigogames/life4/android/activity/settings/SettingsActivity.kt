@@ -89,7 +89,7 @@ class SettingsActivity : AppCompatActivity(),
         protected val ladderDialogs: AndroidLadderDialogs by inject()
         protected val songDataCoordinator: SongDataCoordinator by inject()
         protected val trialManager: TrialManager by inject()
-        protected val trialSessionManager: TrialSessionManager by inject()
+        protected val trialRecordsManager: TrialRecordsManager by inject()
         protected val playerManager: PlayerManager by inject()
         protected val ignoreListManager: IgnoreListManager by inject()
         protected val settings: Settings by inject()
@@ -337,7 +337,7 @@ class SettingsActivity : AppCompatActivity(),
                 AlertDialog.Builder(requireActivity())
                     .setTitle(R.string.are_you_sure)
                     .setMessage(R.string.confirm_erase_trial_data)
-                    .setPositiveButton(R.string.yes) { _, _ -> trialManager.clearSessions() }
+                    .setPositiveButton(R.string.yes) { _, _ -> trialRecordsManager.clearSessions() }
                     .setNegativeButton(R.string.no, null)
                     .show() //FIXME extract
                 true

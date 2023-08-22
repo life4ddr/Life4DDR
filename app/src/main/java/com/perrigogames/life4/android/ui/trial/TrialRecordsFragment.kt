@@ -13,6 +13,7 @@ import com.perrigogames.life4.android.databinding.FragmentTrialRecordsBinding
 import com.perrigogames.life4.android.util.visibilityBool
 import com.perrigogames.life4.android.view.ContextMenuRecyclerView.RecyclerViewContextMenuInfo
 import com.perrigogames.life4.db.TrialSession
+import com.perrigogames.life4.viewmodel.TrialRecordsViewModel
 import org.koin.core.component.KoinComponent
 
 

@@ -20,6 +20,8 @@ import com.perrigogames.life4.db.TrialSession
 import com.perrigogames.life4.db.TrialSong
 import com.perrigogames.life4.longNumberString
 import com.perrigogames.life4.model.TrialManager
+import com.perrigogames.life4.model.TrialRecordsManager
+import com.perrigogames.life4.viewmodel.TrialRecordsViewModel
 import com.russhwolf.settings.Settings
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant
@@ -41,9 +43,10 @@ class TrialRecordsAdapter(
 ) : RecyclerView.Adapter<TrialRecordsAdapter.ViewHolder>(), KoinComponent {
 
     private val trialManager: TrialManager by inject()
+    private val trialRecordsManager: TrialRecordsManager by inject()
     private val settings: Settings by inject()
 
-    private val recordsList: List<TrialSession> get() = viewModel.records.value ?: emptyList()
+    private val recordsList: List<TrialSession> get() = emptyList()
     private val mOnClickListener = View.OnClickListener { v ->
         mListener?.onRecordsListInteraction(v.tag as TrialSession)
     }
@@ -55,7 +58,7 @@ class TrialRecordsAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = recordsList[position]
-        holder.set(item, trialManager.getSongsForSession(item.id))
+        holder.set(item, trialRecordsManager.getSongsForSession(item.id))
         with(holder.itemView) {
             tag = item
             setOnClickListener(mOnClickListener)

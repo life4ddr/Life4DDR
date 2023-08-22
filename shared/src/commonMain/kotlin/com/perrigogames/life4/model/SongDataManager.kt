@@ -59,6 +59,10 @@ class SongDataManager: BaseModel() {
         }
     }
 
+    fun findSong(id: Long): SongInfo? = songs.find { it.id == id }
+
+    fun findSong(skillId: String): SongInfo? = songs.find { it.skillId == skillId }
+
     fun getChartGroup(
         playStyle: PlayStyle,
         difficultyNumber: Long,

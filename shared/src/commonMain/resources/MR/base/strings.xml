@@ -4,6 +4,9 @@
     <string name="username">Username</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+
+    <string name="ex_score">EX Score</string>
+    <string name="ex_colon">EX:</string>
     <!--  endregion  -->
 
     <!--  region First Run  -->
