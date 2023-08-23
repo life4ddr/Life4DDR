@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- format: #RRGGBB[AA] or 0xRRGGBB[AA] or RRGGBB[AA] where [AA] - optional -->
+    <color name="colorPrimary">#FF0971</color>
+    <color name="colorPrimaryDark">#BB045A</color>
+    <color name="colorAccent">#008577</color>
+    <color name="colorWindowBackground">#242424</color>
+
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="gray">#444444</color>
+    <color name="orange">#FF8C00</color>
+
+    <color name="black_20">#00000033</color>
+    <color name="black_50">#0000007F</color>
+
+    <color name="white_70">#FFFFFFB2</color>
+    <color name="white_50">#FFFFFF80</color>
+    <color name="white_20">#FFFFFF33</color>
+
+    <color name="difficultyBeginner">#1FC6DB</color>
+    <color name="difficultyBasic">#F59E23</color>
+    <color name="difficultyDifficult">#FF1D25</color>
+    <color name="difficultyExpert">#00FF00</color>
+    <color name="difficultyChallenge">#C917C9</color>
+
+    <color name="copper">#925A3C</color>
+    <color name="bronze">#D36119</color>
+    <color name="silver">#8E8F93</color>
+    <color name="gold">#E7BA2C</color>
+    <color name="platinum">#A8F6FF</color>
+    <color name="diamond">#87DCFF</color>
+    <color name="cobalt">#0092DB</color>
+    <color name="pearl">#FDBAE9</color>
+    <color name="amethyst">#DF29FF</color>
+    <color name="emerald">#1AF80A</color>
+    <color name="onyx">#0A0A0A</color>
+
+    <color name="red_new">#FF4500</color>
+
+    <color name="no_play">#00000000</color>
+    <color name="fail">#594D27</color>
+    <color name="clear">#DDDD00</color>
+    <color name="life4">#DD0000</color>
+    <color name="good">#0070FF</color>
+    <color name="great">#00CC10</color>
+    <color name="perfect">#DDDD55</color>
+    <color name="marvelous">#EEEEEE</color>
+    <color name="clear_transparent">#DDDD00AF</color>
+    <color name="life4_transparent">#DD0000AF</color>
+    <color name="good_transparent">#0070FFAF</color>
+    <color name="great_transparent">#00CC10AF</color>
+    <color name="perfect_transparent">#DDDD55AF</color>
+    <color name="marvelous_transparent">#EEEEEEAF</color>
+</resources>

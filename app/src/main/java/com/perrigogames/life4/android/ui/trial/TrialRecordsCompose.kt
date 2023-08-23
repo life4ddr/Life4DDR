@@ -27,6 +27,7 @@ import com.perrigogames.life4.android.R
 import com.perrigogames.life4.android.colorRes
 import com.perrigogames.life4.android.compose.LIFE4Theme
 import com.perrigogames.life4.android.drawableRes
+import com.perrigogames.life4.android.ui.Life4Divider
 import com.perrigogames.life4.android.util.SizedSpacer
 import com.perrigogames.life4.data.trialrecords.UITrialMocks
 import com.perrigogames.life4.data.trialrecords.UITrialRecord
@@ -56,7 +57,7 @@ fun TrialRecordItem(
 ) {
     var expanded by remember { mutableStateOf(expanded) }
     val arrowRotationDegrees by remember {
-        derivedStateOf { if (expanded) 90 else 0 }
+        derivedStateOf { if (expanded) 0.25f else 0f }
     }
 
     Column(
@@ -118,10 +119,7 @@ fun TrialRecordItem(
                     .padding(horizontal = 8.dp)
                     .padding(bottom = 4.dp),
             ) {
-                Divider(
-                    thickness = 1.dp,
-                    color = MaterialTheme.colorScheme.inverseOnSurface,
-                )
+                Life4Divider()
                 SizedSpacer(4.dp)
                 LazyColumn {
                     items(record.trialSongs) { song ->
