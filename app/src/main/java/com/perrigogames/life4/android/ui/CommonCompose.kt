@@ -8,5 +8,5 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun Life4Divider() = Divider(
     thickness = 1.dp,
-    color = MaterialTheme.colorScheme.onSurface,
+    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.3f),
 )

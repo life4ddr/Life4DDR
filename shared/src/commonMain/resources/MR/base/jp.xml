@@ -1,0 +1,22 @@
+<resources>
+    <!--  region First Run  -->
+    <string name="first_run_landing_header">LIFE4へようこそ！</string>
+    <string name="first_run_landing_description">LIFE4初めてですか？</string>
+    <string name="first_run_username_new_header">ユーザー名を選択</string>
+    <string name="first_run_username_existing_header">LIFE4のユーザー名を入力</string>
+    <string name="first_run_username_description">これがLIFE4であなたを知る名前です。DDRのマシンで使用する名前と同じにすることもできますし、新しい名前を作成することもできます。</string>
+    <string name="first_run_rival_code_header">ライバルコードを入力</string>
+    <string name="first_run_rival_code_description_1">これはDDRのライバルマッチング用の数値IDです。XXXX-XXXXという形式の番号で、DDRをプレイするたびに表示されます。</string>
+    <string name="first_run_rival_code_description_2">空白のままにしておいて、いつでも変更できます。</string>
+    <string name="first_run_social_header">ソーシャルネットワークを使用しますか？</string>
+    <string name="first_run_social_description">これらは任意であり、見た目の装飾のみです。LIFE4アプリはこれらのサービスに接続しません。</string>
+    <string name="first_run_social_add_new">新しい接続を追加...</string>
+    <string name="first_run_rank_selection_header">あなたのランクは？</string>
+    <string name="first_run_rank_selection_footer">いつでもこのランクを後で変更できます。</string>
+    <string name="first_run_rank_method_placement">プレースメントセットをプレイ</string>
+    <string name="first_run_rank_method_selection">リストからランクを選択</string>
+    <string name="first_run_rank_method_no_rank">最初から開始</string>
+    <string name="first_run_error_username">ユーザー名は空にできません</string>
+    <string name="first_run_error_rival_code">ライバルコードは8桁でなければなりません</string>
+    <!--  endregion  -->
+</resources>

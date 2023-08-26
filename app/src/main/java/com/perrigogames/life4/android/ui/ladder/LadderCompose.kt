@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
-
 package com.perrigogames.life4.android.ui.ladder
 
 import android.widget.Toast
@@ -13,7 +11,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Checkbox
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
@@ -42,13 +39,18 @@ fun LadderGoals(
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(modifier = modifier) {
-        items(data.goals) { goal ->
-            LadderGoalItem(
-                goal = goal,
-                onCompletedChanged = onCompletedChanged,
-                onHiddenChanged = onHiddenChanged,
-                modifier = Modifier.fillParentMaxWidth(),
-            )
+        when (val goals = data.goals) {
+            is UILadderGoals.SingleList -> {
+                items(goals.items) { goal ->
+                    LadderGoalItem(
+                        goal = goal,
+                        onCompletedChanged = onCompletedChanged,
+                        onHiddenChanged = onHiddenChanged,
+                        modifier = Modifier.fillParentMaxWidth(),
+                    )
+                }
+            }
+            is UILadderGoals.CategorizedList -> item { Text("FIXME") }
         }
     }
 }

@@ -4,9 +4,18 @@ import com.perrigogames.life4.enums.DifficultyClass
 import com.perrigogames.life4.enums.colorRes
 import dev.icerock.moko.resources.ColorResource
 
+typealias CategorizedUILadderGoals = List<Pair<String, List<UILadderGoal>>>
+
 data class UILadderData(
-    val goals: List<UILadderGoal>,
-)
+    val goals: UILadderGoals,
+) {
+    constructor(items: List<UILadderGoal>) : this(goals = UILadderGoals.SingleList(items))
+}
+
+sealed class UILadderGoals {
+    data class SingleList(val items: List<UILadderGoal>) : UILadderGoals()
+    data class CategorizedList(val categories: CategorizedUILadderGoals) : UILadderGoals()
+}
 
 data class UILadderGoal(
     val goalText: String,
