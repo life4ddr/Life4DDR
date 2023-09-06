@@ -8,6 +8,7 @@ import com.perrigogames.life4.data.PlacementRank
 import com.perrigogames.life4.data.RankGoalUserType
 import com.perrigogames.life4.enums.*
 
+@Deprecated("Migrate to moko resources", replaceWith = ReplaceWith("MR.strings"))
 val LadderRank.nameRes @StringRes get() = when(this) {
     LadderRank.COPPER1 -> R.string.copper_1
     LadderRank.COPPER2 -> R.string.copper_2
@@ -66,6 +67,7 @@ val LadderRank.nameRes @StringRes get() = when(this) {
     LadderRank.ONYX5 -> R.string.onyx_5
 }
 
+@Deprecated("Migrate to moko resources", replaceWith = ReplaceWith("MR.strings"))
 val LadderRank.categoryNameRes @StringRes get() = when(this) {
     LadderRank.COPPER1,
     LadderRank.BRONZE1,
@@ -182,10 +184,12 @@ val LadderRank.drawableRes @DrawableRes get() = when(this) {
     LadderRank.ONYX5 -> R.drawable.onyx_5
 }
 
+@Deprecated("Migrate to moko resources", replaceWith = ReplaceWith("MR.strings"))
 val LadderRank.groupNameRes @StringRes get() = group.nameRes
 @Deprecated("Migrate to moko resources", replaceWith = ReplaceWith("MR.colors"))
 val LadderRank.colorRes @ColorRes get() = group.colorRes
 
+@Deprecated("Migrate to moko resources", replaceWith = ReplaceWith("MR.strings"))
 val LadderRankClass.nameRes @StringRes get() = when(this) {
     LadderRankClass.COPPER -> R.string.copper
     LadderRankClass.BRONZE -> R.string.bronze
@@ -215,6 +219,7 @@ val LadderRankClass.colorRes @ColorRes get() = when(this) {
     LadderRankClass.ONYX -> R.color.onyx
 }
 
+@Deprecated("Migrate to moko resources", replaceWith = ReplaceWith("MR.strings"))
 val TrialRank.nameRes @StringRes get() = when(this) {
     TrialRank.COPPER -> R.string.copper
     TrialRank.BRONZE -> R.string.bronze
@@ -245,7 +250,7 @@ val TrialRank.drawableRes @DrawableRes get() = when(this) {
 
 @Deprecated("Migrate to moko resources", replaceWith = ReplaceWith("MR.colors"))
 val TrialRank.colorRes @ColorRes get() = parent.colorRes
-
+@Deprecated("Migrate to moko resources", replaceWith = ReplaceWith("MR.strings"))
 val PlacementRank.nameRes @StringRes get() = parent.nameRes
 @Deprecated("Migrate to moko resources", replaceWith = ReplaceWith("MR.colors"))
 val PlacementRank.colorRes @ColorRes get() = parent.colorRes
@@ -259,6 +264,7 @@ val DifficultyClass.colorRes @ColorRes get() = when(this) {
     DifficultyClass.CHALLENGE -> R.color.difficultyChallenge
 }
 
+@Deprecated("Migrate to moko resources", replaceWith = ReplaceWith("MR.strings"))
 val DifficultyClass.nameRes @StringRes get() = when(this) {
     DifficultyClass.BEGINNER -> R.string.bgsp
     DifficultyClass.BASIC -> R.string.bsp
@@ -267,6 +273,7 @@ val DifficultyClass.nameRes @StringRes get() = when(this) {
     DifficultyClass.CHALLENGE -> R.string.csp
 }
 
+@Deprecated("Migrate to moko resources", replaceWith = ReplaceWith("MR.strings"))
 val DifficultyClass.abbreviationRes @StringRes get() = when(this) {
     DifficultyClass.BEGINNER -> R.string.bgsp
     DifficultyClass.BASIC -> R.string.bsp

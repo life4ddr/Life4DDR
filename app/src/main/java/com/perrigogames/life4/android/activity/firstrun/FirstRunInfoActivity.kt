@@ -19,8 +19,8 @@ class FirstRunInfoActivity: AppCompatActivity(), KoinComponent {
         setContent {
             LIFE4Theme {
                 Surface(
-                    color = MaterialTheme.colorScheme.surface,
-                    contentColor = MaterialTheme.colorScheme.onSurface,
+                    color = MaterialTheme.colorScheme.background,
+                    contentColor = MaterialTheme.colorScheme.onBackground,
                 ) {
                     FirstRunScreen(
                         onComplete = ::replaceWithInitActivity,

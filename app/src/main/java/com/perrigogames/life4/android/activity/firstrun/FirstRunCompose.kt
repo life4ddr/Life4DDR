@@ -28,7 +28,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -36,6 +35,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.perrigogames.life4.MR
 import com.perrigogames.life4.android.R
 import com.perrigogames.life4.android.compose.LIFE4Theme
 import com.perrigogames.life4.android.compose.primaryButtonColors
@@ -50,6 +50,7 @@ import com.perrigogames.life4.viewmodel.FirstRunStep
 import com.perrigogames.life4.viewmodel.FirstRunStep.Landing
 import com.perrigogames.life4.viewmodel.FirstRunStep.PathStep.*
 import dev.icerock.moko.mvvm.createViewModelFactory
+import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
 fun FirstRunScreen(
@@ -151,7 +152,7 @@ fun FirstRunHeader(
                 .padding(bottom = 8.dp),
         ) {
             Text(
-                text = stringResource(R.string.first_run_landing_header),
+                text = stringResource(MR.strings.first_run_landing_header),
                 color = MaterialTheme.colorScheme.onSurface,
                 style = MaterialTheme.typography.headlineMedium,
             )
@@ -174,7 +175,7 @@ fun FirstRunNewUser(
 ) {
     Column(modifier = modifier) {
         Text(
-            text = stringResource(R.string.first_run_landing_description),
+            text = stringResource(MR.strings.first_run_landing_description),
             color = MaterialTheme.colorScheme.onSurface,
             style = MaterialTheme.typography.titleLarge,
             modifier = Modifier.align(alignment = Alignment.CenterHorizontally),
@@ -188,7 +189,7 @@ fun FirstRunNewUser(
                 onClick = { onNewUserSelected(true) },
                 colors = primaryButtonColors(),
                 content = { Text(
-                    text = stringResource(R.string.yes),
+                    text = stringResource(MR.strings.yes),
                 ) },
                 modifier = Modifier.weight(1f, false)
             )
@@ -197,7 +198,7 @@ fun FirstRunNewUser(
                 onClick = { onNewUserSelected(false) },
                 colors = primaryButtonColors(),
                 content = { Text(
-                    text = stringResource(R.string.no),
+                    text = stringResource(MR.strings.no),
                 ) },
                 modifier = Modifier.weight(1f, false)
             )
@@ -243,7 +244,7 @@ fun FirstRunUsername(
                 focusedTextColor = MaterialTheme.colorScheme.onSurface,
             ),
             label = { Text(
-                text = stringResource(R.string.username),
+                text = stringResource(MR.strings.username),
             ) },
             singleLine = true,
             keyboardOptions = KeyboardOptions(
@@ -281,19 +282,19 @@ fun FirstRunRivalCode(
 
     Column(modifier = modifier) {
         Text(
-            text = stringResource(R.string.first_run_rival_code_header),
+            text = stringResource(MR.strings.first_run_rival_code_header),
             color = MaterialTheme.colorScheme.onSurface,
             style = MaterialTheme.typography.headlineMedium,
         )
         Spacer(modifier = Modifier.size(16.dp))
         Text(
-            text = stringResource(R.string.first_run_rival_code_description_1),
+            text = stringResource(MR.strings.first_run_rival_code_description_1),
             color = MaterialTheme.colorScheme.onSurface,
             style = MaterialTheme.typography.bodyMedium,
         )
         Spacer(modifier = Modifier.size(8.dp))
         Text(
-            text = stringResource(R.string.first_run_rival_code_description_2),
+            text = stringResource(MR.strings.first_run_rival_code_description_2),
             color = MaterialTheme.colorScheme.onSurface,
             style = MaterialTheme.typography.bodyMedium,
         )
@@ -392,13 +393,13 @@ fun FirstRunSocials(
 
     Column(modifier = modifier) {
         Text(
-            text = stringResource(R.string.first_run_social_header),
+            text = stringResource(MR.strings.first_run_social_header),
             color = MaterialTheme.colorScheme.onSurface,
             style = MaterialTheme.typography.headlineMedium,
         )
         Spacer(modifier = Modifier.size(16.dp))
         Text(
-            text = stringResource(R.string.first_run_social_description),
+            text = stringResource(MR.strings.first_run_social_description),
             color = MaterialTheme.colorScheme.onSurface,
             style = MaterialTheme.typography.bodyMedium,
         )
@@ -411,7 +412,7 @@ fun FirstRunSocials(
                     onClick = {},
                     content = {
                         Text(
-                            text = stringResource(R.string.first_run_social_add_new),
+                            text = stringResource(MR.strings.first_run_social_add_new),
                             color = MaterialTheme.colorScheme.onSurface
                         )
                     }
@@ -457,7 +458,7 @@ fun FirstRunRankMethod(
         }
 
         Text(
-            text = stringResource(R.string.first_run_rank_selection_header),
+            text = stringResource(MR.strings.first_run_rank_selection_header),
             color = MaterialTheme.colorScheme.onSurface,
             style = MaterialTheme.typography.headlineMedium,
             modifier = Modifier.align(Alignment.CenterHorizontally)
@@ -469,7 +470,7 @@ fun FirstRunRankMethod(
         }
         Spacer(modifier = Modifier.size(16.dp))
         Text(
-            text = stringResource(R.string.first_run_rank_selection_footer),
+            text = stringResource(MR.strings.first_run_rank_selection_footer),
             textAlign = TextAlign.Center,
             color = MaterialTheme.colorScheme.onSurface,
             style = MaterialTheme.typography.labelMedium,

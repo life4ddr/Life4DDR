@@ -2,14 +2,16 @@ package com.perrigogames.life4.android.activity.firstrun
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.compose.material.Surface
+import androidx.compose.material3.MaterialTheme
 import com.perrigogames.life4.android.activity.firstrun.PlacementDetailsActivity.Companion.RESULT_FINISHED
+import com.perrigogames.life4.android.compose.LIFE4Theme
 import com.perrigogames.life4.android.databinding.ActivityPlacementListBinding
 import com.perrigogames.life4.android.manager.intentClass
 import com.perrigogames.life4.android.manager.replaceWithInitActivity
-import com.perrigogames.life4.android.ui.firstrun.PlacementListAdapter
 import com.perrigogames.life4.model.PlacementManager
 import com.perrigogames.life4.model.settings.FirstRunSettingsManager
 import com.perrigogames.life4.model.settings.InitState
@@ -35,16 +37,19 @@ class PlacementListActivity : AppCompatActivity(), KoinComponent {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityPlacementListBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        binding.recyclerPlacements.layoutManager = LinearLayoutManager(this)
-        binding.recyclerPlacements.adapter = PlacementListAdapter(placementManager.placements) { id ->
-            startPlacement.launch(PlacementDetailsActivity.intent(this, id))
+        setContent {
+            LIFE4Theme {
+                Surface(
+                    color = MaterialTheme.colorScheme.background,
+                    contentColor = MaterialTheme.colorScheme.onBackground,
+                ) {
+                    PlacementScreen(
+                        onComplete = ::replaceWithInitActivity,
+                        onClose = { finish() },
+                    )
+                }
+            }
         }
-
-        binding.buttonRanks.setOnClickListener { onRanksClick() }
-        binding.buttonNoRank.setOnClickListener { onNoRankClick() }
     }
 
     private fun onRanksClick() = replaceWithInitActivity(InitState.RANKS)

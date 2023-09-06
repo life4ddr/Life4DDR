@@ -28,12 +28,12 @@
     <color name="bronze">#D36119</color>
     <color name="silver">#8E8F93</color>
     <color name="gold">#E7BA2C</color>
-    <color name="platinum">#A8F6FF</color>
-    <color name="diamond">#87DCFF</color>
+    <color name="platinum">#D5FEFF</color>
+    <color name="diamond">#98E1FF</color>
     <color name="cobalt">#0092DB</color>
     <color name="pearl">#FDBAE9</color>
     <color name="amethyst">#DF29FF</color>
-    <color name="emerald">#1AF80A</color>
+    <color name="emerald">#18CE09</color>
     <color name="onyx">#0A0A0A</color>
 
     <color name="red_new">#FF4500</color>

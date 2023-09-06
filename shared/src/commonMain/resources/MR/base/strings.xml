@@ -10,8 +10,8 @@
     <!--  endregion  -->
 
     <!--  region First Run  -->
-    <string name="first_run_landing_header">Welcome to LIFE4!</string>
-    <string name="first_run_landing_description">Are you new to LIFE4?</string>
+    <string name="first_run_landing_header">Welcome to</string>
+    <string name="first_run_landing_description">Are you new here?</string>
     <string name="first_run_username_new_header">Select a username</string>
     <string name="first_run_username_existing_header">Enter your LIFE4 username</string>
     <string name="first_run_username_description">This is the name LIFE4 knows you by. You can make it the same name you go by on the DDR machine, or you can create a new one.</string>
@@ -28,7 +28,92 @@
     <string name="first_run_rank_method_no_rank">Start from the beginning</string>
     <string name="first_run_error_username">Username must not be empty</string>
     <string name="first_run_error_rival_code">Rival code must be 8 digits long</string>
-    <!--  endregion  -->
+    <string name="placement_description_text">Placement Sets are a quick way to get into the LIFE4 system or better learn where you should begin.\n\nWhen choosing a placement set, select which set you think will most accurately showcase your skill level.\n\nDon’t worry about choosing the wrong set; you will still be placed accordingly.</string>
+    <string name="placement_start">Play Now</string>
+    <!-- endregion -->
+
+    <!-- region Difficulty Strings -->
+    <string name="bgsp">bSP</string>
+    <string name="bsp">BSP</string>
+    <string name="dsp">DSP</string>
+    <string name="esp">ESP</string>
+    <string name="csp">CSP</string>
+    <!-- endregion -->
+
+    <!-- region Rank Strings -->
+    <string name="none">NONE</string>
+    <string name="copper">COPPER</string>
+    <string name="copper_1">COPPER I</string>
+    <string name="copper_2">COPPER II</string>
+    <string name="copper_3">COPPER III</string>
+    <string name="copper_4">COPPER IV</string>
+    <string name="copper_5">COPPER V</string>
+    <string name="bronze">BRONZE</string>
+    <string name="bronze_1">BRONZE I</string>
+    <string name="bronze_2">BRONZE II</string>
+    <string name="bronze_3">BRONZE III</string>
+    <string name="bronze_4">BRONZE IV</string>
+    <string name="bronze_5">BRONZE V</string>
+    <string name="silver">SILVER</string>
+    <string name="silver_1">SILVER I</string>
+    <string name="silver_2">SILVER II</string>
+    <string name="silver_3">SILVER III</string>
+    <string name="silver_4">SILVER IV</string>
+    <string name="silver_5">SILVER V</string>
+    <string name="gold">GOLD</string>
+    <string name="gold_1">GOLD I</string>
+    <string name="gold_2">GOLD II</string>
+    <string name="gold_3">GOLD III</string>
+    <string name="gold_4">GOLD IV</string>
+    <string name="gold_5">GOLD V</string>
+    <string name="platinum">PLATINUM</string>
+    <string name="platinum_1">PLATINUM I</string>
+    <string name="platinum_2">PLATINUM II</string>
+    <string name="platinum_3">PLATINUM III</string>
+    <string name="platinum_4">PLATINUM IV</string>
+    <string name="platinum_5">PLATINUM V</string>
+    <string name="diamond">DIAMOND</string>
+    <string name="diamond_1">DIAMOND I</string>
+    <string name="diamond_2">DIAMOND II</string>
+    <string name="diamond_3">DIAMOND III</string>
+    <string name="diamond_4">DIAMOND IV</string>
+    <string name="diamond_5">DIAMOND V</string>
+    <string name="cobalt">COBALT</string>
+    <string name="cobalt_1">COBALT I</string>
+    <string name="cobalt_2">COBALT II</string>
+    <string name="cobalt_3">COBALT III</string>
+    <string name="cobalt_4">COBALT IV</string>
+    <string name="cobalt_5">COBALT V</string>
+    <string name="pearl">PEARL</string>
+    <string name="pearl_1">PEARL I</string>
+    <string name="pearl_2">PEARL II</string>
+    <string name="pearl_3">PEARL III</string>
+    <string name="pearl_4">PEARL IV</string>
+    <string name="pearl_5">PEARL V</string>
+    <string name="amethyst">AMETHYST</string>
+    <string name="amethyst_1">AMETHYST I</string>
+    <string name="amethyst_2">AMETHYST II</string>
+    <string name="amethyst_3">AMETHYST III</string>
+    <string name="amethyst_4">AMETHYST IV</string>
+    <string name="amethyst_5">AMETHYST V</string>
+    <string name="emerald">EMERALD</string>
+    <string name="emerald_1">EMERALD I</string>
+    <string name="emerald_2">EMERALD II</string>
+    <string name="emerald_3">EMERALD III</string>
+    <string name="emerald_4">EMERALD IV</string>
+    <string name="emerald_5">EMERALD V</string>
+    <string name="onyx">ONYX</string>
+    <string name="onyx_1">ONYX I</string>
+    <string name="onyx_2">ONYX II</string>
+    <string name="onyx_3">ONYX III</string>
+    <string name="onyx_4">ONYX IV</string>
+    <string name="onyx_5">ONYX V</string>
+    <string name="roman_1">I</string>
+    <string name="roman_2">II</string>
+    <string name="roman_3">III</string>
+    <string name="roman_4">IV</string>
+    <string name="roman_5">V</string>
+    <!-- endregion -->
 
     <!--  region Format Strings  -->
 
