@@ -49,7 +49,8 @@ class PlacementListActivity : AppCompatActivity(), KoinComponent {
                         PlacementScreen(
                             data = placementManager.createUiData(),
                             onPlacementSelected = { startPlacement.launch(PlacementDetailsActivity.intent(this@PlacementListActivity, it)) },
-                            modifier = Modifier.weight(1f)
+                            modifier = Modifier.weight(1f),
+                            onPlacementBypassed = { TODO() }
                         )
                         Row {
                             Button(
