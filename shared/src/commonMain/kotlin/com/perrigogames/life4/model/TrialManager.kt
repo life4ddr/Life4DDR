@@ -1,19 +1,15 @@
 package com.perrigogames.life4.model
 
 import com.perrigogames.life4.*
-import com.perrigogames.life4.api.base.FetchListener
-import com.perrigogames.life4.api.base.LocalDataReader
 import com.perrigogames.life4.api.TrialRemoteData
 import com.perrigogames.life4.api.base.CompositeData
-import com.perrigogames.life4.data.TrialData
+import com.perrigogames.life4.api.base.LocalDataReader
 import com.perrigogames.life4.data.InProgressTrialSession
+import com.perrigogames.life4.data.TrialData
 import com.perrigogames.life4.db.SelectBestSessions
 import com.perrigogames.life4.db.TrialDatabaseHelper
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.TRIALS_FILE_NAME
 import com.perrigogames.life4.ktor.Life4API
-import com.perrigogames.life4.logException
-import com.perrigogames.life4.setCrashInt
-import com.perrigogames.life4.setCrashString
 import com.russhwolf.settings.Settings
 import kotlinx.coroutines.launch
 import org.koin.core.inject
@@ -42,6 +38,7 @@ class TrialManager: BaseModel() {
 
         override fun onMajorVersionBlock() = eventBus.postSticky(DataRequiresAppUpdateEvent())
     })
+    val dataVersionString get() = trialData.versionString
 
     val trials get() = trialData.data.trials
     val activeTrials get() = trials.filter { !it.isEvent || it.isActiveEvent }

@@ -1,5 +1,5 @@
 {
-	"version": 1,
+	"version": 2,
 	"major_version": 3,
 	"goals": [
 		{ "id": 1001, "t": "calories", "count": 300 },
@@ -22,8 +22,8 @@
 		{ "id": 2008, "t": "songs", "diff_class": "EC", "song_count": 5, "clear_type": "great" },
 		{ "id": 2009, "t": "songs", "diff_class": "EC", "song_count": 10, "clear_type": "great" },
 		{ "id": 2010, "t": "songs", "diff_class": "EC", "song_count": 20, "clear_type": "great" },
-		{ "id": 2501, "t": "songs", "diff_class": "B", "songs": ["EGOISM 440", "ENDYMION", "Over the “Period”", "Paranoia Revolution", "Valkyrie Dimension"] },
-		{ "id": 2502, "t": "songs", "diff_class": "D", "songs": ["EGOISM 440", "ENDYMION", "Over the “Period”", "Paranoia Revolution", "Valkyrie Dimension"] },
+		{ "id": 2501, "t": "songs", "diff_class": "B", "songs": ["EGOISM 440", "ENDYMION", "MAX 360", "Over the “Period”", "Paranoia Revolution", "Valkyrie Dimension"] },
+		{ "id": 2502, "t": "songs", "diff_class": "D", "songs": ["EGOISM 440", "ENDYMION", "MAX 360", "Over the “Period”", "Paranoia Revolution", "Valkyrie Dimension"] },
 		{ "id": 2503, "t": "songs", "d": 19, "diff_class": "C", "songs": ["ENDYMION"], "score": 700000 },
 		{ "id": 2503, "t": "songs", "d": 19, "diff_class": "C", "songs": ["ENDYMION"], "score": 700000 },
 		{ "id": 2504, "t": "songs", "d": 19, "diff_class": "C", "songs": ["ENDYMION"], "score": 725000 },

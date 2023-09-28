@@ -1,24 +1,23 @@
 package com.perrigogames.life4.model
 
 import com.perrigogames.life4.*
-import com.perrigogames.life4.data.BaseRankGoal
-import com.perrigogames.life4.db.GoalDatabaseHelper
 import com.perrigogames.life4.SettingsKeys.KEY_INFO_RANK
 import com.perrigogames.life4.SettingsKeys.KEY_INFO_TARGET_RANK
-import com.perrigogames.life4.api.base.FetchListener
 import com.perrigogames.life4.api.LadderRemoteData
 import com.perrigogames.life4.api.base.CompositeData
 import com.perrigogames.life4.api.base.LocalDataReader
-import com.perrigogames.life4.enums.LadderRank
+import com.perrigogames.life4.data.BaseRankGoal
 import com.perrigogames.life4.data.LadderRankData
 import com.perrigogames.life4.data.LadderVersion
+import com.perrigogames.life4.db.GoalDatabaseHelper
+import com.perrigogames.life4.db.GoalState
 import com.perrigogames.life4.db.ResultDatabaseHelper
-import com.perrigogames.life4.db.*
 import com.perrigogames.life4.enums.GoalStatus
+import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.RANKS_FILE_NAME
 import com.russhwolf.settings.Settings
 import com.russhwolf.settings.set
-import kotlinx.coroutines.*
+import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
 import org.koin.core.inject
 import org.koin.core.qualifier.named
@@ -45,6 +44,8 @@ class LadderManager: BaseModel() {
 
         override fun onMajorVersionBlock() = eventBus.postSticky(DataRequiresAppUpdateEvent())
     }).apply { start() }
+
+    val dataVersionString get() = ladderDataRemote.versionString
 
     val ladderData: LadderRankData get() = ladderDataRemote.data
     val currentRequirements: LadderVersion

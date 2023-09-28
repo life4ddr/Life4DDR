@@ -26,6 +26,8 @@ class IgnoreListManager: BaseModel() {
     private val ignoreLists = IgnoreListRemoteData(dataReader)
         .apply { start() }
 
+    val dataVersionString get() = ignoreLists.versionString
+
     //
     // General Ignorelist
     //

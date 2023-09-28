@@ -225,6 +225,10 @@ class SettingsActivity : AppCompatActivity(),
                 title = "Version ${BuildConfig.VERSION_NAME}${
                     if (BuildConfig.DEBUG) " (${BuildConfig.VERSION_CODE})"
                     else ""}"
+                onPreferenceClickListener = Preference.OnPreferenceClickListener {
+                    VersionsDialog().show(requireActivity().supportFragmentManager, VersionsDialog.TAG)
+                    true
+                }
             }
         }
 

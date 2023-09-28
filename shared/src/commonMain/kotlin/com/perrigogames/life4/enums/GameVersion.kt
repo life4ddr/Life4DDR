@@ -1,7 +1,9 @@
 package com.perrigogames.life4.enums
 
 import com.perrigogames.life4.data.StableId
-import kotlinx.serialization.*
+import kotlinx.serialization.ExperimentalSerializationApi
+import kotlinx.serialization.KSerializer
+import kotlinx.serialization.Serializer
 import kotlinx.serialization.descriptors.PrimitiveKind
 import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
 import kotlinx.serialization.descriptors.SerialDescriptor
@@ -26,7 +28,8 @@ enum class GameVersion(override val stableId: Long): StableId {
     DDR_2013(14),
     DDR_2014(15),
     ACE(16),
-    A20(17);
+    A20(17),
+    A20_PLUS(18);
 
     companion object {
         fun parse(stableId: Long?) = stableId?.let { id -> values().firstOrNull { it.stableId == id } }
