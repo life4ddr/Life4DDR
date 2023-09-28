@@ -3,7 +3,6 @@ package com.perrigogames.life4trials
 import android.content.Context
 import android.util.Log
 import androidx.multidex.MultiDexApplication
-import com.perrigogames.life4trials.api.FirebaseUtil
 import com.perrigogames.life4trials.api.GithubDataAPI
 import com.perrigogames.life4trials.api.Life4API
 import com.perrigogames.life4trials.db.MyObjectBox
@@ -75,9 +74,9 @@ class Life4Application: MultiDexApplication() {
         NotificationUtil.setupNotifications(this)
         SharedPrefsUtil.handleMajorUpdate(this)
 
-        if (BuildConfig.DEBUG) {
-            FirebaseUtil.getId(this)
-        }
+//        if (BuildConfig.DEBUG) {
+//            FirebaseUtil.getId(this)
+//        }
     }
 
     companion object {

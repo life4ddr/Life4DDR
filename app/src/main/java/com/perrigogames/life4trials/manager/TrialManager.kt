@@ -72,10 +72,10 @@ class TrialManager(private val context: Context,
     }
 
     private fun validateTrials() = trials.forEach { trial ->
-        if (trial.songs.count { it.ex != null } == 4) {
-            var sum = 0
-            trial.songs.forEach { sum += it.ex!! }
-            if (sum != trial.total_ex) {
+        var sum = 0
+        trial.songs.forEach { sum += it.ex }
+        if (sum != trial.total_ex) {
+            if (!BuildConfig.DEBUG) {
                 Crashlytics.logException(Exception("Trial ${trial.name} has improper EX values: total_ex=${trial.total_ex}, sum=$sum"))
             }
         }
@@ -187,7 +187,7 @@ class TrialManager(private val context: Context,
                 .setNegativeButton(R.string.no) { _, _ -> onFinish() }
                 .setPositiveButton(R.string.yes) { _, _ ->
                     if (SharedPrefsUtil.getUserFlag(context, SettingsActivity.KEY_SUBMISSION_NOTIFICAION, false)) {
-                        NotificationUtil.showUserInfoNotifications(context, session.totalExScore)
+                        NotificationUtil.showUserInfoNotifications(context, session.currentTotalExScore)
                     }
                     context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(context.getString(R.string.url_trial_submission_form))))
                     onFinish()
@@ -199,10 +199,12 @@ class TrialManager(private val context: Context,
     }
 
     override fun onApplicationException() {
-        Crashlytics.setInt("trials_version", trialData.data.version)
-        Crashlytics.setInt("trials_major_version", trialData.data.majorVersion)
-        Crashlytics.setInt("trials_engine", trialData.majorVersion)
-        Crashlytics.setString("trials", trials.joinToString { it.id })
+        if (!BuildConfig.DEBUG) {
+            Crashlytics.setInt("trials_version", trialData.data.version)
+            Crashlytics.setInt("trials_major_version", trialData.data.majorVersion)
+            Crashlytics.setInt("trials_engine", trialData.majorVersion)
+            Crashlytics.setString("trials", trials.joinToString { it.id })
+        }
     }
 
     companion object {

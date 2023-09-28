@@ -5,6 +5,7 @@ import android.os.Handler
 import android.util.Log
 import androidx.appcompat.app.AlertDialog
 import com.crashlytics.android.Crashlytics
+import com.perrigogames.life4trials.BuildConfig
 import com.perrigogames.life4trials.Life4Application
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_IMPORT_GAME_VERSION
@@ -56,6 +57,9 @@ class SongDataManager(private val context: Context,
     fun onMajorVersion(e: MajorUpdateProcessEvent) {
         if (e.version == MajorUpdate.SONG_DB) {
             initializeSongDatabase()
+        } else if (e.version == MajorUpdate.DOUBLES_FIX) {
+            chartBox.remove(getChartsByPlayStyle(PlayStyle.DOUBLE))
+            refreshSongDatabase(force = true)
         }
     }
 
@@ -83,19 +87,28 @@ class SongDataManager(private val context: Context,
                 val id = data[0].toLong()
                 val title = data[1]
                 var preview = false
-                val mix = data[2].let {
+                val mix = GameVersion.parse(data[2].let {
                     it.toLongOrNull() ?: it.substring(0, it.length - 1).let { seg ->
                         preview = true
                         seg.toLong()
                     }
-                }
+                })
                 val existingSong: SongDB? = songContents.firstOrNull { it.id == id }
-                val song = existingSong ?: SongDB(title, null, GameVersion.parse(mix), preview).also { song ->
+                existingSong?.let {
+                    if (it.title != title || it.artist != null || it.version != mix || it.preview != preview) {
+                        it.title = title
+                        it.artist = null
+                        it.version = mix
+                        it.preview = preview
+                        songBox.put(it)
+                    }
+                }
+                val song = existingSong ?: SongDB(title, null, mix, preview).also { song ->
                     songBox.attach(song)
                 }
                 PlayStyle.values().forEachIndexed { sIdx, style ->
                     DifficultyClass.values().forEachIndexed { dIdx, diff ->
-                        val diffStr = data[3 + ((sIdx + 1) * dIdx)]
+                        val diffStr = data[3 + ((sIdx * DifficultyClass.values().size) + dIdx)]
                         if (diffStr.isNotEmpty()) {
                             updateOrCreateChartForSong(song, style, diff, diffStr.toInt(), false).also { chart ->
                                 dbCharts.add(chart)
@@ -193,6 +206,9 @@ class SongDataManager(private val context: Context,
     private val multipleGameVersionQuery = songBox.query()
         .`in`(SongDB_.version, LongArray(0)).parameterAlias("versions")
         .build()
+    private val chartPlayStyleQuery = chartBox.query()
+        .equal(ChartDB_.playStyle, 0).parameterAlias("play_style")
+        .build()
     private val chartDifficultyQuery = chartBox.query().apply {
         equal(ChartDB_.difficultyNumber, 0).parameterAlias("difficulty")
         equal(ChartDB_.playStyle, 0).parameterAlias("play_style")
@@ -213,12 +229,16 @@ class SongDataManager(private val context: Context,
 
     fun getChartsById(ids: LongArray): MutableList<ChartDB> = chartBox.get(ids)
 
-    fun getChartsByDifficulty(difficulty: Int, playStyle: PlayStyle): MutableList<ChartDB> =
+    fun getChartsByPlayStyle(playStyle: PlayStyle): MutableList<ChartDB> =
+        chartPlayStyleQuery.setParameter("play_style", playStyle.stableId)
+            .find()
+
+    fun getFilteredChartsByDifficulty(difficulty: Int, playStyle: PlayStyle): MutableList<ChartDB> =
         chartDifficultyQuery.setParameter("difficulty", difficulty.toLong())
             .setParameter("play_style", playStyle.stableId)
             .find()
 
-    fun getChartsByDifficulty(difficultyList: IntArray, playStyle: PlayStyle): MutableList<ChartDB> = mutableListOf<ChartDB>().apply {
+    fun getFilteredChartsByDifficulty(difficultyList: IntArray, playStyle: PlayStyle): MutableList<ChartDB> = mutableListOf<ChartDB>().apply {
         difficultyList.forEach {
             addAll(chartDifficultyQuery
                 .setParameter("difficulty", it.toLong())
@@ -243,7 +263,9 @@ class SongDataManager(private val context: Context,
         val chart = song.charts.firstOrNull { it.playStyle == playStyle && it.difficultyClass == difficultyClass }
         chart?.let {
             if (it.difficultyNumber != difficultyNumber) {
-                Crashlytics.logException(UnexpectedDifficultyNumberException(it, difficultyNumber))
+                if (!BuildConfig.DEBUG) {
+                    Crashlytics.logException(UnexpectedDifficultyNumberException(it, difficultyNumber))
+                }
                 it.difficultyNumber = difficultyNumber
                 if (commit) {
                     chartBox.put(it)

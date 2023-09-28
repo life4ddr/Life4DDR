@@ -11,7 +11,7 @@ import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.event.MajorUpdateProcessEvent
 
 enum class MajorUpdate {
-    SONG_DB, A20_REQUIRED
+    SONG_DB, A20_REQUIRED, DOUBLES_FIX
 }
 
 object SharedPrefsUtil {

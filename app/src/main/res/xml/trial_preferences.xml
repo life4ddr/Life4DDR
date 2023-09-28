@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory app:title="@string/trial_list">
         <CheckBoxPreference
             app:key="KEY_LIST_SHOW_EX"
@@ -23,12 +24,14 @@
             app:key="KEY_DETAILS_PHOTO_SELECT"
             app:title="@string/photo_select" />
         <CheckBoxPreference
-            app:key="KEY_DETAILS_EXPERT"
-            app:title="@string/expert_score" />
-        <CheckBoxPreference
             app:defaultValue="true"
             app:key="KEY_DETAILS_ENFORCE_EXPERT"
             app:title="@string/enforce_expert" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            app:key="KEY_DETAILS_UPDATE_GOAL"
+            app:title="@string/automatically_adjust_rank"
+            app:summary="@string/automatically_adjust_rank_description" />
     </PreferenceCategory>
 
     <PreferenceCategory app:title="@string/trial_records">

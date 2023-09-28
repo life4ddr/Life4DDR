@@ -4,14 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.perrigogames.life4trials">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-
-    <dist:module dist:instant="true" />
-
     <application
         android:name=".Life4Application"
         android:allowBackup="true"
@@ -22,13 +14,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup">
+        <activity android:name=".activity.CardDrawSetupActivity"></activity>
         <activity android:name=".activity.BlockListCheckActivity" />
         <activity android:name=".activity.SongRecordsListCheckActivity" />
         <activity android:name=".activity.PlacementListActivity" />
-
-        <meta-data
-            android:name="com.google.firebase.messaging.default_notification_channel_id"
-            android:value="ID_UPDATES_CHANNEL" />
 
         <activity
             android:name=".activity.LaunchActivity"
@@ -41,6 +30,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".activity.FirstRunInfoActivity"
             android:screenOrientation="portrait"
@@ -89,22 +79,9 @@
         </activity>
         <activity android:name=".activity.FirstRankSelectionActivity" />
         <activity android:name=".activity.CreditsActivity" />
-
-        <service
-            android:name=".api.Life4FirebaseMessagingService"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
-
-        <receiver
-            android:name=".util.NotificationCopyHandler"
-            android:enabled="true">
-            <intent-filter>
-                <action android:name="ACTION_COPY_CLIPBOARD" />
-            </intent-filter>
-        </receiver>
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="ID_UPDATES_CHANNEL" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -115,6 +92,30 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
+
+        <receiver
+            android:name=".util.NotificationCopyHandler"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="ACTION_COPY_CLIPBOARD" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name=".api.Life4FirebaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
     </application>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <dist:module dist:instant="true" />
 
 </manifest>

@@ -15,6 +15,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_DETAILS_ENFORCE_EXPERT
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_DETAILS_PHOTO_SELECT
+import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_DETAILS_UPDATE_GOAL
 import com.perrigogames.life4trials.data.*
 import com.perrigogames.life4trials.life4app
 import com.perrigogames.life4trials.manager.LadderManager
@@ -25,6 +26,7 @@ import com.perrigogames.life4trials.util.openWebUrlFromRes
 import com.perrigogames.life4trials.util.toListString
 import com.perrigogames.life4trials.util.visibilityBool
 import com.perrigogames.life4trials.view.JacketCornerView
+import com.perrigogames.life4trials.view.RunningEXScoreView
 import com.perrigogames.life4trials.view.SongView
 import com.perrigogames.life4trials.view.TrialJacketView
 import kotlinx.android.synthetic.main.content_trial_details.*
@@ -40,11 +42,15 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener {
     private val trial: Trial get() = trialManager.findTrial(trialId)!!
 
     private val storedRank: TrialRank? get() = life4app.trialManager.getRankForTrial(trial.id)
-    private val initialRank: TrialRank? by lazy {
+    private val initialRank: TrialRank by lazy {
         if (trial.isEvent)
-            TrialRank.fromLadderRank(ladderManager.getUserRank())
+            TrialRank.fromLadderRank(ladderManager.getUserRank(), true) ?:
+            TrialRank.WOOD
         else
-            storedRank?.next ?: (intent.extras?.getInt(ARG_INITIAL_RANK)?.let { TrialRank.values()[it] } ?: TrialRank.SILVER)
+            storedRank?.next ?:
+            intent.extras?.getInt(ARG_INITIAL_RANK, -1)?.let { if (it >= 0) TrialRank.values()[it] else null } ?:
+            TrialRank.fromLadderRank(ladderManager.getUserRank(), false) ?:
+            TrialRank.WOOD
     }
 
     override val snackbarContainer: ViewGroup get() = container
@@ -72,6 +78,7 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.content_trial_details)
         trialSession = trialManager.startSession(trialId, initialRank)
+        updateEXScoreMeter()
 
         (image_rank as TrialJacketView).let { jacket ->
             jacket.trial = trial
@@ -87,7 +94,7 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener {
 
         if (trial.isEvent) {
             val userRank = ladderManager.getUserRank()
-            val scoringGroup = trial.findScoringGroup(TrialRank.fromLadderRank(userRank) ?: TrialRank.WOOD)
+            val scoringGroup = trial.findScoringGroup(TrialRank.fromLadderRank(userRank, true) ?: TrialRank.WOOD)
             text_event_timer.text = resources.getString(R.string.event_ends_format,
                 SimpleDateFormat("MMMM dd", Locale.US).format(trial.event_end))
             text_event_help.text = resources.getString(R.string.event_directions,
@@ -101,7 +108,13 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener {
                     setRank(trialSession.availableRanks!![position])
                 }
             }
-            spinner_desired_rank.setSelection(trialSession.availableRanks!!.indexOf(initialRank))
+            trialSession.availableRanks!!.let { ranks ->
+                val initialSpinnerRank = ranks
+                    .sortedBy { it.stableId }
+                    .lastOrNull { initialRank.stableId >= it.stableId }
+                    ?: ranks.first()
+                spinner_desired_rank.setSelection(ranks.indexOf(initialSpinnerRank))
+            }
         }
 
         switch_acquire_mode.isChecked = SharedPrefsUtil.getUserFlag(this, KEY_DETAILS_PHOTO_SELECT, false)
@@ -175,7 +188,7 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener {
     fun onFinalizeClick(v: View) {
         if (!trialSession.shouldShowAdvancedSongDetails ||
             !SharedPrefsUtil.getUserFlag(this, KEY_DETAILS_ENFORCE_EXPERT, true) ||
-            trialSession.results.none { it!!.misses == null || it.badJudges == null }) {
+            trialSession.results.none { it!!.hasAdvancedStats }) {
 
             isFinal = true
             acquirePhoto()
@@ -198,6 +211,27 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener {
         button_concede.visibilityBool = !allSongsComplete
         button_finalize.visibilityBool = allSongsComplete && !trialSession.hasFinalPhoto
         button_submit.visibilityBool = allSongsComplete && trialSession.hasFinalPhoto
+    }
+
+    private fun updateHighestPossibleRank() {
+        val currentGoal = trialSession.goalRank
+        val highestPossible = trialSession.highestPossibleRank
+        if (highestPossible == null) {
+            AlertDialog.Builder(this).setTitle(R.string.trial_failed)
+                .setMessage(getString(R.string.trial_fail_no_rank_confirmation, trial.name))
+                .setNegativeButton(R.string.cancel, null)
+                .setPositiveButton(R.string.okay) { _, _ -> concedeTrial() }
+                .show()
+        } else if (SharedPrefsUtil.getUserFlag(this, KEY_DETAILS_UPDATE_GOAL, true) &&
+            currentGoal != null &&
+            highestPossible.stableId != currentGoal.stableId) {
+
+            spinner_desired_rank.setSelection(trialSession.availableRanks!!.indexOf(highestPossible))
+        }
+    }
+
+    private fun updateEXScoreMeter() {
+        (include_ex_score as RunningEXScoreView).update(trialSession)
     }
 
     private fun scrollToBottom() {
@@ -228,6 +262,7 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener {
     private fun startEditActivity(index: Int) {
         Intent(this, SongEntryActivity::class.java).also { i ->
             i.putExtra(SongEntryActivity.ARG_RESULT, trialSession.results[index])
+            i.putExtra(SongEntryActivity.ARG_SONG, trial.songs[index])
             i.putExtra(SongEntryActivity.ARG_ADVANCED_DETAIL, trialSession.shouldShowAdvancedSongDetails)
             startActivityForResult(i, FLAG_SCORE_ENTER)
         }
@@ -267,20 +302,14 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener {
     private fun onEntryFinished(result: SongResult?) {
         currentResult = result
         songListFragment.setSongResult(currentIndex!!, result)
+        updateEXScoreMeter()
         updateCompleteState()
         scrollToBottom()
         modified = true
         currentIndex = null
         isNewEntry = false
         currentPhotoFile = null
-
-        if (result?.passed == false) {
-            AlertDialog.Builder(this).setTitle(R.string.trial_failed)
-                .setMessage(R.string.trial_fail_confirmation)
-                .setNegativeButton(R.string.cancel, null)
-                .setPositiveButton(R.string.okay) { _, _ -> concedeTrial() }
-                .show()
-        }
+        updateHighestPossibleRank()
     }
 
     override fun onPhotoTaken(uri: Uri) {

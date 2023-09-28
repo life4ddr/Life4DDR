@@ -362,7 +362,7 @@ class SettingsActivity : AppCompatActivity(), SettingsFragmentListener {
         const val KEY_LIST_SHOW_EX_REMAINING = "KEY_LIST_SHOW_EX_REMAINING"
         const val KEY_LIST_HIGHLIGHT_NEW = "KEY_LIST_HIGHLIGHT_NEW"
         const val KEY_DETAILS_PHOTO_SELECT = "KEY_DETAILS_PHOTO_SELECT"
-        const val KEY_DETAILS_EXPERT = "KEY_DETAILS_EXPERT"
+        const val KEY_DETAILS_UPDATE_GOAL = "KEY_DETAILS_UPDATE_GOAL"
         const val KEY_DETAILS_ENFORCE_EXPERT = "KEY_DETAILS_ENFORCE_EXPERT"
         const val KEY_INFO_NAME = "KEY_INFO_NAME"
         const val KEY_INFO_RANK = "KEY_INFO_RANK"

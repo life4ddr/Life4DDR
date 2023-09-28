@@ -15,6 +15,7 @@ class TrialData(override val version: Int,
         const val HIGHEST_DIFFICULTY = 20
         const val TRIAL_LENGTH = 4
         const val MAX_SCORE = 1000000
+        const val SCORE_PENALTY_PERFECT = 10
         const val AAA_SCORE = 990000
     }
 }
@@ -30,7 +31,7 @@ class Trial(val id: String,
             val scoring_groups: List<List<TrialRank>>?,
             val difficulty: Int?,
             val goals: List<TrialGoalSet>?,
-            val total_ex: Int?,
+            val total_ex: Int,
             val cover_url: String? = null,
             val cover_override: Boolean = false,
             val songs: List<Song>): Serializable {
@@ -39,6 +40,8 @@ class Trial(val id: String,
     val isActiveEvent get() = isEvent && event_start!!.before(Date()) && event_end!!.after(Date())
 
     fun goalSet(rank: TrialRank?): TrialGoalSet? = goals?.find { it.rank == rank }
+
+    fun highestGoal(): TrialGoalSet? = goals?.maxBy { it.rank.stableId }
 
     @DrawableRes fun jacketResId(c: Context): Int =
         c.resources.getIdentifier(id, "drawable", c.packageName).let {
@@ -50,13 +53,13 @@ class Trial(val id: String,
      */
     fun findScoringGroup(rank: TrialRank) = scoring_groups?.first { it.contains(rank) }
 
-    val isExValid get() = songs.sumBy { it.ex ?: 0 }.let { it == 0 || it == total_ex }
+    val isExValid get() = songs.sumBy { it.ex }.let { it == 0 || it == total_ex }
 }
 
 class Song(val name: String,
            @SerializedName("difficulty") val difficultyNumber: Int,
            @SerializedName("difficulty_class") val difficultyClass: DifficultyClass,
-           val ex: Int?,
+           val ex: Int,
            val url: String? = null): Serializable
 
 enum class TrialType {

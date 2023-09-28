@@ -27,8 +27,8 @@ data class TrialGoalSet(val rank: TrialRank,
         }
 
     fun generateSingleGoalString(res: Resources, trial: Trial) = StringBuilder().apply {
-        generateGoalStrings(res, trial).forEach { s ->
-            append("$s\n")
+        generateGoalStrings(res, trial).forEachIndexed { idx, s ->
+            append(if (idx == 0) s else "\n$s")
         }
     }.toString()
 
@@ -41,7 +41,7 @@ data class TrialGoalSet(val rank: TrialRank,
         judge?.let { list.add(badJudgementsString(res, it)) }
         exMissing?.let { list.add(exScoreString(res, it, trial.total_ex)) }
         if (list.size == 0) {
-            list.add(res.getString(R.string.pass_the_trial))
+            list.add("• " + res.getString(R.string.pass_the_trial))
         }
     }
 
@@ -68,7 +68,7 @@ data class TrialGoalSet(val rank: TrialRank,
                     }
                 }
             }
-            strings.add(res.getString(R.string.clear_first_songs, res.getString(setType!!.clearRes), chainEnd!!))
+            strings.add("• " + res.getString(R.string.clear_first_songs, res.getString(setType!!.clearRes), chainEnd!!))
         }
     }
 
@@ -131,52 +131,52 @@ data class TrialGoalSet(val rank: TrialRank,
     private fun scoreString(score: Int) = "${score / 1000}k"
 
     private fun onSpecificString(res: Resources, score: Int, song: String) = when (score) {
-        AAA_SCORE -> res.getString(R.string.aaa_specific_song, song)
-        MAX_SCORE -> res.getString(R.string.mfc_specific_song, song)
-        else -> res.getString(R.string.score_specific_song, scoreString(score), song)
+        AAA_SCORE -> "• " + res.getString(R.string.aaa_specific_song, song)
+        MAX_SCORE -> "• " + res.getString(R.string.mfc_specific_song, song)
+        else -> "• " + res.getString(R.string.score_specific_song, scoreString(score), song)
     }
 
     private fun onCountString(res: Resources, score: Int, count: Int) = when (score) {
-        AAA_SCORE -> res.getString(R.string.aaa_songs, count)
-        MAX_SCORE -> res.getString(R.string.mfc_songs, count)
-        else -> res.getString(R.string.score_songs, scoreString(score), count)
+        AAA_SCORE -> "• " + res.getString(R.string.aaa_songs, count)
+        MAX_SCORE -> "• " + res.getString(R.string.mfc_songs, count)
+        else -> "• " + res.getString(R.string.score_songs, scoreString(score), count)
     }
 
     private fun onCountOtherString(res: Resources, score: Int, count: Int) = when (score) {
-        AAA_SCORE -> res.getString(R.string.aaa_other_songs, count)
-        MAX_SCORE -> res.getString(R.string.mfc_other_songs, count)
-        else -> res.getString(R.string.score_other_songs, scoreString(score), count)
+        AAA_SCORE -> "• " + res.getString(R.string.aaa_other_songs, count)
+        MAX_SCORE -> "• " + res.getString(R.string.mfc_other_songs, count)
+        else -> "• " + res.getString(R.string.score_other_songs, scoreString(score), count)
     }
 
     private fun onEveryString(res: Resources, score: Int) = when (score) {
-        AAA_SCORE -> res.getString(R.string.aaa_every_song)
-        MAX_SCORE -> res.getString(R.string.mfc_every_song)
-        else -> res.getString(R.string.score_every_song, scoreString(score))
+        AAA_SCORE -> "• " + res.getString(R.string.aaa_every_song)
+        MAX_SCORE -> "• " + res.getString(R.string.mfc_every_song)
+        else -> "• " + res.getString(R.string.score_every_song, scoreString(score))
     }
 
     private fun onRemainderString(res: Resources, score: Int) = when (score) {
-        AAA_SCORE -> res.getString(R.string.aaa_on_remainder)
-        MAX_SCORE -> res.getString(R.string.mfc_on_remainder)
-        else -> res.getString(R.string.score_on_remainder, scoreString(score))
+        AAA_SCORE -> "• " + res.getString(R.string.aaa_on_remainder)
+        MAX_SCORE -> "• " + res.getString(R.string.mfc_on_remainder)
+        else -> "• " + res.getString(R.string.score_on_remainder, scoreString(score))
     }
 
     private fun badJudgementsString(res: Resources, bad: Int) =
-        if (bad == 0) res.getString(R.string.no_bad_judgments)
-        else res.getString(R.string.bad_judgments_count, bad)
+        if (bad == 0) "• " + res.getString(R.string.no_bad_judgments)
+        else "• " + res.getString(R.string.bad_judgments_count, bad)
 
     private fun exScoreString(res: Resources, bad: Int, total: Int?) = when {
-        bad == 0 -> res.getString(R.string.no_missing_ex)
-        total != null -> res.getString(R.string.missing_ex_count_threshold, bad, total - bad)
-        else -> res.getString(R.string.missing_ex_count, bad)
+        bad == 0 -> "• " + res.getString(R.string.no_missing_ex)
+        total != null -> "• " + res.getString(R.string.missing_ex_count_threshold, bad, total - bad)
+        else -> "• " + res.getString(R.string.missing_ex_count, bad)
     }
 
     private fun missesString(res: Resources, misses: Int) =
-        if (misses == 0) res.getString(R.string.no_misses)
-        else res.getString(R.string.misses_count, misses)
+        if (misses == 0) "• " + res.getString(R.string.no_misses)
+        else "• " + res.getString(R.string.misses_count, misses)
 
     private fun missesEachString(res: Resources, misses: Int) =
-        if (misses == 0) res.getString(R.string.no_misses)
-        else res.getString(R.string.misses_each_count, misses)
+        if (misses == 0) "• " + res.getString(R.string.no_misses)
+        else "• " + res.getString(R.string.misses_each_count, misses)
 
     enum class GoalType {
         CLEAR, SCORE, EX, BAD_JUDGEMENT, MISS

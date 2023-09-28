@@ -10,40 +10,59 @@
       "properties": [
         {
           "id": "1:8766572468174205243",
-          "name": "id"
+          "name": "id",
+          "type": 6,
+          "flags": 1
         },
         {
           "id": "2:2857936540636407188",
-          "name": "score"
+          "name": "score",
+          "type": 5,
+          "flags": 4
         },
         {
           "id": "4:241261702835868533",
-          "name": "misses"
+          "name": "misses",
+          "type": 5,
+          "flags": 4
         },
         {
           "id": "6:6588491755344476490",
+          "name": "sessionId",
           "indexId": "1:5226183221815835245",
-          "name": "sessionId"
+          "type": 11,
+          "flags": 1548,
+          "relationTarget": "TrialSessionDB"
         },
         {
           "id": "7:7135047427876290819",
-          "name": "exScore"
+          "name": "exScore",
+          "type": 5,
+          "flags": 4
         },
         {
           "id": "8:7014522395873648673",
-          "name": "position"
+          "name": "position",
+          "type": 5,
+          "flags": 4
         },
         {
           "id": "9:2537667710467426978",
-          "name": "passed"
+          "name": "passed",
+          "type": 1,
+          "flags": 4
         },
         {
           "id": "10:5126959091139675239",
-          "name": "badJudges"
+          "name": "badJudges",
+          "type": 5,
+          "flags": 4
         },
         {
           "id": "11:4687129921278289407",
-          "name": "perfects"
+          "name": "perfects",
+          "type": 5,
+          "flags": 4
         }
       ],
       "relations": []
@@ -55,23 +74,31 @@
       "properties": [
         {
           "id": "1:7208512480541155006",
-          "name": "id"
+          "name": "id",
+          "type": 6,
+          "flags": 1
         },
         {
           "id": "6:1765844114091782272",
-          "name": "trialId"
+          "name": "trialId",
+          "type": 9
         },
         {
           "id": "7:3382177306781165024",
-          "name": "date"
+          "name": "date",
+          "type": 10
         },
         {
           "id": "9:5623033444233878895",
-          "name": "goalObtained"
+          "name": "goalObtained",
+          "type": 1,
+          "flags": 4
         },
         {
           "id": "11:6442863106426964655",
-          "name": "goalRankId"
+          "name": "goalRankId",
+          "type": 5,
+          "flags": 4
         }
       ],
       "relations": []
@@ -83,24 +110,35 @@
       "properties": [
         {
           "id": "1:2261428690331898312",
-          "name": "difficultyClass"
+          "name": "difficultyClass",
+          "type": 6,
+          "flags": 2
         },
         {
           "id": "2:5881916565998638573",
-          "name": "difficultyNumber"
+          "name": "difficultyNumber",
+          "type": 5,
+          "flags": 4
         },
         {
           "id": "3:7915110439707899891",
-          "name": "playStyle"
+          "name": "playStyle",
+          "type": 6,
+          "flags": 2
         },
         {
           "id": "4:5156906940983289518",
-          "name": "id"
+          "name": "id",
+          "type": 6,
+          "flags": 1
         },
         {
           "id": "5:2807419384847361086",
+          "name": "songId",
           "indexId": "2:2179306308437673584",
-          "name": "songId"
+          "type": 11,
+          "flags": 1548,
+          "relationTarget": "SongDB"
         }
       ],
       "relations": []
@@ -112,23 +150,31 @@
       "properties": [
         {
           "id": "1:7474618414295292202",
-          "name": "title"
+          "name": "title",
+          "type": 9
         },
         {
           "id": "2:4035254530351899273",
-          "name": "artist"
+          "name": "artist",
+          "type": 9
         },
         {
           "id": "3:1848766116061709151",
-          "name": "version"
+          "name": "version",
+          "type": 6,
+          "flags": 2
         },
         {
           "id": "4:8156728067762894280",
-          "name": "id"
+          "name": "id",
+          "type": 6,
+          "flags": 1
         },
         {
           "id": "5:8144805013145415011",
-          "name": "preview"
+          "name": "preview",
+          "type": 1,
+          "flags": 4
         }
       ],
       "relations": []
@@ -140,20 +186,29 @@
       "properties": [
         {
           "id": "1:7353156616830171450",
-          "name": "score"
+          "name": "score",
+          "type": 5,
+          "flags": 4
         },
         {
           "id": "2:6907817080132173099",
-          "name": "clearType"
+          "name": "clearType",
+          "type": 6,
+          "flags": 2
         },
         {
           "id": "3:7664573071473972433",
-          "name": "id"
+          "name": "id",
+          "type": 6,
+          "flags": 1
         },
         {
           "id": "4:7576977601798902236",
+          "name": "chartId",
           "indexId": "3:4803047367100923710",
-          "name": "chartId"
+          "type": 11,
+          "flags": 1548,
+          "relationTarget": "ChartDB"
         }
       ],
       "relations": []
@@ -165,19 +220,26 @@
       "properties": [
         {
           "id": "1:8622093348279456954",
-          "name": "goalId"
+          "name": "goalId",
+          "type": 6,
+          "flags": 4
         },
         {
           "id": "2:5752760647110202871",
-          "name": "status"
+          "name": "status",
+          "type": 5,
+          "flags": 2
         },
         {
           "id": "3:6070475126404484374",
-          "name": "date"
+          "name": "date",
+          "type": 10
         },
         {
           "id": "4:1126330018225707462",
-          "name": "id"
+          "name": "id",
+          "type": 6,
+          "flags": 1
         }
       ],
       "relations": []
@@ -187,8 +249,8 @@
   "lastIndexId": "3:4803047367100923710",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",
-  "modelVersion": 4,
-  "modelVersionParserMinimum": 4,
+  "modelVersion": 5,
+  "modelVersionParserMinimum": 5,
   "retiredEntityUids": [
     5121322014264730323
   ],

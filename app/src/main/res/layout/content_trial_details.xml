@@ -77,7 +77,18 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/barrier_top_content" />
+                app:layout_constraintTop_toBottomOf="@id/include_ex_score" />
+
+            <include
+                android:id="@+id/include_ex_score"
+                layout="@layout/view_ex_score_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/content_padding_med"
+                android:layout_marginEnd="@dimen/content_padding_med"
+                android:layout_marginBottom="@dimen/content_padding_small"
+                app:layout_constraintBottom_toTopOf="@id/container_song_list_fragment"
+                app:layout_constraintTop_toBottomOf="@id/barrier_top_content"/>
 
             <ImageButton
                 android:id="@+id/button_navigate_previous"

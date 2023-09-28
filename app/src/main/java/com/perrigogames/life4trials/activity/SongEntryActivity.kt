@@ -16,10 +16,12 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.perrigogames.life4trials.R
+import com.perrigogames.life4trials.data.ClearType
+import com.perrigogames.life4trials.data.ClearType.*
 import com.perrigogames.life4trials.data.Song
 import com.perrigogames.life4trials.data.SongResult
+import com.perrigogames.life4trials.data.TrialData
 import com.perrigogames.life4trials.util.SharedPrefsUtil
-import com.perrigogames.life4trials.util.SharedPrefsUtil.getUserFlag
 import com.perrigogames.life4trials.util.visibilityBool
 import kotlinx.android.synthetic.main.content_song_entry.*
 
@@ -32,30 +34,42 @@ class SongEntryActivity: AppCompatActivity() {
     val song: Song? get() =
         intent?.extras?.getSerializable(ARG_SONG) as? Song
 
-    val advancedDetail: Boolean get() =
+    private val requiresAdvancedDetail: Boolean get() =
         intent?.extras?.getSerializable(ARG_ADVANCED_DETAIL) as? Boolean ?: false
 
     val newEntry: Boolean get() = result?.score == null
     var modified: Boolean = false
+    private var advancedFieldVisibility: Boolean = false
+        set(v) = advancedFields.forEach { it.visibilityBool = v }
 
     // Lists of fields for easy iteration
-    val normalFields: List<EditText> by lazy { listOf(field_score, field_ex) }
-    val advancedFields: List<EditText> by lazy { listOf(field_misses, field_goods, field_greats) }
-    val expertFields: List<EditText> by lazy { listOf(field_greats_less, field_perfects) }
-    val allFields: List<EditText> by lazy { normalFields + advancedFields + expertFields }
+    private val advancedFields: List<EditText> by lazy { listOf(field_misses, field_goods, field_greats, field_perfects) }
+    private val allFields: List<EditText> by lazy { listOf(field_score, field_ex) + advancedFields }
 
     // Entered field values
-    val score: Int? get() = try { field_score.text.toString().toInt() } catch (e: NumberFormatException) { null }
-    val ex: Int? get() = try { field_ex.text.toString().toInt() } catch (e: NumberFormatException) { null }
-    val misses: Int? get() = try { field_misses.text.toString().toInt() } catch (e: NumberFormatException) { null }
-    val goods: Int? get() = try { field_goods.text.toString().toInt() } catch (e: NumberFormatException) { null }
-    val greats: Int? get() = try { field_greats.text.toString().toInt() } catch (e: NumberFormatException) { null }
-    val greatsLess: Int? get() = try { field_greats_less.text.toString().toInt() } catch (e: NumberFormatException) { null }
-    val perfects: Int? get() = try { field_perfects.text.toString().toInt() } catch (e: NumberFormatException) { null }
+    private val score: Int? get() = try { field_score.text.toString().toInt() } catch (e: NumberFormatException) { null }
+    private val ex: Int? get() = try { field_ex.text.toString().toInt() } catch (e: NumberFormatException) { null }
+    private val misses: Int? get() = try { field_misses.text.toString().toInt() } catch (e: NumberFormatException) { null }
+    private val goods: Int? get() = try { field_goods.text.toString().toInt() } catch (e: NumberFormatException) { null }
+    private val greats: Int? get() = try { field_greats.text.toString().toInt() } catch (e: NumberFormatException) { null }
+    private val perfects: Int? get() = try { field_perfects.text.toString().toInt() } catch (e: NumberFormatException) { null }
 
     private val textWatcher = object: TextWatcher {
         override fun afterTextChanged(s: Editable?) {
             modified = true
+        }
+
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) = Unit
+    }
+    private val perfectTextWatcher = object: TextWatcher {
+        override fun afterTextChanged(s: Editable?) {
+            if (clearType.stableId >= PERFECT_FULL_COMBO.stableId) {
+                modified = true
+                val intVal = s?.toString()?.toIntOrNull() ?: 0
+                field_score.setText((TrialData.MAX_SCORE - (intVal * TrialData.SCORE_PENALTY_PERFECT)).toString())
+                field_ex.setText(((song?.ex ?: 0) - intVal).toString())
+            }
         }
 
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
@@ -72,6 +86,12 @@ class SongEntryActivity: AppCompatActivity() {
             button_retake.setOnClickListener { retakePhoto() }
             button_done.setOnClickListener { completeEntry() }
 
+            button_clear.setOnClickListener { clearType = CLEAR }
+            button_fc.isEnabled = requiresAdvancedDetail
+            button_fc.setOnClickListener { clearType = GOOD_FULL_COMBO }
+            button_pfc.setOnClickListener { clearType = PERFECT_FULL_COMBO }
+            button_mfc.setOnClickListener { clearType = MARVELOUS_FULL_COMBO }
+
             checkbox_passed.isChecked = it.passed
 
             if (it.score != null) {
@@ -80,28 +100,24 @@ class SongEntryActivity: AppCompatActivity() {
             if (it.exScore != null) {
                 field_ex.text = SpannableStringBuilder(it.exScore.toString())
             }
-            if (it.misses != null && it.misses != -1) {
+            if (it.misses != null) {
                 field_misses.text = SpannableStringBuilder(it.misses.toString())
             }
-            if (it.badJudges != null && it.misses != -1) {
-                checkbox_expert.isChecked = true
-                field_greats_less.text = SpannableStringBuilder(it.badJudges.toString())
+            if (it.goods != null) {
+                field_goods.text = SpannableStringBuilder(it.goods.toString())
             }
-            if (it.perfects != null && it.misses != -1) {
-                checkbox_expert.isChecked = true
+            if (it.greats != null) {
+                field_greats.text = SpannableStringBuilder(it.greats.toString())
+            }
+            if (it.perfects != null) {
                 field_perfects.text = SpannableStringBuilder(it.perfects.toString())
             }
             field_score.addTextChangedListener(textWatcher)
             field_ex.addTextChangedListener(textWatcher)
 
-            checkbox_expert.setOnCheckedChangeListener { _, isChecked ->
-                SharedPrefsUtil.setUserFlag(this, SettingsActivity.KEY_DETAILS_EXPERT, isChecked)
-                updateAdvancedFields(isChecked)
-            }
-            if (!checkbox_expert.isChecked) {
-                checkbox_expert.isChecked = getUserFlag(this, SettingsActivity.KEY_DETAILS_EXPERT, false)
-            }
-            updateAdvancedFields(checkbox_expert.isChecked)
+            field_perfects.addTextChangedListener(perfectTextWatcher)
+
+            advancedFieldVisibility = requiresAdvancedDetail
 
             if (field_score.requestFocus()) {
                 (getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager)
@@ -113,14 +129,33 @@ class SongEntryActivity: AppCompatActivity() {
         }
     }
 
-    private fun updateAdvancedFields(isExpert: Boolean) {
-        checkbox_expert.visibilityBool = advancedDetail
-        advancedFields.forEach { it.visibilityBool = advancedDetail && !isExpert }
-        expertFields.forEach { it.visibilityBool = advancedDetail && isExpert }
-        field_ex.nextFocusDownId = when {
-            isExpert && advancedDetail -> field_greats_less.id
-            else -> 0
+    private var clearType = CLEAR
+        set(type) {
+            field = type
+            if (type == PERFECT_FULL_COMBO) {
+                advancedFieldVisibility = true
+                field_perfects.requestFocus()
+            } else {
+                advancedFieldVisibility = requiresAdvancedDetail
+            }
+            updateFieldEditable(field_score, type, PERFECT_FULL_COMBO)
+            updateFieldEditable(field_ex, type, PERFECT_FULL_COMBO)
+            updateFieldEditable(field_misses, type, GOOD_FULL_COMBO)
+            updateFieldEditable(field_goods, type, GREAT_FULL_COMBO)
+            updateFieldEditable(field_greats, type, PERFECT_FULL_COMBO)
+            updateFieldEditable(field_perfects, type, MARVELOUS_FULL_COMBO, type == PERFECT_FULL_COMBO)
+            field_ex.nextFocusDownId = when (type) {
+                MARVELOUS_FULL_COMBO -> 0
+                PERFECT_FULL_COMBO -> R.id.field_perfects
+                GREAT_FULL_COMBO -> R.id.field_greats
+                GOOD_FULL_COMBO -> R.id.field_goods
+                else -> R.id.field_misses
+            }
         }
+
+    private fun updateFieldEditable(field: EditText, type: ClearType, targetType: ClearType, forceEnabled: Boolean = false) {
+        field.isEnabled = forceEnabled || type.stableId < targetType.stableId
+        field.setText(if (field.isEnabled) "" else "0")
     }
 
     private fun completeEntry() {
@@ -130,7 +165,6 @@ class SongEntryActivity: AppCompatActivity() {
         checkErrorForValue(misses, field_misses)
         checkErrorForValue(goods, field_goods)
         checkErrorForValue(greats, field_greats)
-        checkErrorForValue(greatsLess, field_greats_less)
         checkErrorForValue(perfects, field_perfects)
         if (!SharedPrefsUtil.getDebugFlag(this, SettingsActivity.KEY_DEBUG_ACCEPT_INVALID) &&
             allFields.any { it.visibility == VISIBLE && it.error != null }) {
@@ -140,18 +174,11 @@ class SongEntryActivity: AppCompatActivity() {
                 putExtra(RESULT_DATA, result!!.also {
                     it.score = score
                     it.exScore = ex
-                    if (advancedDetail) {
-                        if (!checkbox_expert.isChecked) {
-                            it.misses = misses
-                            it.badJudges = if (misses != null && goods != null && greats != null)
-                                misses!! + goods!! + greats!!
-                            else null
-                            it.perfects = if (it.badJudges != null) -1 else null
-                        } else {
-                            it.misses = -1
-                            it.badJudges = greatsLess
-                            it.perfects = perfects
-                        }
+                    if (requiresAdvancedDetail) {
+                        it.misses = misses
+                        it.goods = goods
+                        it.greats = greats
+                        it.perfects = perfects
                     }
                     it.passed = checkbox_passed.isChecked
                 })

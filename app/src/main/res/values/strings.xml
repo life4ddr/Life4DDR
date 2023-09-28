@@ -17,7 +17,7 @@
     <string name="description_shop_dangershark">Purchase merch from our partner DangerShark</string>
 
     <!-- Trial Goal Strings -->
-    <string name="clear_first_songs">• %s the first %d songs.</string>
+    <string name="clear_first_songs">%s the first %d songs.</string>
     <string name="score_songs">Score %s on at least %d songs.</string>
     <string name="aaa_songs">AAA at least %d songs.</string>
     <string name="mfc_songs">MFC at least %d songs.</string>
@@ -36,7 +36,7 @@
     <string name="mfc_on_remainder">MFC all other songs.</string>
     <string name="bad_judgments_count">%d or fewer Greats, Goods, and Misses.</string>
     <string name="misses_count">%d or fewer Misses.</string>
-    <string name="misses_each_count">• %d or fewer Misses on each song.</string>
+    <string name="misses_each_count">%d or fewer Misses on each song.</string>
     <string name="missing_ex_count">%d missing EX or less.</string>
     <string name="missing_ex_count_threshold">%d missing EX or less (%d).</string>
     <string name="pass_the_trial">Pass the Trial.</string>
@@ -109,6 +109,7 @@
 
     <string name="trial_failed">Trial Failed!</string>
     <string name="trial_fail_confirmation">Would you like to Concede and save this Trial attempt?</string>
+    <string name="trial_fail_no_rank_confirmation">It is no longer possible to earn a rank on %s.\n\nWould you like to Concede and save this Trial attempt?</string>
     <string name="trial_close_confirmation">The progress made in this trial will not be saved.</string>
     <string name="trial_concede_confirmation_format">This trial will be saved to your records as incomplete for %s (%s).\n\nYou will NOT get a chance to log your failed song if you haven\'t already.</string>
     <string name="photo_save_confirmation">This photo will not be saved.</string>
@@ -133,10 +134,12 @@
     <string name="difficulty_string_format">"%s (%d)"</string>
     <string name="score_string_format">"%s (%d EX)"</string>
     <string name="ex_score_string_format">%d EX</string>
+    <string name="ex_score_progress_format">"%d / %d EX"</string>
     <string name="ex_score_missing_string_format">%d EX (%d)</string>
     <string name="ex_score_missing_newline_string_format">%d EX\n(%d)</string>
     <string name="score_string_summary_format">"%s\n%d EX"</string>
-    <string name="score_string_summary_format_advanced">"%s\n%d EX\n%d Miss\n%d &lt;Great"</string>
+    <string name="score_string_summary_format_advanced">"%d Miss\n%d Good\n%d Great"\n%d EX</string>
+    <string name="score_string_summary_format_expert">"%d &lt;Great\n%d Perfect"\n%d EX</string>
     <string name="author_credit_format">Created by %s</string>
     <string name="event_directions">In this event, you\'re competing against everyone with a %s Rank.  Aim for the highest combined EX Score!</string>
     <string name="event_ends_format">Event ends %s</string>
@@ -161,8 +164,8 @@
 
     <!-- URLs -->
     <string name="url_trial">https://life4ddr.com/%s</string>
-    <string name="url_standard_submission_form">https://docs.google.com/forms/d/e/1FAIpQLSe-UDKHOaVv7Zf3FEYPUKBwfT0yc79af8hvVMDIu7VYDoIEvQ/viewform</string>
-    <string name="url_trial_submission_form">https://docs.google.com/forms/d/e/1FAIpQLSd2z2dcavPcdC_UhieAPUoYj0C5mTbSAabhrRYstOYem2Mq5Q/viewform</string>
+    <string name="url_standard_submission_form">https://docs.google.com/forms/d/e/1FAIpQLSfAddd3xcfPP91RqCGhoAXLqHebOM1LsRD5FKdsPl_OoF5nNw/viewform</string>
+    <string name="url_trial_submission_form">https://docs.google.com/forms/d/e/1FAIpQLSeB4OQlbMjulyQU7-fGnMIHHRsob1skJPBC_tHETfzaVtQpAA/viewform</string>
     <string name="url_a20_update">https://life4ddr.com/requirements/</string>
     <string name="url_shop_life4">https://life4.bigcartel.com/</string>
     <string name="url_shop_dangershark">https://www.dangershark.com/</string>
@@ -201,8 +204,11 @@
     <string name="import_manager_data">Import manager data</string>
     <string name="import_skip_directions">Skip import directions</string>
     <string name="photo_select">Use photo picker</string>
+    <string name="import_finished_errors">Import finished with %d errors.</string>
     <string name="expert_score">Expert score entry</string>
     <string name="enforce_expert">Require step breakdowns</string>
+    <string name="automatically_adjust_rank">Automatically adjust goal rank</string>
+    <string name="automatically_adjust_rank_description">Set the goal rank to the highest possible rank after every Trial song</string>
     <string name="show_remaining_ex_title">Show remaining EX</string>
     <string name="show_remaining_instead_total">Show the difference between a Trial\'s total EX and your own</string>
     <string name="send_feedback">Send feedback</string>
@@ -354,6 +360,7 @@
     <string name="manager_import_tutorial_6">Then return to LIFE4 and paste the copied score data.</string>
     <string name="trial_settings">Trial Settings</string>
     <string name="find_us_on_twitter">Find us on Twitter</string>
+    <string name="close">Close</string>
 
     <array name="credits">
         <item>Camera, Cancel, Cogwheel, Eye, Folder, Scroll Left, Scroll Right, and Star icons by
