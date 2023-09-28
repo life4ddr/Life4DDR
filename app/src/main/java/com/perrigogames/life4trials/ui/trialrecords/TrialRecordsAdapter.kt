@@ -12,14 +12,13 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_RECORDS_REMAINING_EX
 import com.perrigogames.life4trials.db.TrialSessionDB
 import com.perrigogames.life4trials.manager.TrialManager
 import com.perrigogames.life4trials.ui.trialrecords.TrialRecordsFragment.OnRecordsListInteractionListener
 import com.perrigogames.life4trials.util.DataUtil
-import com.perrigogames.life4trials.util.SharedPrefsUtils
+import com.perrigogames.life4trials.util.SharedPrefsUtil
 import com.perrigogames.life4trials.util.locale
 import com.perrigogames.life4trials.view.RankImageView
 import com.perrigogames.life4trials.view.longNumberString
@@ -104,7 +103,7 @@ class TrialRecordsAdapter(private val trialManager: TrialManager,
                     title.text = trial.name
 
                     val sessionEx = s.exScore ?: 0
-                    val shouldShowRemaining = SharedPrefsUtils.getUserFlag(context, KEY_RECORDS_REMAINING_EX, false)
+                    val shouldShowRemaining = SharedPrefsUtil.getUserFlag(context, KEY_RECORDS_REMAINING_EX, false)
                     val goalEx = if (shouldShowRemaining) sessionEx - trial.total_ex!! else trial.total_ex
                     exScore.text = context.getString(R.string.ex_score_fraction_format, sessionEx, goalEx)
                     exProgress.max = trial.total_ex!!
@@ -117,7 +116,7 @@ class TrialRecordsAdapter(private val trialManager: TrialManager,
 
                     val miniEntry = s.songs.size == 0
                     if (!miniEntry) {
-                        Glide.with(view).load(trial.jacketUrl(view.resources, 350)).into(jacketBackground)
+                        jacketBackground.setImageResource(trial.jacketResId(context))
                     }
 
                     arrayOf(label1, label2, label3, label4, song1, song2, song3, song4, jacketBackground, exProgress).forEach {

@@ -4,15 +4,17 @@
       "id": "wood_placement",
       "name": "WOOD",
       "type": "placement",
+      "placement_rank": "wood",
       "songs": [
-        { "name": "TECH-NOID", "difficulty": 14, "difficulty_class": "basic", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/TECH-NOID/TECH-NOID-jacket.png"},
-        { "name": "ZEPHYRANTHES", "difficulty": 15, "difficulty_class": "basic", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/ZEPHYRANTHES/ZEPHYRANTHES-jacket.png"},
-        { "name": "Sephirot", "difficulty": 17, "difficulty_class": "difficult", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/Sephirot/Sephirot-jacket.png"}
+        { "name": "TECH-NOID", "difficulty": 5, "difficulty_class": "basic", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/TECH-NOID/TECH-NOID-jacket.png"},
+        { "name": "ZEPHYRANTHES", "difficulty": 7, "difficulty_class": "basic", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/ZEPHYRANTHES/ZEPHYRANTHES-jacket.png"},
+        { "name": "Sephirot", "difficulty": 10, "difficulty_class": "difficult", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/Sephirot/Sephirot-jacket.png"}
       ]
     }, {
       "id": "bronze_placement",
       "name": "BRONZE",
       "type": "placement",
+      "placement_rank": "bronze",
       "songs": [
         { "name": "AFTER THE GAME OF LOVE", "difficulty": 8, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/Dance%20Dance%20Revolution%203rdMIX%20PLUS%20%28AC%29%20%28Japan%29/AFTER%20THE%20GAME%20OF%20LOVE/AFTER%20THE%20GAME%20OF%20LOVE-jacket.png"},
         { "name": "DANCE ALL NIGHT (DDR EDITION)", "difficulty": 10, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/DANCE%20ALL%20NIGHT%20%28DDR%20EDITION%29/DANCE%20ALL%20NIGHT%20%28DDR%20EDITION%29-jacket.png"},
@@ -22,15 +24,17 @@
       "id": "silver_placement",
       "name": "SILVER",
       "type": "placement",
+      "placement_rank": "silver",
       "songs": [
         { "name": "BROKEN MY HEART", "difficulty": 12, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/Dance%20Dance%20Revolution%205thMIX%20%28AC%29%20%28Japan%29/BROKEN%20MY%20HEART/BROKEN%20MY%20HEART-jacket.png"},
         { "name": "Ishtar", "difficulty": 14, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/Ishtar/Ishtar-jacket.png"},
-        { "name": "SABER WING (satellite silhouette remix)", "difficulty": 25, "difficulty_class": "challenge", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202014%20%28AC%29%20%28Japan%29/SABER%20WING%20%28satellite%20silhouette%20remix%29/SABER%20WING%20%28satellite%20silhouette%20remix%29-jacket.png"}
+        { "name": "SABER WING (satellite silhouette remix)", "difficulty": 15, "difficulty_class": "challenge", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202014%20%28AC%29%20%28Japan%29/SABER%20WING%20%28satellite%20silhouette%20remix%29/SABER%20WING%20%28satellite%20silhouette%20remix%29-jacket.png"}
       ]
     }, {
       "id": "gold_placement",
       "name": "GOLD",
       "type": "placement",
+      "placement_rank": "gold",
       "songs": [
         { "name": "Confession", "difficulty": 14, "difficulty_class": "challenge", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202013%20%28AC%29%20%28Japan%29/Confession/Confession-jacket.png"},
         { "name": "Air Heroes", "difficulty": 15, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202013%20%28AC%29%20%28Japan%29/Air%20Heroes/Air%20Heroes-jacket.png"},

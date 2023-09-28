@@ -1,8 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.recyclerview.widget.RecyclerView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/fragment_rank_details"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:listitem="@layout/item_rank_goal" />
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/layout_rank_header"
+        layout="@layout/view_rank_header"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/fragment_rank_details"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:listitem="@layout/item_rank_goal" />
+</LinearLayout>

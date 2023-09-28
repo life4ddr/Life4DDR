@@ -12,3 +12,8 @@ class SavedRankUpdatedEvent(val trial: Trial? = null)
  * Event published when something changes with the Trial List, requiring it to be refreshed.
  */
 class TrialListUpdatedEvent
+
+/**
+ * Event published when something substantial changes with the Trial List, requiring the list to recreate the
+ */
+class TrialListReplacedEvent

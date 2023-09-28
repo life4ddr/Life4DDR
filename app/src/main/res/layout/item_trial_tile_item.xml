@@ -7,7 +7,7 @@
     android:layout_height="wrap_content">
 
     <include
-        android:id="@+id/view_trial_jacket"
+        android:id="@+id/image_rank"
         layout="@layout/view_trial_jacket"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -28,7 +28,7 @@
         app:layout_constraintEnd_toStartOf="@id/image_badge_2"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/view_trial_jacket"
+        app:layout_constraintTop_toBottomOf="@id/image_rank"
         tools:background="@color/colorAccent"/>
 
     <ImageView
@@ -75,8 +75,42 @@
         android:layout_marginRight="@dimen/content_padding_med"
         android:contentDescription="@string/rank_image"
         app:layout_constraintBottom_toBottomOf="@id/image_badge_1"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/image_badge_6"
         app:layout_constraintStart_toEndOf="@id/image_badge_4"
         tools:background="@color/colorAccent" />
 
+    <ImageView
+        android:id="@+id/image_badge_6"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="@dimen/content_padding_med"
+        android:layout_marginRight="@dimen/content_padding_med"
+        android:contentDescription="@string/rank_image"
+        app:layout_constraintBottom_toBottomOf="@id/image_badge_1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/image_badge_5"
+        tools:background="@color/colorAccent" />
+
+    <ImageView
+        android:id="@+id/image_new"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:rotation="-90"
+        android:src="@drawable/triangle_new"
+        app:layout_constraintBottom_toBottomOf="@id/text_new"
+        app:layout_constraintEnd_toEndOf="@id/text_new"/>
+    
+    <TextView
+        android:id="@+id/text_new"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:fontFamily="@font/avenir"
+        android:gravity="center"
+        android:rotation="-45"
+        android:text="@string/new_tag"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/image_rank"
+        app:layout_constraintEnd_toEndOf="@id/image_rank"/>
 </com.perrigogames.life4trials.view.TrialItemView>

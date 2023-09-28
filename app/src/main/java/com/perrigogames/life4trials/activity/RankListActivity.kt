@@ -4,10 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.RankDetailsActivity
-import com.perrigogames.life4trials.RankDetailsActivity.Companion.ARG_RANK_ENTRY
-import com.perrigogames.life4trials.activity.RankListActivityFragment.OnRankListInteractionListener
+import com.perrigogames.life4trials.activity.RankDetailsActivity.Companion.ARG_RANK_ENTRY
 import com.perrigogames.life4trials.data.RankEntry
+import com.perrigogames.life4trials.ui.ranklist.RankListActivityFragment
+import com.perrigogames.life4trials.ui.ranklist.RankListActivityFragment.OnRankListInteractionListener
 import kotlinx.android.synthetic.main.content_rank_list.*
 
 /**
@@ -22,7 +22,7 @@ class RankListActivity : AppCompatActivity(), OnRankListInteractionListener {
         layout_container.removeAllViews()
         supportFragmentManager.beginTransaction()
             .add(R.id.layout_container,
-                RankListActivityFragment.newInstance(3))
+                RankListActivityFragment.newInstance(1))
             .commit()
     }
 

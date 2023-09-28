@@ -8,16 +8,20 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.activity.RankListActivityFragment.OnRankListInteractionListener
+import com.perrigogames.life4trials.data.BaseRankGoal
 import com.perrigogames.life4trials.data.LadderRank
 import com.perrigogames.life4trials.data.RankEntry
-import kotlinx.android.synthetic.main.item_rank.view.*
+import com.perrigogames.life4trials.ui.ranklist.RankListActivityFragment.OnRankListInteractionListener
+import kotlinx.android.synthetic.main.item_rank_list.view.image_rank_icon
+import kotlinx.android.synthetic.main.item_rank_list.view.text_rank_title
+import kotlinx.android.synthetic.main.item_rank_list_goals.view.*
 
 /**
  * [RecyclerView.Adapter] that can display a [RankEntry] and makes a call to the
  * specified [OnRankListInteractionListener].
  */
 class RankListAdapter(private val mValues: List<RankEntry>,
+                      private val showGoals: Boolean,
                       private val mListener: OnRankListInteractionListener?) :
     RecyclerView.Adapter<RankListAdapter.ViewHolder>() {
 
@@ -34,12 +38,18 @@ class RankListAdapter(private val mValues: List<RankEntry>,
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_rank, parent, false))
+            .inflate(when {
+                showGoals -> R.layout.item_rank_list_goals
+                else -> R.layout.item_rank_list
+            }, parent, false))
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = mValues[position]
-        holder.setRank(mValues[position].rank)
+        holder.setRank(item.rank)
+        if (showGoals) {
+            holder.setGoals(item.goals)
+        }
 
         with(holder.mView) {
             tag = item
@@ -51,11 +61,17 @@ class RankListAdapter(private val mValues: List<RankEntry>,
 
     inner class ViewHolder(val mView: View) : RecyclerView.ViewHolder(mView) {
         private val icon: ImageView = mView.image_rank_icon
-        private val title: TextView = mView.text_goal_title
+        private val title: TextView = mView.text_rank_title
 
         fun setRank(rank: LadderRank) {
             icon.setImageDrawable(ContextCompat.getDrawable(mView.context, rank.drawableRes))
             title.text = mView.context.getString(rank.nameRes)
+        }
+
+        fun setGoals(goals: List<BaseRankGoal>) {
+            mView.text_goals.text = StringBuilder().apply {
+                goals.forEach { append("• ${it.goalString(mView.context)}\n") }
+            }.toString()
         }
 
         override fun toString(): String {

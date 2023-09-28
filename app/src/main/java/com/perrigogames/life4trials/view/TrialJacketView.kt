@@ -9,12 +9,12 @@ import androidx.constraintlayout.widget.ConstraintSet
 import androidx.constraintlayout.widget.ConstraintSet.BOTTOM
 import androidx.constraintlayout.widget.ConstraintSet.TOP
 import androidx.core.content.ContextCompat
-import com.bumptech.glide.Glide
+import androidx.core.content.res.ResourcesCompat
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.activity.SettingsActivity
 import com.perrigogames.life4trials.data.Trial
 import com.perrigogames.life4trials.data.TrialRank
-import com.perrigogames.life4trials.util.SharedPrefsUtils
+import com.perrigogames.life4trials.util.SharedPrefsUtil
 import kotlinx.android.synthetic.main.view_trial_jacket.view.*
 
 class TrialJacketView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
@@ -33,14 +33,13 @@ class TrialJacketView @JvmOverloads constructor(context: Context, attrs: Attribu
             image_trial_difficulty.visibility = if (v?.difficulty != null) VISIBLE else GONE
             text_trial_difficulty.visibility = if (v?.difficulty != null) VISIBLE else GONE
             text_trial_difficulty.text = v?.difficulty?.toString()
+            text_trial_title.visibility = View.GONE
             if (v != null) {
-                if (v.shouldShowTitle) {
+                val resId = v.jacketResId(context)
+                if (resId == R.drawable.trial_default) {
                     text_trial_title.visibility = View.VISIBLE
-                    image_trial_jacket.setImageDrawable(null)
-                } else {
-                    text_trial_title.visibility = View.GONE
-                    Glide.with(this).load(v.jacketUrl(resources, 350)).into(image_trial_jacket)
                 }
+                image_trial_jacket.setImageDrawable(ContextCompat.getDrawable(context, resId))
             }
         }
 
@@ -66,7 +65,7 @@ class TrialJacketView @JvmOverloads constructor(context: Context, attrs: Attribu
     private fun updateRankTint() {
         if (shouldTint) {
             view_foreground_tint.visibility = VISIBLE
-            (view_foreground_tint.drawable as ColorDrawable).color = ContextCompat.getColor(context, rank!!.color)
+            view_foreground_tint.setImageDrawable(ColorDrawable(ResourcesCompat.getColor(context.resources, rank!!.color, context.theme)))
             image_badge_highest.visibility = GONE
             image_badge_highest_center.visibility = VISIBLE
             text_ex_score.visibility = GONE
@@ -88,7 +87,7 @@ class TrialJacketView @JvmOverloads constructor(context: Context, attrs: Attribu
             } else {
                 text_ex_score.visibility = VISIBLE
             }
-            if (trial != null && SharedPrefsUtils.getUserFlag(context, SettingsActivity.KEY_LIST_SHOW_EX_REMAINING, false)) {
+            if (trial != null && trial!!.total_ex != null && SharedPrefsUtil.getUserFlag(context, SettingsActivity.KEY_LIST_SHOW_EX_REMAINING, false)) {
                 text_ex_score.text = context.getString(R.string.ex_score_missing_newline_string_format, exScore, exScore!! - trial!!.total_ex!!)
                 text_ex_score_center.text = context.getString(R.string.ex_score_missing_string_format, exScore, exScore!! - trial!!.total_ex!!)
             } else {

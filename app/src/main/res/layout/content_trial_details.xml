@@ -21,7 +21,7 @@
             android:orientation="vertical">
 
             <include
-                android:id="@+id/view_trial_jacket"
+                android:id="@+id/image_rank"
                 layout="@layout/view_trial_jacket"
                 android:layout_width="@dimen/trial_details_main_thumb_size"
                 android:layout_height="@dimen/trial_details_main_thumb_size"
@@ -43,9 +43,9 @@
                 android:src="@drawable/ic_scroll_arrow_to_left"
                 android:textStyle="bold"
                 android:tint="@color/white"
-                app:layout_constraintBottom_toBottomOf="@id/view_trial_jacket"
-                app:layout_constraintEnd_toStartOf="@id/view_trial_jacket"
-                app:layout_constraintTop_toTopOf="@id/view_trial_jacket" />
+                app:layout_constraintBottom_toBottomOf="@id/image_rank"
+                app:layout_constraintEnd_toStartOf="@id/image_rank"
+                app:layout_constraintTop_toTopOf="@id/image_rank" />
 
             <ImageButton
                 android:id="@+id/button_navigate_next"
@@ -59,9 +59,9 @@
                 android:src="@drawable/ic_scroll_arrow_to_right"
                 android:textStyle="bold"
                 android:tint="@color/white"
-                app:layout_constraintBottom_toBottomOf="@id/view_trial_jacket"
-                app:layout_constraintStart_toEndOf="@id/view_trial_jacket"
-                app:layout_constraintTop_toTopOf="@id/view_trial_jacket" />
+                app:layout_constraintBottom_toBottomOf="@id/image_rank"
+                app:layout_constraintStart_toEndOf="@id/image_rank"
+                app:layout_constraintTop_toTopOf="@id/image_rank" />
 
             <com.perrigogames.life4trials.view.RankImageView
                 android:id="@+id/image_desired_rank"
@@ -73,7 +73,7 @@
                 app:layout_constraintHorizontal_bias="0"
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/view_trial_jacket"
+                app:layout_constraintTop_toBottomOf="@id/image_rank"
                 tools:background="@color/colorAccent"/>
 
             <Spinner
@@ -140,45 +140,14 @@
                 app:layout_constraintTop_toBottomOf="@id/text_goals_header"
                 tools:text="- Get 950,000 points on each song\n- Get over 1000 EX Points\n- Get less than 7 total misses"/>
 
-            <include
-                android:id="@+id/include_song_1"
-                layout="@layout/item_song_list_item"
+            <FrameLayout
+                android:id="@+id/container_song_list_fragment"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/content_padding_med"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_goals_content"/>
-
-            <include
-                android:id="@+id/include_song_2"
-                layout="@layout/item_song_list_item"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/content_padding_med"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/include_song_1"/>
-
-            <include
-                android:id="@+id/include_song_3"
-                layout="@layout/item_song_list_item"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/content_padding_med"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/include_song_2"/>
-
-            <include
-                android:id="@+id/include_song_4"
-                layout="@layout/item_song_list_item"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/content_padding_med"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/include_song_3"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
@@ -192,9 +161,11 @@
 
     <Button
         android:id="@+id/button_leaderboard"
+        style="@style/BottomProgressButtonRightBorder"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/leaderboard"
+        android:onClick="onLeaderboardClick"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/guideline_panel_buttons"
         app:layout_constraintStart_toStartOf="parent"
@@ -202,9 +173,11 @@
 
     <Button
         android:id="@+id/button_concede"
+        style="@style/BottomProgressButtonLeftBorder"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/concede"
+        android:onClick="onConcedeClick"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/guideline_panel_buttons"
@@ -212,10 +185,12 @@
 
     <Button
         android:id="@+id/button_finalize"
+        style="@style/BottomProgressButtonLeftBorder"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/finalize"
         android:visibility="gone"
+        android:onClick="onFinalizeClick"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/guideline_panel_buttons"

@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.os.Build
 import android.util.AttributeSet
+import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
@@ -13,7 +14,10 @@ import com.perrigogames.life4trials.data.SongResult
 import kotlinx.android.synthetic.main.item_song_list_item.view.*
 import java.text.DecimalFormat
 
-
+/**
+ * A [View] designed to show the qualities of a [Song], including the jacket, difficulty,
+ * and a player's score if wanted.
+ */
 class SongView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
     ConstraintLayout(context, attrs, defStyleAttr) {
 
@@ -35,9 +39,15 @@ class SongView @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
             update()
         }
 
+    var shouldShowCamera: Boolean = true
+        set(v) {
+            field = v
+            update()
+        }
+
     private var oldColors: ColorStateList? = null
 
-    private fun update() {
+    fun update() {
         if (oldColors == null) {
             oldColors = text_song_result.textColors
         }
@@ -50,11 +60,16 @@ class SongView @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
                 resources.getString(R.string.score_string_format, r.score?.longNumberString(), r.exScore)
             }
 
-            val tintColor = if (result?.photoUriString != null) {
-                if (shouldShowAdvancedSongDetails && result?.hasAdvancedStats != true) R.color.orange
-                else R.color.colorPrimary
-            } else R.color.gray
-            image_photo_icon.setColorFilter(ContextCompat.getColor(context, tintColor))
+            if (shouldShowCamera) {
+                image_photo_icon.visibility = View.VISIBLE
+                val tintColor = if (result?.photoUriString != null) {
+                    if (shouldShowAdvancedSongDetails && result?.hasAdvancedStats != true) R.color.orange
+                    else R.color.colorPrimary
+                } else R.color.gray
+                image_photo_icon.setColorFilter(ContextCompat.getColor(context, tintColor))
+            } else {
+                image_photo_icon.visibility = View.GONE
+            }
 
             if (result?.passed == false) {
                 text_song_result.setTextColor(ContextCompat.getColor(context, R.color.orange))

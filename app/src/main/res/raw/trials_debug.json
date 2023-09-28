@@ -30,7 +30,31 @@
         { "name": "Elemental Creation", "difficulty": 17, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202013%20%28AC%29%20%28Japan%29/Elemental%20Creation/Elemental%20Creation-jacket.png"},
         { "name": "Vanquish The Ghost", "difficulty": 16, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/Vanquish%20The%20Ghost/Vanquish%20The%20Ghost-jacket.png" }
       ]
-    }, {
+    },
+    {
+      "id": "timemachine",
+      "name": "Time Machine",
+      "type": "trial",
+      "difficulty": 13,
+      "goals": [
+        {
+          "rank": "silver"
+        }, {
+          "rank": "emerald",
+          "score_indexed": [1000000, 0, 0, 0],
+          "judge": 0,
+          "ex_missing": 70
+        }
+      ],
+      "total_ex": 10000,
+      "songs": [
+        { "name": "TimeHollow", "difficulty": 10, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X%20%28AC%29%20%28Japan%29/TimeHollow/TimeHollow-jacket.png" },
+        { "name": "V ～for EXTREME～", "difficulty": 13, "difficulty_class": "challenge", "url": "https://zenius-i-vanisher.com/simfiles/Dance%20Dance%20Revolution%20EXTREME%20%28AC%29%20%28Japan%29/V%20~for%20EXTREME~/V%20~for%20EXTREME~-jacket.png"},
+        { "name": "No.13", "difficulty": 13, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20SuperNOVA%20%28AC%29%20%28International%29/No.13/No.13-jacket.png"},
+        { "name": "Ubertreffen", "difficulty": 13, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X%20%28AC%29%20%28Japan%29/Ubertreffen/Ubertreffen-jacket.png"}
+      ]
+    },
+    {
       "id": "debug",
       "name": "Debug",
       "type": "trial",

@@ -1,6 +1,7 @@
 package com.perrigogames.life4trials.data
 
-import android.content.res.Resources
+import android.content.Context
+import androidx.annotation.DrawableRes
 import com.google.gson.annotations.SerializedName
 import com.perrigogames.life4trials.R
 import java.io.Serializable
@@ -8,6 +9,7 @@ import java.io.Serializable
 class TrialData(val trials: List<Trial>): Serializable {
     companion object {
         const val TRIAL_LENGTH = 4
+        const val MAX_SCORE = 1000000
         const val AAA_SCORE = 990000
     }
 }
@@ -15,26 +17,19 @@ class TrialData(val trials: List<Trial>): Serializable {
 class Trial(val id: String,
             val name: String,
             val type: TrialType,
+            val placement_rank: PlacementRank?,
+            val new: Boolean = false,
             val difficulty: Int?,
-            val goals: List<GoalSet>,
+            val goals: List<TrialGoalSet>?,
             val total_ex: Int?,
-            val songs: List<Song>,
-            val jacket_dir: String? = null,
-            val jacket_name: String? = null): Serializable {
+            val songs: List<Song>): Serializable {
 
-    fun goalSet(rank: TrialRank): GoalSet? = goals.find { it.rank == rank }
+    fun goalSet(rank: TrialRank): TrialGoalSet? = goals?.find { it.rank == rank }
 
-    fun jacketUrl(resources: Resources) =
-        resources.getString(
-            R.string.url_trial_jacket_base,
-            jacket_dir, (jacket_name ?: id))
-
-    fun jacketUrl(resources: Resources, size: Int) =
-        resources.getString(
-            R.string.url_trial_jacket_sized,
-            jacket_dir, (jacket_name ?: id), size, size)
-
-    val shouldShowTitle get() = jacket_dir == null && jacket_name == null
+    @DrawableRes fun jacketResId(c: Context): Int =
+        c.resources.getIdentifier(id, "drawable", c.packageName).let {
+            return if (it == 0) R.drawable.trial_default else it
+        }
 }
 
 class Song(val name: String,

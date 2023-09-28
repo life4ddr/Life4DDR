@@ -15,19 +15,22 @@
         }, {
           "rank": "diamond",
           "judge": 3,
-          "ex_missing": 70
+          "ex_missing": 90
         }, {
           "rank": "cobalt",
           "judge": 1,
-          "ex_missing": 45
+          "ex_missing": 55
         }, {
           "rank": "amethyst",
-          "judge": 0,
-          "ex_missing": 20
+          "judge": 1,
+          "ex_missing": 25
+        }, {
+          "rank": "emerald",
+          "judge": 1,
+          "ex_missing": 12
         }
       ],
       "total_ex": 4056,
-      "jacket_dir": "2019/03",
       "songs": [
         { "name": "One Sided Love", "difficulty": 10, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202014%20%28AC%29%20%28Japan%29/One%20Sided%20Love/One%20Sided%20Love-jacket.png" },
         { "name": "BROKEN MY HEART", "difficulty": 12, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/Dance%20Dance%20Revolution%205thMIX%20%28AC%29%20%28Japan%29/BROKEN%20MY%20HEART/BROKEN%20MY%20HEART-jacket.png" },
@@ -50,20 +53,22 @@
         }, {
           "rank": "diamond",
           "judge": 7,
-          "ex_missing": 135
+          "ex_missing": 160
         }, {
           "rank": "cobalt",
           "judge": 3,
-          "ex_missing": 80
+          "ex_missing": 90
         }, {
           "rank": "amethyst",
           "judge": 2,
-          "ex_missing": 50
+          "ex_missing": 60
+        }, {
+          "rank": "emerald",
+          "judge": 2,
+          "ex_missing": 40
         }
       ],
       "total_ex": 5169,
-      "jacket_dir": "2019/03",
-      "jacket_name": "celesteial",
       "songs": [
         { "name": "Uranus", "difficulty": 13, "difficulty_class": "challenge", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20SuperNOVA2%20%28AC%29%20%28Japan%29/Uranus/Uranus-jacket.png" },
         { "name": "Saturn", "difficulty": 13, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20SuperNOVA2%20%28AC%29%20%28Japan%29/Saturn/Saturn-jacket.png" },
@@ -89,23 +94,64 @@
           "ex_missing": 150
         }, {
           "rank": "cobalt",
-          "judge": 4,
-          "ex_missing": 90
+          "judge": 5,
+          "ex_missing": 100
         }, {
           "rank": "amethyst",
-          "judge": 0,
+          "judge": 2,
           "ex_missing": 60
+        }, {
+          "rank": "emerald",
+          "judge": 2,
+          "ex_missing": 40
         }
       ],
       "total_ex": 4428,
-      "jacket_dir": "2019/04",
-      "jacket_name": "mainframe-art",
       "songs": [
         { "name": "LEADING CYBER", "difficulty": 13, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/Dance%20Dance%20Revolution%204thMIX%20%28AC%29%20%28Japan%29/LEADING%20CYBER/LEADING%20CYBER-jacket.png" },
         { "name": "ALGORITHM", "difficulty": 13, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/ALGORITHM/ALGORITHM-jacket.png" },
         { "name": "GRADIUSIC CYBER", "difficulty": 13, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/Dance%20Dance%20Revolution%202ndMIX%20CLUB%20Version%202%20%28AC%29%20%28Japan%29/GRADIUSIC%20CYBER/GRADIUSIC%20CYBER-jacket.png" },
         { "name": "dirty digital", "difficulty": 13, "difficulty_class": "challenge", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X2%20%28AC%29%20%28Japan%29/dirty%20digital/dirty%20digital-jacket.png" }
       ]
+    },
+    {
+      "id": "primal",
+      "name": "Primal",
+      "type": "trial",
+      "difficulty": 13,
+      "goals": [
+        {
+          "rank": "silver",
+          "score": [900000, 900000, 900000, 900000]
+        }, {
+          "rank": "gold",
+          "score": [965000, 965000, 985000, 985000]
+        }, {
+          "rank": "diamond",
+          "judge": 15,
+          "ex_missing": 220
+        }, {
+          "rank": "cobalt",
+          "judge": 5,
+          "ex_missing": 130
+        }, {
+          "rank": "amethyst",
+          "judge": 2,
+          "ex_missing": 80
+        }, {
+          "rank": "emerald",
+          "judge": 2,
+          "ex_missing": 50
+        }
+      ],
+      "total_ex": 5142,
+      "songs": [
+        { "name": "WILD SIDE", "difficulty": 13, "difficulty_class": "challenge", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202013%20%28AC%29%20%28Japan%29/WILD%20SIDE/WILD%20SIDE-jacket.png" },
+        { "name": "Tribe", "difficulty": 13, "difficulty_class": "challenge", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X3%20VS%202ndMIX%20%28AC%29%20%28Japan%29/Tribe/Tribe-jacket.png" },
+        { "name": "ORION.78~civilization mix~", "difficulty": 13, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DDRMAX%20-Dance%20Dance%20Revolution%206thMIX-%20%28AC%29%20%28Japan%29/ORION.78~civilization%20mix~/ORION.78~civilization%20mix~-jacket.png" },
+        { "name": "AFRONOVA", "difficulty": 13, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/Dance%20Dance%20Revolution%203rdMIX%20%28AC%29%20%28Japan%29/AFRONOVA/AFRONOVA-jacket.png" }
+      ],
+      "new": true
     },
     {
       "id": "daybreak",
@@ -122,19 +168,22 @@
         }, {
           "rank": "diamond",
           "judge": 10,
-          "ex_missing": 150
+          "ex_missing": 180
         }, {
           "rank": "cobalt",
           "judge": 3,
-          "ex_missing": 100
+          "ex_missing": 120
         }, {
           "rank": "amethyst",
           "judge": 2,
-          "ex_missing": 60
+          "ex_missing": 65
+        }, {
+          "rank": "emerald",
+          "judge": 2,
+          "ex_missing": 40
         }
       ],
       "total_ex": 5463,
-      "jacket_dir": "2019/03",
       "songs": [
         { "name": "Pierce The Sky", "difficulty": 14, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X2%20%28AC%29%20%28Japan%29/Pierce%20The%20Sky/Pierce%20The%20Sky-jacket.png" },
         { "name": "Shiny World", "difficulty": 14, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X2%20%28AC%29%20%28Japan%29/Shiny%20World/Shiny%20World-jacket.png" },
@@ -167,10 +216,13 @@
           "rank": "amethyst",
           "judge": 7,
           "ex_missing": 100
+        }, {
+          "rank": "emerald",
+          "judge": 4,
+          "ex_missing": 75
         }
       ],
       "total_ex": 5460,
-      "jacket_dir": "2019/04",
       "songs": [
         { "name": "B4U (VOLTAGE Special)", "difficulty": 14, "difficulty_class": "challenge", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20SuperNOVA2%20%28AC%29%20%28Japan%29/B4U%20%28VOLTAGE%20Special%29/B4U%20%28VOLTAGE%20Special%29-jacket.png" },
         { "name": "Triple Counter", "difficulty": 14, "difficulty_class": "difficult", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/Triple%20Counter/Triple%20Counter-jacket.png" },
@@ -182,30 +234,34 @@
       "id": "hellscape",
       "name": "Hellscape",
       "type": "trial",
-      "difficulty": 14,
+      "difficulty": 15,
       "goals": [
         {
           "rank": "silver"
         }, {
           "rank": "gold",
-          "score": [985000],
-          "score_indexed": [970000, 970000, 950000, 0]
+          "score": [985000, 970000, 970000],
+          "score_indexed": [0, 0, 950000, 0]
         }, {
           "rank": "diamond",
-          "score_indexed": [990000, 990000, 985000, 0],
-          "ex_missing": 220
+          "score": [990000, 990000, 990000],
+          "score_indexed": [0, 0, 985000, 0],
+          "ex_missing": 300
         }, {
           "rank": "cobalt",
           "judge": 10,
-          "ex_missing": 160
+          "ex_missing": 180
         }, {
           "rank": "amethyst",
           "judge": 3,
-          "ex_missing": 90
+          "ex_missing": 100
+        }, {
+          "rank": "emerald",
+          "judge": 2,
+          "ex_missing": 65
         }
       ],
       "total_ex": 6615,
-      "jacket_dir": "2019/03",
       "songs": [
         { "name": "FIRE FIRE", "difficulty": 14, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X2%20%28AC%29%20%28Japan%29/FIRE%20FIRE/FIRE%20FIRE-jacket.png" },
         { "name": "NEPHILIM DELTA", "difficulty": 14, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X3%20VS%202ndMIX%20%28AC%29%20%28Japan%29/NEPHILIM%20DELTA/NEPHILIM%20DELTA-jacket.png" },
@@ -228,19 +284,22 @@
         }, {
           "rank": "diamond",
           "score": [990000, 990000, 985000, 985000],
-          "ex_missing": 220
+          "ex_missing": 300
         }, {
           "rank": "cobalt",
           "judge": 10,
-          "ex_missing": 160
+          "ex_missing": 180
         }, {
           "rank": "amethyst",
           "judge": 2,
           "ex_missing": 90
+        }, {
+          "rank": "emerald",
+          "judge": 2,
+          "ex_missing": 65
         }
       ],
       "total_ex": 6270,
-      "jacket_dir": "2019/03",
       "songs": [
         { "name": "Start a New Day", "difficulty": 15, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/Start%20a%20New%20Day/Start%20a%20New%20Day-jacket.png" },
         { "name": "New Decade", "difficulty": 14, "difficulty_class": "difficult", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X2%20%28AC%29%20%28Japan%29/New%20Decade/New%20Decade-jacket.png" },
@@ -262,19 +321,22 @@
         }, {
           "rank": "diamond",
           "score": [990000, 990000, 980000, 980000],
-          "ex_missing": 275
+          "ex_missing": 350
         }, {
           "rank": "cobalt",
           "judge": 6,
-          "ex_missing": 140
+          "ex_missing": 175
         }, {
           "rank": "amethyst",
           "judge": 2,
-          "ex_missing": 75
+          "ex_missing": 85
+        }, {
+          "rank": "emerald",
+          "judge": 2,
+          "ex_missing": 50
         }
       ],
       "total_ex": 6735,
-      "jacket_dir": "2019/04",
       "songs": [
         { "name": "FUNKY SUMMER BEACH", "difficulty": 14, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202014%20%28AC%29%20%28Japan%29/FUNKY%20SUMMER%20BEACH/FUNKY%20SUMMER%20BEACH-jacket.png" },
         { "name": "SUPER SUMMER SALE", "difficulty": 15, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/SUPER%20SUMMER%20SALE/SUPER%20SUMMER%20SALE-jacket.png" },
@@ -297,26 +359,69 @@
           "rank": "diamond",
           "score": [980000, 980000, 980000, 980000],
           "miss": 5,
-          "ex_missing": 250
+          "ex_missing": 300
         }, {
           "rank": "cobalt",
           "score": [990000, 990000, 990000, 990000],
           "judge": 10,
-          "ex_missing": 180
+          "ex_missing": 170
         }, {
           "rank": "amethyst",
           "judge": 2,
           "ex_missing": 100
+        }, {
+          "rank": "emerald",
+          "judge": 2,
+          "ex_missing": 70
         }
       ],
       "total_ex": 6870,
-      "jacket_dir": "2019/03",
       "songs": [
         { "name": "Desert Journey", "difficulty": 15, "difficulty_class": "challenge", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202013%20%28AC%29%20%28Japan%29/Desert%20Journey/Desert%20Journey-jacket.png" },
         { "name": "Sand Blow", "difficulty": 15, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202014%20%28AC%29%20%28Japan%29/Sand%20Blow/Sand%20Blow-jacket.png" },
         { "name": "KHAMEN BREAK", "difficulty": 16, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202014%20%28AC%29%20%28Japan%29/KHAMEN%20BREAK/KHAMEN%20BREAK-jacket.png" },
         { "name": "Cleopatrysm", "difficulty": 15, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202014%20%28AC%29%20%28Japan%29/Cleopatrysm/Cleopatrysm-jacket.png" }
       ]
+    },
+    {
+      "id": "wanderlust",
+      "name": "Wanderlust",
+      "type": "trial",
+      "difficulty": 15,
+      "goals": [
+        {
+          "rank": "silver"
+        }, {
+          "rank": "gold",
+          "score": [950000, 950000, 910000, 910000]
+        }, {
+          "rank": "diamond",
+          "score": [975000, 975000, 975000, 975000],
+          "miss": 7,
+          "ex_missing": 375
+        }, {
+          "rank": "cobalt",
+          "score": [990000, 990000, 990000, 990000],
+          "judge": 12,
+          "ex_missing": 225
+        }, {
+          "rank": "amethyst",
+          "judge": 3,
+          "ex_missing": 125
+        }, {
+          "rank": "emerald",
+          "judge": 2,
+          "ex_missing": 70
+        }
+      ],
+      "total_ex": 6957,
+      "songs": [
+        { "name": "Go For The Top", "difficulty": 15, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X3%20VS%202ndMIX%20%28AC%29%20%28Japan%29/Go%20For%20The%20Top/Go%20For%20The%20Top-jacket.png" },
+        { "name": "Nostalgia Is Lost", "difficulty": 15, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202014%20%28AC%29%20%28Japan%29/Nostalgia%20Is%20Lost/Nostalgia%20Is%20Lost-jacket.png" },
+        { "name": "Triple Journey -TAG EDITION-", "difficulty": 16, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202013%20%28AC%29%20%28Japan%29/Triple%20Journey%20-TAG%20EDITION-/Triple%20Journey%20-TAG%20EDITION--jacket.png" },
+        { "name": "Destination", "difficulty": 15, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202014%20%28AC%29%20%28Japan%29/Destination/Destination-jacket.png" }
+      ],
+      "new": true
     },
     {
       "id": "snowdrift",
@@ -334,16 +439,18 @@
         }, {
           "rank": "cobalt",
           "score": [990000, 990000, 990000, 990000],
-          "ex_missing": 210
+          "ex_missing": 260
         }, {
           "rank": "amethyst",
           "judge": 5,
-          "ex_missing": 135
+          "ex_missing": 150
+        }, {
+          "rank": "emerald",
+          "judge": 3,
+          "ex_missing": 90
         }
       ],
       "total_ex": 7161,
-      "jacket_dir": "2019/04",
-      "jacket_name": "snowdrift_2",
       "songs": [
         { "name": "SILVER DREAM", "difficulty": 15, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X3%20VS%202ndMIX%20%28AC%29%20%28Japan%29/SILVER%20DREAM/SILVER%20DREAM-jacket.png" },
         { "name": "snow prism", "difficulty": 16, "difficulty_class": "challenge", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X3%20VS%202ndMIX%20%28AC%29%20%28Japan%29/snow%20prism/snow%20prism-jacket.png" },
@@ -368,15 +475,18 @@
           "rank": "cobalt",
           "score": [990000, 990000, 990000, 990000],
           "judge": 10,
-          "ex_missing": 190
+          "ex_missing": 250
         }, {
           "rank": "amethyst",
           "judge": 3,
-          "ex_missing": 110
+          "ex_missing": 130
+        }, {
+          "rank": "emerald",
+          "judge": 3,
+          "ex_missing": 75
         }
       ],
       "total_ex": 6951,
-      "jacket_dir": "2019/03",
       "songs": [
         { "name": "I'm so Happy", "difficulty": 16, "difficulty_class": "challenge", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X2%20%28AC%29%20%28Japan%29/I%27m%20so%20Happy/I%27m%20so%20Happy-jacket.png" },
         { "name": "Cosy Catastrophe", "difficulty": 16, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/Cosy%20Catastrophe/Cosy%20Catastrophe-jacket.png" },
@@ -401,15 +511,18 @@
           "rank": "cobalt",
           "score": [990000, 990000],
           "miss": 5,
-          "ex_missing": 250
+          "ex_missing": 300
         }, {
           "rank": "amethyst",
           "judge": 5,
-          "ex_missing": 150
+          "ex_missing": 180
+        }, {
+          "rank": "emerald",
+          "judge": 5,
+          "ex_missing": 100
         }
       ],
       "total_ex": 7311,
-      "jacket_dir": "2019/03",
       "songs": [
         { "name": "888", "difficulty": 14, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X2%20%28AC%29%20%28Japan%29/888/888-jacket.png" },
         { "name": "POSSESSION", "difficulty": 17, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X2%20%28AC%29%20%28Japan%29/POSSESSION/POSSESSION-jacket.png" },
@@ -431,15 +544,18 @@
         }, {
           "rank": "cobalt",
           "score": [990000, 990000, 975000, 975000],
-          "ex_missing": 500
+          "ex_missing": 600
         }, {
           "rank": "amethyst",
           "judge": 20,
-          "ex_missing": 275
+          "ex_missing": 300
+        }, {
+          "rank": "emerald",
+          "judge": 10,
+          "ex_missing": 200
         }
       ],
       "total_ex": 7749,
-      "jacket_dir": "2019/03",
       "songs": [
         { "name": "Puberty Dysthymia", "difficulty": 17, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/Puberty%20Dysthymia/Puberty%20Dysthymia-jacket.png" },
         { "name": "ドーパミン (Dopamine)", "difficulty": 17, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202014%20%28AC%29%20%28Japan%29/Dopamine/Dopamine-jacket.png" },
@@ -460,16 +576,19 @@
           "score": [940000, 940000, 925000, 925000]
         }, {
           "rank": "cobalt",
-          "score": [990000, 990000, 975000, 975000],
-          "ex_missing": 400
+          "score": [990000, 975000, 975000, 975000],
+          "ex_missing": 500
         }, {
           "rank": "amethyst",
           "judge": 15,
-          "ex_missing": 240
+          "ex_missing": 275
+        }, {
+          "rank": "emerald",
+          "judge": 10,
+          "ex_missing": 175
         }
       ],
       "total_ex": 7470,
-      "jacket_dir": "2019/04",
       "jacket_name": "ascension_2",
       "songs": [
         { "name": "RISING FIRE HAWK", "difficulty": 17, "difficulty_class": "challenge", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/RISING%20FIRE%20HAWK/RISING%20FIRE%20HAWK-jacket.png" },
@@ -492,11 +611,14 @@
         }, {
           "rank": "amethyst",
           "score": [990000, 960000, 960000, 960000],
-          "ex_missing": 550
+          "ex_missing": 600
+        }, {
+          "rank": "emerald",
+          "score": [990000, 990000, 980000, 980000],
+          "ex_missing": 400
         }
       ],
       "total_ex": 9396,
-      "jacket_dir": "2019/03",
       "songs": [
         { "name": "Elemental Creation", "difficulty": 18, "difficulty_class": "challenge", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202013%20%28AC%29%20%28Japan%29/Elemental%20Creation/Elemental%20Creation-jacket.png" },
         { "name": "Come to Life", "difficulty": 18, "difficulty_class": "challenge", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/Come%20to%20Life/Come%20to%20Life-jacket.png" },

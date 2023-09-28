@@ -7,7 +7,7 @@
     <string name="action_settings">Settings</string>
     <string name="action_list_view">List View</string>
     <string name="action_grid_view">Grid View</string>
-    <string name="action_clear_rank_data">Clear Rank Data</string>
+    <string name="action_clear_record_data">Clear Record Data</string>
     <string name="action_drive">Google Drive</string>
     <string name="action_export">Export Ranks</string>
     <string name="action_import">Import Ranks</string>
@@ -17,14 +17,19 @@
     <!-- Trial Goal Strings -->
     <string name="score_songs">• Score %s on at least %d songs.</string>
     <string name="aaa_songs">• AAA at least %d songs.</string>
+    <string name="mfc_songs">• MFC at least %d songs.</string>
     <string name="score_other_songs">• Score %s on at least %d other songs.</string>
     <string name="aaa_other_songs">• AAA at least %d other songs.</string>
+    <string name="mfc_other_songs">• MFC at least %d other songs.</string>
     <string name="score_specific_song">• Score %s on %s.</string>
     <string name="aaa_specific_song">• AAA %s.</string>
+    <string name="mfc_specific_song">• MFC %s.</string>
     <string name="score_every_song">• Score %s on every song.</string>
     <string name="aaa_every_song">• AAA every song.</string>
+    <string name="mfc_every_song">• MFC every song.</string>
     <string name="score_on_remainder">• Score %s on all other songs.</string>
     <string name="aaa_on_remainder">• AAA all other songs.</string>
+    <string name="mfc_on_remainder">• MFC all other songs.</string>
     <string name="bad_judgments_count">• %d or fewer Greats, Goods, and Misses.</string>
     <string name="misses_count">• %d or fewer Misses.</string>
     <string name="missing_ex_count">• %d missing EX or less.</string>
@@ -35,10 +40,45 @@
     <string name="no_misses">• Full combo all songs.</string>
 
     <!-- RankEntry Goal Strings -->
-    <string name="rank_goal_calories">Burn %d calories in a single session.</string>
+    <string name="rank_goal_calories">Burn %d calories in one day.</string>
     <string name="rank_goal_single_score">Score %s on any level %d.</string>
-    <string name="rank_goal_lamp">Earn a %s Lamp on %s (%s).</string>
+    <string name="rank_goal_lamp">Earn a %s on %s (%s).</string>
     <string name="rank_goal_set_different">Complete a set of %s.</string>
+    <string name="rank_goal_clear_count">%s %d songs on %s.</string>
+    <string name="rank_goal_clear_count_single">%s a song on %s.</string>
+    <string name="rank_goal_clear_specific">%s %s on %s.</string>
+    <string name="rank_goal_clear_trial">Earn %s on %d trials.</string>
+    <string name="rank_goal_clear_trial_single">Earn %s on any trial.</string>
+    <string name="rank_goal_difficulty_clear">%s %d different %s.</string>
+    <string name="rank_goal_difficulty_clear_single_a">%s a %s.</string>
+    <string name="rank_goal_difficulty_clear_single_an">%s an %s.</string>
+    <string name="rank_goal_difficulty_lamp">%s the %d\'s folder.</string>
+    <string name="rank_goal_difficulty_score">%s %d %s.</string>
+    <string name="rank_goal_difficulty_score_all">All %s over %s.</string>
+    <string name="rank_goal_difficulty_score_all_lamp">All %s over %s with a %s.</string>
+    <string name="rank_goal_difficulty_aaa_all">AAA every %d.</string>
+    <string name="rank_goal_difficulty_aaa_all_lamp">AAA every %d with a %s.</string>
+    <string name="exceptions">(%dE)</string>
+
+    <string name="fail">Fail</string>
+    <string name="clear">Clear</string>
+    <string name="clear_aaa">AAA</string>
+    <string name="clear_life4">LIFE4 clear</string>
+    <string name="clear_fc">Full Combo</string>
+    <string name="clear_fc_short">FC</string>
+    <string name="clear_gfc">Great Full Combo</string>
+    <string name="clear_gfc_short">GFC</string>
+    <string name="clear_pfc">Perfect Full Combo</string>
+    <string name="clear_pfc_short">PFC</string>
+    <string name="clear_mfc">Marvelous Full Combo</string>
+    <string name="clear_mfc_short">MFC</string>
+
+    <string name="lamp_clear">Clear lamp</string>
+    <string name="lamp_life4">Red lamp (LIFE4)</string>
+    <string name="lamp_fc">Blue lamp (Full Combo)</string>
+    <string name="lamp_gfc">Green lamp (GFC)</string>
+    <string name="lamp_pfc">Gold lamp (PFC)</string>
+    <string name="lamp_mfc">White lamp (MFC)</string>
 
     <string name="score">Score</string>
     <string name="ex_score">EX Score</string>
@@ -58,15 +98,18 @@
     <string name="gallery_permission_title">Gallery Permission</string>
     <string name="gallery_permission_description_popup">This app needs permission to access your photos to use them for LIFE4 verification.</string>
 
+    <string name="trial_failed">Trial Failed!</string>
+    <string name="trial_fail_confirmation">Would you like to Concede and save this Trial attempt?</string>
     <string name="trial_close_confirmation">The progress made in this trial will not be saved.</string>
     <string name="trial_concede_confirmation_format">This trial will be saved to your records as incomplete for %s (%s).\n\nYou will NOT get a chance to log your failed song if you haven\'t already.</string>
     <string name="photo_save_confirmation">This photo will not be saved.</string>
     <string name="details_save_confirmation">Your changes will not be saved.</string>
 
     <string name="confirm_trial_title">Confirm Trial Submission</string>
-    <string name="submit_dialog_title">Submit Scores</string>
-    <string name="submit_dialog_rank_confirmation">Did you pass all requirements for %s rank?</string>
-    <string name="submit_dialog_prompt">Photos are saved to your SD card\'s Pictures/LIFE4 folder. These photos can be uploaded to LIFE4\'s Trial Submission Page manually.\n\nWould you like to be taken there now?</string>
+    <string name="confirm_placement_title">Confirm Placement Submission</string>
+    <string name="trial_submit_dialog_title">Submit Scores</string>
+    <string name="trial_submit_dialog_rank_confirmation">Did you pass all requirements for %s rank?</string>
+    <string name="trial_submit_dialog_prompt">Photos are saved to your SD card\'s Pictures/LIFE4 folder. These photos can be uploaded to LIFE4\'s Submission Page manually.\n\nWould you like to be taken there now?</string>
     <string name="trial_not_saved">This trial has not been saved!</string>
 
     <string name="confirm_erase_data">Are you sure you want to clear all saved rank data?</string>
@@ -94,8 +137,15 @@
     <string name="arrow_right">→</string>
 
     <!-- Welcome/FTUE -->
-    <string name="welcome_to_life4">Welcome to LIFE4!</string>
-    <string name="welcome_to_life4_trials">Welcome to LIFE4 Trials!</string>
+    <string name="welcome_to_life4">WELCOME TO LIFE4!</string>
+    <string name="welcome_to_life4_trials">WELCOME TO LIFE4 TRIALS!</string>
+    <string name="life4_intro_greeting">We\'re excited to have you join us.  To get started, how familiar are you with DanceDanceRevolution?</string>
+    <string name="life4_intro_new_player">I\'m new to DDR</string>
+    <string name="life4_intro_new_player_response">Great, and welcome to DDR! We\'ll start you at the beginning of LIFE4\'s ranking system.</string>
+    <string name="life4_intro_familiar">I\'ve played several times</string>
+    <string name="life4_intro_familiar_response">Perfect! You can probably skip some easy ranks by playing a Placement set.</string>
+    <string name="life4_intro_member">I\'m already a LIFE4 member!</string>
+    <string name="life4_intro_member_response">Marvelous! Let\'s log you in and get your rank from the LIFE4 database.</string>
     <string name="life4_trials_tagline">A new way to participate in LIFE4</string>
     <string name="life4_trials_description">Trials are a new way to participate in LIFE4. Playing a Trial involves playing a predetermined set of 4 songs</string>
 
@@ -141,10 +191,27 @@
     <string name="title_activity_settings">Settings</string>
 
     <!-- Preference Titles -->
+    <string name="user_info">User Info</string>
+    <string name="trial_list">Trial List</string>
+    <string name="show_ex">Show EX Score</string>
+    <string name="show_ex_remaining">Also show remaining EX Score</string>
+    <string name="tint_completed_trials">Tint fully completed Trials</string>
+    <string name="highlight_new_trials">Highlight new Trials</string>
     <string name="messages_header">Messages</string>
     <string name="sync_header">Sync</string>
     <string name="rival_code">Rival Code</string>
     <string name="twitter_name">Twitter Name</string>
+    <string name="show_notifications">Show info notifications during submission</string>
+    <string name="test_notifications">Test notifications</string>
+    <string name="photo_select">Use photo picker</string>
+    <string name="expert_score">Expert score entry</string>
+    <string name="enforce_expert">Require step breakdowns</string>
+    <string name="show_remaining_instead_total">Show remaining EX instead of total</string>
+    <string name="send_feedback">Send feedback</string>
+    <string name="send_feedback_summary">Report technical issues or suggest new features</string>
+    <string name="trial_details">Trial Details</string>
+    <string name="trial_records">Trial Records</string>
+    <string name="help">Help &amp; Feedback</string>
 
     <!-- Messages Preferences -->
     <string name="signature_title">Your signature</string>
@@ -173,31 +240,59 @@
     <string name="breakdown_information_missing">One or more of your songs are missing step breakdowns.</string>
 
     <!-- Rank Strings -->
+    <string name="wood">WOOD</string>
     <string name="wood_1">WOOD I</string>
     <string name="wood_2">WOOD II</string>
     <string name="wood_3">WOOD III</string>
+    <string name="bronze">BRONZE</string>
     <string name="bronze_1">BRONZE I</string>
     <string name="bronze_2">BRONZE II</string>
     <string name="bronze_3">BRONZE III</string>
+    <string name="silver">SILVER</string>
     <string name="silver_1">SILVER I</string>
     <string name="silver_2">SILVER II</string>
     <string name="silver_3">SILVER III</string>
+    <string name="gold">GOLD</string>
     <string name="gold_1">GOLD I</string>
     <string name="gold_2">GOLD II</string>
     <string name="gold_3">GOLD III</string>
+    <string name="diamond">DIAMOND</string>
     <string name="diamond_1">DIAMOND I</string>
     <string name="diamond_2">DIAMOND II</string>
     <string name="diamond_3">DIAMOND III</string>
+    <string name="cobalt">COBALT</string>
     <string name="cobalt_1">COBALT I</string>
     <string name="cobalt_2">COBALT II</string>
     <string name="cobalt_3">COBALT III</string>
+    <string name="amethyst">AMETHYST</string>
     <string name="amethyst_1">AMETHYST I</string>
     <string name="amethyst_2">AMETHYST II</string>
     <string name="amethyst_3">AMETHYST III</string>
+    <string name="emerald">EMERALD</string>
+    <string name="emerald_1">EMERALD I</string>
+    <string name="emerald_2">EMERALD II</string>
+    <string name="emerald_3">EMERALD III</string>
 
+    <!-- Trial Rank Strings -->
 
+    <string name="set_numbers_multiple_same_format">%d different %d\'s</string>
     <string name="set_numbers_3_format">%d, %d, and %d</string>
     <string name="make_sure_fields_filled">Make sure all fields are filled in.</string>
     <string name="tap_to_copy">Tap to copy \"%s\"</string>
     <string name="copied">\"%s\" Copied!</string>
+    <string name="placement_explanation">Placement sets are collections of three songs that must be played all in the same set.</string>
+    <string name="new_tag">NEW!</string>
+    <string name="bgsp">BGSP</string>
+    <string name="bsp">BSP</string>
+    <string name="dsp">DSP</string>
+    <string name="esp">ESP</string>
+    <string name="csp">CSP</string>
+    <string name="and_s">and %s</string>
+    <string name="or_s">or %s</string>
+    <string name="or_s_caps">OR %s</string>
+    <string name="plural_number">%ds</string>
+    <string name="any_full_mix_or_letter">any full mix or letter folder</string>
+    <string name="choose_list">Choose 1: %s</string>
+    <string name="life4">LIFE4</string>
+    <string name="placement_description">To participate in Rank Placement, you must complete the following songs in a single set.\n\n• The songs can be played in any order.\n• Extra Stage is optional. If you earn an Extra Stage, you can use it to improve a previous score.\n• The ONLY photo that is required is one of the final results screen, showing the scores for each song played. (Click \"Finalize\" to take this photo)</string>
 </resources>

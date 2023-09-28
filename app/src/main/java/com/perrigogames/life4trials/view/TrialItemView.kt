@@ -10,23 +10,40 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.activity.SettingsActivity
+import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_LIST_SHOW_EX
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_LIST_TINT_COMPLETED
 import com.perrigogames.life4trials.data.Trial
 import com.perrigogames.life4trials.data.TrialRank
-import com.perrigogames.life4trials.util.SharedPrefsUtils
-import kotlinx.android.synthetic.main.item_trial_list_item.view.*
+import com.perrigogames.life4trials.util.SharedPrefsUtil
+import kotlinx.android.synthetic.main.item_trial_list_item.view.image_badge_1
+import kotlinx.android.synthetic.main.item_trial_list_item.view.image_badge_2
+import kotlinx.android.synthetic.main.item_trial_list_item.view.image_badge_3
+import kotlinx.android.synthetic.main.item_trial_list_item.view.image_badge_4
+import kotlinx.android.synthetic.main.item_trial_list_item.view.image_badge_5
+import kotlinx.android.synthetic.main.item_trial_list_item.view.image_badge_6
+import kotlinx.android.synthetic.main.item_trial_list_item.view.image_rank
+import kotlinx.android.synthetic.main.item_trial_tile_item.view.*
 
 /**
- * A custom [View]
+ * A custom [View] for displaying a single [Trial].
  */
 class TrialItemView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
     ConstraintLayout(context, attrs, defStyleAttr) {
 
+    val tintCompleted: Boolean
+        get() = SharedPrefsUtil.getUserFlag(context, KEY_LIST_TINT_COMPLETED, false)
+    val showEx: Boolean
+        get() = SharedPrefsUtil.getUserFlag(context, KEY_LIST_SHOW_EX, false)
+    var showNew: Boolean = false
+        set(v) {
+            field = v
+            update()
+        }
+
     var trial: Trial? = null
         set(v) {
             field = v
-            (view_trial_jacket as TrialJacketView).trial = v
+            (image_rank as TrialJacketView).trial = v
             update()
         }
 
@@ -36,16 +53,21 @@ class TrialItemView @JvmOverloads constructor(context: Context, attrs: Attribute
         image_badge_3.visibility = GONE
         image_badge_4.visibility = GONE
         image_badge_5.visibility = GONE
+        image_badge_6.visibility = GONE
+
+        image_new.visibility = if (showNew) View.VISIBLE else View.GONE
+        text_new.visibility = if (showNew) View.VISIBLE else View.GONE
     }
 
     fun setupRankList(rank: TrialRank?) = trial?.let { t ->
-        t.goals.forEach { goal ->
+        t.goals?.forEach { goal ->
             (when(goal.rank) {
                 TrialRank.SILVER -> image_badge_1
                 TrialRank.GOLD -> image_badge_2
                 TrialRank.DIAMOND -> image_badge_3
                 TrialRank.COBALT -> image_badge_4
                 TrialRank.AMETHYST -> image_badge_5
+                TrialRank.EMERALD -> image_badge_6
             }).visibility = View.VISIBLE
         }
         setupRank(image_badge_1, TrialRank.SILVER, rank)
@@ -53,24 +75,19 @@ class TrialItemView @JvmOverloads constructor(context: Context, attrs: Attribute
         setupRank(image_badge_3, TrialRank.DIAMOND, rank)
         setupRank(image_badge_4, TrialRank.COBALT, rank)
         setupRank(image_badge_5, TrialRank.AMETHYST, rank)
+        setupRank(image_badge_6, TrialRank.EMERALD, rank)
     }
 
     fun setHighestRank(rank: TrialRank?) {
-        (view_trial_jacket as TrialJacketView).let { view ->
+        (image_rank as TrialJacketView).let { view ->
             view.rank = rank
-            if (SharedPrefsUtils.getUserFlag(context, KEY_LIST_TINT_COMPLETED, false)) {
-                view.tintOnRank = TrialRank.AMETHYST
-            }
+            view.tintOnRank = if (tintCompleted) TrialRank.values().last() else null
         }
     }
 
     fun setExScore(exScore: Int?) {
-        (view_trial_jacket as TrialJacketView).let { view ->
-            if (SharedPrefsUtils.getUserFlag(context, SettingsActivity.KEY_LIST_SHOW_EX, false)) {
-                view.exScore = exScore
-            } else {
-                view.exScore = null
-            }
+        (image_rank as TrialJacketView).let { view ->
+            view.exScore = if (showEx) exScore else null
         }
     }
 

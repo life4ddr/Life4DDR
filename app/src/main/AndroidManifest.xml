@@ -20,17 +20,22 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup">
-        <activity android:name=".RankDetailsActivity"></activity>
-        <activity android:name=".activity.Life4DescriptionActivity" />
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="ID_UPDATES_CHANNEL" />
+
         <activity
-            android:name=".activity.TrialsListActivity"
+            android:name=".activity.FirstRunActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".activity.TrialListActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.Launcher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -46,9 +51,6 @@
             android:label="@string/confirm_trial_title"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.GoogleDriveActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".activity.TrialRecordsActivity"
             android:label="@string/title_activity_records" />
         <activity
@@ -57,8 +59,23 @@
         <activity
             android:name=".activity.SettingsActivity"
             android:label="@string/title_activity_settings" />
+        <activity
+            android:name=".activity.RankDetailsActivity"/>
+        <activity
+            android:name=".activity.Life4DescriptionActivity" />
+        <activity
+            android:name=".activity.PlacementDetailsActivity" />
 
-        <receiver android:name=".util.NotificationCopyHandler"
+        <service
+            android:name=".api.Life4FirebaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <receiver
+            android:name=".util.NotificationCopyHandler"
             android:enabled="true">
             <intent-filter>
                 <action android:name="ACTION_COPY_CLIPBOARD"/>

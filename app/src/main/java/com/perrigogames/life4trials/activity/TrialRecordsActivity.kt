@@ -13,7 +13,7 @@ class TrialRecordsActivity : AppCompatActivity(), TrialRecordsFragment.OnRecords
         setContentView(R.layout.activity_trial_records)
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.container, TrialRecordsFragment.newInstance())
+                .replace(R.id.container_fragment, TrialRecordsFragment.newInstance())
                 .commitNow()
         }
     }

@@ -1,6 +1,7 @@
 package com.perrigogames.life4trials.manager
 
 import android.content.Context
+import androidx.appcompat.app.AlertDialog
 import com.perrigogames.life4trials.BuildConfig
 import com.perrigogames.life4trials.Life4Application
 import com.perrigogames.life4trials.R
@@ -21,6 +22,8 @@ class TrialManager(private val context: Context) {
     private var trialData: TrialData
     val trials get() = trialData.trials
 
+    var currentSession: TrialSession? = null
+
     init {
         trialData = DataUtil.gson.fromJson(context.loadRawString(R.raw.trials), TrialData::class.java)!!
         if (BuildConfig.DEBUG) {
@@ -38,6 +41,14 @@ class TrialManager(private val context: Context) {
     val records: List<TrialSessionDB> get() = sessionBox.all
 
     fun findTrial(id: String) = trials.firstOrNull { it.id == id }
+
+    fun previousTrial(id: String) = previousTrial(trials.indexOfFirst { it.id == id })
+
+    fun previousTrial(index: Int) = trials.getOrNull(index - 1)
+
+    fun nextTrial(id: String) = nextTrial(trials.indexOfFirst { it.id == id })
+
+    fun nextTrial(index: Int) = trials.getOrNull(index + 1)
 
     fun saveRecord(session: TrialSession) {
         val sessionDB = TrialSessionDB.from(session)
@@ -64,10 +75,17 @@ class TrialManager(private val context: Context) {
         return emptyList()
     }
 
-    fun clearRecords() {
-        sessionBox.removeAll()
-        songBox.removeAll()
-        Life4Application.eventBus.post(SavedRankUpdatedEvent())
+    fun clearRecords(c: Context) {
+        AlertDialog.Builder(c)
+            .setTitle(R.string.are_you_sure)
+            .setMessage(R.string.confirm_erase_data)
+            .setPositiveButton(R.string.yes) { _, _ ->
+                sessionBox.removeAll()
+                songBox.removeAll()
+                Life4Application.eventBus.post(SavedRankUpdatedEvent())
+            }
+            .setNegativeButton(R.string.no, null)
+            .show()
     }
 
     fun bestTrial(trialId: String): TrialSessionDB? {
@@ -84,5 +102,10 @@ class TrialManager(private val context: Context) {
 
     fun getRankForTrial(trialId: String): TrialRank? {
         return bestTrial(trialId)?.goalRank
+    }
+
+    fun startSession(trialId: String, initialGoal: TrialRank): TrialSession {
+        currentSession = TrialSession(findTrial(trialId)!!, initialGoal)
+        return currentSession!!
     }
 }

@@ -23,7 +23,7 @@
 
     <TextView
         android:id="@+id/text_record_date"
-        android:layout_width="0dp"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/content_padding_large"
         android:layout_marginLeft="@dimen/content_padding_large"
@@ -33,7 +33,6 @@
         android:lines="2"
         app:layout_constraintBottom_toBottomOf="@id/image_rank_icon"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/image_jacket_background"
         app:layout_constraintTop_toTopOf="@id/image_rank_icon"
         tools:text="04/20/2710" />
 

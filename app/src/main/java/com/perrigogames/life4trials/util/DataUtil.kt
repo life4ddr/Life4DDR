@@ -27,9 +27,11 @@ object DataUtil {
         GsonBuilder()
             .registerTypeAdapterFactory(RuntimeTypeAdapterFactory.of(BaseRankGoal::class.java, "type")
                 .registerSubtype(CaloriesRankGoal::class.java, CaloriesRankGoal.TYPE_STRING)
-                .registerSubtype(FolderClearGoal::class.java, FolderClearGoal.TYPE_STRING)
+                .registerSubtype(SongSetClearGoal::class.java, SongSetClearGoal.TYPE_STRING)
                 .registerSubtype(SongSetGoal::class.java, SongSetGoal.TYPE_STRING)
-                .registerSubtype(DifficultyClearGoal::class.java, DifficultyClearGoal.TYPE_STRING))
+                .registerSubtype(DifficultyClearGoal::class.java, DifficultyClearGoal.TYPE_STRING)
+                .registerSubtype(TrialGoal::class.java, TrialGoal.TYPE_STRING)
+                .registerSubtype(MultipleChoiceGoal::class.java, MultipleChoiceGoal.TYPE_STRING))
             .create()
     }
 
@@ -131,3 +133,15 @@ val Context.locale: Locale get() = when {
     Build.VERSION.SDK_INT >= Build.VERSION_CODES.N -> resources.configuration.locales[0]
     else -> resources.configuration.locale
 }
+
+
+fun List<String>.toListString(c: Context, lastModifierFormatRes: Int): String = StringBuilder().apply {
+    this@toListString.forEachIndexed { index, d ->
+        append(when {
+            this@toListString.size == 1 -> d
+            index == this@toListString.lastIndex -> c.getString(lastModifierFormatRes, d)
+            index == this@toListString.lastIndex - 1 -> "$d "
+            else -> "$d, "
+        })
+    }
+}.toString()

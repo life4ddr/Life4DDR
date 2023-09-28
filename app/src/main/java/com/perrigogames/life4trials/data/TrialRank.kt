@@ -1,18 +1,22 @@
 package com.perrigogames.life4trials.data
 
+import androidx.annotation.StringRes
 import com.google.gson.annotations.SerializedName
+import com.perrigogames.life4trials.R
 import java.io.Serializable
 
 /**
  * Enum class representing a Rank that a player can earn in a LIFE4 Trial.
  */
 enum class TrialRank(val stableId: Int,
+                     @StringRes val nameRes: Int,
                      val parent: LadderRank): Serializable {
-    @SerializedName("silver") SILVER(20, LadderRank.SILVER3),
-    @SerializedName("gold") GOLD(25, LadderRank.GOLD3),
-    @SerializedName("diamond") DIAMOND(30, LadderRank.DIAMOND3),
-    @SerializedName("cobalt") COBALT(35, LadderRank.COBALT3),
-    @SerializedName("amethyst") AMETHYST(40, LadderRank.AMETHYST3);
+    @SerializedName("silver") SILVER(20, R.string.silver, LadderRank.SILVER3),
+    @SerializedName("gold") GOLD(25, R.string.gold, LadderRank.GOLD3),
+    @SerializedName("diamond") DIAMOND(30, R.string.diamond, LadderRank.DIAMOND3),
+    @SerializedName("cobalt") COBALT(35, R.string.cobalt, LadderRank.COBALT3),
+    @SerializedName("amethyst") AMETHYST(40, R.string.amethyst, LadderRank.AMETHYST3),
+    @SerializedName("emerald") EMERALD(45, R.string.emerald, LadderRank.EMERALD3);
 
     val drawableRes: Int get() = parent.drawableRes
 
@@ -21,7 +25,8 @@ enum class TrialRank(val stableId: Int,
         GOLD -> DIAMOND
         DIAMOND -> COBALT
         COBALT -> AMETHYST
-        AMETHYST -> AMETHYST
+        AMETHYST -> EMERALD
+        EMERALD -> EMERALD
     }
 
     val color get() = parent.color
