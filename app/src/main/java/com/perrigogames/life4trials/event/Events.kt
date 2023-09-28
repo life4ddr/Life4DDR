@@ -1,7 +1,7 @@
 package com.perrigogames.life4trials.event
 
 import com.perrigogames.life4trials.data.Trial
-import com.perrigogames.life4trials.util.MajorUpdate
+import com.perrigogames.life4trials.manager.MajorUpdate
 
 /** Event published when the app should process logic for a [MajorUpdate]
  * @param version the [MajorUpdate] the app should respond to */

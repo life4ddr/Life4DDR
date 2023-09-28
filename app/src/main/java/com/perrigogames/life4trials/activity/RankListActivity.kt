@@ -6,7 +6,9 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.activity.RankDetailsActivity.Companion.EXTRA_RANK
+import com.perrigogames.life4trials.activity.RankDetailsActivity.Companion.EXTRA_TARGET_RANK
 import com.perrigogames.life4trials.activity.RankDetailsActivity.Companion.RESULT_RANK_SELECTED
+import com.perrigogames.life4trials.activity.RankDetailsActivity.Companion.RESULT_RANK_TARGET_SELECTED
 import com.perrigogames.life4trials.data.LadderRank
 import com.perrigogames.life4trials.data.RankEntry
 import com.perrigogames.life4trials.life4app
@@ -40,11 +42,13 @@ class RankListActivity : AppCompatActivity(), OnRankListInteractionListener {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_CODE_DETAIL_SELECTION) {
-            if (resultCode == RESULT_RANK_SELECTED && data != null) {
-                ladderManager.setUserRank(LadderRank.parse(data.getLongExtra(EXTRA_RANK, 0)))
-                finish()
+        if (requestCode == REQUEST_CODE_DETAIL_SELECTION && data != null) {
+            when (resultCode) {
+                RESULT_RANK_SELECTED -> ladderManager.setUserRank(LadderRank.parse(data.getLongExtra(EXTRA_RANK, 0)))
+                RESULT_RANK_TARGET_SELECTED -> ladderManager.setUserTargetRank(LadderRank.parse(data.getLongExtra(EXTRA_TARGET_RANK, 0)))
+                else -> return
             }
+            finish()
         }
     }
 

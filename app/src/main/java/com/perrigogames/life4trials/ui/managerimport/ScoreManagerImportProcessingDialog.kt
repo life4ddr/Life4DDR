@@ -7,6 +7,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.manager.LadderManager.ManagerImportListener
+import kotlinx.android.synthetic.main.dialog_manager_import_processing.*
 import kotlinx.android.synthetic.main.dialog_manager_import_processing.view.*
 
 /**
@@ -19,6 +20,7 @@ class ScoreManagerImportProcessingDialog(var listener: Listener? = null): Dialog
     lateinit var dialog: AlertDialog
 
     private var errors = 0
+    private var shouldClose = true
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
@@ -46,14 +48,21 @@ class ScoreManagerImportProcessingDialog(var listener: Listener? = null): Dialog
         }
 
         override fun onError(totalCount: Int, message: String) {
-            contentView.text_error_log.append(message)
+            contentView.text_error_log.append("$message\n----\n")
             errors = totalCount
+            shouldClose = false
         }
 
         override fun onCompleted() {
             context?.let {
-                if (errors > 0) {
-                    contentView.text_progress.text = getString(R.string.import_finished_errors, errors)
+                if (!shouldClose) {
+                    contentView.lottie_background.pauseAnimation()
+                    contentView.lottie_background.visibility = View.GONE
+                    contentView.text_progress.text = if (errors > 0) {
+                        getString(R.string.import_finished_errors, errors)
+                    } else {
+                        getString(R.string.import_finished)
+                    }
                     contentView.button_close.text = getString(R.string.close)
                 } else {
                     dialog.dismiss()

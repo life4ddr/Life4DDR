@@ -28,6 +28,7 @@
     <string name="score_specific_song_difficulty">Score %s on %s (%s).</string>
     <string name="aaa_specific_song">AAA %s.</string>
     <string name="mfc_specific_song">MFC %s.</string>
+    <string name="clear_every_song">%s every song.</string>
     <string name="score_every_song">Score %s on every song.</string>
     <string name="aaa_every_song">AAA every song.</string>
     <string name="mfc_every_song">MFC every song.</string>
@@ -49,6 +50,7 @@
     <string name="rank_goal_single_score">Score %s on any level %d.</string>
     <string name="rank_goal_lamp">Earn a %s on %s (%s).</string>
     <string name="rank_goal_set_different">Complete a set of %s.</string>
+    <string name="rank_goal_set_sequential">Complete %s in a row.</string>
     <string name="rank_goal_clear_count">%s %d songs on %s.</string>
     <string name="rank_goal_clear_count_single">%s a song on %s.</string>
     <string name="rank_goal_clear_specific">%s %s on %s.</string>
@@ -184,7 +186,7 @@
 
     <!-- Preference Titles -->
     <string name="user_info">User Info</string>
-    <string name="edit_user_info">Edit User Info</string>
+    <string name="edit_user_info">Edit user info</string>
     <string name="trial_list">Trial List</string>
     <string name="show_ex">Show EX Score</string>
     <string name="show_ex_remaining">Also show remaining EX Score</string>
@@ -204,6 +206,7 @@
     <string name="import_manager_data">Import manager data</string>
     <string name="import_skip_directions">Skip import directions</string>
     <string name="photo_select">Use photo picker</string>
+    <string name="import_finished">Import finished.</string>
     <string name="import_finished_errors">Import finished with %d errors.</string>
     <string name="expert_score">Expert score entry</string>
     <string name="enforce_expert">Require step breakdowns</string>
@@ -221,7 +224,7 @@
     <!-- Sync Preferences -->
     <string name="user_info_notifications">User Info Notifications</string>
     <string name="user_info_notifications_description">Notifications shown during song submission that can be copied to ease form entry.</string>
-    <string name="title_activity_records">Records</string>
+    <string name="title_activity_records">Trial Records</string>
     <string name="no_records_found">No Records found.\n\nGo play some Trials!</string>
     <string name="concede">Concede</string>
     <string name="leaderboard">Leaderboard</string>
@@ -302,15 +305,17 @@
     <string name="dont_show_again">Don\'t show this again</string>
     <string name="import_paste_copied_text">Paste the copied text into the box.</string>
     <string name="import_data_format">%p:b:B:D:E:C%%y:SP:DP%;%d%;%s0%;%l%;%f:mfc:pfc:gfc:fc:life4:clear%;%e%;%a%;%t%</string>
-    <string name="import_finished">Import Finished:\n%d updated, %d errors</string>
+    <string name="import_finished_toast">Import Finished:\n%d updated, %d errors</string>
     <string name="tournaments">Tournaments</string>
     <string name="trials">Trials</string>
     <string name="ladder_goals_complete">All of your goals are complete!</string>
     <string name="ladder_submit_photos">Submit your photos to LIFE4 to rank up.</string>
     <string name="title_single_song_tournament">Song of the Week</string>
     <string name="single_song_tournament_directions">To play in this tournament, score as high as you can on the song listed below, get a picture of the results screen and submit it to LIFE4.</string>
-    <string name="goals_ignored_format">%d/%d ignored</string>
-    <string name="use_this_rank">Set Rank</string>
+    <string name="goals_completed_format">%d/%d completed</string>
+    <string name="i_am_rank_format">I Am %s</string>
+    <string name="i_have_no_rank">I Have No Rank</string>
+    <string name="work_towards_rank_format">Work Towards\n%s</string>
     <string name="field_hint_dancer_name">Dancer Name</string>
     <string name="field_hint_rival_code">Rival Code (Optional)</string>
     <string name="field_hint_twitter">Twitter Name (Optional)</string>
@@ -319,7 +324,7 @@
     <string name="intro_rank_method_selection">Select my rank from the list (you can change it later)</string>
     <string name="intro_rank_method_no_rank">Start from the beginning</string>
     <string name="change_rank_later">You can change your Rank in the Settings menu later.</string>
-    <string name="placements">Placements</string>
+    <string name="placements">Placement Sets</string>
     <string name="start_no_rank">Start Without Rank</string>
     <string name="rank_list">Rank List</string>
 
@@ -339,8 +344,7 @@
     <string name="trials_updated">Trials have been updated!</string>
 
     <string name="credits">Credits</string>
-    <string name="rank_directions_optional">To earn <![CDATA[<b><font color=#ffffff>%s</font></b>]]>, complete %d goals:</string>
-    <string name="rank_directions_all">To earn <![CDATA[<b><font color=#ffffff>%s</font></b>]]>, complete:</string>
+    <string name="rank_directions">To earn <![CDATA[<b><font color=#ffffff>%s</font></b>]]>:</string>
     <string name="no_rank_goals">It\'s free to not have a rank, but it\'s more fun if you play through some goals!</string>
 
     <string name="database_upgraded">Song Database Upgraded</string>
@@ -361,6 +365,11 @@
     <string name="trial_settings">Trial Settings</string>
     <string name="find_us_on_twitter">Find us on Twitter</string>
     <string name="close">Close</string>
+    <string name="manage_song_unlocks">Manage song unlocks</string>
+    <string name="song_unlocks">Song Unlocks</string>
+    <string name="select_a_rank">Select a Rank</string>
+    <string name="available_ranks">Available Ranks</string>
+    <string name="ignored_songs">Ignored Songs</string>
 
     <array name="credits">
         <item>Camera, Cancel, Cogwheel, Eye, Folder, Scroll Left, Scroll Right, and Star icons by

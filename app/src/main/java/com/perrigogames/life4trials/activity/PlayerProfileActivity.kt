@@ -17,6 +17,8 @@ import com.perrigogames.life4trials.data.LadderRank
 import com.perrigogames.life4trials.db.GoalStatus
 import com.perrigogames.life4trials.event.*
 import com.perrigogames.life4trials.life4app
+import com.perrigogames.life4trials.manager.MajorUpdate
+import com.perrigogames.life4trials.manager.MajorUpdate.*
 import com.perrigogames.life4trials.ui.rankdetails.RankDetailsFragment
 import com.perrigogames.life4trials.ui.rankdetails.RankDetailsViewModel
 import com.perrigogames.life4trials.util.*
@@ -37,7 +39,9 @@ class PlayerProfileActivity : AppCompatActivity(), RankDetailsViewModel.OnGoalLi
     private val ladderManager get() = life4app.ladderManager
     private val songDataManager get() = life4app.songDataManager
     private val trialManager get() = life4app.trialManager
+    private val settingsManager get() = life4app.settingsManager
     private var rank: LadderRank? = null
+    private var goalRank: LadderRank? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme_NoActionBar)
@@ -51,9 +55,6 @@ class PlayerProfileActivity : AppCompatActivity(), RankDetailsViewModel.OnGoalLi
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
-        SharedPrefsUtil.isPreviewEnabled().let { p ->
-            menu.findItem(R.id.action_progress_matrix).isVisible = p
-        }
         return true
     }
 
@@ -62,7 +63,6 @@ class PlayerProfileActivity : AppCompatActivity(), RankDetailsViewModel.OnGoalLi
             R.id.action_settings -> startActivity(Intent(this, SettingsActivity::class.java))
             R.id.action_records -> startActivity(Intent(this, TrialRecordsActivity::class.java))
             R.id.action_import_data -> ladderManager.showImportFlow(this)
-            R.id.action_progress_matrix -> startActivity(MatrixTestActivity.intent(this, LadderRank.DIAMOND1))
             else -> return super.onOptionsItemSelected(item)
         }
         return true
@@ -112,8 +112,8 @@ class PlayerProfileActivity : AppCompatActivity(), RankDetailsViewModel.OnGoalLi
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     fun onMajorVersion(e: MajorUpdateProcessEvent) {
         when (e.version) {
-            MajorUpdate.SONG_DB -> ladderManager.onDatabaseMajorUpdate(this)
-            MajorUpdate.A20_REQUIRED -> songDataManager.onA20RequiredUpdate(this)
+            SONG_DB -> ladderManager.onDatabaseMajorUpdate(this)
+            A20_REQUIRED -> songDataManager.onA20RequiredUpdate(this)
         }
         Life4Application.eventBus.removeStickyEvent(e)
     }
@@ -137,10 +137,11 @@ class PlayerProfileActivity : AppCompatActivity(), RankDetailsViewModel.OnGoalLi
     }
 
     private fun updatePlayerContent() {
-        text_player_name.text = SharedPrefsUtil.getUserString(this, KEY_INFO_NAME)
-        text_player_rival_code.text = SharedPrefsUtil.getUserString(this, KEY_INFO_RIVAL_CODE)
+        text_player_name.text = settingsManager.getUserString(KEY_INFO_NAME)
+        text_player_rival_code.text = settingsManager.getUserString(KEY_INFO_RIVAL_CODE)
         text_player_rival_code.apply { visibilityBool = text.isNotEmpty() }
         rank = ladderManager.getUserRank()
+        goalRank = ladderManager.getUserGoalRank()
 
         image_rank.also {
             it.setOnClickListener { startActivity(Intent(this, RankListActivity::class.java)) }
@@ -151,10 +152,10 @@ class PlayerProfileActivity : AppCompatActivity(), RankDetailsViewModel.OnGoalLi
             hideCompleted = true,
             hideIgnored = false,
             showHeader = false,
-            showNextGoals = true,
+            showNextGoals = false,
             allowNextSwitcher = false)
         supportFragmentManager.beginTransaction()
-            .replace(R.id.container_current_goals, RankDetailsFragment.newInstance(rank, options))
+            .replace(R.id.container_current_goals, RankDetailsFragment.newInstance(goalRank, options))
             .commitNowAllowingStateLoss()
     }
 }

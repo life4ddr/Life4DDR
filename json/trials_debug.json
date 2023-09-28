@@ -2,7 +2,7 @@
   "trials": [
     {
       "id": "konnorpicks",
-      "name": "KONNOR's Picks",
+      "name": "KONNOR's Picks (DDR A)",
       "type": "trial",
       "difficulty": 16,
       "goals": [
@@ -32,21 +32,21 @@
       ]
     },
     {
-      "id": "hell",
-      "name": "hell",
+      "id": "scream",
+      "name": "SCREAM",
       "type": "trial",
-      "difficulty": 19,
+      "difficulty": 15,
       "goals": [
         {
           "rank": "emerald"
         }
       ],
-      "total_ex": 6690,
+      "total_ex": 6315,
       "songs": [
-        { "name": "escape", "difficulty": 13, "ex": 1191, "difficulty_class": "challenge", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202013%20%28AC%29%20%28Japan%29/escape/escape-jacket.png"},
-        { "name": "Struggle", "difficulty": 13, "ex": 1542, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202014%20%28AC%29%20%28Japan%29/Struggle/Struggle-jacket.png"},
-        { "name": "TEARS", "difficulty": 12, "ex": 1098, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/Dance%20Dance%20Revolution%20EXTREME%20%28AC%29%20%28Japan%29/TEARS/TEARS-jacket.png"},
-        { "name": "ENDYMION", "difficulty": 19, "ex": 2859, "difficulty_class": "challenge", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28International%29/ENDYMION/ENDYMION-jacket.png" }
+        { "name": "Second Heaven", "difficulty": 14, "ex": 1446, "difficulty_class": "challenge", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X2%20%28AC%29%20%28Japan%29/Second%20Heaven/Second%20Heaven-jacket.png"},
+        { "name": "BRILLIANT 2U (AKBK MIX)", "difficulty": 15, "ex": 1767, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X3%20VS%202ndMIX%20%28AC%29%20%28Japan%29/BRILLIANT%202U%20%28AKBK%20MIX%29/BRILLIANT%202U%20%28AKBK%20MIX%29-jacket.png"},
+        { "name": "FIRE FIRE", "difficulty": 14, "ex": 1728, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X2%20%28AC%29%20%28Japan%29/FIRE%20FIRE/FIRE%20FIRE-jacket.png"},
+        { "name": "PARANOiA ～HADES～", "difficulty": 15, "ex": 1374, "difficulty_class": "difficult", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20SuperNOVA2%20%28AC%29%20%28Japan%29/PARANOiA%20~HADES~/PARANOiA%20~HADES~-jacket.png" }
       ],
       "cover_url": "https://thumbs.dreamstime.com/b/blood-guts-gore-background-2432397.jpg"
     },

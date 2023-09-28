@@ -16,10 +16,24 @@
 
     <Button
         android:id="@+id/button_use_rank"
-        style="@style/BottomProgressButton"
-        android:layout_width="match_parent"
+        style="@style/BottomProgressButtonRightBorder"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:onClick="useRankClicked"
-        android:text="@string/use_this_rank"
+        android:text="@string/i_am_rank_format"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/button_work_toward_rank"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <Button
+        android:id="@+id/button_work_toward_rank"
+        style="@style/BottomProgressButtonLeftBorder"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:onClick="useRankTargetClicked"
+        android:text="@string/work_towards_rank_format"
+        tools:visibility="gone"
+        app:layout_constraintStart_toEndOf="@id/button_use_rank"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

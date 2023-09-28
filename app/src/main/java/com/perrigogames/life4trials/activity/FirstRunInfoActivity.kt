@@ -18,7 +18,6 @@ import com.perrigogames.life4trials.api.ApiPlayer
 import com.perrigogames.life4trials.event.MajorUpdateProcessEvent
 import com.perrigogames.life4trials.life4app
 import com.perrigogames.life4trials.manager.PlayerManager
-import com.perrigogames.life4trials.util.SharedPrefsUtil
 import com.perrigogames.life4trials.util.visibilityBool
 import com.perrigogames.life4trials.view.PlayerFoundView
 import kotlinx.android.synthetic.main.activity_first_run_info.*
@@ -33,15 +32,16 @@ class FirstRunInfoActivity: AppCompatActivity() {
     private val firstRunManager get() = life4app.firstRunManager
     private val ladderManager get() = life4app.ladderManager
     private val playerManager get() = life4app.playerManager
+    private val settingsManager get() = life4app.settingsManager
     private var lastNameCheck: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_first_run_info)
 
-        field_name.setText(SharedPrefsUtil.getUserString(this, KEY_INFO_NAME, ""))
-        field_rival_code.setText(SharedPrefsUtil.getUserString(this, KEY_INFO_RIVAL_CODE, ""))
-        field_twitter.setText(SharedPrefsUtil.getUserString(this, KEY_INFO_TWITTER_NAME, ""))
+        field_name.setText(settingsManager.getUserString(KEY_INFO_NAME, ""))
+        field_rival_code.setText(settingsManager.getUserString(KEY_INFO_RIVAL_CODE, ""))
+        field_twitter.setText(settingsManager.getUserString(KEY_INFO_TWITTER_NAME, ""))
 
         field_name.onFocusChangeListener = View.OnFocusChangeListener { v, hasFocus ->
             if (!hasFocus) {

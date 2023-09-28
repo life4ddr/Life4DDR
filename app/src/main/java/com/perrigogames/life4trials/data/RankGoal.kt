@@ -100,15 +100,13 @@ class SongSetGoal(id: Int,
                   @SerializedName("difficulty_numbers") val difficulties: IntArray): BaseRankGoal(id, type, playStyle, mandatory) {
 
     override fun goalString(c: Context): String {
-        return c.getString(
-            R.string.rank_goal_set_different,
-            if (difficulties.all { it == difficulties[0] }) {
-                c.getString(R.string.set_numbers_multiple_same_format,
-                    difficulties.size, difficulties[0])
-            } else {
-                c.getString(R.string.set_numbers_3_format,
-                    difficulties[0], difficulties[1], difficulties[2])
-            })
+        return if (difficulties.all { it == difficulties[0] }) {
+            c.getString(R.string.rank_goal_set_sequential,
+                c.getString(R.string.set_numbers_multiple_same_format, difficulties.size, difficulties[0]))
+        } else {
+            c.getString(R.string.rank_goal_set_different,
+                c.getString(R.string.set_numbers_3_format, difficulties[0], difficulties[1], difficulties[2]))
+        }
     }
 
     companion object {
@@ -126,7 +124,8 @@ class TrialGoal(id: Int,
                 playStyle: PlayStyle = PlayStyle.SINGLE,
                 mandatory: Boolean,
                 val rank: TrialRank,
-                val count: Int = 1): BaseRankGoal(id, type, playStyle, mandatory) {
+                val count: Int = 1,
+                @SerializedName("restrict") val restrictDifficulty: Boolean = false): BaseRankGoal(id, type, playStyle, mandatory) {
 
     override fun goalString(c: Context): String {
         return if (count == 1) c.getString(R.string.rank_goal_clear_trial_single, c.getString(rank.nameRes))
@@ -192,8 +191,8 @@ class DifficultyClearGoal(id: Int,
             results.isEmpty() -> LadderGoalProgress(0, possible)
             count == null -> {
                 val remaining = when {
-                    score != null -> results.filter { it.score < score } // All X over Y
-                    else -> results.filter { it.clearType.ordinal < clearType.ordinal } // Y lamp the X's folder
+                    score != null -> results.filter { !it.satisfiesClear(clearType) || it.score < score } // All X over Y
+                    else -> results.filter { !it.satisfiesClear(clearType) } // Y lamp the X's folder
                 }.sortedByDescending { it.score }
                 val actualResultsSize = possible - (exceptions ?: 0)
                 LadderGoalProgress(min(results.size - remaining.size, actualResultsSize), actualResultsSize, results = remaining)
