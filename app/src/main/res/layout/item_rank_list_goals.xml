@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/content_padding_med"
         android:lines="1"
-        android:textSize="20sp"
+        android:textSize="@dimen/text_large"
         app:autoSizeMinTextSize="14sp"
         app:autoSizeTextType="uniform"
         app:layout_constraintBottom_toBottomOf="@id/image_rank_icon"

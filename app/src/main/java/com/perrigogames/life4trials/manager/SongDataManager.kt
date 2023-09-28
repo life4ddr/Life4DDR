@@ -1,7 +1,9 @@
 package com.perrigogames.life4trials.manager
 
 import android.content.Context
+import android.os.Handler
 import android.util.Log
+import androidx.appcompat.app.AlertDialog
 import com.crashlytics.android.Crashlytics
 import com.perrigogames.life4trials.Life4Application
 import com.perrigogames.life4trials.R
@@ -15,11 +17,8 @@ import com.perrigogames.life4trials.db.ChartDB_
 import com.perrigogames.life4trials.db.SongDB
 import com.perrigogames.life4trials.db.SongDB_
 import com.perrigogames.life4trials.event.MajorUpdateProcessEvent
-import com.perrigogames.life4trials.util.DataUtil
-import com.perrigogames.life4trials.util.MajorUpdate
-import com.perrigogames.life4trials.util.SharedPrefsUtil
+import com.perrigogames.life4trials.util.*
 import com.perrigogames.life4trials.util.SharedPrefsUtil.KEY_SONG_LIST_VERSION
-import com.perrigogames.life4trials.util.indexOfOrEnd
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import retrofit2.Response
@@ -120,10 +119,13 @@ class SongDataManager(private val context: Context,
     val ignoreListIds get() = ignoreLists.data.lists.map { it.id }
     val ignoreListTitles get() = ignoreLists.data.lists.map { it.name }
 
-    private val selectedIgnoreList: IgnoreList?
-        get() = getIgnoreList(SharedPrefsUtil.getUserString(context, KEY_IMPORT_GAME_VERSION, "ACE_US")!!)
+    val selectedVersion: String
+        get() = SharedPrefsUtil.getUserString(context, KEY_IMPORT_GAME_VERSION, DEFAULT_IGNORE_VERSION)!!
+    val selectedIgnoreList: IgnoreList?
+        get() = getIgnoreList(selectedVersion)
 
-    fun getIgnoreList(id: String) = ignoreLists.data.lists.first { it.id == id }
+    fun getIgnoreList(id: String): IgnoreList =
+        ignoreLists.data.lists.firstOrNull { it.id == id } ?: getIgnoreList(DEFAULT_IGNORE_VERSION)
 
     private var mSelectedIgnoreSongIds: LongArray? = null
     private var mSelectedIgnoreChartIds: LongArray? = null
@@ -149,6 +151,24 @@ class SongDataManager(private val context: Context,
             }
             return mSelectedIgnoreChartIds!!
         }
+
+    fun onA20RequiredUpdate(context: Context) {
+        invalidateIgnoredIds()
+        SharedPrefsUtil.setUserString(context, KEY_IMPORT_GAME_VERSION, DEFAULT_IGNORE_VERSION)
+        Handler().postDelayed({
+            AlertDialog.Builder(context)
+                .setTitle(R.string.a20_update)
+                .setMessage(R.string.a20_update_explanation)
+                .setNegativeButton(R.string.more_info) { d, _ ->
+                    context.openWebUrlFromRes(R.string.url_a20_update)
+                    d.dismiss()
+                }
+                .setPositiveButton(R.string.okay) { d, _ -> d.dismiss() }
+                .setCancelable(true)
+                .create()
+                .show()
+        }, 10)
+    }
 
     //
     // ObjectBoxes
@@ -274,6 +294,7 @@ class SongDataManager(private val context: Context,
     companion object {
         const val SONGS_FILE_NAME = "songs.csv"
         const val IGNORES_FILE_NAME = "ignore_lists.json"
+        const val DEFAULT_IGNORE_VERSION = "A20_US"
     }
 }
 

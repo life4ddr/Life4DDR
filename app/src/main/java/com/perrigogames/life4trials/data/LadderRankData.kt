@@ -4,20 +4,26 @@ import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
 /**
- * Data class for deserializing the ranks.json file. Describes all of the ranks that can
+ * Data class for deserializing the ranks_v2_v2.json file. Describes all of the ranks_v2 that can
  * be earned in LIFE4 and the goals required to obtain each.
  */
-class LadderRankData(val version: Int,
-                     @SerializedName("unlock_requirement") val unlockRequirement: LadderRank,
-                     @SerializedName("rank_requirements") val rankRequirements: List<RankEntry>): Serializable
+class LadderRankData(override val version: Int,
+                     override val majorVersion: Int,
+                     @SerializedName("goals") val goals: List<BaseRankGoal>,
+                     @SerializedName("game_versions") val gameVersions: Map<GameVersion, LadderVersion>): Serializable, MajorVersioned
+
+class LadderVersion(@SerializedName("unlock_requirement") val unlockRequirement: LadderRank,
+                    @SerializedName("rank_requirements") val rankRequirements: List<RankEntry>): Serializable
 
 /**
  * Describes a single rank in [LadderRankData] and the goals required to obtain it.
  */
-class RankEntry @JvmOverloads constructor(val rank: LadderRank,
+class RankEntry(val rank: LadderRank,
                 @SerializedName("play_style") val playStyle: PlayStyle,
-                val goals: List<BaseRankGoal>,
+                @SerializedName("goal_ids") val goalIds: List<Int>,
                 val requirements: Int?): Serializable {
+
+    @Transient var goals = emptyList<BaseRankGoal>()
 
     val allowedIgnores: Int get() = requirements?.let { req -> goals.count { !it.mandatory } - req } ?: 0
 

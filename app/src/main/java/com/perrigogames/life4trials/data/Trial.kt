@@ -49,6 +49,8 @@ class Trial(val id: String,
      * Return the scoring group for a user with a particular rank.
      */
     fun findScoringGroup(rank: TrialRank) = scoring_groups?.first { it.contains(rank) }
+
+    val isExValid get() = songs.sumBy { it.ex ?: 0 }.let { it == 0 || it == total_ex }
 }
 
 class Song(val name: String,

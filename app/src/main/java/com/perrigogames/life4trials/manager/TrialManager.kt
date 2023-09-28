@@ -31,13 +31,17 @@ class TrialManager(private val context: Context,
                    private val githubDataAPI: GithubDataAPI): BaseManager() {
 
     private var trialData = object: MajorVersionedRemoteData<TrialData>(context, R.raw.trials, TRIALS_FILE_NAME, 2) {
-        override fun createLocalDataFromText(text: String): TrialData =
-            mergeDebugData(DataUtil.gson.fromJson(text, TrialData::class.java)!!)
+        override fun createLocalDataFromText(text: String): TrialData {
+            val data = DataUtil.gson.fromJson(text, TrialData::class.java)!!
+            validateTrialData(data)
+            return mergeDebugData(data)
+        }
 
         override suspend fun getRemoteResponse() = githubDataAPI.getTrials()
 
         override fun onFetchUpdated(data: TrialData) {
             super.onFetchUpdated(data)
+            validateTrialData(data)
             this.data = mergeDebugData(data)
             Toast.makeText(context, "${data.trials.size} Trials found!", Toast.LENGTH_SHORT).show()
             Life4Application.eventBus.post(TrialListReplacedEvent())
@@ -48,6 +52,11 @@ class TrialManager(private val context: Context,
             val placements = context.life4app.placementManager.placements
             TrialData(data.version, data.majorVersion,data.trials + debugData.trials + placements)
         } else data
+
+        private fun validateTrialData(data: TrialData) {
+             data.trials.firstOrNull { !it.isExValid }?.let { trial -> throw Exception(
+                 "Trial ${trial.name} (${trial.total_ex}) has improper EX scores: ${trial.songs.map { it.ex }.joinToString()}") }
+        }
     }
 
     var currentSession: TrialSession? = null

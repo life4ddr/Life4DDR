@@ -1,132 +1,51 @@
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+    <DropDownPreference
+        app:defaultValue="A20_US"
+        app:key="KEY_IMPORT_GAME_VERSION"
+        app:title="@string/action_game_version"/>
+    <Preference
+        app:fragment="com.perrigogames.life4trials.activity.SettingsActivity$UserInfoSettingsFragment"
+        app:title="@string/edit_user_info"/>
+    <Preference
+        app:key="KEY_IMPORT_DATA"
+        app:title="@string/import_manager_data"/>
+    <CheckBoxPreference
+        app:key="KEY_IMPORT_SKIP_DIRECTIONS"
+        app:title="@string/import_skip_directions"/>
+    <Preference
+        app:key="KEY_IMPORT_VIEW_LIST"
+        app:title="@string/action_view_blocklist"/>
 
-    <PreferenceCategory app:title="@string/user_info">
+    <Preference
+        app:fragment="com.perrigogames.life4trials.activity.SettingsActivity$TrialSettingsFragment"
+        app:title="@string/trial_settings"/>
 
-        <EditTextPreference
-            app:key="KEY_INFO_NAME"
-            app:title="@string/player_name" />
-        <DropDownPreference
-            app:key="KEY_INFO_RANK"
-            app:title="@string/player_rank"/>
-        <EditTextPreference
-            app:key="KEY_INFO_RIVAL_CODE"
-            app:title="@string/rival_code" />
-        <EditTextPreference
-            app:key="KEY_INFO_TWITTER_NAME"
-            app:title="@string/twitter_name" />
-        <!--<EditTextPreference-->
-            <!--app:key="KEY_INFO_IMPORT"-->
-            <!--app:summary="@string/import_info_description"-->
-            <!--app:title="@string/import_info"/>-->
-        <CheckBoxPreference
-            app:key="KEY_SUBMISSION_NOTIFICAION"
-            app:defaultValue="true"
-            app:summary="@string/show_notifications"
-            app:title="@string/show_notifications_title" />
-        <Preference
-            app:key="KEY_SUBMISSION_NOTIFICAION_TEST"
-            app:title="@string/test_notifications" />
-    </PreferenceCategory>
-
-    <PreferenceCategory
-        app:key="KEY_CATEGORY_IMPORT"
-        app:title="@string/score_manager_import" >
-
-        <Preference
-            app:key="KEY_IMPORT_DATA"
-            app:title="@string/import_manager_data"/>
-
-        <CheckBoxPreference
-            app:key="KEY_IMPORT_SKIP_DIRECTIONS"
-            app:title="@string/import_skip_directions"/>
-
-        <DropDownPreference
-            app:defaultValue="ACE_US"
-            app:key="KEY_IMPORT_GAME_VERSION"
-            app:title="@string/action_game_version"/>
-
-        <Preference
-            app:key="KEY_IMPORT_VIEW_LIST"
-            app:title="@string/action_view_blocklist"/>
-
-    </PreferenceCategory>
-
-    <PreferenceCategory app:title="@string/trial_list">
-
-        <CheckBoxPreference
-            app:key="KEY_LIST_SHOW_EX"
-            app:title="@string/show_ex" />
-
-        <CheckBoxPreference
-            app:dependency="KEY_LIST_SHOW_EX"
-            app:key="KEY_LIST_SHOW_EX_REMAINING"
-            app:title="@string/show_ex_remaining" />
-
-        <CheckBoxPreference
-            app:key="KEY_LIST_TINT_COMPLETED"
-            app:defaultValue="true"
-            app:title="@string/tint_completed_trials"/>
-
-        <CheckBoxPreference
-            app:defaultValue="true"
-            app:key="KEY_LIST_HIGHLIGHT_NEW"
-            app:title="@string/highlight_new_trials"/>
-    </PreferenceCategory>
-
-    <PreferenceCategory app:title="@string/trial_details">
-
-        <CheckBoxPreference
-            app:key="KEY_DETAILS_PHOTO_SELECT"
-            app:title="@string/photo_select" />
-
-        <CheckBoxPreference
-            app:key="KEY_DETAILS_EXPERT"
-            app:title="@string/expert_score" />
-
-        <CheckBoxPreference
-            app:defaultValue="true"
-            app:key="KEY_DETAILS_ENFORCE_EXPERT"
-            app:title="@string/enforce_expert" />
-    </PreferenceCategory>
-
-    <PreferenceCategory app:title="@string/trial_records">
-
-        <CheckBoxPreference
-            app:key="KEY_RECORDS_REMAINING_EX"
-            app:summary="@string/show_remaining_instead_total"
-            app:title="@string/show_remaining_ex_title"/>
-    </PreferenceCategory>
-
-    <PreferenceCategory app:title="@string/clear_data">
-        <Preference
-            app:key="KEY_LADDER_CLEAR"
-            app:title="@string/clear_goal_states"/>
-
-        <Preference
-            app:key="KEY_SONG_RESULTS_CLEAR"
-            app:title="@string/clear_song_results"/>
-
-        <Preference
-            app:key="KEY_REFRESH_SONG_DB"
-            app:title="@string/action_refresh_song_db"/>
-
-        <Preference
-            app:key="KEY_RECORDS_CLEAR"
-            app:title="@string/action_clear_record_data"/>
-    </PreferenceCategory>
+    <Preference
+        app:fragment="com.perrigogames.life4trials.activity.SettingsActivity$ClearDataFragment"
+        app:title="@string/clear_data"/>
 
     <PreferenceCategory app:title="@string/help_and_feedback">
         <Preference
-            app:key="KEY_SHOP"
-            app:summary="@string/description_shop"
-            app:title="@string/action_shop"/>
+            app:key="KEY_SHOP_LIFE4"
+            app:summary="@string/description_shop_life4"
+            app:title="@string/action_shop_life4"/>
+        <Preference
+            app:key="KEY_SHOP_DANGERSHARK"
+            app:summary="@string/description_shop_dangershark"
+            app:title="@string/action_shop_dangershark"/>
         <Preference
             app:key="KEY_FEEDBACK"
             app:summary="@string/send_feedback_summary"
             app:title="@string/send_feedback"/>
         <Preference
+            app:key="KEY_FIND_US_TWITTER"
+            app:title="@string/find_us_on_twitter"/>
+        <Preference
             app:key="KEY_CREDITS"
             app:title="@string/credits"/>
+        <Preference
+            app:fragment="com.perrigogames.life4trials.activity.SettingsActivity$DebugSettingsFragment"
+            app:key="KEY_DEBUG"
+            app:title="Debug Settings"/>
     </PreferenceCategory>
-
 </PreferenceScreen>

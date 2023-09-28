@@ -11,8 +11,10 @@
     <string name="action_import">Import Ranks</string>
     <string name="action_records">Records</string>
     <string name="action_trial_records">Trial Records</string>
-    <string name="action_shop">Shop</string>
-    <string name="description_shop">Purchase physical LIFE4 gear</string>
+    <string name="action_shop_life4">Shop LIFE4</string>
+    <string name="action_shop_dangershark">Shop DangerShark</string>
+    <string name="description_shop_life4">Purchase physical LIFE4 gear</string>
+    <string name="description_shop_dangershark">Purchase merch from our partner DangerShark</string>
 
     <!-- Trial Goal Strings -->
     <string name="clear_first_songs">• %s the first %d songs.</string>
@@ -161,8 +163,10 @@
     <string name="url_trial">https://life4ddr.com/%s</string>
     <string name="url_standard_submission_form">https://docs.google.com/forms/d/e/1FAIpQLSe-UDKHOaVv7Zf3FEYPUKBwfT0yc79af8hvVMDIu7VYDoIEvQ/viewform</string>
     <string name="url_trial_submission_form">https://docs.google.com/forms/d/e/1FAIpQLSd2z2dcavPcdC_UhieAPUoYj0C5mTbSAabhrRYstOYem2Mq5Q/viewform</string>
-    <string name="url_song_of_week">https://life4ddr.com/</string>
-    <string name="url_shop">https://life4.bigcartel.com/</string>
+    <string name="url_a20_update">https://life4ddr.com/requirements/</string>
+    <string name="url_shop_life4">https://life4.bigcartel.com/</string>
+    <string name="url_shop_dangershark">https://www.dangershark.com/</string>
+    <string name="url_twitter">https://twitter.com/life4ddr/</string>
 
     <!-- Content descriptions -->
     <string name="jacket_artwork_for_trial">jacket artwork for trial</string>
@@ -177,6 +181,7 @@
 
     <!-- Preference Titles -->
     <string name="user_info">User Info</string>
+    <string name="edit_user_info">Edit User Info</string>
     <string name="trial_list">Trial List</string>
     <string name="show_ex">Show EX Score</string>
     <string name="show_ex_remaining">Also show remaining EX Score</string>
@@ -243,6 +248,10 @@
     <string name="gold_1">GOLD I</string>
     <string name="gold_2">GOLD II</string>
     <string name="gold_3">GOLD III</string>
+    <string name="platinum">PLATINUM</string>
+    <string name="platinum_1">PLATINUM I</string>
+    <string name="platinum_2">PLATINUM II</string>
+    <string name="platinum_3">PLATINUM III</string>
     <string name="diamond">DIAMOND</string>
     <string name="diamond_1">DIAMOND I</string>
     <string name="diamond_2">DIAMOND II</string>
@@ -330,6 +339,9 @@
 
     <string name="database_upgraded">Song Database Upgraded</string>
     <string name="database_replaced_reimport">The internal song database has been upgraded.\n\nIf you imported your scores from the DDR A Score Manager, you will need to do this again to ensure compatibility.\n\nYou\'ll only need to do this once.</string>
+    <string name="a20_update">A20 Is Here!</string>
+    <string name="a20_update_explanation">LIFE4 will now be incorporating songs from DDR A20 into the LIFE4 Ranking System.\n\nIf you don\'t have regular access to DDR A20, you can select DDR A from the Settings menu.</string>
+    <string name="more_info">More Info</string>
 
     <string name="update_your_app">Update Your App!</string>
     <string name="remote_data_needs_update">This version of the LIFE4 app is not compatible with some of the newest updates.\n\nPlease update your LIFE4 app to get the most current experience!</string>
@@ -340,6 +352,8 @@
     <string name="manager_import_tutorial_4">Paste the copied format text into one of the formats boxes that you don\'t already use.</string>
     <string name="manager_import_tutorial_5">Return to the Copy dialog and select the newly added format.</string>
     <string name="manager_import_tutorial_6">Then return to LIFE4 and paste the copied score data.</string>
+    <string name="trial_settings">Trial Settings</string>
+    <string name="find_us_on_twitter">Find us on Twitter</string>
 
     <array name="credits">
         <item>Camera, Cancel, Cogwheel, Eye, Folder, Scroll Left, Scroll Right, and Star icons by

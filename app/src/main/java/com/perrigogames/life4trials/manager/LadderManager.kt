@@ -14,6 +14,7 @@ import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.activity.SettingsActivity
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_IMPORT_SKIP_DIRECTIONS
 import com.perrigogames.life4trials.api.GithubDataAPI
+import com.perrigogames.life4trials.api.MajorVersionedRemoteData
 import com.perrigogames.life4trials.data.*
 import com.perrigogames.life4trials.data.DifficultyClass.*
 import com.perrigogames.life4trials.db.*
@@ -23,12 +24,9 @@ import com.perrigogames.life4trials.event.SongResultsImportCompletedEvent
 import com.perrigogames.life4trials.event.SongResultsUpdatedEvent
 import com.perrigogames.life4trials.ui.managerimport.ScoreManagerImportDirectionsDialog
 import com.perrigogames.life4trials.ui.managerimport.ScoreManagerImportEntryDialog
-import com.perrigogames.life4trials.util.*
-import kotlinx.coroutines.*
-import org.greenrobot.eventbus.Subscribe
-import org.greenrobot.eventbus.ThreadMode
+import com.perrigogames.life4trials.util.DataUtil
+import com.perrigogames.life4trials.util.SharedPrefsUtil
 import retrofit2.Response
-import java.net.UnknownHostException
 import java.util.*
 
 class LadderManager(private val context: Context,
@@ -39,9 +37,30 @@ class LadderManager(private val context: Context,
     //
     // Ladder Data
     //
-    var ladderData: LadderRankData
-        private set
-    private var ladderJob: Job? = null
+    private val ladderDataRemote = object: MajorVersionedRemoteData<LadderRankData>(context, R.raw.ranks_v2, RANKS_FILE_NAME, 1) {
+        override suspend fun getRemoteResponse() = githubDataAPI.getLadderRanks()
+
+        override fun createLocalDataFromText(text: String): LadderRankData {
+            val out = DataUtil.gson.fromJson(text, LadderRankData::class.java)!!
+            out.gameVersions.values.flatMap { it.rankRequirements }.forEach {  entry ->
+                entry.goals = entry.goalIds.map { id ->
+                    out.goals.firstOrNull { it.id == id } ?:
+                    error("ID not found: $id")
+                }
+            }
+            return out
+        }
+
+        override fun onNewDataLoaded(newData: LadderRankData) {
+            Toast.makeText(context, R.string.ranks_updated, Toast.LENGTH_SHORT).show()
+            Life4Application.eventBus.post(LadderRanksReplacedEvent())
+        }
+    }
+    val ladderData: LadderRankData get() = ladderDataRemote.data
+    val currentRequirements: LadderVersion
+        get() = songDataManager.selectedIgnoreList!!.baseVersion.let { version ->
+            ladderData.gameVersions[version] ?: error("Rank requirements not found for version $version")
+        }
 
     //
     // ObjectBoxes
@@ -53,32 +72,10 @@ class LadderManager(private val context: Context,
     // Init
     //
     init {
-        Life4Application.eventBus.register(this)
-        val dataString = context.readFromFile(RANKS_FILE_NAME) ?: context.loadRawString(R.raw.ranks)
-        ladderData = DataUtil.gson.fromJson(dataString, LadderRankData::class.java)!!
-        fetchRemoteRanks()
+        ladderDataRemote.start()
     }
 
-    private fun fetchRemoteRanks() {
-        ladderJob?.cancel()
-        ladderJob = CoroutineScope(Dispatchers.IO).launch {
-            try {
-                val response = githubDataAPI.getLadderRanks()
-                withContext(Dispatchers.Main) {
-                    if (response.check()) {
-                        context.saveToFile(TrialManager.TRIALS_FILE_NAME, DataUtil.gson.toJson(response.body()))
-                        Toast.makeText(context, R.string.ranks_updated, Toast.LENGTH_SHORT).show()
-                        ladderData = response.body()!!
-                        Life4Application.eventBus.post(LadderRanksReplacedEvent())
-                    }
-                    ladderJob = null
-                }
-            } catch (e: UnknownHostException) {}
-        }
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onMajorVersion(context: Context) {
+    fun onDatabaseMajorUpdate(context: Context) {
         if (!ladderResultBox.isEmpty) {
             ladderResultBox.removeAll()
             Handler().postDelayed({
@@ -127,15 +124,15 @@ class LadderManager(private val context: Context,
     //
     // Rank Navigation
     //
-    fun findRankEntry(rank: LadderRank?) = ladderData.rankRequirements.firstOrNull { it.rank == rank }
+    fun findRankEntry(rank: LadderRank?) = currentRequirements.rankRequirements.firstOrNull { it.rank == rank }
 
-    fun previousEntry(rank: LadderRank?) = previousEntry(ladderData.rankRequirements.indexOfFirst { it.rank == rank })
+    fun previousEntry(rank: LadderRank?) = previousEntry(currentRequirements.rankRequirements.indexOfFirst { it.rank == rank })
 
-    fun previousEntry(index: Int) = ladderData.rankRequirements.getOrNull(index - 1)
+    fun previousEntry(index: Int) = currentRequirements.rankRequirements.getOrNull(index - 1)
 
-    fun nextEntry(rank: LadderRank?) = nextEntry(ladderData.rankRequirements.indexOfFirst { it.rank == rank })
+    fun nextEntry(rank: LadderRank?) = nextEntry(currentRequirements.rankRequirements.indexOfFirst { it.rank == rank })
 
-    fun nextEntry(index: Int) = ladderData.rankRequirements.getOrNull(index + 1)
+    fun nextEntry(index: Int) = currentRequirements.rankRequirements.getOrNull(index + 1)
 
     //
     // Goal State
@@ -394,6 +391,6 @@ class LadderManager(private val context: Context,
     }
 
     companion object {
-        const val RANKS_FILE_NAME = "ranks.json"
+        const val RANKS_FILE_NAME = "ranks_v2.json"
     }
 }
