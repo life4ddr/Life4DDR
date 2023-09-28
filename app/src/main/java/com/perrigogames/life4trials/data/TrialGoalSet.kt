@@ -8,14 +8,18 @@ import com.perrigogames.life4trials.data.TrialData.Companion.MAX_SCORE
 import java.io.Serializable
 
 data class TrialGoalSet(val rank: TrialRank,
+                        val clear: List<ClearType>? = null,
+                        @SerializedName("clear_indexed") val clearIndexed: List<ClearType>? = null,
                         val score: List<Int>? = null,
                         @SerializedName("score_indexed") val scoreIndexed: List<Int>? = null,
                         val judge: Int? = null,
                         val miss: Int? = null,
+                        @SerializedName("miss_each") val missEach: Int? = null,
                         @SerializedName("ex_missing") val exMissing: Int? = null): Serializable {
 
     val goalTypes: List<GoalType>
         get() = mutableListOf<GoalType>().apply {
+            if (clear != null || clearIndexed != null) add(GoalType.CLEAR)
             if (score != null || scoreIndexed != null) add(GoalType.SCORE)
             if (exMissing != null) add(GoalType.EX)
             if (judge != null) add(GoalType.BAD_JUDGEMENT)
@@ -29,13 +33,42 @@ data class TrialGoalSet(val rank: TrialRank,
     }.toString()
 
     fun generateGoalStrings(res: Resources, trial: Trial): List<String> = mutableListOf<String>().also { list ->
+        generateClearGoalStrings(res, trial, list)
         generateSpecificScoreGoalStrings(res, trial, list)
         generateScoreGoalStrings(res, list)
         miss?.let { list.add(missesString(res, it)) }
+        missEach?.let { list.add(missesEachString(res, it)) }
         judge?.let { list.add(badJudgementsString(res, it)) }
         exMissing?.let { list.add(exScoreString(res, it, trial.total_ex)) }
         if (list.size == 0) {
             list.add(res.getString(R.string.pass_the_trial))
+        }
+    }
+
+    private fun generateSpecificClearGoalStrings(res: Resources, trial: Trial, strings: MutableList<String>) {
+        strings.add("TODO: we don't need this right now") //TODO
+    }
+
+    private fun generateClearGoalStrings(res: Resources, trial: Trial, strings: MutableList<String>) {
+        clearIndexed?.let { clears ->
+            var setType: ClearType? = null
+            var chainEnd: Int? = null
+            clears.forEachIndexed { idx, type ->
+                if (setType == null) { // first non-fail sets the type
+                    if (type != ClearType.FAIL) {
+                        setType = type
+                    } else {
+                        return generateSpecificClearGoalStrings(res, trial, strings)
+                    }
+                } else if (setType != null) {
+                    if (type == ClearType.FAIL) { // first fail after the chain starts
+                        chainEnd = idx
+                    } else if (setType != type || (chainEnd != null && type != ClearType.FAIL)) { // if you clash or have already ended the chain
+                        return generateSpecificClearGoalStrings(res, trial, strings)
+                    }
+                }
+            }
+            strings.add(res.getString(R.string.clear_first_songs, res.getString(setType!!.clearRes), chainEnd!!))
         }
     }
 
@@ -141,7 +174,11 @@ data class TrialGoalSet(val rank: TrialRank,
         if (misses == 0) res.getString(R.string.no_misses)
         else res.getString(R.string.misses_count, misses)
 
+    private fun missesEachString(res: Resources, misses: Int) =
+        if (misses == 0) res.getString(R.string.no_misses)
+        else res.getString(R.string.misses_each_count, misses)
+
     enum class GoalType {
-        SCORE, EX, BAD_JUDGEMENT, MISS
+        CLEAR, SCORE, EX, BAD_JUDGEMENT, MISS
     }
 }

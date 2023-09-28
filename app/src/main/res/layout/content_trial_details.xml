@@ -29,7 +29,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:background="@color/colorAccent"/>
+                tools:background="@color/colorAccent" />
 
             <ImageButton
                 android:id="@+id/button_navigate_previous"
@@ -63,6 +63,21 @@
                 app:layout_constraintStart_toEndOf="@id/image_rank"
                 app:layout_constraintTop_toTopOf="@id/image_rank" />
 
+            <TextView
+                android:id="@+id/text_author_credit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/content_padding_small"
+                android:layout_marginBottom="@dimen/content_padding_small"
+                android:fontFamily="@font/avenir"
+                android:textColor="@color/difficultyExpert"
+                android:visibility="gone"
+                app:layout_constraintBottom_toTopOf="@id/image_desired_rank"
+                app:layout_constraintStart_toStartOf="@id/image_desired_rank"
+                app:layout_constraintTop_toBottomOf="@id/image_rank"
+                tools:text="@string/author_credit_format"
+                tools:visibility="visible" />
+
             <com.perrigogames.life4trials.view.RankImageView
                 android:id="@+id/image_desired_rank"
                 android:layout_width="32dp"
@@ -73,8 +88,8 @@
                 app:layout_constraintHorizontal_bias="0"
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/image_rank"
-                tools:background="@color/colorAccent"/>
+                app:layout_constraintTop_toBottomOf="@id/text_author_credit"
+                tools:background="@color/colorAccent" />
 
             <Spinner
                 android:id="@+id/spinner_desired_rank"
@@ -83,7 +98,7 @@
                 app:layout_constraintBottom_toBottomOf="@id/image_desired_rank"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/image_desired_rank"
-                app:layout_constraintTop_toTopOf="@id/image_desired_rank"/>
+                app:layout_constraintTop_toTopOf="@id/image_desired_rank" />
 
             <ImageView
                 android:id="@+id/image_camera_icon"
@@ -117,7 +132,7 @@
                 android:tint="@color/white"
                 app:layout_constraintBottom_toBottomOf="@id/image_desired_rank"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/image_desired_rank"/>
+                app:layout_constraintTop_toTopOf="@id/image_desired_rank" />
 
             <TextView
                 android:id="@+id/text_goals_header"
@@ -128,7 +143,7 @@
                 android:textSize="20sp"
                 android:visibility="gone"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/image_desired_rank"/>
+                app:layout_constraintTop_toBottomOf="@id/image_desired_rank" />
 
             <TextView
                 android:id="@+id/text_goals_content"
@@ -138,16 +153,16 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_goals_header"
-                tools:text="- Get 950,000 points on each song\n- Get over 1000 EX Points\n- Get less than 7 total misses"/>
+                tools:text="- Get 950,000 points on each song\n- Get over 1000 EX Points\n- Get less than 7 total misses" />
 
             <FrameLayout
                 android:id="@+id/container_song_list_fragment"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_goals_content"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_goals_content" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

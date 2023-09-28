@@ -15,6 +15,7 @@
     <string name="action_rank_goals">Rank Goals</string>
 
     <!-- Trial Goal Strings -->
+    <string name="clear_first_songs">• %s the first %d songs.</string>
     <string name="score_songs">• Score %s on at least %d songs.</string>
     <string name="aaa_songs">• AAA at least %d songs.</string>
     <string name="mfc_songs">• MFC at least %d songs.</string>
@@ -32,6 +33,7 @@
     <string name="mfc_on_remainder">• MFC all other songs.</string>
     <string name="bad_judgments_count">• %d or fewer Greats, Goods, and Misses.</string>
     <string name="misses_count">• %d or fewer Misses.</string>
+    <string name="misses_each_count">• %d or fewer Misses on each song.</string>
     <string name="missing_ex_count">• %d missing EX or less.</string>
     <string name="missing_ex_count_threshold">• %d missing EX or less (%d).</string>
     <string name="pass_the_trial">• Pass the Trial.</string>
@@ -123,6 +125,7 @@
     <string name="ex_score_missing_newline_string_format">%d EX\n(%d)</string>
     <string name="score_string_summary_format">"%s\n%d EX"</string>
     <string name="score_string_summary_format_advanced">"%s\n%d EX\n%d Miss\n%d &lt;Great"</string>
+    <string name="author_credit_format">Created by %s</string>
 
     <!-- Short/Common Strings -->
     <string name="goals">Goals:</string>
@@ -274,7 +277,6 @@
     <string name="emerald_3">EMERALD III</string>
 
     <!-- Trial Rank Strings -->
-
     <string name="set_numbers_multiple_same_format">%d different %d\'s</string>
     <string name="set_numbers_3_format">%d, %d, and %d</string>
     <string name="make_sure_fields_filled">Make sure all fields are filled in.</string>

@@ -16,6 +16,7 @@ class TrialData(val trials: List<Trial>): Serializable {
 
 class Trial(val id: String,
             val name: String,
+            val author: String?,
             val type: TrialType,
             val placement_rank: PlacementRank?,
             val new: Boolean = false,
@@ -35,6 +36,7 @@ class Trial(val id: String,
 class Song(val name: String,
            @SerializedName("difficulty") val difficultyNumber: Int,
            @SerializedName("difficulty_class") val difficultyClass: DifficultyClass,
+           val ex: Int?,
            val url: String? = null): Serializable
 
 enum class TrialType {
