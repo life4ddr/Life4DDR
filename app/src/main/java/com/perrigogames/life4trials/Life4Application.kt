@@ -3,17 +3,15 @@ package com.perrigogames.life4trials
 import android.content.Context
 import android.util.Log
 import androidx.multidex.MultiDexApplication
-import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_INFO_NAME
 import com.perrigogames.life4trials.api.FirebaseUtil
+import com.perrigogames.life4trials.api.GithubDataAPI
 import com.perrigogames.life4trials.api.Life4API
 import com.perrigogames.life4trials.db.MyObjectBox
 import com.perrigogames.life4trials.manager.*
+import com.perrigogames.life4trials.util.DataUtil
 import com.perrigogames.life4trials.util.NotificationUtil
 import com.perrigogames.life4trials.util.SharedPrefsUtil
 import com.perrigogames.life4trials.util.SharedPrefsUtil.KEY_APP_CRASHED
-import com.perrigogames.life4trials.util.SharedPrefsUtil.KEY_INIT_STATE
-import com.perrigogames.life4trials.util.SharedPrefsUtil.VAL_INIT_STATE_PLACEMENTS
-import com.perrigogames.life4trials.util.SharedPrefsUtil.VAL_INIT_STATE_RANKS
 import io.objectbox.BoxStore
 import io.objectbox.android.AndroidObjectBrowser
 import okhttp3.OkHttpClient
@@ -34,6 +32,7 @@ class Life4Application: MultiDexApplication() {
     lateinit var trialManager: TrialManager
     lateinit var playerManager: PlayerManager
     lateinit var life4Api: Life4API
+    lateinit var githubDataApi: GithubDataAPI
 
     override fun onCreate() {
         super.onCreate()
@@ -46,7 +45,8 @@ class Life4Application: MultiDexApplication() {
 
         SharedPrefsUtil.initializeDefaults(this)
 
-        life4Api = retrofit.create(Life4API::class.java)
+        life4Api = life4Retrofit.create(Life4API::class.java)
+        githubDataApi = githubRetrofit.create(GithubDataAPI::class.java)
 
         objectBox = MyObjectBox.builder()
             .androidContext(this)
@@ -59,8 +59,8 @@ class Life4Application: MultiDexApplication() {
         firstRunManager = FirstRunManager(this)
         songDataManager = SongDataManager(this)
         placementManager = PlacementManager(this)
-        trialManager = TrialManager(this)
-        ladderManager = LadderManager(this, songDataManager, trialManager)
+        trialManager = TrialManager(this, githubDataApi)
+        ladderManager = LadderManager(this, songDataManager, trialManager, githubDataApi)
         tournamentManager = TournamentManager()
         playerManager = PlayerManager(this)
 
@@ -71,19 +71,18 @@ class Life4Application: MultiDexApplication() {
         }
     }
 
-    val requireSignin: Boolean get() = SharedPrefsUtil.getUserString(this, KEY_INFO_NAME, null) == null
-    val showPlacements: Boolean get() = SharedPrefsUtil.getUserString(this, KEY_INIT_STATE, null) == VAL_INIT_STATE_PLACEMENTS
-    val showRankList: Boolean get() = SharedPrefsUtil.getUserString(this, KEY_INIT_STATE, null) == VAL_INIT_STATE_RANKS
-
     companion object {
         val eventBus = EventBus()
 
         lateinit var objectBox: BoxStore
 
-        val retrofit: Retrofit = Retrofit.Builder()
+        val life4Retrofit = retrofit("http://life4bot.herokuapp.com/")
+        val githubRetrofit = retrofit("https://raw.githubusercontent.com/PerrigoGames/Life4DDR-Trials/remote-data/app/src/main/res/raw/")
+
+        private fun retrofit(baseUrl: String): Retrofit = Retrofit.Builder()
             .client(OkHttpClient().newBuilder().build())
-            .baseUrl("http://life4bot.herokuapp.com/")
-            .addConverterFactory(GsonConverterFactory.create())
+            .baseUrl(baseUrl)
+            .addConverterFactory(GsonConverterFactory.create(DataUtil.gson))
             .client(OkHttpClient.Builder()
                 .addInterceptor(HttpLoggingInterceptor().apply { level = BODY })
                 .build())

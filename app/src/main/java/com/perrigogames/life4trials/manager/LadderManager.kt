@@ -12,32 +12,59 @@ import com.perrigogames.life4trials.Life4Application
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.activity.SettingsActivity
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_IMPORT_SKIP_DIRECTIONS
+import com.perrigogames.life4trials.api.GithubDataAPI
 import com.perrigogames.life4trials.data.*
 import com.perrigogames.life4trials.db.*
 import com.perrigogames.life4trials.event.LadderRankUpdatedEvent
+import com.perrigogames.life4trials.event.LadderRanksReplacedEvent
 import com.perrigogames.life4trials.event.SongResultsImportCompletedEvent
 import com.perrigogames.life4trials.event.SongResultsUpdatedEvent
 import com.perrigogames.life4trials.ui.managerimport.ScoreManagerImportDirectionsDialog
 import com.perrigogames.life4trials.ui.managerimport.ScoreManagerImportEntryDialog
-import com.perrigogames.life4trials.util.DataUtil
-import com.perrigogames.life4trials.util.SharedPrefsUtil
-import com.perrigogames.life4trials.util.loadRawString
+import com.perrigogames.life4trials.util.*
+import kotlinx.coroutines.*
+import retrofit2.Response
 import java.util.*
 
 class LadderManager(private val context: Context,
                     private val songDataManager: SongDataManager,
-                    private val trialManager: TrialManager): BaseManager() {
+                    private val trialManager: TrialManager,
+                    private val githubDataAPI: GithubDataAPI): BaseManager() {
 
     //
     // Ladder Data
     //
-    val ladderData = DataUtil.gson.fromJson(context.loadRawString(R.raw.ranks), LadderRankData::class.java)!!
+    var ladderData: LadderRankData
+        private set
+    private var ladderJob: Job? = null
 
     //
     // ObjectBoxes
     //
     private val goalsBox get() = objectBox.boxFor(GoalStatusDB::class.java)
     private val ladderResultBox get() = objectBox.boxFor(LadderResultDB::class.java)
+
+    //
+    // Init
+    //
+    init {
+        val dataString = context.readFromFile(RANKS_FILE_NAME) ?: context.loadRawString(R.raw.ranks)
+        ladderData = DataUtil.gson.fromJson(dataString, LadderRankData::class.java)!!
+
+        ladderJob?.cancel()
+        ladderJob = CoroutineScope(Dispatchers.IO).launch {
+            val response = githubDataAPI.getLadderRanks()
+            withContext(Dispatchers.Main) {
+                if (response.check()) {
+                    context.saveToFile(TrialManager.TRIALS_FILE_NAME, DataUtil.gson.toJson(response.body()))
+                    Toast.makeText(context, R.string.ranks_updated, Toast.LENGTH_SHORT).show()
+                    ladderData = response.body()!!
+                    Life4Application.eventBus.post(LadderRanksReplacedEvent())
+                }
+                ladderJob = null
+            }
+        }
+    }
 
     //
     // Queries
@@ -256,5 +283,18 @@ class LadderManager(private val context: Context,
             songDataManager.updateChart(chart)
             ladderResultBox.put(it)
         }
+    }
+
+    private fun Response<LadderRankData>.check(): Boolean = when {
+        !isSuccessful -> {
+            Toast.makeText(context, errorBody()!!.string(), Toast.LENGTH_SHORT).show()
+            false
+        }
+        body()!!.version <= ladderData.version -> false
+        else -> true
+    }
+
+    companion object {
+        const val RANKS_FILE_NAME = "ranks.json"
     }
 }
