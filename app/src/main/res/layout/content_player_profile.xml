@@ -56,6 +56,15 @@
         app:layout_constraintTop_toBottomOf="@id/image_rank" />
 
     <include
+        android:id="@+id/view_corner_view_left"
+        layout="@layout/view_jacket_corner"
+        android:layout_width="@dimen/jacket_corner_size"
+        android:layout_height="@dimen/jacket_corner_size"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/view_mode_button_left"
+        app:layout_constraintEnd_toEndOf="@id/view_mode_button_left"/>
+
+    <include
         android:id="@+id/view_mode_button_right"
         layout="@layout/item_profile_mode_button"
         android:layout_width="0dp"

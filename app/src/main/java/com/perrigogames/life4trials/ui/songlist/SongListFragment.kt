@@ -1,18 +1,22 @@
 package com.perrigogames.life4trials.ui.songlist
 
 import android.content.Context
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
+import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
+import com.crashlytics.android.Crashlytics
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.data.Song
 import com.perrigogames.life4trials.data.SongResult
 import com.perrigogames.life4trials.life4app
+import com.perrigogames.life4trials.view.PathImageView
 import com.perrigogames.life4trials.view.SongView
 
 /**
@@ -20,8 +24,9 @@ import com.perrigogames.life4trials.view.SongView
  */
 class SongListFragment : Fragment() {
 
+    private val placementManager get() = context!!.life4app.placementManager
     private val trialManager get() = context!!.life4app.trialManager
-    private val trial get() = trialManager.findTrial(trialId!!)!!
+    private val trial get() = trialManager.findTrial(trialId!!) ?: placementManager.findPlacement(trialId!!)!!
     private val results get() = if (useCurrentSession) trialManager.currentSession!!.results else null
 
     private var trialId: String? = null
@@ -32,6 +37,9 @@ class SongListFragment : Fragment() {
 
     private lateinit var layout: LinearLayout
     private val songViews = mutableListOf<SongView>()
+    private var setResultsImageView: ImageView? = null
+
+    private val verificationPhotoHeight: Int by lazy { (layout.height * 0.8).toInt() }
 
     var shouldShowAdvancedSongDetails: Boolean = false
         set(v) {
@@ -54,6 +62,7 @@ class SongListFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        Crashlytics.log("${javaClass.simpleName}: onCreateView: $trialId")
         layout = inflater.inflate(R.layout.fragment_song_list, container, false) as LinearLayout
         trial.songs.forEachIndexed(this::addSongView)
         return layout
@@ -86,6 +95,20 @@ class SongListFragment : Fragment() {
             it.setOnClickListener { listener?.onSongSelected(song, idx) }
         })
         layout.addView(newView)
+    }
+
+    fun addResultsPhotoView(uri: Uri) {
+        setResultsImageView?.let { layout.removeView(it) }
+        if (useCurrentSession) {
+            setResultsImageView = PathImageView(context).also {
+                it.layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, verificationPhotoHeight).apply {
+                    bottomMargin = resources.getDimensionPixelOffset(R.dimen.content_padding_med)
+                }
+                it.scaleType = ImageView.ScaleType.FIT_CENTER
+                it.uri = uri
+            }
+            layout.addView(setResultsImageView)
+        }
     }
 
     fun setSongResult(idx: Int, result: SongResult?) {

@@ -29,7 +29,7 @@ data class TrialSessionDB(var trialId: String,
         fun from(session: TrialSession) = TrialSessionDB(
             session.trial.id,
             Date(),
-            session.goalRank.stableId.toInt(),
+            (session.goalRank ?: TrialRank.EMERALD).stableId.toInt(),
             session.goalObtained)
     }
 }

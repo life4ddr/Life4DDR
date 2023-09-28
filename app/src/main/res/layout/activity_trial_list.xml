@@ -21,6 +21,13 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/content_trial_list"/>
+    <FrameLayout
+        android:id="@+id/container_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context=".activity.TrialListActivity"
+        tools:showIn="@layout/activity_trial_list"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

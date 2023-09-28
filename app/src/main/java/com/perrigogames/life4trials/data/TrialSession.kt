@@ -4,7 +4,7 @@ import android.net.Uri
 import java.io.Serializable
 
 data class TrialSession(val trial: Trial,
-                        var goalRank: TrialRank,
+                        var goalRank: TrialRank?,
                         val results: Array<SongResult?> = arrayOfNulls(TrialData.TRIAL_LENGTH),
                         var finalPhotoUriString: String? = null): Serializable {
 
@@ -14,7 +14,9 @@ data class TrialSession(val trial: Trial,
         get() = Uri.parse(finalPhotoUriString)
         set(value) { finalPhotoUriString = value.toString() }
 
-    val availableRanks: Array<TrialRank> = trial.goals!!.map { it.rank }.toTypedArray()
+    val hasFinalPhoto get() = finalPhotoUriString != null
+
+    val availableRanks: Array<TrialRank>? = trial.goals?.map { it.rank }?.toTypedArray()
 
     val shouldShowAdvancedSongDetails
         get() = trialGoalSet?.let { it.miss != null || it.judge != null } ?: false

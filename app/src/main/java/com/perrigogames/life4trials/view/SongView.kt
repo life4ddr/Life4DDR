@@ -2,7 +2,6 @@ package com.perrigogames.life4trials.view
 
 import android.content.Context
 import android.content.res.ColorStateList
-import android.os.Build
 import android.util.AttributeSet
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -78,9 +77,7 @@ class SongView @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
             }
 
             Glide.with(this).load(it.url).into(image_song_jacket)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                image_song_jacket.setBackgroundColor(ContextCompat.getColor(context, it.difficultyClass.colorRes))
-            }
+            image_song_jacket.setBackgroundColor(ContextCompat.getColor(context, it.difficultyClass.colorRes))
         }
     }
 }

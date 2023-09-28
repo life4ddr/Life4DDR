@@ -63,13 +63,13 @@ class SongDataManager(private val context: Context,
     //
     // Song List Management
     //
-    private fun initializeSongDatabase() {
+    fun initializeSongDatabase() {
         chartBox.removeAll()
         songBox.removeAll()
-        refreshSongDatabase()
+        refreshSongDatabase(force = true)
     }
 
-    fun refreshSongDatabase(input: String = songList.data, force: Boolean = false) {
+    private fun refreshSongDatabase(input: String = songList.data, force: Boolean = false) {
         val lines = input.lines()
         if (force || SharedPrefsUtil.getUserInt(context, KEY_SONG_LIST_VERSION, -1) < lines[0].toInt()) {
             val songContents = songBox.all
@@ -180,6 +180,8 @@ class SongDataManager(private val context: Context,
         notIn(ChartDB_.id, selectedIgnoreChartIds)
     }.build()
 
+    fun getSongs(): List<SongDB> = songBox.all
+
     fun getSongById(id: Long): SongDB? = songBox.get(id)
 
     fun getSongsById(ids: LongArray): MutableList<SongDB> = songBox.get(ids)
@@ -258,7 +260,7 @@ class SongDataManager(private val context: Context,
         }.toMutableList()
         with(StringBuilder()) {
             while (songStrings.isNotEmpty()) {
-                (0..10).forEach {
+                repeat((0..10).count()) {
                     if (songStrings.isNotEmpty()) {
                         append("${songStrings.removeAt(0)}[][]")
                     }

@@ -12,6 +12,7 @@ import com.perrigogames.life4trials.util.readFromFile
 import com.perrigogames.life4trials.util.saveToFile
 import kotlinx.coroutines.*
 import retrofit2.Response
+import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 
 /**
@@ -35,7 +36,13 @@ abstract class RemoteData<T: Any>(private val context: Context) {
                     }
                     fetchJob = null
                 }
-            } catch (e: UnknownHostException) {}
+            } catch (e: UnknownHostException) {
+                onFetchFailed()
+                fetchJob = null
+            } catch (e: SocketTimeoutException) {
+                onFetchFailed()
+                fetchJob = null
+            }
         }
     }
 
@@ -82,7 +89,7 @@ abstract class LocalRemoteData<T: Any>(protected val context: Context,
 
     open fun createTextToData(data: T): String = DataUtil.gson.toJson(data)
 
-    open fun getDataVersion(data: T): Int = Int.MIN_VALUE
+    open fun getDataVersion(data: T = this.data): Int = Int.MIN_VALUE
 
     override fun checkResponse(response: Response<T>) = super.checkResponse(response) && shouldUpdate(response.body()!!)
 
@@ -97,6 +104,7 @@ abstract class LocalRemoteData<T: Any>(protected val context: Context,
 
     fun start() {
         data = createLocalDataFromText(context.loadRawString(rawResId))
+        onNewDataLoaded(data)
         context.readFromFile(cachedFileName)?.let { createLocalDataFromText(it) }?.let { onNewDataLoaded(it) }
         fetch()
     }
@@ -122,7 +130,7 @@ abstract class LocalRemoteData<T: Any>(protected val context: Context,
 abstract class MajorVersionedRemoteData<T: MajorVersioned>(context: Context,
                                                            @RawRes rawResId: Int,
                                                            cachedFileName: String,
-                                                           private val majorVersion: Int):
+                                                           val majorVersion: Int):
     LocalRemoteData<T>(context, rawResId, cachedFileName) {
 
     override fun getDataVersion(data: T) = data.version
@@ -136,7 +144,9 @@ abstract class MajorVersionedRemoteData<T: MajorVersioned>(context: Context,
     }
 
     override fun onNewDataLoaded(newData: T) {
-        if (!shouldUpdateApp(newData)) {
+        if (shouldUpdateApp(newData)) {
+            Life4Application.eventBus.postSticky(DataRequiresAppUpdateEvent())
+        } else {
             super.onNewDataLoaded(newData)
         }
     }

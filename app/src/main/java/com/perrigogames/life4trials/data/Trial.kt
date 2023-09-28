@@ -5,6 +5,7 @@ import androidx.annotation.DrawableRes
 import com.google.gson.annotations.SerializedName
 import com.perrigogames.life4trials.R
 import java.io.Serializable
+import java.util.*
 
 class TrialData(override val version: Int,
                 @SerializedName("major_version") override val majorVersion: Int,
@@ -24,6 +25,9 @@ class Trial(val id: String,
             val type: TrialType,
             val placement_rank: PlacementRank?,
             val new: Boolean = false,
+            val event_start: Date?,
+            val event_end: Date?,
+            val scoring_groups: List<List<TrialRank>>?,
             val difficulty: Int?,
             val goals: List<TrialGoalSet>?,
             val total_ex: Int?,
@@ -31,12 +35,20 @@ class Trial(val id: String,
             val cover_override: Boolean = false,
             val songs: List<Song>): Serializable {
 
-    fun goalSet(rank: TrialRank): TrialGoalSet? = goals?.find { it.rank == rank }
+    val isEvent get() = type == TrialType.EVENT && event_start != null && event_end != null
+    val isActiveEvent get() = isEvent && event_start!!.before(Date()) && event_end!!.after(Date())
+
+    fun goalSet(rank: TrialRank?): TrialGoalSet? = goals?.find { it.rank == rank }
 
     @DrawableRes fun jacketResId(c: Context): Int =
         c.resources.getIdentifier(id, "drawable", c.packageName).let {
             return if (it == 0) R.drawable.trial_default else it
         }
+
+    /**
+     * Return the scoring group for a user with a particular rank.
+     */
+    fun findScoringGroup(rank: TrialRank) = scoring_groups?.first { it.contains(rank) }
 }
 
 class Song(val name: String,
@@ -47,5 +59,6 @@ class Song(val name: String,
 
 enum class TrialType {
     @SerializedName("trial") TRIAL,
-    @SerializedName("placement") PLACEMENT
+    @SerializedName("placement") PLACEMENT,
+    @SerializedName("event") EVENT
 }

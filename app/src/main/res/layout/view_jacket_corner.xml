@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.perrigogames.life4trials.view.JacketCornerView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    tools:layout_height="64dp"
+    tools:layout_width="64dp">
+
+    <ImageView
+        android:id="@+id/image_corner"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:rotation="-90"
+        android:src="@drawable/triangle_new"
+        tools:visibility="visible"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/text_corner"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:fontFamily="@font/avenir"
+        android:gravity="center"
+        android:lines="1"
+        android:rotation="-45"
+        android:text="@string/new_tag"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:autoSizeMinTextSize="10sp"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:visibility="visible"/>
+
+</com.perrigogames.life4trials.view.JacketCornerView>

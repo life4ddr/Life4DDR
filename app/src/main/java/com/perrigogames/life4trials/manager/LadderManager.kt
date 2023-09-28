@@ -228,7 +228,7 @@ class LadderManager(private val context: Context,
         else -> null
     }
 
-    val shouldShowImportTutorial get() = !SharedPrefsUtil.getUserFlag(context, KEY_IMPORT_SKIP_DIRECTIONS, false)
+    private val shouldShowImportTutorial get() = !SharedPrefsUtil.getUserFlag(context, KEY_IMPORT_SKIP_DIRECTIONS, false)
 
     fun showImportFlow(activity: FragmentActivity) {
         if (shouldShowImportTutorial) {
@@ -243,9 +243,8 @@ class LadderManager(private val context: Context,
             override fun onDialogCancelled() = Unit
             override fun onCopyAndContinue() {
                 Toast.makeText(activity, context.getString(R.string.copied), Toast.LENGTH_SHORT).show()
-                (context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).let {
-                    it.primaryClip = ClipData.newPlainText("LIFE4 Data", context.getString(R.string.import_data_format))
-                }
+                (context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).primaryClip =
+                    ClipData.newPlainText("LIFE4 Data", context.getString(R.string.import_data_format))
                 showImportEntryDialog(activity)
             }
         }).show(activity.supportFragmentManager, ScoreManagerImportDirectionsDialog.TAG)
@@ -279,7 +278,7 @@ class LadderManager(private val context: Context,
                     val score = entryParts[2].toInt()
                     // need 5 and 6 first
                     val clears = entryParts[5].toIntOrNull() ?: 0
-                    val plays = entryParts[6].toIntOrNull() ?: 0
+//                    val plays = entryParts[6].toIntOrNull() ?: 0
 
                     var clear = ClearType.parse(entryParts[4])!!
                     if (clear == ClearType.CLEAR) {
@@ -315,7 +314,7 @@ class LadderManager(private val context: Context,
         }
         Toast.makeText(context, context.getString(R.string.import_finished, success, errors), Toast.LENGTH_SHORT).show()
         songDataManager.invalidateIgnoredIds()
-        Life4Application.eventBus.post(SongResultsImportCompletedEvent(success, errors))
+        Life4Application.eventBus.post(SongResultsImportCompletedEvent())
         if (success > 0) {
             Life4Application.eventBus.post(SongResultsUpdatedEvent())
         }
@@ -340,6 +339,19 @@ class LadderManager(private val context: Context,
             .setMessage(R.string.confirm_erase_result_data)
             .setPositiveButton(R.string.yes) { _, _ ->
                 ladderResultBox.removeAll()
+                Life4Application.eventBus.post(SongResultsUpdatedEvent())
+            }
+            .setNegativeButton(R.string.no, null)
+            .show()
+    }
+
+    fun refreshSongDatabase(c: Context) {
+        AlertDialog.Builder(c)
+            .setTitle(R.string.are_you_sure)
+            .setMessage(R.string.confirm_refresh_song_db)
+            .setPositiveButton(R.string.yes) { _, _ ->
+                ladderResultBox.removeAll()
+                songDataManager.initializeSongDatabase()
                 Life4Application.eventBus.post(SongResultsUpdatedEvent())
             }
             .setNegativeButton(R.string.no, null)

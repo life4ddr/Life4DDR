@@ -23,7 +23,7 @@ class TrialListReplacedEvent
 
 /** Event published when a ladder data import finishes, including information about the number of items updated
  * and how many items gave errors. */
-class SongResultsImportCompletedEvent(val updated: Int, val errors: Int)
+class SongResultsImportCompletedEvent
 
 /** Event published when the list of saved song results changes. */
 class SongResultsUpdatedEvent

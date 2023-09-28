@@ -69,7 +69,7 @@ object SharedPrefsUtil {
     fun getUserLong(c: Context, flag: String, def: Long) = userPrefs(c).getLong(flag, def)
 
     /** @return a stored string in the user preferences */
-    fun getUserString(c: Context, flag: String, def: String? = null) = userPrefs(c).getString(flag, def)
+    fun getUserString(c: Context, flag: String, def: String? = null): String? = userPrefs(c).getString(flag, def)
 
     /** @return a stored debug flag in the user preferences, also checking the debug state of the app */
     fun getDebugFlag(c: Context, flag: String) = BuildConfig.DEBUG && getUserFlag(c, flag, false)

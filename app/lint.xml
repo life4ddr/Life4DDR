@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+    <issue id="UnusedResources">
+        <ignore path="src/main/res/drawable-xxhdpi/ascension.jpg" />
+        <ignore path="src/main/res/drawable-xxhdpi/celestial.webp" />
+        <ignore path="src/main/res/drawable-xxhdpi/chemical.webp" />
+        <ignore path="src/main/res/drawable-xxhdpi/clockwork.webp" />
+        <ignore path="src/main/res/drawable-xxhdpi/countdown.webp" />
+        <ignore path="src/main/res/drawable-xxhdpi/daybreak.webp" />
+        <ignore path="src/main/res/drawable-xxhdpi/hallowed.webp" />
+        <ignore path="src/main/res/drawable-xxhdpi/heartbreak.webp" />
+        <ignore path="src/main/res/drawable-xxhdpi/heatwave.webp" />
+        <ignore path="src/main/res/drawable-xxhdpi/hellscape.webp" />
+        <ignore path="src/main/res/drawable-xxhdpi/inhuman.webp" />
+        <ignore path="src/main/res/drawable-xxhdpi/life4_logo.webp" />
+        <ignore path="src/main/res/drawable-xxhdpi/mainframe.webp" />
+        <ignore path="src/main/res/drawable-xxhdpi/origin.webp" />
+        <ignore path="src/main/res/drawable-xxhdpi/paradox.webp" />
+        <ignore path="src/main/res/drawable-xxhdpi/pharaoh.webp" />
+        <ignore path="src/main/res/drawable-xxhdpi/primal.webp" />
+        <ignore path="src/main/res/drawable-xxhdpi/snowdrift.webp" />
+        <ignore path="src/main/res/drawable-xxhdpi/wanderlust.webp" />
+        <ignore path="src/main/res/drawable/ascension.jpg" />
+        <ignore path="src/main/res/drawable/button_div_lr.9.png" />
+        <ignore path="src/main/res/drawable/button_div_lr_press.9.png" />
+        <ignore path="src/main/res/drawable/celestial.webp" />
+        <ignore path="src/main/res/drawable/chemical.webp" />
+        <ignore path="src/main/res/drawable/circadia.jpg" />
+        <ignore path="src/main/res/drawable/clockwork.webp" />
+        <ignore path="src/main/res/drawable/countdown.webp" />
+        <ignore path="src/main/res/drawable/daybreak.webp" />
+        <ignore path="src/main/res/drawable/hallowed.webp" />
+        <ignore path="src/main/res/drawable/heartbreak.webp" />
+        <ignore path="src/main/res/drawable/heatwave.webp" />
+        <ignore path="src/main/res/drawable/hellscape.webp" />
+        <ignore path="src/main/res/drawable/inhuman.webp" />
+        <ignore path="src/main/res/drawable/life4_logo.webp" />
+        <ignore path="src/main/res/drawable/life4_trials_logo_invert_small.webp" />
+        <ignore path="src/main/res/drawable/mainframe.webp" />
+        <ignore path="src/main/res/drawable/origin.webp" />
+        <ignore path="src/main/res/drawable/paradox.webp" />
+        <ignore path="src/main/res/drawable/pharaoh.webp" />
+        <ignore path="src/main/res/drawable/primal.webp" />
+        <ignore path="src/main/res/drawable/quantum.jpg" />
+        <ignore path="src/main/res/drawable/snowdrift.webp" />
+        <ignore path="src/main/res/drawable/species.jpg" />
+        <ignore path="src/main/res/drawable/tempest.jpg" />
+        <ignore path="src/main/res/drawable/upheaval.jpg" />
+        <ignore path="src/main/res/drawable/wanderlust.webp" />
+    </issue>
+</lint>

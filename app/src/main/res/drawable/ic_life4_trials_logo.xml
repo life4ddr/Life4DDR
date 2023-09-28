@@ -1,5 +1,8 @@
-<vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="24dp"
-    android:height="24dp" android:viewportWidth="750" android:viewportHeight="750">
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:width="24dp"
+    android:height="24dp" android:viewportWidth="750" android:viewportHeight="750"
+    tools:keep="@drawable/ic_life4_trials_logo">
     <path android:fillColor="#00000000"
         android:pathData="m471.523,448.309 l53.333,-80 148.933,223.387l-106.667,-0 -126.373,-0 -64.813,-0"
         android:strokeWidth="10" android:strokeAlpha="1"

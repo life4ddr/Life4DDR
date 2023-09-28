@@ -36,7 +36,7 @@ class RankListActivity : AppCompatActivity(), OnRankListInteractionListener {
     }
 
     override fun onListFragmentInteraction(item: RankEntry?) =
-        startActivityForResult(RankDetailsActivity.intent(this, item), REQUEST_CODE_DETAIL_SELECTION)
+        startActivityForResult(RankDetailsActivity.intent(this, item?.rank), REQUEST_CODE_DETAIL_SELECTION)
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)

@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "major_version": 1,
   "lists": [
     {
@@ -52,7 +52,12 @@
       ],
       "charts": [
         { "title": "ナイト・オブ・ナイツ", "difficulty_class": "challenge" },
-        { "title": "ACE FOR ACES", "difficulty_class": "challenge" }
+        { "title": "ACE FOR ACES", "difficulty_class": "challenge" },
+        { "title": "#OurMemories", "difficulty_class": "challenge" },
+        { "title": "Show me your moves", "difficulty_class": "challenge" },
+        { "title": "CHAOS Terror-Tech Mix", "difficulty_class": "challenge" },
+        { "title": "POSSESSION (20th Anniversary Mix)", "difficulty_class": "challenge" },
+        { "title": "MAX 360", "difficulty_class": "challenge" }
       ]
     }, {
       "id": "ACE_US_KAC_2019",
@@ -102,7 +107,12 @@
       ],
       "charts": [
         { "title": "ナイト・オブ・ナイツ", "difficulty_class": "challenge" },
-        { "title": "ACE FOR ACES", "difficulty_class": "challenge" }
+        { "title": "ACE FOR ACES", "difficulty_class": "challenge" },
+        { "title": "#OurMemories", "difficulty_class": "challenge" },
+        { "title": "Show me your moves", "difficulty_class": "challenge" },
+        { "title": "CHAOS Terror-Tech Mix", "difficulty_class": "challenge" },
+        { "title": "POSSESSION (20th Anniversary Mix)", "difficulty_class": "challenge" },
+        { "title": "MAX 360", "difficulty_class": "challenge" }
       ]
     }, {
       "id": "ACE_JP",
@@ -117,7 +127,12 @@
         { "title": "Vanquish The Ghost" }
       ],
       "charts": [
-        { "title": "ACE FOR ACES", "difficulty_class": "challenge" }
+        { "title": "ACE FOR ACES", "difficulty_class": "challenge" },
+        { "title": "#OurMemories", "difficulty_class": "challenge" },
+        { "title": "Show me your moves", "difficulty_class": "challenge" },
+        { "title": "CHAOS Terror-Tech Mix", "difficulty_class": "challenge" },
+        { "title": "POSSESSION (20th Anniversary Mix)", "difficulty_class": "challenge" },
+        { "title": "MAX 360", "difficulty_class": "challenge" }
       ]
     }, {
       "id": "ACE_JP_KAC_2019",
@@ -130,7 +145,12 @@
         { "title": "Vanquish The Ghost" }
       ],
       "charts": [
-        { "title": "ACE FOR ACES", "difficulty_class": "challenge" }
+        { "title": "ACE FOR ACES", "difficulty_class": "challenge" },
+        { "title": "#OurMemories", "difficulty_class": "challenge" },
+        { "title": "Show me your moves", "difficulty_class": "challenge" },
+        { "title": "CHAOS Terror-Tech Mix", "difficulty_class": "challenge" },
+        { "title": "POSSESSION (20th Anniversary Mix)", "difficulty_class": "challenge" },
+        { "title": "MAX 360", "difficulty_class": "challenge" }
       ]
     }, {
       "id": "A20",

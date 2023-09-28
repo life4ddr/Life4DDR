@@ -22,7 +22,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup">
-        <activity android:name=".activity.BlockListCheckActivity"></activity>
+        <activity android:name=".activity.BlockListCheckActivity" />
+        <activity android:name=".activity.SongRecordsListCheckActivity" />
         <activity android:name=".activity.PlacementListActivity" />
 
         <meta-data
@@ -46,11 +47,6 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".activity.FirstRunActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustPan" />
-        <activity
             android:name=".activity.PlayerProfileActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" />
@@ -66,10 +62,6 @@
             android:name=".activity.SongEntryActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
-        <activity
-            android:name=".activity.TrialSubmissionActivity"
-            android:label="@string/confirm_trial_title"
-            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.TrialRecordsActivity"
             android:label="@string/title_activity_records"

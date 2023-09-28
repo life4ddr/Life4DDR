@@ -17,6 +17,8 @@
         android:id="@+id/field_manager_data"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:importantForAutofill="no"
+        android:inputType="textMultiLine"
         android:maxHeight="200dp" />
 
 </LinearLayout>

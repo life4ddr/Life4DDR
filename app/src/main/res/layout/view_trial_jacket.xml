@@ -76,6 +76,22 @@
         tools:visibility="visible"/>
 
     <ImageView
+        android:id="@+id/image_badge_highest_center"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:contentDescription="@string/rank_image"
+        android:src="@drawable/amethyst_3"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@id/text_ex_score_center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintWidth_percent="0.5"
+        tools:visibility="visible"/>
+
+    <ImageView
         android:id="@+id/image_badge_highest"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -87,21 +103,13 @@
         tools:src="@drawable/silver_3"
         tools:visibility="visible"/>
 
-    <ImageView
-        android:id="@+id/image_badge_highest_center"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:contentDescription="@string/rank_image"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@id/text_ex_score_center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed"
-        app:layout_constraintWidth_percent="0.5"
-        tools:src="@drawable/amethyst_3"
-        tools:visibility="visible"/>
+    <include
+        android:id="@+id/view_jacket_corner"
+        layout="@layout/view_jacket_corner"
+        android:layout_width="@dimen/jacket_corner_size"
+        android:layout_height="@dimen/jacket_corner_size"
+        app:layout_constraintBottom_toBottomOf="@id/image_trial_jacket"
+        app:layout_constraintEnd_toEndOf="@id/image_trial_jacket"/>
 
     <TextView
         android:id="@+id/text_ex_score"
@@ -109,7 +117,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/content_padding_med"
         android:layout_marginRight="@dimen/content_padding_med"
-        android:gravity="right"
+        android:gravity="end"
         android:background="@drawable/drawable_rounded_dark"
         android:textColor="@color/white"
         android:textStyle="bold"

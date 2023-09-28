@@ -1,12 +1,15 @@
 package com.perrigogames.life4trials.manager
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.crashlytics.android.Crashlytics
 import com.perrigogames.life4trials.BuildConfig
 import com.perrigogames.life4trials.Life4Application
 import com.perrigogames.life4trials.R
+import com.perrigogames.life4trials.activity.SettingsActivity
 import com.perrigogames.life4trials.api.GithubDataAPI
 import com.perrigogames.life4trials.api.MajorVersionedRemoteData
 import com.perrigogames.life4trials.data.TrialData
@@ -19,13 +22,15 @@ import com.perrigogames.life4trials.event.SavedRankUpdatedEvent
 import com.perrigogames.life4trials.event.TrialListReplacedEvent
 import com.perrigogames.life4trials.life4app
 import com.perrigogames.life4trials.util.DataUtil
+import com.perrigogames.life4trials.util.NotificationUtil
+import com.perrigogames.life4trials.util.SharedPrefsUtil
 import com.perrigogames.life4trials.util.loadRawString
 import io.objectbox.kotlin.query
 
 class TrialManager(private val context: Context,
                    private val githubDataAPI: GithubDataAPI): BaseManager() {
 
-    private var trialData = object: MajorVersionedRemoteData<TrialData>(context, R.raw.trials, TRIALS_FILE_NAME, 1) {
+    private var trialData = object: MajorVersionedRemoteData<TrialData>(context, R.raw.trials, TRIALS_FILE_NAME, 2) {
         override fun createLocalDataFromText(text: String): TrialData =
             mergeDebugData(DataUtil.gson.fromJson(text, TrialData::class.java)!!)
 
@@ -48,6 +53,9 @@ class TrialManager(private val context: Context,
     var currentSession: TrialSession? = null
 
     val trials get() = trialData.data.trials
+    val activeTrials get() = trials.filter { !it.isEvent || it.isActiveEvent }
+    val hasEventTrial get() = trials.count { it.isActiveEvent } > 0
+    val eventTrials get() = trials.filter { it.isEvent }
 
     init {
         trialData.start()
@@ -71,13 +79,13 @@ class TrialManager(private val context: Context,
 
     fun findTrial(id: String) = trials.firstOrNull { it.id == id }
 
-    fun previousTrial(id: String) = previousTrial(trials.indexOfFirst { it.id == id })
+    fun previousTrial(id: String) = previousTrial(activeTrials.indexOfFirst { it.id == id })
 
-    fun previousTrial(index: Int) = trials.getOrNull(index - 1)
+    fun previousTrial(index: Int) = activeTrials.getOrNull(index - 1)
 
-    fun nextTrial(id: String) = nextTrial(trials.indexOfFirst { it.id == id })
+    fun nextTrial(id: String) = nextTrial(activeTrials.indexOfFirst { it.id == id })
 
-    fun nextTrial(index: Int) = trials.getOrNull(index + 1)
+    fun nextTrial(index: Int) = activeTrials.getOrNull(index + 1)
 
     fun saveRecord(session: TrialSession) {
         val sessionDB = TrialSessionDB.from(session)
@@ -132,7 +140,8 @@ class TrialManager(private val context: Context,
             .build()
             .find()
         return trials.mapNotNull {
-            results.firstOrNull { db -> db.trialId == it.id }
+            if (it.isEvent) null
+            else results.firstOrNull { db -> db.trialId == it.id }
         }
     }
 
@@ -140,9 +149,51 @@ class TrialManager(private val context: Context,
         return bestTrial(trialId)?.goalRank
     }
 
-    fun startSession(trialId: String, initialGoal: TrialRank): TrialSession {
+    fun startSession(trialId: String, initialGoal: TrialRank?): TrialSession {
         currentSession = TrialSession(findTrial(trialId)!!, initialGoal)
         return currentSession!!
+    }
+
+    fun submitResult(context: Context, session: TrialSession = currentSession!!, onFinish: () -> Unit) {
+        when {
+            session.results.any { it?.passed != true } -> submitRankAndFinish(context, session, false, onFinish)
+            session.trial.isEvent -> submitRankAndFinish(context, session, true, onFinish)
+            else -> AlertDialog.Builder(context)
+                .setTitle(R.string.trial_submit_dialog_title)
+                .setMessage(context.getString(R.string.trial_submit_dialog_rank_confirmation, session.goalRank.toString()))
+                .setPositiveButton(R.string.yes) { _, _ -> submitRankAndFinish(context, session, true, onFinish) }
+                .setNegativeButton(R.string.no) { _, _ -> submitRankAndFinish(context, session, false, onFinish) }
+                .show()
+        }
+    }
+
+    private fun submitRankAndFinish(context: Context, session: TrialSession, passed: Boolean, onFinish: () -> Unit) {
+        session.goalObtained = passed
+        saveRecord(session)
+        if (passed) {
+            AlertDialog.Builder(context)
+                .setTitle(R.string.trial_submit_dialog_title)
+                .setMessage(R.string.trial_submit_dialog_prompt)
+                .setCancelable(false)
+                .setNegativeButton(R.string.no) { _, _ -> onFinish() }
+                .setPositiveButton(R.string.yes) { _, _ ->
+                    if (SharedPrefsUtil.getUserFlag(context, SettingsActivity.KEY_SUBMISSION_NOTIFICAION, false)) {
+                        NotificationUtil.showUserInfoNotifications(context, session.totalExScore)
+                    }
+                    context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(context.getString(R.string.url_trial_submission_form))))
+                    onFinish()
+                }
+                .show()
+        } else {
+            onFinish()
+        }
+    }
+
+    override fun onApplicationException() {
+        Crashlytics.setInt("trials_version", trialData.data.version)
+        Crashlytics.setInt("trials_major_version", trialData.data.majorVersion)
+        Crashlytics.setInt("trials_engine", trialData.majorVersion)
+        Crashlytics.setString("trials", trials.joinToString { it.id })
     }
 
     companion object {

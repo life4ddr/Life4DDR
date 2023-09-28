@@ -1,5 +1,6 @@
 package com.perrigogames.life4trials.ui.rankdetails
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,19 +11,33 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.perrigogames.life4trials.R
+import com.perrigogames.life4trials.data.LadderRank
 import com.perrigogames.life4trials.data.RankEntry
 import com.perrigogames.life4trials.life4app
 import com.perrigogames.life4trials.util.spannedText
 import com.perrigogames.life4trials.util.visibilityBool
 import com.perrigogames.life4trials.view.RankHeaderView
 import kotlinx.android.synthetic.main.fragment_rank_details.view.*
+import java.io.Serializable
 
-class RankDetailsFragment(private val rankEntry: RankEntry?,
-                          private val options: Options = Options(),
-                          private val navigationListener: RankHeaderView.NavigationListener? = null,
-                          private val goalListListener: RankDetailsViewModel.OnGoalListInteractionListener? = null) : Fragment() {
+class RankDetailsFragment : Fragment() {
+
+    private val ladderManager get() = context!!.life4app.ladderManager
+
+    private var navigationListener: RankHeaderView.NavigationListener? = null
+    private var goalListListener: RankDetailsViewModel.OnGoalListInteractionListener? = null
 
     private lateinit var viewModel: RankDetailsViewModel
+    private var rankEntry: RankEntry? = null
+    private lateinit var options: Options
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            rankEntry = ladderManager.findRankEntry(LadderRank.parse(it.getLong(KEY_RANK)))
+            options = (it.getSerializable(KEY_OPTIONS) as? Options) ?: Options()
+        }
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val view = inflater.inflate(R.layout.fragment_rank_details, container, false)
@@ -51,11 +66,6 @@ class RankDetailsFragment(private val rankEntry: RankEntry?,
             }
         })
 
-//        view.button_use_rank.apply {
-//            visibilityBool = options.showSetRank
-//            setOnClickListener { goalListListener?.onUseRankClicked() }
-//        }
-
         view.recycler_rank_details.apply {
             visibilityBool = viewModel.shouldShowGoals
             if (viewModel.shouldShowGoals) {
@@ -73,9 +83,35 @@ class RankDetailsFragment(private val rankEntry: RankEntry?,
         return view
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is RankHeaderView.NavigationListener) {
+            navigationListener = context
+        }
+        if (context is RankDetailsViewModel.OnGoalListInteractionListener) {
+            goalListListener = context
+        } else {
+            throw RuntimeException("$context must implement OnGoalListInteractionListener")
+        }
+    }
+
     data class Options(val hideCompleted: Boolean = false,
                        val hideIgnored: Boolean = false,
                        val showHeader: Boolean = true,
                        val showNextGoals: Boolean = false,
-                       val allowNextSwitcher: Boolean = true)
+                       val allowNextSwitcher: Boolean = true): Serializable
+
+    companion object {
+        const val KEY_RANK = "KEY_RANK"
+        const val KEY_OPTIONS = "KEY_OPTIONS"
+
+        fun newInstance(rank: LadderRank?,
+                        options: Options = Options()) =
+            RankDetailsFragment().apply {
+                arguments = Bundle().apply {
+                    putLong(KEY_RANK, rank?.stableId ?: 0)
+                    putSerializable(KEY_OPTIONS, options)
+                }
+            }
+    }
 }
