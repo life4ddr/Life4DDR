@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.perrigogames.life4trials.R
-import com.perrigogames.life4trials.data.LadderRankData
 import com.perrigogames.life4trials.data.RankEntry
 import com.perrigogames.life4trials.life4app
 import com.perrigogames.life4trials.ui.rankdetails.RankListAdapter
@@ -18,9 +17,10 @@ import kotlinx.android.synthetic.main.fragment_rank_list.view.*
 /**
  * Fragment displaying the list of ladder ranks that can be obtained.
  */
-class RankListActivityFragment : Fragment() {
+class RankListFragment : Fragment() {
 
-    private val rankData: LadderRankData get() = context!!.life4app.ladderManager.ladderData
+    private val ladderManager get() = context!!.life4app.ladderManager
+    private val rankData get() = ladderManager.ladderData
 
     private val columnCount: Int
         get() = arguments?.getInt(ARG_COLUMN_COUNT) ?: 1
@@ -33,9 +33,15 @@ class RankListActivityFragment : Fragment() {
         with(view.recycler_rank_list) {
             layoutManager = when {
                 columnCount <= 1 -> LinearLayoutManager(context)
-                else -> GridLayoutManager(context, columnCount)
+                else -> GridLayoutManager(context, columnCount).apply {
+                    spanSizeLookup = object: GridLayoutManager.SpanSizeLookup() {
+                        override fun getSpanSize(pos: Int) =
+                            if (pos == 0) columnCount
+                            else 1
+                    }
+                }
             }
-            adapter = RankListAdapter(rankData.rankRequirements, columnCount == 1, listener)
+            adapter = RankListAdapter(rankData.rankRequirements, ladderManager.getUserRank(), columnCount == 1, listener)
         }
         return view
     }
@@ -61,7 +67,7 @@ class RankListActivityFragment : Fragment() {
      * activity.
      */
     interface OnRankListInteractionListener {
-        fun onListFragmentInteraction(item: RankEntry)
+        fun onListFragmentInteraction(item: RankEntry?)
     }
 
     companion object {
@@ -70,7 +76,7 @@ class RankListActivityFragment : Fragment() {
 
         @JvmStatic
         fun newInstance(columnCount: Int = 1) =
-            RankListActivityFragment().apply {
+            RankListFragment().apply {
                 arguments = Bundle().apply {
                     putInt(ARG_COLUMN_COUNT, columnCount)
                 }

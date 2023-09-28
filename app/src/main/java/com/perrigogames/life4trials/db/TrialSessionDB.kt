@@ -6,6 +6,7 @@ import com.perrigogames.life4trials.data.TrialSession
 import io.objectbox.annotation.Backlink
 import io.objectbox.annotation.Entity
 import io.objectbox.annotation.Id
+import io.objectbox.annotation.Uid
 import io.objectbox.relation.ToMany
 import io.objectbox.relation.ToOne
 import java.util.*
@@ -17,36 +18,37 @@ data class TrialSessionDB(var trialId: String,
                           var goalObtained: Boolean,
                           @Id var id: Long = 0) {
 
-    val goalRank get() = TrialRank.parse(goalRankId)
+    val goalRank get() = TrialRank.parse(goalRankId.toLong())
 
-    val exScore get() = if (songs.size > 0) songs.sumBy { it.exScore } else null
+    val exScore get() = if (songResults.size > 0) songResults.sumBy { it.exScore } else null
 
     @Backlink(to = "session")
-    lateinit var songs: ToMany<SongDB>
+    lateinit var songResults: ToMany<TrialSongResultDB>
 
     companion object {
         fun from(session: TrialSession) = TrialSessionDB(
             session.trial.id,
             Date(),
-            session.goalRank.stableId,
+            session.goalRank.stableId.toInt(),
             session.goalObtained)
     }
 }
 
+@Uid(897729382389109926L)
 @Entity
-data class SongDB(var position: Int = 0,
-                  var score: Int = 0,
-                  var exScore: Int = 0,
-                  var misses: Int = -1,
-                  var badJudges: Int = -1,
-                  var perfects: Int = -1,
-                  var passed: Boolean = true,
-                  @Id var id: Long = 0) {
+data class TrialSongResultDB(var position: Int = 0,
+                             var score: Int = 0,
+                             var exScore: Int = 0,
+                             var misses: Int = -1,
+                             var badJudges: Int = -1,
+                             var perfects: Int = -1,
+                             var passed: Boolean = true,
+                             @Id var id: Long = 0) {
 
     lateinit var session: ToOne<TrialSessionDB>
 
     companion object {
-        fun from(result: SongResult, position: Int) = SongDB(position,
+        fun from(result: SongResult, position: Int) = TrialSongResultDB(position,
             result.score ?: 0,
             result.exScore ?: 0,
             result.misses ?: 0,

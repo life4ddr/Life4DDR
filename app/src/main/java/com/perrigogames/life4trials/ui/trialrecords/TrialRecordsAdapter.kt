@@ -20,6 +20,7 @@ import com.perrigogames.life4trials.ui.trialrecords.TrialRecordsFragment.OnRecor
 import com.perrigogames.life4trials.util.DataUtil
 import com.perrigogames.life4trials.util.SharedPrefsUtil
 import com.perrigogames.life4trials.util.locale
+import com.perrigogames.life4trials.util.visibilityBool
 import com.perrigogames.life4trials.view.RankImageView
 import com.perrigogames.life4trials.view.longNumberString
 import kotlinx.android.synthetic.main.item_trial_record.view.*
@@ -114,13 +115,13 @@ class TrialRecordsAdapter(private val trialManager: TrialManager,
                     rankImage.alpha = if (s.goalObtained) 1f else 0.3f
                     date.text = DataUtil.humanNewlineTimestamp(context.locale, s.date)
 
-                    val miniEntry = s.songs.size == 0
+                    val miniEntry = s.songResults.size == 0
                     if (!miniEntry) {
                         jacketBackground.setImageResource(trial.jacketResId(context))
                     }
 
                     arrayOf(label1, label2, label3, label4, song1, song2, song3, song4, jacketBackground, exProgress).forEach {
-                        it.visibility = if (miniEntry) View.GONE else View.VISIBLE
+                        it.visibilityBool = !miniEntry
                     }
                     view.text_record_song_base.visibility = if (miniEntry) View.GONE else View.INVISIBLE
 
@@ -129,7 +130,7 @@ class TrialRecordsAdapter(private val trialManager: TrialManager,
                     }
 
                     arrayOf(song1, song2, song3, song4).forEachIndexed { idx, v ->
-                        val songDb = s.songs.firstOrNull { it.position == idx }
+                        val songDb = s.songResults.firstOrNull { it.position == idx }
                         if (songDb != null) {
                             v.text = context.getString(R.string.score_string_format,
                                 songDb.score.longNumberString(), songDb.exScore)

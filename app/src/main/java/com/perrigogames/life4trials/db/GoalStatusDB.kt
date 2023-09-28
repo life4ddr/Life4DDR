@@ -4,13 +4,15 @@ import com.perrigogames.life4trials.db.GoalStatus.INCOMPLETE
 import io.objectbox.annotation.Convert
 import io.objectbox.annotation.Entity
 import io.objectbox.annotation.Id
+import io.objectbox.annotation.Uid
 import io.objectbox.converter.PropertyConverter
 import java.util.*
 
-@Entity
-data class GoalStatusDB(@Id var goalId: Long,
+@Entity @Uid(8378601917918727635L)
+data class GoalStatusDB(val goalId: Long,
                         @Convert(converter = GoalStatusConverter::class, dbType = Int::class) var status: GoalStatus = INCOMPLETE,
-                        var date: Date = Date())
+                        var date: Date = Date(),
+                        @Id var id: Long = 0)
 
 
 class GoalStatusConverter: PropertyConverter<GoalStatus, Int> {

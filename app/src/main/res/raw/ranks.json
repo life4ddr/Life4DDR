@@ -1,4 +1,5 @@
 {
+	"unlock_requirement": "amethyst1",
 	"rank_requirements": [
 		{
 			"rank": "wood1",
@@ -253,15 +254,16 @@
 			"goals": [
 				{ "id": 6101, "type": "difficulty", "mandatory": true, "difficulty": 14, "clear_type": "good" },
 				{ "id": 6102, "type": "difficulty", "mandatory": true, "difficulty": 14, "count": 30, "clear_type": "perfect" },
-				{ "id": 6103, "type": "difficulty", "mandatory": true, "difficulty": 15, "score": 970000, "clear_type": "life4" },
-				{ "id": 6104, "type": "difficulty", "mandatory": true, "difficulty": 15, "count": 12, "clear_type": "perfect" },
-				{ "id": 6105, "type": "difficulty", "mandatory": true, "difficulty": 16, "score": 930000 },
-				{ "id": 6106, "type": "difficulty", "mandatory": true, "difficulty": 16, "count": 1, "clear_type": "perfect" },
-				{ "id": 6107, "type": "difficulty", "mandatory": true, "difficulty": 17, "score": 875000 },
-				{ "id": 6108, "type": "difficulty", "mandatory": true, "difficulty": 18 },
-				{ "id": 6109, "type": "difficulty", "mandatory": true, "difficulty": 18, "score": 800000, "exceptions": 3 },
-				{ "id": 6110, "type": "difficulty", "mandatory": true, "difficulty": 19, "count": 2 },
-				{ "id": 6111, "type": "trial", "mandatory": true, "rank": "diamond", "count": 2 }
+				{ "id": 6103, "type": "difficulty", "mandatory": true, "difficulty": 15, "clear_type": "life4" },
+				{ "id": 6104, "type": "difficulty", "mandatory": true, "difficulty": 15, "score": 970000 },
+				{ "id": 6105, "type": "difficulty", "mandatory": true, "difficulty": 15, "count": 12, "clear_type": "perfect" },
+				{ "id": 6106, "type": "difficulty", "mandatory": true, "difficulty": 16, "score": 930000 },
+				{ "id": 6107, "type": "difficulty", "mandatory": true, "difficulty": 16, "count": 1, "clear_type": "perfect" },
+				{ "id": 6108, "type": "difficulty", "mandatory": true, "difficulty": 17, "score": 875000 },
+				{ "id": 6109, "type": "difficulty", "mandatory": true, "difficulty": 18 },
+				{ "id": 6110, "type": "difficulty", "mandatory": true, "difficulty": 18, "score": 800000, "exceptions": 3 },
+				{ "id": 6111, "type": "difficulty", "mandatory": true, "difficulty": 19, "count": 2 },
+				{ "id": 6112, "type": "trial", "mandatory": true, "rank": "diamond", "count": 2 }
 			]
 		},
 		{
@@ -309,8 +311,9 @@
 				{ "id": 7107, "type": "difficulty", "mandatory": true, "difficulty": 17, "count": 1, "clear_type": "perfect" },
 				{ "id": 7108, "type": "difficulty", "mandatory": true, "difficulty": 18, "score": 880000 },
 				{ "id": 7109, "type": "difficulty", "mandatory": true, "difficulty": 19, "score": 775000, "song_exceptions": ["ENDYMION"] },
-				{ "id": 7110, "type": "difficulty", "mandatory": true, "difficulty": 10, "difficulty_floor": true, "count": 2, "clear_type": "marvelous" },
-				{ "id": 7111, "type": "trial", "mandatory": true, "rank": "cobalt", "count": 2 }
+				{ "id": 7110, "type": "songs", "mandatory": true, "songs": ["ENDYMION"], "difficulties": ["challenge"] },
+				{ "id": 7111, "type": "mfc_points", "mandatory": true, "points": 2 },
+				{ "id": 7112, "type": "trial", "mandatory": true, "rank": "cobalt", "count": 2 }
 			]
 		},
 		{
@@ -325,14 +328,15 @@
 				{ "id": 7207, "type": "difficulty", "mandatory": true, "difficulty": 17, "count": 3, "clear_type": "perfect" },
 				{ "id": 7208, "type": "difficulty", "mandatory": true, "difficulty": 18, "score": 910000 },
 				{ "id": 7209, "type": "difficulty", "mandatory": true, "difficulty": 19, "score": 800000, "song_exceptions": ["ENDYMION"] },
-				{ "id": 7210, "type": "difficulty", "mandatory": true, "difficulty": 10, "difficulty_floor": true, "count": 5, "clear_type": "marvelous" },
+				{ "id": 8109, "type": "songs", "mandatory": true, "songs": ["ENDYMION"], "difficulties": ["challenge"], "score": 725000 },
+				{ "id": 7210, "type": "mfc_points", "mandatory": true, "points": 7 },
 				{ "id": 7211, "type": "trial", "mandatory": true, "rank": "cobalt", "count": 4 }
 			]
 		},
 		{
 			"rank": "amethyst3",
 			"goals": [
-				{ "id": 73021, "type": "difficulty", "mandatory": true, "difficulty": 14, "clear_type": "perfect" },
+				{ "id": 7301, "type": "difficulty", "mandatory": true, "difficulty": 14, "clear_type": "perfect" },
 				{ "id": 7303, "type": "difficulty", "mandatory": true, "difficulty": 15, "score": 995000, "clear_type": "great" },
 				{ "id": 7304, "type": "difficulty", "mandatory": true, "difficulty": 15, "count": 75, "clear_type": "perfect" },
 				{ "id": 7305, "type": "difficulty", "mandatory": true, "difficulty": 16, "score": 985000, "clear_type": "good" },
@@ -341,10 +345,61 @@
 				{ "id": 7308, "type": "difficulty", "mandatory": true, "difficulty": 17, "count": 7, "clear_type": "perfect" },
 				{ "id": 7309, "type": "difficulty", "mandatory": true, "difficulty": 18, "score": 930000 },
 				{ "id": 7310, "type": "difficulty", "mandatory": true, "difficulty": 19, "score": 825000, "song_exceptions": ["ENDYMION"] },
-				{ "id": 7311, "type": "difficulty", "mandatory": true, "difficulty": 10, "difficulty_floor": true, "count": 10, "clear_type": "marvelous" },
-				{ "id": 7312, "type": "difficulty", "mandatory": true, "difficulty": 12, "difficulty_floor": true, "count": 5, "clear_type": "marvelous" },
+				{ "id": 8109, "type": "songs", "mandatory": true, "songs": ["ENDYMION"], "difficulties": ["challenge"], "score": 750000 },
+				{ "id": 7312, "type": "mfc_points", "mandatory": true, "points": 15 },
 				{ "id": 7313, "type": "trial", "mandatory": true, "rank": "cobalt", "count": 6 },
 				{ "id": 7314, "type": "trial", "mandatory": true, "rank": "amethyst", "count": 1 }
+			]
+		},
+		{
+			"rank": "emerald1",
+			"goals": [
+				{ "id": 8101, "type": "difficulty", "mandatory": true, "difficulty": 14, "clear_type": "perfect" },
+				{ "id": 8102, "type": "difficulty", "mandatory": true, "difficulty": 15, "clear_type": "perfect" },
+				{ "id": 8103, "type": "difficulty", "mandatory": true, "difficulty": 16, "score": 990000, "clear_type": "great" },
+				{ "id": 8104, "type": "difficulty", "mandatory": true, "difficulty": 16, "count": 45, "clear_type": "perfect" },
+				{ "id": 8105, "type": "difficulty", "mandatory": true, "difficulty": 17, "score": 980000, "clear_type": "life4" },
+				{ "id": 8106, "type": "difficulty", "mandatory": true, "difficulty": 17, "count": 10, "clear_type": "perfect" },
+				{ "id": 8107, "type": "difficulty", "mandatory": true, "difficulty": 18, "score": 940000 },
+				{ "id": 8108, "type": "difficulty", "mandatory": true, "difficulty": 19, "score": 835000, "song_exceptions": ["ENDYMION"] },
+				{ "id": 8109, "type": "songs", "mandatory": true, "songs": ["ENDYMION"], "difficulties": ["challenge"], "score": 775000 },
+				{ "id": 8110, "type": "mfc_points", "mandatory": true, "points": 22 },
+				{ "id": 8111, "type": "trial", "mandatory": true, "rank": "amethyst", "count": 2 }
+			]
+		},
+		{
+			"rank": "emerald2",
+			"goals": [
+				{ "id": 8201, "type": "difficulty", "mandatory": true, "difficulty": 14, "clear_type": "perfect" },
+				{ "id": 8202, "type": "difficulty", "mandatory": true, "difficulty": 15, "clear_type": "perfect" },
+				{ "id": 8203, "type": "difficulty", "mandatory": true, "difficulty": 16, "score": 992000, "clear_type": "great" },
+				{ "id": 8204, "type": "difficulty", "mandatory": true, "difficulty": 16, "count": 55, "clear_type": "perfect" },
+				{ "id": 8205, "type": "difficulty", "mandatory": true, "difficulty": 17, "score": 985000, "clear_type": "life4" },
+				{ "id": 8206, "type": "difficulty", "mandatory": true, "difficulty": 17, "count": 15, "clear_type": "perfect" },
+				{ "id": 8207, "type": "difficulty", "mandatory": true, "difficulty": 18, "score": 950000 },
+				{ "id": 8208, "type": "difficulty", "mandatory": true, "difficulty": 18, "count": 1, "clear_type": "perfect" },
+				{ "id": 8209, "type": "difficulty", "mandatory": true, "difficulty": 19, "score": 850000, "song_exceptions": ["ENDYMION"] },
+				{ "id": 8210, "type": "songs", "mandatory": true, "songs": ["ENDYMION"], "difficulties": ["challenge"], "score": 775000 },
+				{ "id": 8211, "type": "mfc_points", "mandatory": true, "points": 30 },
+				{ "id": 8212, "type": "trial", "mandatory": true, "rank": "amethyst", "count": 4 }
+			]
+		},
+		{
+			"rank": "emerald3",
+			"goals": [
+				{ "id": 8301, "type": "difficulty", "mandatory": true, "difficulty": 14, "clear_type": "perfect" },
+				{ "id": 8302, "type": "difficulty", "mandatory": true, "difficulty": 15, "clear_type": "perfect" },
+				{ "id": 8303, "type": "difficulty", "mandatory": true, "difficulty": 16, "score": 995000, "clear_type": "great" },
+				{ "id": 8304, "type": "difficulty", "mandatory": true, "difficulty": 16, "count": 60, "clear_type": "perfect" },
+				{ "id": 8305, "type": "difficulty", "mandatory": true, "difficulty": 17, "score": 990000, "clear_type": "good" },
+				{ "id": 8306, "type": "difficulty", "mandatory": true, "difficulty": 17, "count": 20, "clear_type": "perfect" },
+				{ "id": 8307, "type": "difficulty", "mandatory": true, "difficulty": 18, "score": 960000 },
+				{ "id": 8308, "type": "difficulty", "mandatory": true, "difficulty": 18, "count": 2, "clear_type": "perfect" },
+				{ "id": 8309, "type": "difficulty", "mandatory": true, "difficulty": 19, "score": 865000, "song_exceptions": ["ENDYMION"] },
+				{ "id": 8310, "type": "songs", "mandatory": true, "songs": ["ENDYMION"], "difficulties": ["challenge"], "score": 775000 },
+				{ "id": 8311, "type": "mfc_points", "mandatory": true, "points": 40 },
+				{ "id": 8312, "type": "trial", "mandatory": true, "rank": "amethyst", "count": 6 },
+				{ "id": 8313, "type": "trial", "mandatory": true, "rank": "emerald", "count": 1 }
 			]
 		}
 	]

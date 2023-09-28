@@ -15,6 +15,7 @@ import com.perrigogames.life4trials.activity.SettingsActivity
 import com.perrigogames.life4trials.data.Trial
 import com.perrigogames.life4trials.data.TrialRank
 import com.perrigogames.life4trials.util.SharedPrefsUtil
+import com.perrigogames.life4trials.util.visibilityBool
 import kotlinx.android.synthetic.main.view_trial_jacket.view.*
 
 class TrialJacketView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
@@ -30,8 +31,8 @@ class TrialJacketView @JvmOverloads constructor(context: Context, attrs: Attribu
         set(v) {
             field = v
             text_trial_title.text = v?.name
-            image_trial_difficulty.visibility = if (v?.difficulty != null) VISIBLE else GONE
-            text_trial_difficulty.visibility = if (v?.difficulty != null) VISIBLE else GONE
+            image_trial_difficulty.visibilityBool = v?.difficulty != null
+            text_trial_difficulty.visibilityBool = v?.difficulty != null
             text_trial_difficulty.text = v?.difficulty?.toString()
             text_trial_title.visibility = View.GONE
             if (v != null) {
@@ -65,14 +66,14 @@ class TrialJacketView @JvmOverloads constructor(context: Context, attrs: Attribu
     private fun updateRankTint() {
         if (shouldTint) {
             view_foreground_tint.visibility = VISIBLE
-            view_foreground_tint.setImageDrawable(ColorDrawable(ResourcesCompat.getColor(context.resources, rank!!.color, context.theme)))
+            view_foreground_tint.setImageDrawable(ColorDrawable(ResourcesCompat.getColor(context.resources, rank!!.colorRes, context.theme)))
             image_badge_highest.visibility = GONE
             image_badge_highest_center.visibility = VISIBLE
             text_ex_score.visibility = GONE
             text_ex_score_center.visibility = VISIBLE
         } else {
             view_foreground_tint.visibility = GONE
-            image_badge_highest.visibility = if (rank != null) VISIBLE else GONE
+            image_badge_highest.visibilityBool = rank != null
             image_badge_highest_center.visibility = GONE
             text_ex_score.visibility = VISIBLE
             text_ex_score_center.visibility = GONE
