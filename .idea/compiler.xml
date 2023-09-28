@@ -2,13 +2,13 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel target="1.8">
-      <module name="LIFE4DDR.app" target="14" />
+      <module name="LIFE4DDR.app" target="17" />
       <module name="LIFE4DDR.editor" target="14" />
       <module name="LIFE4DDR.editor.main" target="14" />
       <module name="LIFE4DDR.editor.test" target="14" />
       <module name="LIFE4DDR.remyscrape.main" target="8" />
       <module name="LIFE4DDR.remyscrape.test" target="8" />
-      <module name="LIFE4DDR.shared" target="14" />
+      <module name="LIFE4DDR.shared" target="17" />
       <module name="LIFE4DDR.shared.commonMain" target="1.6" />
       <module name="LIFE4DDR.shared.commonTest" target="1.6" />
     </bytecodeTargetLevel>
