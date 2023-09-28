@@ -40,6 +40,11 @@
             app:key="KEY_IMPORT_SKIP_DIRECTIONS"
             app:title="@string/import_skip_directions"/>
 
+        <DropDownPreference
+            app:defaultValue="ACE_US"
+            app:key="KEY_IMPORT_IGNORE"
+            app:title="@string/ignore_list"/>
+
     </PreferenceCategory>
 
     <PreferenceCategory app:title="@string/trial_list">

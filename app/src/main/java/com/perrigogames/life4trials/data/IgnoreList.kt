@@ -9,6 +9,7 @@ class IgnoreLists(val lists: List<IgnoreList>)
  * charts that do not appear in a particular game localization
  */
 class IgnoreList(val id: String,
+                 val name: String,
                  val songs: List<IgnoredSong>? = null,
                  val charts: List<IgnoredChart>? = null,
                  val mixes: List<GameVersion>)

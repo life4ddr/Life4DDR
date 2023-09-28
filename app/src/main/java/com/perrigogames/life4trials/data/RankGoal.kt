@@ -190,7 +190,7 @@ class DifficultyClearGoal(id: Int,
                     else -> results.filter { it.clearType.ordinal < clearType.ordinal } // Y lamp the X's folder
                 }.sortedByDescending { it.score }
                 val actualResultsSize = results.size - (exceptions ?: 0)
-                LadderGoalProgress(min(results.size - remaining.size, actualResultsSize), actualResultsSize, remaining)
+                LadderGoalProgress(min(results.size - remaining.size, actualResultsSize), actualResultsSize, results = remaining)
             }
             else -> {
                 val resultCount = when {

@@ -24,6 +24,7 @@ import com.perrigogames.life4trials.ui.managerimport.ScoreManagerImportEntryDial
 import com.perrigogames.life4trials.util.*
 import kotlinx.coroutines.*
 import retrofit2.Response
+import java.net.UnknownHostException
 import java.util.*
 
 class LadderManager(private val context: Context,
@@ -50,19 +51,24 @@ class LadderManager(private val context: Context,
     init {
         val dataString = context.readFromFile(RANKS_FILE_NAME) ?: context.loadRawString(R.raw.ranks)
         ladderData = DataUtil.gson.fromJson(dataString, LadderRankData::class.java)!!
+        fetchRemoteRanks()
+    }
 
+    private fun fetchRemoteRanks() {
         ladderJob?.cancel()
         ladderJob = CoroutineScope(Dispatchers.IO).launch {
-            val response = githubDataAPI.getLadderRanks()
-            withContext(Dispatchers.Main) {
-                if (response.check()) {
-                    context.saveToFile(TrialManager.TRIALS_FILE_NAME, DataUtil.gson.toJson(response.body()))
-                    Toast.makeText(context, R.string.ranks_updated, Toast.LENGTH_SHORT).show()
-                    ladderData = response.body()!!
-                    Life4Application.eventBus.post(LadderRanksReplacedEvent())
+            try {
+                val response = githubDataAPI.getLadderRanks()
+                withContext(Dispatchers.Main) {
+                    if (response.check()) {
+                        context.saveToFile(TrialManager.TRIALS_FILE_NAME, DataUtil.gson.toJson(response.body()))
+                        Toast.makeText(context, R.string.ranks_updated, Toast.LENGTH_SHORT).show()
+                        ladderData = response.body()!!
+                        Life4Application.eventBus.post(LadderRanksReplacedEvent())
+                    }
+                    ladderJob = null
                 }
-                ladderJob = null
-            }
+            } catch (e: UnknownHostException) {}
         }
     }
 
@@ -142,14 +148,41 @@ class LadderManager(private val context: Context,
     fun getGoalProgress(goal: BaseRankGoal): LadderGoalProgress? = when (goal) {
         is DifficultyClearGoal -> {
             val charts = songDataManager.getChartsByDifficulty(goal.difficultyNumbers)
-            val filtered = charts.filterNot { songDataManager.selectedIgnoreChartIds!!.contains(it.id) ||
-                        songDataManager.selectedIgnoreSongIds!!.contains(it.song.targetId)}
+            val filtered = charts.filterNot {
+                        songDataManager.selectedIgnoreChartIds!!.contains(it.id) ||
+                        songDataManager.selectedIgnoreSongIds!!.contains(it.song.targetId) ||
+                        goal.songExceptions?.contains(it.song.target.title) == true }
             val results = ladderResultQuery.setParameters("ids", filtered.map { it.id }.toLongArray()).find()
-            goal.getGoalProgress(results)
+            goal.getGoalProgress(results) // return
         }
         is TrialGoal -> {
             val trials = trialManager.bestTrials().filter { it.goalRankId >= goal.rank.stableId }
-            LadderGoalProgress(trials.size, goal.count)
+            LadderGoalProgress(trials.size, goal.count) // return
+        }
+        is SongSetClearGoal -> when {
+            goal.songs != null -> {
+                val songs = goal.songs.mapNotNull { songDataManager.getSongByName(it) }
+                val charts = goal.difficulties.map { diff ->
+                    songs.mapNotNull { song -> song.charts.firstOrNull { it.difficultyClass == diff } }
+                }.flatten()
+                if (goal.score != null) { // clear chart with target score
+                    if (charts.size == 1) { // single chart, show the score
+                        val currentScore = charts[0].plays.maxBy { it.score }?.score
+                        currentScore?.let { curr -> LadderGoalProgress(curr, goal.score, showMax = false) }
+                    } else { // multiple charts, show songs satisfied
+                        val doneCount = charts.count { chart ->
+                            (chart.plays.maxBy { it.score }?.score ?: 0) > goal.score
+                        }
+                        LadderGoalProgress(doneCount, charts.size)
+                    }
+                } else { // simply clear chart
+                    val doneCount = charts.count {
+                        it.plays.maxBy { play -> play.clearType.stableId }!!.clearType.passing
+                    }
+                    LadderGoalProgress(doneCount, charts.size)
+                }
+            }
+            else -> null
         }
         else -> null
     }
@@ -211,11 +244,14 @@ class LadderManager(private val context: Context,
                     if (clear == ClearType.CLEAR) {
                         when {
                             entryParts[3] == "-" -> clear = ClearType.NO_PLAY
-                            entryParts[3] == "E" -> clear = if (clears > 0) ClearType.CLEAR else ClearType.FAIL
+                            entryParts[3] == "E" -> clear = when {
+                                clears > 0 -> ClearType.CLEAR
+                                else -> ClearType.FAIL
+                            }
                         }
                     }
 
-                    val songName = entryParts.subList(7, entryParts.size).joinToString(";")
+                    val songName = entryParts.subList(entryParts.size - 1, entryParts.size).joinToString(";")
 
                     val playStyle = PlayStyle.parse(chartType)!!
                     val difficultyClass = DifficultyClass.parse(chartType)!!

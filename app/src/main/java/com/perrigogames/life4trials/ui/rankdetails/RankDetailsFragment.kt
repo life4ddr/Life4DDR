@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.data.RankEntry
 import com.perrigogames.life4trials.life4app
+import com.perrigogames.life4trials.util.spannedText
 import com.perrigogames.life4trials.util.visibilityBool
 import com.perrigogames.life4trials.view.RankHeaderView
 import kotlinx.android.synthetic.main.fragment_rank_details.view.*
@@ -33,13 +34,15 @@ class RankDetailsFragment(private val rankEntry: RankEntry?,
                 it.rank = rankEntry?.rank
                 it.navigationListener = navigationListener
             }
+            (view.text_directions.layoutParams as ConstraintLayout.LayoutParams).topToBottom = R.id.layout_rank_header
             (view.text_goals_hidden.layoutParams as ConstraintLayout.LayoutParams).topToBottom = R.id.layout_rank_header
         }
 
-        viewModel.hiddenStatusText.observe(this, Observer<String> { text -> view.text_goals_hidden.text = text })
+        viewModel.directionsText.observe(this, Observer<String> { view.text_directions.text = it.spannedText })
+        viewModel.hiddenStatusText.observe(this, Observer<String> { view.text_goals_hidden.text = it })
         viewModel.hiddenStatusVisibility.observe(this, Observer<Int> { v ->
             view.text_goals_hidden.visibility = v
-            (view.fragment_rank_details.layoutParams as ConstraintLayout.LayoutParams).let { params ->
+            (view.recycler_rank_details.layoutParams as ConstraintLayout.LayoutParams).let { params ->
                 params.topToBottom = when {
                     v != View.GONE -> R.id.text_goals_hidden
                     options.showHeader -> R.id.layout_rank_header
@@ -53,7 +56,7 @@ class RankDetailsFragment(private val rankEntry: RankEntry?,
 //            setOnClickListener { goalListListener?.onUseRankClicked() }
 //        }
 
-        view.fragment_rank_details.apply {
+        view.recycler_rank_details.apply {
             visibilityBool = viewModel.shouldShowGoals
             if (viewModel.shouldShowGoals) {
                 adapter = viewModel.adapter
@@ -61,12 +64,18 @@ class RankDetailsFragment(private val rankEntry: RankEntry?,
             }
         }
 
-        view.text_question.visibilityBool = !viewModel.shouldShowGoals
+        view.text_question.visibilityBool = !viewModel.shouldShowGoals && rankEntry != null
+        view.text_no_goals.visibilityBool = !viewModel.shouldShowGoals && rankEntry == null
+        view.switch_show_next.isChecked = options.showNextGoals
+        view.switch_show_next.visibilityBool = options.allowNextSwitcher
+        view.switch_show_next.setOnCheckedChangeListener { _, checked -> goalListListener?.onNextSwitchToggled(checked) }
 
         return view
     }
 
-    class Options(val hideCompleted: Boolean = false,
-                  val hideIgnored: Boolean = false,
-                  val showHeader: Boolean = true)
+    data class Options(val hideCompleted: Boolean = false,
+                       val hideIgnored: Boolean = false,
+                       val showHeader: Boolean = true,
+                       val showNextGoals: Boolean = false,
+                       val allowNextSwitcher: Boolean = true)
 }

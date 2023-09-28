@@ -72,6 +72,11 @@ class SettingsActivity : AppCompatActivity() {
                     add(0, "")
                 }.toTypedArray()
             }
+            (preference(KEY_IMPORT_IGNORE) as DropDownPreference).apply {
+                summary = songDataManager.getIgnoreList(value).name
+                entries = songDataManager.ignoreListTitles.toTypedArray()
+                entryValues = songDataManager.ignoreListIds.toTypedArray()
+            }
             preference(KEY_INFO_RIVAL_CODE).summary =
                 SharedPrefsUtil.getUserString(context, KEY_INFO_RIVAL_CODE)
             preference(KEY_INFO_TWITTER_NAME).summary =
@@ -244,6 +249,12 @@ class SettingsActivity : AppCompatActivity() {
                             }
                         }
                     }
+                    key == KEY_IMPORT_IGNORE -> {
+                        songDataManager.invalidateIgnoredIds()
+                        findPreference<DropDownPreference>(key)?.let {
+                            it.summary = songDataManager.getIgnoreList(it.value).name
+                        }
+                    }
                     key == KEY_INFO_IMPORT -> findPreference<EditTextPreference>(key)?.let {
                         it.text?.let { text -> playerManager.importPlayerInfo(text) }
                         it.text = null
@@ -314,6 +325,7 @@ class SettingsActivity : AppCompatActivity() {
         const val KEY_SUBMISSION_NOTIFICAION_TEST = "KEY_SUBMISSION_NOTIFICAION_TEST"
         const val KEY_RECORDS_REMAINING_EX = "KEY_RECORDS_REMAINING_EX"
         const val KEY_SHOP = "KEY_SHOP"
+        const val KEY_IMPORT_IGNORE = "KEY_IMPORT_IGNORE"
         const val KEY_FEEDBACK = "KEY_FEEDBACK"
         const val KEY_CREDITS = "KEY_CREDITS"
         const val KEY_CATEGORY_IMPORT = "KEY_CATEGORY_IMPORT"

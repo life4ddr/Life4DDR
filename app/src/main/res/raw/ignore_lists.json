@@ -2,6 +2,7 @@
   "lists": [
     {
       "id": "ACE_US",
+      "name": "DDR A (US)",
       "songs": [
         { "title": "ありふれたせかいせいふく" },
         { "title": "ドキドキ☆流星トラップガール!!" },
@@ -30,6 +31,7 @@
       "mixes": [ "A20" ]
     }, {
       "id": "ACE_US_EXTRA_EXCLUSIVE",
+      "name": "DDR A (US) w/ Extra Exclusives",
       "songs": [
         { "title": "ありふれたせかいせいふく" },
         { "title": "ドキドキ☆流星トラップガール!!" },
@@ -53,6 +55,30 @@
         { "title": "ナイト・オブ・ナイツ", "difficulty_class": "challenge" }
       ],
       "mixes": [ "A20" ]
+    }, {
+      "id": "ACE_JP",
+      "name": "DDR A (JP)",
+      "songs": [
+        { "title": "First Time" },
+        { "title": "Catch Our Fire!" },
+        { "title": "Pursuer" },
+        { "title": "Vanquish The Ghost" }
+      ],
+      "charts": [
+        { "title": "ACE FOR ACES", "difficulty_class": "challenge" }
+      ],
+      "mixes": [ "A20" ]
+    }, {
+      "id": "ACE_JP_EXTRA_EXCLUSIVE",
+      "name": "DDR A (JP) w/ Extra Exclusives",
+      "songs": [
+        { "title": "First Time" },
+        { "title": "Catch Our Fire!" }
+      ],
+      "mixes": [ "A20" ]
+    },{
+      "id": "A20",
+      "name": "DDR A20 (JP)"
     }
   ]
 }

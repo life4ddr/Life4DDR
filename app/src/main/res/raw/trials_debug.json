@@ -32,6 +32,25 @@
       ]
     },
     {
+      "id": "hell",
+      "name": "hell",
+      "type": "trial",
+      "difficulty": 19,
+      "goals": [
+        {
+          "rank": "emerald"
+        }
+      ],
+      "total_ex": 6690,
+      "songs": [
+        { "name": "escape", "difficulty": 13, "ex": 1191, "difficulty_class": "challenge", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202013%20%28AC%29%20%28Japan%29/escape/escape-jacket.png"},
+        { "name": "Struggle", "difficulty": 13, "ex": 1542, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202014%20%28AC%29%20%28Japan%29/Struggle/Struggle-jacket.png"},
+        { "name": "TEARS", "difficulty": 12, "ex": 1098, "difficulty_class": "expert", "url": "https://zenius-i-vanisher.com/simfiles/Dance%20Dance%20Revolution%20EXTREME%20%28AC%29%20%28Japan%29/TEARS/TEARS-jacket.png"},
+        { "name": "ENDYMION", "difficulty": 19, "ex": 2859, "difficulty_class": "challenge", "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28International%29/ENDYMION/ENDYMION-jacket.png" }
+      ],
+      "cover_url": "https://thumbs.dreamstime.com/b/blood-guts-gore-background-2432397.jpg"
+    },
+    {
       "id": "timemachine",
       "name": "Time Machine",
       "type": "trial",
