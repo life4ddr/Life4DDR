@@ -14,6 +14,7 @@ import com.perrigogames.life4trials.R
 import com.perrigogames.life4trials.data.LadderRank
 import com.perrigogames.life4trials.data.TrialRank
 import com.perrigogames.life4trials.data.TrialSession
+import com.perrigogames.life4trials.event.LadderRanksReplacedEvent
 import com.perrigogames.life4trials.event.LocalUserInfoUpdatedEvent
 import com.perrigogames.life4trials.event.TrialListReplacedEvent
 import com.perrigogames.life4trials.event.TrialListUpdatedEvent
@@ -72,10 +73,14 @@ class SettingsActivity : AppCompatActivity() {
                     add(0, "")
                 }.toTypedArray()
             }
-            (preference(KEY_IMPORT_IGNORE) as DropDownPreference).apply {
+            (preference(KEY_IMPORT_GAME_VERSION) as DropDownPreference).apply {
                 summary = songDataManager.getIgnoreList(value).name
                 entries = songDataManager.ignoreListTitles.toTypedArray()
                 entryValues = songDataManager.ignoreListIds.toTypedArray()
+            }
+            preferenceListener(KEY_IMPORT_VIEW_LIST) {
+                startActivity(Intent(context, BlockListCheckActivity::class.java))
+                true
             }
             preference(KEY_INFO_RIVAL_CODE).summary =
                 SharedPrefsUtil.getUserString(context, KEY_INFO_RIVAL_CODE)
@@ -124,9 +129,6 @@ class SettingsActivity : AppCompatActivity() {
 
             if (BuildConfig.DEBUG) {
                 addDebugSettings()
-            }
-            SharedPrefsUtil.isPreviewEnabled().let { p ->
-                preference(KEY_CATEGORY_IMPORT).isVisible = p
             }
 
             preference {
@@ -249,11 +251,12 @@ class SettingsActivity : AppCompatActivity() {
                             }
                         }
                     }
-                    key == KEY_IMPORT_IGNORE -> {
+                    key == KEY_IMPORT_GAME_VERSION -> {
                         songDataManager.invalidateIgnoredIds()
                         findPreference<DropDownPreference>(key)?.let {
                             it.summary = songDataManager.getIgnoreList(it.value).name
                         }
+                        Life4Application.eventBus.post(LadderRanksReplacedEvent())
                     }
                     key == KEY_INFO_IMPORT -> findPreference<EditTextPreference>(key)?.let {
                         it.text?.let { text -> playerManager.importPlayerInfo(text) }
@@ -325,12 +328,13 @@ class SettingsActivity : AppCompatActivity() {
         const val KEY_SUBMISSION_NOTIFICAION_TEST = "KEY_SUBMISSION_NOTIFICAION_TEST"
         const val KEY_RECORDS_REMAINING_EX = "KEY_RECORDS_REMAINING_EX"
         const val KEY_SHOP = "KEY_SHOP"
-        const val KEY_IMPORT_IGNORE = "KEY_IMPORT_IGNORE"
+        const val KEY_IMPORT_GAME_VERSION = "KEY_IMPORT_GAME_VERSION"
         const val KEY_FEEDBACK = "KEY_FEEDBACK"
         const val KEY_CREDITS = "KEY_CREDITS"
         const val KEY_CATEGORY_IMPORT = "KEY_CATEGORY_IMPORT"
         const val KEY_IMPORT_DATA = "KEY_IMPORT_DATA"
         const val KEY_IMPORT_SKIP_DIRECTIONS = "KEY_IMPORT_SKIP_DIRECTIONS"
+        const val KEY_IMPORT_VIEW_LIST = "KEY_IMPORT_VIEW_LIST"
         const val KEY_LADDER_CLEAR = "KEY_LADDER_CLEAR"
         const val KEY_SONG_RESULTS_CLEAR = "KEY_SONG_RESULTS_CLEAR"
         const val KEY_RECORDS_CLEAR = "KEY_RECORDS_CLEAR"

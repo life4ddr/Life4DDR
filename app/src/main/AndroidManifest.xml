@@ -22,7 +22,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup">
-        <activity android:name=".activity.PlacementListActivity"></activity>
+        <activity android:name=".activity.BlockListCheckActivity"></activity>
+        <activity android:name=".activity.PlacementListActivity" />
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
@@ -85,7 +86,7 @@
         <activity android:name=".activity.MatrixTestActivity" />
         <activity
             android:name=".activity.LadderLeaderboardActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.SingleSongTournamentActivity"
             android:parentActivityName=".activity.PlayerProfileActivity"

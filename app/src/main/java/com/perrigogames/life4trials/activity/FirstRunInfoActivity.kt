@@ -15,6 +15,7 @@ import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_INFO
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_INFO_RIVAL_CODE
 import com.perrigogames.life4trials.activity.SettingsActivity.Companion.KEY_INFO_TWITTER_NAME
 import com.perrigogames.life4trials.api.ApiPlayer
+import com.perrigogames.life4trials.event.MajorUpdateProcessEvent
 import com.perrigogames.life4trials.life4app
 import com.perrigogames.life4trials.manager.PlayerManager
 import com.perrigogames.life4trials.util.SharedPrefsUtil
@@ -104,6 +105,11 @@ class FirstRunInfoActivity: AppCompatActivity() {
                     field_name.requestFocus()
                 }.show()
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    fun onMajorVersion(e: MajorUpdateProcessEvent) {
+        Life4Application.eventBus.removeStickyEvent(e)
     }
 
     fun onSignInClicked(v: View) {

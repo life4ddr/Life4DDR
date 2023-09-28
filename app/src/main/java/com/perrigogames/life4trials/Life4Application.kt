@@ -20,6 +20,7 @@ import okhttp3.logging.HttpLoggingInterceptor.Level.BODY
 import org.greenrobot.eventbus.EventBus
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.scalars.ScalarsConverterFactory
 
 
 class Life4Application: MultiDexApplication() {
@@ -57,7 +58,7 @@ class Life4Application: MultiDexApplication() {
         }
 
         firstRunManager = FirstRunManager(this)
-        songDataManager = SongDataManager(this)
+        songDataManager = SongDataManager(this, githubDataApi)
         placementManager = PlacementManager(this)
         trialManager = TrialManager(this, githubDataApi)
         ladderManager = LadderManager(this, songDataManager, trialManager, githubDataApi)
@@ -65,6 +66,7 @@ class Life4Application: MultiDexApplication() {
         playerManager = PlayerManager(this)
 
         NotificationUtil.setupNotifications(this)
+        SharedPrefsUtil.handleMajorUpdate(this)
 
         if (BuildConfig.DEBUG) {
             FirebaseUtil.getId(this)
@@ -77,11 +79,13 @@ class Life4Application: MultiDexApplication() {
         lateinit var objectBox: BoxStore
 
         val life4Retrofit = retrofit("http://life4bot.herokuapp.com/")
-        val githubRetrofit = retrofit("https://raw.githubusercontent.com/PerrigoGames/Life4DDR-Trials/remote-data/app/src/main/res/raw/")
+        private val githubTarget = if (BuildConfig.DEBUG) "remote-data-test" else "remote-data"
+        val githubRetrofit = retrofit("https://raw.githubusercontent.com/PerrigoGames/Life4DDR-Trials/$githubTarget/app/src/main/res/raw/")
 
         private fun retrofit(baseUrl: String): Retrofit = Retrofit.Builder()
             .client(OkHttpClient().newBuilder().build())
             .baseUrl(baseUrl)
+            .addConverterFactory(ScalarsConverterFactory.create())
             .addConverterFactory(GsonConverterFactory.create(DataUtil.gson))
             .client(OkHttpClient.Builder()
                 .addInterceptor(HttpLoggingInterceptor().apply { level = BODY })

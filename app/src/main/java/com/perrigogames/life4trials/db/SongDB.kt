@@ -12,6 +12,7 @@ import io.objectbox.relation.ToOne
 class SongDB(var title: String,
              var artist: String? = null,
              @Convert(converter = GameVersionConverter::class, dbType = Long::class) var version: GameVersion? = null,
+             var preview: Boolean = false,
              @Id var id: Long = 0) {
 
     @Backlink(to = "song")

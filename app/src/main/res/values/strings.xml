@@ -223,7 +223,6 @@
     <string name="import_info">Import details</string>
     <string name="import_info_description">Load details from LIFE4 by entering your Player Name</string>
     <string name="test_notifications">Test Info Notifications</string>
-    <string name="ignore_list">Ignore List</string>
     <string name="rank_goals">Rank Goals</string>
     <string name="clear_data">Clear Data</string>
     <string name="clear_goal_states">Clear Goal States</string>
@@ -326,6 +325,8 @@
     <string name="choose_list">Choose 1: %s</string>
     <string name="life4">LIFE4</string>
     <string name="action_progress_matrix">Progress Matrix</string>
+    <string name="action_game_version">Game Version</string>
+    <string name="action_view_blocklist">View ignored songs</string>
 
     <string name="dont_show_again">Don\'t show this again</string>
     <string name="import_paste_copied_text">Paste the copied text into the box.</string>
@@ -373,8 +374,17 @@
     <string name="rank_directions_optional">To earn <![CDATA[<b><font color=#ffffff>%s</font></b>]]>, complete %d goals:</string>
     <string name="rank_directions_all">To earn <![CDATA[<b><font color=#ffffff>%s</font></b>]]>, complete:</string>
     <string name="no_rank_goals">It\'s free to not have a rank, but it\'s more fun if you play through some goals!</string>
+
+    <string name="database_upgraded">Song Database Upgraded</string>
+    <string name="database_replaced_reimport">The internal song database has been upgraded.\n\nIf you imported your scores from the DDR A Score Manager, you will need to do this again to ensure compatibility.\n\nYou\'ll only need to do this once.</string>
+
+    <string name="update_your_app">Update Your App!</string>
+    <string name="remote_data_needs_update">This version of the LIFE4 app is not compatible with some of the newest updates.\n\nPlease update your LIFE4 app to get the most current experience!</string>
+
     <array name="credits">
-        <item>Camera, Cancel, Cogwheel, Eye, Folder, Scroll Left, Scroll Right, and Star icons by https://www.flaticon.com/authors/daniel-bruce from www.flaticon.com</item>
+        <item>Camera, Cancel, Cogwheel, Eye, Folder, Scroll Left, Scroll Right, and Star icons by
+            https://www.flaticon.com/authors/daniel-bruce from www.flaticon.com
+        </item>
         <item>Fixtures icon by https://www.flaticon.com/authors/Freepik from www.flaticon.com</item>
         <item>Coded by @CodingCabbit</item>
         <item>Inspired by the awesome team at @LIFE4DDR</item>
