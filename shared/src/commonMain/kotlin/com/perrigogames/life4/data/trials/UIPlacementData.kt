@@ -14,6 +14,7 @@ data class UIPlacementScreen(
 )
 
 data class UIPlacementData(
+    val id: String,
     val rankIcon: LadderRank,
     val difficultyRangeString: String = "", // FIXME resource
     val songs: List<UIPlacementSong>
@@ -23,7 +24,7 @@ data class UIPlacementData(
 }
 
 data class UIPlacementSong(
-    val jacketUrl: String,
+    val jacketUrl: String?,
     val songNameText: String,
     val artistText: String,
     val difficultyClass: DifficultyClass,

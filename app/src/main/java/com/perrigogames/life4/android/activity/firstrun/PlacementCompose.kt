@@ -1,5 +1,6 @@
 package com.perrigogames.life4.android.activity.firstrun
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -35,12 +36,20 @@ import com.perrigogames.life4.enums.colorRes
 import dev.icerock.moko.resources.compose.colorResource
 import dev.icerock.moko.resources.compose.stringResource
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PlacementScreen(
     data: UIPlacementScreen,
+    onPlacementSelected: (String) -> Unit,
+    onPlacementBypassed: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val context = LocalContext.current
+    var closeConfirmShown by remember { mutableStateOf(false) }
+
+    BackHandler {
+        closeConfirmShown = true
+    }
     LazyColumn(
         contentPadding = PaddingValues(all = 16.dp),
         modifier = modifier
@@ -59,8 +68,28 @@ fun PlacementScreen(
                     color = MaterialTheme.colorScheme.primaryContainer,
                     shape = MaterialTheme.shapes.large
                 ) {
-                    PlacementItem(placement)
+                    PlacementItem(
+                        data = placement,
+                        onPlacementSelected = { onPlacementSelected(placement.id) }
+                    )
                 }
+            }
+        }
+    }
+    if (closeConfirmShown) {
+        ModalBottomSheet(
+            onDismissRequest = {},
+        ) {
+            Text(
+                text = stringResource(MR.strings.placement_close_confirm_title)
+            )
+            Text(
+                text = stringResource(MR.strings.placement_close_confirm_body)
+            )
+            Button(
+                onClick = onPlacementBypassed
+            ) {
+                Text(stringResource(MR.strings.close))
             }
         }
     }
@@ -69,8 +98,9 @@ fun PlacementScreen(
 @Composable
 fun PlacementItem(
     data: UIPlacementData,
-    startExpanded: Boolean = false,
+    onPlacementSelected: () -> Unit,
     modifier: Modifier = Modifier,
+    startExpanded: Boolean = false,
 ) {
     var expanded by remember { mutableStateOf(startExpanded) }
     val arrowRotationDegrees by remember {
@@ -117,7 +147,7 @@ fun PlacementItem(
                 item { SizedSpacer(16.dp) }
                 item {
                     TextButton(
-                        onClick = { /* TODO */ },
+                        onClick = onPlacementSelected,
                         modifier = Modifier.fillMaxWidth()
                     ) {
                         Text(
@@ -169,19 +199,25 @@ fun PlacementSongItem(
             )
         }
         SizedSpacer(16.dp)
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
+        Surface(
+            shape = MaterialTheme.shapes.small,
+            color = MaterialTheme.colorScheme.surface,
+            modifier = Modifier.width(64.dp),
         ) {
-            Text(
-                text = data.difficultyClass.name,
-                style = MaterialTheme.typography.titleMedium,
-                color = colorResource(data.difficultyClass.colorRes)
-            )
-            Text(
-                text = data.difficultyText,
-                style = MaterialTheme.typography.titleMedium,
-                color = colorResource(data.difficultyClass.colorRes)
-            )
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                Text(
+                    text = data.difficultyClass.name,
+                    style = MaterialTheme.typography.titleSmall,
+                    color = colorResource(data.difficultyClass.colorRes)
+                )
+                Text(
+                    text = data.difficultyText,
+                    style = MaterialTheme.typography.titleMedium,
+                    color = colorResource(data.difficultyClass.colorRes)
+                )
+            }
         }
     }
 }
@@ -191,7 +227,11 @@ fun PlacementSongItem(
 fun Preview_PlacementScreen() {
     LIFE4Theme {
         Surface(color = MaterialTheme.colorScheme.background) {
-            PlacementScreen(data = UIPlacementMocks.createUIPlacementScreen())
+            PlacementScreen(
+                data = UIPlacementMocks.createUIPlacementScreen(),
+                onPlacementSelected = {},
+                onPlacementBypassed = {}
+            )
         }
     }
 }
@@ -202,7 +242,10 @@ fun Preview_PlacementItem(
     @PreviewParameter(LadderRankLevel3ParameterProvider::class) rank: LadderRank,
 ) {
     ThemedRankSurface(rank) {
-        PlacementItem(data = UIPlacementMocks.createUIPlacementData(rankIcon = rank))
+        PlacementItem(
+            data = UIPlacementMocks.createUIPlacementData(rankIcon = rank),
+            onPlacementSelected = {}
+        )
     }
 }
 
@@ -217,6 +260,7 @@ fun Preview_PlacementItemExpanded(
                 rankIcon = rank
             ),
             startExpanded = true,
+            onPlacementSelected = {}
         )
     }
 }

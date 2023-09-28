@@ -26,10 +26,12 @@ object UIPlacementMocks {
     )
 
     fun createUIPlacementData(
+        id: String = "placement_id",
         rankIcon: LadderRank = LadderRank.BRONZE5,
         difficultyRangeString: String = "L7-L10",
         songs: List<UIPlacementSong> = bags,
     ) = UIPlacementData(
+        id = id,
         rankIcon = rankIcon,
         difficultyRangeString = difficultyRangeString,
         songs = songs,
