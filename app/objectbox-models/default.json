@@ -1,0 +1,100 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "1:897729382389109926",
+      "lastPropertyId": "11:4687129921278289407",
+      "name": "SongDB",
+      "properties": [
+        {
+          "id": "1:8766572468174205243",
+          "name": "id"
+        },
+        {
+          "id": "2:2857936540636407188",
+          "name": "score"
+        },
+        {
+          "id": "4:241261702835868533",
+          "name": "misses"
+        },
+        {
+          "id": "6:6588491755344476490",
+          "indexId": "1:5226183221815835245",
+          "name": "sessionId"
+        },
+        {
+          "id": "7:7135047427876290819",
+          "name": "exScore"
+        },
+        {
+          "id": "8:7014522395873648673",
+          "name": "position"
+        },
+        {
+          "id": "9:2537667710467426978",
+          "name": "passed"
+        },
+        {
+          "id": "10:5126959091139675239",
+          "name": "badJudges"
+        },
+        {
+          "id": "11:4687129921278289407",
+          "name": "perfects"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "2:5753770248500082315",
+      "lastPropertyId": "11:6442863106426964655",
+      "name": "TrialSessionDB",
+      "properties": [
+        {
+          "id": "1:7208512480541155006",
+          "name": "id"
+        },
+        {
+          "id": "6:1765844114091782272",
+          "name": "trialId"
+        },
+        {
+          "id": "7:3382177306781165024",
+          "name": "date"
+        },
+        {
+          "id": "9:5623033444233878895",
+          "name": "goalObtained"
+        },
+        {
+          "id": "11:6442863106426964655",
+          "name": "goalRankId"
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "lastEntityId": "2:5753770248500082315",
+  "lastIndexId": "1:5226183221815835245",
+  "lastRelationId": "0:0",
+  "lastSequenceId": "0:0",
+  "modelVersion": 4,
+  "modelVersionParserMinimum": 4,
+  "retiredEntityUids": [],
+  "retiredIndexUids": [],
+  "retiredPropertyUids": [
+    4452517186195381522,
+    140395127898803332,
+    7121545859106508273,
+    3719733609635799302,
+    6901520264293461872,
+    4673429769246954315,
+    1515691241437566925,
+    4613967305044127438
+  ],
+  "retiredRelationUids": [],
+  "version": 1
+}

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.perrigogames.life4trials.view.TrialItemView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <include
+        android:id="@+id/view_trial_jacket"
+        layout="@layout/view_trial_jacket"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/content_padding_med"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:background="@color/colorAccent"/>
+
+    <ImageView
+        android:id="@+id/image_badge_1"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_margin="@dimen/content_padding_med"
+        android:contentDescription="@string/rank_image"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/image_badge_2"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view_trial_jacket"
+        tools:background="@color/colorAccent"/>
+
+    <ImageView
+        android:id="@+id/image_badge_2"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="@dimen/content_padding_med"
+        android:layout_marginRight="@dimen/content_padding_med"
+        android:contentDescription="@string/rank_image"
+        app:layout_constraintBottom_toBottomOf="@id/image_badge_1"
+        app:layout_constraintEnd_toStartOf="@id/image_badge_3"
+        app:layout_constraintStart_toEndOf="@id/image_badge_1"
+        tools:background="@color/colorAccent" />
+
+    <ImageView
+        android:id="@+id/image_badge_3"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="@dimen/content_padding_med"
+        android:layout_marginRight="@dimen/content_padding_med"
+        android:contentDescription="@string/rank_image"
+        app:layout_constraintBottom_toBottomOf="@id/image_badge_1"
+        app:layout_constraintEnd_toStartOf="@id/image_badge_4"
+        app:layout_constraintStart_toEndOf="@id/image_badge_2"
+        tools:background="@color/colorAccent" />
+
+    <ImageView
+        android:id="@+id/image_badge_4"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="@dimen/content_padding_med"
+        android:layout_marginRight="@dimen/content_padding_med"
+        android:contentDescription="@string/rank_image"
+        app:layout_constraintBottom_toBottomOf="@id/image_badge_1"
+        app:layout_constraintEnd_toStartOf="@id/image_badge_5"
+        app:layout_constraintStart_toEndOf="@id/image_badge_3"
+        tools:background="@color/colorAccent" />
+
+    <ImageView
+        android:id="@+id/image_badge_5"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="@dimen/content_padding_med"
+        android:layout_marginRight="@dimen/content_padding_med"
+        android:contentDescription="@string/rank_image"
+        app:layout_constraintBottom_toBottomOf="@id/image_badge_1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/image_badge_4"
+        tools:background="@color/colorAccent" />
+
+</com.perrigogames.life4trials.view.TrialItemView>

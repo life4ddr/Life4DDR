@@ -1,0 +1,313 @@
+{
+	"ranks": [
+		{
+			"rank": "wood1",
+			"goals": [
+				{
+					"type": "calories",
+					"calories": 350
+				},
+				{
+					"type": "folder_clear",
+					"difficulties": ["beginner"]
+				},
+				{
+					"type": "difficulty",
+					"difficulty_number": 6,
+					"score": 800000
+				},
+				{
+					"type": "set",
+					"difficulty_numbers": [5, 5, 5]
+				},
+				{
+					"type": "difficulty",
+					"difficulty_number": 4,
+					"count": 3,
+					"clear_type": "life4_clear"
+				},
+				{
+					"type": "difficulty",
+					"difficulty_number": 6,
+					"count": 10
+				},
+				{
+					"type": "difficulty",
+					"difficulty_number": 7,
+					"count": 5
+				},
+				{
+					"type": "difficulty",
+					"difficulty_number": 8,
+					"count": 1
+				}
+			]
+		},
+		{
+			"rank": "wood2",
+			"goals": [
+				{
+					"type": "calories",
+					"calories": 350
+				},
+				{
+					"type": "folder_clear",
+					"difficulties": ["beginner"]
+				},
+				{
+					"type": "difficulty",
+					"difficulty_number": 6,
+					"score": 800000
+				},
+				{
+					"type": "set",
+					"difficulty_numbers": [5, 5, 5]
+				},
+				{
+					"type": "difficulty",
+					"difficulty_number": 4,
+					"count": 3,
+					"clear_type": "life4_clear"
+				},
+				{
+					"type": "difficulty",
+					"difficulty_number": 6,
+					"count": 10
+				},
+				{
+					"type": "difficulty",
+					"difficulty_number": 7,
+					"count": 5
+				},
+				{
+					"type": "difficulty",
+					"difficulty_number": 8,
+					"count": 1
+				}
+			]
+		},
+		{
+			"rank": "wood3",
+			"goals": [
+				{
+					"type": "calories",
+					"calories": 350
+				},
+				{
+					"type": "folder_clear",
+					"difficulties": ["beginner"]
+				},
+				{
+					"type": "difficulty",
+					"difficulty_number": 6,
+					"score": 800000
+				},
+				{
+					"type": "set",
+					"difficulty_numbers": [5, 5, 5]
+				},
+				{
+					"type": "difficulty",
+					"difficulty_number": 4,
+					"count": 3,
+					"clear_type": "life4_clear"
+				},
+				{
+					"type": "difficulty",
+					"difficulty_number": 6,
+					"count": 10
+				},
+				{
+					"type": "difficulty",
+					"difficulty_number": 7,
+					"count": 5
+				},
+				{
+					"type": "difficulty",
+					"difficulty_number": 8,
+					"count": 1
+				}
+			]
+		},
+		{
+			"rank": "bronze1",
+			"goals": [
+				{
+					"type": "difficulty",
+					"difficulty_number": 8,
+					"count": 1
+				}
+			]
+		},
+		{
+			"rank": "bronze2",
+			"goals": [
+				{
+					"type": "difficulty",
+					"difficulty_number": 8,
+					"count": 1
+				}
+			]
+		},
+		{
+			"rank": "bronze3",
+			"goals": [
+				{
+					"type": "difficulty",
+					"difficulty_number": 8,
+					"count": 1
+				}
+			]
+		},
+		{
+			"rank": "silver1",
+			"goals": [
+				{
+					"type": "difficulty",
+					"difficulty_number": 8,
+					"count": 1
+				}
+			]
+		},
+		{
+			"rank": "silver2",
+			"goals": [
+				{
+					"type": "difficulty",
+					"difficulty_number": 8,
+					"count": 1
+				}
+			]
+		},
+		{
+			"rank": "silver3",
+			"goals": [
+				{
+					"type": "difficulty",
+					"difficulty_number": 8,
+					"count": 1
+				}
+			]
+		},
+		{
+			"rank": "gold1",
+			"goals": [
+				{
+					"type": "difficulty",
+					"difficulty_number": 8,
+					"count": 1
+				}
+			]
+		},
+		{
+			"rank": "gold2",
+			"goals": [
+				{
+					"type": "difficulty",
+					"difficulty_number": 8,
+					"count": 1
+				}
+			]
+		},
+		{
+			"rank": "gold3",
+			"goals": [
+				{
+					"type": "difficulty",
+					"difficulty_number": 8,
+					"count": 1
+				}
+			]
+		},
+		{
+			"rank": "diamond1",
+			"goals": [
+				{
+					"type": "difficulty",
+					"difficulty_number": 8,
+					"count": 1
+				}
+			]
+		},
+		{
+			"rank": "diamond2",
+			"goals": [
+				{
+					"type": "difficulty",
+					"difficulty_number": 8,
+					"count": 1
+				}
+			]
+		},
+		{
+			"rank": "diamond3",
+			"goals": [
+				{
+					"type": "difficulty",
+					"difficulty_number": 8,
+					"count": 1
+				}
+			]
+		},
+		{
+			"rank": "cobalt1",
+			"goals": [
+				{
+					"type": "difficulty",
+					"difficulty_number": 8,
+					"count": 1
+				}
+			]
+		},
+		{
+			"rank": "cobalt2",
+			"goals": [
+				{
+					"type": "difficulty",
+					"difficulty_number": 8,
+					"count": 1
+				}
+			]
+		},
+		{
+			"rank": "cobalt3",
+			"goals": [
+				{
+					"type": "difficulty",
+					"difficulty_number": 8,
+					"count": 1
+				}
+			]
+		},
+		{
+			"rank": "amethyst1",
+			"goals": [
+				{
+					"type": "difficulty",
+					"difficulty_number": 8,
+					"count": 1
+				}
+			]
+		},
+		{
+			"rank": "amethyst2",
+			"goals": [
+				{
+					"type": "difficulty",
+					"difficulty_number": 8,
+					"count": 1
+				}
+			]
+		},
+		{
+			"rank": "amethyst3",
+			"goals": [
+				{
+					"type": "difficulty",
+					"difficulty_number": 8,
+					"count": 1
+				}
+			]
+		}
+	]
+}

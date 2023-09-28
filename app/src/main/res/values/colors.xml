@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#FF0971</color>
+
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="gray">#444444</color>
+    <color name="orange">#FF8C00</color>
+
+    <color name="black_20">#33000000</color>
+
+    <color name="difficultyBeginner">#1fc6db</color>
+    <color name="difficultyBasic">#f59e23</color>
+    <color name="difficultyDifficult">#f54558</color>
+    <color name="difficultyExpert">#2cc945</color>
+    <color name="difficultyChallenge">#4444FF</color>
+
+    <color name="wood">#925A3C</color>
+    <color name="bronze">#D36119</color>
+    <color name="silver">#8E8F93</color>
+    <color name="gold">#E7BA2C</color>
+    <color name="diamond">#87DCFF</color>
+    <color name="cobalt">#0092DB</color>
+    <color name="amethyst">#DF29FF</color>
+</resources>

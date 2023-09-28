@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:id="@+id/scroll_details"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@id/button_leaderboard"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <include
+                android:id="@+id/view_trial_jacket"
+                layout="@layout/view_trial_jacket"
+                android:layout_width="@dimen/trial_details_main_thumb_size"
+                android:layout_height="@dimen/trial_details_main_thumb_size"
+                android:layout_marginTop="@dimen/content_padding_large"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:background="@color/colorAccent"/>
+
+            <ImageButton
+                android:id="@+id/button_navigate_previous"
+                android:layout_width="@dimen/size_detail_nav_debug"
+                android:layout_height="@dimen/size_detail_nav_debug"
+                android:layout_margin="@dimen/content_padding_med"
+                android:alpha="0.5"
+                android:background="@null"
+                android:onClick="navigationButtonClicked"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_scroll_arrow_to_left"
+                android:textStyle="bold"
+                android:tint="@color/white"
+                app:layout_constraintBottom_toBottomOf="@id/view_trial_jacket"
+                app:layout_constraintEnd_toStartOf="@id/view_trial_jacket"
+                app:layout_constraintTop_toTopOf="@id/view_trial_jacket" />
+
+            <ImageButton
+                android:id="@+id/button_navigate_next"
+                android:layout_width="@dimen/size_detail_nav_debug"
+                android:layout_height="@dimen/size_detail_nav_debug"
+                android:layout_margin="@dimen/content_padding_med"
+                android:alpha="0.5"
+                android:background="@null"
+                android:onClick="navigationButtonClicked"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_scroll_arrow_to_right"
+                android:textStyle="bold"
+                android:tint="@color/white"
+                app:layout_constraintBottom_toBottomOf="@id/view_trial_jacket"
+                app:layout_constraintStart_toEndOf="@id/view_trial_jacket"
+                app:layout_constraintTop_toTopOf="@id/view_trial_jacket" />
+
+            <com.perrigogames.life4trials.view.RankImageView
+                android:id="@+id/image_desired_rank"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_margin="@dimen/content_padding_med"
+                android:contentDescription="@string/rank_image"
+                app:layout_constraintEnd_toStartOf="@id/spinner_desired_rank"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/view_trial_jacket"
+                tools:background="@color/colorAccent"/>
+
+            <Spinner
+                android:id="@+id/spinner_desired_rank"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@id/image_desired_rank"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/image_desired_rank"
+                app:layout_constraintTop_toTopOf="@id/image_desired_rank"/>
+
+            <ImageView
+                android:id="@+id/image_camera_icon"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_margin="@dimen/content_padding_med"
+                android:contentDescription="@string/icon"
+                android:src="@drawable/ic_photo_camera"
+                android:tint="@color/white"
+                app:layout_constraintBottom_toBottomOf="@id/image_desired_rank"
+                app:layout_constraintEnd_toStartOf="@id/switch_acquire_mode"
+                app:layout_constraintTop_toTopOf="@id/image_desired_rank" />
+
+            <Switch
+                android:id="@+id/switch_acquire_mode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/content_padding_med"
+                android:layout_marginRight="@dimen/content_padding_med"
+                app:layout_constraintBottom_toBottomOf="@id/image_desired_rank"
+                app:layout_constraintEnd_toStartOf="@id/image_folder_icon"
+                app:layout_constraintTop_toTopOf="@id/image_desired_rank" />
+
+            <ImageView
+                android:id="@+id/image_folder_icon"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_margin="@dimen/content_padding_med"
+                android:contentDescription="@string/icon"
+                android:src="@drawable/ic_file_folder"
+                android:tint="@color/white"
+                app:layout_constraintBottom_toBottomOf="@id/image_desired_rank"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/image_desired_rank"/>
+
+            <TextView
+                android:id="@+id/text_goals_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/content_padding_med"
+                android:text="@string/goals"
+                android:textSize="20sp"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/image_desired_rank"/>
+
+            <TextView
+                android:id="@+id/text_goals_content"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/content_padding_med"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_goals_header"
+                tools:text="- Get 950,000 points on each song\n- Get over 1000 EX Points\n- Get less than 7 total misses"/>
+
+            <include
+                android:id="@+id/include_song_1"
+                layout="@layout/item_song_list_item"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/content_padding_med"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_goals_content"/>
+
+            <include
+                android:id="@+id/include_song_2"
+                layout="@layout/item_song_list_item"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/content_padding_med"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/include_song_1"/>
+
+            <include
+                android:id="@+id/include_song_3"
+                layout="@layout/item_song_list_item"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/content_padding_med"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/include_song_2"/>
+
+            <include
+                android:id="@+id/include_song_4"
+                layout="@layout/item_song_list_item"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/content_padding_med"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/include_song_3"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_panel_buttons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5"/>
+
+    <Button
+        android:id="@+id/button_leaderboard"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/leaderboard"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/guideline_panel_buttons"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/scroll_details"/>
+
+    <Button
+        android:id="@+id/button_concede"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/concede"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/guideline_panel_buttons"
+        app:layout_constraintTop_toBottomOf="@id/scroll_details"/>
+
+    <Button
+        android:id="@+id/button_finalize"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/finalize"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/guideline_panel_buttons"
+        app:layout_constraintTop_toBottomOf="@id/scroll_details"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
