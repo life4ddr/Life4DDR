@@ -1,1 +1,1362 @@
-{"version":4,"major_version":2,"trials":[{"id":"devotion","name":"Devotion","type":"trial","difficulty":12,"goals":[{"rank":"silver","score":[965000,940000,940000,900000]},{"rank":"gold","score":[995000,990000,985000,985000]},{"rank":"diamond","judge":5,"ex_missing":120},{"rank":"cobalt","judge":2,"ex_missing":65},{"rank":"amethyst","judge":1,"ex_missing":35},{"rank":"emerald","judge":1,"ex_missing":20}],"total_ex":3702,"songs":[{"name":"MY SUMMER LOVE","difficulty":12,"difficulty_class":"expert","ex":780,"url":"https://zenius-i-vanisher.com/simfiles/Dance%20Dance%20Revolution%204thMIX%20%28AC%29%20%28Japan%29/MY%20SUMMER%20LOVE/MY%20SUMMER%20LOVE-jacket.png"},{"name":"Secret Rendez-vous","difficulty":12,"difficulty_class":"expert","ex":747,"url":"https://zenius-i-vanisher.com/simfiles/DDRMAX2%20-Dance%20Dance%20Revolution%207thMIX-%20%28AC%29%20%28Japan%29/Secret%20Rendez-vous/Secret%20Rendez-vous-jacket.png"},{"name":"SEDUCTION","difficulty":12,"difficulty_class":"expert","ex":1194,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20SuperNOVA%20%28AC%29%20%28International%29/SEDUCTION/SEDUCTION-jacket.png"},{"name":"She is my wife","difficulty":12,"difficulty_class":"expert","ex":981,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X2%20%28AC%29%20%28Japan%29/She%20is%20my%20wife/She%20is%20my%20wife-jacket.png"}],"cover_url":"https://life4ddr.com/wp-content/uploads/2019/11/Devotion_BG.jpg","new":true},{"id":"heartbreak","name":"Heartbreak","type":"trial","difficulty":12,"goals":[{"rank":"silver","score":[975000,950000,950000,925000]},{"rank":"gold","score":[995000,995000,990000,990000]},{"rank":"diamond","judge":3,"ex_missing":90},{"rank":"cobalt","judge":1,"ex_missing":55},{"rank":"amethyst","judge":1,"ex_missing":25},{"rank":"emerald","judge":1,"ex_missing":12}],"total_ex":4056,"songs":[{"name":"One Sided Love","difficulty":10,"difficulty_class":"expert","ex":897,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202014%20%28AC%29%20%28Japan%29/One%20Sided%20Love/One%20Sided%20Love-jacket.png"},{"name":"BROKEN MY HEART","difficulty":12,"difficulty_class":"expert","ex":1080,"url":"https://zenius-i-vanisher.com/simfiles/Dance%20Dance%20Revolution%205thMIX%20%28AC%29%20%28Japan%29/BROKEN%20MY%20HEART/BROKEN%20MY%20HEART-jacket.png"},{"name":"Leaving...","difficulty":11,"difficulty_class":"expert","ex":942,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X2%20%28AC%29%20%28Japan%29/Leaving...%20%28Chinese%29/Leaving...%20%28Chinese%29-jacket.png"},{"name":"Feelings Won't Fade (Extend Trance Mix)","difficulty":12,"difficulty_class":"expert","ex":1137,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20SuperNOVA2%20%28AC%29%20%28Japan%29/Feelings%20Won%27t%20Fade%28Extend%20Trance%20Mix%29/Feelings%20Won%27t%20Fade%28Extend%20Trance%20Mix%29-jacket.png"}]},{"id":"believe","name":"Believe","type":"trial","difficulty":12,"goals":[{"rank":"silver","score":[965000,925000,925000,925000]},{"rank":"gold","score":[995000,990000,990000,985000]},{"rank":"diamond","judge":6,"ex_missing":140},{"rank":"cobalt","judge":3,"ex_missing":75},{"rank":"amethyst","judge":1,"ex_missing":45},{"rank":"emerald","judge":1,"ex_missing":25}],"total_ex":4569,"songs":[{"name":"Sky Is The Limit","difficulty":12,"difficulty_class":"expert","ex":987,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X2%20%28AC%29%20%28Japan%29/Sky%20Is%20The%20Limit/Sky%20Is%20The%20Limit-jacket.png"},{"name":"Hopeful","difficulty":13,"difficulty_class":"expert","ex":1104,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28International%29/Hopeful/Hopeful-jacket.png"},{"name":"A Brighter Day","difficulty":12,"difficulty_class":"challenge","ex":1149,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X2%20%28AC%29%20%28Japan%29/A%20Brighter%20Day/A%20Brighter%20Day-jacket.png"},{"name":"Life is beautiful","difficulty":12,"difficulty_class":"difficult","ex":1329,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28International%29/Life%20is%20beautiful/Life%20is%20beautiful-jacket.png"}],"cover_url":"https://life4ddr.com/wp-content/uploads/2019/11/Believe_BG.jpg","author":"plasmaaa","new":true},{"id":"celestial","name":"Celestial","type":"trial","difficulty":13,"goals":[{"rank":"silver","score":[875000,875000,875000,875000]},{"rank":"gold","score":[990000,990000,975000,975000]},{"rank":"diamond","judge":7,"ex_missing":160},{"rank":"cobalt","judge":3,"ex_missing":90},{"rank":"amethyst","judge":2,"ex_missing":60},{"rank":"emerald","judge":2,"ex_missing":40}],"total_ex":5169,"songs":[{"name":"Uranus","difficulty":13,"difficulty_class":"challenge","ex":1206,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20SuperNOVA2%20%28AC%29%20%28Japan%29/Uranus/Uranus-jacket.png"},{"name":"Saturn","difficulty":13,"difficulty_class":"expert","ex":1092,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20SuperNOVA2%20%28AC%29%20%28Japan%29/Saturn/Saturn-jacket.png"},{"name":"Venus","difficulty":13,"difficulty_class":"challenge","ex":1368,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20SuperNOVA2%20%28AC%29%20%28Japan%29/Venus/Venus-jacket.png"},{"name":"GAIA","difficulty":13,"difficulty_class":"difficult","ex":1503,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202013%20%28AC%29%20%28Japan%29/GAIA/GAIA-jacket.png"}]},{"id":"mainframe","name":"Mainframe","type":"trial","difficulty":13,"goals":[{"rank":"silver","score":[900000,900000,900000,900000]},{"rank":"gold","score":[990000,990000,975000,975000]},{"rank":"diamond","judge":10,"ex_missing":150},{"rank":"cobalt","judge":5,"ex_missing":100},{"rank":"amethyst","judge":2,"ex_missing":60},{"rank":"emerald","judge":2,"ex_missing":40}],"total_ex":4428,"songs":[{"name":"LEADING CYBER","difficulty":13,"difficulty_class":"expert","ex":1077,"url":"https://zenius-i-vanisher.com/simfiles/Dance%20Dance%20Revolution%204thMIX%20%28AC%29%20%28Japan%29/LEADING%20CYBER/LEADING%20CYBER-jacket.png"},{"name":"ALGORITHM","difficulty":13,"difficulty_class":"expert","ex":1317,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/ALGORITHM/ALGORITHM-jacket.png"},{"name":"GRADIUSIC CYBER ~AMD G5 MIX~","difficulty":13,"difficulty_class":"expert","ex":1110,"url":"https://zenius-i-vanisher.com/simfiles/Dance%20Dance%20Revolution%202ndMIX%20CLUB%20Version%202%20%28AC%29%20%28Japan%29/GRADIUSIC%20CYBER/GRADIUSIC%20CYBER-jacket.png"},{"name":"dirty digital","difficulty":13,"difficulty_class":"challenge","ex":924,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X2%20%28AC%29%20%28Japan%29/dirty%20digital/dirty%20digital-jacket.png"}]},{"id":"primal","name":"Primal","type":"trial","difficulty":13,"author":"Kingly","goals":[{"rank":"silver","score":[900000,900000,900000,900000]},{"rank":"gold","score":[965000,965000,985000,985000]},{"rank":"diamond","judge":15,"ex_missing":220},{"rank":"cobalt","judge":5,"ex_missing":130},{"rank":"amethyst","judge":2,"ex_missing":80},{"rank":"emerald","judge":2,"ex_missing":50}],"total_ex":5142,"songs":[{"name":"WILD SIDE","difficulty":13,"difficulty_class":"challenge","ex":1377,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202013%20%28AC%29%20%28Japan%29/WILD%20SIDE/WILD%20SIDE-jacket.png"},{"name":"Tribe","difficulty":13,"difficulty_class":"challenge","ex":1461,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X3%20VS%202ndMIX%20%28AC%29%20%28Japan%29/Tribe/Tribe-jacket.png"},{"name":"ORION.78~civilization mix~","difficulty":13,"difficulty_class":"expert","ex":1194,"url":"https://zenius-i-vanisher.com/simfiles/DDRMAX%20-Dance%20Dance%20Revolution%206thMIX-%20%28AC%29%20%28Japan%29/ORION.78~civilization%20mix~/ORION.78~civilization%20mix~-jacket.png"},{"name":"AFRONOVA","difficulty":13,"difficulty_class":"expert","ex":1110,"url":"https://zenius-i-vanisher.com/simfiles/Dance%20Dance%20Revolution%203rdMIX%20%28AC%29%20%28Japan%29/AFRONOVA/AFRONOVA-jacket.png"}]},{"id":"species","name":"Species","type":"trial","difficulty":13,"goals":[{"rank":"silver","score":[875000,875000,875000,875000]},{"rank":"gold","score":[980000,980000,970000,970000]},{"rank":"diamond","judge":20,"ex_missing":240},{"rank":"cobalt","judge":6,"ex_missing":150},{"rank":"amethyst","judge":3,"ex_missing":80},{"rank":"emerald","judge":2,"ex_missing":50}],"total_ex":5073,"songs":[{"name":"heron","difficulty":13,"difficulty_class":"challenge","ex":1050,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202013%20%28AC%29%20%28Japan%29/heron/heron-jacket.png"},{"name":"Monkey Business","difficulty":13,"difficulty_class":"expert","ex":1386,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202013%20%28AC%29%20%28Japan%29/Monkey%20Business/Monkey%20Business-jacket.png"},{"name":"HYENA","difficulty":14,"difficulty_class":"expert","ex":1506,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202014%20%28AC%29%20%28Japan%29/HYENA/HYENA-jacket.png"},{"name":"Condor","difficulty":13,"difficulty_class":"expert","ex":1131,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202013%20%28AC%29%20%28Japan%29/Condor/Condor-jacket.png"}]},{"id":"passport","name":"Passport","type":"trial","difficulty":13,"goals":[{"rank":"silver","score":[875000,875000,875000,875000]},{"rank":"gold","score":[985000,985000,970000,970000]},{"rank":"diamond","judge":18,"ex_missing":240},{"rank":"cobalt","judge":8,"ex_missing":150},{"rank":"amethyst","judge":6,"ex_missing":90},{"rank":"emerald","judge":3,"ex_missing":60}],"total_ex":4974,"songs":[{"name":"bag","difficulty":13,"difficulty_class":"expert","ex":1146,"url":"https://zenius-i-vanisher.com/simfiles/Dance%20Dance%20Revolution%20EXTREME%20%28AC%29%20%28Japan%29/bag/bag-jacket.png"},{"name":"Arrabbiata","difficulty":13,"difficulty_class":"difficult","ex":1131,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20SuperNOVA2%20%28AC%29%20%28Japan%29/Arrabbiata/Arrabbiata-jacket.png"},{"name":"exotic ethnic","difficulty":13,"difficulty_class":"expert","ex":1356,"url":"https://zenius-i-vanisher.com/simfiles/DDRMAX%20-Dance%20Dance%20Revolution%206thMIX-%20%28AC%29%20%28Japan%29/exotic%20ethnic/exotic%20ethnic-jacket.png"},{"name":"桜","difficulty":13,"difficulty_class":"expert","ex":1341,"url":"https://zenius-i-vanisher.com/simfiles/Dance%20Dance%20Revolution%20EXTREME%20%28AC%29%20%28Japan%29/SAKURA/SAKURA-jacket.png"}],"cover_url":"https://life4ddr.com/wp-content/uploads/2019/11/Passport_BG.jpg","author":"Sam-Thak","new":true},{"id":"hallowed","name":"Hallowed","type":"event","difficulty":13,"total_ex":4950,"songs":[{"name":"Vanquish The Ghost","difficulty":12,"difficulty_class":"difficult","ex":1176,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/Vanquish%20The%20Ghost/Vanquish%20The%20Ghost-jacket.png"},{"name":"Electronic or Treat!","difficulty":12,"difficulty_class":"difficult","ex":1227,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202014%20%28AC%29%20%28Japan%29/Electronic%20or%20Treat%21/Electronic%20or%20Treat%21-jacket.png"},{"name":"不沈艦CANDY","difficulty":14,"difficulty_class":"expert","ex":1752,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X2%20%28AC%29%20%28Japan%29/YELLOW%20CANDY/YELLOW%20CANDY-jacket.png"},{"name":"Bloody Tears（IIDX EDITION）","difficulty":11,"difficulty_class":"expert","ex":795,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20SuperNOVA2%20%28AC%29%20%28Japan%29/Bloody%20Tears%20%28IIDX%20EDITION%29/Bloody%20Tears%20%28IIDX%20EDITION%29-jacket.png"}],"scoring_groups":[["wood","bronze","silver"],["gold"],["platinum"],["diamond"],["cobalt"],["amethyst","emerald"]],"event_start":"20191001T000000-0000","event_end":"20191101T000000-0000"},{"id":"daybreak","name":"Daybreak","type":"trial","difficulty":14,"goals":[{"rank":"silver"},{"rank":"gold","score":[990000,970000,970000,970000],"miss":7},{"rank":"diamond","judge":10,"ex_missing":180},{"rank":"cobalt","judge":3,"ex_missing":120},{"rank":"amethyst","judge":2,"ex_missing":65},{"rank":"emerald","judge":2,"ex_missing":40}],"total_ex":5463,"songs":[{"name":"Pierce The Sky","difficulty":14,"difficulty_class":"expert","ex":1500,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X2%20%28AC%29%20%28Japan%29/Pierce%20The%20Sky/Pierce%20The%20Sky-jacket.png"},{"name":"Shiny World","difficulty":14,"difficulty_class":"expert","ex":1116,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X2%20%28AC%29%20%28Japan%29/Shiny%20World/Shiny%20World-jacket.png"},{"name":"The Wind of Gold","difficulty":14,"difficulty_class":"expert","ex":1557,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202013%20%28AC%29%20%28Japan%29/The%20Wind%20of%20Gold/The%20Wind%20of%20Gold-jacket.png"},{"name":"Sakura Sunrise","difficulty":14,"difficulty_class":"expert","ex":1290,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X2%20%28AC%29%20%28Japan%29/Sakura%20Sunrise/Sakura%20Sunrise-jacket.png"}]},{"id":"upheaval","name":"Upheaval","type":"trial","difficulty":14,"author":"plasmaaa","goals":[{"rank":"silver","clear_indexed":["clear","clear","clear","fail"],"score_indexed":[0,0,0,700000]},{"rank":"gold","score":[980000,980000,960000,960000],"miss":10},{"rank":"diamond","judge":18,"ex_missing":250},{"rank":"cobalt","judge":8,"ex_missing":140},{"rank":"amethyst","judge":6,"ex_missing":80},{"rank":"emerald","judge":3,"ex_missing":50}],"total_ex":5544,"songs":[{"name":"New Century","difficulty":14,"difficulty_class":"difficult","ex":1455,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/New%20Century/New%20Century-jacket.png"},{"name":"革命(X-Special)","difficulty":14,"difficulty_class":"challenge","ex":1197,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X%20%28AC%29%20%28Japan%29/KAKUMEI%28X-Special%29/KAKUMEI%28X-Special%29-jacket.png"},{"name":"PARANOiA Revolution","difficulty":14,"difficulty_class":"difficult","ex":1563,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X3%20VS%202ndMIX%20%28AC%29%20%28Japan%29/PARANOiA%20Revolution/PARANOiA%20Revolution-jacket.png"},{"name":"La libertad","difficulty":14,"difficulty_class":"challenge","ex":1329,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X2%20%28AC%29%20%28Japan%29/La%20libertad/La%20libertad-jacket.png"}]},{"id":"countdown","name":"Countdown","type":"trial","difficulty":14,"author":"Nebel","goals":[{"rank":"silver"},{"rank":"gold","score":[980000,980000,950000,950000],"miss":7},{"rank":"diamond","score":[990000,990000],"judge":10,"ex_missing":250},{"rank":"cobalt","score":[990000,990000,990000,990000],"ex_missing":160},{"rank":"amethyst","judge":7,"ex_missing":100},{"rank":"emerald","judge":4,"ex_missing":75}],"total_ex":5460,"songs":[{"name":"B4U (VOLTAGE Special)","difficulty":14,"difficulty_class":"challenge","ex":1101,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20SuperNOVA2%20%28AC%29%20%28Japan%29/B4U%20%28VOLTAGE%20Special%29/B4U%20%28VOLTAGE%20Special%29-jacket.png"},{"name":"Triple Counter","difficulty":14,"difficulty_class":"difficult","ex":1695,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/Triple%20Counter/Triple%20Counter-jacket.png"},{"name":"Second Heaven","difficulty":14,"difficulty_class":"challenge","ex":1446,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X2%20%28AC%29%20%28Japan%29/Second%20Heaven/Second%20Heaven-jacket.png"},{"name":"Pluto The First","difficulty":14,"difficulty_class":"difficult","ex":1218,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X2%20%28AC%29%20%28Japan%29/Pluto%20The%20First/Pluto%20The%20First-jacket.png"}]},{"id":"hellscape","name":"Hellscape","type":"trial","difficulty":15,"goals":[{"rank":"silver"},{"rank":"gold","score":[985000,970000,970000],"score_indexed":[0,0,950000,0]},{"rank":"diamond","score":[990000,990000,990000],"score_indexed":[0,0,985000,0],"ex_missing":300},{"rank":"cobalt","judge":10,"ex_missing":180},{"rank":"amethyst","judge":3,"ex_missing":100},{"rank":"emerald","judge":2,"ex_missing":65}],"total_ex":6615,"songs":[{"name":"FIRE FIRE","difficulty":14,"difficulty_class":"expert","ex":1728,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X2%20%28AC%29%20%28Japan%29/FIRE%20FIRE/FIRE%20FIRE-jacket.png"},{"name":"NEPHILIM DELTA","difficulty":14,"difficulty_class":"expert","ex":1758,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X3%20VS%202ndMIX%20%28AC%29%20%28Japan%29/NEPHILIM%20DELTA/NEPHILIM%20DELTA-jacket.png"},{"name":"PARANOiA ~HADES~","difficulty":15,"difficulty_class":"difficult","ex":1374,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20SuperNOVA2%20%28AC%29%20%28Japan%29/PARANOiA%20~HADES~/PARANOiA%20~HADES~-jacket.png"},{"name":"RISING FIRE HAWK","difficulty":15,"difficulty_class":"expert","ex":1755,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/RISING%20FIRE%20HAWK/RISING%20FIRE%20HAWK-jacket.png"}]},{"id":"clockwork","name":"Clockwork","type":"trial","difficulty":15,"goals":[{"rank":"silver"},{"rank":"gold","score":[980000,950000,950000,950000],"miss":7},{"rank":"diamond","score":[990000,990000,985000,985000],"ex_missing":300},{"rank":"cobalt","judge":10,"ex_missing":180},{"rank":"amethyst","judge":2,"ex_missing":90},{"rank":"emerald","judge":2,"ex_missing":65}],"total_ex":6270,"songs":[{"name":"Start a New Day","difficulty":15,"difficulty_class":"expert","ex":1590,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/Start%20a%20New%20Day/Start%20a%20New%20Day-jacket.png"},{"name":"New Decade","difficulty":14,"difficulty_class":"difficult","ex":1317,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X2%20%28AC%29%20%28Japan%29/New%20Decade/New%20Decade-jacket.png"},{"name":"Chronos","difficulty":15,"difficulty_class":"challenge","ex":1701,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X3%20VS%202ndMIX%20%28AC%29%20%28Japan%29/Chronos/Chronos-jacket.png"},{"name":"IX","difficulty":14,"difficulty_class":"difficult","ex":1662,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202014%20%28AC%29%20%28Japan%29/IX/IX-jacket.png"}]},{"id":"heatwave","name":"Heatwave","type":"trial","difficulty":15,"goals":[{"rank":"silver"},{"rank":"gold","score":[985000,950000,950000,950000]},{"rank":"diamond","score":[990000,990000,980000,980000],"ex_missing":350},{"rank":"cobalt","judge":6,"ex_missing":175},{"rank":"amethyst","judge":2,"ex_missing":85},{"rank":"emerald","judge":2,"ex_missing":50}],"total_ex":6735,"songs":[{"name":"FUNKY SUMMER BEACH","difficulty":14,"difficulty_class":"expert","ex":1392,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202014%20%28AC%29%20%28Japan%29/FUNKY%20SUMMER%20BEACH/FUNKY%20SUMMER%20BEACH-jacket.png"},{"name":"SUPER SUMMER SALE","difficulty":15,"difficulty_class":"expert","ex":1890,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/SUPER%20SUMMER%20SALE/SUPER%20SUMMER%20SALE-jacket.png"},{"name":"灼熱Beach Side Bunny","difficulty":15,"difficulty_class":"expert","ex":1839,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202014%20%28AC%29%20%28Japan%29/Shakunetsu%20Beach%20Side%20Bunny/Shakunetsu%20Beach%20Side%20Bunny-jacket.png"},{"name":"SPECIAL SUMMER CAMPAIGN!","difficulty":15,"difficulty_class":"expert","ex":1614,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202014%20%28AC%29%20%28Japan%29/SPECIAL%20SUMMER%20CAMPAIGN%21/SPECIAL%20SUMMER%20CAMPAIGN%21-jacket.png"}]},{"id":"tempest","name":"Tempest","type":"trial","difficulty":15,"goals":[{"rank":"silver","clear_indexed":["clear","clear","clear","fail"],"score_indexed":[0,0,0,450000]},{"rank":"gold","score":[970000,970000,950000,950000]},{"rank":"diamond","score":[985000,985000,985000,975000],"ex_missing":350},{"rank":"cobalt","judge":10,"ex_missing":200},{"rank":"amethyst","judge":5,"ex_missing":100},{"rank":"emerald","judge":3,"ex_missing":65}],"total_ex":7446,"songs":[{"name":"春風ブローインウィンド","difficulty":15,"difficulty_class":"expert","ex":1818,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/Shunpuu%20blowing%20wind/Shunpuu%20blowing%20wind-jacket.png"},{"name":"Windy Fairy","difficulty":15,"difficulty_class":"expert","ex":1824,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202013%20%28AC%29%20%28Japan%29/Windy%20Fairy/Windy%20Fairy-jacket.png"},{"name":"Cosmic Hurricane","difficulty":15,"difficulty_class":"challenge","ex":1962,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X3%20VS%202ndMIX%20%28AC%29%20%28Japan%29/Cosmic%20Hurricane/Cosmic%20Hurricane-jacket.png"},{"name":"ZEPHYRANTHES","difficulty":15,"difficulty_class":"expert","ex":1842,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/ZEPHYRANTHES/ZEPHYRANTHES-jacket.png"}]},{"id":"pharaoh","name":"Pharaoh","type":"trial","difficulty":15,"goals":[{"rank":"silver"},{"rank":"gold","score":[975000,940000,940000,940000]},{"rank":"diamond","score":[980000,980000,980000,980000],"miss":5,"ex_missing":300},{"rank":"cobalt","score":[990000,990000,990000,990000],"judge":10,"ex_missing":170},{"rank":"amethyst","judge":2,"ex_missing":100},{"rank":"emerald","judge":2,"ex_missing":70}],"total_ex":6870,"songs":[{"name":"Desert Journey","difficulty":15,"difficulty_class":"challenge","ex":1521,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202013%20%28AC%29%20%28Japan%29/Desert%20Journey/Desert%20Journey-jacket.png"},{"name":"Sand Blow","difficulty":15,"difficulty_class":"expert","ex":1668,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202014%20%28AC%29%20%28Japan%29/Sand%20Blow/Sand%20Blow-jacket.png"},{"name":"KHAMEN BREAK","difficulty":16,"difficulty_class":"expert","ex":1959,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202014%20%28AC%29%20%28Japan%29/KHAMEN%20BREAK/KHAMEN%20BREAK-jacket.png"},{"name":"Cleopatrysm","difficulty":15,"difficulty_class":"expert","ex":1722,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202014%20%28AC%29%20%28Japan%29/Cleopatrysm/Cleopatrysm-jacket.png"}]},{"id":"wanderlust","name":"Wanderlust","type":"trial","difficulty":15,"author":"Magnet","goals":[{"rank":"silver"},{"rank":"gold","score":[950000,950000,910000,910000]},{"rank":"diamond","score":[975000,975000,975000,975000],"miss":7,"ex_missing":375},{"rank":"cobalt","score":[990000,990000,990000,990000],"judge":12,"ex_missing":225},{"rank":"amethyst","judge":3,"ex_missing":125},{"rank":"emerald","judge":2,"ex_missing":70}],"total_ex":6957,"songs":[{"name":"Go For The Top","difficulty":15,"difficulty_class":"expert","ex":1563,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X3%20VS%202ndMIX%20%28AC%29%20%28Japan%29/Go%20For%20The%20Top/Go%20For%20The%20Top-jacket.png"},{"name":"Nostalgia Is Lost","difficulty":15,"difficulty_class":"expert","ex":1890,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202014%20%28AC%29%20%28Japan%29/Nostalgia%20Is%20Lost/Nostalgia%20Is%20Lost-jacket.png"},{"name":"Triple Journey -TAG EDITION-","difficulty":16,"difficulty_class":"expert","ex":1866,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202013%20%28AC%29%20%28Japan%29/Triple%20Journey%20-TAG%20EDITION-/Triple%20Journey%20-TAG%20EDITION--jacket.png"},{"name":"Destination","difficulty":15,"difficulty_class":"expert","ex":1638,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202014%20%28AC%29%20%28Japan%29/Destination/Destination-jacket.png"}]},{"id":"circadia","name":"Circadia","type":"trial","difficulty":16,"author":"Magnet","goals":[{"rank":"silver","clear_indexed":["clear","clear","clear","fail"],"score_indexed":[0,0,0,300000]},{"rank":"gold","score":[965000,965000,950000,950000]},{"rank":"diamond","score":[990000,990000,975000,975000],"miss_each":3},{"rank":"cobalt","score":[990000,990000,990000,990000],"ex_missing":250},{"rank":"amethyst","judge":5,"ex_missing":135},{"rank":"emerald","judge":3,"ex_missing":65}],"total_ex":7116,"songs":[{"name":"Beautiful Dream","difficulty":15,"difficulty_class":"challenge","ex":1812,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202013%20%28AC%29%20%28Japan%29/Beautiful%20Dream/Beautiful%20Dream-jacket.png"},{"name":"AWAKE","difficulty":16,"difficulty_class":"challenge","ex":1965,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202014%20%28AC%29%20%28Japan%29/AWAKE/AWAKE-jacket.png"},{"name":"IN BETWEEN","difficulty":15,"difficulty_class":"expert","ex":1413,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/IN%20BETWEEN/IN%20BETWEEN-jacket.png"},{"name":"Come to Life","difficulty":16,"difficulty_class":"expert","ex":1926,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/Come%20to%20Life/Come%20to%20Life-jacket.png"}]},{"id":"snowdrift","name":"Snowdrift","type":"trial","difficulty":16,"goals":[{"rank":"gold","score":[960000,960000,940000,940000]},{"rank":"diamond","score":[985000,985000,970000,970000],"miss":10},{"rank":"cobalt","score":[990000,990000,990000,990000],"ex_missing":260},{"rank":"amethyst","judge":5,"ex_missing":150},{"rank":"emerald","judge":3,"ex_missing":90}],"total_ex":7161,"songs":[{"name":"SILVER DREAM","difficulty":15,"difficulty_class":"expert","ex":1668,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X3%20VS%202ndMIX%20%28AC%29%20%28Japan%29/SILVER%20DREAM/SILVER%20DREAM-jacket.png"},{"name":"snow prism","difficulty":16,"difficulty_class":"challenge","ex":1680,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X3%20VS%202ndMIX%20%28AC%29%20%28Japan%29/snow%20prism/snow%20prism-jacket.png"},{"name":"Spanish Snowy Dance","difficulty":15,"difficulty_class":"expert","ex":1926,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202013%20%28AC%29%20%28Japan%29/Spanish%20Snowy%20Dance/Spanish%20Snowy%20Dance-jacket.png"},{"name":"Chinese Snowy Dance","difficulty":16,"difficulty_class":"expert","ex":1887,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202013%20%28AC%29%20%28Japan%29/Chinese%20Snowy%20Dance/Chinese%20Snowy%20Dance-jacket.png"}]},{"id":"paradox","name":"Paradox","type":"trial","difficulty":16,"goals":[{"rank":"gold","score":[940000,940000,925000,925000]},{"rank":"diamond","score":[990000,990000,975000,975000],"miss":10},{"rank":"cobalt","score":[990000,990000,990000,990000],"judge":10,"ex_missing":250},{"rank":"amethyst","judge":3,"ex_missing":130},{"rank":"emerald","judge":3,"ex_missing":75}],"total_ex":6951,"songs":[{"name":"I'm so Happy","difficulty":16,"difficulty_class":"challenge","ex":1653,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X2%20%28AC%29%20%28Japan%29/I%27m%20so%20Happy/I%27m%20so%20Happy-jacket.png"},{"name":"Cosy Catastrophe","difficulty":16,"difficulty_class":"expert","ex":1677,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/Cosy%20Catastrophe/Cosy%20Catastrophe-jacket.png"},{"name":"Life is beautiful","difficulty":16,"difficulty_class":"expert","ex":1959,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/Life%20is%20beautiful/Life%20is%20beautiful-jacket.png"},{"name":"CHAOS Terror-Tech Mix","difficulty":16,"difficulty_class":"expert","ex":1662,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/CHAOS%20Terror-Tech%20Mix/CHAOS%20Terror-Tech%20Mix-jacket.png"}]},{"id":"spectacle","name":"Spectacle","type":"trial","difficulty":16,"goals":[{"rank":"gold","score":[950000,950000,850000,850000]},{"rank":"diamond","score":[990000,990000,960000,935000]},{"rank":"cobalt","score":[990000,990000,990000,980000],"ex_missing":275},{"rank":"amethyst","judge":8,"ex_missing":160},{"rank":"emerald","judge":5,"ex_missing":100}],"total_ex":6750,"songs":[{"name":"Unreal","difficulty":15,"difficulty_class":"expert","ex":1194,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20SuperNOVA2%20%28AC%29%20%28Japan%29/Unreal/Unreal-jacket.png"},{"name":"S!ck","difficulty":16,"difficulty_class":"expert","ex":2118,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28International%29/S%21ck/S%21ck-jacket.png"},{"name":"Blew My Mind","difficulty":16,"difficulty_class":"expert","ex":1803,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202013%20%28AC%29%20%28Japan%29/Blew%20My%20Mind/Blew%20My%20Mind-jacket.png"},{"name":"UNBELIEVABLE (Sparky remix)","difficulty":15,"difficulty_class":"expert","ex":1635,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X3%20VS%202ndMIX%20%28AC%29%20%28Japan%29/UNBELIEVABLE%20%28Sparky%20remix%29/UNBELIEVABLE%20%28Sparky%20remix%29-jacket.png"}],"cover_url":"https://life4ddr.com/wp-content/uploads/2019/11/Spectacle_BG.jpg","author":"CRMARTIN","new":true},{"id":"inhuman","name":"Inhuman","type":"trial","difficulty":16,"goals":[{"rank":"gold","score":[940000,940000,900000,900000]},{"rank":"diamond","score":[980000,980000,960000,960000],"miss":10},{"rank":"cobalt","score":[990000,990000],"miss":5,"ex_missing":300},{"rank":"amethyst","judge":5,"ex_missing":180},{"rank":"emerald","judge":5,"ex_missing":100}],"total_ex":7311,"songs":[{"name":"888","difficulty":14,"difficulty_class":"expert","ex":1578,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X2%20%28AC%29%20%28Japan%29/888/888-jacket.png"},{"name":"POSSESSION","difficulty":17,"difficulty_class":"expert","ex":1875,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X2%20%28AC%29%20%28Japan%29/POSSESSION/POSSESSION-jacket.png"},{"name":"Boss Rush","difficulty":16,"difficulty_class":"expert","ex":2208,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/Boss%20Rush/Boss%20Rush-jacket.png"},{"name":"Vanquish The Ghost","difficulty":16,"difficulty_class":"expert","ex":1650,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/Vanquish%20The%20Ghost/Vanquish%20The%20Ghost-jacket.png"}]},{"id":"chemical","name":"Chemical","type":"trial","difficulty":17,"goals":[{"rank":"gold"},{"rank":"diamond","score":[950000,950000,925000,925000]},{"rank":"cobalt","score":[990000,990000,975000,975000],"ex_missing":600},{"rank":"amethyst","judge":20,"ex_missing":300},{"rank":"emerald","judge":10,"ex_missing":200}],"total_ex":7749,"songs":[{"name":"Puberty Dysthymia","difficulty":17,"difficulty_class":"expert","ex":2034,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/Puberty%20Dysthymia/Puberty%20Dysthymia-jacket.png"},{"name":"ドーパミン","difficulty":17,"difficulty_class":"expert","ex":2238,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202014%20%28AC%29%20%28Japan%29/Dopamine/Dopamine-jacket.png"},{"name":"Anti-Matter","difficulty":17,"difficulty_class":"expert","ex":1908,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X2%20%28AC%29%20%28Japan%29/Anti-Matter/Anti-Matter-jacket.png"},{"name":"Neutrino","difficulty":16,"difficulty_class":"expert","ex":1569,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/Neutrino/Neutrino-jacket.png"}]},{"id":"ascension","name":"Ascension","type":"trial","difficulty":17,"goals":[{"rank":"gold"},{"rank":"diamond","score":[940000,940000,925000,925000]},{"rank":"cobalt","score":[990000,975000,975000,975000],"ex_missing":500},{"rank":"amethyst","judge":15,"ex_missing":275},{"rank":"emerald","judge":10,"ex_missing":175}],"total_ex":7470,"jacket_name":"ascension_2","songs":[{"name":"RISING FIRE HAWK","difficulty":17,"difficulty_class":"challenge","ex":2025,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/RISING%20FIRE%20HAWK/RISING%20FIRE%20HAWK-jacket.png"},{"name":"SABER WING (AKIRA ISHIHARA Headshot mix)","difficulty":17,"difficulty_class":"challenge","ex":1569,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X%20%28AC%29%20%28Japan%29/SABER%20WING%20%28AKIRA%20ISHIHARA%20Headshot%20mix%29/SABER%20WING%20%28AKIRA%20ISHIHARA%20Headshot%20mix%29-jacket.png"},{"name":"Air Heroes","difficulty":17,"difficulty_class":"challenge","ex":1971,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202013%20%28AC%29%20%28Japan%29/Air%20Heroes/Air%20Heroes-jacket.png"},{"name":"Reach The Sky, Without you","difficulty":17,"difficulty_class":"expert","ex":1905,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/Reach%20The%20Sky%2C%20Without%20you/Reach%20The%20Sky%2C%20Without%20you-jacket.png"}]},{"id":"quantum","name":"Quantum","type":"trial","difficulty":18,"author":"matias8823 + Kingly","goals":[{"rank":"gold","clear_indexed":["clear","clear","clear","fail"]},{"rank":"diamond","score":[925000,925000,850000,850000]},{"rank":"cobalt","score":[950000,950000,950000,925000]},{"rank":"amethyst","score":[990000,990000,965000,965000],"ex_missing":525},{"rank":"emerald","score":[990000,990000,990000,980000],"ex_missing":300}],"total_ex":8817,"songs":[{"name":"deltaMAX","difficulty":17,"difficulty_class":"expert","ex":2049,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X2%20%28AC%29%20%28Japan%29/deltaMAX/deltaMAX-jacket.png"},{"name":"シュレーディンガーの猫","difficulty":18,"difficulty_class":"challenge","ex":2385,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/Schrodinger%20no%20neko/Schrodinger%20no%20neko-jacket.png"},{"name":"Anti-Matter","difficulty":18,"difficulty_class":"challenge","ex":2190,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X2%20%28AC%29%20%28Japan%29/Anti-Matter/Anti-Matter-jacket.png"},{"name":"Magnetic","difficulty":17,"difficulty_class":"challenge","ex":2193,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202013%20%28AC%29%20%28Japan%29/Magnetic/Magnetic-jacket.png"}]},{"id":"origin","name":"Origin","type":"trial","difficulty":18,"goals":[{"rank":"diamond"},{"rank":"cobalt","score":[950000,950000,950000,925000]},{"rank":"amethyst","score":[990000,960000,960000,960000],"ex_missing":600},{"rank":"emerald","score":[990000,990000,980000,980000],"ex_missing":400}],"total_ex":9396,"songs":[{"name":"Elemental Creation","difficulty":18,"difficulty_class":"challenge","ex":2646,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202013%20%28AC%29%20%28Japan%29/Elemental%20Creation/Elemental%20Creation-jacket.png"},{"name":"Come to Life","difficulty":18,"difficulty_class":"challenge","ex":2400,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/Come%20to%20Life/Come%20to%20Life-jacket.png"},{"name":"TRIP MACHINE EVOLUTION","difficulty":18,"difficulty_class":"challenge","ex":2100,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X3%20VS%202ndMIX%20%28AC%29%20%28Japan%29/TRIP%20MACHINE%20EVOLUTION/TRIP%20MACHINE%20EVOLUTION-jacket.png"},{"name":"Astrogazer","difficulty":18,"difficulty_class":"challenge","ex":2250,"url":"https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/Astrogazer/Astrogazer-jacket.png"}]}]}
+{
+  "version": 1,
+  "major_version": 3,
+  "trials": [
+    {
+      "id": "devotion",
+      "name": "Devotion",
+      "type": "trial",
+      "difficulty": 12,
+      "goals": [
+        {
+          "rank": "silver",
+          "score": [960000, 940000, 940000, 900000]
+        }, {
+          "rank": "gold",
+          "score": [995000, 990000, 985000, 985000]
+        }, {
+          "rank": "platinum",
+          "score": [990000, 990000, 990000, 990000],
+          "clear": ["perfect"],
+          "ex_missing": 200
+        }, {
+          "rank": "diamond",
+          "judge": 5,
+          "ex_missing": 120
+        }, {
+          "rank": "cobalt",
+          "judge": 2,
+          "ex_missing": 70
+        }, {
+          "rank": "amethyst",
+          "judge": 1,
+          "ex_missing": 35
+        }, {
+          "rank": "emerald",
+          "judge": 1,
+          "ex_missing": 20
+        }, {
+          "rank": "onyx",
+          "judge": 1,
+          "ex_missing": 12
+        }
+      ],
+      "total_ex": 3702,
+      "songs": [
+        { "name": "MY SUMMER LOVE", "difficulty": 12, "difficulty_class": "expert", "ex": 780, "url": "https://zenius-i-vanisher.com/simfiles/Dance%20Dance%20Revolution%204thMIX%20%28AC%29%20%28Japan%29/MY%20SUMMER%20LOVE/MY%20SUMMER%20LOVE-jacket.png" },
+        { "name": "Secret Rendez-vous", "difficulty": 12, "difficulty_class": "expert", "ex": 747, "url": "https://zenius-i-vanisher.com/simfiles/DDRMAX2%20-Dance%20Dance%20Revolution%207thMIX-%20%28AC%29%20%28Japan%29/Secret%20Rendez-vous/Secret%20Rendez-vous-jacket.png" },
+        { "name": "SEDUCTION", "difficulty": 12, "difficulty_class": "expert", "ex": 1194, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20SuperNOVA%20%28AC%29%20%28International%29/SEDUCTION/SEDUCTION-jacket.png" },
+        { "name": "She is my wife", "difficulty": 12, "difficulty_class": "expert", "ex": 981, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X2%20%28AC%29%20%28Japan%29/She%20is%20my%20wife/She%20is%20my%20wife-jacket.png" }
+      ],
+      "cover_url": ""
+    },
+    {
+      "id": "heartbreak",
+      "name": "Heartbreak",
+      "type": "trial",
+      "difficulty": 12,
+      "goals": [
+        {
+          "rank": "silver",
+          "score": [975000, 950000, 950000, 925000]
+        }, {
+          "rank": "gold",
+          "score": [995000, 995000, 990000, 990000]
+        }, {
+          "rank": "platinum",
+          "score": [990000, 990000, 990000, 990000],
+          "clear": ["perfect"],
+          "ex_missing": 160
+        }, {
+          "rank": "diamond",
+          "judge": 4,
+          "ex_missing": 100
+        }, {
+          "rank": "cobalt",
+          "judge": 2,
+          "ex_missing": 60
+        }, {
+          "rank": "amethyst",
+          "judge": 1,
+          "ex_missing": 30
+        }, {
+          "rank": "emerald",
+          "judge": 1,
+          "ex_missing": 16
+        }, {
+          "rank": "onyx",
+          "judge": 1,
+          "ex_missing": 10
+        }
+      ],
+      "total_ex": 4056,
+      "songs": [
+        { "name": "One Sided Love", "difficulty": 10, "difficulty_class": "expert", "ex": 897, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202014%20%28AC%29%20%28Japan%29/One%20Sided%20Love/One%20Sided%20Love-jacket.png" },
+        { "name": "BROKEN MY HEART", "difficulty": 12, "difficulty_class": "expert", "ex": 1080, "url": "https://zenius-i-vanisher.com/simfiles/Dance%20Dance%20Revolution%205thMIX%20%28AC%29%20%28Japan%29/BROKEN%20MY%20HEART/BROKEN%20MY%20HEART-jacket.png" },
+        { "name": "Leaving...", "difficulty": 11, "difficulty_class": "expert", "ex": 942, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X2%20%28AC%29%20%28Japan%29/Leaving...%20%28Chinese%29/Leaving...%20%28Chinese%29-jacket.png" },
+        { "name": "Feelings Won't Fade (Extend Trance Mix)", "difficulty": 12, "difficulty_class": "expert", "ex": 1137, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20SuperNOVA2%20%28AC%29%20%28Japan%29/Feelings%20Won%27t%20Fade%28Extend%20Trance%20Mix%29/Feelings%20Won%27t%20Fade%28Extend%20Trance%20Mix%29-jacket.png" }
+      ]
+    },
+    {
+      "id": "believe",
+      "name": "Believe",
+      "type": "trial",
+      "difficulty": 12,
+      "goals": [
+        {
+          "rank": "silver",
+          "score": [960000, 925000, 925000, 925000]
+        }, {
+          "rank": "gold",
+          "score": [990000, 990000, 990000, 985000]
+        }, {
+          "rank": "platinum",
+          "score": [990000, 990000, 990000, 990000],
+          "clear": ["perfect"],
+          "ex_missing": 230
+        }, {
+          "rank": "diamond",
+          "judge": 6,
+          "ex_missing": 140
+        }, {
+          "rank": "cobalt",
+          "judge": 3,
+          "ex_missing": 75
+        }, {
+          "rank": "amethyst",
+          "judge": 1,
+          "ex_missing": 45
+        }, {
+          "rank": "emerald",
+          "judge": 1,
+          "ex_missing": 30
+        }, {
+          "rank": "onyx",
+          "judge": 1,
+          "ex_missing": 18
+        }
+      ],
+      "total_ex": 4569,
+      "songs": [
+        { "name": "Sky Is The Limit", "difficulty": 12, "difficulty_class": "expert", "ex": 987, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X2%20%28AC%29%20%28Japan%29/Sky%20Is%20The%20Limit/Sky%20Is%20The%20Limit-jacket.png" },
+        { "name": "Hopeful", "difficulty": 13, "difficulty_class": "expert", "ex": 1104, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28International%29/Hopeful/Hopeful-jacket.png" },
+        { "name": "A Brighter Day", "difficulty": 12, "difficulty_class": "challenge", "ex": 1149, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X2%20%28AC%29%20%28Japan%29/A%20Brighter%20Day/A%20Brighter%20Day-jacket.png" },
+        { "name": "Life is beautiful", "difficulty": 12, "difficulty_class": "difficult", "ex": 1329, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28International%29/Life%20is%20beautiful/Life%20is%20beautiful-jacket.png" }
+      ],
+      "cover_url": "",
+      "author": "plasmaaa"
+    },
+    {
+      "id": "celestial",
+      "name": "Celestial",
+      "type": "trial",
+      "difficulty": 13,
+      "goals": [
+        {
+          "rank": "silver",
+          "score": [890000, 890000, 890000, 890000]
+        }, {
+          "rank": "gold",
+          "score": [980000, 980000, 965000, 965000]
+        }, {
+          "rank": "platinum",
+          "score": [990000, 990000, 990000, 985000],
+          "ex_missing": 250
+        }, {
+          "rank": "diamond",
+          "judge": 10,
+          "ex_missing": 180
+        }, {
+          "rank": "cobalt",
+          "judge": 5,
+          "ex_missing": 110
+        }, {
+          "rank": "amethyst",
+          "judge": 2,
+          "ex_missing": 60
+        }, {
+          "rank": "emerald",
+          "judge": 2,
+          "ex_missing": 40
+        }, {
+          "rank": "onyx",
+          "judge": 2,
+          "ex_missing": 25
+        }
+      ],
+      "total_ex": 5169,
+      "songs": [
+        { "name": "Uranus", "difficulty": 13, "difficulty_class": "challenge", "ex": 1206, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20SuperNOVA2%20%28AC%29%20%28Japan%29/Uranus/Uranus-jacket.png" },
+        { "name": "Saturn", "difficulty": 13, "difficulty_class": "expert", "ex": 1092, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20SuperNOVA2%20%28AC%29%20%28Japan%29/Saturn/Saturn-jacket.png" },
+        { "name": "Venus", "difficulty": 13, "difficulty_class": "challenge", "ex": 1368, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20SuperNOVA2%20%28AC%29%20%28Japan%29/Venus/Venus-jacket.png" },
+        { "name": "GAIA", "difficulty": 13, "difficulty_class": "difficult", "ex": 1503, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202013%20%28AC%29%20%28Japan%29/GAIA/GAIA-jacket.png" }
+      ]
+    },
+    {
+      "id": "gospel",
+      "name": "Gospel",
+      "type": "trial",
+      "difficulty": 13,
+      "new": true,
+      "goals": [
+        {
+          "rank": "silver",
+          "score": [940000, 900000, 900000, 900000]
+        }, {
+          "rank": "gold",
+          "score": [975000, 975000, 975000, 965000]
+        }, {
+          "rank": "platinum",
+          "score": [995000, 995000, 990000, 990000],
+          "ex_missing": 250
+        }, {
+          "rank": "diamond",
+          "judge": 10,
+          "ex_missing": 180
+        }, {
+          "rank": "cobalt",
+          "judge": 5,
+          "ex_missing": 110
+        }, {
+          "rank": "amethyst",
+          "judge": 2,
+          "ex_missing": 60
+        }, {
+          "rank": "emerald",
+          "judge": 2,
+          "ex_missing": 40
+        }, {
+          "rank": "onyx",
+          "judge": 2,
+          "ex_missing": 25
+        }
+      ],
+      "total_ex": 5280,
+      "songs": [
+        { "name": "Healing Vision ~Angelic Mix~", "difficulty": 13, "difficulty_class": "expert", "ex": 1437, "url": "https://zenius-i-vanisher.com/simfiles/DDRMAX%20-Dance%20Dance%20Revolution%206thMIX-%20%28AC%29%20%28Japan%29/Healing%20Vision~Angelic%20mix~/Healing%20Vision~Angelic%20mix~-jacket.png" },
+        { "name": "Cross", "difficulty": 13, "difficulty_class": "expert", "ex": 1410, "url": "https://zenius-i-vanisher.com/simfiles/DDR%20A20%20%28Beta%29/CROSS/CROSS-jacket.png" },
+        { "name": "Paranoia Rebirth", "difficulty": 13, "difficulty_class": "expert", "ex": 1299, "url": "https://zenius-i-vanisher.com/simfiles/Dance%20Dance%20Revolution%203rdMIX%20%28AC%29%20%28Japan%29/PARANOiA%20Rebirth/PARANOiA%20Rebirth-jacket.png" },
+        { "name": "You Are A Star", "difficulty": 12, "difficulty_class": "expert", "ex": 1134, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X2%20%28AC%29%20%28Japan%29/You%20are%20a%20Star/You%20are%20a%20Star-jacket.png" }
+      ]
+    },
+    {
+      "id": "mainframe",
+      "name": "Mainframe",
+      "type": "trial",
+      "difficulty": 13,
+      "goals": [
+        {
+          "rank": "silver",
+          "score": [915000, 915000, 875000, 875000]
+        }, {
+          "rank": "gold",
+          "score": [980000, 980000, 965000, 965000]
+        }, {
+          "rank": "platinum",
+          "score": [990000, 990000, 990000, 985000],
+          "ex_missing": 240
+        }, {
+          "rank": "diamond",
+          "judge": 10,
+          "ex_missing": 160
+        }, {
+          "rank": "cobalt",
+          "judge": 5,
+          "ex_missing": 110
+        }, {
+          "rank": "amethyst",
+          "judge": 2,
+          "ex_missing": 65
+        }, {
+          "rank": "emerald",
+          "judge": 2,
+          "ex_missing": 45
+        }, {
+          "rank": "onyx",
+          "judge": 2,
+          "ex_missing": 30
+        }
+      ],
+      "total_ex": 4428,
+      "songs": [
+        { "name": "LEADING CYBER", "difficulty": 13, "difficulty_class": "expert", "ex": 1077, "url": "https://zenius-i-vanisher.com/simfiles/Dance%20Dance%20Revolution%204thMIX%20%28AC%29%20%28Japan%29/LEADING%20CYBER/LEADING%20CYBER-jacket.png" },
+        { "name": "ALGORITHM", "difficulty": 13, "difficulty_class": "expert", "ex": 1317, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/ALGORITHM/ALGORITHM-jacket.png" },
+        { "name": "GRADIUSIC CYBER ~AMD G5 MIX~", "difficulty": 13, "difficulty_class": "expert", "ex": 1110, "url": "https://zenius-i-vanisher.com/simfiles/Dance%20Dance%20Revolution%202ndMIX%20CLUB%20Version%202%20%28AC%29%20%28Japan%29/GRADIUSIC%20CYBER/GRADIUSIC%20CYBER-jacket.png" },
+        { "name": "dirty digital", "difficulty": 13, "difficulty_class": "challenge", "ex": 924, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X2%20%28AC%29%20%28Japan%29/dirty%20digital/dirty%20digital-jacket.png" }
+      ]
+    },
+    {
+      "id": "primal",
+      "name": "Primal",
+      "type": "trial",
+      "difficulty": 13,
+      "author": "Kingly",
+      "goals": [
+        {
+          "rank": "silver",
+          "score": [915000, 915000, 875000, 875000]
+        }, {
+          "rank": "gold",
+          "score": [980000, 980000, 960000, 960000]
+        }, {
+          "rank": "platinum",
+          "score": [990000, 990000, 990000, 985000],
+          "ex_missing": 325
+        }, {
+          "rank": "diamond",
+          "judge": 15,
+          "ex_missing": 230
+        }, {
+          "rank": "cobalt",
+          "judge": 6,
+          "ex_missing": 140
+        }, {
+          "rank": "amethyst",
+          "judge": 2,
+          "ex_missing": 80
+        }, {
+          "rank": "emerald",
+          "judge": 2,
+          "ex_missing": 55
+        }, {
+          "rank": "onyx",
+          "judge": 2,
+          "ex_missing": 35
+        }
+      ],
+      "total_ex": 5142,
+      "songs": [
+        { "name": "WILD SIDE", "difficulty": 13, "difficulty_class": "challenge", "ex": 1377, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202013%20%28AC%29%20%28Japan%29/WILD%20SIDE/WILD%20SIDE-jacket.png" },
+        { "name": "Tribe", "difficulty": 13, "difficulty_class": "challenge", "ex": 1461, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X3%20VS%202ndMIX%20%28AC%29%20%28Japan%29/Tribe/Tribe-jacket.png" },
+        { "name": "ORION.78~civilization mix~", "difficulty": 13, "difficulty_class": "expert", "ex": 1194, "url": "https://zenius-i-vanisher.com/simfiles/DDRMAX%20-Dance%20Dance%20Revolution%206thMIX-%20%28AC%29%20%28Japan%29/ORION.78~civilization%20mix~/ORION.78~civilization%20mix~-jacket.png" },
+        { "name": "AFRONOVA", "difficulty": 13, "difficulty_class": "expert", "ex": 1110, "url": "https://zenius-i-vanisher.com/simfiles/Dance%20Dance%20Revolution%203rdMIX%20%28AC%29%20%28Japan%29/AFRONOVA/AFRONOVA-jacket.png" }
+      ]
+    },
+    {
+      "id": "species",
+      "name": "Species",
+      "type": "trial",
+      "difficulty": 13,
+      "goals": [
+        {
+          "rank": "silver",
+          "score": [900000, 900000, 900000, 875000]
+        }, {
+          "rank": "gold",
+          "score": [980000, 980000, 960000, 960000]
+        }, {
+          "rank": "platinum",
+          "score": [990000, 990000, 990000, 985000],
+          "ex_missing": 330
+        }, {
+          "rank": "diamond",
+          "judge": 15,
+          "ex_missing": 240
+        }, {
+          "rank": "cobalt",
+          "judge": 6,
+          "ex_missing": 150
+        }, {
+          "rank": "amethyst",
+          "judge": 3,
+          "ex_missing": 80
+        }, {
+          "rank": "emerald",
+          "judge": 2,
+          "ex_missing": 55
+        }, {
+          "rank": "onyx",
+          "judge": 2,
+          "ex_missing": 35
+        }
+      ],
+      "total_ex": 5073,
+      "songs": [
+        { "name": "heron", "difficulty": 13, "difficulty_class": "challenge", "ex": 1050, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202013%20%28AC%29%20%28Japan%29/heron/heron-jacket.png" },
+        { "name": "Monkey Business", "difficulty": 13, "difficulty_class": "expert", "ex": 1386, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202013%20%28AC%29%20%28Japan%29/Monkey%20Business/Monkey%20Business-jacket.png" },
+        { "name": "HYENA", "difficulty": 14, "difficulty_class": "expert", "ex": 1506, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202014%20%28AC%29%20%28Japan%29/HYENA/HYENA-jacket.png" },
+        { "name": "Condor", "difficulty": 13, "difficulty_class": "expert", "ex": 1131, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202013%20%28AC%29%20%28Japan%29/Condor/Condor-jacket.png" }
+      ]
+    },
+    {
+      "id": "passport",
+      "name": "Passport",
+      "type": "trial",
+      "difficulty": 13,
+      "goals": [
+        {
+          "rank": "silver",
+          "score": [900000, 900000, 875000, 875000]
+        }, {
+          "rank": "gold",
+          "score": [980000, 980000, 965000, 965000]
+        }, {
+          "rank": "platinum",
+          "score": [990000, 990000, 990000, 985000],
+          "ex_missing": 350
+        }, {
+          "rank": "diamond",
+          "judge": 16,
+          "ex_missing": 240
+        }, {
+          "rank": "cobalt",
+          "judge": 8,
+          "ex_missing": 150
+        }, {
+          "rank": "amethyst",
+          "judge": 6,
+          "ex_missing": 90
+        }, {
+          "rank": "emerald",
+          "judge": 4,
+          "ex_missing": 65
+        }, {
+          "rank": "onyx",
+          "judge": 3,
+          "ex_missing": 40
+        }
+      ],
+      "total_ex": 4974,
+      "songs": [
+        { "name": "bag", "difficulty": 13, "difficulty_class": "expert", "ex": 1146, "url": "https://zenius-i-vanisher.com/simfiles/Dance%20Dance%20Revolution%20EXTREME%20%28AC%29%20%28Japan%29/bag/bag-jacket.png" },
+        { "name": "Arrabbiata", "difficulty": 13, "difficulty_class": "difficult", "ex": 1131, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20SuperNOVA2%20%28AC%29%20%28Japan%29/Arrabbiata/Arrabbiata-jacket.png" },
+        { "name": "exotic ethnic", "difficulty": 13, "difficulty_class": "expert", "ex": 1356, "url": "https://zenius-i-vanisher.com/simfiles/DDRMAX%20-Dance%20Dance%20Revolution%206thMIX-%20%28AC%29%20%28Japan%29/exotic%20ethnic/exotic%20ethnic-jacket.png" },
+        { "name": "桜", "difficulty": 13, "difficulty_class": "expert", "ex": 1341, "url": "https://zenius-i-vanisher.com/simfiles/Dance%20Dance%20Revolution%20EXTREME%20%28AC%29%20%28Japan%29/SAKURA/SAKURA-jacket.png" }
+      ],
+      "cover_url": "",
+      "author": "Sam-Thak"
+    },
+    {
+      "id": "hallowed",
+      "name": "Hallowed",
+      "type": "event",
+      "difficulty": 13,
+      "total_ex": 4950,
+      "songs": [
+        { "name": "Vanquish The Ghost", "difficulty": 12, "difficulty_class": "difficult", "ex": 1176, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/Vanquish%20The%20Ghost/Vanquish%20The%20Ghost-jacket.png" },
+        { "name": "Electronic or Treat!", "difficulty": 12, "difficulty_class": "difficult", "ex": 1227, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202014%20%28AC%29%20%28Japan%29/Electronic%20or%20Treat%21/Electronic%20or%20Treat%21-jacket.png" },
+        { "name": "不沈艦CANDY", "difficulty": 14, "difficulty_class": "expert", "ex": 1752, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X2%20%28AC%29%20%28Japan%29/YELLOW%20CANDY/YELLOW%20CANDY-jacket.png" },
+        { "name": "Bloody Tears（IIDX EDITION）", "difficulty": 11, "difficulty_class": "expert", "ex": 795, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20SuperNOVA2%20%28AC%29%20%28Japan%29/Bloody%20Tears%20%28IIDX%20EDITION%29/Bloody%20Tears%20%28IIDX%20EDITION%29-jacket.png" }
+      ],
+      "scoring_groups": [["copper", "bronze", "silver"], ["gold"], ["platinum"], ["diamond"], ["cobalt"], ["amethyst", "emerald"]],
+      "event_start": "2019-10-01T00:00:00Z",
+      "event_end": "2019-11-01T00:00:00Z"
+    },
+    {
+      "id": "daybreak",
+      "name": "Daybreak",
+      "type": "trial",
+      "difficulty": 14,
+      "goals": [
+        {
+          "rank": "silver",
+          "clear_indexed": ["clear", "clear", "clear", "fail"],
+          "score_indexed": [0, 0, 0, 500000]
+        }, {
+          "rank": "gold",
+          "score": [975000, 975000, 960000, 960000],
+          "miss": 10
+        }, {
+          "rank": "platinum",
+          "score": [990000, 990000, 980000, 980000]
+        }, {
+          "rank": "diamond",
+          "judge": 18,
+          "ex_missing": 200
+        }, {
+          "rank": "cobalt",
+          "judge": 8,
+          "ex_missing": 120
+        }, {
+          "rank": "amethyst",
+          "judge": 4,
+          "ex_missing": 65
+        }, {
+          "rank": "emerald",
+          "judge": 3,
+          "ex_missing": 45
+        }, {
+          "rank": "onyx",
+          "judge": 2,
+          "ex_missing": 30
+        }
+      ],
+      "total_ex": 5463,
+      "songs": [
+        { "name": "Pierce The Sky", "difficulty": 14, "difficulty_class": "expert", "ex": 1500, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X2%20%28AC%29%20%28Japan%29/Pierce%20The%20Sky/Pierce%20The%20Sky-jacket.png" },
+        { "name": "Shiny World", "difficulty": 14, "difficulty_class": "expert", "ex": 1116, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X2%20%28AC%29%20%28Japan%29/Shiny%20World/Shiny%20World-jacket.png" },
+        { "name": "The Wind of Gold", "difficulty": 14, "difficulty_class": "expert", "ex": 1557, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202013%20%28AC%29%20%28Japan%29/The%20Wind%20of%20Gold/The%20Wind%20of%20Gold-jacket.png" },
+        { "name": "Sakura Sunrise", "difficulty": 14, "difficulty_class": "expert", "ex": 1290, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X2%20%28AC%29%20%28Japan%29/Sakura%20Sunrise/Sakura%20Sunrise-jacket.png" }
+      ]
+    },
+    {
+      "id": "upheaval",
+      "name": "Upheaval",
+      "type": "trial",
+      "difficulty": 14,
+      "author": "plasmaaa",
+      "goals": [
+        {
+          "rank": "silver",
+          "clear_indexed": ["clear", "clear", "clear", "fail"],
+          "score_indexed": [0, 0, 0, 500000]
+        }, {
+          "rank": "gold",
+          "score": [975000, 975000, 960000, 960000],
+          "miss": 10
+        }, {
+          "rank": "platinum",
+          "score": [985000, 985000, 980000, 980000]
+        }, {
+          "rank": "diamond",
+          "judge": 18,
+          "ex_missing": 225
+        }, {
+          "rank": "cobalt",
+          "judge": 8,
+          "ex_missing": 140
+        }, {
+          "rank": "amethyst",
+          "judge": 6,
+          "ex_missing": 75
+        }, {
+          "rank": "emerald",
+          "judge": 4,
+          "ex_missing": 50
+        }, {
+          "rank": "onyx",
+          "judge": 3,
+          "ex_missing": 35
+        }
+      ],
+      "total_ex": 5544,
+      "songs": [
+        { "name": "New Century", "difficulty": 14, "difficulty_class": "difficult", "ex": 1455, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/New%20Century/New%20Century-jacket.png" },
+        { "name": "革命(X-Special)", "difficulty": 14, "difficulty_class": "challenge", "ex": 1197, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X%20%28AC%29%20%28Japan%29/KAKUMEI%28X-Special%29/KAKUMEI%28X-Special%29-jacket.png" },
+        { "name": "PARANOiA Revolution", "difficulty": 14, "difficulty_class": "difficult", "ex": 1563, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X3%20VS%202ndMIX%20%28AC%29%20%28Japan%29/PARANOiA%20Revolution/PARANOiA%20Revolution-jacket.png" },
+        { "name": "La libertad", "difficulty": 14, "difficulty_class": "challenge", "ex": 1329, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X2%20%28AC%29%20%28Japan%29/La%20libertad/La%20libertad-jacket.png" }
+      ]
+    },
+    {
+      "id": "superstar",
+      "name": "Superstar",
+      "type": "trial",
+      "difficulty": 14,
+      "new": true,
+      "goals": [
+        {
+          "rank": "silver",
+          "clear_indexed": ["clear", "clear", "clear", "fail"],
+          "score_indexed": [0, 0, 0, 500000]
+        }, {
+          "rank": "gold",
+          "score": [965000, 965000, 965000, 950000]
+        }, {
+          "rank": "platinum",
+          "score": [985000, 985000, 975000, 975000]
+        }, {
+          "rank": "diamond",
+          "judge": 20,
+          "ex_missing": 240
+        }, {
+          "rank": "cobalt",
+          "judge": 8,
+          "ex_missing": 150
+        }, {
+          "rank": "amethyst",
+          "judge": 6,
+          "ex_missing": 90
+        }, {
+          "rank": "emerald",
+          "judge": 4,
+          "ex_missing": 60
+        }, {
+          "rank": "onyx",
+          "judge": 3,
+          "ex_missing": 40
+        }
+      ],
+      "total_ex": 5517,
+      "songs": [
+        { "name": "Top the Charts", "difficulty": 14, "difficulty_class": "challenge", "ex": 1401, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202013%20%28AC%29%20%28Japan%29/Top%20The%20Charts/Top%20The%20Charts-jacket.png" },
+        { "name": "F4SH10N", "difficulty": 14, "difficulty_class": "expert", "ex": 1293, "url": "https://zenius-i-vanisher.com/simfiles/DDR%20A20%20%28Beta%29/F4SH10N/F4SH10N-jacket.png" },
+        { "name": "Squeeze", "difficulty": 15, "difficulty_class": "expert", "ex": 1464, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202014%20%28AC%29%20%28Japan%29/Squeeze/Squeeze-jacket.png" },
+        { "name": "Diamond Night", "difficulty": 14, "difficulty_class": "challenge", "ex": 1359, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202013%20%28AC%29%20%28Japan%29/Diamond%20Night/Diamond%20Night-jacket.png" }
+      ]
+    },
+    {
+      "id": "countdown",
+      "name": "Countdown",
+      "type": "trial",
+      "difficulty": 14,
+      "author": "Nebel",
+      "goals": [
+        {
+          "rank": "silver",
+          "clear_indexed": ["clear", "clear", "clear", "fail"],
+          "score_indexed": [0, 0, 0, 400000]
+        }, {
+          "rank": "gold",
+          "score": [950000, 950000, 950000, 925000]
+        }, {
+          "rank": "platinum",
+          "score": [975000, 975000, 975000, 960000]
+        }, {
+          "rank": "diamond",
+          "judge": 25,
+          "ex_missing": 260
+        }, {
+          "rank": "cobalt",
+          "judge": 12,
+          "ex_missing": 180
+        }, {
+          "rank": "amethyst",
+          "judge": 7,
+          "ex_missing": 110
+        }, {
+          "rank": "emerald",
+          "judge": 5,
+          "ex_missing": 75
+        }, {
+          "rank": "onyx",
+          "judge": 4,
+          "ex_missing": 50
+        }
+      ],
+      "total_ex": 5460,
+      "songs": [
+        { "name": "B4U (VOLTAGE Special)", "difficulty": 14, "difficulty_class": "challenge", "ex": 1101, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20SuperNOVA2%20%28AC%29%20%28Japan%29/B4U%20%28VOLTAGE%20Special%29/B4U%20%28VOLTAGE%20Special%29-jacket.png" },
+        { "name": "Triple Counter", "difficulty": 14, "difficulty_class": "difficult", "ex": 1695, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/Triple%20Counter/Triple%20Counter-jacket.png" },
+        { "name": "Second Heaven", "difficulty": 14, "difficulty_class": "challenge", "ex": 1446, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X2%20%28AC%29%20%28Japan%29/Second%20Heaven/Second%20Heaven-jacket.png" },
+        { "name": "Pluto The First", "difficulty": 14, "difficulty_class": "difficult", "ex": 1218, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X2%20%28AC%29%20%28Japan%29/Pluto%20The%20First/Pluto%20The%20First-jacket.png" }
+      ]
+    },
+    {
+      "id": "hellscape",
+      "name": "Hellscape",
+      "type": "trial",
+      "difficulty": 15,
+      "goals": [
+        {
+          "rank": "silver",
+          "clear_indexed": ["clear", "clear", "clear", "fail"],
+          "score_indexed": [0, 0, 0, 300000]
+        }, {
+          "rank": "gold",
+          "score": [980000, 960000, 960000, 920000]
+        }, {
+          "rank": "platinum",
+          "score": [980000, 980000, 980000, 960000]
+        }, {
+          "rank": "diamond",
+          "score": [990000, 990000, 990000],
+          "score_indexed": [0, 0, 985000, 0],
+          "ex_missing": 300
+        }, {
+          "rank": "cobalt",
+          "judge": 10,
+          "ex_missing": 180
+        }, {
+          "rank": "amethyst",
+          "judge": 6,
+          "ex_missing": 110
+        }, {
+          "rank": "emerald",
+          "judge": 4,
+          "ex_missing": 75
+        }, {
+          "rank": "onyx",
+          "judge": 3,
+          "ex_missing": 50
+        }
+      ],
+      "total_ex": 6615,
+      "songs": [
+        { "name": "FIRE FIRE", "difficulty": 14, "difficulty_class": "expert", "ex": 1728, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X2%20%28AC%29%20%28Japan%29/FIRE%20FIRE/FIRE%20FIRE-jacket.png" },
+        { "name": "NEPHILIM DELTA", "difficulty": 14, "difficulty_class": "expert", "ex": 1758, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X3%20VS%202ndMIX%20%28AC%29%20%28Japan%29/NEPHILIM%20DELTA/NEPHILIM%20DELTA-jacket.png" },
+        { "name": "PARANOiA ~HADES~", "difficulty": 15, "difficulty_class": "difficult", "ex": 1374, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20SuperNOVA2%20%28AC%29%20%28Japan%29/PARANOiA%20~HADES~/PARANOiA%20~HADES~-jacket.png" },
+        { "name": "RISING FIRE HAWK", "difficulty": 15, "difficulty_class": "expert", "ex": 1755, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/RISING%20FIRE%20HAWK/RISING%20FIRE%20HAWK-jacket.png" }
+      ]
+    },
+    {
+      "id": "clockwork",
+      "name": "Clockwork",
+      "type": "trial",
+      "difficulty": 15,
+      "goals": [
+        {
+          "rank": "silver",
+          "clear_indexed": ["clear", "clear", "clear", "fail"],
+          "score_indexed": [0, 0, 0, 400000]
+        }, {
+          "rank": "gold",
+          "score": [965000, 965000, 940000, 940000]
+        }, {
+          "rank": "platinum",
+          "score": [980000, 980000, 980000, 970000]
+        }, {
+          "rank": "diamond",
+          "score": [990000, 990000, 985000, 985000],
+          "ex_missing": 300
+        }, {
+          "rank": "cobalt",
+          "judge": 10,
+          "ex_missing": 180
+        }, {
+          "rank": "amethyst",
+          "judge": 5,
+          "ex_missing": 100
+        }, {
+          "rank": "emerald",
+          "judge": 4,
+          "ex_missing": 75
+        }, {
+          "rank": "onyx",
+          "judge": 3,
+          "ex_missing": 50
+        }
+      ],
+      "total_ex": 6270,
+      "songs": [
+        { "name": "Start a New Day", "difficulty": 15, "difficulty_class": "expert", "ex": 1590, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/Start%20a%20New%20Day/Start%20a%20New%20Day-jacket.png" },
+        { "name": "New Decade", "difficulty": 14, "difficulty_class": "difficult", "ex": 1317, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X2%20%28AC%29%20%28Japan%29/New%20Decade/New%20Decade-jacket.png" },
+        { "name": "Chronos", "difficulty": 15, "difficulty_class": "challenge", "ex": 1701, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X3%20VS%202ndMIX%20%28AC%29%20%28Japan%29/Chronos/Chronos-jacket.png" },
+        { "name": "IX", "difficulty": 14, "difficulty_class": "difficult", "ex": 1662, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202014%20%28AC%29%20%28Japan%29/IX/IX-jacket.png" }
+      ]
+    },
+    {
+      "id": "heatwave",
+      "name": "Heatwave",
+      "type": "trial",
+      "difficulty": 15,
+      "goals": [
+        {
+          "rank": "silver",
+          "clear_indexed": ["clear", "clear", "clear", "fail"],
+          "score_indexed": [0, 0, 0, 300000]
+        }, {
+          "rank": "gold",
+          "score": [965000, 965000, 940000, 940000]
+        }, {
+          "rank": "platinum",
+          "score": [980000, 980000, 980000, 970000]
+        }, {
+          "rank": "diamond",
+          "score": [990000, 990000, 980000, 980000],
+          "ex_missing": 350
+        }, {
+          "rank": "cobalt",
+          "judge": 10,
+          "ex_missing": 175
+        }, {
+          "rank": "amethyst",
+          "judge": 5,
+          "ex_missing": 85
+        }, {
+          "rank": "emerald",
+          "judge": 3,
+          "ex_missing": 55
+        }, {
+          "rank": "onyx",
+          "judge": 2,
+          "ex_missing": 30
+        }
+      ],
+      "total_ex": 6735,
+      "songs": [
+        { "name": "FUNKY SUMMER BEACH", "difficulty": 14, "difficulty_class": "expert", "ex": 1392, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202014%20%28AC%29%20%28Japan%29/FUNKY%20SUMMER%20BEACH/FUNKY%20SUMMER%20BEACH-jacket.png" },
+        { "name": "SUPER SUMMER SALE", "difficulty": 15, "difficulty_class": "expert", "ex": 1890, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/SUPER%20SUMMER%20SALE/SUPER%20SUMMER%20SALE-jacket.png" },
+        { "name": "灼熱Beach Side Bunny", "difficulty": 15, "difficulty_class": "expert", "ex": 1839, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202014%20%28AC%29%20%28Japan%29/Shakunetsu%20Beach%20Side%20Bunny/Shakunetsu%20Beach%20Side%20Bunny-jacket.png" },
+        { "name": "SPECIAL SUMMER CAMPAIGN!", "difficulty": 15, "difficulty_class": "expert", "ex": 1614, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202014%20%28AC%29%20%28Japan%29/SPECIAL%20SUMMER%20CAMPAIGN%21/SPECIAL%20SUMMER%20CAMPAIGN%21-jacket.png" }
+      ]
+    },
+    {
+      "id": "tempest",
+      "name": "Tempest",
+      "type": "trial",
+      "difficulty": 15,
+      "goals": [
+        {
+          "rank": "silver",
+          "clear_indexed": ["clear", "clear", "clear", "fail"],
+          "score_indexed": [0, 0, 0, 300000]
+        },{
+          "rank": "gold",
+          "score": [965000, 965000, 940000, 940000]
+        },{
+          "rank": "platinum",
+          "score": [980000, 980000, 970000, 970000]
+        }, {
+          "rank": "diamond",
+          "score": [985000, 985000, 985000, 975000],
+          "ex_missing": 350
+        },{
+          "rank": "cobalt",
+          "judge": 10,
+          "ex_missing": 200
+        },{
+          "rank": "amethyst",
+          "judge": 6,
+          "ex_missing": 100
+        },{
+          "rank": "emerald",
+          "judge": 4,
+          "ex_missing": 65
+        }, {
+          "rank": "onyx",
+          "judge": 3,
+          "ex_missing": 40
+        }
+      ],
+      "total_ex": 7446,
+      "songs": [
+        { "name": "春風ブローインウィンド", "difficulty": 15, "difficulty_class": "expert", "ex": 1818, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/Shunpuu%20blowing%20wind/Shunpuu%20blowing%20wind-jacket.png" },
+        { "name": "Windy Fairy", "difficulty": 15, "difficulty_class": "expert", "ex": 1824, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202013%20%28AC%29%20%28Japan%29/Windy%20Fairy/Windy%20Fairy-jacket.png" },
+        { "name": "Cosmic Hurricane", "difficulty": 15, "difficulty_class": "challenge", "ex": 1962, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X3%20VS%202ndMIX%20%28AC%29%20%28Japan%29/Cosmic%20Hurricane/Cosmic%20Hurricane-jacket.png" },
+        { "name": "ZEPHYRANTHES", "difficulty": 15, "difficulty_class": "expert", "ex": 1842, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/ZEPHYRANTHES/ZEPHYRANTHES-jacket.png" }
+      ]
+    },
+    {
+      "id": "mythos",
+      "name": "Mythos",
+      "type": "trial",
+      "difficulty": 15,
+      "new": true,
+      "goals": [
+        {
+          "rank": "silver",
+          "clear_indexed": ["clear", "clear", "clear", "fail"],
+          "score_indexed": [0, 0, 0, 300000]
+        },{
+          "rank": "gold",
+          "score": [970000, 915000, 915000, 915000]
+        },{
+          "rank": "platinum",
+          "score": [990000, 965000, 965000, 950000]
+        }, {
+          "rank": "diamond",
+          "score": [970000, 970000, 970000, 970000],
+          "clear": ["life4", "life4", "life4", "life4"],
+          "ex_missing": 370
+        },{
+          "rank": "cobalt",
+          "judge": 15,
+          "ex_missing": 220
+        },{
+          "rank": "amethyst",
+          "judge": 8,
+          "ex_missing": 150
+        },{
+          "rank": "emerald",
+          "judge": 6,
+          "ex_missing": 90
+        }, {
+          "rank": "onyx",
+          "judge": 4,
+          "ex_missing": 55
+        }
+      ],
+      "total_ex": 6471,
+      "songs": [
+        { "name": "Ishtar", "difficulty": 14, "difficulty_class": "expert", "ex": 1266, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28International%29/Ishtar/Ishtar-jacket.png" },
+        { "name": "Wadatsumi", "difficulty": 16, "difficulty_class": "expert", "ex": 1875, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202014%20%28AC%29%20%28Japan%29/Wadatsumi/Wadatsumi-jacket.png" },
+        { "name": "Helios", "difficulty": 16, "difficulty_class": "expert", "ex": 1902, "url": "https://zenius-i-vanisher.com/simfiles/DDR%20A20%20%28Beta%29/Helios/Helios-jacket.png" },
+        { "name": "Valkyrie Dimension", "difficulty": 15, "difficulty_class": "difficult", "ex": 1428, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X2%20%28AC%29%20%28Japan%29/Valkyrie%20dimension/Valkyrie%20dimension-jacket.png" }
+      ]
+    },
+    {
+      "id": "pharaoh",
+      "name": "Pharaoh",
+      "type": "trial",
+      "difficulty": 15,
+      "goals": [
+        {
+          "rank": "silver",
+          "clear_indexed": ["clear", "clear", "clear", "fail"],
+          "score_indexed": [0, 0, 0, 300000]
+        }, {
+          "rank": "gold",
+          "score": [950000, 950000, 950000, 920000]
+        }, {
+          "rank": "platinum",
+          "score": [980000, 980000, 960000, 960000]
+        }, {
+          "rank": "diamond",
+          "score": [985000, 985000, 975000, 975000],
+          "ex_missing": 300
+        }, {
+          "rank": "cobalt",
+          "judge": 14,
+          "ex_missing": 180
+        }, {
+          "rank": "amethyst",
+          "judge": 6,
+          "ex_missing": 110
+        }, {
+          "rank": "emerald",
+          "judge": 5,
+          "ex_missing": 75
+        }, {
+          "rank": "onyx",
+          "judge": 4,
+          "ex_missing": 50
+        }
+      ],
+      "total_ex": 6870,
+      "songs": [
+        { "name": "Desert Journey", "difficulty": 15, "difficulty_class": "challenge", "ex": 1521, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202013%20%28AC%29%20%28Japan%29/Desert%20Journey/Desert%20Journey-jacket.png" },
+        { "name": "Sand Blow", "difficulty": 15, "difficulty_class": "expert", "ex": 1668, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202014%20%28AC%29%20%28Japan%29/Sand%20Blow/Sand%20Blow-jacket.png" },
+        { "name": "KHAMEN BREAK", "difficulty": 16, "difficulty_class": "expert", "ex": 1959, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202014%20%28AC%29%20%28Japan%29/KHAMEN%20BREAK/KHAMEN%20BREAK-jacket.png" },
+        { "name": "Cleopatrysm", "difficulty": 15, "difficulty_class": "expert", "ex": 1722, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202014%20%28AC%29%20%28Japan%29/Cleopatrysm/Cleopatrysm-jacket.png" }
+      ]
+    },
+    {
+      "id": "rendition",
+      "name": "Rendition",
+      "type": "trial",
+      "difficulty": 15,
+      "new": true,
+      "goals": [
+        {
+          "rank": "silver",
+          "clear_indexed": ["clear", "clear", "clear", "fail"],
+          "score_indexed": [0, 0, 0, 300000]
+        }, {
+          "rank": "gold",
+          "score": [950000, 950000, 950000, 910000]
+        }, {
+          "rank": "platinum",
+          "score": [975000, 975000, 975000, 950000]
+        }, {
+          "rank": "diamond",
+          "score": [980000, 980000, 980000, 970000],
+          "ex_missing": 370
+        }, {
+          "rank": "cobalt",
+          "judge": 15,
+          "ex_missing": 220
+        }, {
+          "rank": "amethyst",
+          "judge": 8,
+          "ex_missing": 130
+        }, {
+          "rank": "emerald",
+          "judge": 5,
+          "ex_missing": 80
+        }, {
+          "rank": "onyx",
+          "judge": 4,
+          "ex_missing": 55
+        }
+      ],
+      "total_ex": 7236,
+      "songs": [
+        { "name": "BRILLIANT 2U (AKBK MIX)", "difficulty": 15, "difficulty_class": "expert", "ex": 1767, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X3%20VS%202ndMIX%20%28AC%29%20%28Japan%29/BRILLIANT%202U%20%28AKBK%20MIX%29/BRILLIANT%202U%20%28AKBK%20MIX%29-jacket.png" },
+        { "name": "MAX 300 (Super-Max-Me Mix)", "difficulty": 15, "difficulty_class": "expert", "ex": 1938, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20SuperNOVA%20%28AC%29%20%28International%29/MAX%20300%20%28Super-Max-Me%20Mix%29/MAX%20300%20%28Super-Max-Me%20Mix%29-jacket.png" },
+        { "name": "POSSESSION (20th Anniversary Mix)", "difficulty": 16, "difficulty_class": "expert", "ex": 1998, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28International%29/POSSESSION%20%2820th%20Anniversary%20Mix%29/POSSESSION%20%2820th%20Anniversary%20Mix%29-jacket.png" },
+        { "name": "PARANOiA KCET ~clean mix~", "difficulty": 15, "difficulty_class": "challenge", "ex": 1533, "url": "https://zenius-i-vanisher.com/simfiles/Dance%20Dance%20Revolution%202ndMIX%20LINK%20Version%20%28AC%29%20%28Japan%29/PARANOiA%20KCET%20~clean%20mix~/PARANOiA%20KCET%20~clean%20mix~-jacket.png" }
+      ]
+    },
+    {
+      "id": "wanderlust",
+      "name": "Wanderlust",
+      "type": "trial",
+      "difficulty": 15,
+      "author": "Magnet",
+      "goals": [
+        {
+          "rank": "silver",
+          "clear_indexed": ["clear", "clear", "clear", "fail"]
+        }, {
+          "rank": "gold",
+          "score": [945000, 945000, 945000, 890000]
+        }, {
+          "rank": "platinum",
+          "score": [970000, 970000, 970000, 930000]
+        }, {
+          "rank": "diamond",
+          "score": [980000, 980000, 955000, 955000],
+          "ex_missing": 425
+        }, {
+          "rank": "cobalt",
+          "judge": 18,
+          "ex_missing": 250
+        }, {
+          "rank": "amethyst",
+          "judge": 8,
+          "ex_missing": 150
+        }, {
+          "rank": "emerald",
+          "judge": 6,
+          "ex_missing": 90
+        }, {
+          "rank": "onyx",
+          "judge": 4,
+          "ex_missing": 60
+        }
+      ],
+      "total_ex": 6957,
+      "songs": [
+        { "name": "Go For The Top", "difficulty": 15, "difficulty_class": "expert", "ex": 1563, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X3%20VS%202ndMIX%20%28AC%29%20%28Japan%29/Go%20For%20The%20Top/Go%20For%20The%20Top-jacket.png" },
+        { "name": "Nostalgia Is Lost", "difficulty": 15, "difficulty_class": "expert", "ex": 1890, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202014%20%28AC%29%20%28Japan%29/Nostalgia%20Is%20Lost/Nostalgia%20Is%20Lost-jacket.png" },
+        { "name": "Triple Journey -TAG EDITION-", "difficulty": 16, "difficulty_class": "expert", "ex": 1866, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202013%20%28AC%29%20%28Japan%29/Triple%20Journey%20-TAG%20EDITION-/Triple%20Journey%20-TAG%20EDITION--jacket.png" },
+        { "name": "Destination", "difficulty": 15, "difficulty_class": "expert", "ex": 1638, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202014%20%28AC%29%20%28Japan%29/Destination/Destination-jacket.png" }
+      ]
+    },
+    {
+      "id": "circadia",
+      "name": "Circadia",
+      "type": "trial",
+      "difficulty": 16,
+      "author": "Magnet",
+      "goals": [
+        {
+          "rank": "gold",
+          "score": [950000, 950000, 915000, 915000]
+        },{
+          "rank": "platinum"
+        }, {
+          "rank": "diamond",
+          "score": [980000, 980000, 960000, 960000],
+          "miss_each": 3
+        },{
+          "rank": "cobalt",
+          "score": [990000, 990000, 990000, 990000],
+          "ex_missing": 250
+        },{
+          "rank": "amethyst",
+          "judge": 8,
+          "ex_missing": 140
+        },{
+          "rank": "emerald",
+          "judge": 5,
+          "ex_missing": 70
+        }, {
+          "rank": "onyx",
+          "judge": 4,
+          "ex_missing": 45
+        }
+      ],
+      "total_ex": 7116,
+      "songs": [
+        { "name": "Beautiful Dream", "difficulty": 15, "difficulty_class": "challenge", "ex": 1812, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202013%20%28AC%29%20%28Japan%29/Beautiful%20Dream/Beautiful%20Dream-jacket.png" },
+        { "name": "AWAKE", "difficulty": 16, "difficulty_class": "challenge", "ex": 1965, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202014%20%28AC%29%20%28Japan%29/AWAKE/AWAKE-jacket.png" },
+        { "name": "IN BETWEEN", "difficulty": 15, "difficulty_class": "expert", "ex": 1413, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/IN%20BETWEEN/IN%20BETWEEN-jacket.png" },
+        { "name": "Come to Life", "difficulty": 16, "difficulty_class": "expert", "ex": 1926, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/Come%20to%20Life/Come%20to%20Life-jacket.png" }
+      ]
+    },
+    {
+      "id": "snowdrift",
+      "name": "Snowdrift",
+      "type": "trial",
+      "difficulty": 16,
+      "goals": [
+        {
+          "rank": "gold",
+          "score": [940000, 940000, 910000, 910000]
+        }, {
+          "rank": "platinum",
+          "score": [970000, 970000, 950000, 950000]
+        }, {
+          "rank": "diamond",
+          "score": [980000, 980000, 980000, 970000],
+          "miss": 10
+        }, {
+          "rank": "cobalt",
+          "score": [990000, 990000, 990000, 990000],
+          "ex_missing": 280
+        }, {
+          "rank": "amethyst",
+          "judge": 8,
+          "ex_missing": 160
+        }, {
+          "rank": "emerald",
+          "judge": 5,
+          "ex_missing": 100
+        }, {
+          "rank": "onyx",
+          "judge": 4,
+          "ex_missing": 70
+        }
+      ],
+      "total_ex": 7161,
+      "songs": [
+        { "name": "SILVER DREAM", "difficulty": 15, "difficulty_class": "expert", "ex": 1668, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X3%20VS%202ndMIX%20%28AC%29%20%28Japan%29/SILVER%20DREAM/SILVER%20DREAM-jacket.png" },
+        { "name": "snow prism", "difficulty": 16, "difficulty_class": "challenge", "ex": 1680, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X3%20VS%202ndMIX%20%28AC%29%20%28Japan%29/snow%20prism/snow%20prism-jacket.png" },
+        { "name": "Spanish Snowy Dance", "difficulty": 15, "difficulty_class": "expert", "ex": 1926, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202013%20%28AC%29%20%28Japan%29/Spanish%20Snowy%20Dance/Spanish%20Snowy%20Dance-jacket.png" },
+        { "name": "Chinese Snowy Dance", "difficulty": 16, "difficulty_class": "expert", "ex": 1887, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202013%20%28AC%29%20%28Japan%29/Chinese%20Snowy%20Dance/Chinese%20Snowy%20Dance-jacket.png" }
+      ]
+    },
+    {
+      "id": "paradox",
+      "name": "Paradox",
+      "type": "trial",
+      "difficulty": 16,
+      "goals": [
+        {
+          "rank": "gold",
+          "score": [910000, 910000, 910000, 910000]
+        }, {
+          "rank": "platinum",
+          "score": [965000, 965000, 950000, 950000]
+        }, {
+          "rank": "diamond",
+          "score": [985000, 985000, 970000, 970000],
+          "miss": 10
+        }, {
+          "rank": "cobalt",
+          "score": [990000, 990000, 990000, 990000],
+          "ex_missing": 280
+        }, {
+          "rank": "amethyst",
+          "judge": 8,
+          "ex_missing": 150
+        }, {
+          "rank": "emerald",
+          "judge": 5,
+          "ex_missing": 90
+        }, {
+          "rank": "onyx",
+          "judge": 4,
+          "ex_missing": 60
+        }
+      ],
+      "total_ex": 6951,
+      "songs": [
+        { "name": "I'm so Happy", "difficulty": 16, "difficulty_class": "challenge", "ex": 1653, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X2%20%28AC%29%20%28Japan%29/I%27m%20so%20Happy/I%27m%20so%20Happy-jacket.png" },
+        { "name": "Cosy Catastrophe", "difficulty": 16, "difficulty_class": "expert", "ex": 1677, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/Cosy%20Catastrophe/Cosy%20Catastrophe-jacket.png" },
+        { "name": "Life is beautiful", "difficulty": 16, "difficulty_class": "expert", "ex": 1959, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/Life%20is%20beautiful/Life%20is%20beautiful-jacket.png" },
+        { "name": "CHAOS Terror-Tech Mix", "difficulty": 15, "difficulty_class": "expert", "ex": 1662, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/CHAOS%20Terror-Tech%20Mix/CHAOS%20Terror-Tech%20Mix-jacket.png" }
+      ]
+    },
+    {
+      "id": "spectacle",
+      "name": "Spectacle",
+      "type": "trial",
+      "difficulty": 16,
+      "goals": [
+        {
+          "rank": "gold",
+          "score": [950000, 950000, 875000, 875000]
+        }, {
+          "rank": "platinum",
+          "score": [980000, 980000, 920000, 920000]
+        }, {
+          "rank": "diamond",
+          "score": [985000, 985000, 940000, 940000]
+        }, {
+          "rank": "cobalt",
+          "score": [990000, 990000, 990000, 975000],
+          "ex_missing": 300
+        }, {
+          "rank": "amethyst",
+          "judge": 8,
+          "ex_missing": 170
+        }, {
+          "rank": "emerald",
+          "judge": 6,
+          "ex_missing": 110
+        }, {
+          "rank": "onyx",
+          "judge": 5,
+          "ex_missing": 70
+        }
+      ],
+      "total_ex": 6750,
+      "songs": [
+        { "name": "Unreal", "difficulty": 15, "difficulty_class": "expert", "ex": 1194, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20SuperNOVA2%20%28AC%29%20%28Japan%29/Unreal/Unreal-jacket.png" },
+        { "name": "S!ck", "difficulty": 16, "difficulty_class": "expert", "ex": 2118, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28International%29/S%21ck/S%21ck-jacket.png" },
+        { "name": "Blew My Mind", "difficulty": 16, "difficulty_class": "expert", "ex": 1803, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202013%20%28AC%29%20%28Japan%29/Blew%20My%20Mind/Blew%20My%20Mind-jacket.png" },
+        { "name": "UNBELIEVABLE (Sparky remix)", "difficulty": 15, "difficulty_class": "expert", "ex": 1635, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X3%20VS%202ndMIX%20%28AC%29%20%28Japan%29/UNBELIEVABLE%20%28Sparky%20remix%29/UNBELIEVABLE%20%28Sparky%20remix%29-jacket.png" }
+      ],
+      "cover_url": "",
+      "author": "CRMARTIN"
+    },
+    {
+      "id": "inhuman",
+      "name": "Inhuman",
+      "type": "trial",
+      "difficulty": 16,
+      "goals": [
+        {
+          "rank": "gold",
+          "score": [915000, 915000, 870000, 870000]
+        }, {
+          "rank": "platinum",
+          "score": [950000, 950000, 920000, 920000]
+        }, {
+          "rank": "diamond",
+          "score": [980000, 980000, 960000, 960000],
+          "miss": 10
+        }, {
+          "rank": "cobalt",
+          "score": [990000, 990000],
+          "ex_missing": 320
+        }, {
+          "rank": "amethyst",
+          "judge": 10,
+          "ex_missing": 180
+        }, {
+          "rank": "emerald",
+          "judge": 6,
+          "ex_missing": 110
+        }, {
+          "rank": "onyx",
+          "judge": 5,
+          "ex_missing": 70
+        }
+      ],
+      "total_ex": 7311,
+      "songs": [
+        { "name": "888", "difficulty": 14, "difficulty_class": "expert", "ex": 1578, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X2%20%28AC%29%20%28Japan%29/888/888-jacket.png" },
+        { "name": "POSSESSION", "difficulty": 17, "difficulty_class": "expert", "ex": 1875, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X2%20%28AC%29%20%28Japan%29/POSSESSION/POSSESSION-jacket.png" },
+        { "name": "Boss Rush", "difficulty": 16, "difficulty_class": "expert", "ex": 2208, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/Boss%20Rush/Boss%20Rush-jacket.png" },
+        { "name": "Vanquish The Ghost", "difficulty": 16, "difficulty_class": "expert", "ex": 1650, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/Vanquish%20The%20Ghost/Vanquish%20The%20Ghost-jacket.png" }
+      ]
+    },
+    {
+      "id": "chemical",
+      "name": "Chemical",
+      "type": "trial",
+      "difficulty": 17,
+      "goals": [
+        {
+          "rank": "platinum",
+          "score": [900000, 900000, 875000, 875000]
+        }, {
+          "rank": "diamond",
+          "score": [950000, 950000, 925000, 925000]
+        }, {
+          "rank": "cobalt",
+          "score": [985000, 970000, 970000, 970000],
+          "ex_missing": 600
+        }, {
+          "rank": "amethyst",
+          "judge": 20,
+          "ex_missing": 350
+        }, {
+          "rank": "emerald",
+          "judge": 12,
+          "ex_missing": 225
+        }, {
+          "rank": "onyx",
+          "judge": 8,
+          "ex_missing": 160
+        }
+      ],
+      "total_ex": 7749,
+      "songs": [
+        { "name": "Puberty Dysthymia", "difficulty": 17, "difficulty_class": "expert", "ex": 2034, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/Puberty%20Dysthymia/Puberty%20Dysthymia-jacket.png" },
+        { "name": "ドーパミン", "difficulty": 17, "difficulty_class": "expert", "ex": 2238, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202014%20%28AC%29%20%28Japan%29/Dopamine/Dopamine-jacket.png" },
+        { "name": "Anti-Matter", "difficulty": 17, "difficulty_class": "expert", "ex": 1908, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X2%20%28AC%29%20%28Japan%29/Anti-Matter/Anti-Matter-jacket.png" },
+        { "name": "Neutrino", "difficulty": 16, "difficulty_class": "expert", "ex": 1569, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/Neutrino/Neutrino-jacket.png" }
+      ]
+    },
+    {
+      "id": "ascension",
+      "name": "Ascension",
+      "type": "trial",
+      "difficulty": 17,
+      "goals": [
+        {
+          "rank": "platinum",
+          "score": [900000, 900000, 875000, 875000]
+        }, {
+          "rank": "diamond",
+          "score": [940000, 940000, 940000, 925000]
+        }, {
+          "rank": "cobalt",
+          "score": [985000, 970000, 970000, 970000],
+          "ex_missing": 600
+        }, {
+          "rank": "amethyst",
+          "judge": 20,
+          "ex_missing": 300
+        }, {
+          "rank": "emerald",
+          "judge": 12,
+          "ex_missing": 200
+        }, {
+          "rank": "onyx",
+          "judge": 8,
+          "ex_missing": 150
+        }
+      ],
+      "total_ex": 7470,
+      "songs": [
+        { "name": "RISING FIRE HAWK", "difficulty": 17, "difficulty_class": "challenge", "ex": 2025, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/RISING%20FIRE%20HAWK/RISING%20FIRE%20HAWK-jacket.png" },
+        { "name": "SABER WING (AKIRA ISHIHARA Headshot mix)", "difficulty": 17, "difficulty_class": "challenge", "ex": 1569, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X%20%28AC%29%20%28Japan%29/SABER%20WING%20%28AKIRA%20ISHIHARA%20Headshot%20mix%29/SABER%20WING%20%28AKIRA%20ISHIHARA%20Headshot%20mix%29-jacket.png" },
+        { "name": "Air Heroes", "difficulty": 18, "difficulty_class": "challenge", "ex": 1971, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202013%20%28AC%29%20%28Japan%29/Air%20Heroes/Air%20Heroes-jacket.png" },
+        { "name": "Reach The Sky, Without you", "difficulty": 17, "difficulty_class": "expert", "ex": 1905, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/Reach%20The%20Sky%2C%20Without%20you/Reach%20The%20Sky%2C%20Without%20you-jacket.png" }
+      ]
+    },
+    {
+      "id": "quantum",
+      "name": "Quantum",
+      "type": "trial",
+      "difficulty": 18,
+      "author": "matias8823 + Kingly",
+      "goals": [
+        {
+          "rank": "diamond",
+          "score": [925000, 925000, 850000, 850000]
+        },{
+          "rank": "cobalt",
+          "score": [940000, 940000, 940000, 925000]
+        },{
+          "rank": "amethyst",
+          "score": [990000, 990000, 960000, 960000],
+          "ex_missing": 600
+        },{
+          "rank": "emerald",
+          "score": [985000, 985000, 985000, 975000],
+          "ex_missing": 340
+        }, {
+          "rank": "onyx",
+          "score": [990000, 990000, 990000, 990000],
+          "ex_missing": 225
+        }
+      ],
+      "total_ex": 8817,
+      "songs": [
+        { "name": "deltaMAX", "difficulty": 17, "difficulty_class": "expert", "ex": 2049, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X2%20%28AC%29%20%28Japan%29/deltaMAX/deltaMAX-jacket.png" },
+        { "name": "シュレーディンガーの猫", "difficulty": 18, "difficulty_class": "challenge", "ex": 2385, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/Schrodinger%20no%20neko/Schrodinger%20no%20neko-jacket.png" },
+        { "name": "Anti-Matter", "difficulty": 18, "difficulty_class": "challenge", "ex": 2190, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X2%20%28AC%29%20%28Japan%29/Anti-Matter/Anti-Matter-jacket.png" },
+        { "name": "Magnetic", "difficulty": 17, "difficulty_class": "challenge", "ex": 2193, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202013%20%28AC%29%20%28Japan%29/Magnetic/Magnetic-jacket.png" }
+      ]
+    },
+    {
+      "id": "origin",
+      "name": "Origin",
+      "type": "trial",
+      "difficulty": 18,
+      "goals": [
+        {
+          "rank": "diamond"
+        }, {
+          "rank": "cobalt",
+          "score": [940000, 940000, 940000, 900000]
+        }, {
+          "rank": "amethyst",
+          "score": [975000, 975000, 950000, 950000],
+          "ex_missing": 700
+        }, {
+          "rank": "emerald",
+          "score": [985000, 985000, 985000, 975000],
+          "ex_missing": 400
+        }, {
+          "rank": "onyx",
+          "score": [990000, 990000, 990000, 990000],
+          "ex_missing": 250
+        }
+      ],
+      "total_ex": 9396,
+      "songs": [
+        { "name": "Elemental Creation", "difficulty": 18, "difficulty_class": "challenge", "ex": 2646, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%202013%20%28AC%29%20%28Japan%29/Elemental%20Creation/Elemental%20Creation-jacket.png" },
+        { "name": "Come to Life", "difficulty": 18, "difficulty_class": "challenge", "ex": 2400, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/Come%20to%20Life/Come%20to%20Life-jacket.png" },
+        { "name": "TRIP MACHINE EVOLUTION", "difficulty": 18, "difficulty_class": "challenge", "ex": 2100, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20X3%20VS%202ndMIX%20%28AC%29%20%28Japan%29/TRIP%20MACHINE%20EVOLUTION/TRIP%20MACHINE%20EVOLUTION-jacket.png" },
+        { "name": "Astrogazer", "difficulty": 18, "difficulty_class": "challenge", "ex": 2250, "url": "https://zenius-i-vanisher.com/simfiles/DanceDanceRevolution%20A%20%28AC%29%20%28BETA%29/Astrogazer/Astrogazer-jacket.png" }
+      ]
+    }
+  ]
+}

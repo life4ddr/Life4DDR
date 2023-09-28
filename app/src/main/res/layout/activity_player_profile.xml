@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.TrialListActivity">
+    tools:context=".activity.trial.TrialListActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -21,6 +21,8 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/content_player_profile"/>
+    <include
+        android:id="@+id/content"
+        layout="@layout/content_player_profile"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -34,7 +34,7 @@
         app:layout_constraintTop_toBottomOf="@id/text_player_name"
         tools:text="1234-5678" />
 
-    <com.perrigogames.life4trials.view.RankImageView
+    <com.perrigogames.life4.android.view.RankImageView
         android:id="@+id/image_rank"
         android:layout_width="64dp"
         android:layout_height="64dp"
@@ -47,7 +47,7 @@
         android:id="@+id/view_mode_button_left"
         layout="@layout/item_profile_mode_button"
         android:layout_width="0dp"
-        android:layout_height="100dp"
+        android:layout_height="90dp"
         android:layout_marginStart="@dimen/content_padding_large"
         android:layout_marginLeft="@dimen/content_padding_large"
         android:layout_marginTop="@dimen/content_padding_large"
@@ -55,9 +55,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/image_rank" />
 
-    <include
+    <com.perrigogames.life4.android.view.JacketCornerView
         android:id="@+id/view_corner_view_left"
-        layout="@layout/view_jacket_corner"
         android:layout_width="@dimen/jacket_corner_size"
         android:layout_height="@dimen/jacket_corner_size"
         android:visibility="gone"
@@ -68,7 +67,7 @@
         android:id="@+id/view_mode_button_right"
         layout="@layout/item_profile_mode_button"
         android:layout_width="0dp"
-        android:layout_height="100dp"
+        android:layout_height="90dp"
         android:layout_marginStart="@dimen/content_padding_large"
         android:layout_marginEnd="@dimen/content_padding_large"
         app:layout_constraintEnd_toEndOf="parent"
@@ -80,8 +79,10 @@
         android:id="@+id/divider_goals"
         android:layout_width="0sp"
         android:layout_height="2dp"
-        android:layout_margin="@dimen/content_padding_large"
-        android:layout_marginTop="@dimen/content_padding_large"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="@dimen/content_padding_med"
+        android:layout_marginStart="@dimen/content_padding_large"
+        android:layout_marginEnd="@dimen/content_padding_large"
         android:background="@color/white_50"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

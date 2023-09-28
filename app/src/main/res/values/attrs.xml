@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="PreferencesBadge">
+        <attr name="badge" format="reference" />
+        <attr name="badgeTint" format="color" />
+    </declare-styleable>
+</resources>

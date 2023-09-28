@@ -1,0 +1,50 @@
+package com.perrigogames.life4.api
+
+import com.perrigogames.life4.api.base.*
+import com.perrigogames.life4.data.SongList
+import com.perrigogames.life4.data.TrialData
+import com.perrigogames.life4.data.TrialData.Companion.TRIAL_DATA_REMOTE_VERSION
+import com.perrigogames.life4.isDebug
+import com.perrigogames.life4.ktor.GithubDataAPI
+import kotlinx.serialization.json.Json
+import org.koin.core.KoinComponent
+import org.koin.core.inject
+
+class TrialRemoteData(
+    reader: LocalDataReader,
+    listener: NewDataListener<TrialData>? = null,
+): CompositeData<TrialData>(listener), KoinComponent {
+
+    private val json: Json by inject()
+    private val githubKtor: GithubDataAPI by inject()
+
+    private val converter = TrialDataConverter()
+
+    override val rawData = LocalData(reader, converter)
+    override val cacheData = CachedData(reader, converter, converter)
+    override val remoteData = object: RemoteData<TrialData>() {
+        override suspend fun getRemoteResponse() = githubKtor.getTrials()
+    }
+
+    private fun validateTrialData(data: TrialData) {
+        data.trials
+            .firstOrNull { !it.isExValid }
+            ?.let { trial ->
+                val exScores = trial.songs.map { it.ex }.joinToString()
+                throw Exception(
+                    "Trial ${trial.name} (${trial.totalEx}) has improper EX scores: $exScores"
+                )
+            }
+    }
+
+    private inner class TrialDataConverter: Converter<TrialData> {
+        override fun create(s: String): TrialData {
+            val data = json.decodeFromString(TrialData.serializer(), s)
+            validateTrialData(data)
+            //FIXME debug data
+            return data
+        }
+
+        override fun create(data: TrialData) = json.encodeToString(TrialData.serializer(), data)
+    }
+}

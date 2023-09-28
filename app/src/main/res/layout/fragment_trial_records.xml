@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.perrigogames.life4trials.view.ContextMenuRecyclerView
+    <com.perrigogames.life4.android.view.ContextMenuRecyclerView
         android:id="@+id/recycler_records_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

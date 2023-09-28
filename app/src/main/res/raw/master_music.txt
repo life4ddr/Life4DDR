@@ -1,0 +1,921 @@
+0	8Il6980di8P89lil1PDIqqIbiq1QO8lQ	3	7	9	12	-1	7	9	11	-1	MAKE IT BETTER	mitsu-O!
+1	06loOQ0DQb0DqbOibl6qO81qlIdoP9DI	4	8	9	11	-1	8	13	11	-1	PARANOiA	180
+2	Pb9II0oiI9ODQ8OP8IqIPQP9P68biqIi	3	8	9	10	-1	9	10	10	-1	TRIP MACHINE	DE-SIRE
+3	dq190Il9iO1bD698ll6ddObIlqdIQ1O9	3	7	8	11	-1	8	9	10	-1	AM-3P	KTz
+4	DblIbDd6lQQQoO9bloOI9iIqO1IiQoID	3	6	6	10	10	6	7	9	10	BRILLIANT 2U	NAOKI
+5	DbPodlqiOQdD88bo8lPO9D6iql1DO8P0	4	6	8	9	12	6	8	9	12	BRILLIANT 2U(Orchestra Groove)	NAOKI
+6	8liDbidQoI6Q01lO9iibIdboIiDl66Qo	2	5	6	8	-1	6	8	11	-1	e-motion	e.o.s
+7	Dq0Iio09Pb9iD0lbb0I0qd8Q8i10II09	3	6	8	11	-1	9	11	12	-1	GENOM SCREAMS	L.E.D.LIGHT
+8	0lDDIlQ91lq6O16q9QQ681d6Db1l0oOb	4	5	7	9	-1	5	9	10	-1	KEEP ON MOVIN'	N.M.R
+9	9doPbId8qid9I9l6ooloPQD1lq1Plb6I	4	8	9	11	15	8	10	10	15	PARANOiA KCET ～clean mix～	2MB
+10	Pl0dPid9lQDo6PDQDqPboPqO6iIDIqoo	5	9	10	12	-1	10	12	11	-1	PARANOiA MAX～DIRTY MIX～	190
+11	DQlQ1DlPbq900oqdOo8l0d6I1lIOl99l	3	5	6	9	-1	6	8	8	-1	PUT YOUR FAITH IN ME	UZI-LAY
+12	1P9qQdiiodODqQPl0OO88iiiqdoDIPO6	4	8	9	10	-1	8	9	10	-1	SP-TRIP MACHINE～JUNGLE MIX～	DE-SIRE
+13	Pd99DQo0bD9D9oIbPIId18P6l8qlDQO6	5	7	9	13	-1	8	9	13	-1	AFRONOVA	RE-VENGE
+14	Qo9P1oOoDQIoOb8Dd0PdOdoD1D1Pbd8D	1	2	6	8	-1	5	6	8	-1	AFTER THE GAME OF LOVE	NPD3
+15	di9ddbd1lb80q98ODdod0ODQ0q6PdQP1	3	5	7	10	-1	5	7	10	-1	CUTIE CHASER	CLUB SPICE
+16	P98dl8qdoilqbPqIO86ood601o1696D8	4	7	10	12	-1	8	9	13	-1	DEAD END	N & S
+17	8O0D9P6l9P9ooQdODioDIdQPq6DiDlbl	3	5	7	10	-1	5	8	10	-1	DROP THE BOMB	Scotty D.
+18	1QIPID18qib8D9Oo9lOo8I6DPi9qiod6	3	6	10	12	12	6	7	11	12	DYNAMITE RAVE	NAOKI
+19	q6qI6llb69D1IQq0OiP8OD06Qioob91Q	3	8	10	13	-1	9	11	13	-1	GRADIUSIC CYBER ～AMD G5 MIX～	BIG-O feat. TAKA
+20	901q61iP6lPiDqIQoQod9PDqlOPq1bb9	4	6	8	10	-1	5	9	13	-1	La Se&ntilde;orita	CAPTAIN.T
+21	boP0i08bqQ9d9OoP8Ol6I0l9Po01DiQb	4	8	10	12	-1	9	10	12	-1	La Se&ntilde;orita Virtual	2MB
+22	i8II16blIIbQQd196b616OPbPO910oi9	4	9	10	11	-1	9	10	11	-1	LOVE THIS FEELIN'	Chang ma
+23	0lDP0P06PIPl1iiIDOb919iqo1oPdlP8	4	8	10	13	-1	9	11	13	-1	PARANOiA Rebirth	190'
+24	80bQi8IQ8o1iidqd6oQiDPQoPi909olq	3	4	9	10	-1	5	7	11	-1	Silent Hill	THOMAS HOWARD
+25	9lob1d1QPd9qiPlQOQ6l0dbodOoDPq1d	3	5	6	9	-1	6	7	10	-1	think ya better D	sAmi
+26	qQ9Oo611P0dObD8q6O0Q968bbl8I91OO	3	9	10	12	-1	9	10	11	-1	TRIP MACHINE～luv mix～	2MB
+27	IQ0dIiDql9Q68d9ddQIiQbq1OPq8Db69	3	5	8	11	-1	5	8	10	-1	.59	dj TAKA
+28	6Qq1q91q8iIPlI89qDq96bO8QDD0qOql	3	5	7	10	-1	5	8	10	-1	B4U	NAOKI
+29	P8P1dlqi9D111iIDPOP0l9DIO1l6lqO9	1	2	4	7	-1	3	5	9	-1	BABY BABY GIMME YOUR LOVE	DIVAS
+30	ii6Oooool0IoOqi1qdDo96QIil6IoOq0	3	5	8	10	-1	5	7	12	-1	BURNIN' THE FLOOR	NAOKI
+31	ioi6db99oOPPDd1db888D6oi6bb06o0P	3	5	6	11	-1	5	6	12	-1	CAN'T STOP FALLIN' IN LOVE	NAOKI
+32	i0bdP6II6dqb6lbQQ9q9OQq68i1qPddO	3	6	8	11	-1	6	8	10	-1	CELEBRATE NITE	N.M.R
+33	1q6obddbql8lQdPI19liD6PdQ0dPIODd	3	5	6	10	-1	4	5	8	-1	Don't Stop!～AMD 2nd MIX～	Dr.VIBE feat. JP Miles
+34	Q0OiPQQ8IbIDq08IO9Io0qDdoDPPdd1q	4	8	10	13	-1	5	9	13	-1	DROP OUT	NW260
+35	D81Pq66DQPiQdliqIPl0ioPOi9OlQoQ9	4	5	8	11	-1	5	7	11	-1	era (nostalmix)	TaQ
+36	O1blDPOQ8IQb00o0D89QIDIlo8b06liD	3	4	7	9	-1	4	7	10	-1	HIGHER	NM feat. SUNNY
+37	ODq019O9o1OPdq9PiPl0o8D8DQ8bid88	4	7	9	11	-1	7	8	11	-1	Holic	TaQ
+38	8l808Do60DP0qDbD066QQqP1qOQdob90	5	6	8	11	-1	4	8	10	-1	HYSTERIA	NAOKI 190
+39	8lDOiqP0biD8dD9lOQO619i1PqbqDiP8	3	8	9	13	-1	7	10	13	-1	LEADING CYBER	dj TAKA
+40	boOdPIqbDd8li0O0IqliPo1Doq99Ob09	4	5	8	11	-1	5	7	10	-1	LOVE AGAIN TONIGHT～For Melissa MIX～	NAOKI feat. PAULA TERRY
+41	6Ddo196olOPi9IQdbQ8Qbd8do8Q1obOD	3	4	9	12	-1	5	8	12	-1	MY SUMMER LOVE	MITSU-O! with GEILA
+42	1d10660Dd0IOibDI890Ild80q6ddoQO8	3	4	7	12	-1	5	8	9	-1	ORION.78(AMeuro-MIX)	RE-VENGE
+43	DPQo8Q0l9D8IPiDiq11l8OI6i11OOb6O	5	9	10	12	-1	6	10	13	-1	PARANOIA EVOLUTION	200
+44	60QoP9DoIo90D616989Q0D0iodOoOd91	3	7	8	11	-1	5	7	10	-1	SEXY PLANET	Crystal Aliens
+45	88do8dl8O6Ql1Qlb981lOi8D86oiq91P	3	7	8	12	-1	5	9	11	-1	SUPER STAR	D.J.RICH feat. TAILBROS.
+46	D81D8689llDiOqPq0IP19bbQQiioPl8d	5	7	9	12	-1	7	9	12	-1	TRIP MACHINE CLIMAX	DE-SIRE
+47	01808Q1Q6lQQ1lP0qd80I0b0qqDd1OOP	5	6	7	10	-1	5	9	11	-1	WILD RUSH	FACTOR-X
+48	qdi88l6bo1Iqi9Qiqli8lIQQIPO1doQ9	3	4	8	11	-1	4	7	11	-1	ABSOLUTE	dj TAKA
+49	Q0qQO0P8818lIoo0boO66O0qd09dIlO8	3	4	7	10	-1	5	8	11	-1	Abyss	dj TAKA
+50	18911Q6o6do9Dd1blIo6IliPd0PPb99i	4	6	8	12	-1	7	9	13	-1	AFRONOVA PRIMEVAL	8 bit
+51	iIP09bOq1l1b9b1l011IDIQ6Iill90Io	3	5	7	12	-1	5	9	12	-1	BROKEN MY HEART	NAOKI feat. PAULA TERRY
+52	DOqPd1Iid6oObd8i96I9oo8obbODb96o	4	6	9	12	-1	5	9	12	-1	CAN'T STOP FALLIN' IN LOVE ～SPEED MIX～	NAOKI
+53	QDP0i688bQi1Idqil1dOqDdPdoIPP6Q0	5	6	9	12	-1	6	9	12	-1	DXY!	TaQ
+54	bPD6ObloQPOOiQb1DbQDdilodiddlIlb	4	5	8	10	-1	6	8	11	-1	ECSTASY	d-complex
+55	IPi69l86oqdDd8qoll61166D8969869I	4	6	9	12	-1	5	9	11	-1	Electro Tuned ( the SubS Mix )	TaQ
+56	qIDI69oIo8OlQqdqqDilI1do6IbP16Q6	4	5	7	11	-1	4	8	13	-1	Healing Vision	DE-SIRE
+57	6oldqOoilo1OoP6P9OoO8bdD9lI86qdQ	4	6	9	13	-1	5	9	12	-1	INSERTiON	NAOKI underground
+58	PP1q0iii1D6Dq9QOd0qqDOQD0160QoPD	4	8	10	13	-1	9	11	13	-1	PARANOiA ETERNAL	STM 200
+59	Qb90bo6I0Pd9181iIoOPoqPOOOQq6dQ1	3	6	8	10	-1	6	7	9	-1	STILL IN MY HEART	NAOKI
+60	doIiQl6oDPP6i9qobqoobblPQqPiI9bD	3	4	9	12	-1	5	9	12	-1	サナ・モレッテ・ネ・エンテ	Togo Project feat. Sana
+61	OPbqldiq0dQIo1011086IOl1qbOloOl9	4	6	7	11	-1	5	8	11	-1	CANDY☆	Luv UNLIMITED
+62	iOPbIi1b99819b9QiD8QbdPbq0DqO0DO	4	5	8	13	-1	5	7	13	-1	exotic ethnic	RevenG
+63	olQQ8QPPqqObDD9ooodOl9i9od8b06I9	5	7	11	13	-1	8	10	14	-1	Healing Vision ～Angelic mix～	2MB
+64	bP69QdDQ0QQ9dP0dDio0dO61i9Dbdl00	3	6	7	10	-1	6	7	10	-1	Let the beat hit em!(CLASSIC R&amp;B STYLE)	Stone Bros.
+65	6P18lOliIQqIO6Di0PP8iDlDQ01b0o0q	5	9	12	15	-1	9	12	15	-1	MAX 300	Ω
+66	61ido0DPl8q0dI1i011Do1b6669dPIlo	4	9	12	13	-1	9	11	13	-1	ORION.78～civilization mix～	2MB
+67	DdO1iboqI6980Q6QPD9P1PbQQ88I16lq	-1	-1	-1	-1	10	-1	-1	-1	10	AFRONOVA(FROM NONSTOP MEGAMIX)	RE-VENGE
+68	808dq8OIq16PP19i1bP0IDP1OqPOlo6q	-1	-1	-1	-1	10	-1	-1	-1	11	AM-3P(AM EAST mix)	KTz
+69	POIDil00didIo98D10loIObibPOob88O	-1	-1	-1	-1	10	-1	-1	-1	10	B4U(B4 ZA BEAT MIX)	NAOKI
+70	bqQ1OQDidQD8QbIqql06O6o1QD6oOodP	3	5	7	12	-1	5	8	13	-1	BRE&forall;K DOWN！	NAOKI
+71	i18OPo6l8Q6bo9q0qP6889IDqoP8O0Qq	-1	-1	-1	-1	10	-1	-1	-1	9	BRILLIANT 2U(K.O.G G3 MIX)	BeForU
+72	QdbPPPDlIQiI191qPdblO01O8P8o6D68	-1	-1	-1	-1	10	-1	-1	-1	10	BURNIN' THE FLOOR(BLUE FIRE mix)	NAOKI
+73	i86qD6Pl61dPI0Q9db1P8bl1ii99q1lD	3	4	8	13	-1	4	7	12	-1	BURNING HEAT！（3 Option MIX）	Mr.T with Motoaki. F
+74	1Qqo9bID18OdiI1Qb0lP9DIqIO6ldPOP	4	5	7	10	-1	4	6	10	-1	CANDY&#9825;	小坂りゆ
+75	O6q1o06Po9lQbqOl08Io1obqQ9QPi09b	-1	-1	-1	-1	11	-1	-1	-1	10	CELEBRATE NITE(EURO TRANCE STYLE)	N.M.R
+76	iQo0QOoI6bOPQlbb9ldOo9lbdD1idiOO	3	4	7	11	-1	4	8	11	-1	D2R	NAOKI
+77	98q8616ddDIqdo1dbqbO0Po96oldo1Oo	3	3	7	10	-1	3	8	11	-1	DESTINY	NAOKI feat. PAULA TERRY
+78	8Pb6oPdbO6lo8lbiQ181IDidI9ll8q80	3	4	8	11	-1	5	9	12	-1	DIVE TO THE NIGHT	小坂りゆ
+79	d0P01d9q8oOd8OP1bQPoqlq96906PqPD	-1	-1	-1	-1	12	-1	-1	-1	13	DROP OUT(FROM NONSTOP MEGAMIX)	NW260
+80	Dd6lP00DPqIb0d6iqOdlO08l69l6q1di	-1	-1	-1	-1	11	-1	-1	-1	11	ECSTASY (midnight blue mix)	d-complex
+81	8DQDq16PPlli6o9iDl11DqooqOPlOb08	-1	-1	-1	-1	11	-1	-1	-1	11	HIGHER(next morning mix)	NM feat. SUNNY
+82	lPloI86odlIbIo96P169b9I0Ob8lD189	-1	-1	-1	-1	10	-1	-1	-1	11	HYSTERIA 2001	NM
+83	DddIPd6iId8Doqq8OibDlD1dOi8PO8o9	3	4	8	12	-1	3	8	12	-1	i feel ...	AKIRA YAMAOKA
+84	lObPDQDI08DoodDq1061IP1qbQ1qQQbl	5	10	13	16	-1	7	12	15	-1	MAXX UNLIMITED	Z
+85	d99P0I1i960QO0oolD6oQIO8OObO9Plb	-1	-1	-1	-1	12	-1	-1	-1	11	MY SUMMER LOVE(TOMMY'S SMILE MIX)	MITSU-O! with GEILA
+86	Qo9l6l6lq0q618bQOb8d6qiooiiPQqoI	3	3	9	12	-1	5	7	12	-1	rain of sorrow	NM feat. EBONY FAY
+87	Db9D6Old6lIo01q0qlQ0dD1oDdbdob8I	3	4	7	12	-1	4	8	12	-1	Secret Rendez-vous	DIVAS
+88	O06Id8PIDbDblO109ddi1dldd0bqDdQ1	-1	-1	-1	-1	10	-1	-1	-1	9	SEXY PLANET(FROM NONSTOP MEGAMIX)	Crystal Aliens
+89	oio6bqP08PPoP9qIq1oi9Dib9PIq9l11	-1	-1	-1	-1	10	-1	-1	-1	11	Silent Hill (3rd christmas mix)	THOMAS HOWARD
+90	DOOb99dlP8PdIbDOQIqoqll60Iob9189	-1	-1	-1	-1	11	-1	-1	-1	12	STILL IN MY HEART(MOMO MIX)	NAOKI
+91	0qQ1odlooiQO99DDP6bD9bOq89669PQb	-1	-1	-1	-1	10	-1	-1	-1	11	SUPER STAR(FROM NONSTOP MEGAMIX)	D.J.RICH feat. TAILBROS.
+92	8809ol0qbbd6919bbl0b8id1669PqQ08	4	5	9	13	-1	5	8	11	-1	Sweet Sweet &hearts; Magic	jun
+93	io688qld6Pqq6bI01q86illP18biq0bd	3	5	9	12	-1	6	9	13	-1	TSUGARU	RevenG vs DE-SIRE
+94	1qDD1DdPlId69010IQ18I6q8Q00IoI6D	-1	-1	-1	-1	11	-1	-1	-1	11	TSUGARU (APPLE MIX)	RevenG vs DE-SIRE
+95	ibOQ0QOdIPdIbIo0oPoDDI1DqPId00li	-1	-1	-1	-1	9	-1	-1	-1	10	WILD RUSH(FROM NONSTOP MEGAMIX)	FACTOR-X
+96	l9lq19DdiD8qQPoPOlboi1qQii0IQI86	3	5	9	12	11	4	8	11	11	革命	dj TAKA with NAOKI
+97	ddOOOibQ6qIi9DI1bl8b108I1Ib6QDl9	3	4	6	9	-1	5	6	9	-1	1998	NAOKI
+98	iI8qbP0IIb16Oi9bIbb8O9dbDDi1ql86	3	5	6	8	-1	4	7	9	-1	&hearts;Love&sup2;シュガ&rarr;&hearts;	dj TAKA feat.のりあ
+99	Q96bO9D61lib19IiIi0i69P80bo6q69Q	4	5	9	11	-1	5	8	11	-1	321STARS	DJ SIMON
+100	oIb699q80OIPdlP0odl6bqbD0PlQodOq	4	5	8	11	12	5	7	11	13	A	D.J.Amuro
+101	O6I9ioqii8i6I1DIb1PqOD6q0ooo8bDo	7	8	10	12	13	8	11	13	13	Across the nightmare	Jimmy Weckl
+102	il6PIiDq11dD1981dQ00918D96lPQ0iQ	3	5	7	10	-1	5	7	11	-1	air	DJ SIMON
+103	dQ1oPoQqD0db8O19P1P0D1oq8I68i1Id	4	4	9	10	-1	5	8	10	-1	AM-3P -303 BASS MIX-	KTz(remixed by U1)
+104	9qbdq1PiI1O81P1PdioQli66Ob9QiiQP	2	7	11	13	13	7	12	13	13	bag	RevenG
+105	P0O81Dl9Oiiid8bdOi0oqbD8DqolObbP	4	5	9	12	-1	5	10	12	-1	BE LOVIN	D-Crew
+106	odOQ1d1i6oil81b1QIDP6dOqqdooD918	3	5	8	9	13	5	7	10	13	Colors ～for EXTREME～	dj TAKA
+107	doQI0i6lQbOo66DOi6olPqOPqIqO8Qd1	3	3	4	9	-1	4	6	9	-1	CUTIE CHASER(MORNING MIX)	CLUB SPICE
+108	6lQ9iQdq8P0Q11q9O8dbl9Q9Pi8bIb98	5	6	8	12	12	6	8	12	11	Dance Dance Revolution	DDR ALL STARS
+109	1diQi81loIodIdOlQ8Pd6Qd8b69Q1DP8	3	4	7	13	-1	4	7	12	-1	Destiny lovers	くにたけ みゆき
+110	I0b6lIP691dOOI8PqDDlbPid9iO8o0lO	3	5	7	10	-1	4	5	10	-1	DROP THE BOMB(SyS.F. Mix)	Scotty D.
+111	IQ9bDo1dPbIo0ODQiObbQ99iP1bOi8iI	4	5	9	12	-1	4	8	11	-1	Frozen Ray ～for EXTREME～	dj TAKA
+112	69qoD0l6olQqqbl09b069q898b600I6o	3	4	7	12	-1	5	7	13	-1	Gamelan de Couple	TOMOSUKE
+113	10oQOoD00O1ql8qD88dI0i0biP69blq6	2	3	7	9	-1	3	7	9	-1	GRADUATION ～それぞれの明日～	BeForU
+114	oo8DId90dbDliiQQlQPQQoIq6lPliqo9	3	4	6	10	-1	5	6	9	-1	Happy Wedding	ASKA
+115	oDlO8QQOQ68IO61q9PQd800QiOll1odI	4	5	7	12	-1	5	7	13	-1	Heaven is a '57 metallic gray ～gimmix～	Hiro feat. Sweet little 30's
+116	I08olqilqQi9Dd0qOq0o09PPqI0l11QI	3	4	6	10	-1	6	9	11	-1	HYPER EUROBEAT	NAOKI feat. DDR ALL STARS
+117	lPoD60qooQ91QDq1qO9d19q9IoDIlPq9	3	4	7	9	-1	4	7	11	-1	I'm gonna get you!	Kelly Cosmo
+118	8qd9d01dPOq1lOOoPiOIoPobdd1QODPq	3	4	7	10	-1	6	7	11	-1	jane jana	T.E.M.P.O. feat.Mohammed & Emi
+119	1PQdDiqOD6o1b61iiDOoiiblIQbI91Pb	3	4	7	11	-1	5	8	11	-1	JET WORLD	Mutsuhiko Izumi
+120	qIoDdQ1OOoPO8Q1Io0P168161DODPoqb	4	5	6	12	-1	5	8	12	-1	KISS KISS KISS	NAOKI feat. SHANTI
+121	iOqb60DOOolIioDIOPi09P91i8PDiOqq	3	3	6	10	-1	3	6	11	-1	Kiss me all night long	NAOKI J-STYLE feat.MIU
+122	9IOdDPPO1IIPD9oDbOPo0Qo99Ii6Q8oi	3	4	8	11	-1	4	8	10	-1	LA BAMBA	メキシコ民謡
+123	8IIoIQQqlooiI6QD9ldIO6qidP98QP68	3	6	9	12	-1	6	9	12	-1	L'amour et la libert&eacute;(DDR Ver.)	NAOKI underground
+124	qIP6DPdbD9iO86i1DO9qDd8l6dPdbl0P	3	5	6	9	-1	5	7	11	-1	LOVE&hearts;SHINE	小坂 りゆ
+125	i9DPi1Do9qoIQid09o1oilodPlDP6doO	3	4	6	9	-1	3	6	10	-1	Miracle Moon ～L.E.D.LIGHT STYLE MIX～	Togo Project feat. Sana
+126	O9Id8Qi6OIDIQ6bPi610q0001l1P099q	4	9	11	15	-1	9	11	15	-1	PARANOIA survivor	270
+127	68iQ9666QIQP1IOQbbd9989DQQ1D0dOl	5	9	11	15	16	9	11	15	16	PARANOIA survivor MAX	290
+128	O09lbd0I8D0DI08O06l6iiI0i11I1iIb	3	4	6	10	-1	4	7	10	-1	Pink Rose	Kiyommy+Seiya
+129	D06P88iOlIdbbQ1Qd8OOI11dQoq0iOqd	3	4	7	9	-1	2	7	9	-1	SO IN LOVE	Caramel.S
+130	6lqoOddiPQ6D6160bOdP116bQdIliII8	3	4	7	9	-1	5	7	9	-1	STAY (Organic house Version)	emi
+131	OoIPPqIDbQ6qIb69q8dil0iq0l6q6DQD	3	5	9	13	-1	4	10	12	-1	stoic (EXTREME version)	TaQ
+132	8lo1IDqPDD88DObIPodOd8oQ0Q6qQ1Dd	3	5	8	9	12	6	9	10	11	sync (EXTREME version)	OutPhase
+133	1Q1Q8oO600lodPbio8b8d66b8do1PIlQ	3	6	8	12	-1	6	8	12	-1	TEARS	NAOKI underground feat.EK
+134	lO68Q0iPIOiOIDDd8dOPoiql9OI81DQ0	5	7	11	12	-1	7	10	14	-1	The Least 100sec	Hirofumi Sasaki
+135	li608di8PolqqIP808iddOqi11qDDq0Q	7	8	13	15	-1	8	12	16	-1	The legend of MAX	ZZ
+136	POO9PlPq66OqIQO6Oq1i90D6Ill100il	4	5	11	13	-1	6	11	12	-1	TRIP MACHINE survivor	DE-SIRE
+137	0l181DPDqbQPb0qQl0i0dlQd0oQPlQ6i	3	5	8	11	-1	4	7	11	-1	Twin Bee -Generation X-	FinalOffset
+138	Ilo6IboPOq8Q10qDOdDDoO6P989bPPi6	3	5	8	12	13	5	7	11	13	V ～for EXTREME～	TAKA
+139	DDqDDqDQ1Db60IiIDbIl6Pd8DPOq0q06	3	4	9	12	-1	5	9	12	-1	VANITY ANGEL	FIXX
+140	bDDd08iP8dlIlOo6iqd91dPiI1lQdOQq	3	5	10	13	-1	5	9	13	-1	xenon	Mr.T
+141	911lId0IooIOq1oDPoQ0iQiDiOIbd6oo	5	7	11	13	11	7	11	13	11	桜	RevenG
+142	Dl69Pb9OQDlbOi80OQdIObiQ1Q08Dlqo	4	5	8	11	-1	5	9	13	-1	三毛猫ロック	亜熱帯マジ-SKA爆弾
+143	OboID1PloIIoOOObQdQOP110I61Ddl9I	2	4	6	9	-1	4	6	11	-1	蒼い衝動 ～for EXTREME～	NAOKI feat.YUKI
+144	I8lidoibqQqoQOqiDi6QiDbP9DIdd989	4	4	8	12	13	5	8	13	14	大見解	Des-ROW feat. TSUBOI for ALPHA
+145	DibQ8O0bIodbdQo8D681qlqiDqllDPql	3	4	8	9	-1	4	8	9	-1	A Stupid Barber	Sho-T
+146	0DDo1ilPDQoIoPd8ol9OPO1IPbi9ii6d	3	5	9	13	-1	5	10	13	-1	AA	D.J.Amuro
+147	d0q8IDbqDI686q9Dl09ll0Id6bIio9Pd	3	5	7	9	-1	4	8	9	-1	Bad Routine	D.J. Spugna
+148	lii9bbbIq08b6DIdQ16Q0QOPiOibliIO	1	3	10	11	-1	3	6	10	-1	Baile Le Samba	Big Idea
+149	ObP1P1OoDII9b9ll698Q981ilIddb8Id	2	5	9	11	-1	4	9	11	-1	BALLAD FOR YOU～想いの雨～	NM feat. Thomas Howard
+150	D0dI08oDqi11Oo819D6ob1dlDbPlIPl0	3	5	8	12	-1	5	8	10	-1	Brazilian Anthem	Berimbau '66
+151	DObld6O6OdblOo1di9dlP86DO909O6qI	1	3	7	12	-1	4	9	11	-1	cachaca	Mokky de Yah Yah's
+152	68dqbIdOiiiiddlbb1OD66qq6d80I6D8	3	4	6	10	-1	3	6	10	-1	Can Be Real	Vision F
+153	8IdP90DQDi9bqodPqDQIIqOqOO08PPio	3	4	7	8	-1	1	5	8	-1	CAN'T STOP FALLIN' IN LOVE -super euro version-	NAOKI with Y&Co.
+154	bd8o99iPI9lqOl1Q8P68lbQOlo8Oq1qO	4	6	9	12	-1	6	9	12	-1	CENTAUR	Jimmy Weckl
+155	8o1iQPiId8P6Db9Iqo1Oo119QDoq8qQ8	6	8	12	14	16	9	12	14	15	CHAOS	DE-SIRE retunes
+156	ilIbq9Db1d86PIo0b96qdd0oPOQ6bqi1	2	3	7	10	-1	4	5	12	-1	CURUS	D-crew
+157	OO0QbD9D6QQIb10Q9IDOQd8odb6ob6qP	4	5	8	12	13	5	8	12	14	DoLL	TЁЯRA
+158	PD9lP16dllbPqbdIO0Ii0I8D1I90QIIl	5	9	10	11	-1	9	11	11	-1	Dragon Blade	Kozo Nakamura
+159	8QbqP80q9PI8bbi0qOoiibOQD08OPdli	9	11	13	16	18	10	13	17	17	Fascination ～eternal love mix～	2MB
+160	O6llIdODQD6oDQ6QiPQDOlob9i8l6qib	6	11	13	17	18	10	13	17	18	Fascination MAXX	100-200-400
+161	dDOdPQOqD6P68dIOl6O6I8q99Q6dd9Ob	4	5	9	12	-1	6	9	11	-1	Flow	Scotty D. revisits U1
+162	0D096II0i9l0doPlbPQbiPo1IQDDoOP0	4	6	9	12	13	6	9	12	14	Flow (True Style)	Scotty D. revisits U1
+163	d96OiPiOIboqI8o6PIDO8D9qPb9P18il	3	4	7	11	-1	3	8	11	-1	Fly away	ChiyoTia
+164	Q8Ioq8POo69ol8bPiOPQPq61oqoPo0DO	3	4	7	8	-1	3	6	8	-1	Forever Sunshine	Chel Y.
+165	PPddP6OOldodoOPqiId19Pd919OOid61	3	5	7	11	-1	4	7	11	-1	Freedom	BeForU
+166	i6Q00D16PbbQPl19oibiiQ6qQD01D6o8	4	5	4	8	-1	4	6	8	-1	Funk Boogie	Funk Kid feat. KOOL BOYS
+167	b0Po680ibI600ObOi6qqidI06oqo0Olq	4	3	8	10	-1	5	7	11	-1	GORGEOUS 2012	THE SURRENDERS
+168	8DdIqobi0liOPDO1qld6lQ9Dq00I66qi	4	4	8	12	-1	3	8	11	-1	HAPPY☆ANGEL	jun with TAHIRIH
+169	109P1iO9i6q1q0bdQobiodQDoD619dqd	6	9	12	14	18	9	13	15	18	Healing-D-Vision	DE-STRAD
+170	1i6ObblIOoPo6dDd9dIIq11l60qiD9di	3	4	6	8	-1	5	6	8	-1	I Need You	Supa Fova feat. Jenny F.
+171	0ib0Pqol08o9ODDq166iDl8oll061lPl	3	5	7	12	13	5	7	11	13	iFUTURELIST(DDR VERSION)	AKIRA YAMAOKA
+172	qDi0dIlObi6Q6P8dQ1b8oIb188O9608o	3	5	10	12	-1	5	9	12	-1	INNOCENCE OF SILENCE	nc ft NRG Factory
+173	O8qii6oiooPd8lbPqDo9QQioIoQQOoq0	3	4	6	9	-1	3	6	9	-1	INSIDE YOUR HEART	AKIRA YAMAOKA
+174	IoI10obli6qd9DI699l61Pq16P9bboDd	3	4	8	11	-1	5	8	10	-1	Jam &amp; Marmalade	FinalOffset
+175	PQPloiIQ19QDP9QoI1ld9DlDObIOP689	3	5	7	11	-1	4	8	12	-1	KEEP ON MOVIN' ～DMX MIX～	N.M.R-typeG
+176	qbQ9I1bI6q91Q18DlDlI1Qdi8q6Qlo91	3	5	8	11	-1	6	8	12	-1	La Bamba	LH MUSIC CREATION
+177	8O86IP9dqQ8818ld9od8Q0PiDId6666P	3	4	7	11	-1	5	6	10	-1	LOGICAL DASH	DJ TAKA
+178	D6oPIlOlIIOi1oq6Pd6011lqobbqOlib	3	5	7	9	11	5	8	8	12	LOVE IS ORANGE	Orange Lounge
+179	0Oo6iId08018qOqbo6O1o0QQ9D09Piq1	3	5	7	12	-1	5	8	12	-1	Make A Difference	Lala Moore with CoCoRo*Co
+180	6P6dPoi66qO980bQo6l1QdlQIooq086l	3	5	8	11	-1	5	9	12	-1	MARIA(I believe...)	NAOKI feat. PAULA TERRY
+181	qOP1qP69o6id061o9bo8l6P11P1PQI1O	6	10	13	15	16	9	12	15	17	MAX 300 (Super-Max-Me Mix)	Jondi & Spesh
+182	OQol16I968Q8bDoQd80i90oQQbqOdbdP	5	6	9	12	-1	6	9	11	-1	MAXIMIZER	CLI-MAX S.
+183	iI1iQD6Id0PiPDoo919doOooDib09I6b	3	7	9	10	-1	7	10	12	-1	MIDNIGHT SPECIAL	Love machineguns
+184	b6dqPiOO6iO6b8D90Ido6QPOlObd9o98	3	5	9	13	-1	5	8	10	-1	Mind Parasite	TOMOSUKE
+185	OoQ6Oq81oIql8iIlbI6qldIlqoD1Di1I	4	5	8	10	-1	5	8	10	-1	Monkey Punk	Big Idea
+186	lI8qIDQPD0PDOdO1d01iOq8bI98iiQ1l	3	3	7	10	-1	1	8	10	-1	MOON	dj TAKA feat.Erika
+187	QQdIOi1Q81IqIoDqo80P0I1Q9qIdq1il	3	4	8	11	-1	3	8	11	-1	murmur twins	yu_tokiwa.djw
+188	Io1661doQq6OQ8DoobPq1IQlbqoDD1q8	3	4	7	9	-1	3	7	11	-1	My Only Shining Star	NAOKI feat. Becky Lucinda
+189	81qibDQqq8idiD1lQqq0qdqD6i6q1QDb	4	5	9	13	-1	5	9	12	-1	No.13	TAKA respect for J.S.B.
+190	IP00ID9bdlOoP9o9lo1qlO0D1Pdo9I8l	5	11	12	16	-1	8	12	15	-1	PARANOiA-Respect-	.3k
+191	8PQooio0ilPoQ8Di66I19QOQP90Ddbdi	4	5	7	10	-1	6	8	10	-1	PASSION OF LOVE	NAOKI feat. PAULA TERRY
+192	l609D9lOqbDP6iIld1dI18l888dODQ6Q	3	4	9	11	-1	5	9	11	-1	Polovtsian Dances And Chorus	Naoto Suzuki feat. Martha
+193	OI01b6I6OQ9IdQidll890oqlOPDql9ol	3	5	8	9	-1	5	7	12	-1	PUT YOUR FAITH IN ME ～SATURDAY NIGHT MIX～	UZI-LAY
+194	D01oOb0IOQ1bbIIdi88O0d80Qo9dblqP	4	5	8	11	-1	5	7	10	-1	Quick Master	act deft
+195	QI96D9PqIQ90PidPQPdbqbi0q9q8lQbb	3	6	7	11	-1	5	6	8	-1	Quickening	dj TAKA
+196	qbDidIlodPP6PqI00D18P6dDbioIdDPD	3	4	6	11	-1	3	7	11	-1	rainbow flyer	dj TAKA
+197	0OQdlbo111ib1i88IdIPIbollD68Dii1	4	4	7	10	-1	4	7	11	-1	rainbow rainbow	Ryu☆
+198	81QD89Q6Ob911oOoobO0D98IQ1D1q60d	4	6	8	12	-1	6	8	11	-1	RED ZONE	Tatsh&NAOKI
+199	o9l8Id0D1lQdl1o9DDIPbO6q998lq8bd	3	4	6	8	-1	4	6	8	-1	Saturday Night Love	Sota feat. Brenda V.
+200	16Pio809ID669Di8OoPblQO0lDq668dQ	3	4	7	11	-1	5	7	10	-1	Scorching Moon	Shawn the Horny Master
+201	oIQo8IQPbobO6bioiqqdP6P6O8898DOQ	4	6	9	12	-1	6	9	13	-1	SEDUCTION	nc ft. FINALFORCE
+202	PO1olqI8DiDiO0loDIIQ08oPd910bQbQ	3	6	9	12	-1	6	8	12	-1	SEDUCTION(Vocal Remix)	NC feat. NRG Factory
+203	idI1dd69l1il16P0d9DoldDP1QDP0911	3	3	7	12	-1	4	8	10	-1	Ska Ska No.3	亜熱帯マジ-SKA爆弾
+204	QD0q90q9PIl9PdqqO9D9DO09DbiODOI6	3	3	7	10	-1	3	7	11	-1	Star Gate Heaven	SySF. feat. Donna Burke
+205	6qQb9I0QbD89IID9b9iOPdO6dbqPDolQ	3	6	8	9	-1	6	8	11	-1	STARS☆☆☆(2nd NAOKI's style)	TЁЯRA
+206	ODQOP1dblD6q8d160Ioi0dIoQloI6oQO	4	4	6	9	-1	5	6	9	-1	THE SHINING POLARIS	L.E.D. feat. Sana
+207	idDdoI9bD186blQ9Q8610bIQqb86dilo	3	4	8	10	-1	4	7	11	-1	TIERRA BUENA	WILMA DE OLIVEIRA
+208	lQbiI10Qo9DdD8liqPIiob61qDO9d861	3	4	8	10	-1	5	7	11	-1	TOMORROW	nc ft. Dreamscanner
+209	D1D88PPI0PDQqOq00OI6QI1o6dPolqlI	3	4	8	10	-1	4	7	9	-1	Tomorrow Perfume	dj TAKA
+210	oD6l698q0bQqoIOi0Dd66bqObII8QqDl	4	4	8	10	-1	4	7	10	-1	TRUE&hearts;LOVE	jun feat. Schanita
+211	doqDbod0d81qP6PoPiP8b0P00PD8oboD	3	4	6	8	-1	4	6	8	-1	Try 2 Luv. U	S.F.M.P.
+212	99P8bDO1PqlddQqo81QOIPO60lPQqlO8	3	4	8	10	-1	4	6	9	-1	un deux trois	SDMS
+213	oiQliqIliq91Dl169ldqbb18OPblOb1i	2	2	5	11	-1	3	6	8	-1	Under the Sky	南さやか(BeForU) with platoniX
+214	PQQd6lQlDqilqliI0IobolqIDlo0Iboq	4	7	10	13	15	7	10	13	15	Xepher	Tatsh
+215	D8I68Ibib9ldQDIPIQdO6lqI61PQlPO9	4	5	8	10	-1	5	7	10	-1	You gotta move it (feat. Julie Rugaard)	Yuzo Koshiro
+216	ql1Q8P100IIlbl0Pdi08I8qD900idqQq	3	4	7	9	-1	4	6	9	-1	カゲロウ	Des-ROW・組スペシアルr
+217	9idOOIdDO01D8PO06bOPPbOIOoiQ8O0P	3	7	10	14	-1	7	10	14	-1	この子の七つのお祝いに	あさき
+218	I9iODl9bl1d8PilOilii9Dd19PP6QI66	4	5	8	10	-1	4	9	13	-1	チカラ	BeForU
+219	Ibd8d0bllqOo61lqlQPd8lP01D0Qb9o6	3	4	7	11	-1	4	7	13	-1	ヒマワリ	RIYU from BeForU
+220	6iq1dqQ1PDQlDO0bio0l89oDDDi6b0oD	3	5	7	11	-1	4	7	11	-1	華爛漫 -Flowers-	TЁЯRA
+221	qiDOD0iidOli9l0qbP6IbOD19OQ8D8Po	4	4	7	10	-1	3	7	11	-1	月光蝶	あさき
+222	POoldOddQl9Dbq8b6iOP0iPoQd6IdOPl	3	4	7	12	-1	4	8	10	-1	男々道	Des-ROW・組
+223	ibI0QllidqQ089ql8dob6bIoodbbIoqq	4	5	8	11	-1	3	7	11	-1	怒れる大きな白い馬	Morning Blue Dragon
+224	Io1D1l9QiDo6IDObd8qo1Q9lQ6iollQ9	3	4	8	11	13	4	7	13	13	虹色	DJ YOSHITAKA feat G.S.C license
+225	DQO6qbiP6dldo6IIqlob9i8dqiqOio6o	4	4	8	11	-1	4	8	11	-1	夢幻ノ光	TЁЯRA
+226	O0O1lPoIIIQ9lbOi90odI0Di80qq16lo	3	4	7	10	-1	5	6	11	-1	A thing called LOVE	D-crew 2 US
+227	Oo91QPdQDd1Od1oQI6IIldbQ1lQ88bO0	-1	-1	-1	-1	14	-1	-1	-1	13	AM-3P (&quot;CHAOS&quot; Special)	KTz
+228	6bdDP91o1II60Qo99D60QI81o6oPlI80	5	11	13	15	-1	12	14	16	-1	Arrabbiata	Reven-G改
+229	6boDb6Pdd6QDP1oPdlQ0Qo1ld0lQb6P6	-1	-1	-1	-1	14	-1	-1	-1	15	B4U (&quot;VOLTAGE&quot; Special)	NAOKI
+230	PP9QDQ0IQQID00P61d8qdDdP09b19iiI	3	5	8	12	-1	5	8	12	-1	Blind Justice ～Torn souls, Hurt Faiths ～	Zektbach
+231	oQ0bqIQ8DdPlilO000DQloOo6Od8IdQ6	4	5	6	11	-1	5	7	11	-1	Bloody Tears(IIDX EDITION)	DJ YOSHITAKA
+232	d11l6160iiP1bDbQPQl0Pi8lddlld80i	-1	-1	-1	-1	13	-1	-1	-1	13	BRILLIANT 2U (&quot;STREAM&quot; Special)	NAOKI
+233	Iqo9PQiPbq8Q0I6io6lPIDi608lQqbbq	4	5	8	13	-1	5	8	13	-1	CaptivAte～誓い～	DJ YOSHITAKA feat.A/I
+234	1O9P1DqQQqObOQPP6Il989qDqi0bQ8Qb	-1	-1	-1	-1	12	-1	-1	-1	13	D2R (&quot;FREEZE&quot; Special)	NAOKI
+235	PooiIP8qP0IPd9D1Ibi6l9bDoqdi9P8O	-1	-1	-1	-1	18	-1	-1	-1	18	DEAD END (&quot;GROOVE RADAR&quot; Special)	N & S
+236	ii119ll8dOQ8IQqi1IOP1o8DIQbqo8Pi	3	3	6	8	-1	5	7	8	-1	dream of love	Kaori Nishina
+237	dd8loQPD0I86DiIql8b8o9qbO8l0d9Q9	-1	-1	-1	-1	8	-1	-1	-1	9	DYNAMITE RAVE (&quot;AIR&quot; Special)	NAOKI
+238	9d0oQdIolIb0Po9b06QOiOP60IQlb8qO	3	4	6	10	-1	5	6	11	-1	Electrified	SySF.
+239	61Q6Q8OOiiQIbIi0l6l10qQ0Ii8P0Qb6	3	4	6	9	-1	4	7	10	-1	Every Day, Every Night(NM STYLE)	LEA DROP feat. Ant Johnston
+240	98PiPl8P0qlq8dd8P60Iq6dq899lbQDI	4	5	8	12	-1	5	9	12	-1	Feelings Won't Fade(Extend Trance Mix)	SySF.
+241	PlqI9Q1I6qdqb0IolOl1qP0bOQP0ibPP	4	5	8	11	-1	4	8	12	-1	FIRE	泉 陸奥彦
+242	O111bDqd0oQ1O8IqiIDQq091l1IDO8oI	4	5	8	13	-1	4	7	13	-1	Flow (Jammin' Ragga Mix)	Scotty D. revisits U1
+243	DQI8O1bD9Oi9i90i0DqqOqbll91IiQI1	3	5	9	13	-1	5	9	13	-1	Fly away -mix del matador-	Shawn the Horny Master feat. ChiyoTia
+244	dd8PodO0ilIQQb0P0OQPDiodI9biP91d	3	4	8	10	12	5	7	9	12	Freeway Shuffle	dj TAKA
+245	b8dqI0Iq60iQPPobiiQ8O6PiIqdodDiQ	4	5	7	12	-1	5	8	12	-1	GIRIGILI門前雀羅	Cheki-ROWS
+246	ddib8P601q0Oqdb0Pl8oqobq9DD608P1	3	4	7	11	-1	4	7	12	-1	L'amour et la libert&eacute;(Darwin &amp; DJ Silver remix)	NAOKI in the MERCURE
+247	oOdl0d1IOo0bd008DOl91606Pd0PP86d	3	4	8	11	-1	4	10	13	-1	MARS WAR 3	JET GIRL SPIN
+248	olOOdb66Q0bP0dqQPdIdQ8IPQql8D6bi	4	5	7	12	-1	4	7	10	-1	MOONSTER	kobo uniting Marsha & D.
+249	i11d86DOOdOb8Pbb1QqIilQI9Idib8PP	4	7	8	11	-1	5	8	12	-1	Music In The Rhythm	nc ft. 触電
+250	iP6qIl6lD809098io0OiPP08Ii18I6OI	6	10	12	15	18	10	11	16	17	NGO	鍋嶋圭一
+251	io1d1Dq80Di08O1Pb9bQ8DoP9d9Ooi90	7	11	15	16	18	12	15	17	18	PARANOiA ～HADES～	αTYPE-300
+252	dD6PqbboDil89DPIID86Pldi6obI1b8l	6	9	12	14	16	9	13	14	17	Pluto	Black∞Hole
+253	0IldoDlDQql99DqQo0Qq9ioPIiiPoIoi	5	12	14	17	18	12	14	18	18	Pluto Relinquish	2MB
+254	1PiiOiQoq8dbdi819q9Ild966o6o19QQ	3	5	9	11	-1	6	9	11	-1	Poseidon	NAOKI underground
+255	60qiDd000qDIobO0QI916i18bbolO919	3	5	6	9	11	5	6	9	12	Raspberry&#9825;Heart(English version)	jun feat. PAULA TERRY
+256	dDldd8OlbPQDoD80dO0DiDOiIoP1PQoD	3	7	9	13	-1	5	9	13	-1	Saturn	Mr.Saturn
+257	qo6Ib8QqqDd16i91d8dlQoqIq08bo68d	3	5	8	11	-1	5	7	10	-1	Shades of Grey	Fracus
+258	bi1Obd9i99P0O9PqQ1l1P6P6o1IOi11P	4	5	7	11	-1	4	8	11	-1	Silver Platform - I wanna get your heart -	U1 Reincarnates w/ Leah
+259	o1QoI9dQ1i89bPl1oDl6999861obD0qI	3	6	9	13	-1	6	9	12	-1	SOUL CRASH	nc ft HARDCORE NATION
+260	6I0d1d8d690dl8boOb60O1Iq1Ddi6P8d	4	5	9	12	-1	6	8	13	-1	Star Gate Heaven (FUTURE LOVE Mix)	SySF. feat. Donna Burke
+261	bq1O60D90Qbb6iPoi90Ii9olQOIO0Ib1	3	5	10	9	-1	6	9	10	-1	STARS☆☆☆（Re-tuned by H&Lambda;L） - DDR EDITION -	TЁЯRA
+262	b0DP0oqbid0iIQ6D88dDIiiDiq9oi19Q	3	5	8	11	-1	5	8	11	-1	stealth	DAISUKE ASAKURA
+263	61IoqIoODb6dlQlQqd99b90idO9QP9iI	3	5	8	12	12	4	7	11	12	SUNKiSS&hearts;DROP	jun with Alison
+264	9bo00PqOIDoDbO6P1116b9obolOiqPo1	3	4	7	10	-1	5	7	10	-1	switch	DAISUKE ASAKURA ex.TЁЯRA
+265	POQQQqI8q69qP6Id8Ol01QI60OIoiil8	5	6	10	16	-1	6	10	15	-1	Trim	kobo
+266	b0QQ6OPD1dDqQ6D6IDQqlDd180Db609I	3	8	11	15	15	8	12	16	16	TRIP MACHINE PhoeniX	DE-SIRE改
+267	ddD8OPQoIiQi0IbDOIIdQ6dDDbPQ9bIO	3	5	8	10	-1	4	8	11	-1	Trust -DanceDanceRevolution mix-	Tatsh feat. ヨーコ
+268	olQl6Qoi0IbobI980q9Q0QIo9qlbq1PO	4	8	12	15	-1	8	12	14	-1	Unreal	Black Rose Garden
+269	0b1660ibo0liI01ibOO6lD8olIb88qDi	3	6	9	11	13	6	9	11	13	Uranus	Tatsh SN 2 Style
+270	o6I06bPq8dqIlllbQDPP8boqdq6iQ8Qb	2	5	7	11	-1	5	7	11	-1	Vem brincar	Caldeira feat.Teka Penteriche
+271	6bIODbPoIDlOdO66b1id0q68qdQilDd6	3	4	6	11	13	4	6	10	13	Venus	Tatsh+RayZY
+272	8idID0Pq0O68Qb0Q69P6IDldqI91qi1O	4	5	8	13	-1	5	8	13	-1	volcano	Yasuhiro Abe
+273	PqPPDibPdD8qd88D0d01dqo6918b0POD	1	4	9	12	-1	4	7	12	-1	Votum stellarum -forest #25 DDR RMX-	iconoclasm
+274	dbq9dPPOQ60ibOol0I6b9iQol9lD669D	4	6	9	11	-1	6	7	11	-1	Why not	Darwin
+275	i9Pidb18b9O8bdqQ91QQP0oPdIdIODq1	2	4	7	8	-1	3	6	8	-1	30 Lives (Up-Up-Down-Dance Mix)	The Motion Sick
+276	l0QP6DiIDIId0oiQiOl8q10DlI96OPiO	2	6	9	11	-1	7	9	11	-1	A Geisha's Dream	NAOKI feat. SMiLE.dk
+277	P01qbiIoO6dqIIqo6Db9dqq1bI6ddbqI	-1	-1	-1	-1	13	-1	-1	-1	14	AFRONOVA(X-Special)	RE-VENGE
+278	d0IiI99IlI00lq606l68qOIl8PidiOlO	3	5	7	10	-1	4	7	11	-1	Beautiful Inside (Cube::Hard Mix)	NM feat. Alison Wade
+279	PO68qOQI1oo8iQidQ9iIi9o9PPOD9OP6	2	5	6	11	-1	5	7	11	-1	Blue Rain	dj TAKA VS Ryu☆
+280	0qP01Q60boPPlQ8qO6O6q89iI91Pl0PP	-1	-1	-1	-1	12	-1	-1	-1	13	CANDY☆(X-Special)	Luv UNLIMITED
+281	q1q8IlPI1111D8IqiQ190qIoP0b0bIIo	3	5	7	9	-1	4	7	10	-1	Chance and Dice	日本少年
+282	I8ql1i90i80oDO0Q9qdIliIqPq66lQd0	2	5	8	11	12	6	7	11	12	Dance Celebration	Bill Hamel feat. Kevens
+283	98D001P6b696O18P8qiIOl811bq1oQ16	3	6	9	13	-1	7	8	13	-1	Dance Celebration (System 7 Remix)	Bill Hamel feat. Kevens
+284	6o966dbdo9dPIil6qQ09d1I0o0Qld611	-1	-1	-1	-1	13	-1	-1	-1	13	Dance Dance Revolution(X-Special)	DDR ALL STARS
+285	Io9i8oQlbO1QqIdbbDPQl6b00OIPlIOP	2	5	6	9	-1	5	7	10	-1	Dance Floor	neuras feat. Yurai
+286	DdIbd6Pbl910P6QOqD6iQI0l0b1qdI8q	2	4	8	10	-1	4	8	10	-1	dazzle	kobo feat. kr:ague
+287	d9qd6lI0ddbQ068dq1oD8o6QDIi6blDO	3	6	8	11	-1	5	8	11	-1	Dream Machine	Darwin
+288	8ll9P9bOloIqbI0O9PboP9li1iloIPPd	2	5	7	9	7	4	6	9	7	Flight of the Phoenix	Jena Rose
+289	dQD6lbPO66DllOb1i0IoqDqbii0IOQi9	3	5	8	10	-1	6	8	10	-1	Flourish	sonic-coll. feat. frances maya
+290	0D1618DDbol8bl9dP0lDdiD66ioIiidD	-1	-1	-1	-1	14	-1	-1	-1	15	Healing Vision(X-Special)	DE-SIRE
+291	PIdPo9o0qOIiPDIIlbo9l9dObP81lQqi	3	4	9	15	15	5	8	14	14	Horatio	OR-IF-IS
+292	Q61QoIQOQdoO98DP1oDlOIoO6D6lqq1o	3	5	7	8	-1	4	6	9	-1	Inspiration	DKC Crew
+293	dPdO9OP6616o99l99qiI9DddQdD9D80b	3	4	8	11	-1	5	8	11	-1	INTO YOUR HEART (Ruffage remix)	NAOKI feat.YASMINE
+294	i1ol0PO8QbQD0q0oDI6qq0IO68868bP8	3	4	6	10	-1	5	6	8	-1	Lift You Up	wolli
+295	61D9oiPDI68Dq60Dqi99qqd9DqD1D1qd	3	6	8	11	-1	4	7	11	-1	LOVING YOU (Epidemik remix)	TONI LEO
+296	1Q9l881P1bq8bQQ9OOqQ10OioP68bQ8o	3	4	7	10	13	5	7	9	13	Malacca	nc ft NRG factory
+297	oOI88lollO1OOQQd9DPi0690I6i6oiII	-1	-1	-1	-1	17	-1	-1	-1	18	MAX 300(X-Special)	Ω
+298	1980q80l1Q96O881IidPd16qDbOol9Qd	-1	-1	-1	-1	18	-1	-1	-1	18	MAXX UNLIMITED(X-Special)	Z
+299	OPDQ9Oi8I6D1I1iqi8iOiP0bDI9Pl86P	3	7	11	14	16	6	9	14	15	on the bounce	neuras
+300	d88boiQ609PO8ODDo6IliPIb69I80dlP	3	8	10	13	-1	7	11	14	-1	On The Break	Darwin
+301	ioQP0b6I11Do1OQPIQ6OIDiPODD0l0dd	-1	-1	-1	-1	13	-1	-1	-1	13	PARANOiA ETERNAL(X-Special)	STM 200
+302	o6oqqiOOb9Pob66loQoQddlDP6PP69lo	-1	-1	-1	-1	14	-1	-1	-1	15	PARANOIA EVOLUTION(X-Special)	200
+303	dQ69Oqd0Do8Dodd6bQD9l16Olo9P01DQ	-1	-1	-1	-1	13	-1	-1	-1	14	PARANOiA MAX～DIRTY MIX～(X-Special)	190
+304	o6bPdI8O089O8lbl8OlIb1lPo8o1lODQ	-1	-1	-1	-1	14	-1	-1	-1	14	PARANOiA Rebirth(X-Special)	190'
+305	I8bQ8ilD9l1Qi9Q9iI0q6qqqiolo01QP	-1	-1	-1	-1	13	-1	-1	-1	14	PARANOiA(X-Special)	180
+306	qDIdbDO1OiDPqd1i60Dd6OPOlO90D10Q	2	4	6	11	-1	5	6	10	-1	Party Lights	Tommie Sunshine
+307	i66lIl9D60DPq0dQ0O9666ID8bPlID9i	3	4	7	11	-1	4	7	11	-1	Playa (Original Mix)	Hamel and St. Croix feat. Jules Mari
+308	091IQQ1PqOdIl9ioPQDdO60Dq069DP69	3	4	6	8	-1	4	6	9	-1	puzzle	日本少年
+309	iObdoO9b1O9o8dP8o0id9b1QioQ0q9q9	4	7	10	13	-1	6	10	13	-1	S・A・G・A	Veeton
+310	dIQDOoO80odDP8OiOQIQ9oI0o99OdQDQ	5	8	10	13	13	8	12	13	13	SABER WING	TAG
+311	PIP60POo0dDQlIiqO9bIQ1oddQD8P9Il	6	10	12	15	17	10	12	15	17	SABER WING (Akira Ishihara Headshot mix)	TAG
+312	86688l9096PdIqDPl8qoQ10dI8Ioi86l	1	3	7	9	-1	5	6	9	-1	Slip Out	Harmony Machine
+313	lb1l0DibId6Pb9ddlqlDoP6d6oD0o0IP	2	4	6	10	-1	6	7	9	-1	Slip Out (bounce in beat mix)	Harmony Machine
+314	dDO8ili1081QQIb86POQ8qd0P111011o	-1	-1	-1	-1	11	-1	-1	-1	12	SP-TRIP MACHINE～JUNGLE MIX～(X-Special)	DE-SIRE
+315	PDODO6Qdb9iqd6q0QoI0PiI0lb8l9I6d	4	8	12	15	-1	8	12	16	-1	SUPER SAMURAI	jun
+316	ob86bIdI1IbIl9DoQ1bboq9Q8O6PPPoq	2	4	7	10	-1	5	7	11	-1	Taj He Spitz	DKC Crew
+317	b0lI9Ili8loOb1DD6Dd8lqII60b90101	3	5	8	12	-1	6	7	12	-1	Taj He Spitz (Tommie Sunshine's Brooklyn Fire Re-Touch)	DKC Crew
+318	8i1ii188q9OlD0qQ9lQ0D1OdDbldqQbI	2	3	6	9	-1	3	6	9	-1	Take A Chance	neuras feat. GATZ
+319	boi66iD1809o6q199bbolO0bqQ1lqI8b	3	6	7	10	-1	5	7	10	-1	The flower in your smile	TACOS NAOMI feat.小久保裕之
+320	1o6dQqq9P8IQ6PbQO88OI1b91P9DoqQ8	-1	-1	-1	-1	17	-1	-1	-1	17	The legend of MAX(X-Special)	ZZ
+321	ld8b6iqPIiqqbb9q69l8obO66ibI96od	3	5	7	10	-1	5	7	9	-1	Ticket to Bombay	Jena Rose
+322	99oQO1b8d9qQdPq6O1I6bd1bo1D16DP0	3	4	8	9	-1	5	8	9	-1	Till the lonely's gone	Z-licious
+323	O110IdDiDlDQ66bb1o9lbqiqQq6lOid1	2	4	7	10	-1	5	6	8	-1	TimeHollow	Masanori Akita
+324	iO61Dq9iiIQO0Qbbdo1O8bdqO8dqoiio	3	5	7	10	-1	6	9	11	-1	Tracers (4Beat Remix)	Ruffage & Size
+325	1bD9Pi1bdPdOO111iPlbQl0iI6qdoPIo	2	5	7	9	-1	5	8	11	-1	Trickster	水樹奈々
+326	OPOIPIi1OioQ98qbO100q6QiDP8dIDq6	5	9	12	16	18	7	11	16	18	Trigger	sonic-coll.
+327	boQPliilD01OD1bIdOOIOOi0Q9P16OlO	-1	-1	-1	-1	14	-1	-1	-1	14	TRIP MACHINE CLIMAX(X-Special)	DE-SIRE
+328	bql00PQ1PiboIqDQoD909Il8o1PIDiD1	-1	-1	-1	-1	11	-1	-1	-1	12	TRIP MACHINE(X-Special)	DE-SIRE
+329	1oIo1DliQqPol00Q1l1bPODbdOilodod	3	6	8	13	-1	5	8	14	-1	&Uuml;bertreffen	TAKA respect for J.S.B.
+330	96Q0Piqo9PPQoQdi9001DO6P9Piqi0dq	4	6	8	11	11	6	8	12	12	Waiting 4 u	DDT
+331	d6iI8ii9qi0Pi80dDQQlPq6qQo69860P	1	4	7	11	-1	5	7	11	-1	will	NAOKI
+332	19l9bOoI8Dib69D0DodDo1d8i8IDb88q	1	4	8	10	-1	4	9	11	-1	ポリリズム	Pink Lemonade
+333	qIqqdd1Odqi1Iiolq9qqPOi0bPPld8Pb	-1	-1	-1	-1	14	-1	-1	-1	14	革命(X-Special)	dj TAKA with NAOKI
+334	bq8DOQ9Idq9Ii9PQ1bqPIQoQPl961d1o	3	5	8	11	-1	6	8	13	-1	零 - ZERO -	TEЯRA
+335	QQOOldqQ8QQDQ06i81d9DP9PlOlo1lqq	3	6	8	10	-1	5	7	11	-1	凛として咲く花の如く	紅色リトマス
+336	id9oObq9P6Q6Pq6lQPqI88OP1DD8D0O1	3	6	13	14	18	7	12	15	18	888	DJ TECHNORCH
+337	006ob1iI9b1I8dDl0dq1bqIOP8886li1	2	5	8	11	-1	5	8	11	-1	☆shining☆	ピンクターボ
+338	dQoqo68881IiO9i00bP0q1lOD6i1PdD8	2	5	7	9	12	5	7	10	12	A Brighter Day	NAOKI feat. Aleisha G
+339	o6qi6idD9oqIdi81ldQlODqIqIiqlD1d	3	5	9	13	-1	5	9	13	-1	aftershock!!	DM Ashura
+340	PQP1l9qDilqbD0qOqiD8dd86qboI8bob	2	5	8	10	-1	5	9	11	-1	All My Love	kors k feat.ЯIRE
+341	D89QP18016o01qoOi60I6Q19dlOQPbdo	6	11	14	17	18	11	15	17	18	Anti-Matter	Orbit1 & Milo
+342	9ib91bdq6i11l69d081qDD989Q0qO0qI	1	4	7	10	8	4	7	11	8	BALLAD THE FEATHERS	SHIN SOUND DESIGN feat.Naomi Koizumi
+343	qD8Q180QlIi11o1IiI6DPoqolqoD61Ib	3	5	9	12	-1	5	9	13	-1	CG Project	Latenighters
+344	1DD68qQdqQ0i6bQ61ddQ06ql1D6O1l6P	1	4	6	9	12	4	7	10	12	Crazy Control	D-crew with VAL TIATIA
+345	IPdDlblblqO1do9IQbDoi0iOoPDoiDlI	2	6	9	11	-1	6	10	12	-1	Dazzlin' Darlin	HHH
+346	69l8lOiooPPPqb9Io9Il01dPD0Q988Iq	3	5	8	11	-1	5	7	12	-1	Dazzlin' Darlin-秋葉工房mix-	Remixed by DJ Command
+347	il0QbI6IOIidllO108olqd8i9Pb1Oq8Q	2	5	8	11	-1	5	8	12	-1	Decade	kors k Vs. dj TAKA
+348	I8b69IdbID0Di06ldo6o1lb1IdI89Iqo	1	4	7	11	13	4	7	11	13	dirty digital	kors k
+349	ObiIq6PDlOiPd0d1oP8IIQbqiq09IDII	1	4	7	11	-1	4	7	13	-1	DROP	dj TAKA feat.Kanako Hoshino
+350	PP9q1DDi0liP1P00lqIoIbbqo9QqlIqP	2	4	7	10	-1	4	7	11	-1	Dummy	RAM
+351	0ibD9Oio99IlQ0di916lId0bi08IPD9b	3	5	8	14	-1	5	8	13	-1	FIRE FIRE	StripE
+352	8l0ld8Oq86P09lb91DdD9OliiPq9oq9D	2	5	8	12	13	5	7	12	13	Freeze	nc ft. NRG Factory
+353	dqPDQ8Pb68iib8bIIPld10Q0oD8l600o	3	7	10	12	11	7	11	13	12	going up	colors
+354	ib8o1iD68il66olQ1lddIPi0lIb9dd1I	2	5	8	12	-1	6	7	13	-1	GOLD RUSH	DJ YOSHITAKA-G feat.Michael a la mode
+355	lqOQbO0ql96IdDdD689o9PI1iI8Q1Ibi	2	3	6	10	-1	5	7	11	-1	Gotta Dance	NAOKI feat. Aleisha G
+356	lIPP90Ilqib08Obob9901PiP19OQ18P9	2	6	8	10	8	6	8	10	8	Heatstroke	TAG feat. Angie Lee
+357	6b8lbl11Ii81bIiq1D9do811D986iDOq	2	6	7	10	6	9	10	10	9	IF YOU WERE HERE	JENNIFER
+358	81II88dobiP6Q1iq6dDOPqPQQ1dO0Qq9	3	8	10	13	-1	8	11	13	-1	IF YOU WERE HERE (L.E.D.-G STYLE REMIX)	JENNIFER
+359	90lolio9qd6qo6Pl8oo69iqi81oiiQib	3	6	8	12	16	6	8	12	16	I'm so Happy	Ryu☆
+360	b1ObooOQ9iI0DilD9Q6qlIQ8D1d8dQO9	1	3	6	8	-1	4	6	9	-1	in love wit you	Kotaro feat. Aya
+361	Q10PdOD6bDD9QPQQqiO11669bb0lQ189	5	8	12	15	-1	8	13	16	-1	KIMONO&hearts;PRINCESS	jun
+362	QdIl6D808iDoDQi0Qii99Do6do8DOdQO	2	5	8	12	-1	4	8	12	-1	KISS KISS KISS 秋葉工房 MIX	Remixed by DJ Command
+363	b6l6qPPdiOqqPqqII0IPqI981bolOqIb	3	5	9	12	14	6	9	12	14	La libertad	Cheryl Horrocks
+364	IDPbb8oiQl0od6b8OqlPDo08o0QDo6iQ	3	4	7	11	13	5	7	11	13	La receta	Carlos Coco Garcia
+365	6bO0Dq60bboi009iDbO8o9Q9999PiiDP	2	5	8	11	13	5	8	11	13	Leaving&hellip;	seiya-murai meets “eimy”
+366	l0od6D6dl9PQdl1iDPOlD80io0iqqDb8	2	4	6	8	-1	3	6	8	-1	Love Again	NM feat. Mr. E.
+367	l6999IbQI61IO9qQbllobqo68lqobibq	3	6	8	11	13	7	8	11	13	MAX LOVE	DJ YOSHITAKA feat. 星野奏子
+368	6i189o0bl000608OPdOIODOOibq6QoPI	2	5	7	10	11	5	7	11	12	Melody Life	Noria
+369	o0l1Qioq1i9iQl6b9q6il0iqi1b1OQ9b	4	11	14	17	18	11	14	17	18	New Decade	Sota F.
+370	DbQbDQOl0lII16ib1081d6ddIodD0P9I	1	2	8	11	-1	2	8	11	-1	oarfish	kors k
+371	blDbDqdo1D0odlQd9biIoio8ioQPb80i	1	4	6	9	7	5	8	12	8	only my railgun	fripSide
+372	DD6olq00PD91odbO9QbldDb0bQ18oqo1	3	8	11	14	-1	8	11	14	-1	Pierce The Sky	JAKAZiD feat. K.N.
+373	PIO8dod8P9OOP1bi0D1POIi6OdOdQDql	8	10	14	17	18	10	15	18	18	Pluto The First	WHITE WALL
+374	qD6q1PD0lIDP89DPDbOOIdq0Pi8iIdD6	2	5	9	14	-1	4	9	13	-1	Poseidon(kors k mix)	NAOKI underground
+375	q6di1DQbi88i9QlPol1iIPbb8lP1qP1b	7	10	14	17	18	11	14	17	19	POSSESSION	TAG underground
+376	IDldD8o8P8dbIP6oiDo11i10lo6bP6oQ	2	4	6	8	-1	4	6	9	-1	real-high-SPEED	Makoto feat. SK
+377	1Ob9Il9bOQdbOQbq00oi1qoo1o1dPoI0	2	4	8	11	-1	4	8	11	-1	resonance	NAOKI-EX
+378	odd1O0boo1boqDb0dIOQdQi1IqdO1DQd	6	8	11	15	-1	8	12	16	-1	roppongi EVOLVED ver.A	TAG underground
+379	QobO6O8iQP6I16l0I8QPd0Iq6iQ1loQ6	6	8	11	15	-1	8	12	16	-1	roppongi EVOLVED ver.B	TAG underground
+380	lb9Qo61bbOdQidlQQD8DP8199Q911Id9	6	8	11	15	-1	8	12	16	-1	roppongi EVOLVED ver.C	TAG underground
+381	l8q6diIod06OdP11P6I8oIddiPo16DPd	6	8	11	15	-1	8	12	16	-1	roppongi EVOLVED ver.D	TAG underground
+382	qOQQ1qdQPPQ1bbdPldPlIil99IDoPi61	2	4	7	11	12	5	8	11	13	Sacred Oath	TЁЯRA
+383	ib19PQ61bi0lI8qi98IQ8dOqOoP91olq	2	4	7	10	13	4	7	11	14	sakura storm	Ryu☆
+384	6lD1ooDi8Pdl0OlO0QoIioI8119I0PPq	3	7	10	14	-1	8	10	15	-1	Sakura Sunrise	Ryu☆
+385	9bI0dQdb01Dl1bQq1Pq998i0l096D99P	2	5	9	11	14	5	9	11	14	Second Heaven	Ryu☆
+386	0qDb0d9oIoQPP1Ql0o0OOPoPDbQ699Iq	3	5	7	12	-1	5	7	12	-1	She is my wife	SUPER STAR 満-MITSURU-
+387	q1o901oPqbbI1Q61qo688bDd0Pqlb08l	2	4	6	9	12	4	7	9	12	Shine	TOMOSUKE feat. Adreana
+388	b6ldDOq9qi1IiIIdiIl1108q1iQ9O6d6	2	8	11	14	-1	8	11	14	-1	Shiny World	CAPACITY GATE
+389	08IP8i1qIbQIoP9DiP11IdP190Q98lil	2	5	9	12	-1	5	9	11	-1	Sky Is The Limit	Sota F feat.Anna
+390	1l01billdl6oPP96Pq8d0lbbblQI8i8l	2	4	7	12	10	5	7	12	10	smooooch･&forall;･	kors k
+391	0ol981b18biO0610IqPi9l6Db86PbIQ9	2	5	7	9	-1	6	8	10	-1	someday...	杏野はるな
+392	i1Q080DDQD81l8o0109Q6blq0oo8o69q	1	3	5	8	-1	4	6	8	-1	Taking It To The Sky	U1 feat. Tammy S. Hansen
+393	Oq9QIlI8l11ddqbbDoQ1ql61OqlIi9lo	3	6	9	12	10	6	9	12	11	Theory of Eternity	TAG
+394	qQl6O8IdiI6991IiqDqidO96bll1qPDl	2	5	8	11	-1	6	8	11	-1	THIS NIGHT	jun feat. Sonnet
+395	186dd6DQq891Ib9Ilq8Qbo8lIqb0Qoll	9	13	15	18	19	13	14	18	19	Valkyrie dimension	Spriggan
+396	6d6bqoOlqi8ooqOdlqdPblqol88b68QP	4	7	11	16	-1	7	12	16	-1	VANESSA	朱雀
+397	QQbiq1qQd8d1blOldi889OdQd9P1106Q	3	5	9	13	-1	5	9	13	-1	WH1TE RO5E	Y&Co.
+398	olloQOobddiIIPObP91l0qPl6oo8P9Dl	2	4	6	13	-1	5	7	13	-1	What Will Come of Me	Black Rose Garden
+399	0qOPDqq0qld66bll9ob9iIqiiQPiQIDQ	2	4	8	12	13	6	8	12	13	You are a Star	NAOKI feat. Anna Kaelin
+400	oiIob81i6d6P6qbddOP6Q0d0obQ0PID9	2	4	7	10	-1	4	7	11	-1	Your Angel	DM Ashura feat. kors k
+401	96QPqq0q6Id0Ii0QbD1bQqPbiDqb0lPo	3	6	11	15	-1	6	9	14	-1	ZETA～素数の世界と超越者～	Zektbach
+402	QQldo10ObPPQPlliODiDIIl0Q1oPoo61	3	5	13	17	17	7	14	17	18	&Delta;MAX	DM Ashura
+403	i8O81i0iQdqiI8qqP0oo8IPl9IoId1bO	2	6	9	14	-1	5	8	14	-1	不沈艦CANDY	Risk Junk
+404	iqiqod1l08DlDql98QOi10oibldd8b86	3	7	11	16	18	7	12	15	18	冥	Amuro vs Killer
+405	Qb1db18qP1Ib6liPI1668Pq8QPb0QO09	4	8	10	13	-1	7	10	13	-1	ビューティフル レシート	Lucky Vacuum
+406	qOdib0OIO1qOdiQiOi9qIiQiO91idbQq	1	4	7	9	-1	4	6	9	-1	Fever	Sota F. feat. Carol Gadsden
+407	Pld9iO6oi9qlDD08l8QDdIi6d6Q6iDd1	2	5	9	12	-1	5	9	13	-1	Programmed Universe	kors k
+408	19b01l0QPiDlDQb6lqd0dQ8Qlld6Dl6l	1	5	7	10	13	5	8	11	13	Diamond Dust	TAG
+409	oqQIlDl811qQI01O8dDdl699OI9IbIlO	1	4	7	11	10	5	7	12	10	女々しくて	ゴールデンボンバー
+410	8d6DoOIdD61DOIQI1I0869qO99iii68Q	2	5	7	9	9	4	8	13	11	future gazer	fripSide
+411	Q6Do1o1bP60Q1O00Dbbqd96Oq9dQd6i6	2	5	9	11	-1	6	9	11	-1	LOVE &amp; JOY	木村 由姫
+412	6i86dIDQQ8DQ60Piq1bqO0i08qI0ibPI	2	4	7	11	-1	4	7	10	-1	STRAIGHT JET	栗林みな実
+413	olIo8PdO8dq16QqDIQboQq6oPqDO9qoo	2	7	9	12	-1	7	10	12	-1	Get Back Up!	NMR runners
+414	POl689q8ODbPI0PDo8l8oD81Plio8qlP	2	5	7	13	-1	4	7	13	-1	Haunted Rhapsody	Architect ft. Jasmine Nii
+415	iq6QI06oQlloO9Db9dbI8IDoi91dD8d9	1	4	6	10	-1	4	6	11	-1	HEARTBREAK (Sound Selektaz remix)	NAOKI feat. Becca Hossany
+416	0q8b6O0qOlDql0oP80OI8i8i1088qbIb	3	7	9	11	-1	6	10	12	-1	The Heavens Above	U1 /F Anneliese
+417	ibiD8868D116OIqbQ1DQ1IOb8OD1qQ98	2	7	9	11	-1	6	10	12	-1	Take A Step Forward	TAG feat. Sydney Powers
+418	b08D1ODPP0IqlIl91dDDdD1d0lD8bP1d	2	4	7	11	-1	4	8	11	-1	dreaming can make a wish come true	jun & NRG Factory feat. Anna Kaelin
+419	OqIlb9PQIo0Io90PIQi6q86dO8iP19Oi	2	4	8	12	-1	4	8	11	-1	ever snow	TЁЯRA
+420	8o6ibb0b1i66Q0D8699boob69b80Qb1i	1	4	7	9	-1	5	8	10	-1	IN THE ZONE	U1(NPD3 style) & KIDD KAZMEO
+421	id0i6dQId1D9l1P9bq9iP9608Ioi9iq8	2	4	7	9	-1	6	10	13	-1	Let's Get Away	NAOKI feat. Brenda Burch
+422	odD0Ql6iQbidDlqdPIdo8iQO09OoIbD0	1	4	7	10	-1	4	7	10	-1	MAGIC PARADE	Lea Drop feat. Katie Dellenbach
+423	0dOi10q9Q6oi0Q9960iQQDO6olqlDDqo	2	4	8	12	-1	6	8	12	-1	Private Eye	atomsoak ft. cerol
+424	P8IQ8blOl1i08oP18i06Oq1iP9biP6Do	1	3	7	9	-1	4	7	9	-1	Rhythms Inside	DKC Crew
+425	loP08P1PPi990lPD0O060d888O9o6qb8	2	5	8	12	-1	5	8	12	-1	Seasons	TOMOSUKE feat. Crystal Paloa
+426	qI06bbQ1dloi0IIIO1IQ1q8bdPdl6l69	3	4	8	13	-1	5	11	13	-1	Wicked Plastik	nc ft. Electric Touch
+427	i0dqDPqDll9il0b6qoDPd19OQ0qO9qDO	3	6	12	15	-1	7	12	15	-1	CRAZY&hearts;LOVE	jun
+428	ibI69PPO1iP0D1IlI0bb11QOq6081POo	2	5	10	12	16	6	9	12	16	隅田川夏恋歌	seiya-murai feat.ALT
+429	dbD8PlibPqqdI99901obObb6odqD8qDl	3	7	10	13	15	7	10	13	15	Amalgamation	Mystic Moon
+430	I6dI99IOolDD6l6Q1ooPIiDO8Odq0QIP	4	7	11	15	-1	8	12	16	-1	UNBELIEVABLE (Sparky remix)	jun feat. Sarah-Jane
+431	61QQi8i9Iliq66IOq1ib888b666o08O8	1	4	7	11	12	5	7	11	12	Mermaid girl	Cream puff
+432	DiqobPO1iliqP6DbQiDodPIPDiQO96dl	3	5	9	12	-1	5	8	13	-1	Find You Again	The W feat. Rita Boudreau
+433	PlIiPiPoI9DIbPdIPoqQlIq61Pd8QIDo	2	5	7	10	13	4	7	10	14	Tribe	猫叉Master
+434	oi9q8DQ1QddP1699qIbqP886iOIPI16I	2	4	7	11	-1	5	7	11	-1	Something Special	nc ft. Jasmine Nii
+435	ilqiIlDdiQQ0oOIP8bPobDQqP0O90Q08	2	5	8	12	6	5	8	12	6	COME BACK TO MY HEART	Another Infinity feat. Mayumi Morinaga
+436	iO90Qo66I88P1IdDldo1oIqb8bldqDI6	2	4	8	12	-1	5	9	13	-1	Rescue Me	NAOKI feat. Fracus
+437	8qPoPbql190Pi9086ildIlQOqlPoQdP9	2	4	7	9	-1	5	7	11	-1	REBORN MAGIC	seiya-murai meets “eimy”
+438	qbl10iqqdO1Do1dIq181Pl6oi8QilQo1	2	6	10	12	-1	6	10	12	-1	Seule	Preston Powis
+439	P8DQP9QIioPdi9IO6q0100PlQOIl86I9	1	4	8	12	15	4	8	12	15	Chronos	TAG
+440	9P16o1bO16PDDObloibo1Il8IIDdo869	2	4	8	12	-1	4	7	12	-1	Share The Love	Brenda Burch
+441	q9oQ1Pid9OiIDO66Pd19blOi09019i98	2	4	7	11	-1	4	7	12	-1	I/O	Ryu☆
+442	qQI9IQOd061Q69Oo89lll9bd99108Qqd	4	6	9	11	-1	6	10	11	-1	In The Air	Bill Hamel & James Rowand
+443	oDIliqQl90bQo6Qil9bOiD1iO19qI1dd	1	5	7	9	-1	5	7	10	-1	TIME	NM feat.Aleisha G
+444	08PO96OlIoQqPdq91Q1Qqlo8lPidbPP8	3	5	9	11	12	6	8	11	12	New Beginning	Sota Fujimori
+445	blI8D10Q1IDQ8Q19bi0IDlD80oD0bloi	2	4	8	12	-1	5	8	11	-1	Wings of an Angel (Fly With Me)	J-Mi & Midi-D
+446	PbQ8Q9ol09I18IIb0d6iO8i9ODID10iO	2	5	7	10	-1	5	8	10	-1	Resurrection	Dormir
+447	89O8qIII0QPO0Q0l10P6dl19PlQ9d0oO	3	4	9	12	-1	8	10	13	-1	Until the End	Philip Webb
+448	1l8ibdlb0O0q00o6l9Pq1ibdbIQqqOb1	4	7	10	13	-1	7	10	13	-1	HEART BEAT FORMULA	TAG
+449	DI91q6O00bliOldqO6DqDdqib86iqPPP	4	8	12	14	-1	8	12	14	-1	NEPHILIM DELTA	L.E.D.-G
+450	qoDOoP99lq8bd19iqiloObQDqD8QbOq0	3	6	9	12	10	6	9	12	10	SigSig	kors k
+451	1OlD9Iqb9Oqol09dDi6iiQ9Iod1oP0il	1	5	7	11	-1	3	7	11	-1	message	dj TAKA feat.flare
+452	OQbPdOIo6dPPIq6d8qid6DbPP0q991i6	2	5	8	12	-1	5	8	12	-1	天上の星～黎明記～	TЁЯRA
+453	oQ9QDQ6I9oo9DP8Oi86id61o9Pbbl9bD	2	5	8	13	-1	5	8	13	-1	繚乱ヒットチャート	ギラギラメガネ団
+454	oQ8oqddQOObiq0ldo68i1d6o1IidObi6	2	5	9	12	-1	5	9	12	-1	雫	あさき
+455	lo6bOoq86d9od6qQ9PiPibOioOQb96lP	1	4	7	11	10	4	8	11	11	TWINKLE&#9825;HEART	jun
+456	8bQQ0lP96186D8Ibo8IoOd6o16qioiIo	3	6	8	11	13	6	8	12	13	アルストロメリア (walk with you remix)	TAG
+457	q08PbOPPbPobob0OII096bP9iil9908D	3	7	10	13	15	6	9	13	15	FLOWER	DJ YOSHITAKA
+458	Q6ql0lOOdq90DI1PqO1bd10bP0Oi8Q0Q	4	8	11	15	-1	9	12	15	-1	SILVER☆DREAM	jun
+459	ldDD06dIQ0qQPD9OI88P90OOi0bQPD1O	9	11	13	15	-1	10	12	15	-1	osaka EVOLVED -毎度、おおきに！- (TYPE1)	NAOKI underground
+460	8006PP188Qldob68ld6OPqlbl1biod6D	9	11	13	15	-1	10	12	15	-1	osaka EVOLVED -毎度、おおきに！- (TYPE2)	NAOKI underground
+461	di088lOPlqQ1OoQIbilI1P0q119i8o9O	9	11	13	15	-1	10	12	15	-1	osaka EVOLVED -毎度、おおきに！- (TYPE3)	NAOKI underground
+462	DIDd9l0dbi1QdQ89I6Do9bolDqdb1dPO	6	9	13	16	-1	9	13	16	-1	tokyoEVOLVED (TYPE1)	NAOKI underground
+463	i0b0118q8D1QlQbIbli0P0IQ0QP08QdO	6	9	13	16	-1	9	13	16	-1	tokyoEVOLVED (TYPE2)	NAOKI underground
+464	6OOd69q0oP8iblIIb08OQO9dq9oIq8i6	6	9	13	16	-1	9	13	16	-1	tokyoEVOLVED (TYPE3)	NAOKI underground
+465	II68b0dooOIOlOiq0iQO18blDd6b9O9D	4	9	13	16	-1	8	13	16	-1	New York EVOLVED (Type A)	NC underground
+466	61P0I66id16QIi08Q1918PlldOOiooql	4	9	13	16	-1	8	13	16	-1	New York EVOLVED (Type B)	NC underground
+467	Od8ld9bQQPDddIqDQ1PloOOdQ0IQo0O9	4	9	13	16	-1	8	13	16	-1	New York EVOLVED (Type C)	NC underground
+468	D6IQ1O1D00D1o8IQq0O9qqIibqDiiO0i	5	8	11	14	17	8	11	14	17	London EVOLVED ver.A	TAG underground
+469	OlDo09P8l0d6d80i8qD0qQddbi0QQD8b	5	8	11	14	17	8	11	14	17	London EVOLVED ver.B	TAG underground
+470	09looidO89Q9DiDdqQiDPlIQDoiobobQ	5	8	11	14	17	8	11	14	17	London EVOLVED ver.C	TAG underground
+471	OddDoQ6dqi0QdQDDOO6qlO08d8bPbli1	6	9	14	17	18	9	14	17	18	Tohoku EVOLVED	2.1MB underground
+472	1IbDP96O99Ob10PoPdP98IDqibqo9lqI	2	4	5	6	10	5	6	7	10	KUNG FU FIGHTING	BUS STOP ft. CARL DOUGLAS
+473	qoIDP9I968q8do0d6d6lQDIi8biPIoi1	2	4	6	8	11	5	7	8	11	BAD GIRLS	Juliet Roberts
+474	9Do1l69IiP98IO91bd86oIIoQqQI9QPb	2	4	7	9	11	5	7	10	11	Boom Boom Dollar (Red Monster Mix)	King Kong & D.Jungle Girls
+475	O6DPoIoQibQO1iD6I0DDDbbddDOi9QDq	3	7	8	10	11	7	8	9	13	stomp to my beat	JS16
+476	9qP16D6l11i9P1lQ0b1DIqoOqqiIQDl9	2	7	8	10	12	7	9	11	12	MAKE IT BETTER (So-REAL Mix)	mitsu-O!SUMMER
+477	IQqOIb6ob8bIbOII66ID0oIQDPl6bdbb	2	6	7	9	11	7	8	11	11	PUT YOUR FAITH IN ME (Jazzy Groove)	UZI-LAY
+478	6dqPOId9Od11Il90QO0q9iQI6d68IolD	1	5	7	10	-1	5	7	10	-1	LOVE IS THE POWER -Re:born-	NM
+479	606b9d6OiliId69bO9Odi6qq8o8Qd0dq	6	9	14	18	19	10	14	18	19	PARANOiA Revolution	CLIMAX of MAXX 360
+480	8O6b1D9PDO0ll1IO9d1ODDPPo0QPQbob	4	9	12	16	18	9	12	17	18	TRIP MACHINE EVOLUTION	DE-JAVU
+481	O0Id19qQlDibiDdIP90o81bOo16qbQ0o	3	7	10	13	16	6	9	13	16	REVOLUTIONARY ADDICT	TAG underground
+482	88o0qb8Ii1ldPlDQQdoq90dOd0PoO99d	2	6	9	14	-1	6	9	14	-1	KEEP ON MOVIN' (Y&amp;Co. DJ BOSS remix)	NMR
+483	bllQi9boq8qobOQDOD6QDio9lii8109i	1	5	8	13	-1	5	9	13	-1	PUT YOUR FAITH IN ME (DA's Twinkly Disco Remix)	UZI-LAY
+484	l9OQPi0do19dQPO8ilq0QDbll8P8Ib6O	4	8	12	16	-1	8	12	16	-1	TRIP MACHINE (xac nanoglide mix)	DE-SIRE
+485	11dQb0qIdbO098ObDqOQQ8Ili9Il0lOd	6	8	12	15	18	8	11	15	18	Go For The Top	U1 overground
+486	6l0iQ18D0I00P89lIqI8bl9biIOi018O	3	7	11	15	-1	7	11	15	-1	BRILLIANT 2U (AKBK MIX)	NAOKI
+487	dQPPd10QO9d8IiOiIi8iDD1Qdq8lQli0	4	9	13	17	-1	9	13	17	-1	PARANOiA (kskst mix)	180
+488	OQbdD9iD898Q01oIddDliq8q9D1QlQ1I	3	6	9	12	16	6	9	12	16	snow prism	Qrispy Joybox
+489	bo9l0Dl0PbqQQQ16Qq6bOOi68o0996Pq	3	6	9	12	15	6	9	12	15	紅焔	PON
+490	dO9b8Id9QQ8DOO69Q0lqi6O9QlDPIPl9	3	6	9	13	15	6	9	13	15	Cosmic Hurricane	TAG
+491	lOb8O16P9P81olPdI1o1Dl9I6QQoIqIP	2	6	8	11	15	6	8	11	15	恋閃繚乱	2B-Waves
+492	diDO6qoqo9li6qDdidDiqO9bi8lOP8ib	3	5	8	12	-1	5	8	11	-1	Qipch&#x101;q	world sequence
+493	DibOOIOD1id66O0DqOQ61O6I9bIIQQ0q	3	6	9	12	13	6	9	12	13	heron	S-C-U
+494	ib0l98Q00O1Do9oQq1IQOOqQOOb80bIo	3	7	10	14	-1	7	10	14	-1	nightbird lost wing	猫叉Master+
+495	db1DlQ9qqI8PiqPD6q88O1P8PDbP11dq	3	6	9	12	16	6	9	12	15	めうめうぺったんたん！！	日向美ビタースイーツ♪
+496	i86bPlP6ioldqb1OqPqidboqqQ8dQqdl	2	5	8	10	10	5	8	10	11	south	Wall5
+497	PdqQ0oO8lIOi800i69I9100olb9Q6D8Q	3	6	9	12	14	6	9	12	14	New Gravity	Starving Trancer
+498	1Ol1i86OQd61IlqPb9O1060l0OQDoDQI	2	6	9	13	15	6	9	13	15	Condor	Remo-con
+499	I81iP0Io9o1l9li0Iq99P1091O8DoDOd	3	6	9	11	13	6	9	11	13	WILD SIDE	Tatsh
+500	d18DI8bO1lql60Ol1dqQlI8qIobl191P	3	7	9	12	15	7	9	12	15	Beautiful Dream	REDALiCE feat. anporin
+501	oDD1DQ161816dd9Dl8IioOoi9OQdO01O	3	8	11	13	15	8	11	14	16	Straight Oath	矢鴇つかさ feat. 三澤秋
+502	80d8obPdlobP9qlqiDb01999o01q6DdP	1	7	9	12	15	7	10	12	15	ずっとみつめていて (Ryu☆Remix)	DJ UTO vs. Starving Trancer feat. Mayumi Morinaga
+503	b1b966I1PQ6Qo6bdI6i9i1D1bqdd188i	2	5	8	11	-1	5	8	11	-1	Burst The Gravity	ALTIMA
+504	oQPdiPPdQO1Ob6DqDi0l0q0PDP06QlO0	2	5	8	11	13	5	8	11	12	Starry HEAVEN	Royz
+505	PPDQloDPD9l1dOd6DOi8Oq8IIob9IPO1	2	4	8	11	-1	4	8	11	-1	折れないハート	高取ヒデアキ
+506	liiPP608Oqbbb1Do88DPolOlQiq0Di60	3	7	10	12	-1	6	10	12	-1	Find The Way	nc ft SAK.
+507	bqqIiO96di90bdP0QD1biD8DoDQIddOD	2	5	8	10	-1	5	8	10	-1	Back In Your Arms	jun feat. DJ Silver vs Milo ft. Becca Hossany
+508	Ilqd06QqoQd9IlQobq9idPqb1111Q96b	1	5	7	12	-1	5	7	11	-1	Ah La La La	Tommie Sunshine
+509	P8od0Q9DO8i9dl881oPQQIOIIq1Q9Oi9	1	4	7	11	-1	5	8	11	-1	Sucka Luva	Harmony Machine
+510	18ibQ9qbqOI91Q1iiiOd990OPo1q1dPI	2	6	10	12	-1	6	10	12	-1	Bombay Bomb	Jena Rose
+511	Oo9O18oqOi9DIoOoqb9IqQDo0dbdqP9q	2	5	7	12	-1	5	7	11	-1	Hoping To Be Good	Bill Hamel & Derek James feat. James Rowand
+512	D0qloQo0bQliQqooQ609IP8i09old99D	1	3	6	10	-1	3	6	10	-1	You	NM feat. Anjanette Mickelsen
+513	81O10b1Oob9blo0888PQbd1I6bP0b8q9	1	4	6	9	-1	4	6	9	-1	Everything I Need	Brooke
+514	dd80OooqdOIi9O60i91PDdIPIbIiiD66	3	7	9	11	12	7	9	10	13	Children of the Beat	Harmony Machine
+515	6loP1dbiOq0Q8i9QQOI6o0iOO6bdIQOO	2	5	9	12	14	5	9	11	14	Tell me what to do	atomsoak ft. cerol
+516	QD6b8i08P1IQloIPOPiqlIPoDlPi9DPI	3	5	8	12	14	5	8	11	14	Diamond Night	TOMOSUKE feat. Alexa Slaymaker
+517	i90o9Q0D91bb0Q6qIQ1OiDqqiPPP98oI	2	5	7	9	14	5	7	9	14	Summer Fairytale	Design-MAD crew
+518	8Pl1i1o0O6oIio0b681qOoDOQdPPOObb	1	3	7	9	13	4	7	9	13	The Island Song	TAG feat. Eric Anthony
+519	l9i996ld6PbbiO1911OoOI8lIPQ06ID8	3	5	8	12	14	5	8	12	14	Top The Charts	J-Mi and Midi-D feat. Hanna Stockzell
+520	i19IOi90Dq90ll989iIdOP9diodqi968	2	4	7	12	14	4	7	12	14	Confession	trance star
+521	1iIoi89doDiQoo8o0ddl9PQdQP0Ili8O	1	4	7	12	15	4	7	12	15	THE REASON	Black Rose Garden
+522	60dq6Plo0do9iQOl6ql111P9OPd9i01l	3	6	10	13	16	6	10	13	16	Somehow You Found Me	DIGI-SEQ-BAND2000
+523	PI1DiP0bIi8PodP6O1i8P0P1i8iI1oD8	3	5	8	12	15	5	8	12	15	Desert Journey	dj TAKA
+524	odQbP0bQqD89PolQ96II0PiqQQIddPi6	3	5	8	10	13	5	8	10	14	escape	U1 & Krystal B
+525	bD1DbibPIq9IIlQd0OIIl0o91QI1il69	3	6	9	13	16	7	10	13	16	Monkey Business	kors k
+526	9O1O0o8O1qbQ08Q961Ib1iOIDPQid109	4	7	11	15	16	7	11	15	15	Another Phase	TAG
+527	0bDqIO9Q0PPIPlPll1D8Pbol9O6DlPdb	2	7	10	13	-1	7	11	13	-1	ラキラキ	Mutsuhiko Izumi & S-C-U
+528	I8diIQiPO90qDD60oQ0o669I99dI69DD	4	7	9	12	-1	7	9	11	-1	晴天Bon Voyage	TOMOSUKE × seiya-murai feat. ALT
+529	oo6iiQQbqQ98D9oP6OQPibIqIPd66Qb0	4	9	12	15	-1	9	12	16	-1	STULTI	MAX MAXIMIZER VS DJ TOTTO
+530	Dl690bPIlIq0Ol1PdPbb9QO0I66lIqO0	3	5	8	11	-1	5	8	11	-1	虹色の花	Akhuta y OJ
+531	9I00D9Id61iD6QP8i8Dd6698PoQ9bdi9	4	8	12	16	-1	8	12	16	-1	お米の美味しい炊き方、そしてお米を食べることによるその効果。	大日本鉄倶楽部【あさき＆96】
+532	9obIQOP8O1l0PQ0Oi1oPQI198o0Pd81o	2	8	10	13	-1	8	10	14	-1	創世ノート	PON+wac
+533	b9IoO68b1Qd9I6O8qqoo6q1o8DQ8l9lo	3	7	10	14	-1	7	10	14	-1	Synergy For Angels	TAG×U1-ASAMi
+534	1i10oIqlooQbOqO9qiodbIliilP1I06b	4	7	11	14	-1	7	11	14	-1	Empathetic	Sota÷Des
+535	idIibqoooOlQ1DId8lOidd6il0bdoql8	3	10	13	16	-1	10	13	16	-1	GAIA	猫叉L.E.D.Master+
+536	OiIOPd80d9PQQIbidO6ObioboO88OD9l	8	11	14	17	18	11	14	17	18	Elemental Creation	dj TAKA meets DJ YOSHITAKA
+537	o81iq91q6lI6OODP9Pb9OboDlQD9Q08d	2	4	8	12	14	4	8	12	14	ACROSS WORLD	Royz
+538	6obQo6d0oQ6QoQql0I60b81IO8IOl1IO	3	9	11	15	17	9	11	15	17	Air Heroes	Darwin
+539	bQI1dIlIObIIQood96O9q9iO8li11OO9	2	4	8	11	14	6	8	11	14	JOKER	Royz
+540	6qOIDDb9libIDlQI80l88P0io68Qq0O8	3	4	9	13	-1	6	9	13	-1	LOVE &amp; JOY -Risk Junk MIX-	Risk Junk
+541	odObQ86Qd1qOD9oiP6OdObdP8lqiiD8b	2	4	8	12	-1	4	8	12	-1	ジョジョ～その血の運命～	(富永TOMMY弘明)
+542	l88PDoOI6b1o1ddI9bDDPil6QdDbPobI	2	4	8	12	-1	4	9	13	-1	ふりそでーしょん	きゃりーぱみゅぱみゅ
+543	O06bdqiPIb6i1OdqoQo0qQ0DoO1Od08O	1	3	6	8	-1	3	6	8	-1	Choo Choo TRAIN	EXILE
+544	l9Di1l6I68ilPDlPlO6qO61l11P008OQ	2	5	7	11	-1	5	8	11	-1	Mickey Mouse March(Eurobeat Version)	Domino
+545	bo6PqbbPQ6D096OIP6dDPbPPiDi88609	3	7	11	15	17	7	11	16	18	Spanish Snowy Dance	Mutsuhiko Izumi
+546	dPbOQdio1OI8OOI6OlOIqI1Ii18i8ID0	2	5	9	12	-1	5	9	12	-1	sola	小野秀幸
+547	DbibObDP860iqI11POiqQDD0i8PPOibd	3	6	9	12	-1	6	9	12	-1	Sweet Rain	Y&Co. feat. Karin
+548	18l0blb188Oqqi8I68o8oq91Qbq86QDi	3	7	11	15	17	7	11	15	17	Magnetic	Sota Fujimori
+549	i89IO1PPOl0boOol0bQI19Q9liQ0l6O1	2	6	9	13	-1	6	9	13	-1	キケンな果実	達見 恵 featured by 佐野宏晃
+550	0Qb8PDoQ06Q66obPI1P988oI61ioPb6l	3	6	9	12	-1	6	9	13	-1	フー・フローツ	Nanako
+551	id1lodDbo0Iq9088Qd19d1OlDPP01D8o	2	6	9	12	-1	6	9	13	-1	からふるぱすてる	ki☆ki
+552	Dbdi9P91PQl660llPQO0l86oDqi1O9Ob	3	6	10	14	-1	6	10	14	-1	The Wind of Gold	kors k
+553	IPq8dO1lD8qidDlI0ObboI9IIldQO6IQ	3	7	11	14	17	7	11	14	17	RЁVOLUTIФN	TЁЯRA
+554	q11d0oiQIlbP91dqqddPq9D80lbODbDi	2	6	9	14	13	6	9	14	13	Right on time (Ryu☆Remix)	Ryu☆
+555	P0iOob80dDPqI8oIqq1dOiDd9qilQqDl	4	8	11	14	16	8	11	14	16	PRANA	TAG
+556	P8obb0oQq1lbb6Do01PPDI1o8ooO6Pb0	4	7	12	16	-1	7	12	16	-1	Chinese Snowy Dance	Mutsuhiko Izumi
+557	q0QIob1PDI6IP86dlPb6I6il9d6bP606	2	6	11	16	9	6	12	16	9	&dagger;渚の小悪魔ラヴリィ～レイディオ&dagger;	夏色ビキニのPrim
+558	lDOPd60Q9obl6D0q8qqdQi9lioblD1db	4	8	12	16	18	8	12	17	18	Triple Journey -TAG EDITION-	Triumvirate
+559	6i99bQI11qD818DDdq6qb0Dql880lP8l	4	7	10	14	17	7	10	14	17	New Generation	鍋島 圭一
+560	8IdlOq1qI8OO1PP88I6olPiI6IqqqIIO	4	9	12	16	18	9	12	16	18	Blew My Mind	Sota F.
+561	biqbD9I9q9D16i0i1Idb9d111l1QDq86	4	7	9	12	14	7	9	12	14	ちくわパフェだよ☆CKP	日向美ビタースイーツ♪
+562	o91qiqqDi9b6d6l1dQ6qO6oO0QDIlPql	3	5	8	11	-1	6	8	11	-1	凛として咲く花の如く ～ひなビタ&#9834; edition～	日向美ビタースイーツ♪
+563	Qo1qdD0Q9d11d9Id6o09P9id8lPbOQ6o	2	4	8	11	-1	5	8	12	-1	Wow Wow VENUS	VENUS
+564	8bI68oIq08d99P880bDPQ9D80O099Q10	2	7	11	15	-1	7	11	15	-1	Windy Fairy	DJ TOTTO
+565	1PoOQPd0D01Q9O0doiQQQ8D8Q096bDq9	3	6	10	13	-1	6	10	14	-1	printemps	Qrispy Joybox
+566	dOblQOoDb96l00dqPlIb9DQl86q9PboI	2	5	8	11	13	3	7	12	13	回レ！雪月花	歌組雪月花
+567	OPQQo1idQoqOq88lIPOQo6DooiP8QO9d	4	8	12	15	-1	7	12	14	-1	Stella Sinistra	Akhuta Philharmonic Orchestra
+568	0ddPq801D8PiiqO1oqoQbdOIQ9lQl11o	3	7	10	14	-1	7	10	15	-1	マインド・ゲーム	96 with メカショッチョー
+569	IIDiDdQ1d6bIqbld9IdO106POdiPO6PO	3	6	11	14	-1	6	11	14	-1	PUNISHER	TAG×PON
+570	6Oi66iq9bqi8bDI6l6lPdqDObo1i9lDl	3	6	10	14	-1	6	10	14	-1	HYENA	Hommarju
+571	D9lq0DioIl9D6ll0d61990DP9qPPb1dP	3	7	11	16	-1	6	11	16	-1	True Blue	dj TAKA feat.AiMEE
+572	qilOP8l6bDPi98lqDbO6O1obOi068QOQ	4	7	11	14	-1	6	11	14	-1	恋はどう？モロ◎波動OK☆方程式！！	あべにゅうぷろじぇくと feat.佐倉沙織 produced by ave;new
+573	Q8Q6d00DoIiPolOb9PIO0Pll96O0I1qD	2	6	8	11	14	5	8	11	14	ヤマトなでなで&#9825;かぐや姫	ロマンチック Prim姫
+574	dP88i6I9b9QPQDPPO90POOIo0Il6QloI	3	6	9	11	-1	6	10	12	-1	星屑のキロク	小野秀幸
+575	6i000qlo9PD9oi9I9Qb990D6D9i19699	3	5	9	13	-1	5	9	14	-1	Dispersion Star	ZUKI
+576	lQ86Pod1b9oI8OiDDoId099di9OI8d9I	3	6	9	13	-1	5	8	13	-1	デッドボヲルdeホームラン	猫叉Masterβ2
+577	D9I8d1PDOQ8QqP1o1IIi0o8d6660ddOQ	4	6	9	15	-1	6	10	15	-1	Squeeze	VENUS feat. Mutsuhiko Izumi
+578	1dq6Oq918dIQb1doqQdbiPPPO9lIdl0P	3	6	9	14	-1	6	10	14	-1	野球の遊び方　そしてその歴史　～決定版～	あさき大監督
+579	II8Dlo69PoPOII9P88qdlQPP8I61DlDo	3	7	11	16	-1	6	11	16	-1	轟け！恋のビーンボール！！	ダイナミック野球兄弟 v.s. クロスファイヤーPrim
+580	lb19I8d0DPb88QDQlP616lDqoboli90O	3	8	12	15	-1	8	13	15	-1	Engraved Mark	Ryu☆ ∞ Des-ROW
+581	d1dPPII1o69IlI0d0DlPi1i1idbdPD6O	3	7	11	14	-1	7	11	14	-1	VEGA	REDALiCE
+582	ldlqDQ0bb8d9do86o898P0qo1OlD88qD	3	7	10	14	-1	7	10	14	-1	Daily Lunch Special	Lucky Vacuum
+583	00obPO6oPIPOoD9qb0dIl6q6D8P6o9bI	5	11	14	17	18	10	14	17	18	IX	dj TAKA VS DJ TOTTO feat.藍
+584	iQqbdqOlqlPP11d1qI8lO6iQb19dO991	2	6	11	14	-1	6	11	14	-1	Romancing Layer	TAG
+585	lPDqbq6OIb810i8bqIo1i1olol1OlP9l	1	4	7	10	-1	5	9	13	-1	Do The Evolution	TAG feat. ERi
+586	qPDQbQ6lOqqbI9Plb6o9lld0ddIP8oiP	2	5	9	13	-1	5	9	12	-1	esrev:eR	TAG meets “eimy”
+587	l6d0ibbliQPQDdb1lP18D9qbPDi1698b	6	9	14	17	-1	10	14	17	-1	&AElig;THER	TAG underground
+588	Do6oPoo1QbOPo9DIii0Q0180l8b1Doqi	2	4	9	12	15	6	8	12	14	SABER WING (satellite silhouette remix)	TAG
+589	b60odbPO1IQd6d0qPIi1dQODq16i9811	1	5	8	11	13	5	8	11	13	Elysium	nc ft. NRG Factory
+590	Db9DllQooo6lqQdl6Q6OD6q066i1IdOO	2	6	9	13	-1	6	10	13	-1	MITOれて！いばらきっしゅだ～りん	水戸ご当地アイドル(仮) 【茨城】
+591	Q8qb1oQobdqDqi0i19qqb11P1oDoiD8O	4	8	11	14	15	8	11	14	15	IMANOGUILTS	Mystic Moon
+592	lIQ1608o9O6bdoPO0ooi8io8i6q6bO1b	3	6	8	10	13	5	8	11	13	ちゅ～いん☆バニー	阿部靖広 feat. Strawberry Wink
+593	1i81dQboQ91QbdO9d6bQ1Pi00dPP01li	2	5	7	10	12	5	7	10	12	Din Don Dan	Ryu☆ feat.Mayumi Morinaga
+594	IPOq96Qo911IdQbdqIo0I816i6O86ioO	2	6	10	12	-1	6	10	12	-1	LoveLove DokiDoki	水戸ご当地アイドル(仮) 【茨城】
+595	IQ0ID09qD6O1oOdIq0oilI8I8l9DlP9b	1	4	10	14	-1	4	10	14	-1	セツナトリップ	Last Note. feat. GUMI
+596	D08qoOdPd8iOO916bOPIIIdqPP6O00iP	4	7	10	13	16	7	10	13	16	ラクガキスト	cosMo＠暴走P feat.GUMI
+597	160Oo1q8DolI6068lQi66OQbQ9Q8ODQI	2	7	11	15	-1	7	12	15	-1	バンブーソード・ガール	cosMo＠暴走P
+598	QlID98Ddoi6O8lP8IQd6iid610011l60	3	6	9	12	-1	7	9	13	-1	幻想系世界修復少女	Last Note.
+599	1I9ODbQ81qi1006QoQI6d6dbd9iiPD9O	3	8	12	16	17	8	12	16	17	Idola	iconoclasm feat.GUMI
+600	QoId0biOD18610ii0DDP61QqOl6qq86q	3	6	9	14	-1	6	10	14	-1	ドキドキ☆流星トラップガール!!	流星トラップボーイズ
+601	qPPbDIqol6d06iD6dIdid6QQ9oPq9IDo	3	7	10	14	-1	8	11	15	-1	Strobe&#9825;Girl	colate
+602	d1bQ1iIb0I1PoPOQqliIo9PiQQb1119d	2	6	9	14	-1	6	10	14	-1	second spring storm	Spacelectro
+603	oQQqlb666o69DDOQoboOI1b1q09lQ9P6	2	5	8	11	-1	5	8	11	-1	Party Lights (Tommie Sunshine's Brooklyn Fire Remix)	Tommie Sunshine
+604	d1PbOD8o6b6o1OqOQ98ilDQbid6dddQd	4	6	9	12	-1	7	10	13	-1	SUPER HERO	DJ YOSHITAKA feat.Michaela Thurlow
+605	890q91iIbO96OOD10Qlob6qOObQoq1bd	3	5	10	13	-1	6	11	13	-1	Habibe (Antuh muhleke)	Wendy Parr
+606	d91lIllbboPd668QP88I06Q6QqooQiO1	4	7	11	15	-1	7	11	15	-1	Cleopatrysm	ピラミッ℃
+607	ilD80b8QQl9Qo0PP0lQ00b8bO9Oqoobo	4	8	12	15	-1	8	12	15	-1	御千手メディテーション	昇天家族
+608	Qq8bbbqO6qQ1DPODd16oi1QDQoQ9b8DO	3	7	11	16	-1	7	11	15	-1	KHAMEN BREAK	くふおー
+609	ObI1oo6QlO981880DDDOlo8bQobI0I9P	2	5	8	11	-1	5	8	12	-1	Follow Tomorrow	HHH×MM×ST
+610	I0Ql0Di1qD6i0Qq1ql0qPb19q0IQ6iO9	3	5	9	12	-1	5	8	12	-1	FUJIMORI -祭- FESTIVAL	VENUS
+611	IQ6I61i1b0Ob01QiQlld8o09iIQPoPOl	3	6	10	14	-1	6	9	13	-1	Adularia	DJ TOTTO
+612	iI96000Ib9DlIOPlDQIO00oDiO9DbPI0	3	7	11	15	-1	7	11	15	-1	Nostalgia Is Lost	U1 overground
+613	dDQqqIQlDQ9POd90OPl9Dd1i106odDl0	4	8	12	15	17	8	12	15	17	JOMANDA	DJ YOSHITAKA
+614	Pi69o0idP1obO9QDqIDbPdqlb90q8Dq8	4	8	12	16	18	8	12	16	18	嘆きの樹	金獅子
+615	6dO6i9qq601D8ild9QIlbO8bodbiQ1Pl	3	7	11	15	-1	7	12	15	-1	灼熱Beach Side Bunny	DJ Mass MAD Izm*
+616	1d9lDIl6iiiD0D0d8qd6dlDlq6P8o0QI	5	9	12	14	-1	9	13	15	-1	阿波おどり -Awaodori- やっぱり踊りはやめられない	U1 ミライダガッキ連と矢印連
+617	9DI8iOP0660lb968I6Oiiid6DQ68IbOO	2	7	11	15	-1	7	12	15	-1	SPECIAL SUMMER CAMPAIGN!	Lucky Vacuum
+618	l666Dd0bIO9O69boPd898b19bPDo1IdO	3	7	11	15	-1	7	11	14	-1	starmine	Ryu☆
+619	89ooi0i98Qlq9PloIl1b190DIo8Do16l	2	4	6	9	12	5	6	9	12	Dreamin&rsquo;	TOMOSUKE feat. Adreana
+620	90D66ObIiqP09oqoDoq6b908b699oqqi	2	4	7	10	12	5	7	10	12	The Lonely Streets	DJ Yoshitaka feat.Robert "RAab" Stevenson
+621	OQb96d6qD9bPdD819QO0b88blIllldoi	2	5	8	10	12	5	9	11	13	One Sided Love	D-crew with Melissa Petty
+622	QbI1i8Q8o06qQQIqllQ6091l998D0qIi	2	5	7	11	13	5	8	11	12	Dance Partay	DKC Crew
+623	IPDid8ii1iQb19lb6iqOi91O0il018Ql	3	5	9	12	-1	5	9	13	-1	Thank You Merry Christmas	VENUS
+624	bb9lOdO0Pbb1qOIb1oQq8lPlI9i6IP8q	3	7	11	14	-1	7	11	14	-1	Starlight Fantasia	TAG
+625	li0IboIqq8qddDP0Oi1Q9i8OPoD88IQl	3	7	12	15	-1	7	12	15	-1	Electronic or Treat!	PON
+626	oQolO9oOO01ll0I8969i8O1IQliloDqP	4	8	12	15	-1	8	12	15	-1	エンドルフィン	U1 overground
+627	DPo0bi8Dibli118P6D981oQIPPQI01lo	3	5	8	11	-1	5	8	11	-1	Go&darr;Go&uarr;Girls&amp;Boys!	松下feat.Sota & wac
+628	6oI9d9lO6Q0iDD8dIIO08qIODiqiIqDl	4	8	11	14	-1	8	11	14	-1	Plan 8	Ryu☆
+629	q6iD8idqo69qIPl00IQidoq1o1o1d1b9	3	7	10	13	-1	6	9	12	-1	クリムゾンゲイト	工藤吉三（ベイシスケイプ）
+630	P0IoP69l6q08q8DoPD1Q8bqq099Pi1iP	3	8	12	16	-1	7	12	16	-1	海神	兎々
+631	9i6dOd608qb0IlqoDIPb8q1o8q1ddQQd	3	6	10	14	-1	6	10	14	-1	FUNKY SUMMER BEACH	P*Light
+632	qo6l9dbb8D0iDQI1odo0Qb9O1ibDdoIb	5	9	12	15	-1	9	12	16	-1	Remain	ZERO+ZIBA
+633	bilO9D91P1lo81oIDP6qOoqdDdQdoDlP	3	8	11	16	-1	8	11	16	-1	Truare!	Akhuta
+634	o1Od8IPqddIP0oIPod81PDodPo1qo88o	3	9	12	16	-1	9	12	16	-1	POSSESSION(EDP Live Mix)	TAG underground
+635	1iQIIPdQQOOlP9l90oPdIi60D9OOlqoQ	6	8	12	16	-1	8	12	16	-1	chaos eater	猫叉Master+
+636	9iOoPoQ998qD66DoOOOqD9oDQD88P8I0	3	7	12	14	-1	7	12	15	-1	Samurai Shogun vs. Master Ninja	96
+637	QiQi666Qd9I6d1899iii80PdQdDlO1i1	3	7	12	15	-1	7	12	16	-1	Sand Blow	肥塚良彦
+638	9dD6dlq01qd80loD6OOQb60ql6P6068O	4	9	12	15	-1	9	12	15	-1	Destination	Sota F.
+639	ol6IDd019O0qq8dblPQ96ol1oPbI990b	6	10	13	16	-1	9	13	16	-1	HAPPY☆LUCKY☆YEAPPY	DJ ミラクル☆ストーン
+640	9i0q91lPPiO61b9P891O1i86iOP1I08O	9	10	13	18	19	10	14	17	19	EGOISM 440	U1 High-Speed
+641	89I0ooQbbI1I6O1iq861PQQqIo9iO86b	5	12	14	16	18	11	13	16	18	MAX.(period)	2MB
+642	i91q8l0bbi8qll000ob6qDiQP891iiql	4	7	10	13	-1	7	10	13	-1	乙女繚乱 舞い咲き誇れ	日向美ビタースイーツ♪
+643	Qq6D900bD60PddqqbdQb96Pd60918100	4	6	9	12	-1	6	9	12	-1	滅亡天使 &dagger; にこきゅっぴん	日向美ビタースイーツ♪
+644	811o6o1QPP0lPiolI1ObiD99l08o1dQl	2	4	7	10	-1	4	7	11	-1	ミライプリズム	ここなつ
+645	qObI8DOldoqob8OQD6Dqdiob0dIb0ll9	4	8	11	13	-1	8	11	14	-1	HEART BEAT FORMULA (Vinyl Mix)	TAG (Realtime Remix by U1)
+646	D8q1ObblD0i6liQ0OD6OdD0qIo9oPldb	5	9	13	17	-1	9	12	16	-1	PRANA＋REVOLUTIONARY ADDICT (U1 DJ Mix)	underground & overground
+647	1QqObIQPDOq6bI6iOqDiiI66oDQQidlb	3	8	12	15	-1	8	12	15	-1	Starlight Fantasia (Endorphins Mix)	U1 overground feat.TAG
+648	6bid6d9qPQ80DOqiidQQ891o6Od8801l	8	12	15	18	19	12	15	18	19	Over The &ldquo;Period&rdquo;	TAG underground overlay
+649	918oPDQDoPlD1OlqlqQI08I6dD9iqoil	2	5	9	13	-1	5	10	13	-1	朝色の紙飛行機	かめりあ
+650	o96i9P9iO9o0DdbPb9bbQ66DqDq88Db1	2	6	8	13	-1	6	8	13	-1	M.A.Y.U.	Ryu☆ feat.MAYU
+651	0Ib6qIb0iPOoQqqDIl90dP0PI0o9QlDd	3	6	9	13	-1	6	9	12	-1	女言葉の消失	Sota Fujimori
+652	lQ1QDdooiOO9QPo8q91iD1IqI8Po9ODl	3	5	10	13	16	6	10	13	16	AWAKE	柊木りお featured by TAG
+653	oQ1PPlOd8Ilb8I1I6biqO0lQPIoOldP1	2	5	9	12	-1	5	9	12	-1	Scarlet Moon	REDALiCE feat. Ayumi Nomiya
+654	1idIoi66ll806D8ddldOQi8bdiDO0Oil	4	6	10	13	-1	5	10	12	-1	Struggle	Masayoshi Minoshima(ALR)
+655	DoQi6oPoD9DlO0898oo0ol0qoo6891Db	4	6	10	13	-1	6	10	13	-1	ホメ猫☆センセーション	P*Light feat. mow*2
+656	06O0ObdQobq86lPDo6P18dQ1QPdilIQO	4	7	11	14	-1	7	12	15	-1	妖隠し -あやかしかくし-	DJ TOTTO feat.3L
+657	iQP6PI8oDQi1OPQObDQO1IIP9I8i0I1o	3	6	9	12	-1	6	9	12	-1	チョコレートスマイル	日向美ビタースイーツ♪ & ここなつ
+658	1qdb8P8il9li6DOdPolq9d0d9Q6898oi	4	6	10	13	-1	6	10	13	-1	ビビットストリーム	DJ TOTTO
+659	q1qI0QibDDP6oPdl8DlIlPo80DqDd66P	4	7	11	14	-1	8	11	14	-1	突撃！ガラスのニーソ姫！	山本椛 (monotone)
+660	lO8O011qIqioPDi9d0oib09DDDPIbqOI	4	7	11	13	-1	7	10	12	-1	爆なな☆てすとロイヤー	ARM feat. ななひら
+661	QoODOoqDli0bOoqqDo8ODo1lDI9llblo	7	10	13	17	-1	10	13	17	-1	ドーパミン	U1 overground
+662	o1dbD61Qi98O60liQQ91d8O16I86dqDd	3	5	9	11	-1	5	9	12	-1	In The Breeze	96 & Sota ft. Mayumi Morinaga
+663	loD6oi96869O8ilii1QPOPDoP91l1PQQ	2	7	10	13	11	7	10	13	13	Summer fantasy (Darwin remix)	Lazy U1 ft. Fraz & Chalk E
+664	QQd9l19POblQdPdd61OD808DQ1qOQ9dl	4	7	11	14	-1	7	11	14	-1	Sakura Mirage	Ryu☆
+665	D68PQib86POo9D6O8Q0qO8bD6bDb1bdl	4	7	12	15	-1	7	12	15	-1	天空の華	S-C-U × U1 overground
+666	Dd98lDdo8Ob698d9qbO9iD0PqO19oQbI	4	7	10	14	-1	7	11	14	-1	8000000	kors k
+667	668Q8qQdqoIQQiIQOilDqd8lDOOQ8bDQ	3	5	10	13	-1	6	8	13	-1	パ&rarr;ピ&rarr;プ&rarr;Yeah!	ヒゲドライバー join. shully & Nimo
+668	iIPq9q8PQDDObo610oQoi0ob96PDi8li	3	7	10	14	-1	6	11	15	-1	夏色DIARY -DDR mix-	猫叉王子 feat. TAG
+669	o9Ib8bob6b9qIDq1d09bq8q1I06Odi90	2	6	10	13	-1	6	9	13	-1	TSUBASA	柊木りお featured by TAG
+670	Po09DbIQ9QPoboQi0900lbbOqDoPbIod	2	5	9	11	14	3	9	12	13	neko＊neko	日向美ビタースイーツ♪
+671	Pd1d96Q91oiboqb86DdddD68dbq81Pdo	3	6	9	13	-1	5	10	12	-1	激アツ☆マジヤバ☆チアガール	日向美ビタースイーツ♪
+672	6doo1dQ16Ol86oIbQ19PPldI8lIbP0OI	4	7	10	12	-1	6	10	12	-1	はなまるぴっぴはよいこだけ	A応P
+673	OoQoQIP06Doq1d88dDQQdlQ8i68Do9DO	4	8	11	13	-1	7	11	13	-1	漆黒のスペシャルプリンセスサンデー	日向美ビタースイーツ♪
+674	91dD6iqPO066do99169POPbQPbo9o6oq	2	6	10	13	-1	7	10	13	-1	地方創生☆チクワクティクス	日向美ビタースイーツ♪
+675	61oIP0QIlO90d18ObDP1Dii6PoIQoOD8	3	5	8	12	-1	4	8	11	-1	イーディーエム・ジャンパーズ	かめりあ feat. ななひら
+676	Q96Qo0qbQ81odQoqPOOQ98oDbo6Pb1IO	1	4	10	13	-1	5	11	13	-1	チルノのパーフェクトさんすう教室 (EDM REMIX)	uno(IOSYS)
+677	liq91ddlPQ16iooqDDQ86qlodIO10Qb1	1	7	11	15	16	7	11	15	17	ナイト・オブ・ナイツ	ビートまりお(COOL&CREATE)
+678	PloPqd6Q19Q990dl16I0Qi06i0l8o168	3	6	9	12	-1	6	10	12	-1	魔理沙は大変なものを盗んでいきました	ARM(IOSYS)
+679	8Q8dP1odl1D9lIbiIO86OPPIoq6qPP1l	3	5	8	12	-1	5	9	11	-1	Bad Apple!! feat. nomico	Alstroemeria Records
+680	I90bd6obO890P0d1iiPD0dol8o8QloQD	3	6	9	12	-1	5	10	13	-1	Grip &amp; Break down !!	SOUND HOLIC feat. Nana Takahashi
+681	9dDOQo8bQ6blDdd989l1QIO8liDq9O0q	4	5	9	12	-1	6	9	12	-1	Help me, ERINNNNNN!!	ビートまりお(COOL&CREATE)
+682	0Ob1601118Dii9Qdii9lPbioPP6qoi1I	3	5	9	12	-1	5	10	12	-1	The Night Away (MK Remix)	Starving Trancer feat. Mayumi Morinaga
+683	QIDd80o0OqobODP00ldQ1D9dl81qQi0d	3	5	8	11	-1	5	10	11	-1	きゅん&times;きゅんばっきゅん☆LOVE	松下feat.Sota & wac
+684	1P9bqO00bIQ0q8d1Q80l0Dq8oi6boqb0	3	4	9	12	-1	4	9	11	-1	さよならトリップ ～夏陽 EDM edition～	東雲夏陽(from ここなつ)
+685	lIlold9IQbDb0d6IdP6600DOQIDb9dOP	3	6	10	13	-1	6	10	13	-1	十二星座の聖域	Zodiac Fall
+686	8i9llqdbQ6qP611I90lldPq1o1oQl69o	3	4	8	11	-1	6	8	11	-1	魔法のたまご ～心菜 ELECTRO POP edition～	東雲心菜(from ここなつ)
+687	Oi1DI99DO6i6llQ8DDD6oDqOQqiP118d	1	5	8	10	-1	5	8	10	-1	DANCE ALL NIGHT (DDR EDITION)	Sota Fujimori
+688	8OIqIi996QI18Oo0q8iiiO8bbb6dI1l6	1	5	9	13	-1	5	9	13	-1	HANDS UP IN THE AIR	U1
+689	qq8qDqqPQdP0loDI6DDO9d6dQ601iOID	2	5	10	13	-1	5	10	14	-1	siberite	Captain KING
+690	8OPDQ1oQIOPdqqD18oo0lQ8OQOIbbDoP	2	6	9	12	-1	6	9	12	-1	Yeah! Yeah!	CLUB SPICE
+691	I96dOqqqQIi9oiqbqDPbQ8I8PQbqOb1o	3	6	8	11	13	6	10	12	14	朧	HHH×MM×ST
+692	qbbPQoqqqiPd98d61P0qDd0iDId6OqoQ	3	6	9	11	-1	6	9	11	-1	この青空の下で	TAG meets “eimy”
+693	DDDiQOd1IQQ6QIIq09PDqdQdDIll6bQI	2	5	11	13	16	5	11	13	16	打打打打打打打打打打	ヒゲドライバー join. SELEN
+694	oIPb0iPd8OdDD181dQd8OI18OQDl01QO	3	5	9	13	-1	5	9	13	-1	ALL MY HEART -この恋に、わたしの全てを賭ける-	SUPER HEROINE 彩香 -AYAKA-
+695	18id0bi1Q6lbl0091iP0QoOIq9DDPo9I	2	5	9	12	-1	5	10	12	-1	bass 2 bass	Ryu☆
+696	l6qQi9qlO8diPd18dl6DdqPid01P91iQ	1	5	9	12	-1	4	9	12	-1	Ha･lle･lu･jah	SOUND HOLIC feat. Nana Takahashi
+697	O6q0qIQdII9086d9q6o0D1PO06liQ9iO	5	8	12	16	-1	8	12	15	-1	Poochie	kors k
+698	Dbd0o8iob1D0990DDIOIIQ6bQqdDQ6ID	4	7	10	13	-1	6	10	13	-1	SHION	DJ YOSHITAKA
+699	I1DiOI16Id0qdlqbQ6ObPlilDP1oiI98	2	5	9	13	-1	6	9	13	-1	Star Trail	Nhato
+700	o068b00O6QD8lo9O1i9PbQlqO6IQOidD	4	9	14	17	18	8	14	17	18	New Century	Sota F.
+701	16oDDIlP8bIODQ6Ql0881d9Qqdb19b98	3	6	10	14	-1	6	10	14	-1	黒髪乱れし修羅となりて～凛 edition～	日向美ビタースイーツ&#9834;
+702	16IqQ680IioldO69QD61liQod0DQ8boQ	3	5	8	11	-1	6	8	11	-1	色は匂へど散りぬるを	幽閉サテライト(Arranged:Iceon) feat. senya
+703	PqOilI0ql6QDID6oo0Qb9iDo1doqQqPQ	3	5	10	15	-1	5	11	15	-1	放課後ストライド	Last Note.
+704	l1bDOIlb6ddI6od0q1llI0I6blq9oP0l	2	5	9	13	-1	5	9	13	-1	ハッピーシンセサイザ	EasyPop
+705	P869didbP8Q69IQ0dIqo1ibOb0bb99Q1	3	7	10	13	-1	7	9	12	-1	宇宙(ソラ)への片道切符	Musical Cosmology
+706	96Qo1idlD9o8q9qIdiDl18l0O06Qo108	2	5	10	14	-1	6	10	14	-1	Electric Dance System Music	U1 overground
+707	qdbDo1oP6D9ioODd1dQO0QObObidilbP	2	5	9	12	-1	6	9	13	-1	TECH-NOID	Sota F.
+708	60P9IPOdi1OIbD61D8i0D9ODoq6QOIPO	3	6	11	15	17	6	11	15	17	RISING FIRE HAWK	L.E.D.-G
+709	00q86iQQIIiOlqi6Doqi6b9PiOodo10O	2	4	9	11	-1	5	9	11	-1	Believe	Chaos Featuring CeCe Peniston
+710	6DP8POdO1PiP0D8il08Po6iD8oI9Pidl	3	6	9	11	-1	6	9	11	-1	Break Free	Ariana Grande feat. Zedd
+711	9OP0iqDD8PDIb8lblD0ol09oP1I1d9PO	3	5	9	12	-1	6	8	13	-1	Happy	Pharrell Williams
+712	dll6Dq0blbl1iPbIIiQ61QIoo00doqiI	3	5	8	13	-1	5	8	13	-1	Hillbilly Shoes	Montgomery Gentry
+713	00Qbd9qoI681Q0biQOIiI08bI91i080l	1	3	8	11	-1	3	8	11	-1	I Want You To Know	Zedd feat. Selena Gomez
+714	qPi8qIqO1lQd08b01PiPlql9O1dOPDPq	2	5	8	11	-1	5	9	11	-1	Shut Up and Dance	Walk The Moon
+715	1i8d1DodloQiQ8doOlloDIOO9PI6OIoO	2	5	9	11	-1	5	9	11	-1	Time Of Our Lives	Pitbull
+716	io9b89PD18ibIO8PIqb1QODliqDdqiIO	3	5	9	12	-1	5	9	13	-1	Wake Me Up	Avicii
+717	08QP8bOQ6OOdd11Dq81db1l8IdiDbod6	1	-1	-1	-1	-1	-1	-1	-1	-1	Lesson by DJ	U.T.D. &amp; Friends
+718	8Q8OiP8QPbl8bqID1loQq896ldPQd99o	2	5	7	11	-1	5	8	11	-1	倉野川音頭	日向美ビタースイーツ&#9834;＆ひなちくん
+719	6IPiID10iO699bOQlODd1PQ0liDi9i1I	2	5	7	9	-1	6	8	11	-1	MAKE A JAM!	U1
+720	Q86b6I1Qi6Q918l6iOoOQl866oQoIQOi	2	5	8	11	-1	5	8	11	-1	ハピ恋☆らぶりぃタイム!!	DJ TOTTO feat.anporin
+721	D9odQ60DDolq9QI9DDl98DIobdPPIil9	2	5	8	11	-1	5	8	11	-1	Special One	kors k feat. Suzuyo Miyamoto
+722	l66Io69ob00OoOiDOI9lIqlidbDoDq89	2	5	9	12	-1	5	9	12	-1	Towards the TOWER	SHAMDEL
+723	qD6P1ldl09Dqq8QP01bbid0b9IdqobPl	3	7	10	13	-1	7	10	13	-1	ベィスドロップ・フリークス	かめりあ feat. ななひら
+724	ddOqqDI91bqqiOoll6I0i16i1P18019q	3	6	10	13	-1	6	11	13	-1	Dancer in the flare	猫叉Master
+725	16bl8D8lOddP9Obq0OIlOI6q8Pi1l9O0	3	6	10	13	-1	7	10	13	-1	天ノ弱	164
+726	Ol01P9IIoDIOldo8IQI0l6bd9lb9q0oo	4	5	9	12	16	6	9	12	16	六兆年と一夜物語	kemu feat. IA
+727	Q6b1odD8q99D190oP6ol01DolQPD0OdD	3	6	10	12	15	6	10	13	15	ロストワンの号哭	Neru
+728	6QdIl8odooDQ0oOQ0IObQqo1lO986PP6	3	7	12	15	18	7	12	15	18	Astrogazer	DJ TOTTO
+729	ibl00b69Oli68l96d6o1P1ob8QPillbO	4	8	10	14	-1	8	10	14	-1	Cytokinesis	Hommarju
+730	QOPioi8P81q9l0QiP6q06b06bdOO8b1O	5	8	12	16	-1	8	12	16	-1	S!ck	Eagle
+731	1Ob1I0do8Iq6QqP6PQIiddD18dqDP9oo	4	10	13	16	-1	10	14	16	-1	Illegal Function Call	U1-ASAMi
+732	ooo6qID66I6191bQib1QQdlPoio6Iodl	4	6	10	13	-1	6	10	13	-1	STERLING SILVER	TAG
+733	oqPii6QDdPOI6lDDQ96DOI8ill61bobd	4	7	11	14	-1	7	11	14	-1	STERLING SILVER (U1 overground mix)	TAG
+734	oIII9lI0q6i9Q0b18ldoI6o0PQ0qqD01	4	8	12	16	18	8	13	16	18	Come to Life	ARM (IOSYS) feat. Nicole Curry
+735	9QlqQb9qO008DIPbq8DOlP60P110DPi1	4	6	10	12	-1	6	10	13	-1	Far east nightbird	猫叉Master
+736	bIloQ900Iq01ql6ddP9idIb6iQ11i9D6	3	7	11	13	-1	7	11	13	-1	Far east nightbird kors k Remix -DDR edit ver-	猫叉Master
+737	9Q081Q0Do0IDDqQi9O61P111QIQd0oQ6	4	6	11	13	-1	6	10	13	-1	Angelic Jelly	t+pazolite
+738	Ib01P6O8OPl8qqQi9QO6dii18ID69I8P	3	7	11	13	-1	7	11	13	-1	Grand Chariot	xi
+739	Qbbqd9O98bl0DobQ9l6blO8iOPP8QdDd	3	6	10	12	-1	5	9	13	-1	Sephirot	SHIKI
+740	li6dD9b8dboOd9bbqli886lDl08IPQ00	4	7	11	13	-1	7	12	13	-1	StrayedCatz	削除
+741	I61ioI01IOPDPbP1OO0l98PD0iDbid0D	3	7	12	15	-1	7	11	15	-1	ZEPHYRANTHES	TAG
+742	d810q0I8q6d0l1POlIO6d66bOPb96dql	7	11	14	17	-1	9	14	17	-1	Triple Counter	DJ YOSHITAKA meets dj TAKA
+743	OdlOPPblPlbbldOdqblI06Dd1q00PPo9	3	6	11	15	17	7	11	15	18	Emera	PON
+744	QPol19bIb009IDOPildbi1QPdPlO0dq9	2	5	8	14	-1	6	9	14	-1	Determination	柊木りお
+745	90qP0000qoO8o8dIidlO611ilO11Oo9Q	2	5	10	13	-1	5	10	13	-1	Hopeful	柊木りお featured by SOTAG
+746	l08bl1dddob81IP1IbQqbDbiPo9l069l	3	6	11	15	16	7	11	15	16	Start a New Day	Sota F.
+747	Q9Q088PPd0bPi9QQ8iil1lQqPdiQP69D	4	7	12	14	17	8	13	15	17	恋する☆宇宙戦争っ!!	Prim
+748	iP8ll9I0dd8d689PPqlI9008d06io09q	3	7	10	12	-1	7	10	12	-1	恋愛観測	NU-KO
+749	bPb96lbDP9OdI0Oi1189iOPPdllPIDQb	3	5	11	14	16	5	11	14	16	Ishtar	劇団レコード
+750	Dq8b8DPD06Q8qob8OOiQIlOdD8QQD0q9	3	6	10	13	-1	6	10	13	-1	Fly far bounce	猫叉Master
+751	I6qdO8Di181P6Q9Ooq0d8d0DOdq1dOOQ	3	6	12	15	16	6	12	15	16	out of focus	Qrispy Joybox
+752	lO91bIQ0Q990PqPbPIq88b9I9PI6ID0Q	6	9	12	16	18	9	13	16	18	Neutrino	HuΣeR
+753	80PdqQ0iiOQb9i91lIliodiO9PI8O609	4	8	11	13	-1	8	11	13	-1	エキサイティング！！も・ちゃ・ちゃ☆	日向美ビタースイーツ♪
+754	9O8bq8b1Pi6Dl08OiPq10OddOdol1qOi	3	6	10	12	-1	6	10	12	-1	ロンロンへ　ライライライ！	ここなつ
+755	9QIo1lbD1ldlqPO0iD68io69Pd8b01Do	6	9	13	16	18	10	13	16	18	Cosy Catastrophe	SYUNN
+756	PO9Pl1q896bDDl89qQb98D80DQoPio1I	9	13	15	18	19	13	15	18	19	ENDYMION	fallen shepherd ft. RabbiTon Strings
+757	ld6P1lbb0bPO9doqbbPOoPb8qoDo8id0	4	7	13	15	18	7	13	15	18	ACE FOR ACES	TAG×U1
+758	D11ldIqD8dQIi9oQQIIo86QOI8D9olP8	2	7	10	13	-1	6	11	13	-1	幸せになれる隠しコマンドがあるらしい	うたたP feat. 結月ゆかり
+759	oOOI98q81oQQQP88d6Q6qlbl8QI9d0dI	3	6	10	12	14	6	10	12	14	脳漿炸裂ガール	れるりり
+760	QlQ9Qb00bI0ob9oDIiPqO1QdQ0o6O0O6	3	8	10	13	15	10	13	14	15	初音ミクの消失	cosMo＠暴走P feat.初音ミク
+761	P66d8iQQIIQO96qoDdIqi9l19i69D9Dq	3	6	10	13	15	6	10	13	15	チルノのパーフェクトさんすう教室	ARM＋夕野ヨシミ feat. miko
+762	I6Dd0QIi086il1918dQI6dq0l1d9ibD0	3	5	10	13	-1	5	11	13	-1	向日葵サンセット	ARM・まろん (IOSYS) × ランコ・パプリカ (豚乙女)
+763	IbDoODD9qb66Iqd6DbOQiOoDll1DqiO9	3	6	10	12	-1	6	10	13	-1	君氏危うくも近うよれ	A応P
+764	8bqd0Oibbo8q81QdODqdl1OOi1l99O88	3	6	10	12	-1	6	10	12	-1	DREAMING-ING!!	ときめきアイドル project
+765	dOb880lOloIIod00PQ1iQOQqlOOQ0Ql0	7	9	13	17	-1	10	14	17	-1	Be a Hero!	中島由貴
+766	i9il1DIDl91Db0OdllOddIqO600Pl89q	3	6	9	11	-1	6	9	11	-1	恋のパズルマジック	ときめきアイドル project Rhythmixxx
+767	0i68q1iQblI1Pb8QqoQ90i6ddPiqdq8b	2	7	11	13	-1	7	11	13	-1	Strawberry Chu&#9825;Chu&#9825;	ときめきアイドル project クッキーパラダイス
+768	od66Qb16lI019I06lllII811I9ol6l0i	3	6	10	14	12	6	10	14	13	ようこそジャパリパークへ	どうぶつビスケッツ×PPP
+769	91qD6DbDqi96qbIO66oboliPD8IPP6io	3	7	11	13	16	7	11	13	16	輪廻転生	まふまふ
+770	qOlDPoiqibIOqod69dPilbiqD6qdO1qQ	3	5	8	10	12	5	8	11	12	More One Night	チト(CV：水瀬いのり)、ユーリ(CV：久保ユリカ)
+771	POq8OPlOO9199i11Od0P00801Qo01DQo	7	10	14	17	-1	10	14	17	-1	Reach The Sky, Without you	nc ft. NRGFactory
+772	dqOoPll1qlDdo6Pd6O0DPPO6l16OIdD1	2	5	8	12	-1	5	8	11	-1	ルミナスデイズ	ここなつ
+773	0d8Q9I86lo8oDlQiPd81ll66ob0qli89	3	6	9	11	-1	6	9	12	-1	しゃかりきリレーション	ときめきアイドル project 結城秋葉
+774	P8DoiO0QO6Qb8iiP9D1IQ080lQQPD6ll	3	6	9	13	-1	6	10	13	-1	闘え！ダダンダーンＶ	ときめきアイドル project
+775	ibdIdIO60b880i8oPOdQD9qIqldOdDl8	4	6	7	11	-1	5	7	11	-1	ハルイチバン	ときめきアイドル project
+776	ioDOIO9iP8qqPiP9io9Ib1I91OoQ0q0O	2	4	8	9	12	4	8	10	12	CHOCOLATE PHILOSOPHY	常盤ゆう
+777	811qq00Il1Q681068l8dQbPO60l0oD1l	3	6	10	13	-1	6	10	13	-1	High School Love	DJ YOSHITAKA feat.DWP
+778	6DQoDoliDO6P96P8D1POoOd8q9QbOibQ	2	4	7	11	-1	4	7	11	-1	invisible rain	ときめきアイドル project 月島美奈都
+779	qOD6OPbP6b0l0ODOiObiQbl1DbPqOi9I	3	6	9	12	-1	6	9	12	-1	Jewelry days	ときめきアイドル project
+780	Po1D6bo0dQbdl91bPOl86lo8DbP9biiO	2	6	9	11	-1	6	9	11	-1	Twin memories W	ときめきアイドル project
+781	DOQbd61o6P0oq968Po0oqP01qPQ8lPdq	2	5	10	14	-1	5	10	14	-1	ロールプレイングゲーム	そらまふうらさか
+782	bd8oD0iqDQ8Qobd1oIqi8981QbD6I6Iq	2	5	9	12	-1	5	9	12	-1	エイリアンエイリアン	ナユタン星人
+783	I1qd16dPdqPi96ql0lP10OQDbo11D89P	3	7	9	12	-1	7	9	13	-1	恋時雨	ときめきアイドル project
+784	Oq900IIl1Ob8qoIPqDP0PD6blbqIqlP1	1	4	8	12	-1	5	9	12	-1	いーあるふぁんくらぶ	みきとP
+785	1OQd9o01Oq6Q018POOdlqodQ6bqDPOob	2	6	10	12	-1	6	10	12	-1	炉心融解	iroha
+786	dlqPb1iqPo81qI89816QIoi01b1b0P06	2	6	10	15	-1	7	10	14	-1	春風ブローインウィンド	TAG
+787	QbD9QQP9bqoD00bQQl8obibP9PloQ9Qo	4	10	14	16	-1	10	14	16	-1	Boss Rush	USAO
+788	0Pq6o89llQl10dl8O0DdP6lIO0ib6Doq	4	8	10	15	-1	7	10	14	-1	Sakura Reflection	Ryu☆
+789	bdQ6IobP6II86I1io686Il9qQ69dOod1	4	7	12	15	-1	7	12	15	-1	IN BETWEEN	BEMANI Sound Team “L.E.D.-G” feat. Mayumi Morinaga
+790	D0Qb898oqblPoP68PPq1o9i9dI9o0D9i	3	6	9	12	-1	6	9	12	-1	千年ノ理	猫叉Master
+791	dDlDPddq08iD8IOb9I1PbODP9696966D	5	7	10	13	-1	7	10	13	-1	プレインエイジア -PHQ remix-	PHQUASE
+792	qIqbqPblQIIObd9166bbDiioOIiIq991	3	9	12	16	-1	9	12	16	-1	Love You More	BEMANI Sound Team “Sota F.”
+793	oPP1Pdl6Qdlb8oq10PP1doDibdbbl9bl	3	5	8	12	-1	7	9	13	-1	朧 (dj TAKA Remix)	HHH×MM×ST
+794	d18bbq1l699OP9Di6q8oqD9oPb1o1P6I	3	6	10	14	-1	6	10	14	-1	Chronos (walk with you remix)	BEMANI Sound Team "TAG"
+795	qdQoQli1d8DP0Obb919I6P1Odilib1Dd	1	3	8	11	-1	3	8	11	-1	おねがいダーリン	松下
+796	id0QqdbI8oloO9l08IqI9q1D0819OQID	1	4	8	13	15	5	9	13	15	無頼ック自己ライザー	kradness
+797	bl90QbiqoOlDI6iQQQdo0Iol6PIdQblP	3	7	14	17	-1	7	14	17	-1	Pursuer	白澤亮(noisycroak)
+798	ddq1DldlQ990iidO6O99q61bI1966Q0I	5	7	11	13	-1	7	10	13	-1	ALGORITHM	SOUND HOLIC feat. Nana Takahashi
+799	891b0OdIdO8b9obi69b6PQlPIqDI01dO	3	8	12	16	-1	8	12	15	-1	Vanquish The Ghost	BEMANI Sound Team “TAG”
+800	D1I09111OiQPiDi9doqP9b1PlO1PqII8	1	3	8	11	-1	3	8	11	-1	SUN&sup2; SUMMER STEP!	ときめきアイドル project
+801	odliP8d18DQi0b8lPbPI1PdoQ0PDd0IP	2	7	10	12	-1	7	10	12	-1	Smiling Passion	ときめきアイドル project
+802	Qb6PqOQO8Qd8i91D018olPiD01PbQ061	2	6	9	13	-1	6	9	13	-1	Eternal Summer	北沢綾香
+803	ld8lOqloqD6lOl880ldDo819bDb9q1Qi	2	7	9	12	-1	7	9	12	-1	星座が恋した瞬間を。	BEMANI Sound Team "DJ TOTTO feat.MarL"
+804	oOI18qilo91qPQl9Q0l9iliO96Pi6DIi	2	5	8	10	-1	5	8	10	-1	風鈴花火	BEMANI Sound Team "劇団レコード"feat.結良まり
+805	dqb09QD6o0O8PooiqbqQOdqQ1l80o691	5	8	12	16	-1	8	12	16	-1	Life is beautiful	BEMANI Sound Team "猫叉Master"
+806	99q8i8bPldDbio919ob0DPi0bqdIoobi	4	8	13	17	-1	8	13	17	-1	Puberty Dysthymia	BEMANI Sound Team "person09"
+807	ll6iQl0PoiDob8Oi6dlOQ069061doqbq	2	6	10	13	-1	7	11	13	-1	Rejoin	BEMANI Sound Team "HuΣeR feat.PON"
+808	Id8IPlqQodD01dPiq8oPPQoPQq6booi0	2	8	12	15	-1	8	12	15	-1	SUPER SUMMER SALE	BEMANI Sound Team "U1 overground"
+809	i916bDibPI9l869o9IIQb8DbO9bPDi6q	5	11	15	18	18	11	15	18	18	Prey	BEMANI Sound Team "Dustup"
+810	8dbiodDo1i6IolDQdqdOoqDDD90q6liQ	6	8	13	15	16	8	13	16	17	DDR MEGAMIX	DDR
+811	qi9qP1dPd6PPDlldbb8OIlD08Pbd9006	3	5	8	11	14	5	8	11	14	Love&#9825;Shine わんだふるmix	ARM (IOSYS) feat. 一ノ瀬月琉(monotone)
+812	6oolbQ0QiO90Dd0DQbb1D86d8q88id86	3	5	8	11	14	5	8	12	14	Show me your moves	BEMANI Sound Team “TAG” feat. 柊木りお
+813	19q96Q8l1oqbD0OQq6biDbO6O1oqqb6O	8	11	14	16	18	11	15	17	18	POSSESSION (20th Anniversary Mix)	BEMANI Sound Team “Sota Fujimori 2nd Season”
+814	b16OP1o9qb6bQd66qOl98iq0boiQP919	5	8	12	16	17	8	12	15	17	CHAOS Terror-Tech Mix	ARM (IOSYS)
+815	1Dl19idl0i0qiqidbDIIbQddiP6o11PP	9	12	15	18	19	12	15	18	19	MAX 360	BEMANI Sound Team "[x]"
+816	QD8D6IQ1QoOPIPIIbI10QDOdd96OPIQi	3	6	9	12	11	6	9	12	11	#OurMemories	ALL DDR FANS
+817	DIiQbd09D0PoIiPl9iP1q8qldOOqol8i	6	9	12	15	18	9	12	15	18	シュレーディンガーの猫	Cait Sith
+818	Pq1O0qIiQII9PP1Qi6dbi9Pdo88dO8Dq	4	7	12	16	-1	7	12	16	-1	ANNIVERSARY &there4;∵&there4; &larr;&darr;&uarr;&rarr;	BEMANI Sound Team "U1 overground"
+819	P6id8qqolbP0oqO060OOqbl60DI9iQoQ	5	10	13	17	-1	9	14	18	-1	Catch Our Fire!	中島由貴
+820	9Di9ODOOl8PDQiO1O6o8lD16QlI609ob	4	7	11	15	18	7	11	15	18	First Time	BEMANI Sound Team "Metal Stepper"
+821	QPd01OQqbOIiDoO1dbdo1IIbb60bqPdl	3	5	7	11	-1	5	8	11	-1	愛言葉	DECO*27
+822	d0DDd1dP6llPbioqPdiQ0IDd918bDqI8	3	7	10	14	-1	7	10	14	-1	ありふれたせかいせいふく	ピノキオピー
+823	666ObIO9bO8D8q8q08I1OQo96DdIbbiO	3	5	9	12	-1	5	9	12	-1	すろぉもぉしょん	ピノキオピー
+824	D16P668Q8loqIoDo1IdoIlIloiIoIDll	3	7	9	13	-1	7	9	13	-1	*ハロー、プラネット。	sasakure.UK
+825	b9QiIQ18b6o1bqPdqI6lI1OIqboPIDI9	2	5	9	11	-1	5	9	12	-1	妄想税	DECO*27
+826	80Q1idDo6O6Db0106b0q6qbOP1P8QQb0	4	6	8	12	-1	6	9	13	-1	39	sasakure.UK×DECO*27
+827	6iO8d9ld00I6lDIO6qbOldP99oqloqb9	4	6	10	14	-1	6	10	14	-1	Dead Heat	Maozon
+828	0DODq0P9Qi6i6q8QPoPPOiOi6ib0188b	3	6	12	16	-1	6	12	16	-1	District of the Shadows	DJ Noriken
+829	08PiiDq6b1oQ8OIIbDql0bDbIID0b1iP	3	7	10	14	-1	8	11	15	-1	Drop The Bounce	Hommarju
+830	1iDPo19Pb9ooi8OqiidbqPb06DDdqiqo	4	8	12	15	-1	8	12	14	-1	Neverland	ARM(IOSYS) feat.Nicole Curry
+831	1DPD60Q8D1qD8i80P160bqDQ81DObDlP	2	6	11	15	-1	6	11	15	-1	Procyon	矢鴇つかさ
+832	D0Q0oIDDqoQd0IQddi1IiD16dO16O88o	3	5	10	13	-1	5	10	13	-1	Seta Para Cima&uarr;&uarr;	BEMANI Sound Team "U1 overground"
+833	80OqPo1D6lD616lIDI1IPq0oPllld6b1	2	6	9	12	-1	6	9	12	-1	Starry Sky	DJ Genki feat. Mayumi Morinaga
+834	PdPdbdQ1lDI18O90Q0li8QI0bo99bidd	1	4	7	11	-1	4	7	10	-1	This Beat Is.....	Shoichiro Hirata
+835	PPQb966D6Ql6Q8iPo68810PdDiI6D0bl	3	6	10	13	-1	7	10	13	-1	Waiting	nc ft. NRG Factory
+836	q6661PIbbb1O80OQQ11iD6bP1l6bio0Q	2	5	9	13	-1	5	9	13	-1	The Light	W&W ft. Kizuna Ai
+837	99OQb9b0IQ98P6IQdPOiqi8q16o16iqP	6	9	14	17	-1	9	14	18	-1	ORCA	かめりあ
+838	bP10qq9dPDDqIl16lPIDDd8b00dIIP08	2	5	10	14	-1	5	10	14	-1	50th Memorial Songs -Beginning Story-	BEMANI Sound Team
+839	lIlQ8DbPP6Iil1DOlQ6d8IPQblDQ8IiI	2	4	6	10	-1	4	6	10	-1	HAVE YOU NEVER BEEN MELLOW (20th Anniversary Mix)	nc ft. Kanae Jasmine Asaba
+840	Pq0Qq0OQqlPDQOld8bddlIDPD89o8bO8	2	5	8	11	-1	4	8	11	-1	Get On Da Floor	DJ Shimamura
+841	OPdooDlO9iO09lI1ODP00660loDiiodi	4	8	12	15	-1	8	12	15	-1	Helios	xac
+842	Dqb08DI0Ii8ilD0lioi9o9D1dodl6dO0	4	7	10	14	-1	7	11	14	-1	Skywalking	Nhato
+843	8qd0DIiiQ6dPl1b6b0OqDob6i0d1dQP1	3	6	9	12	-1	6	8	12	-1	SODA GALAXY	KO3
+844	ddIiQ90DblbOQQIQPIbQOdb9DdPoOQ9Q	3	7	11	14	-1	7	11	14	-1	Toy Box Factory	まろん(IOSYS)
+845	l1lO999PqIboPQOD86PDQo1ol1iIiiOi	3	6	10	13	-1	5	9	13	-1	革命パッショネイト	日向美ビタースイーツ♪
+846	qoidddb08iIoDOo9DQoO0loPl8lPQ81o	2	4	9	13	-1	4	9	13	-1	スイーツはとまらない&#9834;	日向美ビタースイーツ♪
+847	P160qOD09PQoOPI6iIOO69qDoqQl1qDQ	2	5	9	13	-1	5	10	13	-1	熱情のサパデアード	日向美ビタースイーツ♪
+848	1Q809666i9oblO8qO688OiD6OIbiP0Oq	2	5	8	11	-1	5	8	11	-1	ヒカリユリイカ	ここなつ
+849	ObbOibP0ll9I00di6i9oO1qlIQbdD0ql	4	7	9	12	-1	7	9	12	-1	ベビーステップ	ここなつ
+850	l1ODQ1bO9POQ6d8O0Iobbio11qb6O6bd	3	7	9	12	-1	7	9	12	-1	50th Memorial Songs -二人の時 ～under the cherry blossoms～-	BEMANI Sound Team
+851	0IIO08bII0QQDOdobqbl8Ib8Q8O8q1li	3	7	9	12	-1	8	10	13	-1	50th Memorial Songs -Flagship medley-	BEMANI Sound Team
+852	D0iDbio81PIbI8dD6QOIP9IidDOP0PDP	2	5	9	13	-1	5	9	13	-1	50th Memorial Songs -The BEMANI History-	BEMANI Sound Team
+853	8Io6oi89Q8DblI8IPdPPI0q98Ql9o98Q	4	9	14	16	-1	10	12	16	-1	CARTOON HEROES (20th Anniversary Mix)	nc ft.Jasmine And DARIO TODA
+854	QoDQ0oq08QqiI0DQ8dIPb10qIi6d6i89	3	8	12	15	17	8	12	16	17	腐れ外道とチョコレゐト	ピノキオピー
+855	Q9l0i6DPO08obldq101ldDioiqdIDqlq	2	5	9	13	17	5	10	13	17	タイガーランペイジ	sasakure.UK
+856	OoqbDO180q18oqi1ooO1QIdOoOPl69b1	4	6	9	13	-1	7	9	13	-1	ライアーダンス	DECO*27
+857	9DoD10OPQ999IlP0doo69olbOQ680q09	4	10	14	17	-1	10	14	17	-1	Avenger	USAO
+858	D9IO16idQq6iiI88loI1i986lIID0O9O	3	6	9	12	-1	6	9	13	-1	LONG TRAIN RUNNIN' (20th Anniversary Mix)	Haruki Yamada(ATTIC INC.) with Bodhi Kenyon
+859	ObIOQ6id8DOdlQlil8819ObqoDQIIoiO	2	6	10	14	-1	6	11	14	-1	F4SH10N	aran
+860	QI06q9lPIoo80DlI18Ooi6dbPl89bqi0	3	6	8	11	15	6	9	11	15	Our Soul	CaZ
+861	1qPOO8o9089lI1qQIDIDi0lidob9i6lq	4	7	11	14	-1	8	11	15	-1	Right Time Right Way	KAN TAKAHIKO
+862	DdIo9DQ0ddDld99DQdiiqbPP06OI91I0	8	11	15	17	-1	11	15	17	-1	New Era	BEMANI Sound Team "Sota F."
+863	IbI90PiioDlqPP19D1odPPbP1PP0009O	2	5	9	12	-1	6	9	12	-1	SKY HIGH (20th Anniversary Mix)	Haruki Yamada (ATTIC INC.) with Martin Leroux
+864	I9Ob6PlIiOQl6iQ6qO6QO0iQ1ld9DDO0	3	9	12	16	-1	9	12	16	-1	BLSTR	Ujico*
+865	Q0o8olIPb1iOo0loPPQI0PddI0qlb1Db	1	5	10	13	-1	5	9	14	-1	CROSS	TeddyLoid
+866	D9ooldO1009Pq1dP6P88lD80P0Oi060P	4	7	10	13	-1	7	10	13	-1	LEVEL UP	TORIENA
+867	D686d06lO9IID8D0boPq0Pd8P89idO99	2	7	10	15	-1	7	10	15	-1	未来（ダ）FUTURE	seiya-murai
+868	d9llb88lDI1q0QI10P01lqIqlI6QO0Dl	3	7	12	15	-1	7	12	16	-1	Give Me	Relect
+869	6dQQd1d1OQlqQdQ98i01DQ1i9P6QDQdQ	3	6	9	12	-1	6	10	12	-1	BUTTERFLY (20th Anniversary Mix)	BEMANI Sound Team "Sota F."
+870	bdbQoi98Dlb18DiPDPdD801DoOD8619O	2	5	9	12	-1	5	9	12	-1	Alone	Marshmello
+871	IO0IbQPOP6q8OddoiO99qq9I81l90D1i	2	4	7	9	-1	4	7	9	-1	Clarity	Zedd feat. Foxes
+872	69b01qbo8Qdi6liOPq091bqo01i16oQ9	1	4	7	11	-1	4	7	11	-1	I'm an Albatraoz	AronChupa
+873	Pqb60bq60o9QO0obI1Od9liQo9iIiOD0	2	5	7	10	-1	5	7	10	-1	New Rules	Dua Lipa
+874	Db6odqIqQ90PIDIlD1DIb8l09ol6qIDl	2	5	7	10	-1	5	7	10	-1	No Tears Left to Cry	Ariana Grande
+875	09oIbO1bi8O8Q1o01q610ID0qPOqoQQP	2	5	8	11	-1	5	8	11	-1	Party Rock Anthem	LMFAO
+876	oi6P9Oq19ooo00bDiPQ809DQQQD8qPlD	2	5	9	12	-1	5	9	11	-1	Play Hard	David Guetta feat. Ne-Yo, Akon
+877	6ObP9i0qi1ibbi9DOd6bOOOd6Q9dlPi6	2	4	8	10	-1	4	8	10	-1	Something Just Like This (Alesso Remix) 	The Chainsmokers & Coldplay
+878	b1do8OI6qDDlQO0PI16868ql6bdbI886	6	10	13	16	-1	10	13	16	-1	Splash Gold	BEMANI Sound Team "TAG underground"
+879	l61ldlPo1DQ081860O86D0Qo0qdOd0qP	3	5	9	14	-1	5	9	13	-1	Ace out	BEMANI Sound Team "SYUNN"
+880	oDQqbI86bdlqbiO1dbiDP0PDd91bI6iP	2	5	8	11	-1	5	8	11	-1	毒占欲	DECO*27
+881	I6q1PQ1D1Dblli8Iilo9ood8DbbQlb8O	2	4	8	12	-1	4	9	12	-1	妄想感傷代償連盟	DECO*27
+882	PldO10PIiQ6lOiI16o060OQIiq69QO96	3	5	9	13	-1	5	10	13	-1	すきなことだけでいいです	ピノキオピー
+883	OdldObODIdilOP0QqI0b1oO1diqdq61b	1	4	7	10	-1	4	7	10	-1	Small Steps	かめりあ
+884	lldPQPDP0qq8iqQ910l8b8PoQ6O668Q0	3	6	9	13	10	6	10	13	10	DOWNER &amp; UPPER	BEMANI Sound Team "DJ TOTTO"
+885	OdQqDiIDbD6ioi60ob6lDOlD8oio9l0b	2	5	10	13	-1	5	10	13	-1	Crazy Shuffle	Yooh
+886	b80qOO6l8060990qQPod1bOd8Q9d69qo	4	9	12	16	-1	9	13	16	-1	The World Ends Now	Akira Complex
+887	O9qDQOQO8dDDIiO9dPP0Pb8qQo9l89D9	5	11	14	17	-1	11	15	17	-1	最小三倍完全数	DJ TECHNORCH
+888	0lIIil06b8q819P9lDil09o6qlqo9I1i	4	8	12	16	-1	8	11	16	-1	Trill auf G	BEMANI Sound Team "dj TAKA"
+889	OO1oqdIPP80QdoP11QP61OdDb0lI1qIq	3	7	11	15	-1	7	11	15	-1	BLACK JACKAL	Akira Complex
+890	D6o8lIiDQ80oi6iIbiP9DlOPIl0Q8d69	2	7	11	15	-1	7	11	14	-1	Six String Proof	BEMANI Sound Team "Yvya × Mutsuhiko Izumi"
+891	d9QO9odlI18i96I6DQPld1iiol8ODl0o	4	9	12	16	-1	8	12	16	-1	toy boxer	BEMANI Sound Team "S-C-U & SYUNN"
+892	lqI8DD9Plq6IO8P8P6Pl8Di98DlI9oP8	3	7	12	15	-1	7	12	15	-1	おーまい！らぶりー！すうぃーてぃ！だーりん！	BEMANI Sound Team "PON" feat.NU-KO
+893	6DQ9D9oi66I8ODi8o0dPdOD1ibbIqIdI	5	9	13	17	-1	9	13	17	-1	voltississimo	BEMANI Sound Team "PHQUASE"
+894	blld8o09oQo80PIIoIdbP9688DIqlbdb	4	8	11	14	-1	8	11	15	-1	Afterimage d'automne	BEMANI Sound Team "猫叉劇団"
+895	06DO8bb0O891IQ9QP01diqOOl0D80QbO	3	7	11	14	-1	7	11	14	-1	ミッドナイト☆WAR	いちか
+896	Ol8PPooqO8iOqQ6900o0q0QI9dPo0O0b	4	9	12	16	-1	9	12	16	-1	Rampage Hero	DJ Shimamura
+897	I0qiD6Ob86D1oQOib81lID6Dll8iOOOP	4	7	11	14	17	7	11	14	17	ホーンテッド★メイドランチ	日向美ビタースイーツ♪
+898	96d9qiDD8l09DQq6O1DO6O6I1IdP8q0D	5	9	13	17	-1	9	13	17	-1	未完成ノ蒸氣驅動乙女 (DDR Edition)	U1 overground
+899	obd0PDIDq8qqd9q9qdbDdqD98bd61I8D	5	8	12	16	-1	8	12	16	-1	SWEET HOME PARTY	劇団レコード
+900	8q68D8iP6lIdiP8bo9PoOib8lb9loIob	4	7	10	13	-1	7	10	13	-1	Une mage blanche	Dormir
+901	6d8DiDl0i1oldbbo0o60PQ0q96d608Dq	4	9	12	16	-1	9	12	16	-1	ALPACORE	Cranky
+902	lq9iPP06O8qiP1iooiboPO910b86di19	2	7	10	14	-1	7	10	14	-1	IRON HEART	BUNNY
+903	olDoq69qD008Q9bb8d9OOlPO160Qd0dq	2	5	9	11	-1	5	9	11	-1	Stay 4 Ever	CHEAP CREAM
+904	D08lqQOPdOO6D6ll690Qd6PdbO111011	4	8	12	17	-1	8	13	17	-1	ランカーキラーガール	中島由貴 × いちか
+905	Q8bIDb60oPo890oi0l0O9PQd9lOb8o1Q	5	9	14	17	-1	9	14	17	-1	The History of the Future	BEMANI Sound Team"U1×TAG"
+906	illQ66d0QlbDl18OOb8P0ODD0oDP19PQ	3	4	7	10	-1	4	7	10	-1	令和	ゴールデンボンバー
+907	l81l981iPod0PDIIObIldoQb6Ol9o1Iq	4	8	11	14	-1	8	11	15	-1	Bounce Trippy	Dustvoxx
+908	d8oDqIQOoD6DQoQbOIP9I6DPPOl89lo6	2	6	9	13	-1	6	9	13	-1	ENDLESS	FN2(Eurobeat Union)
+909	9IdoP1ld9098PI90QQ6bP0Idl1ibo80D	5	8	13	17	-1	8	13	17	-1	Glitch Angel	lapix
+910	Dlq6qdP1bOPDObbbQQ6b8iPbd1ODq69P	3	6	9	12	-1	6	9	12	-1	どきドキ バレンタイン	ひまわり*パンチ
+911	1900DdoIl00b88q6Qq9ob9D6lQ8IQiPb	4	8	13	16	-1	8	12	16	-1	I Love You	O/iviA
+912	q8i11qPbo9iq8lQb9d08di81Q88q8P9o	2	6	10	15	-1	6	10	15	-1	Hunny Bunny	U1 overground
+913	ODdoiODodb0ddIP06IqDQdl100q0dIP6	3	6	11	15	-1	6	11	15	-1	Re:GENERATION	TAG feat. ERi
+914	0dOOOolo0P6180OQDo16DdO6o6D8O8lQ	2	5	9	12	-1	5	9	12	-1	DIGITAL LUV	ハレトキドキ
+915	lbD8DodiOiP8D61lidIi88DIiPqi8o6P	3	6	10	13	-1	6	10	13	-1	Mythomane	Hylen
+916	dIdDQD1Q8oPQ90Q1DPbiQI661qD9oi6I	4	8	12	16	-1	8	12	16	-1	Golden Arrow	Zekk
+917	bbiPqbo0lQq9P19i06q690blI91dbbq6	4	7	11	14	-1	6	11	14	-1	Starlight in the Snow	BEMANI Sound Team"劇団レコード"ft.Lisa-Paint with stars
+918	P1boP1O60bdI16i6lqqd1Q8ioiPbolqd	3	6	12	15	-1	6	12	15	-1	&Omega;VERSOUL	BlackY
+919	qqDOddP66Ol1q1IIOb1OPO68DP1ood1i	5	8	13	16	-1	8	13	16	-1	Firestorm	ETIA.
+920	bIlqP91O9ld1lqlq6qoq9OiPdqIDPP0l	5	9	14	18	-1	9	14	18	-1	Lachryma《Re:Queen&rsquo;M》	かねこちはる

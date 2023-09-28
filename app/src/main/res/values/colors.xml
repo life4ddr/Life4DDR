@@ -23,7 +23,7 @@
     <color name="difficultyExpert">#00FF00</color>
     <color name="difficultyChallenge">#C917C9</color>
 
-    <color name="wood">#925A3C</color>
+    <color name="copper">#925A3C</color>
     <color name="bronze">#D36119</color>
     <color name="silver">#8E8F93</color>
     <color name="gold">#E7BA2C</color>
@@ -32,6 +32,7 @@
     <color name="cobalt">#0092DB</color>
     <color name="amethyst">#DF29FF</color>
     <color name="emerald">#1AF80A</color>
+    <color name="onyx">#0A0A0A</color>
 
     <color name="red_new">#FF4500</color>
 

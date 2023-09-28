@@ -5,11 +5,11 @@
             app:key="KEY_DEBUG_LEADERBOARD"
             app:title="Leaderboard Test"/>
         <Preference
-            app:key="KEY_DEBUG_DATA_DUMP"
-            app:title="Dump Song Data"/>
-        <Preference
             app:key="KEY_DEBUG_SONG_RECORDS"
             app:title="Song Records"/>
+        <Preference
+            app:key="KEY_DEBUG_NEW_GET_SCORE"
+            app:title="New Get Score"/>
         <Preference
             app:key="KEY_DEBUG_INDUCE_CRASH"
             app:title="Induce crash"/>
@@ -42,13 +42,10 @@
         <Preference
             app:key="KEY_DEBUG_NOTIF_TRIAL_RANK"
             app:title="Trial rank up"/>
-        <Preference
-            app:key="KEY_DEBUG_NOTIF_A20"
-            app:title="A20 Update"/>
     </PreferenceCategory>
     <PreferenceCategory>
         <Preference
-            app:fragment="com.perrigogames.life4trials.activity.SettingsActivity$DebugTrialRanksFragment"
+            app:fragment="com.perrigogames.life4.activity.SettingsActivity$DebugTrialRanksFragment"
             app:title="Trial Ranks"/>
     </PreferenceCategory>
 </PreferenceScreen>

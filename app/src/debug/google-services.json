@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "506665394803",
+    "firebase_url": "https://life4ddr.firebaseio.com",
+    "project_id": "life4ddr",
+    "storage_bucket": "life4ddr.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:506665394803:android:b07ceb2698a7aae32ec006",
+        "android_client_info": {
+          "package_name": "com.perrigogames.life4.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "506665394803-45ndgafnmn79j4j9e77to6u1tb6mf9jp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBIgpq-M-Y2M_3PmItO7Px3J4GZ6H11ucM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "506665394803-45ndgafnmn79j4j9e77to6u1tb6mf9jp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:506665394803:android:a790ad13f48a52ae2ec006",
+        "android_client_info": {
+          "package_name": "com.perrigogames.life4.android.debug"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "506665394803-45ndgafnmn79j4j9e77to6u1tb6mf9jp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBIgpq-M-Y2M_3PmItO7Px3J4GZ6H11ucM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "506665394803-45ndgafnmn79j4j9e77to6u1tb6mf9jp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

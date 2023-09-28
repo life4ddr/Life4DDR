@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.RankDetailsActivity">
+    tools:context=".activity.profile.RankDetailsActivity">
 
     <FrameLayout
         android:id="@+id/container"
@@ -19,7 +19,6 @@
         style="@style/BottomProgressButtonRightBorder"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:onClick="useRankClicked"
         android:text="@string/i_am_rank_format"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/button_work_toward_rank"
@@ -30,7 +29,6 @@
         style="@style/BottomProgressButtonLeftBorder"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:onClick="useRankTargetClicked"
         android:text="@string/work_towards_rank_format"
         tools:visibility="gone"
         app:layout_constraintStart_toEndOf="@id/button_use_rank"
