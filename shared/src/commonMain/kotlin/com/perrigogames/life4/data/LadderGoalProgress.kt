@@ -1,8 +1,6 @@
 package com.perrigogames.life4.data
 
-import com.perrigogames.life4.db.ChartResult
 import com.perrigogames.life4.db.ChartResultPair
-import com.perrigogames.life4.enums.ClearType
 
 /**
  * Data class representing the local user's current progress towards
@@ -26,5 +24,3 @@ class LadderGoalProgress(
 
     override fun toString() = "$progress / $max (show=$showMax)${results?.count()?.let { ", $it" } ?: ""}"
 }
-
-fun ChartResult.satisfiesClear(type: ClearType) = clearType.ordinal >= type.ordinal
