@@ -4,30 +4,33 @@ import com.perrigogames.life4.SettingsKeys
 import com.perrigogames.life4.data.SocialNetwork
 import com.perrigogames.life4.enums.LadderRank
 import com.russhwolf.settings.ExperimentalSettingsApi
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kotlinx.serialization.ExperimentalSerializationApi
 
 @OptIn(ExperimentalSerializationApi::class, ExperimentalSettingsApi::class)
 class InfoSettingsManager : SettingsManager() {
 
-    val userName: Flow<String> = settings.getStringFlow(SettingsKeys.KEY_INFO_NAME, "")
+    val userName: StateFlow<String> = settings.getStringFlow(SettingsKeys.KEY_INFO_NAME, "")
+        .stateIn(mainScope, SharingStarted.Eagerly, "")
 
-    val rivalCode: Flow<String> = settings.getStringFlow(SettingsKeys.KEY_INFO_RIVAL_CODE, "")
+    val rivalCode: StateFlow<String> = settings.getStringFlow(SettingsKeys.KEY_INFO_RIVAL_CODE, "")
+        .stateIn(mainScope, SharingStarted.Eagerly, "")
 
     val rivalCodeDisplay: Flow<String> = rivalCode.map { "${it.substring(0..3)}-${it.substring(4..7)}" }
 
-    val userRank: Flow<LadderRank?> = settings.getLongOrNullFlow(SettingsKeys.KEY_INFO_RANK)
+    val userRank: StateFlow<LadderRank?> = settings.getLongOrNullFlow(SettingsKeys.KEY_INFO_RANK)
         .map { LadderRank.parse(it) }
+        .stateIn(mainScope, SharingStarted.Eagerly, null)
 
-    val socialNetworks: Flow<Map<SocialNetwork, String>> =
+    val socialNetworks: StateFlow<Map<SocialNetwork, String>> =
         settings.getStringFlow(SettingsKeys.KEY_INFO_SOCIAL_NETWORKS, "")
             .map { settingsString ->
                 settingsString.split(SOCIAL_LINE_DELIM)
                     .map { it.split(SOCIAL_ENTRY_DELIM) }
                     .associate { SocialNetwork.parse(it[0]) to it[1] }
             }
+            .stateIn(mainScope, SharingStarted.Eagerly, emptyMap())
 
     fun setUserBasics(
         name: String,

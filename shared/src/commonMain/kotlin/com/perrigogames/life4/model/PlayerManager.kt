@@ -2,16 +2,23 @@ package com.perrigogames.life4.model
 
 import com.perrigogames.life4.data.ApiPlayer
 import com.perrigogames.life4.isDebug
+import com.perrigogames.life4.model.settings.InfoSettingsManager
+import com.perrigogames.life4.model.settings.SettingsManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.koin.core.component.inject
 
 /**
  * A manager class that handles player data. This includes the local
  * user's data as well as leaderboards that list out ranges of players.
  */
 class PlayerManager: BaseModel() {
+
+    private val settingsManager: InfoSettingsManager by inject()
+
+    fun getUsername(): String = settingsManager.userName.value
 
     fun importPlayerInfo(playerName: String) {
         mainScope.launch {
