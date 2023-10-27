@@ -14,7 +14,7 @@ import com.perrigogames.life4.android.ui.rankdetails.RankDetailsViewModel
 import com.perrigogames.life4.android.util.visibilityBool
 import com.perrigogames.life4.android.view.RankHeaderView
 import com.perrigogames.life4.enums.LadderRank
-import com.perrigogames.life4.model.LadderManager
+import com.perrigogames.life4.model.LadderDataManager
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
@@ -24,7 +24,7 @@ class RankDetailsActivity : AppCompatActivity(),
     KoinComponent
 {
 
-    private val ladderManager: LadderManager by inject()
+    private val ladderDataManager: LadderDataManager by inject()
 
     private lateinit var binding: ActivityRankDetailsBinding
 
@@ -56,14 +56,14 @@ class RankDetailsActivity : AppCompatActivity(),
     }
 
     override fun onPreviousClicked() {
-        rank?.let { setupRank(ladderManager.previousEntry(it)?.rank) }
+        rank?.let { setupRank(ladderDataManager.previousEntry(it)?.rank) }
     }
 
     override fun onNextClicked() {
         if (rank == null) {
             setupRank(LadderRank.values().first())
         } else {
-            val nextEntry = ladderManager.nextEntry(rank)
+            val nextEntry = ladderDataManager.nextEntry(rank)
             if (nextEntry != null) {
                 setupRank(nextEntry.rank)
             }
@@ -96,7 +96,7 @@ class RankDetailsActivity : AppCompatActivity(),
             else -> getString(R.string.i_have_no_rank)
         }
 
-        val targetRank = if (showNextGoals) ladderManager.nextEntry(rank)?.rank else rank
+        val targetRank = if (showNextGoals) ladderDataManager.nextEntry(rank)?.rank else rank
         binding.buttonWorkTowardRank.apply {
             visibilityBool = showWorkToward && targetRank != null
             (targetRank)?.let { t ->

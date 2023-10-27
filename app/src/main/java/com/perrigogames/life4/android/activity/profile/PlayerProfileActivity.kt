@@ -28,7 +28,7 @@ import com.perrigogames.life4.android.ui.dialogs.MotdDialog
 import com.perrigogames.life4.android.ui.rankdetails.RankDetailsViewModel
 import com.perrigogames.life4.android.util.openWebUrlFromRes
 import com.perrigogames.life4.enums.LadderRank
-import com.perrigogames.life4.model.LadderManager
+import com.perrigogames.life4.model.LadderDataManager
 import com.perrigogames.life4.model.TrialManager
 import com.russhwolf.settings.Settings
 import org.koin.core.component.KoinComponent
@@ -41,7 +41,7 @@ import org.koin.core.component.inject
  */
 class PlayerProfileActivity : AppCompatActivity(), RankDetailsViewModel.OnGoalListInteractionListener, KoinComponent {
 
-    private val ladderManager: LadderManager by inject()
+    private val ladderDataManager: LadderDataManager by inject()
     private val ladderDialogs: AndroidLadderDialogs by inject()
     private val trialManager: TrialManager by inject()
     private val settings: Settings by inject()

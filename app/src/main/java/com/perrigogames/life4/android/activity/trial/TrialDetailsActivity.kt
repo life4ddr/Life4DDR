@@ -34,9 +34,9 @@ import com.perrigogames.life4.data.Trial
 import com.perrigogames.life4.data.TrialState
 import com.perrigogames.life4.enums.TrialRank
 import com.perrigogames.life4.getDebugBoolean
-import com.perrigogames.life4.model.LadderManager
 import com.perrigogames.life4.model.TrialManager
 import com.perrigogames.life4.model.TrialSessionManager
+import com.perrigogames.life4.model.UserRankManager
 import com.russhwolf.settings.set
 import kotlinx.datetime.toJavaLocalDateTime
 import org.koin.core.component.KoinComponent
@@ -49,7 +49,7 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener, K
 
     private lateinit var binding: ContentTrialDetailsBinding
 
-    private val ladderManager: LadderManager by inject()
+    private val userRankManager: UserRankManager by inject()
     private val trialManager: TrialManager by inject()
     private val trialSessionManager: TrialSessionManager by inject()
     private val strings: PlatformStrings by inject()
@@ -113,7 +113,7 @@ class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener, K
         binding.textGoalsContent.visibilityBool = !trial.isEvent
 
         if (trial.isEvent) {
-            val userRank = ladderManager.currentRank
+            val userRank = userRankManager.currentRank
             val scoringGroup = trial.findScoringGroup(TrialRank.fromLadderRank(userRank, true) ?: TrialRank.COPPER)
             val formatString =
                 if (trial.isActiveEvent) R.string.event_ends_future_format

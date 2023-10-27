@@ -85,7 +85,8 @@ class SettingsActivity : AppCompatActivity(),
 
     abstract class BaseSettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedPreferenceChangeListener, KoinComponent {
 
-        protected val ladderManager: LadderManager by inject()
+        protected val ladderDataManager: LadderDataManager by inject()
+        protected val userRankManager: UserRankManager by inject()
         protected val ladderDialogs: AndroidLadderDialogs by inject()
         protected val songDataCoordinator: SongDataCoordinator by inject()
         protected val trialManager: TrialManager by inject()
@@ -281,7 +282,7 @@ class SettingsActivity : AppCompatActivity(),
                         findPreference<DropDownPreference>(key)?.let {
                             LadderRank.parse(it.value.toLongOrNull()).let { rank ->
                                 it.summary = rank?.toString() ?: getString(R.string.none)
-                                ladderManager.setUserRank(rank)
+                                userRankManager.setUserRank(rank)
                             }
                         }
                     }
@@ -329,7 +330,7 @@ class SettingsActivity : AppCompatActivity(),
             setPreferencesFromResource(R.xml.clear_data_preferences, rootKey)
             preferenceListener(KEY_LADDER_CLEAR) {
                 ladderDialogs.withActivity(requireActivity()) {
-                    ladderManager.clearGoalStates()
+                    ladderDataManager.clearGoalStates()
                 }
                 true
             }

@@ -12,7 +12,7 @@ import com.perrigogames.life4.android.ui.ranklist.RankListFragment
 import com.perrigogames.life4.android.ui.ranklist.RankListFragment.OnRankListInteractionListener
 import com.perrigogames.life4.data.RankEntry
 import com.perrigogames.life4.enums.LadderRank
-import com.perrigogames.life4.model.LadderManager
+import com.perrigogames.life4.model.UserRankManager
 import com.perrigogames.life4.model.settings.FirstRunSettingsManager
 import com.perrigogames.life4.model.settings.InitState
 import org.koin.core.component.KoinComponent
@@ -24,13 +24,13 @@ import org.koin.core.component.inject
 class FirstRankSelectionActivity : AppCompatActivity(), OnRankListInteractionListener, KoinComponent {
 
     private val firstRunSettings: FirstRunSettingsManager by inject()
-    private val ladderManager: LadderManager by inject()
+    private val userRankManager: UserRankManager by inject()
 
     private lateinit var binding: ActivityFirstRankListBinding
 
     private val getRankDetails = registerForActivityResult(StartActivityForResult()) { result ->
         if (result.resultCode == RESULT_RANK_SELECTED && result.data != null) {
-            ladderManager.setUserRank(
+            userRankManager.setUserRank(
                 LadderRank.parse(result.data!!.getLongExtra(RankDetailsActivity.EXTRA_RANK, 0))
             )
             firstRunSettings.setInitState(InitState.DONE)

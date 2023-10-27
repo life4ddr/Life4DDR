@@ -16,7 +16,7 @@ import com.perrigogames.life4.db.GoalState
 import com.perrigogames.life4.enums.GoalStatus
 import com.perrigogames.life4.enums.GoalStatus.*
 import com.perrigogames.life4.enums.LadderRank
-import com.perrigogames.life4.model.LadderManager
+import com.perrigogames.life4.model.LadderDataManager
 import com.perrigogames.life4.model.LadderProgressManager
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -32,13 +32,13 @@ class RankDetailsViewModel(
     private val goalListListener: OnGoalListInteractionListener?,
 ) : ViewModel(), KoinComponent {
 
-    private val ladderManager: LadderManager by inject()
+    private val ladderDataManager: LadderDataManager by inject()
     private val ladderProgressManager: LadderProgressManager by inject()
 
     private val targetEntry: RankEntry? by lazy { when {
         !options.showNextGoals -> rankEntry
-        rankEntry == null -> ladderManager.findRankEntry(LadderRank.values().first())
-        else -> ladderManager.nextEntry(rankEntry.rank)
+        rankEntry == null -> ladderDataManager.findRankEntry(LadderRank.values().first())
+        else -> ladderDataManager.nextEntry(rankEntry.rank)
     } }
 
     private val hidesCompleteTasks = options.hideNonActive // resolves immediately, determines eligibility for toggling hidden on/off
@@ -53,7 +53,7 @@ class RankDetailsViewModel(
         get() = when {
             targetEntry == null -> mutableListOf()
             options.hideNonActive -> {
-                val completedGoals = ladderManager
+                val completedGoals = ladderDataManager
                     .getGoalStateList(allGoals)
                     .filter { it.status != INCOMPLETE }
                     .map { it.goalId }
@@ -72,14 +72,14 @@ class RankDetailsViewModel(
         } ?: emptyList()
 
     private val expandedItems = mutableListOf<BaseRankGoal>()
-    private val completeItemCount get() = ladderManager.getGoalStateList(allGoals).count { it.status == COMPLETE }
-    private val hiddenItemCount get() = ladderManager.getGoalStateList(allGoals).count { it.status == IGNORED }
+    private val completeItemCount get() = ladderDataManager.getGoalStateList(allGoals).count { it.status == COMPLETE }
+    private val hiddenItemCount get() = ladderDataManager.getGoalStateList(allGoals).count { it.status == IGNORED }
     private var canIgnoreGoals: Boolean = true
 
     private val goalItemListener: LadderGoalItemView.LadderGoalItemListener = object: LadderGoalItemView.LadderGoalItemListener {
 
         override fun onStateToggle(itemView: LadderGoalItemView, item: BaseRankGoal, goalDB: GoalState) {
-            ladderManager.setGoalState(goalDB.goalId, when(goalDB.status) {
+            ladderDataManager.setGoalState(goalDB.goalId, when(goalDB.status) {
                 COMPLETE -> INCOMPLETE
                 else -> COMPLETE
             })
@@ -87,7 +87,7 @@ class RankDetailsViewModel(
         }
 
         override fun onIgnoreClicked(itemView: LadderGoalItemView, item: BaseRankGoal, goalDB: GoalState) {
-            ladderManager.setGoalState(goalDB.goalId, when(goalDB.status) {
+            ladderDataManager.setGoalState(goalDB.goalId, when(goalDB.status) {
                 IGNORED -> INCOMPLETE
                 else -> IGNORED
             })
@@ -95,7 +95,7 @@ class RankDetailsViewModel(
         }
 
         private fun refreshDbItem(itemView: LadderGoalItemView, item: BaseRankGoal) {
-            val newDB = ladderManager.getGoalState(item)!!
+            val newDB = ladderDataManager.getGoalState(item)!!
             refreshAllVisibilities(isGrowing = false) // either shrinking or staying the same, can't uncheck a hidden item
             updateCompleteCount()
             updateIgnoredStates()
@@ -118,7 +118,7 @@ class RankDetailsViewModel(
         override fun isGoalExpanded(item: BaseRankGoal) = expandedItems.contains(item)
         override fun isGoalMandatory(item: BaseRankGoal) = targetEntry?.mandatoryGoals?.contains(item) == true
         override fun canIgnoreGoals(): Boolean = canIgnoreGoals
-        override fun getGoalStatus(item: BaseRankGoal) = ladderManager.getOrCreateGoalState(item)
+        override fun getGoalStatus(item: BaseRankGoal) = ladderDataManager.getOrCreateGoalState(item)
         override fun getGoalProgress(item: BaseRankGoal) = ladderProgressManager.getGoalProgress(item)
     }
 

@@ -20,14 +20,14 @@ import com.perrigogames.life4.android.view.PaddingItemDecoration
 import com.perrigogames.life4.android.view.RankHeaderView
 import com.perrigogames.life4.data.RankEntry
 import com.perrigogames.life4.enums.LadderRank
-import com.perrigogames.life4.model.LadderManager
+import com.perrigogames.life4.model.LadderDataManager
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import java.io.Serializable
 
 class RankDetailsFragment : Fragment(), KoinComponent {
 
-    private val ladderManager: LadderManager by inject()
+    private val ladderDataManager: LadderDataManager by inject()
 
     private var _binding: FragmentRankDetailsBinding? = null
     private val binding get() = _binding!!
@@ -42,7 +42,7 @@ class RankDetailsFragment : Fragment(), KoinComponent {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            rankEntry = ladderManager.findRankEntry(LadderRank.parse(it.getLong(KEY_RANK)))
+            rankEntry = ladderDataManager.findRankEntry(LadderRank.parse(it.getLong(KEY_RANK)))
             options = (it.getSerializable(KEY_OPTIONS) as? Options) ?: Options()
         }
     }

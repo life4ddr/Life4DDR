@@ -10,7 +10,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.perrigogames.life4.LadderRanksReplacedEvent
 import com.perrigogames.life4.android.databinding.FragmentRankListBinding
 import com.perrigogames.life4.data.RankEntry
-import com.perrigogames.life4.model.LadderManager
+import com.perrigogames.life4.model.LadderDataManager
+import com.perrigogames.life4.model.UserRankManager
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
@@ -19,12 +20,13 @@ import org.koin.core.component.inject
  */
 class RankListFragment : Fragment(), KoinComponent {
 
-    private val ladderManager: LadderManager by inject()
+    private val ladderDataManager: LadderDataManager by inject()
+    private val userRankManager: UserRankManager by inject()
 
     private var _binding: FragmentRankListBinding? = null
     private val binding get() = _binding!!
 
-    private val rankData get() = ladderManager.currentRequirements
+    private val rankData get() = ladderDataManager.currentRequirements
 
     private val columnCount: Int
         get() = arguments?.getInt(ARG_COLUMN_COUNT) ?: 1
@@ -38,7 +40,7 @@ class RankListFragment : Fragment(), KoinComponent {
             val ranks = rankData
                 .rankRequirements
                 .groupBy { it.rank.group }
-            adapter = RankListAdapter(ranks, ladderManager.currentRank, listener)
+            adapter = RankListAdapter(ranks, userRankManager.currentRank, listener)
             layoutManager = GridLayoutManager(context, columnCount).apply {
                 spanSizeLookup = (adapter as RankListAdapter).spanSizeLookup(columnCount)
             }

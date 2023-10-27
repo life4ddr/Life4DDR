@@ -12,24 +12,19 @@ import com.perrigogames.life4.db.GoalState
 import com.perrigogames.life4.enums.GoalStatus
 import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.RANKS_FILE_NAME
-import com.perrigogames.life4.model.settings.LadderSettingsManager
-import dev.icerock.moko.mvvm.flow.cMutableStateFlow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
-import kotlinx.serialization.ExperimentalSerializationApi
 import org.koin.core.component.inject
 import org.koin.core.qualifier.named
 
-@OptIn(ExperimentalSerializationApi::class)
-class LadderManager: BaseModel() {
+/**
+ * Manager class that deals with
+ */
+class LadderDataManager: BaseModel() {
 
     private val ignoreListManager: IgnoreListManager by inject()
     private val goalDBHelper: GoalDatabaseHelper by inject()
-    private val ladderProgressManager: LadderProgressManager by inject()
     private val ladderDialogs: LadderDialogs by inject()
-    private val ladderSettings: LadderSettingsManager by inject()
     private val dataReader: LocalDataReader by inject(named(RANKS_FILE_NAME))
 
     //
@@ -53,45 +48,20 @@ class LadderManager: BaseModel() {
         get() = ignoreListManager.selectedIgnoreList.baseVersion.let { version ->
             ladderData.gameVersions[version] ?: error("Rank requirements not found for version $version")
         }
-
-    //
-    // Local User Rank
-    //
-    private val _rank = MutableStateFlow<LadderRank?>(null).cMutableStateFlow()
-    val rank: StateFlow<LadderRank?> = _rank
-    val currentRank: LadderRank? get() = rank.value
-
-    private val _targetRank = MutableStateFlow<LadderRank?>(null).cMutableStateFlow()
-    val targetRank: StateFlow<LadderRank?> = _targetRank
-
-    init {
-        mainScope.launch {
-            ladderSettings.rank.collect { _rank.emit(it) }
-            ladderSettings.targetRank.collect { _targetRank.emit(it) }
-        }
-    }
-
-    fun setUserRank(rank: LadderRank?) {
-        ladderSettings.setRank(rank)
-        ladderSettings.setTargetRank(null)
-    }
-
-    fun setUserTargetRank(rank: LadderRank?) {
-        ladderSettings.setTargetRank(rank)
-    }
+    private val rankRequirements get() = currentRequirements.rankRequirements
 
     //
     // Rank Navigation
     //
-    fun findRankEntry(rank: LadderRank?) = currentRequirements.rankRequirements.firstOrNull { it.rank == rank }
+    fun findRankEntry(rank: LadderRank?) = rankRequirements.firstOrNull { it.rank == rank }
 
-    fun previousEntry(rank: LadderRank?) = previousEntry(currentRequirements.rankRequirements.indexOfFirst { it.rank == rank })
+    fun previousEntry(rank: LadderRank?) = previousEntry(rankRequirements.indexOfFirst { it.rank == rank })
 
-    fun previousEntry(index: Int) = currentRequirements.rankRequirements.getOrNull(index - 1)
+    fun previousEntry(index: Int) = rankRequirements.getOrNull(index - 1)
 
-    fun nextEntry(rank: LadderRank?) = nextEntry(currentRequirements.rankRequirements.indexOfFirst { it.rank == rank })
+    fun nextEntry(rank: LadderRank?) = nextEntry(rankRequirements.indexOfFirst { it.rank == rank })
 
-    fun nextEntry(index: Int) = currentRequirements.rankRequirements.getOrNull(index + 1)
+    fun nextEntry(index: Int) = rankRequirements.getOrNull(index + 1)
 
     //
     // Goal State
@@ -114,7 +84,7 @@ class LadderManager: BaseModel() {
             mainScope.launch {
                 goalDBHelper.deleteAll()
             }
-            ladderProgressManager.clearAllResults()
+            // FIXME ladderProgressManager.clearAllResults()
             // FIXME eventBus.post(LadderRankUpdatedEvent())
         }
     }

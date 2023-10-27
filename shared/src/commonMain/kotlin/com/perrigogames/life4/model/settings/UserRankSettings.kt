@@ -8,10 +8,9 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
-import kotlinx.serialization.ExperimentalSerializationApi
 
-@OptIn(ExperimentalSettingsApi::class, ExperimentalSerializationApi::class)
-class LadderSettingsManager : SettingsManager() {
+@OptIn(ExperimentalSettingsApi::class)
+class UserRankSettings : SettingsManager() {
 
     val rank: Flow<LadderRank?> = settings.getLongOrNullFlow(KEY_INFO_RANK)
         .map { LadderRank.parse(it) }

@@ -15,7 +15,7 @@ import com.perrigogames.life4.android.ui.ranklist.RankListFragment.OnRankListInt
 import com.perrigogames.life4.android.util.visibilityBool
 import com.perrigogames.life4.data.RankEntry
 import com.perrigogames.life4.enums.LadderRank
-import com.perrigogames.life4.model.LadderManager
+import com.perrigogames.life4.model.UserRankManager
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -25,17 +25,17 @@ import org.koin.core.component.inject
  */
 class RankListActivity : AppCompatActivity(), OnRankListInteractionListener, KoinComponent {
 
-    private val ladderManager: LadderManager by inject()
+    private val userRankManager: UserRankManager by inject()
 
     private lateinit var binding: ActivityRankListBinding
 
     private val viewRankDetails = registerForActivityResult(StartActivityForResult()) { result ->
         when (result.resultCode) {
             RESULT_RANK_SELECTED -> {
-                ladderManager.setUserRank(LadderRank.parse(result.data!!.getLongExtra(EXTRA_RANK, 0)))
+                userRankManager.setUserRank(LadderRank.parse(result.data!!.getLongExtra(EXTRA_RANK, 0)))
             }
             RESULT_RANK_TARGET_SELECTED -> {
-                ladderManager.setUserTargetRank(LadderRank.parse(result.data!!.getLongExtra(EXTRA_TARGET_RANK, 0)))
+                userRankManager.setUserTargetRank(LadderRank.parse(result.data!!.getLongExtra(EXTRA_TARGET_RANK, 0)))
             }
             else -> return@registerForActivityResult
         }
@@ -49,7 +49,7 @@ class RankListActivity : AppCompatActivity(), OnRankListInteractionListener, Koi
         binding.buttonRemoveRank.setOnClickListener { onRemoveRankClick() }
 
         lifecycleScope.launch {
-            ladderManager.rank.collect {
+            userRankManager.rank.collect {
                 binding.buttonRemoveRank.visibilityBool = it != null
             }
         }
@@ -64,7 +64,7 @@ class RankListActivity : AppCompatActivity(), OnRankListInteractionListener, Koi
         viewRankDetails.launch(RankDetailsActivity.intent(this, item?.rank))
 
     private fun onRemoveRankClick() {
-        ladderManager.setUserRank(null)
+        userRankManager.setUserRank(null)
         finish()
     }
 }

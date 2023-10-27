@@ -17,7 +17,7 @@ class VersionsDialog: DialogFragment(), KoinComponent {
     private lateinit var binding: ActivityVersionsBinding
 
     private val ignoreListManager: IgnoreListManager by inject()
-    private val ladderManager: LadderManager by inject()
+    private val ladderDataManager: LadderDataManager by inject()
     private val motdManager: MotdManager by inject()
     private val songDataManager: SongDataManager by inject()
     private val trialManager: TrialManager by inject()
@@ -27,7 +27,7 @@ class VersionsDialog: DialogFragment(), KoinComponent {
         val textContent = """
             App version: <b>${BuildConfig.VERSION_NAME}</b><br>
             Ignore list version: <b>${ignoreListManager.dataVersionString}</b><br>
-            Ladder data version: <b>${ladderManager.dataVersionString}</b><br>
+            Ladder data version: <b>${ladderDataManager.dataVersionString}</b><br>
             MOTD version: <b>${motdManager.dataVersionString}</b><br>
             Song list version: <b>${songDataManager.dataVersionString}</b><br>
             Trial data version: <b>${trialManager.dataVersionString}</b>

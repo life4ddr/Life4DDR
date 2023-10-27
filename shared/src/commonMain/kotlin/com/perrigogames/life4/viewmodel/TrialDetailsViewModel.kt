@@ -4,8 +4,8 @@ import com.perrigogames.life4.PlatformStrings
 import com.perrigogames.life4.TrialStrings
 import com.perrigogames.life4.data.*
 import com.perrigogames.life4.enums.TrialRank
-import com.perrigogames.life4.model.LadderManager
 import com.perrigogames.life4.model.SingleTrialManager
+import com.perrigogames.life4.model.UserRankManager
 import dev.icerock.moko.graphics.Color
 import dev.icerock.moko.mvvm.flow.cMutableStateFlow
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
@@ -23,8 +23,8 @@ class TrialDetailsViewModel(
 
     /// region Dependencies
 
-    val ladderManager: LadderManager by inject()
-    val strings: PlatformStrings by inject()
+    private val userRankManager: UserRankManager by inject()
+    private val strings: PlatformStrings by inject()
 
     val trialManager = SingleTrialManager(trial)
 
@@ -36,12 +36,12 @@ class TrialDetailsViewModel(
 
     private val initialRank: TrialRank =
         if (trial.isEvent)
-            TrialRank.fromLadderRank(ladderManager.currentRank, true) ?:
+            TrialRank.fromLadderRank(userRankManager.currentRank, true) ?:
             TrialRank.COPPER
         else
             storedRank?.let { trial.rankAfter(it) } ?:
             initialRankOverride ?:
-            TrialRank.fromLadderRank(ladderManager.currentRank, false) ?:
+            TrialRank.fromLadderRank(userRankManager.currentRank, false) ?:
             TrialRank.COPPER
 
     private val _targetRank = MutableStateFlow(trial.toTargetRankView(initialRank, strings.trial)).cMutableStateFlow()
