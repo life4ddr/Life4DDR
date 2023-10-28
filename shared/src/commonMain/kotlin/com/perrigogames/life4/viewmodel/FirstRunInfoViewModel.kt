@@ -2,22 +2,15 @@ package com.perrigogames.life4.viewmodel
 
 import com.perrigogames.life4.MR
 import com.perrigogames.life4.data.SocialNetwork
+import com.perrigogames.life4.model.settings.FirstRunSettingsManager
 import com.perrigogames.life4.model.settings.InfoSettingsManager
 import com.perrigogames.life4.model.settings.InitState
-import com.perrigogames.life4.model.settings.InitState.DONE
-import com.perrigogames.life4.model.settings.InitState.PLACEMENTS
-import com.perrigogames.life4.model.settings.InitState.RANKS
+import com.perrigogames.life4.model.settings.InitState.*
 import com.perrigogames.life4.viewmodel.FirstRunError.RivalCodeError
 import com.perrigogames.life4.viewmodel.FirstRunError.UsernameError
 import com.perrigogames.life4.viewmodel.FirstRunStep.Landing
 import com.perrigogames.life4.viewmodel.FirstRunStep.PathStep
-import com.perrigogames.life4.viewmodel.FirstRunStep.PathStep.Completed
-import com.perrigogames.life4.viewmodel.FirstRunStep.PathStep.InitialRankSelection
-import com.perrigogames.life4.viewmodel.FirstRunStep.PathStep.Password
-import com.perrigogames.life4.viewmodel.FirstRunStep.PathStep.RivalCode
-import com.perrigogames.life4.viewmodel.FirstRunStep.PathStep.SocialHandles
-import com.perrigogames.life4.viewmodel.FirstRunStep.PathStep.Username
-import com.perrigogames.life4.viewmodel.FirstRunStep.PathStep.UsernamePassword
+import com.perrigogames.life4.viewmodel.FirstRunStep.PathStep.*
 import dev.icerock.moko.mvvm.flow.cMutableStateFlow
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
 import dev.icerock.moko.resources.desc.Resource
@@ -34,6 +27,7 @@ import kotlin.reflect.KClass
 class FirstRunInfoViewModel : ViewModel(), KoinComponent {
 
     private val infoSettings: InfoSettingsManager by inject()
+    private val firstRunSettings: FirstRunSettingsManager by inject()
 
     val username = MutableStateFlow("").cMutableStateFlow()
     val rivalCode = MutableStateFlow("").cMutableStateFlow()
@@ -54,7 +48,11 @@ class FirstRunInfoViewModel : ViewModel(), KoinComponent {
     init {
         viewModelScope.launch {
             infoSettings.userName.collect { username.emit(it) }
+        }
+        viewModelScope.launch {
             infoSettings.rivalCode.collect { rivalCode.emit(it) }
+        }
+        viewModelScope.launch {
             infoSettings.socialNetworks.collect { socialNetworks.emit(it.toMutableMap()) }
         }
     }
@@ -73,6 +71,7 @@ class FirstRunInfoViewModel : ViewModel(), KoinComponent {
         rankMethod: InitState? = null,
         clazz: KClass<T>,
     ) : FirstRunStep {
+        rankMethod?.let { firstRunSettings.setInitState(it) }
         return when (clazz) {
             Username::class -> Username(path)
             Password::class -> Password(path)
@@ -91,6 +90,7 @@ class FirstRunInfoViewModel : ViewModel(), KoinComponent {
             rivalCode = rivalCode.value,
             socialNetworks = socialNetworks.value,
         )
+        firstRunSettings.setInitState(InitState.DONE)
         _stateStack.value += createStateClass(rankMethod = method, clazz = nextStep)
     }
 

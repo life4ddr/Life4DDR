@@ -36,6 +36,7 @@ fun LadderGoals(
     data: UILadderData,
     onCompletedChanged: (Long) -> Unit,
     onHiddenChanged: (Long) -> Unit,
+//    onExpandChanged: (Long) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(modifier = modifier) {

@@ -56,6 +56,7 @@ val coreModule = module {
     single { PlayerManager() }
     single { InfoSettingsManager() }
     single { FirstRunSettingsManager() }
+    single { UserRankManager() }
 
     // platformLogWriter() is a relatively simple config option, useful for local debugging. For production
     // uses you *may* want to have a more robust configuration from the native platform. In KaMP Kit,

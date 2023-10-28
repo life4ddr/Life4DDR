@@ -2,8 +2,6 @@ package com.perrigogames.life4.android.activity.profile
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.lifecycle.viewmodel.viewModelFactory
 import com.perrigogames.life4.data.SocialNetwork
 import com.perrigogames.life4.model.UserRankManager
 import com.perrigogames.life4.model.settings.InfoSettingsManager
@@ -25,14 +23,10 @@ class PlayerProfileViewModel : ViewModel(), KoinComponent {
     private val _playerInfoViewState = MutableStateFlow(PlayerInfoViewState()).cMutableStateFlow()
     val playerInfoViewState: StateFlow<PlayerInfoViewState> = _playerInfoViewState
 
-    val goalListViewModel = viewModel<GoalListViewModel>(
-        factory = viewModelFactory {
-            GoalListViewModel(
-                GoalListConfig(
-                    targetRank = userRankManager.targetRank.value
-                )
-            )
-        }
+    val goalListViewModel = GoalListViewModel(
+        GoalListConfig(
+            targetRank = userRankManager.targetRank.value
+        )
     )
 
     init {

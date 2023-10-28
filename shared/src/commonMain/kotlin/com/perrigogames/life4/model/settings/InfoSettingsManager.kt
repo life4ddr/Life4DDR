@@ -1,14 +1,14 @@
 package com.perrigogames.life4.model.settings
 
+import com.perrigogames.life4.GameConstants
 import com.perrigogames.life4.SettingsKeys
 import com.perrigogames.life4.data.SocialNetwork
 import com.perrigogames.life4.enums.LadderRank
 import com.russhwolf.settings.ExperimentalSettingsApi
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import kotlinx.serialization.ExperimentalSerializationApi
 
-@OptIn(ExperimentalSerializationApi::class, ExperimentalSettingsApi::class)
+@OptIn(ExperimentalSettingsApi::class)
 class InfoSettingsManager : SettingsManager() {
 
     val userName: StateFlow<String> = settings.getStringFlow(SettingsKeys.KEY_INFO_NAME, "")
@@ -17,7 +17,13 @@ class InfoSettingsManager : SettingsManager() {
     val rivalCode: StateFlow<String> = settings.getStringFlow(SettingsKeys.KEY_INFO_RIVAL_CODE, "")
         .stateIn(mainScope, SharingStarted.Eagerly, "")
 
-    val rivalCodeDisplay: Flow<String> = rivalCode.map { "${it.substring(0..3)}-${it.substring(4..7)}" }
+    val rivalCodeDisplay: Flow<String?> = rivalCode.map {
+        if (it.length == GameConstants.RIVAL_CODE_LENGTH) {
+            "${it.substring(0..3)}-${it.substring(4..7)}"
+        } else {
+            null
+        }
+    }
 
     val userRank: StateFlow<LadderRank?> = settings.getLongOrNullFlow(SettingsKeys.KEY_INFO_RANK)
         .map { LadderRank.parse(it) }

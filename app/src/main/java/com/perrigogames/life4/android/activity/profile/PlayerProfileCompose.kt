@@ -7,9 +7,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -28,6 +26,8 @@ import com.perrigogames.life4.android.compose.Typography
 import com.perrigogames.life4.android.ui.ladder.LadderGoals
 import com.perrigogames.life4.android.util.SizedSpacer
 import com.perrigogames.life4.enums.TrialJacketCorner
+import com.perrigogames.life4.util.ViewState
+import com.perrigogames.life4.viewmodel.RankListAction
 import dev.icerock.moko.mvvm.createViewModelFactory
 
 @Composable
@@ -37,8 +37,9 @@ fun PlayerProfile(
     ),
     onAction: (PlayerProfileAction) -> Unit,
 ) {
-    val playerInfoViewState by profileViewModel.playerInfoViewState.collectAsState(PlayerInfoViewState())
-    val goalListViewState by profileViewModel.goalListViewModel
+    val playerInfoViewState by profileViewModel.playerInfoViewState.collectAsState()
+    val goalListViewState by profileViewModel.goalListViewModel.state.collectAsState()
+    val goalData by remember { derivedStateOf { (goalListViewState as? ViewState.Success)?.data } }
 
     Column {
         PlayerProfileInfo(state = playerInfoViewState)
@@ -69,7 +70,19 @@ fun PlayerProfile(
             SizedSpacer(16.dp)
         }
 
-        LadderGoals()
+        if (goalData != null) {
+            LadderGoals(
+                data = goalData!!,
+                onCompletedChanged = { id ->
+                    profileViewModel.goalListViewModel.handleAction(RankListAction.OnGoal.ToggleComplete(id))
+                },
+                onHiddenChanged = { id ->
+                    profileViewModel.goalListViewModel.handleAction(RankListAction.OnGoal.ToggleHidden(id))
+                },
+                modifier = Modifier.fillMaxWidth()
+                    .weight(1f)
+            )
+        }
     }
 }
 
