@@ -13,11 +13,51 @@ data class UILadderData(
 }
 
 sealed class UILadderGoals {
-    data class SingleList(val items: List<UILadderGoal>) : UILadderGoals()
-    data class CategorizedList(val categories: CategorizedUILadderGoals) : UILadderGoals()
+
+    abstract val rawGoals: List<UILadderGoal>
+    abstract fun replaceGoal(id: Long, block: (UILadderGoal) -> UILadderGoal): UILadderGoals
+
+    data class SingleList(val items: List<UILadderGoal>) : UILadderGoals() {
+
+        override val rawGoals get() = items
+
+        override fun replaceGoal(id: Long, block: (UILadderGoal) -> UILadderGoal) = copy(
+            items = items.map { currGoal ->
+                if (currGoal.id.toLong() == id) {
+                    block(currGoal)
+                } else {
+                    currGoal
+                }
+            }
+        )
+    }
+
+    data class CategorizedList(val categories: CategorizedUILadderGoals) : UILadderGoals() {
+
+        override val rawGoals get() = categories.flatMap { it.second }
+
+        override fun replaceGoal(id: Long, block: (UILadderGoal) -> UILadderGoal) = copy(
+            categories = categories.map { category ->
+                if (category.second.any { it.id.toLong() == id}) {
+                    category.copy(
+                        second = category.second.map { currGoal ->
+                            if (currGoal.id.toLong() == id) {
+                                block(currGoal)
+                            } else {
+                                currGoal
+                            }
+                        }
+                    )
+                } else {
+                    category
+                }
+            }
+        )
+    }
 }
 
 data class UILadderGoal(
+    val id: Long,
     val goalText: String,
     val completed: Boolean = false,
     val hidden: Boolean = false,

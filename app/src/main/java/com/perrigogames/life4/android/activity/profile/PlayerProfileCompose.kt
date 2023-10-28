@@ -25,22 +25,26 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.perrigogames.life4.android.R
 import com.perrigogames.life4.android.compose.LIFE4Theme
 import com.perrigogames.life4.android.compose.Typography
+import com.perrigogames.life4.android.ui.ladder.LadderGoals
 import com.perrigogames.life4.android.util.SizedSpacer
 import com.perrigogames.life4.enums.TrialJacketCorner
 import dev.icerock.moko.mvvm.createViewModelFactory
 
 @Composable
 fun PlayerProfile(
-    viewModel: PlayerProfileViewModel = viewModel(
+    profileViewModel: PlayerProfileViewModel = viewModel(
         factory = createViewModelFactory { PlayerProfileViewModel() }
     ),
     onAction: (PlayerProfileAction) -> Unit,
 ) {
-    val playerInfoViewState by viewModel.playerInfoViewState.collectAsState(PlayerInfoViewState())
+    val playerInfoViewState by profileViewModel.playerInfoViewState.collectAsState(PlayerInfoViewState())
+    val goalListViewState by profileViewModel.goalListViewModel
 
     Column {
         PlayerProfileInfo(state = playerInfoViewState)
-        Row {
+        Row(
+            modifier = Modifier.fillMaxWidth()
+        ) {
             val modifier = Modifier
                 .weight(1f)
                 .aspectRatio(2f)
@@ -64,6 +68,8 @@ fun PlayerProfile(
             )
             SizedSpacer(16.dp)
         }
+
+        LadderGoals()
     }
 }
 
@@ -124,7 +130,7 @@ fun ProfileButton(
                         .fillMaxSize(0.5f * iconScale),
                 )
                 corner?.let {
-
+                    // FIXME
                 }
             }
         },

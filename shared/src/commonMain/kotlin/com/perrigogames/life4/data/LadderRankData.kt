@@ -87,6 +87,9 @@ data class RankEntry(
     @Transient var goals = emptyList<BaseRankGoal>()
     @Transient var mandatoryGoals = emptyList<BaseRankGoal>()
 
+    val allGoals: List<BaseRankGoal>
+        get() = goals + mandatoryGoals
+
     private val mandatoryGoalCount
         get() = mandatoryGoals.count()
 

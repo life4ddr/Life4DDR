@@ -34,8 +34,8 @@ import dev.icerock.moko.resources.compose.colorResource
 @Composable
 fun LadderGoals(
     data: UILadderData,
-    onCompletedChanged: (Boolean) -> Unit,
-    onHiddenChanged: (Boolean) -> Unit,
+    onCompletedChanged: (Long) -> Unit,
+    onHiddenChanged: (Long) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(modifier = modifier) {
@@ -59,8 +59,8 @@ fun LadderGoals(
 fun LadderGoalItem(
     goal: UILadderGoal,
     expanded: Boolean = false,
-    onCompletedChanged: (Boolean) -> Unit,
-    onHiddenChanged: (Boolean) -> Unit,
+    onCompletedChanged: (Long) -> Unit,
+    onHiddenChanged: (Long) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     var isExpanded by remember { mutableStateOf(expanded) }
@@ -116,8 +116,8 @@ fun LadderGoalItem(
 @Composable
 private fun LadderGoalHeaderRow(
     goal: UILadderGoal,
-    onCompletedChanged: (Boolean) -> Unit,
-    onHiddenChanged: (Boolean) -> Unit,
+    onCompletedChanged: (Long) -> Unit,
+    onHiddenChanged: (Long) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Row(
@@ -139,14 +139,14 @@ private fun LadderGoalHeaderRow(
         }
         Checkbox(
             checked = goal.completed,
-            onCheckedChange = onCompletedChanged,
+            onCheckedChange = { onCompletedChanged(goal.id) },
         )
         Icon(
             painter = painterResource(R.drawable.ic_eye),
             tint = MaterialTheme.colorScheme.onSurface,
             contentDescription = if (goal.hidden) "Hidden" else "Visible",
             modifier = Modifier
-                .clickable { onHiddenChanged(!goal.hidden) }
+                .clickable { onHiddenChanged(goal.id) }
                 .safeContentPadding()
                 .padding(end = HORIZONTAL_PADDING)
         )

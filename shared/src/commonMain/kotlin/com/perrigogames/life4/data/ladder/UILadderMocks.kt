@@ -8,6 +8,7 @@ import kotlin.random.Random
 object UILadderMocks {
 
     fun createUILadderGoal(
+        id: Long = 0,
         goalText: String = "Perform this generic action",
         completed: Boolean = false,
         hidden: Boolean = false,
@@ -15,6 +16,7 @@ object UILadderMocks {
         progress: UILadderProgress? = null,
         detailItems: List<UILadderDetailItem> = emptyList(),
     ) = UILadderGoal(
+        id = id,
         goalText = goalText,
         completed = completed,
         hidden = hidden,

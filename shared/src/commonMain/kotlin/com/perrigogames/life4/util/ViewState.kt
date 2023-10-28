@@ -5,3 +5,5 @@ sealed class ViewState<out V, out E> {
     data class Error<E>(val error: E) : ViewState<Nothing, E>()
     data class Success<V>(val data: V) : ViewState<V, Nothing>()
 }
+
+fun <V: Any> V.toViewState() = ViewState.Success(this)

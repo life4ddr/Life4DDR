@@ -66,11 +66,12 @@ class LadderDataManager: BaseModel() {
     //
     // Goal State
     //
-    fun getGoalState(goal: BaseRankGoal): GoalState? =
-        goalDBHelper.stateForId(goal.id.toLong())
+    fun getGoalState(id: Long): GoalState? = goalDBHelper.stateForId(id)
+    fun getGoalState(goal: BaseRankGoal): GoalState? = getGoalState(goal.id.toLong())
 
-    fun getOrCreateGoalState(goal: BaseRankGoal): GoalState =
-        getGoalState(goal) ?: GoalState(goal.id.toLong(), GoalStatus.INCOMPLETE, Clock.System.now().toString())
+    fun getOrCreateGoalState(id: Long): GoalState = getGoalState(id)
+        ?: GoalState(id, GoalStatus.INCOMPLETE, Clock.System.now().toString())
+    fun getOrCreateGoalState(goal: BaseRankGoal): GoalState = getOrCreateGoalState(goal.id.toLong())
 
     fun getGoalStateList(goals: List<BaseRankGoal>): List<GoalState> =
         goalDBHelper.statesForIdList(goals.map { it.id.toLong() }).executeAsList()
