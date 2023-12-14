@@ -10,7 +10,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.Surface
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.Modifier
 import com.perrigogames.life4.DataRequiresAppUpdateEvent
 import com.perrigogames.life4.MotdEvent
@@ -58,14 +59,16 @@ class PlayerProfileActivity : AppCompatActivity(), RankDetailsViewModel.OnGoalLi
         super.onCreate(savedInstanceState)
         setContent {
             LIFE4Theme {
-                Column(
-                    modifier = Modifier.fillMaxSize()
+                Surface(
+                    color = MaterialTheme.colorScheme.background,
+                    contentColor = MaterialTheme.colorScheme.onBackground
                 ) {
-                    PlayerProfile(
-                        onAction = ::handleAction
-                    )
-                    LazyColumn {
-
+                    Column(
+                        modifier = Modifier.fillMaxSize()
+                    ) {
+                        PlayerProfile(
+                            onAction = ::handleAction
+                        )
                     }
                 }
             }

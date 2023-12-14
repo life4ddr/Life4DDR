@@ -3,6 +3,7 @@ package com.perrigogames.life4.android.activity.profile
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.perrigogames.life4.data.SocialNetwork
+import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.model.UserRankManager
 import com.perrigogames.life4.model.settings.InfoSettingsManager
 import com.perrigogames.life4.viewmodel.GoalListConfig
@@ -25,7 +26,7 @@ class PlayerProfileViewModel : ViewModel(), KoinComponent {
 
     val goalListViewModel = GoalListViewModel(
         GoalListConfig(
-            targetRank = userRankManager.targetRank.value
+            targetRankFlow = userRankManager.targetRank
         )
     )
 
@@ -35,8 +36,9 @@ class PlayerProfileViewModel : ViewModel(), KoinComponent {
                 infoSettings.userName,
                 infoSettings.rivalCodeDisplay,
                 infoSettings.socialNetworks,
-            ) { userName, rivalCode, socialNetworks ->
-                PlayerInfoViewState(userName, rivalCode, socialNetworks)
+                userRankManager.rank
+            ) { userName, rivalCode, socialNetworks, rank ->
+                PlayerInfoViewState(userName, rivalCode, socialNetworks, rank)
             }.collect { _playerInfoViewState.value = it }
         }
     }
@@ -46,6 +48,7 @@ data class PlayerInfoViewState(
     val username: String = "",
     val rivalCode: String? = null,
     val socialNetworks: Map<SocialNetwork, String> = emptyMap(),
+    val rank: LadderRank? = null,
 )
 
 sealed class PlayerProfileAction {

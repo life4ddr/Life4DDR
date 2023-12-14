@@ -97,6 +97,11 @@ enum class LadderRank(
     }
 }
 
+val LadderRank?.nullableNext: LadderRank?
+    get() = if (this == null) {
+        LadderRank.values().first()
+    } else { this.next }
+
 /**
  * Enum describing the groups that Ranks are put into.
  */

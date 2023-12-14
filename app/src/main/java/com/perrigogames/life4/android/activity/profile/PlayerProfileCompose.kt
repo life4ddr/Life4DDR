@@ -3,10 +3,7 @@ package com.perrigogames.life4.android.activity.profile
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -40,6 +37,7 @@ fun PlayerProfile(
     val playerInfoViewState by profileViewModel.playerInfoViewState.collectAsState()
     val goalListViewState by profileViewModel.goalListViewModel.state.collectAsState()
     val goalData by remember { derivedStateOf { (goalListViewState as? ViewState.Success)?.data } }
+    val goalError by remember { derivedStateOf { (goalListViewState as? ViewState.Error)?.error } }
 
     Column {
         PlayerProfileInfo(state = playerInfoViewState)
@@ -83,6 +81,16 @@ fun PlayerProfile(
                     .weight(1f)
             )
         }
+        if (goalError != null) {
+            Text(
+                text = goalError!!,
+                style = MaterialTheme.typography.titleLarge,
+                color = MaterialTheme.colorScheme.onBackground,
+                modifier = Modifier.fillMaxWidth()
+                    .padding(horizontal = 16.dp)
+                    .weight(1f)
+            )
+        }
     }
 }
 
@@ -95,13 +103,13 @@ fun PlayerProfileInfo(
         Text(
             text = state.username,
             style = Typography.headlineMedium,
-            color = Color.White,
+            color = MaterialTheme.colorScheme.onBackground,
         )
         state.rivalCode?.let {  rivalCode ->
             Text(
                 text = rivalCode,
                 style = Typography.bodyMedium,
-                color = Color.White,
+                color = MaterialTheme.colorScheme.onBackground,
             )
         }
     }
@@ -120,7 +128,7 @@ fun ProfileButton(
     Card(
         onClick = onClick,
         colors = CardDefaults.cardColors(
-
+            containerColor = MaterialTheme.colorScheme.surfaceVariant
         ),
         content = {
             Box(
@@ -129,7 +137,7 @@ fun ProfileButton(
                 Text(
                     text = title.toUpperCase(Locale.current),
                     style = Typography.titleMedium,
-                    color = Color.White,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.align(Alignment.TopStart)
                         .padding(horizontal = 8.dp, vertical = 2.dp),
                 )

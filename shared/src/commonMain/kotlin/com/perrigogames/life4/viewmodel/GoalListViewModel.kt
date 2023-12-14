@@ -16,6 +16,7 @@ import com.perrigogames.life4.util.ifNull
 import com.perrigogames.life4.util.toViewState
 import dev.icerock.moko.mvvm.flow.cMutableStateFlow
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -35,23 +36,25 @@ class GoalListViewModel(private val config: GoalListConfig) : ViewModel(), KoinC
 
     init {
         viewModelScope.launch {
-            if (config.targetRank == null) {
-                _state.value = ViewState.Error("No higher goals found...")
-                return@launch
-            }
-            ladderDataManager.findRankEntry(config.targetRank)
-                ?.also { entry = it }
-                .ifNull {
-                    _state.value = ViewState.Error("No goals found for ${config.targetRank.name}")
-                    return@launch
+            config.targetRankFlow.collect { rank ->
+                if (rank == null) {
+                    _state.value = ViewState.Error("No higher goals found...")
+                    return@collect
                 }
-            _state.value = ViewState.Success(
-                UILadderData(
-                    goals = UILadderGoals.SingleList(
-                        items = entry.goals.map(::toViewData)
+                ladderDataManager.findRankEntry(rank)
+                    ?.also { entry = it }
+                    .ifNull {
+                        _state.value = ViewState.Error("No goals found for ${rank.name}")
+                        return@collect
+                    }
+                _state.value = ViewState.Success(
+                    UILadderData(
+                        goals = UILadderGoals.SingleList(
+                            items = entry.goals.map(::toViewData)
+                        )
                     )
                 )
-            )
+            }
         }
     }
 
@@ -121,7 +124,7 @@ class GoalListViewModel(private val config: GoalListConfig) : ViewModel(), KoinC
 }
 
 data class GoalListConfig(
-    val targetRank: LadderRank?
+    val targetRankFlow: Flow<LadderRank?>
 )
 
 sealed class RankListAction {

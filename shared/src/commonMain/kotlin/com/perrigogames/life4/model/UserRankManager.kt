@@ -1,6 +1,7 @@
 package com.perrigogames.life4.model
 
 import com.perrigogames.life4.enums.LadderRank
+import com.perrigogames.life4.enums.nullableNext
 import com.perrigogames.life4.model.settings.UserRankSettings
 import dev.icerock.moko.mvvm.flow.cMutableStateFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -31,7 +32,7 @@ class UserRankManager : BaseModel() {
 
     fun setUserRank(rank: LadderRank?) {
         ladderSettings.setRank(rank)
-        ladderSettings.setTargetRank(null)
+        ladderSettings.setTargetRank(rank.nullableNext)
     }
 
     fun setUserTargetRank(rank: LadderRank?) {
