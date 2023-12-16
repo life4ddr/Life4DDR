@@ -10,4 +10,4 @@ pluginManagement {
 include(":app", ":shared", ":editor", ":remyscrape")
 rootProject.name = "LIFE4DDR"
 
-enableFeaturePreview("VERSION_CATALOGS")
+//enableFeaturePreview("VERSION_CATALOGS")

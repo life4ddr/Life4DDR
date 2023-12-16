@@ -4,7 +4,7 @@ kotlin = "1.8.10"
 ## SDK Versions
 minSdk = "21"
 targetSdk = "33"
-compileSdk = "33"
+compileSdk = "34"
 
 # Dependencies
 android-gradle-plugin = "7.4.1"
@@ -75,6 +75,8 @@ androidx-fragment = { module = "androidx.fragment:fragment-ktx", version.ref = "
 androidx-test-junit = { module = "androidx.test.ext:junit-ktx", version.ref = "androidx-test-junit" }
 androidx-swiperefresh = { module = "androidx.swiperefreshlayout:swiperefreshlayout", version.ref = "androidx-swiperefresh" }
 androidx-datastore = { module = "androidx.datastore:datastore-preferences", version.ref = "androidx-datastore" }
+androidx-splashscreen = { module = "androidx.core:core-splashscreen", version = "1.0.1" }
+androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version = "2.7.6" }
 
 compose-compiler = { module = "androidx.compose.compiler:compiler", version.ref = "composeCompiler" }
 compose-ui = { module = "androidx.compose.ui:ui", version.ref = "compose" }
@@ -171,6 +173,8 @@ app-ui = [
     "androidx-fragment",
     "androidx-swiperefresh",
     "androidx-datastore",
+    "androidx-splashscreen",
+    "androidx-navigation-compose",
     "compose-ui",
     "compose-ui-viewbinding",
     "compose-tooling",

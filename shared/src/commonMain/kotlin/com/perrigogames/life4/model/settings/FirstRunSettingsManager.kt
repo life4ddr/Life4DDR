@@ -19,7 +19,9 @@ class FirstRunSettingsManager : SettingsManager() {
     val requireSignin: Flow<Boolean> = initState.map { it == null }
 
     fun setInitState(state: InitState?) = mainScope.launch {
-        state?.also { settings.putString(SettingsKeys.KEY_INIT_STATE, it.key) } ?: settings.remove(SettingsKeys.KEY_INIT_STATE)
+        state?.also {
+            settings.putString(SettingsKeys.KEY_INIT_STATE, it.key)
+        } ?: settings.remove(SettingsKeys.KEY_INIT_STATE)
     }
 }
 

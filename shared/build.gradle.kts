@@ -30,6 +30,7 @@ android {
 version = 1.2
 
 kotlin {
+    jvmToolchain(17)
     android()
     ios()
     // Note: iosSimulatorArm64 target requires that all dependencies have M1 support

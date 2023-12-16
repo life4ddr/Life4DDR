@@ -29,10 +29,22 @@
     <string name="first_run_rank_method_no_rank">Start from the beginning</string>
     <string name="first_run_error_username">Username must not be empty</string>
     <string name="first_run_error_rival_code">Rival code must be 8 digits long</string>
+    <string name="placements">Placement Sets</string>
+    <string name="play_placement">Play a Placement Set instead</string>
     <string name="placement_description_text">Placement Sets are a quick way to get into the LIFE4 system or better learn where you should begin.\n\nWhen choosing a placement set, select which set you think will most accurately showcase your skill level.\n\nDon’t worry about choosing the wrong set; you will still be placed accordingly.</string>
     <string name="placement_start">Play Now</string>
     <string name="placement_close_confirm_title">Skip Placement?</string>
     <string name="placement_close_confirm_body">You can find these later in the menu.</string>
+    <string name="select_a_starting_rank">Select a Starting Rank</string>
+    <!-- endregion -->
+
+    <!-- region Rank Selection -->
+    <string name="change_rank_later">You can change your Rank in the Settings menu later.</string>
+    <string name="no_rank_goals">It\'s free to not have a rank, but it\'s more fun if you play through some goals!</string>
+    <string name="i_am_rank_format">I Am %s</string>
+    <string name="i_have_no_rank">I Have No Rank</string>
+    <string name="start_with_rank_format">Start with %s</string>
+    <string name="start_with_no_rank">Start with No Rank</string>
     <!-- endregion -->
 
     <!-- region Difficulty Strings -->
