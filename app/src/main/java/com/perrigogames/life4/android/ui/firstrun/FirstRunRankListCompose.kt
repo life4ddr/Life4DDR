@@ -1,4 +1,4 @@
-package com.perrigogames.life4.android.activity.firstrun
+package com.perrigogames.life4.android.ui.firstrun
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -14,9 +14,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.perrigogames.life4.android.compose.Paddings
 import com.perrigogames.life4.android.ui.ranklist.RankSelection
+import com.perrigogames.life4.android.util.SizedSpacer
 import com.perrigogames.life4.android.view.compose.AutoResizedText
 import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.model.settings.InitState
@@ -26,7 +28,7 @@ import dev.icerock.moko.mvvm.createViewModelFactory
 @Composable
 fun FirstRunRankListScreen(
     viewModel: RankListViewModel = viewModel(
-        factory = createViewModelFactory { RankListViewModel() }
+        factory = createViewModelFactory { RankListViewModel(isFirstRun = true) }
     ),
     onPlacementClicked: () -> Unit,
     onRankClicked: (LadderRank?) -> Unit,
@@ -43,10 +45,9 @@ fun FirstRunRankListScreen(
             color = MaterialTheme.colorScheme.onBackground,
             textAlign = TextAlign.Left,
             modifier = Modifier
-                .padding(top = Paddings.LARGE)
-                .padding(horizontal = Paddings.LARGE)
+                .padding(top = Paddings.LARGE, start = Paddings.LARGE)
         )
-//        Spacer(modifier = Modifier.weight(1f))
+        SizedSpacer(32.dp)
         RankSelection(
             ranks = state.ranks,
             noRank = state.noRank,

@@ -36,6 +36,7 @@ class PlacementManager: BaseModel() {
     fun nextPlacement(index: Int) = placements.getOrNull(index + 1)
 
     fun createUiData() = UIPlacementScreen(
+        titleText = MR.strings.placements.desc(),
         headerText = MR.strings.placement_description_text.desc(),
         placements = placements.map { placement ->
             UIPlacementData(
@@ -48,7 +49,7 @@ class PlacementManager: BaseModel() {
                         lowest = min(lowest, song.difficultyNumber)
                         highest = max(highest, song.difficultyNumber)
                     }
-                    "$lowest-$highest"
+                    "L$lowest-L$highest" // FIXME resource
                 },
                 songs = placement.songs.map { song ->
                     UIPlacementSong(

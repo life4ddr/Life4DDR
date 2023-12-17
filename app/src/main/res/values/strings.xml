@@ -427,7 +427,7 @@
     <string name="credits">Credits</string>
     <string name="versions">Versions</string>
     <string name="rank_directions">To earn <![CDATA[<b><font color=#ffffff>%s</font></b>]]>:</string>
-    <string name="no_rank_goals">It\'s free to not have a rank, but it\'s more fun if you play through some goals!</string>
+    <string name="no_rank_goals">It\'s free to not have a rank, but it\'s more fun if you play through some goals!  You can change your Rank in the Settings menu later.</string>
 
     <string name="database_upgraded">Song Database Upgraded</string>
     <string name="database_replaced_reimport">The internal song database has been upgraded.\n\nIf you imported your scores from the DDR A Score Manager, you will need to do this again to ensure compatibility.\n\nYou\'ll only need to do this once.</string>

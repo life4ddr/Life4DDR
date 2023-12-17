@@ -40,7 +40,7 @@
 
     <!-- region Rank Selection -->
     <string name="change_rank_later">You can change your Rank in the Settings menu later.</string>
-    <string name="no_rank_goals">It\'s free to not have a rank, but it\'s more fun if you play through some goals!</string>
+    <string name="no_rank_goals">It\'s free to not have a rank, but it\'s more fun if you play through some goals!  You can change your Rank in the Settings menu later.</string>
     <string name="i_am_rank_format">I Am %s</string>
     <string name="i_have_no_rank">I Have No Rank</string>
     <string name="start_with_rank_format">Start with %s</string>

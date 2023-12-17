@@ -8,13 +8,16 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.LaunchedEffect
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.perrigogames.life4.android.activity.firstrun.FirstRunRankListScreen
-import com.perrigogames.life4.android.activity.firstrun.FirstRunScreen
-import com.perrigogames.life4.android.activity.firstrun.PlacementScreen
+import androidx.navigation.navArgument
 import com.perrigogames.life4.android.compose.LIFE4Theme
+import com.perrigogames.life4.android.ui.firstrun.FirstRunRankListScreen
+import com.perrigogames.life4.android.ui.firstrun.FirstRunScreen
+import com.perrigogames.life4.android.ui.firstrun.PlacementListScreen
 import com.perrigogames.life4.model.settings.InitState
 import com.perrigogames.life4.viewmodel.LaunchViewModel
 import dev.icerock.moko.mvvm.createViewModelFactory
@@ -42,7 +45,7 @@ class LaunchActivity: AppCompatActivity(), KoinComponent {
 
             LaunchedEffect(Unit) {
                 viewModel.launchState.collect { launchState ->
-                    navController.navigate(when(launchState) {
+                    navController.popAndNavigate(when(launchState) {
                         null -> "first_run"
                         InitState.PLACEMENTS -> "placement_list"
                         InitState.RANKS -> "initial_rank_list"
@@ -66,27 +69,34 @@ class LaunchActivity: AppCompatActivity(), KoinComponent {
                         composable("first_run") {
                             FirstRunScreen(
                                 onComplete = { when (it) {
-                                    InitState.PLACEMENTS -> navController.navigate("placement_list")
-                                    InitState.RANKS -> navController.navigate("initial_rank_list")
-                                    InitState.DONE -> navController.navigate("main_screen")
+                                    InitState.PLACEMENTS -> navController.popAndNavigate("placement_list")
+                                    InitState.RANKS -> navController.popAndNavigate("initial_rank_list")
+                                    InitState.DONE -> navController.popAndNavigate("main_screen")
                                 } },
                                 onClose = { finish() },
                             )
                         }
 
                         composable("placement_list") {
-                            PlacementScreen(
+                            PlacementListScreen(
                                 onPlacementSelected = { TODO() },
-                                onRanksClicked = { navController.navigate("initial_rank_list") },
-                                goToMainScreen = { navController.navigate("main_screen") }
+                                onRanksClicked = { navController.popAndNavigate("initial_rank_list") },
+                                goToMainScreen = { navController.popAndNavigate("main_screen") }
                             )
+                        }
+
+                        composable(
+                            route = "placement_details/{placement_id}",
+                            arguments = listOf(navArgument("placement_id") { type = NavType.StringType })
+                        ) {
+                            PlacementDetailsScreen
                         }
 
                         composable("initial_rank_list") {
                             FirstRunRankListScreen(
-                                onPlacementClicked = { navController.navigate("placement_list") },
+                                onPlacementClicked = { navController.popAndNavigate("placement_list") },
                                 onRankClicked = { TODO() },
-                                goToMainScreen = { navController.navigate("main_screen") }
+                                goToMainScreen = { navController.popAndNavigate("main_screen") }
                             )
                         }
 
@@ -98,4 +108,9 @@ class LaunchActivity: AppCompatActivity(), KoinComponent {
             }
         }
     }
+}
+
+fun NavController.popAndNavigate(destination: String) {
+    popBackStack()
+    navigate(destination)
 }

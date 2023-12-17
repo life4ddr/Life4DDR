@@ -8,6 +8,7 @@ import dev.icerock.moko.resources.desc.desc
 
 object UIPlacementMocks {
     fun createUIPlacementScreen(
+        titleText: StringDesc = MR.strings.placements.desc(),
         headerText: StringDesc = MR.strings.placement_description_text.desc(),
         placements: List<UIPlacementData> = listOf(
             createUIPlacementData(),
@@ -21,6 +22,7 @@ object UIPlacementMocks {
             ),
         ),
     ) = UIPlacementScreen(
+        titleText = titleText,
         headerText = headerText,
         placements = placements,
     )

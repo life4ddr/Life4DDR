@@ -9,6 +9,7 @@ import dev.icerock.moko.resources.StringResource
 import dev.icerock.moko.resources.desc.StringDesc
 
 data class UIPlacementScreen(
+    val titleText: StringDesc,
     val headerText: StringDesc,
     val placements: List<UIPlacementData>,
 )

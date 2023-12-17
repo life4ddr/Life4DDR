@@ -1,4 +1,4 @@
-package com.perrigogames.life4.android.activity.firstrun
+package com.perrigogames.life4.android.ui.firstrun
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
@@ -66,7 +66,7 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PlacementScreen(
+fun PlacementListScreen(
     viewModel: PlacementListViewModel = viewModel(
         factory = createViewModelFactory { PlacementListViewModel() }
     ),
@@ -95,6 +95,14 @@ fun PlacementScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
     ) {
+        Text(
+            text = data.titleText.toString(context = context),
+            style = MaterialTheme.typography.headlineLarge,
+            color = MaterialTheme.colorScheme.onBackground,
+            modifier = Modifier
+                .align(Alignment.Start)
+                .padding(top = Paddings.LARGE, start = Paddings.LARGE)
+        )
         LazyColumn(
             horizontalAlignment = Alignment.CenterHorizontally,
             contentPadding = PaddingValues(all = 16.dp),
@@ -322,7 +330,7 @@ fun PlacementSongItem(
 fun Preview_PlacementScreen() {
     LIFE4Theme {
         Surface(color = MaterialTheme.colorScheme.background) {
-            PlacementScreen(
+            PlacementListScreen(
                 onPlacementSelected = {},
                 onRanksClicked = {},
                 goToMainScreen = {}
