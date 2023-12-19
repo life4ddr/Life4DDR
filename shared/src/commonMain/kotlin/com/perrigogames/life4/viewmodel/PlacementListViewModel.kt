@@ -1,6 +1,6 @@
 package com.perrigogames.life4.viewmodel
 
-import com.perrigogames.life4.data.trials.UIPlacementScreen
+import com.perrigogames.life4.data.trials.UIPlacementListScreen
 import com.perrigogames.life4.model.PlacementManager
 import com.perrigogames.life4.model.settings.FirstRunSettingsManager
 import com.perrigogames.life4.model.settings.InitState
@@ -17,7 +17,7 @@ class PlacementListViewModel : ViewModel(), KoinComponent {
     private val placementManager: PlacementManager by inject()
 
     private val _screenData = MutableStateFlow(placementManager.createUiData()).cMutableStateFlow()
-    val screenData: StateFlow<UIPlacementScreen> = _screenData
+    val screenData: StateFlow<UIPlacementListScreen> = _screenData
 
     fun setFirstRunState(state: InitState) {
         firstRunSettingsManager.setInitState(state)

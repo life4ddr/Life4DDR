@@ -6,7 +6,13 @@ import com.perrigogames.life4.api.SongListRemoteData
 import com.perrigogames.life4.api.base.CompositeData
 import com.perrigogames.life4.api.base.LocalDataReader
 import com.perrigogames.life4.data.SongList
-import com.perrigogames.life4.db.*
+import com.perrigogames.life4.db.ChartInfo
+import com.perrigogames.life4.db.ChartResult
+import com.perrigogames.life4.db.ChartResultPair
+import com.perrigogames.life4.db.DetailedChartInfo
+import com.perrigogames.life4.db.SongDatabaseHelper
+import com.perrigogames.life4.db.SongInfo
+import com.perrigogames.life4.db.matches
 import com.perrigogames.life4.enums.DifficultyClass
 import com.perrigogames.life4.enums.GameVersion
 import com.perrigogames.life4.enums.PlayStyle
@@ -62,6 +68,8 @@ class SongDataManager: BaseModel() {
     fun findSong(id: Long): SongInfo? = songs.find { it.id == id }
 
     fun findSong(skillId: String): SongInfo? = songs.find { it.skillId == skillId }
+
+    fun findSongByName(title: String): SongInfo? = songs.find { it.title == title }
 
     fun getChartGroup(
         playStyle: PlayStyle,

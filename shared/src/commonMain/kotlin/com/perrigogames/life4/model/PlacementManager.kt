@@ -1,11 +1,13 @@
 package com.perrigogames.life4.model
 
+import co.touchlab.kermit.Logger
 import com.perrigogames.life4.MR
 import com.perrigogames.life4.api.base.LocalUncachedDataReader
 import com.perrigogames.life4.data.TrialData
-import com.perrigogames.life4.data.trials.UIPlacementData
-import com.perrigogames.life4.data.trials.UIPlacementScreen
-import com.perrigogames.life4.data.trials.UIPlacementSong
+import com.perrigogames.life4.data.trials.UIPlacement
+import com.perrigogames.life4.data.trials.UIPlacementListScreen
+import com.perrigogames.life4.data.trials.toUITrialSong
+import com.perrigogames.life4.injectLogger
 import com.perrigogames.life4.isDebug
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.PLACEMENTS_FILE_NAME
 import com.perrigogames.life4.setCrashString
@@ -18,6 +20,8 @@ import kotlin.math.min
 
 class PlacementManager: BaseModel() {
 
+    private val logger: Logger by injectLogger("PlacementManager")
+    private val songDataManager: SongDataManager by inject()
     private val json: Json by inject()
     private val dataReader: LocalUncachedDataReader by inject(named(PLACEMENTS_FILE_NAME))
 
@@ -35,11 +39,11 @@ class PlacementManager: BaseModel() {
 
     fun nextPlacement(index: Int) = placements.getOrNull(index + 1)
 
-    fun createUiData() = UIPlacementScreen(
+    fun createUiData() = UIPlacementListScreen(
         titleText = MR.strings.placements.desc(),
-        headerText = MR.strings.placement_description_text.desc(),
+        headerText = MR.strings.placement_list_description.desc(),
         placements = placements.map { placement ->
-            UIPlacementData(
+            UIPlacement(
                 id = placement.id,
                 rankIcon = placement.placementRank!!.toLadderRank(),
                 difficultyRangeString = placement.songs.let { songs ->
@@ -52,14 +56,11 @@ class PlacementManager: BaseModel() {
                     "L$lowest-L$highest" // FIXME resource
                 },
                 songs = placement.songs.map { song ->
-                    UIPlacementSong(
-                        jacketUrl = song.url,
-                        songNameText = song.name,
-                        artistText = "FIXME",
-                        difficultyClass = song.difficultyClass,
-                        difficultyText = song.difficultyNumber.toString(),
-                        difficultyNumber = song.difficultyNumber,
-                    )
+                    val songInfo = songDataManager.findSong(skillId = song.skillId)
+                    if (songInfo == null) {
+                        logger.e("Placement ${placement.name} has skillId ${song.skillId} which was not found")
+                    }
+                    song.toUITrialSong(songInfo)
                 }
             )
         }

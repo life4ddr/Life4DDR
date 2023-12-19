@@ -231,7 +231,7 @@
 		} }
 	],
 	"game_versions": {
-		"A3": {
+		"DDR_A3": {
 			"unlock_requirement": "amethyst1",
 			"rank_requirements": [
 				{

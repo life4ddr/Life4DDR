@@ -3,9 +3,15 @@ package com.perrigogames.life4.android.activity
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Surface
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
@@ -15,8 +21,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.perrigogames.life4.android.compose.LIFE4Theme
+import com.perrigogames.life4.android.compose.Paddings
 import com.perrigogames.life4.android.ui.firstrun.FirstRunRankListScreen
 import com.perrigogames.life4.android.ui.firstrun.FirstRunScreen
+import com.perrigogames.life4.android.ui.firstrun.PlacementDetailsScreen
 import com.perrigogames.life4.android.ui.firstrun.PlacementListScreen
 import com.perrigogames.life4.model.settings.InitState
 import com.perrigogames.life4.viewmodel.LaunchViewModel
@@ -63,6 +71,7 @@ class LaunchActivity: AppCompatActivity(), KoinComponent {
                     NavHost(
                         navController = navController,
                         startDestination = "landing",
+                        modifier = Modifier.fillMaxSize()
                     ) {
                         composable("landing") {}
 
@@ -79,7 +88,7 @@ class LaunchActivity: AppCompatActivity(), KoinComponent {
 
                         composable("placement_list") {
                             PlacementListScreen(
-                                onPlacementSelected = { TODO() },
+                                onPlacementSelected = { placementId -> navController.navigate("placement_details/$placementId") },
                                 onRanksClicked = { navController.popAndNavigate("initial_rank_list") },
                                 goToMainScreen = { navController.popAndNavigate("main_screen") }
                             )
@@ -88,8 +97,21 @@ class LaunchActivity: AppCompatActivity(), KoinComponent {
                         composable(
                             route = "placement_details/{placement_id}",
                             arguments = listOf(navArgument("placement_id") { type = NavType.StringType })
-                        ) {
-                            PlacementDetailsScreen
+                        ) { backStackEntry ->
+                            val placementId = backStackEntry.arguments?.getString("placement_id")
+                            if (placementId != null) {
+                                PlacementDetailsScreen(placementId = placementId)
+                            } else {
+                                Box(modifier = Modifier.fillMaxSize()) {
+                                    Text(
+                                        text = "No placement ID provided",
+                                        color = MaterialTheme.colorScheme.onBackground,
+                                        style = MaterialTheme.typography.bodyLarge,
+                                        modifier = Modifier.fillMaxWidth()
+                                            .padding(horizontal = Paddings.HUGE)
+                                    )
+                                }
+                            }
                         }
 
                         composable("initial_rank_list") {

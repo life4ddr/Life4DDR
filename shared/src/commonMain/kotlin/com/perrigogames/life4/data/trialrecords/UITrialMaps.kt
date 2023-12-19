@@ -33,7 +33,7 @@ class UITrialMaps : KoinComponent {
             trialSongs = songs.map { trialSong ->
                 val s = trial.songs[trialSong.position.toInt()]
 //                val song = songManager.findSong(trialSong.id) ?: throw Error("Song ${} not found")
-                UITrialSong(
+                UITrialRecordSong(
                     songTitleText = "I'm in terrible pain",
                     scoreText = "FIXME",
                     difficultyClass = s.difficultyClass,

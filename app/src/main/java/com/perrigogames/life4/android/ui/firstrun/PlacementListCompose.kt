@@ -34,6 +34,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -46,15 +47,16 @@ import com.perrigogames.life4.MR
 import com.perrigogames.life4.android.LadderRankLevel3ParameterProvider
 import com.perrigogames.life4.android.LightDarkModePreviews
 import com.perrigogames.life4.android.LightDarkModeSystemPreviews
-import com.perrigogames.life4.android.R
 import com.perrigogames.life4.android.compose.LIFE4Theme
 import com.perrigogames.life4.android.compose.LadderRankClassTheme
 import com.perrigogames.life4.android.compose.Paddings
 import com.perrigogames.life4.android.util.SizedSpacer
+import com.perrigogames.life4.android.view.compose.AutoResizedText
 import com.perrigogames.life4.android.view.compose.RankImage
-import com.perrigogames.life4.data.trials.UIPlacementData
+import com.perrigogames.life4.data.trialrecords.UITrialMocks
+import com.perrigogames.life4.data.trials.UIPlacement
 import com.perrigogames.life4.data.trials.UIPlacementMocks
-import com.perrigogames.life4.data.trials.UIPlacementSong
+import com.perrigogames.life4.data.trials.UITrialSong
 import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.enums.colorRes
 import com.perrigogames.life4.model.settings.InitState
@@ -79,6 +81,7 @@ fun PlacementListScreen(
     val scope = rememberCoroutineScope()
     var closeConfirmShown by remember { mutableStateOf(false) }
     val modalBottomSheetState = rememberModalBottomSheetState()
+    var selectedPlacement by remember { mutableStateOf<String?>(null) }
 
     BackHandler {
         scope.launch {
@@ -103,9 +106,10 @@ fun PlacementListScreen(
                 .align(Alignment.Start)
                 .padding(top = Paddings.LARGE, start = Paddings.LARGE)
         )
+        SizedSpacer(16.dp)
         LazyColumn(
             horizontalAlignment = Alignment.CenterHorizontally,
-            contentPadding = PaddingValues(all = 16.dp),
+            contentPadding = PaddingValues(start = 16.dp, end = 16.dp, bottom = 16.dp),
             modifier = Modifier.weight(1f)
         ) {
             item {
@@ -124,6 +128,13 @@ fun PlacementListScreen(
                     ) {
                         PlacementItem(
                             data = placement,
+                            expanded = selectedPlacement == placement.id,
+                            onExpand = {
+                                selectedPlacement = when {
+                                    selectedPlacement == placement.id -> null
+                                    else -> placement.id
+                                }
+                            },
                             onPlacementSelected = { onPlacementSelected(placement.id) }
                         )
                     }
@@ -140,7 +151,7 @@ fun PlacementListScreen(
             },
         ) {
             Text(
-                text = androidx.compose.ui.res.stringResource(R.string.rank_list),
+                text = stringResource(MR.strings.select_rank_instead),
                 style = MaterialTheme.typography.labelLarge,
             )
         }
@@ -149,7 +160,7 @@ fun PlacementListScreen(
             onClick = { closeConfirmShown = true },
         ) {
             Text(
-                text = androidx.compose.ui.res.stringResource(R.string.start_no_rank),
+                text = stringResource(MR.strings.start_no_rank),
                 style = MaterialTheme.typography.labelLarge,
                 color = MaterialTheme.colorScheme.onBackground
             )
@@ -159,9 +170,9 @@ fun PlacementListScreen(
     }
     if (closeConfirmShown) {
         ModalBottomSheet(
+            onDismissRequest = { closeConfirmShown = false },
             sheetState = modalBottomSheetState,
             containerColor = MaterialTheme.colorScheme.surface,
-            onDismissRequest = {},
         ) {
             Text(
                 text = stringResource(MR.strings.placement_close_confirm_title),
@@ -198,18 +209,18 @@ fun PlacementListScreen(
 
 @Composable
 fun PlacementItem(
-    data: UIPlacementData,
+    data: UIPlacement,
+    expanded: Boolean = false,
+    onExpand: () -> Unit = {},
     onPlacementSelected: () -> Unit,
     modifier: Modifier = Modifier,
-    startExpanded: Boolean = false,
 ) {
-    var expanded by remember { mutableStateOf(startExpanded) }
     val arrowRotationDegrees by remember {
         derivedStateOf {
             if (expanded) 180f else 0f
         }
     }
-    Column(modifier = modifier.clickable { expanded = !expanded }) {
+    Column(modifier = modifier.clickable { onExpand() }) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
@@ -227,8 +238,14 @@ fun PlacementItem(
                 color = colorResource(data.color),
                 modifier = Modifier.weight(1f)
             )
+            Text(
+                text = data.difficultyRangeString,
+                style = MaterialTheme.typography.labelLarge,
+                color = MaterialTheme.colorScheme.onSurface,
+            )
             Icon(
                 imageVector = Icons.Default.ArrowDropDown,
+                tint = MaterialTheme.colorScheme.onSurface,
                 modifier = Modifier
                     .size(32.dp)
                     .rotate(arrowRotationDegrees),
@@ -236,29 +253,27 @@ fun PlacementItem(
             )
         }
         AnimatedVisibility(expanded) {
-            LazyColumn(
+            Column(
                 modifier = Modifier
                     .padding(horizontal = 16.dp)
                     .padding(bottom = 4.dp)
             ) {
-                items(data.songs) { song ->
+                data.songs.forEach { song ->
                     PlacementSongItem(
                         data = song,
                         modifier = Modifier.fillMaxWidth()
                     )
                 }
-                item { SizedSpacer(16.dp) }
-                item {
-                    TextButton(
-                        onClick = onPlacementSelected,
-                        modifier = Modifier.fillMaxWidth()
-                    ) {
-                        Text(
-                            text = stringResource(MR.strings.placement_start),
-                            style = MaterialTheme.typography.titleLarge,
-                            color = MaterialTheme.colorScheme.onPrimaryContainer
-                        )
-                    }
+                SizedSpacer(16.dp)
+                TextButton(
+                    onClick = onPlacementSelected,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(
+                        text = stringResource(MR.strings.placement_start),
+                        style = MaterialTheme.typography.titleLarge,
+                        color = MaterialTheme.colorScheme.onPrimaryContainer
+                    )
                 }
             }
         }
@@ -267,7 +282,7 @@ fun PlacementItem(
 
 @Composable
 fun PlacementSongItem(
-    data: UIPlacementSong,
+    data: UITrialSong,
     modifier: Modifier = Modifier,
 ) {
     Row(
@@ -286,15 +301,14 @@ fun PlacementSongItem(
         Column(
             modifier = Modifier.weight(1f)
         ) {
-            Text(
+            AutoResizedText(
                 text = data.songNameText,
                 style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.onPrimaryContainer,
-                maxLines = 1,
                 modifier = Modifier.fillMaxWidth()
             )
             Text(
-                text = data.artistText,
+                text = data.subtitleText,
                 style = MaterialTheme.typography.titleSmall,
                 color = MaterialTheme.colorScheme.onPrimaryContainer,
                 maxLines = 1,
@@ -305,13 +319,13 @@ fun PlacementSongItem(
         Surface(
             shape = MaterialTheme.shapes.small,
             color = MaterialTheme.colorScheme.surface,
-            modifier = Modifier.width(64.dp),
+            modifier = Modifier.width(50.dp),
         ) {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Text(
-                    text = data.difficultyClass.name,
+                    text = data.chartString,
                     style = MaterialTheme.typography.titleSmall,
                     color = colorResource(data.difficultyClass.colorRes)
                 )
@@ -362,7 +376,7 @@ fun Preview_PlacementItemExpanded(
             data = UIPlacementMocks.createUIPlacementData(
                 rankIcon = rank
             ),
-            startExpanded = true,
+            expanded = true,
             onPlacementSelected = {}
         )
     }
@@ -374,7 +388,7 @@ fun Preview_PlacementSongItem() {
     LIFE4Theme {
         Surface(color = MaterialTheme.colorScheme.primaryContainer) {
             PlacementSongItem(
-                data = UIPlacementMocks.createUIPlacementSong()
+                data = UITrialMocks.createUITrialSong()
             )
         }
     }
@@ -384,13 +398,14 @@ fun Preview_PlacementSongItem() {
 private fun ThemedRankSurface(
     rank: LadderRank,
     modifier: Modifier = Modifier,
+    shape: Shape = MaterialTheme.shapes.large,
     content: @Composable () -> Unit,
 ) {
     LIFE4Theme {
         LadderRankClassTheme(ladderRankClass = rank.group) {
             Surface(
                 color = MaterialTheme.colorScheme.primaryContainer,
-                shape = MaterialTheme.shapes.large,
+                shape = shape,
                 modifier = modifier,
             ) {
                 content()

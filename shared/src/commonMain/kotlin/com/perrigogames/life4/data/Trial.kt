@@ -11,7 +11,15 @@
 
 package com.perrigogames.life4.data
 
-import com.perrigogames.life4.enums.*
+import com.perrigogames.life4.enums.ChartTypeSerializer
+import com.perrigogames.life4.enums.DifficultyClass
+import com.perrigogames.life4.enums.DifficultyClassSerializer
+import com.perrigogames.life4.enums.PlayStyle
+import com.perrigogames.life4.enums.PlayStyleSerializer
+import com.perrigogames.life4.enums.TrialRank
+import com.perrigogames.life4.enums.TrialRankSerializer
+import com.perrigogames.life4.enums.TrialType
+import com.perrigogames.life4.enums.TrialTypeSerializer
 import com.perrigogames.life4.response.TrialGoalSet
 import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDateTime
@@ -45,6 +53,7 @@ data class Trial(
     val type: TrialType,
     @SerialName("placement_rank") val placementRank: PlacementRank? = null,
     val songs: List<Song>,
+    @SerialName("play_style") val playStyle: PlayStyle = PlayStyle.SINGLE,
     @SerialName("event_start") val eventStart: LocalDateTime? = null,
     @SerialName("event_end") val eventEnd: LocalDateTime? = null,
     @SerialName("scoring_groups") val scoringGroups: List<List<TrialRank>>? = null,
@@ -89,6 +98,8 @@ data class Trial(
 @Serializable
 data class Song(
     val name: String,
+    val skillId: String = "FIXME",
+    @SerialName("play_style") val playStyle: PlayStyle = PlayStyle.SINGLE,
     @SerialName("difficulty") val difficultyNumber: Int,
     @SerialName("difficulty_class") val difficultyClass: DifficultyClass,
     val ex: Int,

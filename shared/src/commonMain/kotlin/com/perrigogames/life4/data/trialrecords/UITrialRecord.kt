@@ -8,12 +8,12 @@ data class UITrialRecord(
     val trialSubtitleText: String? = null,
     val exScoreText: String,
     val exProgressPercent: Float,
-    val trialSongs: List<UITrialSong>,
+    val trialSongs: List<UITrialRecordSong>,
     val rank: TrialRank,
     val achieved: Boolean,
 )
 
-data class UITrialSong(
+data class UITrialRecordSong(
     val songTitleText: String,
     val scoreText: String,
     val difficultyClass: DifficultyClass,

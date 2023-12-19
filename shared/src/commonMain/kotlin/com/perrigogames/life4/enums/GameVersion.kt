@@ -23,14 +23,16 @@ enum class GameVersion(override val stableId: Long): StableId {
     SUPERNOVA(9),
     SUPERNOVA2(10),
     X(11),
-    X2(12),
-    X3_VS_2ND_MIX(13),
+    DDR_X2(12),
+    DDR_X3_VS_2ND_MIX(13),
     DDR_2013(14),
     DDR_2014(15),
-    ACE(16),
-    A20(17),
-    A20_PLUS(18),
-    A3(19);
+    DDR_A(16),
+    DDR_A20(17),
+    DDR_A20_PLUS(18),
+    DDR_A3(19);
+    
+    val printName = name.replace("_", " ")
 
     companion object {
         fun parse(stableId: Long?) = stableId?.let { id ->

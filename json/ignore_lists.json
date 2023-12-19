@@ -219,7 +219,7 @@
     {
       "id": "A3_US",
       "name": "DDR A3 (White) (US)",
-      "base_version": "A3",
+      "base_version": "DDR_A3",
       "locked_groups": [
         "a20_plus_licenses",
         "a3_extra_exclusive",
@@ -250,7 +250,7 @@
     {
       "id": "A3_JP",
       "name": "DDR A3 (White) (JP)",
-      "base_version": "A3",
+      "base_version": "DDR_A3",
       "locked_groups": [
         "a3_extra_exclusive",
         "a3_golden_league_bronze",
@@ -275,7 +275,7 @@
     {
       "id": "A3_GOLD_CAB",
       "name": "DDR A3 20th Anniversary (Gold) (JP)",
-      "base_version": "A3",
+      "base_version": "DDR_A3",
       "locked_groups": [
         "a3_extra_exclusive"
       ],
@@ -299,7 +299,7 @@
     {
       "id": "ALL_MUSIC",
       "name": "All Songs",
-      "base_version": "A3"
+      "base_version": "DDR_A3"
     }
   ]
 }
