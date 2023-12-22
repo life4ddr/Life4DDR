@@ -14,8 +14,11 @@ import com.perrigogames.life4.data.RankEntry
 import com.perrigogames.life4.data.userType
 import com.perrigogames.life4.db.GoalState
 import com.perrigogames.life4.enums.GoalStatus
-import com.perrigogames.life4.enums.GoalStatus.*
+import com.perrigogames.life4.enums.GoalStatus.COMPLETE
+import com.perrigogames.life4.enums.GoalStatus.IGNORED
+import com.perrigogames.life4.enums.GoalStatus.INCOMPLETE
 import com.perrigogames.life4.enums.LadderRank
+import com.perrigogames.life4.model.GoalStateManager
 import com.perrigogames.life4.model.LadderDataManager
 import com.perrigogames.life4.model.LadderProgressManager
 import org.koin.core.component.KoinComponent
@@ -33,6 +36,7 @@ class RankDetailsViewModel(
 ) : ViewModel(), KoinComponent {
 
     private val ladderDataManager: LadderDataManager by inject()
+    private val goalStateManager: GoalStateManager by inject()
     private val ladderProgressManager: LadderProgressManager by inject()
 
     private val targetEntry: RankEntry? by lazy { when {
@@ -53,7 +57,7 @@ class RankDetailsViewModel(
         get() = when {
             targetEntry == null -> mutableListOf()
             options.hideNonActive -> {
-                val completedGoals = ladderDataManager
+                val completedGoals = goalStateManager
                     .getGoalStateList(allGoals)
                     .filter { it.status != INCOMPLETE }
                     .map { it.goalId }
@@ -72,14 +76,14 @@ class RankDetailsViewModel(
         } ?: emptyList()
 
     private val expandedItems = mutableListOf<BaseRankGoal>()
-    private val completeItemCount get() = ladderDataManager.getGoalStateList(allGoals).count { it.status == COMPLETE }
-    private val hiddenItemCount get() = ladderDataManager.getGoalStateList(allGoals).count { it.status == IGNORED }
+    private val completeItemCount get() = goalStateManager.getGoalStateList(allGoals).count { it.status == COMPLETE }
+    private val hiddenItemCount get() = goalStateManager.getGoalStateList(allGoals).count { it.status == IGNORED }
     private var canIgnoreGoals: Boolean = true
 
     private val goalItemListener: LadderGoalItemView.LadderGoalItemListener = object: LadderGoalItemView.LadderGoalItemListener {
 
         override fun onStateToggle(itemView: LadderGoalItemView, item: BaseRankGoal, goalDB: GoalState) {
-            ladderDataManager.setGoalState(goalDB.goalId, when(goalDB.status) {
+            goalStateManager.setGoalState(goalDB.goalId, when(goalDB.status) {
                 COMPLETE -> INCOMPLETE
                 else -> COMPLETE
             })
@@ -87,7 +91,7 @@ class RankDetailsViewModel(
         }
 
         override fun onIgnoreClicked(itemView: LadderGoalItemView, item: BaseRankGoal, goalDB: GoalState) {
-            ladderDataManager.setGoalState(goalDB.goalId, when(goalDB.status) {
+            goalStateManager.setGoalState(goalDB.goalId, when(goalDB.status) {
                 IGNORED -> INCOMPLETE
                 else -> IGNORED
             })
@@ -95,7 +99,7 @@ class RankDetailsViewModel(
         }
 
         private fun refreshDbItem(itemView: LadderGoalItemView, item: BaseRankGoal) {
-            val newDB = ladderDataManager.getGoalState(item)!!
+            val newDB = goalStateManager.getGoalState(item)!!
             refreshAllVisibilities(isGrowing = false) // either shrinking or staying the same, can't uncheck a hidden item
             updateCompleteCount()
             updateIgnoredStates()
@@ -118,7 +122,7 @@ class RankDetailsViewModel(
         override fun isGoalExpanded(item: BaseRankGoal) = expandedItems.contains(item)
         override fun isGoalMandatory(item: BaseRankGoal) = targetEntry?.mandatoryGoals?.contains(item) == true
         override fun canIgnoreGoals(): Boolean = canIgnoreGoals
-        override fun getGoalStatus(item: BaseRankGoal) = ladderDataManager.getOrCreateGoalState(item)
+        override fun getGoalStatus(item: BaseRankGoal) = goalStateManager.getOrCreateGoalState(item)
         override fun getGoalProgress(item: BaseRankGoal) = ladderProgressManager.getGoalProgress(item)
     }
 

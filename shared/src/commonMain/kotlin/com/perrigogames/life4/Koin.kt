@@ -11,7 +11,20 @@ import com.perrigogames.life4.ktor.GithubDataAPI
 import com.perrigogames.life4.ktor.GithubDataImpl
 import com.perrigogames.life4.ktor.Life4API
 import com.perrigogames.life4.ktor.Life4APIImpl
-import com.perrigogames.life4.model.*
+import com.perrigogames.life4.model.GoalStateManager
+import com.perrigogames.life4.model.IgnoreListManager
+import com.perrigogames.life4.model.LadderDataManager
+import com.perrigogames.life4.model.LadderProgressManager
+import com.perrigogames.life4.model.MajorUpdateManager
+import com.perrigogames.life4.model.MotdManager
+import com.perrigogames.life4.model.PlacementManager
+import com.perrigogames.life4.model.PlayerManager
+import com.perrigogames.life4.model.SongDataCoordinator
+import com.perrigogames.life4.model.SongDataManager
+import com.perrigogames.life4.model.TrialManager
+import com.perrigogames.life4.model.TrialSessionManager
+import com.perrigogames.life4.model.UserRankManager
+import com.perrigogames.life4.model.mapping.LadderGoalMapper
 import com.perrigogames.life4.model.settings.FirstRunSettingsManager
 import com.perrigogames.life4.model.settings.InfoSettingsManager
 import kotlinx.serialization.json.Json
@@ -40,9 +53,11 @@ val coreModule = module {
     single { ResultDatabaseHelper(get()) }
     single { SongDatabaseHelper(get()) }
     single { TrialDatabaseHelper(get()) }
+
     single<GithubDataAPI> { GithubDataImpl() }
     single<Life4API> { Life4APIImpl(get()) }
     single { Json { classDiscriminator = "t" } }
+
     single { PlacementManager() }
     single { MajorUpdateManager() }
     single { MotdManager() }
@@ -57,6 +72,8 @@ val coreModule = module {
     single { InfoSettingsManager() }
     single { FirstRunSettingsManager() }
     single { UserRankManager() }
+    single { GoalStateManager() }
+    single { LadderGoalMapper() }
 
     // platformLogWriter() is a relatively simple config option, useful for local debugging. For production
     // uses you *may* want to have a more robust configuration from the native platform. In KaMP Kit,

@@ -1,16 +1,16 @@
 package com.perrigogames.life4.viewmodel
 
 import com.perrigogames.life4.PlatformStrings
-import com.perrigogames.life4.data.BaseRankGoal
 import com.perrigogames.life4.data.RankEntry
 import com.perrigogames.life4.data.ladder.UILadderData
 import com.perrigogames.life4.data.ladder.UILadderGoal
 import com.perrigogames.life4.data.ladder.UILadderGoals
-import com.perrigogames.life4.db.GoalState
 import com.perrigogames.life4.enums.GoalStatus
 import com.perrigogames.life4.enums.LadderRank
+import com.perrigogames.life4.model.GoalStateManager
 import com.perrigogames.life4.model.LadderDataManager
 import com.perrigogames.life4.model.LadderProgressManager
+import com.perrigogames.life4.model.mapping.LadderGoalMapper
 import com.perrigogames.life4.util.ViewState
 import com.perrigogames.life4.util.ifNull
 import com.perrigogames.life4.util.toViewState
@@ -26,8 +26,10 @@ import org.koin.core.component.inject
 class GoalListViewModel(private val config: GoalListConfig) : ViewModel(), KoinComponent {
 
     private val ladderDataManager: LadderDataManager by inject()
+    private val goalStateManager: GoalStateManager by inject()
     private val ladderProgressManager: LadderProgressManager by inject()
     private val platformStrings: PlatformStrings by inject()
+    private val ladderGoalMapper: LadderGoalMapper by inject()
 
     private val _state = MutableStateFlow<ViewState<UILadderData, String>>(ViewState.Loading).cMutableStateFlow()
     val state: StateFlow<ViewState<UILadderData, String>> = _state
@@ -50,7 +52,7 @@ class GoalListViewModel(private val config: GoalListConfig) : ViewModel(), KoinC
                 _state.value = ViewState.Success(
                     UILadderData(
                         goals = UILadderGoals.SingleList(
-                            items = entry.goals.map(::toViewData)
+                            items = entry.goals.map(ladderGoalMapper::toViewData)
                         )
                     )
                 )
@@ -61,7 +63,7 @@ class GoalListViewModel(private val config: GoalListConfig) : ViewModel(), KoinC
     fun handleAction(action: RankListAction) = when(action) {
         is RankListAction.OnGoal -> {
             val goal = entry.allGoals.firstOrNull { it.id.toLong() == action.id }.ifNull { return@ifNull }
-            val state = ladderDataManager.getOrCreateGoalState(action.id)
+            val state = goalStateManager.getOrCreateGoalState(action.id)
 
             when (action) {
                 is RankListAction.OnGoal.ToggleComplete -> {
@@ -70,7 +72,7 @@ class GoalListViewModel(private val config: GoalListConfig) : ViewModel(), KoinC
                     } else {
                         GoalStatus.COMPLETE
                     }
-                    ladderDataManager.setGoalState(action.id, newStatus)
+                    goalStateManager.setGoalState(action.id, newStatus)
                     updateGoal(action.id)
                 }
                 is RankListAction.OnGoal.ToggleExpanded -> {
@@ -82,7 +84,7 @@ class GoalListViewModel(private val config: GoalListConfig) : ViewModel(), KoinC
                     } else {
                         GoalStatus.IGNORED
                     }
-                    ladderDataManager.setGoalState(action.id, newStatus)
+                    goalStateManager.setGoalState(action.id, newStatus)
                     updateGoal(action.id)
                 }
             }
@@ -92,7 +94,7 @@ class GoalListViewModel(private val config: GoalListConfig) : ViewModel(), KoinC
     private fun updateGoal(id: Long) {
         val baseGoal = findGoal(id.toInt()).ifNull { return }
         modifyGoal(id) {
-            toViewData(baseGoal!!)
+            ladderGoalMapper.toViewData(baseGoal!!)
         }
     }
 
@@ -110,17 +112,6 @@ class GoalListViewModel(private val config: GoalListConfig) : ViewModel(), KoinC
     }
 
     private fun findGoal(id: Int) = entry.allGoals.firstOrNull { it.id == id }
-
-    private fun toViewData(
-        base: BaseRankGoal,
-        goalState: GoalState = ladderDataManager.getOrCreateGoalState(base),
-    ) = UILadderGoal(
-        id = base.id.toLong(),
-        goalText = base.goalString(platformStrings),
-        completed = goalState.status == GoalStatus.COMPLETE,
-        hidden = goalState.status == GoalStatus.IGNORED,
-        canHide = !base.isMandatory
-    )
 }
 
 data class GoalListConfig(

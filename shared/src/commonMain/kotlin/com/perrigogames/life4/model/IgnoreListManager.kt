@@ -14,11 +14,13 @@ import com.perrigogames.life4.injectLogger
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.IGNORES_FILE_NAME
 import com.russhwolf.settings.Settings
 import com.russhwolf.settings.set
+import kotlinx.serialization.json.Json
 import org.koin.core.component.inject
 import org.koin.core.qualifier.named
 
 class IgnoreListManager: BaseModel() {
 
+    private val json: Json by inject()
     private val logger: Logger by injectLogger("IgnoreList")
     private val settings: Settings by inject()
     private val dataReader: LocalDataReader by inject(named(IGNORES_FILE_NAME))

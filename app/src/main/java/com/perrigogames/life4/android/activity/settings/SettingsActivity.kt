@@ -10,7 +10,14 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.preference.*
+import androidx.preference.CheckBoxPreference
+import androidx.preference.DropDownPreference
+import androidx.preference.EditTextPreference
+import androidx.preference.Preference
+import androidx.preference.PreferenceCategory
+import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.PreferenceGroup
+import androidx.preference.SwitchPreference
 import com.perrigogames.life4.Notifications
 import com.perrigogames.life4.SettingsKeys.KEY_CREDITS
 import com.perrigogames.life4.SettingsKeys.KEY_DEBUG
@@ -51,7 +58,13 @@ import com.perrigogames.life4.android.manager.AndroidLadderDialogs
 import com.perrigogames.life4.android.util.openWebUrlFromRes
 import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.enums.TrialRank
-import com.perrigogames.life4.model.*
+import com.perrigogames.life4.model.GoalStateManager
+import com.perrigogames.life4.model.IgnoreListManager
+import com.perrigogames.life4.model.PlayerManager
+import com.perrigogames.life4.model.SongDataCoordinator
+import com.perrigogames.life4.model.TrialManager
+import com.perrigogames.life4.model.TrialRecordsManager
+import com.perrigogames.life4.model.UserRankManager
 import com.russhwolf.settings.Settings
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -85,7 +98,7 @@ class SettingsActivity : AppCompatActivity(),
 
     abstract class BaseSettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedPreferenceChangeListener, KoinComponent {
 
-        protected val ladderDataManager: LadderDataManager by inject()
+        protected val goalStateManager: GoalStateManager by inject()
         protected val userRankManager: UserRankManager by inject()
         protected val ladderDialogs: AndroidLadderDialogs by inject()
         protected val songDataCoordinator: SongDataCoordinator by inject()
@@ -219,7 +232,8 @@ class SettingsActivity : AppCompatActivity(),
                     if (BuildConfig.DEBUG) " (${BuildConfig.VERSION_CODE})"
                     else ""}"
                 onPreferenceClickListener = Preference.OnPreferenceClickListener {
-                    VersionsDialog().show(requireActivity().supportFragmentManager, VersionsDialog.TAG)
+//                    VersionsDialog().show(requireActivity().supportFragmentManager, VersionsDialog.TAG)
+                    // FIXME
                     true
                 }
             }
@@ -330,7 +344,7 @@ class SettingsActivity : AppCompatActivity(),
             setPreferencesFromResource(R.xml.clear_data_preferences, rootKey)
             preferenceListener(KEY_LADDER_CLEAR) {
                 ladderDialogs.withActivity(requireActivity()) {
-                    ladderDataManager.clearGoalStates()
+                    goalStateManager.clearGoalStates()
                 }
                 true
             }

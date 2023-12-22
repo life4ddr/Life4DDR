@@ -1,8 +1,12 @@
 package com.perrigogames.life4.viewmodel
 
 import com.perrigogames.life4.MR
+import com.perrigogames.life4.data.ladder.UILadderData
 import com.perrigogames.life4.enums.LadderRank
+import com.perrigogames.life4.model.LadderDataManager
+import com.perrigogames.life4.model.mapping.LadderGoalMapper
 import com.perrigogames.life4.model.settings.FirstRunSettingsManager
+import com.perrigogames.life4.model.settings.InfoSettingsManager
 import com.perrigogames.life4.model.settings.InitState
 import dev.icerock.moko.mvvm.flow.cMutableStateFlow
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
@@ -17,6 +21,9 @@ class RankListViewModel(
 ) : ViewModel(), KoinComponent {
 
     private val firstRunSettingsManager: FirstRunSettingsManager by inject()
+    private val infoSettingsManager: InfoSettingsManager by inject()
+    private val ladderDataManager: LadderDataManager by inject()
+    private val ladderGoalMapper: LadderGoalMapper by inject()
 
     private val _state = MutableStateFlow(UIRankList()).cMutableStateFlow()
     val state: StateFlow<UIRankList> = _state
@@ -27,14 +34,39 @@ class RankListViewModel(
                 add(0, null)
             },
             noRank = when {
-                isFirstRun -> UINoRank.FIRST_RANK
+                isFirstRun -> UINoRank.FIRST_RUN
                 else -> UINoRank.DEFAULT
+            },
+            firstRun = if(isFirstRun) {
+                UIFirstRunRankList()
+            } else {
+                null
             }
         )
     }
 
-    fun setFirstRunState(state: InitState) {
-        firstRunSettingsManager.setInitState(state)
+    fun setRankSelected(rank: LadderRank?) {
+        val entry = ladderDataManager.findRankEntry(rank)
+        _state.value = _state.value.copy(
+            ladderData = entry?.allGoals?.let { goals ->
+                UILadderData(
+                    items = goals.map { goal ->
+                        ladderGoalMapper.toViewData(goal)
+                    },
+                    allowCompleting = false,
+                    allowHiding = false
+                )
+            }
+        )
+    }
+
+    fun moveToPlacements() {
+        firstRunSettingsManager.setInitState(InitState.PLACEMENTS)
+    }
+
+    fun saveRank(ladderRank: LadderRank?) {
+        firstRunSettingsManager.setInitState(InitState.DONE)
+        infoSettingsManager.setRank(ladderRank)
     }
 }
 
@@ -43,7 +75,8 @@ data class UIRankList(
     val ranks: List<LadderRank?> = emptyList(),
     val noRank: UINoRank = UINoRank.DEFAULT,
     val footerText: StringResource = MR.strings.change_rank_later,
-    val firstRun: UIFirstRunRankList = UIFirstRunRankList()
+    val firstRun: UIFirstRunRankList? = null,
+    val ladderData: UILadderData? = null,
 )
 
 data class UIFirstRunRankList(
@@ -60,7 +93,7 @@ data class UINoRank(
             bodyText = MR.strings.no_rank_goals,
             buttonText = MR.strings.i_have_no_rank
         )
-        val FIRST_RANK = UINoRank(
+        val FIRST_RUN = UINoRank(
             bodyText = MR.strings.no_rank_goals,
             buttonText = MR.strings.start_with_no_rank
         )

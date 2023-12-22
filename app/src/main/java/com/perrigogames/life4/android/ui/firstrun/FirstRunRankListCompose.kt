@@ -17,12 +17,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.perrigogames.life4.android.compose.Paddings
+import com.perrigogames.life4.android.ui.ladder.LadderGoals
 import com.perrigogames.life4.android.ui.ranklist.RankSelection
 import com.perrigogames.life4.android.util.SizedSpacer
 import com.perrigogames.life4.android.view.compose.AutoResizedText
 import com.perrigogames.life4.enums.LadderRank
-import com.perrigogames.life4.model.settings.InitState
 import com.perrigogames.life4.viewmodel.RankListViewModel
+import com.perrigogames.life4.viewmodel.UIRankList
 import dev.icerock.moko.mvvm.createViewModelFactory
 
 @Composable
@@ -30,12 +31,32 @@ fun FirstRunRankListScreen(
     viewModel: RankListViewModel = viewModel(
         factory = createViewModelFactory { RankListViewModel(isFirstRun = true) }
     ),
-    onPlacementClicked: () -> Unit,
-    onRankClicked: (LadderRank?) -> Unit,
-    goToMainScreen: () -> Unit,
+    onPlacementClicked: () -> Unit = {},
+    goToMainScreen: () -> Unit = {},
 ) {
     val state by viewModel.state.collectAsState()
 
+    FirstRunRankListScreen(
+        state = state,
+        onPlacementClicked = {
+            viewModel.moveToPlacements()
+            onPlacementClicked()
+        },
+        onRankClicked = viewModel::setRankSelected,
+        onRankSelected = { rank ->
+            viewModel.saveRank(rank)
+            goToMainScreen()
+        },
+    )
+}
+
+@Composable
+fun FirstRunRankListScreen(
+    state: UIRankList,
+    onPlacementClicked: () -> Unit = {},
+    onRankClicked: (LadderRank?) -> Unit = {},
+    onRankSelected: (LadderRank?) -> Unit = {},
+) {
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -52,32 +73,39 @@ fun FirstRunRankListScreen(
             ranks = state.ranks,
             noRank = state.noRank,
             onRankClicked = onRankClicked,
-            onRankRejected = {
-                viewModel.setFirstRunState(InitState.DONE)
-                goToMainScreen()
+            onRankRejected = { onRankSelected(null) },
+        )
+
+        val ladderData = state.ladderData
+        if (ladderData != null) {
+            LadderGoals(
+                data = ladderData,
+                modifier = Modifier.weight(1f),
+                onCompletedChanged = {},
+                onHiddenChanged = {}
+            )
+        } else {
+            Spacer(modifier = Modifier.weight(1f))
+        }
+        state.firstRun?.let { firstRun ->
+            AutoResizedText(
+                text = stringResource(state.footerText.resourceId),
+                color = MaterialTheme.colorScheme.onBackground,
+                modifier = Modifier
+                    .padding(
+                        horizontal = Paddings.HUGE,
+                        vertical = Paddings.LARGE
+                    )
+            )
+            Button(
+                onClick = onPlacementClicked,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = Paddings.HUGE)
+                    .padding(bottom = Paddings.LARGE)
+            ) {
+                Text(text = stringResource(firstRun.buttonText.resourceId))
             }
-        )
-        Spacer(modifier = Modifier.weight(1f))
-        AutoResizedText(
-            text = stringResource(state.footerText.resourceId),
-            color = MaterialTheme.colorScheme.onBackground,
-            modifier = Modifier
-                .padding(
-                    horizontal = Paddings.HUGE,
-                    vertical = Paddings.LARGE
-                )
-        )
-        Button(
-            onClick = {
-                viewModel.setFirstRunState(InitState.PLACEMENTS)
-                onPlacementClicked()
-            },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = Paddings.HUGE)
-                .padding(bottom = Paddings.LARGE)
-        ) {
-            Text(text = stringResource(state.firstRun.buttonText.resourceId))
         }
     }
 }

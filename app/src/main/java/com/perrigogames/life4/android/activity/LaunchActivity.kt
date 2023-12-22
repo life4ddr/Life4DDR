@@ -26,6 +26,8 @@ import com.perrigogames.life4.android.ui.firstrun.FirstRunRankListScreen
 import com.perrigogames.life4.android.ui.firstrun.FirstRunScreen
 import com.perrigogames.life4.android.ui.firstrun.PlacementDetailsScreen
 import com.perrigogames.life4.android.ui.firstrun.PlacementListScreen
+import com.perrigogames.life4.android.ui.ladder.LadderGoalsScreen
+import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.model.settings.InitState
 import com.perrigogames.life4.viewmodel.LaunchViewModel
 import dev.icerock.moko.mvvm.createViewModelFactory
@@ -117,8 +119,17 @@ class LaunchActivity: AppCompatActivity(), KoinComponent {
                         composable("initial_rank_list") {
                             FirstRunRankListScreen(
                                 onPlacementClicked = { navController.popAndNavigate("placement_list") },
-                                onRankClicked = { TODO() },
                                 goToMainScreen = { navController.popAndNavigate("main_screen") }
+                            )
+                        }
+
+                        composable(
+                            route = "rank_details/{ladder_rank_id}",
+                            arguments = listOf(navArgument("ladder_rank_id") { type = NavType.LongType })
+                        ) { backStackEntry ->
+                            val ladderRankId = backStackEntry.arguments?.getLong("ladder_rank_id")
+                            LadderGoalsScreen(
+                                targetRank = LadderRank.parse(ladderRankId)
                             )
                         }
 

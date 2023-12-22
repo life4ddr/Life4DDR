@@ -8,8 +8,24 @@ typealias CategorizedUILadderGoals = List<Pair<String, List<UILadderGoal>>>
 
 data class UILadderData(
     val goals: UILadderGoals,
+    val allowCompleting: Boolean = true,
+    val allowHiding: Boolean = true,
+    val showCompleted: Boolean = false,
+    val showHidden: Boolean = false,
 ) {
-    constructor(items: List<UILadderGoal>) : this(goals = UILadderGoals.SingleList(items))
+    constructor(
+        items: List<UILadderGoal>,
+        allowCompleting: Boolean = true,
+        allowHiding: Boolean = true,
+        showCompleted: Boolean = false,
+        showHidden: Boolean = false
+    ) : this(
+        goals = UILadderGoals.SingleList(items),
+        allowCompleting,
+        allowHiding,
+        showCompleted,
+        showHidden
+    )
 }
 
 sealed class UILadderGoals {

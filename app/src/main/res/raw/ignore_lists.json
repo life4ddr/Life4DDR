@@ -31,8 +31,8 @@
       "id": "a3_extra_exclusive",
       "name": "DDR A3 Extra Exclusive",
       "songs": [
-        { "skillId": "1q6Qoi0lldP6qoQI9PI199d6P0Q96ld0", "title": "ANTI ANTHEM" },
-        { "skillId": "1IQ16dPQPQ0Q1qdidld6lO1o86q98o69", "title": "Deep tenDon Reflex" }
+        { "skillId": "QD8l9QQd89PO9ql1iOD0dO69OQ1DldbP", "title": "Eon Break" },
+        { "skillId": "IiiqDblQ8Oqlbo8OOiqI6IqO6P8I8I1d", "title": "Pure Rude" }
       ]
     },
     {
@@ -62,8 +62,25 @@
       "name": "DDR A3 Course Trial",
       "unlock": "single",
       "songs": [
-        { "skillId": "", "title": "PERSIAN LAND" },
-        { "skillId": "", "title": "ON-DO" }
+        { "skillId": "8o08l8DPiO01dlo1OI8DqQDq9lQ1bPq1", "title": "PERSIAN LAND" },
+        { "skillId": "l6oP66ODld89Q99o0lDPP90qdbo11PPQ", "title": "ON-DO" },
+        { "skillId": "qi0lbbDIo8Qlo9IiD8oqqo69DIPQ1IIO", "title": "Come Back to Me (Feel It)" },
+        { "skillId": "dQdo08Qb6bOPIl8686DPDd60I1oqidIP", "title": "Debug Dance" },
+        { "skillId": "lb969IOOoI06P18PPq81o1lPD1b1OqqI", "title": "Get it" },
+        { "skillId": "oP8iIdilQ0QiDllqDbDIOl0iQPd9PQ9I", "title": "Crystarium" },
+        { "skillId": "6oIO00P8bdqqbP9qlqIqDP1Q1d9PD0qi", "title": "insist" },
+        { "skillId": "1088IDQiIDl6I888OQi60l66DP6D0qOl", "title": "Phlox" },
+        { "skillId": "111O66bbPIQb09PlIoolIOD666QqqIdP", "title": "アドレナリン" },
+        { "skillId": "qb9Od0IQI16b6D9PP0O6ilqoq0dDQO66", "title": "羊皮紙の上の銀河" },
+        { "skillId": "8q96ObOdqPq8blPob9QdDq9b1iQoIQOI", "title": "メンタンピンドラドラ" },
+        { "skillId": "Oqo009llDdDIODldDOI6OIolqlI9PI0d", "title": "とこにゃつ☆トロピカル" },
+        { "skillId": "6dQQd1d1OQlqQdQ98i01DQ1i9P6QDQdQ", "title": "BUTTERFLY (20th Anniversary Mix)", "difficulty_class": "challenge" },
+        { "skillId": "8Io6oi89Q8DblI8IPdPPI0q98Ql9o98Q", "title": "CARTOON HEROES (20th Anniversary Mix)", "difficulty_class": "challenge" },
+        { "skillId": "lIlQ8DbPP6Iil1DOlQ6d8IPQblDQ8IiI", "title": "HAVE YOU NEVER BEEN MELLOW (20th Anniversary Mix)", "difficulty_class": "challenge" },
+        { "skillId": "D9IO16idQq6iiI88loI1i986lIID0O9O", "title": "LONG TRAIN RUNNIN' (20th Anniversary Mix)", "difficulty_class": "challenge" },
+        { "skillId": "IbI90PiioDlqPP19D1odPPbP1PP0009O", "title": "SKY HIGH (20th Anniversary Mix)", "difficulty_class": "challenge" },
+        { "skillId": "db8Ddd060IQ9lPlOlqO0PoPi0Qdb88o6", "title": "EMOTiON TRiPPER" },
+        { "skillId": "", "title": "Urban Life" }
       ]
     },
     {
@@ -78,68 +95,150 @@
       ]
     },
     {
-      "id": "a3_grand_prix_set1",
-      "name": "DDR GRAND PRIX Advance Play pack 1",
-      "unlock": "all",
+      "id": "music_pack_2023_1",
+      "name": "music pack vol.15 and vol.16",
       "songs": [
-        { "skillId": "1IIiOQiliQ8b1dbo9D6D9PlODqIPOOb8", "title": "glacia" },
-        { "skillId": "O9Odqd8qiQiOqQdOOq01D8OQlOiO1iPD", "title": "Megalara Garuda" },
-        { "skillId": "6b6QIoDPoQ010o8Di1q6Q8DdiQll0Di1", "title": "Wowie Zowie!" },
-        { "skillId": "Do06Q18olQo0bloll9919olDQ8lDoqbd", "title": "ナナホシ" }
-      ]
+        { "skillId": "ddq1DldlQ990iidO6O99q61bI1966Q0I", "title": "ALGORITHM", "difficulty_class": "challenge" },
+        { "skillId": "PO68qOQI1oo8iQidQ9iIi9o9PPOD9OP6", "title": "Blue Rain", "difficulty_class": "challenge" }
+      ],
+      "unlock": "all"
     },
     {
-      "id": "a3_grand_prix_set2",
-      "name": "DDR GRAND PRIX Advance Play pack 2",
-      "unlock": "all",
+      "id": "music_pack_2023_2",
+      "name": "music pack vol.18",
       "songs": [
-        { "skillId": "Io196q006I86IllQPOb098qd1DQd60Oq", "title": "ALBIDA" },
-        { "skillId": "06lOillb6id0Dib9o1b06iPblqPl61PI", "title": "Glitter Flatter Scatter" },
-        { "skillId": "IDqoidbllIb0bQQb8dQ1QqP91Q8li9P0", "title": "Too Late Snow" },
-        { "skillId": "dPI9loII89Q6P6iD6Ioo1iiI880DI1Dd", "title": "量子の海のリントヴルム" }
-      ]
+        { "skillId": "Q910dl1olqQ9qdO6q1q1O9Pq9b80lP6P", "title": "Hold Tight" },
+        { "skillId": "iI90119iIb9l609b9981l8QDblDOb0I6", "title": "JUST BELIEVE" },
+        { "skillId": "8dDQIPOo681iID8IiibbD8IbIldI86P1", "title": "LOVE SHINE (Body Grooverz 2006 mix)" },
+        { "skillId": "i1ibID6lOoiPQ1lli86P9lIIqOoDlldQ", "title": "the beat" }
+      ],
+      "unlock": "all"
     },
     {
-      "id": "a3_grand_prix_set3",
-      "name": "DDR GRAND PRIX Advance Play pack 3",
-      "unlock": "all",
+      "id": "music_pack_2023_3",
+      "name": "music pack vol.17 and vol.18",
       "songs": [
-        { "skillId": "", "title": "Closer to my Heart (jun remix)" },
-        { "skillId": "", "title": "DOUBLE TORNARD" },
-        { "skillId": "", "title": "I WANT YOUR LOVE (Darwin remix)" },
-        { "skillId": "", "title": "Mess With My Emotions" },
-        { "skillId": "", "title": "TRUE♥LOVE (Clubstar's True Club Mix)" },
-        { "skillId": "", "title": "鏡花水月楼 (DDR EDITION)" }
-      ]
+        { "skillId": "ObI1oo6QlO981880DDDOlo8bQobI0I9P", "title": "Follow Tomorrow", "difficulty_class": "challenge" },
+        { "skillId": "ibiD8868D116OIqbQ1DQ1IOb8OD1qQ98", "title": "Take A Step Forward", "difficulty_class": "challenge" }
+      ],
+      "unlock": "all"
     },
     {
-      "id": "a3_grand_prix_controller",
-      "name": "DDR GRAND PRIX Advance Play Dedicated Controller",
-      "unlock": "all",
+      "id": "music_pack_2023_4",
+      "name": "SPECIAL music pack feat.REFLEC BEAT vol.1",
       "songs": [
-        { "skillId": "", "title": "Are U Ready" },
-        { "skillId": "", "title": "Concertino in Blue" },
-        { "skillId": "", "title": "concon" },
-        { "skillId": "", "title": "Get Your Wish" },
-        { "skillId": "", "title": "Last Summer" },
-        { "skillId": "", "title": "perditus†paradisus" },
-        { "skillId": "", "title": "Settin' the Scene" },
-        { "skillId": "", "title": "Unity" },
-        { "skillId": "", "title": "VALLIS-NERIA" },
-        { "skillId": "", "title": "Wuv U" },
-        { "skillId": "", "title": "サヨナラ・ヘヴン" },
-        { "skillId": "", "title": "ヤサイマシ☆ニンニクアブラオオメ" }
-      ]
+        { "skillId": "Id1D9D68OOqqqdDiOoDd6Q6oo10P6oqI", "title": "Flip Flap" },
+        { "skillId": "8IDiil0bDd00P1l1iQiq9DP6bO0b8dQb", "title": "GLITTER" },
+        { "skillId": "9lo10Dl06QIblQqOOid1qi0bd10I9lQ9", "title": "Valanga" },
+        { "skillId": "O6P1dIO0IDO6o8ib6i8oP86Qb9D08idd", "title": "カラフルミニッツ" }
+      ],
+      "unlock": "all"
+    },
+    {
+      "id": "music_pack_2023_5",
+      "name": "SPECIAL music pack feat.REFLEC BEAT vol.2",
+      "songs": [
+        { "skillId": "6qPlI8DQPoDIo6D819boPioIPPDIPblq", "title": "Broken" },
+        { "skillId": "bOQ0dIIIilDD9Do6qIDdlObQdo01DD80", "title": "Playing With Fire" },
+        { "skillId": "Odd6dI6o98O68I98l6q8PqODIooQO9ol", "title": "Towards The Horizon" },
+        { "skillId": "iQDQD8889Q8O018Oi60I69D6qD6odDI0", "title": "伐折羅-vajra-" }
+      ],
+      "unlock": "all"
+    },
+    {
+      "id": "music_pack_2023_6",
+      "name": "music pack vol.19 and vol.20",
+      "songs": [
+        { "skillId": "oPP1Pdl6Qdlb8oq10PP1doDibdbbl9bl", "title": "朧 (dj TAKA Remix)", "difficulty_class": "challenge" },
+        { "skillId": "Pld9iO6oi9qlDD08l8QDdIi6d6Q6iDd1", "title": "Programmed Universe", "difficulty_class": "challenge" }
+      ],
+      "unlock": "all"
+    },
+    {
+      "id": "music_pack_2023_7",
+      "name": "music pack vol.22",
+      "songs": [
+        { "skillId": "0OQiI9qD6OiodDoQlPllqPoPoqi98D8P", "title": "Open Your Eyes"  },
+        { "skillId": "oloqOddo8oI1696Oqidb081ldlPQ89qO", "title": "Racing with Time (NAOKI's 999 remix)" },
+        { "skillId": "8QPioDo6lIDdq861DDooq1O9dqdOOPiD", "title": "SAY A PRAYER" },
+        { "skillId": "bo8DPdi09odO8oq9ql0iI8booOioOqi0", "title": "Surrender (PureFocus remix)" }
+      ],
+      "unlock": "all"
+    },
+    {
+      "id": "music_pack_2023_8",
+      "name": "music pack vol.21 and vol.22",
+      "songs": [
+        { "skillId": "l666Dd0bIO9O69boPd898b19bPDo1IdO", "title": "starmine", "difficulty_class": "challenge" },
+        { "skillId": "I6dI99IOolDD6l6Q1ooPIiDO8Odq0QIP", "title": "UNBELIEVABLE (Sparky remix)", "difficulty_class": "challenge" }
+      ],
+      "unlock": "all"
+    },
+    {
+      "id": "music_pack_2023_9",
+      "name": "BPL S2 music pack vol 0-8",
+      "songs": [
+        { "skillId": "dlq91b19ld10IdIqQ9q99O8QDOOi18dq", "title": "BREAKING THE FUTURE" },
+        { "skillId": "688O16o80Iib0DPI8oQOIOdbIdQq0P1Q", "title": "Aria" },
+        { "skillId": "DdIQdo1D01PblPQd06696dPq610o1lIl", "title": "Rise As One" },
+        { "skillId": "b0o6bl18Q1bqI9o9oqQ9POoP8DiDDibP", "title": "Drive Away" },
+        { "skillId": "1IdqDqDdd08dboO911P6OQ8lobb16PDd", "title": "Chromatic Burst" },
+        { "skillId": "8d9Q0olQ980lQdPIdqbIiD8o1l1dQPI0", "title": "GLOW THE CROWN" },
+        { "skillId": "68iObo1dP91oqDQ18iiiPQDDb8O6ddq6", "title": "SMASH" },
+        { "skillId": "919bPoOo9QO6dODOI6d0loO6qo6OqDlI", "title": "Complete Game Victory" },
+        { "skillId": "OQO1Di8IQIQqP1d81d1ID9QD110b0888", "title": "Abrupt Madness" },
+        { "skillId": "dlq91b19ld10IdIqQ9q99O8QDOOi18dq", "title": "BREAKING THE FUTURE", "difficulty_class": "challenge" }
+      ],
+      "unlock": "all"
+    },
+    {
+      "id": "music_pack_2023_10",
+      "name": "SPECIAL music pack feat.UNDERTALE",
+      "songs": [
+        { "skillId": "I6oq8ODq6DOOiqod1iI1109DO1II9iiO", "title": "Battle Against a True Hero" },
+        { "skillId": "qqdlo1QOQo6QIi8PqOi8iIOO0il1IblQ", "title": "Death by Glamour" },
+        { "skillId": "Qid6OQOIibbOiDo808oq9oQO668bDodP", "title": "Finale" }
+      ],
+      "unlock": "all"
+    },
+    {
+      "id": "music_pack_2023_11",
+      "name": "SPECIAL music pack feat.Touhou Project vol.3",
+      "songs": [
+        { "skillId": "8Oq81q8q1Q9D0l0PO0bQQ00l9P19didi", "title": "HANIPAGANDA" },
+        { "skillId": "Q86bq1iQDIqDllbdD6ldIO089q8Q1689", "title": "LOVE EAST" },
+        { "skillId": "8069d8dPiqloqD8i8od1o1Pq1Q6Q8i9D", "title": "トランスダンスアナーキー" }
+      ],
+      "unlock": "all"
+    },
+    {
+      "id": "music_pack_2023_12",
+      "name": "SPECIAL music pack feat.Touhou Project vol.4",
+      "songs": [
+        { "skillId": "lob09DPQD0Dl6Q09dbq8biIb6QqDql8i", "title": "INFINITE WORLD" },
+        { "skillId": "99ll6bPDDPqQ8boPIQbdQ6bPo8bl69O9", "title": "Kill The Night" },
+        { "skillId": "dQQ6dQb1dQDd8bPqIPI0blb11ioq1QQo", "title": "しゅわスパ大作戦☆" }
+      ],
+      "unlock": "all"
+    },
+    {
+      "id": "music_pack_2023_13",
+      "name": "SPECIAL music pack feat.Touhou Project vol.3 & 4",
+      "songs": [
+        { "skillId": "I90bd6obO890P0d1iiPD0dol8o8QloQD", "title": "Grip & Break down !!", "difficulty_class": "challenge" },
+        { "skillId": "I0091lboOD1Dii10dQ0qbDqil69PQ0io", "title": "WARNING×WARNING×WARNING", "difficulty_class": "challenge" }
+      ],
+      "unlock": "all"
     },
     {
       "id": "a3_dancearound_collab",
       "name": "DANCE aROUND × DDR 2022夏のMUSIC CHOICE",
       "unlock": "single",
       "songs": [
-        { "skillId": "", "title": "Easy Peasy" },
-        { "skillId": "", "title": "Go Down" },
-        { "skillId": "", "title": "Prettiful!" },
-        { "skillId": "", "title": "You You You" }
+        { "skillId": "iiIblq9IDiOill8qdI68OOIPq6OPdiDo", "title": "Easy Peasy" },
+        { "skillId": "iIDOlq6QoQPiqoii0iiDOiI9ODiQOIDb", "title": "Go Down" },
+        { "skillId": "88Qq96qbdd69bqI089600l9bDDdiQI0l", "title": "Prettiful!" },
+        { "skillId": "oilPP86l0PPq6Db0qqibQlqDiIOD0l1O", "title": "You You You" }
       ]
     },
     {
@@ -147,8 +246,8 @@
       "name": "EXTRA SAVIOR A3",
       "unlock": "single",
       "songs": [
-        { "skillId": "", "title": "Good Sound United" },
-        { "skillId": "", "title": "Unreality" }
+        { "skillId": "0iII09bDqIbOQDDoo8lO8DOOQdiP1Iob", "title": "Good Sound United" },
+        { "skillId": "boDqoIDqDlP1io6bQ0O10diDbbqOD96I", "title": "Unreality" }
       ]
     },
     {
@@ -156,8 +255,8 @@
       "name": "Enjoy Summer Vacation!",
       "unlock": "single",
       "songs": [
-        { "skillId": "", "title": "リリーゼと炎龍レーヴァテイン" },
-        { "skillId": "", "title": "MANA" }
+        { "skillId": "IidO8qlodqdoioodqqb9Dqiq991Ilo10", "title": "リリーゼと炎龍レーヴァテイン" },
+        { "skillId": "ibOId89QQPI6dli9I6PO09Qo86686O6i", "title": "MANA" }
       ]
     },
     {
@@ -165,10 +264,64 @@
       "name": "BEMANI 2021真夏の歌合戦5番勝負",
       "unlock": "single",
       "songs": [
-        { "skillId": "", "title": "MA・TSU・RI" },
-        { "skillId": "", "title": "チュッチュ♪マチュピチュ" },
-        { "skillId": "", "title": "斑咲花" },
-        { "skillId": "", "title": "DUAL STRIKER" }
+        { "skillId": "qIIDP8iPlII9qlOQIIol0i81b0d68qo8", "title": "MA・TSU・RI" },
+        { "skillId": "OoQiq8OiPbIPI80OqOlliP661bOIDd9o", "title": "チュッチュ♪マチュピチュ" },
+        { "skillId": "I86OI9lQ1qQ66dPDlddo8PoPo01PO66i", "title": "斑咲花" },
+        { "skillId": "9b60DI1OQddDI6D9D1qPoDPODD19Db8d", "title": "DUAL STRIKER" },
+        { "skillId": "bqoboI0o8lIObPPdqq8lDDdI8b1QPDb1", "title": "恋愛観測 -2021真夏のエンディング ver.-" }
+      ]
+    },
+    {
+      "id": "2022_halloween",
+      "name": "Boo! Trick or treat!",
+      "songs": [
+        { "skillId": "IPdQ8qIqPiIdqQloI1dQQ688O0qlOQQo", "title": "BONE BORN" },
+        { "skillId": "Pb0D8b8b8PoDIO9Q9DbiQiI8qi0D89D8", "title": "惑星☆ロリポップ" }
+      ]
+    },
+    {
+      "id": "2022_christmas",
+      "name": "Crystal clear winter",
+      "songs": [
+        { "skillId": "8ql0DIiI0D9D1OP0qb8olo9bIQdP0ddq", "title": "Snow Garland Fairy" }
+      ]
+    },
+    {
+      "id": "2023_valentines",
+      "name": "恋せよDDRのバレンタイン＆ホワイトデー2023",
+      "songs": [
+        { "skillId": "0q90DbbI1O90D91I8ddDdDlP9IdoQ0oo", "title": "みゅ、みゅ、M&uuml;llる" }
+      ]
+    },
+    {
+      "id": "2023_jubeat_collab",
+      "name": "春を呼ぶ桜の祝祭",
+      "songs": [
+        { "skillId": "Od6bOOb69PqbqPdb6lO1QI66DOqo0POO", "title": "chaplet" },
+        { "skillId": "DID6l8bbD0D6661lPiP6QIQ1dPbb010d", "title": "spring pony" }
+      ]
+    },
+    {
+      "id": "kac_2023",
+      "name": "KONAMI Arcade Championship (2023) Entry Songs",
+      "songs": [
+        { "skillId": "ob6IPbiqD969Q66808obd908DI81bqPi", "title": "I-W-U (I Want U)" },
+        { "skillId": "o89biodIl0Oo1bQqll86QDi0oQQd61Db", "title": "Sparkle Dreams" },
+        { "skillId": "08O1i8ib1lDPbdOoPlD069PoOI1860qi", "title": "mathematical good-bye" },
+        { "skillId": "1II6199qOd1bo0P0D19Q9qd06ll1QOl9", "title": "ROCK THE PARTY" }
+      ]
+    },
+    {
+      "id": "baby_lon_galaxy",
+      "name": "BABY LON'S GALAXY",
+      "songs": [
+        { "skillId": "qQd06O6d19ODl0QP8l6Q8lPlloo69ddP", "title": "BLUE FOG, SILVER BULLET." },
+        { "skillId": "Q99q619i0lDqll6Q0lq8l1oQ0qPO8o6I", "title": "Electronic Sports Complex" },
+        { "skillId": "D1QDql1OQDl1dblId0P81Q999dO9POoP", "title": "ｍｅｍｏｒｙ／／ＤＡＴＡＭＯＳＨＥＲ" },
+        { "skillId": "bll06Di6q1QOlddDlPDPiQDDI09bOOoP", "title": "Come To m1dy" },
+        { "skillId": "lliDD9qPqiIDI8P9bb18IO60l9D061Io", "title": "SISYPHUS" },
+        { "skillId": "q96q9D9oIIOQl8QQ60ii19P0Dbq8Q609", "title": "New Millennium" },
+        { "skillId": "", "title": "鳳" }
       ]
     },
     {
@@ -187,10 +340,10 @@
       "name": "GOLDEN LEAGUE BRONZE Class",
       "unlock": "all",
       "songs": [
-        { "skillId": "i9PQoDbQI0qqd6I00d19bQo6q9PoOIbO", "title": "Good Looking" },
-        { "skillId": "8iiqQ9o1P089901DPIq8PDPOl6oDOl1P", "title": "Step This Way" },
-        { "skillId": "O8oPP6D8OQq1Q6Q860dqlOi6609bO1lD", "title": "Come Back To Me" },
-        { "skillId": "i6P0dI11PdoIIQ19D6PQPidqd0bI6lqi", "title": "actualization of self (weaponized)" }
+        { "skillId": "b1QllqO8oQdqo086QdIlIblDDbPodDoP", "title": "Lose Your Sense" },
+        { "skillId": "O6q9qPQ1q69ddPl6DPO0bQO6989QO1ii", "title": "Sector" },
+        { "skillId": "iQ9qQ8Iob108iPD9D0bdoIol0d81IOdo", "title": "Ability" },
+        { "skillId": "iq6b9lP6qQQIOIPQDdPD8ld1o9891Pq9", "title": "SURVIVAL AT THE END OF THE UNIVERSE" }
       ]
     },
     {
@@ -198,9 +351,10 @@
       "name": "GOLDEN LEAGUE SILVER Class",
       "unlock": "all",
       "songs": [
-        { "skillId": "8dqQDblP6dPI10qq10qiPbqi1llQ06iP", "title": "Better Than Me" },
-        { "skillId": "dQODIo01o98oPll086Qdol8bq9QP8d61", "title": "DDR TAGMIX -LAST DanceR-" },
-        { "skillId": "Q88dlIQDd9lbiiiio0dddO6QP6O091lI", "title": "THIS IS MY LAST RESORT" }
+        { "skillId": "iQi8Oool866oDQ6i660o88b86689QiOb", "title": "Jungle Dance" },
+        { "skillId": "PIl8P90Pll19Pido608olD61QIqq0b9d", "title": "Rave in the Shell" },
+        { "skillId": "i6bIQ6D0P09olqbOiP8I919006DdII1P", "title": "Not Alone" },
+        { "skillId": "lOOo9bPb09dIOb6Po19bqqbqOlb8Dq0i", "title": "GROOVE 04" }
       ]
     },
     {
@@ -208,10 +362,8 @@
       "name": "GOLDEN LEAGUE GOLD Class",
       "unlock": "all",
       "songs": [
-        { "skillId": "989od088q99DPIIq6IQidI1IQ1qQOlb6", "title": "STAY GOLD" },
-        { "skillId": "0DDIQOo6Pl9961I8OiOb1i0OODDPlldl", "title": "Teleportation" },
-        { "skillId": "", "title": "Environ [De-SYNC] (feat. Iythe)" },
-        { "skillId": "d9llb88lDI1q0QI10P01lqIqlI6QO0Dl", "title": "Give Me", "difficulty_class": "challenge" }
+        { "skillId": "", "title": "Euphoric Fragmentation" },
+        { "skillId": "", "title": "Continue to the real world?" }
       ]
     }
   ],
@@ -225,8 +377,7 @@
         "a3_extra_exclusive",
         "a3_golden_league_bronze",
         "a3_golden_league_silver",
-        "a3_golden_league_gold",
-        "a20_legend_license"
+        "a3_golden_league_gold"
       ],
       "groups": [
         "bpl_ouen_stamp_rally",
@@ -236,10 +387,19 @@
         "extra_savior_a3_summer_vacation",
         "extra_savior_a3_collab_event",
         "a20_plus_cs_songs",
-        "a3_grand_prix_set1",
-        "a3_grand_prix_set2",
-        "a3_grand_prix_set3",
-        "a3_grand_prix_controller"
+        "music_pack_2023_1",
+        "music_pack_2023_2",
+        "music_pack_2023_3",
+        "music_pack_2023_4",
+        "music_pack_2023_5",
+        "music_pack_2023_6",
+        "music_pack_2023_7",
+        "music_pack_2023_8",
+        "music_pack_2023_9",
+        "music_pack_2023_10",
+        "music_pack_2023_11",
+        "music_pack_2023_12",
+        "music_pack_2023_13"
       ],
       "songs": [
         { "skillId": "IlbI1QQOPI0o0IdoPI6QPldqQob16DOq", "title": "ナイト・オブ・ナイツ (Ryu☆Remix)" },
@@ -255,8 +415,7 @@
         "a3_extra_exclusive",
         "a3_golden_league_bronze",
         "a3_golden_league_silver",
-        "a3_golden_league_gold",
-        "a20_legend_license"
+        "a3_golden_league_gold"
       ],
       "groups": [
         "bpl_ouen_stamp_rally",
@@ -266,10 +425,19 @@
         "extra_savior_a3_summer_vacation",
         "extra_savior_a3_collab_event",
         "a20_plus_cs_songs",
-        "a3_grand_prix_set1",
-        "a3_grand_prix_set2",
-        "a3_grand_prix_set3",
-        "a3_grand_prix_controller"
+        "music_pack_2023_1",
+        "music_pack_2023_2",
+        "music_pack_2023_3",
+        "music_pack_2023_4",
+        "music_pack_2023_5",
+        "music_pack_2023_6",
+        "music_pack_2023_7",
+        "music_pack_2023_8",
+        "music_pack_2023_9",
+        "music_pack_2023_10",
+        "music_pack_2023_11",
+        "music_pack_2023_12",
+        "music_pack_2023_13"
       ]
     },
     {
@@ -287,10 +455,19 @@
         "extra_savior_a3_summer_vacation",
         "extra_savior_a3_collab_event",
         "a20_plus_cs_songs",
-        "a3_grand_prix_set1",
-        "a3_grand_prix_set2",
-        "a3_grand_prix_set3",
-        "a3_grand_prix_controller",
+        "music_pack_2023_1",
+        "music_pack_2023_2",
+        "music_pack_2023_3",
+        "music_pack_2023_4",
+        "music_pack_2023_5",
+        "music_pack_2023_6",
+        "music_pack_2023_7",
+        "music_pack_2023_8",
+        "music_pack_2023_9",
+        "music_pack_2023_10",
+        "music_pack_2023_11",
+        "music_pack_2023_12",
+        "music_pack_2023_13",
         "a3_golden_league_bronze",
         "a3_golden_league_silver",
         "a3_golden_league_gold"
