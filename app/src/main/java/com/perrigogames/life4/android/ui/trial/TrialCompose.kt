@@ -2,13 +2,20 @@ package com.perrigogames.life4.android.ui.trial
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -18,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.perrigogames.life4.android.R
 import com.perrigogames.life4.android.compose.FontFamilies
 import com.perrigogames.life4.android.compose.FontSizes
@@ -25,8 +33,26 @@ import com.perrigogames.life4.android.compose.Paddings
 import com.perrigogames.life4.android.util.jacketResId
 import com.perrigogames.life4.android.view.TrialJacketView
 import com.perrigogames.life4.data.Trial
-import com.perrigogames.life4.viewmodel.TrialJacketViewModel
 import com.perrigogames.life4.viewmodel.TrialListState
+import com.perrigogames.life4.viewmodel.TrialListViewModel
+import com.perrigogames.life4.viewmodel.UITrialJacket
+import dev.icerock.moko.mvvm.createViewModelFactory
+
+@Composable
+fun TrialListScreen(
+    modifier: Modifier = Modifier,
+    viewModel: TrialListViewModel = viewModel(
+        factory = createViewModelFactory { TrialListViewModel() }
+    ),
+    onTrialSelected: (Trial) -> Unit,
+) {
+    val trials by viewModel.trials.collectAsState()
+    TrialJacketList(
+        displayList = trials,
+        onTrialSelected = onTrialSelected,
+        modifier = modifier,
+    )
+}
 
 @Composable
 fun TrialJacketList(
@@ -65,7 +91,7 @@ fun TrialJacketList(
 
 @Composable
 fun TrialJacket(
-    viewModel: TrialJacketViewModel,
+    viewModel: UITrialJacket,
     onClick: (Trial) -> Unit,
 ) {
     AndroidView(
@@ -80,7 +106,7 @@ fun TrialJacket(
 
 @Composable
 fun TrialJacketCompose(
-    viewModel: TrialJacketViewModel,
+    viewModel: UITrialJacket,
     onClick: (Trial) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -107,7 +133,7 @@ fun TrialJacketCompose(
 
 @Composable
 fun TrialDifficulty(
-    viewModel: TrialJacketViewModel,
+    viewModel: UITrialJacket,
     modifier: Modifier,
 ) {
     viewModel.trial.difficulty?.let { difficulty ->

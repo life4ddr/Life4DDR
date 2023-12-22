@@ -21,7 +21,7 @@ import com.perrigogames.life4.android.util.circularProgressDrawable
 import com.perrigogames.life4.android.util.jacketResId
 import com.perrigogames.life4.android.util.shouldFetchJacket
 import com.perrigogames.life4.android.util.visibilityBool
-import com.perrigogames.life4.viewmodel.TrialJacketViewModel
+import com.perrigogames.life4.viewmodel.UITrialJacket
 
 class TrialJacketView @JvmOverloads constructor(
     context: Context,
@@ -36,7 +36,7 @@ class TrialJacketView @JvmOverloads constructor(
         binding = MergeTrialJacketBinding.bind(this)
     }
 
-    fun bind(item: TrialJacketViewModel) {
+    fun bind(item: UITrialJacket) {
         val trial = item.trial
         binding.textTrialTitle.text = trial.name
         binding.imageTrialDifficulty.visibilityBool = trial.difficulty != null
@@ -69,7 +69,7 @@ class TrialJacketView @JvmOverloads constructor(
         updateExScore(item)
     }
 
-    private fun updateRankTint(item: TrialJacketViewModel) {
+    private fun updateRankTint(item: UITrialJacket) {
         when {
             item.trial.isEvent -> {
                 binding.imageBadgeHighest.visibility = GONE
@@ -89,7 +89,7 @@ class TrialJacketView @JvmOverloads constructor(
         }
     }
 
-    private fun updateExScore(item: TrialJacketViewModel) {
+    private fun updateExScore(item: UITrialJacket) {
         binding.textExScore.visibility = GONE
         binding.textExScoreCenter.visibility = GONE
         if (item.exScore != null) {

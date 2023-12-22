@@ -6,7 +6,7 @@ import com.perrigogames.life4.enums.TrialJacketCorner
 import com.perrigogames.life4.enums.TrialRank
 import com.perrigogames.life4.enums.TrialType
 
-data class TrialJacketViewModel(
+data class UITrialJacket(
     val trial: com.perrigogames.life4.data.Trial,
     val session: SelectBestSessions? = null,
     val overrideCorner: TrialJacketCorner? = null,

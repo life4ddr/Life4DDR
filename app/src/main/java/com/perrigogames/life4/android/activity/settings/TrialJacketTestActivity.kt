@@ -18,8 +18,8 @@ import com.perrigogames.life4.enums.DifficultyClass
 import com.perrigogames.life4.enums.TrialJacketCorner
 import com.perrigogames.life4.enums.TrialRank
 import com.perrigogames.life4.enums.TrialType
-import com.perrigogames.life4.viewmodel.TrialJacketViewModel
 import com.perrigogames.life4.viewmodel.TrialListState
+import com.perrigogames.life4.viewmodel.UITrialJacket
 
 class TrialJacketTestActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -87,7 +87,7 @@ private fun testTrialItem(
     rank: TrialRank? = null,
     exScore: Int? = null,
 ) = TrialListState.Item.Trial(
-    viewModel = TrialJacketViewModel(
+    viewModel = UITrialJacket(
         trial = trial,
         session = null, //FIXME
         overrideCorner = overrideCorner,

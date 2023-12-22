@@ -20,7 +20,7 @@ data class TrialListState(
         sessions.firstOrNull { it.trialId == trial.id }
     }
 
-    private fun trialViewModel(trial: Trial) = TrialJacketViewModel(
+    private fun trialViewModel(trial: Trial) = UITrialJacket(
         trial = trial,
         session = matchedTrials[trial],
         rank = matchedTrials[trial]?.goalRank,
@@ -63,7 +63,7 @@ data class TrialListState(
     sealed class Item {
 
         class Trial(
-            val viewModel: TrialJacketViewModel,
+            val viewModel: UITrialJacket,
         ) : Item() {
 
             override fun toString() = "Trial: ${viewModel.trial.name}"

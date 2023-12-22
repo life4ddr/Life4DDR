@@ -42,6 +42,13 @@
     <string name="select_rank_instead">Select a Rank instead</string>
     <!-- endregion -->
 
+    <!-- region Settings -->
+    <string name="tab_profile">Profile</string>
+    <string name="tab_browse">Browse</string>
+    <string name="tab_trials">Trials</string>
+    <string name="tab_settings">Settings</string>
+    <!-- endregion -->
+
     <!-- region Rank Selection -->
     <string name="change_rank_later">You can change your Rank in the Settings menu later.</string>
     <string name="no_rank_goals">It\'s free to not have a rank, but it\'s more fun if you play through some goals!  You can change your Rank in the Settings menu later.</string>
