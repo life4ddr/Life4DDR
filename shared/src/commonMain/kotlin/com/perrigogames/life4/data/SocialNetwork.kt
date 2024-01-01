@@ -5,7 +5,6 @@ package com.perrigogames.life4.data
  * a catch-all for custom networks.
  */
 sealed class SocialNetwork {
-
     object Discord: SocialNetwork()
     object Twitter: SocialNetwork()
     object YouTube: SocialNetwork()
