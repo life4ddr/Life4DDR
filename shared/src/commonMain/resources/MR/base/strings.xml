@@ -44,7 +44,7 @@
 
     <!-- region Settings -->
     <string name="tab_profile">Profile</string>
-    <string name="tab_browse">Browse</string>
+    <string name="tab_scores">Scores</string>
     <string name="tab_trials">Trials</string>
     <string name="tab_settings">Settings</string>
     <!-- endregion -->

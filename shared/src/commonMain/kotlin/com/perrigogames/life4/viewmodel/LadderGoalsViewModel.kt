@@ -6,9 +6,9 @@ import com.perrigogames.life4.data.ladder.UILadderGoal
 import com.perrigogames.life4.data.ladder.UILadderGoals
 import com.perrigogames.life4.enums.GoalStatus
 import com.perrigogames.life4.enums.LadderRank
+import com.perrigogames.life4.feature.songresults.LadderProgressManager
 import com.perrigogames.life4.model.GoalStateManager
 import com.perrigogames.life4.model.LadderDataManager
-import com.perrigogames.life4.model.LadderProgressManager
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

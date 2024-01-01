@@ -58,13 +58,13 @@ import com.perrigogames.life4.android.manager.AndroidLadderDialogs
 import com.perrigogames.life4.android.util.openWebUrlFromRes
 import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.enums.TrialRank
+import com.perrigogames.life4.feature.profile.UserRankManager
+import com.perrigogames.life4.feature.songlist.IgnoreListManager
+import com.perrigogames.life4.feature.trialrecords.TrialRecordsManager
+import com.perrigogames.life4.feature.trials.TrialManager
 import com.perrigogames.life4.model.GoalStateManager
-import com.perrigogames.life4.model.IgnoreListManager
 import com.perrigogames.life4.model.PlayerManager
 import com.perrigogames.life4.model.SongDataCoordinator
-import com.perrigogames.life4.model.TrialManager
-import com.perrigogames.life4.model.TrialRecordsManager
-import com.perrigogames.life4.model.UserRankManager
 import com.russhwolf.settings.Settings
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject

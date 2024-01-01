@@ -1,8 +1,9 @@
-package com.perrigogames.life4.model
+package com.perrigogames.life4.feature.trials
 
 import com.perrigogames.life4.data.InProgressTrialSession
-import com.perrigogames.life4.db.TrialDatabaseHelper
 import com.perrigogames.life4.enums.TrialRank
+import com.perrigogames.life4.feature.trialrecords.TrialDatabaseHelper
+import com.perrigogames.life4.model.BaseModel
 import kotlinx.coroutines.launch
 import kotlinx.serialization.ExperimentalSerializationApi
 import org.koin.core.component.KoinComponent

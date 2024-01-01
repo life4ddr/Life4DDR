@@ -1,13 +1,19 @@
-package com.perrigogames.life4.model
+package com.perrigogames.life4.feature.trials
 
-import com.perrigogames.life4.*
+import com.perrigogames.life4.Notifications
+import com.perrigogames.life4.SettingsKeys
 import com.perrigogames.life4.api.TrialRemoteData
 import com.perrigogames.life4.api.base.CompositeData
 import com.perrigogames.life4.api.base.LocalDataReader
 import com.perrigogames.life4.data.Trial
 import com.perrigogames.life4.data.TrialData
-import com.perrigogames.life4.db.TrialDatabaseHelper
+import com.perrigogames.life4.feature.trialrecords.TrialDatabaseHelper
+import com.perrigogames.life4.isDebug
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.TRIALS_FILE_NAME
+import com.perrigogames.life4.logException
+import com.perrigogames.life4.model.BaseModel
+import com.perrigogames.life4.setCrashInt
+import com.perrigogames.life4.setCrashString
 import com.perrigogames.life4.viewmodel.TrialListState
 import com.russhwolf.settings.Settings
 import dev.icerock.moko.mvvm.livedata.LiveData

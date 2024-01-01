@@ -5,8 +5,8 @@ import com.perrigogames.life4.data.BaseRankGoal
 import com.perrigogames.life4.data.ladder.UILadderGoal
 import com.perrigogames.life4.db.GoalState
 import com.perrigogames.life4.enums.GoalStatus
+import com.perrigogames.life4.feature.songresults.LadderProgressManager
 import com.perrigogames.life4.model.GoalStateManager
-import com.perrigogames.life4.model.LadderProgressManager
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 

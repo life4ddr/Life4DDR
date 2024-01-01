@@ -1,8 +1,8 @@
-package com.perrigogames.life4.model
+package com.perrigogames.life4.feature.trialrecords
 
 import com.perrigogames.life4.data.InProgressTrialSession
 import com.perrigogames.life4.db.SelectBestSessions
-import com.perrigogames.life4.db.TrialDatabaseHelper
+import com.perrigogames.life4.model.BaseModel
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject

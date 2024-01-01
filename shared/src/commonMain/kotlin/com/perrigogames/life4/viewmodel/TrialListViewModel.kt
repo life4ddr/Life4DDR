@@ -5,7 +5,7 @@ import com.perrigogames.life4.SettingsKeys.KEY_LIST_HIGHLIGHT_UNPLAYED
 import com.perrigogames.life4.SettingsKeys.KEY_LIST_SHOW_EX
 import com.perrigogames.life4.SettingsKeys.KEY_LIST_SHOW_EX_REMAINING
 import com.perrigogames.life4.SettingsKeys.KEY_LIST_TINT_COMPLETED
-import com.perrigogames.life4.model.TrialManager
+import com.perrigogames.life4.feature.trials.TrialManager
 import com.russhwolf.settings.Settings
 import dev.icerock.moko.mvvm.flow.cMutableStateFlow
 import dev.icerock.moko.mvvm.viewmodel.ViewModel

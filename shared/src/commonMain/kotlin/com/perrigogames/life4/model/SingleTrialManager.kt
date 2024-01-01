@@ -3,8 +3,8 @@ package com.perrigogames.life4.model
 import com.perrigogames.life4.data.InProgressTrialSession
 import com.perrigogames.life4.data.Trial
 import com.perrigogames.life4.db.SelectBestSession
-import com.perrigogames.life4.db.TrialDatabaseHelper
 import com.perrigogames.life4.enums.TrialRank
+import com.perrigogames.life4.feature.trialrecords.TrialDatabaseHelper
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject

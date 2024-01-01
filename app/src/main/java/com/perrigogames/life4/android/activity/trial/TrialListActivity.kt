@@ -8,7 +8,14 @@ import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.*
+import androidx.compose.material.DrawerValue
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Surface
+import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
+import androidx.compose.material.rememberDrawerState
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -21,7 +28,7 @@ import com.perrigogames.life4.android.manager.AndroidTrialNavigation
 import com.perrigogames.life4.android.ui.trial.TrialJacketList
 import com.perrigogames.life4.data.Trial
 import com.perrigogames.life4.enums.TrialType
-import com.perrigogames.life4.model.TrialManager
+import com.perrigogames.life4.feature.trials.TrialManager
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 

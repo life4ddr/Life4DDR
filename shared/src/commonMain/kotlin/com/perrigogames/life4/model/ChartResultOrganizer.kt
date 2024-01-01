@@ -2,11 +2,12 @@ package com.perrigogames.life4.model
 
 import co.touchlab.kermit.Logger
 import com.perrigogames.life4.GameConstants.MAX_SCORE
-import com.perrigogames.life4.db.ChartResultPair
 import com.perrigogames.life4.db.DetailedChartInfo
-import com.perrigogames.life4.db.ResultDatabaseHelper
 import com.perrigogames.life4.enums.ClearType
 import com.perrigogames.life4.enums.PlayStyle
+import com.perrigogames.life4.feature.songlist.IgnoreListManager
+import com.perrigogames.life4.feature.songresults.ChartResultPair
+import com.perrigogames.life4.feature.songresults.ResultDatabaseHelper
 import com.perrigogames.life4.injectLogger
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject

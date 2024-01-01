@@ -9,8 +9,8 @@ import co.touchlab.kermit.Logger
 import com.perrigogames.life4.android.R
 import com.perrigogames.life4.android.databinding.DialogManagerImportProcessingBinding
 import com.perrigogames.life4.android.util.spannedText
+import com.perrigogames.life4.feature.songresults.LadderImporter
 import com.perrigogames.life4.injectLogger
-import com.perrigogames.life4.model.LadderImporter
 import org.koin.core.component.KoinComponent
 
 /**

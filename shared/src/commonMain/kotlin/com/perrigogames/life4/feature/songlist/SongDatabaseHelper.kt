@@ -1,6 +1,10 @@
-package com.perrigogames.life4.db
+package com.perrigogames.life4.feature.songlist
 
 import co.touchlab.kermit.Logger
+import com.perrigogames.life4.db.ChartInfo
+import com.perrigogames.life4.db.DatabaseHelper
+import com.perrigogames.life4.db.DetailedChartInfo
+import com.perrigogames.life4.db.SongInfo
 import com.perrigogames.life4.enums.DifficultyClass
 import com.perrigogames.life4.enums.GameVersion
 import com.perrigogames.life4.enums.PlayStyle

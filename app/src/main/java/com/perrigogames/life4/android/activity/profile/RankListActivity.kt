@@ -22,7 +22,7 @@ import com.perrigogames.life4.android.activity.profile.RankDetailsActivity.Compa
 import com.perrigogames.life4.android.compose.LIFE4Theme
 import com.perrigogames.life4.android.ui.ranklist.RankSelectionMini
 import com.perrigogames.life4.enums.LadderRank
-import com.perrigogames.life4.model.UserRankManager
+import com.perrigogames.life4.feature.profile.UserRankManager
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 

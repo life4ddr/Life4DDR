@@ -7,6 +7,7 @@ import com.perrigogames.life4.api.base.LocalDataReader
 import com.perrigogames.life4.data.LadderRankData
 import com.perrigogames.life4.data.LadderVersion
 import com.perrigogames.life4.enums.LadderRank
+import com.perrigogames.life4.feature.songlist.IgnoreListManager
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.RANKS_FILE_NAME
 import org.koin.core.component.inject
 import org.koin.core.qualifier.named

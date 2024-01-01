@@ -18,9 +18,9 @@ import com.perrigogames.life4.enums.GoalStatus.COMPLETE
 import com.perrigogames.life4.enums.GoalStatus.IGNORED
 import com.perrigogames.life4.enums.GoalStatus.INCOMPLETE
 import com.perrigogames.life4.enums.LadderRank
+import com.perrigogames.life4.feature.songresults.LadderProgressManager
 import com.perrigogames.life4.model.GoalStateManager
 import com.perrigogames.life4.model.LadderDataManager
-import com.perrigogames.life4.model.LadderProgressManager
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 

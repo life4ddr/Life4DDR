@@ -2,7 +2,7 @@ package com.perrigogames.life4
 
 import com.perrigogames.life4.data.InProgressTrialSession
 import com.perrigogames.life4.enums.TrialRank
-import com.perrigogames.life4.model.TrialSessionManager
+import com.perrigogames.life4.feature.trials.TrialSessionManager
 import com.russhwolf.settings.Settings
 import kotlinx.serialization.ExperimentalSerializationApi
 import org.koin.core.component.KoinComponent

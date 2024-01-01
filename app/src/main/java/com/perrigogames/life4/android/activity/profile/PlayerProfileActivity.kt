@@ -29,8 +29,8 @@ import com.perrigogames.life4.android.ui.dialogs.MotdDialog
 import com.perrigogames.life4.android.ui.rankdetails.RankDetailsViewModel
 import com.perrigogames.life4.android.util.openWebUrlFromRes
 import com.perrigogames.life4.enums.LadderRank
+import com.perrigogames.life4.feature.trials.TrialManager
 import com.perrigogames.life4.model.LadderDataManager
-import com.perrigogames.life4.model.TrialManager
 import com.russhwolf.settings.Settings
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject

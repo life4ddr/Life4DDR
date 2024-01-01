@@ -1,8 +1,7 @@
-package com.perrigogames.life4.model
+package com.perrigogames.life4.feature.songresults
 
 import co.touchlab.kermit.Logger
 import com.perrigogames.life4.LadderDialogs
-import com.perrigogames.life4.db.ResultDatabaseHelper
 import com.perrigogames.life4.enums.ClearType
 import com.perrigogames.life4.enums.DifficultyClass
 import com.perrigogames.life4.enums.DifficultyClass.BEGINNER
@@ -10,6 +9,10 @@ import com.perrigogames.life4.enums.PlayStyle
 import com.perrigogames.life4.enums.PlayStyle.DOUBLE
 import com.perrigogames.life4.injectLogger
 import com.perrigogames.life4.isDebug
+import com.perrigogames.life4.model.BaseModel
+import com.perrigogames.life4.model.ChartNotFoundException
+import com.perrigogames.life4.model.MainScope
+import com.perrigogames.life4.model.SongDataManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch

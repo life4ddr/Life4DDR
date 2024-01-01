@@ -10,7 +10,7 @@ import com.perrigogames.life4.android.R
 import com.perrigogames.life4.android.view.HeaderViewHolder
 import com.perrigogames.life4.android.view.TrialJacketView
 import com.perrigogames.life4.enums.TrialType
-import com.perrigogames.life4.model.TrialManager
+import com.perrigogames.life4.feature.trials.TrialManager
 import com.perrigogames.life4.viewmodel.TrialListState
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject

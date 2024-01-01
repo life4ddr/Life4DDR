@@ -1,4 +1,7 @@
-package com.perrigogames.life4.db
+package com.perrigogames.life4.feature.songresults
+
+import com.perrigogames.life4.db.ChartResult
+import com.perrigogames.life4.db.DetailedChartInfo
 
 data class ChartResultPair(
     val chart: DetailedChartInfo,

@@ -1,11 +1,22 @@
-package com.perrigogames.life4.model
+package com.perrigogames.life4.feature.songresults
 
 import co.touchlab.kermit.Logger
 import com.perrigogames.life4.GameConstants
-import com.perrigogames.life4.data.*
-import com.perrigogames.life4.db.ResultDatabaseHelper
+import com.perrigogames.life4.data.BaseRankGoal
+import com.perrigogames.life4.data.LadderGoalProgress
+import com.perrigogames.life4.data.MFCPointsStackedGoal
+import com.perrigogames.life4.data.SongsClearGoal
+import com.perrigogames.life4.data.StackedRankGoalWrapper
+import com.perrigogames.life4.data.TrialStackedGoal
 import com.perrigogames.life4.enums.ClearType
+import com.perrigogames.life4.feature.songlist.IgnoreListManager
+import com.perrigogames.life4.feature.trialrecords.TrialRecordsManager
+import com.perrigogames.life4.feature.trials.TrialManager
 import com.perrigogames.life4.injectLogger
+import com.perrigogames.life4.model.BaseModel
+import com.perrigogames.life4.model.ChartResultOrganizer
+import com.perrigogames.life4.model.SongDataManager
+import com.perrigogames.life4.model.safeScore
 import kotlinx.serialization.ExperimentalSerializationApi
 import org.koin.core.component.inject
 import kotlin.math.max

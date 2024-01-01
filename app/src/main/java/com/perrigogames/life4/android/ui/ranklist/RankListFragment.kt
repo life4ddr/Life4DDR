@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.perrigogames.life4.LadderRanksReplacedEvent
 import com.perrigogames.life4.android.databinding.FragmentRankListBinding
 import com.perrigogames.life4.data.RankEntry
+import com.perrigogames.life4.feature.profile.UserRankManager
 import com.perrigogames.life4.model.LadderDataManager
-import com.perrigogames.life4.model.UserRankManager
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 

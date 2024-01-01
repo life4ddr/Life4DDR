@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.perrigogames.life4.data.SocialNetwork
 import com.perrigogames.life4.enums.LadderRank
-import com.perrigogames.life4.model.UserRankManager
+import com.perrigogames.life4.feature.profile.UserRankManager
 import com.perrigogames.life4.model.settings.InfoSettingsManager
 import com.perrigogames.life4.viewmodel.GoalListConfig
 import com.perrigogames.life4.viewmodel.GoalListViewModel

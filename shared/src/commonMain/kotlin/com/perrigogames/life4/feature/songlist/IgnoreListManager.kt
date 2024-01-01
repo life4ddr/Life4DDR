@@ -1,4 +1,4 @@
-package com.perrigogames.life4.model
+package com.perrigogames.life4.feature.songlist
 
 import co.touchlab.kermit.Logger
 import com.perrigogames.life4.SettingsKeys.KEY_IMPORT_GAME_VERSION
@@ -12,6 +12,8 @@ import com.perrigogames.life4.data.IgnoredSong
 import com.perrigogames.life4.db.DetailedChartInfo
 import com.perrigogames.life4.injectLogger
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.IGNORES_FILE_NAME
+import com.perrigogames.life4.model.BaseModel
+import com.perrigogames.life4.model.SongDataManager
 import com.russhwolf.settings.Settings
 import com.russhwolf.settings.set
 import kotlinx.serialization.json.Json

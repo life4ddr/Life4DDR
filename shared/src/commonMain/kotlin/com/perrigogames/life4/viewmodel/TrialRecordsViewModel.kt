@@ -1,7 +1,7 @@
 package com.perrigogames.life4.viewmodel
 
 import com.perrigogames.life4.data.trialrecords.UITrialRecord
-import com.perrigogames.life4.model.TrialRecordsManager
+import com.perrigogames.life4.feature.trialrecords.TrialRecordsManager
 import dev.icerock.moko.mvvm.flow.CStateFlow
 import dev.icerock.moko.mvvm.flow.cStateFlow
 import dev.icerock.moko.mvvm.viewmodel.ViewModel

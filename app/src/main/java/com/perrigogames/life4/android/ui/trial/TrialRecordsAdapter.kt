@@ -18,9 +18,9 @@ import com.perrigogames.life4.android.util.jacketResId
 import com.perrigogames.life4.android.util.visibilityBool
 import com.perrigogames.life4.db.TrialSession
 import com.perrigogames.life4.db.TrialSong
+import com.perrigogames.life4.feature.trialrecords.TrialRecordsManager
+import com.perrigogames.life4.feature.trials.TrialManager
 import com.perrigogames.life4.longNumberString
-import com.perrigogames.life4.model.TrialManager
-import com.perrigogames.life4.model.TrialRecordsManager
 import com.perrigogames.life4.viewmodel.TrialRecordsViewModel
 import com.russhwolf.settings.Settings
 import kotlinx.datetime.TimeZone
@@ -31,7 +31,7 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import java.text.SimpleDateFormat
 import java.time.format.DateTimeFormatter
-import java.util.*
+import java.util.Calendar
 
 /**
  * [RecyclerView.Adapter] that can display a [TrialSession] and makes a call to the

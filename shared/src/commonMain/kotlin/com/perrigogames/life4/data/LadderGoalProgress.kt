@@ -1,6 +1,6 @@
 package com.perrigogames.life4.data
 
-import com.perrigogames.life4.db.ChartResultPair
+import com.perrigogames.life4.feature.songresults.ChartResultPair
 
 /**
  * Data class representing the local user's current progress towards

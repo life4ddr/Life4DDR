@@ -1,6 +1,7 @@
 package com.perrigogames.life4.model
 
 import com.perrigogames.life4.LadderDialogs
+import com.perrigogames.life4.feature.songresults.LadderProgressManager
 import org.koin.core.component.inject
 
 /**

@@ -26,7 +26,7 @@ import com.perrigogames.life4.android.ui.trial.SongEntryControls
 import com.perrigogames.life4.android.view.compose.BottomNavigationButtons
 import com.perrigogames.life4.data.Song
 import com.perrigogames.life4.data.SongResult
-import com.perrigogames.life4.model.TrialSessionManager
+import com.perrigogames.life4.feature.trials.TrialSessionManager
 import com.perrigogames.life4.viewmodel.SongEntryViewModel
 import dev.icerock.moko.mvvm.createViewModelFactory
 import org.koin.core.component.KoinComponent

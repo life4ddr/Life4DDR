@@ -3,8 +3,8 @@ package com.perrigogames.life4.viewmodel
 import com.perrigogames.life4.SettingsKeys
 import com.perrigogames.life4.data.Song
 import com.perrigogames.life4.data.SongResult
+import com.perrigogames.life4.feature.trials.TrialSessionManager
 import com.perrigogames.life4.getDebugBoolean
-import com.perrigogames.life4.model.TrialSessionManager
 import com.perrigogames.life4.util.mutate
 import com.russhwolf.settings.Settings
 import dev.icerock.moko.mvvm.flow.CMutableStateFlow
@@ -12,7 +12,11 @@ import dev.icerock.moko.mvvm.flow.CStateFlow
 import dev.icerock.moko.mvvm.flow.cMutableStateFlow
 import dev.icerock.moko.mvvm.flow.cStateFlow
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 

@@ -3,6 +3,9 @@ package com.perrigogames.life4.api.base
 import com.perrigogames.life4.data.MajorVersioned
 import com.perrigogames.life4.data.Versioned
 import com.perrigogames.life4.logE
+import com.perrigogames.life4.model.BaseModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 
 /**
  * A structure to unify the processes of reading raw data files, reading volatile cache files, and retrieving
@@ -10,34 +13,37 @@ import com.perrigogames.life4.logE
  */
 abstract class CompositeData<T: Versioned>(
     private val listener: NewDataListener<T>?,
-) {
+): BaseModel() {
 
-    open val rawData: LocalData<T>? = null
-    open val cacheData: CachedData<T>? = null
-    open val remoteData: RemoteData<T>? = null
+    protected open val rawData: LocalData<T>? = null
+    protected open val cacheData: CachedData<T>? = null
+    protected open val remoteData: RemoteData<T>? = null
 
-    lateinit var data: T
+    @Deprecated("Use dataFlow instead")
+    val data: T get() = _dataFlow.value
+
+    private lateinit var _dataFlow: MutableStateFlow<T>
+    val dataFlow: StateFlow<T> get() = _dataFlow
+    private val currentData get() = _dataFlow.value
 
     val versionString: String
-        get() = (data as? MajorVersioned)?.let {
+        get() = (currentData as? MajorVersioned)?.let {
             "${it.majorVersion}.${it.version}"
-        } ?: data.version.toString()
+        } ?: currentData.version.toString()
 
-    private var majorVersion: Int? = null
+    private val majorVersion: Int?
+        get() = (currentData as? MajorVersioned)?.majorVersion
 
     fun start() {
         loadRawData()
         loadCachedData()
-        listener?.onDataLoaded(data)
+        listener?.onDataLoaded(currentData)
         loadRemoteData()
     }
 
     private fun loadRawData() {
         if (rawData != null) { // load raw data first
-            data = rawData!!.data
-            (data as? MajorVersioned)?.let {
-                majorVersion = it.majorVersion
-            }
+            _dataFlow.tryEmit(currentData)
         }
     }
 
@@ -45,10 +51,10 @@ abstract class CompositeData<T: Versioned>(
         if (cacheData != null) { // load cache if it exists, delete the cache if it's behind the raw data
             val cache = cacheData!!.data
             if (cache != null && shouldUpdate(cache)) {
-                data = cache
+                _dataFlow.tryEmit(cache)
             } else {
                 cacheData!!.deleteCache()
-                listener?.onDataVersionChanged(data)
+                listener?.onDataVersionChanged(currentData)
             }
         }
     }
@@ -61,11 +67,11 @@ abstract class CompositeData<T: Versioned>(
                     (newData as MajorVersioned).majorVersion > majorVersion!!
                 ) { // new data has higher major version, do not use
                     listener?.onMajorVersionBlock()
-                } else if (newData.version > data.version) { // new version is higher, use it and save it to cache
-                    data = newData
-                    listener?.onDataLoaded(data)
-                    cacheData?.saveNewCache(data)
-                    listener?.onDataVersionChanged(data)
+                } else if (newData.version > currentData.version) { // new version is higher, use it and save it to cache
+                    _dataFlow.tryEmit(newData)
+                    listener?.onDataLoaded(currentData)
+                    cacheData?.saveNewCache(currentData)
+                    listener?.onDataVersionChanged(currentData)
                 }
                 // otherwise versions are the same
             }
@@ -94,5 +100,5 @@ abstract class CompositeData<T: Versioned>(
     }
 
     open fun shouldUpdate(newData: T): Boolean =
-        newData.version > data.version
+        newData.version > currentData.version
 }

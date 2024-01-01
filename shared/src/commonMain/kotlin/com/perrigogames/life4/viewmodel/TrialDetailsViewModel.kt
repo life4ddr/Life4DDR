@@ -2,14 +2,22 @@ package com.perrigogames.life4.viewmodel
 
 import com.perrigogames.life4.PlatformStrings
 import com.perrigogames.life4.TrialStrings
-import com.perrigogames.life4.data.*
+import com.perrigogames.life4.data.InProgressTrialSession
+import com.perrigogames.life4.data.Song
+import com.perrigogames.life4.data.SongResult
+import com.perrigogames.life4.data.Trial
+import com.perrigogames.life4.data.TrialEXProgress
 import com.perrigogames.life4.enums.TrialRank
+import com.perrigogames.life4.feature.profile.UserRankManager
 import com.perrigogames.life4.model.SingleTrialManager
-import com.perrigogames.life4.model.UserRankManager
 import dev.icerock.moko.graphics.Color
 import dev.icerock.moko.mvvm.flow.cMutableStateFlow
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.serialization.ExperimentalSerializationApi
 import org.koin.core.component.KoinComponent

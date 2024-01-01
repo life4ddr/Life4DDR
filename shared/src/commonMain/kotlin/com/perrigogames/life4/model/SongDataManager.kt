@@ -8,19 +8,21 @@ import com.perrigogames.life4.api.base.LocalDataReader
 import com.perrigogames.life4.data.SongList
 import com.perrigogames.life4.db.ChartInfo
 import com.perrigogames.life4.db.ChartResult
-import com.perrigogames.life4.db.ChartResultPair
 import com.perrigogames.life4.db.DetailedChartInfo
-import com.perrigogames.life4.db.SongDatabaseHelper
 import com.perrigogames.life4.db.SongInfo
-import com.perrigogames.life4.db.matches
 import com.perrigogames.life4.enums.DifficultyClass
 import com.perrigogames.life4.enums.GameVersion
 import com.perrigogames.life4.enums.PlayStyle
+import com.perrigogames.life4.feature.songlist.SongDatabaseHelper
+import com.perrigogames.life4.feature.songresults.ChartResultPair
+import com.perrigogames.life4.feature.songresults.matches
 import com.perrigogames.life4.injectLogger
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.SONGS_FILE_NAME
 import com.perrigogames.life4.logException
 import com.russhwolf.settings.Settings
 import com.russhwolf.settings.set
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import org.koin.core.component.inject
 import org.koin.core.qualifier.named
@@ -37,7 +39,7 @@ class SongDataManager: BaseModel() {
     private val dataReader: LocalDataReader by inject(named(SONGS_FILE_NAME))
     private val logger: Logger by injectLogger("SongDataManager")
 
-    private val songList = SongListRemoteData(dataReader, object: CompositeData.NewDataListener<SongList> {
+    private val remoteData = SongListRemoteData(dataReader, object: CompositeData.NewDataListener<SongList> {
         override fun onDataLoaded(data: SongList) {
             refreshMemoryData()
         }
@@ -46,18 +48,22 @@ class SongDataManager: BaseModel() {
             refreshSongDatabase(data)
         }
     })
-    val dataVersionString get() = songList.versionString
+    val dataVersionString get() = remoteData.versionString
 
     lateinit var songs: List<SongInfo>
+    @Deprecated("Use libraryFlow instead")
     lateinit var detailedCharts: List<DetailedChartInfo>
     lateinit var chartsGroupedBySong: Map<SongInfo, List<DetailedChartInfo>>
     lateinit var chartsGroupedByDifficulty: Map<PlayStyle, Map<Long, List<DetailedChartInfo>>>
+
+    private val _libraryFlow = MutableStateFlow(SongLibrary())
+    val libraryFlow: StateFlow<SongLibrary> = _libraryFlow
 
     private var callback: (() -> Unit)? = null
 
     internal fun start(callback: (() -> Unit)?) {
         this.callback = callback
-        songList.start()
+        remoteData.start()
         if (majorUpdates.updates.contains(MajorUpdate.SONG_DB)) { // initial launch
             refreshSongDatabase(delete = true)
         } else {
@@ -98,7 +104,7 @@ class SongDataManager: BaseModel() {
     // Song List Management
     //
     internal fun refreshSongDatabase(
-        input: SongList = songList.data,
+        input: SongList = remoteData.data,
         force: Boolean = false,
         delete: Boolean = false,
     ) {
@@ -166,17 +172,7 @@ class SongDataManager: BaseModel() {
     private fun refreshMemoryData() {
         songs = dbHelper.allSongs()
         detailedCharts = dbHelper.allDetailedCharts()
-
-        // group by song
-        val sortedCharts = detailedCharts.groupBy { it.skillId }
-        chartsGroupedBySong = dbHelper.allSongs()
-            .associateWith { sortedCharts[it.skillId]!! }
-
-        // group by play style and difficulty
-        chartsGroupedByDifficulty = detailedCharts.groupBy { it.playStyle }
-            .mapValues { (_, charts) ->
-                charts.groupBy { it.difficultyNumber }
-            }
+        _libraryFlow.tryEmit(SongLibrary(songs, detailedCharts))
 
         callback?.invoke()
     }
@@ -186,7 +182,10 @@ class SongDataManager: BaseModel() {
     }
 }
 
-class SongNotFoundException(name: String): Exception("$name does not exist in the song database")
+data class SongLibrary(
+    val songs: List<SongInfo> = emptyList(),
+    val charts: List<DetailedChartInfo> = emptyList(),
+)
 
 class ChartNotFoundException(songTitle: String, playStyle: PlayStyle, difficultyClass: DifficultyClass, difficultyNumber: Int): Exception(
     "$songTitle (${playStyle.aggregateString(difficultyClass)} $difficultyNumber) does not exist in the song database")

@@ -2,8 +2,8 @@ package com.perrigogames.life4.data.trialrecords
 
 import com.perrigogames.life4.db.TrialSession
 import com.perrigogames.life4.db.TrialSong
+import com.perrigogames.life4.feature.trials.TrialManager
 import com.perrigogames.life4.model.SongDataManager
-import com.perrigogames.life4.model.TrialManager
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 

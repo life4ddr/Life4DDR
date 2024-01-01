@@ -20,10 +20,14 @@ import com.perrigogames.life4.PlatformStrings
 import com.perrigogames.life4.SettingsKeys.KEY_DEBUG_BYPASS_STAT_ENTRY
 import com.perrigogames.life4.SettingsKeys.KEY_DETAILS_ENFORCE_EXPERT
 import com.perrigogames.life4.SettingsKeys.KEY_DETAILS_PHOTO_SELECT
-import com.perrigogames.life4.android.*
+import com.perrigogames.life4.android.R
 import com.perrigogames.life4.android.activity.base.PhotoCaptureActivity
 import com.perrigogames.life4.android.databinding.ContentTrialDetailsBinding
+import com.perrigogames.life4.android.finalPhotoUri
 import com.perrigogames.life4.android.manager.AndroidTrialNavigation
+import com.perrigogames.life4.android.nameRes
+import com.perrigogames.life4.android.photoUri
+import com.perrigogames.life4.android.toListString
 import com.perrigogames.life4.android.ui.songlist.SongListFragment
 import com.perrigogames.life4.android.util.openWebUrlFromRes
 import com.perrigogames.life4.android.util.visibilityBool
@@ -33,16 +37,16 @@ import com.perrigogames.life4.data.SongResult
 import com.perrigogames.life4.data.Trial
 import com.perrigogames.life4.data.TrialState
 import com.perrigogames.life4.enums.TrialRank
+import com.perrigogames.life4.feature.profile.UserRankManager
+import com.perrigogames.life4.feature.trials.TrialManager
+import com.perrigogames.life4.feature.trials.TrialSessionManager
 import com.perrigogames.life4.getDebugBoolean
-import com.perrigogames.life4.model.TrialManager
-import com.perrigogames.life4.model.TrialSessionManager
-import com.perrigogames.life4.model.UserRankManager
 import com.russhwolf.settings.set
 import kotlinx.datetime.toJavaLocalDateTime
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Locale
 
 
 class TrialDetailsActivity: PhotoCaptureActivity(), SongListFragment.Listener, KoinComponent {

@@ -18,10 +18,10 @@ import com.perrigogames.life4.android.view.PathImageView
 import com.perrigogames.life4.android.view.SongView
 import com.perrigogames.life4.data.Song
 import com.perrigogames.life4.data.SongResult
+import com.perrigogames.life4.feature.trials.TrialManager
+import com.perrigogames.life4.feature.trials.TrialSessionManager
 import com.perrigogames.life4.injectLogger
 import com.perrigogames.life4.model.PlacementManager
-import com.perrigogames.life4.model.TrialManager
-import com.perrigogames.life4.model.TrialSessionManager
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 

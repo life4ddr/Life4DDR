@@ -1,6 +1,6 @@
 package com.perrigogames.life4
 
-import com.perrigogames.life4.model.LadderImporter
+import com.perrigogames.life4.feature.songresults.LadderImporter
 import com.russhwolf.settings.Settings
 
 interface LadderDialogs {
