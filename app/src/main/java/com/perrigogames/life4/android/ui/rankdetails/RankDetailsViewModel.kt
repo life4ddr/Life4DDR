@@ -18,7 +18,7 @@ import com.perrigogames.life4.enums.GoalStatus.COMPLETE
 import com.perrigogames.life4.enums.GoalStatus.IGNORED
 import com.perrigogames.life4.enums.GoalStatus.INCOMPLETE
 import com.perrigogames.life4.enums.LadderRank
-import com.perrigogames.life4.feature.songresults.LadderProgressManager
+import com.perrigogames.life4.feature.songresults.SongResultsManager
 import com.perrigogames.life4.model.GoalStateManager
 import com.perrigogames.life4.model.LadderDataManager
 import org.koin.core.component.KoinComponent
@@ -37,7 +37,7 @@ class RankDetailsViewModel(
 
     private val ladderDataManager: LadderDataManager by inject()
     private val goalStateManager: GoalStateManager by inject()
-    private val ladderProgressManager: LadderProgressManager by inject()
+    private val songResultsManager: SongResultsManager by inject()
 
     private val targetEntry: RankEntry? by lazy { when {
         !options.showNextGoals -> rankEntry
@@ -123,7 +123,7 @@ class RankDetailsViewModel(
         override fun isGoalMandatory(item: BaseRankGoal) = targetEntry?.mandatoryGoals?.contains(item) == true
         override fun canIgnoreGoals(): Boolean = canIgnoreGoals
         override fun getGoalStatus(item: BaseRankGoal) = goalStateManager.getOrCreateGoalState(item)
-        override fun getGoalProgress(item: BaseRankGoal) = ladderProgressManager.getGoalProgress(item)
+        override fun getGoalProgress(item: BaseRankGoal) = songResultsManager.getGoalProgress(item)
     }
 
     val adapter: RankGoalsAdapter? = targetEntry?.let { target ->

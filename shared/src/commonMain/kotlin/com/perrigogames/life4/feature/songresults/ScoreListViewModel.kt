@@ -8,6 +8,7 @@ import dev.icerock.moko.mvvm.flow.cMutableStateFlow
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -15,37 +16,31 @@ import org.koin.core.component.inject
 class ScoreListViewModel: ViewModel(), KoinComponent {
 
     private val songsRepo: SortedSongsRepo by inject()
+    private val resultsRepo: SortedResultsRepo by inject()
 
     private val _state = MutableStateFlow(UIScoreList()).cMutableStateFlow()
     val state: StateFlow<UIScoreList> = _state
 
     init {
         viewModelScope.launch {
-            songsRepo.chartsOfPlayStyle(PlayStyle.SINGLE)
-                .collect { charts ->
-                    _state.value.copy(
-                        scores = charts.map { score ->
-                            UIScore(
-                                leftText = score.score.toString(),
-                                rightText = score.goal.goalString(),
-                                leftDifficulty = score.goal.difficultyClass,
-                                rightClearType = score.clearType
-                            )
-                        }
-                    )
-                }
+//            combine(
+//                songsRepo.chartsOfPlayStyle(PlayStyle.SINGLE),
+//                resultsRepo.resultsOfPlayStyle(PlayStyle.SINGLE),
+//            )
+//            songsRepo.chartsOfPlayStyle(PlayStyle.SINGLE)
+//                .collect { charts ->
+//                    _state.value.copy(
+//                        scores = charts.map { score ->
+//                            UIScore(
+//                                leftText = score.score.toString(),
+//                                rightText = score.goal.goalString(),
+//                                leftDifficulty = score.goal.difficultyClass,
+//                                rightClearType = score.clearType
+//                            )
+//                        }
+//                    )
+//                }
         }
-        _state.value = _state.value.copy(
-            scores = .map { score ->
-                UIScore(
-                    leftText = score.score.toString(),
-                    rightText = score.goal.goalString(),
-                    leftDifficulty = score.goal.difficultyClass,
-                    rightClearType = score.clearType
-                )
-            }
-        )
-
     }
 }
 

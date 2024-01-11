@@ -7,6 +7,7 @@ import com.perrigogames.life4.data.TrialData
 import com.perrigogames.life4.data.trials.UIPlacement
 import com.perrigogames.life4.data.trials.UIPlacementListScreen
 import com.perrigogames.life4.data.trials.toUITrialSong
+import com.perrigogames.life4.feature.songlist.SongDataManager
 import com.perrigogames.life4.injectLogger
 import com.perrigogames.life4.isDebug
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.PLACEMENTS_FILE_NAME

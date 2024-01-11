@@ -9,8 +9,8 @@ import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.text.HtmlCompat
 import com.perrigogames.life4.enums.PlayStyle
 import com.perrigogames.life4.feature.songlist.IgnoreListManager
+import com.perrigogames.life4.feature.songlist.SongDataManager
 import com.perrigogames.life4.feature.songlist.aggregateDiffStyleString
-import com.perrigogames.life4.model.SongDataManager
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 

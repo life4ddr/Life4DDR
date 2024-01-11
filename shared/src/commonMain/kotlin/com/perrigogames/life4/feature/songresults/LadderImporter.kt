@@ -7,12 +7,12 @@ import com.perrigogames.life4.enums.DifficultyClass
 import com.perrigogames.life4.enums.DifficultyClass.BEGINNER
 import com.perrigogames.life4.enums.PlayStyle
 import com.perrigogames.life4.enums.PlayStyle.DOUBLE
+import com.perrigogames.life4.feature.songlist.ChartNotFoundException
+import com.perrigogames.life4.feature.songlist.SongDataManager
 import com.perrigogames.life4.injectLogger
 import com.perrigogames.life4.isDebug
 import com.perrigogames.life4.model.BaseModel
-import com.perrigogames.life4.model.ChartNotFoundException
 import com.perrigogames.life4.model.MainScope
-import com.perrigogames.life4.model.SongDataManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -38,7 +38,7 @@ class LadderImporter(
     private val legacyLogger: Logger by injectLogger("Import")
     private val songDataManager: SongDataManager by inject()
     private val resultDbHelper: ResultDatabaseHelper by inject()
-    private val ladderProgressManager: LadderProgressManager by inject()
+    private val songResultsManager: SongResultsManager by inject()
     private val ladderDialogs: LadderDialogs by inject()
 
     private var success = 0
@@ -65,7 +65,7 @@ class LadderImporter(
                     // FIXME eventBus.post(SongResultsUpdatedEvent())
                 }
                 importJob = null
-                ladderProgressManager.refresh()
+                songResultsManager.refresh()
                 listener?.onCompleted()
             }
         }

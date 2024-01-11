@@ -6,7 +6,7 @@ import com.perrigogames.life4.data.ladder.UILadderGoal
 import com.perrigogames.life4.data.ladder.UILadderGoals
 import com.perrigogames.life4.enums.GoalStatus
 import com.perrigogames.life4.enums.LadderRank
-import com.perrigogames.life4.feature.songresults.LadderProgressManager
+import com.perrigogames.life4.feature.songresults.SongResultsManager
 import com.perrigogames.life4.model.GoalStateManager
 import com.perrigogames.life4.model.LadderDataManager
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
@@ -19,7 +19,7 @@ import org.koin.core.component.inject
 class LadderGoalsViewModel(private val config: LadderGoalsConfig) : ViewModel(), KoinComponent {
 
     private val ladderDataManager: LadderDataManager by inject()
-    private val ladderProgressManager: LadderProgressManager by inject()
+    private val songResultsManager: SongResultsManager by inject()
     private val goalStateManager: GoalStateManager by inject()
     private val platformStrings: PlatformStrings by inject()
 

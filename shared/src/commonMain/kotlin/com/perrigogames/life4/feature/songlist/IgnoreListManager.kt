@@ -3,17 +3,14 @@ package com.perrigogames.life4.feature.songlist
 import co.touchlab.kermit.Logger
 import com.perrigogames.life4.SettingsKeys.KEY_IMPORT_GAME_VERSION
 import com.perrigogames.life4.api.IgnoreListRemoteData
-import com.perrigogames.life4.api.base.CompositeData
 import com.perrigogames.life4.api.base.LocalDataReader
 import com.perrigogames.life4.data.IgnoreGroup
 import com.perrigogames.life4.data.IgnoreList
-import com.perrigogames.life4.data.IgnoreListData
 import com.perrigogames.life4.data.IgnoredSong
 import com.perrigogames.life4.db.DetailedChartInfo
 import com.perrigogames.life4.injectLogger
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.IGNORES_FILE_NAME
 import com.perrigogames.life4.model.BaseModel
-import com.perrigogames.life4.model.SongDataManager
 import com.russhwolf.settings.Settings
 import com.russhwolf.settings.set
 import kotlinx.serialization.json.Json
@@ -28,12 +25,13 @@ class IgnoreListManager: BaseModel() {
     private val dataReader: LocalDataReader by inject(named(IGNORES_FILE_NAME))
     private val songDataManager: SongDataManager by inject()
 
-    private val ignoreLists = IgnoreListRemoteData(dataReader, object : CompositeData.NewDataListener<IgnoreListData> {
-        override fun onDataLoaded(data: IgnoreListData) {
-            data.evaluateIgnoreLists()
-        }
-    })
+    private val ignoreListsData = IgnoreListRemoteData(dataReader,
+//        override fun onDataLoaded(data: IgnoreListData) {
+//            data.evaluateIgnoreLists()
+//        }
+    )
         .apply { start() }
+    private val ignoreLists = ignoreListsData.dataState
 
     val dataVersionString get() = ignoreLists.versionString
 

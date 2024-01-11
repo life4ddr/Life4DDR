@@ -8,8 +8,7 @@ import org.koin.core.component.inject
 
 class SongListRemoteData(
     reader: LocalDataReader,
-    listener: NewDataListener<SongList>? = null,
-): CompositeData<SongList>(listener), KoinComponent {
+): CompositeData<SongList>(), KoinComponent {
 
     private val githubKtor: GithubDataAPI by inject()
 

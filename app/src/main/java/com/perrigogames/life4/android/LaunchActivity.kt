@@ -1,5 +1,6 @@
 package com.perrigogames.life4.android
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
@@ -22,6 +23,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.perrigogames.life4.android.compose.LIFE4Theme
 import com.perrigogames.life4.android.compose.Paddings
+import com.perrigogames.life4.android.ui.ComposeWebView
 import com.perrigogames.life4.android.ui.MainScreen
 import com.perrigogames.life4.android.ui.firstrun.FirstRunRankListScreen
 import com.perrigogames.life4.android.ui.firstrun.FirstRunScreen
@@ -138,10 +140,21 @@ class LaunchActivity: AppCompatActivity(), KoinComponent {
                         composable("main_screen") {
                             MainScreen()
                         }
+
+                        composable("sanbai_test") {
+                            ComposeWebView("https://3icecream.com/oauth/authorize?client_id=82b5fefe2a194c74b7f82ec6357d9708&response_type=code&scope=read_scores&redirect_uri=life4ddr://authorize")
+                        }
                     }
                 }
             }
         }
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        val uri = intent?.data
+        println(uri)
+        // Extract the authorization code from the URI and exchange it for an access token
     }
 }
 

@@ -2,9 +2,23 @@ package com.perrigogames.life4.android.activity.profile
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -24,6 +38,9 @@ import com.perrigogames.life4.android.ui.ladder.LadderGoals
 import com.perrigogames.life4.android.util.SizedSpacer
 import com.perrigogames.life4.enums.TrialJacketCorner
 import com.perrigogames.life4.util.ViewState
+import com.perrigogames.life4.viewmodel.PlayerInfoViewState
+import com.perrigogames.life4.viewmodel.PlayerProfileAction
+import com.perrigogames.life4.viewmodel.PlayerProfileViewModel
 import com.perrigogames.life4.viewmodel.RankListAction
 import dev.icerock.moko.mvvm.createViewModelFactory
 

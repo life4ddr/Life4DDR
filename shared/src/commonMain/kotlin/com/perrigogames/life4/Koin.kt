@@ -6,9 +6,10 @@ import co.touchlab.kermit.platformLogWriter
 import com.perrigogames.life4.db.GoalDatabaseHelper
 import com.perrigogames.life4.feature.profile.UserRankManager
 import com.perrigogames.life4.feature.songlist.IgnoreListManager
+import com.perrigogames.life4.feature.songlist.SongDataManager
 import com.perrigogames.life4.feature.songlist.SongDatabaseHelper
-import com.perrigogames.life4.feature.songresults.LadderProgressManager
 import com.perrigogames.life4.feature.songresults.ResultDatabaseHelper
+import com.perrigogames.life4.feature.songresults.SongResultsManager
 import com.perrigogames.life4.feature.trialrecords.TrialDatabaseHelper
 import com.perrigogames.life4.feature.trials.TrialManager
 import com.perrigogames.life4.feature.trials.TrialSessionManager
@@ -23,7 +24,6 @@ import com.perrigogames.life4.model.MotdManager
 import com.perrigogames.life4.model.PlacementManager
 import com.perrigogames.life4.model.PlayerManager
 import com.perrigogames.life4.model.SongDataCoordinator
-import com.perrigogames.life4.model.SongDataManager
 import com.perrigogames.life4.model.mapping.LadderGoalMapper
 import com.perrigogames.life4.model.settings.FirstRunSettingsManager
 import com.perrigogames.life4.model.settings.InfoSettingsManager
@@ -62,7 +62,7 @@ val coreModule = module {
     single { MajorUpdateManager() }
     single { MotdManager() }
     single { LadderDataManager() }
-    single { LadderProgressManager() }
+    single { SongResultsManager() }
     single { TrialManager() }
     single { TrialSessionManager() }
     single { IgnoreListManager() }

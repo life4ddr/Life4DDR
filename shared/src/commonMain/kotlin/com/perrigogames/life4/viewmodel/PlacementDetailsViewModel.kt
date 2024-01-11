@@ -5,9 +5,9 @@ import com.perrigogames.life4.data.PlacementRank
 import com.perrigogames.life4.data.trials.UITrialSong
 import com.perrigogames.life4.data.trials.toUITrialSong
 import com.perrigogames.life4.enums.LadderRank
+import com.perrigogames.life4.feature.songlist.SongDataManager
 import com.perrigogames.life4.injectLogger
 import com.perrigogames.life4.model.PlacementManager
-import com.perrigogames.life4.model.SongDataManager
 import dev.icerock.moko.mvvm.flow.cMutableStateFlow
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
 import dev.icerock.moko.resources.desc.StringDesc

@@ -1,6 +1,11 @@
 package com.perrigogames.life4.api
 
-import com.perrigogames.life4.api.base.*
+import com.perrigogames.life4.api.base.CachedData
+import com.perrigogames.life4.api.base.CompositeData
+import com.perrigogames.life4.api.base.Converter
+import com.perrigogames.life4.api.base.LocalData
+import com.perrigogames.life4.api.base.LocalDataReader
+import com.perrigogames.life4.api.base.RemoteData
 import com.perrigogames.life4.data.LadderRankData
 import com.perrigogames.life4.ktor.GithubDataAPI
 import kotlinx.serialization.json.Json
@@ -9,8 +14,7 @@ import org.koin.core.component.inject
 
 class LadderRemoteData(
     reader: LocalDataReader,
-    listener: NewDataListener<LadderRankData>? = null,
-): CompositeData<LadderRankData>(listener), KoinComponent {
+): CompositeData<LadderRankData>(), KoinComponent {
 
     private val json: Json by inject()
     private val githubKtor: GithubDataAPI by inject()

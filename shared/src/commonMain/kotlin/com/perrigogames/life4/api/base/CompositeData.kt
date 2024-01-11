@@ -4,57 +4,88 @@ import com.perrigogames.life4.data.MajorVersioned
 import com.perrigogames.life4.data.Versioned
 import com.perrigogames.life4.logE
 import com.perrigogames.life4.model.BaseModel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
+
+typealias VersionChange = Pair<Int, Int>
 
 /**
  * A structure to unify the processes of reading raw data files, reading volatile cache files, and retrieving
  * remote files.
  */
-abstract class CompositeData<T: Versioned>(
-    private val listener: NewDataListener<T>?,
-): BaseModel() {
+abstract class CompositeData<T: Versioned>: BaseModel() {
 
     protected open val rawData: LocalData<T>? = null
     protected open val cacheData: CachedData<T>? = null
     protected open val remoteData: RemoteData<T>? = null
 
-    @Deprecated("Use dataFlow instead")
-    val data: T get() = _dataFlow.value
+    private val ready = MutableStateFlow(false)
+    private val majorVersionBlocked = MutableStateFlow(false)
 
-    private lateinit var _dataFlow: MutableStateFlow<T>
-    val dataFlow: StateFlow<T> get() = _dataFlow
-    private val currentData get() = _dataFlow.value
+    private val _dataState: MutableStateFlow<LoadingState<T>> = MutableStateFlow(LoadingState.Loading())
+    val dataState: StateFlow<LoadingState<T>> get() = combine(
+        _dataState,
+        ready,
+    ) { dataState, ready ->
+        if (!ready) {
+            LoadingState.Loading()
+        } else {
+            dataState
+        }
+    }.stateIn(mainScope, started = SharingStarted.Eagerly, initialValue = LoadingState.Loading())
 
-    val versionString: String
-        get() = (currentData as? MajorVersioned)?.let {
-            "${it.majorVersion}.${it.version}"
-        } ?: currentData.version.toString()
+    private val currentData get() = (_dataState.value as? LoadingState.Loaded)?.data
 
-    private val majorVersion: Int?
-        get() = (currentData as? MajorVersioned)?.majorVersion
+    val versionState = combine(
+        _dataState.unwrapLoaded().filterNotNull(),
+        majorVersionBlocked,
+    ) { data, majorVersionBlocked ->
+        VersionInfo(
+            version = data.version,
+            majorVersion = (data as? MajorVersioned)?.majorVersion,
+            versionString = if (data is MajorVersioned) {
+                "${data.majorVersion}.${data.version}"
+            } else {
+                data.version.toString()
+            },
+            majorVersionBlocked = majorVersionBlocked,
+        )
+    }.stateIn(
+        scope = mainScope,
+        started = SharingStarted.Eagerly,
+        initialValue = VersionInfo()
+    )
+
+    private val _versionChangeFlow = MutableSharedFlow<VersionChange>(replay = 1)
+    val versionChangeFlow: SharedFlow<VersionChange> = _versionChangeFlow
 
     fun start() {
         loadRawData()
         loadCachedData()
-        listener?.onDataLoaded(currentData)
+        ready.tryEmit(true)
         loadRemoteData()
     }
 
     private fun loadRawData() {
-        if (rawData != null) { // load raw data first
-            _dataFlow.tryEmit(currentData)
-        }
+        rawData?.data?.let { _dataState.tryEmit(LoadingState.Loaded(it)) }
     }
 
     private fun loadCachedData() {
-        if (cacheData != null) { // load cache if it exists, delete the cache if it's behind the raw data
-            val cache = cacheData!!.data
-            if (cache != null && shouldUpdate(cache)) {
-                _dataFlow.tryEmit(cache)
+        cacheData?.data?.let { cache -> // load cache if it exists, delete the cache if it's behind the raw data
+            if (shouldUpdateWith(cache)) {
+                _dataState.tryEmit(LoadingState.Loaded(cache))
             } else {
+                _versionChangeFlow.tryEmit(VersionChange(cache.version, currentData!!.version))
                 cacheData!!.deleteCache()
-                listener?.onDataVersionChanged(currentData)
+//                listener?.onDataVersionChanged(currentData)
             }
         }
     }
@@ -62,16 +93,16 @@ abstract class CompositeData<T: Versioned>(
     private fun loadRemoteData() {
         remoteData?.fetch(object: FetchListener<T> {
             override fun onFetchUpdated(newData: T) {
+                val currentMajorVersion = versionState.value.majorVersion
                 if (
-                    majorVersion != null &&
-                    (newData as MajorVersioned).majorVersion > majorVersion!!
+                    currentMajorVersion != null &&
+                    (newData as MajorVersioned).majorVersion > currentMajorVersion
                 ) { // new data has higher major version, do not use
-                    listener?.onMajorVersionBlock()
-                } else if (newData.version > currentData.version) { // new version is higher, use it and save it to cache
-                    _dataFlow.tryEmit(newData)
-                    listener?.onDataLoaded(currentData)
-                    cacheData?.saveNewCache(currentData)
-                    listener?.onDataVersionChanged(currentData)
+                    majorVersionBlocked.tryEmit(true)
+                } else if (newData.version > (currentData?.version ?: 0)) { // new version is higher, use it and save it to cache
+                    _versionChangeFlow.tryEmit(VersionChange(currentData!!.version, newData.version))
+                    _dataState.tryEmit(LoadingState.Loaded(newData))
+                    cacheData?.saveNewCache(newData)
                 }
                 // otherwise versions are the same
             }
@@ -82,23 +113,26 @@ abstract class CompositeData<T: Versioned>(
         })
     }
 
-    interface NewDataListener<T: Versioned> {
-        /**
-         * Invoked the first time data is loaded and any time the currently loaded data is changed
-         */
-        fun onDataLoaded(data: T) {}
+    open fun shouldUpdateWith(newData: T): Boolean =
+        newData.version > (currentData?.version ?: 0)
 
-        /**
-         * Invoked when a new data set has a compatible minor version update and has been applied internally
-         */
-        fun onDataVersionChanged(data: T) {}
-
-        /**
-         * Invoked when a new data set has an incompatible major version and cannot be loaded
-         */
-        fun onMajorVersionBlock() {}
+    sealed class LoadingState<T: Versioned> {
+        class Loading<T: Versioned> : LoadingState<T>()
+        data class Loaded<T: Versioned>(val data: T): LoadingState<T>()
     }
+}
 
-    open fun shouldUpdate(newData: T): Boolean =
-        newData.version > currentData.version
+data class VersionInfo(
+    val version: Int = 0,
+    val majorVersion: Int? = null,
+    val versionString: String = "0",
+    val majorVersionBlocked: Boolean = false,
+)
+
+fun <T : Versioned> CompositeData.LoadingState<T>.unwrapLoaded(): T? {
+    return (this as? CompositeData.LoadingState.Loaded<T>)?.data
+}
+
+fun <T : Versioned> Flow<CompositeData.LoadingState<T>>.unwrapLoaded(): Flow<T?> {
+    return map { it.unwrapLoaded() }
 }

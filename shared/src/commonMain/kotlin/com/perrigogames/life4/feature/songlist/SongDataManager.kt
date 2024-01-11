@@ -1,4 +1,4 @@
-package com.perrigogames.life4.model
+package com.perrigogames.life4.feature.songlist
 
 import co.touchlab.kermit.Logger
 import com.perrigogames.life4.SettingsKeys.KEY_SONG_LIST_VERSION
@@ -13,12 +13,14 @@ import com.perrigogames.life4.db.SongInfo
 import com.perrigogames.life4.enums.DifficultyClass
 import com.perrigogames.life4.enums.GameVersion
 import com.perrigogames.life4.enums.PlayStyle
-import com.perrigogames.life4.feature.songlist.SongDatabaseHelper
 import com.perrigogames.life4.feature.songresults.ChartResultPair
 import com.perrigogames.life4.feature.songresults.matches
 import com.perrigogames.life4.injectLogger
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.SONGS_FILE_NAME
 import com.perrigogames.life4.logException
+import com.perrigogames.life4.model.BaseModel
+import com.perrigogames.life4.model.MajorUpdate
+import com.perrigogames.life4.model.MajorUpdateManager
 import com.russhwolf.settings.Settings
 import com.russhwolf.settings.set
 import kotlinx.coroutines.flow.MutableStateFlow

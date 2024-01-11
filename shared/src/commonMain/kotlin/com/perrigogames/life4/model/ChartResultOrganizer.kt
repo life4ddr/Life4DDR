@@ -6,6 +6,7 @@ import com.perrigogames.life4.db.DetailedChartInfo
 import com.perrigogames.life4.enums.ClearType
 import com.perrigogames.life4.enums.PlayStyle
 import com.perrigogames.life4.feature.songlist.IgnoreListManager
+import com.perrigogames.life4.feature.songlist.SongDataManager
 import com.perrigogames.life4.feature.songresults.ChartResultPair
 import com.perrigogames.life4.feature.songresults.ResultDatabaseHelper
 import com.perrigogames.life4.injectLogger

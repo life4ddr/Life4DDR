@@ -9,8 +9,7 @@ import org.koin.core.component.inject
 
 class TrialRemoteData(
     reader: LocalDataReader,
-    listener: NewDataListener<TrialData>? = null,
-): CompositeData<TrialData>(listener), KoinComponent {
+): CompositeData<TrialData>(), KoinComponent {
 
     private val json: Json by inject()
     private val githubKtor: GithubDataAPI by inject()

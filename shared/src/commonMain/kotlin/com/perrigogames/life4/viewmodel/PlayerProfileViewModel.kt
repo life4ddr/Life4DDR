@@ -1,14 +1,11 @@
-package com.perrigogames.life4.android.activity.profile
+package com.perrigogames.life4.viewmodel
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.perrigogames.life4.data.SocialNetwork
 import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.feature.profile.UserRankManager
 import com.perrigogames.life4.model.settings.InfoSettingsManager
-import com.perrigogames.life4.viewmodel.GoalListConfig
-import com.perrigogames.life4.viewmodel.GoalListViewModel
 import dev.icerock.moko.mvvm.flow.cMutableStateFlow
+import dev.icerock.moko.mvvm.viewmodel.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
