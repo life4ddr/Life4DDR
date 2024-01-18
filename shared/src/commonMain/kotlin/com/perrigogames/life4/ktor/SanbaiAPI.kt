@@ -1,11 +1,12 @@
 package com.perrigogames.life4.ktor
 
+import com.perrigogames.life4.feature.partialdifficulty.PartialDifficultyResponse
 import kotlinx.serialization.SerialName
 
 interface SanbaiAPI {
-
     suspend fun getScores(): List<SanbaiScoreResult>
     suspend fun getPlayerId(): String
+    suspend fun getPartialDifficulties(): PartialDifficultyResponse
 }
 
 data class SanbaiScoreResult(

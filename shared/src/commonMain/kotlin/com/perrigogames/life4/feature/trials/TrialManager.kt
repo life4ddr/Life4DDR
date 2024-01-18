@@ -3,10 +3,8 @@ package com.perrigogames.life4.feature.trials
 import com.perrigogames.life4.Notifications
 import com.perrigogames.life4.SettingsKeys
 import com.perrigogames.life4.api.TrialRemoteData
-import com.perrigogames.life4.api.base.CompositeData
 import com.perrigogames.life4.api.base.LocalDataReader
 import com.perrigogames.life4.data.Trial
-import com.perrigogames.life4.data.TrialData
 import com.perrigogames.life4.feature.trialrecords.TrialDatabaseHelper
 import com.perrigogames.life4.isDebug
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.TRIALS_FILE_NAME
@@ -27,25 +25,25 @@ import org.koin.core.qualifier.named
  * - the current Trial in progress (the 'session')
  * - records for Trials the player has previously completed ('records')
  */
-class TrialManager: BaseModel(), CompositeData.NewDataListener<TrialData> {
+class TrialManager: BaseModel() {
 
     private val settings: Settings by inject()
     private val notifications: Notifications by inject()
     private val dbHelper: TrialDatabaseHelper by inject()
     private val dataReader: LocalDataReader by inject(named(TRIALS_FILE_NAME))
 
-    private var trialData = TrialRemoteData(dataReader, this)
+    private var trialData = TrialRemoteData(dataReader)
 
-    override fun onDataVersionChanged(data: TrialData) {
-        notifications.showToast("${data.trials.size} Trials found!")
-        _trialsFlow.value = trialData.data.trials
-    }
+//    override fun onDataVersionChanged(data: TrialData) {
+//        notifications.showToast("${data.trials.size} Trials found!")
+//        _trialsFlow.value = trialData.data.trials
+//    }
+//
+//    override fun onMajorVersionBlock() {
+//        // FIXME eventBus.postSticky(DataRequiresAppUpdateEvent())
+//    }
 
-    override fun onMajorVersionBlock() {
-        // FIXME eventBus.postSticky(DataRequiresAppUpdateEvent())
-    }
-
-    val dataVersionString get() = trialData.versionString
+    val dataVersionString get() = trialData.versionState.value.versionString
 
     val trials get() = trialsFlow.value
     val hasEventTrial get() = trials.count { it.isActiveEvent } > 0
@@ -90,9 +88,9 @@ class TrialManager: BaseModel(), CompositeData.NewDataListener<TrialData> {
 
     override fun onApplicationException() {
         if (!isDebug) {
-            setCrashInt("trials_version", trialData.data.version)
-            setCrashInt("trials_major_version", trialData.data.majorVersion)
-            setCrashInt("trials_engine", trialData.data.majorVersion)
+            setCrashInt("trials_version", trialData.versionState.value.version)
+            setCrashInt("trials_major_version", trialData.versionState.value.majorVersion ?: -1)
+            setCrashInt("trials_engine", trialData.versionState.value.majorVersion ?: -1)
             setCrashString("trials", trials.joinToString { it.id })
         }
     }

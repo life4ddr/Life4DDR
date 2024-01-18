@@ -20,6 +20,7 @@ import com.perrigogames.life4.feature.trials.TrialManager
 import com.perrigogames.life4.initKoin
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.IGNORES_FILE_NAME
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.MOTD_FILE_NAME
+import com.perrigogames.life4.ktor.GithubDataAPI.Companion.PARTIAL_DIFFICULTY_FILE_NAME
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.PLACEMENTS_FILE_NAME
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.RANKS_FILE_NAME
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.SONGS_FILE_NAME
@@ -57,6 +58,7 @@ class Life4Application: Application() {
                 single<PlatformStrings> { AndroidPlatformStrings() }
                 single<LocalDataReader>(named(IGNORES_FILE_NAME)) { AndroidDataReader(R.raw.ignore_lists, IGNORES_FILE_NAME) }
                 single<LocalDataReader>(named(MOTD_FILE_NAME)) { AndroidDataReader(R.raw.motd, MOTD_FILE_NAME) }
+                single<LocalDataReader>(named(PARTIAL_DIFFICULTY_FILE_NAME)) { AndroidDataReader(R.raw.partial_difficulties, PARTIAL_DIFFICULTY_FILE_NAME) }
                 single<LocalUncachedDataReader>(named(PLACEMENTS_FILE_NAME)) { AndroidUncachedDataReader(R.raw.placements) }
                 single<LocalDataReader>(named(RANKS_FILE_NAME)) { AndroidDataReader(R.raw.ranks, RANKS_FILE_NAME) }
                 single<LocalDataReader>(named(SONGS_FILE_NAME)) { AndroidDataReader(R.raw.songs, SONGS_FILE_NAME) }

@@ -2,8 +2,8 @@ package com.perrigogames.life4.model
 
 import com.perrigogames.life4.LadderDialogs
 import com.perrigogames.life4.api.LadderRemoteData
-import com.perrigogames.life4.api.base.CompositeData
 import com.perrigogames.life4.api.base.LocalDataReader
+import com.perrigogames.life4.api.base.unwrapLoaded
 import com.perrigogames.life4.data.LadderRankData
 import com.perrigogames.life4.data.LadderVersion
 import com.perrigogames.life4.enums.LadderRank
@@ -24,20 +24,19 @@ class LadderDataManager: BaseModel() {
     //
     // Ladder Data
     //
-    private val ladderDataRemote = LadderRemoteData(dataReader, object : CompositeData.NewDataListener<LadderRankData> {
-        override fun onDataVersionChanged(data: LadderRankData) {
-            ladderDialogs.showLadderUpdateToast()
+    private val ladderDataRemote = LadderRemoteData(dataReader).apply { start() }
+//        override fun onDataVersionChanged(data: LadderRankData) {
+//            ladderDialogs.showLadderUpdateToast()
             // FIXME eventBus.post(LadderRanksReplacedEvent())
-        }
+//        }
 
-        override fun onMajorVersionBlock() {
+//        override fun onMajorVersionBlock() {
             // FIXME eventBus.postSticky(DataRequiresAppUpdateEvent())
-        }
-    }).apply { start() }
+//        }
 
-    val dataVersionString get() = ladderDataRemote.versionString
+    val dataVersionString get() = ladderDataRemote.versionState.value.versionString
 
-    val ladderData: LadderRankData get() = ladderDataRemote.data
+    private val ladderData: LadderRankData get() = ladderDataRemote.dataState.value.unwrapLoaded()!!
     val currentRequirements: LadderVersion
         get() = ignoreListManager.selectedIgnoreList.baseVersion.let { version ->
             ladderData.gameVersions[version] ?: error("Rank requirements not found for version $version")

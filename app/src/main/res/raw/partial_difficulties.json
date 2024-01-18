@@ -1,0 +1,77 @@
+{
+    "version": 20240113,
+    "data": {
+        "19": {
+            "19.00": [
+                {
+                    "song_id": "1Dl19idl0i0qiqidbDIIbQddiP6o11PP",
+                    "difficulty": 4,
+                    "youtube_link": "",
+                    "step_chart_link": ""
+                }
+            ],
+            "19.10": [
+                {
+                    "song_id": "606b9d6OiliId69bO9Odi6qq8o8Qd0dq",
+                    "difficulty": 4,
+                    "youtube_link": "",
+                    "step_chart_link": ""
+                },
+                {
+                    "song_id": "9i0q91lPPiO61b9P891O1i86iOP1I08O",
+                    "difficulty": 4,
+                    "youtube_link": "",
+                    "step_chart_link": ""
+                }
+            ],
+            "19.20": [
+                {
+                    "song_id": "186dd6DQq891Ib9Ilq8Qbo8lIqb0Qoll",
+                    "difficulty": 4,
+                    "youtube_link": "",
+                    "step_chart_link": ""
+                }
+            ],
+            "19.30": [
+                {
+                    "song_id": "6bid6d9qPQ80DOqiidQQ891o6Od8801l",
+                    "difficulty": 4,
+                    "youtube_link": "",
+                    "step_chart_link": ""
+                }
+            ],
+            "19.40": [
+                {
+                    "song_id": "dlq91b19ld10IdIqQ9q99O8QDOOi18dq",
+                    "difficulty": 4,
+                    "youtube_link": "",
+                    "step_chart_link": ""
+                }
+            ],
+            "19.50": [
+                {
+                    "song_id": "bIlqP91O9ld1lqlq6qoq9OiPdqIDPP0l",
+                    "difficulty": 4,
+                    "youtube_link": "",
+                    "step_chart_link": ""
+                }
+            ],
+            "19.60": [
+                {
+                    "song_id": "PO9Pl1q896bDDl89qQb98D80DQoPio1I",
+                    "difficulty": 4,
+                    "youtube_link": "",
+                    "step_chart_link": ""
+                }
+            ],
+            "19.??": [
+                {
+                    "song_id": "QiPiIb8I99loq8loIq91iP6l1OOoq8oq",
+                    "difficulty": 4,
+                    "youtube_link": "",
+                    "step_chart_link": ""
+                }
+            ]
+        }
+    }
+}

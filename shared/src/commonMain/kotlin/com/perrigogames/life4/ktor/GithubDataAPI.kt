@@ -19,6 +19,7 @@ interface GithubDataAPI {
     companion object {
         const val IGNORES_FILE_NAME = "ignore_lists.json"
         const val MOTD_FILE_NAME = "motd.json"
+        const val PARTIAL_DIFFICULTY_FILE_NAME = "partial_difficulties.json"
         const val PLACEMENTS_FILE_NAME = "placements.json"
         const val RANKS_FILE_NAME = "ranks.json"
         const val SONGS_FILE_NAME = "songs.csv"

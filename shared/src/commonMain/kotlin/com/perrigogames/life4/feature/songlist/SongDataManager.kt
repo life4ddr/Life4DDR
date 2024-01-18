@@ -3,8 +3,8 @@ package com.perrigogames.life4.feature.songlist
 import co.touchlab.kermit.Logger
 import com.perrigogames.life4.SettingsKeys.KEY_SONG_LIST_VERSION
 import com.perrigogames.life4.api.SongListRemoteData
-import com.perrigogames.life4.api.base.CompositeData
 import com.perrigogames.life4.api.base.LocalDataReader
+import com.perrigogames.life4.api.base.unwrapLoaded
 import com.perrigogames.life4.data.SongList
 import com.perrigogames.life4.db.ChartInfo
 import com.perrigogames.life4.db.ChartResult
@@ -41,16 +41,16 @@ class SongDataManager: BaseModel() {
     private val dataReader: LocalDataReader by inject(named(SONGS_FILE_NAME))
     private val logger: Logger by injectLogger("SongDataManager")
 
-    private val remoteData = SongListRemoteData(dataReader, object: CompositeData.NewDataListener<SongList> {
-        override fun onDataLoaded(data: SongList) {
-            refreshMemoryData()
-        }
+    private val remoteData = SongListRemoteData(dataReader)
+//        override fun onDataLoaded(data: SongList) {
+//            refreshMemoryData()
+//        }
+//
+//        override fun onDataVersionChanged(data: SongList) {
+//            refreshSongDatabase(data)
+//        }
 
-        override fun onDataVersionChanged(data: SongList) {
-            refreshSongDatabase(data)
-        }
-    })
-    val dataVersionString get() = remoteData.versionString
+    val dataVersionString get() = remoteData.versionState.value.versionString
 
     lateinit var songs: List<SongInfo>
     @Deprecated("Use libraryFlow instead")
@@ -106,7 +106,7 @@ class SongDataManager: BaseModel() {
     // Song List Management
     //
     internal fun refreshSongDatabase(
-        input: SongList = remoteData.data,
+        input: SongList = remoteData.dataState.value.unwrapLoaded()!!,
         force: Boolean = false,
         delete: Boolean = false,
     ) {
