@@ -4,6 +4,7 @@ import co.touchlab.kermit.Logger
 import co.touchlab.kermit.StaticConfig
 import co.touchlab.kermit.platformLogWriter
 import com.perrigogames.life4.db.GoalDatabaseHelper
+import com.perrigogames.life4.feature.profile.UserInfoSettings
 import com.perrigogames.life4.feature.profile.UserRankManager
 import com.perrigogames.life4.feature.songlist.IgnoreListManager
 import com.perrigogames.life4.feature.songlist.SongDataManager
@@ -17,16 +18,9 @@ import com.perrigogames.life4.ktor.GithubDataAPI
 import com.perrigogames.life4.ktor.GithubDataImpl
 import com.perrigogames.life4.ktor.Life4API
 import com.perrigogames.life4.ktor.Life4APIImpl
-import com.perrigogames.life4.model.GoalStateManager
-import com.perrigogames.life4.model.LadderDataManager
-import com.perrigogames.life4.model.MajorUpdateManager
-import com.perrigogames.life4.model.MotdManager
-import com.perrigogames.life4.model.PlacementManager
-import com.perrigogames.life4.model.PlayerManager
-import com.perrigogames.life4.model.SongDataCoordinator
+import com.perrigogames.life4.model.*
 import com.perrigogames.life4.model.mapping.LadderGoalMapper
 import com.perrigogames.life4.model.settings.FirstRunSettingsManager
-import com.perrigogames.life4.model.settings.InfoSettingsManager
 import kotlinx.serialization.json.Json
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -68,8 +62,7 @@ val coreModule = module {
     single { IgnoreListManager() }
     single { SongDataManager() }
     single { SongDataCoordinator() }
-    single { PlayerManager() }
-    single { InfoSettingsManager() }
+    single { UserInfoSettings() }
     single { FirstRunSettingsManager() }
     single { UserRankManager() }
     single { GoalStateManager() }

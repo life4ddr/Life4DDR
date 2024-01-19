@@ -2,8 +2,8 @@ package com.perrigogames.life4.viewmodel
 
 import com.perrigogames.life4.data.SocialNetwork
 import com.perrigogames.life4.enums.LadderRank
+import com.perrigogames.life4.feature.profile.UserInfoSettings
 import com.perrigogames.life4.feature.profile.UserRankManager
-import com.perrigogames.life4.model.settings.InfoSettingsManager
 import dev.icerock.moko.mvvm.flow.cMutableStateFlow
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,7 +16,7 @@ import org.koin.core.component.inject
 class PlayerProfileViewModel : ViewModel(), KoinComponent {
 
     private val userRankManager: UserRankManager by inject()
-    private val infoSettings: InfoSettingsManager by inject()
+    private val infoSettings: UserInfoSettings by inject()
 
     private val _playerInfoViewState = MutableStateFlow(PlayerInfoViewState()).cMutableStateFlow()
     val playerInfoViewState: StateFlow<PlayerInfoViewState> = _playerInfoViewState

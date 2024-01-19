@@ -1,15 +1,16 @@
-package com.perrigogames.life4.model.settings
+package com.perrigogames.life4.feature.profile
 
 import com.perrigogames.life4.GameConstants
 import com.perrigogames.life4.SettingsKeys
 import com.perrigogames.life4.data.SocialNetwork
 import com.perrigogames.life4.enums.LadderRank
+import com.perrigogames.life4.model.settings.SettingsManager
 import com.russhwolf.settings.ExperimentalSettingsApi
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalSettingsApi::class)
-class InfoSettingsManager : SettingsManager() {
+class UserInfoSettings : SettingsManager() {
 
     val userName: StateFlow<String> = settings.getStringFlow(SettingsKeys.KEY_INFO_NAME, "")
         .stateIn(mainScope, SharingStarted.Eagerly, "")

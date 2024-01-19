@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalAnimationApi::class)
 
-package com.perrigogames.life4.android.ui.firstrun
+package com.perrigogames.life4.android.feature.firstrun
 
 import android.view.KeyEvent
 import androidx.activity.compose.BackHandler

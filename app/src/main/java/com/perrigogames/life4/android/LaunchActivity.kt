@@ -28,7 +28,7 @@ import com.perrigogames.life4.android.ui.MainScreen
 import com.perrigogames.life4.android.ui.firstrun.FirstRunRankListScreen
 import com.perrigogames.life4.android.ui.firstrun.FirstRunScreen
 import com.perrigogames.life4.android.ui.firstrun.PlacementDetailsScreen
-import com.perrigogames.life4.android.ui.firstrun.PlacementListScreen
+import com.perrigogames.life4.android.feature.firstrun.PlacementListScreen
 import com.perrigogames.life4.android.ui.ladder.LadderGoalsScreen
 import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.model.settings.InitState

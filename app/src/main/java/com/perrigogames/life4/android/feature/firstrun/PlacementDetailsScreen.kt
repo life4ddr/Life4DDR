@@ -1,4 +1,4 @@
-package com.perrigogames.life4.android.ui.firstrun
+package com.perrigogames.life4.android.feature.firstrun
 
 import androidx.compose.runtime.Composable
 import androidx.lifecycle.viewmodel.compose.viewModel

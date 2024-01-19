@@ -63,7 +63,6 @@ import com.perrigogames.life4.feature.songlist.IgnoreListManager
 import com.perrigogames.life4.feature.trialrecords.TrialRecordsManager
 import com.perrigogames.life4.feature.trials.TrialManager
 import com.perrigogames.life4.model.GoalStateManager
-import com.perrigogames.life4.model.PlayerManager
 import com.perrigogames.life4.model.SongDataCoordinator
 import com.russhwolf.settings.Settings
 import org.koin.core.component.KoinComponent
@@ -104,7 +103,6 @@ class SettingsActivity : AppCompatActivity(),
         protected val songDataCoordinator: SongDataCoordinator by inject()
         protected val trialManager: TrialManager by inject()
         protected val trialRecordsManager: TrialRecordsManager by inject()
-        protected val playerManager: PlayerManager by inject()
         protected val ignoreListManager: IgnoreListManager by inject()
         protected val settings: Settings by inject()
         protected val notifications: Notifications by inject()
@@ -248,10 +246,6 @@ class SettingsActivity : AppCompatActivity(),
                             it.summary = ignoreListManager.getIgnoreList(it.value).name
                         }
                         // FIXME eventBus.post(LadderRanksReplacedEvent())
-                    }
-                    KEY_INFO_IMPORT -> findPreference<EditTextPreference>(key)?.let {
-                        it.text?.let { text -> playerManager.importPlayerInfo(text) }
-                        it.text = null
                     }
                 }
             }

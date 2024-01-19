@@ -2,8 +2,8 @@ package com.perrigogames.life4.viewmodel
 
 import com.perrigogames.life4.MR
 import com.perrigogames.life4.data.SocialNetwork
+import com.perrigogames.life4.feature.profile.UserInfoSettings
 import com.perrigogames.life4.model.settings.FirstRunSettingsManager
-import com.perrigogames.life4.model.settings.InfoSettingsManager
 import com.perrigogames.life4.model.settings.InitState
 import com.perrigogames.life4.model.settings.InitState.*
 import com.perrigogames.life4.viewmodel.FirstRunError.RivalCodeError
@@ -26,7 +26,7 @@ import kotlin.reflect.KClass
 
 class FirstRunInfoViewModel : ViewModel(), KoinComponent {
 
-    private val infoSettings: InfoSettingsManager by inject()
+    private val infoSettings: UserInfoSettings by inject()
     private val firstRunSettings: FirstRunSettingsManager by inject()
 
     val username = MutableStateFlow("").cMutableStateFlow()

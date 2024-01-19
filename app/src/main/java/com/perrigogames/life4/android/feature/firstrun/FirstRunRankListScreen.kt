@@ -1,4 +1,4 @@
-package com.perrigogames.life4.android.ui.firstrun
+package com.perrigogames.life4.android.feature.firstrun
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer

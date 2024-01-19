@@ -3,10 +3,10 @@ package com.perrigogames.life4.viewmodel
 import com.perrigogames.life4.MR
 import com.perrigogames.life4.data.ladder.UILadderData
 import com.perrigogames.life4.enums.LadderRank
+import com.perrigogames.life4.feature.profile.UserInfoSettings
 import com.perrigogames.life4.model.LadderDataManager
 import com.perrigogames.life4.model.mapping.LadderGoalMapper
 import com.perrigogames.life4.model.settings.FirstRunSettingsManager
-import com.perrigogames.life4.model.settings.InfoSettingsManager
 import com.perrigogames.life4.model.settings.InitState
 import dev.icerock.moko.mvvm.flow.cMutableStateFlow
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
@@ -21,7 +21,7 @@ class RankListViewModel(
 ) : ViewModel(), KoinComponent {
 
     private val firstRunSettingsManager: FirstRunSettingsManager by inject()
-    private val infoSettingsManager: InfoSettingsManager by inject()
+    private val userInfoSettings: UserInfoSettings by inject()
     private val ladderDataManager: LadderDataManager by inject()
     private val ladderGoalMapper: LadderGoalMapper by inject()
 
@@ -66,7 +66,7 @@ class RankListViewModel(
 
     fun saveRank(ladderRank: LadderRank?) {
         firstRunSettingsManager.setInitState(InitState.DONE)
-        infoSettingsManager.setRank(ladderRank)
+        userInfoSettings.setRank(ladderRank)
     }
 }
 
