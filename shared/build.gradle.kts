@@ -109,7 +109,7 @@ kotlin {
             linkerOpts("-lsqlite3")
         }
         ios.deploymentTarget = "12.4"
-        podfile = project.file("../ios/Podfile")
+        podfile = project.file("../iosApp/Podfile")
     }
 }
 
