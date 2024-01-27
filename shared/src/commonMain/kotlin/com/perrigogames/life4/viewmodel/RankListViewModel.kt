@@ -1,13 +1,13 @@
 package com.perrigogames.life4.viewmodel
 
 import com.perrigogames.life4.MR
-import com.perrigogames.life4.data.ladder.UILadderData
 import com.perrigogames.life4.enums.LadderRank
+import com.perrigogames.life4.feature.firstrun.FirstRunSettingsManager
+import com.perrigogames.life4.feature.firstrun.InitState
+import com.perrigogames.life4.feature.laddergoals.UILadderData
 import com.perrigogames.life4.feature.profile.UserInfoSettings
 import com.perrigogames.life4.model.LadderDataManager
 import com.perrigogames.life4.model.mapping.LadderGoalMapper
-import com.perrigogames.life4.model.settings.FirstRunSettingsManager
-import com.perrigogames.life4.model.settings.InitState
 import dev.icerock.moko.mvvm.flow.cMutableStateFlow
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
 import dev.icerock.moko.resources.StringResource

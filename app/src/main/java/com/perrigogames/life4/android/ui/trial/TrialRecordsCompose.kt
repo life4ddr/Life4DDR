@@ -51,7 +51,7 @@ import com.perrigogames.life4.data.trialrecords.UITrialMocks
 import com.perrigogames.life4.data.trialrecords.UITrialRecord
 import com.perrigogames.life4.data.trialrecords.UITrialRecordSong
 import com.perrigogames.life4.enums.DifficultyClass
-import com.perrigogames.life4.viewmodel.TrialRecordsViewModel
+import com.perrigogames.life4.feature.trialrecords.TrialRecordsViewModel
 
 @Composable
 fun TrialRecordsList(viewModel: TrialRecordsViewModel) {

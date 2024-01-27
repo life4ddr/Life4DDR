@@ -42,17 +42,17 @@ import com.perrigogames.life4.android.R
 import com.perrigogames.life4.android.compose.LIFE4Theme
 import com.perrigogames.life4.android.ui.Life4Divider
 import com.perrigogames.life4.android.util.SizedSpacer
-import com.perrigogames.life4.data.ladder.UILadderData
-import com.perrigogames.life4.data.ladder.UILadderDetailItem
-import com.perrigogames.life4.data.ladder.UILadderGoal
-import com.perrigogames.life4.data.ladder.UILadderGoals
-import com.perrigogames.life4.data.ladder.UILadderMocks
-import com.perrigogames.life4.data.ladder.UILadderProgress
-import com.perrigogames.life4.data.ladder.why
 import com.perrigogames.life4.enums.DifficultyClass
 import com.perrigogames.life4.enums.LadderRank
-import com.perrigogames.life4.viewmodel.LadderGoalsConfig
-import com.perrigogames.life4.viewmodel.LadderGoalsViewModel
+import com.perrigogames.life4.feature.laddergoals.LadderGoalsConfig
+import com.perrigogames.life4.feature.laddergoals.LadderGoalsViewModel
+import com.perrigogames.life4.feature.laddergoals.UILadderData
+import com.perrigogames.life4.feature.laddergoals.UILadderDetailItem
+import com.perrigogames.life4.feature.laddergoals.UILadderGoal
+import com.perrigogames.life4.feature.laddergoals.UILadderGoals
+import com.perrigogames.life4.feature.laddergoals.UILadderMocks
+import com.perrigogames.life4.feature.laddergoals.UILadderProgress
+import com.perrigogames.life4.feature.laddergoals.why
 import dev.icerock.moko.mvvm.createViewModelFactory
 import dev.icerock.moko.resources.compose.colorResource
 

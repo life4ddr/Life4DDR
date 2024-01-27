@@ -6,10 +6,6 @@
             app:key="KEY_LIST_SHOW_EX"
             app:title="@string/show_ex" />
         <CheckBoxPreference
-            app:dependency="KEY_LIST_SHOW_EX"
-            app:key="KEY_LIST_SHOW_EX_REMAINING"
-            app:title="@string/show_ex_remaining" />
-        <CheckBoxPreference
             app:defaultValue="true"
             app:key="KEY_LIST_TINT_COMPLETED"
             app:title="@string/tint_completed_trials"/>

@@ -118,13 +118,17 @@ Two vertically-stacked sections:
         - DDR Score Manager app
         - Sanbai Icecream
         - SkillAttack
-2. Scores list with two columns
+2. Vertically scrolling scores list with two columns
     - Song name
     - Score
 ##### Behavior/Navigation
 Exists in an isolated tab
 Clicking on any of the controls shows their associated UI
 Clicking on a song in the list will bring up the **Song Details** screen for it.
+Clicking on an import method will navigate to the flow for that particular method:
+- DDR Score Manager app -> TODO
+- Sanbai Icecream -> TODO
+- SkillAttack -> TODO
 ##### Associated Data/Capabilities
 TODO
 
@@ -132,9 +136,17 @@ TODO
 ### Trials
 This main screen tab allows users to interact with Trials, and serves as the launching point for playing them.
 ##### User Interface
-
+A vertically scrolling list of Trial jackets:
+- Use a vertically scrolling 2 column grid of Trial jackets. Any data associated with a Trial should be shown on the jacket itself.  No title text; let the jacket communicate that.
+- Trials are separated into categories with header rows before each section:
+    - New
+    - Unplayed
+    - Played
+    - Retired (also contains old Events)
+- If the user hasn't played the Trial before, it appears simply as a jacket with no modification.
+- If the user has played the Trial before, it appears with the highest rank the user earned in the corner of it and listing the EX score obtained across the bottom.
 ##### Behavior/Navigation
-TODO
+Clicking a Trial jacket will open up a details screen.
 ##### Associated Data/Capabilities
 TODO
 

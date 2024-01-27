@@ -7,7 +7,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.perrigogames.life4.android.ui.ladder.LadderGoals
 import com.perrigogames.life4.feature.profile.MainScreenProfileViewModel
 import com.perrigogames.life4.feature.profile.UIMainScreenProfile
 import com.perrigogames.life4.feature.profile.UIProfileInfoCard
@@ -31,7 +30,7 @@ fun MainScreenProfileContent(
             state = state.infoCard,
             modifier = Modifier.fillMaxWidth()
         )
-        LadderGoals(data = state.ladderData, onCompletedChanged = , onHiddenChanged = )
+//        LadderGoals(data = state.ladderData, onCompletedChanged = , onHiddenChanged = )
     }
 }
 

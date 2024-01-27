@@ -1,9 +1,14 @@
 package com.perrigogames.life4.data
 
 import com.perrigogames.life4.enums.ClearType
-import com.perrigogames.life4.enums.ClearType.*
+import com.perrigogames.life4.enums.ClearType.CLEAR
+import com.perrigogames.life4.enums.ClearType.FAIL
+import com.perrigogames.life4.enums.ClearType.GREAT_FULL_COMBO
+import com.perrigogames.life4.enums.ClearType.LIFE4_CLEAR
+import com.perrigogames.life4.enums.ClearType.MARVELOUS_FULL_COMBO
+import com.perrigogames.life4.enums.ClearType.PERFECT_FULL_COMBO
 import com.perrigogames.life4.enums.TrialRank
-import com.perrigogames.life4.response.TrialGoalSet
+import com.perrigogames.life4.feature.trialsession.TrialGoalSet
 import com.perrigogames.life4.util.hasCascade
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.Serializable

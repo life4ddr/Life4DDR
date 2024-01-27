@@ -5,11 +5,13 @@ package com.perrigogames.life4.util
 import com.perrigogames.life4.data.Song
 import com.perrigogames.life4.data.SongResult
 import com.perrigogames.life4.data.Trial
-import com.perrigogames.life4.data.TrialState
 import com.perrigogames.life4.enums.DifficultyClass
-import com.perrigogames.life4.enums.TrialRank.*
+import com.perrigogames.life4.enums.TrialRank.DIAMOND
+import com.perrigogames.life4.enums.TrialRank.GOLD
+import com.perrigogames.life4.enums.TrialRank.PLATINUM
+import com.perrigogames.life4.enums.TrialRank.SILVER
 import com.perrigogames.life4.enums.TrialType
-import com.perrigogames.life4.response.TrialGoalSet
+import com.perrigogames.life4.feature.trialsession.TrialGoalSet
 import kotlinx.serialization.ExperimentalSerializationApi
 
 fun testTrial(

@@ -14,7 +14,7 @@ import com.perrigogames.life4.android.ui.songlist.SongListFragment
 import com.perrigogames.life4.android.view.RankHeaderView
 import com.perrigogames.life4.data.Song
 import com.perrigogames.life4.data.Trial
-import com.perrigogames.life4.model.PlacementManager
+import com.perrigogames.life4.feature.placements.PlacementManager
 import com.russhwolf.settings.set
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject

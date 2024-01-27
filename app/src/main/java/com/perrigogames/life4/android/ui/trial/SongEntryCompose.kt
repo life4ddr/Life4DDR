@@ -1,7 +1,12 @@
 package com.perrigogames.life4.android.ui.trial
 
 import androidx.annotation.StringRes
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
 import androidx.compose.material.Checkbox
 import androidx.compose.material.Text
@@ -17,8 +22,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.perrigogames.life4.android.R
 import com.perrigogames.life4.android.compose.LIFE4Theme
 import com.perrigogames.life4.android.compose.Paddings
-import com.perrigogames.life4.viewmodel.SongEntryViewModel
-import com.perrigogames.life4.viewmodel.SongEntryViewModel.InputFieldState
+import com.perrigogames.life4.feature.trials.SongEntryViewModel
+import com.perrigogames.life4.feature.trials.SongEntryViewModel.InputFieldState
 import dev.icerock.moko.mvvm.createViewModelFactory
 
 @Composable

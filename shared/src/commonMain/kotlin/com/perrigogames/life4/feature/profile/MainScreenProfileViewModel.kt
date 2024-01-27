@@ -1,7 +1,7 @@
 package com.perrigogames.life4.feature.profile
 
-import com.perrigogames.life4.data.ladder.UILadderData
 import com.perrigogames.life4.enums.LadderRank
+import com.perrigogames.life4.feature.laddergoals.UILadderData
 import dev.icerock.moko.mvvm.flow.cMutableStateFlow
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

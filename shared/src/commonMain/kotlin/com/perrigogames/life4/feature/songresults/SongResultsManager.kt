@@ -10,12 +10,12 @@ import com.perrigogames.life4.data.StackedRankGoalWrapper
 import com.perrigogames.life4.data.TrialStackedGoal
 import com.perrigogames.life4.enums.ClearType
 import com.perrigogames.life4.feature.songlist.IgnoreListManager
+import com.perrigogames.life4.feature.songlist.SongDataManager
 import com.perrigogames.life4.feature.trialrecords.TrialRecordsManager
 import com.perrigogames.life4.feature.trials.TrialManager
 import com.perrigogames.life4.injectLogger
 import com.perrigogames.life4.model.BaseModel
 import com.perrigogames.life4.model.ChartResultOrganizer
-import com.perrigogames.life4.feature.songlist.SongDataManager
 import com.perrigogames.life4.model.safeScore
 import kotlinx.serialization.ExperimentalSerializationApi
 import org.koin.core.component.inject
@@ -65,15 +65,15 @@ class SongResultsManager: BaseModel() {
             }
             is StackedRankGoalWrapper -> when (goal.mainGoal) {
                 is TrialStackedGoal -> {
-                    val trials = trialRecordsManager.bestSessions().filter {
-                        if (goal.mainGoal.restrictDifficulty) {
-                            it.goalRank.stableId == goal.mainGoal.rank.stableId
-                        } else {
-                            it.goalRank.stableId >= goal.mainGoal.rank.stableId
-                        }
-                    }
+//                    val trials = trialRecordsManager.bestSessions().filter {
+//                        if (goal.mainGoal.restrictDifficulty) {
+//                            it.goalRank.stableId == goal.mainGoal.rank.stableId
+//                        } else {
+//                            it.goalRank.stableId >= goal.mainGoal.rank.stableId
+//                        }
+//                    }
                     return LadderGoalProgress(
-                        progress = trials.size,
+                        progress = 0, // FIXME
                         max = goal.getIntValue(TrialStackedGoal.KEY_TRIALS_COUNT)!!
                     )
                 }

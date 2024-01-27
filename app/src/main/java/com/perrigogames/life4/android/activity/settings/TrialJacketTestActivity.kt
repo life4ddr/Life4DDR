@@ -18,8 +18,8 @@ import com.perrigogames.life4.enums.DifficultyClass
 import com.perrigogames.life4.enums.TrialJacketCorner
 import com.perrigogames.life4.enums.TrialRank
 import com.perrigogames.life4.enums.TrialType
-import com.perrigogames.life4.viewmodel.TrialListState
-import com.perrigogames.life4.viewmodel.UITrialJacket
+import com.perrigogames.life4.feature.trials.UITrialJacket
+import com.perrigogames.life4.feature.trials.UITrialList
 
 class TrialJacketTestActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,7 +51,7 @@ fun DefaultPreview() {
     }
 }
 
-private val TEST_DATA: List<TrialListState.Item> = listOf(
+private val TEST_DATA: List<UITrialList.Item> = listOf(
     testTrialItem(
         trial = testTrial(1, difficulty = 9),
         rank = null,
@@ -86,8 +86,8 @@ private fun testTrialItem(
     overrideCorner: TrialJacketCorner? = null,
     rank: TrialRank? = null,
     exScore: Int? = null,
-) = TrialListState.Item.Trial(
-    viewModel = UITrialJacket(
+) = UITrialList.Item.Trial(
+    data = UITrialJacket(
         trial = trial,
         session = null, //FIXME
         overrideCorner = overrideCorner,

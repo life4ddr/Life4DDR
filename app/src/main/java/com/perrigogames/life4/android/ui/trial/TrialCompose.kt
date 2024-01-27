@@ -33,9 +33,9 @@ import com.perrigogames.life4.android.compose.Paddings
 import com.perrigogames.life4.android.util.jacketResId
 import com.perrigogames.life4.android.view.TrialJacketView
 import com.perrigogames.life4.data.Trial
-import com.perrigogames.life4.viewmodel.TrialListState
-import com.perrigogames.life4.viewmodel.TrialListViewModel
-import com.perrigogames.life4.viewmodel.UITrialJacket
+import com.perrigogames.life4.feature.trials.TrialListViewModel
+import com.perrigogames.life4.feature.trials.UITrialJacket
+import com.perrigogames.life4.feature.trials.UITrialList
 import dev.icerock.moko.mvvm.createViewModelFactory
 
 @Composable
@@ -46,9 +46,9 @@ fun TrialListScreen(
     ),
     onTrialSelected: (Trial) -> Unit,
 ) {
-    val trials by viewModel.trials.collectAsState()
+    val state by viewModel.state.collectAsState()
     TrialJacketList(
-        displayList = trials,
+        displayList = state!!.trials, // FIXME
         onTrialSelected = onTrialSelected,
         modifier = modifier,
     )
@@ -56,7 +56,7 @@ fun TrialListScreen(
 
 @Composable
 fun TrialJacketList(
-    displayList: List<TrialListState.Item>,
+    displayList: List<UITrialList.Item>,
     onTrialSelected: (Trial) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -69,7 +69,7 @@ fun TrialJacketList(
     ) {
         displayList.forEach { displayItem ->
             when (displayItem) {
-                is TrialListState.Item.Header -> item(
+                is UITrialList.Item.Header -> item(
                     span = { GridItemSpan(maxLineSpan) }
                 ) {
                     Text(
@@ -78,9 +78,9 @@ fun TrialJacketList(
                         fontFamily = FontFamilies.AVENIR_NEXT,
                     )
                 }
-                is TrialListState.Item.Trial -> item {
+                is UITrialList.Item.Trial -> item {
                     TrialJacket(
-                        viewModel = displayItem.viewModel,
+                        viewModel = displayItem.data,
                         onClick = onTrialSelected,
                     )
                 }

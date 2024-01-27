@@ -1,0 +1,78 @@
+keepEmptyPriority: true
+code:
+  include_lists:
+    - TODO
+    - DOING
+    - DONE
+    - PLANNING
+    - FIXME
+    - ARCHIVE
+    - HACK
+    - CHANGED
+    - XXX
+    - IDEA
+    - NOTE
+    - REVIEW
+    - BACKLOG
+    - SELECTED-FOR-DEVELOPMENT
+    - IN-PROGRESS
+    - SELECTED_FOR_DEVELOPMENT
+    - IN_PROGRESS
+    - EXPLORING
+lists:
+  - name: What's Due?
+    hidden: true
+    ignore: false
+    id: aqbqf324lalrirba5q
+    filter: 'dueDate < "${tomorrow at 6AM}" AND list != DONE +dueDate +order'
+  - name: BACKLOG
+    hidden: false
+    ignore: false
+    id: aqbqf3ivlrirsl79
+  - name: SELECTED_FOR_DEVELOPMENT
+    hidden: false
+    ignore: false
+    id: aqbqf3ivlris3t0l
+  - name: IN_PROGRESS
+    hidden: false
+    ignore: false
+    id: aqbqf3ivlris491y
+  - name: DONE
+    hidden: false
+    ignore: true
+    id: aqbqf324lalrirba5u
+settings:
+  '0': object Object
+  openIn: code
+  editorTheme: blackboard
+  journalType: New File
+  journalPath: imdone-tasks
+  appendNewCardsTo: imdone-tasks.md
+  newCardSyntax: HASHTAG
+  replaceSpacesWith: '-'
+  plugins: {}
+  journalTemplate: null
+  theme: dark
+  markdownOnly: true
+  name: Life4DDR
+  views: []
+  cards:
+    colors: []
+    template: |
+
+      <!--
+      created:${timestamp}
+      -->
+    trackChanges: !<tag:yaml.org,2002:js/undefined> ''
+    metaNewLine: !<tag:yaml.org,2002:js/undefined> ''
+    addCompletedMeta: true
+    addCheckBoxTasks: false
+    doneList: DONE
+    taskPrefix: '##'
+    tagPrefix: '#'
+    metaSep: ':'
+    orderMeta: true
+    maxLines: 6
+    addNewCardsToTop: true
+    defaultList: EXPLORING
+    computed: !<tag:yaml.org,2002:js/undefined> ''

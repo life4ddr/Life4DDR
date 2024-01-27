@@ -59,8 +59,8 @@ import com.perrigogames.life4.data.trials.UIPlacementMocks
 import com.perrigogames.life4.data.trials.UITrialSong
 import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.enums.colorRes
-import com.perrigogames.life4.model.settings.InitState
-import com.perrigogames.life4.viewmodel.PlacementListViewModel
+import com.perrigogames.life4.feature.firstrun.InitState
+import com.perrigogames.life4.feature.placements.PlacementListViewModel
 import dev.icerock.moko.mvvm.createViewModelFactory
 import dev.icerock.moko.resources.compose.colorResource
 import dev.icerock.moko.resources.compose.stringResource

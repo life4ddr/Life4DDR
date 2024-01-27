@@ -20,7 +20,7 @@ import com.perrigogames.life4.enums.TrialRank
 import com.perrigogames.life4.enums.TrialRankSerializer
 import com.perrigogames.life4.enums.TrialType
 import com.perrigogames.life4.enums.TrialTypeSerializer
-import com.perrigogames.life4.response.TrialGoalSet
+import com.perrigogames.life4.feature.trialsession.TrialGoalSet
 import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone

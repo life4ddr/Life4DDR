@@ -1,7 +1,6 @@
 package com.perrigogames.life4.feature.trials
 
 import com.perrigogames.life4.Notifications
-import com.perrigogames.life4.SettingsKeys
 import com.perrigogames.life4.api.TrialRemoteData
 import com.perrigogames.life4.api.base.LocalDataReader
 import com.perrigogames.life4.data.Trial
@@ -12,10 +11,10 @@ import com.perrigogames.life4.logException
 import com.perrigogames.life4.model.BaseModel
 import com.perrigogames.life4.setCrashInt
 import com.perrigogames.life4.setCrashString
-import com.perrigogames.life4.viewmodel.TrialListState
 import com.russhwolf.settings.Settings
-import dev.icerock.moko.mvvm.livedata.LiveData
-import dev.icerock.moko.mvvm.livedata.MutableLiveData
+import dev.icerock.moko.mvvm.flow.cMutableStateFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import org.koin.core.component.inject
 import org.koin.core.qualifier.named
 
@@ -48,8 +47,8 @@ class TrialManager: BaseModel() {
     val trials get() = trialsFlow.value
     val hasEventTrial get() = trials.count { it.isActiveEvent } > 0
 
-    private val _trialsFlow: MutableLiveData<List<Trial>> = MutableLiveData(emptyList())
-    val trialsFlow: LiveData<List<Trial>> = _trialsFlow
+    private val _trialsFlow = MutableStateFlow<List<Trial>>(emptyList()).cMutableStateFlow()
+    val trialsFlow: StateFlow<List<Trial>> = _trialsFlow
 
     init {
         trialData.start()
@@ -57,6 +56,8 @@ class TrialManager: BaseModel() {
     }
 
     val allRecords get() = dbHelper.allRecords().executeAsList()
+
+    fun getBestSession(trialId: String) = dbHelper.bestSession(trialId)
 
     private fun validateTrials() = trials.forEach { trial ->
         var sum = 0
@@ -78,13 +79,13 @@ class TrialManager: BaseModel() {
 
     fun nextTrial(index: Int) = trials.getOrNull(index + 1)
 
-    fun createViewState() = TrialListState(
-        trials = trials,
-//        sessions = bestSessions(), FIXME
-        sessions = emptyList(),
-        featureNew = settings.getBoolean(SettingsKeys.KEY_LIST_HIGHLIGHT_NEW, true),
-        featureUnplayed = settings.getBoolean(SettingsKeys.KEY_LIST_HIGHLIGHT_UNPLAYED, true),
-    )
+//    fun createViewState() = UITrialList(
+//        trials = trials,
+////        sessions = bestSessions(), FIXME
+//        sessions = emptyList(),
+//        featureNew = settings.getBoolean(SettingsKeys.KEY_LIST_HIGHLIGHT_NEW, true),
+//        featureUnplayed = settings.getBoolean(SettingsKeys.KEY_LIST_HIGHLIGHT_UNPLAYED, true),
+//    )
 
     override fun onApplicationException() {
         if (!isDebug) {

@@ -32,7 +32,6 @@ import com.perrigogames.life4.SettingsKeys.KEY_FIND_US_TWITTER
 import com.perrigogames.life4.SettingsKeys.KEY_IMPORT_DATA
 import com.perrigogames.life4.SettingsKeys.KEY_IMPORT_GAME_VERSION
 import com.perrigogames.life4.SettingsKeys.KEY_IMPORT_VIEW_LIST
-import com.perrigogames.life4.SettingsKeys.KEY_INFO_IMPORT
 import com.perrigogames.life4.SettingsKeys.KEY_INFO_NAME
 import com.perrigogames.life4.SettingsKeys.KEY_INFO_RANK
 import com.perrigogames.life4.SettingsKeys.KEY_INFO_RIVAL_CODE
@@ -40,7 +39,6 @@ import com.perrigogames.life4.SettingsKeys.KEY_LADDER_CLEAR
 import com.perrigogames.life4.SettingsKeys.KEY_LIST_HIGHLIGHT_NEW
 import com.perrigogames.life4.SettingsKeys.KEY_LIST_HIGHLIGHT_UNPLAYED
 import com.perrigogames.life4.SettingsKeys.KEY_LIST_SHOW_EX
-import com.perrigogames.life4.SettingsKeys.KEY_LIST_SHOW_EX_REMAINING
 import com.perrigogames.life4.SettingsKeys.KEY_LIST_TINT_COMPLETED
 import com.perrigogames.life4.SettingsKeys.KEY_MANAGE_UNLOCKS
 import com.perrigogames.life4.SettingsKeys.KEY_RECORDS_CLEAR
@@ -174,11 +172,12 @@ class SettingsActivity : AppCompatActivity(),
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey)
 
-            (preference(KEY_IMPORT_GAME_VERSION) as DropDownPreference).apply {
-                summary = ignoreListManager.getIgnoreList(value).name
-                entries = ignoreListManager.ignoreListTitles.toTypedArray()
-                entryValues = ignoreListManager.ignoreListIds.toTypedArray()
-            }
+            // FIXME
+//            (preference(KEY_IMPORT_GAME_VERSION) as DropDownPreference).apply {
+//                summary = ignoreListManager.getIgnoreList(value).name
+//                entries = ignoreListManager.ignoreListTitles.toTypedArray()
+//                entryValues = ignoreListManager.ignoreListIds.toTypedArray()
+//            }
             preferenceListener(KEY_MANAGE_UNLOCKS) {
                 startActivity(Intent(context, SongUnlockActivity::class.java))
                 true
@@ -315,7 +314,6 @@ class SettingsActivity : AppCompatActivity(),
             setPreferencesFromResource(R.xml.trial_preferences, rootKey)
 
             preferenceListener(KEY_LIST_SHOW_EX, listUpdateListener)
-            preferenceListener(KEY_LIST_SHOW_EX_REMAINING, listUpdateListener)
             preferenceListener(KEY_LIST_TINT_COMPLETED, listUpdateListener)
             preferenceListener(KEY_LIST_HIGHLIGHT_NEW, listReplaceListener)
             preferenceListener(KEY_LIST_HIGHLIGHT_UNPLAYED, listReplaceListener)

@@ -21,7 +21,7 @@ import com.perrigogames.life4.android.util.circularProgressDrawable
 import com.perrigogames.life4.android.util.jacketResId
 import com.perrigogames.life4.android.util.shouldFetchJacket
 import com.perrigogames.life4.android.util.visibilityBool
-import com.perrigogames.life4.viewmodel.UITrialJacket
+import com.perrigogames.life4.feature.trials.UITrialJacket
 
 class TrialJacketView @JvmOverloads constructor(
     context: Context,

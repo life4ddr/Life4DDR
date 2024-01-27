@@ -1,7 +1,7 @@
 package com.perrigogames.life4.viewmodel
 
-import com.perrigogames.life4.model.settings.FirstRunSettingsManager
-import com.perrigogames.life4.model.settings.InitState
+import com.perrigogames.life4.feature.firstrun.FirstRunSettingsManager
+import com.perrigogames.life4.feature.firstrun.InitState
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow

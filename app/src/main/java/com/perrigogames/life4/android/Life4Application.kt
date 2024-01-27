@@ -15,6 +15,7 @@ import com.perrigogames.life4.android.util.AndroidNotifications
 import com.perrigogames.life4.android.util.setupNotifications
 import com.perrigogames.life4.api.base.LocalDataReader
 import com.perrigogames.life4.api.base.LocalUncachedDataReader
+import com.perrigogames.life4.feature.placements.PlacementManager
 import com.perrigogames.life4.feature.songlist.SongDataManager
 import com.perrigogames.life4.feature.trials.TrialManager
 import com.perrigogames.life4.initKoin
@@ -27,7 +28,6 @@ import com.perrigogames.life4.ktor.GithubDataAPI.Companion.SONGS_FILE_NAME
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.TRIALS_FILE_NAME
 import com.perrigogames.life4.model.LadderDataManager
 import com.perrigogames.life4.model.MotdManager
-import com.perrigogames.life4.model.PlacementManager
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.get
 import org.koin.core.qualifier.named
