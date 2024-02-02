@@ -1,5 +1,6 @@
 [versions]
-kotlin = "1.8.10"
+kotlin = "1.9.21"
+agp = "8.2.2"
 
 ## SDK Versions
 minSdk = "21"
@@ -7,33 +8,33 @@ targetSdk = "33"
 compileSdk = "34"
 
 # Dependencies
-android-gradle-plugin = "7.4.1"
 ktlint-gradle = "11.2.0"
 gradle-versions = "0.42.0"
 
-compose = "1.4.3"
-composeCompiler = "1.4.3"
+compose = "1.6.0"
+compose-compiler = "1.5.8"
+compose-plugin = "1.5.11"
 compose-constraintlayout = "1.0.1"
 
-android-desugaring = "1.1.8" # Don't bump to 1.2.x until AGP is 7.3.x
-androidx-core = "1.9.0"
-androidx-test-junit = "1.1.3"
-androidx-activity-compose = "1.5.1"
-androidx-lifecycle = "2.5.1"
-androidx-recyclerview = "1.2.0"
-androidx-preference = "1.1.1"
-androidx-appcompat = "1.2.0"
-androidx-material = "1.3.0"
-androidx-material3 = "1.1.0"
-androidx-constraintlayout = "2.0.4"
-androidx-activity = "1.2.0-alpha05"
-androidx-fragment = "1.3.0-alpha05"
+android-desugaring = "2.0.4"
+androidx-core = "1.12.0"
+androidx-test-junit = "1.1.5"
+androidx-activity-compose = "1.8.2"
+androidx-lifecycle = "2.7.0"
+androidx-recyclerview = "1.3.2"
+androidx-preference = "1.2.1"
+androidx-appcompat = "1.6.1"
+androidx-material = "1.11.0"
+androidx-material3 = "1.1.2"
+androidx-constraintlayout = "2.1.4"
+androidx-activity = "1.8.2"
+androidx-fragment = "1.6.2"
 androidx-swiperefresh = "1.1.0"
 androidx-datastore = "1.0.0"
 
 junit = "4.13.2"
 
-coroutines = "1.6.4"
+coroutines = "1.7.3"
 kotlinx-datetime = "0.4.0"
 ktor = "2.1.1"
 
@@ -52,7 +53,6 @@ lottie = "5.0.3"
 dexter = "6.2.2"
 glide = "4.13.1"
 coil = "2.1.0"
-reaktive = "1.2.1"
 moko-mvvm = "0.13.1"
 moko-resources = "0.23.0"
 skrapeit = "1.1.5"
@@ -78,10 +78,11 @@ androidx-datastore = { module = "androidx.datastore:datastore-preferences", vers
 androidx-splashscreen = { module = "androidx.core:core-splashscreen", version = "1.0.1" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version = "2.7.6" }
 
-compose-compiler = { module = "androidx.compose.compiler:compiler", version.ref = "composeCompiler" }
+compose-compiler = { module = "androidx.compose.compiler:compiler", version.ref = "compose-compiler" }
 compose-ui = { module = "androidx.compose.ui:ui", version.ref = "compose" }
 compose-ui-viewbinding = { module = "androidx.compose.ui:ui-viewbinding", version.ref = "compose" }
-compose-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
+compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
+compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
 compose-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "compose" }
 compose-material = { module = "androidx.compose.material:material", version.ref = "compose" }
 compose-activity = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity-compose" }
@@ -115,6 +116,7 @@ multiplatformSettings-test = { module = "com.russhwolf:multiplatform-settings-te
 multiplatformSettings-coroutines = { module = "com.russhwolf:multiplatform-settings-coroutines", version.ref = "multiplatformSettings" }
 multiplatformSettings-datastore = { module = "com.russhwolf:multiplatform-settings-datastore", version.ref = "multiplatformSettings" }
 
+resources-generator = { module = "dev.icerock.moko:resources-generator", version.ref = "moko-resources" }
 roboelectric = { module = "org.robolectric:robolectric", version.ref = "robolectric" }
 
 sqlDelight-android = { module = "com.squareup.sqldelight:android-driver", version.ref = "sqlDelight" }
@@ -125,11 +127,6 @@ sqlDelight-runtime = { module = "com.squareup.sqldelight:runtime", version.ref =
 
 touchlab-kermit = { module = "co.touchlab:kermit", version.ref = "kermit" }
 touchlab-stately = { module = "co.touchlab:stately-common", version.ref = "stately" }
-
-reaktive-base = { module = "com.badoo.reaktive:reaktive", version.ref = "reaktive" }
-reaktive-annotations = { module = "com.badoo.reaktive:reaktive-annotations", version.ref = "reaktive" }
-reaktive-coroutines = { module = "com.badoo.reaktive:coroutines-interop", version.ref = "reaktive" }
-reaktive-testing = { module = "com.badoo.reaktive:reaktive-testing", version.ref = "reaktive" }
 
 moko-mvvm-core = { module = "dev.icerock.moko:mvvm-core", version.ref = "moko-mvvm" }
 moko-mvvm-flow = { module = "dev.icerock.moko:mvvm-flow", version.ref = "moko-mvvm" }
@@ -153,8 +150,14 @@ coil = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
 skrapeit = { module = "it.skrape:skrapeit", version.ref = "skrapeit" }
 
 [plugins]
-ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint-gradle" }
+androidApplication = { id = "com.android.application", version.ref = "agp" }
+androidLibrary = { id = "com.android.library", version.ref = "agp" }
 gradleVersions = { id = "com.github.ben-manes.versions", version.ref = "gradle-versions" }
+jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "compose-plugin" }
+kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint-gradle" }
+sqlDelight = { id = "com.squareup.sqldelight", version.ref = "sqlDelight" }
 
 [bundles]
 app-ui = [
@@ -178,7 +181,7 @@ app-ui = [
     "androidx-navigation-compose",
     "compose-ui",
     "compose-ui-viewbinding",
-    "compose-tooling",
+    "compose-ui-tooling",
     "compose-foundation",
     "compose-material",
     "compose-activity",
@@ -191,11 +194,6 @@ ktor-common = [
     "ktor-client-serialization",
     "ktor-client-contentNegotiation",
     "ktor-client-auth"
-]
-reaktive-common = [
-    "reaktive-base",
-    "reaktive-annotations",
-    "reaktive-coroutines"
 ]
 moko-mvvm-common = [
     "moko-mvvm-core",
@@ -213,7 +211,6 @@ shared-commonTest = [
     "turbine",
     "coroutines-test",
     "ktor-client-mock",
-    "reaktive-testing",
     "moko-mvvm-test",
     "moko-resources-test"
 ]

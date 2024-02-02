@@ -4,24 +4,27 @@ buildscript {
     }
 
     dependencies {
-        classpath("dev.icerock.moko:resources-generator:0.23.0")
+        classpath(libs.resources.generator)
     }
 }
 
 plugins {
+    // this is necessary to avoid the plugins to be loaded multiple times
+    // in each subproject's classloader
+    alias(libs.plugins.androidApplication) apply false
+    alias(libs.plugins.androidLibrary) apply false
     alias(libs.plugins.gradleVersions)
+    alias(libs.plugins.jetbrainsCompose) apply false
+    alias(libs.plugins.kotlinSerialization) apply false
+    alias(libs.plugins.kotlinMultiplatform) apply false
     alias(libs.plugins.ktlint) apply false
-
-    kotlin("multiplatform") version libs.versions.kotlin.get() apply false
-    kotlin("plugin.serialization") version libs.versions.kotlin.get() apply false
-    id("com.squareup.sqldelight") version libs.versions.sqlDelight.get() apply false
-    id("com.android.library") version "8.2.0" apply false
+    alias(libs.plugins.sqlDelight) apply false
 }
 
 allprojects {
     repositories {
-        google()
         mavenCentral()
+        google()
         maven("https://androidx.dev/storage/compose-compiler/repository/")
         maven("https://maven.pkg.jetbrains.space/kotlin/p/kotlin/dev/")
     }
@@ -45,8 +48,4 @@ subprojects {
             dependsOn(tasks.getByName("ktlintCheck"))
         }
     }
-}
-
-tasks.register<Delete>("clean") {
-    delete(rootProject.buildDir)
 }
