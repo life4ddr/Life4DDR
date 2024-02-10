@@ -11,18 +11,18 @@ internal actual fun printThrowable(t: Throwable) {
     t.printStackTrace()
 }
 
-//FIXME
+// FIXME
 internal actual fun logE(key: String, message: String) = Unit
 internal actual fun logException(t: Throwable) = Unit
 internal actual fun setCrashInt(key: String, v: Int) = Unit
 internal actual fun setCrashString(key: String, v: String) = Unit
 
-actual val isDebug = true //FIXME
+actual val isDebug = true // FIXME
 
 actual fun Int.longNumberString(): String {
     return NSNumberFormatter().let { format ->
         format.usesGroupingSeparator = true
-        //format.locale = NSLocale.currentLocale() TODO figure out locale
+        // format.locale = NSLocale.currentLocale() TODO figure out locale
         format.stringFromNumber(NSNumber(this))!!
     }
 }

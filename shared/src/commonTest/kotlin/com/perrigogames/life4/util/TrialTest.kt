@@ -43,10 +43,10 @@ fun testSong(
     ex: Int,
     difficultyClass: DifficultyClass = DifficultyClass.EXPERT,
 ) = Song(
-    "Song $index",
-    14 + index,
-    difficultyClass,
-    ex,
+    name = "Song $index",
+    difficultyNumber = 14 + index,
+    difficultyClass = difficultyClass,
+    ex = ex,
 )
 
 fun testSongResult(
@@ -72,7 +72,7 @@ fun testSongResult(
 
 val TRIAL_SONG_EX = listOf(240, 250, 250, 260)
 
-private val _80k = 800_000
-private val _90k = 900_000
-private val _95k = 950_000
-private val _99k = 990_000
+private const val _80k = 800_000
+private const val _90k = 900_000
+private const val _95k = 950_000
+private const val _99k = 990_000

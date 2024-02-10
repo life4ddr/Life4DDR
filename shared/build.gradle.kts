@@ -1,17 +1,11 @@
+import dev.icerock.gradle.MRVisibility
+
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.kotlinSerialization)
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.sqlDelight)
     id("dev.icerock.mobile.multiplatform-resources")
-}
-
-android {
-    compileSdk = libs.versions.compileSdk.get().toInt()
-    defaultConfig {
-        minSdk = libs.versions.minSdk.get().toInt()
-    }
-    namespace = "com.perrigogames.life4"
 }
 
 kotlin {
@@ -37,11 +31,6 @@ kotlin {
     }
 
     sourceSets {
-        getByName("androidMain").dependsOn(commonMain.get())
-        getByName("iosArm64Main").dependsOn(commonMain.get())
-        getByName("iosX64Main").dependsOn(commonMain.get())
-        getByName("iosSimulatorArm64Main").dependsOn(commonMain.get())
-
         all {
             languageSettings.apply {
                 optIn("kotlin.RequiresOptIn")
@@ -49,33 +38,44 @@ kotlin {
                 optIn("kotlin.time.ExperimentalTime")
             }
         }
-        val commonMain by getting {
-            dependencies {
-                implementation(libs.koin.core)
-                implementation(libs.coroutines.core)
-                implementation(libs.sqlDelight.coroutinesExt)
-                implementation(libs.bundles.ktor.common)
-                implementation(libs.touchlab.stately)
-                implementation(libs.multiplatformSettings.common)
-                implementation(libs.multiplatformSettings.coroutines)
-                implementation(libs.kotlinx.dateTime)
-                api(libs.touchlab.kermit)
-                api(libs.bundles.moko.mvvm.common)
-                api(libs.bundles.moko.resources.common)
-            }
+        commonMain.dependencies {
+            implementation(libs.koin.core)
+            implementation(libs.coroutines.core)
+            implementation(libs.sqlDelight.coroutinesExt)
+            implementation(libs.bundles.ktor.common)
+            implementation(libs.touchlab.stately)
+            implementation(libs.multiplatformSettings.common)
+            implementation(libs.multiplatformSettings.coroutines)
+            implementation(libs.kotlinx.dateTime)
+            api(libs.touchlab.kermit)
+            api(libs.bundles.moko.mvvm.common)
+            api(libs.bundles.moko.resources.common)
         }
-        val androidMain by getting {
-            dependencies {
-                implementation(libs.androidx.lifecycle.viewmodel)
-                implementation(libs.sqlDelight.android)
-                implementation(libs.ktor.client.okHttp)
-                implementation(libs.moko.mvvm.android.livedata.compose)
-                implementation(libs.moko.mvvm.android.livedata.glide)
-                implementation(libs.multiplatformSettings.datastore)
-                implementation(libs.androidx.datastore)
-            }
+        commonTest.dependencies {
+            implementation(libs.kotlin.test)
+            implementation(libs.moko.resources.test)
+        }
+        androidMain.dependencies {
+            implementation(libs.androidx.lifecycle.viewmodel)
+            implementation(libs.sqlDelight.android)
+            implementation(libs.ktor.client.okHttp)
+            implementation(libs.moko.mvvm.android.livedata.compose)
+            implementation(libs.moko.mvvm.android.livedata.glide)
+            implementation(libs.multiplatformSettings.datastore)
+            implementation(libs.androidx.datastore)
+        }
+        iosMain.dependencies {
+            implementation(libs.sqlDelight.native)
         }
     }
+}
+
+android {
+    compileSdk = libs.versions.compileSdk.get().toInt()
+    defaultConfig {
+        minSdk = libs.versions.minSdk.get().toInt()
+    }
+    namespace = "com.perrigogames.life4"
 }
 
 sqldelight {
@@ -87,4 +87,8 @@ sqldelight {
 
 multiplatformResources {
     multiplatformResourcesPackage = "com.perrigogames.life4"
+    multiplatformResourcesClassName = "MR"
+    multiplatformResourcesVisibility = MRVisibility.Public
+    iosBaseLocalizationRegion = "en"
+    multiplatformResourcesSourceSet = "commonMain"
 }

@@ -30,7 +30,7 @@ class RankListViewModel(
 
     init {
         _state.value = _state.value.copy(
-            ranks = (LadderRank.values().toMutableList() as MutableList<LadderRank?>).apply {
+            ranks = (LadderRank.entries.toMutableList() as MutableList<LadderRank?>).apply {
                 add(0, null)
             },
             noRank = when {
