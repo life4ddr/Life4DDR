@@ -53,7 +53,7 @@ lottie = "5.0.3"
 dexter = "6.2.2"
 glide = "4.13.1"
 coil = "2.1.0"
-moko-mvvm = "0.13.1"
+moko-mvvm = "0.16.1"
 moko-resources = "0.23.0"
 skrapeit = "1.1.5"
 

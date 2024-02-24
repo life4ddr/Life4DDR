@@ -27,6 +27,8 @@ kotlin {
             isStatic = true
             export("dev.icerock.moko:resources:0.23.0")
             export("dev.icerock.moko:graphics:0.9.0") // toUIColor here
+            export("dev.icerock.moko:mvvm-core:0.16.1")
+            export("dev.icerock.moko:mvvm-livedata:0.16.1")
         }
     }
 
@@ -76,6 +78,10 @@ android {
         minSdk = libs.versions.minSdk.get().toInt()
     }
     namespace = "com.perrigogames.life4"
+
+    sourceSets {
+        getByName("main").java.srcDirs("build/generated/moko/androidMain/src")
+    }
 }
 
 sqldelight {
