@@ -76,6 +76,10 @@ android {
         minSdk = libs.versions.minSdk.get().toInt()
     }
     namespace = "com.perrigogames.life4"
+
+    sourceSets {
+        getByName("main").java.srcDirs("build/generated/moko/androidMain/src")
+    }
 }
 
 sqldelight {
