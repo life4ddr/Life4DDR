@@ -1,6 +1,7 @@
 import SwiftUI
 import Shared
 
+@available(iOS 15.0, *)
 @main
 struct iOSApp: App {
 //    init() {
