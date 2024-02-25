@@ -3,9 +3,6 @@ import Shared
 
 struct ContentView: View {
     @State private var showContent = false
-    
-    var string = MR.strings().first_run_username_description.desc().localized()
-    
     var body: some View {
         VStack {
             Button("Click me!") {
@@ -19,7 +16,7 @@ struct ContentView: View {
                     Image(systemName: "swift")
                         .font(.system(size: 200))
                         .foregroundColor(.accentColor)
-                    Text(string)
+                    Text("SwiftUI: stuff")
                 }
                 .transition(.move(edge: .top).combined(with: .opacity))
             }

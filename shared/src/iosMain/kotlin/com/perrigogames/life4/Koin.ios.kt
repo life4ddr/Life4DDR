@@ -8,6 +8,9 @@ import org.koin.core.KoinApplication
 import org.koin.dsl.module
 import platform.Foundation.NSUserDefaults
 
+import com.perrigogames.life4.coreModule
+import org.koin.core.context.startKoin
+
 fun initKoinIos(
     userDefaults: NSUserDefaults,
     appInfo: AppInfo,
@@ -19,6 +22,12 @@ fun initKoinIos(
         single { doOnStartup }
     }
 )
+
+fun initKoin () {
+    startKoin {
+        modules(coreModule)
+    }
+}
 
 actual val platformModule = module {
     single<SqlDriver> { NativeSqliteDriver(Life4Db.Schema, "Life4Db") }
