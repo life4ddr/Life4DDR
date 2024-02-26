@@ -29,6 +29,10 @@ struct FirstRunView: View {
                     FirstRunUsername(username: "", isExistingUser: $isExistingUser)
                 } else if viewIndex == 2 {
                     FirstRunRivalCode()
+                } else if viewIndex == 3 {
+                    FirstRunSocials()
+                } else {
+                    FirstRunRankMethod()
                 }
                 if (viewIndex > 0) {
                     Spacer()
@@ -50,18 +54,20 @@ struct FirstRunView: View {
                                 .font(.system(size: 16, weight: .medium))
                         }
                         Spacer()
-                        Button {
-                            withAnimation {
-                                viewIndex += 1
+                        if (viewIndex < 4) {
+                            Button {
+                                withAnimation {
+                                    viewIndex += 1
+                                }
+                            } label: {
+                                Text("Next")
+                                    .frame(width: 44, height: 16)
+                                    .padding()
+                                    .background(Color(red: 1, green: 0, blue: 0.44))
+                                    .foregroundColor(.white)
+                                    .clipShape(Capsule())
+                                    .font(.system(size: 16, weight: .medium))
                             }
-                        } label: {
-                            Text("Next")
-                                .frame(width: 44, height: 16)
-                                .padding()
-                                .background(Color(red: 1, green: 0, blue: 0.44))
-                                .foregroundColor(.white)
-                                .clipShape(Capsule())
-                                .font(.system(size: 16, weight: .medium))
                         }
                     }
                 }
@@ -142,25 +148,23 @@ struct FirstRunUsername: View {
     @Binding var isExistingUser: Bool
     
     var body: some View {
-        ZStack(alignment: .bottomTrailing) {
-            VStack(alignment: .leading) {
-                Text(isExistingUser ? MR.strings().first_run_username_existing_header.desc().localized() : MR.strings().first_run_username_new_header.desc().localized())
-                    .font(.system(size: 24, weight: .heavy))
+        VStack(alignment: .leading) {
+            Text(isExistingUser ? MR.strings().first_run_username_existing_header.desc().localized() : MR.strings().first_run_username_new_header.desc().localized())
+                .font(.system(size: 24, weight: .heavy))
+                .padding(.bottom, 16)
+            if (!isExistingUser) {
+                Text(MR.strings().first_run_username_description.desc().localized())
+                    .fixedSize(horizontal: false, vertical: true)
                     .padding(.bottom, 16)
-                if (!isExistingUser) {
-                    Text(MR.strings().first_run_username_description.desc().localized())
-                        .fixedSize(horizontal: false, vertical: true)
-                        .padding(.bottom, 16)
-                }
-                TextField(MR.strings().username.desc().localized(), text: $username)
-                    .disableAutocorrection(true)
-                    .padding(12)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 5)
-                            .stroke(.white)
-                    )
-            }.padding(.horizontal, 15)
-        }
+            }
+            TextField(MR.strings().username.desc().localized(), text: $username)
+                .disableAutocorrection(true)
+                .padding(12)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 5)
+                        .stroke(.white)
+                )
+        }.padding(.horizontal, 15)
     }
 }
 
@@ -240,6 +244,80 @@ struct RivalCodeCell: View {
     }
 }
 
+struct FirstRunSocials: View {
+    var body: some View {
+        VStack(alignment: .leading) {
+            Text(MR.strings().first_run_social_header.desc().localized())
+                .font(.system(size: 24, weight: .heavy))
+                .padding(.bottom, 16)
+            Text(MR.strings().first_run_social_description.desc().localized())
+                .fixedSize(horizontal: false, vertical: true)
+                .padding(.bottom, 16)
+            Button {
+                withAnimation {
+                    
+                }
+            } label: {
+                Text(MR.strings().first_run_social_add_new.desc().localized())
+                    .padding()
+                    .background(Color(red: 0, green: 0.41, blue: 0.56))
+                    .foregroundColor(.white)
+                    .clipShape(Capsule())
+                    .font(.system(size: 16, weight: .medium))
+            }
+        }.padding(.horizontal, 15)
+    }
+}
+
+struct FirstRunRankMethod: View {
+    var body: some View {
+        VStack() {
+            Text(MR.strings().first_run_rank_selection_header.desc().localized())
+                .font(.system(size: 24, weight: .heavy))
+                .padding(.bottom, 16)
+            Button {
+                withAnimation {
+                    
+                }
+            } label: {
+                Text(MR.strings().first_run_rank_method_no_rank.desc().localized())
+                    .padding()
+                    .background(Color(red: 1, green: 0, blue: 0.44))
+                    .foregroundColor(.white)
+                    .clipShape(Capsule())
+                    .font(.system(size: 16, weight: .medium))
+            }
+            Button {
+                withAnimation {
+                    
+                }
+            } label: {
+                Text(MR.strings().first_run_rank_method_placement.desc().localized())
+                    .padding()
+                    .background(Color(red: 1, green: 0, blue: 0.44))
+                    .foregroundColor(.white)
+                    .clipShape(Capsule())
+                    .font(.system(size: 16, weight: .medium))
+            }
+            Button {
+                withAnimation {
+                    
+                }
+            } label: {
+                Text(MR.strings().first_run_rank_method_selection.desc().localized())
+                    .padding()
+                    .background(Color(red: 1, green: 0, blue: 0.44))
+                    .foregroundColor(.white)
+                    .clipShape(Capsule())
+                    .font(.system(size: 16, weight: .medium))
+            }
+            Text(MR.strings().first_run_rank_selection_footer.desc().localized())
+                .fixedSize(horizontal: false, vertical: true)
+                .padding(.top, 16)
+        }.padding(.horizontal, 15)
+    }
+}
+
 // Below are all of the SwiftUI previews
 
 @available(iOS 15.0, *)
@@ -282,5 +360,17 @@ struct FirstRunRivalCode_Previews: PreviewProvider {
 struct RivalCodeEntry_Previews: PreviewProvider {
     static var previews: some View {
         RivalCodeEntry()
+    }
+}
+
+struct FirstRunSocials_Previews: PreviewProvider {
+    static var previews: some View {
+        FirstRunSocials()
+    }
+}
+
+struct FirstRunRankMethod_Previews: PreviewProvider {
+    static var previews: some View {
+        FirstRunRankMethod()
     }
 }
