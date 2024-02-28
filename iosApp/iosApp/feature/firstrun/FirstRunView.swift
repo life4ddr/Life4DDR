@@ -88,6 +88,7 @@ struct FirstRunHeader: View {
                     .font(.system(size: 24, weight: .heavy))
                     .padding(.bottom, 8)
             }
+            // TODO: adjust logo color on light/dark mode
             Image("LIFE4-Logo")
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 300)
@@ -269,9 +270,10 @@ struct FirstRunSocials: View {
     }
 }
 
+@available(iOS 15.0, *)
 struct FirstRunRankMethod: View {
     var body: some View {
-        VStack() {
+        VStack {
             Text(MR.strings().first_run_rank_selection_header.desc().localized())
                 .font(.system(size: 24, weight: .heavy))
                 .padding(.bottom, 16)
@@ -299,11 +301,7 @@ struct FirstRunRankMethod: View {
                     .clipShape(Capsule())
                     .font(.system(size: 16, weight: .medium))
             }
-            Button {
-                withAnimation {
-                    
-                }
-            } label: {
+            NavigationLink(destination: FirstRunRankListView()) {
                 Text(MR.strings().first_run_rank_method_selection.desc().localized())
                     .padding()
                     .background(Color(red: 1, green: 0, blue: 0.44))
@@ -369,6 +367,7 @@ struct FirstRunSocials_Previews: PreviewProvider {
     }
 }
 
+@available(iOS 15.0, *)
 struct FirstRunRankMethod_Previews: PreviewProvider {
     static var previews: some View {
         FirstRunRankMethod()

@@ -10,7 +10,9 @@ struct iOSApp: App {
     
 	var body: some Scene {
 		WindowGroup {
-            FirstRunView()
+            NavigationView {
+                FirstRunView()
+            }
 		}
 	}
 }
