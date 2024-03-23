@@ -9,21 +9,25 @@
 import SwiftUI
 import Shared
 
-@available(iOS 15.0, *)
+@available(iOS 16.0, *)
 struct FirstRunRankListView: View {
+    @State var selectedRank: LadderRank?
+    
     var body: some View {
         VStack(alignment: .leading) {
             Text(MR.strings().select_a_starting_rank.desc().localized())
                 .font(.system(size: 32, weight: .heavy))
                 .padding(.bottom, 16)
-            RankSelection()
-            // Add ladder goals here
+            RankSelection(selectedRank: $selectedRank)
+            if (selectedRank != nil) {
+                LadderGoals(rankPreview: true)
+            }
             Spacer()
         }
     }
 }
 
-@available(iOS 15.0, *)
+@available(iOS 16.0, *)
 #Preview {
     FirstRunRankListView()
 }

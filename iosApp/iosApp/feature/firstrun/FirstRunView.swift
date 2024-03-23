@@ -9,7 +9,7 @@
 import SwiftUI
 import Shared
 
-@available(iOS 15.0, *)
+@available(iOS 16.0, *)
 struct FirstRunView: View {
     // TEMPORARY - until I can get viewModel in
     @State var showWelcome = true
@@ -270,7 +270,7 @@ struct FirstRunSocials: View {
     }
 }
 
-@available(iOS 15.0, *)
+@available(iOS 16.0, *)
 struct FirstRunRankMethod: View {
     var body: some View {
         VStack {
@@ -318,7 +318,7 @@ struct FirstRunRankMethod: View {
 
 // Below are all of the SwiftUI previews
 
-@available(iOS 15.0, *)
+@available(iOS 16.0, *)
 #Preview {
     FirstRunView()
 }
@@ -367,7 +367,7 @@ struct FirstRunSocials_Previews: PreviewProvider {
     }
 }
 
-@available(iOS 15.0, *)
+@available(iOS 16.0, *)
 struct FirstRunRankMethod_Previews: PreviewProvider {
     static var previews: some View {
         FirstRunRankMethod()

@@ -9,14 +9,18 @@
 import SwiftUI
 import Shared
 
-@available(iOS 15.0, *)
+@available(iOS 16.0, *)
 struct RankSelection: View {
+    @Binding var selectedRank: LadderRank?
     var newRankList: [LadderRank] = []
     var categories: Dictionary<LadderRankClass, [LadderRank]>
     var categoriesList: [LadderRankClass] = []
-    @State var currentCategory: LadderRankClass = LadderRankClass.bronze
+    @State var currentCategory: LadderRankClass?
     
-    init() {
+    init(selectedRank: Binding<LadderRank?>) {
+        // Setting selected rank state
+        self._selectedRank = selectedRank
+        
         // Converting Kotlin arrays to Swift arrays (this is probably silly code)
         let ranks = LadderRank.values()
         for i in (0..<Int(ranks.size)) {
@@ -40,6 +44,7 @@ struct RankSelection: View {
                         Button {
                             withAnimation {
                                 currentCategory = category
+                                selectedRank = nil
                             }
                         } label: {
                             RankImageWithTitle(rank: String(describing: category.toLadderRank()).lowercased(), text: String(describing: category), imageSize: 64, textSize: 20)
@@ -50,41 +55,66 @@ struct RankSelection: View {
             }.frame(height: 100)
             // TODO: adjust divider color on light/dark mode
             Divider().overlay(.white)
-            // TODO: what is the null state of currentCategory?
-            RankCategorySelector(categories: categories, categoriesList: categoriesList, currentCategory: $currentCategory)
+            if (currentCategory != nil) {
+                RankCategorySelector(categories: categories, categoriesList: categoriesList, currentCategory: $currentCategory, selectedRank: $selectedRank)
+            }
+            
         }
     }
 }
 
-@available(iOS 15.0, *)
+@available(iOS 16.0, *)
 struct RankCategorySelector: View {
-    var compressed: Bool = true
     var categories: Dictionary<LadderRankClass, [LadderRank]>
     var categoriesList: [LadderRankClass] = []
-    @Binding var currentCategory: LadderRankClass
+    @Binding var currentCategory: LadderRankClass?
+    @Binding var selectedRank: LadderRank?
     
-    // TODO: animate this view when switching current category
+    // this is temporary
     // TODO: figure out how to retrieve strings via StringResource
+    let romanNumerals = ["I", "II", "III", "IV", "V"]
+    
+    // TODO: animate this view when switching current category... correctly
     var body: some View {
-        if (compressed) {
-            HStack {
-                ForEach(categories[currentCategory]!, id: \.self) { rank in
-                    RankImageWithTitle(rank: String(describing: rank).lowercased(), text: String(describing: rank.categoryNameRes.resourceId), imageSize: 48, textSize: 20).frame(maxWidth: .infinity)
-                }
-            }
-        } else {
-            VStack {
+        if (currentCategory != nil) {
+            if (selectedRank != nil) {
                 HStack {
-                    ForEach(0..<3) { i in
-                        RankImageWithTitle(rank: String(describing: categories[currentCategory]![i]).lowercased(), text: String(describing: categories[currentCategory]![i]), imageSize: 84, textSize: 20).frame(maxWidth: .infinity)
+                    ForEach(0..<categories[currentCategory!]!.count) { i in
+                        Button {
+                            withAnimation {
+                                selectedRank = categories[currentCategory!]![i]
+                            }
+                        } label: {
+                            RankImageWithTitle(rank: String(describing: categories[currentCategory!]![i]).lowercased(), text: romanNumerals[i], imageSize: 48, textSize: 20).frame(maxWidth: .infinity)
+                        }.buttonStyle(.plain)
                     }
-                }
-                Spacer().frame(height: 16)
-                HStack {
-                    ForEach(3..<5) { i in
-                        RankImageWithTitle(rank: String(describing: categories[currentCategory]![i]).lowercased(), text: String(describing: categories[currentCategory]![i]), imageSize: 84, textSize: 20).frame(maxWidth: .infinity)
+                }.transition(.push(from: .top))
+            } else {
+                VStack {
+                    HStack {
+                        ForEach(0..<3) { i in
+                            Button {
+                                withAnimation {
+                                    selectedRank = categories[currentCategory!]![i]
+                                }
+                            } label: {
+                                RankImageWithTitle(rank: String(describing: categories[currentCategory!]![i]).lowercased(), text: "\(String(describing: categories[currentCategory!]![i]).dropLast()) \(romanNumerals[i])", imageSize: 84, textSize: 20).frame(maxWidth: .infinity)
+                            }.buttonStyle(.plain)
+                        }
                     }
-                }
+                    Spacer().frame(height: 16)
+                    HStack {
+                        ForEach(3..<5) { i in
+                            Button {
+                                withAnimation {
+                                    selectedRank = categories[currentCategory!]![i]
+                                }
+                            } label: {
+                                RankImageWithTitle(rank: String(describing: categories[currentCategory!]![i]).lowercased(), text: "\(String(describing: categories[currentCategory!]![i]).dropLast()) \(romanNumerals[i])", imageSize: 84, textSize: 20).frame(maxWidth: .infinity)
+                            }.buttonStyle(.plain)
+                        }
+                    }
+                }.transition(.push(from: .top))
             }
         }
     }
@@ -103,6 +133,9 @@ struct RankImageWithTitle: View {
                 .frame(width: CGFloat(imageSize), height: CGFloat(imageSize))
             Text(text)
                 .font(.system(size: CGFloat(textSize), weight: .heavy))
+                .frame(width: CGFloat(imageSize) + 20.0)
+                .minimumScaleFactor(0.5)
+                .lineLimit(1)
         }
     }
 }

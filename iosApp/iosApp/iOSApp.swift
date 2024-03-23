@@ -1,7 +1,7 @@
 import SwiftUI
 import Shared
 
-@available(iOS 15.0, *)
+@available(iOS 16.0, *)
 @main
 struct iOSApp: App {
 //    init() {
@@ -16,3 +16,8 @@ struct iOSApp: App {
 		}
 	}
 }
+
+//@available(iOS 16.0, *)
+//var nativeModule: Koin_coreModule = MakeNativeModuleKt.makeNativeModule(
+//    ignoresDataReader: iosDataReader(cachedFileName: GithubDataAPICompanion().IGNORES_FILE_NAME)
+//)
