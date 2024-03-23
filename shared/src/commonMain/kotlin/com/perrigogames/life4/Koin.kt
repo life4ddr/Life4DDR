@@ -3,6 +3,8 @@ package com.perrigogames.life4
 import co.touchlab.kermit.Logger
 import co.touchlab.kermit.StaticConfig
 import co.touchlab.kermit.platformLogWriter
+import com.perrigogames.life4.api.base.LocalDataReader
+import com.perrigogames.life4.api.base.LocalUncachedDataReader
 import com.perrigogames.life4.db.GoalDatabaseHelper
 import com.perrigogames.life4.feature.firstrun.FirstRunSettingsManager
 import com.perrigogames.life4.feature.placements.PlacementManager
@@ -32,13 +34,19 @@ import org.koin.core.component.inject
 import org.koin.core.context.startKoin
 import org.koin.core.module.Module
 import org.koin.core.parameter.parametersOf
+import org.koin.core.qualifier.named
+import org.koin.core.scope.Scope
+import org.koin.dsl.KoinAppDeclaration
 import org.koin.dsl.module
 
-fun initKoin(appModule: Module) = startKoin {
+typealias NativeInjectionFactory<T> = Scope.() -> T
+
+fun initKoin(appModule: Module, appDeclaration: KoinAppDeclaration = {}) = startKoin {
+    appDeclaration()
     modules(appModule, platformModule, coreModule)
 }.apply {
     // doOnStartup is a lambda which is implemented in Swift on iOS side
-    koin.get<() -> Unit>().invoke()
+//    koin.get<() -> Unit>().invoke()
     // AppInfo is a Kotlin interface with separate Android and iOS implementations
     koin.get<Logger> { parametersOf(null) }.also { kermit ->
         kermit.v { "App Id ${koin.get<AppInfo>().appId}" }
@@ -85,3 +93,31 @@ val coreModule = module {
 fun KoinComponent.injectLogger(tag: String): Lazy<Logger> = inject { parametersOf(tag) }
 
 expect val platformModule: Module
+
+fun makeNativeModule(
+    appInfo: AppInfo,
+    platformStrings: PlatformStrings,
+    ignoresReader: LocalDataReader,
+    motdReader: LocalDataReader,
+    partialDifficultyReader: LocalDataReader,
+    placementsReader: LocalUncachedDataReader,
+    ranksReader: LocalDataReader,
+    songsReader: LocalDataReader,
+    trialsReader: LocalDataReader,
+    notifications: Notifications,
+    additionalItems: Module.() -> Unit,
+): Module {
+    return module {
+        single { appInfo }
+        single { platformStrings }
+        single { notifications }
+        single(named(GithubDataAPI.IGNORES_FILE_NAME)) { ignoresReader }
+        single(named(GithubDataAPI.MOTD_FILE_NAME)) { motdReader }
+        single(named(GithubDataAPI.PARTIAL_DIFFICULTY_FILE_NAME)) { partialDifficultyReader }
+        single(named(GithubDataAPI.PLACEMENTS_FILE_NAME)) { placementsReader }
+        single(named(GithubDataAPI.RANKS_FILE_NAME)) { ranksReader }
+        single(named(GithubDataAPI.SONGS_FILE_NAME)) { songsReader }
+        single(named(GithubDataAPI.TRIALS_FILE_NAME)) { trialsReader }
+        additionalItems()
+    }
+}

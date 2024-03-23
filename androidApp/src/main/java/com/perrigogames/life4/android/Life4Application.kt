@@ -4,9 +4,7 @@ import android.app.Application
 import android.content.Context
 import android.util.Log
 import androidx.preference.PreferenceManager
-import com.perrigogames.life4.AppInfo
-import com.perrigogames.life4.Notifications
-import com.perrigogames.life4.PlatformStrings
+import com.perrigogames.life4.*
 import com.perrigogames.life4.android.util.AndroidNotifications
 import com.perrigogames.life4.android.util.setupNotifications
 import com.perrigogames.life4.api.base.LocalDataReader
@@ -14,7 +12,6 @@ import com.perrigogames.life4.api.base.LocalUncachedDataReader
 import com.perrigogames.life4.feature.placements.PlacementManager
 import com.perrigogames.life4.feature.songlist.SongDataManager
 import com.perrigogames.life4.feature.trials.TrialManager
-import com.perrigogames.life4.initKoin
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.IGNORES_FILE_NAME
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.MOTD_FILE_NAME
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.PARTIAL_DIFFICULTY_FILE_NAME
@@ -48,22 +45,22 @@ class Life4Application: Application() {
         }
 
         initKoin(
-            module {
-                single<AppInfo> { AndroidAppInfo }
+            makeNativeModule(
+                appInfo = AndroidAppInfo,
+                platformStrings = AndroidPlatformStrings(),
+                ignoresReader = AndroidDataReader(R.raw.ignore_lists, IGNORES_FILE_NAME),
+                motdReader = AndroidDataReader(R.raw.motd, MOTD_FILE_NAME),
+                partialDifficultyReader = AndroidDataReader(R.raw.partial_difficulties, PARTIAL_DIFFICULTY_FILE_NAME),
+                placementsReader = AndroidUncachedDataReader(R.raw.placements),
+                ranksReader = AndroidDataReader(R.raw.ranks, RANKS_FILE_NAME),
+                songsReader = AndroidDataReader(R.raw.songs, SONGS_FILE_NAME),
+                trialsReader = AndroidDataReader(R.raw.trials, TRIALS_FILE_NAME),
+                notifications = AndroidNotifications(),
+            ) {
                 single<Context> { this@Life4Application }
-                single<PlatformStrings> { AndroidPlatformStrings() }
-                single<LocalDataReader>(named(IGNORES_FILE_NAME)) { AndroidDataReader(R.raw.ignore_lists, IGNORES_FILE_NAME) }
-                single<LocalDataReader>(named(MOTD_FILE_NAME)) { AndroidDataReader(R.raw.motd, MOTD_FILE_NAME) }
-                single<LocalDataReader>(named(PARTIAL_DIFFICULTY_FILE_NAME)) { AndroidDataReader(R.raw.partial_difficulties, PARTIAL_DIFFICULTY_FILE_NAME) }
-                single<LocalUncachedDataReader>(named(PLACEMENTS_FILE_NAME)) { AndroidUncachedDataReader(R.raw.placements) }
-                single<LocalDataReader>(named(RANKS_FILE_NAME)) { AndroidDataReader(R.raw.ranks, RANKS_FILE_NAME) }
-                single<LocalDataReader>(named(SONGS_FILE_NAME)) { AndroidDataReader(R.raw.songs, SONGS_FILE_NAME) }
-                single<LocalDataReader>(named(TRIALS_FILE_NAME)) { AndroidDataReader(R.raw.trials, TRIALS_FILE_NAME) }
-                single<Notifications> { AndroidNotifications() }
-
-                single {
-                    { Log.i("Startup", "Hello from Android/Kotlin!") }
-                }
+//                single {
+//                    { Log.i("Startup", "Hello from Android/Kotlin!") }
+//                }
             }
         )
 
