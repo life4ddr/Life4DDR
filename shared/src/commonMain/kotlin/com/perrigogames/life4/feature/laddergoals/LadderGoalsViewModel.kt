@@ -1,7 +1,6 @@
 package com.perrigogames.life4.feature.laddergoals
 
 import com.perrigogames.life4.PlatformStrings
-import com.perrigogames.life4.enums.GoalStatus
 import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.feature.songresults.SongResultsManager
 import com.perrigogames.life4.model.GoalStateManager
@@ -27,28 +26,28 @@ class LadderGoalsViewModel(private val config: LadderGoalsConfig) : ViewModel(),
 
     init {
         viewModelScope.launch {
-            val entry = ladderDataManager.findRankEntry(config.targetRank)
-            if (config.targetRank == null || entry == null) {
-                // TODO some kind of endgame/error handling text
-                return@launch
-            }
-
-            _stateFlow.value = _stateFlow.value.copy(
-                goals = UILadderGoals.SingleList(
-                    entry.allGoals.map {  goal ->
-                        val goalState = goalStateManager.getGoalState(goal)
-                        UILadderGoal(
-                            id = goal.id.toLong(),
-                            goalText = goal.goalString(platformStrings),
-                            completed = goalState?.status == GoalStatus.COMPLETE,
-                            hidden = goalState?.status == GoalStatus.IGNORED,
-                            canHide = false, // FIXME
-                            progress = null, // FIXME
-                            detailItems = emptyList() // FIXME
-                        )
-                    }
-                )
-            )
+//            val entry = ladderDataManager.findRankEntry(config.targetRank)
+//            if (config.targetRank == null || entry == null) {
+//                // TODO some kind of endgame/error handling text
+//                return@launch
+//            }
+//
+//            _stateFlow.value = _stateFlow.value.copy(
+//                goals = UILadderGoals.SingleList(
+//                    entry.allGoals.map {  goal ->
+//                        val goalState = goalStateManager.getGoalState(goal)
+//                        UILadderGoal(
+//                            id = goal.id.toLong(),
+//                            goalText = goal.goalString(platformStrings),
+//                            completed = goalState?.status == GoalStatus.COMPLETE,
+//                            hidden = goalState?.status == GoalStatus.IGNORED,
+//                            canHide = false, // FIXME
+//                            progress = null, // FIXME
+//                            detailItems = emptyList() // FIXME
+//                        )
+//                    }
+//                )
+//            )
         }
     }
 }

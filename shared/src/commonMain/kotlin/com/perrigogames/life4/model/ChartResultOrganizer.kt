@@ -26,7 +26,7 @@ class ChartResultOrganizer: KoinComponent {
 
     @Suppress("UNCHECKED_CAST")
     internal fun refresh() {
-        ignoredCharts = ignoreListManager.currentlyIgnoredCharts
+        ignoredCharts = emptySet() // FIXME ignore lists
 
         val tempResults = resultDbHelper.selectAll().toMutableSet()
         matchedResults = songDataManager.detailedCharts

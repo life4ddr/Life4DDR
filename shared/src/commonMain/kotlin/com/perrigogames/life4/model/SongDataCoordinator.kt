@@ -25,7 +25,6 @@ class SongDataCoordinator : BaseModel() {
     fun clearSongResults() {
         ladderDialogs.onClearSongResults {
             songResultsManager.clearAllResults()
-            // FIXME eventBus.post(SongResultsUpdatedEvent())
         }
     }
 
@@ -33,7 +32,6 @@ class SongDataCoordinator : BaseModel() {
         ladderDialogs.onRefreshSongDatabase {
             songResultsManager.clearAllResults()
             songDataManager.refreshSongDatabase(delete = true)
-            // FIXME eventBus.post(SongResultsUpdatedEvent())
         }
     }
 }

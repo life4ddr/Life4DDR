@@ -39,7 +39,7 @@ class BadgePreference : Preference {
 
     constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(context, attrs, defStyle)
 
-    override fun onBindViewHolder(holder: PreferenceViewHolder?) {
+    override fun onBindViewHolder(holder: PreferenceViewHolder) {
         super.onBindViewHolder(holder)
         titleView = holder?.findViewById(android.R.id.title) as TextView
 

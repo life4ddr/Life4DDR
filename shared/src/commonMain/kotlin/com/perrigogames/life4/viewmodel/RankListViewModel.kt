@@ -46,18 +46,18 @@ class RankListViewModel(
     }
 
     fun setRankSelected(rank: LadderRank?) {
-        val entry = ladderDataManager.findRankEntry(rank)
-        _state.value = _state.value.copy(
-            ladderData = entry?.allGoals?.let { goals ->
-                UILadderData(
-                    items = goals.map { goal ->
-                        ladderGoalMapper.toViewData(goal)
-                    },
-                    allowCompleting = false,
-                    allowHiding = false
-                )
-            }
-        )
+//        val entry = ladderDataManager.findRankEntry(rank)
+//        _state.value = _state.value.copy(
+//            ladderData = entry?.allGoals?.let { goals ->
+//                UILadderData(
+//                    items = goals.map { goal ->
+//                        ladderGoalMapper.toViewData(goal)
+//                    },
+//                    allowCompleting = false,
+//                    allowHiding = false
+//                )
+//            }
+//        )
     }
 
     fun moveToPlacements() {

@@ -10,7 +10,6 @@ import androidx.core.text.HtmlCompat
 import com.perrigogames.life4.enums.PlayStyle
 import com.perrigogames.life4.feature.songlist.IgnoreListManager
 import com.perrigogames.life4.feature.songlist.SongDataManager
-import com.perrigogames.life4.feature.songlist.aggregateDiffStyleString
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
@@ -43,9 +42,9 @@ class BlockListCheckActivity: BaseTextListActivity(), KoinComponent {
     private val ignoreListManager: IgnoreListManager by inject()
 
     override fun buildText(builder: StringBuilder) {
-        ignoreListManager.currentlyIgnoredCharts.forEach { entry ->
-            with(entry) { builder.append("($id) $version - $title ($aggregateDiffStyleString)<br>") }
-        }
+//        ignoreListManager.currentlyIgnoredCharts.forEach { entry ->
+//            with(entry) { builder.append("($id) $version - $title ($aggregateDiffStyleString)<br>") }
+//        }
     }
 }
 

@@ -40,12 +40,12 @@ class GoalListViewModel(private val config: GoalListConfig) : ViewModel(), KoinC
                     _state.value = ViewState.Error("No higher goals found...")
                     return@collect
                 }
-                ladderDataManager.findRankEntry(rank)
-                    ?.also { entry = it }
-                    .ifNull {
-                        _state.value = ViewState.Error("No goals found for ${rank.name}")
-                        return@collect
-                    }
+//                ladderDataManager.findRankEntry(rank)
+//                    ?.also { entry = it }
+//                    .ifNull {
+//                        _state.value = ViewState.Error("No goals found for ${rank.name}")
+//                        return@collect
+//                    }
                 _state.value = ViewState.Success(
                     UILadderData(
                         goals = UILadderGoals.SingleList(
