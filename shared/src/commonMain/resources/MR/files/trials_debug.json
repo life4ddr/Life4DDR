@@ -1,0 +1,90 @@
+{
+  "trials": [
+    {
+      "id": "konnorpicks",
+      "name": "KONNOR's Picks (DDR A)",
+      "type": "trial",
+      "difficulty": 16,
+      "goals": [
+        {
+          "rank": "silver"
+        }, {
+          "rank": "gold",
+          "miss": 10
+        }, {
+          "rank": "diamond",
+          "score": [990000, 990000, 970000, 970000],
+          "miss": 0
+        }, {
+          "rank": "cobalt",
+          "ex_missing": 50
+        }, {
+          "rank": "amethyst",
+          "ex_missing": 10
+        }
+      ],
+      "total_ex": 10000,
+      "songs": [
+        { "name": "Confession", "difficulty": 14, "difficulty_class": "expert", "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Confession-jacket.webp"},
+        { "name": "Astrogazer", "difficulty": 15, "difficulty_class": "expert", "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Astrogazer-jacket.webp"},
+        { "name": "Elemental Creation", "difficulty": 17, "difficulty_class": "expert", "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Elemental+Creation-jacket.webp"},
+        { "name": "Vanquish The Ghost", "difficulty": 16, "difficulty_class": "expert", "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Vanquish+The+Ghost-jacket.webp" }
+      ]
+    },
+    {
+      "id": "scream",
+      "name": "SCREAM",
+      "type": "trial",
+      "difficulty": 15,
+      "goals": [
+        {
+          "rank": "emerald"
+        }
+      ],
+      "total_ex": 6315,
+      "songs": [
+        { "name": "Second Heaven", "difficulty": 14, "ex": 1446, "difficulty_class": "challenge", "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Second+Heaven-jacket.webp"},
+        { "name": "BRILLIANT 2U (AKBK MIX)", "difficulty": 15, "ex": 1767, "difficulty_class": "expert", "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/BRILLIANT+2U+(AKBK+MIX)-jacket.webp"},
+        { "name": "FIRE FIRE", "difficulty": 14, "ex": 1728, "difficulty_class": "expert", "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/FIRE+FIRE-jacket.webp"},
+        { "name": "PARANOiA ～HADES～", "difficulty": 15, "ex": 1374, "difficulty_class": "difficult", "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/PARANOiA+~HADES~-jacket.webp" }
+      ],
+      "cover_url": "https://thumbs.dreamstime.com/b/blood-guts-gore-background-2432397.jpg"
+    },
+    {
+      "id": "debug",
+      "name": "Debug",
+      "type": "trial",
+      "difficulty": 20,
+      "goals": [
+        {
+          "rank": "silver",
+          "miss": 0
+        }, {
+          "rank": "gold",
+          "ex_missing": 0
+        }, {
+          "rank": "diamond",
+          "score": [1000000, 995000, 990000, 985000],
+          "ex_missing": 220
+        }, {
+          "rank": "cobalt",
+          "miss": 0,
+          "ex_missing": 0
+        }, {
+          "rank": "amethyst",
+          "score": [1000000, 1000000, 1000000, 1000000],
+          "miss": 0,
+          "ex_missing": 0
+        }
+      ],
+      "cover_url": "https://life4ddr.com/wp-content/uploads/2019/03/kitten-iStock.jpg",
+      "total_ex": 10000,
+      "songs": [
+        { "name": "AAAAAAAAAA", "difficulty": 18, "difficulty_class": "beginner", "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/"},
+        { "name": "BBBBBBBBBB", "difficulty": 19, "difficulty_class": "basic", "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/"},
+        { "name": "CCCCCCCCCC", "difficulty": 20, "difficulty_class": "difficult", "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/"},
+        { "name": "DDDDDDDDDD", "difficulty": 21, "difficulty_class": "challenge", "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/" }
+      ]
+    }
+  ]
+}

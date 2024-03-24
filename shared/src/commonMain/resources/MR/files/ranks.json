@@ -1,0 +1,598 @@
+{
+	"version": 2,
+	"major_version": 3,
+	"goals": [
+		{ "id": 1000, "t": "calories", "stacks": {
+			"calories": [300, 350, 400, 450, 500, 600, 650, 700, 750, 800]
+		}},
+		{ "id": 2000, "t": "set", "diff_nums": [1, 1, 1] },
+		{ "id": 2001, "t": "set", "diff_nums": [2, 2, 2] },
+		{ "id": 2002, "t": "set", "diff_nums": [3, 3, 3] },
+		{ "id": 2003, "t": "set", "diff_nums": [4, 4, 4] },
+		{ "id": 2004, "t": "set", "diff_nums": [5, 5, 5] },
+		{ "id": 2005, "t": "set", "diff_nums": [6, 6, 6] },
+		{ "id": 2006, "t": "set", "diff_nums": [7, 7, 7] },
+		{ "id": 2007, "t": "set", "diff_nums": [8, 8, 8] },
+		{ "id": 2008, "t": "set", "diff_nums": [9, 9, 9] },
+		{ "id": 2009, "t": "set", "diff_nums": [10, 10, 10] },
+		{ "id": 2010, "t": "set", "diff_nums": [11, 11, 11] },
+		{ "id": 2011, "t": "set", "diff_nums": [12, 12, 12] },
+		{ "id": 2012, "t": "set", "diff_nums": [13, 13, 13] },
+		{ "id": 2013, "t": "set", "diff_nums": [14, 14, 14] },
+		{ "id": 2014, "t": "set", "diff_nums": [15, 15, 15] },
+		{ "id": 2015, "t": "set", "diff_nums": [16, 16, 16] },
+		{ "id": 2016, "t": "set", "diff_nums": [17, 17] },
+		{ "id": 2017, "t": "set", "diff_nums": [17, 17, 17] },
+		{ "id": 3000, "t": "trial", "rank": "silver", "stacks": {
+			"count": [ 1, 2, 3, 4, 5 ]
+		} },
+		{ "id": 3005, "t": "trial", "rank": "gold", "stacks": {
+			"count": [ 1, 2, 3, 4, 5 ]
+		} },
+		{ "id": 3010, "t": "trial", "rank": "platinum", "stacks": {
+			"count": [ 1, 2, 3, 4, 5 ]
+		} },
+		{ "id": 3015, "t": "trial", "rank": "diamond", "stacks": {
+			"count": [ 1, 2, 3, 4, 5 ]
+		} },
+		{ "id": 3020, "t": "trial", "rank": "cobalt", "stacks": {
+			"count": [ 1, 2, 3, 4, 5 ]
+		} },
+		{ "id": 3025, "t": "trial", "rank": "pearl", "stacks": {
+			"count": [ 1, 2, 3, 4, 5 ]
+		} },
+		{ "id": 3030, "t": "trial", "rank": "amethyst", "stacks": {
+			"count": [ 1, 2, 3, 4, 5 ]
+		} },
+		{ "id": 3035, "t": "trial", "rank": "emerald", "stacks": {
+			"count": [ 1, 2, 3, 4, 5 ]
+		} },
+		{ "id": 3040, "t": "trial", "rank": "onyx", "stacks": {
+			"count": [ 1, 2, 3, 4, 5 ]
+		} },
+		{ "id": 4000, "t": "mfc_points", "stacks": {
+			"mfc_points": [ 0.1, 0.2, 0.4, 0.6, 0.8, 1, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 24, 28, 32, 36, 40 ]
+		} },
+
+		{ "id": 5000, "t": "songs_stack", "score": 800000, "song_count": 1, "allow_higher": true, "stacks": {
+			"diff_num": [ 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 ]
+		} },
+		{ "id": 5100, "t": "songs_stack", "score": 850000, "song_count": 1, "allow_higher": true, "stacks": {
+			"diff_num": [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 ]
+		} },
+		{ "id": 5200, "t": "songs_stack", "score": 900000, "song_count": 1, "allow_higher": true, "stacks": {
+			"diff_num": [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14 ]
+		} },
+		{ "id": 5300, "t": "songs_stack", "score": 950000, "song_count": 1, "allow_higher": true, "stacks": {
+			"diff_num": [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ]
+		} },
+		{ "id": 5400, "t": "songs_stack", "score": 990000, "song_count": 1, "allow_higher": true, "stacks": {
+			"diff_num": [ 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ]
+		} },
+		{ "id": 5500, "t": "songs_stack", "clear_type": "great", "song_count": 1, "allow_higher": true, "stacks": {
+			"diff_num": [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ]
+		} },
+		{ "id": 5600, "t": "songs_stack", "clear_type": "life4", "song_count": 1, "allow_higher": true, "stacks": {
+			"diff_num": [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ]
+		} },
+		{ "id": 5700, "t": "songs", "d": 14, "user_type": "single_clear", "song_count": 1, "clear_type": "life4", "allow_higher": true },
+		{ "id": 5701, "t": "songs", "d": 14, "user_type": "single_clear", "song_count": 1, "clear_type": "good", "allow_higher": true },
+		{ "id": 5702, "t": "songs", "d": 14, "user_type": "single_clear", "song_count": 1, "clear_type": "great", "allow_higher": true },
+		{ "id": 5800, "t": "songs_stack", "user_type": "pfc", "clear_type": "perfect", "song_count": 1, "allow_higher": true, "stacks": {
+			"diff_num": [ 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 8, 9, 10, 11, 12 ],
+			"song_count": [ 1, 1, 1, 1, 1, 3, 3, 3, 3, 3, 1, 1, 1, 1, 1 ]
+		} },
+		{ "id": 5900, "t": "songs_stack", "user_type": "single_clear", "song_count": 1, "allow_higher": true, "stacks": {
+			"diff_num": [ 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17 ]
+		} },
+
+
+		{ "id": 13000, "t": "songs_stack", "d": 12, "score": 990000, "stacks": {
+			"song_count": [ 2, 5, 10, 15, 20 ]
+		} },
+		{ "id": 13100, "t": "songs_stack", "d": 13, "score": 990000, "stacks": {
+			"score": [ 975000 ],
+			"song_count": [ 1, 1, 2, 4, 8 ]
+		} },
+		{ "id": 13200, "t": "songs_stack", "d": 14, "song_count": 1, "stacks": {
+			"score": [ 925000, 950000, 975000, 985000, 990000 ]
+		} },
+		{ "id": 13300, "t": "songs_stack", "user_type": "pfc", "clear_type": "perfect", "song_count": 1, "allow_higher": true, "stacks": {
+			"diff_num": [ 12, 12, 13, 13, 13 ],
+			"song_count": [ 2, 4, 1, 2, 4 ]
+		} },
+
+
+		{ "id": 14000, "t": "songs_stack", "d": 14, "stacks": {
+			"song_count": [ 1, 5, 10, 25, 40, 55, 70, 85, 100, 115, 130, 145, null ]
+		} },
+		{ "id": 14090, "t": "songs", "d": 14, "clear_type": "life4" },
+		{ "id": 14091, "t": "songs", "d": 14, "clear_type": "good" },
+		{ "id": 14092, "t": "songs", "d": 14, "clear_type": "great" },
+		{ "id": 14093, "t": "songs", "d": 14, "clear_type": "perfect" },
+		{ "id": 14200, "t": "songs_stack", "d": 14, "score": 990000, "stacks": {
+			"song_count": [ 2, 5, 10, 15, 20 ]
+		} },
+		{ "id": 14300, "t": "songs_stack", "d": 14, "stacks": {
+			"score": [ 800000, 850000, 875000, 900000, 925000, 950000, 955000, 960000, 965000,
+				970000, 975000, 980000, 982000, 985000, 987000, 990000, 991000, 993000, 995000,
+				997000 ],
+			"exceptions": [ 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1 ]
+		} },
+		{ "id": 14400, "t": "songs_stack", "d": 14, "stacks": {
+			"average_score": [ 999600, 999650, 999675, 999700, 999720, 999740, 999760, 999780, 999800, 999810, 999820 ]
+		} },
+		{ "id": 14500, "t": "songs_stack", "d": 14, "clear_type": "perfect", "stacks": {
+			"song_count": [ 1, 2, 4, 6, 8, 10, 16, 22, 28, 34, 40, 48, 56, 64, 72, 80, 95, 110, 125, 140 ]
+		} },
+
+		{ "id": 15000, "t": "songs_stack", "d": 15, "stacks": {
+			"song_count": [ 1, 5, 10, 20, 30, 40, 50, 70, 90, 110, 130, null ]
+		} },
+		{ "id": 15090, "t": "songs", "d": 15, "clear_type": "life4" },
+		{ "id": 15091, "t": "songs", "d": 15, "clear_type": "good" },
+		{ "id": 15092, "t": "songs", "d": 15, "clear_type": "great" },
+		{ "id": 15093, "t": "songs", "d": 15, "clear_type": "perfect" },
+		{ "id": 15100, "t": "songs_stack", "d": 15, "song_count": 1, "stacks": {
+			"score": [ 875000, 900000, 925000, 940000, 950000, 960000, 970000, 980000, 985000 ]
+		} },
+		{ "id": 15200, "t": "songs_stack", "d": 15, "score": 990000, "stacks": {
+			"song_count": [ 1, 2, 5, 10, 15, 20 ]
+		} },
+		{ "id": 15300, "t": "songs_stack", "d": 15, "stacks": {
+			"score": [ 750000, 800000, 825000, 850000, 875000, 900000, 910000, 920000, 930000,
+				940000, 950000, 955000, 960000, 965000, 970000, 975000, 980000, 982000, 985000,
+				987000, 990000, 991000, 993000, 995000, 997000 ],
+			"exceptions": [ 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1 ]
+		} },
+		{ "id": 15400, "t": "songs_stack", "d": 15, "stacks": {
+			"average_score": [ 999600, 999650, 999675, 999700, 999720, 999740 ]
+		} },
+		{ "id": 15500, "t": "songs_stack", "d": 15, "clear_type": "perfect", "stacks": {
+			"song_count": [ 1, 2, 4, 6, 8, 10, 16, 22, 28, 34, 40, 48, 56, 64, 72, 80, 90, 105, 120, 130 ]
+		} },
+
+		{ "id": 16000, "t": "songs_stack", "d": 16, "stacks": {
+			"song_count": [ 1, 5, 10, 15, 20, 25, 30, 35, 50, 65, 80, 95, null ]
+		} },
+		{ "id": 16090, "t": "songs", "d": 16, "clear_type": "life4" },
+		{ "id": 16091, "t": "songs", "d": 16, "clear_type": "good" },
+		{ "id": 16092, "t": "songs", "d": 16, "clear_type": "great" },
+		{ "id": 16093, "t": "songs", "d": 16, "clear_type": "perfect" },
+		{ "id": 16100, "t": "songs_stack", "d": 16, "song_count": 1, "stacks": {
+			"score": [ 825000, 850000, 875000, 890000, 900000, 910000, 920000, 930000,
+				940000, 950000, 960000, 970000, 980000, 985000 ]
+		} },
+		{ "id": 16200, "t": "songs_stack", "d": 16, "score": 990000, "stacks": {
+			"song_count": [ 1, 2, 5, 10, 15, 20 ]
+		} },
+		{ "id": 16300, "t": "songs_stack", "d": 16, "stacks": {
+			"score": [ 750000, 800000, 825000, 850000, 875000, 900000, 910000, 920000, 930000,
+				940000, 950000, 955000, 960000, 965000, 970000, 975000, 980000, 982000, 985000,
+				987000, 990000, 991000, 993000, 995000, 997000 ],
+			"exceptions": [ 10, 9, 8, 7, 6, 5, 4, 3, 2, 1 ]
+		} },
+		{ "id": 16400, "t": "songs", "d": 16, "average_score": 999600 },
+		{ "id": 16500, "t": "songs_stack", "d": 16, "clear_type": "perfect", "stacks": {
+			"song_count": [ 1, 2, 4, 6, 8, 10, 14, 18, 22, 26, 30, 36, 42, 48, 54, 60, 70, 80, 90, 100 ]
+		} },
+
+		{ "id": 17000, "t": "songs_stack", "d": 17, "stacks": {
+			"song_count": [ 1, 2, 4, 6, 8, 10, 14, 18, 22, 26, 30, 36, 42, 48, 54, null ]
+		} },
+		{ "id": 17090, "t": "songs", "d": 17, "clear_type": "life4" },
+		{ "id": 17091, "t": "songs", "d": 17, "clear_type": "good" },
+		{ "id": 17092, "t": "songs", "d": 17, "clear_type": "great" },
+		{ "id": 17093, "t": "songs", "d": 17, "clear_type": "perfect" },
+		{ "id": 17100, "t": "songs_stack", "d": 17, "stacks": {
+			"score": [ 750000, 800000, 825000, 850000, 875000, 900000, 910000, 920000, 930000,
+				940000, 950000, 955000, 960000, 965000, 970000, 975000, 980000, 982000, 985000,
+				987000, 990000 ],
+			"exceptions": [ 10, 9, 8, 7, 6, 5, 4, 3, 2, 1 ]
+		} },
+		{ "id": 17200, "t": "songs_stack", "d": 17, "song_count": 1, "stacks": {
+			"score": [ 750000, 775000, 800000, 825000, 850000, 900000, 910000, 920000, 930000,
+				940000, 950000, 960000, 970000, 980000, 985000 ]
+		} },
+		{ "id": 17300, "t": "songs_stack", "d": 17, "score": 990000, "stacks": {
+			"song_count": [ 1, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20 ]
+		} },
+		{ "id": 17400, "t": "songs_stack", "d": 17, "clear_type": "perfect", "stacks": {
+			"song_count": [ 1, 2, 4, 6, 8, 10, 14, 18, 22, 26, 30 ]
+		} },
+
+		{ "id": 18000, "t": "songs_stack", "d": 18, "stacks": {
+			"song_count": [ 1, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 25, 30, 35, 40, null ]
+		} },
+		{ "id": 18100, "t": "songs_stack", "d": 18, "stacks": {
+			"score": [ 750000, 800000, 825000, 850000, 875000, 900000, 910000, 920000, 930000,
+				940000, 950000, 955000, 957000, 960000, 962000, 965000 ],
+			"exceptions": [ 10, 9, 8, 7, 6, 5, 4, 3, 2, 1 ]
+		} },
+		{ "id": 18200, "t": "songs_stack", "d": 18, "song_count": 1, "stacks": {
+			"score": [ 850000, 860000, 870000, 880000, 890000, 900000, 910000, 920000, 930000,
+				940000, 950000, 960000, 970000, 980000, 985000 ]
+		} },
+		{ "id": 18300, "t": "songs_stack", "d": 18, "score": 990000, "stacks": {
+			"song_count": [ 1, 2, 3, 4, 6, 8 ]
+		} },
+		{ "id": 18400, "t": "songs_stack", "d": 18, "clear_type": "perfect", "stacks": {
+			"song_count": [ 1, 2, 3, 4, 5 ]
+		} },
+
+		{ "id": 19000, "t": "songs_stack", "d": 19, "stacks": {
+			"song_count": [ 1, 2, 3, 4, 5, null ]
+		} },
+		{ "id": 19100, "t": "songs_stack", "d": 19, "song_exceptions": ["PO9Pl1q896bDDl89qQb98D80DQoPio1I","bIlqP91O9ld1lqlq6qoq9OiPdqIDPP0l"], "stacks": {
+			"score": [ 740000, 760000, 780000, 800000, 815000, 825000, 835000, 845000, 855000, 865000, 875000 ]
+		} },
+		{ "id": 19200, "t": "songs_stack", "d": 19, "diff_class": "C", "songs": ["PO9Pl1q896bDDl89qQb98D80DQoPio1I","bIlqP91O9ld1lqlq6qoq9OiPdqIDPP0l"], "stacks": {
+			"score": [ 720000, 730000, 740000, 750000, 760000, 770000, 780000, 790000, 800000, 810000 ]
+		} }
+	],
+	"game_versions": {
+		"DDR_A3": {
+			"unlock_requirement": "amethyst1",
+			"rank_requirements": [
+				{
+					"rank": "copper1",
+					"play_style": "single",
+					"requirements": 3,
+					"goal_ids": [ 5100, 5000, 5900, 2000, 1000 ]
+				},
+				{
+					"rank": "copper2",
+					"play_style": "single",
+					"requirements": 4,
+					"goal_ids": [ 5200, 5101, 5001, 5901, 2001, 1001 ]
+				},
+				{
+					"rank": "copper3",
+					"play_style": "single",
+					"requirements": 5,
+					"goal_ids": [ 5300, 5201, 5102, 5002, 5600, 5902, 2002, 1002 ]
+				},
+				{
+					"rank": "copper4",
+					"play_style": "single",
+					"requirements": 5,
+					"goal_ids": [ 5301, 5202, 5103, 5003, 5500, 5601, 5903, 2003, 1003 ]
+				},
+				{
+					"rank": "copper5",
+					"play_style": "single",
+					"requirements": 5,
+					"goal_ids": [ 5302, 5203, 5104, 5004, 5501, 5602, 5904, 2004, 1004 ]
+				},
+
+
+				{
+					"rank": "bronze1",
+					"play_style": "single",
+					"requirements": 6,
+					"goal_ids": [ 5400, 5303, 5204, 5105, 5005, 5502, 5603, 5905, 2005, 1005 ]
+				},
+				{
+					"rank": "bronze2",
+					"play_style": "single",
+					"requirements": 6,
+					"goal_ids": [ 5401, 5304, 5205, 5106, 5006, 5503, 5604, 5906, 2006, 1006 ]
+				},
+				{
+					"rank": "bronze3",
+					"play_style": "single",
+					"requirements": 6,
+					"goal_ids": [ 5402, 5305, 5206, 5107, 5007, 5504, 5605, 5907, 2007, 1007 ]
+				},
+				{
+					"rank": "bronze4",
+					"play_style": "single",
+					"requirements": 6,
+					"goal_ids": [ 5403, 5306, 5207, 5108, 5008, 5505, 5606, 5908, 2008, 1008 ]
+				},
+				{
+					"rank": "bronze5",
+					"play_style": "single",
+					"requirements": 6,
+					"goal_ids": [ 5404, 5307, 5208, 5109, 5009, 5506, 5607, 5909, 2009, 1009 ]
+				},
+
+
+				{
+					"rank": "silver1",
+					"play_style": "single",
+					"requirements": 6,
+					"goal_ids": [ 5405, 5308, 5209, 5110, 5010, 5800, 5507, 5608, 5910, 2010, 3000 ]
+				},
+				{
+					"rank": "silver2",
+					"play_style": "single",
+					"requirements": 6,
+					"goal_ids": [ 5406, 5309, 5210, 5111, 5011, 5801, 5508, 5609, 5911, 2011, 3000 ]
+				},
+				{
+					"rank": "silver3",
+					"play_style": "single",
+					"requirements": 6,
+					"goal_ids": [ 5407, 5310, 5211, 5112, 5012, 5802, 5509, 5610, 5912, 2012, 3000 ],
+					"mandatory_goal_ids": [ 14000 ]
+				},
+				{
+					"rank": "silver4",
+					"play_style": "single",
+					"requirements": 6,
+					"goal_ids": [ 5408, 5311, 5212, 5113, 5013, 5803, 5510, 5611, 5913, 2013, 3000 ],
+					"mandatory_goal_ids": [ 14001, 15000 ]
+				},
+				{
+					"rank": "silver5",
+					"play_style": "single",
+					"requirements": 7,
+					"goal_ids": [ 5409, 5312, 5213, 5114, 5014, 5804, 5511, 5612, 5914, 2014, 3000 ],
+					"mandatory_goal_ids": [ 14002, 15001 ]
+				},
+
+
+				{
+					"rank": "gold1",
+					"play_style": "single",
+					"requirements": 7,
+					"goal_ids": [ 13000, 13100, 13200, 15100, 16100, 17200, 5805, 5700, 18000, 2015, 3000 ],
+					"mandatory_goal_ids": [ 5810, 14003, 15002 ]
+				},
+				{
+					"rank": "gold2",
+					"play_style": "single",
+					"requirements": 7,
+					"goal_ids": [ 13001, 13101, 13201, 15101, 16101, 17201, 5806, 5700, 18000, 2015, 3000 ],
+					"mandatory_goal_ids": [ 5811, 14004, 15003 ]
+				},
+				{
+					"rank": "gold3",
+					"play_style": "single",
+					"requirements": 7,
+					"goal_ids": [ 13002, 13102, 13202, 15102, 16102, 17202, 5807, 5701, 18000, 2016, 3001 ],
+					"mandatory_goal_ids": [ 5812, 14005, 15004, 16000 ]
+				},
+				{
+					"rank": "gold4",
+					"play_style": "single",
+					"requirements": 7,
+					"goal_ids": [ 13003, 13103, 13203, 15103, 16103, 17203, 5808, 5701, 18000, 2016, 3001 ],
+					"mandatory_goal_ids": [ 5813, 14006, 15005, 16001 ]
+				},
+				{
+					"rank": "gold5",
+					"play_style": "single",
+					"requirements": 7,
+					"goal_ids": [ 13004, 13104, 13204, 15104, 16104, 17204, 5809, 5702, 18000, 2017, 3005 ],
+					"mandatory_goal_ids": [ 5814, 14007, 15006, 16002, 17000 ]
+				},
+
+
+				{
+					"rank": "platinum1",
+					"play_style": "single",
+					"mandatory_goal_ids": [ 14008, 14200, 15007, 15105, 16003, 16105, 17001, 13300, 3005 ],
+					"substitutions": [  ]
+				},
+				{
+					"rank": "platinum2",
+					"play_style": "single",
+					"mandatory_goal_ids": [ 14009, 14201, 15008, 15106, 16004, 16106, 17002, 13301, 3005 ],
+					"substitutions": [  ]
+				},
+				{
+					"rank": "platinum3",
+					"play_style": "single",
+					"mandatory_goal_ids": [ 14010, 14202, 15009, 15107, 16005, 16107, 17003, 13302, 3006 ],
+					"substitutions": [  ]
+				},
+				{
+					"rank": "platinum4",
+					"play_style": "single",
+					"mandatory_goal_ids": [ 14011, 14203, 15010, 15108, 16006, 16108, 17004, 13303, 3006 ],
+					"substitutions": [  ]
+				},
+				{
+					"rank": "platinum5",
+					"play_style": "single",
+					"mandatory_goal_ids": [ 14012, 14300, 14500, 14204, 15011, 15300, 15200, 16007, 16109, 17005, 17205, 18000, 13304, 3010 ],
+					"substitutions": [  ]
+				},
+
+
+				{
+					"rank": "diamond1",
+					"play_style": "single",
+					"mandatory_goal_ids": [ 14012, 14301, 14501, 15011, 15301, 15201, 16008, 16110, 17006, 17206, 18001, 3010 ],
+					"substitutions": [  ]
+				},
+				{
+					"rank": "diamond2",
+					"play_style": "single",
+					"mandatory_goal_ids": [ 14012, 14302, 14502, 15011, 15302, 15202, 16009, 16111, 17007, 17207, 18002, 3010 ],
+					"substitutions": [  ]
+				},
+				{
+					"rank": "diamond3",
+					"play_style": "single",
+					"mandatory_goal_ids": [ 14012, 14303, 14503, 15011, 15303, 15203, 16010, 16112, 17008, 17208, 18003, 3011 ],
+					"substitutions": [  ]
+				},
+				{
+					"rank": "diamond4",
+					"play_style": "single",
+					"mandatory_goal_ids": [ 14012, 14304, 14504, 15011, 15304, 15204, 16011, 16113, 17009, 17209, 18004, 3011 ],
+					"substitutions": [  ]
+				},
+				{
+					"rank": "diamond5",
+					"play_style": "single",
+					"mandatory_goal_ids": [ 14012, 14305, 14505, 15011, 15305, 15205, 15500, 16012, 16300, 16200, 17010, 17210, 18005, 18200, 3015 ],
+					"substitutions": [  ]
+				},
+
+
+				{
+					"rank": "cobalt1",
+					"play_style": "single",
+					"mandatory_goal_ids": [ 14012, 14306, 14506, 15011, 15306, 15501, 16012, 16301, 16201, 17011, 17211, 18006, 18201, 3015 ],
+					"substitutions": [  ]
+				},
+				{
+					"rank": "cobalt2",
+					"play_style": "single",
+					"mandatory_goal_ids": [ 14012, 14307, 14507, 15011, 15307, 15502, 16012, 16302, 16202, 17012, 17212, 18007, 18202, 3015 ],
+					"substitutions": [  ]
+				},
+				{
+					"rank": "cobalt3",
+					"play_style": "single",
+					"mandatory_goal_ids": [ 14012, 14308, 14508, 15011, 15308, 15503, 16012, 16303, 16203, 17013, 17213, 18008, 18203, 3016 ],
+					"substitutions": [  ]
+				},
+				{
+					"rank": "cobalt4",
+					"play_style": "single",
+					"mandatory_goal_ids": [ 14012, 14309, 14509, 15011, 15309, 15504, 16012, 16304, 16204, 17014, 17214, 18009, 18204, 3016 ],
+					"substitutions": [  ]
+				},
+				{
+					"rank": "cobalt5",
+					"play_style": "single",
+					"mandatory_goal_ids": [ 14090, 14310, 14510, 15011, 15310, 15505, 16012, 16305, 16205, 16500, 17015, 17100, 17300, 18010, 18205, 4000, 3020 ],
+					"substitutions": [  ]
+				},
+
+
+				{
+					"rank": "pearl1",
+					"play_style": "single",
+					"mandatory_goal_ids": [ 14090, 14311, 14511, 15011, 15311, 15506, 16012, 16306, 16501, 17015, 17101, 17301, 18011, 18206, 4001, 3020 ],
+					"substitutions": [  ]
+				},
+				{
+					"rank": "pearl2",
+					"play_style": "single",
+					"mandatory_goal_ids": [ 14090, 14312, 14512, 15011, 15312, 15507, 16012, 16307, 16502, 17015, 17102, 17302, 18012, 18207, 4002, 3020 ],
+					"substitutions": [  ]
+				},
+				{
+					"rank": "pearl3",
+					"play_style": "single",
+					"mandatory_goal_ids": [ 14091, 14313, 14513, 15011, 15313, 15508, 16012, 16308, 16503, 17015, 17103, 17303, 18013, 18208, 4003, 3021 ],
+					"substitutions": [  ]
+				},
+				{
+					"rank": "pearl4",
+					"play_style": "single",
+					"mandatory_goal_ids": [ 14091, 14314, 14514, 15011, 15314, 15509, 16012, 16309, 16504, 17015, 17104, 17304, 18014, 18209, 4004, 3021 ],
+					"substitutions": [  ]
+				},
+				{
+					"rank": "pearl5",
+					"play_style": "single",
+					"mandatory_goal_ids": [ 14092, 14315, 14515, 15090, 15315, 15510, 16012, 16310, 16505, 17015, 17105, 17305, 18015, 18100, 18210, 19000, 4005, 3025 ],
+					"substitutions": [  ]
+				},
+
+
+				{
+					"rank": "amethyst1",
+					"play_style": "single",
+					"mandatory_goal_ids": [ 14092, 14316, 14516, 15090, 15316, 15511, 16012, 16311, 16506, 17015, 17106, 17306, 18015, 18101, 18211, 19001, 4006, 3025 ],
+					"substitutions": [  ]
+				},
+				{
+					"rank": "amethyst2",
+					"play_style": "single",
+					"mandatory_goal_ids": [ 14092, 14317, 14517, 15090, 15317, 15512, 16012, 16312, 16507, 17015, 17107, 17307, 18015, 18102, 18212, 19002, 4007, 3025 ],
+					"substitutions": [  ]
+				},
+				{
+					"rank": "amethyst3",
+					"play_style": "single",
+					"mandatory_goal_ids": [ 14092, 14318, 14518, 15091, 15318, 15513, 16012, 16313, 16508, 17015, 17108, 17308, 18015, 18103, 18213, 19003, 4008, 3026 ],
+					"substitutions": [  ]
+				},
+				{
+					"rank": "amethyst4",
+					"play_style": "single",
+					"mandatory_goal_ids": [ 14092, 14319, 14519, 15091, 15319, 15514, 16012, 16314, 16509, 17015, 17109, 17309, 18015, 18104, 18214, 19004, 4009, 3026 ],
+					"substitutions": [  ]
+				},
+				{
+					"rank": "amethyst5",
+					"play_style": "single",
+					"mandatory_goal_ids": [ 14093, 14400, 15092, 15320, 15515, 16090, 16315, 16510, 17015, 17110, 17310, 17400, 18015, 18105, 18300, 19005, 19100, 4010, 3030 ],
+					"substitutions": [  ]
+				},
+
+
+				{
+					"rank": "emerald1",
+					"play_style": "single",
+					"mandatory_goal_ids": [ 14093, 14401, 15092, 15321, 15516, 16090, 16316, 16511, 17015, 17111, 17401, 18015, 18106, 18301, 19005, 19101, 19200, 4011, 3030 ],
+					"substitutions": [  ]
+				},
+				{
+					"rank": "emerald2",
+					"play_style": "single",
+					"mandatory_goal_ids": [ 14093, 14402, 15092, 15322, 15517, 16090, 16317, 16512, 17015, 17112, 17402, 18015, 18107, 18302, 19005, 19102, 19201, 4012, 3030 ],
+					"substitutions": [  ]
+				},
+				{
+					"rank": "emerald3",
+					"play_style": "single",
+					"mandatory_goal_ids": [ 14093, 14403, 15092, 15323, 15518, 16091, 16318, 16513, 17015, 17113, 17403, 18015, 18108, 18303, 19005, 19103, 19202, 4013, 3031 ],
+					"substitutions": [  ]
+				},
+				{
+					"rank": "emerald4",
+					"play_style": "single",
+					"mandatory_goal_ids": [ 14093, 14404, 15092, 15324, 15519, 16091, 16319, 16514, 17015, 17114, 17404, 18015, 18109, 18304, 19005, 19104, 19203, 4014, 3031 ],
+					"substitutions": [  ]
+				},
+				{
+					"rank": "emerald5",
+					"play_style": "single",
+					"mandatory_goal_ids": [ 14093, 14405, 15093, 15400, 16092, 16320, 16515, 17090, 17115, 17405, 18015, 18110, 18305, 19005, 19105, 19204, 4015, 3035 ],
+					"substitutions": [  ]
+				},
+
+
+				{
+					"rank": "onyx1",
+					"play_style": "single",
+					"mandatory_goal_ids": [ 14093, 14406, 15093, 15401, 16092, 16321, 16516, 17090, 17116, 17406, 18015, 18111, 18400, 19005, 19106, 19205, 4016, 3035 ],
+					"substitutions": [  ]
+				},
+				{
+					"rank": "onyx2",
+					"play_style": "single",
+					"mandatory_goal_ids": [ 14093, 14407, 15093, 15402, 16092, 16322, 16517, 17090, 17117, 17407, 18015, 18112, 18401, 19005, 19107, 19206, 4017, 3035 ],
+					"substitutions": [  ]
+				},
+				{
+					"rank": "onyx3",
+					"play_style": "single",
+					"mandatory_goal_ids": [ 14093, 14408, 15093, 15403, 16092, 16323, 16518, 17091, 17118, 17408, 18015, 18113, 18402, 19005, 19108, 19207, 4018, 3036 ],
+					"substitutions": [  ]
+				},
+				{
+					"rank": "onyx4",
+					"play_style": "single",
+					"mandatory_goal_ids": [ 14093, 14409, 15093, 15404, 16092, 16324, 16519, 17091, 17119, 17409, 18015, 18114, 18403, 19005, 19109, 19208, 4019, 3036 ],
+					"substitutions": [  ]
+				},
+				{
+					"rank": "onyx5",
+					"play_style": "single",
+					"mandatory_goal_ids": [ 14093, 14410, 15093, 15405, 16093, 16400, 17092, 17120, 17410, 18015, 18115, 18404, 19005, 19110, 19209, 4020, 3040 ],
+					"substitutions": [  ]
+				}
+			]
+		}
+	}
+}
