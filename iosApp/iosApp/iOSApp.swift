@@ -7,15 +7,16 @@ struct iOSApp: App {
     init() {
       KoinKt.doInitKoin(
         appModule: nativeModule,
+        extraAppModule: Koin_iosKt.makeIosExtraModule(defaults: UserDefaults.standard),
         appDeclaration: { _ in }
       )
     }
     
 	var body: some Scene {
 		WindowGroup {
-            NavigationView {
-                FirstRunView()
-            }
+      NavigationView {
+        FirstRunView()
+      }
 		}
 	}
 }
@@ -29,17 +30,33 @@ struct iOSApp: App {
 var nativeModule: Koin_coreModule = KoinKt.makeNativeModule(
   appInfo: IosAppInfo(),
   platformStrings: DummyIosStrings(),
-  ignoresReader: iosDataReader(cachedFileName: GithubDataAPICompanion().IGNORES_FILE_NAME),
-  motdReader: iosDataReader(cachedFileName: GithubDataAPICompanion().MOTD_FILE_NAME),
-  partialDifficultyReader: iosDataReader(cachedFileName: GithubDataAPICompanion().PARTIAL_DIFFICULTY_FILE_NAME),
-  placementsReader: iosUncachedDataReader(fileName: GithubDataAPICompanion().PLACEMENTS_FILE_NAME),
-  ranksReader: iosDataReader(cachedFileName: GithubDataAPICompanion().RANKS_FILE_NAME),
-  songsReader: iosDataReader(cachedFileName: GithubDataAPICompanion().SONGS_FILE_NAME),
-  trialsReader: iosDataReader(cachedFileName: GithubDataAPICompanion().TRIALS_FILE_NAME),
+  ignoresReader: iosDataReader(
+    fileResource: MR.files().ignore_lists,
+    cachedFileName: GithubDataAPICompanion().IGNORES_FILE_NAME
+  ),
+  motdReader: iosDataReader(
+    fileResource: MR.files().motd,
+    cachedFileName: GithubDataAPICompanion().MOTD_FILE_NAME
+  ),
+  partialDifficultyReader: iosDataReader(
+    fileResource: MR.files().partial_difficulties,
+    cachedFileName: GithubDataAPICompanion().PARTIAL_DIFFICULTY_FILE_NAME
+  ),
+  placementsReader: iosUncachedDataReader(fileResource: MR.files().placements),
+  ranksReader: iosDataReader(
+    fileResource: MR.files().ranks,
+    cachedFileName: GithubDataAPICompanion().RANKS_FILE_NAME
+  ),
+  songsReader: iosDataReader(
+    fileResource: MR.files().songs,
+    cachedFileName: GithubDataAPICompanion().SONGS_FILE_NAME
+  ),
+  trialsReader: iosDataReader(
+    fileResource: MR.files().trials,
+    cachedFileName: GithubDataAPICompanion().TRIALS_FILE_NAME
+  ),
   notifications: DummyNotifications(),
-  additionalItems: { module in
-//    module.single(qualifier: ) { _,_ in NSUserDefaults }
-  }
+  additionalItems: {_ in }
 )
 
 class IosAppInfo: AppInfo {

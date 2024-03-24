@@ -11,23 +11,24 @@ import Shared
 
 @available(iOS 16.0, *)
 class iosUncachedDataReader: LocalUncachedDataReader {
-    var fileName: String
+    var fileResource: FileResource
     
-    init(fileName: String) {
-        self.fileName = fileName
+    init(fileResource: FileResource) {
+        self.fileResource = fileResource
     }
     
     func loadInternalString() -> String {
-        return readFromFile(path: fileName) ?? "test"
+      return fileResource.readText()
     }
 }
 
 @available(iOS 16.0, *)
-class iosDataReader: LocalDataReader {
+class iosDataReader: iosUncachedDataReader, LocalDataReader {
     var cachedFileName: String
     
-    init(cachedFileName: String) {
+    init(fileResource: FileResource, cachedFileName: String) {
         self.cachedFileName = cachedFileName
+        super.init(fileResource: fileResource)
     }
     
     func loadCachedString() -> String? {
@@ -47,10 +48,6 @@ class iosDataReader: LocalDataReader {
             print(error.localizedDescription)
             return false
         }
-    }
-    
-    func loadInternalString() -> String {
-        return readFromFile(path: cachedFileName) ?? "test"
     }
 }
 

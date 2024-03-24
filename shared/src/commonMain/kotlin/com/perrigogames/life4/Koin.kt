@@ -22,11 +22,7 @@ import com.perrigogames.life4.ktor.GithubDataAPI
 import com.perrigogames.life4.ktor.GithubDataImpl
 import com.perrigogames.life4.ktor.Life4API
 import com.perrigogames.life4.ktor.Life4APIImpl
-import com.perrigogames.life4.model.GoalStateManager
-import com.perrigogames.life4.model.LadderDataManager
-import com.perrigogames.life4.model.MajorUpdateManager
-import com.perrigogames.life4.model.MotdManager
-import com.perrigogames.life4.model.SongDataCoordinator
+import com.perrigogames.life4.model.*
 import com.perrigogames.life4.model.mapping.LadderGoalMapper
 import kotlinx.serialization.json.Json
 import org.koin.core.component.KoinComponent
@@ -41,16 +37,20 @@ import org.koin.dsl.module
 
 typealias NativeInjectionFactory<T> = Scope.() -> T
 
-fun initKoin(appModule: Module, appDeclaration: KoinAppDeclaration = {}) = startKoin {
+fun initKoin(
+    appModule: Module,
+    extraAppModule: Module? = null,
+    appDeclaration: KoinAppDeclaration = {}
+) = startKoin {
     appDeclaration()
-    modules(appModule, platformModule, coreModule)
+    modules(listOfNotNull(appModule, extraAppModule, platformModule, coreModule))
 }.apply {
     // doOnStartup is a lambda which is implemented in Swift on iOS side
 //    koin.get<() -> Unit>().invoke()
     // AppInfo is a Kotlin interface with separate Android and iOS implementations
-    koin.get<Logger> { parametersOf(null) }.also { kermit ->
-        kermit.v { "App Id ${koin.get<AppInfo>().appId}" }
-    }
+//    koin.get<Logger> { parametersOf(null) }.also { kermit ->
+//        kermit.v { "App Id ${koin.get<AppInfo>().appId}" }
+//    }
     // Init song data and ladder progress
     koin.get<SongDataCoordinator>()
 }
@@ -85,7 +85,7 @@ val coreModule = module {
     // uses you *may* want to have a more robust configuration from the native platform. In KaMP Kit,
     // that would likely go into platformModule expect/actual.
     // See https://github.com/touchlab/Kermit
-    val baseLogger = Logger(config = StaticConfig(logWriterList = listOf(platformLogWriter())), "KampKit")
+    val baseLogger = Logger(config = StaticConfig(logWriterList = listOf(platformLogWriter())), "LIFE4")
     factory { (tag: String?) -> if (tag != null) baseLogger.withTag(tag) else baseLogger }
 }
 
@@ -105,7 +105,7 @@ fun makeNativeModule(
     songsReader: LocalDataReader,
     trialsReader: LocalDataReader,
     notifications: Notifications,
-    additionalItems: Module.() -> Unit,
+    additionalItems: Module.() -> Unit = {},
 ): Module {
     return module {
         single { appInfo }
