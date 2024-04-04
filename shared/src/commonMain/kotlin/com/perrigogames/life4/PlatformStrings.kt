@@ -1,10 +1,10 @@
 package com.perrigogames.life4
 
 import com.perrigogames.life4.data.PlacementRank
-import com.perrigogames.life4.enums.ClearType
-import com.perrigogames.life4.enums.LadderRank
-import com.perrigogames.life4.enums.LadderRankClass
-import com.perrigogames.life4.enums.TrialRank
+import com.perrigogames.life4.enums.*
+import dev.icerock.moko.resources.desc.Raw
+import dev.icerock.moko.resources.desc.ResourceFormatted
+import dev.icerock.moko.resources.desc.StringDesc
 import kotlinx.serialization.ExperimentalSerializationApi
 
 /**
@@ -12,20 +12,28 @@ import kotlinx.serialization.ExperimentalSerializationApi
  * shared module.
  */
 @OptIn(ExperimentalSerializationApi::class)
-interface PlatformStrings {
+object PlatformStrings {
 
-    fun nameString(rank: LadderRank): String
-    fun groupNameString(rank: LadderRank): String
-    fun nameString(rank: TrialRank): String
-    fun nameString(rank: PlacementRank): String
-    fun nameString(clazz: LadderRankClass): String
-    fun lampString(ct: ClearType): String
-    fun clearString(ct: ClearType): String
-    fun clearStringShort(ct: ClearType): String
-
-    fun toListString(list: List<String>, useAnd: Boolean, caps: Boolean): String
-
-    val rank: RankStrings
-    val trial: TrialStrings
-    val notification: NotificationStrings
+    fun nameString(rank: LadderRank) = StringDesc.ResourceFormatted(rank.nameRes)
+    fun groupNameString(rank: LadderRank) = StringDesc.ResourceFormatted(rank.groupNameRes)
+    fun nameString(rank: TrialRank) = StringDesc.ResourceFormatted(rank.nameRes)
+    fun nameString(rank: PlacementRank) = StringDesc.ResourceFormatted(rank.nameRes)
+    fun nameString(clazz: LadderRankClass) = StringDesc.ResourceFormatted(clazz.nameRes)
+    fun lampString(ct: ClearType) = StringDesc.ResourceFormatted(ct.lampRes)
+    fun clearString(ct: ClearType) = StringDesc.ResourceFormatted(ct.clearRes)
+    fun clearStringShort(ct: ClearType) = StringDesc.ResourceFormatted(ct.clearResShort)
 }
+
+fun List<StringDesc>.toListString(useAnd: Boolean, caps: Boolean): List<StringDesc> = mapIndexed { index, d ->
+    when {
+        this@toListString.size == 1 -> d
+        index == this@toListString.lastIndex -> StringDesc.ResourceFormatted(when {
+            useAnd -> if (caps) MR.strings.and_s_caps else MR.strings.and_s
+            else -> if (caps) MR.strings.or_s_caps else MR.strings.or_s
+        }, d)
+        index == this@toListString.lastIndex - 1 -> StringDesc.Raw("$d ")
+        else -> StringDesc.Raw("$d, ")
+    }
+}
+
+fun List<String>.toStringDescs() = map { StringDesc.Raw(it) }

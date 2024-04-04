@@ -11,10 +11,12 @@
 
 package com.perrigogames.life4.data
 
+import com.perrigogames.life4.*
 import com.perrigogames.life4.GameConstants.HIGHEST_DIFFICULTY
-import com.perrigogames.life4.PlatformStrings
 import com.perrigogames.life4.enums.*
-import com.perrigogames.life4.logE
+import dev.icerock.moko.resources.desc.Composition
+import dev.icerock.moko.resources.desc.Raw
+import dev.icerock.moko.resources.desc.StringDesc
 import kotlinx.serialization.*
 
 /**
@@ -29,7 +31,7 @@ sealed class BaseRankGoal {
     abstract val id: Int
     @SerialName("s") open val playStyle: PlayStyle = PlayStyle.SINGLE
 
-    abstract fun goalString(c: PlatformStrings): String
+    abstract fun goalString(): StringDesc
 }
 
 /**
@@ -52,8 +54,8 @@ sealed class StackedRankGoal : BaseRankGoal() {
     fun getIntValue(index: Int, key: String) = stacks[key]?.getOrNull(index)?.toInt()
     fun getDoubleValue(index: Int, key: String) = stacks[key]?.getOrNull(index)
 
-    override fun goalString(c: PlatformStrings) = error("Cannot call standard goalString on stacked goal")
-    abstract fun goalString(index: Int, c: PlatformStrings): String
+    override fun goalString() = error("Cannot call standard goalString on stacked goal")
+    abstract fun goalString(index: Int): StringDesc
 }
 
 /**
@@ -70,7 +72,7 @@ class StackedRankGoalWrapper(
     fun getIntValue(key: String) = mainGoal.getIntValue(index, key)
     fun getDoubleValue(key: String) = mainGoal.getDoubleValue(index, key)
 
-    override fun goalString(c: PlatformStrings) = mainGoal.goalString(index, c)
+    override fun goalString() = mainGoal.goalString(index)
 }
 
 /**
@@ -83,8 +85,8 @@ class CaloriesStackedRankGoal(
     override val id: Int,
 ): StackedRankGoal() {
 
-    override fun goalString(index: Int, c: PlatformStrings) =
-        c.rank.getCalorieCountString(getIntValue(index, KEY_CALORIES)!!)
+    override fun goalString(index: Int) =
+        RankStrings.getCalorieCountString(getIntValue(index, KEY_CALORIES)!!)
 
     companion object {
         const val KEY_CALORIES = "calories"
@@ -106,7 +108,7 @@ class DifficultySetGoal(
     val clearType: ClearType
         get() = mClearType ?: ClearType.CLEAR
 
-    override fun goalString(c: PlatformStrings) = c.rank.getSongSetString(clearType, difficulties)
+    override fun goalString() = RankStrings.getSongSetString(clearType, difficulties)
 }
 
 /**
@@ -123,8 +125,8 @@ class TrialStackedGoal(
     @SerialName("restrict") val restrictDifficulty: Boolean = false,
 ): StackedRankGoal() {
 
-    override fun goalString(index: Int, c: PlatformStrings) =
-        c.rank.getTrialCountString(rank, getIntValue(index, KEY_TRIALS_COUNT)!!)
+    override fun goalString(index: Int) =
+        RankStrings.getTrialCountString(rank, getIntValue(index, KEY_TRIALS_COUNT)!!)
 
     companion object {
         const val KEY_TRIALS_COUNT = "count"
@@ -141,8 +143,8 @@ class MFCPointsStackedGoal(
     override val id: Int,
 ): StackedRankGoal() {
 
-    override fun goalString(index: Int, c: PlatformStrings) =
-        c.rank.getMFCPointString(getDoubleValue(index, KEY_MFC_POINTS)!!)
+    override fun goalString(index: Int) =
+        RankStrings.getMFCPointString(getDoubleValue(index, KEY_MFC_POINTS)!!)
 
     companion object {
         const val KEY_MFC_POINTS = "mfc_points"
@@ -217,41 +219,41 @@ class SongsClearGoal(
         diffNumRange?.forEachIndexed { _, diff -> block(diff) }
     }
 
-    override fun goalString(c: PlatformStrings): String = when {
-        score != null -> c.rank.scoreString(score, songGroupString(c))
-        averageScore != null -> c.rank.averageScoreString(averageScore, songGroupString(c))
-        else -> c.rank.clearString(clearType, shouldUseLamp, songGroupString(c))
+    override fun goalString(): StringDesc = when {
+        score != null -> RankStrings.scoreString(score, songGroupString())
+        averageScore != null -> RankStrings.averageScoreString(averageScore, songGroupString())
+        else -> RankStrings.clearString(clearType, shouldUseLamp, songGroupString())
     }
 
     private val shouldUseLamp =
         diffClassSet != null && folderCount != null
 
-    private fun songGroupString(c: PlatformStrings): String = when {
-        folderCount != null -> c.rank.folderString(folderCount)
-        folder != null -> c.rank.folderString(folder)
-        songs != null -> c.rank.songListString(songs)
+    private fun songGroupString(): StringDesc = when {
+        folderCount != null -> RankStrings.folderString(folderCount)
+        folder != null -> RankStrings.folderString(folder)
+        songs != null -> RankStrings.songListString(songs)
         diffNum != null -> if (songCount != null) {
-            c.rank.diffNumCount(songCount, diffNum, allowsHigherDiffNum)
+            RankStrings.diffNumCount(songCount, diffNum, allowsHigherDiffNum)
         } else {
-            c.rank.diffNumAll(diffNum, allowsHigherDiffNum)
+            RankStrings.diffNumAll(diffNum, allowsHigherDiffNum)
         }
-        songCount != null -> c.rank.songCountString(songCount)
+        songCount != null -> RankStrings.songCountString(songCount)
         else -> {
             logE("GoalValidation", "Goal $id has no song group string")
-            "???????"
+            StringDesc.Raw("???????")
         }
     }
-        .difficultySection(c)
-        .exceptionSection(c)
+        .difficultySection()
+        .exceptionSection()
 
-    private fun String.difficultySection(c: PlatformStrings) = when {
-        diffClassSet != null -> c.rank.difficultyClassSetModifier(this, diffClassSet, playStyle)
+    private fun StringDesc.difficultySection() = when {
+        diffClassSet != null -> RankStrings.difficultyClassSetModifier(this, diffClassSet, playStyle)
         else -> this
     }
 
-    private fun String.exceptionSection(c: PlatformStrings) = when {
-        exceptions != null -> c.rank.exceptionsModifier(this, exceptions)
-        songExceptions != null -> c.rank.songExceptionsModifier(this, songExceptions)
+    private fun StringDesc.exceptionSection() = when {
+        exceptions != null -> RankStrings.exceptionsModifier(this, exceptions)
+        songExceptions != null -> RankStrings.songExceptionsModifier(this, songExceptions.toStringDescs())
         else -> this
     }
 
@@ -312,7 +314,7 @@ data class SongsClearStackedGoal(
             )
         }
 
-    override fun goalString(index: Int, c: PlatformStrings) = expandedGoals[index].goalString(c)
+    override fun goalString(index: Int) = expandedGoals[index].goalString()
 
     companion object {
         const val KEY_DIFFICULTY_NUM = "diff_num"
@@ -335,9 +337,11 @@ data class MultipleChoiceGoal(
     val options: List<BaseRankGoal>,
 ): BaseRankGoal() {
 
-    override fun goalString(c: PlatformStrings) = c.toListString(
-        options.map { it.goalString(c).replace(".", "") },
-        useAnd = false,
-        caps = true
-    ) + "."
+    override fun goalString() = StringDesc.Composition(
+        options.map { it.goalString() } // FIXME period substitution
+            .toListString(
+                useAnd = false,
+                caps = true
+            ) + StringDesc.Raw(".")
+    )
 }

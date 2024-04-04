@@ -3,6 +3,8 @@ package com.perrigogames.life4
 import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.NSUserDefaultsSettings
 import com.russhwolf.settings.Settings
+import com.russhwolf.settings.coroutines.FlowSettings
+import com.russhwolf.settings.coroutines.toFlowSettings
 import com.squareup.sqldelight.db.SqlDriver
 import com.squareup.sqldelight.drivers.native.NativeSqliteDriver
 import org.koin.dsl.module
@@ -16,5 +18,7 @@ actual val platformModule = module {
 fun makeIosExtraModule(
     defaults: NSUserDefaults
 ) = module {
-    single<Settings> { NSUserDefaultsSettings(defaults) }
+    val settings = NSUserDefaultsSettings(defaults)
+    single<Settings> { settings }
+    single<FlowSettings> { settings.toFlowSettings() }
 }

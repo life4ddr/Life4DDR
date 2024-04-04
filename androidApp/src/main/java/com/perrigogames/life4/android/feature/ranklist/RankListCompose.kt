@@ -2,50 +2,32 @@
 
 package com.perrigogames.life4.android.feature.ranklist
 
-import androidx.compose.animation.AnimatedContent
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.slideInVertically
-import androidx.compose.animation.slideOutVertically
-import androidx.compose.animation.togetherWith
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.animation.*
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Button
-import androidx.compose.material3.Divider
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.perrigogames.life4.android.R
+import com.perrigogames.life4.MR
 import com.perrigogames.life4.android.compose.LIFE4Theme
 import com.perrigogames.life4.android.compose.Paddings
-import com.perrigogames.life4.android.nameRes
 import com.perrigogames.life4.android.util.SizedSpacer
 import com.perrigogames.life4.android.view.compose.RankImageWithTitle
 import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.enums.LadderRankClass
 import com.perrigogames.life4.enums.categoryNameRes
+import com.perrigogames.life4.enums.nameRes
 import com.perrigogames.life4.viewmodel.RankSelectionConfig
 import com.perrigogames.life4.viewmodel.RankSelectionViewModel
 import com.perrigogames.life4.viewmodel.UINoRank
 import dev.icerock.moko.mvvm.createViewModelFactory
+import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
 fun RankSelection(
@@ -256,7 +238,7 @@ private fun RankCategoryImage(
     RankImageWithTitle(
         rank = category?.toLadderRank(),
         iconSize = 64.dp,
-        text = stringResource(category?.nameRes ?: R.string.no_rank),
+        text = stringResource(category?.nameRes ?: MR.strings.no_rank),
         style = MaterialTheme.typography.titleSmall,
         onClick = onClick
     )
@@ -265,7 +247,7 @@ private fun RankCategoryImage(
 @Composable
 fun RankSelectionMini(
     modifier: Modifier = Modifier,
-    ranks: List<LadderRank> = LadderRank.values().toList(),
+    ranks: List<LadderRank> = LadderRank.entries,
     showNone: Boolean = true,
     onRankSelected: (LadderRank?) -> Unit,
 ) {

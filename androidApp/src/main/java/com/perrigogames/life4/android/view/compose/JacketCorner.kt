@@ -8,11 +8,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import com.perrigogames.life4.MR
 import com.perrigogames.life4.android.R
 import com.perrigogames.life4.android.compose.LIFE4Theme
 import com.perrigogames.life4.enums.TrialJacketCorner
+import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
 fun JacketCorner(
@@ -33,8 +34,8 @@ fun JacketCorner(
         )
         Text(
             text = stringResource(when (corner) {
-                TrialJacketCorner.NEW -> R.string.new_tag
-                TrialJacketCorner.EVENT -> R.string.event_tag
+                TrialJacketCorner.NEW -> MR.strings.new_tag
+                TrialJacketCorner.EVENT -> MR.strings.event_tag
                 TrialJacketCorner.NONE -> error("Cannot make a JacketCorner for type NONE")
             })
         )

@@ -1,5 +1,6 @@
 package com.perrigogames.life4.android.util
 
+import android.annotation.SuppressLint
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
@@ -7,26 +8,29 @@ import android.graphics.BitmapFactory
 import android.os.Build
 import android.text.Html
 import android.widget.Toast
-import androidx.annotation.StringRes
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import com.perrigogames.life4.MR
 import com.perrigogames.life4.Notifications
 import com.perrigogames.life4.android.R
 import com.perrigogames.life4.android.drawableRes
-import com.perrigogames.life4.android.nameRes
 import com.perrigogames.life4.data.Trial
 import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.enums.TrialRank
+import com.perrigogames.life4.enums.nameRes
+import dev.icerock.moko.resources.desc.Raw
+import dev.icerock.moko.resources.desc.StringDesc
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
+@SuppressLint("MissingPermission")
 class AndroidNotifications: Notifications(), KoinComponent {
 
     val context: Context by inject()
 
-    override fun notifyCopyableMessage(id: Int, title: String, message: String) {
+    override fun notifyCopyableMessage(id: Int, title: StringDesc, message: String) {
         with(NotificationManagerCompat.from(context)) {
-            notify(id, userInfoNotification(title, context.getString(R.string.tap_to_copy, message))
+            notify(id, userInfoNotification(title, context.getString(MR.strings.tap_to_copy.resourceId, message))
                 .setContentIntent(PendingIntent.getBroadcast(context, id,
                     Intent(context, NotificationCopyHandler::class.java).apply {
                         putExtra(EXTRA_COPY_VALUE, message)
@@ -39,7 +43,7 @@ class AndroidNotifications: Notifications(), KoinComponent {
 
     override fun showPlacementNotification(rank: LadderRank) {
         with(NotificationManagerCompat.from(context)) {
-            val message = context.getString(R.string.notification_placement_body, context.getString(rank.nameRes))
+            val message = context.getString(MR.strings.notification_placement_body.resourceId, context.getString(rank.nameRes.resourceId))
             notify(multiNotificationId, userInfoNotification("WELCOME!")
                 .setStyle(htmlStyle(message))
                 .setLargeIcon(BitmapFactory.decodeResource(context.resources, rank.drawableRes))
@@ -50,7 +54,10 @@ class AndroidNotifications: Notifications(), KoinComponent {
 
     override fun showLadderRankChangedNotification(rank: LadderRank) {
         with(NotificationManagerCompat.from(context)) {
-            val message = context.getString(R.string.notification_rank_body, context.getString(rank.nameRes))
+            val message = context.getString(
+                MR.strings.notification_rank_body.resourceId,
+                context.getString(rank.nameRes.resourceId)
+            )
             notify(multiNotificationId, userInfoNotification("RANK UP!")
                 .setStyle(htmlStyle(message))
                 .setLargeIcon(BitmapFactory.decodeResource(context.resources, rank.drawableRes))
@@ -61,8 +68,12 @@ class AndroidNotifications: Notifications(), KoinComponent {
 
     override fun showTrialRankChangedNotification(trial: Trial, rank: TrialRank) {
         with(NotificationManagerCompat.from(context)) {
-            val message = context.getString(R.string.notification_trial_body, context.getString(rank.nameRes), trial.name)
-            notify(multiNotificationId, userInfoNotification("RANK UP! ${trial.name}")
+            val message = context.getString(
+                MR.strings.notification_trial_body.resourceId,
+                context.getString(rank.nameRes.resourceId),
+                trial.name
+            )
+            notify(multiNotificationId, userInfoNotification(StringDesc.Raw("RANK UP! ${trial.name}"))
                 .setStyle(htmlStyle(message))
                 .setLargeIcon(BitmapFactory.decodeResource(context.resources, rank.drawableRes))
                 .setAutoCancel(true)
@@ -74,13 +85,13 @@ class AndroidNotifications: Notifications(), KoinComponent {
         Toast.makeText(context, message, if (long) Toast.LENGTH_LONG else Toast.LENGTH_SHORT)
     }
 
-    private fun userInfoNotification(@StringRes titleRes: Int, content: String) =
-        userInfoNotification(context.getString(titleRes), content)
-
     private fun userInfoNotification(title: String, content: String? = null) =
+        userInfoNotification(StringDesc.Raw(title))
+
+    private fun userInfoNotification(title: StringDesc, content: String? = null) =
         NotificationCompat.Builder(context, ID_USER_INFO_CHANNEL)
             .setSmallIcon(R.drawable.ic_life4_trials_logo_notif)
-            .setContentTitle(title)
+            .setContentTitle(title.toString(context))
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .apply {
                 content?.let { setContentText(it) }

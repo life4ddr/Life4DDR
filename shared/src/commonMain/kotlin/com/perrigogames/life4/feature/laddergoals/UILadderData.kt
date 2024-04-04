@@ -3,6 +3,7 @@ package com.perrigogames.life4.feature.laddergoals
 import com.perrigogames.life4.enums.DifficultyClass
 import com.perrigogames.life4.enums.colorRes
 import dev.icerock.moko.resources.ColorResource
+import dev.icerock.moko.resources.desc.StringDesc
 
 typealias CategorizedUILadderGoals = List<Pair<String, List<UILadderGoal>>>
 
@@ -74,7 +75,7 @@ sealed class UILadderGoals {
 
 data class UILadderGoal(
     val id: Long,
-    val goalText: String,
+    val goalText: StringDesc,
     val completed: Boolean = false,
     val hidden: Boolean = false,
     val canHide: Boolean = true,

@@ -1,6 +1,5 @@
 package com.perrigogames.life4.model.mapping
 
-import com.perrigogames.life4.PlatformStrings
 import com.perrigogames.life4.data.BaseRankGoal
 import com.perrigogames.life4.db.GoalState
 import com.perrigogames.life4.enums.GoalStatus
@@ -14,14 +13,13 @@ class LadderGoalMapper : KoinComponent {
 
     private val goalStateManager: GoalStateManager by inject()
     private val songResultsManager: SongResultsManager by inject()
-    private val platformStrings: PlatformStrings by inject()
 
     fun toViewData(
         base: BaseRankGoal,
         goalState: GoalState = goalStateManager.getOrCreateGoalState(base),
     ) = UILadderGoal(
         id = base.id.toLong(),
-        goalText = base.goalString(platformStrings),
+        goalText = base.goalString(),
         completed = goalState.status == GoalStatus.COMPLETE,
         hidden = goalState.status == GoalStatus.IGNORED,
         canHide = !base.isMandatory

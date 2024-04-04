@@ -11,12 +11,16 @@ import Shared
 
 @available(iOS 16.0, *)
 struct FirstRunView: View {
+  let viewModel = FirstRunInfoViewModel()
+  
     // TEMPORARY - until I can get viewModel in
     @State var showWelcome = true
     @State var viewIndex = 0
     @State var isExistingUser = false
     
     var body: some View {
+//      let state = viewModel.state.collect(collector: <#T##any Kotlinx_coroutines_coreFlowCollector#>, completionHandler: <#T##((any Error)?) -> Void#>)
+      
         ZStack(alignment: .center) {
             VStack(spacing: 75) {
                 if (viewIndex > 0) {

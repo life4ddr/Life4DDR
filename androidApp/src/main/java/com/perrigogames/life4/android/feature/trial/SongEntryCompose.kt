@@ -1,12 +1,6 @@
 package com.perrigogames.life4.android.feature.trial
 
-import androidx.annotation.StringRes
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.Checkbox
 import androidx.compose.material.Text
@@ -16,15 +10,16 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.perrigogames.life4.android.R
+import com.perrigogames.life4.MR
 import com.perrigogames.life4.android.compose.LIFE4Theme
 import com.perrigogames.life4.android.compose.Paddings
 import com.perrigogames.life4.feature.trials.SongEntryViewModel
 import com.perrigogames.life4.feature.trials.SongEntryViewModel.InputFieldState
 import dev.icerock.moko.mvvm.createViewModelFactory
+import dev.icerock.moko.resources.StringResource
+import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
 fun SongEntryControls(
@@ -54,14 +49,14 @@ fun SongEntryControls(
             SongTextInput(
                 text = scoreText,
                 state = scoreState,
-                placeholderRes = R.string.score,
+                placeholderRes = MR.strings.score,
                 modifier = Modifier.weight(0.4f),
                 onTextValueChange = { viewModel.scoreText.value = it }
             )
             SongTextInput(
                 text = exScoreText,
                 state = exScoreState,
-                placeholderRes = R.string.ex_score,
+                placeholderRes = MR.strings.ex_score,
                 modifier = Modifier.weight(0.25f),
                 onTextValueChange = { viewModel.exScoreText.value = it }
             )
@@ -74,7 +69,7 @@ fun SongEntryControls(
                     onCheckedChange = { viewModel.passedChecked.value = it },
                 )
                 Text(
-                    text = stringResource(id = R.string.passed),
+                    text = stringResource(MR.strings.passed),
                     modifier = Modifier.padding(end = Paddings.MEDIUM)
                 )
             }
@@ -86,28 +81,28 @@ fun SongEntryControls(
             SongTextInput(
                 text = missesText,
                 state = missesState,
-                placeholderRes = R.string.misses,
+                placeholderRes = MR.strings.misses,
                 modifier = Modifier.weight(0.25f),
                 onTextValueChange = { viewModel.missesText.value = it }
             )
             SongTextInput(
                 text = goodsText,
                 state = goodsState,
-                placeholderRes = R.string.goods,
+                placeholderRes = MR.strings.goods,
                 modifier = Modifier.weight(0.25f),
                 onTextValueChange = { viewModel.goodsText.value = it }
             )
             SongTextInput(
                 text = greatsText,
                 state = greatsState,
-                placeholderRes = R.string.greats,
+                placeholderRes = MR.strings.greats,
                 modifier = Modifier.weight(0.25f),
                 onTextValueChange = { viewModel.greatsText.value = it }
             )
             SongTextInput(
                 text = perfectsText,
                 state = perfectsState,
-                placeholderRes = R.string.perfects,
+                placeholderRes = MR.strings.perfects,
                 modifier = Modifier.weight(0.25f),
                 onTextValueChange = { viewModel.perfectsText.value = it }
             )
@@ -120,7 +115,7 @@ private fun SongTextInput(
     text: String,
     state: InputFieldState,
     spaceInvisible: Boolean = true,
-    @StringRes placeholderRes: Int,
+    placeholderRes: StringResource,
     modifier: Modifier = Modifier,
     onTextValueChange: (String) -> Unit,
 ) {
@@ -132,7 +127,7 @@ private fun SongTextInput(
             onValueChange = onTextValueChange,
             modifier = modifier,
             placeholder = {
-                Text(text = stringResource(id = placeholderRes))
+                Text(text = stringResource(placeholderRes))
             }
         )
     } else if (spaceInvisible) {
@@ -153,25 +148,25 @@ fun SongClearButtons(
             modifier = Modifier.weight(1f),
             onClick = { onClick(SongClearButtonType.CLEAR) }
         ) {
-            Text(text = stringResource(id = R.string.clear))
+            Text(text = stringResource(MR.strings.clear))
         }
         Button(
             modifier = Modifier.weight(1f),
             onClick = { onClick(SongClearButtonType.FC) }
         ) {
-            Text(text = stringResource(id = R.string.clear_fc_short))
+            Text(text = stringResource(MR.strings.clear_fc_short))
         }
         Button(
             modifier = Modifier.weight(1f),
             onClick = { onClick(SongClearButtonType.PFC) }
         ) {
-            Text(text = stringResource(id = R.string.clear_pfc_short))
+            Text(text = stringResource(MR.strings.clear_pfc_short))
         }
         Button(
             modifier = Modifier.weight(1f),
             onClick = { onClick(SongClearButtonType.MFC) }
         ) {
-            Text(text = stringResource(id = R.string.clear_mfc_short))
+            Text(text = stringResource(MR.strings.clear_mfc_short))
         }
     }
 }

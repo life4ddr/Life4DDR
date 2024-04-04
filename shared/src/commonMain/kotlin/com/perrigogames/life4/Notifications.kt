@@ -4,6 +4,7 @@ import com.perrigogames.life4.data.Trial
 import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.enums.TrialRank
 import com.russhwolf.settings.Settings
+import dev.icerock.moko.resources.desc.StringDesc
 import kotlinx.serialization.ExperimentalSerializationApi
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -15,13 +16,11 @@ abstract class Notifications: KoinComponent {
         get() = field++
 
     private val settings: Settings by inject()
-    private val platStrings: PlatformStrings by inject()
-    private val strings: NotificationStrings get() = platStrings.notification
 
     fun showUserInfoNotifications(exScore: Int) {
         settings.getStringOrNull(SettingsKeys.KEY_INFO_RIVAL_CODE)?.let { rivalCode ->
             if (rivalCode.isNotEmpty()) {
-                notifyCopyableMessage(ID_NOTIF_RIVAL_CODE, strings.rivalCodeTitle, rivalCode)
+                notifyCopyableMessage(ID_NOTIF_RIVAL_CODE, NotificationStrings.rivalCodeTitle, rivalCode)
             }
         }
 //        settings.getStringOrNull(SettingsKeys.KEY_INFO_TWITTER_NAME)?.let { twitterName ->
@@ -29,14 +28,14 @@ abstract class Notifications: KoinComponent {
 //                notifyCopyableMessage(ID_NOTIF_TWITTER_HANDLE, strings.twitterNameTitle, twitterName)
 //            }
 //        }
-        notifyCopyableMessage(ID_NOTIF_EX_SCORE, strings.exScoreTitle, exScore.toString())
+        notifyCopyableMessage(ID_NOTIF_EX_SCORE, NotificationStrings.exScoreTitle, exScore.toString())
     }
 
     /**
      * Sends a generic message to the system's notifications system that will
      * copy
      */
-    abstract fun notifyCopyableMessage(id: Int, title: String, message: String)
+    abstract fun notifyCopyableMessage(id: Int, title: StringDesc, message: String)
 
     abstract fun showPlacementNotification(rank: LadderRank)
 

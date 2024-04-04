@@ -43,7 +43,6 @@ class Life4Application: Application() {
         initKoin(
             makeNativeModule(
                 appInfo = AndroidAppInfo,
-                platformStrings = AndroidPlatformStrings(),
                 ignoresReader = AndroidDataReader(R.raw.ignore_lists, IGNORES_FILE_NAME),
                 motdReader = AndroidDataReader(R.raw.motd, MOTD_FILE_NAME),
                 partialDifficultyReader = AndroidDataReader(R.raw.partial_difficulties, PARTIAL_DIFFICULTY_FILE_NAME),

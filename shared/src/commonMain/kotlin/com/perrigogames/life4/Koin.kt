@@ -96,7 +96,6 @@ expect val platformModule: Module
 
 fun makeNativeModule(
     appInfo: AppInfo,
-    platformStrings: PlatformStrings,
     ignoresReader: LocalDataReader,
     motdReader: LocalDataReader,
     partialDifficultyReader: LocalDataReader,
@@ -109,7 +108,6 @@ fun makeNativeModule(
 ): Module {
     return module {
         single { appInfo }
-        single { platformStrings }
         single { notifications }
         single(named(GithubDataAPI.IGNORES_FILE_NAME)) { ignoresReader }
         single(named(GithubDataAPI.MOTD_FILE_NAME)) { motdReader }

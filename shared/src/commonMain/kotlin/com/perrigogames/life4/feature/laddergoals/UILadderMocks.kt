@@ -3,6 +3,8 @@ package com.perrigogames.life4.feature.laddergoals
 import com.perrigogames.life4.enums.DifficultyClass
 import com.perrigogames.life4.longNumberString
 import dev.icerock.moko.resources.ColorResource
+import dev.icerock.moko.resources.desc.Raw
+import dev.icerock.moko.resources.desc.StringDesc
 import kotlin.random.Random
 
 object UILadderMocks {
@@ -17,7 +19,7 @@ object UILadderMocks {
         detailItems: List<UILadderDetailItem> = emptyList(),
     ) = UILadderGoal(
         id = id,
-        goalText = goalText,
+        goalText = StringDesc.Raw(goalText),
         completed = completed,
         hidden = hidden,
         canHide = canHide,

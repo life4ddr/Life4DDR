@@ -2,6 +2,9 @@ package com.perrigogames.life4.enums
 
 import com.perrigogames.life4.MR
 import com.perrigogames.life4.data.PlacementRank
+import com.perrigogames.life4.data.RankGoalUserType
+import dev.icerock.moko.resources.desc.ResourceFormatted
+import dev.icerock.moko.resources.desc.StringDesc
 
 val ClearType.colorRes get() = when(this) {
     ClearType.NO_PLAY -> MR.colors.no_play
@@ -198,4 +201,55 @@ val TrialRank.nameRes get() = when(this) {
     TrialRank.AMETHYST -> MR.strings.amethyst
     TrialRank.EMERALD -> MR.strings.emerald
     TrialRank.ONYX -> MR.strings.onyx
+}
+
+val ClearType.lampRes get() = when(this) {
+    ClearType.NO_PLAY -> MR.strings.not_played
+    ClearType.FAIL -> MR.strings.fail
+    ClearType.CLEAR -> MR.strings.lamp_clear
+    ClearType.LIFE4_CLEAR -> MR.strings.lamp_life4
+    ClearType.GOOD_FULL_COMBO -> MR.strings.lamp_fc
+    ClearType.GREAT_FULL_COMBO -> MR.strings.lamp_gfc
+    ClearType.PERFECT_FULL_COMBO -> MR.strings.lamp_pfc
+    ClearType.MARVELOUS_FULL_COMBO -> MR.strings.lamp_mfc
+}
+
+val ClearType.clearRes get() = when(this) {
+    ClearType.NO_PLAY -> MR.strings.not_played
+    ClearType.FAIL -> MR.strings.fail
+    ClearType.CLEAR -> MR.strings.clear
+    ClearType.LIFE4_CLEAR -> MR.strings.clear_life4
+    ClearType.GOOD_FULL_COMBO -> MR.strings.clear_fc
+    ClearType.GREAT_FULL_COMBO -> MR.strings.clear_gfc
+    ClearType.PERFECT_FULL_COMBO -> MR.strings.clear_pfc
+    ClearType.MARVELOUS_FULL_COMBO -> MR.strings.clear_mfc
+}
+
+val ClearType.clearResShort get() = when(this) {
+    ClearType.GOOD_FULL_COMBO -> MR.strings.clear_fc_short
+    ClearType.GREAT_FULL_COMBO -> MR.strings.clear_gfc_short
+    ClearType.PERFECT_FULL_COMBO -> MR.strings.clear_pfc_short
+    ClearType.MARVELOUS_FULL_COMBO -> MR.strings.clear_mfc_short
+    else -> clearRes
+}
+
+fun RankGoalUserType.titleString(): StringDesc = when(this) {
+    RankGoalUserType.LEVEL_12 -> StringDesc.ResourceFormatted(MR.strings.level_header, 12)
+    RankGoalUserType.LEVEL_13 -> StringDesc.ResourceFormatted(MR.strings.level_header, 13)
+    RankGoalUserType.LEVEL_14 -> StringDesc.ResourceFormatted(MR.strings.level_header, 14)
+    RankGoalUserType.LEVEL_15 -> StringDesc.ResourceFormatted(MR.strings.level_header, 15)
+    RankGoalUserType.LEVEL_16 -> StringDesc.ResourceFormatted(MR.strings.level_header, 16)
+    RankGoalUserType.LEVEL_17 -> StringDesc.ResourceFormatted(MR.strings.level_header, 17)
+    RankGoalUserType.LEVEL_18 -> StringDesc.ResourceFormatted(MR.strings.level_header, 18)
+    RankGoalUserType.LEVEL_19 -> StringDesc.ResourceFormatted(MR.strings.level_header, 19)
+    RankGoalUserType.PFC -> StringDesc.ResourceFormatted(MR.strings.rank_goal_category_pfcs)
+    RankGoalUserType.COMBO -> StringDesc.ResourceFormatted(MR.strings.rank_goal_category_combo)
+    RankGoalUserType.LIFE4 -> StringDesc.ResourceFormatted(MR.strings.rank_goal_category_life4)
+    RankGoalUserType.CLEAR -> StringDesc.ResourceFormatted(MR.strings.clear)
+    RankGoalUserType.MFC -> StringDesc.ResourceFormatted(MR.strings.rank_goal_category_mfcs)
+    RankGoalUserType.SINGLE_SCORE -> StringDesc.ResourceFormatted(MR.strings.rank_goal_category_single_score)
+    RankGoalUserType.SINGLE_CLEAR -> StringDesc.ResourceFormatted(MR.strings.rank_goal_category_single_clear)
+    RankGoalUserType.SET_CLEAR -> StringDesc.ResourceFormatted(MR.strings.rank_goal_category_set_clear)
+    RankGoalUserType.CALORIES -> StringDesc.ResourceFormatted(MR.strings.rank_goal_category_calories)
+    RankGoalUserType.TRIALS -> StringDesc.ResourceFormatted(MR.strings.rank_goal_category_trials)
 }

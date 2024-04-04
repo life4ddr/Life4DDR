@@ -10,20 +10,20 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.perrigogames.life4.android.R
+import com.perrigogames.life4.MR
 import com.perrigogames.life4.android.colorRes
-import com.perrigogames.life4.android.nameRes
 import com.perrigogames.life4.enums.LadderRank
+import com.perrigogames.life4.enums.nameRes
+import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
 fun RankImageWithTitle(
     rank: LadderRank?,
     iconSize: Dp = 84.dp,
-    text: String = stringResource(rank?.nameRes ?: R.string.no_rank),
+    text: String = stringResource(rank?.nameRes ?: MR.strings.no_rank),
     style: TextStyle = MaterialTheme.typography.titleSmall,
     useRankColorText: Boolean = false,
     onClick: () -> Unit = {},
@@ -52,7 +52,7 @@ fun RankImageWithTitle(
 fun RankText(
     rank: LadderRank?,
     modifier: Modifier = Modifier,
-    text: String = stringResource(rank?.nameRes ?: R.string.no_rank),
+    text: String = stringResource(rank?.nameRes ?: MR.strings.no_rank),
     textWidth: Dp? = null,
     style: TextStyle = MaterialTheme.typography.titleSmall,
     useRankColorText: Boolean = false

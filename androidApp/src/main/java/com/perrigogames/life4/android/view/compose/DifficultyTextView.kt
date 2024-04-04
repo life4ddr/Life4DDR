@@ -5,17 +5,13 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.google.accompanist.appcompattheme.AppCompatTheme
-import com.perrigogames.life4.android.R
+import com.perrigogames.life4.MR
 import com.perrigogames.life4.android.colorRes
 import com.perrigogames.life4.enums.DifficultyClass
-import com.perrigogames.life4.enums.DifficultyClass.BASIC
-import com.perrigogames.life4.enums.DifficultyClass.BEGINNER
-import com.perrigogames.life4.enums.DifficultyClass.CHALLENGE
-import com.perrigogames.life4.enums.DifficultyClass.DIFFICULT
-import com.perrigogames.life4.enums.DifficultyClass.EXPERT
+import com.perrigogames.life4.enums.DifficultyClass.*
+import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
 fun DifficultyText(
@@ -24,7 +20,7 @@ fun DifficultyText(
     difficultyNumber: Int? = null,
 ) {
     val text = difficultyNumber?.let { diffNumber ->
-        stringResource(R.string.difficulty_string_format, difficultyClass.toString(), diffNumber)
+        stringResource(MR.strings.difficulty_string_format, difficultyClass.toString(), diffNumber)
     } ?: difficultyClass.toString()
 
     Text(
