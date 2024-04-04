@@ -6,25 +6,6 @@ import com.perrigogames.life4.data.RankGoalUserType
 import dev.icerock.moko.resources.desc.ResourceFormatted
 import dev.icerock.moko.resources.desc.StringDesc
 
-val ClearType.colorRes get() = when(this) {
-    ClearType.NO_PLAY -> MR.colors.no_play
-    ClearType.FAIL -> MR.colors.fail
-    ClearType.CLEAR -> MR.colors.clear
-    ClearType.LIFE4_CLEAR -> MR.colors.life4
-    ClearType.GOOD_FULL_COMBO -> MR.colors.good
-    ClearType.GREAT_FULL_COMBO -> MR.colors.great
-    ClearType.PERFECT_FULL_COMBO -> MR.colors.perfect
-    ClearType.MARVELOUS_FULL_COMBO -> MR.colors.marvelous
-}
-
-val DifficultyClass.colorRes get() = when(this) {
-    DifficultyClass.BEGINNER -> MR.colors.difficultyBeginner
-    DifficultyClass.BASIC -> MR.colors.difficultyBasic
-    DifficultyClass.DIFFICULT -> MR.colors.difficultyDifficult
-    DifficultyClass.EXPERT -> MR.colors.difficultyExpert
-    DifficultyClass.CHALLENGE -> MR.colors.difficultyChallenge
-}
-
 val DifficultyClass.nameRes get() = when(this) {
     DifficultyClass.BEGINNER -> MR.strings.bgsp
     DifficultyClass.BASIC -> MR.strings.bsp
@@ -173,20 +154,6 @@ val LadderRankClass.nameRes get() = when(this) {
     LadderRankClass.ONYX -> MR.strings.onyx
 }
 
-val LadderRankClass.colorRes get() = when(this) {
-    LadderRankClass.COPPER -> MR.colors.copper
-    LadderRankClass.BRONZE -> MR.colors.bronze
-    LadderRankClass.SILVER -> MR.colors.silver
-    LadderRankClass.GOLD -> MR.colors.gold
-    LadderRankClass.PLATINUM -> MR.colors.platinum
-    LadderRankClass.DIAMOND -> MR.colors.diamond
-    LadderRankClass.COBALT -> MR.colors.cobalt
-    LadderRankClass.PEARL -> MR.colors.pearl
-    LadderRankClass.AMETHYST -> MR.colors.amethyst
-    LadderRankClass.EMERALD -> MR.colors.emerald
-    LadderRankClass.ONYX -> MR.colors.onyx
-}
-
 val PlacementRank.nameRes get() = parent.nameRes
 
 val TrialRank.nameRes get() = when(this) {
@@ -252,4 +219,42 @@ fun RankGoalUserType.titleString(): StringDesc = when(this) {
     RankGoalUserType.SET_CLEAR -> StringDesc.ResourceFormatted(MR.strings.rank_goal_category_set_clear)
     RankGoalUserType.CALORIES -> StringDesc.ResourceFormatted(MR.strings.rank_goal_category_calories)
     RankGoalUserType.TRIALS -> StringDesc.ResourceFormatted(MR.strings.rank_goal_category_trials)
+}
+
+val LadderRank.colorRes get() = group.colorRes
+
+val LadderRankClass.colorRes get() = when(this) {
+    LadderRankClass.COPPER -> MR.colors.copper
+    LadderRankClass.BRONZE -> MR.colors.bronze
+    LadderRankClass.SILVER -> MR.colors.silver
+    LadderRankClass.GOLD -> MR.colors.gold
+    LadderRankClass.PLATINUM -> MR.colors.platinum
+    LadderRankClass.DIAMOND -> MR.colors.diamond
+    LadderRankClass.COBALT -> MR.colors.cobalt
+    LadderRankClass.PEARL -> MR.colors.pearl
+    LadderRankClass.AMETHYST -> MR.colors.amethyst
+    LadderRankClass.EMERALD -> MR.colors.emerald
+    LadderRankClass.ONYX -> MR.colors.onyx
+}
+
+val TrialRank.colorRes get() = parent.colorRes
+val PlacementRank.colorRes get() = parent.colorRes
+
+val DifficultyClass.colorRes get() = when(this) {
+    DifficultyClass.BEGINNER -> MR.colors.difficultyBeginner
+    DifficultyClass.BASIC -> MR.colors.difficultyBasic
+    DifficultyClass.DIFFICULT -> MR.colors.difficultyDifficult
+    DifficultyClass.EXPERT -> MR.colors.difficultyExpert
+    DifficultyClass.CHALLENGE -> MR.colors.difficultyChallenge
+}
+
+val ClearType.colorRes get() = when(this) {
+    ClearType.NO_PLAY -> MR.colors.no_play
+    ClearType.FAIL -> MR.colors.fail
+    ClearType.CLEAR -> MR.colors.clear
+    ClearType.LIFE4_CLEAR -> MR.colors.life4
+    ClearType.GOOD_FULL_COMBO -> MR.colors.good
+    ClearType.GREAT_FULL_COMBO -> MR.colors.great
+    ClearType.PERFECT_FULL_COMBO -> MR.colors.perfect
+    ClearType.MARVELOUS_FULL_COMBO -> MR.colors.marvelous
 }

@@ -1,10 +1,9 @@
 
 package com.perrigogames.life4.android
 
-import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
-import com.perrigogames.life4.data.PlacementRank
-import com.perrigogames.life4.enums.*
+import com.perrigogames.life4.enums.LadderRank
+import com.perrigogames.life4.enums.TrialRank
 
 val LadderRank.drawableRes @DrawableRes get() = when(this) {
     LadderRank.COPPER1 -> R.drawable.copper_1
@@ -64,23 +63,6 @@ val LadderRank.drawableRes @DrawableRes get() = when(this) {
     LadderRank.ONYX5 -> R.drawable.onyx_5
 }
 
-val LadderRank.colorRes @ColorRes get() = group.colorRes
-
-@Deprecated("Migrate to moko resources", replaceWith = ReplaceWith("MR.colors"))
-val LadderRankClass.colorRes @ColorRes get() = when(this) {
-    LadderRankClass.COPPER -> R.color.copper
-    LadderRankClass.BRONZE -> R.color.bronze
-    LadderRankClass.SILVER -> R.color.silver
-    LadderRankClass.GOLD -> R.color.gold
-    LadderRankClass.PLATINUM -> R.color.platinum
-    LadderRankClass.DIAMOND -> R.color.diamond
-    LadderRankClass.COBALT -> R.color.cobalt
-    LadderRankClass.PEARL -> R.color.pearl
-    LadderRankClass.AMETHYST -> R.color.amethyst
-    LadderRankClass.EMERALD -> R.color.emerald
-    LadderRankClass.ONYX -> R.color.onyx
-}
-
 val TrialRank.drawableRes @DrawableRes get() = when(this) {
     TrialRank.COPPER -> R.drawable.copper_3
     TrialRank.BRONZE -> R.drawable.bronze_3
@@ -89,34 +71,8 @@ val TrialRank.drawableRes @DrawableRes get() = when(this) {
     TrialRank.PLATINUM -> R.drawable.platinum_3
     TrialRank.DIAMOND -> R.drawable.diamond_3
     TrialRank.COBALT -> R.drawable.cobalt_3
-    TrialRank.PEARL -> R.drawable.cobalt_3 //FIXME
+    TrialRank.PEARL -> R.drawable.pearl_3
     TrialRank.AMETHYST -> R.drawable.amethyst_3
     TrialRank.EMERALD -> R.drawable.emerald_3
     TrialRank.ONYX -> R.drawable.onyx_3
-}
-
-@Deprecated("Migrate to moko resources", replaceWith = ReplaceWith("MR.colors"))
-val TrialRank.colorRes @ColorRes get() = parent.colorRes
-@Deprecated("Migrate to moko resources", replaceWith = ReplaceWith("MR.colors"))
-val PlacementRank.colorRes @ColorRes get() = parent.colorRes
-
-@Deprecated("Migrate to moko resources", replaceWith = ReplaceWith("MR.colors"))
-val DifficultyClass.colorRes @ColorRes get() = when(this) {
-    DifficultyClass.BEGINNER -> R.color.difficultyBeginner
-    DifficultyClass.BASIC -> R.color.difficultyBasic
-    DifficultyClass.DIFFICULT -> R.color.difficultyDifficult
-    DifficultyClass.EXPERT -> R.color.difficultyExpert
-    DifficultyClass.CHALLENGE -> R.color.difficultyChallenge
-}
-
-@Deprecated("Migrate to moko resources", replaceWith = ReplaceWith("MR.colors"))
-val ClearType.colorRes @ColorRes get() = when(this) {
-    ClearType.NO_PLAY -> R.color.no_play
-    ClearType.FAIL -> R.color.fail
-    ClearType.CLEAR -> R.color.clear
-    ClearType.LIFE4_CLEAR -> R.color.life4
-    ClearType.GOOD_FULL_COMBO -> R.color.good
-    ClearType.GREAT_FULL_COMBO -> R.color.great
-    ClearType.PERFECT_FULL_COMBO -> R.color.perfect
-    ClearType.MARVELOUS_FULL_COMBO -> R.color.marvelous
 }

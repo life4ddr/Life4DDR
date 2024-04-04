@@ -25,6 +25,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.perrigogames.life4.MR
 import com.perrigogames.life4.android.R
 import com.perrigogames.life4.android.compose.LIFE4Theme
 import com.perrigogames.life4.android.stringResource
@@ -137,7 +138,7 @@ fun LadderGoalItem(
             }
             if (goal.progress != null) {
                 LinearProgressIndicator(
-                    color = androidx.compose.ui.res.colorResource(R.color.colorAccent),
+                    color = colorResource(MR.colors.colorAccent),
                     trackColor = MaterialTheme.colorScheme.surface,
                     progress = goal.progress!!.progressPercent,
                     modifier = Modifier

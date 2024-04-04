@@ -8,7 +8,6 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -16,6 +15,7 @@ import com.google.accompanist.appcompattheme.AppCompatTheme
 import com.perrigogames.life4.MR
 import com.perrigogames.life4.android.R
 import com.perrigogames.life4.data.TrialEXProgress
+import dev.icerock.moko.resources.compose.colorResource
 import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
@@ -49,7 +49,7 @@ fun RunningEXScore(
                 .align(Alignment.CenterVertically)
                 .padding(horizontal = dimensionResource(R.dimen.content_padding_med))
                 .weight(1F),
-            color = colorResource(R.color.difficultyExpert),
+            color = colorResource(MR.colors.difficultyExpert),
             //FIXME background, background color, second progress
         )
         Text(text = goalText, maxLines = 1)
