@@ -231,8 +231,8 @@
     <string name="rank_goal_diff_score_aaa">AAA %s.</string>
     <string name="rank_goal_diff_average">Score an average of %s on %s.</string>
     <string name="rank_goal_mfc_points">Earn %.1f MFC Points.</string>
-    <string name="exceptions_num_modifier">"%s (except %d)"</string>
-    <string name="exceptions_songs_modifier">"%s (except %s)"</string>
+    <string name="exceptions_num_modifier">%s (except %d)</string>
+    <string name="exceptions_songs_modifier">%s (except %s)</string>
 
     <string name="all_items">all %s\'s</string>
     <string name="num_items">any %d %s\'s</string>
@@ -294,18 +294,15 @@
     <string name="confirm_refresh_song_db">Are you sure you want to refresh the local song database?\n\nYou will need to reimport your Score Manager data.</string>
 
     <!-- Format Strings -->
-    <string name="goal_progress_format">"%s / %s"</string>
-    <string name="goal_remaining_format">"%d / %d left"</string>
-    <string name="ex_score_fraction_format">"%d/%d EX"</string>
-    <string name="difficulty_string_format">"%s (%d)"</string>
-    <string name="score_string_format">"%s (%d EX)"</string>
+    <string name="goal_progress_format">%s / %s</string>
+    <string name="goal_remaining_format">%d / %d left</string>
+    <string name="ex_score_fraction_format">%d/%d EX</string>
+    <string name="difficulty_string_format">%s (%d)</string>
+    <string name="score_string_format">%s (%d EX)</string>
     <string name="ex_score_string_format">%d EX</string>
-    <string name="ex_score_progress_format">"%d / %d EX"</string>
+    <string name="ex_score_progress_format">%d / %d EX</string>
     <string name="ex_score_missing_string_format">%d EX (%d)</string>
     <string name="ex_score_missing_newline_string_format">%d EX\n(%d)</string>
-    <string name="score_string_summary_format">"%s\n%d EX"</string>
-    <string name="score_string_summary_format_advanced">"%d Miss\n%d Good\n%d Great"\n%d EX</string>
-    <string name="score_string_summary_format_expert">"%d &lt;Great\n%d Perfect"\n%d EX</string>
     <string name="author_credit_format">Created by %s</string>
     <string name="event_directions">In this event, you\'re competing against everyone with a %s Rank.  Aim for the highest combined EX Score!</string>
     <string name="event_ends_past_format">Event ended on %s</string>
