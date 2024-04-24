@@ -1,4 +1,3 @@
-@file:OptIn(ExperimentalSerializationApi::class)
 @file:UseSerializers(
     DifficultyClassSerializer::class,
     PlayStyleSerializer::class,

@@ -6,11 +6,9 @@ import com.perrigogames.life4.feature.trialrecords.TrialDatabaseHelper
 import com.perrigogames.life4.feature.trials.TrialManager
 import com.perrigogames.life4.model.BaseModel
 import kotlinx.coroutines.launch
-import kotlinx.serialization.ExperimentalSerializationApi
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-@OptIn(ExperimentalSerializationApi::class)
 class TrialSessionManager: BaseModel(), KoinComponent {
 
     private val trialManager: TrialManager by inject()

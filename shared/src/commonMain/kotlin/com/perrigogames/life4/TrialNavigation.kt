@@ -4,11 +4,9 @@ import com.perrigogames.life4.data.InProgressTrialSession
 import com.perrigogames.life4.enums.TrialRank
 import com.perrigogames.life4.feature.trialsession.TrialSessionManager
 import com.russhwolf.settings.Settings
-import kotlinx.serialization.ExperimentalSerializationApi
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-@OptIn(ExperimentalSerializationApi::class)
 abstract class TrialNavigation: KoinComponent {
 
     private val sessionManager: TrialSessionManager by inject()

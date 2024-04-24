@@ -17,12 +17,10 @@ import com.perrigogames.life4.injectLogger
 import com.perrigogames.life4.model.BaseModel
 import com.perrigogames.life4.model.ChartResultOrganizer
 import com.perrigogames.life4.model.safeScore
-import kotlinx.serialization.ExperimentalSerializationApi
 import org.koin.core.component.inject
 import kotlin.math.max
 import kotlin.math.min
 
-@OptIn(ExperimentalSerializationApi::class)
 class SongResultsManager: BaseModel() {
 
     private val logger: Logger by injectLogger("SongResultsManager")

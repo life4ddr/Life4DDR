@@ -11,9 +11,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
-import kotlinx.serialization.ExperimentalSerializationApi
 
-@OptIn(ExperimentalSerializationApi::class)
 class TrialDatabaseHelper(sqlDriver: SqlDriver): DatabaseHelper(sqlDriver) {
 
     private val queries get() = dbRef.trialQueries

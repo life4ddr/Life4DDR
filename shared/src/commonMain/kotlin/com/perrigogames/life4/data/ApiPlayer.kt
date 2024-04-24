@@ -1,10 +1,8 @@
 package com.perrigogames.life4.data
 
 import com.perrigogames.life4.enums.LadderRank
-import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.SerialName
 
-@OptIn(ExperimentalSerializationApi::class)
 class ApiPlayer(
     @SerialName("playerID") val id: Int,
     @SerialName("playerName") val name: String,

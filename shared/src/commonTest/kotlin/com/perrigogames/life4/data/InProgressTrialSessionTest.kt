@@ -1,11 +1,8 @@
-@file:OptIn(ExperimentalSerializationApi::class)
-
 package com.perrigogames.life4.data
 
 import com.perrigogames.life4.enums.TrialRank
 import com.perrigogames.life4.util.testSongResult
 import com.perrigogames.life4.util.testTrial
-import kotlinx.serialization.ExperimentalSerializationApi
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

@@ -1,4 +1,3 @@
-@file:OptIn(ExperimentalSerializationApi::class)
 @file:UseSerializers(
     TrialTypeSerializer::class,
     TrialRankSerializer::class,
@@ -26,7 +25,6 @@ import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.serializers.InstantIso8601Serializer
 import kotlinx.datetime.toLocalDateTime
-import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers

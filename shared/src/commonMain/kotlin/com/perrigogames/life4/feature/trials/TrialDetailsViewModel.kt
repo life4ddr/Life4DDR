@@ -1,6 +1,5 @@
 package com.perrigogames.life4.feature.trials
 
-//@OptIn(ExperimentalSerializationApi::class)
 //class TrialDetailsViewModel(
 //    val trial: Trial,
 //    initialRankOverride: TrialRank? = null,

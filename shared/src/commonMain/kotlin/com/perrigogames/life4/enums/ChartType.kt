@@ -16,7 +16,6 @@ data class ChartType(val style: PlayStyle,
 operator fun PlayStyle.plus(difficulty: DifficultyClass) = ChartType(this, difficulty)
 operator fun DifficultyClass.plus(style: PlayStyle) = ChartType(style, this)
 
-@ExperimentalSerializationApi
 object ChartTypeSerializer: KSerializer<ChartType> {
     override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("chartType", PrimitiveKind.STRING)
     override fun deserialize(decoder: Decoder): ChartType {

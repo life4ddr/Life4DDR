@@ -1,4 +1,3 @@
-@file:OptIn(ExperimentalSerializationApi::class)
 @file:UseSerializers(
     TrialTypeSerializer::class,
     TrialRankSerializer::class,
@@ -18,7 +17,6 @@ import com.perrigogames.life4.enums.PlayStyleSerializer
 import com.perrigogames.life4.enums.TrialRank
 import com.perrigogames.life4.enums.TrialRankSerializer
 import com.perrigogames.life4.enums.TrialTypeSerializer
-import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers

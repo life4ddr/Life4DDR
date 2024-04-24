@@ -1,7 +1,6 @@
 package com.perrigogames.life4.data
 
 import com.perrigogames.life4.enums.DifficultyClass
-import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.PrimitiveKind
 import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
@@ -50,7 +49,6 @@ data class DifficultyClassSet(
     }
 }
 
-@ExperimentalSerializationApi
 object DifficultyClassSetSerializer: KSerializer<DifficultyClassSet> {
     override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor(
         serialName = "difficultyClassSet",

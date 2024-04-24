@@ -1,9 +1,6 @@
-@file:OptIn(ExperimentalSerializationApi::class)
-
 package com.perrigogames.life4.enums
 
 import com.perrigogames.life4.enums.LadderRankClass.*
-import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.descriptors.PrimitiveKind
@@ -122,7 +119,6 @@ enum class LadderRankClass {
     }
 }
 
-@ExperimentalSerializationApi
 object LadderRankSerializer: KSerializer<LadderRank> {
     override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("ladderRank", PrimitiveKind.STRING)
     override fun deserialize(decoder: Decoder) = LadderRank.parse(decoder.decodeString())!!

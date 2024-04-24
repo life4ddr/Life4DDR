@@ -1,7 +1,6 @@
 package com.perrigogames.life4.enums
 
 import com.perrigogames.life4.data.StableId
-import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.PrimitiveKind
 import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
@@ -47,7 +46,6 @@ enum class GameVersion(override val stableId: Long): StableId {
     }
 }
 
-@ExperimentalSerializationApi
 object GameVersionSerializer: KSerializer<GameVersion> {
     override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("gameVersion", PrimitiveKind.LONG)
     override fun deserialize(decoder: Decoder) = GameVersion.parse(

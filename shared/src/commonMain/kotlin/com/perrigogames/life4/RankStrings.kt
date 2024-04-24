@@ -9,9 +9,7 @@ import dev.icerock.moko.resources.desc.Composition
 import dev.icerock.moko.resources.desc.Raw
 import dev.icerock.moko.resources.desc.ResourceFormatted
 import dev.icerock.moko.resources.desc.StringDesc
-import kotlinx.serialization.ExperimentalSerializationApi
 
-@OptIn(ExperimentalSerializationApi::class)
 object RankStrings {
     /** Burn X calories in one day. */
     fun getCalorieCountString(count: Int) = StringDesc.ResourceFormatted(MR.strings.rank_goal_calories, count)

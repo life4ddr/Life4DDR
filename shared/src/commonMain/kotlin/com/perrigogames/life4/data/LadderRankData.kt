@@ -1,4 +1,3 @@
-@file:OptIn(ExperimentalSerializationApi::class)
 @file:UseSerializers(
     PlayStyleSerializer::class,
     LadderRankSerializer::class)
@@ -73,7 +72,6 @@ data class LadderVersion(
 /**
  * Describes a single rank in [LadderRankData] and the goals required to obtain it.
  */
-@OptIn(ExperimentalSerializationApi::class)
 @Serializable
 data class RankEntry(
     val rank: LadderRank,

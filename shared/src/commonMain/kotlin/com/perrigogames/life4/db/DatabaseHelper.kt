@@ -4,9 +4,7 @@ import com.perrigogames.life4.Life4Db
 import com.perrigogames.life4.data.StableIdColumnAdapter
 import com.perrigogames.life4.enums.*
 import com.squareup.sqldelight.db.SqlDriver
-import kotlinx.serialization.ExperimentalSerializationApi
 
-@OptIn(ExperimentalSerializationApi::class)
 abstract class DatabaseHelper(private val sqlDriver: SqlDriver) {
 
     protected val dbRef = Life4Db(sqlDriver,

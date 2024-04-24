@@ -2,7 +2,6 @@ package com.perrigogames.life4.data
 
 import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.enums.LadderRankClass
-import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.PrimitiveKind
 import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
@@ -16,7 +15,6 @@ enum class PlacementRank(val stableId: Long, val parent: LadderRankClass) {
     SILVER(30, LadderRankClass.SILVER),
     GOLD(35, LadderRankClass.GOLD);
 
-    @ExperimentalSerializationApi
     fun toLadderRank() = when(this) {
         COPPER -> LadderRank.COPPER3
         BRONZE -> LadderRank.BRONZE3
@@ -25,7 +23,6 @@ enum class PlacementRank(val stableId: Long, val parent: LadderRankClass) {
     }
 }
 
-@ExperimentalSerializationApi
 object PlacementRankSerializer: KSerializer<PlacementRank> {
     override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("placementRank", PrimitiveKind.STRING)
     override fun deserialize(decoder: Decoder) = PlacementRank.valueOf(decoder.decodeString().uppercase())

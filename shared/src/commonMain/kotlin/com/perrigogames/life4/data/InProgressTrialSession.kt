@@ -10,11 +10,9 @@ import com.perrigogames.life4.enums.ClearType.PERFECT_FULL_COMBO
 import com.perrigogames.life4.enums.TrialRank
 import com.perrigogames.life4.feature.trialsession.TrialGoalSet
 import com.perrigogames.life4.util.hasCascade
-import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
 
-@OptIn(ExperimentalSerializationApi::class)
 @Serializable
 data class InProgressTrialSession(
     val trial: Trial,

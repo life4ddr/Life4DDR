@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalSerializationApi::class, ExperimentalSerializationApi::class)
-
 package com.perrigogames.life4.util
 
 import com.perrigogames.life4.data.Song
@@ -12,7 +10,6 @@ import com.perrigogames.life4.enums.TrialRank.PLATINUM
 import com.perrigogames.life4.enums.TrialRank.SILVER
 import com.perrigogames.life4.enums.TrialType
 import com.perrigogames.life4.feature.trialsession.TrialGoalSet
-import kotlinx.serialization.ExperimentalSerializationApi
 
 fun testTrial(
     songEx: List<Int> = TRIAL_SONG_EX

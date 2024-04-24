@@ -1,4 +1,3 @@
-@file:OptIn(ExperimentalSerializationApi::class)
 @file:UseSerializers(
     DifficultyClassSerializer::class,
     PlayStyleSerializer::class,
@@ -116,7 +115,6 @@ class DifficultySetGoal(
  * @param rank the [TrialRank] that the user needs to earn
  * @param count the number of trials that need to be cleared with [rank]
  */
-@OptIn(ExperimentalSerializationApi::class)
 @Serializable
 @SerialName("trial")
 class TrialStackedGoal(

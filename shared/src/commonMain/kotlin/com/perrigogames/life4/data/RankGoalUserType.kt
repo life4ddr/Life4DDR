@@ -1,12 +1,9 @@
-@file:OptIn(ExperimentalSerializationApi::class)
-
 package com.perrigogames.life4.data
 
 import com.perrigogames.life4.enums.ClearType
 import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.enums.LadderRankClass
 import com.perrigogames.life4.enums.LadderRankClass.SILVER
-import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.descriptors.PrimitiveKind
@@ -90,7 +87,6 @@ private fun Int.toLevelUserType() = when (this) {
     else -> null
 }
 
-@ExperimentalSerializationApi
 object RankGoalUserTypeSerializer: KSerializer<RankGoalUserType> {
     override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("rankGoalUserType", PrimitiveKind.STRING)
     override fun deserialize(decoder: Decoder) = RankGoalUserType.parse(decoder.decodeString())!!

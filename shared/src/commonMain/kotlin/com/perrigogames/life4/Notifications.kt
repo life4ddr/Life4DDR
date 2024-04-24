@@ -5,11 +5,9 @@ import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.enums.TrialRank
 import com.russhwolf.settings.Settings
 import dev.icerock.moko.resources.desc.StringDesc
-import kotlinx.serialization.ExperimentalSerializationApi
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-@OptIn(ExperimentalSerializationApi::class)
 abstract class Notifications: KoinComponent {
 
     protected var multiNotificationId = 2000

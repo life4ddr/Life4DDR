@@ -5,13 +5,11 @@ import com.perrigogames.life4.enums.*
 import dev.icerock.moko.resources.desc.Raw
 import dev.icerock.moko.resources.desc.ResourceFormatted
 import dev.icerock.moko.resources.desc.StringDesc
-import kotlinx.serialization.ExperimentalSerializationApi
 
 /**
  * An interface for providing text relating to LIFE4 data types to the
  * shared module.
  */
-@OptIn(ExperimentalSerializationApi::class)
 object PlatformStrings {
 
     fun nameString(rank: LadderRank) = StringDesc.ResourceFormatted(rank.nameRes)
