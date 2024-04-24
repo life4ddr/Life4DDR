@@ -33,6 +33,6 @@ enum class InitState(val key: String, val description: ResourceStringDesc) {
     ;
 
     companion object {
-        fun parse(key: String?): InitState? = values().firstOrNull { it.key == key }
+        fun parse(key: String?): InitState? = entries.firstOrNull { it.key == key }
     }
 }

@@ -84,8 +84,8 @@ class LadderImporter(
         val entryParts = entry.trim().split('\t').toMutableList()
         if (entryParts.size == 39) {
             /*val id =*/ entryParts.removeAt(0)
-            val entries = PlayStyle.values().flatMap { playStyle ->
-                DifficultyClass.values().mapNotNull { difficulty ->
+            val entries = PlayStyle.entries.flatMap { playStyle ->
+                DifficultyClass.entries.mapNotNull { difficulty ->
                     if (playStyle == DOUBLE && difficulty == BEGINNER) { null }
                     else {
                         val grade = entryParts.removeAt(0)

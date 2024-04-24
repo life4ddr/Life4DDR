@@ -58,7 +58,7 @@ fun RankImagePreviewNone() {
 fun RankImagePreviewCopper() {
     MaterialTheme {
         Column {
-            LadderRank.values()
+            LadderRank.entries
                 .groupBy { it.group }
                 .map { it.value }
                 .forEach { group ->

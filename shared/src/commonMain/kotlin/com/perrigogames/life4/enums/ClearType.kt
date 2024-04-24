@@ -28,9 +28,9 @@ enum class ClearType(override val stableId: Long, val serialized: List<String>, 
     constructor(stableId: Long, serialized: String, passing: Boolean = true): this(stableId, listOf(serialized), passing)
 
     companion object {
-        fun parse(stableId: Long?) = stableId?.let { id -> values().firstOrNull { it.stableId == id } }
+        fun parse(stableId: Long?) = stableId?.let { id -> entries.firstOrNull { it.stableId == id } }
 
-        fun parse(v: String) = values().firstOrNull { it.serialized.contains(v) }
+        fun parse(v: String) = entries.firstOrNull { it.serialized.contains(v) }
 
         /**
          * Parse the info received from a ScoreAttack update into a proper clear type

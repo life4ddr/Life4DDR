@@ -5,8 +5,10 @@ import com.perrigogames.life4.enums.DifficultyClass
 import com.perrigogames.life4.enums.PlayStyle
 import com.perrigogames.life4.enums.TrialRank
 import com.perrigogames.life4.longNumberString
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlin.random.Random
 
+@OptIn(ExperimentalSerializationApi::class)
 object UITrialMocks {
     fun createUITrialSong(
         jacketUrl: String? = "",
@@ -38,7 +40,7 @@ object UITrialMocks {
                 difficultyClass = randomDifficultyClass()
             )
         },
-        rank: TrialRank = TrialRank.values().random(),
+        rank: TrialRank = TrialRank.entries.toTypedArray().random(),
         achieved: Boolean = true,
     ) = UITrialRecord(
         trialTitleText = trialTitleText,

@@ -14,7 +14,7 @@ class RankSelectionViewModel(config: RankSelectionConfig) : ViewModel(), KoinCom
 
     init {
         _state.value = _state.value.copy(
-            ranks = LadderRank.values().toList(),
+            ranks = LadderRank.entries,
             noRank = if (config.firstRun) {
                 UINoRank.FIRST_RUN
             } else {

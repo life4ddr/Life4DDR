@@ -11,20 +11,20 @@ abstract class DatabaseHelper(private val sqlDriver: SqlDriver) {
 
     protected val dbRef = Life4Db(sqlDriver,
         ChartInfo.Adapter(
-            StableIdColumnAdapter(DifficultyClass.values()),
-            StableIdColumnAdapter(PlayStyle.values())
+            StableIdColumnAdapter(DifficultyClass.entries.toTypedArray()),
+            StableIdColumnAdapter(PlayStyle.entries.toTypedArray())
         ),
         ChartResult.Adapter(
-            StableIdColumnAdapter(ClearType.values())
+            StableIdColumnAdapter(ClearType.entries.toTypedArray())
         ),
         GoalState.Adapter(
-            StableIdColumnAdapter(GoalStatus.values())
+            StableIdColumnAdapter(GoalStatus.entries.toTypedArray())
         ),
         SongInfo.Adapter(
-            StableIdColumnAdapter(GameVersion.values())
+            StableIdColumnAdapter(GameVersion.entries.toTypedArray())
         ),
         TrialSession.Adapter(
-            StableIdColumnAdapter(TrialRank.values())
+            StableIdColumnAdapter(TrialRank.entries.toTypedArray())
         )
     )
 

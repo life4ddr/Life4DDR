@@ -39,9 +39,9 @@ fun ManualScoreInput(
             label = { Text("Song Name") },
             modifier = Modifier.fillMaxWidth(),
         )
-        CompositeDropdown(PlayStyle.values().map { it.name })
+        CompositeDropdown(PlayStyle.entries.map { it.name })
         CompositeDropdown(
-            values = DifficultyClass.values().map { it.name },
+            values = DifficultyClass.entries.map { it.name },
             initialSelected = lastDifficultyClass?.ordinal,
         )
         Divider()
@@ -51,7 +51,7 @@ fun ManualScoreInput(
             label = { Text("Score") },
             modifier = Modifier.fillMaxWidth(),
         )
-        CompositeDropdown(ClearType.values().map { it.name })
+        CompositeDropdown(ClearType.entries.map { it.name })
     }
 }
 
@@ -78,7 +78,7 @@ fun CompositeDropdown(
             onDismissRequest = { expanded = false },
             modifier = Modifier.fillMaxWidth(),
         ) {
-            PlayStyle.values().forEachIndexed { idx, style ->
+            PlayStyle.entries.forEachIndexed { idx, style ->
                 DropdownMenuItem(
                     onClick = {
                         index = idx

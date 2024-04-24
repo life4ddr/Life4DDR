@@ -18,9 +18,9 @@ class MajorUpdateManager: BaseModel() {
 
     val updates: List<MajorUpdate> by lazy {
         val currentUpdate = settings.getInt(KEY_MAJOR_UPDATE, -1)
-        val out = MajorUpdate.values().filter { it.ordinal > currentUpdate }
+        val out = MajorUpdate.entries.filter { it.ordinal > currentUpdate }
         out.forEach { logger.i("Processing upgrade ${it.name}") }
-        settings[KEY_MAJOR_UPDATE] = MajorUpdate.values().last().ordinal
+        settings[KEY_MAJOR_UPDATE] = MajorUpdate.entries.last().ordinal
         out
     }
 }

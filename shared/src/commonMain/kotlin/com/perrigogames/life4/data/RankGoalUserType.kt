@@ -38,7 +38,7 @@ enum class RankGoalUserType constructor(val serialized: String) {
     ;
 
     companion object {
-        fun parse(v: String) = values().firstOrNull { it.serialized == v }
+        fun parse(v: String) = entries.firstOrNull { it.serialized == v }
     }
 }
 

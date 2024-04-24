@@ -137,7 +137,7 @@ class SongDataManager: BaseModel() {
                                 preview = true
                                 seg.toLong()
                             }
-                        }) ?: GameVersion.values().last().also {
+                        }) ?: GameVersion.entries.last().also {
                             logException(Exception("No game version found for mix code \"$mixCode\""))
                         }
 
@@ -146,8 +146,8 @@ class SongDataManager: BaseModel() {
 
                         songs.add(SongInfo(skillId, id, title, artist, mix, preview))
                         var count = 3
-                        PlayStyle.values().forEach { style ->
-                            DifficultyClass.values().forEach { diff ->
+                        PlayStyle.entries.forEach { style ->
+                            DifficultyClass.entries.forEach { diff ->
                                 if (style != PlayStyle.DOUBLE || diff != DifficultyClass.BEGINNER) {
                                     val diffNum = data[count++].toLong()
                                     if (diffNum != -1L) {

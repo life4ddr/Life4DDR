@@ -202,7 +202,7 @@ fun TrialSongItemPreview() {
     LIFE4Theme {
         Surface(color = MaterialTheme.colorScheme.background) {
             LazyColumn {
-                items(DifficultyClass.values()) { difficulty ->
+                items(DifficultyClass.entries) { difficulty ->
                     TrialRecordSongItem(
                         song = UITrialMocks.createUITrialRecordSong(difficultyClass = difficulty),
                         modifier = Modifier.fillMaxWidth()

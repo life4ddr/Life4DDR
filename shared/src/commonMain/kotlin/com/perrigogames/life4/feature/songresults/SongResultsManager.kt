@@ -203,7 +203,7 @@ class SongResultsManager: BaseModel() {
         )
 
         val belowRequirement = (0 until goal.clearType.ordinal)
-            .flatMap { results.byClearType[ClearType.values()[it]] ?: emptyList() }
+            .flatMap { results.byClearType[ClearType.entries[it]] ?: emptyList() }
         val missingSongs = belowRequirement.size - (goal.exceptions ?: 0)
         return LadderGoalProgress(
             progress = results.results.size - missingSongs,

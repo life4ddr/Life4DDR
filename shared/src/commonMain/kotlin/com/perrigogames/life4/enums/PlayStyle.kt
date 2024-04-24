@@ -21,8 +21,8 @@ enum class PlayStyle(override val stableId: Long,
     fun aggregateString(difficultyClass: DifficultyClass) = "${difficultyClass.aggregatePrefix}$aggregateSuffix"
 
     companion object {
-        fun parse(stableId: Long?) = stableId?.let { id -> values().firstOrNull { it.stableId == id } }
-        fun parse(chartString: String): PlayStyle? = values().firstOrNull { chartString.endsWith(it.aggregateSuffix) }
+        fun parse(stableId: Long?) = stableId?.let { id -> entries.firstOrNull { it.stableId == id } }
+        fun parse(chartString: String): PlayStyle? = entries.firstOrNull { chartString.endsWith(it.aggregateSuffix) }
     }
 }
 

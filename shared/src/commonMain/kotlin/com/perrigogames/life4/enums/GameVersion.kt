@@ -35,12 +35,12 @@ enum class GameVersion(override val stableId: Long): StableId {
 
     companion object {
         fun parse(stableId: Long?) = stableId?.let { id ->
-            values().firstOrNull {
+            entries.firstOrNull {
                 it.stableId == id
             }
         }
         fun parse(name: String?) = name?.let { versionName ->
-            values().firstOrNull {
+            entries.firstOrNull {
                 versionName.lowercase().replace(" ", "_") == it.name.lowercase()
             }
         }

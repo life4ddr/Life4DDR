@@ -78,7 +78,7 @@ enum class LadderRank(
     ONYX5(stableId = 104, group = ONYX, classPosition = 5),
     ;
 
-    val next: LadderRank? get() = values().getOrNull(ordinal + 1)
+    val next: LadderRank? get() = entries.getOrNull(ordinal + 1)
 
     companion object {
         fun parse(s: String?): LadderRank? = try {
@@ -92,13 +92,13 @@ enum class LadderRank(
             }
         } catch (e: IllegalArgumentException) { null }
 
-        fun parse(stableId: Long?): LadderRank? = stableId?.let { id -> values().firstOrNull { it.stableId == id } }
+        fun parse(stableId: Long?): LadderRank? = stableId?.let { id -> entries.firstOrNull { it.stableId == id } }
     }
 }
 
 val LadderRank?.nullableNext: LadderRank?
     get() = if (this == null) {
-        LadderRank.values().first()
+        LadderRank.entries.first()
     } else { this.next }
 
 /**

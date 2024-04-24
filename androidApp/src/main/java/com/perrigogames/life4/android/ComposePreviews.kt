@@ -39,27 +39,27 @@ annotation class LightDarkModeSystemPreviews
 // region Data Providers
 
 class LadderRankParameterProvider : PreviewParameterProvider<LadderRank> {
-    override val values = LadderRank.values().asSequence()
+    override val values = LadderRank.entries.asSequence()
 }
 
 class LadderRankLevel1ParameterProvider : PreviewParameterProvider<LadderRank> {
-    override val values = LadderRank.values().filter { it.classPosition == 1 }.asSequence()
+    override val values = LadderRank.entries.filter { it.classPosition == 1 }.asSequence()
 }
 
 class LadderRankLevel2ParameterProvider : PreviewParameterProvider<LadderRank> {
-    override val values = LadderRank.values().filter { it.classPosition == 2 }.asSequence()
+    override val values = LadderRank.entries.filter { it.classPosition == 2 }.asSequence()
 }
 
 class LadderRankLevel3ParameterProvider : PreviewParameterProvider<LadderRank> {
-    override val values = LadderRank.values().filter { it.classPosition == 3 }.asSequence()
+    override val values = LadderRank.entries.filter { it.classPosition == 3 }.asSequence()
 }
 
 class LadderRankLevel4ParameterProvider : PreviewParameterProvider<LadderRank> {
-    override val values = LadderRank.values().filter { it.classPosition == 4 }.asSequence()
+    override val values = LadderRank.entries.filter { it.classPosition == 4 }.asSequence()
 }
 
 class LadderRankLevel5ParameterProvider : PreviewParameterProvider<LadderRank> {
-    override val values = LadderRank.values().filter { it.classPosition == 5 }.asSequence()
+    override val values = LadderRank.entries.filter { it.classPosition == 5 }.asSequence()
 }
 
 // endregion

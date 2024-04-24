@@ -53,7 +53,7 @@ fun RankSelection(
 @Composable
 fun RankSelection(
     modifier: Modifier = Modifier,
-    ranks: List<LadderRank?> = LadderRank.values().toList(),
+    ranks: List<LadderRank?> = LadderRank.entries,
     noRank: UINoRank = UINoRank.DEFAULT,
     initialRank: LadderRank? = null,
     onRankClicked: (LadderRank?) -> Unit = {},

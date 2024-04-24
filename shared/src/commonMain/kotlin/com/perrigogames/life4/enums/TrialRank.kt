@@ -34,7 +34,7 @@ enum class TrialRank(override val stableId: Long, val parent: LadderRank): Stabl
      * Generates a list of this and all [TrialRank]s that are higher than this.
      */
     val andUp: Array<TrialRank>
-        get() = values().let { it.copyOfRange(this.ordinal, it.size) }
+        get() = entries.toTypedArray().let { it.copyOfRange(this.ordinal, it.size) }
 
     companion object {
         fun parse(s: String?): TrialRank? = when (s) {
@@ -42,7 +42,7 @@ enum class TrialRank(override val stableId: Long, val parent: LadderRank): Stabl
             else -> valueOf(s)
         }
 
-        fun parse(stableId: Long): TrialRank? = values().firstOrNull { it.stableId == stableId }
+        fun parse(stableId: Long): TrialRank? = entries.firstOrNull { it.stableId == stableId }
 
         fun fromLadderRank(userRank: LadderRank?, parsePlatinum: Boolean) = when(userRank?.group) {
             null -> null

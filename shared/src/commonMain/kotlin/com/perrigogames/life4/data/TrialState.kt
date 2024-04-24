@@ -17,7 +17,7 @@ enum class TrialState(val jsonName: String) {
     ;
 
     companion object {
-        fun parse(string: String) = values().firstOrNull { it.jsonName == string }
+        fun parse(string: String) = entries.firstOrNull { it.jsonName == string }
     }
 }
 
