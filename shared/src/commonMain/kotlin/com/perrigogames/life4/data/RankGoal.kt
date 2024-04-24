@@ -44,7 +44,7 @@ sealed class StackedRankGoal : BaseRankGoal() {
 
     @Transient val expandedGoalCount: Int = stacks.values.maxOf { it.size }
 
-    @Transient open val expandedGoals: List<BaseRankGoal> by lazy {
+    open val expandedGoals: List<BaseRankGoal> by lazy {
         List(expandedGoalCount) { idx ->
             StackedRankGoalWrapper(this, idx)
         }

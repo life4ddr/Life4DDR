@@ -20,7 +20,6 @@ data class LadderRankData(
     @SerialName("game_versions") val gameVersions: Map<GameVersion, LadderVersion>,
 ): MajorVersioned {
 
-    @Transient
     private val wrappedGoals: List<BaseRankGoal> by lazy {
         goals.filterIsInstance<StackedRankGoal>()
             .flatMap { it.expandedGoals }
