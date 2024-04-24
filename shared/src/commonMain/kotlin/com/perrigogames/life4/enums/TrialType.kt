@@ -15,7 +15,6 @@ enum class TrialType {
 }
 
 @ExperimentalSerializationApi
-@Serializer(forClass = TrialType::class)
 object TrialTypeSerializer: KSerializer<TrialType> {
     override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("trialType", PrimitiveKind.STRING)
     override fun deserialize(decoder: Decoder) = TrialType.valueOf(decoder.decodeString().uppercase())

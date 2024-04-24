@@ -28,7 +28,6 @@ enum class PlayStyle(override val stableId: Long,
 }
 
 @ExperimentalSerializationApi
-@Serializer(forClass = PlayStyle::class)
 object PlayStyleSerializer: KSerializer<PlayStyle> {
     override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("playStyle", PrimitiveKind.STRING)
     override fun deserialize(decoder: Decoder) = decoder.decodeString().let {

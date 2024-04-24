@@ -27,7 +27,6 @@ enum class PlacementRank(val stableId: Long, val parent: LadderRankClass) {
 }
 
 @ExperimentalSerializationApi
-@Serializer(forClass = PlacementRank::class)
 object PlacementRankSerializer: KSerializer<PlacementRank> {
     override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("placementRank", PrimitiveKind.STRING)
     override fun deserialize(decoder: Decoder) = PlacementRank.valueOf(decoder.decodeString().uppercase())

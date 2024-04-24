@@ -92,7 +92,6 @@ private fun Int.toLevelUserType() = when (this) {
 }
 
 @ExperimentalSerializationApi
-@Serializer(forClass = RankGoalUserType::class)
 object RankGoalUserTypeSerializer: KSerializer<RankGoalUserType> {
     override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("rankGoalUserType", PrimitiveKind.STRING)
     override fun deserialize(decoder: Decoder) = RankGoalUserType.parse(decoder.decodeString())!!

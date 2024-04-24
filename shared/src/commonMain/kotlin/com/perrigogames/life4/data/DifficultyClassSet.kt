@@ -52,7 +52,6 @@ data class DifficultyClassSet(
 }
 
 @ExperimentalSerializationApi
-@Serializer(forClass = DifficultyClassSet::class)
 object DifficultyClassSetSerializer: KSerializer<DifficultyClassSet> {
     override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor(
         serialName = "difficultyClassSet",

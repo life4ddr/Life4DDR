@@ -31,7 +31,6 @@ enum class DifficultyClass(override val stableId: Long,
 }
 
 @ExperimentalSerializationApi
-@Serializer(forClass = DifficultyClass::class)
 object DifficultyClassSerializer: KSerializer<DifficultyClass> {
     override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("difficultyClass", PrimitiveKind.STRING)
     override fun deserialize(decoder: Decoder) = decoder.decodeString().let {

@@ -49,7 +49,6 @@ enum class GameVersion(override val stableId: Long): StableId {
 }
 
 @ExperimentalSerializationApi
-@Serializer(forClass = GameVersion::class)
 object GameVersionSerializer: KSerializer<GameVersion> {
     override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("gameVersion", PrimitiveKind.LONG)
     override fun deserialize(decoder: Decoder) = GameVersion.parse(

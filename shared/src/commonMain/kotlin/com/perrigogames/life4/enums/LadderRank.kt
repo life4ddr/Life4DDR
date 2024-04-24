@@ -124,7 +124,6 @@ enum class LadderRankClass {
 }
 
 @ExperimentalSerializationApi
-@Serializer(forClass = LadderRank::class)
 object LadderRankSerializer: KSerializer<LadderRank> {
     override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("ladderRank", PrimitiveKind.STRING)
     override fun deserialize(decoder: Decoder) = LadderRank.parse(decoder.decodeString())!!
