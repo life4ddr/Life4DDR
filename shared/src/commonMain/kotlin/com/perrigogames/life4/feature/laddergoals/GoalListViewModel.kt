@@ -1,6 +1,5 @@
 package com.perrigogames.life4.feature.laddergoals
 
-import com.perrigogames.life4.PlatformStrings
 import com.perrigogames.life4.data.RankEntry
 import com.perrigogames.life4.enums.GoalStatus
 import com.perrigogames.life4.enums.LadderRank
@@ -25,7 +24,6 @@ class GoalListViewModel(private val config: GoalListConfig) : ViewModel(), KoinC
     private val ladderDataManager: LadderDataManager by inject()
     private val goalStateManager: GoalStateManager by inject()
     private val songResultsManager: SongResultsManager by inject()
-    private val platformStrings: PlatformStrings by inject()
     private val ladderGoalMapper: LadderGoalMapper by inject()
 
     private val _state = MutableStateFlow<ViewState<UILadderData, String>>(ViewState.Loading).cMutableStateFlow()

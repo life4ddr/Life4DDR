@@ -4,12 +4,8 @@ import com.perrigogames.life4.GameConstants
 import com.perrigogames.life4.TrialStrings
 import com.perrigogames.life4.data.Trial
 import com.perrigogames.life4.enums.ClearType
-import com.perrigogames.life4.model.BaseModel
-import org.koin.core.component.inject
 
-class TrialGoalStringProvider: BaseModel() {
-
-    private val strings: TrialStrings by inject()
+object TrialGoalStrings {
 
     fun generateSingleGoalString(goalSet: TrialGoalSet, trial: Trial) = StringBuilder().apply {
         generateGoalStrings(goalSet, trial).forEachIndexed { idx, s ->
@@ -21,12 +17,12 @@ class TrialGoalStringProvider: BaseModel() {
         generateClearGoalStrings(goalSet, trial, list)
         generateSpecificScoreGoalStrings(goalSet, trial, list)
         generateScoreGoalStrings(goalSet, list)
-        goalSet.miss?.let { list.add(strings.allowedTotalMisses(it)) }
-        goalSet.missEach?.let { list.add(strings.allowedSongMisses(it)) }
-        goalSet.judge?.let { list.add(strings.allowedBadJudgments(it)) }
-        goalSet.exMissing?.let { list.add(strings.allowedMissingExScore(it, trial.totalEx)) }
+        goalSet.miss?.let { list.add(TrialStrings.allowedTotalMisses(it)) }
+        goalSet.missEach?.let { list.add(TrialStrings.allowedSongMisses(it)) }
+        goalSet.judge?.let { list.add(TrialStrings.allowedBadJudgments(it)) }
+        goalSet.exMissing?.let { list.add(TrialStrings.allowedMissingExScore(it, trial.totalEx)) }
         if (list.size == 0) {
-            list.add(strings.clearTrial())
+            list.add(TrialStrings.clearTrial())
         }
     }
 
@@ -40,7 +36,7 @@ class TrialGoalStringProvider: BaseModel() {
             var setType: ClearType? = null
             var chainEnd: Int? = null
             if (clears.all { it == clears[0] }) {
-                output.add(strings.clearEverySong(clears[0]))
+                output.add(TrialStrings.clearEverySong(clears[0]))
             } else {
                 clears.forEachIndexed { idx, type ->
                     if (setType == null) { // first non-fail sets the type
@@ -57,7 +53,7 @@ class TrialGoalStringProvider: BaseModel() {
                         }
                     }
                 }
-                output.add(strings.clearFirstCountSongs(setType!!, chainEnd!!))
+                output.add(TrialStrings.clearFirstCountSongs(setType!!, chainEnd!!))
             }
         }
     }
@@ -72,11 +68,11 @@ class TrialGoalStringProvider: BaseModel() {
             val allSongs = scores.size == GameConstants.TRIAL_LENGTH
 
             if (scoreGroups.size == 1 && allSongs) {
-                output.add(strings.scoreEverySong(scores[0]))
+                output.add(TrialStrings.scoreEverySong(scores[0]))
             } else {
                 scoreGroups.keys.sortedDescending().forEach { score ->
                     if (score != 0) {
-                        output.add(strings.scoreSingleSong(score, StringBuilder().also { builder ->
+                        output.add(TrialStrings.scoreSingleSong(score, StringBuilder().also { builder ->
                             val names = scoreGroups[score]!!.map { trial.songs[it].name }
                             names.forEachIndexed { index, name ->
                                 if (index != 0) {
@@ -103,15 +99,15 @@ class TrialGoalStringProvider: BaseModel() {
 
             if (scoreCounts.size == 1) {
                 output.add(when {
-                    allSongs -> strings.scoreEverySong(minimumScore)
-                    else -> strings.scoreCountSongs(minimumScore, scoreCounts[minimumScore]!!)
+                    allSongs -> TrialStrings.scoreEverySong(minimumScore)
+                    else -> TrialStrings.scoreCountSongs(minimumScore, scoreCounts[minimumScore]!!)
                 })
             } else {
                 scoreCounts.keys.sortedDescending().forEachIndexed { index, score ->
                     output.add(when {
-                        score == minimumScore && allSongs -> strings.scoreEveryOtherSong(score)
-                        index == 0 -> strings.scoreCountSongs(score, scoreCounts[score]!!)
-                        else -> strings.scoreCountOtherSongs(score, scoreCounts[score]!!)
+                        score == minimumScore && allSongs -> TrialStrings.scoreEveryOtherSong(score)
+                        index == 0 -> TrialStrings.scoreCountSongs(score, scoreCounts[score]!!)
+                        else -> TrialStrings.scoreCountOtherSongs(score, scoreCounts[score]!!)
                     })
                 }
             }
