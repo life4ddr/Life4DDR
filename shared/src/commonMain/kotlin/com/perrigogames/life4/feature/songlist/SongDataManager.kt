@@ -17,18 +17,18 @@ import com.perrigogames.life4.feature.songresults.ChartResultPair
 import com.perrigogames.life4.feature.songresults.matches
 import com.perrigogames.life4.injectLogger
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.SONGS_FILE_NAME
-import com.perrigogames.life4.logException
 import com.perrigogames.life4.model.BaseModel
 import com.perrigogames.life4.model.MajorUpdate
 import com.perrigogames.life4.model.MajorUpdateManager
 import com.russhwolf.settings.Settings
 import com.russhwolf.settings.set
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import org.koin.core.component.inject
 import org.koin.core.qualifier.named
-
 
 /**
  * A Manager class that keeps track of the available songs
@@ -41,7 +41,7 @@ class SongDataManager: BaseModel() {
     private val dataReader: LocalDataReader by inject(named(SONGS_FILE_NAME))
     private val logger: Logger by injectLogger("SongDataManager")
 
-    private val remoteData = SongListRemoteData(dataReader)
+    private val data = SongListRemoteData(dataReader)
 //        override fun onDataLoaded(data: SongList) {
 //            refreshMemoryData()
 //        }
@@ -50,7 +50,9 @@ class SongDataManager: BaseModel() {
 //            refreshSongDatabase(data)
 //        }
 
-    val dataVersionString get() = remoteData.versionState.value.versionString
+
+    val dataVersionString: Flow<String> =
+        data.versionState.map { it.versionString }
 
     lateinit var songs: List<SongInfo>
     @Deprecated("Use libraryFlow instead")
@@ -65,7 +67,7 @@ class SongDataManager: BaseModel() {
 
     internal fun start(callback: (() -> Unit)?) {
         this.callback = callback
-        remoteData.start()
+        data.start()
         if (majorUpdates.updates.contains(MajorUpdate.SONG_DB)) { // initial launch
             refreshSongDatabase(delete = true)
         } else {
@@ -106,7 +108,7 @@ class SongDataManager: BaseModel() {
     // Song List Management
     //
     internal fun refreshSongDatabase(
-        input: SongList = remoteData.dataState.value.unwrapLoaded()!!,
+        input: SongList = data.dataState.value.unwrapLoaded()!!,
         force: Boolean = false,
         delete: Boolean = false,
     ) {
@@ -138,7 +140,7 @@ class SongDataManager: BaseModel() {
                                 seg.toLong()
                             }
                         }) ?: GameVersion.entries.last().also {
-                            logException(Exception("No game version found for mix code \"$mixCode\""))
+                            logger.e { "No game version found for mix code \"$mixCode\"" }
                         }
 
                         val title = data[12]

@@ -1,9 +1,9 @@
 package com.perrigogames.life4.feature.trials
 
-import com.perrigogames.life4.SettingsKeys.KEY_LIST_HIGHLIGHT_NEW
-import com.perrigogames.life4.SettingsKeys.KEY_LIST_HIGHLIGHT_UNPLAYED
-import com.perrigogames.life4.SettingsKeys.KEY_LIST_SHOW_EX
-import com.perrigogames.life4.SettingsKeys.KEY_LIST_TINT_COMPLETED
+import com.perrigogames.life4.SettingsKeys.KEY_TRIAL_LIST_HIGHLIGHT_NEW
+import com.perrigogames.life4.SettingsKeys.KEY_TRIAL_LIST_HIGHLIGHT_UNPLAYED
+import com.perrigogames.life4.SettingsKeys.KEY_TRIAL_LIST_SHOW_EX
+import com.perrigogames.life4.SettingsKeys.KEY_TRIAL_LIST_TINT_COMPLETED
 import com.perrigogames.life4.data.Trial
 import com.perrigogames.life4.data.TrialState
 import com.perrigogames.life4.db.SelectBestSessions
@@ -28,10 +28,10 @@ class TrialListViewModel : ViewModel(), KoinComponent {
     val state: StateFlow<UITrialList?> = _state
 
     init {
-        val tintCompleted = settings.getBoolean(KEY_LIST_TINT_COMPLETED, true)
-        val showEx = settings.getBoolean(KEY_LIST_SHOW_EX, true)
-        val highlightNew = settings.getBoolean(KEY_LIST_HIGHLIGHT_NEW, true)
-        val highlightUnplayed = settings.getBoolean(KEY_LIST_HIGHLIGHT_UNPLAYED, true)
+        val tintCompleted = settings.getBoolean(KEY_TRIAL_LIST_TINT_COMPLETED, true)
+        val showEx = settings.getBoolean(KEY_TRIAL_LIST_SHOW_EX, true)
+        val highlightNew = settings.getBoolean(KEY_TRIAL_LIST_HIGHLIGHT_NEW, true)
+        val highlightUnplayed = settings.getBoolean(KEY_TRIAL_LIST_HIGHLIGHT_UNPLAYED, true)
 
         combine(
             trialManager.trialsFlow,

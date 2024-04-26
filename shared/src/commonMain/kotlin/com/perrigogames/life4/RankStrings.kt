@@ -190,8 +190,8 @@ object RankStrings {
         "L$diffNum${higherDiffNumSuffix(allowsHigherDiffNum)}",
     )
 
-    fun higherDiffNumSuffix(allowsHigherDiffNum: Boolean): StringDesc = StringDesc.Raw(when (allowsHigherDiffNum) {
+    fun higherDiffNumSuffix(allowsHigherDiffNum: Boolean): String = when (allowsHigherDiffNum) {
         true -> "+"
-        false ->""
-    })
+        false -> ""
+    }
 }

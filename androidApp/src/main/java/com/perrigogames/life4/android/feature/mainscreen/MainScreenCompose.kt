@@ -21,8 +21,12 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.perrigogames.life4.android.activity.profile.PlayerProfileScreen
+import com.perrigogames.life4.android.feature.ladder.LadderGoalsScreen
 import com.perrigogames.life4.android.feature.trial.TrialListScreen
+import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.feature.profile.MainScreenViewModel
+import com.perrigogames.life4.feature.profile.PlayerProfileAction
 import com.perrigogames.life4.feature.profile.ProfileScreen
 import dev.icerock.moko.mvvm.createViewModelFactory
 
@@ -69,16 +73,16 @@ fun MainScreen(
     ) { innerPadding ->
         NavHost(profileNavController, startDestination = ProfileScreen.Profile.route, Modifier.padding(innerPadding)) {
             composable(ProfileScreen.Profile.route) {
-                Text(
-                    text = "Profile",
-                    modifier = Modifier.fillMaxSize(),
-                )
+                PlayerProfileScreen { action ->
+                    when (action) {
+                        PlayerProfileAction.ChangeRank -> TODO()
+                    }
+                }
             }
 
             composable(ProfileScreen.Scores.route) {
-                Text(
-                    text = "Scores",
-                    modifier = Modifier.fillMaxSize(),
+                LadderGoalsScreen(
+                    targetRank = LadderRank.COPPER1
                 )
             }
 

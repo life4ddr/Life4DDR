@@ -1,9 +1,11 @@
 package com.perrigogames.life4.feature.profile
 
+import co.touchlab.kermit.Logger
 import com.perrigogames.life4.GameConstants
 import com.perrigogames.life4.SettingsKeys
 import com.perrigogames.life4.data.SocialNetwork
 import com.perrigogames.life4.enums.LadderRank
+import com.perrigogames.life4.injectLogger
 import com.perrigogames.life4.model.settings.SettingsManager
 import com.russhwolf.settings.ExperimentalSettingsApi
 import kotlinx.coroutines.flow.*
@@ -11,6 +13,8 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalSettingsApi::class)
 class UserInfoSettings : SettingsManager() {
+
+    private val logger: Logger by injectLogger("UserInfoSettings")
 
     val userName: StateFlow<String> = settings.getStringFlow(SettingsKeys.KEY_INFO_NAME, "")
         .stateIn(mainScope, SharingStarted.Eagerly, "")
@@ -35,6 +39,7 @@ class UserInfoSettings : SettingsManager() {
             .map { settingsString ->
                 settingsString.split(SOCIAL_LINE_DELIM)
                     .map { it.split(SOCIAL_ENTRY_DELIM) }
+                    .filter { it.size == 2 }
                     .associate { SocialNetwork.parse(it[0]) to it[1] }
             }
             .stateIn(mainScope, SharingStarted.Eagerly, emptyMap())

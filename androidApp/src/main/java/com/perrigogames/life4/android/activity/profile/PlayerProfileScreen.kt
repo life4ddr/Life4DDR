@@ -45,32 +45,6 @@ fun PlayerProfileScreen(
 
     Column {
         PlayerProfileInfo(state = playerInfoViewState)
-        Row(
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            val modifier = Modifier
-                .weight(1f)
-                .aspectRatio(2f)
-            SizedSpacer(16.dp)
-            ProfileButton(
-                title = stringResource(MR.strings.trials.resourceId),
-                icon = R.drawable.life4_trials_logo_invert,
-                corner = TrialJacketCorner.NONE,
-                iconScale = 1.3f,
-                modifier = modifier,
-                onClick = { onAction(PlayerProfileAction.Trials) },
-            )
-            SizedSpacer(16.dp)
-            ProfileButton(
-                title = stringResource(MR.strings.title_activity_settings.resourceId),
-                icon = R.drawable.ic_cogwheel,
-                corner = TrialJacketCorner.NONE,
-                iconScale = 0.8f,
-                modifier = modifier,
-                onClick = { onAction(PlayerProfileAction.Settings) },
-            )
-            SizedSpacer(16.dp)
-        }
 
         if (goalData != null) {
             LadderGoals(
@@ -117,50 +91,6 @@ fun PlayerProfileInfo(
             )
         }
     }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun ProfileButton(
-    title: String,
-    @DrawableRes icon: Int,
-    corner: TrialJacketCorner,
-    iconScale: Float = 1f,
-    modifier: Modifier = Modifier,
-    onClick: () -> Unit,
-) {
-    Card(
-        onClick = onClick,
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceVariant
-        ),
-        content = {
-            Box(
-                modifier = Modifier.fillMaxSize()
-            ) {
-                Text(
-                    text = title.toUpperCase(Locale.current),
-                    style = Typography.titleMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    modifier = Modifier.align(Alignment.TopStart)
-                        .padding(horizontal = 8.dp, vertical = 2.dp),
-                )
-                Image(
-                    painter = painterResource(icon),
-                    contentDescription = "$title button",
-                    contentScale = ContentScale.Fit,
-                    colorFilter = ColorFilter.lighting(multiply = Color.White, add = Color.White),
-                    modifier = Modifier.align(Alignment.Center)
-                        .padding(top = 4.dp)
-                        .fillMaxSize(0.5f * iconScale),
-                )
-                corner?.let {
-                    // FIXME
-                }
-            }
-        },
-        modifier = modifier,
-    )
 }
 
 @Composable

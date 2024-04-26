@@ -33,6 +33,7 @@ enum class IgnoreUnlockType {
 data class IgnoreListData(
     val lists: List<IgnoreList>,
     val groups: List<IgnoreGroup>,
+    @SerialName("default_ignore_list") val defaultIgnoreList: String,
     override val version: Int,
     @SerialName("major_version") override val majorVersion: Int,
 ): MajorVersioned {
@@ -44,7 +45,7 @@ data class IgnoreListData(
             return mGroupMap!!
         }
 
-    fun evaluateIgnoreLists() = lists.forEach { it.evaluateSongGroups(groups) }
+    fun evaluateIgnoreLists() = copy(lists = lists.map { it.evaluateSongGroups(groups) })
 
     companion object {
         const val IGNORE_LIST_MAJOR_VERSION = 1
@@ -78,11 +79,9 @@ data class IgnoreList(
     val songs: List<IgnoredSong> = emptyList(),
     @SerialName("locked_groups") val lockedGroups: List<String> = emptyList(),
     @SerialName("base_version") val baseVersion: GameVersion,
+    @Transient val allIgnores: List<IgnoredSong>? = null,
 ) {
-
-    @Transient var allIgnores: MutableList<IgnoredSong>? = null
-
-    fun evaluateSongGroups(groupMap: List<IgnoreGroup>) {
+    fun evaluateSongGroups(groupMap: List<IgnoreGroup>): IgnoreList = copy(
         allIgnores = mutableListOf<IgnoredSong>().also { resolved ->
             resolved.addAll(songs)
             lockedGroups.map { id -> groupMap.firstOrNull { it.id == id } ?: error("Undefined group $id") }
@@ -92,8 +91,8 @@ data class IgnoreList(
             groups.map { id -> groupMap.firstOrNull { it.id == id } ?: error("Undefined group $id") }
                 .flatMap { it.songs }
                 .let { resolved.addAll(it) }
-        }
-    }
+        }.toList()
+    )
 }
 
 @Serializable

@@ -9,6 +9,8 @@ import dev.icerock.moko.mvvm.flow.cMutableStateFlow
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
@@ -23,13 +25,23 @@ class VersionsDialogViewModel : ViewModel(), KoinComponent {
     val state: StateFlow<VersionsDialogState> = _state
 
     init {
-        _state.value = VersionsDialogState(
-            ignoreListVersion = ignoreListManager.dataVersionString,
-            ladderDataVersion = ladderDataManager.dataVersionString,
-            motdVersion = motdManager.dataVersionString,
-            songListVersion = songDataManager.dataVersionString,
-            trialDataVersion = trialManager.dataVersionString
-        )
+        viewModelScope.launch {
+            combine(
+                ignoreListManager.dataVersionString,
+                ladderDataManager.dataVersionString,
+                motdManager.dataVersionString,
+                songDataManager.dataVersionString,
+                trialManager.dataVersionString,
+            ) { ignoreVersion, ladderVersion, motdVersion, songDataVersion, trialVersion ->
+                _state.value = VersionsDialogState(
+                    ignoreListVersion = ignoreVersion,
+                    ladderDataVersion = ladderVersion,
+                    motdVersion = motdVersion,
+                    songListVersion = songDataVersion,
+                    trialDataVersion = trialVersion
+                )
+            }
+        }
     }
 }
 

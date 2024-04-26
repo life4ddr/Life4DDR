@@ -22,9 +22,7 @@ class PlayerProfileViewModel : ViewModel(), KoinComponent {
     val playerInfoViewState: StateFlow<PlayerInfoViewState> = _playerInfoViewState
 
     val goalListViewModel = GoalListViewModel(
-        GoalListConfig(
-            targetRankFlow = userRankManager.targetRank
-        )
+        GoalListConfig()
     )
 
     init {
@@ -50,6 +48,4 @@ data class PlayerInfoViewState(
 
 sealed class PlayerProfileAction {
     object ChangeRank: PlayerProfileAction()
-    object Settings: PlayerProfileAction()
-    object Trials: PlayerProfileAction()
 }

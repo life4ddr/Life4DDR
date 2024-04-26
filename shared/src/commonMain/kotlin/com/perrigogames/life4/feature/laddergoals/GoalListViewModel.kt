@@ -1,9 +1,13 @@
 package com.perrigogames.life4.feature.laddergoals
 
+import androidx.compose.runtime.collectAsState
+import co.touchlab.kermit.Logger
 import com.perrigogames.life4.data.RankEntry
 import com.perrigogames.life4.enums.GoalStatus
 import com.perrigogames.life4.enums.LadderRank
+import com.perrigogames.life4.feature.profile.UserRankManager
 import com.perrigogames.life4.feature.songresults.SongResultsManager
+import com.perrigogames.life4.injectLogger
 import com.perrigogames.life4.model.GoalStateManager
 import com.perrigogames.life4.model.LadderDataManager
 import com.perrigogames.life4.model.mapping.LadderGoalMapper
@@ -12,9 +16,7 @@ import com.perrigogames.life4.util.ifNull
 import com.perrigogames.life4.util.toViewState
 import dev.icerock.moko.mvvm.flow.cMutableStateFlow
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -25,39 +27,49 @@ class GoalListViewModel(private val config: GoalListConfig) : ViewModel(), KoinC
     private val goalStateManager: GoalStateManager by inject()
     private val songResultsManager: SongResultsManager by inject()
     private val ladderGoalMapper: LadderGoalMapper by inject()
+    private val userRankManager: UserRankManager by inject()
+    private val logger: Logger by injectLogger("GoalListViewModel")
+
+    private val targetRankFlow = config.targetRank
+        ?.let { flowOf(it) }
+        ?: userRankManager.targetRank
+
+    private val requirementsFlow = targetRankFlow
+        .flatMapLatest { targetRank ->
+            ladderDataManager.requirementsForRank(targetRank)
+        }
+        .onEach { logger.v { "requirementsFlow -> $it" } }
 
     private val _state = MutableStateFlow<ViewState<UILadderData, String>>(ViewState.Loading).cMutableStateFlow()
     val state: StateFlow<ViewState<UILadderData, String>> = _state
 
-    private lateinit var entry: RankEntry
+    private var entry: RankEntry? = null
 
     init {
         viewModelScope.launch {
-            config.targetRankFlow.collect { rank ->
-                if (rank == null) {
-                    _state.value = ViewState.Error("No higher goals found...")
-                    return@collect
-                }
-//                ladderDataManager.findRankEntry(rank)
-//                    ?.also { entry = it }
-//                    .ifNull {
-//                        _state.value = ViewState.Error("No goals found for ${rank.name}")
-//                        return@collect
-//                    }
-                _state.value = ViewState.Success(
-                    UILadderData(
-                        goals = UILadderGoals.SingleList(
-                            items = entry.goals.map(ladderGoalMapper::toViewData)
+            combine(
+                targetRankFlow,
+                requirementsFlow,
+            ) { targetRank, requirements ->
+                entry = requirements
+                when {
+                    targetRank == null -> ViewState.Error("No higher goals found...")
+                    requirements == null -> ViewState.Error("No goals found for ${targetRank.name}")
+                    else -> ViewState.Success(
+                        UILadderData(
+                            goals = UILadderGoals.SingleList(
+                                items = requirements.goals.map(ladderGoalMapper::toViewData)
+                            )
                         )
                     )
-                )
-            }
+                }
+            }.collect { _state.value = it }
         }
     }
 
     fun handleAction(action: RankListAction) = when(action) {
         is RankListAction.OnGoal -> {
-            val goal = entry.allGoals.firstOrNull { it.id.toLong() == action.id }.ifNull { return@ifNull }
+            val goal = entry?.allGoals?.firstOrNull { it.id.toLong() == action.id }.ifNull { return }
             val state = goalStateManager.getOrCreateGoalState(action.id)
 
             when (action) {
@@ -106,11 +118,11 @@ class GoalListViewModel(private val config: GoalListConfig) : ViewModel(), KoinC
         _state.value = block(loadedState!!.copy()).toViewState()
     }
 
-    private fun findGoal(id: Int) = entry.allGoals.firstOrNull { it.id == id }
+    private fun findGoal(id: Int) = entry?.allGoals?.firstOrNull { it.id == id }
 }
 
 data class GoalListConfig(
-    val targetRankFlow: Flow<LadderRank?>
+    val targetRank: LadderRank? = null
 )
 
 sealed class RankListAction {

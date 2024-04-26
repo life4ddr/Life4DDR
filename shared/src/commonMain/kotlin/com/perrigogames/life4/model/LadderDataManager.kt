@@ -3,8 +3,17 @@ package com.perrigogames.life4.model
 import com.perrigogames.life4.LadderDialogs
 import com.perrigogames.life4.api.LadderRemoteData
 import com.perrigogames.life4.api.base.LocalDataReader
+import com.perrigogames.life4.api.base.unwrapLoaded
+import com.perrigogames.life4.data.LadderRankData
+import com.perrigogames.life4.data.LadderVersion
+import com.perrigogames.life4.data.RankEntry
+import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.feature.songlist.IgnoreListManager
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.RANKS_FILE_NAME
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.map
 import org.koin.core.component.inject
 import org.koin.core.qualifier.named
 
@@ -20,7 +29,7 @@ class LadderDataManager: BaseModel() {
     //
     // Ladder Data
     //
-    private val ladderDataRemote = LadderRemoteData(dataReader).apply { start() }
+    private val data = LadderRemoteData(dataReader).apply { start() }
 //        override fun onDataVersionChanged(data: LadderRankData) {
 //            ladderDialogs.showLadderUpdateToast()
             // FIXME eventBus.post(LadderRanksReplacedEvent())
@@ -30,25 +39,22 @@ class LadderDataManager: BaseModel() {
             // FIXME eventBus.postSticky(DataRequiresAppUpdateEvent())
 //        }
 
-    val dataVersionString get() = ladderDataRemote.versionState.value.versionString
+    val dataVersionString: Flow<String> =
+        data.versionState.map { it.versionString }
 
-//    private val ladderData: LadderRankData get() = ladderDataRemote.dataState.value.unwrapLoaded()!!
-//    val currentRequirements: LadderVersion
-//        get() = ignoreListManager.selectedIgnoreList.baseVersion.let { version ->
-//            ladderData.gameVersions[version] ?: error("Rank requirements not found for version $version")
-//        }
-//    private val rankRequirements get() = currentRequirements.rankRequirements
+    private val _ladderData: Flow<LadderRankData?> =
+        data.dataState.unwrapLoaded()
 
-    //
-    // Rank Navigation
-    //
-//    fun findRankEntry(rank: LadderRank?) = rankRequirements.firstOrNull { it.rank == rank }
-//
-//    fun previousEntry(rank: LadderRank?) = previousEntry(rankRequirements.indexOfFirst { it.rank == rank })
-//
-//    fun previousEntry(index: Int) = rankRequirements.getOrNull(index - 1)
-//
-//    fun nextEntry(rank: LadderRank?) = nextEntry(rankRequirements.indexOfFirst { it.rank == rank })
-//
-//    fun nextEntry(index: Int) = rankRequirements.getOrNull(index + 1)
+    private val _ladderDataForGameVersion: Flow<LadderVersion?> =
+        combine(
+            _ladderData.filterNotNull(),
+            ignoreListManager.currentGameVersionFlow
+        ) { ladderData, currentGameVersion ->
+            ladderData.gameVersions[currentGameVersion]
+        }
+
+    fun requirementsForRank(rank: LadderRank?): Flow<RankEntry?> =
+        _ladderDataForGameVersion.map {
+            it?.rankRequirements?.firstOrNull { reqs -> reqs.rank == rank }
+        }
 }

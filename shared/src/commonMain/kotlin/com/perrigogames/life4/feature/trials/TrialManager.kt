@@ -1,20 +1,21 @@
 package com.perrigogames.life4.feature.trials
 
+import co.touchlab.kermit.Logger
 import com.perrigogames.life4.Notifications
 import com.perrigogames.life4.api.TrialRemoteData
 import com.perrigogames.life4.api.base.LocalDataReader
 import com.perrigogames.life4.data.Trial
 import com.perrigogames.life4.feature.trialrecords.TrialDatabaseHelper
+import com.perrigogames.life4.injectLogger
 import com.perrigogames.life4.isDebug
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.TRIALS_FILE_NAME
-import com.perrigogames.life4.logException
 import com.perrigogames.life4.model.BaseModel
-import com.perrigogames.life4.setCrashInt
-import com.perrigogames.life4.setCrashString
 import com.russhwolf.settings.Settings
 import dev.icerock.moko.mvvm.flow.cMutableStateFlow
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.map
 import org.koin.core.component.inject
 import org.koin.core.qualifier.named
 
@@ -30,8 +31,9 @@ class TrialManager: BaseModel() {
     private val notifications: Notifications by inject()
     private val dbHelper: TrialDatabaseHelper by inject()
     private val dataReader: LocalDataReader by inject(named(TRIALS_FILE_NAME))
+    private val logger: Logger by injectLogger("TrialManager")
 
-    private var trialData = TrialRemoteData(dataReader)
+    private var data = TrialRemoteData(dataReader)
 
 //    override fun onDataVersionChanged(data: TrialData) {
 //        notifications.showToast("${data.trials.size} Trials found!")
@@ -42,7 +44,8 @@ class TrialManager: BaseModel() {
 //        // FIXME eventBus.postSticky(DataRequiresAppUpdateEvent())
 //    }
 
-    val dataVersionString get() = trialData.versionState.value.versionString
+    val dataVersionString: Flow<String> =
+        data.versionState.map { it.versionString }
 
     val trials get() = trialsFlow.value
     val hasEventTrial get() = trials.count { it.isActiveEvent } > 0
@@ -51,7 +54,7 @@ class TrialManager: BaseModel() {
     val trialsFlow: StateFlow<List<Trial>> = _trialsFlow
 
     init {
-        trialData.start()
+        data.start()
         validateTrials()
     }
 
@@ -64,7 +67,7 @@ class TrialManager: BaseModel() {
         trial.songs.forEach { sum += it.ex }
         if (sum != trial.totalEx) {
             if (!isDebug) {
-                logException(Exception("Trial ${trial.name} has improper EX values: total_ex=${trial.totalEx}, sum=$sum"))
+                logger.e { "Trial ${trial.name} has improper EX values: total_ex=${trial.totalEx}, sum=$sum" }
             }
         }
     }
@@ -86,15 +89,6 @@ class TrialManager: BaseModel() {
 //        featureNew = settings.getBoolean(SettingsKeys.KEY_LIST_HIGHLIGHT_NEW, true),
 //        featureUnplayed = settings.getBoolean(SettingsKeys.KEY_LIST_HIGHLIGHT_UNPLAYED, true),
 //    )
-
-    override fun onApplicationException() {
-        if (!isDebug) {
-            setCrashInt("trials_version", trialData.versionState.value.version)
-            setCrashInt("trials_major_version", trialData.versionState.value.majorVersion ?: -1)
-            setCrashInt("trials_engine", trialData.versionState.value.majorVersion ?: -1)
-            setCrashString("trials", trials.joinToString { it.id })
-        }
-    }
 
     companion object {
         internal val RECORD_FETCH_TIMESTAMP_KEY = "TRIAL_FETCH_TIMESTAMP_KEY"

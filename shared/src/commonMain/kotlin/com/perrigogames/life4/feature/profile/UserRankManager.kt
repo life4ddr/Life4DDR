@@ -1,12 +1,13 @@
 package com.perrigogames.life4.feature.profile
 
+import co.touchlab.kermit.Logger
 import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.enums.nullableNext
+import com.perrigogames.life4.injectLogger
 import com.perrigogames.life4.model.BaseModel
 import com.perrigogames.life4.model.settings.UserRankSettings
 import dev.icerock.moko.mvvm.flow.cMutableStateFlow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import org.koin.core.component.inject
 
@@ -16,20 +17,15 @@ import org.koin.core.component.inject
 class UserRankManager : BaseModel() {
 
     private val ladderSettings: UserRankSettings by inject()
+    private val logger: Logger by injectLogger("UserRankManager")
 
-    private val _rank = MutableStateFlow<LadderRank?>(null).cMutableStateFlow()
-    val rank: StateFlow<LadderRank?> = _rank
-    val currentRank: LadderRank? get() = rank.value
+    val rank: StateFlow<LadderRank?> = ladderSettings.rank
+        .onEach { logger.v { "RANK: $it" } }
+        .stateIn(mainScope, started = SharingStarted.Lazily, initialValue = null)
 
-    private val _targetRank = MutableStateFlow<LadderRank?>(null).cMutableStateFlow()
-    val targetRank: StateFlow<LadderRank?> = _targetRank
-
-    init {
-        mainScope.launch {
-            ladderSettings.rank.collect { _rank.emit(it) }
-            ladderSettings.targetRank.collect { _targetRank.emit(it) }
-        }
-    }
+    val targetRank: StateFlow<LadderRank?> = ladderSettings.targetRank
+        .onEach { logger.v { "TARGET RANK: $it" } }
+        .stateIn(mainScope, started = SharingStarted.Lazily, initialValue = null)
 
     fun setUserRank(rank: LadderRank?) {
         ladderSettings.setRank(rank)

@@ -24,6 +24,8 @@ import com.perrigogames.life4.ktor.Life4API
 import com.perrigogames.life4.ktor.Life4APIImpl
 import com.perrigogames.life4.model.*
 import com.perrigogames.life4.model.mapping.LadderGoalMapper
+import com.perrigogames.life4.model.settings.LadderListSelectionSettings
+import com.perrigogames.life4.model.settings.UserRankSettings
 import kotlinx.serialization.json.Json
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -77,6 +79,8 @@ val coreModule = module {
     single { SongDataCoordinator() }
     single { UserInfoSettings() }
     single { FirstRunSettingsManager() }
+    single { UserRankSettings() }
+    single { LadderListSelectionSettings() }
     single { UserRankManager() }
     single { GoalStateManager() }
     single { LadderGoalMapper() }

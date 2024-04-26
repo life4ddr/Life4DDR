@@ -12,7 +12,6 @@ import com.perrigogames.life4.injectLogger
 import com.perrigogames.life4.isDebug
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.PLACEMENTS_FILE_NAME
 import com.perrigogames.life4.model.BaseModel
-import com.perrigogames.life4.setCrashString
 import dev.icerock.moko.resources.desc.desc
 import kotlinx.serialization.json.Json
 import org.koin.core.component.inject
@@ -67,10 +66,4 @@ class PlacementManager: BaseModel() {
             )
         }
     )
-
-    override fun onApplicationException() {
-        if (!isDebug) {
-            setCrashString("placements", placements.joinToString { it.id })
-        }
-    }
 }

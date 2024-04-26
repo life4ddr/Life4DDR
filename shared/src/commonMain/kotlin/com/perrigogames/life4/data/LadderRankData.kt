@@ -4,9 +4,11 @@
 
 package com.perrigogames.life4.data
 
+import co.touchlab.kermit.Logger
 import com.perrigogames.life4.enums.*
-import com.perrigogames.life4.logE
+import com.perrigogames.life4.injectLogger
 import kotlinx.serialization.*
+import org.koin.core.component.KoinComponent
 
 /**
  * Data class for deserializing the ranks_v2_v2.json file. Describes all of the ranks_v2 that can
@@ -18,7 +20,9 @@ data class LadderRankData(
     @SerialName("major_version") override val majorVersion: Int,
     @SerialName("goals") val goals: List<BaseRankGoal>,
     @SerialName("game_versions") val gameVersions: Map<GameVersion, LadderVersion>,
-): MajorVersioned {
+): MajorVersioned, KoinComponent {
+
+    private val logger: Logger by injectLogger("LadderRankData")
 
     private val wrappedGoals: List<BaseRankGoal> by lazy {
         goals.filterIsInstance<StackedRankGoal>()
@@ -34,7 +38,7 @@ data class LadderRankData(
                     entry.goalIds?.let { entry.goals = mapIdsToGoals(it) }
                     entry.mandatoryGoalIds?.let { entry.mandatoryGoals = mapIdsToGoals(it) }
                 } catch (e: IllegalStateException) {
-                    println(e.message)
+                    logger.e(e) { "Error processing ladder rank data" }
                 }
             }
     }
@@ -43,7 +47,7 @@ data class LadderRankData(
         goals.forEach { goal ->
             (goal as? SongsClearGoal)?.validate()?.let { valid ->
                 if (!valid) {
-                    logE("GoalValidation", "Goal ${goal.id} is invalid")
+                    logger.e { "Goal ${goal.id} is invalid" }
                 }
             }
         }

@@ -10,6 +10,7 @@
 
 package com.perrigogames.life4.data
 
+import co.touchlab.kermit.Logger
 import com.perrigogames.life4.*
 import com.perrigogames.life4.GameConstants.HIGHEST_DIFFICULTY
 import com.perrigogames.life4.enums.*
@@ -17,6 +18,7 @@ import dev.icerock.moko.resources.desc.Composition
 import dev.icerock.moko.resources.desc.Raw
 import dev.icerock.moko.resources.desc.StringDesc
 import kotlinx.serialization.*
+import org.koin.core.component.KoinComponent
 
 /**
  * The base rank goal class, describing a single goal of a rank on the LIFE4 ladder.
@@ -175,9 +177,10 @@ class SongsClearGoal(
     val score: Int? = null,
     @SerialName("average_score") val averageScore: Int? = null,
     @SerialName("clear_type") private val mClearType: ClearType? = null,
-): BaseRankGoal() {
+): BaseRankGoal(), KoinComponent {
 
     val safeExceptions: Int = exceptions ?: 0
+    private val logger: Logger by injectLogger("RankGoal")
 
     @Transient
     val folderType: FolderType? = folder.let {
@@ -237,7 +240,7 @@ class SongsClearGoal(
         }
         songCount != null -> RankStrings.songCountString(songCount)
         else -> {
-            logE("GoalValidation", "Goal $id has no song group string")
+            logger.e { "Goal $id has no song group string" }
             StringDesc.Raw("???????")
         }
     }

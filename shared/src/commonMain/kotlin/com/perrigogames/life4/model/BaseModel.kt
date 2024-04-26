@@ -1,6 +1,7 @@
 package com.perrigogames.life4.model
 
-import com.perrigogames.life4.printThrowable
+import co.touchlab.kermit.Logger
+import com.perrigogames.life4.injectLogger
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -21,17 +22,15 @@ open class BaseModel : KoinComponent {
 }
 
 //FIXME internal
-class MainScope(private val mainContext: CoroutineContext) : CoroutineScope {
+class MainScope(private val mainContext: CoroutineContext) : CoroutineScope, KoinComponent {
+
+    private val logger: Logger by injectLogger("MainScope")
+
     override val coroutineContext: CoroutineContext
         get() = mainContext + job + exceptionHandler
 
     internal val job = SupervisorJob()
     private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
-        showError(throwable)
-    }
-
-    //TODO: Some way of exposing this to the caller without trapping a reference and freezing it.
-    fun showError(t: Throwable) {
-        printThrowable(t)
+        logger.e(throwable) { "Coroutine exception encountered" }
     }
 }

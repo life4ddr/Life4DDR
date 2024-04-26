@@ -1,8 +1,9 @@
 package com.perrigogames.life4.api.base
 
+import co.touchlab.kermit.Logger
 import com.perrigogames.life4.data.MajorVersioned
 import com.perrigogames.life4.data.Versioned
-import com.perrigogames.life4.logE
+import com.perrigogames.life4.injectLogger
 import com.perrigogames.life4.model.BaseModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -26,6 +27,8 @@ abstract class CompositeData<T: Versioned>: BaseModel() {
     protected open val rawData: LocalData<T>? = null
     protected open val cacheData: CachedData<T>? = null
     protected open val remoteData: RemoteData<T>? = null
+
+    protected open val logger: Logger by injectLogger(this::class.simpleName ?: "CompositeData")
 
     private val ready = MutableStateFlow(false)
     private val majorVersionBlocked = MutableStateFlow(false)
@@ -108,7 +111,7 @@ abstract class CompositeData<T: Versioned>: BaseModel() {
             }
 
             override fun onFetchFailed(e: Throwable) {
-                logE("CompositeData", e.message ?: "Undefined error")
+                logger.e { e.message ?: "Undefined error" }
             }
         })
     }
