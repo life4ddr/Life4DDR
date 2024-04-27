@@ -10,7 +10,7 @@ import com.perrigogames.life4.enums.GameVersion
 import com.perrigogames.life4.injectLogger
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.IGNORES_FILE_NAME
 import com.perrigogames.life4.model.BaseModel
-import com.perrigogames.life4.model.settings.LadderListSelectionSettings
+import com.perrigogames.life4.feature.settings.LadderListSelectionSettings
 import com.russhwolf.settings.Settings
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine

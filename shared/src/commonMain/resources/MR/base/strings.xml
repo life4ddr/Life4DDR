@@ -335,9 +335,6 @@
     <string name="url_standard_submission_form">https://docs.google.com/forms/d/e/1FAIpQLScUe6q9nIlBBIiCULW7wwfvIvM9eGPS8fQFDSO8D4DmEQzJtQ/viewform</string>
     <string name="url_trial_submission_form">https://docs.google.com/forms/d/e/1FAIpQLScCIeCXSs-OCYQevGS8l_VQHS9WI1jofWg67KIPXYaC-hJLbA/viewform</string>
     <string name="url_a20_update">https://life4ddr.com/requirements/</string>
-    <string name="url_shop_life4">https://life4.bigcartel.com/</string>
-    <string name="url_shop_dangershark">https://www.dangershark.com/</string>
-    <string name="url_twitter">https://twitter.com/life4ddr/</string>
     <string name="url_player_profile">https://life4ddr.com/profile/%s</string>
 
     <!-- Content descriptions -->
@@ -375,7 +372,6 @@
     <string name="clear_data">Clear Data</string>
     <string name="clear_goal_states">Clear Goal States</string>
     <string name="clear_song_results">Clear Song Results</string>
-    <string name="import_manager_data">Import Score Manager data</string>
     <string name="trial_import">Trial Import</string>
     <string name="import_trials">Import trials</string>
     <string name="import_trials_description">Import your Trial data from another copy of the app (v3.3+)</string>
@@ -572,7 +568,7 @@
     <string name="question_mark">\?</string>
     <string name="motd_unavailable">The Message of the Day is unavailable.</string>
     <string name="trial_settings">Trial Settings</string>
-    <string name="find_us_on_twitter">Find us on Twitter</string>
+    <string name="find_us_on_x">Find us on X</string>
     <string name="close">Close</string>
     <string name="manage_song_unlocks">Manage song unlocks</string>
     <string name="song_unlocks">Song Unlocks</string>

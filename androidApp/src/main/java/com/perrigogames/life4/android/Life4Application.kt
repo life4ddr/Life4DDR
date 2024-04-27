@@ -60,8 +60,6 @@ class Life4Application: Application() {
         )
 
         setupNotifications(this)
-        PreferenceManager.setDefaultValues(this, R.xml.root_preferences, false)
-
         ManagerContainer() // instantiate the managers so that remote data gets pulled properly
     }
 

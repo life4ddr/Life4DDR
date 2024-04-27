@@ -1,4 +1,4 @@
-package com.perrigogames.life4.model.settings
+package com.perrigogames.life4.feature.settings
 
 import com.perrigogames.life4.SettingsKeys.KEY_INFO_RANK
 import com.perrigogames.life4.SettingsKeys.KEY_INFO_TARGET_RANK

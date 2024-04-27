@@ -1,15 +1,10 @@
-package com.perrigogames.life4.model.settings
+package com.perrigogames.life4.feature.settings
 
 import com.perrigogames.life4.SettingsKeys.KEY_IGNORE_LIST
 import com.perrigogames.life4.SettingsKeys.KEY_IGNORE_LIST_SET
-import com.perrigogames.life4.SettingsKeys.KEY_INFO_RANK
-import com.perrigogames.life4.data.IgnoreList
-import com.perrigogames.life4.enums.GameVersion
-import com.perrigogames.life4.enums.LadderRank
 import com.russhwolf.settings.ExperimentalSettingsApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalSettingsApi::class)

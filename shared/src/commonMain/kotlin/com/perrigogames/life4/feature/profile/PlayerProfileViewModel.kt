@@ -4,6 +4,7 @@ import com.perrigogames.life4.data.SocialNetwork
 import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.feature.laddergoals.GoalListConfig
 import com.perrigogames.life4.feature.laddergoals.GoalListViewModel
+import com.perrigogames.life4.feature.settings.UserInfoSettings
 import dev.icerock.moko.mvvm.flow.cMutableStateFlow
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

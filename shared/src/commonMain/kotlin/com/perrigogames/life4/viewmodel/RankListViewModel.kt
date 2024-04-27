@@ -5,7 +5,7 @@ import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.feature.firstrun.FirstRunSettingsManager
 import com.perrigogames.life4.feature.firstrun.InitState
 import com.perrigogames.life4.feature.laddergoals.UILadderData
-import com.perrigogames.life4.feature.profile.UserInfoSettings
+import com.perrigogames.life4.feature.settings.UserInfoSettings
 import com.perrigogames.life4.model.LadderDataManager
 import com.perrigogames.life4.model.mapping.LadderGoalMapper
 import dev.icerock.moko.mvvm.flow.cMutableStateFlow

@@ -1,5 +1,10 @@
 package com.perrigogames.life4.android.feature.mainscreen
 
+import androidx.compose.animation.AnimatedContentTransitionScope
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.BottomNavigation
@@ -15,6 +20,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
@@ -23,6 +29,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.perrigogames.life4.android.activity.profile.PlayerProfileScreen
 import com.perrigogames.life4.android.feature.ladder.LadderGoalsScreen
+import com.perrigogames.life4.android.feature.settings.SettingsScreen
 import com.perrigogames.life4.android.feature.trial.TrialListScreen
 import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.feature.profile.MainScreenViewModel
@@ -71,7 +78,20 @@ fun MainScreen(
             }
         }
     ) { innerPadding ->
-        NavHost(profileNavController, startDestination = ProfileScreen.Profile.route, Modifier.padding(innerPadding)) {
+//        fun enterTransition(): AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition? {
+//            slideInHorizontally(
+//                initialOffsetX = { 1000 },
+//                animationSpec = tween(500)
+//            )
+//        }
+//        fun exitTransition(): AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition? {
+//            slideOutHorizontally(
+//                targetOffsetX = { -1000 },
+//                animationSpec = tween(500)
+//            )
+//        }
+
+        NavHost(profileNavController, startDestination = ProfileScreen.Profile.route, Modifier.fillMaxSize().padding(innerPadding)) {
             composable(ProfileScreen.Profile.route) {
                 PlayerProfileScreen { action ->
                     when (action) {
@@ -81,21 +101,18 @@ fun MainScreen(
             }
 
             composable(ProfileScreen.Scores.route) {
-                LadderGoalsScreen(
-                    targetRank = LadderRank.COPPER1
-                )
+                LadderGoalsScreen()
             }
 
             composable(ProfileScreen.Trials.route) {
-                TrialListScreen(
-                    modifier = Modifier.fillMaxSize(),
-                ) {}
+                TrialListScreen(modifier = Modifier.fillMaxSize()) {}
             }
 
             composable(ProfileScreen.Settings.route) {
-                Text(
-                    text = "Settings",
+                SettingsScreen(
                     modifier = Modifier.fillMaxSize(),
+                    onClose = { profileNavController.navigate(ProfileScreen.Profile.route) },
+                    onNavigateToCredits = { TODO() }
                 )
             }
         }

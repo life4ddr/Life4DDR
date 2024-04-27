@@ -16,7 +16,7 @@ import com.perrigogames.life4.feature.firstrun.FirstRunStep.PathStep.UsernamePas
 import com.perrigogames.life4.feature.firstrun.InitState.DONE
 import com.perrigogames.life4.feature.firstrun.InitState.PLACEMENTS
 import com.perrigogames.life4.feature.firstrun.InitState.RANKS
-import com.perrigogames.life4.feature.profile.UserInfoSettings
+import com.perrigogames.life4.feature.settings.UserInfoSettings
 import dev.icerock.moko.mvvm.flow.cMutableStateFlow
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
 import dev.icerock.moko.resources.desc.Resource

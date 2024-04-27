@@ -1,4 +1,4 @@
-package com.perrigogames.life4.feature.profile
+package com.perrigogames.life4.feature.settings
 
 import co.touchlab.kermit.Logger
 import com.perrigogames.life4.GameConstants
@@ -6,7 +6,6 @@ import com.perrigogames.life4.SettingsKeys
 import com.perrigogames.life4.data.SocialNetwork
 import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.injectLogger
-import com.perrigogames.life4.model.settings.SettingsManager
 import com.russhwolf.settings.ExperimentalSettingsApi
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch

@@ -1,6 +1,7 @@
 package com.perrigogames.life4.feature.profile
 
 import com.perrigogames.life4.data.SocialNetwork
+import com.perrigogames.life4.feature.settings.UserInfoSettings
 import com.perrigogames.life4.model.BaseModel
 import kotlinx.coroutines.flow.combine
 import org.koin.core.component.inject

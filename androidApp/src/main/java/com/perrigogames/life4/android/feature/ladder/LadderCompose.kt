@@ -39,7 +39,7 @@ import dev.icerock.moko.resources.compose.colorResource
 
 @Composable
 fun LadderGoalsScreen(
-    targetRank: LadderRank?,
+    targetRank: LadderRank? = null,
     modifier: Modifier = Modifier,
     viewModel: LadderGoalsViewModel = viewModel(
         factory = createViewModelFactory { LadderGoalsViewModel(LadderGoalsConfig(targetRank)) }

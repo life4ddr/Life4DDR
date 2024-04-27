@@ -56,6 +56,7 @@ coil = "2.1.0"
 moko-mvvm = "0.16.1"
 moko-resources = "0.23.0"
 skrapeit = "1.1.5"
+composeSettings = "2.1.0"
 
 [libraries]
 android-desugaring = { module = "com.android.tools:desugar_jdk_libs", version.ref = "android-desugaring" }
@@ -148,6 +149,8 @@ dexter = { module = "com.karumi:dexter", version.ref = "dexter" }
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 coil = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
 skrapeit = { module = "it.skrape:skrapeit", version.ref = "skrapeit" }
+compose-settings = { module = "com.github.alorma.compose-settings:ui-tiles", version.ref = "composeSettings" }
+compose-settings-extended = { module = "com.github.alorma.compose-settings:ui-tiles-extended", version.ref = "composeSettings" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
@@ -186,7 +189,9 @@ app-ui = [
     "compose-material",
     "compose-activity",
     "compose-constraintlayout",
-    "google-accompanist-appcompat-theme"
+    "google-accompanist-appcompat-theme",
+    "compose-settings",
+    "compose-settings-extended"
 ]
 ktor-common = [
     "ktor-client-core",

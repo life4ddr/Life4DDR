@@ -2,7 +2,7 @@ package com.perrigogames.life4.feature.firstrun
 
 import com.perrigogames.life4.MR
 import com.perrigogames.life4.SettingsKeys
-import com.perrigogames.life4.model.settings.SettingsManager
+import com.perrigogames.life4.feature.settings.SettingsManager
 import com.russhwolf.settings.ExperimentalSettingsApi
 import dev.icerock.moko.resources.desc.Resource
 import dev.icerock.moko.resources.desc.ResourceStringDesc

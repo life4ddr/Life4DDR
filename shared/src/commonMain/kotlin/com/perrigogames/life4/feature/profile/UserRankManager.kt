@@ -3,12 +3,10 @@ package com.perrigogames.life4.feature.profile
 import co.touchlab.kermit.Logger
 import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.enums.nullableNext
+import com.perrigogames.life4.feature.settings.UserRankSettings
 import com.perrigogames.life4.injectLogger
 import com.perrigogames.life4.model.BaseModel
-import com.perrigogames.life4.model.settings.UserRankSettings
-import dev.icerock.moko.mvvm.flow.cMutableStateFlow
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
 import org.koin.core.component.inject
 
 /**
