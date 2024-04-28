@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.sqlDelight)
     id("dev.icerock.mobile.multiplatform-resources")
+    id("dev.icerock.moko.kswift")
 }
 
 kotlin {
@@ -52,6 +53,7 @@ kotlin {
             api(libs.touchlab.kermit)
             api(libs.bundles.moko.mvvm.common)
             api(libs.bundles.moko.resources.common)
+            api(libs.moko.kswift.runtime)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
@@ -97,4 +99,10 @@ multiplatformResources {
     multiplatformResourcesVisibility = MRVisibility.Public
     iosBaseLocalizationRegion = "en"
     multiplatformResourcesSourceSet = "commonMain"
+}
+
+kswift {
+    install(dev.icerock.moko.kswift.plugin.feature.SealedToSwiftEnumFeature)
+    install(dev.icerock.moko.kswift.plugin.feature.PlatformExtensionFunctionsFeature)
+    install(dev.icerock.moko.kswift.plugin.feature.DataClassCopyFeature)
 }

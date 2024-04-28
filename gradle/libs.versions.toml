@@ -55,6 +55,7 @@ glide = "4.13.1"
 coil = "2.1.0"
 moko-mvvm = "0.16.1"
 moko-resources = "0.23.0"
+moko-kswift = "0.7.0"
 skrapeit = "1.1.5"
 composeSettings = "2.1.0"
 
@@ -141,6 +142,9 @@ moko-mvvm-android-livedata-glide = { module = "dev.icerock.moko:mvvm-livedata-gl
 moko-resources = { module = "dev.icerock.moko:resources", version.ref = "moko-resources" }
 moko-resources-compose = { module = "dev.icerock.moko:resources-compose", version.ref = "moko-resources" }
 moko-resources-test = { module = "dev.icerock.moko:resources-test", version.ref = "moko-resources" }
+
+moko-kswift-gradle-plugin = { module = "dev.icerock.moko:kswift-gradle-plugin", version.ref = "moko-kswift" }
+moko-kswift-runtime = { module = "dev.icerock.moko:kswift-runtime", version.ref = "moko-kswift" }
 
 turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }

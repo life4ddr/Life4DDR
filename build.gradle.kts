@@ -5,6 +5,7 @@ buildscript {
 
     dependencies {
         classpath(libs.resources.generator)
+        classpath(libs.moko.kswift.gradle.plugin)
     }
 }
 
