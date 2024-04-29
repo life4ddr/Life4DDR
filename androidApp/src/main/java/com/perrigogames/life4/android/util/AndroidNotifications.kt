@@ -2,6 +2,7 @@ package com.perrigogames.life4.android.util
 
 import android.annotation.SuppressLint
 import android.app.PendingIntent
+import android.app.PendingIntent.FLAG_IMMUTABLE
 import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
@@ -34,7 +35,7 @@ class AndroidNotifications: Notifications(), KoinComponent {
                 .setContentIntent(PendingIntent.getBroadcast(context, id,
                     Intent(context, NotificationCopyHandler::class.java).apply {
                         putExtra(EXTRA_COPY_VALUE, message)
-                    }, 0))
+                    }, FLAG_IMMUTABLE))
                 .setAutoCancel(true)
                 .build()
             )
