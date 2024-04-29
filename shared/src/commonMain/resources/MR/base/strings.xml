@@ -28,6 +28,7 @@
     <string name="first_run_rank_method_selection">Select a rank from the list</string>
     <string name="first_run_rank_method_no_rank">Start from the beginning</string>
     <string name="first_run_error_username">Username must not be empty</string>
+    <string name="first_run_error_password">Password must not be empty</string>
     <string name="first_run_error_rival_code">Rival code must be 8 digits long</string>
     <string name="placements">Placement Sets</string>
     <string name="play_placement">Play a Placement Set instead</string>

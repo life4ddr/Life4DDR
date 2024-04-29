@@ -183,20 +183,22 @@ enum class FirstRunPath(
 sealed class FirstRunStep(
     val showNextButton: Boolean = true
 ) {
-    object Landing : FirstRunStep(showNextButton = false)
+    data object Landing : FirstRunStep(showNextButton = false)
 
     sealed class PathStep(
         showNextButton: Boolean = true,
     ) : FirstRunStep(showNextButton) {
 
         abstract val path: FirstRunPath
+
         data class Username(
             override val path: FirstRunPath,
         ) : PathStep() {
-            val headerText: ResourceStringDesc = when (path.isNewUser) {
-                true -> StringDesc.Resource(MR.strings.first_run_username_new_header)
-                false -> StringDesc.Resource(MR.strings.first_run_username_existing_header)
-            }
+
+            val headerText: ResourceStringDesc = StringDesc.Resource(when (path.isNewUser) {
+                true -> MR.strings.first_run_username_new_header
+                false -> MR.strings.first_run_username_existing_header
+            })
 
             val descriptionText: ResourceStringDesc? = when (path.isNewUser) {
                 true -> StringDesc.Resource(MR.strings.first_run_username_description)
@@ -236,7 +238,7 @@ sealed class FirstRunError {
     ) : FirstRunError()
 
     class PasswordError(
-        override val errorText: StringDesc // = StringDesc.Resource(MR.strings.first_run_error_password)
+        override val errorText: StringDesc = StringDesc.Resource(MR.strings.first_run_error_password)
     ) : FirstRunError()
 
     class RivalCodeError(
