@@ -21,7 +21,7 @@ object Versions {
     const val stetho = "1.6.0"
     const val multiplatformSettings = "0.7.4"
     const val coroutines = "1.3.3-native-mt"
-    const val koin = "3.0.0-alpha-4"
+    const val koin = "3.0.2"
     const val kotlinxDateTime = "0.1.1"
 
     object Android {
@@ -64,8 +64,8 @@ object Deps {
     const val multiplatformSettings =  "com.russhwolf:multiplatform-settings:${Versions.multiplatformSettings}"
     const val multiplatformSettingsTest = "com.russhwolf:multiplatform-settings-test:${Versions.multiplatformSettings}"
     const val robolectric = "org.robolectric:robolectric:${Versions.robolectric}"
-    const val koinCore = "org.koin:koin-core:${Versions.koin}"
-    const val koinTest = "org.koin:koin-test:${Versions.koin}"
+    const val koinCore = "io.insert-koin:koin-core:${Versions.koin}"
+    const val koinTest = "io.insert-koin:koin-test:${Versions.koin}"
 
     object Firebase {
         const val bom = "com.google.firebase:firebase-bom:${Versions.firebase}"
@@ -91,7 +91,7 @@ object Deps {
         const val lifecycle_viewmodel_extensions = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.AndroidX.lifecycle}"
         const val lifecycle_livedata = "androidx.lifecycle:lifecycle-livedata:${Versions.AndroidX.lifecycle}"
         const val lifecycle_extension = "androidx.lifecycle:lifecycle-extensions:${Versions.AndroidX.lifecycle}"
-        const val koin_viewmodel = "org.koin:koin-androidx-viewmodel:${Versions.koin}"
+        const val koin_viewmodel = "io.insert-koin:koin-androidx-viewmodel:${Versions.koin}"
     }
 
     object AndroidXTest {
