@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-import Shared
+import MultiPlatformLibrary
 
 class LadderGoal {
     var text: String

@@ -1,0 +1,16 @@
+PODS:
+  - mokoMvvmFlowSwiftUI (0.16.1)
+
+DEPENDENCIES:
+  - mokoMvvmFlowSwiftUI (from `https://raw.githubusercontent.com/icerockdev/moko-mvvm/release/0.16.1/mokoMvvmFlowSwiftUI.podspec`)
+
+EXTERNAL SOURCES:
+  mokoMvvmFlowSwiftUI:
+    :podspec: https://raw.githubusercontent.com/icerockdev/moko-mvvm/release/0.16.1/mokoMvvmFlowSwiftUI.podspec
+
+SPEC CHECKSUMS:
+  mokoMvvmFlowSwiftUI: e2ecbc38ea996fc376bf297041aeaad06ac44c89
+
+PODFILE CHECKSUM: 6d6a111996208fec3b13e2ca8e76533015c2fdd1
+
+COCOAPODS: 1.10.2

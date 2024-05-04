@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-import Shared
+import MultiPlatformLibrary
 
 @available(iOS 16.0, *)
 struct FirstRunView: View {
@@ -19,8 +19,6 @@ struct FirstRunView: View {
     @State var isExistingUser = false
     
     var body: some View {
-//      let state = viewModel.state.collect(collector: <#T##any Kotlinx_coroutines_coreFlowCollector#>, completionHandler: <#T##((any Error)?) -> Void#>)
-      
         ZStack(alignment: .center) {
             VStack(spacing: 75) {
                 if (viewIndex > 0) {

@@ -24,12 +24,15 @@ kotlin {
         iosSimulatorArm64()
     ).forEach { iosTarget ->
         iosTarget.binaries.framework {
-            baseName = "Shared"
+            baseName = "MultiPlatformLibrary"
             isStatic = true
             export("dev.icerock.moko:resources:0.23.0")
             export("dev.icerock.moko:graphics:0.9.0") // toUIColor here
             export("dev.icerock.moko:mvvm-core:0.16.1")
             export("dev.icerock.moko:mvvm-livedata:0.16.1")
+            export("dev.icerock.moko:mvvm-livedata-resources:0.16.1")
+            export("dev.icerock.moko:mvvm-state:0.16.1")
+            export("dev.icerock.moko:mvvm-flow:0.16.1")
         }
     }
 

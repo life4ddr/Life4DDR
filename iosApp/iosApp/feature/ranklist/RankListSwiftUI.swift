@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-import Shared
+import MultiPlatformLibrary
 
 @available(iOS 16.0, *)
 struct RankSelection: View {
