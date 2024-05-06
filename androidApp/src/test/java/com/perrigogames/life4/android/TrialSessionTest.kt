@@ -1,12 +1,12 @@
 package com.perrigogames.life4.android
 
-//import com.perrigogames.life4.data.*
-//import com.perrigogames.life4.ClearType.*
-//import com.perrigogames.life4.TrialData.Companion.TRIAL_LENGTH
-//import com.perrigogames.life4.TrialRank.*
-//import com.perrigogames.life4.DifficultyClass
-//import junit.framework.Assert.assertEquals
-//import org.junit.Test
+// import com.perrigogames.life4.data.*
+// import com.perrigogames.life4.ClearType.*
+// import com.perrigogames.life4.TrialData.Companion.TRIAL_LENGTH
+// import com.perrigogames.life4.TrialRank.*
+// import com.perrigogames.life4.DifficultyClass
+// import junit.framework.Assert.assertEquals
+// import org.junit.Test
 
 class TrialSessionTest {
 //
