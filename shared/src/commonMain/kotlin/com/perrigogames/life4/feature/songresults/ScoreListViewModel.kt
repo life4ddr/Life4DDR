@@ -8,13 +8,11 @@ import dev.icerock.moko.mvvm.flow.cMutableStateFlow
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-class ScoreListViewModel: ViewModel(), KoinComponent {
-
+class ScoreListViewModel : ViewModel(), KoinComponent {
     private val songsRepo: SortedSongsRepo by inject()
     private val resultsRepo: SortedResultsRepo by inject()
 
@@ -51,7 +49,6 @@ data class ScoreListContentConfig(
     val clearTypes: List<ClearType>? = null,
     val minScore: Int? = null,
     val maxScore: Int? = null,
-
 )
 
 data class UIScoreList(

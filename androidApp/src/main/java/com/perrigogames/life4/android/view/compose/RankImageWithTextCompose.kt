@@ -30,8 +30,9 @@ fun RankImageWithTitle(
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier
-            .clickable { onClick() }
+        modifier =
+            Modifier
+                .clickable { onClick() },
     ) {
         RankImage(
             rank = rank,
@@ -43,7 +44,7 @@ fun RankImageWithTitle(
             text = text,
             textWidth = iconSize,
             style = style,
-            useRankColorText = useRankColorText
+            useRankColorText = useRankColorText,
         )
     }
 }
@@ -55,23 +56,29 @@ fun RankText(
     text: String = stringResource(rank?.nameRes ?: MR.strings.no_rank),
     textWidth: Dp? = null,
     style: TextStyle = MaterialTheme.typography.titleSmall,
-    useRankColorText: Boolean = false
+    useRankColorText: Boolean = false,
 ) {
     Box(
         contentAlignment = Alignment.Center,
-        modifier = modifier.height(32.dp)
+        modifier = modifier.height(32.dp),
     ) {
         AutoResizedText(
             text = text,
-            modifier = Modifier
-                .let {
-                    if (textWidth != null) it.widthIn(max = textWidth)
-                    else it
+            modifier =
+                Modifier
+                    .let {
+                        if (textWidth != null) {
+                            it.widthIn(max = textWidth)
+                        } else {
+                            it
+                        }
+                    },
+            color =
+                if (rank != null && useRankColorText) {
+                    colorResource(rank.colorRes)
+                } else {
+                    MaterialTheme.colorScheme.onSurface
                 },
-            color = if (rank != null && useRankColorText)
-                colorResource(rank.colorRes)
-            else
-                MaterialTheme.colorScheme.onSurface,
             style = style,
         )
     }

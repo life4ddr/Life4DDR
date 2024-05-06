@@ -9,7 +9,6 @@ import com.perrigogames.life4.data.trials.UIPlacementListScreen
 import com.perrigogames.life4.data.trials.toUITrialSong
 import com.perrigogames.life4.feature.songlist.SongDataManager
 import com.perrigogames.life4.injectLogger
-import com.perrigogames.life4.isDebug
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.PLACEMENTS_FILE_NAME
 import com.perrigogames.life4.model.BaseModel
 import dev.icerock.moko.resources.desc.desc
@@ -19,8 +18,7 @@ import org.koin.core.qualifier.named
 import kotlin.math.max
 import kotlin.math.min
 
-class PlacementManager: BaseModel() {
-
+class PlacementManager : BaseModel() {
     private val logger: Logger by injectLogger("PlacementManager")
     private val songDataManager: SongDataManager by inject()
     private val json: Json by inject()
@@ -40,30 +38,34 @@ class PlacementManager: BaseModel() {
 
     fun nextPlacement(index: Int) = placements.getOrNull(index + 1)
 
-    fun createUiData() = UIPlacementListScreen(
-        titleText = MR.strings.placements.desc(),
-        headerText = MR.strings.placement_list_description.desc(),
-        placements = placements.map { placement ->
-            UIPlacement(
-                id = placement.id,
-                rankIcon = placement.placementRank!!.toLadderRank(),
-                difficultyRangeString = placement.songs.let { songs ->
-                    var lowest = songs[0].difficultyNumber
-                    var highest = songs[0].difficultyNumber
-                    songs.forEach { song ->
-                        lowest = min(lowest, song.difficultyNumber)
-                        highest = max(highest, song.difficultyNumber)
-                    }
-                    "L$lowest-L$highest" // FIXME resource
+    fun createUiData() =
+        UIPlacementListScreen(
+            titleText = MR.strings.placements.desc(),
+            headerText = MR.strings.placement_list_description.desc(),
+            placements =
+                placements.map { placement ->
+                    UIPlacement(
+                        id = placement.id,
+                        rankIcon = placement.placementRank!!.toLadderRank(),
+                        difficultyRangeString =
+                            placement.songs.let { songs ->
+                                var lowest = songs[0].difficultyNumber
+                                var highest = songs[0].difficultyNumber
+                                songs.forEach { song ->
+                                    lowest = min(lowest, song.difficultyNumber)
+                                    highest = max(highest, song.difficultyNumber)
+                                }
+                                "L$lowest-L$highest" // FIXME resource
+                            },
+                        songs =
+                            placement.songs.map { song ->
+                                val songInfo = songDataManager.findSong(skillId = song.skillId)
+                                if (songInfo == null) {
+                                    logger.e("Placement ${placement.name} has skillId ${song.skillId} which was not found")
+                                }
+                                song.toUITrialSong(songInfo)
+                            },
+                    )
                 },
-                songs = placement.songs.map { song ->
-                    val songInfo = songDataManager.findSong(skillId = song.skillId)
-                    if (songInfo == null) {
-                        logger.e("Placement ${placement.name} has skillId ${song.skillId} which was not found")
-                    }
-                    song.toUITrialSong(songInfo)
-                }
-            )
-        }
-    )
+        )
 }

@@ -12,14 +12,14 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
 class LadderGoalsViewModel(private val config: LadderGoalsConfig) : ViewModel(), KoinComponent {
-
     private val ladderDataManager: LadderDataManager by inject()
     private val songResultsManager: SongResultsManager by inject()
     private val goalStateManager: GoalStateManager by inject()
 
-    private val _stateFlow = MutableStateFlow(
-        UILadderData(UILadderGoals.SingleList(emptyList()))
-    )
+    private val _stateFlow =
+        MutableStateFlow(
+            UILadderData(UILadderGoals.SingleList(emptyList())),
+        )
     val stateFlow: StateFlow<UILadderData> = _stateFlow
 
     init {

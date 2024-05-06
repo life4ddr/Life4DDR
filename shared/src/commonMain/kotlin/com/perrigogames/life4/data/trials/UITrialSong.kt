@@ -20,12 +20,13 @@ data class UITrialSong(
     val chartString = playStyle.aggregateString(difficultyClass)
 }
 
-fun Song.toUITrialSong(songInfo: SongInfo? = null) = UITrialSong(
-    jacketUrl = this.url,
-    songNameText = songInfo?.title ?: this.name,
-    subtitleText = songInfo?.version?.printName ?: this.skillId,
-    playStyle = this.playStyle,
-    difficultyClass = this.difficultyClass,
-    difficultyText = this.difficultyNumber.toString(),
-    difficultyNumber = this.difficultyNumber,
-)
+fun Song.toUITrialSong(songInfo: SongInfo? = null) =
+    UITrialSong(
+        jacketUrl = this.url,
+        songNameText = songInfo?.title ?: this.name,
+        subtitleText = songInfo?.version?.printName ?: this.skillId,
+        playStyle = this.playStyle,
+        difficultyClass = this.difficultyClass,
+        difficultyText = this.difficultyNumber.toString(),
+        difficultyNumber = this.difficultyNumber,
+    )

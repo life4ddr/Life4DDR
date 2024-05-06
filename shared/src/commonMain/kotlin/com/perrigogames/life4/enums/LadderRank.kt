@@ -78,51 +78,76 @@ enum class LadderRank(
     val next: LadderRank? get() = entries.getOrNull(ordinal + 1)
 
     companion object {
-        fun parse(s: String?): LadderRank? = try {
-            s?.let {
-                valueOf(it.uppercase()
-                    .replace(" IV", "4")
-                    .replace(" V", "5")
-                    .replace(" III", "3")
-                    .replace(" II", "2")
-                    .replace(" I", "1"))
+        fun parse(s: String?): LadderRank? =
+            try {
+                s?.let {
+                    valueOf(
+                        it.uppercase()
+                            .replace(" IV", "4")
+                            .replace(" V", "5")
+                            .replace(" III", "3")
+                            .replace(" II", "2")
+                            .replace(" I", "1"),
+                    )
+                }
+            } catch (e: IllegalArgumentException) {
+                null
             }
-        } catch (e: IllegalArgumentException) { null }
 
         fun parse(stableId: Long?): LadderRank? = stableId?.let { id -> entries.firstOrNull { it.stableId == id } }
     }
 }
 
 val LadderRank?.nullableNext: LadderRank?
-    get() = if (this == null) {
-        LadderRank.entries.first()
-    } else { this.next }
+    get() =
+        if (this == null) {
+            LadderRank.entries.first()
+        } else {
+            this.next
+        }
 
 /**
  * Enum describing the groups that Ranks are put into.
  */
 enum class LadderRankClass {
-    COPPER, BRONZE, SILVER, GOLD, PLATINUM, DIAMOND, COBALT, PEARL, AMETHYST, EMERALD, ONYX;
+    COPPER,
+    BRONZE,
+    SILVER,
+    GOLD,
+    PLATINUM,
+    DIAMOND,
+    COBALT,
+    PEARL,
+    AMETHYST,
+    EMERALD,
+    ONYX,
+    ;
 
-    fun toLadderRank() = when(this) {
-        COPPER -> LadderRank.COPPER5
-        BRONZE -> LadderRank.BRONZE5
-        SILVER -> LadderRank.SILVER5
-        GOLD -> LadderRank.GOLD5
-        PLATINUM -> LadderRank.PLATINUM5
-        DIAMOND -> LadderRank.DIAMOND5
-        COBALT -> LadderRank.COBALT5
-        PEARL -> LadderRank.PEARL5
-        AMETHYST -> LadderRank.AMETHYST5
-        EMERALD -> LadderRank.EMERALD5
-        ONYX -> LadderRank.ONYX5
-    }
+    fun toLadderRank() =
+        when (this) {
+            COPPER -> LadderRank.COPPER5
+            BRONZE -> LadderRank.BRONZE5
+            SILVER -> LadderRank.SILVER5
+            GOLD -> LadderRank.GOLD5
+            PLATINUM -> LadderRank.PLATINUM5
+            DIAMOND -> LadderRank.DIAMOND5
+            COBALT -> LadderRank.COBALT5
+            PEARL -> LadderRank.PEARL5
+            AMETHYST -> LadderRank.AMETHYST5
+            EMERALD -> LadderRank.EMERALD5
+            ONYX -> LadderRank.ONYX5
+        }
 }
 
-object LadderRankSerializer: KSerializer<LadderRank> {
+object LadderRankSerializer : KSerializer<LadderRank> {
     override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("ladderRank", PrimitiveKind.STRING)
+
     override fun deserialize(decoder: Decoder) = LadderRank.parse(decoder.decodeString())!!
-    override fun serialize(encoder: Encoder, value: LadderRank) {
+
+    override fun serialize(
+        encoder: Encoder,
+        value: LadderRank,
+    ) {
         encoder.encodeString(value.name.lowercase())
     }
 }

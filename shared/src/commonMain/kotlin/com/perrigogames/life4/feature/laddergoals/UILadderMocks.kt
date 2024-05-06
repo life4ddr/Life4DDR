@@ -8,7 +8,6 @@ import dev.icerock.moko.resources.desc.StringDesc
 import kotlin.random.Random
 
 object UILadderMocks {
-
     fun createUILadderGoal(
         id: Long = 0,
         goalText: String = "Perform this generic action",
@@ -42,10 +41,10 @@ object UILadderMocks {
     fun createSongDetailItem(
         songName: String,
         difficultyClass: DifficultyClass? = null,
-        score: Int = 1_000_000 - Random.nextInt(100, 50000)
+        score: Int = 1_000_000 - Random.nextInt(100, 50000),
     ) = UILadderDetailItem(
         leftText = songName,
         difficultyClass = difficultyClass,
-        rightText = score.longNumberString()
+        rightText = score.longNumberString(),
     )
 }

@@ -10,7 +10,6 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
 class LadderGoalMapper : KoinComponent {
-
     private val goalStateManager: GoalStateManager by inject()
     private val songResultsManager: SongResultsManager by inject()
 
@@ -22,6 +21,6 @@ class LadderGoalMapper : KoinComponent {
         goalText = base.goalString(),
         completed = goalState.status == GoalStatus.COMPLETE,
         hidden = goalState.status == GoalStatus.IGNORED,
-        canHide = !base.isMandatory
+        canHide = !base.isMandatory,
     )
 }

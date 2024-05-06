@@ -8,24 +8,25 @@ import kotlinx.coroutines.flow.StateFlow
 import org.koin.core.component.KoinComponent
 
 class RankSelectionViewModel(config: RankSelectionConfig) : ViewModel(), KoinComponent {
-
     private val _state = MutableStateFlow(RankSelectionState()).cMutableStateFlow()
     val state: StateFlow<RankSelectionState> = _state
 
     init {
-        _state.value = _state.value.copy(
-            ranks = LadderRank.entries,
-            noRank = if (config.firstRun) {
-                UINoRank.FIRST_RUN
-            } else {
-                UINoRank.DEFAULT
-            }
-        )
+        _state.value =
+            _state.value.copy(
+                ranks = LadderRank.entries,
+                noRank =
+                    if (config.firstRun) {
+                        UINoRank.FIRST_RUN
+                    } else {
+                        UINoRank.DEFAULT
+                    },
+            )
     }
 }
 
 data class RankSelectionConfig(
-    val firstRun: Boolean = false
+    val firstRun: Boolean = false,
 )
 
 data class RankSelectionState(

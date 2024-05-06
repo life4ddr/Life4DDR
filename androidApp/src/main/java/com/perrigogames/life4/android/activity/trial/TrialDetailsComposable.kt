@@ -1,12 +1,12 @@
 package com.perrigogames.life4.android.activity.trial
 
-//@Composable
-//fun TrialDetails(
+// @Composable
+// fun TrialDetails(
 //    trial: Trial,
 //    viewModel: TrialDetailsViewModel = viewModel(
 //        factory = createViewModelFactory { TrialDetailsViewModel(trial) }
 //    ),
-//) {
+// ) {
 //    Column {
 //        TrialDetailsHeader(
 //            trial = trial,
@@ -21,28 +21,28 @@ package com.perrigogames.life4.android.activity.trial
 //
 //        }
 //    }
-//}
+// }
 //
-//@Composable
-//fun TrialDetailsHeader(
+// @Composable
+// fun TrialDetailsHeader(
 //    trial: Trial,
 //    modifier: Modifier = Modifier,
-//) {
+// ) {
 //    Row(modifier) {
 //        // Button previous
-////        Image()
+// //        Image()
 //        // Button next
 //    }
-//}
+// }
 
-//@Composable
-//fun TrialDetailsControls(
+// @Composable
+// fun TrialDetailsControls(
 //    trial: Trial,
 //    viewModel: TrialDetailsViewModel = viewModel(
 //        factory = createViewModelFactory { TrialDetailsViewModel(trial) }
 //    ),
 //    modifier: Modifier = Modifier,
-//) {
+// ) {
 //    val targetRankView: TargetRankView by viewModel.targetRankView.collectAsState()
 //    var dropdownExpanded by remember { mutableStateOf(false) }
 //    val filesystemChecked by viewModel.filesystemChecked.collectAsState()
@@ -107,24 +107,24 @@ package com.perrigogames.life4.android.activity.trial
 //        )
 //        TrialSongList(songViews)
 //    }
-//}
+// }
 
-//@Composable
-//fun TrialSongList(
+// @Composable
+// fun TrialSongList(
 //    songs: List<TrialSongView>
-//) {
+// ) {
 //    LazyColumn {
 //        items(songs) { song ->
 //            TrialSongCard(song = song)
 //        }
 //    }
-//}
+// }
 //
-//@Composable
-//fun TrialSongCard(
+// @Composable
+// fun TrialSongCard(
 //    song: TrialSongView,
 //    modifier: Modifier = Modifier,
-//) {
+// ) {
 //    Card(modifier = modifier) {
 //        Row(
 //            modifier = Modifier
@@ -184,11 +184,11 @@ package com.perrigogames.life4.android.activity.trial
 //            }
 //        }
 //    }
-//}
+// }
 //
-//@Composable
-//@Preview(widthDp = 240)
-//fun TrialSongCardPreview() {
+// @Composable
+// @Preview(widthDp = 240)
+// fun TrialSongCardPreview() {
 //    LIFE4Theme {
 //        TrialSongCard(
 //            TrialSongView(
@@ -203,4 +203,4 @@ package com.perrigogames.life4.android.activity.trial
 //            )
 //        )
 //    }
-//}
+// }

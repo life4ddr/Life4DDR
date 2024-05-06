@@ -21,10 +21,15 @@ enum class TrialState(val jsonName: String) {
     }
 }
 
-object TrialStateSerializer: KSerializer<TrialState> {
+object TrialStateSerializer : KSerializer<TrialState> {
     override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("ladderRank", PrimitiveKind.STRING)
+
     override fun deserialize(decoder: Decoder) = TrialState.parse(decoder.decodeString())!!
-    override fun serialize(encoder: Encoder, value: TrialState) {
+
+    override fun serialize(
+        encoder: Encoder,
+        value: TrialState,
+    ) {
         encoder.encodeString(value.name.lowercase())
     }
 }

@@ -19,9 +19,10 @@ fun DifficultyText(
     modifier: Modifier = Modifier,
     difficultyNumber: Int? = null,
 ) {
-    val text = difficultyNumber?.let { diffNumber ->
-        stringResource(MR.strings.difficulty_string_format, difficultyClass.toString(), diffNumber)
-    } ?: difficultyClass.toString()
+    val text =
+        difficultyNumber?.let { diffNumber ->
+            stringResource(MR.strings.difficulty_string_format, difficultyClass.toString(), diffNumber)
+        } ?: difficultyClass.toString()
 
     Text(
         text = text,

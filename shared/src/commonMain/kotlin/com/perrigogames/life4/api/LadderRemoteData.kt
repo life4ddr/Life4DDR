@@ -14,8 +14,7 @@ import org.koin.core.component.inject
 
 class LadderRemoteData(
     reader: LocalDataReader,
-): CompositeData<LadderRankData>(), KoinComponent {
-
+) : CompositeData<LadderRankData>(), KoinComponent {
     private val json: Json by inject()
     private val githubKtor: GithubDataAPI by inject()
 
@@ -23,12 +22,14 @@ class LadderRemoteData(
 
     override val rawData = LocalData(reader, converter)
     override val cacheData = CachedData(reader, converter, converter)
-    override val remoteData = object: RemoteData<LadderRankData>() {
-        override suspend fun getRemoteResponse() = githubKtor.getLadderRanks()
-    }
+    override val remoteData =
+        object : RemoteData<LadderRankData>() {
+            override suspend fun getRemoteResponse() = githubKtor.getLadderRanks()
+        }
 
-    private inner class LadderRankDataConverter: Converter<LadderRankData> {
+    private inner class LadderRankDataConverter : Converter<LadderRankData> {
         override fun create(s: String) = json.decodeFromString(LadderRankData.serializer(), s)
+
         override fun create(data: LadderRankData) = json.encodeToString(LadderRankData.serializer(), data)
     }
 }

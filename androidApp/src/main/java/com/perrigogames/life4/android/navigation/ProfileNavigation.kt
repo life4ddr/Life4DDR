@@ -7,6 +7,5 @@ import com.perrigogames.life4.feature.profile.ProfileScreen
 
 fun NavGraphBuilder.profileGraph(navController: NavController) {
     navigation(startDestination = ProfileScreen.Profile.route, route = ProfileScreen.Profile.route) {
-
     }
 }

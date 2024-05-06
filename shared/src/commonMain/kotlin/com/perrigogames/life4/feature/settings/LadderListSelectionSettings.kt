@@ -9,7 +9,6 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalSettingsApi::class)
 class LadderListSelectionSettings : SettingsManager() {
-
     val selectedIgnoreList: Flow<String> =
         settings.getStringFlow(KEY_IGNORE_LIST, "ALL_MUSIC")
 
@@ -17,11 +16,12 @@ class LadderListSelectionSettings : SettingsManager() {
         settings.getBooleanFlow(KEY_IGNORE_LIST_SET, false)
             .distinctUntilChanged()
 
-    fun setIgnoreList(id: String?) = mainScope.launch {
-        id?.also {
-            settings.putString(KEY_IGNORE_LIST, it)
-            settings.putBoolean(KEY_IGNORE_LIST_SET, true)
+    fun setIgnoreList(id: String?) =
+        mainScope.launch {
+            id?.also {
+                settings.putString(KEY_IGNORE_LIST, it)
+                settings.putBoolean(KEY_IGNORE_LIST_SET, true)
+            }
+                ?: settings.remove(KEY_IGNORE_LIST)
         }
-            ?: settings.remove(KEY_IGNORE_LIST)
-    }
 }

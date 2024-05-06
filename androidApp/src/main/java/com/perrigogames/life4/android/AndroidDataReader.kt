@@ -18,16 +18,17 @@ import java.io.StringWriter
  * Android implementations of [LocalUncachedDataReader] and [LocalDataReader]
  */
 
-open class AndroidUncachedDataReader(@RawRes protected val rawResId: Int):
+open class AndroidUncachedDataReader(
+    @RawRes protected val rawResId: Int,
+) :
     LocalUncachedDataReader, KoinComponent {
-
     protected val context: Context by inject()
+
     override fun loadInternalString(): String = context.loadRawString(rawResId)
 }
 
-class AndroidDataReader(rawResId: Int, private val cachedFileName: String):
+class AndroidDataReader(rawResId: Int, private val cachedFileName: String) :
     AndroidUncachedDataReader(rawResId), LocalDataReader {
-
     override fun loadCachedString(): String? = context.readFromFile(cachedFileName)
 
     override fun saveCachedString(data: String) = context.saveToFile(cachedFileName, data)
@@ -35,7 +36,9 @@ class AndroidDataReader(rawResId: Int, private val cachedFileName: String):
     override fun deleteCachedString() = context.deleteFile(cachedFileName)
 }
 
-fun Context.loadRawString(@RawRes res: Int): String {
+fun Context.loadRawString(
+    @RawRes res: Int,
+): String {
     val writer = StringWriter()
     resources.openRawResource(res).use { input ->
         val reader = BufferedReader(InputStreamReader(input, "UTF-8"))
@@ -54,14 +57,15 @@ fun Context.readFromFile(path: String): String? {
     try {
         InputStreamReader(openFileInput(path)).use { streamReader ->
             val bufferedReader = BufferedReader(streamReader)
-            val builder = StringBuilder().also {
-                var receiveString: String? = bufferedReader.readLine()
-                while (receiveString != null) {
-                    it.append(receiveString)
-                    it.append('\n')
-                    receiveString = bufferedReader.readLine()
+            val builder =
+                StringBuilder().also {
+                    var receiveString: String? = bufferedReader.readLine()
+                    while (receiveString != null) {
+                        it.append(receiveString)
+                        it.append('\n')
+                        receiveString = bufferedReader.readLine()
+                    }
                 }
-            }
             if (builder.isNotEmpty()) {
                 ret = builder.toString()
             }
@@ -74,11 +78,16 @@ fun Context.readFromFile(path: String): String? {
     return ret
 }
 
-fun Context.saveToFile(path: String, content: String): Boolean {
+fun Context.saveToFile(
+    path: String,
+    content: String,
+): Boolean {
     return try {
         OutputStreamWriter(openFileOutput(path, Context.MODE_PRIVATE)).use {
             it.write(content)
         }
         true
-    } catch (e: Exception) { false }
+    } catch (e: Exception) {
+        false
+    }
 }

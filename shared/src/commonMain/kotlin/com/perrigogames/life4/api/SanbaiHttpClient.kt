@@ -8,26 +8,28 @@ import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
 import io.ktor.serialization.kotlinx.json.json
 
-fun sanbaiHttpClient(log: co.touchlab.kermit.Logger) = HttpClient {
-    install(ContentNegotiation) {
-        json()
-    }
-    install(Logging) {
-        logger = object : Logger {
-            override fun log(message: String) {
-                log.v { message }
-            }
+fun sanbaiHttpClient(log: co.touchlab.kermit.Logger) =
+    HttpClient {
+        install(ContentNegotiation) {
+            json()
         }
+        install(Logging) {
+            logger =
+                object : Logger {
+                    override fun log(message: String) {
+                        log.v { message }
+                    }
+                }
 
-        level = LogLevel.INFO
-    }
-    install(HttpTimeout) {
-        val timeout = 30000L
-        connectTimeoutMillis = timeout
-        requestTimeoutMillis = timeout
-        socketTimeoutMillis = timeout
-    }
-    // FIXME build the service for holding this data
+            level = LogLevel.INFO
+        }
+        install(HttpTimeout) {
+            val timeout = 30000L
+            connectTimeoutMillis = timeout
+            requestTimeoutMillis = timeout
+            socketTimeoutMillis = timeout
+        }
+        // FIXME build the service for holding this data
 //    install(Auth) {
 //        bearer {
 //            loadTokens {
@@ -51,4 +53,4 @@ fun sanbaiHttpClient(log: co.touchlab.kermit.Logger) = HttpClient {
 //            }
 //        }
 //    }
-}
+    }

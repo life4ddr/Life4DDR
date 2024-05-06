@@ -1,9 +1,9 @@
 package com.perrigogames.life4.feature.trials
 
-//class TrialDetailsViewModel(
+// class TrialDetailsViewModel(
 //    val trial: Trial,
 //    initialRankOverride: TrialRank? = null,
-//) : ViewModel(), KoinComponent {
+// ) : ViewModel(), KoinComponent {
 //
 //    /// region Dependencies
 //
@@ -16,7 +16,7 @@ package com.perrigogames.life4.feature.trials
 //
 //    /// region Ranks
 //
-////    private val storedRank: TrialRank? = trialManager.
+// //    private val storedRank: TrialRank? = trialManager.
 //    private val initialRank: TrialRank =
 //        if (trial.isEvent)
 //            TrialRank.fromLadderRank(userRankManager.currentRank, true) ?:
@@ -81,18 +81,18 @@ package com.perrigogames.life4.feature.trials
 //            _filesystemChecked.emit(checked)
 //        }
 //    }
-//}
+// }
 //
-//data class TargetRankView(
+// data class TargetRankView(
 //    val rank: TrialRank,
 //    val availableRanks: List<TrialRank>,
 //    val goalText: String,
-//)
+// )
 //
-//data class TrialSongView(
+// data class TrialSongView(
 //    val song: Song,
 //    val result: SongResult?,
-//) {
+// ) {
 //    val title get() = song.name
 //    val difficultyClass get() = song.difficultyClass
 //    val difficultyNumber get() = song.difficultyNumber
@@ -101,11 +101,11 @@ package com.perrigogames.life4.feature.trials
 //    val resultText get() = "${result?.score} (${result?.exScore} EX)"
 //    val resultBold get() = false // FIXME
 //    val resultTextColor: Color? get() = null // FIXME
-//}
+// }
 //
-//fun Trial.toTargetRankView(
+// fun Trial.toTargetRankView(
 //    targetRank: TrialRank,
-//) = TargetRankView(
+// ) = TargetRankView(
 //    rank = targetRank,
 //    availableRanks = goals?.map { it.rank } ?: emptyList(),
 //    goalText = goals!!.first {
@@ -113,4 +113,4 @@ package com.perrigogames.life4.feature.trials
 //    }.generateSingleGoalString(
 //        trial = this,
 //    )
-//)
+// )

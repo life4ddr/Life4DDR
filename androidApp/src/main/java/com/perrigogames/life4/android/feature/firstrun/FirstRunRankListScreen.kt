@@ -28,9 +28,10 @@ import dev.icerock.moko.mvvm.createViewModelFactory
 
 @Composable
 fun FirstRunRankListScreen(
-    viewModel: RankListViewModel = viewModel(
-        factory = createViewModelFactory { RankListViewModel(isFirstRun = true) }
-    ),
+    viewModel: RankListViewModel =
+        viewModel(
+            factory = createViewModelFactory { RankListViewModel(isFirstRun = true) },
+        ),
     onPlacementClicked: () -> Unit = {},
     goToMainScreen: () -> Unit = {},
 ) {
@@ -58,15 +59,16 @@ fun FirstRunRankListScreen(
     onRankSelected: (LadderRank?) -> Unit = {},
 ) {
     Column(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize(),
     ) {
         Text(
             text = stringResource(state.titleText.resourceId),
             style = MaterialTheme.typography.headlineMedium,
             color = MaterialTheme.colorScheme.onBackground,
             textAlign = TextAlign.Left,
-            modifier = Modifier
-                .padding(top = Paddings.LARGE, start = Paddings.LARGE)
+            modifier =
+                Modifier
+                    .padding(top = Paddings.LARGE, start = Paddings.LARGE),
         )
         SizedSpacer(32.dp)
         RankSelection(
@@ -82,7 +84,7 @@ fun FirstRunRankListScreen(
                 data = ladderData,
                 modifier = Modifier.weight(1f),
                 onCompletedChanged = {},
-                onHiddenChanged = {}
+                onHiddenChanged = {},
             )
         } else {
             Spacer(modifier = Modifier.weight(1f))
@@ -91,18 +93,20 @@ fun FirstRunRankListScreen(
             AutoResizedText(
                 text = stringResource(state.footerText.resourceId),
                 color = MaterialTheme.colorScheme.onBackground,
-                modifier = Modifier
-                    .padding(
-                        horizontal = Paddings.HUGE,
-                        vertical = Paddings.LARGE
-                    )
+                modifier =
+                    Modifier
+                        .padding(
+                            horizontal = Paddings.HUGE,
+                            vertical = Paddings.LARGE,
+                        ),
             )
             Button(
                 onClick = onPlacementClicked,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = Paddings.HUGE)
-                    .padding(bottom = Paddings.LARGE)
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = Paddings.HUGE)
+                        .padding(bottom = Paddings.LARGE),
             ) {
                 Text(text = stringResource(firstRun.buttonText.resourceId))
             }

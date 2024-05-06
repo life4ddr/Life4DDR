@@ -24,9 +24,7 @@ import com.perrigogames.life4.enums.DifficultyClass
 import com.perrigogames.life4.enums.PlayStyle
 
 @Composable
-fun ManualScoreInput(
-    lastDifficultyClass: DifficultyClass? = null
-) {
+fun ManualScoreInput(lastDifficultyClass: DifficultyClass? = null) {
     var songName by remember { mutableStateOf("") }
     var score by remember { mutableStateOf("") }
 
@@ -64,14 +62,15 @@ fun CompositeDropdown(
     var expanded by remember { mutableStateOf(false) }
 
     Box(
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier.fillMaxWidth(),
     ) {
         Text(
             values[index],
-            modifier = Modifier
-                .fillMaxWidth()
-                .clickable(onClick = { expanded = true })
-                .padding(16.dp)
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .clickable(onClick = { expanded = true })
+                    .padding(16.dp),
         )
         DropdownMenu(
             expanded = expanded,
@@ -83,7 +82,7 @@ fun CompositeDropdown(
                     onClick = {
                         index = idx
                         expanded = false
-                    }
+                    },
                 ) {
                     Text(style.name)
                 }

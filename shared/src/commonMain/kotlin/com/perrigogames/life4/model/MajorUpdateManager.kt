@@ -8,11 +8,12 @@ import com.russhwolf.settings.set
 import org.koin.core.component.inject
 
 enum class MajorUpdate {
-    SONG_DB, A20_REQUIRED, DOUBLES_FIX
+    SONG_DB,
+    A20_REQUIRED,
+    DOUBLES_FIX,
 }
 
-class MajorUpdateManager: BaseModel() {
-
+class MajorUpdateManager : BaseModel() {
     private val logger: Logger by injectLogger("MajorUpdate")
     private val settings: Settings by inject()
 

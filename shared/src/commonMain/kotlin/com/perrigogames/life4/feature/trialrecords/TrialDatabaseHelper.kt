@@ -12,8 +12,7 @@ import kotlinx.coroutines.withContext
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 
-class TrialDatabaseHelper(sqlDriver: SqlDriver): DatabaseHelper(sqlDriver) {
-
+class TrialDatabaseHelper(sqlDriver: SqlDriver) : DatabaseHelper(sqlDriver) {
     private val queries get() = dbRef.trialQueries
 
     fun allRecords(): Query<TrialSession> = queries.selectAllSessions()
@@ -22,17 +21,21 @@ class TrialDatabaseHelper(sqlDriver: SqlDriver): DatabaseHelper(sqlDriver) {
 
     suspend fun insertSession(
         session: InProgressTrialSession,
-        datetime: Instant? = null
+        datetime: Instant? = null,
     ) = withContext(Dispatchers.Default) {
-        queries.insertSession(null,
+        queries.insertSession(
+            null,
             session.trial.id,
             (datetime ?: Clock.System.now()).toString(),
             session.goalRank!!,
-            session.goalObtained)
+            session.goalObtained,
+        )
         val sId = queries.lastInsertRowId().executeAsOne()
         dbRef.transaction {
             session.results.forEachIndexed { idx, result ->
-                queries.insertSong(null, sId,
+                queries.insertSong(
+                    null,
+                    sId,
                     idx.toLong(),
                     result!!.score!!.toLong(),
                     result.exScore!!.toLong(),
@@ -40,19 +43,22 @@ class TrialDatabaseHelper(sqlDriver: SqlDriver): DatabaseHelper(sqlDriver) {
                     result.goods?.toLong(),
                     result.greats?.toLong(),
                     result.perfects?.toLong(),
-                    result.passed)
+                    result.passed,
+                )
             }
         }
     }
 
-    suspend fun deleteSession(id: Long) = withContext(Dispatchers.Default) {
-        queries.deleteSession(id)
-    }
+    suspend fun deleteSession(id: Long) =
+        withContext(Dispatchers.Default) {
+            queries.deleteSession(id)
+        }
 
-    suspend fun deleteAll() = withContext(Dispatchers.Default) {
-        queries.deleteAllSongs()
-        queries.deleteAllSessions()
-    }
+    suspend fun deleteAll() =
+        withContext(Dispatchers.Default) {
+            queries.deleteAllSongs()
+            queries.deleteAllSessions()
+        }
 
     fun sessionsForTrial(trialId: String) = queries.selectSessionByTrialId(trialId).executeAsList()
 
@@ -62,17 +68,22 @@ class TrialDatabaseHelper(sqlDriver: SqlDriver): DatabaseHelper(sqlDriver) {
 
     fun songsForSession(sessionId: Long) = queries.selectSessionSongs(sessionId).executeAsList()
 
-    fun createRecordExportStrings(): List<String> = allRecords().executeAsList().map {
-        (listOf(it.trialId, it.date, it.goalRank.stableId.toString(), it.goalObtained.toString()) +
-                songsForSession(it.id).joinToString("\t") {
-                        song -> "${song.score}\t${song.exScore}\t${song.misses}\t${song.goods}\t${song.greats}\t${song.perfects}\t${song.passed}"
-                }).joinToString("\t")
-    }
+    fun createRecordExportStrings(): List<String> =
+        allRecords().executeAsList().map {
+            (
+                listOf(it.trialId, it.date, it.goalRank.stableId.toString(), it.goalObtained.toString()) +
+                    songsForSession(it.id).joinToString("\t") {
+                            song ->
+                        "${song.score}\t${song.exScore}\t${song.misses}\t${song.goods}\t${song.greats}\t${song.perfects}\t${song.passed}"
+                    }
+            ).joinToString("\t")
+        }
 
     fun importRecordExportStrings(input: List<String>) {
         val songs = allSongs().executeAsList()
-        val records = allRecords().executeAsList()
-            .associateWith { session -> songs.filter { session.id == it.sessionId } }
+        val records =
+            allRecords().executeAsList()
+                .associateWith { session -> songs.filter { session.id == it.sessionId } }
         dbRef.transaction {
             input.forEach { line ->
                 val segs = line.split('\t').toMutableList()
@@ -82,26 +93,41 @@ class TrialDatabaseHelper(sqlDriver: SqlDriver): DatabaseHelper(sqlDriver) {
                 val goalObtained = segs.removeAt(0).toBoolean()
 
                 val newSongs = mutableListOf<TrialInputSong>()
-                while(segs.isNotEmpty()) {
+                while (segs.isNotEmpty()) {
                     newSongs.add(
                         TrialInputSong(
-                        segs.removeAt(0).toLong(),
-                        segs.removeAt(0).toLong(),
-                        segs.removeAt(0).toLong(),
-                        segs.removeAt(0).toLong(),
-                        segs.removeAt(0).toLong(),
-                        segs.removeAt(0).toLong(),
-                        segs.removeAt(0).toBoolean())
+                            segs.removeAt(0).toLong(),
+                            segs.removeAt(0).toLong(),
+                            segs.removeAt(0).toLong(),
+                            segs.removeAt(0).toLong(),
+                            segs.removeAt(0).toLong(),
+                            segs.removeAt(0).toLong(),
+                            segs.removeAt(0).toBoolean(),
+                        ),
                     )
                 }
-                val matches = records.any { record ->
-                    record.key.trialId == trialId && record.value.map { it.exScore } == newSongs.map { it.exScore }
-                }
+                val matches =
+                    records.any { record ->
+                        record.key.trialId == trialId && record.value.map { it.exScore } == newSongs.map { it.exScore }
+                    }
                 if (!matches) {
                     queries.insertSession(null, trialId, date, goalRank, goalObtained)
                     val sId = queries.lastInsertRowId().executeAsOne()
                     var idx = 0L
-                    newSongs.forEach { queries.insertSong(null, sId, idx++, it.score, it.exScore, it.misses, it.goods, it.greats, it.perfects, it.passed) }
+                    newSongs.forEach {
+                        queries.insertSong(
+                            null,
+                            sId,
+                            idx++,
+                            it.score,
+                            it.exScore,
+                            it.misses,
+                            it.goods,
+                            it.greats,
+                            it.perfects,
+                            it.passed,
+                        )
+                    }
                 }
             }
         }

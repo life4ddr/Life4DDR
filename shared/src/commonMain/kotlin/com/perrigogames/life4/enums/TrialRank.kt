@@ -14,7 +14,7 @@ import kotlinx.serialization.encoding.Encoder
  * Enum class representing a Rank that a player can earn in a LIFE4 Trial.
  */
 @Serializable
-enum class TrialRank(override val stableId: Long, val parent: LadderRank): StableId {
+enum class TrialRank(override val stableId: Long, val parent: LadderRank) : StableId {
     COPPER(10, COPPER5),
     BRONZE(15, BRONZE5),
     SILVER(20, SILVER5),
@@ -35,14 +35,18 @@ enum class TrialRank(override val stableId: Long, val parent: LadderRank): Stabl
         get() = entries.toTypedArray().let { it.copyOfRange(this.ordinal, it.size) }
 
     companion object {
-        fun parse(s: String?): TrialRank? = when (s) {
-            null, "NONE" -> null
-            else -> valueOf(s)
-        }
+        fun parse(s: String?): TrialRank? =
+            when (s) {
+                null, "NONE" -> null
+                else -> valueOf(s)
+            }
 
         fun parse(stableId: Long): TrialRank? = entries.firstOrNull { it.stableId == stableId }
 
-        fun fromLadderRank(userRank: LadderRank?, parsePlatinum: Boolean) = when(userRank?.group) {
+        fun fromLadderRank(
+            userRank: LadderRank?,
+            parsePlatinum: Boolean,
+        ) = when (userRank?.group) {
             null -> null
             LadderRankClass.COPPER -> COPPER
             LadderRankClass.BRONZE -> BRONZE
@@ -59,10 +63,15 @@ enum class TrialRank(override val stableId: Long, val parent: LadderRank): Stabl
     }
 }
 
-object TrialRankSerializer: KSerializer<TrialRank> {
+object TrialRankSerializer : KSerializer<TrialRank> {
     override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("trialRank", PrimitiveKind.STRING)
+
     override fun deserialize(decoder: Decoder) = TrialRank.valueOf(decoder.decodeString().uppercase())
-    override fun serialize(encoder: Encoder, value: TrialRank) {
+
+    override fun serialize(
+        encoder: Encoder,
+        value: TrialRank,
+    ) {
         encoder.encodeString(value.name.lowercase())
     }
 }

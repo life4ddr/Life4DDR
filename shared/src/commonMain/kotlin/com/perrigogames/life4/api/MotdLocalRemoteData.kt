@@ -14,8 +14,7 @@ import org.koin.core.component.inject
 
 class MotdLocalRemoteData(
     reader: LocalDataReader,
-): CompositeData<MessageOfTheDay>(), KoinComponent {
-
+) : CompositeData<MessageOfTheDay>(), KoinComponent {
     private val json: Json by inject()
     private val githubKtor: GithubDataAPI by inject()
 
@@ -23,12 +22,14 @@ class MotdLocalRemoteData(
 
     override val rawData = LocalData(reader, converter)
     override val cacheData = CachedData(reader, converter, converter)
-    override val remoteData = object: RemoteData<MessageOfTheDay>() {
-        override suspend fun getRemoteResponse() = githubKtor.getMotd()
-    }
+    override val remoteData =
+        object : RemoteData<MessageOfTheDay>() {
+            override suspend fun getRemoteResponse() = githubKtor.getMotd()
+        }
 
-    private inner class MessageOfTheDayConverter: Converter<MessageOfTheDay> {
+    private inner class MessageOfTheDayConverter : Converter<MessageOfTheDay> {
         override fun create(s: String) = json.decodeFromString(MessageOfTheDay.serializer(), s)
+
         override fun create(data: MessageOfTheDay) = json.encodeToString(MessageOfTheDay.serializer(), data)
     }
 }

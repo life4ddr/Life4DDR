@@ -11,7 +11,6 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class DifficultyClassPlayStyleTest {
-
     @Test fun `Test bSP aggregate`() = BEGINNER.testAggregate("bSP", PlayStyle.SINGLE)
 
     @Test fun `Test BSP aggregate`() = BASIC.testAggregate("BSP", PlayStyle.SINGLE)
@@ -30,6 +29,8 @@ class DifficultyClassPlayStyleTest {
 
     @Test fun `Test CDP aggregate`() = CHALLENGE.testAggregate("CDP", PlayStyle.DOUBLE)
 
-    private fun DifficultyClass.testAggregate(expected: String, style: PlayStyle) =
-        assertEquals(expected, this.aggregateString(style))
+    private fun DifficultyClass.testAggregate(
+        expected: String,
+        style: PlayStyle,
+    ) = assertEquals(expected, this.aggregateString(style))
 }

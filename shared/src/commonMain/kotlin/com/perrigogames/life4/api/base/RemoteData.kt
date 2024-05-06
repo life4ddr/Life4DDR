@@ -6,7 +6,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 interface FetchListener<T> {
-
     /**
      * Invoked when the remote data is received and the result of [checkResponse] is true.
      */
@@ -18,8 +17,7 @@ interface FetchListener<T> {
     fun onFetchFailed(e: Throwable) {}
 }
 
-abstract class RemoteData<T: Any>: BaseModel(), DelayedDataSource<T> {
-
+abstract class RemoteData<T : Any> : BaseModel(), DelayedDataSource<T> {
     override fun fetch(listener: FetchListener<T>) {
         ktorScope.launch {
             try {
@@ -31,7 +29,7 @@ abstract class RemoteData<T: Any>: BaseModel(), DelayedDataSource<T> {
                         listener.onFetchFailed(Error("Response validation failed"))
                     }
                 }
-            } catch (e: Exception){
+            } catch (e: Exception) {
                 println(e)
                 withContext(Dispatchers.Main) { listener.onFetchFailed(e) }
             }

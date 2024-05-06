@@ -25,8 +25,7 @@ import org.koin.core.qualifier.named
  * - the current Trial in progress (the 'session')
  * - records for Trials the player has previously completed ('records')
  */
-class TrialManager: BaseModel() {
-
+class TrialManager : BaseModel() {
     private val settings: Settings by inject()
     private val notifications: Notifications by inject()
     private val dbHelper: TrialDatabaseHelper by inject()
@@ -62,15 +61,16 @@ class TrialManager: BaseModel() {
 
     fun getBestSession(trialId: String) = dbHelper.bestSession(trialId)
 
-    private fun validateTrials() = trials.forEach { trial ->
-        var sum = 0
-        trial.songs.forEach { sum += it.ex }
-        if (sum != trial.totalEx) {
-            if (!isDebug) {
-                logger.e { "Trial ${trial.name} has improper EX values: total_ex=${trial.totalEx}, sum=$sum" }
+    private fun validateTrials() =
+        trials.forEach { trial ->
+            var sum = 0
+            trial.songs.forEach { sum += it.ex }
+            if (sum != trial.totalEx) {
+                if (!isDebug) {
+                    logger.e { "Trial ${trial.name} has improper EX values: total_ex=${trial.totalEx}, sum=$sum" }
+                }
             }
         }
-    }
 
     fun findTrial(id: String) = trials.firstOrNull { it.id == id }
 
@@ -84,7 +84,7 @@ class TrialManager: BaseModel() {
 
 //    fun createViewState() = UITrialList(
 //        trials = trials,
-////        sessions = bestSessions(), FIXME
+// //        sessions = bestSessions(), FIXME
 //        sessions = emptyList(),
 //        featureNew = settings.getBoolean(SettingsKeys.KEY_LIST_HIGHLIGHT_NEW, true),
 //        featureUnplayed = settings.getBoolean(SettingsKeys.KEY_LIST_HIGHLIGHT_UNPLAYED, true),

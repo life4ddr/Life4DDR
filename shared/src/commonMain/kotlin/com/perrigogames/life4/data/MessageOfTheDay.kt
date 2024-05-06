@@ -9,4 +9,4 @@ data class MessageOfTheDay(
     @SerialName("image_url") val imageUrl: String,
     val body: String,
     @SerialName("white_close") val useWhiteCloseIcon: Boolean = false,
-): Versioned
+) : Versioned

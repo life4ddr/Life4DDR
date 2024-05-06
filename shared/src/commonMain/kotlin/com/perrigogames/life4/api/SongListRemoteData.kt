@@ -8,20 +8,21 @@ import org.koin.core.component.inject
 
 class SongListRemoteData(
     reader: LocalDataReader,
-): CompositeData<SongList>(), KoinComponent {
-
+) : CompositeData<SongList>(), KoinComponent {
     private val githubKtor: GithubDataAPI by inject()
 
     private val converter = SongListConverter()
 
     override val rawData = LocalData(reader, converter)
     override val cacheData = CachedData(reader, converter, converter)
-    override val remoteData = object: RemoteData<SongList>() {
-        override suspend fun getRemoteResponse() = SongList.parse(githubKtor.getSongList())
-    }
+    override val remoteData =
+        object : RemoteData<SongList>() {
+            override suspend fun getRemoteResponse() = SongList.parse(githubKtor.getSongList())
+        }
 
-    private inner class SongListConverter: Converter<SongList> {
+    private inner class SongListConverter : Converter<SongList> {
         override fun create(data: SongList) = data.toString()
+
         override fun create(s: String) = SongList.parse(s)
     }
 }

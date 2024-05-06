@@ -21,16 +21,16 @@ open class BaseModel : KoinComponent {
     open fun onApplicationException() {}
 }
 
-//FIXME internal
+// FIXME internal
 class MainScope(private val mainContext: CoroutineContext) : CoroutineScope, KoinComponent {
-
     private val logger: Logger by injectLogger("MainScope")
 
     override val coroutineContext: CoroutineContext
         get() = mainContext + job + exceptionHandler
 
     internal val job = SupervisorJob()
-    private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
-        logger.e(throwable) { "Coroutine exception encountered" }
-    }
+    private val exceptionHandler =
+        CoroutineExceptionHandler { _, throwable ->
+            logger.e(throwable) { "Coroutine exception encountered" }
+        }
 }

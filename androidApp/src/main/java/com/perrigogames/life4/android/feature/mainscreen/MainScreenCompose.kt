@@ -1,10 +1,5 @@
 package com.perrigogames.life4.android.feature.mainscreen
 
-import androidx.compose.animation.AnimatedContentTransitionScope
-import androidx.compose.animation.EnterTransition
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.slideInHorizontally
-import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.BottomNavigation
@@ -20,7 +15,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
@@ -31,7 +25,6 @@ import com.perrigogames.life4.android.activity.profile.PlayerProfileScreen
 import com.perrigogames.life4.android.feature.ladder.LadderGoalsScreen
 import com.perrigogames.life4.android.feature.settings.SettingsScreen
 import com.perrigogames.life4.android.feature.trial.TrialListScreen
-import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.feature.profile.MainScreenViewModel
 import com.perrigogames.life4.feature.profile.PlayerProfileAction
 import com.perrigogames.life4.feature.profile.ProfileScreen
@@ -40,9 +33,10 @@ import dev.icerock.moko.mvvm.createViewModelFactory
 @Composable
 fun MainScreen(
     modifier: Modifier = Modifier,
-    viewModel: MainScreenViewModel = viewModel(
-        factory = createViewModelFactory { MainScreenViewModel() }
-    ),
+    viewModel: MainScreenViewModel =
+        viewModel(
+            factory = createViewModelFactory { MainScreenViewModel() },
+        ),
 ) {
     val profileNavController = rememberNavController()
     val profileState by viewModel.state.collectAsState()
@@ -72,11 +66,11 @@ fun MainScreen(
                                 // Restore state when reselecting a previously selected item
                                 restoreState = true
                             }
-                        }
+                        },
                     )
                 }
             }
-        }
+        },
     ) { innerPadding ->
 //        fun enterTransition(): AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition? {
 //            slideInHorizontally(
@@ -112,7 +106,7 @@ fun MainScreen(
                 SettingsScreen(
                     modifier = Modifier.fillMaxSize(),
                     onClose = { profileNavController.navigate(ProfileScreen.Profile.route) },
-                    onNavigateToCredits = { TODO() }
+                    onNavigateToCredits = { TODO() },
                 )
             }
         }

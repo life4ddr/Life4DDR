@@ -33,8 +33,7 @@ import org.koin.core.qualifier.named
 /**
  * A Manager class that keeps track of the available songs
  */
-class SongDataManager: BaseModel() {
-
+class SongDataManager : BaseModel() {
     private val dbHelper: SongDatabaseHelper by inject()
     private val majorUpdates: MajorUpdateManager by inject()
     private val settings: Settings by inject()
@@ -50,11 +49,11 @@ class SongDataManager: BaseModel() {
 //            refreshSongDatabase(data)
 //        }
 
-
     val dataVersionString: Flow<String> =
         data.versionState.map { it.versionString }
 
     lateinit var songs: List<SongInfo>
+
     @Deprecated("Use libraryFlow instead")
     lateinit var detailedCharts: List<DetailedChartInfo>
     lateinit var chartsGroupedBySong: Map<SongInfo, List<DetailedChartInfo>>
@@ -120,7 +119,6 @@ class SongDataManager: BaseModel() {
             try {
                 val lines = input.songLines
                 if (force || delete || settings.getInt(KEY_SONG_LIST_VERSION, -1) < input.version) {
-
                     val songs = mutableListOf<SongInfo>()
                     val charts = mutableListOf<ChartInfo>()
 
@@ -134,14 +132,17 @@ class SongDataManager: BaseModel() {
 
                         var preview = false
                         val mixCode = data[2]
-                        val mix = GameVersion.parse(mixCode.let {
-                            it.toLongOrNull() ?: it.substring(0, it.length - 1).let { seg ->
-                                preview = true
-                                seg.toLong()
+                        val mix =
+                            GameVersion.parse(
+                                mixCode.let {
+                                    it.toLongOrNull() ?: it.substring(0, it.length - 1).let { seg ->
+                                        preview = true
+                                        seg.toLong()
+                                    }
+                                },
+                            ) ?: GameVersion.entries.last().also {
+                                logger.e { "No game version found for mix code \"$mixCode\"" }
                             }
-                        }) ?: GameVersion.entries.last().also {
-                            logger.e { "No game version found for mix code \"$mixCode\"" }
-                        }
 
                         val title = data[12]
                         val artist = data[13]
@@ -191,5 +192,6 @@ data class SongLibrary(
     val charts: List<DetailedChartInfo> = emptyList(),
 )
 
-class ChartNotFoundException(songTitle: String, playStyle: PlayStyle, difficultyClass: DifficultyClass, difficultyNumber: Int): Exception(
-    "$songTitle (${playStyle.aggregateString(difficultyClass)} $difficultyNumber) does not exist in the song database")
+class ChartNotFoundException(songTitle: String, playStyle: PlayStyle, difficultyClass: DifficultyClass, difficultyNumber: Int) : Exception(
+    "$songTitle (${playStyle.aggregateString(difficultyClass)} $difficultyNumber) does not exist in the song database",
+)

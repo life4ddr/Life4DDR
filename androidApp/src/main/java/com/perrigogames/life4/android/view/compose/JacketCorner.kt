@@ -21,23 +21,30 @@ fun JacketCorner(
     modifier: Modifier = Modifier,
 ) {
     Box(
-        modifier = modifier
-            .aspectRatio(1f)
+        modifier =
+            modifier
+                .aspectRatio(1f),
     ) {
         Image(
-            painter = painterResource(when (corner) {
-                TrialJacketCorner.NEW -> R.drawable.triangle_new
-                TrialJacketCorner.EVENT -> R.drawable.triangle_event
-                TrialJacketCorner.NONE -> error("Cannot make a JacketCorner for type NONE")
-            }),
-            contentDescription = "${corner.name} tag"
+            painter =
+                painterResource(
+                    when (corner) {
+                        TrialJacketCorner.NEW -> R.drawable.triangle_new
+                        TrialJacketCorner.EVENT -> R.drawable.triangle_event
+                        TrialJacketCorner.NONE -> error("Cannot make a JacketCorner for type NONE")
+                    },
+                ),
+            contentDescription = "${corner.name} tag",
         )
         Text(
-            text = stringResource(when (corner) {
-                TrialJacketCorner.NEW -> MR.strings.new_tag
-                TrialJacketCorner.EVENT -> MR.strings.event_tag
-                TrialJacketCorner.NONE -> error("Cannot make a JacketCorner for type NONE")
-            })
+            text =
+                stringResource(
+                    when (corner) {
+                        TrialJacketCorner.NEW -> MR.strings.new_tag
+                        TrialJacketCorner.EVENT -> MR.strings.event_tag
+                        TrialJacketCorner.NONE -> error("Cannot make a JacketCorner for type NONE")
+                    },
+                ),
         )
     }
 }

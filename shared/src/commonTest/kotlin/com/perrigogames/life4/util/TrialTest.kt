@@ -11,29 +11,30 @@ import com.perrigogames.life4.enums.TrialRank.SILVER
 import com.perrigogames.life4.enums.TrialType
 import com.perrigogames.life4.feature.trialsession.TrialGoalSet
 
-fun testTrial(
-    songEx: List<Int> = TRIAL_SONG_EX
-) = Trial(
-    id = "id",
-    name = "Test Trial",
-    author = "Author",
-    type = TrialType.TRIAL,
-    placementRank = null,
-    songs = listOf(
-        testSong(index = 1, ex = songEx[0]),
-        testSong(index = 2, ex = songEx[1]),
-        testSong(index = 3, ex = songEx[2]),
-        testSong(index = 4, ex = songEx[3]),
-    ),
-    difficulty = 16,
-    totalEx = 1000,
-    goals = listOf(
-        TrialGoalSet(SILVER, score = listOf(_80k, _80k, _80k, _80k)),
-        TrialGoalSet(GOLD, score = listOf(_95k, _95k, _90k, _90k)),
-        TrialGoalSet(PLATINUM, miss = 10, exMissing = 300),
-        TrialGoalSet(DIAMOND, miss = 5, exMissing = 150),
-    ),
-)
+fun testTrial(songEx: List<Int> = TRIAL_SONG_EX) =
+    Trial(
+        id = "id",
+        name = "Test Trial",
+        author = "Author",
+        type = TrialType.TRIAL,
+        placementRank = null,
+        songs =
+            listOf(
+                testSong(index = 1, ex = songEx[0]),
+                testSong(index = 2, ex = songEx[1]),
+                testSong(index = 3, ex = songEx[2]),
+                testSong(index = 4, ex = songEx[3]),
+            ),
+        difficulty = 16,
+        totalEx = 1000,
+        goals =
+            listOf(
+                TrialGoalSet(SILVER, score = listOf(_80k, _80k, _80k, _80k)),
+                TrialGoalSet(GOLD, score = listOf(_95k, _95k, _90k, _90k)),
+                TrialGoalSet(PLATINUM, miss = 10, exMissing = 300),
+                TrialGoalSet(DIAMOND, miss = 5, exMissing = 150),
+            ),
+    )
 
 fun testSong(
     index: Int,

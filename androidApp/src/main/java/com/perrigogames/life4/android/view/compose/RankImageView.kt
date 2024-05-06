@@ -29,19 +29,21 @@ fun RankImage(
     size: Dp = dimensionResource(R.dimen.profile_found_rank_size),
     onClick: () -> Unit = {},
 ) {
-    val painter = painterResource(
-        rank?.drawableRes ?: R.drawable.copper_1
-    )
+    val painter =
+        painterResource(
+            rank?.drawableRes ?: R.drawable.copper_1,
+        )
     val colorMatrix = ColorMatrix().apply { setToSaturation(0f) }
     val colorFilter = if (rank != null) null else ColorFilter.colorMatrix(colorMatrix)
     Image(
         painter = painter,
         colorFilter = colorFilter,
-        contentDescription = null, //FIXME
-        modifier = modifier
-            .size(size)
-            .alpha(if (rank != null) 1F else 0.3F)
-            .clickable { onClick() }
+        contentDescription = null, // FIXME
+        modifier =
+            modifier
+                .size(size)
+                .alpha(if (rank != null) 1F else 0.3F)
+                .clickable { onClick() },
     )
 }
 

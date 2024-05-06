@@ -14,8 +14,7 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import kotlin.math.roundToLong
 
-class ChartResultOrganizer: KoinComponent {
-
+class ChartResultOrganizer : KoinComponent {
     private val ignoreListManager: IgnoreListManager by inject()
     private val resultDbHelper: ResultDatabaseHelper by inject()
     private val songDataManager: SongDataManager by inject()
@@ -29,19 +28,21 @@ class ChartResultOrganizer: KoinComponent {
         ignoredCharts = emptySet() // FIXME ignore lists
 
         val tempResults = resultDbHelper.selectAll().toMutableSet()
-        matchedResults = songDataManager.detailedCharts
-            .groupBy { it.playStyle }
-            .mapValues { (_, chartsByPlayStyle) ->
-                chartsByPlayStyle.groupBy { it.difficultyNumber.toInt() }
-                    .mapValues { (_, chartsByDiffNum) ->
-                        val pairs = chartsByDiffNum.associateWith { chart ->
-                            tempResults.firstOrNull { result ->
-                                chart.id == result.chartId
-                            }.also { tempResults.remove(it) }
-                        }.map { (chart, result) -> ChartResultPair(chart, result) }
-                        ChartResultSet(pairs)
-                    }
-            }
+        matchedResults =
+            songDataManager.detailedCharts
+                .groupBy { it.playStyle }
+                .mapValues { (_, chartsByPlayStyle) ->
+                    chartsByPlayStyle.groupBy { it.difficultyNumber.toInt() }
+                        .mapValues { (_, chartsByDiffNum) ->
+                            val pairs =
+                                chartsByDiffNum.associateWith { chart ->
+                                    tempResults.firstOrNull { result ->
+                                        chart.id == result.chartId
+                                    }.also { tempResults.remove(it) }
+                                }.map { (chart, result) -> ChartResultPair(chart, result) }
+                            ChartResultSet(pairs)
+                        }
+                }
     }
 
     fun getResults(
@@ -49,12 +50,13 @@ class ChartResultOrganizer: KoinComponent {
         diffNum: Int,
         populated: Boolean,
         filterIgnored: Boolean,
-    ): ChartResults = matchedResults[playStyle]!![diffNum]!!.filter(
-        FilterConfiguration(populated = populated, filterIgnored = filterIgnored)
-    )
+    ): ChartResults =
+        matchedResults[playStyle]!![diffNum]!!.filter(
+            FilterConfiguration(populated = populated, filterIgnored = filterIgnored),
+        )
 
     inner class ChartResultSet(
-        private val results: List<ChartResultPair>
+        private val results: List<ChartResultPair>,
     ) {
         private val cache = mutableMapOf<FilterConfiguration, ChartResults>()
 
@@ -75,9 +77,8 @@ class ChartResultOrganizer: KoinComponent {
     }
 
     data class ChartResults(
-        val results: List<ChartResultPair>
+        val results: List<ChartResultPair>,
     ) {
-
         /**
          * Groups the songs by their truncated score in tens of thousands. For example, a result
          * with a score of 957,370 would appear under the key 95.  The returned list is sorted in
@@ -99,15 +100,22 @@ class ChartResultOrganizer: KoinComponent {
             }
             val bottomIdx = ((bottom ?: 0) / 10_000)
             val topIdx = ((top ?: MAX_SCORE) / 10_000)
-            val centerSongs = (bottomIdx + 1 until topIdx)
-                .mapNotNull { scoresForGroup(it) }
-                .flatten()
+            val centerSongs =
+                (bottomIdx + 1 until topIdx)
+                    .mapNotNull { scoresForGroup(it) }
+                    .flatten()
             val bottomSongs =
-                if (bottom != null) scoresForGroup(bottomIdx).filter { it.result.safeScore >= bottom }
-                else scoresForGroup(bottomIdx)
+                if (bottom != null) {
+                    scoresForGroup(bottomIdx).filter { it.result.safeScore >= bottom }
+                } else {
+                    scoresForGroup(bottomIdx)
+                }
             val topSongs =
-                if (top == null) scoresForGroup(topIdx) // MFCs, group 100
-                else scoresForGroup(topIdx).filter { it.result.safeScore <= top }
+                if (top == null) {
+                    scoresForGroup(topIdx) // MFCs, group 100
+                } else {
+                    scoresForGroup(topIdx).filter { it.result.safeScore <= top }
+                }
             return topSongs + centerSongs + bottomSongs
         }
 
@@ -115,7 +123,9 @@ class ChartResultOrganizer: KoinComponent {
             val idx = byScoreInTenThousands.binarySearch { group - it.first }
             return if (idx >= 0) {
                 byScoreInTenThousands[idx].second
-            } else emptyList()
+            } else {
+                emptyList()
+            }
         }
 
         /**
@@ -127,10 +137,13 @@ class ChartResultOrganizer: KoinComponent {
         /**
          * Calculates the average score of all songs in this group
          */
-        val averageScore = if (results.isNotEmpty()) {
-            (results.sumOf { it.result.safeScore } / results.size.toDouble())
-                .roundToLong()
-        } else 0
+        val averageScore =
+            if (results.isNotEmpty()) {
+                (results.sumOf { it.result.safeScore } / results.size.toDouble())
+                    .roundToLong()
+            } else {
+                0
+            }
     }
 }
 

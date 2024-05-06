@@ -10,11 +10,10 @@ import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-class TrialRecordsManager: BaseModel(), KoinComponent {
-
+class TrialRecordsManager : BaseModel(), KoinComponent {
     private val dbHelper: TrialDatabaseHelper by inject()
 
-    private val _bestSessions : MutableStateFlow<List<SelectBestSessions>> = MutableStateFlow(emptyList())
+    private val _bestSessions: MutableStateFlow<List<SelectBestSessions>> = MutableStateFlow(emptyList())
     val bestSessions: StateFlow<List<SelectBestSessions>> get() = _bestSessions.asStateFlow()
 
     init {

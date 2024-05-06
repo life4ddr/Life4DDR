@@ -7,19 +7,20 @@ import android.util.AttributeSet
 import android.view.View
 import androidx.appcompat.widget.AppCompatImageView
 
-class PathImageView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
+class PathImageView
+    @JvmOverloads
+    constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
     AppCompatImageView(context, attrs, defStyleAttr) {
+        var outputSize: Int = 128
 
-    var outputSize: Int = 128
-
-    var uri: Uri? = null
-        set(v) {
-            field = v
-            if (v != null) {
-                visibility = View.VISIBLE
-                setImageBitmap(MediaStore.Images.Media.getBitmap(context.contentResolver, v))
-            } else {
-                setImageDrawable(null)
+        var uri: Uri? = null
+            set(v) {
+                field = v
+                if (v != null) {
+                    visibility = View.VISIBLE
+                    setImageBitmap(MediaStore.Images.Media.getBitmap(context.contentResolver, v))
+                } else {
+                    setImageDrawable(null)
+                }
             }
-        }
-}
+    }

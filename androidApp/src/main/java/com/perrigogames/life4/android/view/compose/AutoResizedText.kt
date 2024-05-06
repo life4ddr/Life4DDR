@@ -18,7 +18,7 @@ fun AutoResizedText(
     text: String,
     style: TextStyle = MaterialTheme.typography.bodyMedium,
     modifier: Modifier = Modifier,
-    color: Color = style.color
+    color: Color = style.color,
 ) {
     var resizedTextStyle by remember {
         mutableStateOf(style)
@@ -32,25 +32,28 @@ fun AutoResizedText(
     Text(
         text = text,
         color = color,
-        modifier = modifier.drawWithContent {
-            if (shouldDraw) {
-                drawContent()
-            }
-        },
+        modifier =
+            modifier.drawWithContent {
+                if (shouldDraw) {
+                    drawContent()
+                }
+            },
         softWrap = false,
         style = resizedTextStyle,
         onTextLayout = { result ->
             if (result.didOverflowWidth) {
-                resizedTextStyle = resizedTextStyle.copy(
-                    fontSize = if (style.fontSize.isUnspecified) {
-                        defaultFontSize * 0.95
-                    } else {
-                        resizedTextStyle.fontSize * 0.95
-                    }
-                )
+                resizedTextStyle =
+                    resizedTextStyle.copy(
+                        fontSize =
+                            if (style.fontSize.isUnspecified) {
+                                defaultFontSize * 0.95
+                            } else {
+                                resizedTextStyle.fontSize * 0.95
+                            },
+                    )
             } else {
                 shouldDraw = true
             }
-        }
+        },
     )
 }

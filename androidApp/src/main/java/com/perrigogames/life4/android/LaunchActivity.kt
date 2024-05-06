@@ -40,8 +40,7 @@ import org.koin.core.component.KoinComponent
  * The first launched activity, determines the path through the startup flow that should be taken
  * based on the current save state.
  */
-class LaunchActivity: AppCompatActivity(), KoinComponent {
-
+class LaunchActivity : AppCompatActivity(), KoinComponent {
     private var loaded: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,18 +51,21 @@ class LaunchActivity: AppCompatActivity(), KoinComponent {
         setContent {
             val navController = rememberNavController()
 
-            val viewModel: LaunchViewModel = viewModel(
-                factory = createViewModelFactory { LaunchViewModel() }
-            )
+            val viewModel: LaunchViewModel =
+                viewModel(
+                    factory = createViewModelFactory { LaunchViewModel() },
+                )
 
             LaunchedEffect(Unit) {
                 viewModel.launchState.collect { launchState ->
-                    navController.popAndNavigate(when(launchState) {
-                        null -> "first_run"
-                        InitState.PLACEMENTS -> "placement_list"
-                        InitState.RANKS -> "initial_rank_list"
-                        InitState.DONE -> "main_screen"
-                    })
+                    navController.popAndNavigate(
+                        when (launchState) {
+                            null -> "first_run"
+                            InitState.PLACEMENTS -> "placement_list"
+                            InitState.RANKS -> "initial_rank_list"
+                            InitState.DONE -> "main_screen"
+                        },
+                    )
                     loaded = true
                 }
             }
@@ -76,17 +78,19 @@ class LaunchActivity: AppCompatActivity(), KoinComponent {
                     NavHost(
                         navController = navController,
                         startDestination = "landing",
-                        modifier = Modifier.fillMaxSize()
+                        modifier = Modifier.fillMaxSize(),
                     ) {
                         composable("landing") {}
 
                         composable("first_run") {
                             FirstRunScreen(
-                                onComplete = { when (it) {
-                                    InitState.PLACEMENTS -> navController.popAndNavigate("placement_list")
-                                    InitState.RANKS -> navController.popAndNavigate("initial_rank_list")
-                                    InitState.DONE -> navController.popAndNavigate("main_screen")
-                                } },
+                                onComplete = {
+                                    when (it) {
+                                        InitState.PLACEMENTS -> navController.popAndNavigate("placement_list")
+                                        InitState.RANKS -> navController.popAndNavigate("initial_rank_list")
+                                        InitState.DONE -> navController.popAndNavigate("main_screen")
+                                    }
+                                },
                                 onClose = { finish() },
                             )
                         }
@@ -95,13 +99,13 @@ class LaunchActivity: AppCompatActivity(), KoinComponent {
                             PlacementListScreen(
                                 onPlacementSelected = { placementId -> navController.navigate("placement_details/$placementId") },
                                 onRanksClicked = { navController.popAndNavigate("initial_rank_list") },
-                                goToMainScreen = { navController.popAndNavigate("main_screen") }
+                                goToMainScreen = { navController.popAndNavigate("main_screen") },
                             )
                         }
 
                         composable(
                             route = "placement_details/{placement_id}",
-                            arguments = listOf(navArgument("placement_id") { type = NavType.StringType })
+                            arguments = listOf(navArgument("placement_id") { type = NavType.StringType }),
                         ) { backStackEntry ->
                             val placementId = backStackEntry.arguments?.getString("placement_id")
                             if (placementId != null) {
@@ -112,9 +116,10 @@ class LaunchActivity: AppCompatActivity(), KoinComponent {
                                         text = "No placement ID provided",
                                         color = MaterialTheme.colorScheme.onBackground,
                                         style = MaterialTheme.typography.bodyLarge,
-                                        modifier = Modifier
-                                            .fillMaxWidth()
-                                            .padding(horizontal = Paddings.HUGE)
+                                        modifier =
+                                            Modifier
+                                                .fillMaxWidth()
+                                                .padding(horizontal = Paddings.HUGE),
                                     )
                                 }
                             }
@@ -123,17 +128,17 @@ class LaunchActivity: AppCompatActivity(), KoinComponent {
                         composable("initial_rank_list") {
                             FirstRunRankListScreen(
                                 onPlacementClicked = { navController.popAndNavigate("placement_list") },
-                                goToMainScreen = { navController.popAndNavigate("main_screen") }
+                                goToMainScreen = { navController.popAndNavigate("main_screen") },
                             )
                         }
 
                         composable(
                             route = "rank_details/{ladder_rank_id}",
-                            arguments = listOf(navArgument("ladder_rank_id") { type = NavType.LongType })
+                            arguments = listOf(navArgument("ladder_rank_id") { type = NavType.LongType }),
                         ) { backStackEntry ->
                             val ladderRankId = backStackEntry.arguments?.getLong("ladder_rank_id")
                             LadderGoalsScreen(
-                                targetRank = LadderRank.parse(ladderRankId)
+                                targetRank = LadderRank.parse(ladderRankId),
                             )
                         }
 
@@ -142,7 +147,9 @@ class LaunchActivity: AppCompatActivity(), KoinComponent {
                         }
 
                         composable("sanbai_test") {
-                            ComposeWebView("https://3icecream.com/oauth/authorize?client_id=82b5fefe2a194c74b7f82ec6357d9708&response_type=code&scope=read_scores&redirect_uri=life4ddr://authorize")
+                            ComposeWebView(
+                                "https://3icecream.com/oauth/authorize?client_id=82b5fefe2a194c74b7f82ec6357d9708&response_type=code&scope=read_scores&redirect_uri=life4ddr://authorize",
+                            )
                         }
                     }
                 }

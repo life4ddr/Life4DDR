@@ -41,7 +41,6 @@ fun main(args: Array<String>) {
                 }
             }
             hrefs.subList(0, 3).forEach {
-
             }
         }
     }

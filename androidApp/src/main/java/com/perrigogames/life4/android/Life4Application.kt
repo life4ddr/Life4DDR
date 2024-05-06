@@ -2,7 +2,6 @@ package com.perrigogames.life4.android
 
 import android.app.Application
 import android.content.Context
-import androidx.preference.PreferenceManager
 import com.perrigogames.life4.AppInfo
 import com.perrigogames.life4.android.util.AndroidNotifications
 import com.perrigogames.life4.android.util.setupNotifications
@@ -22,9 +21,7 @@ import com.perrigogames.life4.model.MotdManager
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.get
 
-
-class Life4Application: Application() {
-
+class Life4Application : Application() {
     override fun onCreate() {
         super.onCreate()
         val defaultHandler = Thread.getDefaultUncaughtExceptionHandler()
@@ -56,14 +53,14 @@ class Life4Application: Application() {
 //                single {
 //                    { Log.i("Startup", "Hello from Android/Kotlin!") }
 //                }
-            }
+            },
         )
 
         setupNotifications(this)
         ManagerContainer() // instantiate the managers so that remote data gets pulled properly
     }
 
-    private inner class ManagerContainer: KoinComponent {
+    private inner class ManagerContainer : KoinComponent {
         val ladderDataManager: LadderDataManager = get()
         val motdManager: MotdManager = get()
         val placementManager: PlacementManager = get()

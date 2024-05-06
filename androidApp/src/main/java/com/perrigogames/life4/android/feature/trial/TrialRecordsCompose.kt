@@ -43,7 +43,7 @@ fun TrialRecordsList(viewModel: TrialRecordsViewModel) {
         items(records) { record ->
             TrialRecordItem(
                 record = record,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
             )
         }
     }
@@ -61,17 +61,18 @@ fun TrialRecordItem(
     }
 
     Column(
-        modifier = modifier
-            .clickable { expanded = !expanded }
+        modifier =
+            modifier
+                .clickable { expanded = !expanded },
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.padding(8.dp)
+            modifier = Modifier.padding(8.dp),
         ) {
             Image(
                 painter = painterResource(record.rank.drawableRes),
                 contentDescription = null, // FIXME
-                modifier = Modifier.size(48.dp)
+                modifier = Modifier.size(48.dp),
             )
             SizedSpacer(8.dp)
             Column {
@@ -106,18 +107,19 @@ fun TrialRecordItem(
             Icon(
                 imageVector = Icons.Default.MoreVert,
                 modifier = Modifier.rotate(arrowRotationDegrees),
-                contentDescription = if (expanded) "expanded" else "collapsed"
+                contentDescription = if (expanded) "expanded" else "collapsed",
             )
         }
         AnimatedVisibility(
             visible = expanded,
             enter = expandVertically(expandFrom = Alignment.Top),
-            exit = shrinkVertically(shrinkTowards = Alignment.Top)
+            exit = shrinkVertically(shrinkTowards = Alignment.Top),
         ) {
             Column(
-                modifier = Modifier
-                    .padding(horizontal = 8.dp)
-                    .padding(bottom = 4.dp),
+                modifier =
+                    Modifier
+                        .padding(horizontal = 8.dp)
+                        .padding(bottom = 4.dp),
             ) {
                 Life4Divider()
                 SizedSpacer(4.dp)
@@ -135,9 +137,10 @@ fun TrialRecordItem(
             color = colorResource(MR.colors.colorAccent),
             trackColor = MaterialTheme.colorScheme.surface,
             progress = record.exProgressPercent,
-            modifier = Modifier
-                .height(4.dp)
-                .fillMaxWidth(),
+            modifier =
+                Modifier
+                    .height(4.dp)
+                    .fillMaxWidth(),
         )
     }
 }
@@ -149,7 +152,7 @@ fun TrialRecordSongItem(
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        modifier = modifier
+        modifier = modifier,
     ) {
         Text(
             text = song.songTitleText,
@@ -157,10 +160,11 @@ fun TrialRecordSongItem(
             modifier = Modifier.weight(0.75f),
         )
         Box(
-            modifier = Modifier
-                .width(6.dp)
-                .height(24.dp)
-                .background(colorResource(song.difficultyClass.colorRes)),
+            modifier =
+                Modifier
+                    .width(6.dp)
+                    .height(24.dp)
+                    .background(colorResource(song.difficultyClass.colorRes)),
         )
         SizedSpacer(4.dp)
         Text(
@@ -177,7 +181,7 @@ fun TrialRecordItemPreview() {
     LIFE4Theme {
         Surface(color = MaterialTheme.colorScheme.surface) {
             TrialRecordItem(
-                record = UITrialMocks.createUITrialRecord()
+                record = UITrialMocks.createUITrialRecord(),
             )
         }
     }
@@ -205,7 +209,7 @@ fun TrialSongItemPreview() {
                 items(DifficultyClass.entries) { difficulty ->
                     TrialRecordSongItem(
                         song = UITrialMocks.createUITrialRecordSong(difficultyClass = difficulty),
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth(),
                     )
                 }
             }

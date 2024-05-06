@@ -14,8 +14,7 @@ import org.koin.core.component.inject
 
 class IgnoreListRemoteData(
     reader: LocalDataReader,
-): CompositeData<IgnoreListData>(), KoinComponent {
-
+) : CompositeData<IgnoreListData>(), KoinComponent {
     private val json: Json by inject()
     private val githubKtor: GithubDataAPI by inject()
 
@@ -23,12 +22,14 @@ class IgnoreListRemoteData(
 
     override val rawData = LocalData(reader, converter)
     override val cacheData = CachedData(reader, converter, converter)
-    override val remoteData = object: RemoteData<IgnoreListData>() {
-        override suspend fun getRemoteResponse() = githubKtor.getIgnoreLists()
-    }
+    override val remoteData =
+        object : RemoteData<IgnoreListData>() {
+            override suspend fun getRemoteResponse() = githubKtor.getIgnoreLists()
+        }
 
-    private inner class IgnoreListConverter: Converter<IgnoreListData> {
+    private inner class IgnoreListConverter : Converter<IgnoreListData> {
         override fun create(s: String) = json.decodeFromString(IgnoreListData.serializer(), s)
+
         override fun create(data: IgnoreListData) = json.encodeToString(IgnoreListData.serializer(), data)
     }
 }

@@ -32,8 +32,7 @@ import org.koin.core.component.inject
 class LadderImporter(
     private var dataLines: List<String>,
     private val opMode: OpMode = OpMode.AUTO,
-): BaseModel() {
-
+) : BaseModel() {
     private val saLogger: Logger by injectLogger("SAImport")
     private val legacyLogger: Logger by injectLogger("Import")
     private val songDataManager: SongDataManager by inject()
@@ -51,24 +50,27 @@ class LadderImporter(
         errors = 0
         dataLines = dataLines.filterNot { it.isEmpty() }
         this.listener = listener
-        importJob = MainScope(Dispatchers.Unconfined).launch {
-            dataLines.forEach { when (opMode) {
-                OpMode.AUTO -> autoParseManagerLine(it)
-                OpMode.LEGACY -> parseLegacyManagerLine(it)
-                OpMode.SA -> parseManagerLine(it)
-            } }
-            withContext(Dispatchers.Main) {
-                ladderDialogs.showImportFinishedToast()
-//                ignoreListManager.invalidateIgnoredIds() FIXME
-                // FIXME eventBus.post(SongResultsImportCompletedEvent())
-                if (success > 0) {
-                    // FIXME eventBus.post(SongResultsUpdatedEvent())
+        importJob =
+            MainScope(Dispatchers.Unconfined).launch {
+                dataLines.forEach {
+                    when (opMode) {
+                        OpMode.AUTO -> autoParseManagerLine(it)
+                        OpMode.LEGACY -> parseLegacyManagerLine(it)
+                        OpMode.SA -> parseManagerLine(it)
+                    }
                 }
-                importJob = null
-                songResultsManager.refresh()
-                listener?.onCompleted()
+                withContext(Dispatchers.Main) {
+                    ladderDialogs.showImportFinishedToast()
+//                ignoreListManager.invalidateIgnoredIds() FIXME
+                    // FIXME eventBus.post(SongResultsImportCompletedEvent())
+                    if (success > 0) {
+                        // FIXME eventBus.post(SongResultsUpdatedEvent())
+                    }
+                    importJob = null
+                    songResultsManager.refresh()
+                    listener?.onCompleted()
+                }
             }
-        }
     }
 
     private suspend fun autoParseManagerLine(entry: String) {
@@ -83,41 +85,49 @@ class LadderImporter(
     private suspend fun parseManagerLine(entry: String) {
         val entryParts = entry.trim().split('\t').toMutableList()
         if (entryParts.size == 39) {
-            /*val id =*/ entryParts.removeAt(0)
-            val entries = PlayStyle.entries.flatMap { playStyle ->
-                DifficultyClass.entries.mapNotNull { difficulty ->
-                    if (playStyle == DOUBLE && difficulty == BEGINNER) { null }
-                    else {
-                        val grade = entryParts.removeAt(0)
-                        val score = entryParts.removeAt(0).toLong()
-                        val fullCombo = entryParts.removeAt(0)
-                        /*val combo =*/ entryParts.removeAt(0).toInt()
-                        if (grade == "NoPlay") {
+            // val id =
+            entryParts.removeAt(0)
+            val entries =
+                PlayStyle.entries.flatMap { playStyle ->
+                    DifficultyClass.entries.mapNotNull { difficulty ->
+                        if (playStyle == DOUBLE && difficulty == BEGINNER) {
                             null
                         } else {
-                            SASongEntry(null, score, ClearType.parseSA(grade, fullCombo), playStyle, difficulty)
+                            val grade = entryParts.removeAt(0)
+                            val score = entryParts.removeAt(0).toLong()
+                            val fullCombo = entryParts.removeAt(0)
+                            // val combo =
+                            entryParts.removeAt(0).toInt()
+                            if (grade == "NoPlay") {
+                                null
+                            } else {
+                                SASongEntry(null, score, ClearType.parseSA(grade, fullCombo), playStyle, difficulty)
+                            }
                         }
                     }
                 }
-            }
 
             val skillId = entryParts.removeAt(0)
             val songName = entryParts.removeAt(0).replace('+', ' ')
 
-            val charts = songDataManager.songs.firstOrNull { it.skillId == skillId }
-                ?.let { song ->
-                    songDataManager.chartsGroupedBySong[song]
-                }
+            val charts =
+                songDataManager.songs.firstOrNull { it.skillId == skillId }
+                    ?.let { song ->
+                        songDataManager.chartsGroupedBySong[song]
+                    }
             if (charts != null) {
                 entries.forEach {
-                    it.chartId = charts.first { chart ->
-                        chart.playStyle == it.playStyle &&
+                    it.chartId =
+                        charts.first { chart ->
+                            chart.playStyle == it.playStyle &&
                                 chart.difficultyClass == it.difficultyClass
-                    }.id
+                        }.id
                 }
                 val hasSong = songDataManager.songs.firstOrNull { it.skillId == skillId } != null
                 if (isDebug) {
-                    saLogger.v("$songName ($skillId) - ${entries.size} found, ${entries.joinToString { it.score.toString() }}, dbExist=$hasSong")
+                    saLogger.v(
+                        "$songName ($skillId) - ${entries.size} found, ${entries.joinToString { it.score.toString() }}, dbExist=$hasSong",
+                    )
                 }
                 if (hasSong) {
                     resultDbHelper.insertSAResults(entries)
@@ -149,10 +159,12 @@ class LadderImporter(
                 if (clear == ClearType.CLEAR) {
                     when {
                         entryParts[3] == "-" -> clear = ClearType.NO_PLAY
-                        entryParts[3] == "E" -> clear = when {
-                            clears > 0 -> ClearType.CLEAR
-                            else -> ClearType.FAIL
-                        }
+                        entryParts[3] == "E" ->
+                            clear =
+                                when {
+                                    clears > 0 -> ClearType.CLEAR
+                                    else -> ClearType.FAIL
+                                }
                     }
                 }
 
@@ -161,9 +173,10 @@ class LadderImporter(
                 val playStyle = PlayStyle.parse(chartType)!!
                 val difficultyClass = DifficultyClass.parse(chartType)!!
 
-                val detailedChart = songDataManager.detailedCharts.firstOrNull {
-                    it.title == songName && it.playStyle == playStyle && it.difficultyClass == difficultyClass
-                } ?: throw ChartNotFoundException(songName, playStyle, difficultyClass, difficultyNumber)
+                val detailedChart =
+                    songDataManager.detailedCharts.firstOrNull {
+                        it.title == songName && it.playStyle == playStyle && it.difficultyClass == difficultyClass
+                    } ?: throw ChartNotFoundException(songName, playStyle, difficultyClass, difficultyNumber)
                 resultDbHelper.insertResult(detailedChart, clear, score)
 
                 if (isDebug && clear == ClearType.NO_PLAY) {
@@ -184,7 +197,8 @@ class LadderImporter(
 
     private suspend fun signalUpdate(
         current: Int = success + errors,
-        total: Int = dataLines.size - 1) {
+        total: Int = dataLines.size - 1,
+    ) {
         withContext(Dispatchers.Main) { listener?.onCountUpdated(current, total) }
     }
 
@@ -210,8 +224,16 @@ class LadderImporter(
      * Listener class for the manager import process
      */
     interface Listener {
-        fun onCountUpdated(current: Int, total: Int)
-        fun onError(totalCount: Int, message: String)
+        fun onCountUpdated(
+            current: Int,
+            total: Int,
+        )
+
+        fun onError(
+            totalCount: Int,
+            message: String,
+        )
+
         fun onCompleted()
     }
 

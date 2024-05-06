@@ -13,20 +13,27 @@ enum class PlacementRank(val stableId: Long, val parent: LadderRankClass) {
     COPPER(20, LadderRankClass.COPPER),
     BRONZE(25, LadderRankClass.BRONZE),
     SILVER(30, LadderRankClass.SILVER),
-    GOLD(35, LadderRankClass.GOLD);
+    GOLD(35, LadderRankClass.GOLD),
+    ;
 
-    fun toLadderRank() = when(this) {
-        COPPER -> LadderRank.COPPER3
-        BRONZE -> LadderRank.BRONZE3
-        SILVER -> LadderRank.SILVER3
-        GOLD -> LadderRank.GOLD3
-    }
+    fun toLadderRank() =
+        when (this) {
+            COPPER -> LadderRank.COPPER3
+            BRONZE -> LadderRank.BRONZE3
+            SILVER -> LadderRank.SILVER3
+            GOLD -> LadderRank.GOLD3
+        }
 }
 
-object PlacementRankSerializer: KSerializer<PlacementRank> {
+object PlacementRankSerializer : KSerializer<PlacementRank> {
     override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("placementRank", PrimitiveKind.STRING)
+
     override fun deserialize(decoder: Decoder) = PlacementRank.valueOf(decoder.decodeString().uppercase())
-    override fun serialize(encoder: Encoder, value: PlacementRank) {
+
+    override fun serialize(
+        encoder: Encoder,
+        value: PlacementRank,
+    ) {
         encoder.encodeString(value.name.lowercase())
     }
 }

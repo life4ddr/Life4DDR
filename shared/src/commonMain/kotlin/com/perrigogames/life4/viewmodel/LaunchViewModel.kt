@@ -10,7 +10,6 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
 class LaunchViewModel : ViewModel(), KoinComponent {
-
     private val firstRunSettingsManager: FirstRunSettingsManager by inject()
 
     private val _launchState = MutableSharedFlow<InitState?>()
@@ -25,5 +24,5 @@ class LaunchViewModel : ViewModel(), KoinComponent {
 
 data class UILaunchScreen(
     val requireSignin: Boolean,
-    val initState: InitState?
+    val initState: InitState?,
 )

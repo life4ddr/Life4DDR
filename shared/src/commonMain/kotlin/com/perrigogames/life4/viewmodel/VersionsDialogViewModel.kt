@@ -1,10 +1,10 @@
 package com.perrigogames.life4.viewmodel
 
 import com.perrigogames.life4.feature.songlist.IgnoreListManager
+import com.perrigogames.life4.feature.songlist.SongDataManager
 import com.perrigogames.life4.feature.trials.TrialManager
 import com.perrigogames.life4.model.LadderDataManager
 import com.perrigogames.life4.model.MotdManager
-import com.perrigogames.life4.feature.songlist.SongDataManager
 import dev.icerock.moko.mvvm.flow.cMutableStateFlow
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -33,13 +33,14 @@ class VersionsDialogViewModel : ViewModel(), KoinComponent {
                 songDataManager.dataVersionString,
                 trialManager.dataVersionString,
             ) { ignoreVersion, ladderVersion, motdVersion, songDataVersion, trialVersion ->
-                _state.value = VersionsDialogState(
-                    ignoreListVersion = ignoreVersion,
-                    ladderDataVersion = ladderVersion,
-                    motdVersion = motdVersion,
-                    songListVersion = songDataVersion,
-                    trialDataVersion = trialVersion
-                )
+                _state.value =
+                    VersionsDialogState(
+                        ignoreListVersion = ignoreVersion,
+                        ladderDataVersion = ladderVersion,
+                        motdVersion = motdVersion,
+                        songListVersion = songDataVersion,
+                        trialDataVersion = trialVersion,
+                    )
             }
         }
     }
@@ -51,5 +52,5 @@ data class VersionsDialogState(
     val ladderDataVersion: String = "",
     val motdVersion: String = "",
     val songListVersion: String = "",
-    val trialDataVersion: String = ""
+    val trialDataVersion: String = "",
 )

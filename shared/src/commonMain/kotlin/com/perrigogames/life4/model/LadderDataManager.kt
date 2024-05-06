@@ -20,8 +20,7 @@ import org.koin.core.qualifier.named
 /**
  * Manager class that deals with
  */
-class LadderDataManager: BaseModel() {
-
+class LadderDataManager : BaseModel() {
     private val ignoreListManager: IgnoreListManager by inject()
     private val ladderDialogs: LadderDialogs by inject()
     private val dataReader: LocalDataReader by inject(named(RANKS_FILE_NAME))
@@ -32,11 +31,11 @@ class LadderDataManager: BaseModel() {
     private val data = LadderRemoteData(dataReader).apply { start() }
 //        override fun onDataVersionChanged(data: LadderRankData) {
 //            ladderDialogs.showLadderUpdateToast()
-            // FIXME eventBus.post(LadderRanksReplacedEvent())
+    // FIXME eventBus.post(LadderRanksReplacedEvent())
 //        }
 
 //        override fun onMajorVersionBlock() {
-            // FIXME eventBus.postSticky(DataRequiresAppUpdateEvent())
+    // FIXME eventBus.postSticky(DataRequiresAppUpdateEvent())
 //        }
 
     val dataVersionString: Flow<String> =
@@ -48,7 +47,7 @@ class LadderDataManager: BaseModel() {
     private val _ladderDataForGameVersion: Flow<LadderVersion?> =
         combine(
             _ladderData.filterNotNull(),
-            ignoreListManager.currentGameVersionFlow
+            ignoreListManager.currentGameVersionFlow,
         ) { ladderData, currentGameVersion ->
             ladderData.gameVersions[currentGameVersion]
         }

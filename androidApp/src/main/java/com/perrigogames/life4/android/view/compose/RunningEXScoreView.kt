@@ -24,33 +24,37 @@ fun RunningEXScore(
     modifier: Modifier = Modifier,
 ) {
     Row(modifier = modifier) {
-        val missingText = stringResource(
-            MR.strings.ex_score_missing_string_format,
-            progress.currentExScore,
-            progress.missingExScore * -1,
-        )
-        val goalText = if (progress.currentMaxExScore == progress.maxExScore)
+        val missingText =
             stringResource(
-                MR.strings.ex_score_string_format,
-                progress.currentMaxExScore,
+                MR.strings.ex_score_missing_string_format,
+                progress.currentExScore,
+                progress.missingExScore * -1,
             )
-        else
-            stringResource(
-                MR.strings.ex_score_progress_format,
-                progress.currentMaxExScore,
-                progress.maxExScore,
-            )
+        val goalText =
+            if (progress.currentMaxExScore == progress.maxExScore) {
+                stringResource(
+                    MR.strings.ex_score_string_format,
+                    progress.currentMaxExScore,
+                )
+            } else {
+                stringResource(
+                    MR.strings.ex_score_progress_format,
+                    progress.currentMaxExScore,
+                    progress.maxExScore,
+                )
+            }
 
         Text(text = missingText, maxLines = 1)
         LinearProgressIndicator(
             progress = progress.currentExPercent,
-            modifier = Modifier
-                .height(8.dp)
-                .align(Alignment.CenterVertically)
-                .padding(horizontal = dimensionResource(R.dimen.content_padding_med))
-                .weight(1F),
+            modifier =
+                Modifier
+                    .height(8.dp)
+                    .align(Alignment.CenterVertically)
+                    .padding(horizontal = dimensionResource(R.dimen.content_padding_med))
+                    .weight(1F),
             color = colorResource(MR.colors.difficultyExpert),
-            //FIXME background, background color, second progress
+            // FIXME background, background color, second progress
         )
         Text(text = goalText, maxLines = 1)
     }
@@ -61,11 +65,12 @@ fun RunningEXScore(
 fun RunningEXScorePreview() {
     AppCompatTheme {
         RunningEXScore(
-            progress = TrialEXProgress(
-                currentExScore = 350,
-                currentMaxExScore = 550,
-                maxExScore = 600,
-            )
+            progress =
+                TrialEXProgress(
+                    currentExScore = 350,
+                    currentMaxExScore = 550,
+                    maxExScore = 600,
+                ),
         )
     }
 }

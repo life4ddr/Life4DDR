@@ -16,11 +16,12 @@ import org.koin.core.module.Module
 import org.koin.dsl.module
 
 @OptIn(ExperimentalSettingsApi::class, ExperimentalSettingsImplementation::class)
-actual val platformModule: Module = module {
-    single<SqlDriver> { AndroidSqliteDriver(Life4Db.Schema, get(), "Life4Db") }
-    single<Settings> { SharedPreferencesSettings.Factory(get()).create() }
-    single<DataStore<Preferences>> { get<Context>().dataStore }
-    single<FlowSettings> { DataStoreSettings(get()) }
-}
+actual val platformModule: Module =
+    module {
+        single<SqlDriver> { AndroidSqliteDriver(Life4Db.Schema, get(), "Life4Db") }
+        single<Settings> { SharedPreferencesSettings.Factory(get()).create() }
+        single<DataStore<Preferences>> { get<Context>().dataStore }
+        single<FlowSettings> { DataStoreSettings(get()) }
+    }
 
 val Context.dataStore by preferencesDataStore("preferences")

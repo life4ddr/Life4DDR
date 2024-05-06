@@ -17,9 +17,8 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
 class RankListViewModel(
-    isFirstRun: Boolean = false
+    isFirstRun: Boolean = false,
 ) : ViewModel(), KoinComponent {
-
     private val firstRunSettingsManager: FirstRunSettingsManager by inject()
     private val userInfoSettings: UserInfoSettings by inject()
     private val ladderDataManager: LadderDataManager by inject()
@@ -29,20 +28,24 @@ class RankListViewModel(
     val state: StateFlow<UIRankList> = _state
 
     init {
-        _state.value = _state.value.copy(
-            ranks = (LadderRank.entries.toMutableList() as MutableList<LadderRank?>).apply {
-                add(0, null)
-            },
-            noRank = when {
-                isFirstRun -> UINoRank.FIRST_RUN
-                else -> UINoRank.DEFAULT
-            },
-            firstRun = if(isFirstRun) {
-                UIFirstRunRankList()
-            } else {
-                null
-            }
-        )
+        _state.value =
+            _state.value.copy(
+                ranks =
+                    (LadderRank.entries.toMutableList() as MutableList<LadderRank?>).apply {
+                        add(0, null)
+                    },
+                noRank =
+                    when {
+                        isFirstRun -> UINoRank.FIRST_RUN
+                        else -> UINoRank.DEFAULT
+                    },
+                firstRun =
+                    if (isFirstRun) {
+                        UIFirstRunRankList()
+                    } else {
+                        null
+                    },
+            )
     }
 
     fun setRankSelected(rank: LadderRank?) {
@@ -80,22 +83,23 @@ data class UIRankList(
 )
 
 data class UIFirstRunRankList(
-    val buttonText: StringResource = MR.strings.play_placement
+    val buttonText: StringResource = MR.strings.play_placement,
 )
 
 data class UINoRank(
     val bodyText: StringResource,
     val buttonText: StringResource,
 ) {
-
     companion object {
-        val DEFAULT = UINoRank(
-            bodyText = MR.strings.no_rank_goals,
-            buttonText = MR.strings.i_have_no_rank
-        )
-        val FIRST_RUN = UINoRank(
-            bodyText = MR.strings.no_rank_goals,
-            buttonText = MR.strings.start_with_no_rank
-        )
+        val DEFAULT =
+            UINoRank(
+                bodyText = MR.strings.no_rank_goals,
+                buttonText = MR.strings.i_have_no_rank,
+            )
+        val FIRST_RUN =
+            UINoRank(
+                bodyText = MR.strings.no_rank_goals,
+                buttonText = MR.strings.start_with_no_rank,
+            )
     }
 }

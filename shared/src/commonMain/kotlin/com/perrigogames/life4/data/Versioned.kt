@@ -13,6 +13,6 @@ interface Versioned {
  * number. This major version should be incremented if the data format gets to the
  * point where older versions of the parser can't adequately handle it.
  */
-interface MajorVersioned: Versioned {
+interface MajorVersioned : Versioned {
     val majorVersion: Int
 }

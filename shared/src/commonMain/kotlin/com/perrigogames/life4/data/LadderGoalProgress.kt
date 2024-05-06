@@ -12,7 +12,6 @@ class LadderGoalProgress(
     val showMax: Boolean = true,
     val results: List<ChartResultPair>? = null,
 ) {
-
     constructor(
         progress: Int,
         max: Int,

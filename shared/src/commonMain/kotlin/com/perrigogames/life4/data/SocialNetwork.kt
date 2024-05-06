@@ -5,11 +5,15 @@ package com.perrigogames.life4.data
  * a catch-all for custom networks.
  */
 sealed class SocialNetwork {
-    object Discord: SocialNetwork()
-    object Twitter: SocialNetwork()
-    object YouTube: SocialNetwork()
-    object Facebook: SocialNetwork()
-    data class Other(val name: String): SocialNetwork() {
+    object Discord : SocialNetwork()
+
+    object Twitter : SocialNetwork()
+
+    object YouTube : SocialNetwork()
+
+    object Facebook : SocialNetwork()
+
+    data class Other(val name: String) : SocialNetwork() {
         override fun toString() = name
     }
 

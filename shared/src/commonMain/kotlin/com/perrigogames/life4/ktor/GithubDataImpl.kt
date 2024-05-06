@@ -14,8 +14,7 @@ import io.ktor.client.request.*
 import io.ktor.http.*
 import org.koin.core.component.KoinComponent
 
-class GithubDataImpl: GithubDataAPI, KoinComponent {
-
+class GithubDataImpl : GithubDataAPI, KoinComponent {
     private val log: Logger by injectLogger("GithubData")
     private val client = baseHttpClient(log)
 
@@ -23,20 +22,15 @@ class GithubDataImpl: GithubDataAPI, KoinComponent {
         ensureNeverFrozen()
     }
 
-    override suspend fun getLadderRanks(): LadderRankData =
-        client.get { github(GithubDataAPI.RANKS_FILE_NAME) }.body()
+    override suspend fun getLadderRanks(): LadderRankData = client.get { github(GithubDataAPI.RANKS_FILE_NAME) }.body()
 
-    override suspend fun getSongList(): String =
-        client.get { github(GithubDataAPI.SONGS_FILE_NAME) }.body()
+    override suspend fun getSongList(): String = client.get { github(GithubDataAPI.SONGS_FILE_NAME) }.body()
 
-    override suspend fun getIgnoreLists(): IgnoreListData =
-        client.get { github(GithubDataAPI.IGNORES_FILE_NAME) }.body()
+    override suspend fun getIgnoreLists(): IgnoreListData = client.get { github(GithubDataAPI.IGNORES_FILE_NAME) }.body()
 
-    override suspend fun getTrials(): TrialData =
-        client.get { github(GithubDataAPI.TRIALS_FILE_NAME) }.body()
+    override suspend fun getTrials(): TrialData = client.get { github(GithubDataAPI.TRIALS_FILE_NAME) }.body()
 
-    override suspend fun getMotd(): MessageOfTheDay =
-        client.get { github(GithubDataAPI.MOTD_FILE_NAME) }.body()
+    override suspend fun getMotd(): MessageOfTheDay = client.get { github(GithubDataAPI.MOTD_FILE_NAME) }.body()
 
     private fun HttpRequestBuilder.github(filename: String) {
         val githubTarget = if (isDebug) "remote-data-test" else "remote-data"

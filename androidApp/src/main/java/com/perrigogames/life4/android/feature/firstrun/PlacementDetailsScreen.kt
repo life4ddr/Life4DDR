@@ -8,9 +8,9 @@ import dev.icerock.moko.mvvm.createViewModelFactory
 @Composable
 fun PlacementDetailsScreen(
     placementId: String,
-    viewModel: PlacementDetailsViewModel = viewModel(
-        factory = createViewModelFactory { PlacementDetailsViewModel(placementId) }
-    )
+    viewModel: PlacementDetailsViewModel =
+        viewModel(
+            factory = createViewModelFactory { PlacementDetailsViewModel(placementId) },
+        ),
 ) {
-
 }

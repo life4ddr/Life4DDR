@@ -31,13 +31,14 @@ object UITrialMocks {
         trialSubtitleText: String = "(Retired)",
         exScoreText: String = "1234 / 2345",
         progressPercent: Float = Random.nextFloat(),
-        trialSongs: List<UITrialRecordSong> = (0..3).map {
-            UITrialRecordSong(
-                songTitleText = "Song $it",
-                scoreText = randomScoreString(),
-                difficultyClass = randomDifficultyClass()
-            )
-        },
+        trialSongs: List<UITrialRecordSong> =
+            (0..3).map {
+                UITrialRecordSong(
+                    songTitleText = "Song $it",
+                    scoreText = randomScoreString(),
+                    difficultyClass = randomDifficultyClass(),
+                )
+            },
         rank: TrialRank = TrialRank.entries.toTypedArray().random(),
         achieved: Boolean = true,
     ) = UITrialRecord(

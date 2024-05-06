@@ -9,15 +9,25 @@ import kotlinx.serialization.encoding.Encoder
 
 @Serializable
 enum class TrialType {
-    @SerialName("trial") TRIAL,
-    @SerialName("placement") PLACEMENT,
-    @SerialName("event") EVENT
+    @SerialName("trial")
+    TRIAL,
+
+    @SerialName("placement")
+    PLACEMENT,
+
+    @SerialName("event")
+    EVENT,
 }
 
-object TrialTypeSerializer: KSerializer<TrialType> {
+object TrialTypeSerializer : KSerializer<TrialType> {
     override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("trialType", PrimitiveKind.STRING)
+
     override fun deserialize(decoder: Decoder) = TrialType.valueOf(decoder.decodeString().uppercase())
-    override fun serialize(encoder: Encoder, value: TrialType) {
+
+    override fun serialize(
+        encoder: Encoder,
+        value: TrialType,
+    ) {
         encoder.encodeString(value.name.lowercase())
     }
 }

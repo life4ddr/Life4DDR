@@ -1,6 +1,7 @@
 @file:UseSerializers(
     PlayStyleSerializer::class,
-    LadderRankSerializer::class)
+    LadderRankSerializer::class,
+)
 
 package com.perrigogames.life4.data
 
@@ -20,8 +21,7 @@ data class LadderRankData(
     @SerialName("major_version") override val majorVersion: Int,
     @SerialName("goals") val goals: List<BaseRankGoal>,
     @SerialName("game_versions") val gameVersions: Map<GameVersion, LadderVersion>,
-): MajorVersioned, KoinComponent {
-
+) : MajorVersioned, KoinComponent {
     private val logger: Logger by injectLogger("LadderRankData")
 
     private val wrappedGoals: List<BaseRankGoal> by lazy {
@@ -33,7 +33,7 @@ data class LadderRankData(
         validate()
         gameVersions.values
             .flatMap { it.rankRequirements }
-            .forEach {  entry ->
+            .forEach { entry ->
                 try {
                     entry.goalIds?.let { entry.goals = mapIdsToGoals(it) }
                     entry.mandatoryGoalIds?.let { entry.mandatoryGoals = mapIdsToGoals(it) }
@@ -55,9 +55,9 @@ data class LadderRankData(
 
     private fun mapIdsToGoals(ids: List<Int>): List<BaseRankGoal> {
         return ids.map { id ->
-            wrappedGoals.firstOrNull { it.id == id } ?:
-            goals.firstOrNull { it.id == id } ?:
-            error("ID not found: $id")
+            wrappedGoals.firstOrNull { it.id == id }
+                ?: goals.firstOrNull { it.id == id }
+                ?: error("ID not found: $id")
         }
     }
 
@@ -84,8 +84,8 @@ data class RankEntry(
     val substitutions: List<Int>? = null,
     @SerialName("requirements") private val requirementsOpt: Int? = null,
 ) {
-
     @Transient var goals = emptyList<BaseRankGoal>()
+
     @Transient var mandatoryGoals = emptyList<BaseRankGoal>()
 
     val allGoals: List<BaseRankGoal>

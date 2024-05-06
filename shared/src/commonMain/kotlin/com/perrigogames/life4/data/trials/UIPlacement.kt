@@ -17,7 +17,7 @@ data class UIPlacement(
     val id: String,
     val rankIcon: LadderRank,
     val difficultyRangeString: String = "", // FIXME resource
-    val songs: List<UITrialSong>
+    val songs: List<UITrialSong>,
 ) {
     val color: ColorResource = rankIcon.group.colorRes
     val placementName: StringResource = rankIcon.groupNameRes

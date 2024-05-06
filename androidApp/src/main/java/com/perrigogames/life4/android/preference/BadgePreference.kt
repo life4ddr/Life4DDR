@@ -16,11 +16,13 @@ class BadgePreference : Preference {
     constructor(context: Context) : super(context)
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
-        val a = context.theme.obtainStyledAttributes(
-            attrs,
-            R.styleable.PreferencesBadge,
-            0, 0
-        )
+        val a =
+            context.theme.obtainStyledAttributes(
+                attrs,
+                R.styleable.PreferencesBadge,
+                0,
+                0,
+            )
 
         try {
             // Resources$NotFoundException if vector image
@@ -31,8 +33,7 @@ class BadgePreference : Preference {
             if (drawableTint != -1) {
                 badge?.setTint(drawableTint)
             }
-        }
-        finally {
+        } finally {
             a.recycle()
         }
     }

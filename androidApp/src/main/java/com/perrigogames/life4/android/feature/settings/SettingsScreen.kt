@@ -18,10 +18,10 @@ import com.alorma.compose.settings.ui.SettingsMenuLink
 import com.perrigogames.life4.android.compose.LIFE4Theme
 import com.perrigogames.life4.android.compose.Paddings
 import com.perrigogames.life4.feature.settings.SettingsAction
-import com.perrigogames.life4.feature.settings.UISettingsItem
-import com.perrigogames.life4.feature.settings.UISettingsData
-import com.perrigogames.life4.feature.settings.UISettingsMocks
 import com.perrigogames.life4.feature.settings.SettingsViewModel
+import com.perrigogames.life4.feature.settings.UISettingsData
+import com.perrigogames.life4.feature.settings.UISettingsItem
+import com.perrigogames.life4.feature.settings.UISettingsMocks
 import dev.icerock.moko.mvvm.createViewModelFactory
 
 @Composable
@@ -29,16 +29,17 @@ fun SettingsScreen(
     modifier: Modifier = Modifier,
     onClose: () -> Unit,
     onNavigateToCredits: () -> Unit,
-    viewModel: SettingsViewModel = viewModel(
-        factory = createViewModelFactory { SettingsViewModel(onClose, onNavigateToCredits) }
-    ),
+    viewModel: SettingsViewModel =
+        viewModel(
+            factory = createViewModelFactory { SettingsViewModel(onClose, onNavigateToCredits) },
+        ),
 ) {
     val state = viewModel.state.collectAsState()
     state.value?.let { data ->
         SettingsScreen(
             data = data,
             modifier = modifier,
-            onAction = { viewModel.handleAction(it) }
+            onAction = { viewModel.handleAction(it) },
         )
     }
 }
@@ -48,7 +49,7 @@ fun SettingsScreen(
 fun SettingsScreen(
     data: UISettingsData,
     modifier: Modifier = Modifier,
-    onAction: (SettingsAction) -> Unit = {}
+    onAction: (SettingsAction) -> Unit = {},
 ) {
     val context = LocalContext.current
 
@@ -60,10 +61,11 @@ fun SettingsScreen(
         modifier = modifier,
         topBar = {
             TopAppBar(
-                colors = topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                    titleContentColor = MaterialTheme.colorScheme.primary,
-                ),
+                colors =
+                    topAppBarColors(
+                        containerColor = MaterialTheme.colorScheme.primaryContainer,
+                        titleContentColor = MaterialTheme.colorScheme.primary,
+                    ),
                 title = { Text(text = data.screenTitle.toString(context)) },
             )
         },
@@ -82,7 +84,7 @@ fun SettingsScreen(
 fun SettingsScreenContent(
     items: List<UISettingsItem>,
     modifier: Modifier = Modifier,
-    onAction: (SettingsAction) -> Unit = {}
+    onAction: (SettingsAction) -> Unit = {},
 ) {
     LazyColumn(modifier = modifier) {
         items(items) {
@@ -90,50 +92,50 @@ fun SettingsScreenContent(
                 is UISettingsItem.Header -> SettingsHeaderItem(it)
                 is UISettingsItem.Link -> SettingsLinkItem(it, onAction)
                 is UISettingsItem.Checkbox -> SettingsCheckboxItem(it, onAction)
-                UISettingsItem.Divider -> HorizontalDivider(
-                    modifier = Modifier.padding(horizontal = Paddings.LARGE)
-                )
+                UISettingsItem.Divider ->
+                    HorizontalDivider(
+                        modifier = Modifier.padding(horizontal = Paddings.LARGE),
+                    )
             }
         }
     }
 }
 
 @Composable
-private fun SettingsHeaderItem(
-    item: UISettingsItem.Header
-) {
+private fun SettingsHeaderItem(item: UISettingsItem.Header) {
     val context = LocalContext.current
     Text(
         text = item.title.toString(context),
         style = MaterialTheme.typography.titleSmall,
-        modifier = Modifier.padding(horizontal = Paddings.LARGE)
-            .padding(top = Paddings.LARGE)
+        modifier =
+            Modifier.padding(horizontal = Paddings.LARGE)
+                .padding(top = Paddings.LARGE),
     )
 }
 
 @Composable
 private fun SettingsLinkItem(
     item: UISettingsItem.Link,
-    onAction: (SettingsAction) -> Unit = {}
+    onAction: (SettingsAction) -> Unit = {},
 ) {
     val context = LocalContext.current
     SettingsMenuLink(
         title = { Text(text = item.title.toString(context)) },
         subtitle = { item.subtitle?.let { Text(text = it.toString(context)) } },
-        enabled = item.enabled
+        enabled = item.enabled,
     ) { onAction(item.action) }
 }
 
 @Composable
 private fun SettingsCheckboxItem(
     item: UISettingsItem.Checkbox,
-    onAction: (SettingsAction) -> Unit = {}
+    onAction: (SettingsAction) -> Unit = {},
 ) {
     val context = LocalContext.current
     SettingsMenuLink(
         title = { Text(text = item.title.toString(context)) },
         subtitle = { item.subtitle?.let { Text(text = it.toString(context)) } },
-        enabled = item.enabled
+        enabled = item.enabled,
     ) { onAction(item.action) }
 }
 

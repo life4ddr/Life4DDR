@@ -8,8 +8,7 @@ import dev.icerock.moko.resources.desc.StringDesc
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-abstract class Notifications: KoinComponent {
-
+abstract class Notifications : KoinComponent {
     protected var multiNotificationId = 2000
         get() = field++
 
@@ -33,18 +32,27 @@ abstract class Notifications: KoinComponent {
      * Sends a generic message to the system's notifications system that will
      * copy
      */
-    abstract fun notifyCopyableMessage(id: Int, title: StringDesc, message: String)
+    abstract fun notifyCopyableMessage(
+        id: Int,
+        title: StringDesc,
+        message: String,
+    )
 
     abstract fun showPlacementNotification(rank: LadderRank)
 
     abstract fun showLadderRankChangedNotification(rank: LadderRank)
 
-    abstract fun showTrialRankChangedNotification(trial: Trial, rank: TrialRank)
+    abstract fun showTrialRankChangedNotification(
+        trial: Trial,
+        rank: TrialRank,
+    )
 
-    abstract fun showToast(message: String, long: Boolean = false)
+    abstract fun showToast(
+        message: String,
+        long: Boolean = false,
+    )
 
     companion object {
-
         const val ID_USER_INFO_CHANNEL = "ID_USER_INFO_CHANNEL"
         const val ID_UPDATES_CHANNEL = "ID_UPDATES_CHANNEL"
 

@@ -14,8 +14,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.koin.core.component.KoinComponent
 
-class SongDatabaseHelper(sqlDriver: SqlDriver): DatabaseHelper(sqlDriver), KoinComponent {
-
+class SongDatabaseHelper(sqlDriver: SqlDriver) : DatabaseHelper(sqlDriver), KoinComponent {
     private val logger: Logger by injectLogger("SongDatabase")
     private val queries = dbRef.songDataQueries
 
@@ -55,15 +54,23 @@ class SongDatabaseHelper(sqlDriver: SqlDriver): DatabaseHelper(sqlDriver), KoinC
     }
 
     fun selectSongBySkillID(title: String) = queries.selectSongBySkillId(title).executeAsOneOrNull()
+
     fun selectSongsBySkillID(titles: List<String>) = queries.selectSongBySkillIdList(titles).executeAsList()
+
     fun selectSongByTitle(title: String) = queries.selectSongByTitle(title).executeAsOneOrNull()
+
     fun allSongs() = queries.allSongs().executeAsList()
+
     fun allDetailedCharts() = queries.allDetailedCharts().executeAsList()
 
-    fun selectChart(skillId: String, playStyle: PlayStyle, difficultyClass: DifficultyClass) =
-        queries.selectChart(skillId, playStyle, difficultyClass).executeAsOneOrNull()
-    fun selectChartsForSongList(skillIds: List<String>) =
-        queries.selectChartsForSongList(skillIds).executeAsList()
+    fun selectChart(
+        skillId: String,
+        playStyle: PlayStyle,
+        difficultyClass: DifficultyClass,
+    ) = queries.selectChart(skillId, playStyle, difficultyClass).executeAsOneOrNull()
+
+    fun selectChartsForSongList(skillIds: List<String>) = queries.selectChartsForSongList(skillIds).executeAsList()
+
     fun selectSongsAndCharts(ids: List<String>): Map<SongInfo, List<DetailedChartInfo>> {
         val songs = selectSongsBySkillID(ids)
         return selectChartsForSongList(ids).matchWithSongs(songs)

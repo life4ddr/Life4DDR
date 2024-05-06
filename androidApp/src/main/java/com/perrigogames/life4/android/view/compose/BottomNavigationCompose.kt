@@ -17,16 +17,20 @@ fun BottomNavigationButtons(
 ) {
     Row {
         AndroidView(
-            factory = { Button(it, null, R.style.BottomProgressButtonRightBorder).apply {
-                text = leftText
-                setOnClickListener { onLeftButtonClicked() }
-            } },
+            factory = {
+                Button(it, null, R.style.BottomProgressButtonRightBorder).apply {
+                    text = leftText
+                    setOnClickListener { onLeftButtonClicked() }
+                }
+            },
         )
         AndroidView(
-            factory = { Button(it, null, R.style.BottomProgressButtonLeftBorder).apply {
-                text = rightText
-                setOnClickListener { onRightButtonClicked() }
-            } },
+            factory = {
+                Button(it, null, R.style.BottomProgressButtonLeftBorder).apply {
+                    text = rightText
+                    setOnClickListener { onRightButtonClicked() }
+                }
+            },
         )
         // TODO button backgrounds in Compose
 //        Button(

@@ -25,19 +25,30 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
 @SuppressLint("MissingPermission")
-class AndroidNotifications: Notifications(), KoinComponent {
-
+class AndroidNotifications : Notifications(), KoinComponent {
     val context: Context by inject()
 
-    override fun notifyCopyableMessage(id: Int, title: StringDesc, message: String) {
+    override fun notifyCopyableMessage(
+        id: Int,
+        title: StringDesc,
+        message: String,
+    ) {
         with(NotificationManagerCompat.from(context)) {
-            notify(id, userInfoNotification(title, context.getString(MR.strings.tap_to_copy.resourceId, message))
-                .setContentIntent(PendingIntent.getBroadcast(context, id,
-                    Intent(context, NotificationCopyHandler::class.java).apply {
-                        putExtra(EXTRA_COPY_VALUE, message)
-                    }, FLAG_IMMUTABLE))
-                .setAutoCancel(true)
-                .build()
+            notify(
+                id,
+                userInfoNotification(title, context.getString(MR.strings.tap_to_copy.resourceId, message))
+                    .setContentIntent(
+                        PendingIntent.getBroadcast(
+                            context,
+                            id,
+                            Intent(context, NotificationCopyHandler::class.java).apply {
+                                putExtra(EXTRA_COPY_VALUE, message)
+                            },
+                            FLAG_IMMUTABLE,
+                        ),
+                    )
+                    .setAutoCancel(true)
+                    .build(),
             )
         }
     }
@@ -45,63 +56,89 @@ class AndroidNotifications: Notifications(), KoinComponent {
     override fun showPlacementNotification(rank: LadderRank) {
         with(NotificationManagerCompat.from(context)) {
             val message = context.getString(MR.strings.notification_placement_body.resourceId, context.getString(rank.nameRes.resourceId))
-            notify(multiNotificationId, userInfoNotification("WELCOME!")
-                .setStyle(htmlStyle(message))
-                .setLargeIcon(BitmapFactory.decodeResource(context.resources, rank.drawableRes))
-                .setAutoCancel(true)
-                .build())
+            notify(
+                multiNotificationId,
+                userInfoNotification("WELCOME!")
+                    .setStyle(htmlStyle(message))
+                    .setLargeIcon(BitmapFactory.decodeResource(context.resources, rank.drawableRes))
+                    .setAutoCancel(true)
+                    .build(),
+            )
         }
     }
 
     override fun showLadderRankChangedNotification(rank: LadderRank) {
         with(NotificationManagerCompat.from(context)) {
-            val message = context.getString(
-                MR.strings.notification_rank_body.resourceId,
-                context.getString(rank.nameRes.resourceId)
+            val message =
+                context.getString(
+                    MR.strings.notification_rank_body.resourceId,
+                    context.getString(rank.nameRes.resourceId),
+                )
+            notify(
+                multiNotificationId,
+                userInfoNotification("RANK UP!")
+                    .setStyle(htmlStyle(message))
+                    .setLargeIcon(BitmapFactory.decodeResource(context.resources, rank.drawableRes))
+                    .setAutoCancel(true)
+                    .build(),
             )
-            notify(multiNotificationId, userInfoNotification("RANK UP!")
-                .setStyle(htmlStyle(message))
-                .setLargeIcon(BitmapFactory.decodeResource(context.resources, rank.drawableRes))
-                .setAutoCancel(true)
-                .build())
         }
     }
 
-    override fun showTrialRankChangedNotification(trial: Trial, rank: TrialRank) {
+    override fun showTrialRankChangedNotification(
+        trial: Trial,
+        rank: TrialRank,
+    ) {
         with(NotificationManagerCompat.from(context)) {
-            val message = context.getString(
-                MR.strings.notification_trial_body.resourceId,
-                context.getString(rank.nameRes.resourceId),
-                trial.name
+            val message =
+                context.getString(
+                    MR.strings.notification_trial_body.resourceId,
+                    context.getString(rank.nameRes.resourceId),
+                    trial.name,
+                )
+            notify(
+                multiNotificationId,
+                userInfoNotification(StringDesc.Raw("RANK UP! ${trial.name}"))
+                    .setStyle(htmlStyle(message))
+                    .setLargeIcon(BitmapFactory.decodeResource(context.resources, rank.drawableRes))
+                    .setAutoCancel(true)
+                    .build(),
             )
-            notify(multiNotificationId, userInfoNotification(StringDesc.Raw("RANK UP! ${trial.name}"))
-                .setStyle(htmlStyle(message))
-                .setLargeIcon(BitmapFactory.decodeResource(context.resources, rank.drawableRes))
-                .setAutoCancel(true)
-                .build())
         }
     }
 
-    override fun showToast(message: String, long: Boolean) {
+    override fun showToast(
+        message: String,
+        long: Boolean,
+    ) {
         Toast.makeText(context, message, if (long) Toast.LENGTH_LONG else Toast.LENGTH_SHORT)
     }
 
-    private fun userInfoNotification(title: String, content: String? = null) =
-        userInfoNotification(StringDesc.Raw(title))
+    private fun userInfoNotification(
+        title: String,
+        content: String? = null,
+    ) = userInfoNotification(StringDesc.Raw(title))
 
-    private fun userInfoNotification(title: StringDesc, content: String? = null) =
-        NotificationCompat.Builder(context, ID_USER_INFO_CHANNEL)
-            .setSmallIcon(R.drawable.ic_life4_trials_logo_notif)
-            .setContentTitle(title.toString(context))
-            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-            .apply {
-                content?.let { setContentText(it) }
-            }
+    private fun userInfoNotification(
+        title: StringDesc,
+        content: String? = null,
+    ) = NotificationCompat.Builder(context, ID_USER_INFO_CHANNEL)
+        .setSmallIcon(R.drawable.ic_life4_trials_logo_notif)
+        .setContentTitle(title.toString(context))
+        .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+        .apply {
+            content?.let { setContentText(it) }
+        }
 
-    private fun htmlStyle(message: String) = NotificationCompat.InboxStyle().also {
-        @Suppress("DEPRECATION")
-        it.addLine(if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-            Html.fromHtml(message, 0) else
-            Html.fromHtml(message))
-    }
+    private fun htmlStyle(message: String) =
+        NotificationCompat.InboxStyle().also {
+            @Suppress("DEPRECATION")
+            it.addLine(
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    Html.fromHtml(message, 0)
+                } else {
+                    Html.fromHtml(message)
+                },
+            )
+        }
 }

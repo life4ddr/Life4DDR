@@ -7,8 +7,7 @@ import com.russhwolf.settings.Settings
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-abstract class TrialNavigation: KoinComponent {
-
+abstract class TrialNavigation : KoinComponent {
     private val sessionManager: TrialSessionManager by inject()
     protected val settings: Settings by inject()
     protected val notifications: Notifications by inject()
@@ -18,17 +17,27 @@ abstract class TrialNavigation: KoinComponent {
         when {
             session.highestPossibleRank == null -> submitRankAndFinish(session, false, onFinish)
             session.trial.isEvent -> submitRankAndFinish(session, true, onFinish)
-            else -> showRankConfirmation(session.goalRank!!) { passed ->
-                submitRankAndFinish(session, passed, onFinish)
-            }
+            else ->
+                showRankConfirmation(session.goalRank!!) { passed ->
+                    submitRankAndFinish(session, passed, onFinish)
+                }
         }
     }
 
-    protected abstract fun showRankConfirmation(rank: TrialRank, result: (Boolean) -> Unit)
+    protected abstract fun showRankConfirmation(
+        rank: TrialRank,
+        result: (Boolean) -> Unit,
+    )
+
     protected abstract fun showSessionSubmitConfirmation(result: (Boolean) -> Unit)
+
     protected abstract fun showTrialSubmissionWeb()
 
-    private fun submitRankAndFinish(session: InProgressTrialSession, passed: Boolean, onFinish: () -> Unit) {
+    private fun submitRankAndFinish(
+        session: InProgressTrialSession,
+        passed: Boolean,
+        onFinish: () -> Unit,
+    ) {
         session.goalObtained = passed
         sessionManager.saveSession(session)
         if (passed) {

@@ -8,9 +8,10 @@ data class ChartResultPair(
     val result: ChartResult?,
 )
 
-fun DetailedChartInfo.matches(other: ChartResult?) = when (other) {
-    null -> false
-    else -> id == other.chartId
-}
+fun DetailedChartInfo.matches(other: ChartResult?) =
+    when (other) {
+        null -> false
+        else -> id == other.chartId
+    }
 
 fun ChartResult.matches(other: DetailedChartInfo?) = other?.matches(this) ?: false

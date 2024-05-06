@@ -8,8 +8,10 @@ import com.perrigogames.life4.api.base.LocalUncachedDataReader
 import com.perrigogames.life4.db.GoalDatabaseHelper
 import com.perrigogames.life4.feature.firstrun.FirstRunSettingsManager
 import com.perrigogames.life4.feature.placements.PlacementManager
-import com.perrigogames.life4.feature.settings.UserInfoSettings
 import com.perrigogames.life4.feature.profile.UserRankManager
+import com.perrigogames.life4.feature.settings.LadderListSelectionSettings
+import com.perrigogames.life4.feature.settings.UserInfoSettings
+import com.perrigogames.life4.feature.settings.UserRankSettings
 import com.perrigogames.life4.feature.songlist.IgnoreListManager
 import com.perrigogames.life4.feature.songlist.SongDataManager
 import com.perrigogames.life4.feature.songlist.SongDatabaseHelper
@@ -25,8 +27,6 @@ import com.perrigogames.life4.ktor.Life4API
 import com.perrigogames.life4.ktor.Life4APIImpl
 import com.perrigogames.life4.model.*
 import com.perrigogames.life4.model.mapping.LadderGoalMapper
-import com.perrigogames.life4.feature.settings.LadderListSelectionSettings
-import com.perrigogames.life4.feature.settings.UserRankSettings
 import kotlinx.serialization.json.Json
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -43,7 +43,7 @@ typealias NativeInjectionFactory<T> = Scope.() -> T
 fun initKoin(
     appModule: Module,
     extraAppModule: Module? = null,
-    appDeclaration: KoinAppDeclaration = {}
+    appDeclaration: KoinAppDeclaration = {},
 ) = startKoin {
     appDeclaration()
     modules(listOfNotNull(appModule, extraAppModule, platformModule, coreModule))
@@ -58,42 +58,43 @@ fun initKoin(
     koin.get<SongDataCoordinator>()
 }
 
-val coreModule = module {
-    single { GoalDatabaseHelper(get()) }
-    single { ResultDatabaseHelper(get()) }
-    single { SongDatabaseHelper(get()) }
-    single { TrialDatabaseHelper(get()) }
+val coreModule =
+    module {
+        single { GoalDatabaseHelper(get()) }
+        single { ResultDatabaseHelper(get()) }
+        single { SongDatabaseHelper(get()) }
+        single { TrialDatabaseHelper(get()) }
 
-    single<GithubDataAPI> { GithubDataImpl() }
-    single<Life4API> { Life4APIImpl(get()) }
-    single { Json { classDiscriminator = "t" } }
+        single<GithubDataAPI> { GithubDataImpl() }
+        single<Life4API> { Life4APIImpl(get()) }
+        single { Json { classDiscriminator = "t" } }
 
-    single { PlacementManager() }
-    single { MajorUpdateManager() }
-    single { MotdManager() }
-    single { LadderDataManager() }
-    single { SongResultsManager() }
-    single { TrialManager() }
-    single { TrialSessionManager() }
-    single { TrialRecordsManager() }
-    single { IgnoreListManager() }
-    single { SongDataManager() }
-    single { SongDataCoordinator() }
-    single { UserInfoSettings() }
-    single { FirstRunSettingsManager() }
-    single { UserRankSettings() }
-    single { LadderListSelectionSettings() }
-    single { UserRankManager() }
-    single { GoalStateManager() }
-    single { LadderGoalMapper() }
+        single { PlacementManager() }
+        single { MajorUpdateManager() }
+        single { MotdManager() }
+        single { LadderDataManager() }
+        single { SongResultsManager() }
+        single { TrialManager() }
+        single { TrialSessionManager() }
+        single { TrialRecordsManager() }
+        single { IgnoreListManager() }
+        single { SongDataManager() }
+        single { SongDataCoordinator() }
+        single { UserInfoSettings() }
+        single { FirstRunSettingsManager() }
+        single { UserRankSettings() }
+        single { LadderListSelectionSettings() }
+        single { UserRankManager() }
+        single { GoalStateManager() }
+        single { LadderGoalMapper() }
 
-    // platformLogWriter() is a relatively simple config option, useful for local debugging. For production
-    // uses you *may* want to have a more robust configuration from the native platform. In KaMP Kit,
-    // that would likely go into platformModule expect/actual.
-    // See https://github.com/touchlab/Kermit
-    val baseLogger = Logger(config = StaticConfig(logWriterList = listOf(platformLogWriter())), "LIFE4")
-    factory { (tag: String?) -> if (tag != null) baseLogger.withTag(tag) else baseLogger }
-}
+        // platformLogWriter() is a relatively simple config option, useful for local debugging. For production
+        // uses you *may* want to have a more robust configuration from the native platform. In KaMP Kit,
+        // that would likely go into platformModule expect/actual.
+        // See https://github.com/touchlab/Kermit
+        val baseLogger = Logger(config = StaticConfig(logWriterList = listOf(platformLogWriter())), "LIFE4")
+        factory { (tag: String?) -> if (tag != null) baseLogger.withTag(tag) else baseLogger }
+    }
 
 // Simple function to clean up the syntax a bit
 fun KoinComponent.injectLogger(tag: String): Lazy<Logger> = inject { parametersOf(tag) }

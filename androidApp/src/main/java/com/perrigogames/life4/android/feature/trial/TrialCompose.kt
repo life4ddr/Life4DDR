@@ -38,9 +38,10 @@ import dev.icerock.moko.mvvm.createViewModelFactory
 @Composable
 fun TrialListScreen(
     modifier: Modifier = Modifier,
-    viewModel: TrialListViewModel = viewModel(
-        factory = createViewModelFactory { TrialListViewModel() }
-    ),
+    viewModel: TrialListViewModel =
+        viewModel(
+            factory = createViewModelFactory { TrialListViewModel() },
+        ),
     onTrialSelected: (Trial) -> Unit,
 ) {
     val state by viewModel.state.collectAsState()
@@ -66,21 +67,23 @@ fun TrialJacketList(
     ) {
         displayList.forEach { displayItem ->
             when (displayItem) {
-                is UITrialList.Item.Header -> item(
-                    span = { GridItemSpan(maxLineSpan) }
-                ) {
-                    Text(
-                        text = displayItem.text,
-                        fontSize = FontSizes.SMALL,
-                        fontFamily = FontFamilies.AVENIR_NEXT,
-                    )
-                }
-                is UITrialList.Item.Trial -> item {
-                    TrialJacket(
-                        viewModel = displayItem.data,
-                        onClick = onTrialSelected,
-                    )
-                }
+                is UITrialList.Item.Header ->
+                    item(
+                        span = { GridItemSpan(maxLineSpan) },
+                    ) {
+                        Text(
+                            text = displayItem.text,
+                            fontSize = FontSizes.SMALL,
+                            fontFamily = FontFamilies.AVENIR_NEXT,
+                        )
+                    }
+                is UITrialList.Item.Trial ->
+                    item {
+                        TrialJacket(
+                            viewModel = displayItem.data,
+                            onClick = onTrialSelected,
+                        )
+                    }
             }
         }
     }
@@ -99,16 +102,17 @@ fun TrialJacket(
         Image(
             painter = painterResource(id = viewModel.trial.jacketResId(LocalContext.current)),
             contentDescription = null,
-            modifier = Modifier.aspectRatio(1f)
+            modifier = Modifier.aspectRatio(1f),
 //                .constrainAs(image) {
 //                }
         )
         TrialDifficulty(
             viewModel = viewModel,
-            modifier = Modifier.constrainAs(difficulty) {
-                top.linkTo(parent.top, margin = Paddings.SMALL)
-                start.linkTo(parent.start, margin = Paddings.SMALL)
-            }
+            modifier =
+                Modifier.constrainAs(difficulty) {
+                    top.linkTo(parent.top, margin = Paddings.SMALL)
+                    start.linkTo(parent.start, margin = Paddings.SMALL)
+                },
         )
     }
 }
@@ -121,7 +125,7 @@ fun TrialDifficulty(
     viewModel.trial.difficulty?.let { difficulty ->
         Box(
             contentAlignment = Alignment.Center,
-            modifier = modifier.size(40.dp)
+            modifier = modifier.size(40.dp),
         ) {
             Image(
                 painter = painterResource(id = R.drawable.circle),
@@ -133,7 +137,7 @@ fun TrialDifficulty(
                 textAlign = TextAlign.Center,
                 fontSize = 24.sp,
                 color = MaterialTheme.colors.onPrimary,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
             )
         }
     }

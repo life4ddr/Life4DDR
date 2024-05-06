@@ -14,21 +14,19 @@ import dev.icerock.moko.mvvm.createViewModelFactory
 
 @Composable
 fun MainScreenProfile(
-    viewModel: MainScreenProfileViewModel = viewModel(
-        factory = createViewModelFactory { MainScreenProfileViewModel() }
-    ),
+    viewModel: MainScreenProfileViewModel =
+        viewModel(
+            factory = createViewModelFactory { MainScreenProfileViewModel() },
+        ),
 ) {
-
 }
 
 @Composable
-fun MainScreenProfileContent(
-    state: UIMainScreenProfile
-) {
+fun MainScreenProfileContent(state: UIMainScreenProfile) {
     Column {
         ProfileCard(
             state = state.infoCard,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
         )
 //        LadderGoals(data = state.ladderData, onCompletedChanged = , onHiddenChanged = )
     }
@@ -41,15 +39,15 @@ fun ProfileCard(
 ) {
     Row(modifier = modifier) {
         Column(
-            modifier = Modifier.weight(1f)
+            modifier = Modifier.weight(1f),
         ) {
             Text(
                 text = state.name,
-                maxLines = 1
+                maxLines = 1,
             )
             Text(
                 text = state.rivalCode,
-                maxLines = 1
+                maxLines = 1,
             )
         }
     }

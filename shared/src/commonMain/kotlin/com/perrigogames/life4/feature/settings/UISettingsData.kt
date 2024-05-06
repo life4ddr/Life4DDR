@@ -10,20 +10,19 @@ import dev.icerock.moko.resources.desc.StringDesc
  */
 data class UISettingsData(
     val screenTitle: StringDesc,
-    val settingsItems: List<UISettingsItem>
+    val settingsItems: List<UISettingsItem>,
 )
 
 /**
  * Describes a single clickable item in the Settings screen.
  */
 sealed class UISettingsItem {
-
     /**
      * A text header with no clickability.
      * @param title the text the header should display
      */
     data class Header(
-        val title: StringDesc
+        val title: StringDesc,
     ) : UISettingsItem()
 
     /**
@@ -80,14 +79,21 @@ sealed class UISettingsItem {
  * An action to be taken when a Settings object is interacted with.
  */
 sealed class SettingsAction {
-    data object None: SettingsAction()
-    data class WebLink(val url: String): SettingsAction()
-    data class Navigate(val page: SettingsPage): SettingsAction()
-    data object NavigateBack: SettingsAction()
-    data class Email(val email: String): SettingsAction()
-    data class SetBoolean(val id: String, val newValue: Boolean): SettingsAction()
-    data class Modal(val modal: SettingsPageModal): SettingsAction()
-    data object ShowCredits: SettingsAction()
+    data object None : SettingsAction()
+
+    data class WebLink(val url: String) : SettingsAction()
+
+    data class Navigate(val page: SettingsPage) : SettingsAction()
+
+    data object NavigateBack : SettingsAction()
+
+    data class Email(val email: String) : SettingsAction()
+
+    data class SetBoolean(val id: String, val newValue: Boolean) : SettingsAction()
+
+    data class Modal(val modal: SettingsPageModal) : SettingsAction()
+
+    data object ShowCredits : SettingsAction()
 }
 
 /**
@@ -103,5 +109,6 @@ enum class SettingsPage(val nameDesc: StringDesc) {
 
 sealed class SettingsPageModal {
     data object GameVersion : SettingsPageModal()
+
     data object AppVersion : SettingsPageModal()
 }

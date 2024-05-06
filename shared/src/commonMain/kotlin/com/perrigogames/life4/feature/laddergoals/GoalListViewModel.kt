@@ -1,6 +1,5 @@
 package com.perrigogames.life4.feature.laddergoals
 
-import androidx.compose.runtime.collectAsState
 import co.touchlab.kermit.Logger
 import com.perrigogames.life4.data.RankEntry
 import com.perrigogames.life4.enums.GoalStatus
@@ -22,7 +21,6 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
 class GoalListViewModel(private val config: GoalListConfig) : ViewModel(), KoinComponent {
-
     private val ladderDataManager: LadderDataManager by inject()
     private val goalStateManager: GoalStateManager by inject()
     private val songResultsManager: SongResultsManager by inject()
@@ -30,15 +28,17 @@ class GoalListViewModel(private val config: GoalListConfig) : ViewModel(), KoinC
     private val userRankManager: UserRankManager by inject()
     private val logger: Logger by injectLogger("GoalListViewModel")
 
-    private val targetRankFlow = config.targetRank
-        ?.let { flowOf(it) }
-        ?: userRankManager.targetRank
+    private val targetRankFlow =
+        config.targetRank
+            ?.let { flowOf(it) }
+            ?: userRankManager.targetRank
 
-    private val requirementsFlow = targetRankFlow
-        .flatMapLatest { targetRank ->
-            ladderDataManager.requirementsForRank(targetRank)
-        }
-        .onEach { logger.v { "requirementsFlow -> $it" } }
+    private val requirementsFlow =
+        targetRankFlow
+            .flatMapLatest { targetRank ->
+                ladderDataManager.requirementsForRank(targetRank)
+            }
+            .onEach { logger.v { "requirementsFlow -> $it" } }
 
     private val _state = MutableStateFlow<ViewState<UILadderData, String>>(ViewState.Loading).cMutableStateFlow()
     val state: StateFlow<ViewState<UILadderData, String>> = _state
@@ -55,48 +55,52 @@ class GoalListViewModel(private val config: GoalListConfig) : ViewModel(), KoinC
                 when {
                     targetRank == null -> ViewState.Error("No higher goals found...")
                     requirements == null -> ViewState.Error("No goals found for ${targetRank.name}")
-                    else -> ViewState.Success(
-                        UILadderData(
-                            goals = UILadderGoals.SingleList(
-                                items = requirements.goals.map(ladderGoalMapper::toViewData)
-                            )
+                    else ->
+                        ViewState.Success(
+                            UILadderData(
+                                goals =
+                                    UILadderGoals.SingleList(
+                                        items = requirements.goals.map(ladderGoalMapper::toViewData),
+                                    ),
+                            ),
                         )
-                    )
                 }
             }.collect { _state.value = it }
         }
     }
 
-    fun handleAction(action: RankListAction) = when(action) {
-        is RankListAction.OnGoal -> {
-            val goal = entry?.allGoals?.firstOrNull { it.id.toLong() == action.id }.ifNull { return }
-            val state = goalStateManager.getOrCreateGoalState(action.id)
+    fun handleAction(action: RankListAction) =
+        when (action) {
+            is RankListAction.OnGoal -> {
+                val goal = entry?.allGoals?.firstOrNull { it.id.toLong() == action.id }.ifNull { return }
+                val state = goalStateManager.getOrCreateGoalState(action.id)
 
-            when (action) {
-                is RankListAction.OnGoal.ToggleComplete -> {
-                    val newStatus = if (state.status == GoalStatus.COMPLETE) {
-                        GoalStatus.INCOMPLETE
-                    } else {
-                        GoalStatus.COMPLETE
+                when (action) {
+                    is RankListAction.OnGoal.ToggleComplete -> {
+                        val newStatus =
+                            if (state.status == GoalStatus.COMPLETE) {
+                                GoalStatus.INCOMPLETE
+                            } else {
+                                GoalStatus.COMPLETE
+                            }
+                        goalStateManager.setGoalState(action.id, newStatus)
+                        updateGoal(action.id)
                     }
-                    goalStateManager.setGoalState(action.id, newStatus)
-                    updateGoal(action.id)
-                }
-                is RankListAction.OnGoal.ToggleExpanded -> {
-
-                }
-                is RankListAction.OnGoal.ToggleHidden -> {
-                    val newStatus = if (state.status == GoalStatus.IGNORED) {
-                        GoalStatus.INCOMPLETE
-                    } else {
-                        GoalStatus.IGNORED
+                    is RankListAction.OnGoal.ToggleExpanded -> {
                     }
-                    goalStateManager.setGoalState(action.id, newStatus)
-                    updateGoal(action.id)
+                    is RankListAction.OnGoal.ToggleHidden -> {
+                        val newStatus =
+                            if (state.status == GoalStatus.IGNORED) {
+                                GoalStatus.INCOMPLETE
+                            } else {
+                                GoalStatus.IGNORED
+                            }
+                        goalStateManager.setGoalState(action.id, newStatus)
+                        updateGoal(action.id)
+                    }
                 }
             }
         }
-    }
 
     private fun updateGoal(id: Long) {
         val baseGoal = findGoal(id.toInt()).ifNull { return }
@@ -105,10 +109,13 @@ class GoalListViewModel(private val config: GoalListConfig) : ViewModel(), KoinC
         }
     }
 
-    private fun modifyGoal(id: Long, block: (UILadderGoal) -> UILadderGoal) {
+    private fun modifyGoal(
+        id: Long,
+        block: (UILadderGoal) -> UILadderGoal,
+    ) {
         modifyLoadedState { data ->
             data.copy(
-                goals = data.goals.replaceGoal(id, block)
+                goals = data.goals.replaceGoal(id, block),
             )
         }
     }
@@ -122,7 +129,7 @@ class GoalListViewModel(private val config: GoalListConfig) : ViewModel(), KoinC
 }
 
 data class GoalListConfig(
-    val targetRank: LadderRank? = null
+    val targetRank: LadderRank? = null,
 )
 
 sealed class RankListAction {
@@ -130,7 +137,9 @@ sealed class RankListAction {
         abstract val id: Long
 
         data class ToggleComplete(override val id: Long) : OnGoal()
+
         data class ToggleHidden(override val id: Long) : OnGoal()
+
         data class ToggleExpanded(override val id: Long) : OnGoal()
     }
 }

@@ -12,7 +12,6 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
 class MainScreenProfileViewModel : ViewModel(), KoinComponent {
-
     private val userInfoManager: UserInfoManager by inject()
     private val userRankManager: UserRankManager by inject()
 
@@ -22,24 +21,25 @@ class MainScreenProfileViewModel : ViewModel(), KoinComponent {
     init {
         combine(
             userInfoManager.userInfoFlow,
-            userRankManager.rank
+            userRankManager.rank,
         ) { userInfo, rank ->
-            _state.value = UIMainScreenProfile(
-                infoCard = UIProfileInfoCard(
-                    name = userInfo.userName,
-                    rivalCode = userInfo.rivalCode,
-                    rank = rank,
-                ),
-                ladderData = null
-            )
-
+            _state.value =
+                UIMainScreenProfile(
+                    infoCard =
+                        UIProfileInfoCard(
+                            name = userInfo.userName,
+                            rivalCode = userInfo.rivalCode,
+                            rank = rank,
+                        ),
+                    ladderData = null,
+                )
         }.launchIn(viewModelScope)
     }
 }
 
 data class UIMainScreenProfile(
     val infoCard: UIProfileInfoCard,
-    val ladderData: UILadderData?
+    val ladderData: UILadderData?,
 )
 
 data class UIProfileInfoCard(

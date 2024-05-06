@@ -31,7 +31,6 @@ import org.koin.core.component.inject
 import kotlin.reflect.KClass
 
 class FirstRunInfoViewModel : ViewModel(), KoinComponent {
-
     private val infoSettings: UserInfoSettings by inject()
     private val firstRunSettings: FirstRunSettingsManager by inject()
 
@@ -48,8 +47,7 @@ class FirstRunInfoViewModel : ViewModel(), KoinComponent {
     private val _errors = MutableStateFlow<List<FirstRunError>>(emptyList()).cMutableStateFlow()
     val errors: Flow<List<FirstRunError>> = _errors
 
-    inline fun <reified T : FirstRunError> errorOfType() : Flow<T?> =
-        errors.map { errors -> errors.firstOrNull { it is T } as? T }
+    inline fun <reified T : FirstRunError> errorOfType(): Flow<T?> = errors.map { errors -> errors.firstOrNull { it is T } as? T }
 
     init {
         viewModelScope.launch {
@@ -65,10 +63,11 @@ class FirstRunInfoViewModel : ViewModel(), KoinComponent {
 
     fun newUserSelected(isNewUser: Boolean) {
         require(currentPath == null) { "Called newUserSelected when path is already set to $currentPath" }
-        val path = when (isNewUser) {
-            true -> FirstRunPath.NEW_USER_LOCAL
-            false -> FirstRunPath.EXISTING_USER_LOCAL
-        }
+        val path =
+            when (isNewUser) {
+                true -> FirstRunPath.NEW_USER_LOCAL
+                false -> FirstRunPath.EXISTING_USER_LOCAL
+            }
         _stateStack.value += createStateClass(path, clazz = path.steps[0])
     }
 
@@ -76,7 +75,7 @@ class FirstRunInfoViewModel : ViewModel(), KoinComponent {
         path: FirstRunPath = currentPath!!,
         rankMethod: InitState? = null,
         clazz: KClass<T>,
-    ) : FirstRunStep {
+    ): FirstRunStep {
         rankMethod?.let { firstRunSettings.setInitState(it) }
         return when (clazz) {
             Username::class -> Username(path)
@@ -164,46 +163,49 @@ class FirstRunInfoViewModel : ViewModel(), KoinComponent {
 
 enum class FirstRunPath(
     val isNewUser: Boolean,
-    vararg val steps: KClass<out FirstRunStep>
+    vararg val steps: KClass<out FirstRunStep>,
 ) {
-    NEW_USER_LOCAL (isNewUser = true, Username::class, RivalCode::class, InitialRankSelection::class, Completed::class),
-    NEW_USER_REMOTE (isNewUser = true, Username::class, Password::class, RivalCode::class, InitialRankSelection::class),
-    EXISTING_USER_LOCAL (isNewUser = false, Username::class, RivalCode::class, InitialRankSelection::class, Completed::class),
-    EXISTING_USER_REMOTE (isNewUser = false, UsernamePassword::class, Completed::class),
+    NEW_USER_LOCAL(isNewUser = true, Username::class, RivalCode::class, InitialRankSelection::class, Completed::class),
+    NEW_USER_REMOTE(isNewUser = true, Username::class, Password::class, RivalCode::class, InitialRankSelection::class),
+    EXISTING_USER_LOCAL(isNewUser = false, Username::class, RivalCode::class, InitialRankSelection::class, Completed::class),
+    EXISTING_USER_REMOTE(isNewUser = false, UsernamePassword::class, Completed::class),
     ;
 
-    fun allowedRankSelectionTypes(): List<InitState> = when (this) {
-        NEW_USER_LOCAL -> listOf(DONE, PLACEMENTS, RANKS)
-        NEW_USER_REMOTE -> listOf(DONE, PLACEMENTS)
-        EXISTING_USER_LOCAL -> listOf(DONE, RANKS)
-        EXISTING_USER_REMOTE -> listOf()
-    }
+    fun allowedRankSelectionTypes(): List<InitState> =
+        when (this) {
+            NEW_USER_LOCAL -> listOf(DONE, PLACEMENTS, RANKS)
+            NEW_USER_REMOTE -> listOf(DONE, PLACEMENTS)
+            EXISTING_USER_LOCAL -> listOf(DONE, RANKS)
+            EXISTING_USER_REMOTE -> listOf()
+        }
 }
 
 sealed class FirstRunStep(
-    val showNextButton: Boolean = true
+    val showNextButton: Boolean = true,
 ) {
     data object Landing : FirstRunStep(showNextButton = false)
 
     sealed class PathStep(
         showNextButton: Boolean = true,
     ) : FirstRunStep(showNextButton) {
-
         abstract val path: FirstRunPath
 
         data class Username(
             override val path: FirstRunPath,
         ) : PathStep() {
+            val headerText: ResourceStringDesc =
+                StringDesc.Resource(
+                    when (path.isNewUser) {
+                        true -> MR.strings.first_run_username_new_header
+                        false -> MR.strings.first_run_username_existing_header
+                    },
+                )
 
-            val headerText: ResourceStringDesc = StringDesc.Resource(when (path.isNewUser) {
-                true -> MR.strings.first_run_username_new_header
-                false -> MR.strings.first_run_username_existing_header
-            })
-
-            val descriptionText: ResourceStringDesc? = when (path.isNewUser) {
-                true -> StringDesc.Resource(MR.strings.first_run_username_description)
-                else -> null
-            }
+            val descriptionText: ResourceStringDesc? =
+                when (path.isNewUser) {
+                    true -> StringDesc.Resource(MR.strings.first_run_username_description)
+                    else -> null
+                }
         }
 
         data class Password(override val path: FirstRunPath) : PathStep()
@@ -230,18 +232,17 @@ sealed class FirstRunStep(
 }
 
 sealed class FirstRunError {
-
     abstract val errorText: StringDesc
 
     class UsernameError(
-        override val errorText: StringDesc = StringDesc.Resource(MR.strings.first_run_error_username)
+        override val errorText: StringDesc = StringDesc.Resource(MR.strings.first_run_error_username),
     ) : FirstRunError()
 
     class PasswordError(
-        override val errorText: StringDesc = StringDesc.Resource(MR.strings.first_run_error_password)
+        override val errorText: StringDesc = StringDesc.Resource(MR.strings.first_run_error_password),
     ) : FirstRunError()
 
     class RivalCodeError(
-        override val errorText: StringDesc = StringDesc.Resource(MR.strings.first_run_error_rival_code)
+        override val errorText: StringDesc = StringDesc.Resource(MR.strings.first_run_error_rival_code),
     ) : FirstRunError()
 }

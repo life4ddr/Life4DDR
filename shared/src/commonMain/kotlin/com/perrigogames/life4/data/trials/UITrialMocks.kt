@@ -21,23 +21,24 @@ fun createUITrialSong(
     difficultyNumber = difficultyNumber,
 )
 
-val bags = listOf(
-    createUITrialSong(
-        songNameText = "bag",
-        difficultyClass = DifficultyClass.DIFFICULT,
-        difficultyText = "13",
-        difficultyNumber = 13,
-    ),
-    createUITrialSong(
-        songNameText = "bag",
-        difficultyClass = DifficultyClass.EXPERT,
-        difficultyText = "13",
-        difficultyNumber = 13,
-    ),
-    createUITrialSong(
-        songNameText = "bag",
-        difficultyClass = DifficultyClass.CHALLENGE,
-        difficultyText = "13",
-        difficultyNumber = 13,
+val bags =
+    listOf(
+        createUITrialSong(
+            songNameText = "bag",
+            difficultyClass = DifficultyClass.DIFFICULT,
+            difficultyText = "13",
+            difficultyNumber = 13,
+        ),
+        createUITrialSong(
+            songNameText = "bag",
+            difficultyClass = DifficultyClass.EXPERT,
+            difficultyText = "13",
+            difficultyNumber = 13,
+        ),
+        createUITrialSong(
+            songNameText = "bag",
+            difficultyClass = DifficultyClass.CHALLENGE,
+            difficultyText = "13",
+            difficultyNumber = 13,
+        ),
     )
-)

@@ -22,9 +22,7 @@ import dev.icerock.moko.resources.StringResource
 import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
-fun SongEntryControls(
-    viewModel: SongEntryViewModel,
-) {
+fun SongEntryControls(viewModel: SongEntryViewModel) {
     val scoreText: String by viewModel.scoreText.collectAsState()
     val exScoreText: String by viewModel.exScoreText.collectAsState()
     val missesText: String by viewModel.missesText.collectAsState()
@@ -51,14 +49,14 @@ fun SongEntryControls(
                 state = scoreState,
                 placeholderRes = MR.strings.score,
                 modifier = Modifier.weight(0.4f),
-                onTextValueChange = { viewModel.scoreText.value = it }
+                onTextValueChange = { viewModel.scoreText.value = it },
             )
             SongTextInput(
                 text = exScoreText,
                 state = exScoreState,
                 placeholderRes = MR.strings.ex_score,
                 modifier = Modifier.weight(0.25f),
-                onTextValueChange = { viewModel.exScoreText.value = it }
+                onTextValueChange = { viewModel.exScoreText.value = it },
             )
 
             Row(
@@ -70,7 +68,7 @@ fun SongEntryControls(
                 )
                 Text(
                     text = stringResource(MR.strings.passed),
-                    modifier = Modifier.padding(end = Paddings.MEDIUM)
+                    modifier = Modifier.padding(end = Paddings.MEDIUM),
                 )
             }
         }
@@ -83,28 +81,28 @@ fun SongEntryControls(
                 state = missesState,
                 placeholderRes = MR.strings.misses,
                 modifier = Modifier.weight(0.25f),
-                onTextValueChange = { viewModel.missesText.value = it }
+                onTextValueChange = { viewModel.missesText.value = it },
             )
             SongTextInput(
                 text = goodsText,
                 state = goodsState,
                 placeholderRes = MR.strings.goods,
                 modifier = Modifier.weight(0.25f),
-                onTextValueChange = { viewModel.goodsText.value = it }
+                onTextValueChange = { viewModel.goodsText.value = it },
             )
             SongTextInput(
                 text = greatsText,
                 state = greatsState,
                 placeholderRes = MR.strings.greats,
                 modifier = Modifier.weight(0.25f),
-                onTextValueChange = { viewModel.greatsText.value = it }
+                onTextValueChange = { viewModel.greatsText.value = it },
             )
             SongTextInput(
                 text = perfectsText,
                 state = perfectsState,
                 placeholderRes = MR.strings.perfects,
                 modifier = Modifier.weight(0.25f),
-                onTextValueChange = { viewModel.perfectsText.value = it }
+                onTextValueChange = { viewModel.perfectsText.value = it },
             )
         }
     }
@@ -128,7 +126,7 @@ private fun SongTextInput(
             modifier = modifier,
             placeholder = {
                 Text(text = stringResource(placeholderRes))
-            }
+            },
         )
     } else if (spaceInvisible) {
         Spacer(modifier = modifier)
@@ -146,25 +144,25 @@ fun SongClearButtons(
     ) {
         Button(
             modifier = Modifier.weight(1f),
-            onClick = { onClick(SongClearButtonType.CLEAR) }
+            onClick = { onClick(SongClearButtonType.CLEAR) },
         ) {
             Text(text = stringResource(MR.strings.clear))
         }
         Button(
             modifier = Modifier.weight(1f),
-            onClick = { onClick(SongClearButtonType.FC) }
+            onClick = { onClick(SongClearButtonType.FC) },
         ) {
             Text(text = stringResource(MR.strings.clear_fc_short))
         }
         Button(
             modifier = Modifier.weight(1f),
-            onClick = { onClick(SongClearButtonType.PFC) }
+            onClick = { onClick(SongClearButtonType.PFC) },
         ) {
             Text(text = stringResource(MR.strings.clear_pfc_short))
         }
         Button(
             modifier = Modifier.weight(1f),
-            onClick = { onClick(SongClearButtonType.MFC) }
+            onClick = { onClick(SongClearButtonType.MFC) },
         ) {
             Text(text = stringResource(MR.strings.clear_mfc_short))
         }
@@ -172,7 +170,10 @@ fun SongClearButtons(
 }
 
 enum class SongClearButtonType {
-    CLEAR, FC, PFC, MFC
+    CLEAR,
+    FC,
+    PFC,
+    MFC,
 }
 
 @Composable
@@ -181,11 +182,14 @@ fun SongClearWidgetsPreview() {
     LIFE4Theme {
         Column {
             SongClearButtons(modifier = Modifier.fillMaxWidth()) {}
-            SongEntryControls(viewModel(
-                factory = createViewModelFactory {
-                    SongEntryViewModel(0, SongEntryViewModel.EntryState.FULL, false)
-                }
-            ))
+            SongEntryControls(
+                viewModel(
+                    factory =
+                        createViewModelFactory {
+                            SongEntryViewModel(0, SongEntryViewModel.EntryState.FULL, false)
+                        },
+                ),
+            )
         }
     }
 }

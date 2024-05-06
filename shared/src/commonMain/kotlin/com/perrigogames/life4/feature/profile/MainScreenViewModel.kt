@@ -16,21 +16,19 @@ import org.koin.core.component.KoinComponent
  * to their own ViewModels.
  */
 class MainScreenViewModel : ViewModel(), KoinComponent {
-
     private val _state = MutableStateFlow(MainScreenState()).cMutableStateFlow()
     val state: StateFlow<MainScreenState> = _state.asStateFlow()
 
     init {
-
     }
 }
 
 data class MainScreenState(
     val banner: UIBanner = UIBanner(""),
-    val tabs: List<ProfileScreen> = listOf(Profile, Trials, Settings)
+    val tabs: List<ProfileScreen> = listOf(Profile, Trials, Settings),
 )
 
 data class UIBanner(
     val text: String,
-    val color: Int? = null
+    val color: Int? = null,
 )

@@ -9,8 +9,7 @@ import org.koin.core.component.inject
 
 class TrialRemoteData(
     reader: LocalDataReader,
-): CompositeData<TrialData>(), KoinComponent {
-
+) : CompositeData<TrialData>(), KoinComponent {
     private val json: Json by inject()
     private val githubKtor: GithubDataAPI by inject()
 
@@ -18,9 +17,10 @@ class TrialRemoteData(
 
     override val rawData = LocalData(reader, converter)
     override val cacheData = CachedData(reader, converter, converter)
-    override val remoteData = object: RemoteData<TrialData>() {
-        override suspend fun getRemoteResponse() = githubKtor.getTrials()
-    }
+    override val remoteData =
+        object : RemoteData<TrialData>() {
+            override suspend fun getRemoteResponse() = githubKtor.getTrials()
+        }
 
     private fun validateTrialData(data: TrialData) {
         data.trials
@@ -28,16 +28,16 @@ class TrialRemoteData(
             ?.let { trial ->
                 val exScores = trial.songs.map { it.ex }.joinToString()
                 throw Exception(
-                    "Trial ${trial.name} (${trial.totalEx}) has improper EX scores: $exScores"
+                    "Trial ${trial.name} (${trial.totalEx}) has improper EX scores: $exScores",
                 )
             }
     }
 
-    private inner class TrialDataConverter: Converter<TrialData> {
+    private inner class TrialDataConverter : Converter<TrialData> {
         override fun create(s: String): TrialData {
             val data = json.decodeFromString(TrialData.serializer(), s)
             validateTrialData(data)
-            //FIXME debug data
+            // FIXME debug data
             return data
         }
 

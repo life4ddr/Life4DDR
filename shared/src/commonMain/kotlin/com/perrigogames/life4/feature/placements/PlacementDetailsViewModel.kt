@@ -16,9 +16,8 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
 class PlacementDetailsViewModel(
-    placementId: String
+    placementId: String,
 ) : ViewModel(), KoinComponent {
-
     private val logger: Logger by injectLogger("PlacementDetailsViewModel")
     private val placementManager: PlacementManager by inject()
     private val songDataManager: SongDataManager by inject()
@@ -31,12 +30,14 @@ class PlacementDetailsViewModel(
         if (placement == null) {
             logger.e("Placement ID $placementId not found")
         } else {
-            _state.value = _state.value.copy(
-                rankIcon = placement.placementRank!!.toLadderRank(),
-                songs = placement.songs.map { song ->
-                    song.toUITrialSong(songInfo = songDataManager.findSong(song.skillId))
-                }
-            )
+            _state.value =
+                _state.value.copy(
+                    rankIcon = placement.placementRank!!.toLadderRank(),
+                    songs =
+                        placement.songs.map { song ->
+                            song.toUITrialSong(songInfo = songDataManager.findSong(song.skillId))
+                        },
+                )
         }
     }
 }
@@ -44,5 +45,5 @@ class PlacementDetailsViewModel(
 data class UIPlacementDetails(
     val rankIcon: LadderRank = PlacementRank.COPPER.toLadderRank(),
     val descriptionPoints: List<StringDesc> = emptyList(),
-    val songs: List<UITrialSong> = emptyList()
+    val songs: List<UITrialSong> = emptyList(),
 )

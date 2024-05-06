@@ -35,8 +35,7 @@ data class TrialData(
     override val version: Int,
     @SerialName("major_version") override val majorVersion: Int,
     val trials: List<Trial>,
-): MajorVersioned {
-
+) : MajorVersioned {
     companion object {
         const val TRIAL_DATA_REMOTE_VERSION = 3
     }
@@ -61,13 +60,14 @@ data class Trial(
     @SerialName("cover_url") val coverUrl: String? = null,
     @SerialName("cover_override") val coverOverride: Boolean = false,
 ) {
-
     val isRetired: Boolean = state == TrialState.RETIRED
     val isEvent: Boolean = type == TrialType.EVENT && eventStart != null && eventEnd != null
     val isActiveEvent: Boolean
-        get() = isEvent && (eventStart!!.rangeTo(eventEnd!!)).contains(
-            Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
-        )
+        get() =
+            isEvent &&
+                (eventStart!!.rangeTo(eventEnd!!)).contains(
+                    Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()),
+                )
     val new = state == TrialState.NEW
 
     fun goalSet(rank: TrialRank?): TrialGoalSet? = goals?.find { it.rank == rank }
@@ -84,10 +84,11 @@ data class Trial(
     fun rankAfter(rank: TrialRank): TrialRank? {
         return goals?.let { goals ->
             val startIdx = goals.indexOfFirst { it.rank == rank }
-            val idx = min(
-                startIdx + 1,
-                goals.size - 1
-            )
+            val idx =
+                min(
+                    startIdx + 1,
+                    goals.size - 1,
+                )
             return goals[idx].rank
         }
     }

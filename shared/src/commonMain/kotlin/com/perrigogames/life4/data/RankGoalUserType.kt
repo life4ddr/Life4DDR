@@ -66,7 +66,8 @@ fun BaseRankGoal.userType(rank: LadderRank): RankGoalUserType {
             return when (clearType) {
                 ClearType.PERFECT_FULL_COMBO -> RankGoalUserType.PFC
                 ClearType.GREAT_FULL_COMBO,
-                ClearType.GOOD_FULL_COMBO -> RankGoalUserType.COMBO
+                ClearType.GOOD_FULL_COMBO,
+                -> RankGoalUserType.COMBO
                 ClearType.LIFE4_CLEAR -> RankGoalUserType.LIFE4
                 else -> error("No user type for goal $id")
             }
@@ -75,22 +76,28 @@ fun BaseRankGoal.userType(rank: LadderRank): RankGoalUserType {
     }
 }
 
-private fun Int.toLevelUserType() = when (this) {
-    12 -> RankGoalUserType.LEVEL_12
-    13 -> RankGoalUserType.LEVEL_13
-    14 -> RankGoalUserType.LEVEL_14
-    15 -> RankGoalUserType.LEVEL_15
-    16 -> RankGoalUserType.LEVEL_16
-    17 -> RankGoalUserType.LEVEL_17
-    18 -> RankGoalUserType.LEVEL_18
-    19 -> RankGoalUserType.LEVEL_19
-    else -> null
-}
+private fun Int.toLevelUserType() =
+    when (this) {
+        12 -> RankGoalUserType.LEVEL_12
+        13 -> RankGoalUserType.LEVEL_13
+        14 -> RankGoalUserType.LEVEL_14
+        15 -> RankGoalUserType.LEVEL_15
+        16 -> RankGoalUserType.LEVEL_16
+        17 -> RankGoalUserType.LEVEL_17
+        18 -> RankGoalUserType.LEVEL_18
+        19 -> RankGoalUserType.LEVEL_19
+        else -> null
+    }
 
-object RankGoalUserTypeSerializer: KSerializer<RankGoalUserType> {
+object RankGoalUserTypeSerializer : KSerializer<RankGoalUserType> {
     override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("rankGoalUserType", PrimitiveKind.STRING)
+
     override fun deserialize(decoder: Decoder) = RankGoalUserType.parse(decoder.decodeString())!!
-    override fun serialize(encoder: Encoder, value: RankGoalUserType) {
+
+    override fun serialize(
+        encoder: Encoder,
+        value: RankGoalUserType,
+    ) {
         encoder.encodeString(value.serialized)
     }
 }

@@ -20,7 +20,6 @@ data class InProgressTrialSession(
     val results: Array<SongResult?> = arrayOfNulls(trial.songs.size),
     var finalPhotoUriString: String? = null,
 ) {
-
     @Transient var goalObtained: Boolean = false
 
     val hasStarted: Boolean
@@ -33,8 +32,9 @@ data class InProgressTrialSession(
         get() = trial.goals?.map { it.rank }?.toTypedArray() ?: emptyArray()
 
     val shouldShowAdvancedSongDetails: Boolean
-        get() = (if (!hasStarted) trial.highestGoal() else trialGoalSet)
-            ?.let { it.miss != null || it.judge != null } ?: false
+        get() =
+            (if (!hasStarted) trial.highestGoal() else trialGoalSet)
+                ?.let { it.miss != null || it.judge != null } ?: false
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -73,29 +73,36 @@ data class InProgressTrialSession(
      * function will return null if ANY of the results lacks a misses value.
      */
     val currentValidatedMisses: Int?
-        get() = results.filterNotNull().let { current ->
-            if (current.any { it.misses == null }) {
-                null
-            } else currentMisses
-        }
+        get() =
+            results.filterNotNull().let { current ->
+                if (current.any { it.misses == null }) {
+                    null
+                } else {
+                    currentMisses
+                }
+            }
 
     /**
      * Calculates the number of combined bad judgments in the current session. This
      * function will return null if ANY of the results lacks a bad judgments value.
      */
     val currentValidatedBadJudgments: Int?
-        get() = results.filterNotNull().let { current ->
-            if (current.any { it.badJudges == null }) {
-                null
-            } else currentBadJudgments
-        }
+        get() =
+            results.filterNotNull().let { current ->
+                if (current.any { it.badJudges == null }) {
+                    null
+                } else {
+                    currentBadJudgments
+                }
+            }
 
     val progress: TrialEXProgress
-        get() = TrialEXProgress(
-            currentExScore = currentTotalExScore,
-            currentMaxExScore = currentMaxExScore,
-            maxExScore = trial.totalEx,
-        )
+        get() =
+            TrialEXProgress(
+                currentExScore = currentTotalExScore,
+                currentMaxExScore = currentMaxExScore,
+                maxExScore = trial.totalEx,
+            )
 
     /** Calculates the current total EX the player has obtained for this session */
     private val currentTotalExScore: Int
@@ -103,9 +110,10 @@ data class InProgressTrialSession(
 
     /** Calculates the highest EX that a player could obtain on the songs that have been currently completed */
     private val currentMaxExScore: Int
-        get() = trial.songs.mapIndexed { idx, item ->
-            results[idx]?.exScore ?: item.ex
-        }.sumOf { it }
+        get() =
+            trial.songs.mapIndexed { idx, item ->
+                results[idx]?.exScore ?: item.ex
+            }.sumOf { it }
 
     /** Calculates the amount of EX that is missing, which only counts the songs that have been completed */
     private val missingExScore: Int
@@ -178,32 +186,35 @@ data class SongResult(
     var perfects: Int? = null,
     var passed: Boolean = true,
 ) {
-
     val badJudges get() = if (hasAdvancedStats) misses!! + goods!! + greats!! else null
 
     val hasAdvancedStats: Boolean get() = misses != null && goods != null && greats != null && perfects != null
 
     val clearType: ClearType
-        get() = when {
-        !passed -> FAIL
-        exScore == song.ex -> MARVELOUS_FULL_COMBO
-        perfects != null && badJudges != null -> when {
-            perfects == 0 && badJudges == 0 -> MARVELOUS_FULL_COMBO
-            badJudges == 0 -> PERFECT_FULL_COMBO
-            misses != null -> when {
-                misses == 0 -> GREAT_FULL_COMBO
-                misses!! < 4 -> LIFE4_CLEAR
+        get() =
+            when {
+                !passed -> FAIL
+                exScore == song.ex -> MARVELOUS_FULL_COMBO
+                perfects != null && badJudges != null ->
+                    when {
+                        perfects == 0 && badJudges == 0 -> MARVELOUS_FULL_COMBO
+                        badJudges == 0 -> PERFECT_FULL_COMBO
+                        misses != null ->
+                            when {
+                                misses == 0 -> GREAT_FULL_COMBO
+                                misses!! < 4 -> LIFE4_CLEAR
+                                else -> CLEAR
+                            }
+                        else -> CLEAR
+                    }
+                misses != null ->
+                    when {
+                        misses == 0 -> GREAT_FULL_COMBO
+                        misses!! < 4 -> LIFE4_CLEAR
+                        else -> CLEAR
+                    }
                 else -> CLEAR
             }
-            else -> CLEAR
-        }
-        misses != null -> when {
-            misses == 0 -> GREAT_FULL_COMBO
-            misses!! < 4 -> LIFE4_CLEAR
-            else -> CLEAR
-        }
-        else -> CLEAR
-    }
 
     fun randomize() {
         score = (930000..1000000).random()

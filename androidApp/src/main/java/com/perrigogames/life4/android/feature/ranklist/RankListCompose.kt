@@ -33,9 +33,10 @@ import dev.icerock.moko.resources.compose.stringResource
 fun RankSelection(
     modifier: Modifier = Modifier,
     config: RankSelectionConfig = RankSelectionConfig(),
-    viewModel: RankSelectionViewModel = viewModel(
-        factory = createViewModelFactory { RankSelectionViewModel(config) }
-    ),
+    viewModel: RankSelectionViewModel =
+        viewModel(
+            factory = createViewModelFactory { RankSelectionViewModel(config) },
+        ),
     onRankClicked: (LadderRank?) -> Unit = {},
     onRankRejected: () -> Unit = {},
 ) {
@@ -69,7 +70,7 @@ fun RankSelection(
         modifier = modifier,
     ) {
         LazyRow(
-            modifier = Modifier.padding(vertical = Paddings.MEDIUM)
+            modifier = Modifier.padding(vertical = Paddings.MEDIUM),
         ) {
             item { SizedSpacer(size = Paddings.LARGE) }
             items(categoriesList) { category ->
@@ -106,7 +107,7 @@ fun RankSelection(
                                 slideOutVertically() + fadeOut()
                         }
                     }
-                }
+                },
             ) { (category, compress) ->
                 val availableRanks = categories[category] ?: return@AnimatedContent
                 RankDetailSelector(
@@ -135,13 +136,13 @@ fun RankDetailSelector(
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = modifier
+        modifier = modifier,
     ) {
         SizedSpacer(size = Paddings.HUGE)
         if (availableRanks.size < 5) {
             NoRankDetails(
                 noRank = noRank,
-                onRankRejected = onRankRejected
+                onRankRejected = onRankRejected,
             )
         } else {
             RankCategorySelector(
@@ -150,7 +151,7 @@ fun RankDetailSelector(
                 onRankClicked = {
                     onCompressionChanged(true)
                     onRankClicked(it)
-                }
+                },
             )
         }
     }
@@ -171,17 +172,19 @@ fun NoRankDetails(
             text = stringResource(noRank.bodyText.resourceId),
             style = MaterialTheme.typography.bodyLarge,
             color = MaterialTheme.colorScheme.onBackground,
-            modifier = Modifier
-                .padding(horizontal = Paddings.HUGE)
+            modifier =
+                Modifier
+                    .padding(horizontal = Paddings.HUGE),
         )
         Button(
             onClick = onRankRejected,
-            modifier = Modifier
-                .padding(horizontal = Paddings.HUGE)
-                .padding(vertical = Paddings.HUGE)
+            modifier =
+                Modifier
+                    .padding(horizontal = Paddings.HUGE)
+                    .padding(vertical = Paddings.HUGE),
         ) {
             Text(
-                text = stringResource(noRank.buttonText.resourceId)
+                text = stringResource(noRank.buttonText.resourceId),
             )
         }
     }
@@ -198,20 +201,20 @@ fun RankCategorySelector(
         if (compressed) {
             Row(
                 horizontalArrangement = Arrangement.SpaceEvenly,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
             ) {
                 availableRanks.forEach { rank ->
                     RankImageWithTitle(
                         rank = rank,
                         iconSize = 48.dp,
-                        text = stringResource(rank.categoryNameRes.resourceId)
+                        text = stringResource(rank.categoryNameRes.resourceId),
                     ) { onRankClicked(rank) }
                 }
             }
         } else {
             Row(
                 horizontalArrangement = Arrangement.SpaceEvenly,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
             ) {
                 availableRanks.subList(0, 3).forEach { rank ->
                     RankImageWithTitle(rank) { onRankClicked(rank) }
@@ -220,7 +223,7 @@ fun RankCategorySelector(
             SizedSpacer(size = Paddings.LARGE)
             Row(
                 horizontalArrangement = Arrangement.SpaceEvenly,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
             ) {
                 availableRanks.subList(3, 5).forEach { rank ->
                     RankImageWithTitle(rank) { onRankClicked(rank) }
@@ -233,14 +236,14 @@ fun RankCategorySelector(
 @Composable
 private fun RankCategoryImage(
     category: LadderRankClass?,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
     RankImageWithTitle(
         rank = category?.toLadderRank(),
         iconSize = 64.dp,
         text = stringResource(category?.nameRes ?: MR.strings.no_rank),
         style = MaterialTheme.typography.titleSmall,
-        onClick = onClick
+        onClick = onClick,
     )
 }
 
@@ -253,7 +256,7 @@ fun RankSelectionMini(
 ) {
     LazyRow(
         horizontalArrangement = Arrangement.spacedBy(12.dp),
-        modifier = modifier
+        modifier = modifier,
     ) {
         item {
             SizedSpacer(size = 10.dp)
@@ -266,7 +269,7 @@ fun RankSelectionMini(
         items(ranks) { rank ->
             RankImageWithTitle(
                 rank = rank,
-                onClick = { onRankSelected(rank) }
+                onClick = { onRankSelected(rank) },
             )
         }
         item {
@@ -291,7 +294,7 @@ fun RankSelectionMiniPreview() {
     LIFE4Theme {
         Surface {
             RankSelectionMini(
-                onRankSelected = {}
+                onRankSelected = {},
             )
         }
     }

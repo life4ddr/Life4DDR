@@ -1,6 +1,6 @@
 package com.perrigogames.life4.ktor
 
-//class SanbaiAPIImpl(private val log: co.touchlab.kermit.Logger) : SanbaiAPI, KoinComponent {
+// class SanbaiAPIImpl(private val log: co.touchlab.kermit.Logger) : SanbaiAPI, KoinComponent {
 //
 //    private val client: HttpClient = sanbaiHttpClient(log)
 //
@@ -39,4 +39,4 @@ package com.perrigogames.life4.ktor
 //
 //        return response.body<PartialDifficultyResponse>()
 //    }
-//}
+// }

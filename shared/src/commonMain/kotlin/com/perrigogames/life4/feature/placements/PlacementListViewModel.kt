@@ -11,7 +11,6 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
 class PlacementListViewModel : ViewModel(), KoinComponent {
-
     private val firstRunSettingsManager: FirstRunSettingsManager by inject()
     private val placementManager: PlacementManager by inject()
 

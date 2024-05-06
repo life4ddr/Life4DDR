@@ -11,8 +11,9 @@ class SettingsViewModel(
     private val pageStackState = MutableStateFlow(listOf(SettingsPage.ROOT)).cMutableStateFlow()
     private val pageFlow = pageStackState.map { it.last() }
 
-    val state: StateFlow<UISettingsData?> = pageFlow.map { createPage(it) }
-        .stateIn(viewModelScope, started = SharingStarted.Lazily, initialValue = null)
+    val state: StateFlow<UISettingsData?> =
+        pageFlow.map { createPage(it) }
+            .stateIn(viewModelScope, started = SharingStarted.Lazily, initialValue = null)
 
     fun handleAction(action: SettingsAction) {
         when (action) {

@@ -4,7 +4,8 @@
     DifficultyClassSerializer::class,
     PlayStyleSerializer::class,
     ChartTypeSerializer::class,
-    ClearTypeSerializer::class)
+    ClearTypeSerializer::class,
+)
 
 package com.perrigogames.life4.feature.trialsession
 
@@ -51,18 +52,22 @@ data class TrialGoalSet(
     @SerialName("miss_each") val missEach: Int? = null,
     @SerialName("ex_missing") val exMissing: Int? = null,
 ) {
-
     val goalTypes: List<GoalType>
-        get() = mutableListOf<GoalType>().apply {
-            if (clear != null || clearIndexed != null) add(GoalType.CLEAR)
-            if (score != null || scoreIndexed != null) add(GoalType.SCORE)
-            if (exMissing != null) add(GoalType.EX)
-            if (judge != null) add(GoalType.BAD_JUDGEMENT)
-            if (miss != null) add(GoalType.MISS)
-        }
+        get() =
+            mutableListOf<GoalType>().apply {
+                if (clear != null || clearIndexed != null) add(GoalType.CLEAR)
+                if (score != null || scoreIndexed != null) add(GoalType.SCORE)
+                if (exMissing != null) add(GoalType.EX)
+                if (judge != null) add(GoalType.BAD_JUDGEMENT)
+                if (miss != null) add(GoalType.MISS)
+            }
 
     @Serializable
     enum class GoalType {
-        CLEAR, SCORE, EX, BAD_JUDGEMENT, MISS
+        CLEAR,
+        SCORE,
+        EX,
+        BAD_JUDGEMENT,
+        MISS,
     }
 }

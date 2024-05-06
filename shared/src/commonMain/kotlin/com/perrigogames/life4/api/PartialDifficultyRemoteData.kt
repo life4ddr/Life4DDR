@@ -12,8 +12,7 @@ import org.koin.core.component.inject
 
 class PartialDifficultyRemoteData(
     reader: LocalDataReader,
-): CompositeData<PartialDifficultyResponse>(), KoinComponent {
-
+) : CompositeData<PartialDifficultyResponse>(), KoinComponent {
     private val json: Json by inject()
 //    private val sabnaiKtor: SanbaiAPI by inject()
 
@@ -26,8 +25,9 @@ class PartialDifficultyRemoteData(
 //        override suspend fun getRemoteResponse() = sabnaiKtor.getMotd()
 //    }
 
-    private inner class PartialDifficultyResponseConverter: Converter<PartialDifficultyResponse> {
+    private inner class PartialDifficultyResponseConverter : Converter<PartialDifficultyResponse> {
         override fun create(s: String) = json.decodeFromString(PartialDifficultyResponse.serializer(), s)
+
         override fun create(data: PartialDifficultyResponse) = json.encodeToString(PartialDifficultyResponse.serializer(), data)
     }
 }

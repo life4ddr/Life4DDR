@@ -9,7 +9,6 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
 class TrialRecordsViewModel : ViewModel(), KoinComponent {
-
     private val recordsManager: TrialRecordsManager by inject()
 
     private val _records = MutableStateFlow<List<UITrialRecord>>(emptyList()) // FIXME

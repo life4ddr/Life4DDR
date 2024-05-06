@@ -9,14 +9,16 @@ import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-class TrialSessionManager: BaseModel(), KoinComponent {
-
+class TrialSessionManager : BaseModel(), KoinComponent {
     private val trialManager: TrialManager by inject()
     private val dbHelper: TrialDatabaseHelper by inject()
 
     var currentSession: InProgressTrialSession? = null
 
-    fun startSession(trialId: String, initialGoal: TrialRank?): InProgressTrialSession {
+    fun startSession(
+        trialId: String,
+        initialGoal: TrialRank?,
+    ): InProgressTrialSession {
         currentSession = InProgressTrialSession(trialManager.findTrial(trialId)!!, initialGoal)
         return currentSession!!
     }

@@ -9,7 +9,6 @@ import kotlinx.coroutines.flow.StateFlow
 import org.koin.core.component.KoinComponent
 
 class HomeProfileViewModel : ViewModel(), KoinComponent {
-
     private val _state = MutableStateFlow(UIHomeProfile()).cMutableStateFlow()
     val state: StateFlow<UIHomeProfile> = _state
 }

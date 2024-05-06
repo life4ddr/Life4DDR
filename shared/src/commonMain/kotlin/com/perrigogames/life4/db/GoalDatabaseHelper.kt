@@ -7,20 +7,22 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.datetime.Clock
 
-class GoalDatabaseHelper(sqlDriver: SqlDriver): DatabaseHelper(sqlDriver) {
-
+class GoalDatabaseHelper(sqlDriver: SqlDriver) : DatabaseHelper(sqlDriver) {
     fun allStates(): Query<GoalState> = dbRef.goalStatusQueries.getAll()
 
-    fun stateForId(id: Long): GoalState? =
-        dbRef.goalStatusQueries.getStatus(id).executeAsList().firstOrNull()
+    fun stateForId(id: Long): GoalState? = dbRef.goalStatusQueries.getStatus(id).executeAsList().firstOrNull()
 
     fun statesForIdList(ids: List<Long>): Query<GoalState> = dbRef.goalStatusQueries.getStatusList(ids)
 
-    fun insertGoalState(goalId: Long, status: GoalStatus) {
+    fun insertGoalState(
+        goalId: Long,
+        status: GoalStatus,
+    ) {
         dbRef.goalStatusQueries.setStatus(goalId, status, Clock.System.now().toString())
     }
 
-    suspend fun deleteAll() = withContext(Dispatchers.Default) {
-        dbRef.goalStatusQueries.deleteAll()
-    }
+    suspend fun deleteAll() =
+        withContext(Dispatchers.Default) {
+            dbRef.goalStatusQueries.deleteAll()
+        }
 }

@@ -15,16 +15,16 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
 class PlayerProfileViewModel : ViewModel(), KoinComponent {
-
     private val userRankManager: UserRankManager by inject()
     private val infoSettings: UserInfoSettings by inject()
 
     private val _playerInfoViewState = MutableStateFlow(PlayerInfoViewState()).cMutableStateFlow()
     val playerInfoViewState: StateFlow<PlayerInfoViewState> = _playerInfoViewState
 
-    val goalListViewModel = GoalListViewModel(
-        GoalListConfig()
-    )
+    val goalListViewModel =
+        GoalListViewModel(
+            GoalListConfig(),
+        )
 
     init {
         viewModelScope.launch {
@@ -32,7 +32,7 @@ class PlayerProfileViewModel : ViewModel(), KoinComponent {
                 infoSettings.userName,
                 infoSettings.rivalCodeDisplay,
                 infoSettings.socialNetworks,
-                userRankManager.rank
+                userRankManager.rank,
             ) { userName, rivalCode, socialNetworks, rank ->
                 PlayerInfoViewState(userName, rivalCode, socialNetworks, rank)
             }.collect { _playerInfoViewState.value = it }
@@ -48,5 +48,5 @@ data class PlayerInfoViewState(
 )
 
 sealed class PlayerProfileAction {
-    object ChangeRank: PlayerProfileAction()
+    object ChangeRank : PlayerProfileAction()
 }

@@ -8,7 +8,7 @@ import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 
-enum class GameVersion(override val stableId: Long): StableId {
+enum class GameVersion(override val stableId: Long) : StableId {
     UNKNOWN(0),
     DDR_1ST_MIX(1),
     DDR_2ND_MIX(2),
@@ -28,30 +28,40 @@ enum class GameVersion(override val stableId: Long): StableId {
     DDR_A(16),
     DDR_A20(17),
     DDR_A20_PLUS(18),
-    DDR_A3(19);
-    
+    DDR_A3(19),
+    ;
+
     val printName = name.replace("_", " ")
 
     companion object {
-        fun parse(stableId: Long?) = stableId?.let { id ->
-            entries.firstOrNull {
-                it.stableId == id
+        fun parse(stableId: Long?) =
+            stableId?.let { id ->
+                entries.firstOrNull {
+                    it.stableId == id
+                }
             }
-        }
-        fun parse(name: String?) = name?.let { versionName ->
-            entries.firstOrNull {
-                versionName.lowercase().replace(" ", "_") == it.name.lowercase()
+
+        fun parse(name: String?) =
+            name?.let { versionName ->
+                entries.firstOrNull {
+                    versionName.lowercase().replace(" ", "_") == it.name.lowercase()
+                }
             }
-        }
     }
 }
 
-object GameVersionSerializer: KSerializer<GameVersion> {
+object GameVersionSerializer : KSerializer<GameVersion> {
     override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("gameVersion", PrimitiveKind.LONG)
-    override fun deserialize(decoder: Decoder) = GameVersion.parse(
-        decoder.decodeLong()
-    )!!
-    override fun serialize(encoder: Encoder, value: GameVersion) {
+
+    override fun deserialize(decoder: Decoder) =
+        GameVersion.parse(
+            decoder.decodeLong(),
+        )!!
+
+    override fun serialize(
+        encoder: Encoder,
+        value: GameVersion,
+    ) {
         encoder.encodeLong(value.stableId)
     }
 }

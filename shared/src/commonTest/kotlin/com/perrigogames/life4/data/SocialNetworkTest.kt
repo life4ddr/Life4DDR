@@ -4,7 +4,6 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class SocialNetworkTest {
-
     @Test
     fun `test serializing built-in social networks`() {
         assertEquals("Discord", SocialNetwork.Discord.toString())

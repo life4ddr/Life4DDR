@@ -13,8 +13,7 @@ import kotlinx.coroutines.flow.map
 import org.koin.core.component.inject
 import org.koin.core.qualifier.named
 
-class MotdManager: BaseModel() {
-
+class MotdManager : BaseModel() {
     private val dataReader: LocalDataReader by inject(named(GithubDataAPI.MOTD_FILE_NAME))
     private val settings: Settings by inject()
 
@@ -42,6 +41,7 @@ class MotdManager: BaseModel() {
 }
 
 sealed class Event {
-    object DataRequiresAppUpdateEvent: Event()
-    data class MotdEvent(val motd: MessageOfTheDay): Event()
+    object DataRequiresAppUpdateEvent : Event()
+
+    data class MotdEvent(val motd: MessageOfTheDay) : Event()
 }

@@ -5,7 +5,6 @@ data class TrialEXProgress(
     val currentMaxExScore: Int,
     val maxExScore: Int,
 ) {
-
     /**
      * The percentage of the current obtained EX
      */

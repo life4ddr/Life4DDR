@@ -11,14 +11,14 @@ import org.koin.dsl.module
 import platform.Foundation.NSUserDefaults
 
 @OptIn(ExperimentalSettingsApi::class)
-actual val platformModule = module {
-    single<SqlDriver> { NativeSqliteDriver(Life4Db.Schema, "Life4Db") }
-}
+actual val platformModule =
+    module {
+        single<SqlDriver> { NativeSqliteDriver(Life4Db.Schema, "Life4Db") }
+    }
 
-fun makeIosExtraModule(
-    defaults: NSUserDefaults
-) = module {
-    val settings = NSUserDefaultsSettings(defaults)
-    single<Settings> { settings }
-    single<FlowSettings> { settings.toFlowSettings() }
-}
+fun makeIosExtraModule(defaults: NSUserDefaults) =
+    module {
+        val settings = NSUserDefaultsSettings(defaults)
+        single<Settings> { settings }
+        single<FlowSettings> { settings.toFlowSettings() }
+    }

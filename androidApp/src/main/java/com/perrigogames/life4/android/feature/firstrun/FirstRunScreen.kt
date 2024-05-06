@@ -72,9 +72,10 @@ import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
 fun FirstRunScreen(
-    viewModel: FirstRunInfoViewModel = viewModel(
-        factory = createViewModelFactory { FirstRunInfoViewModel() }
-    ),
+    viewModel: FirstRunInfoViewModel =
+        viewModel(
+            factory = createViewModelFactory { FirstRunInfoViewModel() },
+        ),
     onComplete: (InitState) -> Unit,
     onClose: () -> Unit,
 ) {
@@ -93,12 +94,13 @@ fun FirstRunScreen(
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceEvenly,
-            modifier = Modifier.fillMaxWidth(0.75f)
-                .fillMaxHeight()
+            modifier =
+                Modifier.fillMaxWidth(0.75f)
+                    .fillMaxHeight(),
         ) {
             FirstRunHeader(
                 showWelcome = step == Landing,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
             )
 
             val contentModifier = Modifier.fillMaxWidth()
@@ -136,10 +138,12 @@ fun FirstRunScreen(
                         FirstRunRankMethod(
                             step = step,
                             modifier = contentModifier,
-                            onRankMethodSelected = viewModel::rankMethodSelected
+                            onRankMethodSelected = viewModel::rankMethodSelected,
                         )
                     }
-                    is Completed -> { onComplete(step.rankSelection) }
+                    is Completed -> {
+                        onComplete(step.rankSelection)
+                    }
                     else -> error("Unsupported step $step")
                 }
             }
@@ -150,8 +154,9 @@ fun FirstRunScreen(
                 onClick = { viewModel.navigateNext() },
                 content = { Text("Next") },
                 colors = primaryButtonColors(),
-                modifier = Modifier.align(Alignment.BottomEnd)
-                    .padding(16.dp)
+                modifier =
+                    Modifier.align(Alignment.BottomEnd)
+                        .padding(16.dp),
             )
         }
     }
@@ -165,9 +170,10 @@ fun FirstRunHeader(
     Column(modifier = modifier) {
         AnimatedVisibility(
             visible = showWelcome,
-            modifier = Modifier
-                .align(alignment = Alignment.CenterHorizontally)
-                .padding(bottom = 8.dp),
+            modifier =
+                Modifier
+                    .align(alignment = Alignment.CenterHorizontally)
+                    .padding(bottom = 8.dp),
         ) {
             Text(
                 text = stringResource(MR.strings.first_run_landing_header),
@@ -177,9 +183,10 @@ fun FirstRunHeader(
         }
         Image(
             painter = painterResource(R.drawable.life4_logo_invert),
-            colorFilter = ColorFilter.tint(
-                color = MaterialTheme.colorScheme.onSurface,
-            ),
+            colorFilter =
+                ColorFilter.tint(
+                    color = MaterialTheme.colorScheme.onSurface,
+                ),
             contentScale = ContentScale.Fit,
             contentDescription = null,
         )
@@ -206,19 +213,23 @@ fun FirstRunNewUser(
             Button(
                 onClick = { onNewUserSelected(true) },
                 colors = primaryButtonColors(),
-                content = { Text(
-                    text = stringResource(MR.strings.yes),
-                ) },
-                modifier = Modifier.weight(1f, false)
+                content = {
+                    Text(
+                        text = stringResource(MR.strings.yes),
+                    )
+                },
+                modifier = Modifier.weight(1f, false),
             )
             Spacer(modifier = Modifier.size(8.dp))
             Button(
                 onClick = { onNewUserSelected(false) },
                 colors = primaryButtonColors(),
-                content = { Text(
-                    text = stringResource(MR.strings.no),
-                ) },
-                modifier = Modifier.weight(1f, false)
+                content = {
+                    Text(
+                        text = stringResource(MR.strings.no),
+                    )
+                },
+                modifier = Modifier.weight(1f, false),
             )
         }
     }
@@ -228,9 +239,10 @@ fun FirstRunNewUser(
 fun FirstRunUsername(
     modifier: Modifier = Modifier,
     step: Username,
-    viewModel: FirstRunInfoViewModel = viewModel(
-        factory = createViewModelFactory { FirstRunInfoViewModel() }
-    ),
+    viewModel: FirstRunInfoViewModel =
+        viewModel(
+            factory = createViewModelFactory { FirstRunInfoViewModel() },
+        ),
 ) {
     val username: String by viewModel.username.collectAsState()
     val error: UsernameError? by viewModel.errorOfType<UsernameError>().collectAsState(null)
@@ -243,7 +255,7 @@ fun FirstRunUsername(
             style = MaterialTheme.typography.headlineMedium,
         )
         Spacer(
-            modifier = Modifier.size(16.dp)
+            modifier = Modifier.size(16.dp),
         )
         step.descriptionText?.let { description ->
             Text(
@@ -252,38 +264,46 @@ fun FirstRunUsername(
                 style = MaterialTheme.typography.bodyMedium,
             )
             Spacer(
-                modifier = Modifier.size(16.dp)
+                modifier = Modifier.size(16.dp),
             )
         }
         OutlinedTextField(
             value = username,
-            colors = OutlinedTextFieldDefaults.colors(
-                unfocusedTextColor = MaterialTheme.colorScheme.onSurface,
-                focusedTextColor = MaterialTheme.colorScheme.onSurface,
-            ),
-            label = { Text(
-                text = stringResource(MR.strings.username),
-            ) },
+            colors =
+                OutlinedTextFieldDefaults.colors(
+                    unfocusedTextColor = MaterialTheme.colorScheme.onSurface,
+                    focusedTextColor = MaterialTheme.colorScheme.onSurface,
+                ),
+            label = {
+                Text(
+                    text = stringResource(MR.strings.username),
+                )
+            },
             singleLine = true,
-            keyboardOptions = KeyboardOptions(
-                imeAction = ImeAction.Done
-            ),
-            keyboardActions = KeyboardActions(
-                onDone = { focusManager.clearFocus() },
-            ),
+            keyboardOptions =
+                KeyboardOptions(
+                    imeAction = ImeAction.Done,
+                ),
+            keyboardActions =
+                KeyboardActions(
+                    onDone = { focusManager.clearFocus() },
+                ),
             supportingText = {
                 AnimatedVisibility(visible = error != null) {
                     ErrorText { error?.errorText?.toString(LocalContext.current) }
                 }
             },
             onValueChange = { text: String -> viewModel.username.value = text },
-            modifier = Modifier.onKeyEvent {
-                return@onKeyEvent if (it.nativeKeyEvent.keyCode == KeyEvent.KEYCODE_ENTER) {
-                    focusManager.clearFocus()
-                    true
-                } else false
-            }
-                .fillMaxWidth()
+            modifier =
+                Modifier.onKeyEvent {
+                    return@onKeyEvent if (it.nativeKeyEvent.keyCode == KeyEvent.KEYCODE_ENTER) {
+                        focusManager.clearFocus()
+                        true
+                    } else {
+                        false
+                    }
+                }
+                    .fillMaxWidth(),
         )
     }
 }
@@ -291,9 +311,10 @@ fun FirstRunUsername(
 @Composable
 fun FirstRunRivalCode(
     modifier: Modifier = Modifier,
-    viewModel: FirstRunInfoViewModel = viewModel(
-        factory = createViewModelFactory { FirstRunInfoViewModel() }
-    ),
+    viewModel: FirstRunInfoViewModel =
+        viewModel(
+            factory = createViewModelFactory { FirstRunInfoViewModel() },
+        ),
 ) {
     val rivalCode: String by viewModel.rivalCode.collectAsState()
     val error: RivalCodeError? by viewModel.errorOfType<RivalCodeError>().collectAsState(null)
@@ -318,9 +339,10 @@ fun FirstRunRivalCode(
         )
         RivalCodeEntry(
             rivalCode = rivalCode,
-            modifier = Modifier
-                .align(Alignment.CenterHorizontally)
-                .padding(top = 32.dp, bottom = 8.dp),
+            modifier =
+                Modifier
+                    .align(Alignment.CenterHorizontally)
+                    .padding(top = 32.dp, bottom = 8.dp),
         ) { viewModel.rivalCode.value = it }
         AnimatedVisibility(visible = error != null) {
             ErrorText { error?.errorText?.toString(LocalContext.current) }
@@ -347,9 +369,10 @@ fun RivalCodeEntry(
             }
         },
         textStyle = MaterialTheme.typography.labelMedium,
-        keyboardOptions = KeyboardOptions(
-            keyboardType = KeyboardType.Number,
-        ),
+        keyboardOptions =
+            KeyboardOptions(
+                keyboardType = KeyboardType.Number,
+            ),
         decorationBox = {
             Row(
                 modifier = modifier,
@@ -363,22 +386,24 @@ fun RivalCodeEntry(
                         color = MaterialTheme.colorScheme.onSurface,
                         style = MaterialTheme.typography.headlineSmall,
                         textAlign = TextAlign.Center,
-                        modifier = Modifier
-                            .weight(1f)
-                            .aspectRatio(0.75f)
-                            .border(
-                                width = 1.dp,
-                                color = MaterialTheme.colorScheme.onSurface,
-                                shape = RoundedCornerShape(8.dp)
-                            ),
+                        modifier =
+                            Modifier
+                                .weight(1f)
+                                .aspectRatio(0.75f)
+                                .border(
+                                    width = 1.dp,
+                                    color = MaterialTheme.colorScheme.onSurface,
+                                    shape = RoundedCornerShape(8.dp),
+                                ),
                     )
                 }
 
                 repeat(4) { idx ->
-                    val char = when {
-                        idx >= rivalCode.length -> ""
-                        else -> rivalCode[idx].toString()
-                    }
+                    val char =
+                        when {
+                            idx >= rivalCode.length -> ""
+                            else -> rivalCode[idx].toString()
+                        }
                     Cell(char)
                     Spacer(modifier = Modifier.size(6.dp))
                 }
@@ -388,24 +413,26 @@ fun RivalCodeEntry(
                     style = MaterialTheme.typography.headlineMedium,
                 )
                 repeat(4) { idx ->
-                    val char = when {
-                        idx + 4 >= rivalCode.length -> ""
-                        else -> rivalCode[idx + 4].toString()
-                    }
+                    val char =
+                        when {
+                            idx + 4 >= rivalCode.length -> ""
+                            else -> rivalCode[idx + 4].toString()
+                        }
                     Spacer(modifier = Modifier.size(6.dp))
                     Cell(char)
                 }
             }
-        }
+        },
     )
 }
 
 @Composable
 fun FirstRunSocials(
     modifier: Modifier = Modifier,
-    viewModel: FirstRunInfoViewModel = viewModel(
-        factory = createViewModelFactory { FirstRunInfoViewModel() }
-    ),
+    viewModel: FirstRunInfoViewModel =
+        viewModel(
+            factory = createViewModelFactory { FirstRunInfoViewModel() },
+        ),
 ) {
     val socials: Map<SocialNetwork, String> by viewModel.socialNetworks.collectAsState()
 
@@ -422,8 +449,9 @@ fun FirstRunSocials(
             style = MaterialTheme.typography.bodyMedium,
         )
         LazyColumn(
-            modifier = Modifier
-                .padding(vertical = 16.dp)
+            modifier =
+                Modifier
+                    .padding(vertical = 16.dp),
         ) {
             item {
                 Button(
@@ -431,9 +459,9 @@ fun FirstRunSocials(
                     content = {
                         Text(
                             text = stringResource(MR.strings.first_run_social_add_new),
-                            color = MaterialTheme.colorScheme.onSurface
+                            color = MaterialTheme.colorScheme.onSurface,
                         )
-                    }
+                    },
                 )
             }
             items(socials.toList()) { (network, name) ->
@@ -441,7 +469,7 @@ fun FirstRunSocials(
                     Text(
                         text = "$network: ",
                         color = MaterialTheme.colorScheme.onSurface,
-                        fontWeight = FontWeight.Bold
+                        fontWeight = FontWeight.Bold,
                     )
                     Text(
                         text = name,
@@ -461,17 +489,17 @@ fun FirstRunRankMethod(
 ) {
     Column(modifier = modifier) {
         @Composable
-        fun OptionButton(
-            method: InitState,
-        ) {
+        fun OptionButton(method: InitState) {
             Button(
                 onClick = { onRankMethodSelected(method) },
                 colors = primaryButtonColors(),
-                content = { Text(
-                    text = method.description.toString(LocalContext.current),
-                    textAlign = TextAlign.Center,
-                ) },
-                modifier = Modifier.align(Alignment.CenterHorizontally)
+                content = {
+                    Text(
+                        text = method.description.toString(LocalContext.current),
+                        textAlign = TextAlign.Center,
+                    )
+                },
+                modifier = Modifier.align(Alignment.CenterHorizontally),
             )
         }
 
@@ -479,7 +507,7 @@ fun FirstRunRankMethod(
             text = stringResource(MR.strings.first_run_rank_selection_header),
             color = MaterialTheme.colorScheme.onSurface,
             style = MaterialTheme.typography.headlineMedium,
-            modifier = Modifier.align(Alignment.CenterHorizontally)
+            modifier = Modifier.align(Alignment.CenterHorizontally),
         )
         Spacer(modifier = Modifier.size(16.dp))
 
@@ -574,20 +602,31 @@ fun FirstRunScreenPreview() {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.SpaceEvenly,
-                modifier = Modifier.fillMaxWidth(0.75f)
-                    .fillMaxHeight()
+                modifier =
+                    Modifier.fillMaxWidth(0.75f)
+                        .fillMaxHeight(),
             ) {
                 FirstRunHeader(
                     showWelcome = step == Landing,
-                    modifier = Modifier.fillMaxWidth(0.9f)
+                    modifier = Modifier.fillMaxWidth(0.9f),
                 )
 
                 when (step) {
-                    Landing -> { FirstRunNewUser {} }
-                    is Username -> { FirstRunUsername(step = step) }
-                    is RivalCode -> { FirstRunRivalCode() }
-                    is SocialHandles -> { FirstRunSocials() }
-                    is InitialRankSelection -> { FirstRunRankMethod(step = step) }
+                    Landing -> {
+                        FirstRunNewUser {}
+                    }
+                    is Username -> {
+                        FirstRunUsername(step = step)
+                    }
+                    is RivalCode -> {
+                        FirstRunRivalCode()
+                    }
+                    is SocialHandles -> {
+                        FirstRunSocials()
+                    }
+                    is InitialRankSelection -> {
+                        FirstRunRankMethod(step = step)
+                    }
                     is Completed -> {}
                     else -> {}
                 }
@@ -598,8 +637,9 @@ fun FirstRunScreenPreview() {
                     onClick = {},
                     colors = primaryButtonColors(),
                     content = { Text("Next") },
-                    modifier = Modifier.align(Alignment.BottomEnd)
-                        .padding(16.dp)
+                    modifier =
+                        Modifier.align(Alignment.BottomEnd)
+                            .padding(16.dp),
                 )
             }
         }

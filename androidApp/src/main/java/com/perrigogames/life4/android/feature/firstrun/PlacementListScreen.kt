@@ -69,9 +69,10 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PlacementListScreen(
-    viewModel: PlacementListViewModel = viewModel(
-        factory = createViewModelFactory { PlacementListViewModel() }
-    ),
+    viewModel: PlacementListViewModel =
+        viewModel(
+            factory = createViewModelFactory { PlacementListViewModel() },
+        ),
     onPlacementSelected: (String) -> Unit,
     onRanksClicked: () -> Unit,
     goToMainScreen: () -> Unit,
@@ -92,25 +93,26 @@ fun PlacementListScreen(
             }
         }
     }
-    
+
     val data by viewModel.screenData.collectAsState()
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = modifier
+        modifier = modifier,
     ) {
         Text(
             text = data.titleText.toString(context = context),
             style = MaterialTheme.typography.headlineLarge,
             color = MaterialTheme.colorScheme.onBackground,
-            modifier = Modifier
-                .align(Alignment.Start)
-                .padding(top = Paddings.LARGE, start = Paddings.LARGE)
+            modifier =
+                Modifier
+                    .align(Alignment.Start)
+                    .padding(top = Paddings.LARGE, start = Paddings.LARGE),
         )
         SizedSpacer(16.dp)
         LazyColumn(
             horizontalAlignment = Alignment.CenterHorizontally,
             contentPadding = PaddingValues(start = 16.dp, end = 16.dp, bottom = 16.dp),
-            modifier = Modifier.weight(1f)
+            modifier = Modifier.weight(1f),
         ) {
             item {
                 Text(
@@ -124,18 +126,19 @@ fun PlacementListScreen(
                 LadderRankClassTheme(ladderRankClass = placement.rankIcon.group) {
                     Surface(
                         color = MaterialTheme.colorScheme.primaryContainer,
-                        shape = MaterialTheme.shapes.large
+                        shape = MaterialTheme.shapes.large,
                     ) {
                         PlacementItem(
                             data = placement,
                             expanded = selectedPlacement == placement.id,
                             onExpand = {
-                                selectedPlacement = when {
-                                    selectedPlacement == placement.id -> null
-                                    else -> placement.id
-                                }
+                                selectedPlacement =
+                                    when {
+                                        selectedPlacement == placement.id -> null
+                                        else -> placement.id
+                                    }
                             },
-                            onPlacementSelected = { onPlacementSelected(placement.id) }
+                            onPlacementSelected = { onPlacementSelected(placement.id) },
                         )
                     }
                 }
@@ -162,7 +165,7 @@ fun PlacementListScreen(
             Text(
                 text = stringResource(MR.strings.start_no_rank),
                 style = MaterialTheme.typography.labelLarge,
-                color = MaterialTheme.colorScheme.onBackground
+                color = MaterialTheme.colorScheme.onBackground,
             )
         }
 
@@ -179,27 +182,30 @@ fun PlacementListScreen(
                 style = MaterialTheme.typography.titleLarge,
                 color = MaterialTheme.colorScheme.onSurface,
                 textAlign = TextAlign.Center,
-                modifier = Modifier
-                    .padding(horizontal = Paddings.HUGE)
-                    .align(Alignment.CenterHorizontally)
+                modifier =
+                    Modifier
+                        .padding(horizontal = Paddings.HUGE)
+                        .align(Alignment.CenterHorizontally),
             )
             Text(
                 text = stringResource(MR.strings.placement_close_confirm_body),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurface,
                 textAlign = TextAlign.Center,
-                modifier = Modifier
-                    .padding(horizontal = Paddings.HUGE, vertical = Paddings.LARGE)
-                    .align(Alignment.CenterHorizontally)
+                modifier =
+                    Modifier
+                        .padding(horizontal = Paddings.HUGE, vertical = Paddings.LARGE)
+                        .align(Alignment.CenterHorizontally),
             )
             Button(
                 onClick = {
                     viewModel.setFirstRunState(InitState.DONE)
                     goToMainScreen()
                 },
-                modifier = Modifier
-                    .padding(horizontal = Paddings.HUGE, vertical = Paddings.LARGE)
-                    .align(Alignment.CenterHorizontally)
+                modifier =
+                    Modifier
+                        .padding(horizontal = Paddings.HUGE, vertical = Paddings.LARGE)
+                        .align(Alignment.CenterHorizontally),
             ) {
                 Text(stringResource(MR.strings.close))
             }
@@ -223,20 +229,21 @@ fun PlacementItem(
     Column(modifier = modifier.clickable { onExpand() }) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp)
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
         ) {
             RankImage(
                 rank = data.rankIcon,
-                modifier = Modifier.size(64.dp)
+                modifier = Modifier.size(64.dp),
             )
             SizedSpacer(16.dp)
             Text(
                 text = stringResource(data.placementName),
                 style = MaterialTheme.typography.headlineMedium,
                 color = colorResource(data.color),
-                modifier = Modifier.weight(1f)
+                modifier = Modifier.weight(1f),
             )
             Text(
                 text = data.difficultyRangeString,
@@ -246,33 +253,35 @@ fun PlacementItem(
             Icon(
                 imageVector = Icons.Default.ArrowDropDown,
                 tint = MaterialTheme.colorScheme.onSurface,
-                modifier = Modifier
-                    .size(32.dp)
-                    .rotate(arrowRotationDegrees),
-                contentDescription = if (expanded) "expanded" else "collapsed"
+                modifier =
+                    Modifier
+                        .size(32.dp)
+                        .rotate(arrowRotationDegrees),
+                contentDescription = if (expanded) "expanded" else "collapsed",
             )
         }
         AnimatedVisibility(expanded) {
             Column(
-                modifier = Modifier
-                    .padding(horizontal = 16.dp)
-                    .padding(bottom = 4.dp)
+                modifier =
+                    Modifier
+                        .padding(horizontal = 16.dp)
+                        .padding(bottom = 4.dp),
             ) {
                 data.songs.forEach { song ->
                     PlacementSongItem(
                         data = song,
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth(),
                     )
                 }
                 SizedSpacer(16.dp)
                 TextButton(
                     onClick = onPlacementSelected,
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth(),
                 ) {
                     Text(
                         text = stringResource(MR.strings.placement_start),
                         style = MaterialTheme.typography.titleLarge,
-                        color = MaterialTheme.colorScheme.onPrimaryContainer
+                        color = MaterialTheme.colorScheme.onPrimaryContainer,
                     )
                 }
             }
@@ -287,32 +296,33 @@ fun PlacementSongItem(
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        modifier = modifier
+        modifier = modifier,
     ) {
         AsyncImage(
-            model = ImageRequest.Builder(LocalContext.current)
-                .data(data.jacketUrl)
-                .crossfade(true)
-                .build(),
+            model =
+                ImageRequest.Builder(LocalContext.current)
+                    .data(data.jacketUrl)
+                    .crossfade(true)
+                    .build(),
             contentDescription = null,
-            modifier = Modifier.size(64.dp)
+            modifier = Modifier.size(64.dp),
         )
         SizedSpacer(16.dp)
         Column(
-            modifier = Modifier.weight(1f)
+            modifier = Modifier.weight(1f),
         ) {
             AutoResizedText(
                 text = data.songNameText,
                 style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.onPrimaryContainer,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
             )
             Text(
                 text = data.subtitleText,
                 style = MaterialTheme.typography.titleSmall,
                 color = MaterialTheme.colorScheme.onPrimaryContainer,
                 maxLines = 1,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
             )
         }
         SizedSpacer(16.dp)
@@ -327,12 +337,12 @@ fun PlacementSongItem(
                 Text(
                     text = data.chartString,
                     style = MaterialTheme.typography.titleSmall,
-                    color = colorResource(data.difficultyClass.colorRes)
+                    color = colorResource(data.difficultyClass.colorRes),
                 )
                 Text(
                     text = data.difficultyText,
                     style = MaterialTheme.typography.titleMedium,
-                    color = colorResource(data.difficultyClass.colorRes)
+                    color = colorResource(data.difficultyClass.colorRes),
                 )
             }
         }
@@ -347,7 +357,7 @@ fun Preview_PlacementScreen() {
             PlacementListScreen(
                 onPlacementSelected = {},
                 onRanksClicked = {},
-                goToMainScreen = {}
+                goToMainScreen = {},
             )
         }
     }
@@ -361,7 +371,7 @@ fun Preview_PlacementItem(
     ThemedRankSurface(rank) {
         PlacementItem(
             data = UIPlacementMocks.createUIPlacementData(rankIcon = rank),
-            onPlacementSelected = {}
+            onPlacementSelected = {},
         )
     }
 }
@@ -373,11 +383,12 @@ fun Preview_PlacementItemExpanded(
 ) {
     ThemedRankSurface(rank) {
         PlacementItem(
-            data = UIPlacementMocks.createUIPlacementData(
-                rankIcon = rank
-            ),
+            data =
+                UIPlacementMocks.createUIPlacementData(
+                    rankIcon = rank,
+                ),
             expanded = true,
-            onPlacementSelected = {}
+            onPlacementSelected = {},
         )
     }
 }
@@ -388,7 +399,7 @@ fun Preview_PlacementSongItem() {
     LIFE4Theme {
         Surface(color = MaterialTheme.colorScheme.primaryContainer) {
             PlacementSongItem(
-                data = UITrialMocks.createUITrialSong()
+                data = UITrialMocks.createUITrialSong(),
             )
         }
     }

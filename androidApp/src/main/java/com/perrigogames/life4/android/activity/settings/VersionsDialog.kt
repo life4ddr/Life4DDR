@@ -14,10 +14,11 @@ import dev.icerock.moko.mvvm.createViewModelFactory
 
 @Composable
 fun VersionsDialog(
-    viewModel: VersionsDialogViewModel = viewModel(
-        factory = createViewModelFactory { VersionsDialogViewModel() }
-    ),
-    onDismiss: () -> Unit = {}
+    viewModel: VersionsDialogViewModel =
+        viewModel(
+            factory = createViewModelFactory { VersionsDialogViewModel() },
+        ),
+    onDismiss: () -> Unit = {},
 ) {
     val state by viewModel.state.collectAsState()
     VersionsDialog(
@@ -39,7 +40,7 @@ fun VersionsDialog(
     motdVersion: String,
     songListVersion: String,
     trialDataVersion: String,
-    onDismiss: () -> Unit = {}
+    onDismiss: () -> Unit = {},
 ) {
     Dialog(onDismissRequest = onDismiss) {
         Column {

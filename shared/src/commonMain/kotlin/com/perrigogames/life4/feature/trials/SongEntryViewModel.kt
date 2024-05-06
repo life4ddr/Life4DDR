@@ -24,8 +24,7 @@ class SongEntryViewModel(
     private val songIndex: Int,
     entryState: EntryState = EntryState.BASIC,
     private val requireAllData: Boolean,
-): ViewModel(), KoinComponent {
-
+) : ViewModel(), KoinComponent {
     private val trialSessionManager: TrialSessionManager by inject()
     private val settings: Settings by inject()
     private val currentSession get() = trialSessionManager.currentSession!!
@@ -41,18 +40,24 @@ class SongEntryViewModel(
 
     val passedChecked: CMutableStateFlow<Boolean> = MutableStateFlow(true).cMutableStateFlow()
 
-    val score: CStateFlow<Int> = scoreText.map { it.toIntOrNull() ?: -1 }
-        .stateIn(viewModelScope, SharingStarted.Lazily, -1).cStateFlow()
-    val exScore: CStateFlow<Int> = exScoreText.map { it.toIntOrNull() ?: -1 }
-        .stateIn(viewModelScope, SharingStarted.Lazily, -1).cStateFlow()
-    val misses: CStateFlow<Int> = missesText.map { it.toIntOrNull() ?: -1 }
-        .stateIn(viewModelScope, SharingStarted.Lazily, -1).cStateFlow()
-    val goods: CStateFlow<Int> = goodsText.map { it.toIntOrNull() ?: -1 }
-        .stateIn(viewModelScope, SharingStarted.Lazily, -1).cStateFlow()
-    val greats: CStateFlow<Int> = greatsText.map { it.toIntOrNull() ?: -1 }
-        .stateIn(viewModelScope, SharingStarted.Lazily, -1).cStateFlow()
-    val perfects: CStateFlow<Int> = perfectsText.map { it.toIntOrNull() ?: -1 }
-        .stateIn(viewModelScope, SharingStarted.Lazily, -1).cStateFlow()
+    val score: CStateFlow<Int> =
+        scoreText.map { it.toIntOrNull() ?: -1 }
+            .stateIn(viewModelScope, SharingStarted.Lazily, -1).cStateFlow()
+    val exScore: CStateFlow<Int> =
+        exScoreText.map { it.toIntOrNull() ?: -1 }
+            .stateIn(viewModelScope, SharingStarted.Lazily, -1).cStateFlow()
+    val misses: CStateFlow<Int> =
+        missesText.map { it.toIntOrNull() ?: -1 }
+            .stateIn(viewModelScope, SharingStarted.Lazily, -1).cStateFlow()
+    val goods: CStateFlow<Int> =
+        goodsText.map { it.toIntOrNull() ?: -1 }
+            .stateIn(viewModelScope, SharingStarted.Lazily, -1).cStateFlow()
+    val greats: CStateFlow<Int> =
+        greatsText.map { it.toIntOrNull() ?: -1 }
+            .stateIn(viewModelScope, SharingStarted.Lazily, -1).cStateFlow()
+    val perfects: CStateFlow<Int> =
+        perfectsText.map { it.toIntOrNull() ?: -1 }
+            .stateIn(viewModelScope, SharingStarted.Lazily, -1).cStateFlow()
 
     private val _scoreState = MutableStateFlow(InputFieldState()).cMutableStateFlow()
     private val _exScoreState = MutableStateFlow(InputFieldState()).cMutableStateFlow()
@@ -75,39 +80,46 @@ class SongEntryViewModel(
     var entryState: EntryState = entryState
         set(value) {
             field = value
-            when(entryState) {
-                EntryState.EX_ONLY -> setInputAttributes(
-                    exScoreVisible = true,
-                )
-                EntryState.BASIC -> setInputAttributes(
-                    scoreVisible = true,
-                    exScoreVisible = true,
-                )
-                EntryState.BASIC_MISS -> setInputAttributes(
-                    scoreVisible = true,
-                    exScoreVisible = true,
-                    missVisible = true,
-                )
-                EntryState.FULL -> setInputAttributes(
-                    allVisible = true,
-                )
-                EntryState.FULL_FC -> setInputAttributes(
-                    allVisible = true,
-                    missEnabled = false,
-                )
-                EntryState.FULL_PFC -> setInputAttributes(
-                    allVisible = true,
-                    missEnabled = false,
-                    goodEnabled = false,
-                    greatEnabled = false,
-                )
-                EntryState.FULL_MFC -> setInputAttributes(
-                    allVisible = true,
-                    missEnabled = false,
-                    goodEnabled = false,
-                    greatEnabled = false,
-                    perfectEnabled = false,
-                )
+            when (entryState) {
+                EntryState.EX_ONLY ->
+                    setInputAttributes(
+                        exScoreVisible = true,
+                    )
+                EntryState.BASIC ->
+                    setInputAttributes(
+                        scoreVisible = true,
+                        exScoreVisible = true,
+                    )
+                EntryState.BASIC_MISS ->
+                    setInputAttributes(
+                        scoreVisible = true,
+                        exScoreVisible = true,
+                        missVisible = true,
+                    )
+                EntryState.FULL ->
+                    setInputAttributes(
+                        allVisible = true,
+                    )
+                EntryState.FULL_FC ->
+                    setInputAttributes(
+                        allVisible = true,
+                        missEnabled = false,
+                    )
+                EntryState.FULL_PFC ->
+                    setInputAttributes(
+                        allVisible = true,
+                        missEnabled = false,
+                        goodEnabled = false,
+                        greatEnabled = false,
+                    )
+                EntryState.FULL_MFC ->
+                    setInputAttributes(
+                        allVisible = true,
+                        missEnabled = false,
+                        goodEnabled = false,
+                        greatEnabled = false,
+                        perfectEnabled = false,
+                    )
             }
         }
 
@@ -205,10 +217,14 @@ class SongEntryViewModel(
         }
     }
 
-    private val CStateFlow<Int>.positiveOrNull get() = value.let {
-        if (it >= 0) it
-        else null
-    }
+    private val CStateFlow<Int>.positiveOrNull get() =
+        value.let {
+            if (it >= 0) {
+                it
+            } else {
+                null
+            }
+        }
 
     data class InputFieldState(
         val visible: Boolean = false,

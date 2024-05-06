@@ -9,11 +9,14 @@ import com.perrigogames.life4.data.TrialData
  * API interface for obtaining core application files from Github
  */
 interface GithubDataAPI {
-
     suspend fun getLadderRanks(): LadderRankData
+
     suspend fun getSongList(): String
+
     suspend fun getIgnoreLists(): IgnoreListData
+
     suspend fun getTrials(): TrialData
+
     suspend fun getMotd(): MessageOfTheDay
 
     companion object {

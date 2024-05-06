@@ -9,17 +9,18 @@ object UIPlacementMocks {
     fun createUIPlacementScreen(
         titleText: StringDesc = MR.strings.placements.desc(),
         headerText: StringDesc = MR.strings.placement_list_description.desc(),
-        placements: List<UIPlacement> = listOf(
-            createUIPlacementData(),
-            createUIPlacementData(
-                rankIcon = LadderRank.SILVER5,
-                difficultyRangeString = "L11-L13",
+        placements: List<UIPlacement> =
+            listOf(
+                createUIPlacementData(),
+                createUIPlacementData(
+                    rankIcon = LadderRank.SILVER5,
+                    difficultyRangeString = "L11-L13",
+                ),
+                createUIPlacementData(
+                    rankIcon = LadderRank.GOLD5,
+                    difficultyRangeString = "L14-L16",
+                ),
             ),
-            createUIPlacementData(
-                rankIcon = LadderRank.GOLD5,
-                difficultyRangeString = "L14-L16",
-            ),
-        ),
     ) = UIPlacementListScreen(
         titleText = titleText,
         headerText = headerText,

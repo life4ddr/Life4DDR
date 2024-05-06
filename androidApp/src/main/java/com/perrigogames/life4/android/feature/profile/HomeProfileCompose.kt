@@ -10,9 +10,10 @@ import dev.icerock.moko.mvvm.createViewModelFactory
 
 @Composable
 fun HomeProfileScreen(
-    viewModel: HomeProfileViewModel = viewModel(
-        factory = createViewModelFactory { HomeProfileViewModel() }
-    ),
+    viewModel: HomeProfileViewModel =
+        viewModel(
+            factory = createViewModelFactory { HomeProfileViewModel() },
+        ),
 ) {
     val state by viewModel.state.collectAsState()
 
@@ -21,8 +22,6 @@ fun HomeProfileScreen(
     )
 }
 
-fun HomeProfileScreen(
-    state: UIHomeProfile
-) {
+fun HomeProfileScreen(state: UIHomeProfile) {
     // TODO
 }

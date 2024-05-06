@@ -5,7 +5,9 @@ import kotlinx.serialization.SerialName
 
 interface SanbaiAPI {
     suspend fun getScores(): List<SanbaiScoreResult>
+
     suspend fun getPlayerId(): String
+
     suspend fun getPartialDifficulties(): PartialDifficultyResponse
 }
 
@@ -16,5 +18,5 @@ data class SanbaiScoreResult(
     val score: Int,
     val lamp: Int,
     @SerialName("time_uploaded") val timeUploaded: Long,
-    @SerialName("time_played") val timePlayed: Long?
+    @SerialName("time_played") val timePlayed: Long?,
 )

@@ -6,23 +6,25 @@ import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.plugins.logging.*
 import io.ktor.serialization.kotlinx.json.*
 
-fun baseHttpClient(log: co.touchlab.kermit.Logger) = HttpClient {
-    install(ContentNegotiation) {
-        json()
-    }
-    install(Logging) {
-        logger = object : Logger {
-            override fun log(message: String) {
-                log.v { message }
-            }
+fun baseHttpClient(log: co.touchlab.kermit.Logger) =
+    HttpClient {
+        install(ContentNegotiation) {
+            json()
         }
+        install(Logging) {
+            logger =
+                object : Logger {
+                    override fun log(message: String) {
+                        log.v { message }
+                    }
+                }
 
-        level = LogLevel.INFO
+            level = LogLevel.INFO
+        }
+        install(HttpTimeout) {
+            val timeout = 30000L
+            connectTimeoutMillis = timeout
+            requestTimeoutMillis = timeout
+            socketTimeoutMillis = timeout
+        }
     }
-    install(HttpTimeout) {
-        val timeout = 30000L
-        connectTimeoutMillis = timeout
-        requestTimeoutMillis = timeout
-        socketTimeoutMillis = timeout
-    }
-}

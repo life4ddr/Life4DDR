@@ -11,7 +11,6 @@ import org.koin.core.component.inject
  * systems.
  */
 class SongDataCoordinator : BaseModel() {
-
     private val songDataManager: SongDataManager by inject()
     private val songResultsManager: SongResultsManager by inject()
     private val ladderDialogs: LadderDialogs by inject()

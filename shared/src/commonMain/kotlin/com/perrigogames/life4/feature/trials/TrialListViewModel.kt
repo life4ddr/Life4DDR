@@ -19,7 +19,6 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
 class TrialListViewModel : ViewModel(), KoinComponent {
-
     private val trialManager: TrialManager by inject()
     private val trialRecordsManager: TrialRecordsManager by inject()
     private val settings: Settings by inject()
@@ -35,20 +34,25 @@ class TrialListViewModel : ViewModel(), KoinComponent {
 
         combine(
             trialManager.trialsFlow,
-            trialRecordsManager.bestSessions
+            trialRecordsManager.bestSessions,
         ) { trials, sessions ->
-            _state.value = UITrialList(
-                trials = createDisplayTrials(
-                    trials = trials,
-                    sessions = sessions,
-                    featureNew = highlightNew,
-                    featureUnplayed = highlightUnplayed,
-                ),
-            )
+            _state.value =
+                UITrialList(
+                    trials =
+                        createDisplayTrials(
+                            trials = trials,
+                            sessions = sessions,
+                            featureNew = highlightNew,
+                            featureUnplayed = highlightUnplayed,
+                        ),
+                )
         }
     }
 
-    private fun matchTrials(trials: List<Trial>, sessions: List<SelectBestSessions>) = trials.associateWith { trial ->
+    private fun matchTrials(
+        trials: List<Trial>,
+        sessions: List<SelectBestSessions>,
+    ) = trials.associateWith { trial ->
         sessions.firstOrNull { it.trialId == trial.id }
     }
 
@@ -77,9 +81,9 @@ class TrialListViewModel : ViewModel(), KoinComponent {
                 }.add(UITrialList.Item.Trial(item))
             }
 
-        //FIXME i18n
+        // FIXME i18n
         return mutableListOf<UITrialList.Item>(
-            UITrialList.Item.Header("Active Trials")
+            UITrialList.Item.Header("Active Trials"),
         ).apply {
             addAll(event)
             addAll(new)

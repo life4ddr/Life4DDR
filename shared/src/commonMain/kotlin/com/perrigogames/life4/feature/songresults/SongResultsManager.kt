@@ -21,8 +21,7 @@ import org.koin.core.component.inject
 import kotlin.math.max
 import kotlin.math.min
 
-class SongResultsManager: BaseModel() {
-
+class SongResultsManager : BaseModel() {
     private val logger: Logger by injectLogger("SongResultsManager")
     private val ignoreListManager: IgnoreListManager by inject()
     private val songDataManager: SongDataManager by inject()
@@ -42,15 +41,17 @@ class SongResultsManager: BaseModel() {
             is SongsClearGoal -> {
                 if (goal.diffNum != null) {
                     return when {
-                        goal.score != null -> when (goal.songCount) { // score-based goal
-                            null -> allSongsScoreProgress(goal)
-                            else -> countSongsScoreProgress(goal)
-                        }
+                        goal.score != null ->
+                            when (goal.songCount) { // score-based goal
+                                null -> allSongsScoreProgress(goal)
+                                else -> countSongsScoreProgress(goal)
+                            }
                         goal.averageScore != null -> allSongsAverageScoreProgress(goal)
-                        else -> when { // clear type
-                            goal.songCount != null -> countSongsClearProgress(goal)
-                            else -> allSongsClearProgress(goal)
-                        }
+                        else ->
+                            when { // clear type
+                                goal.songCount != null -> countSongsClearProgress(goal)
+                                else -> allSongsClearProgress(goal)
+                            }
                     }
                 }
 
@@ -61,8 +62,9 @@ class SongResultsManager: BaseModel() {
                     showMax = true,
                 )
             }
-            is StackedRankGoalWrapper -> when (goal.mainGoal) {
-                is TrialStackedGoal -> {
+            is StackedRankGoalWrapper ->
+                when (goal.mainGoal) {
+                    is TrialStackedGoal -> {
 //                    val trials = trialRecordsManager.bestSessions().filter {
 //                        if (goal.mainGoal.restrictDifficulty) {
 //                            it.goalRank.stableId == goal.mainGoal.rank.stableId
@@ -70,24 +72,25 @@ class SongResultsManager: BaseModel() {
 //                            it.goalRank.stableId >= goal.mainGoal.rank.stableId
 //                        }
 //                    }
-                    return LadderGoalProgress(
-                        progress = 0, // FIXME
-                        max = goal.getIntValue(TrialStackedGoal.KEY_TRIALS_COUNT)!!
-                    )
+                        return LadderGoalProgress(
+                            progress = 0, // FIXME
+                            max = goal.getIntValue(TrialStackedGoal.KEY_TRIALS_COUNT)!!,
+                        )
+                    }
+                    is MFCPointsStackedGoal -> {
+                        val points =
+                            songDataManager
+                                .matchWithDetailedCharts(resultDbHelper.selectMFCs())
+                                .sumOf {
+                                    GameConstants.mfcPointsForDifficulty(it.chart.difficultyNumber.toInt())
+                                }
+                        return LadderGoalProgress(
+                            progress = points,
+                            max = goal.getIntValue(MFCPointsStackedGoal.KEY_MFC_POINTS)!!.toDouble(),
+                        )
+                    }
+                    else -> return null
                 }
-                is MFCPointsStackedGoal -> {
-                    val points = songDataManager
-                        .matchWithDetailedCharts(resultDbHelper.selectMFCs())
-                        .sumOf {
-                            GameConstants.mfcPointsForDifficulty(it.chart.difficultyNumber.toInt())
-                        }
-                    return LadderGoalProgress(
-                        progress = points,
-                        max = goal.getIntValue(MFCPointsStackedGoal.KEY_MFC_POINTS)!!.toDouble()
-                    )
-                }
-                else -> return null
-            }
             else -> return null
         }
     }
@@ -96,12 +99,13 @@ class SongResultsManager: BaseModel() {
         var completed = 0
         var topValidScore = 0L
         goal.forEachDiffNum { diff ->
-            val results = chartResultOrganizer.getResults(
-                playStyle = goal.playStyle,
-                diffNum = diff,
-                populated = true,
-                filterIgnored = false,
-            )
+            val results =
+                chartResultOrganizer.getResults(
+                    playStyle = goal.playStyle,
+                    diffNum = diff,
+                    populated = true,
+                    filterIgnored = false,
+                )
             val validResults = results.scoresInRange(bottom = goal.score)
             if (validResults.firstOrNull()?.result.safeScore > topValidScore) {
                 topValidScore = validResults.first().result.safeScore
@@ -132,12 +136,13 @@ class SongResultsManager: BaseModel() {
     private fun countSongsClearProgress(goal: SongsClearGoal): LadderGoalProgress {
         var completed = 0
         goal.forEachDiffNum { diff ->
-            val results = chartResultOrganizer.getResults(
-                playStyle = goal.playStyle,
-                diffNum = diff,
-                populated = true,
-                filterIgnored = false,
-            )
+            val results =
+                chartResultOrganizer.getResults(
+                    playStyle = goal.playStyle,
+                    diffNum = diff,
+                    populated = true,
+                    filterIgnored = false,
+                )
             results.byScoreInTenThousands.forEach { (_, results) ->
                 results.forEach { (_, result) ->
                     if (result!!.clearType >= goal.clearType) {
@@ -158,12 +163,13 @@ class SongResultsManager: BaseModel() {
     }
 
     private fun allSongsScoreProgress(goal: SongsClearGoal): LadderGoalProgress {
-        val results = chartResultOrganizer.getResults(
-            playStyle = goal.playStyle,
-            diffNum = goal.diffNum!!,
-            populated = false,
-            filterIgnored = true,
-        )
+        val results =
+            chartResultOrganizer.getResults(
+                playStyle = goal.playStyle,
+                diffNum = goal.diffNum!!,
+                populated = false,
+                filterIgnored = true,
+            )
 
         val belowRequirement = results.scoresInRange(top = goal.score!! - 1)
         val missingSongs = max(0, belowRequirement.size - (goal.exceptions ?: 0))
@@ -176,12 +182,13 @@ class SongResultsManager: BaseModel() {
     }
 
     private fun allSongsAverageScoreProgress(goal: SongsClearGoal): LadderGoalProgress {
-        val results = chartResultOrganizer.getResults(
-            playStyle = goal.playStyle,
-            diffNum = goal.diffNum!!,
-            populated = false,
-            filterIgnored = true,
-        )
+        val results =
+            chartResultOrganizer.getResults(
+                playStyle = goal.playStyle,
+                diffNum = goal.diffNum!!,
+                populated = false,
+                filterIgnored = true,
+            )
 
         val belowRequirement = results.scoresInRange(top = goal.averageScore!! - 1)
         return LadderGoalProgress(
@@ -193,15 +200,17 @@ class SongResultsManager: BaseModel() {
     }
 
     private fun allSongsClearProgress(goal: SongsClearGoal): LadderGoalProgress {
-        val results = chartResultOrganizer.getResults(
-            playStyle = goal.playStyle,
-            diffNum = goal.diffNum!!,
-            populated = false,
-            filterIgnored = true,
-        )
+        val results =
+            chartResultOrganizer.getResults(
+                playStyle = goal.playStyle,
+                diffNum = goal.diffNum!!,
+                populated = false,
+                filterIgnored = true,
+            )
 
-        val belowRequirement = (0 until goal.clearType.ordinal)
-            .flatMap { results.byClearType[ClearType.entries[it]] ?: emptyList() }
+        val belowRequirement =
+            (0 until goal.clearType.ordinal)
+                .flatMap { results.byClearType[ClearType.entries[it]] ?: emptyList() }
         val missingSongs = belowRequirement.size - (goal.exceptions ?: 0)
         return LadderGoalProgress(
             progress = results.results.size - missingSongs,
