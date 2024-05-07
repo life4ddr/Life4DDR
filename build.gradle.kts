@@ -32,21 +32,21 @@ allprojects {
 }
 
 subprojects {
-    // TODO libs doesn't resolve if we do this
-    // apply(plugin = libs.plugins.ktlint.get().pluginId)
-    apply(plugin = "org.jlleitschuh.gradle.ktlint")
+//     TODO libs doesn't resolve if we do this
+//     apply(plugin = libs.plugins.ktlint.get().pluginId)
+//     apply(plugin = "org.jlleitschuh.gradle.ktlint")
 
-    configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
-        enableExperimentalRules.set(true)
-        verbose.set(true)
-        filter {
-            exclude { it.file.path.contains("build/") }
-        }
-    }
+//     configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
+//         enableExperimentalRules.set(true)
+//         verbose.set(true)
+//         filter {
+//             exclude { it.file.path.contains("build/") }
+//         }
+//     }
 
-    afterEvaluate {
-        tasks.named("check").configure {
-            dependsOn(tasks.getByName("ktlintCheck"))
-        }
-    }
+//     afterEvaluate {
+//         tasks.named("check").configure {
+//             dependsOn(tasks.getByName("ktlintCheck"))
+//         }
+//     }
 }
