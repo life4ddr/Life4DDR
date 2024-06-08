@@ -72,7 +72,7 @@ kotlin {
             implementation(libs.androidx.datastore)
             api(libs.moko.mvvm.core)
             api(libs.moko.mvvm.flow)
-            api("dev.icerock.moko:mvvm-flow-compose:0.16.1")
+            api(libs.moko.mvvm.flow.compose)
         }
         iosMain.dependencies {
             implementation(libs.sqlDelight.native)
