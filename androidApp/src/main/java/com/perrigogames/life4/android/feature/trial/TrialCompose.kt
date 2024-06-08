@@ -1,12 +1,14 @@
 package com.perrigogames.life4.android.feature.trial
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -19,7 +21,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.perrigogames.life4.android.R
 import com.perrigogames.life4.android.compose.FontFamilies
 import com.perrigogames.life4.android.compose.FontSizes
 import com.perrigogames.life4.android.compose.Paddings
@@ -117,18 +118,19 @@ fun TrialDifficulty(
     viewModel.trial.difficulty?.let { difficulty ->
         Box(
             contentAlignment = Alignment.Center,
-            modifier = modifier.size(40.dp)
+            modifier = Modifier
+                .size(40.dp)
+                .background(
+                    color = MaterialTheme.colorScheme.primary.copy(alpha = 0.8f),
+                    shape = CircleShape
+                )
+                .then(modifier),
         ) {
-            Image(
-                painter = painterResource(id = R.drawable.circle),
-                alpha = 0.5f,
-                contentDescription = null,
-            )
             Text(
                 text = difficulty.toString(),
                 textAlign = TextAlign.Center,
                 fontSize = 24.sp,
-                color = MaterialTheme.colors.onPrimary,
+                color = MaterialTheme.colorScheme.onPrimary,
                 modifier = Modifier.fillMaxWidth()
             )
         }
