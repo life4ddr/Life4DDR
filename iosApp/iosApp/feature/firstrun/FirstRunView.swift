@@ -9,44 +9,42 @@
 import SwiftUI
 import Shared
 
-@available(iOS 16.0, *)
+@available(iOS 17.0, *)
 struct FirstRunView: View {
-  let viewModel = FirstRunInfoViewModel()
-  
-    // TEMPORARY - until I can get viewModel in
-    @State var showWelcome = true
-    @State var viewIndex = 0
-    @State var isExistingUser = false
-    
+    @ObservedObject var viewModel: FirstRunInfoViewModel = FirstRunInfoViewModel()
+    @State var step: FirstRunStep = FirstRunStep.Landing()
+    // TODO: add onComplete functionality
+        
     var body: some View {
-//      let state = viewModel.state.collect(collector: <#T##any Kotlinx_coroutines_coreFlowCollector#>, completionHandler: <#T##((any Error)?) -> Void#>)
-      
         ZStack(alignment: .center) {
             VStack(spacing: 75) {
-                if (viewIndex > 0) {
+                if (step != FirstRunStep.Landing()) {
                     Spacer()
                 }
-                FirstRunHeader(showWelcome: $showWelcome)
-                if viewIndex == 0 {
-                    FirstRunNewUser(showWelcome: $showWelcome, viewIndex: $viewIndex, isExistingUser: $isExistingUser)
-                } else if viewIndex == 1 {
-                    FirstRunUsername(username: "", isExistingUser: $isExistingUser)
-                } else if viewIndex == 2 {
-                    FirstRunRivalCode()
-                } else if viewIndex == 3 {
-                    FirstRunSocials()
-                } else {
-                    FirstRunRankMethod()
+                
+                FirstRunHeader(showWelcome: step == FirstRunStep.Landing())
+                
+                switch step {
+                    case is FirstRunStep.Landing:
+                        FirstRunNewUser(viewModel: viewModel)
+                    case is FirstRunStep.PathStepUsername:
+                        FirstRunUsername(viewModel: viewModel, step: step as! FirstRunStep.PathStepUsername)
+                    case is FirstRunStep.PathStepRivalCode:
+                        FirstRunRivalCode(viewModel: viewModel)
+                    case is FirstRunStep.PathStepSocialHandles:
+                        FirstRunSocials()
+                    case is FirstRunStep.PathStepInitialRankSelection:
+                        FirstRunRankMethod()
+                    default:
+                        Text("No step here")
                 }
-                if (viewIndex > 0) {
+                
+                if (step != FirstRunStep.Landing()) {
                     Spacer()
                     HStack {
                         Button {
                             withAnimation {
-                                if (viewIndex == 1) {
-                                    showWelcome.toggle()
-                                }
-                                viewIndex -= 1
+                                var back = viewModel.navigateBack()
                             }
                         } label: {
                             Text("Back")
@@ -58,10 +56,10 @@ struct FirstRunView: View {
                                 .font(.system(size: 16, weight: .medium))
                         }
                         Spacer()
-                        if (viewIndex < 4) {
+                        if (step.showNextButton) {
                             Button {
                                 withAnimation {
-                                    viewIndex += 1
+                                    viewModel.navigateNext()
                                 }
                             } label: {
                                 Text("Next")
@@ -75,15 +73,22 @@ struct FirstRunView: View {
                         }
                     }
                 }
+            }.onAppear {
+                viewModel.state.subscribe { state in
+                    if let currentStep = state {
+                        withAnimation {
+                            step = currentStep
+                        }
+                    }
+                }
             }
         }
-        
     }
 }
 
 struct FirstRunHeader: View {
-    // TEMPORARY - until I can get viewModel in
-    @Binding var showWelcome: Bool
+    var showWelcome: Bool
+    @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
         VStack {
@@ -92,19 +97,22 @@ struct FirstRunHeader: View {
                     .font(.system(size: 24, weight: .heavy))
                     .padding(.bottom, 8)
             }
-            // TODO: adjust logo color on light/dark mode
-            Image("LIFE4-Logo")
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 300)
+            if (colorScheme == .dark) {
+                Image("LIFE4-Logo")
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 300)
+            } else {
+                Image("LIFE4-Logo")
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 300)
+                    .colorInvert()
+            }
         }
     }
 }
 
 struct FirstRunNewUser: View {
-    // TEMPORARY - until I can get viewModel in
-    @Binding var showWelcome: Bool
-    @Binding var viewIndex: Int
-    @Binding var isExistingUser: Bool
+    @ObservedObject var viewModel: FirstRunInfoViewModel
 
     var body: some View {
         VStack {
@@ -114,9 +122,7 @@ struct FirstRunNewUser: View {
             HStack(alignment: .center) {
                 Button {
                     withAnimation {
-                        showWelcome.toggle()
-                        viewIndex += 1
-                        isExistingUser = false
+                        viewModel.doNewUserSelected(isNewUser: true)
                     }
                 } label: {
                     Text(MR.strings().yes.desc().localized())
@@ -129,9 +135,7 @@ struct FirstRunNewUser: View {
                 }
                 Button {
                     withAnimation {
-                        showWelcome.toggle()
-                        viewIndex += 1
-                        isExistingUser = true
+                        viewModel.doNewUserSelected(isNewUser: false)
                     }
                 } label: {
                     Text(MR.strings().no.desc().localized())
@@ -148,33 +152,53 @@ struct FirstRunNewUser: View {
 }
 
 struct FirstRunUsername: View {
-    // TEMPORARY - until I can get viewModel in
-    @State var username: String
-    @Binding var isExistingUser: Bool
+    @ObservedObject var viewModel: FirstRunInfoViewModel
+    var step: FirstRunStep.PathStepUsername
+    @State var error: FirstRunError.UsernameError?
+    @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text(isExistingUser ? MR.strings().first_run_username_existing_header.desc().localized() : MR.strings().first_run_username_new_header.desc().localized())
+            Text(step.headerText.localized())
                 .font(.system(size: 24, weight: .heavy))
                 .padding(.bottom, 16)
-            if (!isExistingUser) {
-                Text(MR.strings().first_run_username_description.desc().localized())
+            if (step.descriptionText != nil) {
+                Text(step.descriptionText!.localized())
                     .fixedSize(horizontal: false, vertical: true)
                     .padding(.bottom, 16)
             }
-            TextField(MR.strings().username.desc().localized(), text: $username)
+            TextField(MR.strings().username.desc().localized(), text: viewModel.binding(\.username))
                 .disableAutocorrection(true)
                 .padding(12)
                 .overlay(
                     RoundedRectangle(cornerRadius: 5)
-                        .stroke(.white)
+                        .stroke(colorScheme == .dark ? .white : .black)
                 )
-        }.padding(.horizontal, 15)
+            if (error != nil) {
+                Text(error!.errorText.localized())
+                    .foregroundColor(.red)
+            }
+        }
+        .padding(.horizontal, 15)
+        .onAppear {
+            viewModel.errors.subscribe { errorsState in
+                if let currentErrors = errorsState {
+                    if (currentErrors.count > 0) {
+                        withAnimation {
+                            error = currentErrors[0] as? FirstRunError.UsernameError
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 
-@available(iOS 15.0, *)
+@available(iOS 17.0, *)
 struct FirstRunRivalCode: View {
+    @ObservedObject var viewModel: FirstRunInfoViewModel
+    @State var error: FirstRunError.RivalCodeError?
+
     var body: some View {
         VStack(alignment: .leading) {
             Text(MR.strings().first_run_rival_code_header.desc().localized())
@@ -186,13 +210,31 @@ struct FirstRunRivalCode: View {
             Text(MR.strings().first_run_rival_code_description_2.desc().localized())
                 .fixedSize(horizontal: false, vertical: true)
                 .padding(.bottom, 32)
-            RivalCodeEntry()
-        }.padding(.horizontal, 15)
+            RivalCodeEntry(viewModel: viewModel)
+            if (error != nil) {
+                Text(error!.errorText.localized())
+                    .foregroundColor(.red)
+            }
+        }
+        .padding(.horizontal, 15)
+        .onAppear {
+            viewModel.errors.subscribe { errorsState in
+                if let currentErrors = errorsState {
+                    if (currentErrors.count > 0) {
+                        withAnimation {
+                            error = currentErrors[0] as? FirstRunError.RivalCodeError
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 
-@available(iOS 15.0, *)
+@available(iOS 17.0, *)
 struct RivalCodeEntry: View {
+    @ObservedObject var viewModel: FirstRunInfoViewModel
+    // TODO: refactor enteredCode so it's a string and can use viewModel binding
     @State var enteredCode = Array(repeating: "", count: 8)
     @FocusState var fieldFocus: Int?
     
@@ -205,6 +247,8 @@ struct RivalCodeEntry: View {
             ForEach(4..<8, id: \.self) { index in
                 RivalCodeCell(index: index, enteredCode: $enteredCode, focused: $fieldFocus)
             }
+        }.onChange(of: enteredCode) {
+            viewModel.rivalCode.setValue(enteredCode.joined(separator: ""))
         }
     }
 }
@@ -215,6 +259,7 @@ struct RivalCodeCell: View {
     @Binding var enteredCode: [String]
     @FocusState.Binding var focused: Int?
     @State private var oldValue = ""
+    @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
         TextField("", text: $enteredCode[index], onEditingChanged: { editing in
@@ -228,7 +273,7 @@ struct RivalCodeCell: View {
             .cornerRadius(5)
             .overlay(
                 RoundedRectangle(cornerRadius: 5)
-                    .stroke(.white)
+                    .stroke(colorScheme == .dark ? .white : .black)
             )
             .multilineTextAlignment(.center)
             .font(.system(size: 24, weight: .bold))
@@ -322,46 +367,51 @@ struct FirstRunRankMethod: View {
 
 // Below are all of the SwiftUI previews
 
-@available(iOS 16.0, *)
+@available(iOS 17.0, *)
 #Preview {
     FirstRunView()
 }
 
 struct FirstRunHeader_Previews: PreviewProvider {
     static var previews: some View {
-        FirstRunHeader(showWelcome: .constant(true))
+        FirstRunHeader(showWelcome: true)
     }
 }
 
 struct FirstRunNewUser_Previews: PreviewProvider {
     static var previews: some View {
-        FirstRunNewUser(showWelcome: .constant(true), viewIndex: .constant(0), isExistingUser: .constant(false))
+        @ObservedObject var viewModel: FirstRunInfoViewModel = FirstRunInfoViewModel()
+        FirstRunNewUser(viewModel: viewModel)
     }
 }
 
 struct FirstRunUsernameNew_Previews: PreviewProvider {
     static var previews: some View {
-        FirstRunUsername(username: "", isExistingUser: .constant(false))
+        @ObservedObject var viewModel: FirstRunInfoViewModel = FirstRunInfoViewModel()
+        FirstRunUsername(viewModel: viewModel, step: FirstRunStep.PathStepUsername(path: FirstRunPath.theNewUserLocal))
     }
 }
 
 struct FirstRunUsernameExisting_Previews: PreviewProvider {
     static var previews: some View {
-        FirstRunUsername(username: "", isExistingUser: .constant(true))
+        @ObservedObject var viewModel: FirstRunInfoViewModel = FirstRunInfoViewModel()
+        FirstRunUsername(viewModel: viewModel, step: FirstRunStep.PathStepUsername(path: FirstRunPath.existingUserLocal))
     }
 }
 
-@available(iOS 15.0, *)
+@available(iOS 17.0, *)
 struct FirstRunRivalCode_Previews: PreviewProvider {
     static var previews: some View {
-        FirstRunRivalCode()
+        @ObservedObject var viewModel: FirstRunInfoViewModel = FirstRunInfoViewModel()
+        FirstRunRivalCode(viewModel: viewModel)
     }
 }
 
-@available(iOS 15.0, *)
+@available(iOS 17.0, *)
 struct RivalCodeEntry_Previews: PreviewProvider {
     static var previews: some View {
-        RivalCodeEntry()
+        @ObservedObject var viewModel: FirstRunInfoViewModel = FirstRunInfoViewModel()
+        RivalCodeEntry(viewModel: viewModel)
     }
 }
 

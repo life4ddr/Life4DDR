@@ -1,7 +1,7 @@
 import SwiftUI
 import Shared
 
-@available(iOS 16.0, *)
+@available(iOS 17.0, *)
 @main
 struct iOSApp: App {
     init() {
@@ -14,9 +14,9 @@ struct iOSApp: App {
     
 	var body: some Scene {
 		WindowGroup {
-      NavigationView {
-        FirstRunView()
-      }
+            NavigationView {
+                FirstRunView()
+            }
 		}
 	}
 }
