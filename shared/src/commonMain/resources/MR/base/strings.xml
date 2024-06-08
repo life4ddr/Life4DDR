@@ -158,6 +158,8 @@
     <!-- endregion -->
 
     <!--  region Trials  -->
+    <string name="active_trials">Active Trials</string>
+    <string name="retired_trials">Retired Trials</string>
     <string name="trial_failed">Trial Failed!</string>
     <string name="trial_fail_confirmation">Would you like to Concede and save this Trial attempt?</string>
     <string name="trial_fail_no_rank_confirmation">It is no longer possible to earn a rank on %s.\n\nWould you like to Concede and save this Trial attempt?</string>

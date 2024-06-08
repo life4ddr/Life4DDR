@@ -1,5 +1,6 @@
 package com.perrigogames.life4.feature.trials
 
+import com.perrigogames.life4.MR
 import com.perrigogames.life4.SettingsKeys.KEY_TRIAL_LIST_HIGHLIGHT_NEW
 import com.perrigogames.life4.SettingsKeys.KEY_TRIAL_LIST_HIGHLIGHT_UNPLAYED
 import com.perrigogames.life4.SettingsKeys.KEY_TRIAL_LIST_SHOW_EX
@@ -12,6 +13,7 @@ import com.perrigogames.life4.feature.trialrecords.TrialRecordsManager
 import com.russhwolf.settings.Settings
 import dev.icerock.moko.mvvm.flow.cMutableStateFlow
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
+import dev.icerock.moko.resources.desc.desc
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
@@ -77,15 +79,14 @@ class TrialListViewModel : ViewModel(), KoinComponent {
                 }.add(UITrialList.Item.Trial(item))
             }
 
-        //FIXME i18n
         return mutableListOf<UITrialList.Item>(
-            UITrialList.Item.Header("Active Trials")
+            UITrialList.Item.Header(MR.strings.active_trials.desc())
         ).apply {
             addAll(event)
             addAll(new)
             addAll(unplayed)
             addAll(active)
-            add(UITrialList.Item.Header("Retired Trials"))
+            add(UITrialList.Item.Header(MR.strings.retired_trials.desc()))
             addAll(retired)
         }
     }
