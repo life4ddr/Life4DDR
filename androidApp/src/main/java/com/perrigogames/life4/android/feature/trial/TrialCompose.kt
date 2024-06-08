@@ -1,12 +1,7 @@
 package com.perrigogames.life4.android.feature.trial
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -34,6 +29,7 @@ import com.perrigogames.life4.feature.trials.TrialListViewModel
 import com.perrigogames.life4.feature.trials.UITrialJacket
 import com.perrigogames.life4.feature.trials.UITrialList
 import dev.icerock.moko.mvvm.createViewModelFactory
+import dev.icerock.moko.resources.compose.localized
 
 @Composable
 fun TrialListScreen(
@@ -70,7 +66,7 @@ fun TrialJacketList(
                     span = { GridItemSpan(maxLineSpan) }
                 ) {
                     Text(
-                        text = displayItem.text,
+                        text = displayItem.text.localized(),
                         fontSize = FontSizes.SMALL,
                         fontFamily = FontFamilies.AVENIR_NEXT,
                     )

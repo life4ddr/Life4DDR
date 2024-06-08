@@ -3,6 +3,7 @@ package com.perrigogames.life4.feature.trials
 import co.touchlab.kermit.Logger
 import com.perrigogames.life4.Notifications
 import com.perrigogames.life4.api.TrialRemoteData
+import com.perrigogames.life4.api.base.CompositeData
 import com.perrigogames.life4.api.base.LocalDataReader
 import com.perrigogames.life4.data.Trial
 import com.perrigogames.life4.feature.trialrecords.TrialDatabaseHelper
@@ -12,10 +13,8 @@ import com.perrigogames.life4.ktor.GithubDataAPI.Companion.TRIALS_FILE_NAME
 import com.perrigogames.life4.model.BaseModel
 import com.russhwolf.settings.Settings
 import dev.icerock.moko.mvvm.flow.cMutableStateFlow
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import org.koin.core.component.inject
 import org.koin.core.qualifier.named
 
@@ -56,6 +55,12 @@ class TrialManager: BaseModel() {
     init {
         data.start()
         validateTrials()
+
+        mainScope.launch {
+            data.dataState
+                .mapNotNull { (it as? CompositeData.LoadingState.Loaded)?.data?.trials }
+                .collect(_trialsFlow)
+        }
     }
 
     val allRecords get() = dbHelper.allRecords().executeAsList()

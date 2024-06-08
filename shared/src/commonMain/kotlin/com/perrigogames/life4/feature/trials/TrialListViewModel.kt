@@ -16,7 +16,9 @@ import dev.icerock.moko.mvvm.viewmodel.ViewModel
 import dev.icerock.moko.resources.desc.desc
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
@@ -35,18 +37,20 @@ class TrialListViewModel : ViewModel(), KoinComponent {
         val highlightNew = settings.getBoolean(KEY_TRIAL_LIST_HIGHLIGHT_NEW, true)
         val highlightUnplayed = settings.getBoolean(KEY_TRIAL_LIST_HIGHLIGHT_UNPLAYED, true)
 
-        combine(
-            trialManager.trialsFlow,
-            trialRecordsManager.bestSessions
-        ) { trials, sessions ->
-            _state.value = UITrialList(
-                trials = createDisplayTrials(
-                    trials = trials,
-                    sessions = sessions,
-                    featureNew = highlightNew,
-                    featureUnplayed = highlightUnplayed,
-                ),
-            )
+        viewModelScope.launch {
+            combine(
+                trialManager.trialsFlow,
+                trialRecordsManager.bestSessions
+            ) { trials, sessions ->
+                _state.value = UITrialList(
+                    trials = createDisplayTrials(
+                        trials = trials,
+                        sessions = sessions,
+                        featureNew = highlightNew,
+                        featureUnplayed = highlightUnplayed,
+                    ),
+                )
+            }.collect()
         }
     }
 
