@@ -9,7 +9,7 @@
 import SwiftUI
 import Shared
 
-@available(iOS 17.0, *)
+@available(iOS 16.0, *)
 struct FirstRunView: View {
     @ObservedObject var viewModel: FirstRunInfoViewModel = FirstRunInfoViewModel()
     @State var step: FirstRunStep = FirstRunStep.Landing()
@@ -44,7 +44,7 @@ struct FirstRunView: View {
                     HStack {
                         Button {
                             withAnimation {
-                                var back = viewModel.navigateBack()
+                                _ = viewModel.navigateBack()
                             }
                         } label: {
                             Text("Back")
@@ -194,7 +194,7 @@ struct FirstRunUsername: View {
     }
 }
 
-@available(iOS 17.0, *)
+@available(iOS 15.0, *)
 struct FirstRunRivalCode: View {
     @ObservedObject var viewModel: FirstRunInfoViewModel
     @State var error: FirstRunError.RivalCodeError?
@@ -231,24 +231,46 @@ struct FirstRunRivalCode: View {
     }
 }
 
-@available(iOS 17.0, *)
+@available(iOS 15.0, *)
 struct RivalCodeEntry: View {
     @ObservedObject var viewModel: FirstRunInfoViewModel
-    // TODO: refactor enteredCode so it's a string and can use viewModel binding
-    @State var enteredCode = Array(repeating: "", count: 8)
-    @FocusState var fieldFocus: Int?
+    @State var rivalCode: String = ""
+    @FocusState private var isKeyboardShowing: Bool
     
     var body : some View {
-        HStack {
-            ForEach(0..<4, id: \.self) { index in
-                RivalCodeCell(index: index, enteredCode: $enteredCode, focused: $fieldFocus)
+        VStack {
+            HStack {
+                ForEach(0..<4, id: \.self) { index in
+                    RivalCodeCell(index: index, enteredCode: $rivalCode)
+                }
+                Text("-").fontWeight(.bold)
+                ForEach(4..<8, id: \.self) { index in
+                    RivalCodeCell(index: index, enteredCode: $rivalCode)
+                }
             }
-            Text("-").fontWeight(.bold)
-            ForEach(4..<8, id: \.self) { index in
-                RivalCodeCell(index: index, enteredCode: $enteredCode, focused: $fieldFocus)
+            .background(content: {
+                TextField("", text: viewModel.binding(\.rivalCode).limit(8))
+                    .keyboardType(.numberPad)
+                    .frame(width: 1, height: 1)
+                    .opacity(0.001)
+                    .blendMode(.screen)
+                    .focused($isKeyboardShowing)
+                    .onChange(of: rivalCode) { newCode in
+                        if newCode.count == 8 {
+                            isKeyboardShowing = false
+                        }
+                    }
+            })
+            .onTapGesture {
+                isKeyboardShowing.toggle()
             }
-        }.onChange(of: enteredCode) {
-            viewModel.rivalCode.setValue(enteredCode.joined(separator: ""))
+            .onAppear {
+                viewModel.rivalCode.subscribe { code in
+                    if let newCode = code {
+                        rivalCode = newCode as String
+                    }
+                }
+            }
         }
     }
 }
@@ -256,41 +278,28 @@ struct RivalCodeEntry: View {
 @available(iOS 15.0, *)
 struct RivalCodeCell: View {
     var index: Int
-    @Binding var enteredCode: [String]
-    @FocusState.Binding var focused: Int?
-    @State private var oldValue = ""
+    @Binding var enteredCode: String
     @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
-        TextField("", text: $enteredCode[index], onEditingChanged: { editing in
-            if editing {
-                oldValue = enteredCode[index]
+        ZStack {
+            if enteredCode.count > index {
+                let startIndex = enteredCode.startIndex
+                let charIndex = enteredCode.index(startIndex, offsetBy: index)
+                let charToString = String(enteredCode[charIndex])
+                Text(charToString)
+                    .font(.system(size: 24, weight: .bold))
+            } else {
+                Text(" ")
             }
-        })
-            .keyboardType(.numberPad)
-            .frame(width: 36, height: 48)
-            .background(Color.gray.opacity(0.1))
-            .cornerRadius(5)
-            .overlay(
-                RoundedRectangle(cornerRadius: 5)
-                    .stroke(colorScheme == .dark ? .white : .black)
-            )
-            .multilineTextAlignment(.center)
-            .font(.system(size: 24, weight: .bold))
-            .focused($focused, equals: index)
-            .tag(index)
-            .onChange(of: enteredCode[index]) { newValue in
-                if enteredCode[index].count > 1 {
-                    let currentValue = Array(enteredCode[index])
-                    enteredCode[index] = currentValue[0] == Character(oldValue) ? String(enteredCode[index].suffix(1)) : String(enteredCode[index].prefix(1))
-                }
-                
-                if !newValue.isEmpty {
-                    focused = index == 7 ? nil : (focused ?? 0) + 1
-                } else {
-                    focused = (focused ?? 0) - 1
-                }
-            }
+        }
+        .frame(width: 36, height: 48)
+        .background(Color.gray.opacity(0.1))
+        .cornerRadius(5)
+        .overlay(
+            RoundedRectangle(cornerRadius: 5)
+                .stroke(colorScheme == .dark ? .white : .black)
+        )
     }
 }
 
@@ -367,7 +376,7 @@ struct FirstRunRankMethod: View {
 
 // Below are all of the SwiftUI previews
 
-@available(iOS 17.0, *)
+@available(iOS 16.0, *)
 #Preview {
     FirstRunView()
 }
@@ -399,7 +408,7 @@ struct FirstRunUsernameExisting_Previews: PreviewProvider {
     }
 }
 
-@available(iOS 17.0, *)
+@available(iOS 15.0, *)
 struct FirstRunRivalCode_Previews: PreviewProvider {
     static var previews: some View {
         @ObservedObject var viewModel: FirstRunInfoViewModel = FirstRunInfoViewModel()
@@ -407,7 +416,7 @@ struct FirstRunRivalCode_Previews: PreviewProvider {
     }
 }
 
-@available(iOS 17.0, *)
+@available(iOS 15.0, *)
 struct RivalCodeEntry_Previews: PreviewProvider {
     static var previews: some View {
         @ObservedObject var viewModel: FirstRunInfoViewModel = FirstRunInfoViewModel()
@@ -425,5 +434,16 @@ struct FirstRunSocials_Previews: PreviewProvider {
 struct FirstRunRankMethod_Previews: PreviewProvider {
     static var previews: some View {
         FirstRunRankMethod()
+    }
+}
+
+extension Binding where Value == String {
+    func limit(_ length: Int) -> Self {
+        if self.wrappedValue.count > length {
+            DispatchQueue.main.async {
+                self.wrappedValue = String(self.wrappedValue.prefix(length))
+            }
+        }
+        return self
     }
 }
