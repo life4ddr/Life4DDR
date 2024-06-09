@@ -234,76 +234,59 @@ struct FirstRunRivalCode: View {
 @available(iOS 15.0, *)
 struct RivalCodeEntry: View {
     @ObservedObject var viewModel: FirstRunInfoViewModel
-    @State var rivalCode: String = ""
     @FocusState private var isKeyboardShowing: Bool
     
     var body : some View {
-        VStack {
-            HStack {
-                ForEach(0..<4, id: \.self) { index in
-                    RivalCodeCell(index: index, enteredCode: $rivalCode)
-                }
-                Text("-").fontWeight(.bold)
-                ForEach(4..<8, id: \.self) { index in
-                    RivalCodeCell(index: index, enteredCode: $rivalCode)
-                }
+        HStack {
+            let currentRivalCode = String(viewModel.rivalCode.value!)
+            let rivalCodeArray = Array(currentRivalCode)
+            ForEach(0..<4, id: \.self) { index in
+                RivalCodeCell(cellValue: rivalCodeArray.count > index ? String(rivalCodeArray[index]) : " ")
             }
-            .background(content: {
-                TextField("", text: viewModel.binding(\.rivalCode).limit(8))
-                    .keyboardType(.numberPad)
-                    .frame(width: 1, height: 1)
-                    .opacity(0.001)
-                    .blendMode(.screen)
-                    .focused($isKeyboardShowing)
-                    .onChange(of: rivalCode) { newCode in
-                        if newCode.count == 8 {
-                            isKeyboardShowing = false
-                        }
-                    }
-            })
-            .onTapGesture {
-                isKeyboardShowing.toggle()
+            Text("-").fontWeight(.bold)
+            ForEach(4..<8, id: \.self) { index in
+                RivalCodeCell(cellValue: rivalCodeArray.count > index ? String(rivalCodeArray[index]) : " ")
             }
-            .onAppear {
-                viewModel.rivalCode.subscribe { code in
-                    if let newCode = code {
-                        rivalCode = newCode as String
+        }
+        .background(content: {
+            TextField("", text: viewModel.binding(\.rivalCode).limit(8))
+                .keyboardType(.numberPad)
+                .frame(width: 1, height: 1)
+                .opacity(0.001)
+                .blendMode(.screen)
+                .focused($isKeyboardShowing)
+                .onChange(of: viewModel.rivalCode.value!) { newCode in
+                    if String(newCode).count == 8 {
+                        isKeyboardShowing = false
                     }
                 }
-            }
+        })
+        .onTapGesture {
+            isKeyboardShowing.toggle()
         }
     }
 }
 
 @available(iOS 15.0, *)
 struct RivalCodeCell: View {
-    var index: Int
-    @Binding var enteredCode: String
+    var cellValue: String
     @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
-        ZStack {
-            if enteredCode.count > index {
-                let startIndex = enteredCode.startIndex
-                let charIndex = enteredCode.index(startIndex, offsetBy: index)
-                let charToString = String(enteredCode[charIndex])
-                Text(charToString)
-                    .font(.system(size: 24, weight: .bold))
-            } else {
-                Text(" ")
-            }
-        }
-        .frame(width: 36, height: 48)
-        .background(Color.gray.opacity(0.1))
-        .cornerRadius(5)
-        .overlay(
-            RoundedRectangle(cornerRadius: 5)
-                .stroke(colorScheme == .dark ? .white : .black)
+        Text(cellValue)
+            .font(.system(size: 24, weight: .bold))
+            .frame(width: 36, height: 48)
+            .background(Color.gray.opacity(0.1))
+            .cornerRadius(5)
+            .overlay(
+                RoundedRectangle(cornerRadius: 5)
+                    .stroke(colorScheme == .dark ? .white : .black)
         )
     }
 }
 
 struct FirstRunSocials: View {
+    // TODO: update this View when it's functional on Android
     var body: some View {
         VStack(alignment: .leading) {
             Text(MR.strings().first_run_social_header.desc().localized())
