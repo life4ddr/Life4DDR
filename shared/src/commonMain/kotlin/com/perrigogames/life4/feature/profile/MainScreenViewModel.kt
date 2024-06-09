@@ -1,8 +1,6 @@
 package com.perrigogames.life4.feature.profile
 
-import com.perrigogames.life4.feature.profile.ProfileScreen.Profile
-import com.perrigogames.life4.feature.profile.ProfileScreen.Settings
-import com.perrigogames.life4.feature.profile.ProfileScreen.Trials
+import com.perrigogames.life4.feature.profile.ProfileDestination.*
 import dev.icerock.moko.mvvm.flow.cMutableStateFlow
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -27,7 +25,7 @@ class MainScreenViewModel : ViewModel(), KoinComponent {
 
 data class MainScreenState(
     val banner: UIBanner = UIBanner(""),
-    val tabs: List<ProfileScreen> = listOf(Profile, Trials, Settings)
+    val tabs: List<ProfileDestination> = listOf(Profile, Trials, Settings)
 )
 
 data class UIBanner(

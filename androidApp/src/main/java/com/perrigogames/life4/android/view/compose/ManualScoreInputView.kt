@@ -5,16 +5,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Divider
-import androidx.compose.material.DropdownMenu
-import androidx.compose.material.DropdownMenuItem
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -80,13 +72,14 @@ fun CompositeDropdown(
         ) {
             PlayStyle.entries.forEachIndexed { idx, style ->
                 DropdownMenuItem(
+                    text = {
+                        Text(style.name)
+                    },
                     onClick = {
                         index = idx
                         expanded = false
                     }
-                ) {
-                    Text(style.name)
-                }
+                )
             }
         }
     }

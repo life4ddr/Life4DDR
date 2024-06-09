@@ -2,6 +2,7 @@ package com.perrigogames.life4.android.feature.trial
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
@@ -75,7 +76,7 @@ fun TrialJacketList(
                 is UITrialList.Item.Trial -> item {
                     TrialJacket(
                         viewModel = displayItem.data,
-                        onClick = onTrialSelected,
+                        onClick = { onTrialSelected(displayItem.data.trial) },
                     )
                 }
             }
@@ -86,53 +87,59 @@ fun TrialJacketList(
 @Composable
 fun TrialJacket(
     viewModel: UITrialJacket,
-    onClick: (Trial) -> Unit,
+    onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     ConstraintLayout(
-        modifier = modifier,
+        modifier = Modifier
+            .clickable(onClick = onClick)
+            .then(modifier),
     ) {
         val (image, difficulty) = createRefs()
         Image(
             painter = painterResource(id = viewModel.trial.jacketResId(LocalContext.current)),
             contentDescription = null,
             modifier = Modifier.aspectRatio(1f)
-//                .constrainAs(image) {
-//                }
+                .constrainAs(image) {
+                    top.linkTo(parent.top)
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                    bottom.linkTo(parent.bottom)
+                }
         )
-        TrialDifficulty(
-            viewModel = viewModel,
-            modifier = Modifier.constrainAs(difficulty) {
-                top.linkTo(parent.top, margin = Paddings.SMALL)
-                start.linkTo(parent.start, margin = Paddings.SMALL)
-            }
-        )
+        viewModel.trial.difficulty?.let { diffNum ->
+            TrialDifficulty(
+                difficulty = diffNum,
+                modifier = Modifier.constrainAs(difficulty) {
+                    top.linkTo(parent.top, margin = Paddings.SMALL)
+                    start.linkTo(parent.start, margin = Paddings.SMALL)
+                }
+            )
+        }
     }
 }
 
 @Composable
 fun TrialDifficulty(
-    viewModel: UITrialJacket,
+    difficulty: Int,
     modifier: Modifier,
 ) {
-    viewModel.trial.difficulty?.let { difficulty ->
-        Box(
-            contentAlignment = Alignment.Center,
-            modifier = Modifier
-                .size(40.dp)
-                .background(
-                    color = MaterialTheme.colorScheme.primary.copy(alpha = 0.8f),
-                    shape = CircleShape
-                )
-                .then(modifier),
-        ) {
-            Text(
-                text = difficulty.toString(),
-                textAlign = TextAlign.Center,
-                fontSize = 24.sp,
-                color = MaterialTheme.colorScheme.onPrimary,
-                modifier = Modifier.fillMaxWidth()
+    Box(
+        contentAlignment = Alignment.Center,
+        modifier = Modifier
+            .size(40.dp)
+            .background(
+                color = MaterialTheme.colorScheme.primary.copy(alpha = 0.8f),
+                shape = CircleShape
             )
-        }
+            .then(modifier),
+    ) {
+        Text(
+            text = difficulty.toString(),
+            textAlign = TextAlign.Center,
+            fontSize = 24.sp,
+            color = MaterialTheme.colorScheme.onPrimary,
+            modifier = Modifier.fillMaxWidth()
+        )
     }
 }

@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -36,7 +37,10 @@ fun PlayerProfileScreen(
     val goalError by remember { derivedStateOf { (goalListViewState as? ViewState.Error)?.error } }
 
     Column {
-        PlayerProfileInfo(state = playerInfoViewState)
+        PlayerProfileInfo(
+            state = playerInfoViewState,
+            modifier = Modifier.fillMaxWidth()
+        )
 
         if (goalData != null) {
             LadderGoals(
@@ -70,11 +74,14 @@ fun PlayerProfileInfo(
     modifier: Modifier = Modifier,
 ) {
     Row(
+        verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .padding(16.dp)
             .then(modifier)
     ) {
-        Column {
+        Column(
+            modifier = Modifier.weight(1f)
+        ) {
             Text(
                 text = state.username,
                 style = Typography.headlineMedium,
@@ -91,6 +98,7 @@ fun PlayerProfileInfo(
         }
         RankImage(
             rank = state.rank,
+            size = 64.dp
         )
     }
 }

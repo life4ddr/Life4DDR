@@ -1,6 +1,5 @@
 package com.perrigogames.life4.feature.laddergoals
 
-import androidx.compose.runtime.collectAsState
 import co.touchlab.kermit.Logger
 import com.perrigogames.life4.data.RankEntry
 import com.perrigogames.life4.enums.GoalStatus
@@ -30,11 +29,11 @@ class GoalListViewModel(private val config: GoalListConfig) : ViewModel(), KoinC
     private val userRankManager: UserRankManager by inject()
     private val logger: Logger by injectLogger("GoalListViewModel")
 
-    private val targetRankFlow = config.targetRank
+    private val targetRankFlow: Flow<LadderRank?> = config.targetRank
         ?.let { flowOf(it) }
         ?: userRankManager.targetRank
 
-    private val requirementsFlow = targetRankFlow
+    private val requirementsFlow: Flow<RankEntry?> = targetRankFlow
         .flatMapLatest { targetRank ->
             ladderDataManager.requirementsForRank(targetRank)
         }
@@ -134,3 +133,27 @@ sealed class RankListAction {
         data class ToggleExpanded(override val id: Long) : OnGoal()
     }
 }
+
+// Taken from old LadderGoalsViewModel
+//            val entry = ladderDataManager.findRankEntry(config.targetRank)
+//            if (config.targetRank == null || entry == null) {
+//                // TODO some kind of endgame/error handling text
+//                return@launch
+//            }
+//
+//            _stateFlow.value = _stateFlow.value.copy(
+//                goals = UILadderGoals.SingleList(
+//                    entry.allGoals.map {  goal ->
+//                        val goalState = goalStateManager.getGoalState(goal)
+//                        UILadderGoal(
+//                            id = goal.id.toLong(),
+//                            goalText = goal.goalString(platformStrings),
+//                            completed = goalState?.status == GoalStatus.COMPLETE,
+//                            hidden = goalState?.status == GoalStatus.IGNORED,
+//                            canHide = false, // FIXME
+//                            progress = null, // FIXME
+//                            detailItems = emptyList() // FIXME
+//                        )
+//                    }
+//                )
+//            )
