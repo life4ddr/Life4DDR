@@ -9,12 +9,11 @@
 import SwiftUI
 import Shared
 
-@available(iOS 16.0, *)
 struct FirstRunView: View {
     @ObservedObject var viewModel: FirstRunInfoViewModel = FirstRunInfoViewModel()
     @State var step: FirstRunStep = FirstRunStep.Landing()
-    // TODO: add onComplete functionality
-        
+    var onComplete: (InitState) -> (Void)
+
     var body: some View {
         ZStack(alignment: .center) {
             VStack(spacing: 75) {
@@ -34,7 +33,7 @@ struct FirstRunView: View {
                     case is FirstRunStep.PathStepSocialHandles:
                         FirstRunSocials()
                     case is FirstRunStep.PathStepInitialRankSelection:
-                        FirstRunRankMethod()
+                        FirstRunRankMethod(step: step as! FirstRunStep.PathStepInitialRankSelection, onRankMethodSelected: viewModel.rankMethodSelected)
                     default:
                         Text("No step here")
                 }
@@ -78,6 +77,10 @@ struct FirstRunView: View {
                     if let currentStep = state {
                         withAnimation {
                             step = currentStep
+                            if currentStep is FirstRunStep.PathStepCompleted {
+                                let completedStep = currentStep as! FirstRunStep.PathStepCompleted
+                                onComplete(completedStep.rankSelection)
+                            }
                         }
                     }
                 }
@@ -194,7 +197,6 @@ struct FirstRunUsername: View {
     }
 }
 
-@available(iOS 15.0, *)
 struct FirstRunRivalCode: View {
     @ObservedObject var viewModel: FirstRunInfoViewModel
     @State var error: FirstRunError.RivalCodeError?
@@ -231,7 +233,6 @@ struct FirstRunRivalCode: View {
     }
 }
 
-@available(iOS 15.0, *)
 struct RivalCodeEntry: View {
     @ObservedObject var viewModel: FirstRunInfoViewModel
     @FocusState private var isKeyboardShowing: Bool
@@ -267,7 +268,6 @@ struct RivalCodeEntry: View {
     }
 }
 
-@available(iOS 15.0, *)
 struct RivalCodeCell: View {
     var cellValue: String
     @Environment(\.colorScheme) var colorScheme
@@ -286,7 +286,6 @@ struct RivalCodeCell: View {
 }
 
 struct FirstRunSocials: View {
-    // TODO: update this View when it's functional on Android
     var body: some View {
         VStack(alignment: .leading) {
             Text(MR.strings().first_run_social_header.desc().localized())
@@ -311,45 +310,31 @@ struct FirstRunSocials: View {
     }
 }
 
-@available(iOS 16.0, *)
 struct FirstRunRankMethod: View {
+    var step: FirstRunStep.PathStepInitialRankSelection
+    var onRankMethodSelected: (InitState) -> (Void)
+
     var body: some View {
         VStack {
             Text(MR.strings().first_run_rank_selection_header.desc().localized())
                 .font(.system(size: 24, weight: .heavy))
                 .padding(.bottom, 16)
-            Button {
-                withAnimation {
-                    
+            
+            ForEach(step.path.allowedRankSelectionTypes(), id: \.self) { method in
+                Button {
+                    withAnimation {
+                        onRankMethodSelected(method)
+                    }
+                } label: {
+                    Text(method.description_.localized())
+                        .padding()
+                        .background(Color(red: 1, green: 0, blue: 0.44))
+                        .foregroundColor(.white)
+                        .clipShape(Capsule())
+                        .font(.system(size: 16, weight: .medium))
                 }
-            } label: {
-                Text(MR.strings().first_run_rank_method_no_rank.desc().localized())
-                    .padding()
-                    .background(Color(red: 1, green: 0, blue: 0.44))
-                    .foregroundColor(.white)
-                    .clipShape(Capsule())
-                    .font(.system(size: 16, weight: .medium))
             }
-            Button {
-                withAnimation {
-                    
-                }
-            } label: {
-                Text(MR.strings().first_run_rank_method_placement.desc().localized())
-                    .padding()
-                    .background(Color(red: 1, green: 0, blue: 0.44))
-                    .foregroundColor(.white)
-                    .clipShape(Capsule())
-                    .font(.system(size: 16, weight: .medium))
-            }
-            NavigationLink(destination: FirstRunRankListView()) {
-                Text(MR.strings().first_run_rank_method_selection.desc().localized())
-                    .padding()
-                    .background(Color(red: 1, green: 0, blue: 0.44))
-                    .foregroundColor(.white)
-                    .clipShape(Capsule())
-                    .font(.system(size: 16, weight: .medium))
-            }
+            
             Text(MR.strings().first_run_rank_selection_footer.desc().localized())
                 .fixedSize(horizontal: false, vertical: true)
                 .padding(.top, 16)
@@ -359,9 +344,11 @@ struct FirstRunRankMethod: View {
 
 // Below are all of the SwiftUI previews
 
-@available(iOS 16.0, *)
+// Dummy function to pass into onComplete (so previews will work)
+func test(initState: InitState) { }
+
 #Preview {
-    FirstRunView()
+    FirstRunView(onComplete: test)
 }
 
 struct FirstRunHeader_Previews: PreviewProvider {
@@ -391,7 +378,6 @@ struct FirstRunUsernameExisting_Previews: PreviewProvider {
     }
 }
 
-@available(iOS 15.0, *)
 struct FirstRunRivalCode_Previews: PreviewProvider {
     static var previews: some View {
         @ObservedObject var viewModel: FirstRunInfoViewModel = FirstRunInfoViewModel()
@@ -399,7 +385,6 @@ struct FirstRunRivalCode_Previews: PreviewProvider {
     }
 }
 
-@available(iOS 15.0, *)
 struct RivalCodeEntry_Previews: PreviewProvider {
     static var previews: some View {
         @ObservedObject var viewModel: FirstRunInfoViewModel = FirstRunInfoViewModel()
@@ -413,13 +398,14 @@ struct FirstRunSocials_Previews: PreviewProvider {
     }
 }
 
-@available(iOS 16.0, *)
 struct FirstRunRankMethod_Previews: PreviewProvider {
     static var previews: some View {
-        FirstRunRankMethod()
+        @ObservedObject var viewModel: FirstRunInfoViewModel = FirstRunInfoViewModel()
+        FirstRunRankMethod(step: FirstRunStep.PathStepInitialRankSelection(path: FirstRunPath.theNewUserLocal, availableMethods: FirstRunPath.theNewUserLocal.allowedRankSelectionTypes()), onRankMethodSelected: viewModel.rankMethodSelected)
     }
 }
 
+// Extension used to apply limit of 8 characters to the rival code string binding
 extension Binding where Value == String {
     func limit(_ length: Int) -> Self {
         if self.wrappedValue.count > length {

@@ -23,7 +23,7 @@ struct FirstRunRankListView: View {
                 LadderGoals(rankPreview: true)
             }
             Spacer()
-        }
+        }.navigationBarBackButtonHidden(true)
     }
 }
 
