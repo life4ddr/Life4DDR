@@ -8,10 +8,10 @@ import com.perrigogames.life4.feature.trials.TrialDestination
 
 fun NavGraphBuilder.trialNavigation(navController: NavController) {
     composable(
-        route = TrialDestination.TrialDetails.TEMPLATE
+        route = TrialDestination.TrialDetails.BASE_ROUTE
     ) { entry ->
         val trialId = entry.arguments?.getString("trialId")
-        Text("Trial Details TODO")
+        Text("Trial Details $trialId TODO")
     }
 
     composable(TrialDestination.TrialRecords.route) {

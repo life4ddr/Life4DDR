@@ -48,5 +48,5 @@ data class PlayerInfoViewState(
 )
 
 sealed class PlayerProfileAction {
-    object ChangeRank: PlayerProfileAction()
+    data object ChangeRank: PlayerProfileAction()
 }

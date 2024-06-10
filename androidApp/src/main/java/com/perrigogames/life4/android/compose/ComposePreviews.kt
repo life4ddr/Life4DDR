@@ -1,4 +1,4 @@
-package com.perrigogames.life4.android
+package com.perrigogames.life4.android.compose
 
 import android.content.res.Configuration.UI_MODE_NIGHT_NO
 import android.content.res.Configuration.UI_MODE_NIGHT_YES

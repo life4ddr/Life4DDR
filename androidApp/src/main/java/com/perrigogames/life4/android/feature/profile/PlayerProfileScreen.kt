@@ -1,4 +1,4 @@
-package com.perrigogames.life4.android.activity.profile
+package com.perrigogames.life4.android.feature.profile
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -39,7 +39,8 @@ fun PlayerProfileScreen(
     Column {
         PlayerProfileInfo(
             state = playerInfoViewState,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            onRankClicked = { onAction(PlayerProfileAction.ChangeRank) }
         )
 
         if (goalData != null) {
@@ -72,6 +73,7 @@ fun PlayerProfileScreen(
 fun PlayerProfileInfo(
     state: PlayerInfoViewState,
     modifier: Modifier = Modifier,
+    onRankClicked: () -> Unit = {},
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -98,7 +100,8 @@ fun PlayerProfileInfo(
         }
         RankImage(
             rank = state.rank,
-            size = 64.dp
+            size = 64.dp,
+            onClick = onRankClicked
         )
     }
 }

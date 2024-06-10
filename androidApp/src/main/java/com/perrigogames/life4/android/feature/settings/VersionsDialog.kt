@@ -1,4 +1,4 @@
-package com.perrigogames.life4.android.activity.settings
+package com.perrigogames.life4.android.feature.settings
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Text

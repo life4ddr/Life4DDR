@@ -5,8 +5,8 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.perrigogames.life4.android.activity.profile.PlayerProfileScreen
 import com.perrigogames.life4.android.feature.ladder.LadderGoalsScreen
+import com.perrigogames.life4.android.feature.profile.PlayerProfileScreen
 import com.perrigogames.life4.android.feature.settings.SettingsScreen
 import com.perrigogames.life4.android.feature.trial.TrialListScreen
 import com.perrigogames.life4.feature.profile.PlayerProfileAction

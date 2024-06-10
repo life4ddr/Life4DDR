@@ -25,8 +25,8 @@ import androidx.compose.ui.unit.dp
 import com.perrigogames.life4.MR
 import com.perrigogames.life4.android.compose.LIFE4Theme
 import com.perrigogames.life4.android.drawableRes
-import com.perrigogames.life4.android.ui.Life4Divider
 import com.perrigogames.life4.android.util.SizedSpacer
+import com.perrigogames.life4.android.view.compose.Life4Divider
 import com.perrigogames.life4.data.trialrecords.UITrialMocks
 import com.perrigogames.life4.data.trialrecords.UITrialRecord
 import com.perrigogames.life4.data.trialrecords.UITrialRecordSong

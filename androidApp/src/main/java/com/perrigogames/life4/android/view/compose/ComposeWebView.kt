@@ -1,4 +1,4 @@
-package com.perrigogames.life4.android.ui
+package com.perrigogames.life4.android.view.compose
 
 import android.view.ViewGroup
 import android.webkit.WebView

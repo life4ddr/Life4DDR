@@ -24,8 +24,8 @@ import com.perrigogames.life4.MR
 import com.perrigogames.life4.android.R
 import com.perrigogames.life4.android.compose.LIFE4Theme
 import com.perrigogames.life4.android.stringResource
-import com.perrigogames.life4.android.ui.Life4Divider
 import com.perrigogames.life4.android.util.SizedSpacer
+import com.perrigogames.life4.android.view.compose.Life4Divider
 import com.perrigogames.life4.enums.DifficultyClass
 import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.feature.laddergoals.*

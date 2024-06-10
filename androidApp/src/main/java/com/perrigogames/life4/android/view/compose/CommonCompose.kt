@@ -1,4 +1,4 @@
-package com.perrigogames.life4.android.ui
+package com.perrigogames.life4.android.view.compose
 
 import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
