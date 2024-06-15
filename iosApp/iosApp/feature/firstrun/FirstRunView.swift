@@ -344,11 +344,8 @@ struct FirstRunRankMethod: View {
 
 // Below are all of the SwiftUI previews
 
-// Dummy function to pass into onComplete (so previews will work)
-func test(initState: InitState) { }
-
 #Preview {
-    FirstRunView(onComplete: test)
+    FirstRunView(onComplete: {_ in })
 }
 
 struct FirstRunHeader_Previews: PreviewProvider {

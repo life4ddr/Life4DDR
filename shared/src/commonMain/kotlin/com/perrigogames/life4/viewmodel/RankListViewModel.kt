@@ -8,7 +8,9 @@ import com.perrigogames.life4.feature.ladder.UILadderData
 import com.perrigogames.life4.feature.settings.UserInfoSettings
 import com.perrigogames.life4.model.LadderDataManager
 import com.perrigogames.life4.model.mapping.LadderGoalMapper
+import dev.icerock.moko.mvvm.flow.CStateFlow
 import dev.icerock.moko.mvvm.flow.cMutableStateFlow
+import dev.icerock.moko.mvvm.flow.cStateFlow
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
 import dev.icerock.moko.resources.StringResource
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -26,7 +28,7 @@ class RankListViewModel(
     private val ladderGoalMapper: LadderGoalMapper by inject()
 
     private val _state = MutableStateFlow(UIRankList()).cMutableStateFlow()
-    val state: StateFlow<UIRankList> = _state
+    val state: CStateFlow<UIRankList> = _state.cStateFlow()
 
     init {
         _state.value = _state.value.copy(

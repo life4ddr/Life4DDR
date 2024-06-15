@@ -29,7 +29,7 @@ struct iOSApp: App {
                             Text("Placement View not implemented yet")
                                 .navigationBarBackButtonHidden(true)
                         case InitState.ranks:
-                            FirstRunRankListView()
+                            FirstRunRankListView(onPlacementClicked: { goToView(nextStep: InitState.placements) })
                         case InitState.done:
                             // MainView()
                             Text("Main View not implemented yet")

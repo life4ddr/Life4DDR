@@ -9,133 +9,162 @@
 import SwiftUI
 import Shared
 
-@available(iOS 16.0, *)
-struct RankSelection: View {
-    @Binding var selectedRank: LadderRank?
-    var newRankList: [LadderRank] = []
-    var categories: Dictionary<LadderRankClass, [LadderRank]>
-    var categoriesList: [LadderRankClass] = []
-    @State var currentCategory: LadderRankClass?
-    
-    init(selectedRank: Binding<LadderRank?>) {
-        // Setting selected rank state
-        self._selectedRank = selectedRank
+struct RankSelection: View {    
+    @Environment(\.colorScheme) var colorScheme
+    var noRank: UINoRank
+    var onRankClicked: (LadderRank?) -> (Void)
+    var categories: Dictionary<LadderRankClass?, [LadderRank?]>
+    var categoriesList: [LadderRankClass?] = []
+    @State var selectedCategory: LadderRankClass?
+    @State var showSelectorPanel: Bool = false
+    @State var compressSelectorPanel: Bool = false
         
-        // Converting Kotlin arrays to Swift arrays (this is probably silly code)
-        let ranks = LadderRank.values()
-        for i in (0..<Int(ranks.size)) {
-            newRankList.append(ranks.get(index: Int32(i))!)
-        }
+    init(ranks: [LadderRank?] = LadderRank.entries, noRank: UINoRank = UINoRank.Companion().DEFAULT, onRankClicked: @escaping (LadderRank?) -> (Void)) {
+        self.noRank = noRank
+        self.onRankClicked = onRankClicked
+        categories = Dictionary(grouping: ranks, by: { $0?.group })
+        // Must append from LadderRankClass values; can't do categories keys since it's unsorted
+        // Question: are there cases where "No Rank" will not show up?
+        categoriesList.append(nil)
         let rankClasses = LadderRankClass.values()
         for i in (0..<Int(rankClasses.size)) {
-            categoriesList.append(rankClasses.get(index: Int32(i))!)
+            let rankClass = rankClasses.get(index: Int32(i))!
+            categoriesList.append(rankClass)
         }
-        
-        // Mapping each rank to their category in a dictionary
-        categories = Dictionary<LadderRankClass, [LadderRank]>(grouping: newRankList, by: { $0.group })
     }
     
     var body: some View {
-        VStack(alignment: .center) {
+        VStack {
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack {
-                    Spacer().frame(width: 16)
                     ForEach(categoriesList, id: \.self) { category in
                         Button {
                             withAnimation {
-                                currentCategory = category
-                                selectedRank = nil
+                                selectedCategory = category
+                                showSelectorPanel = true
+                                compressSelectorPanel = false
                             }
                         } label: {
-                            RankImageWithTitle(rank: String(describing: category.toLadderRank()).lowercased(), text: String(describing: category), imageSize: 64, textSize: 20)
-                        }.buttonStyle(.plain)
-                        Spacer().frame(width: 16)
+                            RankImageWithTitle(
+                                rank: category?.toLadderRank(),
+                                text: category?.nameRes.desc().localized() ?? MR.strings().no_rank.desc().localized(),
+                                imageSize: 64,
+                                textSize: 20
+                            )
+                        }
+                        .padding(.horizontal, 8)
+                        .buttonStyle(.plain)
                     }
                 }
             }.frame(height: 100)
-            // TODO: adjust divider color on light/dark mode
-            Divider().overlay(.white)
-            if (currentCategory != nil) {
-                RankCategorySelector(categories: categories, categoriesList: categoriesList, currentCategory: $currentCategory, selectedRank: $selectedRank)
-            }
-            
-        }
-    }
-}
-
-@available(iOS 16.0, *)
-struct RankCategorySelector: View {
-    var categories: Dictionary<LadderRankClass, [LadderRank]>
-    var categoriesList: [LadderRankClass] = []
-    @Binding var currentCategory: LadderRankClass?
-    @Binding var selectedRank: LadderRank?
-    
-    // this is temporary
-    // TODO: figure out how to retrieve strings via StringResource
-    let romanNumerals = ["I", "II", "III", "IV", "V"]
-    
-    // TODO: animate this view when switching current category... correctly
-    var body: some View {
-        if (currentCategory != nil) {
-            if (selectedRank != nil) {
-                HStack {
-                    ForEach(0..<categories[currentCategory!]!.count) { i in
-                        Button {
-                            withAnimation {
-                                selectedRank = categories[currentCategory!]![i]
-                            }
-                        } label: {
-                            RankImageWithTitle(rank: String(describing: categories[currentCategory!]![i]).lowercased(), text: romanNumerals[i], imageSize: 48, textSize: 20).frame(maxWidth: .infinity)
-                        }.buttonStyle(.plain)
-                    }
-                }.transition(.push(from: .top))
-            } else {
-                VStack {
-                    HStack {
-                        ForEach(0..<3) { i in
-                            Button {
-                                withAnimation {
-                                    selectedRank = categories[currentCategory!]![i]
-                                }
-                            } label: {
-                                RankImageWithTitle(rank: String(describing: categories[currentCategory!]![i]).lowercased(), text: "\(String(describing: categories[currentCategory!]![i]).dropLast()) \(romanNumerals[i])", imageSize: 84, textSize: 20).frame(maxWidth: .infinity)
-                            }.buttonStyle(.plain)
-                        }
-                    }
-                    Spacer().frame(height: 16)
-                    HStack {
-                        ForEach(3..<5) { i in
-                            Button {
-                                withAnimation {
-                                    selectedRank = categories[currentCategory!]![i]
-                                }
-                            } label: {
-                                RankImageWithTitle(rank: String(describing: categories[currentCategory!]![i]).lowercased(), text: "\(String(describing: categories[currentCategory!]![i]).dropLast()) \(romanNumerals[i])", imageSize: 84, textSize: 20).frame(maxWidth: .infinity)
-                            }.buttonStyle(.plain)
-                        }
-                    }
-                }.transition(.push(from: .top))
+            Divider().overlay(colorScheme == .dark ? .white : .black)
+            // TODO: add the proper animations/transitions when showing ranks
+            if (showSelectorPanel) {
+                let availableRanks = categories[selectedCategory]
+                if (availableRanks!.count < 5) {
+                    NoRankDetails(noRank: noRank)
+                } else {
+                    RankCategorySelector(
+                        availableRanks: availableRanks!,
+                        onRankClicked: onRankClicked,
+                        compressed: $compressSelectorPanel
+                    )
+                }
             }
         }
     }
 }
 
-@available(iOS 15.0, *)
-struct RankImageWithTitle: View {
-    var rank: String
-    var text: String
-    var imageSize: Int
-    var textSize: Int
+struct NoRankDetails: View {
+    var noRank: UINoRank
+    
     var body: some View {
         VStack {
-            Image(rank)
+            Text(noRank.bodyText.desc().localized())
+            Spacer().frame(height: 16)
+            Button {
+                withAnimation {
+                    // TODO: onRankRejected
+                }
+            } label: {
+                Text(noRank.buttonText.desc().localized())
+                    .padding()
+                    .background(Color(red: 1, green: 0, blue: 0.44))
+                    .foregroundColor(.white)
+                    .clipShape(Capsule())
+                    .font(.system(size: 16, weight: .medium))
+            }
+        }.padding(EdgeInsets(top: 16, leading: 24, bottom: 16, trailing: 24))
+    }
+}
+
+struct RankCategorySelector: View {
+    var availableRanks: [LadderRank?]
+    var onRankClicked: (LadderRank?) -> (Void)
+    @Binding var compressed: Bool
+    
+    var body: some View {
+        if compressed {
+            HStack {
+                ForEach(availableRanks, id: \.self) { rank in
+                    Button {
+                        withAnimation {
+                            onRankClicked(rank)
+                        }
+                    } label: {
+                        RankImageWithTitle(rank: rank, text: rank!.categoryNameRes.desc().localized(), imageSize: 48)
+                    }.buttonStyle(.plain)
+                }
+            }
+        } else {
+            VStack {
+                HStack {
+                    ForEach(availableRanks[0..<3], id: \.self) { rank in
+                        Button {
+                            withAnimation {
+                                compressed = true
+                                onRankClicked(rank)
+                            }
+                        } label: {
+                            RankImageWithTitle(rank: rank, text: rank!.nameRes.desc().localized(), imageSize: 84)
+                        }.buttonStyle(.plain)
+                    }
+                }
+                Spacer().frame(height: 16)
+                HStack {
+                    ForEach(availableRanks[3..<5], id: \.self) { rank in
+                        Button {
+                            withAnimation {
+                                compressed = true
+                                onRankClicked(rank)
+                            }
+                        } label: {
+                            RankImageWithTitle(rank: rank, text: rank!.nameRes.desc().localized(), imageSize: 84)
+                        }.buttonStyle(.plain)
+                    }
+                }
+            }
+        }
+    }
+}
+
+struct RankImageWithTitle: View {
+    var rank: LadderRank?
+    var text: String
+    var imageSize: Int
+    var textSize: Int = 20
+    
+    var body: some View {
+        VStack {
+            Image(rank != nil ? String(describing: rank!).lowercased() : "copper1")
                 .resizable()
                 .frame(width: CGFloat(imageSize), height: CGFloat(imageSize))
+                .saturation(rank != nil ? 1.0 : 0.0)
             Text(text)
                 .font(.system(size: CGFloat(textSize), weight: .heavy))
                 .frame(width: CGFloat(imageSize) + 20.0)
                 .minimumScaleFactor(0.5)
                 .lineLimit(1)
-        }
+        }.frame(maxWidth: .infinity)
     }
 }
