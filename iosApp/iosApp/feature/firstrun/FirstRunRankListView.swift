@@ -9,7 +9,6 @@
 import SwiftUI
 import Shared
 
-@available(iOS 16.0, *)
 struct FirstRunRankListView: View {
     @ObservedObject var viewModel: RankListViewModel = RankListViewModel(isFirstRun: true)
     @State var state: UIRankList?
@@ -63,7 +62,6 @@ struct FirstRunRankListView: View {
     }
 }
 
-@available(iOS 16.0, *)
 #Preview {
     FirstRunRankListView(onPlacementClicked: {})
 }

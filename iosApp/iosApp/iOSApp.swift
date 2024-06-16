@@ -25,9 +25,7 @@ struct iOSApp: App {
                 .navigationDestination(for: InitState.self) { initState in
                     switch initState {
                         case InitState.placements:
-                            // PlacementListView()
-                            Text("Placement View not implemented yet")
-                                .navigationBarBackButtonHidden(true)
+                            PlacementListView(onRanksClicked: { goToView(nextStep: InitState.ranks) })
                         case InitState.ranks:
                             FirstRunRankListView(onPlacementClicked: { goToView(nextStep: InitState.placements) })
                         case InitState.done:

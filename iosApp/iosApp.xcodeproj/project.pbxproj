@@ -12,6 +12,7 @@
 		19424A4F2B8EB0AD0054E112 /* RankListSwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19424A4E2B8EB0AD0054E112 /* RankListSwiftUI.swift */; };
 		1956B5432B9F8F5900BD5FF8 /* iosDataReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1956B5422B9F8F5900BD5FF8 /* iosDataReader.swift */; };
 		195C48132B8D587D003439C9 /* FirstRunRankListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 195C48122B8D587D003439C9 /* FirstRunRankListView.swift */; };
+		197ECD712C1E358C003B17C2 /* PlacementListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 197ECD702C1E358C003B17C2 /* PlacementListView.swift */; };
 		198D1B982B8AAB9400021CD7 /* FirstRunView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 198D1B972B8AAB9400021CD7 /* FirstRunView.swift */; };
 		19BBD3A62B92C19600700A66 /* LadderSwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19BBD3A52B92C19600700A66 /* LadderSwiftUI.swift */; };
 		19C92BD62C13DDE600570D3C /* ViewModelState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C92BD12C13DDE600570D3C /* ViewModelState.swift */; };
@@ -29,6 +30,7 @@
 		19424A4E2B8EB0AD0054E112 /* RankListSwiftUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankListSwiftUI.swift; sourceTree = "<group>"; };
 		1956B5422B9F8F5900BD5FF8 /* iosDataReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iosDataReader.swift; sourceTree = "<group>"; };
 		195C48122B8D587D003439C9 /* FirstRunRankListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstRunRankListView.swift; sourceTree = "<group>"; };
+		197ECD702C1E358C003B17C2 /* PlacementListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacementListView.swift; sourceTree = "<group>"; };
 		198D1B972B8AAB9400021CD7 /* FirstRunView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstRunView.swift; sourceTree = "<group>"; };
 		19BBD3A52B92C19600700A66 /* LadderSwiftUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LadderSwiftUI.swift; sourceTree = "<group>"; };
 		19C92BD12C13DDE600570D3C /* ViewModelState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModelState.swift; sourceTree = "<group>"; };
@@ -87,6 +89,7 @@
 			children = (
 				198D1B972B8AAB9400021CD7 /* FirstRunView.swift */,
 				195C48122B8D587D003439C9 /* FirstRunRankListView.swift */,
+				197ECD702C1E358C003B17C2 /* PlacementListView.swift */,
 			);
 			path = firstrun;
 			sourceTree = "<group>";
@@ -259,6 +262,7 @@
 				19C92BD82C13DDE600570D3C /* ViewModelStateNullable.swift in Sources */,
 				19C92BDA2C13DDE600570D3C /* ViewModelObservable.swift in Sources */,
 				1956B5432B9F8F5900BD5FF8 /* iosDataReader.swift in Sources */,
+				197ECD712C1E358C003B17C2 /* PlacementListView.swift in Sources */,
 				198D1B982B8AAB9400021CD7 /* FirstRunView.swift in Sources */,
 				195C48132B8D587D003439C9 /* FirstRunRankListView.swift in Sources */,
 				19C92BD92C13DDE600570D3C /* ViewModelBinding.swift in Sources */,
