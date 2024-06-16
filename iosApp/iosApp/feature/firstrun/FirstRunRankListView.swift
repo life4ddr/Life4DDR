@@ -13,7 +13,7 @@ struct FirstRunRankListView: View {
     @ObservedObject var viewModel: RankListViewModel = RankListViewModel(isFirstRun: true)
     @State var state: UIRankList?
     var onPlacementClicked: () -> (Void)
-    // TODO: implement goToMainScreen and onRankSelected
+    var goToMainView: () -> (Void)
     
     var body: some View {
         VStack {
@@ -24,8 +24,11 @@ struct FirstRunRankListView: View {
             RankSelection(
                 ranks: state?.ranks as? [LadderRank?] ?? [],
                 noRank: state?.noRank ?? UINoRank.Companion().DEFAULT,
-                onRankClicked: viewModel.setRankSelected
-                // TODO: after onRankSelected is implemented, add onRankRejected here
+                onRankClicked: viewModel.setRankSelected,
+                onRankRejected: {
+                    viewModel.saveRank(ladderRank: nil)
+                    goToMainView()
+                }
             )
             // TODO: add LadderGoals here when ladderData gets set in state
             Spacer()
@@ -63,5 +66,5 @@ struct FirstRunRankListView: View {
 }
 
 #Preview {
-    FirstRunRankListView(onPlacementClicked: {})
+    FirstRunRankListView(onPlacementClicked: {}, goToMainView: {})
 }

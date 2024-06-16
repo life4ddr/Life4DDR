@@ -25,9 +25,15 @@ struct iOSApp: App {
                 .navigationDestination(for: InitState.self) { initState in
                     switch initState {
                         case InitState.placements:
-                            PlacementListView(onRanksClicked: { goToView(nextStep: InitState.ranks) })
+                            PlacementListView(
+                                onRanksClicked: { goToView(nextStep: InitState.ranks) },
+                                goToMainView: { goToView(nextStep: InitState.done) }
+                            )
                         case InitState.ranks:
-                            FirstRunRankListView(onPlacementClicked: { goToView(nextStep: InitState.placements) })
+                            FirstRunRankListView(
+                                onPlacementClicked: { goToView(nextStep: InitState.placements) },
+                                goToMainView: { goToView(nextStep: InitState.done) }
+                            )
                         case InitState.done:
                             // MainView()
                             Text("Main View not implemented yet")

@@ -13,15 +13,17 @@ struct RankSelection: View {
     @Environment(\.colorScheme) var colorScheme
     var noRank: UINoRank
     var onRankClicked: (LadderRank?) -> (Void)
+    var onRankRejected: () -> (Void)
     var categories: Dictionary<LadderRankClass?, [LadderRank?]>
     var categoriesList: [LadderRankClass?] = []
     @State var selectedCategory: LadderRankClass?
     @State var showSelectorPanel: Bool = false
     @State var compressSelectorPanel: Bool = false
         
-    init(ranks: [LadderRank?] = LadderRank.entries, noRank: UINoRank = UINoRank.Companion().DEFAULT, onRankClicked: @escaping (LadderRank?) -> (Void)) {
+    init(ranks: [LadderRank?] = LadderRank.entries, noRank: UINoRank = UINoRank.Companion().DEFAULT, onRankClicked: @escaping (LadderRank?) -> (Void), onRankRejected: @escaping () -> Void) {
         self.noRank = noRank
         self.onRankClicked = onRankClicked
+        self.onRankRejected = onRankRejected
         categories = Dictionary(grouping: ranks, by: { $0?.group })
         // Must append from LadderRankClass values; can't do categories keys since it's unsorted
         // Question: are there cases where "No Rank" will not show up?
@@ -62,7 +64,7 @@ struct RankSelection: View {
             if (showSelectorPanel) {
                 let availableRanks = categories[selectedCategory]
                 if (availableRanks!.count < 5) {
-                    NoRankDetails(noRank: noRank)
+                    NoRankDetails(noRank: noRank, onRankRejected: onRankRejected)
                 } else {
                     RankCategorySelector(
                         availableRanks: availableRanks!,
@@ -77,6 +79,7 @@ struct RankSelection: View {
 
 struct NoRankDetails: View {
     var noRank: UINoRank
+    var onRankRejected: () -> (Void)
     
     var body: some View {
         VStack {
@@ -84,7 +87,7 @@ struct NoRankDetails: View {
             Spacer().frame(height: 16)
             Button {
                 withAnimation {
-                    // TODO: onRankRejected
+                    onRankRejected()
                 }
             } label: {
                 Text(noRank.buttonText.desc().localized())

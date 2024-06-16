@@ -10,11 +10,15 @@ import SwiftUI
 import Shared
 
 struct PlacementListView: View {
+    @Environment(\.colorScheme) var colorScheme
     @ObservedObject var viewModel: PlacementListViewModel = PlacementListViewModel()
     @State var data: UIPlacementListScreen?
     var onRanksClicked: () -> (Void)
+    var goToMainView: () -> (Void)
+    // TODO: implement onPlacementSelected, which will require PlacementDetailsView
     
     @State var selectedPlacement: String?
+    @State var closeConfirmShown: Bool = false
     
     var body: some View {
         VStack {
@@ -38,7 +42,6 @@ struct PlacementListView: View {
                                     selectedPlacement = placement.id
                                 }
                             }
-                            // TODO: onPlacementSelected
                         )
                     }
                 }
@@ -58,14 +61,23 @@ struct PlacementListView: View {
             }
             Button {
                 withAnimation {
-                    // TODO: show alert for "Skip Placement?"
+                    closeConfirmShown = true
                 }
             } label: {
                 Text(MR.strings().start_no_rank.desc().localized())
                     .padding()
-                    // TODO: account for light mode
-                    .foregroundColor(.white)
+                    .foregroundColor(colorScheme == .dark ? .white : .black)
                     .font(.system(size: 16, weight: .medium))
+            }.alert(isPresented: $closeConfirmShown) {
+                Alert(
+                    title: Text(MR.strings().placement_close_confirm_title.desc().localized()),
+                    message: Text(MR.strings().placement_close_confirm_body.desc().localized()),
+                    primaryButton: .destructive(Text("Confirm")) {
+                        viewModel.setFirstRunState(state: InitState.done)
+                        goToMainView()
+                    },
+                    secondaryButton: .cancel()
+                )
             }
         }
         .padding(16)
@@ -110,7 +122,7 @@ struct PlacementItem: View {
                     }
                     Button {
                         withAnimation {
-                            // TODO: onPlacementSelected
+                            
                         }
                     } label: {
                         Text(MR.strings().placement_start.desc().localized())
@@ -170,5 +182,5 @@ struct PlacementSongItem: View {
 }
 
 #Preview {
-    PlacementListView(onRanksClicked: {})
+    PlacementListView(onRanksClicked: {}, goToMainView: {})
 }
