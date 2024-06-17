@@ -60,7 +60,6 @@ struct RankSelection: View {
                 }
             }.frame(height: 100)
             Divider().overlay(colorScheme == .dark ? .white : .black)
-            // TODO: add the proper animations/transitions when showing ranks
             if (showSelectorPanel) {
                 let availableRanks = categories[selectedCategory]
                 if (availableRanks!.count < 5) {
@@ -97,7 +96,9 @@ struct NoRankDetails: View {
                     .clipShape(Capsule())
                     .font(.system(size: 16, weight: .medium))
             }
-        }.padding(EdgeInsets(top: 16, leading: 24, bottom: 16, trailing: 24))
+        }
+        .padding(EdgeInsets(top: 16, leading: 24, bottom: 16, trailing: 24))
+        .transition(.move(edge: .top).combined(with: .opacity))
     }
 }
 
@@ -116,9 +117,10 @@ struct RankCategorySelector: View {
                         }
                     } label: {
                         RankImageWithTitle(rank: rank, text: rank!.categoryNameRes.desc().localized(), imageSize: 48)
-                    }.buttonStyle(.plain)
+                    }
+                    .buttonStyle(.plain)
                 }
-            }
+            }.transition(.move(edge: .top).combined(with: .opacity))
         } else {
             VStack {
                 HStack {
@@ -130,7 +132,9 @@ struct RankCategorySelector: View {
                             }
                         } label: {
                             RankImageWithTitle(rank: rank, text: rank!.nameRes.desc().localized(), imageSize: 84)
-                        }.buttonStyle(.plain)
+                        }
+                        .buttonStyle(.plain)
+                        .transition(.move(edge: .top).combined(with: .opacity))
                     }
                 }
                 Spacer().frame(height: 16)
@@ -143,10 +147,12 @@ struct RankCategorySelector: View {
                             }
                         } label: {
                             RankImageWithTitle(rank: rank, text: rank!.nameRes.desc().localized(), imageSize: 84)
-                        }.buttonStyle(.plain)
+                        }
+                        .buttonStyle(.plain)
+                        .transition(.move(edge: .top).combined(with: .opacity))
                     }
                 }
-            }
+            }.transition(.move(edge: .top).combined(with: .opacity))
         }
     }
 }

@@ -31,7 +31,6 @@ struct PlacementListView: View {
                         .fixedSize(horizontal: false, vertical: true)
                         .padding(.bottom, 16)
                     ForEach(data?.placements ?? [], id: \.self) { placement in
-                        // TODO: add theming and apply it to background/font
                         PlacementItem(
                             data: placement,
                             expanded: selectedPlacement == placement.id,
@@ -100,13 +99,14 @@ struct PlacementItem: View {
     var onExpand: () -> (Void)
     
     var body: some View {
+        let rankString = data.placementName.desc().localized()
         VStack {
             HStack {
                 Image(String(describing: data.rankIcon).lowercased())
                     .resizable()
                     .frame(width: 64.0, height: 64.0)
                     .padding(.trailing, 8)
-                Text(data.placementName.desc().localized())
+                Text(rankString)
                     .font(.system(size: 28, weight: .bold))
                     .foregroundColor(Color(data.color.getUIColor()))
                 Spacer()
@@ -118,7 +118,7 @@ struct PlacementItem: View {
             if (expanded) {
                 VStack {
                     ForEach(data.songs, id: \.self) { song in
-                        PlacementSongItem(data: song)
+                        PlacementSongItem(data: song, textColor: "\(rankString.lowercased())ContainerText")
                     }
                     Button {
                         withAnimation {
@@ -127,14 +127,14 @@ struct PlacementItem: View {
                     } label: {
                         Text(MR.strings().placement_start.desc().localized())
                             .padding()
-                            .foregroundColor(.white)
+                            .foregroundColor(Color("\(rankString.lowercased())ContainerText"))
                             .font(.system(size: 22, weight: .bold))
                     }
                 }
             }
         }
         .padding(EdgeInsets(top: 12, leading: 16, bottom: 12, trailing: 16))
-        .background(Color(red: 0.2, green: 0.2, blue: 0.2))
+        .background(Color("\(rankString.lowercased())Container"))
         .clipShape(RoundedRectangle(cornerRadius: 16.0))
         .onTapGesture {
             withAnimation {
@@ -146,6 +146,7 @@ struct PlacementItem: View {
 
 struct PlacementSongItem: View {
     var data: UITrialSong
+    var textColor: String
     
     var body: some View {
         HStack {
@@ -157,10 +158,12 @@ struct PlacementSongItem: View {
             VStack {
                 Text(data.songNameText)
                     .font(.system(size: 16, weight: .bold))
+                    .foregroundColor(Color(textColor))
                     .minimumScaleFactor(0.5)
                     .lineLimit(1)
 //                Text(data.subtitleText)
 //                    .font(.system(size: 14, weight: .bold))
+//                    .foregroundColor(Color(textColor))
 //                    .minimumScaleFactor(0.5)
 //                    .lineLimit(1)
             }

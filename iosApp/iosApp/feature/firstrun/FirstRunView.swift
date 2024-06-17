@@ -91,7 +91,6 @@ struct FirstRunView: View {
 
 struct FirstRunHeader: View {
     var showWelcome: Bool
-    @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
         VStack {
@@ -100,16 +99,9 @@ struct FirstRunHeader: View {
                     .font(.system(size: 24, weight: .heavy))
                     .padding(.bottom, 8)
             }
-            if (colorScheme == .dark) {
-                Image("LIFE4-Logo")
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 300)
-            } else {
-                Image("LIFE4-Logo")
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 300)
-                    .colorInvert()
-            }
+            Image("LIFE4-Logo")
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 300)
         }
     }
 }
