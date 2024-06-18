@@ -5,37 +5,46 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.perrigogames.life4.android.feature.ladder.LadderGoalsScreen
 import com.perrigogames.life4.android.feature.profile.PlayerProfileScreen
+import com.perrigogames.life4.android.feature.scorelist.ScoreListScreen
 import com.perrigogames.life4.android.feature.settings.SettingsScreen
 import com.perrigogames.life4.android.feature.trial.TrialListScreen
+import com.perrigogames.life4.feature.ladder.LadderDestination
 import com.perrigogames.life4.feature.profile.PlayerProfileAction
 import com.perrigogames.life4.feature.profile.ProfileDestination
 import com.perrigogames.life4.feature.trials.TrialDestination
 
-fun NavGraphBuilder.profileNavigation(navController: NavController) {
+fun NavGraphBuilder.profileNavigation(
+    mainNavController: NavController,
+    profileNavController: NavController
+) {
     composable(ProfileDestination.Profile.route) {
         PlayerProfileScreen { action ->
             when (action) {
-                PlayerProfileAction.ChangeRank -> TODO()
+                PlayerProfileAction.ChangeRank -> {
+                    mainNavController.navigate(LadderDestination.RankList.route)
+                }
             }
         }
     }
 
     composable(ProfileDestination.Scores.route) {
-        LadderGoalsScreen()
+        ScoreListScreen()
     }
 
     composable(ProfileDestination.Trials.route) {
-        TrialListScreen(modifier = Modifier.fillMaxSize()) { selectedTrial ->
-            navController.navigate(TrialDestination.TrialDetails(selectedTrial).route)
-        }
+        TrialListScreen(
+            modifier = Modifier.fillMaxSize(),
+            onTrialSelected = { selectedTrial ->
+                mainNavController.navigate(TrialDestination.TrialDetails(selectedTrial).route)
+            }
+        )
     }
 
     composable(ProfileDestination.Settings.route) {
         SettingsScreen(
             modifier = Modifier.fillMaxSize(),
-            onClose = { navController.navigate(ProfileDestination.Profile.route) },
+            onClose = { mainNavController.popBackStack() },
             onNavigateToCredits = { TODO() }
         )
     }

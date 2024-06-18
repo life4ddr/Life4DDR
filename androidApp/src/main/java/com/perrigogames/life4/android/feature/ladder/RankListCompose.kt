@@ -1,6 +1,6 @@
 @file:Suppress("OPT_IN_USAGE")
 
-package com.perrigogames.life4.android.feature.ranklist
+package com.perrigogames.life4.android.feature.ladder
 
 import androidx.compose.animation.*
 import androidx.compose.foundation.layout.*

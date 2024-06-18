@@ -8,11 +8,12 @@ import com.perrigogames.life4.api.base.LocalUncachedDataReader
 import com.perrigogames.life4.db.GoalDatabaseHelper
 import com.perrigogames.life4.feature.firstrun.FirstRunSettingsManager
 import com.perrigogames.life4.feature.placements.PlacementManager
-import com.perrigogames.life4.feature.settings.UserInfoSettings
 import com.perrigogames.life4.feature.profile.UserRankManager
+import com.perrigogames.life4.feature.settings.LadderListSelectionSettings
+import com.perrigogames.life4.feature.settings.UserInfoSettings
+import com.perrigogames.life4.feature.settings.UserRankSettings
 import com.perrigogames.life4.feature.songlist.IgnoreListManager
 import com.perrigogames.life4.feature.songlist.SongDataManager
-import com.perrigogames.life4.feature.songlist.SongDatabaseHelper
 import com.perrigogames.life4.feature.songresults.ResultDatabaseHelper
 import com.perrigogames.life4.feature.songresults.SongResultsManager
 import com.perrigogames.life4.feature.trialrecords.TrialDatabaseHelper
@@ -25,8 +26,6 @@ import com.perrigogames.life4.ktor.Life4API
 import com.perrigogames.life4.ktor.Life4APIImpl
 import com.perrigogames.life4.model.*
 import com.perrigogames.life4.model.mapping.LadderGoalMapper
-import com.perrigogames.life4.feature.settings.LadderListSelectionSettings
-import com.perrigogames.life4.feature.settings.UserRankSettings
 import kotlinx.serialization.json.Json
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -61,7 +60,6 @@ fun initKoin(
 val coreModule = module {
     single { GoalDatabaseHelper(get()) }
     single { ResultDatabaseHelper(get()) }
-    single { SongDatabaseHelper(get()) }
     single { TrialDatabaseHelper(get()) }
 
     single<GithubDataAPI> { GithubDataImpl() }

@@ -11,19 +11,20 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.perrigogames.life4.android.navigation.profileNavigation
-import com.perrigogames.life4.android.navigation.trialNavigation
 import com.perrigogames.life4.feature.profile.MainScreenViewModel
 import com.perrigogames.life4.feature.profile.ProfileDestination
 import dev.icerock.moko.mvvm.createViewModelFactory
 
 @Composable
 fun MainScreen(
+    mainNavController: NavController,
     modifier: Modifier = Modifier,
     viewModel: MainScreenViewModel = viewModel(
         factory = createViewModelFactory { MainScreenViewModel() }
@@ -77,9 +78,10 @@ fun MainScreen(
 //        }
 
         NavHost(profileNavController, startDestination = ProfileDestination.Profile.route, Modifier.fillMaxSize().padding(innerPadding)) {
-            profileNavigation(navController = profileNavController)
-            trialNavigation(navController = profileNavController)
-
+            profileNavigation(
+                mainNavController = mainNavController,
+                profileNavController = profileNavController
+            )
         }
     }
 }

@@ -3,7 +3,7 @@ package com.perrigogames.life4.model.mapping
 import com.perrigogames.life4.data.BaseRankGoal
 import com.perrigogames.life4.db.GoalState
 import com.perrigogames.life4.enums.GoalStatus
-import com.perrigogames.life4.feature.laddergoals.UILadderGoal
+import com.perrigogames.life4.feature.ladder.UILadderGoal
 import com.perrigogames.life4.feature.songresults.SongResultsManager
 import com.perrigogames.life4.model.GoalStateManager
 import org.koin.core.component.KoinComponent

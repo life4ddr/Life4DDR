@@ -1,10 +1,6 @@
 package com.perrigogames.life4.android.feature.firstrun
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -18,7 +14,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.perrigogames.life4.android.compose.Paddings
 import com.perrigogames.life4.android.feature.ladder.LadderGoals
-import com.perrigogames.life4.android.feature.ranklist.RankSelection
+import com.perrigogames.life4.android.feature.ladder.RankSelection
 import com.perrigogames.life4.android.util.SizedSpacer
 import com.perrigogames.life4.android.view.compose.AutoResizedText
 import com.perrigogames.life4.enums.LadderRank

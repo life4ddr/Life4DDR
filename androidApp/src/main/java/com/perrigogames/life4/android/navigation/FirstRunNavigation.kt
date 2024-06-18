@@ -17,11 +17,9 @@ import com.perrigogames.life4.android.feature.firstrun.FirstRunRankListScreen
 import com.perrigogames.life4.android.feature.firstrun.FirstRunScreen
 import com.perrigogames.life4.android.feature.firstrun.PlacementDetailsScreen
 import com.perrigogames.life4.android.feature.firstrun.PlacementListScreen
-import com.perrigogames.life4.android.feature.ladder.LadderGoalsScreen
 import com.perrigogames.life4.android.feature.mainscreen.MainScreen
 import com.perrigogames.life4.android.popAndNavigate
 import com.perrigogames.life4.android.view.compose.ComposeWebView
-import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.feature.firstrun.FirstRunDestination
 import com.perrigogames.life4.feature.firstrun.InitState
 
@@ -52,9 +50,11 @@ fun NavGraphBuilder.firstRunNavigation(
 
     composable(
         route = FirstRunDestination.PlacementDetails.BASE_ROUTE,
-        arguments = listOf(navArgument("placement_id") { type = NavType.StringType })
+        arguments = listOf(
+            navArgument(FirstRunDestination.PlacementDetails.PLACEMENT_ID) { type = NavType.StringType }
+        )
     ) { backStackEntry ->
-        val placementId = backStackEntry.arguments?.getString("placement_id")
+        val placementId = backStackEntry.arguments?.getString(FirstRunDestination.PlacementDetails.PLACEMENT_ID)
         if (placementId != null) {
             PlacementDetailsScreen(placementId = placementId)
         } else {
@@ -78,18 +78,10 @@ fun NavGraphBuilder.firstRunNavigation(
         )
     }
 
-    composable(
-        route = FirstRunDestination.RankDetails.BASE_ROUTE,
-        arguments = listOf(navArgument("ladder_rank_id") { type = NavType.LongType })
-    ) { backStackEntry ->
-        val ladderRankId = backStackEntry.arguments?.getLong("ladder_rank_id")
-        LadderGoalsScreen(
-            targetRank = LadderRank.parse(ladderRankId)
-        )
-    }
-
     composable(FirstRunDestination.MainScreen.baseRoute) {
-        MainScreen()
+        MainScreen(
+            mainNavController = navController
+        )
     }
 
     composable("sanbai_test") {

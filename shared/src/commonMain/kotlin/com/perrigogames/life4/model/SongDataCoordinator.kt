@@ -27,11 +27,4 @@ class SongDataCoordinator : BaseModel() {
             songResultsManager.clearAllResults()
         }
     }
-
-    fun refreshSongDatabase() {
-        ladderDialogs.onRefreshSongDatabase {
-            songResultsManager.clearAllResults()
-            songDataManager.refreshSongDatabase(delete = true)
-        }
-    }
 }

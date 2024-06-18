@@ -8,7 +8,7 @@ import com.russhwolf.settings.set
 import org.koin.core.component.inject
 
 enum class MajorUpdate {
-    SONG_DB, A20_REQUIRED, DOUBLES_FIX
+    BASE_VERSION
 }
 
 class MajorUpdateManager: BaseModel() {

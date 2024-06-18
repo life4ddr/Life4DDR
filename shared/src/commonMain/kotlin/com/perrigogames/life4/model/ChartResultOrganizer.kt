@@ -62,12 +62,13 @@ class ChartResultOrganizer: KoinComponent {
             return cache[config] ?: createConfiguration(config).also { cache[config] = it }
         }
 
-        private fun createConfiguration(config: FilterConfiguration?): ChartResults {
+        private fun createConfiguration(config: FilterConfiguration = FilterConfiguration()): ChartResults {
             var out = results
-            if (config?.populated == true) {
-                out = out.filter { it.result != null }
-            }
-            if (config?.filterIgnored == true) {
+                .filter {
+                    (config.populated && it.result != null)
+                            || (config.empty && it.result == null)
+                }
+            if (config.filterIgnored) {
                 out = out.filter { !ignoredCharts.contains(it.chart) }
             }
             return ChartResults(out)
@@ -135,6 +136,7 @@ class ChartResultOrganizer: KoinComponent {
 }
 
 data class FilterConfiguration(
-    val populated: Boolean,
-    val filterIgnored: Boolean,
+    val populated: Boolean = true,
+    val empty: Boolean = true,
+    val filterIgnored: Boolean = false,
 )

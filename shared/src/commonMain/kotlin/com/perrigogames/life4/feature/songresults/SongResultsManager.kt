@@ -2,21 +2,17 @@ package com.perrigogames.life4.feature.songresults
 
 import co.touchlab.kermit.Logger
 import com.perrigogames.life4.GameConstants
-import com.perrigogames.life4.data.BaseRankGoal
-import com.perrigogames.life4.data.LadderGoalProgress
-import com.perrigogames.life4.data.MFCPointsStackedGoal
-import com.perrigogames.life4.data.SongsClearGoal
-import com.perrigogames.life4.data.StackedRankGoalWrapper
-import com.perrigogames.life4.data.TrialStackedGoal
+import com.perrigogames.life4.data.*
 import com.perrigogames.life4.enums.ClearType
+import com.perrigogames.life4.enums.PlayStyle
 import com.perrigogames.life4.feature.songlist.IgnoreListManager
 import com.perrigogames.life4.feature.songlist.SongDataManager
-import com.perrigogames.life4.feature.trialrecords.TrialRecordsManager
-import com.perrigogames.life4.feature.trials.TrialManager
 import com.perrigogames.life4.injectLogger
 import com.perrigogames.life4.model.BaseModel
 import com.perrigogames.life4.model.ChartResultOrganizer
 import com.perrigogames.life4.model.safeScore
+import dev.icerock.moko.mvvm.flow.cMutableStateFlow
+import kotlinx.coroutines.flow.*
 import org.koin.core.component.inject
 import kotlin.math.max
 import kotlin.math.min
@@ -27,13 +23,60 @@ class SongResultsManager: BaseModel() {
     private val ignoreListManager: IgnoreListManager by inject()
     private val songDataManager: SongDataManager by inject()
     private val resultDbHelper: ResultDatabaseHelper by inject()
-    private val trialManager: TrialManager by inject()
-    private val trialRecordsManager: TrialRecordsManager by inject()
 
     private val chartResultOrganizer = ChartResultOrganizer()
 
+    private val library = MutableStateFlow<List<ChartResultPair>>(emptyList()).cMutableStateFlow()
+    private val libraryByPlayStyle: Map<PlayStyle?, StateFlow<List<ChartResultPair>>> = mapOf(
+        null to library,
+        PlayStyle.SINGLE to library.map { list ->
+            list.filter { it.chart.playStyle == PlayStyle.SINGLE }
+        }.stateIn(mainScope, SharingStarted.Eagerly, emptyList()),
+        PlayStyle.DOUBLE to library.map { list ->
+            list.filter { it.chart.playStyle == PlayStyle.DOUBLE }
+        }.stateIn(mainScope, SharingStarted.Eagerly, emptyList())
+    )
+
+    fun library(playStyle: PlayStyle? = null) = libraryByPlayStyle[playStyle]
+
     fun refresh() {
         chartResultOrganizer.refresh()
+    }
+
+    fun resultsForConfig(config: ScoreListContentConfig): StateFlow<List<ChartResultPair>> {
+        return libraryByPlayStyle[config.playStyle]!!
+            .map {
+                var temp = it
+
+                if (config.difficultyClasses != null) {
+                    temp = temp.filter { it.chart.difficultyClass in config.difficultyClasses }
+                }
+
+                if (config.difficultyNumbers != null) {
+                    temp = temp.filter { it.chart.difficultyNumber in config.difficultyNumbers }
+                }
+
+                if (config.clearTypes != null) {
+                    temp = temp.filter { chart ->
+                        val clearType = chart.result?.clearType ?: ClearType.NO_PLAY
+                        clearType in config.clearTypes
+                    }
+                }
+
+                if (config.minScore != null || config.maxScore != null) {
+                    val minScore = config.minScore ?: 0
+                    val maxScore = config.maxScore ?: Long.MAX_VALUE
+                    val allowNullScores = minScore == 0L
+                    temp = temp.filter { chart ->
+                        val score = chart.result?.score
+                        (score == null && allowNullScores)
+                                || (score != null && score >= minScore && score <= maxScore)
+                    }
+                }
+
+                temp
+            }
+            .stateIn(mainScope, SharingStarted.Lazily, initialValue = emptyList())
     }
 
     fun getGoalProgress(goal: BaseRankGoal): LadderGoalProgress? {

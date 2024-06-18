@@ -1,4 +1,4 @@
-package com.perrigogames.life4.feature.laddergoals
+package com.perrigogames.life4.feature.ladder
 
 import co.touchlab.kermit.Logger
 import com.perrigogames.life4.data.RankEntry

@@ -1,4 +1,4 @@
-package com.perrigogames.life4.feature.laddergoals
+package com.perrigogames.life4.feature.ladder
 
 val why = listOf(
     UILadderDetailItem(leftText = "BRILLIANT 2U", rightText = "NAOKI", leftWeight = 0.6f, rightWeight = 0.4f),

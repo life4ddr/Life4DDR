@@ -1,4 +1,4 @@
-package com.perrigogames.life4.feature.laddergoals
+package com.perrigogames.life4.feature.ladder
 
 import com.perrigogames.life4.enums.DifficultyClass
 import com.perrigogames.life4.longNumberString

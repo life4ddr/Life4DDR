@@ -28,7 +28,7 @@ import com.perrigogames.life4.android.util.SizedSpacer
 import com.perrigogames.life4.android.view.compose.Life4Divider
 import com.perrigogames.life4.enums.DifficultyClass
 import com.perrigogames.life4.enums.LadderRank
-import com.perrigogames.life4.feature.laddergoals.*
+import com.perrigogames.life4.feature.ladder.*
 import com.perrigogames.life4.util.ViewState
 import dev.icerock.moko.mvvm.createViewModelFactory
 import dev.icerock.moko.resources.compose.colorResource

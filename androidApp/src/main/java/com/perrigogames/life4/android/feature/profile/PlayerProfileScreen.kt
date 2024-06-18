@@ -17,7 +17,7 @@ import com.perrigogames.life4.android.compose.Typography
 import com.perrigogames.life4.android.feature.ladder.LadderGoals
 import com.perrigogames.life4.android.util.SizedSpacer
 import com.perrigogames.life4.android.view.compose.RankImage
-import com.perrigogames.life4.feature.laddergoals.RankListAction
+import com.perrigogames.life4.feature.ladder.RankListAction
 import com.perrigogames.life4.feature.profile.PlayerInfoViewState
 import com.perrigogames.life4.feature.profile.PlayerProfileAction
 import com.perrigogames.life4.feature.profile.PlayerProfileViewModel
