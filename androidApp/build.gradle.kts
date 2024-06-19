@@ -114,11 +114,3 @@ dependencies {
     implementation(libs.glide)
     implementation(libs.coil)
 }
-
-tasks.register<Copy>("copyDataFiles") {
-    from("../json")
-    into("./src/main/res/raw")
-}
-tasks.named("preBuild") {
-    dependsOn(":androidApp:copyDataFiles")
-}

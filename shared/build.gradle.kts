@@ -106,3 +106,7 @@ kswift {
     install(dev.icerock.moko.kswift.plugin.feature.PlatformExtensionFunctionsFeature)
     install(dev.icerock.moko.kswift.plugin.feature.DataClassCopyFeature)
 }
+
+tasks.matching { it.name == "generateMRcommonMain" }.configureEach {
+    dependsOn(":copyDataFiles")
+}

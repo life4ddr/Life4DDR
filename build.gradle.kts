@@ -50,3 +50,8 @@ subprojects {
         }
     }
 }
+
+tasks.register<Copy>("copyDataFiles") {
+    from("./json")
+    into("./src/commonMain/resources/MR/files")
+}

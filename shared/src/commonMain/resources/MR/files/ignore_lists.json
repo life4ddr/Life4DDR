@@ -367,6 +367,7 @@
       ]
     }
   ],
+  "default_ignore_list": "A20PLUS_US",
   "lists": [
     {
       "id": "A3_US",
@@ -472,6 +473,16 @@
         "a3_golden_league_silver",
         "a3_golden_league_gold"
       ]
+    },
+    {
+      "id": "A20PLUS_US",
+      "name": "DDR A20+",
+      "base_version": "DDR_A20_PLUS"
+    },
+    {
+      "id": "ALL_MUSIC_A20PLUS",
+      "name": "All Songs",
+      "base_version": "DDR_A20_PLUS"
     },
     {
       "id": "ALL_MUSIC",

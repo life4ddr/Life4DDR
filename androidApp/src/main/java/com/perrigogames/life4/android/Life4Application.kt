@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import androidx.preference.PreferenceManager
 import com.perrigogames.life4.AppInfo
+import com.perrigogames.life4.MR
 import com.perrigogames.life4.android.util.AndroidNotifications
 import com.perrigogames.life4.android.util.setupNotifications
 import com.perrigogames.life4.feature.placements.PlacementManager
@@ -43,13 +44,13 @@ class Life4Application: Application() {
         initKoin(
             makeNativeModule(
                 appInfo = AndroidAppInfo,
-                ignoresReader = AndroidDataReader(R.raw.ignore_lists, IGNORES_FILE_NAME),
-                motdReader = AndroidDataReader(R.raw.motd, MOTD_FILE_NAME),
-                partialDifficultyReader = AndroidDataReader(R.raw.partial_difficulties, PARTIAL_DIFFICULTY_FILE_NAME),
-                placementsReader = AndroidUncachedDataReader(R.raw.placements),
-                ranksReader = AndroidDataReader(R.raw.ranks, RANKS_FILE_NAME),
-                songsReader = AndroidDataReader(R.raw.songs, SONGS_FILE_NAME),
-                trialsReader = AndroidDataReader(R.raw.trials, TRIALS_FILE_NAME),
+                ignoresReader = AndroidDataReader(MR.files.ignore_lists.rawResId, IGNORES_FILE_NAME),
+                motdReader = AndroidDataReader(MR.files.motd.rawResId, MOTD_FILE_NAME),
+                partialDifficultyReader = AndroidDataReader(MR.files.partial_difficulties.rawResId, PARTIAL_DIFFICULTY_FILE_NAME),
+                placementsReader = AndroidUncachedDataReader(MR.files.placements.rawResId),
+                ranksReader = AndroidDataReader(MR.files.ranks.rawResId, RANKS_FILE_NAME),
+                songsReader = AndroidDataReader(MR.files.songs.rawResId, SONGS_FILE_NAME),
+                trialsReader = AndroidDataReader(MR.files.trials.rawResId, TRIALS_FILE_NAME),
                 notifications = AndroidNotifications(),
             ) {
                 single<Context> { this@Life4Application }

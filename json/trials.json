@@ -8,33 +8,25 @@
             "type": "trial",
             "songs": [
                 {
-                    "name": "MY SUMMER LOVE",
                     "skillId": "6Ddo196olOPi9IQdbQ8Qbd8do8Q1obOD",
-                    "difficulty": 12,
                     "difficulty_class": "expert",
                     "ex": 780,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/MY+SUMMER+LOVE-jacket.webp"
                 },
                 {
-                    "name": "Secret Rendez-vous",
                     "skillId": "Db9D6Old6lIo01q0qlQ0dD1oDdbdob8I",
-                    "difficulty": 12,
                     "difficulty_class": "expert",
                     "ex": 747,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Secret+Rendez-vous-jacket.webp"
                 },
                 {
-                    "name": "SEDUCTION",
                     "skillId": "oIQo8IQPbobO6bioiqqdP6P6O8898DOQ",
-                    "difficulty": 12,
                     "difficulty_class": "expert",
                     "ex": 1194,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/SEDUCTION-jacket.webp"
                 },
                 {
-                    "name": "She is my wife",
                     "skillId": "0qDb0d9oIoQPP1Ql0o0OOPoPDbQ699Iq",
-                    "difficulty": 12,
                     "difficulty_class": "expert",
                     "ex": 981,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/She+is+my+wife-jacket.webp"
@@ -110,33 +102,25 @@
             "type": "trial",
             "songs": [
                 {
-                    "name": "One Sided Love",
                     "skillId": "OQb96d6qD9bPdD819QO0b88blIllldoi",
-                    "difficulty": 10,
                     "difficulty_class": "expert",
                     "ex": 897,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/One+Sided+Love-jacket.webp"
                 },
                 {
-                    "name": "BROKEN MY HEART",
                     "skillId": "iIP09bOq1l1b9b1l011IDIQ6Iill90Io",
-                    "difficulty": 12,
                     "difficulty_class": "expert",
                     "ex": 1080,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/BROKEN+MY+HEART-jacket.webp"
                 },
                 {
-                    "name": "Leaving...",
                     "skillId": "6bO0Dq60bboi009iDbO8o9Q9999PiiDP",
-                    "difficulty": 11,
                     "difficulty_class": "expert",
                     "ex": 942,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Leaving...+(Chinese)-jacket.webp"
                 },
                 {
-                    "name": "Feelings Won't Fade (Extend Trance Mix)",
                     "skillId": "98PiPl8P0qlq8dd8P60Iq6dq899lbQDI",
-                    "difficulty": 12,
                     "difficulty_class": "expert",
                     "ex": 1137,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Feelings+Won't+Fade(Extend+Trance+Mix)-jacket.webp"
@@ -216,33 +200,25 @@
             "type": "trial",
             "songs": [
                 {
-                    "name": "Sky Is The Limit",
                     "skillId": "08IP8i1qIbQIoP9DiP11IdP190Q98lil",
-                    "difficulty": 12,
                     "difficulty_class": "expert",
                     "ex": 987,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Sky+Is+The+Limit-jacket.webp"
                 },
                 {
-                    "name": "Hopeful",
                     "skillId": "90qP0000qoO8o8dIidlO611ilO11Oo9Q",
-                    "difficulty": 13,
                     "difficulty_class": "expert",
                     "ex": 1104,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Hopeful-jacket.webp"
                 },
                 {
-                    "name": "A Brighter Day",
                     "skillId": "dQoqo68881IiO9i00bP0q1lOD6i1PdD8",
-                    "difficulty": 12,
                     "difficulty_class": "challenge",
                     "ex": 1149,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/A+Brighter+Day-jacket.webp"
                 },
                 {
-                    "name": "Life is beautiful",
                     "skillId": "dqb09QD6o0O8PooiqbqQOdqQ1l80o691",
-                    "difficulty": 12,
                     "difficulty_class": "difficult",
                     "ex": 1329,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Life+is+beautiful-jacket.webp"
@@ -318,33 +294,25 @@
             "type": "trial",
             "songs": [
                 {
-                    "name": "SODA GALAXY",
                     "skillId": "8qd0DIiiQ6dPl1b6b0OqDob6i0d1dQP1",
-                    "difficulty": 12,
                     "difficulty_class": "expert",
                     "ex": 1254,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/SODA_GALAXY.webp"
                 },
                 {
-                    "name": "CHOCOLATE PHILOSOPHY",
                     "skillId": "ioDOIO9iP8qqPiP9io9Ib1I91OoQ0q0O",
-                    "difficulty": 13,
                     "difficulty_class": "challenge",
                     "ex": 1260,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/CHOCOLATE_PHILOSOPHY.webp"
                 },
                 {
-                    "name": "Strawberry Chu Chu",
                     "skillId": "0i68q1iQblI1Pb8QqoQ90i6ddPiqdq8b",
-                    "difficulty": 13,
                     "difficulty_class": "expert",
                     "ex": 1254,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Strawberry_Chu_Chu.webp"
                 },
                 {
-                    "name": "Candy (X-Special)",
                     "skillId": "0qP01Q60boPPlQ8qO6O6q89iI91Pl0PP",
-                    "difficulty": 12,
                     "difficulty_class": "challenge",
                     "ex": 1140,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/CANDY(X-Special).webp"
@@ -416,33 +384,25 @@
             "type": "trial",
             "songs": [
                 {
-                    "name": "Uranus",
                     "skillId": "0b1660ibo0liI01ibOO6lD8olIb88qDi",
-                    "difficulty": 13,
                     "difficulty_class": "challenge",
                     "ex": 1206,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Uranus-jacket.webp"
                 },
                 {
-                    "name": "Saturn",
                     "skillId": "dDldd8OlbPQDoD80dO0DiDOiIoP1PQoD",
-                    "difficulty": 13,
                     "difficulty_class": "expert",
                     "ex": 1092,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Saturn-jacket.webp"
                 },
                 {
-                    "name": "Venus",
                     "skillId": "6bIODbPoIDlOdO66b1id0q68qdQilDd6",
-                    "difficulty": 13,
                     "difficulty_class": "challenge",
                     "ex": 1368,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Venus-jacket.webp"
                 },
                 {
-                    "name": "GAIA",
                     "skillId": "idIibqoooOlQ1DId8lOidd6il0bdoql8",
-                    "difficulty": 13,
                     "difficulty_class": "difficult",
                     "ex": 1503,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/GAIA-jacket.webp"
@@ -514,33 +474,25 @@
             "type": "trial",
             "songs": [
                 {
-                    "name": "Healing Vision ~Angelic Mix~",
                     "skillId": "olQQ8QPPqqObDD9ooodOl9i9od8b06I9",
-                    "difficulty": 13,
                     "difficulty_class": "expert",
                     "ex": 1437,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Healing+Vision~Angelic+mix~-jacket.webp"
                 },
                 {
-                    "name": "Cross",
                     "skillId": "Q0o8olIPb1iOo0loPPQI0PddI0qlb1Db",
-                    "difficulty": 13,
                     "difficulty_class": "expert",
                     "ex": 1410,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/CROSS-jacket.webp"
                 },
                 {
-                    "name": "Paranoia Rebirth",
                     "skillId": "0lDP0P06PIPl1iiIDOb919iqo1oPdlP8",
-                    "difficulty": 13,
                     "difficulty_class": "expert",
                     "ex": 1299,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/PARANOiA+Rebirth-jacket.webp"
                 },
                 {
-                    "name": "You Are A Star",
                     "skillId": "0qOPDqq0qld66bll9ob9iIqiiQPiQIDQ",
-                    "difficulty": 12,
                     "difficulty_class": "expert",
                     "ex": 1134,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/You+are+a+Star-jacket.webp"
@@ -612,33 +564,25 @@
             "type": "trial",
             "songs": [
                 {
-                    "name": "LEADING CYBER",
                     "skillId": "8lDOiqP0biD8dD9lOQO619i1PqbqDiP8",
-                    "difficulty": 13,
                     "difficulty_class": "expert",
                     "ex": 1077,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/LEADING+CYBER-jacket.webp"
                 },
                 {
-                    "name": "ALGORITHM",
                     "skillId": "ddq1DldlQ990iidO6O99q61bI1966Q0I",
-                    "difficulty": 13,
                     "difficulty_class": "expert",
                     "ex": 1317,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/ALGORITHM-jacket.webp"
                 },
                 {
-                    "name": "GRADIUSIC CYBER ~AMD G5 MIX~",
                     "skillId": "q6qI6llb69D1IQq0OiP8OD06Qioob91Q",
-                    "difficulty": 13,
                     "difficulty_class": "expert",
                     "ex": 1110,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/GRADIUSIC+CYBER-jacket.webp"
                 },
                 {
-                    "name": "dirty digital",
                     "skillId": "I8b69IdbID0Di06ldo6o1lb1IdI89Iqo",
-                    "difficulty": 13,
                     "difficulty_class": "challenge",
                     "ex": 924,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/dirty+digital-jacket.webp"
@@ -712,33 +656,25 @@
             "type": "trial",
             "songs": [
                 {
-                    "name": "WILD SIDE",
                     "skillId": "I81iP0Io9o1l9li0Iq99P1091O8DoDOd",
-                    "difficulty": 13,
                     "difficulty_class": "challenge",
                     "ex": 1377,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/WILD+SIDE-jacket.webp"
                 },
                 {
-                    "name": "Tribe",
                     "skillId": "PlIiPiPoI9DIbPdIPoqQlIq61Pd8QIDo",
-                    "difficulty": 13,
                     "difficulty_class": "challenge",
                     "ex": 1461,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Tribe-jacket.webp"
                 },
                 {
-                    "name": "ORION.78~civilization mix~",
                     "skillId": "61ido0DPl8q0dI1i011Do1b6669dPIlo",
-                    "difficulty": 13,
                     "difficulty_class": "expert",
                     "ex": 1194,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/ORION.78~civilization+mix~-jacket.webp"
                 },
                 {
-                    "name": "AFRONOVA",
                     "skillId": "Pd99DQo0bD9D9oIbPIId18P6l8qlDQO6",
-                    "difficulty": 13,
                     "difficulty_class": "expert",
                     "ex": 1110,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/AFRONOVA-jacket.webp"
@@ -813,33 +749,25 @@
             "type": "trial",
             "songs": [
                 {
-                    "name": "heron",
                     "skillId": "DibOOIOD1id66O0DqOQ61O6I9bIIQQ0q",
-                    "difficulty": 13,
                     "difficulty_class": "challenge",
                     "ex": 1050,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/heron-jacket.webp"
                 },
                 {
-                    "name": "Monkey Business",
                     "skillId": "bD1DbibPIq9IIlQd0OIIl0o91QI1il69",
-                    "difficulty": 13,
                     "difficulty_class": "expert",
                     "ex": 1386,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Monkey+Business-jacket.webp"
                 },
                 {
-                    "name": "HYENA",
                     "skillId": "6Oi66iq9bqi8bDI6l6lPdqDObo1i9lDl",
-                    "difficulty": 14,
                     "difficulty_class": "expert",
                     "ex": 1506,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/HYENA-jacket.webp"
                 },
                 {
-                    "name": "Condor",
                     "skillId": "1Ol1i86OQd61IlqPb9O1060l0OQDoDQI",
-                    "difficulty": 13,
                     "difficulty_class": "expert",
                     "ex": 1131,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Condor-jacket.webp"
@@ -912,33 +840,25 @@
             "type": "trial",
             "songs": [
                 {
-                    "name": "bag",
                     "skillId": "9qbdq1PiI1O81P1PdioQli66Ob9QiiQP",
-                    "difficulty": 13,
                     "difficulty_class": "expert",
                     "ex": 1146,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/bag-jacket.webp"
                 },
                 {
-                    "name": "Arrabbiata",
                     "skillId": "6bdDP91o1II60Qo99D60QI81o6oPlI80",
-                    "difficulty": 13,
                     "difficulty_class": "difficult",
                     "ex": 1131,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Arrabbiata-jacket.webp"
                 },
                 {
-                    "name": "exotic ethnic",
                     "skillId": "iOPbIi1b99819b9QiD8QbdPbq0DqO0DO",
-                    "difficulty": 13,
                     "difficulty_class": "expert",
                     "ex": 1356,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/exotic+ethnic-jacket.webp"
                 },
                 {
-                    "name": "桜",
                     "skillId": "911lId0IooIOq1oDPoQ0iQiDiOIbd6oo",
-                    "difficulty": 13,
                     "difficulty_class": "expert",
                     "ex": 1341,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/SAKURA-jacket.webp"
@@ -1011,33 +931,25 @@
             "type": "trial",
             "songs": [
                 {
-                    "name": "Une mage blanche",
                     "skillId": "8q68D8iP6lIdiP8bo9PoOib8lb9loIob",
-                    "difficulty": 13,
                     "difficulty_class": "expert",
                     "ex": 1548,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Une_mage_blanche.webp"
                 },
                 {
-                    "name": "STERLING SILVER",
                     "skillId": "ooo6qID66I6191bQib1QQdlPoio6Iodl",
-                    "difficulty": 13,
                     "difficulty_class": "expert",
                     "ex": 1476,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/STERLING_SILVER.webp"
                 },
                 {
-                    "name": "Towards the TOWER",
                     "skillId": "l66Io69ob00OoOiDOI9lIqlidbDoDq89",
-                    "difficulty": 12,
                     "difficulty_class": "expert",
                     "ex": 1104,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Towards_the_TOWER.webp"
                 },
                 {
-                    "name": "Neverland",
                     "skillId": "1iDPo19Pb9ooi8OqiidbqPb06DDdqiqo",
-                    "difficulty": 12,
                     "difficulty_class": "difficult",
                     "ex": 1233,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Neverland.webp"
@@ -1110,33 +1022,25 @@
             "type": "event",
             "songs": [
                 {
-                    "name": "Vanquish The Ghost",
                     "skillId": "891b0OdIdO8b9obi69b6PQlPIqDI01dO",
-                    "difficulty": 12,
                     "difficulty_class": "difficult",
                     "ex": 1176,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Vanquish+The+Ghost-jacket.webp"
                 },
                 {
-                    "name": "Electronic or Treat!",
                     "skillId": "li0IboIqq8qddDP0Oi1Q9i8OPoD88IQl",
-                    "difficulty": 12,
                     "difficulty_class": "difficult",
                     "ex": 1227,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Electronic+or+Treat!-jacket.webp"
                 },
                 {
-                    "name": "不沈艦CANDY",
                     "skillId": "i8O81i0iQdqiI8qqP0oo8IPl9IoId1bO",
-                    "difficulty": 14,
                     "difficulty_class": "expert",
                     "ex": 1752,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/YELLOW+CANDY-jacket.webp"
                 },
                 {
-                    "name": "Bloody Tears（IIDX EDITION）",
                     "skillId": "oQ0bqIQ8DdPlilO000DQloOo6Od8IdQ6",
-                    "difficulty": 11,
                     "difficulty_class": "expert",
                     "ex": 795,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Bloody+Tears+(IIDX+EDITION)-jacket.webp"
@@ -1176,33 +1080,25 @@
             "type": "trial",
             "songs": [
                 {
-                    "name": "Pierce The Sky",
                     "skillId": "DD6olq00PD91odbO9QbldDb0bQ18oqo1",
-                    "difficulty": 14,
                     "difficulty_class": "expert",
                     "ex": 1500,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Pierce+The+Sky-jacket.webp"
                 },
                 {
-                    "name": "Shiny World",
                     "skillId": "b6ldDOq9qi1IiIIdiIl1108q1iQ9O6d6",
-                    "difficulty": 14,
                     "difficulty_class": "expert",
                     "ex": 1116,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Shiny+World-jacket.webp"
                 },
                 {
-                    "name": "The Wind of Gold",
                     "skillId": "Dbdi9P91PQl660llPQO0l86oDqi1O9Ob",
-                    "difficulty": 14,
                     "difficulty_class": "expert",
                     "ex": 1557,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/The+Wind+of+Gold-jacket.webp"
                 },
                 {
-                    "name": "Sakura Sunrise",
                     "skillId": "6lD1ooDi8Pdl0OlO0QoIioI8119I0PPq",
-                    "difficulty": 14,
                     "difficulty_class": "expert",
                     "ex": 1290,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Sakura+Sunrise-jacket.webp"
@@ -1281,33 +1177,25 @@
             "type": "trial",
             "songs": [
                 {
-                    "name": "New Century",
                     "skillId": "o068b00O6QD8lo9O1i9PbQlqO6IQOidD",
-                    "difficulty": 14,
                     "difficulty_class": "difficult",
                     "ex": 1455,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/New+Century-jacket.webp"
                 },
                 {
-                    "name": "革命(X-Special)",
                     "skillId": "qIqqdd1Odqi1Iiolq9qqPOi0bPPld8Pb",
-                    "difficulty": 14,
                     "difficulty_class": "challenge",
                     "ex": 1197,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/KAKUMEI(X-Special)-jacket.webp"
                 },
                 {
-                    "name": "PARANOiA Revolution",
                     "skillId": "606b9d6OiliId69bO9Odi6qq8o8Qd0dq",
-                    "difficulty": 14,
                     "difficulty_class": "difficult",
                     "ex": 1563,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/PARANOiA+Revolution-jacket.webp"
                 },
                 {
-                    "name": "La libertad",
                     "skillId": "b6l6qPPdiOqqPqqII0IPqI981bolOqIb",
-                    "difficulty": 14,
                     "difficulty_class": "challenge",
                     "ex": 1329,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/La+libertad-jacket.webp"
@@ -1385,33 +1273,25 @@
             "type": "trial",
             "songs": [
                 {
-                    "name": "Top the Charts",
                     "skillId": "l9i996ld6PbbiO1911OoOI8lIPQ06ID8",
-                    "difficulty": 14,
                     "difficulty_class": "challenge",
                     "ex": 1335,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Top+The+Charts-jacket.webp"
                 },
                 {
-                    "name": "F4SH10N",
                     "skillId": "ObIOQ6id8DOdlQlil8819ObqoDQIIoiO",
-                    "difficulty": 14,
                     "difficulty_class": "expert",
                     "ex": 1293,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/F4SH10N-jacket.webp"
                 },
                 {
-                    "name": "Squeeze",
                     "skillId": "D9I8d1PDOQ8QqP1o1IIi0o8d6660ddOQ",
-                    "difficulty": 15,
                     "difficulty_class": "expert",
                     "ex": 1464,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Squeeze-jacket.webp"
                 },
                 {
-                    "name": "Diamond Night",
                     "skillId": "QD6b8i08P1IQloIPOPiqlIPoDlPi9DPI",
-                    "difficulty": 14,
                     "difficulty_class": "challenge",
                     "ex": 1359,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Diamond+Night-jacket.webp"
@@ -1490,33 +1370,25 @@
             "type": "trial",
             "songs": [
                 {
-                    "name": "B4U (VOLTAGE Special)",
                     "skillId": "6boDb6Pdd6QDP1oPdlQ0Qo1ld0lQb6P6",
-                    "difficulty": 14,
                     "difficulty_class": "challenge",
                     "ex": 1101,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/B4U+(VOLTAGE+Special)-jacket.webp"
                 },
                 {
-                    "name": "Triple Counter",
                     "skillId": "d810q0I8q6d0l1POlIO6d66bOPb96dql",
-                    "difficulty": 14,
                     "difficulty_class": "difficult",
                     "ex": 1695,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Triple+Counter-jacket.webp"
                 },
                 {
-                    "name": "Second Heaven",
                     "skillId": "9bI0dQdb01Dl1bQq1Pq998i0l096D99P",
-                    "difficulty": 14,
                     "difficulty_class": "challenge",
                     "ex": 1446,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Second+Heaven-jacket.webp"
                 },
                 {
-                    "name": "Pluto The First",
                     "skillId": "PIO8dod8P9OOP1bi0D1POIi6OdOdQDql",
-                    "difficulty": 14,
                     "difficulty_class": "difficult",
                     "ex": 1218,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Pluto+The+First-jacket.webp"
@@ -1597,33 +1469,25 @@
             "type": "trial",
             "songs": [
                 {
-                    "name": "Be a Hero!",
                     "skillId": "dOb880lOloIIod00PQ1iQOQqlOOQ0Ql0",
-                    "difficulty": 13,
                     "difficulty_class": "difficult",
                     "ex": 1740,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Be_a_Hero!.webp"
                 },
                 {
-                    "name": "ロールプレイングゲーム",
                     "skillId": "DOQbd61o6P0oq968Po0oqP01qPQ8lPdq",
-                    "difficulty": 14,
                     "difficulty_class": "expert",
                     "ex": 1623,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Role-playing_game.webp"
                 },
                 {
-                    "name": "彼方のリフレシア",
                     "skillId": "ilbQ0lq89DId9oDl89lbb8lQIPl6i0QO",
-                    "difficulty": 15,
                     "difficulty_class": "expert",
                     "ex": 1695,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Kanata_no_Reflesia.webp"
                 },
                 {
-                    "name": "Boss Rush",
                     "skillId": "QbD9QQP9bqoD00bQQl8obibP9PloQ9Qo",
-                    "difficulty": 14,
                     "difficulty_class": "difficult",
                     "ex": 1704,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Boss+Rush-jacket.webp"
@@ -1700,33 +1564,25 @@
             "type": "trial",
             "songs": [
                 {
-                    "name": "FIRE FIRE",
                     "skillId": "0ibD9Oio99IlQ0di916lId0bi08IPD9b",
-                    "difficulty": 14,
                     "difficulty_class": "expert",
                     "ex": 1728,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/FIRE+FIRE-jacket.webp"
                 },
                 {
-                    "name": "NEPHILIM DELTA",
                     "skillId": "DI91q6O00bliOldqO6DqDdqib86iqPPP",
-                    "difficulty": 14,
                     "difficulty_class": "expert",
                     "ex": 1758,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/NEPHILIM+DELTA-jacket.webp"
                 },
                 {
-                    "name": "PARANOiA ~HADES~",
                     "skillId": "io1d1Dq80Di08O1Pb9bQ8DoP9d9Ooi90",
-                    "difficulty": 15,
                     "difficulty_class": "difficult",
                     "ex": 1374,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/PARANOiA+~HADES~-jacket.webp"
                 },
                 {
-                    "name": "RISING FIRE HAWK",
                     "skillId": "60P9IPOdi1OIbD61D8i0D9ODoq6QOIPO",
-                    "difficulty": 15,
                     "difficulty_class": "expert",
                     "ex": 1755,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/RISING+FIRE+HAWK-jacket.webp"
@@ -1823,33 +1679,25 @@
             "type": "trial",
             "songs": [
                 {
-                    "name": "Start a New Day",
                     "skillId": "l08bl1dddob81IP1IbQqbDbiPo9l069l",
-                    "difficulty": 15,
                     "difficulty_class": "expert",
                     "ex": 1590,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Start+a+New+Day-jacket.webp"
                 },
                 {
-                    "name": "New Decade",
                     "skillId": "o0l1Qioq1i9iQl6b9q6il0iqi1b1OQ9b",
-                    "difficulty": 14,
                     "difficulty_class": "difficult",
                     "ex": 1317,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/New+Decade-jacket.webp"
                 },
                 {
-                    "name": "Chronos",
                     "skillId": "P8DQP9QIioPdi9IO6q0100PlQOIl86I9",
-                    "difficulty": 15,
                     "difficulty_class": "challenge",
                     "ex": 1701,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Chronos-jacket.webp"
                 },
                 {
-                    "name": "IX",
                     "skillId": "00obPO6oPIPOoD9qb0dIl6q6D8P6o9bI",
-                    "difficulty": 14,
                     "difficulty_class": "difficult",
                     "ex": 1662,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/IX-jacket.webp"
@@ -1936,33 +1784,25 @@
             "type": "trial",
             "songs": [
                 {
-                    "name": "FUNKY SUMMER BEACH",
                     "skillId": "9i6dOd608qb0IlqoDIPb8q1o8q1ddQQd",
-                    "difficulty": 14,
                     "difficulty_class": "expert",
                     "ex": 1392,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/FUNKY+SUMMER+BEACH-jacket.webp"
                 },
                 {
-                    "name": "SUPER SUMMER SALE",
                     "skillId": "Id8IPlqQodD01dPiq8oPPQoPQq6booi0",
-                    "difficulty": 15,
                     "difficulty_class": "expert",
                     "ex": 1890,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/SUPER+SUMMER+SALE-jacket.webp"
                 },
                 {
-                    "name": "灼熱Beach Side Bunny",
                     "skillId": "6dO6i9qq601D8ild9QIlbO8bodbiQ1Pl",
-                    "difficulty": 15,
                     "difficulty_class": "expert",
                     "ex": 1839,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Shakunetsu+Beach+Side+Bunny-jacket.webp"
                 },
                 {
-                    "name": "SPECIAL SUMMER CAMPAIGN!",
                     "skillId": "9DI8iOP0660lb968I6Oiiid6DQ68IbOO",
-                    "difficulty": 15,
                     "difficulty_class": "expert",
                     "ex": 1614,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/SPECIAL+SUMMER+CAMPAIGN!-jacket.webp"
@@ -2049,33 +1889,25 @@
             "type": "trial",
             "songs": [
                 {
-                    "name": "春風ブローインウィンド",
                     "skillId": "dlqPb1iqPo81qI89816QIoi01b1b0P06",
-                    "difficulty": 15,
                     "difficulty_class": "expert",
                     "ex": 1818,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Shunpuu+blowing+wind-jacket.webp"
                 },
                 {
-                    "name": "Windy Fairy",
                     "skillId": "8bI68oIq08d99P880bDPQ9D80O099Q10",
-                    "difficulty": 15,
                     "difficulty_class": "expert",
                     "ex": 1824,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Windy+Fairy-jacket.webp"
                 },
                 {
-                    "name": "Cosmic Hurricane",
                     "skillId": "dO9b8Id9QQ8DOO69Q0lqi6O9QlDPIPl9",
-                    "difficulty": 15,
                     "difficulty_class": "challenge",
                     "ex": 1962,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Cosmic+Hurricane-jacket.webp"
                 },
                 {
-                    "name": "ZEPHYRANTHES",
                     "skillId": "I61ioI01IOPDPbP1OO0l98PD0iDbid0D",
-                    "difficulty": 15,
                     "difficulty_class": "expert",
                     "ex": 1842,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/ZEPHYRANTHES-jacket.webp"
@@ -2162,33 +1994,25 @@
             "type": "trial",
             "songs": [
                 {
-                    "name": "Ishtar",
                     "skillId": "bPb96lbDP9OdI0Oi1189iOPPdllPIDQb",
-                    "difficulty": 14,
                     "difficulty_class": "expert",
                     "ex": 1266,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Ishtar-jacket.webp"
                 },
                 {
-                    "name": "Wadatsumi",
                     "skillId": "P0IoP69l6q08q8DoPD1Q8bqq099Pi1iP",
-                    "difficulty": 16,
                     "difficulty_class": "expert",
                     "ex": 1875,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Wadatsumi-jacket.webp"
                 },
                 {
-                    "name": "Helios",
                     "skillId": "OPdooDlO9iO09lI1ODP00660loDiiodi",
-                    "difficulty": 16,
                     "difficulty_class": "expert",
                     "ex": 1902,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Helios-jacket.webp"
                 },
                 {
-                    "name": "Valkyrie Dimension",
                     "skillId": "186dd6DQq891Ib9Ilq8Qbo8lIqb0Qoll",
-                    "difficulty": 15,
                     "difficulty_class": "difficult",
                     "ex": 1428,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Valkyrie+dimension-jacket.webp"
@@ -2281,33 +2105,25 @@
             "type": "trial",
             "songs": [
                 {
-                    "name": "Desert Journey",
                     "skillId": "PI1DiP0bIi8PodP6O1i8P0P1i8iI1oD8",
-                    "difficulty": 15,
                     "difficulty_class": "challenge",
                     "ex": 1521,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Desert+Journey-jacket.webp"
                 },
                 {
-                    "name": "Sand Blow",
                     "skillId": "QiQi666Qd9I6d1899iii80PdQdDlO1i1",
-                    "difficulty": 15,
                     "difficulty_class": "expert",
                     "ex": 1668,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Sand+Blow-jacket.webp"
                 },
                 {
-                    "name": "KHAMEN BREAK",
                     "skillId": "Qq8bbbqO6qQ1DPODd16oi1QDQoQ9b8DO",
-                    "difficulty": 16,
                     "difficulty_class": "expert",
                     "ex": 1959,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/KHAMEN+BREAK-jacket.webp"
                 },
                 {
-                    "name": "Cleopatrysm",
                     "skillId": "d91lIllbboPd668QP88I06Q6QqooQiO1",
-                    "difficulty": 15,
                     "difficulty_class": "expert",
                     "ex": 1722,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Cleopatrysm-jacket.webp"
@@ -2394,33 +2210,25 @@
             "type": "trial",
             "songs": [
                 {
-                    "name": "BRILLIANT 2U (AKBK MIX)",
                     "skillId": "6l0iQ18D0I00P89lIqI8bl9biIOi018O",
-                    "difficulty": 15,
                     "difficulty_class": "expert",
                     "ex": 1767,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/BRILLIANT+2U+(AKBK+MIX)-jacket.webp"
                 },
                 {
-                    "name": "MAX 300 (Super-Max-Me Mix)",
                     "skillId": "qOP1qP69o6id061o9bo8l6P11P1PQI1O",
-                    "difficulty": 15,
                     "difficulty_class": "expert",
                     "ex": 1938,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/MAX+300+(Super-Max-Me+Mix)-jacket.webp"
                 },
                 {
-                    "name": "POSSESSION (20th Anniversary Mix)",
                     "skillId": "19q96Q8l1oqbD0OQq6biDbO6O1oqqb6O",
-                    "difficulty": 16,
                     "difficulty_class": "expert",
                     "ex": 1998,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/POSSESSION+(20th+Anniversary+Mix)-jacket.webp"
                 },
                 {
-                    "name": "PARANOiA KCET ~clean mix~",
                     "skillId": "9doPbId8qid9I9l6ooloPQD1lq1Plb6I",
-                    "difficulty": 15,
                     "difficulty_class": "challenge",
                     "ex": 1533,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/PARANOiA+KCET+~clean+mix~-jacket.webp"
@@ -2508,33 +2316,25 @@
             "type": "trial",
             "songs": [
                 {
-                    "name": "Go For The Top",
                     "skillId": "11dQb0qIdbO098ObDqOQQ8Ili9Il0lOd",
-                    "difficulty": 15,
                     "difficulty_class": "expert",
                     "ex": 1563,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Go+For+The+Top-jacket.webp"
                 },
                 {
-                    "name": "Nostalgia Is Lost",
                     "skillId": "iI96000Ib9DlIOPlDQIO00oDiO9DbPI0",
-                    "difficulty": 15,
                     "difficulty_class": "expert",
                     "ex": 1890,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Nostalgia+Is+Lost-jacket.webp"
                 },
                 {
-                    "name": "Triple Journey -TAG EDITION-",
                     "skillId": "lDOPd60Q9obl6D0q8qqdQi9lioblD1db",
-                    "difficulty": 16,
                     "difficulty_class": "expert",
                     "ex": 1866,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Triple+Journey+-TAG+EDITION--jacket.webp"
                 },
                 {
-                    "name": "Destination",
                     "skillId": "9dD6dlq01qd80loD6OOQb60ql6P6068O",
-                    "difficulty": 15,
                     "difficulty_class": "expert",
                     "ex": 1638,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Destination-jacket.webp"
@@ -2616,33 +2416,25 @@
             "type": "trial",
             "songs": [
                 {
-                    "name": "Beautiful Dream",
                     "skillId": "d18DI8bO1lql60Ol1dqQlI8qIobl191P",
-                    "difficulty": 15,
                     "difficulty_class": "challenge",
                     "ex": 1812,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Beautiful+Dream-jacket.webp"
                 },
                 {
-                    "name": "AWAKE",
                     "skillId": "lQ1QDdooiOO9QPo8q91iD1IqI8Po9ODl",
-                    "difficulty": 16,
                     "difficulty_class": "challenge",
                     "ex": 1965,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/AWAKE-jacket.webp"
                 },
                 {
-                    "name": "IN BETWEEN",
                     "skillId": "bdQ6IobP6II86I1io686Il9qQ69dOod1",
-                    "difficulty": 15,
                     "difficulty_class": "expert",
                     "ex": 1413,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/IN+BETWEEN-jacket.webp"
                 },
                 {
-                    "name": "Come to Life",
                     "skillId": "oIII9lI0q6i9Q0b18ldoI6o0PQ0qqD01",
-                    "difficulty": 16,
                     "difficulty_class": "expert",
                     "ex": 1926,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Come+to+Life-jacket.webp"
@@ -2719,33 +2511,25 @@
             "type": "trial",
             "songs": [
                 {
-                    "name": "SILVER DREAM",
                     "skillId": "Q6ql0lOOdq90DI1PqO1bd10bP0Oi8Q0Q",
-                    "difficulty": 15,
                     "difficulty_class": "expert",
                     "ex": 1668,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/SILVER+DREAM-jacket.webp"
                 },
                 {
-                    "name": "snow prism",
                     "skillId": "OQbdD9iD898Q01oIddDliq8q9D1QlQ1I",
-                    "difficulty": 16,
                     "difficulty_class": "challenge",
                     "ex": 1680,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/snow+prism-jacket.webp"
                 },
                 {
-                    "name": "Spanish Snowy Dance",
                     "skillId": "bo6PqbbPQ6D096OIP6dDPbPPiDi88609",
-                    "difficulty": 15,
                     "difficulty_class": "expert",
                     "ex": 1926,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Spanish+Snowy+Dance-jacket.webp"
                 },
                 {
-                    "name": "Chinese Snowy Dance",
                     "skillId": "P8obb0oQq1lbb6Do01PPDI1o8ooO6Pb0",
-                    "difficulty": 16,
                     "difficulty_class": "expert",
                     "ex": 1887,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Chinese+Snowy+Dance-jacket.webp"
@@ -2822,33 +2606,25 @@
             "type": "trial",
             "songs": [
                 {
-                    "name": "I'm so Happy",
                     "skillId": "90lolio9qd6qo6Pl8oo69iqi81oiiQib",
-                    "difficulty": 16,
                     "difficulty_class": "challenge",
                     "ex": 1653,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/I'm+so+Happy-jacket.webp"
                 },
                 {
-                    "name": "Cosy Catastrophe",
                     "skillId": "9QIo1lbD1ldlqPO0iD68io69Pd8b01Do",
-                    "difficulty": 16,
                     "difficulty_class": "expert",
                     "ex": 1677,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Cosy+Catastrophe-jacket.webp"
                 },
                 {
-                    "name": "Life is beautiful",
                     "skillId": "dqb09QD6o0O8PooiqbqQOdqQ1l80o691",
-                    "difficulty": 16,
                     "difficulty_class": "expert",
                     "ex": 1959,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Life+is+beautiful-jacket.webp"
                 },
                 {
-                    "name": "CHAOS Terror-Tech Mix",
                     "skillId": "b16OP1o9qb6bQd66qOl98iq0boiQP919",
-                    "difficulty": 15,
                     "difficulty_class": "expert",
                     "ex": 1662,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/CHAOS+Terror-Tech+Mix-jacket.webp"
@@ -2926,33 +2702,25 @@
             "type": "trial",
             "songs": [
                 {
-                    "name": "Unreal",
                     "skillId": "olQl6Qoi0IbobI980q9Q0QIo9qlbq1PO",
-                    "difficulty": 15,
                     "difficulty_class": "expert",
                     "ex": 1194,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Unreal-jacket.webp"
                 },
                 {
-                    "name": "S!ck",
                     "skillId": "QOPioi8P81q9l0QiP6q06b06bdOO8b1O",
-                    "difficulty": 16,
                     "difficulty_class": "expert",
                     "ex": 2118,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/S!ck-jacket.webp"
                 },
                 {
-                    "name": "Blew My Mind",
                     "skillId": "8IdlOq1qI8OO1PP88I6olPiI6IqqqIIO",
-                    "difficulty": 16,
                     "difficulty_class": "expert",
                     "ex": 1803,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Blew+My+Mind-jacket.webp"
                 },
                 {
-                    "name": "UNBELIEVABLE (Sparky remix)",
                     "skillId": "I6dI99IOolDD6l6Q1ooPIiDO8Odq0QIP",
-                    "difficulty": 15,
                     "difficulty_class": "expert",
                     "ex": 1635,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/UNBELIEVABLE+(Sparky+remix)-jacket.webp"
@@ -3027,33 +2795,25 @@
             "type": "trial",
             "songs": [
                 {
-                    "name": "888",
                     "skillId": "id9oObq9P6Q6Pq6lQPqI88OP1DD8D0O1",
-                    "difficulty": 14,
                     "difficulty_class": "expert",
                     "ex": 1578,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/888-jacket.webp"
                 },
                 {
-                    "name": "POSSESSION",
                     "skillId": "q6di1DQbi88i9QlPol1iIPbb8lP1qP1b",
-                    "difficulty": 17,
                     "difficulty_class": "expert",
                     "ex": 1875,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/POSSESSION-jacket.webp"
                 },
                 {
-                    "name": "Boss Rush",
                     "skillId": "QbD9QQP9bqoD00bQQl8obibP9PloQ9Qo",
-                    "difficulty": 16,
                     "difficulty_class": "expert",
                     "ex": 2208,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Boss+Rush-jacket.webp"
                 },
                 {
-                    "name": "Vanquish The Ghost",
                     "skillId": "891b0OdIdO8b9obi69b6PQlPIqDI01dO",
-                    "difficulty": 16,
                     "difficulty_class": "expert",
                     "ex": 1650,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Vanquish+The+Ghost-jacket.webp"
@@ -3128,33 +2888,25 @@
             "type": "trial",
             "songs": [
                 {
-                    "name": "Puberty Dysthymia",
                     "skillId": "99q8i8bPldDbio919ob0DPi0bqdIoobi",
-                    "difficulty": 17,
                     "difficulty_class": "expert",
                     "ex": 2034,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Puberty+Dysthymia-jacket.webp"
                 },
                 {
-                    "name": "ドーパミン",
                     "skillId": "QoODOoqDli0bOoqqDo8ODo1lDI9llblo",
-                    "difficulty": 17,
                     "difficulty_class": "expert",
                     "ex": 2238,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Dopamine-jacket.webp"
                 },
                 {
-                    "name": "Anti-Matter",
                     "skillId": "D89QP18016o01qoOi60I6Q19dlOQPbdo",
-                    "difficulty": 17,
                     "difficulty_class": "expert",
                     "ex": 1908,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Anti-Matter-jacket.webp"
                 },
                 {
-                    "name": "Neutrino",
                     "skillId": "lO91bIQ0Q990PqPbPIq88b9I9PI6ID0Q",
-                    "difficulty": 16,
                     "difficulty_class": "expert",
                     "ex": 1569,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Neutrino-jacket.webp"
@@ -3222,33 +2974,25 @@
             "type": "trial",
             "songs": [
                 {
-                    "name": "RISING FIRE HAWK",
                     "skillId": "60P9IPOdi1OIbD61D8i0D9ODoq6QOIPO",
-                    "difficulty": 17,
                     "difficulty_class": "challenge",
                     "ex": 2025,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/RISING+FIRE+HAWK-jacket.webp"
                 },
                 {
-                    "name": "SABER WING (Akira Ishihara Headshot mix)",
                     "skillId": "PIP60POo0dDQlIiqO9bIQ1oddQD8P9Il",
-                    "difficulty": 17,
                     "difficulty_class": "challenge",
                     "ex": 1569,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/SABER+WING+(AKIRA+ISHIHARA+Headshot+mix)-jacket.webp"
                 },
                 {
-                    "name": "Air Heroes",
                     "skillId": "6obQo6d0oQ6QoQql0I60b81IO8IOl1IO",
-                    "difficulty": 18,
                     "difficulty_class": "challenge",
                     "ex": 1971,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Air+Heroes-jacket.webp"
                 },
                 {
-                    "name": "Reach The Sky, Without you",
                     "skillId": "POq8OPlOO9199i11Od0P00801Qo01DQo",
-                    "difficulty": 17,
                     "difficulty_class": "expert",
                     "ex": 1905,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Reach+The+Sky,+Without+you-jacket.webp"
@@ -3317,33 +3061,25 @@
             "type": "trial",
             "songs": [
                 {
-                    "name": "ACE FOR ACES",
                     "skillId": "ld6P1lbb0bPO9doqbbPOoPb8qoDo8id0",
-                    "difficulty": 18,
                     "difficulty_class": "challenge",
                     "ex": 2406,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/ACE_FOR_ACES.webp"
                 },
                 {
-                    "name": "Trigger",
                     "skillId": "OPOIPIi1OioQ98qbO100q6QiDP8dIDq6",
-                    "difficulty": 18,
                     "difficulty_class": "challenge",
                     "ex": 1875,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Trigger.webp"
                 },
                 {
-                    "name": "ÆTHER",
                     "skillId": "l6d0ibbliQPQDdb1lP18D9qbPDi1698b",
-                    "difficulty": 17,
                     "difficulty_class": "expert",
                     "ex": 2130,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/AETHER.webp"
                 },
                 {
-                    "name": "SABER WING (Akira Ishihara Headshot mix)",
                     "skillId": "PIP60POo0dDQlIiqO9bIQ1oddQD8P9Il",
-                    "difficulty": 17,
                     "difficulty_class": "challenge",
                     "ex": 1569,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/SABER+WING+(AKIRA+ISHIHARA+Headshot+mix)-jacket.webp"
@@ -3418,33 +3154,25 @@
             "type": "trial",
             "songs": [
                 {
-                    "name": "deltaMAX",
                     "skillId": "QQldo10ObPPQPlliODiDIIl0Q1oPoo61",
-                    "difficulty": 17,
                     "difficulty_class": "expert",
                     "ex": 2049,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/deltaMAX-jacket.webp"
                 },
                 {
-                    "name": "シュレーディンガーの猫",
                     "skillId": "DIiQbd09D0PoIiPl9iP1q8qldOOqol8i",
-                    "difficulty": 18,
                     "difficulty_class": "challenge",
                     "ex": 2385,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Schrodinger+no+neko-jacket.webp"
                 },
                 {
-                    "name": "Anti-Matter",
                     "skillId": "D89QP18016o01qoOi60I6Q19dlOQPbdo",
-                    "difficulty": 18,
                     "difficulty_class": "challenge",
                     "ex": 2190,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Anti-Matter-jacket.webp"
                 },
                 {
-                    "name": "Magnetic",
                     "skillId": "18l0blb188Oqqi8I68o8oq91Qbq86QDi",
-                    "difficulty": 17,
                     "difficulty_class": "challenge",
                     "ex": 2193,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Magnetic-jacket.webp"
@@ -3519,33 +3247,25 @@
             "type": "trial",
             "songs": [
                 {
-                    "name": "Elemental Creation",
                     "skillId": "OiIOPd80d9PQQIbidO6ObioboO88OD9l",
-                    "difficulty": 18,
                     "difficulty_class": "challenge",
                     "ex": 2646,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Elemental+Creation-jacket.webp"
                 },
                 {
-                    "name": "Come to Life",
                     "skillId": "oIII9lI0q6i9Q0b18ldoI6o0PQ0qqD01",
-                    "difficulty": 18,
                     "difficulty_class": "challenge",
                     "ex": 2400,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Come+to+Life-jacket.webp"
                 },
                 {
-                    "name": "TRIP MACHINE EVOLUTION",
                     "skillId": "8O6b1D9PDO0ll1IO9d1ODDPPo0QPQbob",
-                    "difficulty": 18,
                     "difficulty_class": "challenge",
                     "ex": 2100,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/TRIP+MACHINE+EVOLUTION-jacket.webp"
                 },
                 {
-                    "name": "Astrogazer",
                     "skillId": "6QdIl8odooDQ0oOQ0IObQqo1lO986PP6",
-                    "difficulty": 18,
                     "difficulty_class": "challenge",
                     "ex": 2250,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Astrogazer-jacket.webp"
