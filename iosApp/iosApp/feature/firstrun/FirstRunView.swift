@@ -9,44 +9,41 @@
 import SwiftUI
 import Shared
 
-@available(iOS 16.0, *)
 struct FirstRunView: View {
-  let viewModel = FirstRunInfoViewModel()
-  
-    // TEMPORARY - until I can get viewModel in
-    @State var showWelcome = true
-    @State var viewIndex = 0
-    @State var isExistingUser = false
-    
+    @ObservedObject var viewModel: FirstRunInfoViewModel = FirstRunInfoViewModel()
+    @State var step: FirstRunStep = FirstRunStep.Landing()
+    var onComplete: (InitState) -> (Void)
+
     var body: some View {
-//      let state = viewModel.state.collect(collector: <#T##any Kotlinx_coroutines_coreFlowCollector#>, completionHandler: <#T##((any Error)?) -> Void#>)
-      
         ZStack(alignment: .center) {
             VStack(spacing: 75) {
-                if (viewIndex > 0) {
+                if (step != FirstRunStep.Landing()) {
                     Spacer()
                 }
-                FirstRunHeader(showWelcome: $showWelcome)
-                if viewIndex == 0 {
-                    FirstRunNewUser(showWelcome: $showWelcome, viewIndex: $viewIndex, isExistingUser: $isExistingUser)
-                } else if viewIndex == 1 {
-                    FirstRunUsername(username: "", isExistingUser: $isExistingUser)
-                } else if viewIndex == 2 {
-                    FirstRunRivalCode()
-                } else if viewIndex == 3 {
-                    FirstRunSocials()
-                } else {
-                    FirstRunRankMethod()
+                
+                FirstRunHeader(showWelcome: step == FirstRunStep.Landing())
+                
+                switch step {
+                    case is FirstRunStep.Landing:
+                        FirstRunNewUser(viewModel: viewModel)
+                    case is FirstRunStep.PathStepUsername:
+                        FirstRunUsername(viewModel: viewModel, step: step as! FirstRunStep.PathStepUsername)
+                    case is FirstRunStep.PathStepRivalCode:
+                        FirstRunRivalCode(viewModel: viewModel)
+                    case is FirstRunStep.PathStepSocialHandles:
+                        FirstRunSocials()
+                    case is FirstRunStep.PathStepInitialRankSelection:
+                        FirstRunRankMethod(step: step as! FirstRunStep.PathStepInitialRankSelection, onRankMethodSelected: viewModel.rankMethodSelected)
+                    default:
+                        Text("No step here")
                 }
-                if (viewIndex > 0) {
+                
+                if (step != FirstRunStep.Landing()) {
                     Spacer()
                     HStack {
                         Button {
                             withAnimation {
-                                if (viewIndex == 1) {
-                                    showWelcome.toggle()
-                                }
-                                viewIndex -= 1
+                                _ = viewModel.navigateBack()
                             }
                         } label: {
                             Text("Back")
@@ -58,10 +55,10 @@ struct FirstRunView: View {
                                 .font(.system(size: 16, weight: .medium))
                         }
                         Spacer()
-                        if (viewIndex < 4) {
+                        if (step.showNextButton) {
                             Button {
                                 withAnimation {
-                                    viewIndex += 1
+                                    viewModel.navigateNext()
                                 }
                             } label: {
                                 Text("Next")
@@ -75,15 +72,25 @@ struct FirstRunView: View {
                         }
                     }
                 }
+            }.onAppear {
+                viewModel.state.subscribe { state in
+                    if let currentStep = state {
+                        withAnimation {
+                            step = currentStep
+                            if currentStep is FirstRunStep.PathStepCompleted {
+                                let completedStep = currentStep as! FirstRunStep.PathStepCompleted
+                                onComplete(completedStep.rankSelection)
+                            }
+                        }
+                    }
+                }
             }
         }
-        
     }
 }
 
 struct FirstRunHeader: View {
-    // TEMPORARY - until I can get viewModel in
-    @Binding var showWelcome: Bool
+    var showWelcome: Bool
     
     var body: some View {
         VStack {
@@ -92,7 +99,6 @@ struct FirstRunHeader: View {
                     .font(.system(size: 24, weight: .heavy))
                     .padding(.bottom, 8)
             }
-            // TODO: adjust logo color on light/dark mode
             Image("LIFE4-Logo")
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 300)
@@ -101,10 +107,7 @@ struct FirstRunHeader: View {
 }
 
 struct FirstRunNewUser: View {
-    // TEMPORARY - until I can get viewModel in
-    @Binding var showWelcome: Bool
-    @Binding var viewIndex: Int
-    @Binding var isExistingUser: Bool
+    @ObservedObject var viewModel: FirstRunInfoViewModel
 
     var body: some View {
         VStack {
@@ -114,9 +117,7 @@ struct FirstRunNewUser: View {
             HStack(alignment: .center) {
                 Button {
                     withAnimation {
-                        showWelcome.toggle()
-                        viewIndex += 1
-                        isExistingUser = false
+                        viewModel.doNewUserSelected(isNewUser: true)
                     }
                 } label: {
                     Text(MR.strings().yes.desc().localized())
@@ -129,9 +130,7 @@ struct FirstRunNewUser: View {
                 }
                 Button {
                     withAnimation {
-                        showWelcome.toggle()
-                        viewIndex += 1
-                        isExistingUser = true
+                        viewModel.doNewUserSelected(isNewUser: false)
                     }
                 } label: {
                     Text(MR.strings().no.desc().localized())
@@ -148,33 +147,52 @@ struct FirstRunNewUser: View {
 }
 
 struct FirstRunUsername: View {
-    // TEMPORARY - until I can get viewModel in
-    @State var username: String
-    @Binding var isExistingUser: Bool
+    @ObservedObject var viewModel: FirstRunInfoViewModel
+    var step: FirstRunStep.PathStepUsername
+    @State var error: FirstRunError.UsernameError?
+    @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text(isExistingUser ? MR.strings().first_run_username_existing_header.desc().localized() : MR.strings().first_run_username_new_header.desc().localized())
+            Text(step.headerText.localized())
                 .font(.system(size: 24, weight: .heavy))
                 .padding(.bottom, 16)
-            if (!isExistingUser) {
-                Text(MR.strings().first_run_username_description.desc().localized())
+            if (step.descriptionText != nil) {
+                Text(step.descriptionText!.localized())
                     .fixedSize(horizontal: false, vertical: true)
                     .padding(.bottom, 16)
             }
-            TextField(MR.strings().username.desc().localized(), text: $username)
+            TextField(MR.strings().username.desc().localized(), text: viewModel.binding(\.username))
                 .disableAutocorrection(true)
                 .padding(12)
                 .overlay(
                     RoundedRectangle(cornerRadius: 5)
-                        .stroke(.white)
+                        .stroke(colorScheme == .dark ? .white : .black)
                 )
-        }.padding(.horizontal, 15)
+            if (error != nil) {
+                Text(error!.errorText.localized())
+                    .foregroundColor(.red)
+            }
+        }
+        .padding(.horizontal, 15)
+        .onAppear {
+            viewModel.errors.subscribe { errorsState in
+                if let currentErrors = errorsState {
+                    if (currentErrors.count > 0) {
+                        withAnimation {
+                            error = currentErrors[0] as? FirstRunError.UsernameError
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 
-@available(iOS 15.0, *)
 struct FirstRunRivalCode: View {
+    @ObservedObject var viewModel: FirstRunInfoViewModel
+    @State var error: FirstRunError.RivalCodeError?
+
     var body: some View {
         VStack(alignment: .leading) {
             Text(MR.strings().first_run_rival_code_header.desc().localized())
@@ -186,66 +204,76 @@ struct FirstRunRivalCode: View {
             Text(MR.strings().first_run_rival_code_description_2.desc().localized())
                 .fixedSize(horizontal: false, vertical: true)
                 .padding(.bottom, 32)
-            RivalCodeEntry()
-        }.padding(.horizontal, 15)
-    }
-}
-
-@available(iOS 15.0, *)
-struct RivalCodeEntry: View {
-    @State var enteredCode = Array(repeating: "", count: 8)
-    @FocusState var fieldFocus: Int?
-    
-    var body : some View {
-        HStack {
-            ForEach(0..<4, id: \.self) { index in
-                RivalCodeCell(index: index, enteredCode: $enteredCode, focused: $fieldFocus)
+            RivalCodeEntry(viewModel: viewModel)
+            if (error != nil) {
+                Text(error!.errorText.localized())
+                    .foregroundColor(.red)
             }
-            Text("-").fontWeight(.bold)
-            ForEach(4..<8, id: \.self) { index in
-                RivalCodeCell(index: index, enteredCode: $enteredCode, focused: $fieldFocus)
+        }
+        .padding(.horizontal, 15)
+        .onAppear {
+            viewModel.errors.subscribe { errorsState in
+                if let currentErrors = errorsState {
+                    if (currentErrors.count > 0) {
+                        withAnimation {
+                            error = currentErrors[0] as? FirstRunError.RivalCodeError
+                        }
+                    }
+                }
             }
         }
     }
 }
 
-@available(iOS 15.0, *)
+struct RivalCodeEntry: View {
+    @ObservedObject var viewModel: FirstRunInfoViewModel
+    @FocusState private var isKeyboardShowing: Bool
+    
+    var body : some View {
+        HStack {
+            let currentRivalCode = String(viewModel.rivalCode.value!)
+            let rivalCodeArray = Array(currentRivalCode)
+            ForEach(0..<4, id: \.self) { index in
+                RivalCodeCell(cellValue: rivalCodeArray.count > index ? String(rivalCodeArray[index]) : " ")
+            }
+            Text("-").fontWeight(.bold)
+            ForEach(4..<8, id: \.self) { index in
+                RivalCodeCell(cellValue: rivalCodeArray.count > index ? String(rivalCodeArray[index]) : " ")
+            }
+        }
+        .background(content: {
+            TextField("", text: viewModel.binding(\.rivalCode).limit(8))
+                .keyboardType(.numberPad)
+                .frame(width: 1, height: 1)
+                .opacity(0.001)
+                .blendMode(.screen)
+                .focused($isKeyboardShowing)
+                .onChange(of: viewModel.rivalCode.value!) { newCode in
+                    if String(newCode).count == 8 {
+                        isKeyboardShowing = false
+                    }
+                }
+        })
+        .onTapGesture {
+            isKeyboardShowing.toggle()
+        }
+    }
+}
+
 struct RivalCodeCell: View {
-    var index: Int
-    @Binding var enteredCode: [String]
-    @FocusState.Binding var focused: Int?
-    @State private var oldValue = ""
+    var cellValue: String
+    @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
-        TextField("", text: $enteredCode[index], onEditingChanged: { editing in
-            if editing {
-                oldValue = enteredCode[index]
-            }
-        })
-            .keyboardType(.numberPad)
+        Text(cellValue)
+            .font(.system(size: 24, weight: .bold))
             .frame(width: 36, height: 48)
             .background(Color.gray.opacity(0.1))
             .cornerRadius(5)
             .overlay(
                 RoundedRectangle(cornerRadius: 5)
-                    .stroke(.white)
-            )
-            .multilineTextAlignment(.center)
-            .font(.system(size: 24, weight: .bold))
-            .focused($focused, equals: index)
-            .tag(index)
-            .onChange(of: enteredCode[index]) { newValue in
-                if enteredCode[index].count > 1 {
-                    let currentValue = Array(enteredCode[index])
-                    enteredCode[index] = currentValue[0] == Character(oldValue) ? String(enteredCode[index].suffix(1)) : String(enteredCode[index].prefix(1))
-                }
-                
-                if !newValue.isEmpty {
-                    focused = index == 7 ? nil : (focused ?? 0) + 1
-                } else {
-                    focused = (focused ?? 0) - 1
-                }
-            }
+                    .stroke(colorScheme == .dark ? .white : .black)
+        )
     }
 }
 
@@ -274,45 +302,31 @@ struct FirstRunSocials: View {
     }
 }
 
-@available(iOS 16.0, *)
 struct FirstRunRankMethod: View {
+    var step: FirstRunStep.PathStepInitialRankSelection
+    var onRankMethodSelected: (InitState) -> (Void)
+
     var body: some View {
         VStack {
             Text(MR.strings().first_run_rank_selection_header.desc().localized())
                 .font(.system(size: 24, weight: .heavy))
                 .padding(.bottom, 16)
-            Button {
-                withAnimation {
-                    
+            
+            ForEach(step.path.allowedRankSelectionTypes(), id: \.self) { method in
+                Button {
+                    withAnimation {
+                        onRankMethodSelected(method)
+                    }
+                } label: {
+                    Text(method.description_.localized())
+                        .padding()
+                        .background(Color(red: 1, green: 0, blue: 0.44))
+                        .foregroundColor(.white)
+                        .clipShape(Capsule())
+                        .font(.system(size: 16, weight: .medium))
                 }
-            } label: {
-                Text(MR.strings().first_run_rank_method_no_rank.desc().localized())
-                    .padding()
-                    .background(Color(red: 1, green: 0, blue: 0.44))
-                    .foregroundColor(.white)
-                    .clipShape(Capsule())
-                    .font(.system(size: 16, weight: .medium))
             }
-            Button {
-                withAnimation {
-                    
-                }
-            } label: {
-                Text(MR.strings().first_run_rank_method_placement.desc().localized())
-                    .padding()
-                    .background(Color(red: 1, green: 0, blue: 0.44))
-                    .foregroundColor(.white)
-                    .clipShape(Capsule())
-                    .font(.system(size: 16, weight: .medium))
-            }
-            NavigationLink(destination: FirstRunRankListView()) {
-                Text(MR.strings().first_run_rank_method_selection.desc().localized())
-                    .padding()
-                    .background(Color(red: 1, green: 0, blue: 0.44))
-                    .foregroundColor(.white)
-                    .clipShape(Capsule())
-                    .font(.system(size: 16, weight: .medium))
-            }
+            
             Text(MR.strings().first_run_rank_selection_footer.desc().localized())
                 .fixedSize(horizontal: false, vertical: true)
                 .padding(.top, 16)
@@ -322,46 +336,48 @@ struct FirstRunRankMethod: View {
 
 // Below are all of the SwiftUI previews
 
-@available(iOS 16.0, *)
 #Preview {
-    FirstRunView()
+    FirstRunView(onComplete: {_ in })
 }
 
 struct FirstRunHeader_Previews: PreviewProvider {
     static var previews: some View {
-        FirstRunHeader(showWelcome: .constant(true))
+        FirstRunHeader(showWelcome: true)
     }
 }
 
 struct FirstRunNewUser_Previews: PreviewProvider {
     static var previews: some View {
-        FirstRunNewUser(showWelcome: .constant(true), viewIndex: .constant(0), isExistingUser: .constant(false))
+        @ObservedObject var viewModel: FirstRunInfoViewModel = FirstRunInfoViewModel()
+        FirstRunNewUser(viewModel: viewModel)
     }
 }
 
 struct FirstRunUsernameNew_Previews: PreviewProvider {
     static var previews: some View {
-        FirstRunUsername(username: "", isExistingUser: .constant(false))
+        @ObservedObject var viewModel: FirstRunInfoViewModel = FirstRunInfoViewModel()
+        FirstRunUsername(viewModel: viewModel, step: FirstRunStep.PathStepUsername(path: FirstRunPath.theNewUserLocal))
     }
 }
 
 struct FirstRunUsernameExisting_Previews: PreviewProvider {
     static var previews: some View {
-        FirstRunUsername(username: "", isExistingUser: .constant(true))
+        @ObservedObject var viewModel: FirstRunInfoViewModel = FirstRunInfoViewModel()
+        FirstRunUsername(viewModel: viewModel, step: FirstRunStep.PathStepUsername(path: FirstRunPath.existingUserLocal))
     }
 }
 
-@available(iOS 15.0, *)
 struct FirstRunRivalCode_Previews: PreviewProvider {
     static var previews: some View {
-        FirstRunRivalCode()
+        @ObservedObject var viewModel: FirstRunInfoViewModel = FirstRunInfoViewModel()
+        FirstRunRivalCode(viewModel: viewModel)
     }
 }
 
-@available(iOS 15.0, *)
 struct RivalCodeEntry_Previews: PreviewProvider {
     static var previews: some View {
-        RivalCodeEntry()
+        @ObservedObject var viewModel: FirstRunInfoViewModel = FirstRunInfoViewModel()
+        RivalCodeEntry(viewModel: viewModel)
     }
 }
 
@@ -371,9 +387,21 @@ struct FirstRunSocials_Previews: PreviewProvider {
     }
 }
 
-@available(iOS 16.0, *)
 struct FirstRunRankMethod_Previews: PreviewProvider {
     static var previews: some View {
-        FirstRunRankMethod()
+        @ObservedObject var viewModel: FirstRunInfoViewModel = FirstRunInfoViewModel()
+        FirstRunRankMethod(step: FirstRunStep.PathStepInitialRankSelection(path: FirstRunPath.theNewUserLocal, availableMethods: FirstRunPath.theNewUserLocal.allowedRankSelectionTypes()), onRankMethodSelected: viewModel.rankMethodSelected)
+    }
+}
+
+// Extension used to apply limit of 8 characters to the rival code string binding
+extension Binding where Value == String {
+    func limit(_ length: Int) -> Self {
+        if self.wrappedValue.count > length {
+            DispatchQueue.main.async {
+                self.wrappedValue = String(self.wrappedValue.prefix(length))
+            }
+        }
+        return self
     }
 }

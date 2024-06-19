@@ -12,11 +12,37 @@ struct iOSApp: App {
       )
     }
     
+    @State private var path = NavigationPath()
+    
+    func goToView(nextStep: InitState) {
+        path.append(nextStep)
+    }
+    
 	var body: some Scene {
 		WindowGroup {
-      NavigationView {
-        FirstRunView()
-      }
+            NavigationStack(path: $path) {
+                FirstRunView(onComplete: goToView)
+                .navigationDestination(for: InitState.self) { initState in
+                    switch initState {
+                        case InitState.placements:
+                            PlacementListView(
+                                onRanksClicked: { goToView(nextStep: InitState.ranks) },
+                                goToMainView: { goToView(nextStep: InitState.done) }
+                            )
+                        case InitState.ranks:
+                            FirstRunRankListView(
+                                onPlacementClicked: { goToView(nextStep: InitState.placements) },
+                                goToMainView: { goToView(nextStep: InitState.done) }
+                            )
+                        case InitState.done:
+                            // MainView()
+                            Text("Main View not implemented yet")
+                                .navigationBarBackButtonHidden(true)
+                        default:
+                            Text("Not implemented")
+                    }
+                }
+            }
 		}
 	}
 }

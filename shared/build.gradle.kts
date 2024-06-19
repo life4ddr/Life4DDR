@@ -29,6 +29,7 @@ kotlin {
             export("dev.icerock.moko:resources:0.23.0")
             export("dev.icerock.moko:graphics:0.9.0") // toUIColor here
             export("dev.icerock.moko:mvvm-core:0.16.1")
+            export("dev.icerock.moko:mvvm-flow:0.16.1")
             export("dev.icerock.moko:mvvm-livedata:0.16.1")
         }
     }
@@ -50,6 +51,8 @@ kotlin {
             implementation(libs.multiplatformSettings.common)
             implementation(libs.multiplatformSettings.coroutines)
             implementation(libs.kotlinx.dateTime)
+            implementation(libs.moko.mvvm.core)
+            implementation(libs.moko.mvvm.flow)
             api(libs.touchlab.kermit)
             api(libs.bundles.moko.mvvm.common)
             api(libs.bundles.moko.resources.common)
@@ -67,9 +70,14 @@ kotlin {
             implementation(libs.moko.mvvm.android.livedata.glide)
             implementation(libs.multiplatformSettings.datastore)
             implementation(libs.androidx.datastore)
+            api(libs.moko.mvvm.core)
+            api(libs.moko.mvvm.flow)
+            api(libs.moko.mvvm.flow.compose)
         }
         iosMain.dependencies {
             implementation(libs.sqlDelight.native)
+            api(libs.moko.mvvm.core)
+            api(libs.moko.mvvm.flow)
         }
     }
 }

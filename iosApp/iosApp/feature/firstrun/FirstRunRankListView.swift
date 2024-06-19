@@ -9,25 +9,62 @@
 import SwiftUI
 import Shared
 
-@available(iOS 16.0, *)
 struct FirstRunRankListView: View {
-    @State var selectedRank: LadderRank?
+    @ObservedObject var viewModel: RankListViewModel = RankListViewModel(isFirstRun: true)
+    @State var state: UIRankList?
+    var onPlacementClicked: () -> (Void)
+    var goToMainView: () -> (Void)
     
     var body: some View {
-        VStack(alignment: .leading) {
-            Text(MR.strings().select_a_starting_rank.desc().localized())
+        VStack {
+            Text(state?.titleText.desc().localized() ?? "")
+                .frame(maxWidth: .infinity, alignment: .leading)
                 .font(.system(size: 32, weight: .heavy))
                 .padding(.bottom, 16)
-            RankSelection(selectedRank: $selectedRank)
-            if (selectedRank != nil) {
-                LadderGoals(rankPreview: true)
-            }
+            RankSelection(
+                ranks: state?.ranks as? [LadderRank?] ?? [],
+                noRank: state?.noRank ?? UINoRank.Companion().DEFAULT,
+                onRankClicked: viewModel.setRankSelected,
+                onRankRejected: {
+                    viewModel.saveRank(ladderRank: nil)
+                    goToMainView()
+                }
+            )
+            // TODO: add LadderGoals here when ladderData gets set in state
             Spacer()
+            if (state?.firstRun != nil) {
+                Text(state?.footerText.desc().localized() ?? "")
+                    .minimumScaleFactor(0.5)
+                    .lineLimit(1)
+                Button {
+                    withAnimation {
+                        viewModel.moveToPlacements()
+                        onPlacementClicked()
+                    }
+                } label: {
+                    Text(state?.firstRun?.buttonText.desc().localized() ?? "")
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color(red: 1, green: 0, blue: 0.44))
+                        .foregroundColor(.white)
+                        .clipShape(Capsule())
+                        .font(.system(size: 16, weight: .medium))
+                }
+            }
+        }
+        .navigationBarBackButtonHidden(true)
+        .onAppear {
+            viewModel.state.subscribe { state in
+                if let currentState = state {
+                    withAnimation {
+                        self.state = currentState
+                    }
+                }
+            }
         }
     }
 }
 
-@available(iOS 16.0, *)
 #Preview {
-    FirstRunRankListView()
+    FirstRunRankListView(onPlacementClicked: {}, goToMainView: {})
 }

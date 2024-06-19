@@ -17,6 +17,8 @@ import com.perrigogames.life4.feature.firstrun.InitState.DONE
 import com.perrigogames.life4.feature.firstrun.InitState.PLACEMENTS
 import com.perrigogames.life4.feature.firstrun.InitState.RANKS
 import com.perrigogames.life4.feature.settings.UserInfoSettings
+import dev.icerock.moko.mvvm.flow.CFlow
+import dev.icerock.moko.mvvm.flow.cFlow
 import dev.icerock.moko.mvvm.flow.cMutableStateFlow
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
 import dev.icerock.moko.resources.desc.Resource
@@ -40,13 +42,13 @@ class FirstRunInfoViewModel : ViewModel(), KoinComponent {
     val socialNetworks = MutableStateFlow<MutableMap<SocialNetwork, String>>(mutableMapOf()).cMutableStateFlow()
 
     private val _stateStack = MutableStateFlow<List<FirstRunStep>>(listOf(Landing)).cMutableStateFlow()
-    val state: Flow<FirstRunStep> = _stateStack.map { it.last() }
+    val state: CFlow<FirstRunStep> = _stateStack.map { it.last() }.cFlow()
 
     private val currentStep: FirstRunStep get() = _stateStack.value.last()
     private val currentPath: FirstRunPath? get() = (currentStep as? PathStep)?.path
 
     private val _errors = MutableStateFlow<List<FirstRunError>>(emptyList()).cMutableStateFlow()
-    val errors: Flow<List<FirstRunError>> = _errors
+    val errors: CFlow<List<FirstRunError>> = _errors.cFlow()
 
     inline fun <reified T : FirstRunError> errorOfType() : Flow<T?> =
         errors.map { errors -> errors.firstOrNull { it is T } as? T }
