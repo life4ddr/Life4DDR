@@ -73,7 +73,7 @@ object TrialGoalStrings {
                 scoreGroups.keys.sortedDescending().forEach { score ->
                     if (score != 0) {
                         output.add(TrialStrings.scoreSingleSong(score, StringBuilder().also { builder ->
-                            val names = scoreGroups[score]!!.map { trial.songs[it].name }
+                            val names = scoreGroups[score]!!.map { trial.songs[it].chart.song.title }
                             names.forEachIndexed { index, name ->
                                 if (index != 0) {
                                     builder.append(if (index == names.lastIndex) ", and " else ", ")

@@ -4,10 +4,7 @@ import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.feature.ladder.UILadderData
 import dev.icerock.moko.mvvm.flow.cMutableStateFlow
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.*
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
@@ -17,7 +14,7 @@ class MainScreenProfileViewModel : ViewModel(), KoinComponent {
     private val userRankManager: UserRankManager by inject()
 
     private val _state = MutableStateFlow<UIMainScreenProfile?>(null).cMutableStateFlow()
-    val state: StateFlow<UIMainScreenProfile?> = _state
+    val state: StateFlow<UIMainScreenProfile?> = _state.asStateFlow()
 
     init {
         combine(

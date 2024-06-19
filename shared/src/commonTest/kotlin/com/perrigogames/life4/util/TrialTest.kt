@@ -1,13 +1,10 @@
 package com.perrigogames.life4.util
 
-import com.perrigogames.life4.data.Song
 import com.perrigogames.life4.data.SongResult
 import com.perrigogames.life4.data.Trial
+import com.perrigogames.life4.data.TrialSong
 import com.perrigogames.life4.enums.DifficultyClass
-import com.perrigogames.life4.enums.TrialRank.DIAMOND
-import com.perrigogames.life4.enums.TrialRank.GOLD
-import com.perrigogames.life4.enums.TrialRank.PLATINUM
-import com.perrigogames.life4.enums.TrialRank.SILVER
+import com.perrigogames.life4.enums.TrialRank.*
 import com.perrigogames.life4.enums.TrialType
 import com.perrigogames.life4.feature.trialsession.TrialGoalSet
 
@@ -39,7 +36,7 @@ fun testSong(
     index: Int,
     ex: Int,
     difficultyClass: DifficultyClass = DifficultyClass.EXPERT,
-) = Song(
+) = TrialSong(
     name = "Song $index",
     difficultyNumber = 14 + index,
     difficultyClass = difficultyClass,
@@ -47,7 +44,7 @@ fun testSong(
 )
 
 fun testSongResult(
-    song: Song,
+    song: TrialSong,
     score: Int? = null,
     exScore: Int? = null,
     misses: Int? = null,

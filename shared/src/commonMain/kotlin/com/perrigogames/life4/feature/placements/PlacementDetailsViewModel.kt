@@ -12,6 +12,8 @@ import dev.icerock.moko.mvvm.viewmodel.ViewModel
 import dev.icerock.moko.resources.desc.StringDesc
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
@@ -24,19 +26,23 @@ class PlacementDetailsViewModel(
     private val songDataManager: SongDataManager by inject()
 
     private val _state = MutableStateFlow(UIPlacementDetails()).cMutableStateFlow()
-    val state: StateFlow<UIPlacementDetails> = _state
+    val state: StateFlow<UIPlacementDetails> = _state.asStateFlow()
 
     init {
-        val placement = placementManager.findPlacement(placementId)
-        if (placement == null) {
-            logger.e("Placement ID $placementId not found")
-        } else {
-            _state.value = _state.value.copy(
-                rankIcon = placement.placementRank!!.toLadderRank(),
-                songs = placement.songs.map { song ->
-                    song.toUITrialSong(songInfo = songDataManager.findSong(song.skillId))
+        viewModelScope.launch {
+            placementManager.findPlacement(placementId)
+                .collect { placement ->
+                    if (placement == null) {
+                        logger.e("Placement ID $placementId not found")
+                    } else {
+                        _state.value = _state.value.copy(
+                            rankIcon = placement.placementRank!!.toLadderRank(),
+                            songs = placement.songs.map { song ->
+                                song.toUITrialSong()
+                            }
+                        )
+                    }
                 }
-            )
         }
     }
 }

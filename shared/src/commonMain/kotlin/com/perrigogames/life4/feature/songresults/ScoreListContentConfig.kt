@@ -5,10 +5,11 @@ import com.perrigogames.life4.enums.DifficultyClass
 import com.perrigogames.life4.enums.PlayStyle
 
 data class ScoreListContentConfig(
-    val playStyle: PlayStyle? = PlayStyle.SINGLE, // TODO Doubles support
+    val playStyle: PlayStyle? = PlayStyle.SINGLE,
     val difficultyClasses: List<DifficultyClass>? = null,
-    val difficultyNumbers: List<Long>? = null,
+    val difficultyNumbers: IntRange? = null,
     val clearTypes: List<ClearType>? = null,
     val minScore: Long? = null,
     val maxScore: Long? = null,
+    val filterIgnored: Boolean = false,
 )

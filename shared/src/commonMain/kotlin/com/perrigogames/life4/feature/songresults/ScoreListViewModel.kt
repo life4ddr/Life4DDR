@@ -2,6 +2,7 @@ package com.perrigogames.life4.feature.songresults
 
 import com.perrigogames.life4.enums.ClearType
 import com.perrigogames.life4.enums.colorRes
+import com.perrigogames.life4.model.ChartResultOrganizer
 import dev.icerock.moko.mvvm.flow.cMutableStateFlow
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
 import dev.icerock.moko.resources.ColorResource
@@ -13,14 +14,14 @@ import org.koin.core.component.inject
 
 class ScoreListViewModel: ViewModel(), KoinComponent {
 
-    private val resultsManager: SongResultsManager by inject()
+    private val resultOrganizer: ChartResultOrganizer by inject()
 
     private val _state = MutableStateFlow(UIScoreList()).cMutableStateFlow()
     val state: StateFlow<UIScoreList> = _state
 
     init {
         viewModelScope.launch {
-            resultsManager.resultsForConfig(ScoreListContentConfig())
+            resultOrganizer.resultsForConfig(ScoreListContentConfig())
                 .collect { results ->
                     _state.value = UIScoreList(
                         scores = results.map { it.toUIScore() }
@@ -42,7 +43,7 @@ data class UIScore(
 )
 
 fun ChartResultPair.toUIScore() = UIScore(
-    leftText = chart.title,
+    leftText = chart.song.title,
     rightText = (result?.score ?: 0).toString(),
     leftColor = chart.difficultyClass.colorRes,
     rightColor = (result?.clearType ?: ClearType.NO_PLAY).colorRes,

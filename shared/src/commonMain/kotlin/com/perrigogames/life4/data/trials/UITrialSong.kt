@@ -1,7 +1,6 @@
 package com.perrigogames.life4.data.trials
 
-import com.perrigogames.life4.data.Song
-import com.perrigogames.life4.db.SongInfo
+import com.perrigogames.life4.data.TrialSong
 import com.perrigogames.life4.enums.DifficultyClass
 import com.perrigogames.life4.enums.PlayStyle
 import com.perrigogames.life4.enums.colorRes
@@ -20,12 +19,12 @@ data class UITrialSong(
     val chartString = playStyle.aggregateString(difficultyClass)
 }
 
-fun Song.toUITrialSong(songInfo: SongInfo? = null) = UITrialSong(
-    jacketUrl = this.url,
-    songNameText = songInfo?.title ?: this.name,
-    subtitleText = songInfo?.version?.printName ?: this.skillId,
-    playStyle = this.playStyle,
-    difficultyClass = this.difficultyClass,
-    difficultyText = this.difficultyNumber.toString(),
-    difficultyNumber = this.difficultyNumber,
+fun TrialSong.toUITrialSong() = UITrialSong(
+    jacketUrl = url,
+    songNameText = chart.song.title,
+    subtitleText = chart.song.version.printName,
+    playStyle = playStyle,
+    difficultyClass = difficultyClass,
+    difficultyText = chart.difficultyNumber.toString(),
+    difficultyNumber = chart.difficultyNumber,
 )

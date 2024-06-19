@@ -10,15 +10,8 @@
 
 package com.perrigogames.life4.data
 
-import com.perrigogames.life4.enums.ChartTypeSerializer
-import com.perrigogames.life4.enums.DifficultyClass
-import com.perrigogames.life4.enums.DifficultyClassSerializer
-import com.perrigogames.life4.enums.PlayStyle
-import com.perrigogames.life4.enums.PlayStyleSerializer
-import com.perrigogames.life4.enums.TrialRank
-import com.perrigogames.life4.enums.TrialRankSerializer
-import com.perrigogames.life4.enums.TrialType
-import com.perrigogames.life4.enums.TrialTypeSerializer
+import com.perrigogames.life4.enums.*
+import com.perrigogames.life4.feature.songlist.Chart
 import com.perrigogames.life4.feature.trialsession.TrialGoalSet
 import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDateTime
@@ -27,6 +20,7 @@ import kotlinx.datetime.serializers.InstantIso8601Serializer
 import kotlinx.datetime.toLocalDateTime
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
 import kotlinx.serialization.UseSerializers
 import kotlin.math.min
 
@@ -50,7 +44,7 @@ data class Trial(
     val state: TrialState = TrialState.ACTIVE,
     val type: TrialType,
     @SerialName("placement_rank") val placementRank: PlacementRank? = null,
-    val songs: List<Song>,
+    val songs: List<TrialSong>,
     @SerialName("play_style") val playStyle: PlayStyle = PlayStyle.SINGLE,
     @SerialName("event_start") val eventStart: LocalDateTime? = null,
     @SerialName("event_end") val eventEnd: LocalDateTime? = null,
@@ -94,12 +88,12 @@ data class Trial(
 }
 
 @Serializable
-data class Song(
-    val name: String,
+data class TrialSong(
     val skillId: String = "FIXME",
     @SerialName("play_style") val playStyle: PlayStyle = PlayStyle.SINGLE,
-    @SerialName("difficulty") val difficultyNumber: Int,
     @SerialName("difficulty_class") val difficultyClass: DifficultyClass,
     val ex: Int,
     val url: String? = null,
-)
+) {
+    @Transient lateinit var chart: Chart
+}

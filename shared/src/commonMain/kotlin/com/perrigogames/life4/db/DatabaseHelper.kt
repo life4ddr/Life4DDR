@@ -8,18 +8,13 @@ import com.squareup.sqldelight.db.SqlDriver
 abstract class DatabaseHelper(private val sqlDriver: SqlDriver) {
 
     protected val dbRef = Life4Db(sqlDriver,
-        ChartInfo.Adapter(
-            StableIdColumnAdapter(DifficultyClass.entries.toTypedArray()),
-            StableIdColumnAdapter(PlayStyle.entries.toTypedArray())
-        ),
         ChartResult.Adapter(
+            StableIdColumnAdapter(DifficultyClass.entries.toTypedArray()),
+            StableIdColumnAdapter(PlayStyle.entries.toTypedArray()),
             StableIdColumnAdapter(ClearType.entries.toTypedArray())
         ),
         GoalState.Adapter(
             StableIdColumnAdapter(GoalStatus.entries.toTypedArray())
-        ),
-        SongInfo.Adapter(
-            StableIdColumnAdapter(GameVersion.entries.toTypedArray())
         ),
         TrialSession.Adapter(
             StableIdColumnAdapter(TrialRank.entries.toTypedArray())

@@ -1,10 +1,10 @@
 package com.perrigogames.life4.model
 
 import com.perrigogames.life4.db.ChartResult
-import com.perrigogames.life4.db.DetailedChartInfo
 import com.perrigogames.life4.enums.ClearType
+import com.perrigogames.life4.feature.songlist.Chart
 
-fun DetailedChartInfo.toStringExt() = "$title ${difficultyClass.aggregateString(playStyle)} ($difficultyNumber)}"
+fun Chart.toStringExt() = "${song.title} ${difficultyClass.aggregateString(playStyle)} ($difficultyNumber)}"
 
 fun ChartResult.toStringExt() = "$score - $clearType"
 

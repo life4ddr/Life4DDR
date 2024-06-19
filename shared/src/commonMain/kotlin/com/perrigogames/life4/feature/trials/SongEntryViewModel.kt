@@ -1,8 +1,8 @@
 package com.perrigogames.life4.feature.trials
 
 import com.perrigogames.life4.SettingsKeys
-import com.perrigogames.life4.data.Song
 import com.perrigogames.life4.data.SongResult
+import com.perrigogames.life4.data.TrialSong
 import com.perrigogames.life4.feature.trialsession.TrialSessionManager
 import com.perrigogames.life4.getDebugBoolean
 import com.perrigogames.life4.util.mutate
@@ -12,11 +12,7 @@ import dev.icerock.moko.mvvm.flow.CStateFlow
 import dev.icerock.moko.mvvm.flow.cMutableStateFlow
 import dev.icerock.moko.mvvm.flow.cStateFlow
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.*
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
@@ -29,7 +25,7 @@ class SongEntryViewModel(
     private val trialSessionManager: TrialSessionManager by inject()
     private val settings: Settings by inject()
     private val currentSession get() = trialSessionManager.currentSession!!
-    private val song: Song get() = currentSession.trial.songs[songIndex]
+    private val song: TrialSong get() = currentSession.trial.songs[songIndex]
     private val result: SongResult get() = currentSession.results[songIndex]!!
 
     val scoreText: CMutableStateFlow<String> = MutableStateFlow("").cMutableStateFlow()

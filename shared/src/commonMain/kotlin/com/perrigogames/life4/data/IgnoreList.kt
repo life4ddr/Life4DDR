@@ -6,9 +6,12 @@
 
 package com.perrigogames.life4.data
 
-import com.perrigogames.life4.db.DetailedChartInfo
 import com.perrigogames.life4.enums.*
-import kotlinx.serialization.*
+import com.perrigogames.life4.feature.songlist.Chart
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
+import kotlinx.serialization.UseSerializers
 
 @Serializable
 enum class IgnoreUnlockType {
@@ -103,8 +106,8 @@ data class IgnoredSong(
     @SerialName("play_style") val playStyle: PlayStyle? = null,
 ) {
 
-    fun matches(chart: DetailedChartInfo) =
-        chart.songSkillId == skillId &&
+    fun matches(chart: Chart) =
+        chart.song.skillId == skillId &&
                 (difficultyClass == null || difficultyClass == chart.difficultyClass) &&
                 (playStyle == null || playStyle == chart.playStyle)
 

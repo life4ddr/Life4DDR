@@ -40,7 +40,7 @@ class GoalListViewModel(private val config: GoalListConfig) : ViewModel(), KoinC
         .onEach { logger.v { "requirementsFlow -> $it" } }
 
     private val _state = MutableStateFlow<ViewState<UILadderData, String>>(ViewState.Loading).cMutableStateFlow()
-    val state: StateFlow<ViewState<UILadderData, String>> = _state
+    val state: StateFlow<ViewState<UILadderData, String>> = _state.asStateFlow()
 
     private var entry: RankEntry? = null
 

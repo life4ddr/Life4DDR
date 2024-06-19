@@ -6,12 +6,13 @@ import dev.icerock.moko.mvvm.flow.cMutableStateFlow
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import org.koin.core.component.KoinComponent
 
 class HomeProfileViewModel : ViewModel(), KoinComponent {
 
     private val _state = MutableStateFlow(UIHomeProfile()).cMutableStateFlow()
-    val state: StateFlow<UIHomeProfile> = _state
+    val state: StateFlow<UIHomeProfile> = _state.asStateFlow()
 }
 
 data class UIHomeProfile(

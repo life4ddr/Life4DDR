@@ -5,12 +5,13 @@ import dev.icerock.moko.mvvm.flow.cMutableStateFlow
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import org.koin.core.component.KoinComponent
 
 class RankSelectionViewModel(config: RankSelectionConfig) : ViewModel(), KoinComponent {
 
     private val _state = MutableStateFlow(RankSelectionState()).cMutableStateFlow()
-    val state: StateFlow<RankSelectionState> = _state
+    val state: StateFlow<RankSelectionState> = _state.asStateFlow()
 
     init {
         _state.value = _state.value.copy(

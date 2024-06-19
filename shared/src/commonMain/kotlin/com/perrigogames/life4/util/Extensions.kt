@@ -1,14 +1,6 @@
 package com.perrigogames.life4.util
 
-fun String.indexOfOrEnd(char: Char, startIndex: Int = 0, ignoreCase: Boolean = false): Int {
-    val idx = indexOf(char, startIndex, ignoreCase)
-    return if (idx >= 0) idx else length
-}
-
-fun String.indexOfOrEnd(str: String, startIndex: Int = 0, ignoreCase: Boolean = false): Int {
-    val idx = indexOf(str, startIndex, ignoreCase)
-    return if (idx >= 0) idx else length
-}
+fun Int.toInclusiveRange() = this..this
 
 /**
  * For a list of integers, checks to see if another set of integers fits in the cascade of values.
