@@ -6,10 +6,10 @@ import com.perrigogames.life4.db.ResultDatabaseHelper
 import com.perrigogames.life4.feature.songlist.SongDataManager
 import com.perrigogames.life4.injectLogger
 import com.perrigogames.life4.model.BaseModel
+import dev.icerock.moko.mvvm.flow.CStateFlow
 import dev.icerock.moko.mvvm.flow.cMutableStateFlow
+import dev.icerock.moko.mvvm.flow.cStateFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import org.koin.core.component.inject
@@ -22,7 +22,7 @@ class SongResultsManager: BaseModel() {
 
     private val results = MutableStateFlow<List<ChartResult>>(emptyList()).cMutableStateFlow()
     private val _library = MutableStateFlow<List<ChartResultPair>>(emptyList()).cMutableStateFlow()
-    val library: StateFlow<List<ChartResultPair>> = _library.asStateFlow()
+    val library: CStateFlow<List<ChartResultPair>> = _library.cStateFlow()
 
     init {
         mainScope.launch {

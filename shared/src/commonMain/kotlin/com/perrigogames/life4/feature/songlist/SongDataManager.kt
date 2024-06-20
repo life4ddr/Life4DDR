@@ -11,7 +11,12 @@ import com.perrigogames.life4.enums.PlayStyle
 import com.perrigogames.life4.injectLogger
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.SONGS_FILE_NAME
 import com.perrigogames.life4.model.BaseModel
-import kotlinx.coroutines.flow.*
+import dev.icerock.moko.mvvm.flow.CStateFlow
+import dev.icerock.moko.mvvm.flow.cStateFlow
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import org.koin.core.component.inject
 import org.koin.core.qualifier.named
@@ -30,14 +35,17 @@ class SongDataManager: BaseModel() {
         data.versionState.map { it.versionString }
 
     private val _libraryFlow = MutableStateFlow(SongLibrary())
-    val libraryFlow: StateFlow<SongLibrary> = _libraryFlow
+    val libraryFlow: CStateFlow<SongLibrary> = _libraryFlow.cStateFlow()
 
     init {
-        data.start()
         mainScope.launch {
-            data.dataState.unwrapLoaded()
+            data.dataState
+                .unwrapLoaded()
                 .filterNotNull()
-                .map { parseDataFile(it) }
+                .collect { parseDataFile(it) }
+        }
+        mainScope.launch {
+            data.start()
         }
     }
 
@@ -95,6 +103,7 @@ class SongDataManager: BaseModel() {
                 }
             }
 
+            songs[song] = charts
             logger.d("Importing $title / $artist (${data.joinToString()})")
         }
 

@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 import org.koin.core.component.inject
 import org.koin.core.qualifier.named
 
@@ -29,15 +30,7 @@ class LadderDataManager: BaseModel() {
     //
     // Ladder Data
     //
-    private val data = LadderRemoteData(dataReader).apply { start() }
-//        override fun onDataVersionChanged(data: LadderRankData) {
-//            ladderDialogs.showLadderUpdateToast()
-            // FIXME eventBus.post(LadderRanksReplacedEvent())
-//        }
-
-//        override fun onMajorVersionBlock() {
-            // FIXME eventBus.postSticky(DataRequiresAppUpdateEvent())
-//        }
+    private val data = LadderRemoteData(dataReader)
 
     val dataVersionString: Flow<String> =
         data.versionState.map { it.versionString }
@@ -52,6 +45,12 @@ class LadderDataManager: BaseModel() {
         ) { ladderData, currentGameVersion ->
             ladderData.gameVersions[currentGameVersion]
         }
+
+    init {
+        mainScope.launch {
+            data.start()
+        }
+    }
 
     fun requirementsForRank(rank: LadderRank?): Flow<RankEntry?> =
         _ladderDataForGameVersion.map {

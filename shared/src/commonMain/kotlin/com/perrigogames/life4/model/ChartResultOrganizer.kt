@@ -47,7 +47,7 @@ class ChartResultOrganizer: BaseModel(), KoinComponent {
 
     fun resultsForConfig(config: ScoreListContentConfig): StateFlow<List<ChartResultPair>> {
         return basicOrganizer
-            .map { it[config.playStyle]!! }
+            .map { it[config.playStyle] ?: emptyMap() }
             .map { chartsByDifficultyNumber ->
                 var temp = if (config.difficultyNumbers != null) {
                     config.difficultyNumbers.flatMap { chartsByDifficultyNumber[it]!! }
@@ -79,7 +79,7 @@ class ChartResultOrganizer: BaseModel(), KoinComponent {
 
                 temp
             }
-            .stateIn(mainScope, SharingStarted.Lazily, initialValue = emptyList())
+            .stateIn(mainScope, SharingStarted.Eagerly, initialValue = emptyList())
     }
 }
 

@@ -53,13 +53,15 @@ class TrialManager: BaseModel() {
     val trialsFlow: StateFlow<List<Trial>> = _trialsFlow
 
     init {
-        data.start()
         validateTrials()
 
         mainScope.launch {
             data.dataState
                 .mapNotNull { (it as? CompositeData.LoadingState.Loaded)?.data?.trials }
                 .collect(_trialsFlow)
+        }
+        mainScope.launch {
+            data.start()
         }
     }
 

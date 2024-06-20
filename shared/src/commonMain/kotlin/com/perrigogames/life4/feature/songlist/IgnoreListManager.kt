@@ -7,15 +7,16 @@ import com.perrigogames.life4.api.base.unwrapLoaded
 import com.perrigogames.life4.data.IgnoreList
 import com.perrigogames.life4.data.IgnoreListData
 import com.perrigogames.life4.enums.GameVersion
+import com.perrigogames.life4.feature.settings.LadderListSelectionSettings
 import com.perrigogames.life4.injectLogger
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.IGNORES_FILE_NAME
 import com.perrigogames.life4.model.BaseModel
-import com.perrigogames.life4.feature.settings.LadderListSelectionSettings
 import com.russhwolf.settings.Settings
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
 import org.koin.core.component.inject
 import org.koin.core.qualifier.named
@@ -29,7 +30,7 @@ class IgnoreListManager: BaseModel() {
     private val songDataManager: SongDataManager by inject()
     private val ladderListSelectionSettings: LadderListSelectionSettings by inject()
 
-    private val data = IgnoreListRemoteData(dataReader).apply { start() }
+    private val data = IgnoreListRemoteData(dataReader)
 
     val ignoreListsFlow: Flow<IgnoreListData> = data.dataState
         .unwrapLoaded()
@@ -52,4 +53,10 @@ class IgnoreListManager: BaseModel() {
 
     val dataVersionString: Flow<String> =
         data.versionState.map { it.versionString }
+
+    init {
+        mainScope.launch {
+            data.start()
+        }
+    }
 }

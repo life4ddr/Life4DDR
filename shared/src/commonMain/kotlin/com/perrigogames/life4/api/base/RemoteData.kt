@@ -10,12 +10,12 @@ interface FetchListener<T> {
     /**
      * Invoked when the remote data is received and the result of [checkResponse] is true.
      */
-    fun onFetchUpdated(newData: T) {}
+    suspend fun onFetchUpdated(newData: T) {}
 
     /**
      * Invoked when the remote data is not received or if [checkResponse] indicated an error.
      */
-    fun onFetchFailed(e: Throwable) {}
+    suspend fun onFetchFailed(e: Throwable) {}
 }
 
 abstract class RemoteData<T: Any>: BaseModel(), DelayedDataSource<T> {

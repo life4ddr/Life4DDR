@@ -21,7 +21,9 @@ class ScoreListViewModel: ViewModel(), KoinComponent {
 
     init {
         viewModelScope.launch {
-            resultOrganizer.resultsForConfig(ScoreListContentConfig())
+            resultOrganizer.resultsForConfig(
+                ScoreListContentConfig()
+            )
                 .collect { results ->
                     _state.value = UIScoreList(
                         scores = results.map { it.toUIScore() }

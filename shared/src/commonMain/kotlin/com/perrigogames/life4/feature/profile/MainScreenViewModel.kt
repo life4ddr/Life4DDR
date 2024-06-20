@@ -17,15 +17,11 @@ class MainScreenViewModel : ViewModel(), KoinComponent {
 
     private val _state = MutableStateFlow(MainScreenState()).cMutableStateFlow()
     val state: StateFlow<MainScreenState> = _state.asStateFlow()
-
-    init {
-
-    }
 }
 
 data class MainScreenState(
     val banner: UIBanner = UIBanner(""),
-    val tabs: List<ProfileDestination> = listOf(Profile, Trials, Settings)
+    val tabs: List<ProfileDestination> = listOf(Profile, Scores, Trials, Settings)
 )
 
 data class UIBanner(

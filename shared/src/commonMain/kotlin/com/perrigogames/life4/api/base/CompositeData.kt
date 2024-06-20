@@ -5,16 +5,7 @@ import com.perrigogames.life4.data.MajorVersioned
 import com.perrigogames.life4.data.Versioned
 import com.perrigogames.life4.injectLogger
 import com.perrigogames.life4.model.BaseModel
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.filterNotNull
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.*
 
 typealias VersionChange = Pair<Int, Int>
 
@@ -70,23 +61,23 @@ abstract class CompositeData<T: Versioned>: BaseModel() {
     private val _versionChangeFlow = MutableSharedFlow<VersionChange>(replay = 1)
     val versionChangeFlow: SharedFlow<VersionChange> = _versionChangeFlow
 
-    fun start() {
+    suspend fun start() {
         loadRawData()
         loadCachedData()
-        ready.tryEmit(true)
+        ready.emit(true)
         loadRemoteData()
     }
 
-    private fun loadRawData() {
-        rawData?.data?.let { _dataState.tryEmit(LoadingState.Loaded(it)) }
+    private suspend fun loadRawData() {
+        rawData?.data?.let { _dataState.emit(LoadingState.Loaded(it)) }
     }
 
-    private fun loadCachedData() {
+    private suspend fun loadCachedData() {
         cacheData?.data?.let { cache -> // load cache if it exists, delete the cache if it's behind the raw data
             if (shouldUpdateWith(cache)) {
-                _dataState.tryEmit(LoadingState.Loaded(cache))
+                _dataState.emit(LoadingState.Loaded(cache))
             } else {
-                _versionChangeFlow.tryEmit(VersionChange(cache.version, currentData!!.version))
+                _versionChangeFlow.emit(VersionChange(cache.version, currentData!!.version))
                 cacheData!!.deleteCache()
 //                listener?.onDataVersionChanged(currentData)
             }
@@ -95,22 +86,22 @@ abstract class CompositeData<T: Versioned>: BaseModel() {
 
     private fun loadRemoteData() {
         remoteData?.fetch(object: FetchListener<T> {
-            override fun onFetchUpdated(newData: T) {
+            override suspend fun onFetchUpdated(newData: T) {
                 val currentMajorVersion = versionState.value.majorVersion
                 if (
                     currentMajorVersion != null &&
                     (newData as MajorVersioned).majorVersion > currentMajorVersion
                 ) { // new data has higher major version, do not use
-                    majorVersionBlocked.tryEmit(true)
+                    majorVersionBlocked.emit(true)
                 } else if (newData.version > (currentData?.version ?: 0)) { // new version is higher, use it and save it to cache
-                    _versionChangeFlow.tryEmit(VersionChange(currentData!!.version, newData.version))
-                    _dataState.tryEmit(LoadingState.Loaded(newData))
+                    _versionChangeFlow.emit(VersionChange(currentData!!.version, newData.version))
+                    _dataState.emit(LoadingState.Loaded(newData))
                     cacheData?.saveNewCache(newData)
                 }
                 // otherwise versions are the same
             }
 
-            override fun onFetchFailed(e: Throwable) {
+            override suspend fun onFetchFailed(e: Throwable) {
                 logger.e { e.message ?: "Undefined error" }
             }
         })

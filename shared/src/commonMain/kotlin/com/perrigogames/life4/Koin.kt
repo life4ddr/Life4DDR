@@ -25,10 +25,7 @@ import com.perrigogames.life4.ktor.GithubDataAPI
 import com.perrigogames.life4.ktor.GithubDataImpl
 import com.perrigogames.life4.ktor.Life4API
 import com.perrigogames.life4.ktor.Life4APIImpl
-import com.perrigogames.life4.model.GoalStateManager
-import com.perrigogames.life4.model.LadderDataManager
-import com.perrigogames.life4.model.MajorUpdateManager
-import com.perrigogames.life4.model.MotdManager
+import com.perrigogames.life4.model.*
 import com.perrigogames.life4.model.mapping.LadderGoalMapper
 import kotlinx.serialization.json.Json
 import org.koin.core.component.KoinComponent
@@ -79,6 +76,7 @@ val coreModule = module {
     single { TrialRecordsManager() }
     single { IgnoreListManager() }
     single { SongDataManager() }
+    single { ChartResultOrganizer() }
     single { UserInfoSettings() }
     single { FirstRunSettingsManager() }
     single { UserRankSettings() }

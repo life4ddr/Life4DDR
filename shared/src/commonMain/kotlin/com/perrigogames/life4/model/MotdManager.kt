@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 import org.koin.core.component.inject
 import org.koin.core.qualifier.named
 
@@ -21,19 +22,26 @@ class MotdManager: BaseModel() {
     private val _motdFlow = MutableSharedFlow<Event?>(replay = 8)
     val motdFlow: SharedFlow<Event?> = _motdFlow
 
-    private val data = MotdLocalRemoteData(dataReader).apply { start() }
+    private val data = MotdLocalRemoteData(dataReader)
 //        override fun onDataVersionChanged(data: MessageOfTheDay) {
 //            if (settings.getInt(KEY_LAST_MOTD, -1) < data.version) {
 //                settings[KEY_LAST_MOTD] = data.version
 //                _motdFlow.tryEmit(Event.MotdEvent(data))
-//                // FIXME eventBus.postSticky(MotdEvent(data))
 //            }
 //        }
-//
-//        override fun onMajorVersionBlock() {
-//            _motdFlow.tryEmit(Event.DataRequiresAppUpdateEvent)
-//            // FIXME eventBus.postSticky(DataRequiresAppUpdateEvent())
-//        }
+
+    init {
+        mainScope.launch {
+            data.versionState.collect { state ->
+                if (state.majorVersionBlocked) {
+                    _motdFlow.emit(Event.DataRequiresAppUpdateEvent)
+                }
+            }
+        }
+        mainScope.launch {
+            data.start()
+        }
+    }
 
     val dataVersionString: Flow<String> =
         data.versionState.map { it.versionString }
@@ -42,6 +50,6 @@ class MotdManager: BaseModel() {
 }
 
 sealed class Event {
-    object DataRequiresAppUpdateEvent: Event()
+    data object DataRequiresAppUpdateEvent: Event()
     data class MotdEvent(val motd: MessageOfTheDay): Event()
 }
