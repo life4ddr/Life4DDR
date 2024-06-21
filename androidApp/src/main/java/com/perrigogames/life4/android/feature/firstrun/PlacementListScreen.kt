@@ -15,7 +15,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
@@ -66,6 +65,7 @@ fun PlacementListScreen(
             }
         }
     }
+
     
     val data by viewModel.screenData.collectAsState()
     Column(
@@ -143,41 +143,40 @@ fun PlacementListScreen(
         SizedSpacer(Paddings.LARGE)
     }
     if (closeConfirmShown) {
-        ModalBottomSheet(
-            onDismissRequest = { closeConfirmShown = false },
-            sheetState = modalBottomSheetState,
-            containerColor = MaterialTheme.colorScheme.surface,
-        ) {
-            Text(
-                text = stringResource(MR.strings.placement_close_confirm_title),
-                style = MaterialTheme.typography.titleLarge,
-                color = MaterialTheme.colorScheme.onSurface,
-                textAlign = TextAlign.Center,
-                modifier = Modifier
-                    .padding(horizontal = Paddings.HUGE)
-                    .align(Alignment.CenterHorizontally)
-            )
-            Text(
-                text = stringResource(MR.strings.placement_close_confirm_body),
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurface,
-                textAlign = TextAlign.Center,
-                modifier = Modifier
-                    .padding(horizontal = Paddings.HUGE, vertical = Paddings.LARGE)
-                    .align(Alignment.CenterHorizontally)
-            )
-            Button(
-                onClick = {
-                    viewModel.setFirstRunState(InitState.DONE)
-                    goToMainScreen()
-                },
-                modifier = Modifier
-                    .padding(horizontal = Paddings.HUGE, vertical = Paddings.LARGE)
-                    .align(Alignment.CenterHorizontally)
-            ) {
-                Text(stringResource(MR.strings.close))
+        AlertDialog(
+            title = {
+                Text(
+                    text = stringResource(MR.strings.placement_close_confirm_title),
+                    style = MaterialTheme.typography.titleLarge,
+                    color = MaterialTheme.colorScheme.onSurface,
+                )
+            },
+            text = {
+                Text(
+                    text = stringResource(MR.strings.placement_close_confirm_body),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurface,
+                )
+            },
+            onDismissRequest = {
+                closeConfirmShown = false
+            },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        viewModel.setFirstRunState(InitState.DONE)
+                        goToMainScreen()
+                    }
+                ) { Text(stringResource(MR.strings.confirm)) }
+            },
+            dismissButton = {
+                TextButton(
+                    onClick = {
+                        closeConfirmShown = false
+                    }
+                ) { Text(stringResource(MR.strings.cancel)) }
             }
-        }
+        )
     }
 }
 

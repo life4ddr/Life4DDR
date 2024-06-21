@@ -1,5 +1,4 @@
 @file:UseSerializers(
-    DifficultyClassSerializer::class,
     PlayStyleSerializer::class,
     ChartTypeSerializer::class,
     ClearTypeSerializer::class)
