@@ -18,7 +18,7 @@ struct PlacementListView: View {
     // TODO: implement onPlacementSelected, which will require PlacementDetailsView
     
     @State var selectedPlacement: String?
-    @State var closeConfirmShown: Bool = false
+    @State var skipPlacementAlert: Bool = false
     
     var body: some View {
         VStack {
@@ -60,14 +60,14 @@ struct PlacementListView: View {
             }
             Button {
                 withAnimation {
-                    closeConfirmShown = true
+                    skipPlacementAlert = true
                 }
             } label: {
                 Text(MR.strings().start_no_rank.desc().localized())
                     .padding()
                     .foregroundColor(colorScheme == .dark ? .white : .black)
                     .font(.system(size: 16, weight: .medium))
-            }.alert(isPresented: $closeConfirmShown) {
+            }.alert(isPresented: $skipPlacementAlert) {
                 Alert(
                     title: Text(MR.strings().placement_close_confirm_title.desc().localized()),
                     message: Text(MR.strings().placement_close_confirm_body.desc().localized()),
@@ -157,17 +157,18 @@ struct PlacementSongItem: View {
 
             VStack {
                 Text(data.songNameText)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                     .font(.system(size: 16, weight: .bold))
                     .foregroundColor(Color(textColor))
                     .minimumScaleFactor(0.5)
                     .lineLimit(1)
-//                Text(data.subtitleText)
-//                    .font(.system(size: 14, weight: .bold))
-//                    .foregroundColor(Color(textColor))
-//                    .minimumScaleFactor(0.5)
-//                    .lineLimit(1)
+                Text(data.subtitleText)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .font(.system(size: 14, weight: .bold))
+                    .foregroundColor(Color(textColor))
+                    .minimumScaleFactor(0.5)
+                    .lineLimit(1)
             }
-            .frame(maxWidth: .infinity, alignment: .leading)
             
             VStack {
                 Text(data.chartString)
@@ -178,7 +179,7 @@ struct PlacementSongItem: View {
                     .foregroundColor(Color(data.difficultyClass.colorRes.getUIColor()))
             }
             .padding(8)
-            .background(Color(red: 0.1, green: 0.1, blue: 0.1))
+            .background(Color("difficultyContainer"))
             .clipShape(RoundedRectangle(cornerRadius: 8.0))
         }
     }

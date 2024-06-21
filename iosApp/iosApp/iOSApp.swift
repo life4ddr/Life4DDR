@@ -5,11 +5,16 @@ import Shared
 @main
 struct iOSApp: App {
     init() {
-      KoinKt.doInitKoin(
-        appModule: nativeModule,
-        extraAppModule: Koin_iosKt.makeIosExtraModule(defaults: UserDefaults.standard),
-        appDeclaration: { _ in }
-      )
+        KoinKt.doInitKoin(
+            appModule: nativeModule,
+            extraAppModule: Koin_iosKt.makeIosExtraModule(defaults: UserDefaults.standard),
+            appDeclaration: { _ in }
+        )
+        _ = LadderDataManager()
+        _ = MotdManager()
+        _ = PlacementManager()
+        _ = SongDataManager()
+        _ = TrialManager()
     }
     
     @State private var path = NavigationPath()
