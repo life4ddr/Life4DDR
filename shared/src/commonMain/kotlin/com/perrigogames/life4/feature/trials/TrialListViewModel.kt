@@ -11,7 +11,9 @@ import com.perrigogames.life4.db.SelectBestSessions
 import com.perrigogames.life4.enums.TrialJacketCorner
 import com.perrigogames.life4.feature.trialrecords.TrialRecordsManager
 import com.russhwolf.settings.Settings
+import dev.icerock.moko.mvvm.flow.CStateFlow
 import dev.icerock.moko.mvvm.flow.cMutableStateFlow
+import dev.icerock.moko.mvvm.flow.cStateFlow
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
 import dev.icerock.moko.resources.desc.desc
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -29,7 +31,7 @@ class TrialListViewModel : ViewModel(), KoinComponent {
     private val settings: Settings by inject()
 
     private val _state = MutableStateFlow(UITrialList()).cMutableStateFlow()
-    val state: StateFlow<UITrialList?> = _state
+    val state: CStateFlow<UITrialList?> = _state.cStateFlow()
 
     init {
         val tintCompleted = settings.getBoolean(KEY_TRIAL_LIST_TINT_COMPLETED, true)

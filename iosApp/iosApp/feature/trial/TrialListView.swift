@@ -1,0 +1,78 @@
+//
+//  TrialListView.swift
+//  iosApp
+//
+//  Created by Andrew Le on 6/20/24.
+//  Copyright © 2024 orgName. All rights reserved.
+//
+
+import SwiftUI
+import Shared
+
+struct TrialListView: View {
+    @ObservedObject var viewModel: TrialListViewModel = TrialListViewModel()
+    @State var state: UITrialList?
+    
+    var body: some View {
+        ScrollView(showsIndicators: false) {
+            LazyVGrid(columns: [GridItem(.adaptive(minimum: 180))], spacing: 8) {
+                let trials = state?.trials.compactMap { $0 as? UITrialList.ItemTrial } ?? []
+                Section(header:
+                    Text("Active Trials")
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .font(.system(size: 16, weight: .heavy))
+                ) {
+                    ForEach(trials.filter({ !$0.data.trial.isRetired }), id: \.self) { trial in
+                        TrialJacket(trialData: trial.data)
+                    }
+                }
+                
+                Section(header:
+                    Text("Retired Trials")
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .font(.system(size: 16, weight: .heavy))
+                ) {
+                    ForEach(trials.filter({ $0.data.trial.isRetired }), id: \.self) { trial in
+                        TrialJacket(trialData: trial.data)
+                    }
+                }
+            }
+        }
+        .onAppear {
+            viewModel.state.subscribe { state in
+                if let currentState = state {
+                    withAnimation {
+                        self.state = currentState
+                    }
+                }
+            }
+        }
+    }
+}
+
+struct TrialJacket: View {
+    var trialData: UITrialJacket
+    
+    var body: some View {
+        Image(trialData.trial.name)
+            .resizable()
+            .aspectRatio(contentMode: .fill)
+            .overlay(alignment: .topLeading) { TrialDifficulty(difficulty: trialData.trial.difficulty as! Int) }
+    }
+}
+
+struct TrialDifficulty: View {
+    var difficulty: Int
+    
+    var body: some View {
+        Text(String(difficulty))
+            .font(.system(size: 24, weight: .bold))
+            .foregroundColor(.white)
+            .background(Circle().fill(Color.blue).frame(width: 40, height: 40).opacity(/*@START_MENU_TOKEN@*/0.8/*@END_MENU_TOKEN@*/))
+            .padding(8)
+    }
+}
+
+#Preview {
+    TrialListView()
+}

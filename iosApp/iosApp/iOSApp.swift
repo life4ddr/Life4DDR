@@ -40,9 +40,7 @@ struct iOSApp: App {
                                 goToMainView: { goToView(nextStep: InitState.done) }
                             )
                         case InitState.done:
-                            // MainView()
-                            Text("Main View not implemented yet")
-                                .navigationBarBackButtonHidden(true)
+                            MainView()
                         default:
                             Text("Not implemented")
                     }
