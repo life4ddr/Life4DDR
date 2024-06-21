@@ -2,7 +2,6 @@
     TrialTypeSerializer::class,
     TrialRankSerializer::class,
     PlacementRankSerializer::class,
-    DifficultyClassSerializer::class,
     PlayStyleSerializer::class,
     ChartTypeSerializer::class,
     InstantIso8601Serializer::class,

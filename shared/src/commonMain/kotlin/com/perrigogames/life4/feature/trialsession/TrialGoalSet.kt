@@ -1,7 +1,6 @@
 @file:UseSerializers(
     TrialTypeSerializer::class,
     TrialRankSerializer::class,
-    DifficultyClassSerializer::class,
     PlayStyleSerializer::class,
     ChartTypeSerializer::class,
     ClearTypeSerializer::class)
@@ -9,14 +8,7 @@
 package com.perrigogames.life4.feature.trialsession
 
 import com.perrigogames.life4.data.Trial
-import com.perrigogames.life4.enums.ChartTypeSerializer
-import com.perrigogames.life4.enums.ClearType
-import com.perrigogames.life4.enums.ClearTypeSerializer
-import com.perrigogames.life4.enums.DifficultyClassSerializer
-import com.perrigogames.life4.enums.PlayStyleSerializer
-import com.perrigogames.life4.enums.TrialRank
-import com.perrigogames.life4.enums.TrialRankSerializer
-import com.perrigogames.life4.enums.TrialTypeSerializer
+import com.perrigogames.life4.enums.*
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers

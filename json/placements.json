@@ -10,13 +10,13 @@
             "songs": [
                 {
                     "skillId": "qdbDo1oP6D9ioODd1dQO0QObObidilbP",
-                    "difficulty_class": "beginner",
+                    "difficulty_class": "basic",
                     "ex": 537,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/TECH-NOID-jacket.webp"
                 },
                 {
                     "skillId": "I61ioI01IOPDPbP1OO0l98PD0iDbid0D",
-                    "difficulty_class": "beginner",
+                    "difficulty_class": "basic",
                     "ex": 834,
                     "url": "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/ZEPHYRANTHES-jacket.webp"
                 },
