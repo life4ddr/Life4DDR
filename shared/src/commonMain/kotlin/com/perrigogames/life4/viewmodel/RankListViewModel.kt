@@ -14,7 +14,6 @@ import dev.icerock.moko.mvvm.flow.cStateFlow
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
 import dev.icerock.moko.resources.StringResource
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
@@ -82,7 +81,7 @@ data class UIRankList(
 )
 
 data class UIFirstRunRankList(
-    val buttonText: StringResource = MR.strings.play_placement
+    val buttonText: StringResource = MR.strings.play_placement_instead
 )
 
 data class UINoRank(

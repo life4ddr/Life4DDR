@@ -9,6 +9,7 @@ import com.perrigogames.life4.android.feature.profile.PlayerProfileScreen
 import com.perrigogames.life4.android.feature.scorelist.ScoreListScreen
 import com.perrigogames.life4.android.feature.settings.SettingsScreen
 import com.perrigogames.life4.android.feature.trial.TrialListScreen
+import com.perrigogames.life4.feature.firstrun.FirstRunDestination
 import com.perrigogames.life4.feature.ladder.LadderDestination
 import com.perrigogames.life4.feature.profile.PlayerProfileAction
 import com.perrigogames.life4.feature.profile.ProfileDestination
@@ -37,6 +38,9 @@ fun NavGraphBuilder.profileNavigation(
             modifier = Modifier.fillMaxSize(),
             onTrialSelected = { selectedTrial ->
                 mainNavController.navigate(TrialDestination.TrialDetails(selectedTrial).route)
+            },
+            onPlacementsSelected = {
+                mainNavController.navigate(FirstRunDestination.PlacementList.baseRoute)
             }
         )
     }

@@ -25,9 +25,13 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.perrigogames.life4.android.compose.FontFamilies
 import com.perrigogames.life4.android.compose.FontSizes
 import com.perrigogames.life4.android.compose.Paddings
+import com.perrigogames.life4.android.stringResource
+import com.perrigogames.life4.android.util.SizedSpacer
 import com.perrigogames.life4.android.util.jacketResId
+import com.perrigogames.life4.android.view.compose.RankImage
 import com.perrigogames.life4.data.Trial
 import com.perrigogames.life4.feature.trials.TrialListViewModel
+import com.perrigogames.life4.feature.trials.UIPlacementBanner
 import com.perrigogames.life4.feature.trials.UITrialJacket
 import com.perrigogames.life4.feature.trials.UITrialList
 import dev.icerock.moko.mvvm.createViewModelFactory
@@ -39,14 +43,56 @@ fun TrialListScreen(
     viewModel: TrialListViewModel = viewModel(
         factory = createViewModelFactory { TrialListViewModel() }
     ),
-    onTrialSelected: (Trial) -> Unit,
+    onTrialSelected: (Trial) -> Unit = {},
+    onPlacementsSelected: () -> Unit = {},
 ) {
     val state by viewModel.state.collectAsState()
-    TrialJacketList(
-        displayList = state!!.trials, // FIXME
-        onTrialSelected = onTrialSelected,
-        modifier = modifier,
-    )
+    Column(modifier = modifier) {
+        state.placementBanner?.let { banner ->
+            PlacementBanner(
+                banner = banner,
+                modifier = Modifier.fillMaxWidth()
+                    .padding(horizontal = Paddings.MEDIUM)
+                    .padding(top = Paddings.LARGE),
+                onPlacementsSelected = onPlacementsSelected,
+            )
+        }
+
+        TrialJacketList(
+            displayList = state.trials, // FIXME
+            onTrialSelected = onTrialSelected,
+            modifier = Modifier.weight(1f),
+        )
+    }
+}
+
+@Composable
+fun PlacementBanner(
+    banner: UIPlacementBanner,
+    modifier: Modifier = Modifier,
+    onPlacementsSelected: () -> Unit = {},
+) {
+    Row(
+        modifier = modifier
+            .background(
+                color = MaterialTheme.colorScheme.surfaceVariant,
+                shape = MaterialTheme.shapes.medium
+            )
+            .padding(16.dp)
+            .clickable { onPlacementsSelected() },
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center,
+    ) {
+        Text(
+            text = stringResource(banner.text),
+            style = MaterialTheme.typography.titleLarge,
+            color = MaterialTheme.colorScheme.onSurface,
+        )
+        SizedSpacer(Paddings.MEDIUM)
+        banner.ranks.forEach { rank ->
+            RankImage(rank, size = 24.dp)
+        }
+    }
 }
 
 @Composable
