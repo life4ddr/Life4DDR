@@ -16,6 +16,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.perrigogames.life4.android.compose.LIFE4Theme
 import com.perrigogames.life4.android.navigation.firstRunNavigation
+import com.perrigogames.life4.android.navigation.ladderNavigation
+import com.perrigogames.life4.android.navigation.trialNavigation
 import com.perrigogames.life4.feature.firstrun.InitState
 import com.perrigogames.life4.viewmodel.LaunchViewModel
 import dev.icerock.moko.mvvm.createViewModelFactory
@@ -67,6 +69,8 @@ class LaunchActivity: AppCompatActivity(), KoinComponent {
                             navController = navController,
                             onFinish = ::finish
                         )
+                        ladderNavigation(navController)
+                        trialNavigation(navController)
                     }
                 }
             }

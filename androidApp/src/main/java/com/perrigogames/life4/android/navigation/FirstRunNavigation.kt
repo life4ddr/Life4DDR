@@ -13,10 +13,10 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.perrigogames.life4.android.compose.Paddings
-import com.perrigogames.life4.android.feature.firstrun.FirstRunRankListScreen
 import com.perrigogames.life4.android.feature.firstrun.FirstRunScreen
 import com.perrigogames.life4.android.feature.firstrun.PlacementDetailsScreen
 import com.perrigogames.life4.android.feature.firstrun.PlacementListScreen
+import com.perrigogames.life4.android.feature.firstrun.RankListScreen
 import com.perrigogames.life4.android.feature.mainscreen.MainScreen
 import com.perrigogames.life4.android.popAndNavigate
 import com.perrigogames.life4.android.view.compose.ComposeWebView
@@ -72,7 +72,8 @@ fun NavGraphBuilder.firstRunNavigation(
     }
 
     composable(FirstRunDestination.InitialRankList.baseRoute) {
-        FirstRunRankListScreen(
+        RankListScreen(
+            isFirstRun = true,
             onPlacementClicked = { navController.popAndNavigate("placement_list") },
             goToMainScreen = { navController.popAndNavigate("main_screen") }
         )

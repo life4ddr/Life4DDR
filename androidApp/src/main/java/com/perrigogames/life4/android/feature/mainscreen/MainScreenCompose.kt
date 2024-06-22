@@ -80,7 +80,7 @@ fun MainScreen(
         NavHost(profileNavController, startDestination = ProfileDestination.Profile.route, Modifier.fillMaxSize().padding(innerPadding)) {
             profileNavigation(
                 mainNavController = mainNavController,
-                profileNavController = profileNavController
+                profileNavController = profileNavController,
             )
         }
     }
