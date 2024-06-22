@@ -59,21 +59,23 @@ struct PlacementBanner: View {
     var banner: UIPlacementBanner
     
     var body: some View {
-        HStack(spacing: 0) {
-            Text(banner.text.localized())
-                .font(.system(size: 22, weight: .heavy))
-                .padding(.trailing, 12)
-            ForEach(banner.ranks, id: \.self) { rank in
-                Image(String(describing: rank).lowercased())
-                    .resizable()
-                    .frame(width: 24.0, height: 24.0)
+        NavigationLink {
+            PlacementListView()
+        } label: {
+            HStack(spacing: 0) {
+                Text(banner.text.localized())
+                    .font(.system(size: 22, weight: .heavy))
+                    .padding(.trailing, 12)
+                    .foregroundColor(.white)
+                ForEach(banner.ranks, id: \.self) { rank in
+                    Image(String(describing: rank).lowercased())
+                        .resizable()
+                        .frame(width: 24.0, height: 24.0)
+                }
             }
         }
         .padding()
         .background(.gray).cornerRadius(10.0)
-        .onTapGesture {
-            // TODO: navigate to Placements page
-        }
     }
 }
 

@@ -11,10 +11,11 @@ import Shared
 
 struct PlacementListView: View {
     @Environment(\.colorScheme) var colorScheme
+    var isFirstRun: Bool = false
     @ObservedObject var viewModel: PlacementListViewModel = PlacementListViewModel()
     @State var data: UIPlacementListScreen?
-    var onRanksClicked: () -> (Void)
-    var goToMainView: () -> (Void)
+    var onRanksClicked: () -> (Void) = {}
+    var goToMainView: () -> (Void) = {}
     // TODO: implement onPlacementSelected, which will require PlacementDetailsView
     
     @State var selectedPlacement: String?
@@ -22,9 +23,6 @@ struct PlacementListView: View {
     
     var body: some View {
         VStack {
-            Text(data?.titleText.localized() ?? "")
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .font(.system(size: 32, weight: .heavy))
             ScrollView(showsIndicators: false) {
                 LazyVStack {
                     Text(data?.headerText.localized() ?? "")
@@ -45,42 +43,46 @@ struct PlacementListView: View {
                     }
                 }
             }
-            Button {
-                withAnimation {
-                    viewModel.setFirstRunState(state: InitState.ranks)
-                    onRanksClicked()
+            if isFirstRun {
+                Button {
+                    withAnimation {
+                        viewModel.setFirstRunState(state: InitState.ranks)
+                        onRanksClicked()
+                    }
+                } label: {
+                    Text(MR.strings().select_rank_instead.desc().localized())
+                        .padding()
+                        .background(Color(red: 1, green: 0, blue: 0.44))
+                        .foregroundColor(.white)
+                        .clipShape(Capsule())
+                        .font(.system(size: 16, weight: .medium))
                 }
-            } label: {
-                Text(MR.strings().select_rank_instead.desc().localized())
-                    .padding()
-                    .background(Color(red: 1, green: 0, blue: 0.44))
-                    .foregroundColor(.white)
-                    .clipShape(Capsule())
-                    .font(.system(size: 16, weight: .medium))
-            }
-            Button {
-                withAnimation {
-                    skipPlacementAlert = true
+                Button {
+                    withAnimation {
+                        skipPlacementAlert = true
+                    }
+                } label: {
+                    Text(MR.strings().start_no_rank.desc().localized())
+                        .padding()
+                        .foregroundColor(colorScheme == .dark ? .white : .black)
+                        .font(.system(size: 16, weight: .medium))
+                }.alert(isPresented: $skipPlacementAlert) {
+                    Alert(
+                        title: Text(MR.strings().placement_close_confirm_title.desc().localized()),
+                        message: Text(MR.strings().placement_close_confirm_body.desc().localized()),
+                        primaryButton: .default(Text("Confirm")) {
+                            viewModel.setFirstRunState(state: InitState.done)
+                            goToMainView()
+                        },
+                        secondaryButton: .cancel()
+                    )
                 }
-            } label: {
-                Text(MR.strings().start_no_rank.desc().localized())
-                    .padding()
-                    .foregroundColor(colorScheme == .dark ? .white : .black)
-                    .font(.system(size: 16, weight: .medium))
-            }.alert(isPresented: $skipPlacementAlert) {
-                Alert(
-                    title: Text(MR.strings().placement_close_confirm_title.desc().localized()),
-                    message: Text(MR.strings().placement_close_confirm_body.desc().localized()),
-                    primaryButton: .destructive(Text("Confirm")) {
-                        viewModel.setFirstRunState(state: InitState.done)
-                        goToMainView()
-                    },
-                    secondaryButton: .cancel()
-                )
             }
         }
         .padding(16)
-        .navigationBarBackButtonHidden(true)
+        .navigationBarBackButtonHidden(isFirstRun)
+        .navigationTitle(data?.titleText.localized() ?? "")
+        .navigationBarTitleDisplayMode(.large)
         .onAppear {
             viewModel.screenData.subscribe { data in
                 if let currentData = data {
@@ -186,5 +188,5 @@ struct PlacementSongItem: View {
 }
 
 #Preview {
-    PlacementListView(onRanksClicked: {}, goToMainView: {})
+    PlacementListView()
 }

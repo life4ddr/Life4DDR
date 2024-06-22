@@ -31,11 +31,13 @@ struct iOSApp: App {
                     switch initState {
                         case InitState.placements:
                             PlacementListView(
+                                isFirstRun: true,
                                 onRanksClicked: { goToView(nextStep: InitState.ranks) },
                                 goToMainView: { goToView(nextStep: InitState.done) }
                             )
                         case InitState.ranks:
-                            FirstRunRankListView(
+                            RankListView(
+                                isFirstRun: true,
                                 onPlacementClicked: { goToView(nextStep: InitState.placements) },
                                 goToMainView: { goToView(nextStep: InitState.done) }
                             )
