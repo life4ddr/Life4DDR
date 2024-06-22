@@ -14,26 +14,31 @@ struct TrialListView: View {
     @State var state: UITrialList?
     
     var body: some View {
-        ScrollView(showsIndicators: false) {
-            LazyVGrid(columns: [GridItem(.adaptive(minimum: 180))], spacing: 8) {
-                let trials = state?.trials.compactMap { $0 as? UITrialList.ItemTrial } ?? []
-                Section(header:
-                    Text("Active Trials")
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .font(.system(size: 16, weight: .heavy))
-                ) {
-                    ForEach(trials.filter({ !$0.data.trial.isRetired }), id: \.self) { trial in
-                        TrialJacket(trialData: trial.data)
+        VStack {
+            if (state?.placementBanner != nil) {
+                PlacementBanner(banner: (state?.placementBanner)!)
+            }
+            ScrollView(showsIndicators: false) {
+                LazyVGrid(columns: [GridItem(.adaptive(minimum: 180))], spacing: 8) {
+                    let trials = state?.trials.compactMap { $0 as? UITrialList.ItemTrial } ?? []
+                    Section(header:
+                        Text("Active Trials")
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .font(.system(size: 16, weight: .heavy))
+                    ) {
+                        ForEach(trials.filter({ !$0.data.trial.isRetired }), id: \.self) { trial in
+                            TrialJacket(trialData: trial.data)
+                        }
                     }
-                }
-                
-                Section(header:
-                    Text("Retired Trials")
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .font(.system(size: 16, weight: .heavy))
-                ) {
-                    ForEach(trials.filter({ $0.data.trial.isRetired }), id: \.self) { trial in
-                        TrialJacket(trialData: trial.data)
+                    
+                    Section(header:
+                        Text("Retired Trials")
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .font(.system(size: 16, weight: .heavy))
+                    ) {
+                        ForEach(trials.filter({ $0.data.trial.isRetired }), id: \.self) { trial in
+                            TrialJacket(trialData: trial.data)
+                        }
                     }
                 }
             }
@@ -46,6 +51,28 @@ struct TrialListView: View {
                     }
                 }
             }
+        }
+    }
+}
+
+struct PlacementBanner: View {
+    var banner: UIPlacementBanner
+    
+    var body: some View {
+        HStack(spacing: 0) {
+            Text(banner.text.localized())
+                .font(.system(size: 22, weight: .heavy))
+                .padding(.trailing, 12)
+            ForEach(banner.ranks, id: \.self) { rank in
+                Image(String(describing: rank).lowercased())
+                    .resizable()
+                    .frame(width: 24.0, height: 24.0)
+            }
+        }
+        .padding()
+        .background(.gray).cornerRadius(10.0)
+        .onTapGesture {
+            // TODO: navigate to Placements page
         }
     }
 }
