@@ -31,6 +31,11 @@ class RankListViewModel(
 
     init {
         _state.value = _state.value.copy(
+            titleText = when {
+                isFirstRun -> MR.strings.select_a_starting_rank
+                else -> MR.strings.select_a_new_rank
+            },
+            showBackButton = !isFirstRun,
             ranks = (LadderRank.entries.toMutableList() as MutableList<LadderRank?>).apply {
                 add(0, null)
             },
@@ -72,15 +77,16 @@ class RankListViewModel(
 }
 
 data class UIRankList(
-    val titleText: StringResource = MR.strings.select_a_starting_rank,
+    val titleText: StringResource = MR.strings.select_a_new_rank,
+    val showBackButton: Boolean = false,
     val ranks: List<LadderRank?> = emptyList(),
     val noRank: UINoRank = UINoRank.DEFAULT,
-    val footerText: StringResource = MR.strings.change_rank_later,
     val firstRun: UIFirstRunRankList? = null,
     val ladderData: UILadderData? = null,
 )
 
 data class UIFirstRunRankList(
+    val footerText: StringResource = MR.strings.change_rank_later,
     val buttonText: StringResource = MR.strings.play_placement_instead
 )
 

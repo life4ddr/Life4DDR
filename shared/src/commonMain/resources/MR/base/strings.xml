@@ -41,6 +41,7 @@
     <string name="placement_close_confirm_title">Skip Placement?</string>
     <string name="placement_close_confirm_body">You can start without a Rank for now. You can revisit Placements until you earn a rank.</string>
     <string name="select_a_starting_rank">Select a Starting Rank</string>
+    <string name="select_a_new_rank">Select a New Rank</string>
     <string name="start_no_rank">Start Without a Rank</string>
     <string name="rank_list">Rank List</string>
     <string name="select_rank_instead">Select a Rank instead</string>

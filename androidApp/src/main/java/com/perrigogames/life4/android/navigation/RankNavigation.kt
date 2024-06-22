@@ -1,18 +1,21 @@
-package com.perrigogames.life4.android.feature.ladder
+package com.perrigogames.life4.android.navigation
 
-import androidx.compose.material3.Text
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.perrigogames.life4.android.feature.firstrun.RankListScreen
+import com.perrigogames.life4.android.feature.ladder.LadderGoalsScreen
 import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.feature.ladder.LadderDestination
 
 fun NavGraphBuilder.ladderNavigation(navController: NavController) {
 
     composable(LadderDestination.RankList.baseRoute) {
-        Text("Rank List TODO")
+        RankListScreen(
+            goToMainScreen = { navController.popBackStack() }
+        )
     }
 
     composable(
