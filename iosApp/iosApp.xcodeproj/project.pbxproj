@@ -10,6 +10,7 @@
 		058557BB273AAA24004C7B11 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557BA273AAA24004C7B11 /* Assets.xcassets */; };
 		058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */; };
 		19424A4F2B8EB0AD0054E112 /* RankListSwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19424A4E2B8EB0AD0054E112 /* RankListSwiftUI.swift */; };
+		1945D7F52C2790560037A976 /* PlayerProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1945D7F42C2790560037A976 /* PlayerProfileView.swift */; };
 		1956B5432B9F8F5900BD5FF8 /* iosDataReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1956B5422B9F8F5900BD5FF8 /* iosDataReader.swift */; };
 		195C48132B8D587D003439C9 /* RankListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 195C48122B8D587D003439C9 /* RankListView.swift */; };
 		197ECD712C1E358C003B17C2 /* PlacementListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 197ECD702C1E358C003B17C2 /* PlacementListView.swift */; };
@@ -30,6 +31,7 @@
 		058557BA273AAA24004C7B11 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		19424A4E2B8EB0AD0054E112 /* RankListSwiftUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankListSwiftUI.swift; sourceTree = "<group>"; };
+		1945D7F42C2790560037A976 /* PlayerProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerProfileView.swift; sourceTree = "<group>"; };
 		1956B5422B9F8F5900BD5FF8 /* iosDataReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iosDataReader.swift; sourceTree = "<group>"; };
 		195C48122B8D587D003439C9 /* RankListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankListView.swift; sourceTree = "<group>"; };
 		197ECD702C1E358C003B17C2 /* PlacementListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacementListView.swift; sourceTree = "<group>"; };
@@ -78,9 +80,18 @@
 			path = ladder;
 			sourceTree = "<group>";
 		};
+		1945D7F32C2790440037A976 /* profile */ = {
+			isa = PBXGroup;
+			children = (
+				1945D7F42C2790560037A976 /* PlayerProfileView.swift */,
+			);
+			path = profile;
+			sourceTree = "<group>";
+		};
 		198D1B952B8AAB8000021CD7 /* feature */ = {
 			isa = PBXGroup;
 			children = (
+				1945D7F32C2790440037A976 /* profile */,
 				19E4E8582C2515D600583A7B /* mainview */,
 				19E4E8552C2514DE00583A7B /* trial */,
 				19424A502B8EB1400054E112 /* ladder */,
@@ -292,6 +303,7 @@
 				19424A4F2B8EB0AD0054E112 /* RankListSwiftUI.swift in Sources */,
 				19C92BD72C13DDE600570D3C /* CFlowExt.swift in Sources */,
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
+				1945D7F52C2790560037A976 /* PlayerProfileView.swift in Sources */,
 				7555FF83242A565900829871 /* ContentView.swift in Sources */,
 				19BBD3A62B92C19600700A66 /* LadderSwiftUI.swift in Sources */,
 				19E4E85A2C2515ED00583A7B /* MainView.swift in Sources */,

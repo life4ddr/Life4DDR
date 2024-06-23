@@ -26,6 +26,7 @@ struct iOSApp: App {
 	var body: some Scene {
 		WindowGroup {
             NavigationStack(path: $path) {
+                // TODO: implement view model to direct player to correct screen upon launch
                 FirstRunView(onComplete: goToView)
                 .navigationDestination(for: InitState.self) { initState in
                     switch initState {
