@@ -114,6 +114,7 @@ class RankListViewModel(
             }
             Input.RankRejected -> {
                 firstRunSettingsManager.setInitState(InitState.DONE)
+                userInfoSettings.setRank(null)
                 _actions.emit(Action.NavigateToMainScreen)
             }
         }
