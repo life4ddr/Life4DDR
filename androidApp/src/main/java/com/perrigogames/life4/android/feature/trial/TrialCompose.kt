@@ -78,8 +78,8 @@ fun PlacementBanner(
                 color = MaterialTheme.colorScheme.surfaceVariant,
                 shape = MaterialTheme.shapes.medium
             )
-            .padding(16.dp)
-            .clickable { onPlacementsSelected() },
+            .clickable { onPlacementsSelected() }
+            .padding(16.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center,
     ) {
@@ -90,7 +90,11 @@ fun PlacementBanner(
         )
         SizedSpacer(Paddings.MEDIUM)
         banner.ranks.forEach { rank ->
-            RankImage(rank, size = 24.dp)
+            RankImage(
+                rank = rank,
+                size = 24.dp,
+                onClick = null
+            )
         }
     }
 }
