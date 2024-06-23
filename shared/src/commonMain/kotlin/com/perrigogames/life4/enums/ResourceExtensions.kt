@@ -22,7 +22,8 @@ val DifficultyClass.abbreviationRes get() = when(this) {
     DifficultyClass.CHALLENGE -> MR.strings.csp
 }
 
-val LadderRank.nameRes get() = when(this) {
+val LadderRank?.nameRes get() = when(this) {
+    null -> MR.strings.no_rank
     LadderRank.COPPER1 -> MR.strings.copper_1
     LadderRank.COPPER2 -> MR.strings.copper_2
     LadderRank.COPPER3 -> MR.strings.copper_3
@@ -140,7 +141,8 @@ val LadderRank.categoryNameRes get() = when(this) {
 
 val LadderRank.groupNameRes get() = group.nameRes
 
-val LadderRankClass.nameRes get() = when(this) {
+val LadderRankClass?.nameRes get() = when(this) {
+    null -> MR.strings.no_rank
     LadderRankClass.COPPER -> MR.strings.copper
     LadderRankClass.BRONZE -> MR.strings.bronze
     LadderRankClass.SILVER -> MR.strings.silver

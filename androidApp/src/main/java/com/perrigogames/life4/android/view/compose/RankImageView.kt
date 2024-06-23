@@ -27,7 +27,7 @@ fun RankImage(
     rank: LadderRank?,
     modifier: Modifier = Modifier,
     size: Dp = dimensionResource(R.dimen.profile_found_rank_size),
-    onClick: () -> Unit = {},
+    onClick: (() -> Unit)? = null,
 ) {
     val painter = painterResource(
         rank?.drawableRes ?: R.drawable.copper_1
@@ -41,7 +41,13 @@ fun RankImage(
         modifier = modifier
             .size(size)
             .alpha(if (rank != null) 1F else 0.3F)
-            .clickable { onClick() }
+            .let {
+                if (onClick != null) {
+                    it.clickable { onClick() }
+                } else {
+                    it
+                }
+            }
     )
 }
 
