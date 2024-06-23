@@ -5,6 +5,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -14,12 +15,12 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.perrigogames.life4.android.compose.Paddings
 import com.perrigogames.life4.android.feature.ladder.LadderGoals
 import com.perrigogames.life4.android.feature.ladder.RankSelection
+import com.perrigogames.life4.android.stringResource
 import com.perrigogames.life4.android.util.SizedSpacer
 import com.perrigogames.life4.android.view.compose.AutoResizedText
-import com.perrigogames.life4.enums.LadderRank
-import com.perrigogames.life4.viewmodel.RankListViewModel
-import com.perrigogames.life4.viewmodel.UIFirstRunRankList
-import com.perrigogames.life4.viewmodel.UIRankList
+import com.perrigogames.life4.feature.ladder.RankListViewModel
+import com.perrigogames.life4.feature.ladder.UIFooterData
+import com.perrigogames.life4.feature.ladder.UIRankList
 import dev.icerock.moko.mvvm.createViewModelFactory
 
 @Composable
@@ -28,23 +29,16 @@ fun RankListScreen(
     viewModel: RankListViewModel = viewModel(
         factory = createViewModelFactory { RankListViewModel(isFirstRun) }
     ),
-    onPlacementClicked: () -> Unit = {},
-    goToMainScreen: () -> Unit = {},
+    onAction: (RankListViewModel.Action) -> Unit = {},
 ) {
     val state by viewModel.state.collectAsState()
 
+    LaunchedEffect(Unit) {
+        viewModel.actions.collect(onAction)
+    }
     RankListScreen(
         state = state,
-        onNavigateUp = goToMainScreen,
-        onPlacementClicked = {
-            viewModel.moveToPlacements()
-            onPlacementClicked()
-        },
-        onRankClicked = viewModel::setRankSelected,
-        onRankSelected = { rank ->
-            viewModel.saveRank(rank)
-            goToMainScreen()
-        },
+        onInput = { viewModel.onInputAction(it) },
     )
 }
 
@@ -52,10 +46,7 @@ fun RankListScreen(
 @Composable
 fun RankListScreen(
     state: UIRankList,
-    onNavigateUp: () -> Unit = {},
-    onPlacementClicked: () -> Unit = {},
-    onRankClicked: (LadderRank?) -> Unit = {},
-    onRankSelected: (LadderRank?) -> Unit = {},
+    onInput: (RankListViewModel.Input) -> Unit = {},
 ) {
     Scaffold(
         topBar = {
@@ -69,7 +60,9 @@ fun RankListScreen(
                 },
                 navigationIcon = {
                     if (state.showBackButton) {
-                        IconButton(onClick = onNavigateUp) {
+                        IconButton(
+                            onClick = { onInput(RankListViewModel.Input.RankRejected) }
+                        ) {
                             Icon(
                                 imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                                 contentDescription = "Back"
@@ -87,10 +80,8 @@ fun RankListScreen(
         ) {
             SizedSpacer(32.dp)
             RankSelection(
-                ranks = state.ranks,
-                noRank = state.noRank,
-                onRankClicked = onRankClicked,
-                onRankRejected = { onRankSelected(null) },
+                data = state,
+                onInput = onInput,
             )
 
             val ladderData = state.ladderData
@@ -104,10 +95,10 @@ fun RankListScreen(
             } else {
                 Spacer(modifier = Modifier.weight(1f))
             }
-            state.firstRun?.let { firstRun ->
+            state.footer?.let { firstRun ->
                 FirstRunWidget(
                     data = firstRun,
-                    onPlacementClicked = onPlacementClicked,
+                    onInput = onInput,
                 )
             }
         }
@@ -115,26 +106,28 @@ fun RankListScreen(
 }
 
 @Composable
-fun ColumnScope.FirstRunWidget(
-    data: UIFirstRunRankList,
-    onPlacementClicked: () -> Unit = {},
+fun FirstRunWidget(
+    data: UIFooterData,
+    onInput: (RankListViewModel.Input) -> Unit = {},
 ) {
-    AutoResizedText(
-        text = stringResource(data.footerText.resourceId),
-        color = MaterialTheme.colorScheme.onBackground,
+    data.footerText?.let { footer ->
+        AutoResizedText(
+            text = stringResource(footer),
+            color = MaterialTheme.colorScheme.onBackground,
+            modifier = Modifier
+                .padding(horizontal = Paddings.HUGE)
+                .padding(top = Paddings.LARGE)
+        )
+    }
+    Button(
+        onClick = { onInput(data.buttonInput) },
         modifier = Modifier
+            .fillMaxWidth()
             .padding(
                 horizontal = Paddings.HUGE,
                 vertical = Paddings.LARGE
             )
-    )
-    Button(
-        onClick = onPlacementClicked,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = Paddings.HUGE)
-            .padding(bottom = Paddings.LARGE)
     ) {
-        Text(text = stringResource(data.buttonText.resourceId))
+        Text(text = stringResource(data.buttonText))
     }
 }

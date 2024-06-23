@@ -22,6 +22,7 @@ import com.perrigogames.life4.android.popAndNavigate
 import com.perrigogames.life4.android.view.compose.ComposeWebView
 import com.perrigogames.life4.feature.firstrun.FirstRunDestination
 import com.perrigogames.life4.feature.firstrun.InitState
+import com.perrigogames.life4.feature.ladder.RankListViewModel
 
 fun NavGraphBuilder.firstRunNavigation(
     navController: NavController,
@@ -72,11 +73,12 @@ fun NavGraphBuilder.firstRunNavigation(
     }
 
     composable(FirstRunDestination.InitialRankList.baseRoute) {
-        RankListScreen(
-            isFirstRun = true,
-            onPlacementClicked = { navController.popAndNavigate("placement_list") },
-            goToMainScreen = { navController.popAndNavigate("main_screen") }
-        )
+        RankListScreen(isFirstRun = true) { action ->
+            when(action) {
+                RankListViewModel.Action.NavigateToPlacements -> navController.popAndNavigate("placement_list")
+                RankListViewModel.Action.NavigateToMainScreen -> navController.popAndNavigate("main_screen")
+            }
+        }
     }
 
     composable(FirstRunDestination.MainScreen.baseRoute) {

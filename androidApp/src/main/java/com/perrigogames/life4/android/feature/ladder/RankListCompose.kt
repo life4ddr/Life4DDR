@@ -7,64 +7,26 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.perrigogames.life4.MR
 import com.perrigogames.life4.android.compose.LIFE4Theme
 import com.perrigogames.life4.android.compose.Paddings
+import com.perrigogames.life4.android.stringResource
 import com.perrigogames.life4.android.util.SizedSpacer
 import com.perrigogames.life4.android.view.compose.RankImageWithTitle
 import com.perrigogames.life4.enums.LadderRank
-import com.perrigogames.life4.enums.LadderRankClass
-import com.perrigogames.life4.enums.categoryNameRes
-import com.perrigogames.life4.enums.nameRes
-import com.perrigogames.life4.viewmodel.RankSelectionConfig
-import com.perrigogames.life4.viewmodel.RankSelectionViewModel
-import com.perrigogames.life4.viewmodel.UINoRank
-import dev.icerock.moko.mvvm.createViewModelFactory
-import dev.icerock.moko.resources.compose.stringResource
+import com.perrigogames.life4.feature.ladder.*
 
 @Composable
 fun RankSelection(
+    data: UIRankList,
     modifier: Modifier = Modifier,
-    config: RankSelectionConfig = RankSelectionConfig(),
-    viewModel: RankSelectionViewModel = viewModel(
-        factory = createViewModelFactory { RankSelectionViewModel(config) }
-    ),
-    onRankClicked: (LadderRank?) -> Unit = {},
-    onRankRejected: () -> Unit = {},
+    onInput: (RankListViewModel.Input) -> Unit = {},
 ) {
-    val state by viewModel.state.collectAsState()
-    RankSelection(
-        modifier = modifier,
-        ranks = state.ranks,
-        noRank = state.noRank,
-        initialRank = state.initialRank,
-        onRankClicked = onRankClicked,
-        onRankRejected = onRankRejected,
-    )
-}
-
-@Composable
-fun RankSelection(
-    modifier: Modifier = Modifier,
-    ranks: List<LadderRank?> = LadderRank.entries,
-    noRank: UINoRank = UINoRank.DEFAULT,
-    initialRank: LadderRank? = null,
-    onRankClicked: (LadderRank?) -> Unit = {},
-    onRankRejected: () -> Unit = {},
-) {
-    val categories by remember { mutableStateOf(ranks.groupBy { it?.group }) }
-    val categoriesList by remember { mutableStateOf(categories.keys.toList()) }
-    var selectedCategory by remember { mutableStateOf(initialRank?.group) }
-    var showSelectorPanel by remember { mutableStateOf(false) }
-    var compressSelectorPanel by remember { mutableStateOf(false) }
-
     Column(
         modifier = modifier,
     ) {
@@ -72,21 +34,19 @@ fun RankSelection(
             modifier = Modifier.padding(vertical = Paddings.MEDIUM)
         ) {
             item { SizedSpacer(size = Paddings.LARGE) }
-            items(categoriesList) { category ->
-                RankCategoryImage(category) {
-                    showSelectorPanel = true
-                    compressSelectorPanel = false
-                    selectedCategory = category
-                    onRankClicked(null)
-                }
+            items(data.rankClasses) { category ->
+                RankCategoryImage(
+                    category = category,
+                    onClick = { onInput(category.tapInput) },
+                )
                 SizedSpacer(size = Paddings.LARGE)
             }
         }
-        Divider()
+        HorizontalDivider()
 
-        AnimatedVisibility(visible = showSelectorPanel) {
+        AnimatedVisibility(visible = data.showRankSelector) {
             AnimatedContent(
-                targetState = selectedCategory to compressSelectorPanel,
+                targetState = data.ranks to data.isRankSelectorCompressed,
                 label = "anim_between_categories",
                 transitionSpec = {
                     if (targetState.first == initialState.first) {
@@ -107,16 +67,13 @@ fun RankSelection(
                         }
                     }
                 }
-            ) { (category, compress) ->
-                val availableRanks = categories[category] ?: return@AnimatedContent
+            ) { (ranks, compress) ->
                 RankDetailSelector(
-                    availableRanks = availableRanks,
+                    availableRanks = ranks,
                     compress = compress,
                     modifier = Modifier.weight(1f),
-                    noRank = noRank,
-                    onCompressionChanged = { compressSelectorPanel = it },
-                    onRankClicked = onRankClicked,
-                    onRankRejected = onRankRejected,
+                    noRank = data.noRankInfo,
+                    onInput = onInput,
                 )
             }
         }
@@ -125,13 +82,11 @@ fun RankSelection(
 
 @Composable
 fun RankDetailSelector(
-    availableRanks: List<LadderRank?>,
+    availableRanks: List<UILadderRank>,
     compress: Boolean,
     modifier: Modifier = Modifier,
     noRank: UINoRank = UINoRank.DEFAULT,
-    onCompressionChanged: (Boolean) -> Unit = {},
-    onRankClicked: (LadderRank?) -> Unit = {},
-    onRankRejected: () -> Unit = {},
+    onInput: (RankListViewModel.Input) -> Unit,
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -141,16 +96,13 @@ fun RankDetailSelector(
         if (availableRanks.size < 5) {
             NoRankDetails(
                 noRank = noRank,
-                onRankRejected = onRankRejected
+                onInput = onInput,
             )
         } else {
             RankCategorySelector(
-                availableRanks = availableRanks.filterNotNull(),
+                availableRanks = availableRanks,
                 compressed = compress,
-                onRankClicked = {
-                    onCompressionChanged(true)
-                    onRankClicked(it)
-                }
+                onInput = onInput,
             )
         }
     }
@@ -160,7 +112,7 @@ fun RankDetailSelector(
 fun NoRankDetails(
     modifier: Modifier = Modifier,
     noRank: UINoRank = UINoRank.DEFAULT,
-    onRankRejected: () -> Unit = {},
+    onInput: (RankListViewModel.Input) -> Unit,
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -175,7 +127,7 @@ fun NoRankDetails(
                 .padding(horizontal = Paddings.HUGE)
         )
         Button(
-            onClick = onRankRejected,
+            onClick = { onInput(noRank.buttonInput) },
             modifier = Modifier
                 .padding(horizontal = Paddings.HUGE)
                 .padding(vertical = Paddings.HUGE)
@@ -189,10 +141,10 @@ fun NoRankDetails(
 
 @Composable
 fun RankCategorySelector(
-    availableRanks: List<LadderRank>,
+    availableRanks: List<UILadderRank>,
     compressed: Boolean,
     modifier: Modifier = Modifier,
-    onRankClicked: (LadderRank) -> Unit = {},
+    onInput: (RankListViewModel.Input) -> Unit = {},
 ) {
     Column(modifier = modifier) {
         if (compressed) {
@@ -202,10 +154,10 @@ fun RankCategorySelector(
             ) {
                 availableRanks.forEach { rank ->
                     RankImageWithTitle(
-                        rank = rank,
+                        rank = rank.rank,
                         iconSize = 48.dp,
-                        text = stringResource(rank.categoryNameRes.resourceId)
-                    ) { onRankClicked(rank) }
+                        text = stringResource(rank.text)
+                    ) { onInput(rank.tapInput) }
                 }
             }
         } else {
@@ -214,7 +166,7 @@ fun RankCategorySelector(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 availableRanks.subList(0, 3).forEach { rank ->
-                    RankImageWithTitle(rank) { onRankClicked(rank) }
+                    RankImageWithTitle(rank.rank) { onInput(rank.tapInput) }
                 }
             }
             SizedSpacer(size = Paddings.LARGE)
@@ -223,7 +175,7 @@ fun RankCategorySelector(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 availableRanks.subList(3, 5).forEach { rank ->
-                    RankImageWithTitle(rank) { onRankClicked(rank) }
+                    RankImageWithTitle(rank.rank) { onInput(rank.tapInput) }
                 }
             }
         }
@@ -232,13 +184,13 @@ fun RankCategorySelector(
 
 @Composable
 private fun RankCategoryImage(
-    category: LadderRankClass?,
+    category: UILadderRankClass,
     onClick: () -> Unit
 ) {
     RankImageWithTitle(
-        rank = category?.toLadderRank(),
+        rank = category.rankClass?.toLadderRank(),
         iconSize = 64.dp,
-        text = stringResource(category?.nameRes ?: MR.strings.no_rank),
+        text = stringResource(category.text),
         style = MaterialTheme.typography.titleSmall,
         onClick = onClick
     )
@@ -275,15 +227,15 @@ fun RankSelectionMini(
     }
 }
 
-@Preview(widthDp = 360, heightDp = 640)
-@Composable
-fun RankSelectionPreview() {
-    LIFE4Theme {
-        Surface {
-            RankSelection(initialRank = LadderRank.GOLD3)
-        }
-    }
-}
+//@Preview(widthDp = 360, heightDp = 640)
+//@Composable
+//fun RankSelectionPreview() {
+//    LIFE4Theme {
+//        Surface {
+//            RankSelection(initialRank = LadderRank.GOLD3)
+//        }
+//    }
+//}
 
 @Preview(widthDp = 360)
 @Composable

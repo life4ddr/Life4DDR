@@ -1,5 +1,6 @@
 package com.perrigogames.life4.android.view.compose
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -25,6 +26,7 @@ fun RankImageWithTitle(
     iconSize: Dp = 84.dp,
     text: String = stringResource(rank?.nameRes ?: MR.strings.no_rank),
     style: TextStyle = MaterialTheme.typography.titleSmall,
+    selected: Boolean = false,
     useRankColorText: Boolean = false,
     onClick: () -> Unit = {},
 ) {
@@ -32,6 +34,16 @@ fun RankImageWithTitle(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .clickable { onClick() }
+            .let {
+                if (selected) {
+                    it.background(
+                        color = MaterialTheme.colorScheme.primaryContainer,
+                        shape = MaterialTheme.shapes.medium,
+                    )
+                } else {
+                    it
+                }
+            }
     ) {
         RankImage(
             rank = rank,
