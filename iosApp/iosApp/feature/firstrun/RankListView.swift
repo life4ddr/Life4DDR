@@ -13,40 +13,36 @@ struct RankListView: View {
     var isFirstRun: Bool
     @ObservedObject var viewModel: RankListViewModel
     @State var state: UIRankList?
-    var onPlacementClicked: () -> (Void)
-    var goToMainView: () -> (Void)
+    var onAction: (RankListViewModel.Action) -> (Void)
     
-    init(isFirstRun: Bool = false, onPlacementClicked: @escaping () -> (Void) = {}, goToMainView: @escaping () -> (Void) = {}) {
+    init(isFirstRun: Bool = false, onAction: @escaping (RankListViewModel.Action) -> (Void) = { _ in }) {
         self.isFirstRun = isFirstRun
         viewModel = RankListViewModel(isFirstRun: isFirstRun)
-        self.onPlacementClicked = onPlacementClicked
-        self.goToMainView = goToMainView
+        self.onAction = onAction
     }
     
     var body: some View {
         VStack {
-            RankSelection(
-                ranks: state?.ranks as? [LadderRank?] ?? [],
-                noRank: state?.noRank ?? UINoRank.Companion().DEFAULT,
-                onRankClicked: viewModel.setRankSelected,
-                onRankRejected: {
-                    viewModel.saveRank(ladderRank: nil)
-                    goToMainView()
-                }
-            )
+            if (state != nil) {
+                RankSelection(
+                    data: state!,
+                    onInput: { input in
+                        viewModel.onInputAction(input: input)
+                    }
+                )
+            }
             // TODO: add LadderGoals here when ladderData gets set in state
             Spacer()
-            if (state?.firstRun != nil) {
+            if (state?.footer != nil) {
                 FirstRunWidget(
-                    data: (state?.firstRun)!,
-                    onPlacementClicked: {
-                        viewModel.moveToPlacements()
-                        onPlacementClicked()
+                    data: (state?.footer)!,
+                    onInput: { input in
+                        viewModel.onInputAction(input: input)
                     }
                 )
             }
         }
-        .navigationBarBackButtonHidden(isFirstRun)
+        .navigationBarBackButtonHidden(!(state?.showBackButton ?? false))
         .navigationTitle(state?.titleText.desc().localized() ?? "")
         .navigationBarTitleDisplayMode(.large)
         .onAppear {
@@ -57,24 +53,27 @@ struct RankListView: View {
                     }
                 }
             }
+            viewModel.actions.subscribe { action in
+                onAction(action!)
+            }
         }
     }
 }
 
 struct FirstRunWidget: View {
-    var data: UIFirstRunRankList
-    var onPlacementClicked: () -> (Void)
+    var data: UIFooterData
+    var onInput: (RankListViewModel.Input) -> (Void)
     
     var body: some View {
-        Text(data.footerText.desc().localized())
+        Text(data.footerText?.localized() ?? "")
             .minimumScaleFactor(0.5)
             .lineLimit(1)
         Button {
             withAnimation {
-                onPlacementClicked()
+                onInput(data.buttonInput)
             }
         } label: {
-            Text(data.buttonText.desc().localized())
+            Text(data.buttonText.localized())
                 .frame(maxWidth: .infinity)
                 .padding()
                 .background(Color(red: 1, green: 0, blue: 0.44))

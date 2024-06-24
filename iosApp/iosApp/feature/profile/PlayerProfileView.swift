@@ -68,13 +68,12 @@ struct PlayerProfileInfo: View {
                     .font(.system(size: 14, weight: .bold))
             }
             Spacer()
+            // TODO: refactor this to where this is no longer a NavigationLink
+            // RankImage onClick should programatically navigate to rank list
             NavigationLink {
                 RankListView()
             } label: {
-                Image(state.rank != nil ? String(describing: state.rank).lowercased() : "copper1")
-                    .resizable()
-                    .frame(width: 64.0, height: 64.0)
-                    .saturation(state.rank != nil ? 1.0 : 0.0)
+                RankImage(rank: state.rank, size: 64)
             }
         }
         .frame(maxWidth: .infinity)

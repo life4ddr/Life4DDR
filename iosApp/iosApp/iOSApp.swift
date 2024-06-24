@@ -37,11 +37,13 @@ struct iOSApp: App {
                                 goToMainView: { goToView(nextStep: InitState.done) }
                             )
                         case InitState.ranks:
-                            RankListView(
-                                isFirstRun: true,
-                                onPlacementClicked: { goToView(nextStep: InitState.placements) },
-                                goToMainView: { goToView(nextStep: InitState.done) }
-                            )
+                            RankListView(isFirstRun: true, onAction: { action in
+                                if action is RankListViewModel.ActionNavigateToPlacements {
+                                    goToView(nextStep: InitState.placements)
+                                } else if action is RankListViewModel.ActionNavigateToMainScreen {
+                                    goToView(nextStep: InitState.done)
+                                }
+                            })
                         case InitState.done:
                             MainView()
                         default:
