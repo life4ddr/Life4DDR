@@ -86,7 +86,9 @@ struct TrialJacket: View {
         Image(trialData.trial.name)
             .resizable()
             .aspectRatio(contentMode: .fill)
-            .overlay(alignment: .topLeading) { TrialDifficulty(difficulty: trialData.trial.difficulty as! Int) }
+            .overlay(alignment: .topLeading) {
+                TrialDifficulty(difficulty: trialData.trial.difficulty as! Int)
+            }
     }
 }
 
@@ -97,7 +99,12 @@ struct TrialDifficulty: View {
         Text(String(difficulty))
             .font(.system(size: 24, weight: .bold))
             .foregroundColor(.white)
-            .background(Circle().fill(Color.blue).frame(width: 40, height: 40).opacity(/*@START_MENU_TOKEN@*/0.8/*@END_MENU_TOKEN@*/))
+            .background(
+                Circle()
+                    .fill(Color.blue)
+                    .frame(width: 40, height: 40)
+                    .opacity(/*@START_MENU_TOKEN@*/0.8/*@END_MENU_TOKEN@*/)
+            )
             .padding(8)
     }
 }
