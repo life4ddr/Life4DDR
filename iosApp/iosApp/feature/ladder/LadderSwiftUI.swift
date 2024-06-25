@@ -15,7 +15,7 @@ struct LadderGoals: View {
     var onHiddenChanged: (Int64) -> (Void)
     
     var body: some View {
-        ScrollView {
+        ScrollView(showsIndicators: false) {
             if data?.goals is UILadderGoals.SingleList {
                 ForEach(data!.goals.rawGoals, id: \.self) { goal in
                     LadderGoalItem(

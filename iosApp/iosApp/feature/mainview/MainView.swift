@@ -23,7 +23,12 @@ struct MainView: View {
                 .tabItem {
                     Label("Trials", systemImage: "square.grid.2x2")
                 }
-        }.navigationBarBackButtonHidden(true)
+            SettingsView()
+                .tabItem {
+                    Label("Settings", systemImage: "gear")
+                }
+        }
+        .navigationBarBackButtonHidden(true)
     }
 }
 

@@ -31,8 +31,15 @@ struct RankListView: View {
                     }
                 )
             }
-            // TODO: add LadderGoals here when ladderData gets set in state
-            Spacer()
+            if (state?.ladderData != nil) {
+                LadderGoals(
+                    data: state?.ladderData,
+                    onCompletedChanged: {_ in },
+                    onHiddenChanged: {_ in }
+                )
+            } else {
+                Spacer()
+            }
             if (state?.footer != nil) {
                 FirstRunWidget(
                     data: (state?.footer)!,
