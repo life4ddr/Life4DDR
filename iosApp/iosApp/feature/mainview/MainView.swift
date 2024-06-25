@@ -15,7 +15,7 @@ struct MainView: View {
                 .tabItem {
                     Label("Profile", systemImage: "person")
                 }
-            ContentView()
+            ScoreListView()
                 .tabItem {
                     Label("Scores", systemImage: "music.note.list")
                 }

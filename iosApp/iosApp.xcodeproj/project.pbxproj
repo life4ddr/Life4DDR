@@ -16,6 +16,7 @@
 		195C48132B8D587D003439C9 /* RankListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 195C48122B8D587D003439C9 /* RankListView.swift */; };
 		197ECD712C1E358C003B17C2 /* PlacementListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 197ECD702C1E358C003B17C2 /* PlacementListView.swift */; };
 		198234512C2B443F0033C7E1 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 198234502C2B443F0033C7E1 /* SettingsView.swift */; };
+		198234542C2B6D300033C7E1 /* ScoreListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 198234532C2B6D300033C7E1 /* ScoreListView.swift */; };
 		198D1B982B8AAB9400021CD7 /* FirstRunView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 198D1B972B8AAB9400021CD7 /* FirstRunView.swift */; };
 		19BBD3A62B92C19600700A66 /* LadderSwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19BBD3A52B92C19600700A66 /* LadderSwiftUI.swift */; };
 		19C92BD62C13DDE600570D3C /* ViewModelState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C92BD12C13DDE600570D3C /* ViewModelState.swift */; };
@@ -26,7 +27,6 @@
 		19E4E8572C2514F300583A7B /* TrialListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19E4E8562C2514F300583A7B /* TrialListView.swift */; };
 		19E4E85A2C2515ED00583A7B /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19E4E8592C2515ED00583A7B /* MainView.swift */; };
 		2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* iOSApp.swift */; };
-		7555FF83242A565900829871 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* ContentView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +39,7 @@
 		195C48122B8D587D003439C9 /* RankListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankListView.swift; sourceTree = "<group>"; };
 		197ECD702C1E358C003B17C2 /* PlacementListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacementListView.swift; sourceTree = "<group>"; };
 		198234502C2B443F0033C7E1 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		198234532C2B6D300033C7E1 /* ScoreListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreListView.swift; sourceTree = "<group>"; };
 		198D1B972B8AAB9400021CD7 /* FirstRunView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstRunView.swift; sourceTree = "<group>"; };
 		19BBD3A52B92C19600700A66 /* LadderSwiftUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LadderSwiftUI.swift; sourceTree = "<group>"; };
 		19C92BD12C13DDE600570D3C /* ViewModelState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModelState.swift; sourceTree = "<group>"; };
@@ -50,7 +51,6 @@
 		19E4E8592C2515ED00583A7B /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		2152FB032600AC8F00CF470E /* iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSApp.swift; sourceTree = "<group>"; };
 		7555FF7B242A565900829871 /* LIFE4.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LIFE4.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		7555FF82242A565900829871 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		7555FF8C242A565B00829871 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AB3632DC29227652001CCB65 /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -116,9 +116,18 @@
 			path = settings;
 			sourceTree = "<group>";
 		};
+		198234522C2B6BF40033C7E1 /* scorelist */ = {
+			isa = PBXGroup;
+			children = (
+				198234532C2B6D300033C7E1 /* ScoreListView.swift */,
+			);
+			path = scorelist;
+			sourceTree = "<group>";
+		};
 		198D1B952B8AAB8000021CD7 /* feature */ = {
 			isa = PBXGroup;
 			children = (
+				198234522C2B6BF40033C7E1 /* scorelist */,
 				1982344F2C2B442F0033C7E1 /* settings */,
 				1945D7F32C2790440037A976 /* profile */,
 				19E4E8582C2515D600583A7B /* mainview */,
@@ -196,7 +205,6 @@
 				190180862C0D7CA900213E13 /* mokoMvvmFlowSwiftUI */,
 				198D1B952B8AAB8000021CD7 /* feature */,
 				058557BA273AAA24004C7B11 /* Assets.xcassets */,
-				7555FF82242A565900829871 /* ContentView.swift */,
 				7555FF8C242A565B00829871 /* Info.plist */,
 				2152FB032600AC8F00CF470E /* iOSApp.swift */,
 				058557D7273AAEEB004C7B11 /* Preview Content */,
@@ -335,8 +343,8 @@
 				19424A4F2B8EB0AD0054E112 /* RankListSwiftUI.swift in Sources */,
 				19C92BD72C13DDE600570D3C /* CFlowExt.swift in Sources */,
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
+				198234542C2B6D300033C7E1 /* ScoreListView.swift in Sources */,
 				1945D7F52C2790560037A976 /* PlayerProfileView.swift in Sources */,
-				7555FF83242A565900829871 /* ContentView.swift in Sources */,
 				19BBD3A62B92C19600700A66 /* LadderSwiftUI.swift in Sources */,
 				19E4E85A2C2515ED00583A7B /* MainView.swift in Sources */,
 				19E4E8572C2514F300583A7B /* TrialListView.swift in Sources */,
