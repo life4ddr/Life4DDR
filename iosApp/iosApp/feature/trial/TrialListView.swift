@@ -13,6 +13,8 @@ struct TrialListView: View {
     @ObservedObject var viewModel: TrialListViewModel = TrialListViewModel()
     @State var state: UITrialList?
     
+    var onTrialSelected: (Trial) -> (Void)
+    
     var body: some View {
         VStack {
             if (state?.placementBanner != nil) {
@@ -27,7 +29,10 @@ struct TrialListView: View {
                             .font(.system(size: 16, weight: .heavy))
                     ) {
                         ForEach(trials.filter({ !$0.data.trial.isRetired }), id: \.self) { trial in
-                            TrialJacket(trialData: trial.data)
+                            TrialJacket(
+                                trialData: trial.data,
+                                onClick: { onTrialSelected(trial.data.trial) }
+                            )
                         }
                     }
                     
@@ -37,7 +42,10 @@ struct TrialListView: View {
                             .font(.system(size: 16, weight: .heavy))
                     ) {
                         ForEach(trials.filter({ $0.data.trial.isRetired }), id: \.self) { trial in
-                            TrialJacket(trialData: trial.data)
+                            TrialJacket(
+                                trialData: trial.data,
+                                onClick: { onTrialSelected(trial.data.trial) }
+                            )
                         }
                     }
                 }
@@ -81,6 +89,7 @@ struct PlacementBanner: View {
 
 struct TrialJacket: View {
     var trialData: UITrialJacket
+    var onClick: () -> (Void)
     
     var body: some View {
         Image(trialData.trial.name)
@@ -89,6 +98,7 @@ struct TrialJacket: View {
             .overlay(alignment: .topLeading) {
                 TrialDifficulty(difficulty: trialData.trial.difficulty as! Int)
             }
+            .onTapGesture { onClick() }
     }
 }
 
@@ -110,5 +120,5 @@ struct TrialDifficulty: View {
 }
 
 #Preview {
-    TrialListView()
+    TrialListView(onTrialSelected: { _ in })
 }

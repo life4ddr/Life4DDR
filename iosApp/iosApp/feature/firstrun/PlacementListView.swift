@@ -16,7 +16,7 @@ struct PlacementListView: View {
     @State var data: UIPlacementListScreen?
     var onRanksClicked: () -> (Void) = {}
     var goToMainView: () -> (Void) = {}
-    // TODO: implement onPlacementSelected, which will require PlacementDetailsView
+    var onPlacementSelected: (UIPlacement) -> Void = {_ in }
     
     @State var selectedPlacement: String?
     @State var skipPlacementAlert: Bool = false
@@ -38,6 +38,9 @@ struct PlacementListView: View {
                                 } else {
                                     selectedPlacement = placement.id
                                 }
+                            },
+                            onPlacementSelected: {
+                                onPlacementSelected(placement)
                             }
                         )
                     }
@@ -99,6 +102,7 @@ struct PlacementItem: View {
     var data: UIPlacement
     var expanded: Bool = false
     var onExpand: () -> (Void)
+    var onPlacementSelected: () -> (Void)
     
     var body: some View {
         let rankString = data.placementName.desc().localized()
@@ -124,7 +128,7 @@ struct PlacementItem: View {
                     }
                     Button {
                         withAnimation {
-                            
+                            onPlacementSelected()
                         }
                     } label: {
                         Text(MR.strings().placement_start.desc().localized())

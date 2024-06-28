@@ -4,6 +4,10 @@ import Shared
 @available(iOS 16.0, *)
 @main
 struct iOSApp: App {
+    @ObservedObject var viewModel: LaunchViewModel = LaunchViewModel()
+    @State private var path = NavigationPath()
+    @State var loaded: Bool = true
+    
     init() {
         KoinKt.doInitKoin(
             appModule: nativeModule,
@@ -17,8 +21,6 @@ struct iOSApp: App {
         _ = TrialManager()
     }
     
-    @State private var path = NavigationPath()
-    
     func goToView(nextStep: InitState) {
         path.append(nextStep)
     }
@@ -26,31 +28,77 @@ struct iOSApp: App {
 	var body: some Scene {
 		WindowGroup {
             NavigationStack(path: $path) {
-                // TODO: implement view model to direct player to correct screen upon launch
-                FirstRunView(onComplete: goToView)
-                .navigationDestination(for: InitState.self) { initState in
-                    switch initState {
-                        case InitState.placements:
-                            PlacementListView(
-                                isFirstRun: true,
-                                onRanksClicked: { goToView(nextStep: InitState.ranks) },
-                                goToMainView: { goToView(nextStep: InitState.done) }
-                            )
-                        case InitState.ranks:
-                            RankListView(isFirstRun: true, onAction: { action in
-                                if action is RankListViewModel.ActionNavigateToPlacements {
-                                    goToView(nextStep: InitState.placements)
-                                } else if action is RankListViewModel.ActionNavigateToMainScreen {
-                                    goToView(nextStep: InitState.done)
+                if (loaded) {
+                    FirstRunView(onComplete: goToView)
+                    .navigationDestination(for: InitState.self) { initState in
+                        switch initState {
+                            case InitState.placements:
+                                PlacementListView(
+                                    isFirstRun: true,
+                                    onRanksClicked: { goToView(nextStep: InitState.ranks) },
+                                    goToMainView: { goToView(nextStep: InitState.done) },
+                                    onPlacementSelected: { placement in
+                                        path.append(placement)
+                                    }
+                                )
+                            case InitState.ranks:
+                                RankListView(isFirstRun: true, onAction: { action in
+                                    if action is RankListViewModel.ActionNavigateToPlacements {
+                                        goToView(nextStep: InitState.placements)
+                                    } else if action is RankListViewModel.ActionNavigateToMainScreen {
+                                        goToView(nextStep: InitState.done)
+                                    }
+                                })
+                            case InitState.done:
+                                TabView {
+                                    PlayerProfileView()
+                                        .tabItem {
+                                            Label("Profile", systemImage: "person")
+                                        }
+                                    ScoreListView()
+                                        .tabItem {
+                                            Label("Scores", systemImage: "music.note.list")
+                                        }
+                                    TrialListView(onTrialSelected: { trial in
+                                        print(trial)
+                                        path.append(trial)
+                                    })
+                                        .tabItem {
+                                            Label("Trials", systemImage: "square.grid.2x2")
+                                        }
+                                    SettingsView()
+                                        .tabItem {
+                                            Label("Settings", systemImage: "gear")
+                                        }
                                 }
-                            })
-                        case InitState.done:
-                            MainView()
-                        default:
-                            Text("Not implemented")
+                                .navigationBarBackButtonHidden(true)
+                            default:
+                                Text("Not implemented")
+                        }
                     }
+                    .navigationDestination(for: Trial.self) { trial in
+                        TrialDetailsView(trial: trial)
+                    }
+                    .navigationDestination(for: UIPlacement.self) { placement in
+                        PlacementDetailsView(placementId: placement.id)
+                    }
+                } else {
+                    // TODO: add splash screen
+                    Text("splash screen")
                 }
             }
+            .accentColor(Color(.accent))
+            // TODO: debug below for initializing the view
+//            .onAppear {
+//                viewModel.launchState.subscribe { state in
+//                    if !loaded {
+//                        if let currentState = state {
+//                            goToView(nextStep: currentState)
+//                        }
+//                        loaded = true
+//                    }
+//                }
+//            }
 		}
 	}
 }
