@@ -22,7 +22,18 @@ struct iOSApp: App {
     }
     
     func goToView(nextStep: InitState) {
-        path.append(nextStep)
+        switch nextStep {
+            case InitState.placements:
+                // TODO: add a destination from the TrialListView to Placements
+                // right now, there is only one Placements destination
+                path.append(nextStep)
+            case InitState.ranks:
+                path.append(FirstRunDestination.InitialRankList())
+            case InitState.done:
+                path.append(FirstRunDestination.MainScreen())
+            default:
+                break
+        }
     }
     
 	var body: some Scene {
@@ -31,59 +42,54 @@ struct iOSApp: App {
                 if (loaded) {
                     FirstRunView(onComplete: goToView)
                     .navigationDestination(for: InitState.self) { initState in
-                        switch initState {
-                            case InitState.placements:
-                                PlacementListView(
-                                    isFirstRun: true,
-                                    onRanksClicked: { goToView(nextStep: InitState.ranks) },
-                                    goToMainView: { goToView(nextStep: InitState.done) },
-                                    onPlacementSelected: { placement in
-                                        path.append(placement)
-                                    }
-                                )
-                            case InitState.ranks:
-                                RankListView(isFirstRun: true, onAction: { action in
-                                    if action is RankListViewModel.ActionNavigateToPlacements {
-                                        goToView(nextStep: InitState.placements)
-                                    } else if action is RankListViewModel.ActionNavigateToMainScreen {
-                                        goToView(nextStep: InitState.done)
-                                    }
-                                })
-                            case InitState.done:
-                                TabView {
-                                    PlayerProfileView()
-                                        .tabItem {
-                                            Label("Profile", systemImage: "person")
-                                        }
-                                    ScoreListView()
-                                        .tabItem {
-                                            Label("Scores", systemImage: "music.note.list")
-                                        }
-                                    TrialListView(onTrialSelected: { trial in
-                                        print(trial)
-                                        path.append(trial)
-                                    })
-                                        .tabItem {
-                                            Label("Trials", systemImage: "square.grid.2x2")
-                                        }
-                                    SettingsView()
-                                        .tabItem {
-                                            Label("Settings", systemImage: "gear")
-                                        }
+                        PlacementListView(
+                            isFirstRun: true,
+                            onRanksClicked: { goToView(nextStep: InitState.ranks) },
+                            goToMainView: { goToView(nextStep: InitState.done) },
+                            onPlacementSelected: { placement in
+                                path.append(FirstRunDestination.PlacementDetails(placementId: placement.id))
+                            }
+                        )
+                    }
+                    .navigationDestination(for: FirstRunDestination.InitialRankList.self) { _ in
+                        RankListView(
+                            isFirstRun: true,
+                            onAction: { action in
+                                if action is RankListViewModel.ActionNavigateToPlacements {
+                                    goToView(nextStep: InitState.placements)
+                                } else if action is RankListViewModel.ActionNavigateToMainScreen {
+                                    goToView(nextStep: InitState.done)
                                 }
-                                .navigationBarBackButtonHidden(true)
-                            default:
-                                Text("Not implemented")
-                        }
+                            }
+                        )
                     }
-                    .navigationDestination(for: Trial.self) { trial in
-                        TrialDetailsView(trial: trial)
+                    .navigationDestination(for: FirstRunDestination.MainScreen.self) { _ in
+                        MainView(path: $path)
                     }
-                    .navigationDestination(for: UIPlacement.self) { placement in
-                        PlacementDetailsView(placementId: placement.id)
+                    .navigationDestination(for: LadderDestination.RankList.self) { _ in
+                        RankListView(
+                            onAction: { action in
+                                if action is RankListViewModel.ActionNavigateToMainScreen {
+                                    path.removeLast()
+                                }
+                            }
+                        )
+                    }
+                    .navigationDestination(for: FirstRunDestination.PlacementList.self) { _ in
+                        PlacementListView(
+                            onPlacementSelected: { placement in
+                                path.append(FirstRunDestination.PlacementDetails(placementId: placement.id))
+                            }
+                        )
+                    }
+                    .navigationDestination(for: TrialDestination.TrialDetails.self) { destination in
+                        TrialDetailsView(trial: destination.trial)
+                    }
+                    .navigationDestination(for: FirstRunDestination.PlacementDetails.self) { destination in
+                        PlacementDetailsView(placementId: destination.placementId)
                     }
                 } else {
-                    // TODO: add splash screen
+                    // TODO: add splash screen once the loading state works properly
                     Text("splash screen")
                 }
             }
@@ -101,6 +107,42 @@ struct iOSApp: App {
 //            }
 		}
 	}
+}
+
+@available(iOS 16.0, *)
+struct MainView: View {
+    @Binding var path: NavigationPath
+    
+    var body: some View {
+        TabView {
+            PlayerProfileView(
+                onAction: { action in
+                    if action is PlayerProfileAction.ChangeRank {
+                        path.append(LadderDestination.RankList())
+                    }
+                }
+            ).tabItem {
+                Label("Profile", systemImage: "person")
+            }
+            ScoreListView().tabItem {
+                Label("Scores", systemImage: "music.note.list")
+            }
+            TrialListView(
+                onTrialSelected: { trial in
+                    path.append(TrialDestination.TrialDetails(trial: trial))
+                },
+                onPlacementsSelected: {
+                    path.append(FirstRunDestination.PlacementList())
+                }
+            ).tabItem {
+                Label("Trials", systemImage: "square.grid.2x2")
+            }
+            SettingsView().tabItem {
+                Label("Settings", systemImage: "gear")
+            }
+        }
+        .navigationBarBackButtonHidden(true)
+    }
 }
 
 //@available(iOS 16.0, *)

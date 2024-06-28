@@ -14,11 +14,15 @@ struct TrialListView: View {
     @State var state: UITrialList?
     
     var onTrialSelected: (Trial) -> (Void)
+    var onPlacementsSelected: () -> (Void)
     
     var body: some View {
         VStack {
             if (state?.placementBanner != nil) {
-                PlacementBanner(banner: (state?.placementBanner)!)
+                PlacementBanner(
+                    banner: (state?.placementBanner)!,
+                    onPlacementsSelected: onPlacementsSelected
+                )
             }
             ScrollView(showsIndicators: false) {
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 180))], spacing: 8) {
@@ -65,10 +69,11 @@ struct TrialListView: View {
 
 struct PlacementBanner: View {
     var banner: UIPlacementBanner
+    var onPlacementsSelected: () -> (Void) = {}
     
     var body: some View {
-        NavigationLink {
-            PlacementListView()
+        Button {
+            onPlacementsSelected()
         } label: {
             HStack(spacing: 0) {
                 Text(banner.text.localized())
@@ -120,5 +125,5 @@ struct TrialDifficulty: View {
 }
 
 #Preview {
-    TrialListView(onTrialSelected: { _ in })
+    TrialListView(onTrialSelected: { _ in }, onPlacementsSelected: {})
 }

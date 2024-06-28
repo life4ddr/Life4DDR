@@ -85,7 +85,8 @@ struct TrialDetailsView: View {
                         .cornerRadius(10)
                 }
             }
-        }
+        }        
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 

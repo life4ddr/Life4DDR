@@ -15,10 +15,14 @@ struct PlayerProfileView: View {
     @State var goalListViewState: ViewState<UILadderData, NSString>?
     @State var goalData: UILadderData?
     @State var goalError: String?
+    var onAction: (PlayerProfileAction) -> (Void)
     
     var body: some View {
         VStack {
-            PlayerProfileInfo(state: playerInfoViewState ?? PlayerInfoViewState(username: "", rivalCode: "", socialNetworks: [:], rank: nil))
+            PlayerProfileInfo(
+                state: playerInfoViewState ?? PlayerInfoViewState(username: "", rivalCode: "", socialNetworks: [:], rank: nil),
+                onRankClicked: { onAction(PlayerProfileAction.ChangeRank()) }
+            )
             if (goalData != nil) {
                 LadderGoals(
                     data: goalData,
@@ -58,6 +62,7 @@ struct PlayerProfileView: View {
 
 struct PlayerProfileInfo: View {
     var state: PlayerInfoViewState
+    var onRankClicked: () -> (Void) = {}
     
     var body: some View {
         HStack {
@@ -68,13 +73,7 @@ struct PlayerProfileInfo: View {
                     .font(.system(size: 14, weight: .bold))
             }
             Spacer()
-            // TODO: refactor this to where this is no longer a NavigationLink
-            // RankImage onClick should programatically navigate to rank list
-            NavigationLink {
-                RankListView()
-            } label: {
-                RankImage(rank: state.rank, size: 64)
-            }
+            RankImage(rank: state.rank, size: 64, onClick: onRankClicked)
         }
         .frame(maxWidth: .infinity)
         .padding()
@@ -82,5 +81,5 @@ struct PlayerProfileInfo: View {
 }
 
 #Preview {
-    PlayerProfileView(playerInfoViewState: PlayerInfoViewState(username: "Andeh", rivalCode: "6164-4734", socialNetworks: [:], rank: nil))
+    PlayerProfileView(playerInfoViewState: PlayerInfoViewState(username: "Andeh", rivalCode: "6164-4734", socialNetworks: [:], rank: nil), onAction: { _ in })
 }
