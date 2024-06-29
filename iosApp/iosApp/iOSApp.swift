@@ -6,7 +6,7 @@ import Shared
 struct iOSApp: App {
     @ObservedObject var viewModel: LaunchViewModel = LaunchViewModel()
     @State private var path = NavigationPath()
-    @State var loaded: Bool = true
+    @State var loaded: Bool = false
     
     init() {
         KoinKt.doInitKoin(
@@ -21,92 +21,98 @@ struct iOSApp: App {
         _ = TrialManager()
     }
     
-    func goToView(nextStep: InitState) {
+    func goToView(nextStep: InitState?) {
         switch nextStep {
             case InitState.placements:
                 // TODO: add a destination from the TrialListView to Placements
                 // right now, there is only one Placements destination
-                path.append(nextStep)
+                path.append(nextStep!)
             case InitState.ranks:
                 path.append(FirstRunDestination.InitialRankList())
             case InitState.done:
                 path.append(FirstRunDestination.MainScreen())
             default:
-                break
+                path.append(FirstRunDestination.FirstRun())
         }
     }
     
 	var body: some Scene {
 		WindowGroup {
             NavigationStack(path: $path) {
-                if (loaded) {
+                SplashScreen()
+                .navigationDestination(for: FirstRunDestination.FirstRun.self) { _ in
                     FirstRunView(onComplete: goToView)
-                    .navigationDestination(for: InitState.self) { initState in
-                        PlacementListView(
-                            isFirstRun: true,
-                            onRanksClicked: { goToView(nextStep: InitState.ranks) },
-                            goToMainView: { goToView(nextStep: InitState.done) },
-                            onPlacementSelected: { placement in
-                                path.append(FirstRunDestination.PlacementDetails(placementId: placement.id))
+                }
+                .navigationDestination(for: InitState.self) { initState in
+                    PlacementListView(
+                        isFirstRun: true,
+                        onRanksClicked: { goToView(nextStep: InitState.ranks) },
+                        goToMainView: { goToView(nextStep: InitState.done) },
+                        onPlacementSelected: { placement in
+                            path.append(FirstRunDestination.PlacementDetails(placementId: placement.id))
+                        }
+                    )
+                }
+                .navigationDestination(for: FirstRunDestination.InitialRankList.self) { _ in
+                    RankListView(
+                        isFirstRun: true,
+                        onAction: { action in
+                            if action is RankListViewModel.ActionNavigateToPlacements {
+                                goToView(nextStep: InitState.placements)
+                            } else if action is RankListViewModel.ActionNavigateToMainScreen {
+                                goToView(nextStep: InitState.done)
                             }
-                        )
-                    }
-                    .navigationDestination(for: FirstRunDestination.InitialRankList.self) { _ in
-                        RankListView(
-                            isFirstRun: true,
-                            onAction: { action in
-                                if action is RankListViewModel.ActionNavigateToPlacements {
-                                    goToView(nextStep: InitState.placements)
-                                } else if action is RankListViewModel.ActionNavigateToMainScreen {
-                                    goToView(nextStep: InitState.done)
-                                }
+                        }
+                    )
+                }
+                .navigationDestination(for: FirstRunDestination.MainScreen.self) { _ in
+                    MainView(path: $path)
+                }
+                .navigationDestination(for: LadderDestination.RankList.self) { _ in
+                    RankListView(
+                        onAction: { action in
+                            if action is RankListViewModel.ActionNavigateToMainScreen {
+                                path.removeLast()
                             }
-                        )
-                    }
-                    .navigationDestination(for: FirstRunDestination.MainScreen.self) { _ in
-                        MainView(path: $path)
-                    }
-                    .navigationDestination(for: LadderDestination.RankList.self) { _ in
-                        RankListView(
-                            onAction: { action in
-                                if action is RankListViewModel.ActionNavigateToMainScreen {
-                                    path.removeLast()
-                                }
-                            }
-                        )
-                    }
-                    .navigationDestination(for: FirstRunDestination.PlacementList.self) { _ in
-                        PlacementListView(
-                            onPlacementSelected: { placement in
-                                path.append(FirstRunDestination.PlacementDetails(placementId: placement.id))
-                            }
-                        )
-                    }
-                    .navigationDestination(for: TrialDestination.TrialDetails.self) { destination in
-                        TrialDetailsView(trial: destination.trial)
-                    }
-                    .navigationDestination(for: FirstRunDestination.PlacementDetails.self) { destination in
-                        PlacementDetailsView(placementId: destination.placementId)
-                    }
-                } else {
-                    // TODO: add splash screen once the loading state works properly
-                    Text("splash screen")
+                        }
+                    )
+                }
+                .navigationDestination(for: FirstRunDestination.PlacementList.self) { _ in
+                    PlacementListView(
+                        onPlacementSelected: { placement in
+                            path.append(FirstRunDestination.PlacementDetails(placementId: placement.id))
+                        }
+                    )
+                }
+                .navigationDestination(for: TrialDestination.TrialDetails.self) { destination in
+                    TrialDetailsView(trial: destination.trial)
+                }
+                .navigationDestination(for: FirstRunDestination.PlacementDetails.self) { destination in
+                    PlacementDetailsView(placementId: destination.placementId)
                 }
             }
             .accentColor(Color(.accent))
             // TODO: debug below for initializing the view
-//            .onAppear {
-//                viewModel.launchState.subscribe { state in
-//                    if !loaded {
-//                        if let currentState = state {
-//                            goToView(nextStep: currentState)
-//                        }
-//                        loaded = true
-//                    }
-//                }
-//            }
+            .onAppear {
+                viewModel.launchState.subscribe { state in
+//                    print("debug launch state \(state)")
+                    if !loaded {
+                        goToView(nextStep: state)
+                        loaded = true
+                    }
+                }
+            }
 		}
 	}
+}
+
+struct SplashScreen: View {
+    // TODO: change this, this is a simple temporary splash screen
+    var body: some View {
+        Image("LIFE4-Logo")
+            .aspectRatio(contentMode: .fit)
+            .frame(width: 300)
+    }
 }
 
 @available(iOS 16.0, *)
