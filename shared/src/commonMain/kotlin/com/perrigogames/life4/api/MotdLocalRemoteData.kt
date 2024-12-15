@@ -11,13 +11,13 @@ import com.perrigogames.life4.ktor.GithubDataAPI
 import kotlinx.serialization.json.Json
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
+import org.koin.core.qualifier.named
 
-class MotdLocalRemoteData(
-    reader: LocalDataReader,
-): CompositeData<MessageOfTheDay>(), KoinComponent {
+class MotdLocalRemoteData: CompositeData<MessageOfTheDay>(), KoinComponent {
 
     private val json: Json by inject()
     private val githubKtor: GithubDataAPI by inject()
+    private val reader: LocalDataReader by inject(named(GithubDataAPI.MOTD_FILE_NAME))
 
     private val converter = MessageOfTheDayConverter()
 

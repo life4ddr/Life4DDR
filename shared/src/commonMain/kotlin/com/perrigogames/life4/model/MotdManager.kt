@@ -16,13 +16,10 @@ import org.koin.core.qualifier.named
 
 class MotdManager: BaseModel() {
 
-    private val dataReader: LocalDataReader by inject(named(GithubDataAPI.MOTD_FILE_NAME))
-    private val settings: Settings by inject()
-
     private val _motdFlow = MutableSharedFlow<Event?>(replay = 8)
     val motdFlow: SharedFlow<Event?> = _motdFlow
 
-    private val data = MotdLocalRemoteData(dataReader)
+    private val data = MotdLocalRemoteData()
 //        override fun onDataVersionChanged(data: MessageOfTheDay) {
 //            if (settings.getInt(KEY_LAST_MOTD, -1) < data.version) {
 //                settings[KEY_LAST_MOTD] = data.version

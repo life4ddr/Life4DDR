@@ -3,6 +3,7 @@ package com.perrigogames.life4
 import co.touchlab.kermit.Logger
 import co.touchlab.kermit.StaticConfig
 import co.touchlab.kermit.platformLogWriter
+import com.perrigogames.life4.api.*
 import com.perrigogames.life4.api.base.LocalDataReader
 import com.perrigogames.life4.api.base.LocalUncachedDataReader
 import com.perrigogames.life4.db.GoalDatabaseHelper
@@ -120,6 +121,11 @@ fun makeNativeModule(
         single(named(GithubDataAPI.RANKS_FILE_NAME)) { ranksReader }
         single(named(GithubDataAPI.SONGS_FILE_NAME)) { songsReader }
         single(named(GithubDataAPI.TRIALS_FILE_NAME)) { trialsReader }
+        single { IgnoreListRemoteData() }
+        single { LadderRemoteData() }
+        single { MotdLocalRemoteData() }
+        single { SongListRemoteData() }
+        single { TrialRemoteData() }
         additionalItems()
     }
 }
