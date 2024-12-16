@@ -1,4 +1,4 @@
-package com.perrigogames.life4.api
+package com.perrigogames.life4.feature.motd
 
 import com.perrigogames.life4.api.base.CachedData
 import com.perrigogames.life4.api.base.CompositeData

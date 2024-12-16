@@ -10,6 +10,7 @@ import com.perrigogames.life4.db.GoalDatabaseHelper
 import com.perrigogames.life4.db.ResultDatabaseHelper
 import com.perrigogames.life4.feature.firstrun.FirstRunSettingsManager
 import com.perrigogames.life4.feature.ladder.LadderGoalProgressManager
+import com.perrigogames.life4.feature.motd.*
 import com.perrigogames.life4.feature.placements.PlacementManager
 import com.perrigogames.life4.feature.profile.UserRankManager
 import com.perrigogames.life4.feature.settings.LadderListSelectionSettings
@@ -68,7 +69,7 @@ val coreModule = module {
 
     single { PlacementManager() }
     single { MajorUpdateManager() }
-    single { MotdManager() }
+    single<MotdManager> { DefaultMotdManager() }
     single { LadderDataManager() }
     single { SongResultsManager() }
     single { LadderGoalProgressManager() }
@@ -85,6 +86,7 @@ val coreModule = module {
     single { UserRankManager() }
     single { GoalStateManager() }
     single { LadderGoalMapper() }
+    single<MotdSettings> { DefaultMotdSettings() }
 
     // platformLogWriter() is a relatively simple config option, useful for local debugging. For production
     // uses you *may* want to have a more robust configuration from the native platform. In KaMP Kit,
