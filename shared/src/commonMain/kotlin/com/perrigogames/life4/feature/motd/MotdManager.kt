@@ -9,6 +9,7 @@ import org.koin.core.component.inject
 
 interface MotdManager {
     val motdFlow: SharedFlow<Event?>
+    val dataVersionString: Flow<String>
 }
 
 class DefaultMotdManager: MotdManager, BaseModel() {
@@ -18,6 +19,9 @@ class DefaultMotdManager: MotdManager, BaseModel() {
 
     private val data: MotdLocalRemoteData by inject()
     private val settings: MotdSettings by inject()
+
+    override val dataVersionString: Flow<String> =
+        data.versionState.map { it.versionString }
 
     init {
         mainScope.launch {
