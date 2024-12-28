@@ -13,7 +13,7 @@ object UISettingsMocks {
 
     val divider = UISettingsItem.Divider
 
-    object Root {
+    class Root(isDebug: Boolean) {
         val editUserItem = UISettingsItem.Link(
             title = StringDesc.Resource(MR.strings.edit_user_info),
             action = SettingsAction.Navigate(SettingsPage.EDIT_USER_INFO)
@@ -30,6 +30,14 @@ object UISettingsMocks {
             title = StringDesc.Resource(MR.strings.clear_data),
             action = SettingsAction.Navigate(SettingsPage.CLEAR_DATA)
         )
+        val debugItem = if (isDebug) {
+            UISettingsItem.Link(
+                title = StringDesc.Raw("Debug Options"),
+                action = SettingsAction.Navigate(SettingsPage.DEBUG)
+            )
+        } else {
+            null
+        }
         val shopLife4 = UISettingsItem.Link(
             title = StringDesc.Resource(MR.strings.action_shop_life4),
             subtitle = StringDesc.Resource(MR.strings.description_shop_life4),
@@ -58,8 +66,8 @@ object UISettingsMocks {
 
         val page = UISettingsData(
             screenTitle = StringDesc.Resource(MR.strings.tab_settings),
-            settingsItems = listOf(
-                editUserItem, gameVersionItem, trialSettingsItem, clearDataItem,
+            settingsItems = listOfNotNull(
+                editUserItem, gameVersionItem, trialSettingsItem, clearDataItem, debugItem,
                 divider,
                 helpAndFeedbackHeader, shopLife4, shopDangershark, findUsOnX, credits, appVersionItem
             )
@@ -84,6 +92,18 @@ object UISettingsMocks {
         val page = UISettingsData(
             screenTitle = StringDesc.Resource(MR.strings.clear_data),
             settingsItems = listOf()
+        )
+    }
+
+    object Debug {
+        val page = UISettingsData(
+            screenTitle = StringDesc.Raw("Debug"),
+            settingsItems = listOf(
+                UISettingsItem.Link(
+                    title = StringDesc.Raw("Create debug scores"),
+                    action = SettingsAction.Debug.SongData
+                )
+            )
         )
     }
 }

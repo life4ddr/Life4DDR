@@ -2,12 +2,14 @@ package com.perrigogames.life4.ktor
 
 import co.touchlab.stately.ensureNeverFrozen
 import com.perrigogames.life4.api.baseHttpClient
-import com.perrigogames.life4.isDebug
 import io.ktor.client.call.*
 import io.ktor.client.request.*
 import io.ktor.http.*
 
-class Life4APIImpl(private val log: co.touchlab.kermit.Logger): Life4API {
+class Life4APIImpl(
+    private val log: co.touchlab.kermit.Logger,
+    private val isDebug: Boolean
+): Life4API {
 
     private val client = baseHttpClient(log)
 

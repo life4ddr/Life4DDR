@@ -3,7 +3,10 @@ package com.perrigogames.life4
 import co.touchlab.kermit.Logger
 import co.touchlab.kermit.StaticConfig
 import co.touchlab.kermit.platformLogWriter
-import com.perrigogames.life4.api.*
+import com.perrigogames.life4.api.IgnoreListRemoteData
+import com.perrigogames.life4.api.LadderRemoteData
+import com.perrigogames.life4.api.SongListRemoteData
+import com.perrigogames.life4.api.TrialRemoteData
 import com.perrigogames.life4.api.base.LocalDataReader
 import com.perrigogames.life4.api.base.LocalUncachedDataReader
 import com.perrigogames.life4.db.GoalDatabaseHelper
@@ -27,7 +30,10 @@ import com.perrigogames.life4.ktor.GithubDataAPI
 import com.perrigogames.life4.ktor.GithubDataImpl
 import com.perrigogames.life4.ktor.Life4API
 import com.perrigogames.life4.ktor.Life4APIImpl
-import com.perrigogames.life4.model.*
+import com.perrigogames.life4.model.ChartResultOrganizer
+import com.perrigogames.life4.model.GoalStateManager
+import com.perrigogames.life4.model.LadderDataManager
+import com.perrigogames.life4.model.MajorUpdateManager
 import com.perrigogames.life4.model.mapping.LadderGoalMapper
 import kotlinx.serialization.json.Json
 import org.koin.core.component.KoinComponent
@@ -64,7 +70,7 @@ val coreModule = module {
     single { TrialDatabaseHelper(get()) }
 
     single<GithubDataAPI> { GithubDataImpl() }
-    single<Life4API> { Life4APIImpl(get()) }
+    single<Life4API> { Life4APIImpl(get(), get<AppInfo>().isDebug) }
     single { Json { classDiscriminator = "t" } }
 
     single { PlacementManager() }

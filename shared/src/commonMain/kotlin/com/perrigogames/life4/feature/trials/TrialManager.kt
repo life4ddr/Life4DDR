@@ -1,22 +1,19 @@
 package com.perrigogames.life4.feature.trials
 
 import co.touchlab.kermit.Logger
+import com.perrigogames.life4.AppInfo
 import com.perrigogames.life4.Notifications
 import com.perrigogames.life4.api.TrialRemoteData
 import com.perrigogames.life4.api.base.CompositeData
-import com.perrigogames.life4.api.base.LocalDataReader
 import com.perrigogames.life4.data.Trial
 import com.perrigogames.life4.feature.trialrecords.TrialDatabaseHelper
 import com.perrigogames.life4.injectLogger
-import com.perrigogames.life4.isDebug
-import com.perrigogames.life4.ktor.GithubDataAPI.Companion.TRIALS_FILE_NAME
 import com.perrigogames.life4.model.BaseModel
 import com.russhwolf.settings.Settings
 import dev.icerock.moko.mvvm.flow.cMutableStateFlow
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import org.koin.core.component.inject
-import org.koin.core.qualifier.named
 
 /**
  * Manages data relating to Trials.  This includes:
@@ -26,6 +23,7 @@ import org.koin.core.qualifier.named
  */
 class TrialManager: BaseModel() {
 
+    private val appInfo: AppInfo by inject()
     private val settings: Settings by inject()
     private val notifications: Notifications by inject()
     private val dbHelper: TrialDatabaseHelper by inject()
@@ -72,7 +70,7 @@ class TrialManager: BaseModel() {
         var sum = 0
         trial.songs.forEach { sum += it.ex }
         if (sum != trial.totalEx) {
-            if (!isDebug) {
+            if (!appInfo.isDebug) {
                 logger.e { "Trial ${trial.name} has improper EX values: total_ex=${trial.totalEx}, sum=$sum" }
             }
         }

@@ -163,6 +163,6 @@ private fun SettingsCheckboxItem(
 @Composable
 private fun SettingsScreenPreview() {
     LIFE4Theme {
-        SettingsScreen(data = UISettingsMocks.Root.page)
+        SettingsScreen(data = UISettingsMocks.Root(isDebug = false).page)
     }
 }

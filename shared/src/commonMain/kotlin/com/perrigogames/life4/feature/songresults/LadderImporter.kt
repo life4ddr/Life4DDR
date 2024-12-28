@@ -1,6 +1,7 @@
 package com.perrigogames.life4.feature.songresults
 
 import co.touchlab.kermit.Logger
+import com.perrigogames.life4.AppInfo
 import com.perrigogames.life4.LadderDialogs
 import com.perrigogames.life4.db.ResultDatabaseHelper
 import com.perrigogames.life4.enums.ClearType
@@ -10,7 +11,6 @@ import com.perrigogames.life4.enums.PlayStyle
 import com.perrigogames.life4.enums.PlayStyle.DOUBLE
 import com.perrigogames.life4.feature.songlist.SongDataManager
 import com.perrigogames.life4.injectLogger
-import com.perrigogames.life4.isDebug
 import com.perrigogames.life4.model.BaseModel
 import com.perrigogames.life4.model.MainScope
 import kotlinx.coroutines.Dispatchers
@@ -34,6 +34,7 @@ class LadderImporter(
     private val opMode: OpMode = OpMode.AUTO,
 ): BaseModel() {
 
+    private val appInfo: AppInfo by inject()
     private val saLogger: Logger by injectLogger("SAImport")
     private val legacyLogger: Logger by injectLogger("Import")
     private val songDataManager: SongDataManager by inject()
@@ -117,7 +118,7 @@ class LadderImporter(
                 }
             entries.forEach { it.skillId = skillId }
 
-            if (isDebug) {
+            if (appInfo.isDebug) {
                 saLogger.v("${song.title} ($skillId) - ${entries.size} found, ${entries.joinToString { it.score.toString() }}")
             }
             resultDbHelper.insertSAResults(entries)

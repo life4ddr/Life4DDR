@@ -74,4 +74,5 @@ class Life4Application: Application() {
 
 object AndroidAppInfo : AppInfo {
     override val appId: String = "LIFE4DDR" // FIXME
+    override val isDebug: Boolean = true // FIXME
 }

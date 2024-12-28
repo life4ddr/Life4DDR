@@ -3,10 +3,9 @@ package com.perrigogames.life4.feature.trials
 import com.perrigogames.life4.SettingsKeys
 import com.perrigogames.life4.data.SongResult
 import com.perrigogames.life4.data.TrialSong
+import com.perrigogames.life4.feature.settings.SettingsManager
 import com.perrigogames.life4.feature.trialsession.TrialSessionManager
-import com.perrigogames.life4.getDebugBoolean
 import com.perrigogames.life4.util.mutate
-import com.russhwolf.settings.Settings
 import dev.icerock.moko.mvvm.flow.CMutableStateFlow
 import dev.icerock.moko.mvvm.flow.CStateFlow
 import dev.icerock.moko.mvvm.flow.cMutableStateFlow
@@ -23,7 +22,7 @@ class SongEntryViewModel(
 ): ViewModel(), KoinComponent {
 
     private val trialSessionManager: TrialSessionManager by inject()
-    private val settings: Settings by inject()
+    private val settingsManager: SettingsManager by inject()
     private val currentSession get() = trialSessionManager.currentSession!!
     private val song: TrialSong get() = currentSession.trial.songs[songIndex]
     private val result: SongResult get() = currentSession.results[songIndex]!!
@@ -178,7 +177,7 @@ class SongEntryViewModel(
         return if (
             requireAllData &&
             !hasCompleteInfo.value &&
-            !settings.getDebugBoolean(SettingsKeys.KEY_DEBUG_ACCEPT_INVALID)
+            !settingsManager.getDebugBoolean(SettingsKeys.KEY_DEBUG_ACCEPT_INVALID)
         ) {
             _scoreState.mutate { copy(hasError = !hasScore.value) }
             _exScoreState.mutate { copy(hasError = !hasExScore.value) }

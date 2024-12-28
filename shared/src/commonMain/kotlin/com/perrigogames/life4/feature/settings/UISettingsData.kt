@@ -1,6 +1,7 @@
 package com.perrigogames.life4.feature.settings
 
 import com.perrigogames.life4.MR
+import dev.icerock.moko.resources.desc.Raw
 import dev.icerock.moko.resources.desc.Resource
 import dev.icerock.moko.resources.desc.StringDesc
 
@@ -85,6 +86,7 @@ enum class SettingsPage(val nameDesc: StringDesc) {
     EDIT_USER_INFO(StringDesc.Resource(MR.strings.edit_user_info)),
     TRIAL_SETTINGS(StringDesc.Resource(MR.strings.trial_settings)),
     CLEAR_DATA(StringDesc.Resource(MR.strings.clear_data)),
+    DEBUG(StringDesc.Raw("Debug"))
 }
 
 sealed class SettingsPageModal {

@@ -3,6 +3,7 @@ package com.perrigogames.life4.feature.songresults
 import co.touchlab.kermit.Logger
 import com.perrigogames.life4.db.ChartResult
 import com.perrigogames.life4.db.ResultDatabaseHelper
+import com.perrigogames.life4.enums.ClearType
 import com.perrigogames.life4.feature.songlist.Chart
 import com.perrigogames.life4.feature.songlist.SongDataManager
 import com.perrigogames.life4.feature.songlist.SongLibrary
@@ -14,7 +15,9 @@ import dev.icerock.moko.mvvm.flow.cStateFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
+import kotlinx.datetime.Clock
 import org.koin.core.component.inject
+import kotlin.random.Random
 
 class SongResultsManager: BaseModel() {
 
@@ -44,6 +47,29 @@ class SongResultsManager: BaseModel() {
         logger.d("Refreshing song results")
         mainScope.launch {
             results.emit(resultDbHelper.selectAll())
+        }
+    }
+
+    fun createDebugScores() {
+        logger.d("Adding debug scores")
+        mainScope.launch {
+            val random = Random(Clock.System.now().toEpochMilliseconds())
+            val charts = songDataManager.libraryFlow.value.charts
+            results.emit(
+                List(50) { random.nextInt(0, charts.size) }
+                    .toSet()
+                    .map { index -> charts[index] }
+                    .map { chart ->
+                        ChartResult(
+                            skillId = chart.song.skillId,
+                            difficultyClass = chart.difficultyClass,
+                            playStyle = chart.playStyle,
+                            clearType = ClearType.CLEAR,
+                            score = 1_000_000L - (1_000 * random.nextInt(0, 100)),
+                            exScore = 1_000L - random.nextInt(0, 100)
+                        )
+                    }
+            )
         }
     }
 
