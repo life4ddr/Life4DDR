@@ -3,7 +3,7 @@
 //  iosApp
 //
 //  Created by Andrew Le on 6/27/24.
-//  Copyright © 2024 orgName. All rights reserved.
+//  Copyright © 2024 Life4DDR. All rights reserved.
 //
 
 import SwiftUI
