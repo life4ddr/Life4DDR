@@ -13,6 +13,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.core.widget.doAfterTextChanged
 import com.perrigogames.life4.android.R
 import com.perrigogames.life4.data.Trial
+import com.perrigogames.life4.util.CompoundIntRange
 
 var View.visibilityBool: Boolean
     get() = visibility == View.VISIBLE

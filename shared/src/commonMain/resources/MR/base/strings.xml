@@ -80,6 +80,10 @@
     <string name="change_to_no_rank">Remove my Rank</string>
     <!-- endregion -->
 
+    <!-- region Play Style Strings -->
+    <string name="play_style_single">Single</string>
+    <string name="play_style_double">Double</string>
+
     <!-- region Difficulty Strings -->
     <string name="bgsp">bSP</string>
     <string name="bsp">BSP</string>
@@ -87,6 +91,10 @@
     <string name="esp">ESP</string>
     <string name="csp">CSP</string>
     <!-- endregion -->
+
+    <!-- region Filter strings -->
+    <string name="label_difficulty_number">Difficulty</string>
+    <string name="label_clear_type">Clear Type</string>
 
     <!-- region Rank Strings -->
     <string name="none">NONE</string>
