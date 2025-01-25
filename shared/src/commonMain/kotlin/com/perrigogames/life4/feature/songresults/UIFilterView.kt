@@ -93,11 +93,7 @@ sealed class UIFilterAction {
 fun FilterState.toUIFilterView(showPlayStyleSelector: Boolean) = UIFilterView(
     showPlayStyleSelector = showPlayStyleSelector,
     selectedPlayStyle = selectedPlayStyle,
-    selectedDifficultyClasses = difficultyClassSelection[selectedPlayStyle]
-        ?.filter { (_, selected) -> selected }
-        ?.keys
-        ?.toList()
-        ?: emptyList(),
+    selectedDifficultyClasses = difficultyClassSelection,
     difficultyNumberSelection = difficultyNumberRange,
     clearTypeSelection = clearTypeRange,
     scoreRangeBottomValue = scoreRangeBottomValue,

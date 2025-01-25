@@ -9,7 +9,7 @@ class FilterPanelViewModel : ViewModel() {
     private val _state = MutableStateFlow(FilterState())
     val state: StateFlow<UIFilterView> = _state
         .map {
-            it.toUIFilterView(showPlayStyleSelector = false)
+            it.toUIFilterView(showPlayStyleSelector = true)
         }
         .stateIn(viewModelScope, SharingStarted.Eagerly, UIFilterView())
 
@@ -34,18 +34,13 @@ class FilterPanelViewModel : ViewModel() {
             }
             is UIFilterAction.ToggleDifficultyClass -> {
                 mutate {
-                    val selection = it.difficultyClassSelection.toMutableMap()
-                    when {
-                        !selection.containsKey(it.selectedPlayStyle) -> {
-                            selection[it.selectedPlayStyle] = mapOf(action.difficultyClass to action.selected)
-                        }
-                        else -> {
-                            val styleMap = selection[it.selectedPlayStyle]!!.toMutableMap()
-                            styleMap[action.difficultyClass] = action.selected
-                            selection[it.selectedPlayStyle] = styleMap
-                        }
+                    val selection = it.difficultyClassSelection.toMutableSet()
+                    if (action.selected) {
+                        selection.add(action.difficultyClass)
+                    } else {
+                        selection.remove(action.difficultyClass)
                     }
-                    it.copy(difficultyClassSelection = selection)
+                    it.copy(difficultyClassSelection = selection.toList())
                 }
             }
         }
