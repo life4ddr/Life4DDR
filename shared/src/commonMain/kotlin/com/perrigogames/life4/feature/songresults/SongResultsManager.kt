@@ -50,6 +50,13 @@ class SongResultsManager: BaseModel() {
         }
     }
 
+    fun addScores(scores: List<ChartResult>) {
+        mainScope.launch {
+            resultDbHelper.insertResults(scores)
+            results.emit(resultDbHelper.selectAll())
+        }
+    }
+
     fun createDebugScores() {
         logger.d("Adding debug scores")
         mainScope.launch {
@@ -66,7 +73,9 @@ class SongResultsManager: BaseModel() {
                             playStyle = chart.playStyle,
                             clearType = ClearType.CLEAR,
                             score = 1_000_000L - (1_000 * random.nextInt(0, 100)),
-                            exScore = 1_000L - random.nextInt(0, 100)
+                            exScore = 1_000L - random.nextInt(0, 100),
+                            flare = random.nextLong(0, 10).takeIf { it >= 1 },
+                            flareSkill = random.nextLong(100, 500)
                         )
                     }
             )

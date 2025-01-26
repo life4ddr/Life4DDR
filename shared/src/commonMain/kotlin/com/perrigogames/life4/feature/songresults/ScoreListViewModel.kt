@@ -1,8 +1,9 @@
 package com.perrigogames.life4.feature.songresults
 
+import com.mohamedrejeb.ksoup.entities.KsoupEntities
 import com.perrigogames.life4.enums.ClearType
-import com.perrigogames.life4.enums.DifficultyClass
 import com.perrigogames.life4.enums.colorRes
+import com.perrigogames.life4.ktor.SanbaiAPI
 import com.perrigogames.life4.model.ChartResultOrganizer
 import dev.icerock.moko.mvvm.flow.CStateFlow
 import dev.icerock.moko.mvvm.flow.cMutableStateFlow
@@ -11,6 +12,7 @@ import dev.icerock.moko.mvvm.viewmodel.ViewModel
 import dev.icerock.moko.resources.ColorResource
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -18,6 +20,7 @@ import org.koin.core.component.inject
 class ScoreListViewModel: ViewModel(), KoinComponent {
 
     private val resultOrganizer: ChartResultOrganizer by inject()
+    private val sanbaiAPI: SanbaiAPI by inject()
 
     private val filterViewModel = FilterPanelViewModel()
 
@@ -27,9 +30,11 @@ class ScoreListViewModel: ViewModel(), KoinComponent {
     init {
         viewModelScope.launch {
             combine(
-                filterViewModel.state,
-                resultOrganizer.resultsForConfig(ScoreListContentConfig())
-            ) { filterView, results ->
+                filterViewModel.dataState.flatMapLatest { config ->
+                    resultOrganizer.resultsForConfig(config)
+                },
+                filterViewModel.uiState
+            ) { results, filterView ->
                 UIScoreList(
                     scores = results.map { it.toUIScore() },
                     filter = filterView
@@ -40,6 +45,15 @@ class ScoreListViewModel: ViewModel(), KoinComponent {
 
     fun handleFilterAction(action: UIFilterAction) {
         filterViewModel.handleAction(action)
+    }
+
+    fun getSanbaiUrl() = sanbaiAPI.getAuthorizeUrl()
+
+    fun authorize(authCode: String) {
+        viewModelScope.launch {
+            val result = sanbaiAPI.getSessionToken(authCode)
+            println(result)
+        }
     }
 }
 
@@ -56,7 +70,7 @@ data class UIScore(
 )
 
 fun ChartResultPair.toUIScore() = UIScore(
-    leftText = chart.song.title,
+    leftText = KsoupEntities.decodeHtml(chart.song.title),
     rightText = (result?.score ?: 0).toString(),
     leftColor = chart.difficultyClass.colorRes,
     rightColor = (result?.clearType ?: ClearType.NO_PLAY).colorRes,

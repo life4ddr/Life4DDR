@@ -2,10 +2,13 @@ package com.perrigogames.life4.model
 
 import co.touchlab.kermit.Logger
 import com.perrigogames.life4.enums.ClearType
+import com.perrigogames.life4.enums.DifficultyClass
 import com.perrigogames.life4.enums.PlayStyle
 import com.perrigogames.life4.feature.songlist.IgnoreListManager
 import com.perrigogames.life4.feature.songresults.ChartResultPair
-import com.perrigogames.life4.feature.songresults.ScoreListContentConfig
+import com.perrigogames.life4.feature.songresults.FilterState
+import com.perrigogames.life4.feature.songresults.FilterState.Companion.DEFAULT_CLEAR_TYPE_RANGE
+import com.perrigogames.life4.feature.songresults.FilterState.Companion.DEFAULT_DIFFICULTY_NUMBER_RANGE
 import com.perrigogames.life4.feature.songresults.SongResultsManager
 import com.perrigogames.life4.injectLogger
 import dev.icerock.moko.mvvm.flow.cMutableStateFlow
@@ -45,31 +48,31 @@ class ChartResultOrganizer: BaseModel(), KoinComponent {
 //    ): Flow<ChartResults> = basicOrganizer.map { ChartResults(it[playStyle]!![diffNum]!!) }
 //        .filter(FilterConfiguration(populated = populated, filterIgnored = filterIgnored))
 
-    fun resultsForConfig(config: ScoreListContentConfig): StateFlow<List<ChartResultPair>> {
+    fun resultsForConfig(config: FilterState): StateFlow<List<ChartResultPair>> {
         return basicOrganizer
-            .map { it[config.playStyle] ?: emptyMap() }
+            .map { it[config.selectedPlayStyle] ?: emptyMap() }
             .map { chartsByDifficultyNumber ->
-                var temp = if (config.difficultyNumbers != null) {
-                    config.difficultyNumbers.flatMap { chartsByDifficultyNumber[it]!! }
+                var temp = if (config.difficultyNumberRange != DEFAULT_DIFFICULTY_NUMBER_RANGE) {
+                    config.difficultyNumberRange.flatMap { chartsByDifficultyNumber[it]!! }
                 } else {
                     chartsByDifficultyNumber.values.flatten()
                 }
 
-                if (config.difficultyClasses != null) {
-                    temp = temp.filter { it.chart.difficultyClass in config.difficultyClasses }
+                if (config.difficultyClassSelection != DifficultyClass.entries) {
+                    temp = temp.filter { it.chart.difficultyClass in config.difficultyClassSelection }
                 }
 
-                if (config.clearTypes != null) {
+                if (config.clearTypeRange != DEFAULT_CLEAR_TYPE_RANGE) {
                     temp = temp.filter { chart ->
                         val clearType = chart.result?.clearType ?: ClearType.NO_PLAY
-                        clearType in config.clearTypes
+                        clearType in config.clearTypeRange.map { ClearType.entries[it] }
                     }
                 }
 
-                if (config.minScore != null || config.maxScore != null) {
-                    val minScore = config.minScore ?: 0
-                    val maxScore = config.maxScore ?: Long.MAX_VALUE
-                    val allowNullScores = minScore == 0L
+                if (config.scoreRangeBottomValue != null || config.scoreRangeTopValue != null) {
+                    val minScore = config.scoreRangeBottomValue ?: 0
+                    val maxScore = config.scoreRangeTopValue ?: Int.MAX_VALUE
+                    val allowNullScores = minScore == 0
                     temp = temp.filter { chart ->
                         val score = chart.result?.score
                         (score == null && allowNullScores)

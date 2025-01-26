@@ -6,7 +6,7 @@ import com.perrigogames.life4.GameConstants.MAX_SCORE
 import com.perrigogames.life4.data.*
 import com.perrigogames.life4.enums.ClearType
 import com.perrigogames.life4.feature.songresults.ChartResultPair
-import com.perrigogames.life4.feature.songresults.ScoreListContentConfig
+import com.perrigogames.life4.feature.songresults.FilterState
 import com.perrigogames.life4.feature.trialrecords.TrialRecordsManager
 import com.perrigogames.life4.injectLogger
 import com.perrigogames.life4.model.BaseModel
@@ -88,10 +88,10 @@ class LadderGoalProgressManager : BaseModel(), KoinComponent {
         var topValidScore = 0L
         goal.forEachDiffNum { diff ->
             val results = chartResultOrganizer.resultsForConfig(
-                ScoreListContentConfig(
-                    playStyle = goal.playStyle,
-                    difficultyNumbers = diff..diff,
-                    minScore = 1L,
+                FilterState(
+                    selectedPlayStyle = goal.playStyle,
+                    difficultyNumberRange = diff..diff,
+                    scoreRangeBottomValue = 1,
                 )
             ).value // FIXME
             val validResults = results.scoresInRange(bottom = goal.score)
@@ -125,10 +125,10 @@ class LadderGoalProgressManager : BaseModel(), KoinComponent {
         var completed = 0
         goal.forEachDiffNum { diff ->
             val results = chartResultOrganizer.resultsForConfig(
-                ScoreListContentConfig(
-                    playStyle = goal.playStyle,
-                    difficultyNumbers = diff..diff,
-                    minScore = 1L,
+                FilterState(
+                    selectedPlayStyle = goal.playStyle,
+                    difficultyNumberRange = diff..diff,
+                    scoreRangeBottomValue = 1,
                     filterIgnored = false,
                 )
             ).value // FIXME
@@ -153,9 +153,9 @@ class LadderGoalProgressManager : BaseModel(), KoinComponent {
 
     private fun allSongsScoreProgress(goal: SongsClearGoal): LadderGoalProgress {
         val results = chartResultOrganizer.resultsForConfig(
-            ScoreListContentConfig(
-                playStyle = goal.playStyle,
-                difficultyNumbers = goal.diffNum!!.toInclusiveRange(),
+            FilterState(
+                selectedPlayStyle = goal.playStyle,
+                difficultyNumberRange = goal.diffNum!!.toInclusiveRange(),
                 filterIgnored = true,
             )
         ).value // FIXME
@@ -172,9 +172,9 @@ class LadderGoalProgressManager : BaseModel(), KoinComponent {
 
     private fun allSongsAverageScoreProgress(goal: SongsClearGoal): LadderGoalProgress {
         val results = chartResultOrganizer.resultsForConfig(
-            ScoreListContentConfig(
-                playStyle = goal.playStyle,
-                difficultyNumbers = goal.diffNum!!.toInclusiveRange(),
+            FilterState(
+                selectedPlayStyle = goal.playStyle,
+                difficultyNumberRange = goal.diffNum!!.toInclusiveRange(),
                 filterIgnored = true,
             )
         ).value // FIXME
@@ -190,9 +190,9 @@ class LadderGoalProgressManager : BaseModel(), KoinComponent {
 
     private fun allSongsClearProgress(goal: SongsClearGoal): LadderGoalProgress {
         val results = chartResultOrganizer.resultsForConfig(
-            ScoreListContentConfig(
-                playStyle = goal.playStyle,
-                difficultyNumbers = goal.diffNum!!.toInclusiveRange(),
+            FilterState(
+                selectedPlayStyle = goal.playStyle,
+                difficultyNumberRange = goal.diffNum!!.toInclusiveRange(),
                 filterIgnored = true,
             )
         ).value // FIXME

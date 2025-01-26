@@ -1,7 +1,9 @@
 package com.perrigogames.life4.feature.firstrun
 
 import com.perrigogames.life4.util.Destination
+import kotlinx.serialization.Serializable
 
+@Serializable
 sealed class FirstRunDestination(override val baseRoute: String) : Destination {
 
     data object Landing : FirstRunDestination("landing")
@@ -16,4 +18,6 @@ sealed class FirstRunDestination(override val baseRoute: String) : Destination {
     }
     data object InitialRankList : FirstRunDestination("initial_rank_list")
     data object MainScreen : FirstRunDestination("main_screen")
+    @Serializable
+    data class SanbaiImport(val url: String) : FirstRunDestination("sanbaiImport")
 }

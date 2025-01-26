@@ -2,7 +2,7 @@ package com.perrigogames.life4.android.feature.scorelist
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
@@ -44,7 +44,7 @@ fun FilterPane(
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     modifier = Modifier.weight(1f)
-                ) {im
+                ) {
                     Switch(
                         checked = item.selected,
                         onCheckedChange = { onAction(item.action) }

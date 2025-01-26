@@ -18,10 +18,12 @@ import com.perrigogames.life4.android.compose.LIFE4Theme
 import com.perrigogames.life4.android.navigation.firstRunNavigation
 import com.perrigogames.life4.android.navigation.ladderNavigation
 import com.perrigogames.life4.android.navigation.trialNavigation
+import com.perrigogames.life4.feature.deeplink.IDeeplinkManager
 import com.perrigogames.life4.feature.firstrun.InitState
 import com.perrigogames.life4.viewmodel.LaunchViewModel
 import dev.icerock.moko.mvvm.createViewModelFactory
 import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
 /**
  * The first launched activity, determines the path through the startup flow that should be taken
@@ -29,11 +31,17 @@ import org.koin.core.component.KoinComponent
  */
 class LaunchActivity: AppCompatActivity(), KoinComponent {
 
+    private val deeplinkManager: IDeeplinkManager by inject()
+
     private var loaded: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         val splashScreen = installSplashScreen()
         splashScreen.setKeepOnScreenCondition { !loaded }
+
+        intent?.data?.let { intentUri ->
+            deeplinkManager.processDeeplink(intentUri.toString())
+        }
 
         super.onCreate(savedInstanceState)
         setContent {

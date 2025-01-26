@@ -15,7 +15,9 @@ class ResultDatabaseHelper(sqlDriver: SqlDriver): DatabaseHelper(sqlDriver) {
         chart: Chart,
         clearType: ClearType,
         score: Int,
-        exScore: Int? = null
+        exScore: Int? = null,
+        flare: Int? = null,
+        flareSkill: Int? = null,
     ) = withContext(Dispatchers.Default) {
         queries.insertResult(
             skillId = chart.song.skillId,
@@ -24,7 +26,28 @@ class ResultDatabaseHelper(sqlDriver: SqlDriver): DatabaseHelper(sqlDriver) {
             clearType = clearType,
             score = score.toLong(),
             exScore = exScore?.toLong(),
+            flare = flare?.toLong(),
+            flareSkill = flareSkill?.toLong()
         )
+    }
+
+    suspend fun insertResults(
+        results: List<ChartResult>
+    ) = withContext(Dispatchers.Default) {
+        queries.transaction {
+            results.forEach {
+                queries.insertResult(
+                    skillId = it.skillId,
+                    difficultyClass = it.difficultyClass,
+                    playStyle = it.playStyle,
+                    clearType = it.clearType,
+                    score = it.score,
+                    exScore = it.exScore,
+                    flare = it.flare,
+                    flareSkill = it.flareSkill
+                )
+            }
+        }
     }
 
     suspend fun insertSAResults(entries: List<LadderImporter.SASongEntry>) {
@@ -38,6 +61,8 @@ class ResultDatabaseHelper(sqlDriver: SqlDriver): DatabaseHelper(sqlDriver) {
                         clearType = it.clearType,
                         score = it.score,
                         exScore = null,
+                        flare = null,
+                        flareSkill = null,
                     )
                 }
             }
@@ -53,6 +78,8 @@ fun Chart.toResult(
     clearType: ClearType = ClearType.FAIL,
     score: Long = 0,
     exScore: Long = 0,
+    flare: Long? = null,
+    flareSkill: Long? = null,
 ) = ChartResult(
     skillId = song.skillId,
     playStyle = playStyle,
@@ -60,4 +87,6 @@ fun Chart.toResult(
     clearType = clearType,
     score = score,
     exScore = exScore,
+    flare = flare,
+    flareSkill = flareSkill
 )

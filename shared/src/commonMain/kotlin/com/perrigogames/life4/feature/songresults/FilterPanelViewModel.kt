@@ -7,7 +7,8 @@ import kotlinx.coroutines.launch
 class FilterPanelViewModel : ViewModel() {
 
     private val _state = MutableStateFlow(FilterState())
-    val state: StateFlow<UIFilterView> = _state
+    val dataState: StateFlow<FilterState> = _state.asStateFlow()
+    val uiState: StateFlow<UIFilterView> = _state
         .map {
             it.toUIFilterView(showPlayStyleSelector = true)
         }

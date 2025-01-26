@@ -1,5 +1,7 @@
 package com.perrigogames.life4.android.navigation
 
+import android.content.Context
+import android.content.Intent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
@@ -16,6 +18,7 @@ import com.perrigogames.life4.feature.profile.ProfileDestination
 import com.perrigogames.life4.feature.trials.TrialDestination
 
 fun NavGraphBuilder.profileNavigation(
+    context: Context,
     mainNavController: NavController,
     profileNavController: NavController
 ) {
@@ -30,7 +33,15 @@ fun NavGraphBuilder.profileNavigation(
     }
 
     composable(ProfileDestination.Scores.route) {
-        ScoreListScreen()
+        ScoreListScreen(
+            showSanbaiLogin = { url ->
+//                mainNavController.navigate(FirstRunDestination.SanbaiImport(url))
+                val intent = Intent(Intent.ACTION_VIEW).apply {
+                    data = android.net.Uri.parse(url)
+                }
+                context.startActivity(intent)
+            }
+        )
     }
 
     composable(ProfileDestination.Trials.route) {

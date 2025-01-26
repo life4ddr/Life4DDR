@@ -10,7 +10,7 @@ import org.koin.core.component.inject
 @OptIn(ExperimentalSettingsApi::class)
 open class SettingsManager : BaseModel() {
     private val appInfo: AppInfo by inject()
-    private val basicSettings: Settings by inject()
+    protected val basicSettings: Settings by inject()
     protected val settings: FlowSettings by inject()
 
     fun getDebugBoolean(key: String) = appInfo.isDebug && basicSettings.getBoolean(key, false)

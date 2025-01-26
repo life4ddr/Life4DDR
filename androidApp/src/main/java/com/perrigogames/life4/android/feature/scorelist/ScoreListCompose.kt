@@ -6,8 +6,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -21,31 +22,51 @@ import dev.icerock.moko.resources.compose.colorResource
 
 @Composable
 fun ScoreListScreen(
+    modifier: Modifier = Modifier,
     viewModel: ScoreListViewModel = viewModel(
         factory = createViewModelFactory { ScoreListViewModel() }
     ),
+    showSanbaiLogin: (String) -> Unit = {},
 ) {
     val state = viewModel.state.collectAsState()
     var filterShowing by remember { mutableStateOf(false)}
 
-    Column(modifier = Modifier.fillMaxSize()) {
-        Button(
-            modifier = Modifier.align(Alignment.End),
-            onClick = { filterShowing = !filterShowing }
+    Scaffold(
+        modifier = modifier,
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = {
+                    val authUrl = viewModel.getSanbaiUrl()
+                    showSanbaiLogin(authUrl)
+                },
+            ) {
+                Icon(Icons.Filled.Add, contentDescription = "Add")
+            }
+        }
+    ) { paddingValues ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues)
         ) {
-            Text(text = "Filter")
-        }
-        if (filterShowing) {
-            FilterPane(
-                data = state.value.filter,
-                modifier = Modifier.padding(horizontal = 16.dp),
-                onAction = { viewModel.handleFilterAction(it) }
-            )
-            SizedSpacer(16.dp)
-        }
-        LazyColumn(modifier = Modifier.weight(1f)) {
-            items(state.value.scores) {
-                ScoreEntry(it)
+            Button(
+                modifier = Modifier.align(Alignment.End),
+                onClick = { filterShowing = !filterShowing }
+            ) {
+                Text(text = "Filter")
+            }
+            if (filterShowing) {
+                FilterPane(
+                    data = state.value.filter,
+                    modifier = Modifier.padding(horizontal = 16.dp),
+                    onAction = { viewModel.handleFilterAction(it) }
+                )
+                SizedSpacer(16.dp)
+            }
+            LazyColumn(modifier = Modifier.weight(1f)) {
+                items(state.value.scores) {
+                    ScoreEntry(it)
+                }
             }
         }
     }

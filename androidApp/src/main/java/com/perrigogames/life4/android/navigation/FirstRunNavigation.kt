@@ -1,17 +1,17 @@
 package com.perrigogames.life4.android.navigation
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import android.graphics.Bitmap
+import android.util.Log
+import android.webkit.WebView
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavController
-import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavType
+import androidx.navigation.*
 import androidx.navigation.compose.composable
-import androidx.navigation.navArgument
+import com.kevinnzou.web.*
 import com.perrigogames.life4.android.compose.Paddings
 import com.perrigogames.life4.android.feature.firstrun.FirstRunScreen
 import com.perrigogames.life4.android.feature.firstrun.PlacementDetailsScreen
@@ -19,7 +19,6 @@ import com.perrigogames.life4.android.feature.firstrun.PlacementListScreen
 import com.perrigogames.life4.android.feature.firstrun.RankListScreen
 import com.perrigogames.life4.android.feature.mainscreen.MainScreen
 import com.perrigogames.life4.android.popAndNavigate
-import com.perrigogames.life4.android.view.compose.ComposeWebView
 import com.perrigogames.life4.feature.firstrun.FirstRunDestination
 import com.perrigogames.life4.feature.firstrun.InitState
 import com.perrigogames.life4.feature.ladder.RankListViewModel
@@ -87,7 +86,44 @@ fun NavGraphBuilder.firstRunNavigation(
         )
     }
 
-    composable("sanbai_test") {
-        ComposeWebView("https://3icecream.com/oauth/authorize?client_id=82b5fefe2a194c74b7f82ec6357d9708&response_type=code&scope=read_scores&redirect_uri=life4ddr://authorize")
+    composable<FirstRunDestination.SanbaiImport> { backStackEntry ->
+        val url = backStackEntry.toRoute<FirstRunDestination.SanbaiImport>().url
+        val state = rememberWebViewState(url = url)
+        val navigator = rememberWebViewNavigator()
+
+        Column {
+            val loadingState = state.loadingState
+            if (loadingState is LoadingState.Loading) {
+                LinearProgressIndicator(
+                    progress = loadingState.progress,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
+
+            // A custom WebViewClient and WebChromeClient can be provided via subclassing
+            val webClient = remember {
+                object : AccompanistWebViewClient() {
+                    override fun onPageStarted(
+                        view: WebView,
+                        url: String?,
+                        favicon: Bitmap?
+                    ) {
+                        super.onPageStarted(view, url, favicon)
+                        Log.d("Accompanist WebView", "Page started loading for $url")
+                    }
+                }
+            }
+
+            WebView(
+                state = state,
+                modifier = Modifier
+                    .weight(1f),
+                navigator = navigator,
+                onCreated = { webView ->
+                    webView.settings.javaScriptEnabled = true
+                },
+                client = webClient
+            )
+        }
     }
 }

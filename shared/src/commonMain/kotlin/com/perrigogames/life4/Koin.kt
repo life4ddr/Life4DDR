@@ -11,11 +11,15 @@ import com.perrigogames.life4.api.base.LocalDataReader
 import com.perrigogames.life4.api.base.LocalUncachedDataReader
 import com.perrigogames.life4.db.GoalDatabaseHelper
 import com.perrigogames.life4.db.ResultDatabaseHelper
+import com.perrigogames.life4.feature.deeplink.DeeplinkManager
+import com.perrigogames.life4.feature.deeplink.IDeeplinkManager
 import com.perrigogames.life4.feature.firstrun.FirstRunSettingsManager
 import com.perrigogames.life4.feature.ladder.LadderGoalProgressManager
 import com.perrigogames.life4.feature.motd.*
 import com.perrigogames.life4.feature.placements.PlacementManager
 import com.perrigogames.life4.feature.profile.UserRankManager
+import com.perrigogames.life4.feature.sanbai.ISanbaiAPISettings
+import com.perrigogames.life4.feature.sanbai.SanbaiAPISettings
 import com.perrigogames.life4.feature.settings.LadderListSelectionSettings
 import com.perrigogames.life4.feature.settings.UserInfoSettings
 import com.perrigogames.life4.feature.settings.UserRankSettings
@@ -26,10 +30,7 @@ import com.perrigogames.life4.feature.trialrecords.TrialDatabaseHelper
 import com.perrigogames.life4.feature.trialrecords.TrialRecordsManager
 import com.perrigogames.life4.feature.trials.TrialManager
 import com.perrigogames.life4.feature.trialsession.TrialSessionManager
-import com.perrigogames.life4.ktor.GithubDataAPI
-import com.perrigogames.life4.ktor.GithubDataImpl
-import com.perrigogames.life4.ktor.Life4API
-import com.perrigogames.life4.ktor.Life4APIImpl
+import com.perrigogames.life4.ktor.*
 import com.perrigogames.life4.model.ChartResultOrganizer
 import com.perrigogames.life4.model.GoalStateManager
 import com.perrigogames.life4.model.LadderDataManager
@@ -92,6 +93,9 @@ val coreModule = module {
     single { UserRankManager() }
     single { GoalStateManager() }
     single { LadderGoalMapper() }
+    single<IDeeplinkManager> { DeeplinkManager() }
+    single<ISanbaiAPISettings> { SanbaiAPISettings() }
+    single<SanbaiAPI> { SanbaiAPIImpl() }
     single<MotdSettings> { DefaultMotdSettings() }
 
     // platformLogWriter() is a relatively simple config option, useful for local debugging. For production

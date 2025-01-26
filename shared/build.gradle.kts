@@ -53,6 +53,7 @@ kotlin {
             implementation(libs.kotlinx.dateTime)
             implementation(libs.moko.mvvm.core)
             implementation(libs.moko.mvvm.flow)
+            implementation(libs.ksoup.entities)
             api(libs.touchlab.kermit)
             api(libs.bundles.moko.mvvm.common)
             api(libs.bundles.moko.resources.common)

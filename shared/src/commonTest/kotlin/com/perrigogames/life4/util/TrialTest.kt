@@ -37,8 +37,8 @@ fun testSong(
     ex: Int,
     difficultyClass: DifficultyClass = DifficultyClass.EXPERT,
 ) = TrialSong(
-    name = "Song $index",
-    difficultyNumber = 14 + index,
+//    name = "Song $index",
+//    difficultyNumber = 14 + index,
     difficultyClass = difficultyClass,
     ex = ex,
 )

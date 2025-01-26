@@ -9,7 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination.Companion.hierarchy
@@ -30,6 +30,7 @@ fun MainScreen(
         factory = createViewModelFactory { MainScreenViewModel() }
     ),
 ) {
+    val context = LocalContext.current
     val profileNavController = rememberNavController()
     val profileState by viewModel.state.collectAsState()
 
@@ -42,7 +43,7 @@ fun MainScreen(
                 profileState.tabs.forEach { screen ->
                     NavigationBarItem(
                         icon = { Icon(Icons.Filled.Favorite, contentDescription = null) },
-                        label = { Text(stringResource(screen.title.resourceId)) },
+                        label = { Text(screen.title) },
                         selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
                         onClick = {
                             profileNavController.navigate(screen.route) {
@@ -79,6 +80,7 @@ fun MainScreen(
 
         NavHost(profileNavController, startDestination = ProfileDestination.Profile.route, Modifier.fillMaxSize().padding(innerPadding)) {
             profileNavigation(
+                context = context,
                 mainNavController = mainNavController,
                 profileNavController = profileNavController,
             )
