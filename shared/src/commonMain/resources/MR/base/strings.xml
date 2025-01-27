@@ -86,10 +86,15 @@
 
     <!-- region Difficulty Strings -->
     <string name="bgsp">bSP</string>
+    <string name="beginner">BEGINNER</string>
     <string name="bsp">BSP</string>
+    <string name="basic">BASIC</string>
     <string name="dsp">DSP</string>
+    <string name="difficult">DIFFICULT</string>
     <string name="esp">ESP</string>
+    <string name="expert">EXPERT</string>
     <string name="csp">CSP</string>
+    <string name="challenge">CHALLENGE</string>
     <!-- endregion -->
 
     <!-- region Filter strings -->
@@ -424,7 +429,6 @@
     <string name="goods">Goods</string>
     <string name="greats">Greats</string>
     <string name="perfects">Perfects</string>
-    <string name="expert">Expert</string>
     <string name="greats_less">Greats and Worse</string>
 
     <string name="breakdown_information_missing">One or more of your songs are missing step breakdowns.</string>
@@ -518,6 +522,11 @@
     <string name="dsp">DSP</string>
     <string name="esp">ESP</string>
     <string name="csp">CSP</string>
+    <string name="bgdp">bDP</string>
+    <string name="bdp">BDP</string>
+    <string name="ddp">DDP</string>
+    <string name="edp">EDP</string>
+    <string name="cdp">CDP</string>
     <string name="and_s">and %s</string>
     <string name="and_s_caps">AND %s</string>
     <string name="or_s">or %s</string>

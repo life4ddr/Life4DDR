@@ -40,14 +40,6 @@ class ChartResultOrganizer: BaseModel(), KoinComponent {
         }
     }
 
-//    fun getResultsFlow(
-//        playStyle: PlayStyle,
-//        diffNum: Int,
-//        populated: Boolean,
-//        filterIgnored: Boolean,
-//    ): Flow<ChartResults> = basicOrganizer.map { ChartResults(it[playStyle]!![diffNum]!!) }
-//        .filter(FilterConfiguration(populated = populated, filterIgnored = filterIgnored))
-
     fun resultsForConfig(config: FilterState): StateFlow<List<ChartResultPair>> {
         return basicOrganizer
             .map { it[config.selectedPlayStyle] ?: emptyMap() }
@@ -80,14 +72,27 @@ class ChartResultOrganizer: BaseModel(), KoinComponent {
                     }
                 }
 
-                temp
+                if (config.filterIgnored) {
+                    // TODO ignore list
+                }
+
+                temp.sortedWith { a, b ->
+                    // First, difficulty number, ascending
+                    val diffCompare = a.chart.difficultyNumber - b.chart.difficultyNumber
+                    if (diffCompare != 0) {
+                        return@sortedWith diffCompare
+                    }
+
+                    // Then, by score, descending
+                    val scoreCompare = ((b.result?.score ?: 0) - (a.result?.score ?: 0)).toInt()
+                    if (scoreCompare != 0) {
+                        return@sortedWith scoreCompare
+                    }
+
+                    // Otherwise, by name, ascending
+                    return@sortedWith a.chart.song.title.compareTo(b.chart.song.title)
+                }
             }
             .stateIn(mainScope, SharingStarted.Eagerly, initialValue = emptyList())
     }
 }
-
-data class FilterConfiguration(
-    val populated: Boolean = true,
-    val empty: Boolean = true,
-    val filterIgnored: Boolean = false,
-)

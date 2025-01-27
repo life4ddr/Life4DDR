@@ -7,14 +7,14 @@ import dev.icerock.moko.resources.desc.ResourceFormatted
 import dev.icerock.moko.resources.desc.StringDesc
 
 val DifficultyClass.nameRes get() = when(this) {
-    DifficultyClass.BEGINNER -> MR.strings.bgsp
-    DifficultyClass.BASIC -> MR.strings.bsp
-    DifficultyClass.DIFFICULT -> MR.strings.dsp
-    DifficultyClass.EXPERT -> MR.strings.esp
-    DifficultyClass.CHALLENGE -> MR.strings.csp
+    DifficultyClass.BEGINNER -> MR.strings.beginner
+    DifficultyClass.BASIC -> MR.strings.basic
+    DifficultyClass.DIFFICULT -> MR.strings.difficult
+    DifficultyClass.EXPERT -> MR.strings.expert
+    DifficultyClass.CHALLENGE -> MR.strings.challenge
 }
 
-val DifficultyClass.abbreviationRes get() = when(this) {
+val DifficultyClass.abbreviationSingleRes get() = when(this) {
     DifficultyClass.BEGINNER -> MR.strings.bgsp
     DifficultyClass.BASIC -> MR.strings.bsp
     DifficultyClass.DIFFICULT -> MR.strings.dsp

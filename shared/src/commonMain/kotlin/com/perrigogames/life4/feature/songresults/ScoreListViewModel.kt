@@ -2,7 +2,9 @@ package com.perrigogames.life4.feature.songresults
 
 import com.mohamedrejeb.ksoup.entities.KsoupEntities
 import com.perrigogames.life4.enums.ClearType
+import com.perrigogames.life4.enums.clearResShort
 import com.perrigogames.life4.enums.colorRes
+import com.perrigogames.life4.enums.nameRes
 import com.perrigogames.life4.ktor.SanbaiAPI
 import com.perrigogames.life4.model.ChartResultOrganizer
 import dev.icerock.moko.mvvm.flow.CStateFlow
@@ -10,6 +12,9 @@ import dev.icerock.moko.mvvm.flow.cMutableStateFlow
 import dev.icerock.moko.mvvm.flow.cStateFlow
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
 import dev.icerock.moko.resources.ColorResource
+import dev.icerock.moko.resources.desc.Composition
+import dev.icerock.moko.resources.desc.StringDesc
+import dev.icerock.moko.resources.desc.desc
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
@@ -63,15 +68,31 @@ data class UIScoreList(
 )
 
 data class UIScore(
-    val leftText: String = "",
-    val rightText: String = "",
-    val leftColor: ColorResource,
-    val rightColor: ColorResource,
+    val titleText: String = "",
+    val difficultyText: StringDesc,
+    val scoreText: StringDesc,
+    val difficultyColor: ColorResource,
+    val scoreColor: ColorResource,
+    val flareLevel: Int? = null,
 )
 
 fun ChartResultPair.toUIScore() = UIScore(
-    leftText = KsoupEntities.decodeHtml(chart.song.title),
-    rightText = (result?.score ?: 0).toString(),
-    leftColor = chart.difficultyClass.colorRes,
-    rightColor = (result?.clearType ?: ClearType.NO_PLAY).colorRes,
+    titleText = KsoupEntities.decodeHtml(chart.song.title),
+    difficultyText = StringDesc.Composition(
+        args = listOf(
+            chart.difficultyClass.nameRes.desc(),
+            chart.difficultyNumber.toString().desc()
+        ),
+        separator = " - "
+    ),
+    scoreText = StringDesc.Composition(
+        args = listOf(
+            (result?.clearType ?: ClearType.NO_PLAY).clearResShort.desc(),
+            (result?.score ?: 0).toString().desc()
+        ),
+        separator = " - "
+    ),
+    difficultyColor = chart.difficultyClass.colorRes,
+    scoreColor = (result?.clearType ?: ClearType.NO_PLAY).colorRes,
+    flareLevel = result?.flare?.toInt()
 )

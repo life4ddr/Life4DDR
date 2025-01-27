@@ -1,9 +1,7 @@
 package com.perrigogames.life4.android.feature.scorelist
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
@@ -12,8 +10,11 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.perrigogames.life4.android.R
 import com.perrigogames.life4.android.util.SizedSpacer
 import com.perrigogames.life4.feature.songresults.ScoreListViewModel
 import com.perrigogames.life4.feature.songresults.UIScore
@@ -74,15 +75,55 @@ fun ScoreListScreen(
 
 @Composable
 fun ScoreEntry(data: UIScore) {
-    Row {
-        Text(
-            text = data.leftText,
-            color = colorResource(data.leftColor),
-            modifier = Modifier.weight(1f)
-        )
-        Text(
-            text = data.rightText,
-            color = colorResource(data.rightColor)
-        )
+    val context = LocalContext.current
+    Row(
+        modifier = Modifier.padding(4.dp)
+    ) {
+        Column(
+            modifier = Modifier.weight(1f),
+        ) {
+            Text(
+                text = data.titleText,
+                maxLines = 1,
+            )
+            Row {
+                Text(
+                    text = data.difficultyText.toString(context),
+                    color = colorResource(data.difficultyColor),
+                    modifier = Modifier.weight(1f),
+                )
+                SizedSpacer(4.dp)
+                Text(
+                    text = data.scoreText.toString(context),
+                    color = colorResource(data.scoreColor),
+                )
+            }
+        }
+        val flareResource = data.flareLevel?.let { flareImageResource(it) }
+        if (flareResource != null) {
+            Image(
+                painter = painterResource(flareResource),
+                contentDescription = "Flare level ${data.flareLevel}",
+                modifier = Modifier
+                    .size(32.dp)
+                    .align(Alignment.CenterVertically)
+            )
+        } else {
+            SizedSpacer(32.dp)
+        }
     }
+}
+
+fun flareImageResource(level: Int): Int? = when(level) {
+    1 -> R.drawable.flare_1
+    2 -> R.drawable.flare_2
+    3 -> R.drawable.flare_3
+    4 -> R.drawable.flare_4
+    5 -> R.drawable.flare_5
+    6 -> R.drawable.flare_6
+    7 -> R.drawable.flare_7
+    8 -> R.drawable.flare_8
+    9 -> R.drawable.flare_9
+    10 -> R.drawable.flare_ex
+    else -> null
 }
