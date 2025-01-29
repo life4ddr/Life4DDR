@@ -5,7 +5,7 @@ import com.perrigogames.life4.enums.colorRes
 import dev.icerock.moko.resources.ColorResource
 import dev.icerock.moko.resources.desc.StringDesc
 
-typealias CategorizedUILadderGoals = List<Pair<StringDesc, List<UILadderGoal>>>
+typealias CategorizedUILadderGoals = List<Pair<UILadderGoals.CategorizedList.Category, List<UILadderGoal>>>
 
 data class UILadderData(
     val goals: UILadderGoals,
@@ -69,6 +69,11 @@ sealed class UILadderGoals {
                     category
                 }
             }
+        )
+
+        data class Category(
+            val title: StringDesc,
+            val goalText: StringDesc? = null
         )
     }
 }

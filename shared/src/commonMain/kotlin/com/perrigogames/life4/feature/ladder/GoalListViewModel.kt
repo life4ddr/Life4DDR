@@ -57,7 +57,8 @@ class GoalListViewModel(private val config: GoalListConfig) : ViewModel(), KoinC
             combine(
                 targetRankFlow,
                 requirementsFlow,
-            ) { targetRank, requirements ->
+                goalStateManager.updated,
+            ) { targetRank, requirements, _ ->
                 entry = requirements
                 when {
                     targetRank == null -> ViewState.Error("No higher goals found...")
@@ -78,12 +79,22 @@ class GoalListViewModel(private val config: GoalListConfig) : ViewModel(), KoinC
     }
 
     private fun generateCommonCategories(requirements: RankEntry) : UILadderGoals.CategorizedList {
+        val goalStates = goalStateManager.getGoalStateList(requirements.goals)
+        val finishedGoalCount = goalStates.count { it.status == GoalStatus.COMPLETE }
+        val neededGoals = requirements.requirementsOpt ?: 0
         return UILadderGoals.CategorizedList(
             categories = listOf(
-                MR.strings.goals.desc() to
-                        requirements.goals.map { ladderGoalMapper.toViewData(it, isMandatory = false) },
-                MR.strings.mandatory_goals.desc() to
-                        requirements.mandatoryGoals.map { ladderGoalMapper.toViewData(it, isMandatory = true) }
+                UILadderGoals.CategorizedList.Category(
+                    title = MR.strings.goals.desc(),
+                    goalText = StringDesc.ResourceFormatted(
+                        MR.strings.goal_progress_format,
+                        finishedGoalCount,
+                        neededGoals
+                    ),
+                ) to requirements.goals.map { ladderGoalMapper.toViewData(it, isMandatory = false) },
+                UILadderGoals.CategorizedList.Category(
+                    title = MR.strings.mandatory_goals.desc()
+                ) to requirements.mandatoryGoals.map { ladderGoalMapper.toViewData(it, isMandatory = true) }
             )
                 .filterNot { it.second.isEmpty() }
         )
@@ -109,7 +120,7 @@ class GoalListViewModel(private val config: GoalListConfig) : ViewModel(), KoinC
             categories = categories.map { (level, goals) ->
                 val title = level?.let { StringDesc.ResourceFormatted(MR.strings.level_header, it) }
                     ?: MR.strings.other_goals.desc()
-                title to goals.map {
+                UILadderGoals.CategorizedList.Category(title) to goals.map {
                     ladderGoalMapper.toViewData(it, isMandatory = requirements.mandatoryGoalIds.contains(it.id))
                 }
             }

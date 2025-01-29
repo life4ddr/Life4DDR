@@ -32,7 +32,6 @@ import com.perrigogames.life4.feature.ladder.*
 import com.perrigogames.life4.util.ViewState
 import dev.icerock.moko.mvvm.createViewModelFactory
 import dev.icerock.moko.resources.compose.colorResource
-import dev.icerock.moko.resources.desc.StringDesc
 
 @Composable
 fun LadderGoalsScreen(
@@ -126,7 +125,7 @@ fun CategorizedList(
 ) {
     val context = LocalContext.current
     val aggregateItems = goals.categories
-        .flatMap { (title, goals) -> listOf(title) + goals }
+        .flatMap { (info, goals) -> listOf(info) + goals }
     LazyColumn(
         modifier = modifier,
         contentPadding = PaddingValues(all = 8.dp),
@@ -136,10 +135,20 @@ fun CategorizedList(
                 SizedSpacer(size = 4.dp)
             }
             when(item) {
-                is StringDesc -> {
-                    Text(
-                        text = item.toString(context)
-                    )
+                is UILadderGoals.CategorizedList.Category -> {
+                    Row(
+                        modifier = Modifier.fillParentMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                    ) {
+                        Text(
+                            text = item.title.toString(context)
+                        )
+                        item.goalText?.let {
+                            Text(
+                                text = it.toString(context)
+                            )
+                        }
+                    }
                 }
                 is UILadderGoal -> {
                     LadderGoalItem(
