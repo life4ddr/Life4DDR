@@ -3,6 +3,8 @@ package com.perrigogames.life4.feature.deeplink
 import co.touchlab.kermit.Logger
 import com.perrigogames.life4.feature.deeplink.IDeeplinkManager.Companion.DEEPLINK_PREFIX
 import com.perrigogames.life4.feature.deeplink.IDeeplinkManager.Companion.SANBAI_AUTH_RETURN_PATH
+import com.perrigogames.life4.feature.sanbai.ISanbaiManager
+import com.perrigogames.life4.feature.sanbai.SanbaiManager
 import com.perrigogames.life4.feature.songresults.SongResultsManager
 import com.perrigogames.life4.injectLogger
 import com.perrigogames.life4.ktor.SanbaiAPI
@@ -23,7 +25,7 @@ interface IDeeplinkManager {
 
 class DeeplinkManager : BaseModel(), IDeeplinkManager {
 
-    private val sanbaiAPI: SanbaiAPI by inject()
+    private val sanbaiManager: ISanbaiManager by inject()
     private val songResultsManager: SongResultsManager by inject()
     private val logger: Logger by injectLogger("DeeplinkManager")
 
@@ -42,14 +44,10 @@ class DeeplinkManager : BaseModel(), IDeeplinkManager {
                 val playerId = queryParams["player_id"]
                 authCode?.let {
                     ktorScope.launch {
-                        sanbaiAPI.getSessionToken(it)
-                        sanbaiAPI.getScores()?.let { scores ->
-                            songResultsManager.addScores(scores.map { it.toChartResult() })
+                        if (sanbaiManager.completeLogin(it)) {
+                            sanbaiManager.fetchScores()
                         }
                     }
-                }
-                playerId?.let {
-
                 }
             }
             else -> {

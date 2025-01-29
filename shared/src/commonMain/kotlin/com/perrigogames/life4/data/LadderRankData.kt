@@ -7,7 +7,10 @@ package com.perrigogames.life4.data
 import co.touchlab.kermit.Logger
 import com.perrigogames.life4.enums.*
 import com.perrigogames.life4.injectLogger
-import kotlinx.serialization.*
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
+import kotlinx.serialization.UseSerializers
 import org.koin.core.component.KoinComponent
 
 /**
@@ -85,7 +88,7 @@ data class RankEntry(
     @SerialName("goal_ids") val goalIds: List<Int> = emptyList(),
     @SerialName("mandatory_goal_ids") val mandatoryGoalIds: List<Int> = emptyList(),
     val substitutions: List<Int> = emptyList(),
-    @SerialName("requirements") private val requirementsOpt: Int? = null,
+    @SerialName("requirements") val requirementsOpt: Int? = null,
 ) {
 
     @Transient var goals = emptyList<BaseRankGoal>()
@@ -97,7 +100,7 @@ data class RankEntry(
     private val mandatoryGoalCount
         get() = mandatoryGoals.count()
 
-    val requirements: Int
+    val totalRequirements: Int
         get() = requirementsOpt?.plus(mandatoryGoalCount) ?: (goals.size + mandatoryGoals.size)
 
     val allowedIgnores: Int

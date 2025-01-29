@@ -13,6 +13,9 @@ import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.plugins.logging.*
 import io.ktor.client.request.*
 import io.ktor.serialization.kotlinx.json.*
+import kotlinx.datetime.Clock
+import kotlinx.datetime.Instant
+import kotlin.time.Duration.Companion.seconds
 
 fun sanbaiHttpClient(
     log: co.touchlab.kermit.Logger,
@@ -72,5 +75,6 @@ fun ISanbaiAPISettings.setProperties(
 ) = setProperties(
     bearerToken = response.accessToken,
     refreshToken = response.refreshToken,
-    playerId = response.playerId
+    refreshExpires = Clock.System.now().plus(response.expiresIn.seconds),
+    playerId = response.playerId,
 )

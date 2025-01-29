@@ -9,7 +9,7 @@ import kotlinx.datetime.Clock
 
 class GoalDatabaseHelper(sqlDriver: SqlDriver): DatabaseHelper(sqlDriver) {
 
-    fun allStates(): Query<GoalState> = dbRef.goalStatusQueries.getAll()
+    fun allStates(): List<GoalState> = dbRef.goalStatusQueries.getAll().executeAsList()
 
     fun stateForId(id: Long): GoalState? =
         dbRef.goalStatusQueries.getStatus(id).executeAsList().firstOrNull()

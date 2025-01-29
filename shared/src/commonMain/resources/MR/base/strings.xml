@@ -605,6 +605,11 @@
     <string name="available_ranks">Available Ranks</string>
     <string name="ignored_songs">Ignored Songs</string>
 
+    <!-- Sanbai Strings -->
+    <string name="sanbai_syncing_scores">Syncing scores...</string>
+    <string name="sanbai_syncing_success">Score syncing completed!</string>
+    <string name="sanbai_syncing_error">Score syncing failed</string>
+
     <array name="credits">
         <item>Camera, Cancel, Cogwheel, Eye, Folder, Scroll Left, Scroll Right, and Star icons by
             https://www.flaticon.com/authors/daniel-bruce from www.flaticon.com
