@@ -15,6 +15,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.perrigogames.life4.android.R
+import com.perrigogames.life4.android.feature.banners.BannerContainer
 import com.perrigogames.life4.android.util.SizedSpacer
 import com.perrigogames.life4.feature.songresults.ScoreListViewModel
 import com.perrigogames.life4.feature.songresults.UIScore
@@ -43,6 +44,17 @@ fun ScoreListScreen(
             ) {
                 Icon(Icons.Filled.Add, contentDescription = "Add")
             }
+        },
+        topBar = {
+            Column(modifier = Modifier.fillMaxWidth()) {
+                BannerContainer(state.value.banner)
+                Button(
+                    modifier = Modifier.align(Alignment.End),
+                    onClick = { filterShowing = !filterShowing }
+                ) {
+                    Text(text = "Filter")
+                }
+            }
         }
     ) { paddingValues ->
         Column(
@@ -50,12 +62,6 @@ fun ScoreListScreen(
                 .fillMaxSize()
                 .padding(paddingValues)
         ) {
-            Button(
-                modifier = Modifier.align(Alignment.End),
-                onClick = { filterShowing = !filterShowing }
-            ) {
-                Text(text = "Filter")
-            }
             if (filterShowing) {
                 FilterPane(
                     data = state.value.filter,

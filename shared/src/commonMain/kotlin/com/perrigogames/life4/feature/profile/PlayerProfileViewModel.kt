@@ -2,6 +2,10 @@ package com.perrigogames.life4.feature.profile
 
 import com.perrigogames.life4.data.SocialNetwork
 import com.perrigogames.life4.enums.LadderRank
+import com.perrigogames.life4.feature.banners.BannerLocation
+import com.perrigogames.life4.feature.banners.BannerManager
+import com.perrigogames.life4.feature.banners.IBannerManager
+import com.perrigogames.life4.feature.banners.UIBanner
 import com.perrigogames.life4.feature.ladder.GoalListConfig
 import com.perrigogames.life4.feature.ladder.GoalListViewModel
 import com.perrigogames.life4.feature.settings.UserInfoSettings
@@ -20,6 +24,7 @@ class PlayerProfileViewModel : ViewModel(), KoinComponent {
 
     private val userRankManager: UserRankManager by inject()
     private val infoSettings: UserInfoSettings by inject()
+    private val bannerManager: IBannerManager by inject()
 
     private val _playerInfoViewState = MutableStateFlow(PlayerInfoViewState()).cMutableStateFlow()
     val playerInfoViewState: CStateFlow<PlayerInfoViewState> = _playerInfoViewState.cStateFlow()
@@ -34,9 +39,10 @@ class PlayerProfileViewModel : ViewModel(), KoinComponent {
                 infoSettings.userName,
                 infoSettings.rivalCodeDisplay,
                 infoSettings.socialNetworks,
-                userRankManager.rank
-            ) { userName, rivalCode, socialNetworks, rank ->
-                PlayerInfoViewState(userName, rivalCode, socialNetworks, rank)
+                userRankManager.rank,
+                bannerManager.getBannerFlow(BannerLocation.PROFILE)
+            ) { userName, rivalCode, socialNetworks, rank, banner ->
+                PlayerInfoViewState(userName, rivalCode, socialNetworks, rank, banner)
             }.collect { _playerInfoViewState.value = it }
         }
     }
@@ -47,6 +53,7 @@ data class PlayerInfoViewState(
     val rivalCode: String? = null,
     val socialNetworks: Map<SocialNetwork, String> = emptyMap(),
     val rank: LadderRank? = null,
+    val banner: UIBanner? = null
 )
 
 sealed class PlayerProfileAction {

@@ -11,6 +11,8 @@ import com.perrigogames.life4.api.base.LocalDataReader
 import com.perrigogames.life4.api.base.LocalUncachedDataReader
 import com.perrigogames.life4.db.GoalDatabaseHelper
 import com.perrigogames.life4.db.ResultDatabaseHelper
+import com.perrigogames.life4.feature.banners.BannerManager
+import com.perrigogames.life4.feature.banners.IBannerManager
 import com.perrigogames.life4.feature.deeplink.DeeplinkManager
 import com.perrigogames.life4.feature.deeplink.IDeeplinkManager
 import com.perrigogames.life4.feature.firstrun.FirstRunSettingsManager
@@ -19,7 +21,9 @@ import com.perrigogames.life4.feature.motd.*
 import com.perrigogames.life4.feature.placements.PlacementManager
 import com.perrigogames.life4.feature.profile.UserRankManager
 import com.perrigogames.life4.feature.sanbai.ISanbaiAPISettings
+import com.perrigogames.life4.feature.sanbai.ISanbaiManager
 import com.perrigogames.life4.feature.sanbai.SanbaiAPISettings
+import com.perrigogames.life4.feature.sanbai.SanbaiManager
 import com.perrigogames.life4.feature.settings.LadderListSelectionSettings
 import com.perrigogames.life4.feature.settings.UserInfoSettings
 import com.perrigogames.life4.feature.settings.UserRankSettings
@@ -96,7 +100,9 @@ val coreModule = module {
     single<IDeeplinkManager> { DeeplinkManager() }
     single<ISanbaiAPISettings> { SanbaiAPISettings() }
     single<SanbaiAPI> { SanbaiAPIImpl() }
+    single<ISanbaiManager> { SanbaiManager() }
     single<MotdSettings> { DefaultMotdSettings() }
+    single<IBannerManager> { BannerManager() }
 
     // platformLogWriter() is a relatively simple config option, useful for local debugging. For production
     // uses you *may* want to have a more robust configuration from the native platform. In KaMP Kit,

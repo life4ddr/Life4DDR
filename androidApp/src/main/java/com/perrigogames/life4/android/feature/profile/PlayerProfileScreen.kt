@@ -14,6 +14,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.perrigogames.life4.android.compose.LIFE4Theme
 import com.perrigogames.life4.android.compose.Typography
+import com.perrigogames.life4.android.feature.banners.BannerContainer
 import com.perrigogames.life4.android.feature.ladder.LadderGoals
 import com.perrigogames.life4.android.util.SizedSpacer
 import com.perrigogames.life4.android.view.compose.RankImage
@@ -42,6 +43,7 @@ fun PlayerProfileScreen(
             modifier = Modifier.fillMaxWidth(),
             onRankClicked = { onAction(PlayerProfileAction.ChangeRank) }
         )
+        BannerContainer(playerInfoViewState.banner)
 
         if (goalData != null) {
             LadderGoals(

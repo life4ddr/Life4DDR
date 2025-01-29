@@ -7,6 +7,9 @@ import com.perrigogames.life4.enums.ClearType
 import com.perrigogames.life4.enums.clearResShort
 import com.perrigogames.life4.enums.colorRes
 import com.perrigogames.life4.enums.nameRes
+import com.perrigogames.life4.feature.banners.BannerLocation
+import com.perrigogames.life4.feature.banners.IBannerManager
+import com.perrigogames.life4.feature.banners.UIBanner
 import com.perrigogames.life4.ktor.SanbaiAPI
 import com.perrigogames.life4.model.ChartResultOrganizer
 import dev.icerock.moko.mvvm.flow.CStateFlow
@@ -29,6 +32,7 @@ class ScoreListViewModel: ViewModel(), KoinComponent {
 
     private val resultOrganizer: ChartResultOrganizer by inject()
     private val sanbaiAPI: SanbaiAPI by inject()
+    private val bannerManager: IBannerManager by inject()
 
     private val filterViewModel = FilterPanelViewModel()
 
@@ -41,11 +45,13 @@ class ScoreListViewModel: ViewModel(), KoinComponent {
                 filterViewModel.dataState.flatMapLatest { config ->
                     resultOrganizer.resultsForConfig(config)
                 },
-                filterViewModel.uiState
-            ) { results, filterView ->
+                filterViewModel.uiState,
+                bannerManager.getBannerFlow(BannerLocation.SCORES)
+            ) { results, filterView, banner ->
                 UIScoreList(
                     scores = results.map { it.toUIScore() },
-                    filter = filterView
+                    filter = filterView,
+                    banner = banner
                 )
             }.collect(_state)
         }
@@ -56,18 +62,12 @@ class ScoreListViewModel: ViewModel(), KoinComponent {
     }
 
     fun getSanbaiUrl() = sanbaiAPI.getAuthorizeUrl()
-
-    fun authorize(authCode: String) {
-        viewModelScope.launch {
-            val result = sanbaiAPI.getSessionToken(authCode)
-            println(result)
-        }
-    }
 }
 
 data class UIScoreList(
     val scores: List<UIScore> = emptyList(),
-    val filter: UIFilterView = UIFilterView()
+    val filter: UIFilterView = UIFilterView(),
+    val banner: UIBanner? = null,
 )
 
 data class UIScore(

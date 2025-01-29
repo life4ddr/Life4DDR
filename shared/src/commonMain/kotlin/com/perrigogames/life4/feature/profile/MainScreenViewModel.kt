@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import org.koin.core.component.KoinComponent
 
 /**
- * A ViewModel class for the containing Profile screen. This screen encompasses all of the
+ * A ViewModel class for the containing Profile screen. This screen encompasses all the
  * separate tabs that make up the Profile screen, but leaves the operation of those screens
  * to their own ViewModels.
  */
@@ -20,11 +20,5 @@ class MainScreenViewModel : ViewModel(), KoinComponent {
 }
 
 data class MainScreenState(
-    val banner: UIBanner = UIBanner(""),
     val tabs: List<ProfileDestination> = listOf(Profile, Scores, Trials, Settings)
-)
-
-data class UIBanner(
-    val text: String,
-    val color: Int? = null
 )
