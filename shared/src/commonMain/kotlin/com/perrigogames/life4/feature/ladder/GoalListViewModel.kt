@@ -85,6 +85,7 @@ class GoalListViewModel(private val config: GoalListConfig) : ViewModel(), KoinC
                 MR.strings.mandatory_goals.desc() to
                         requirements.mandatoryGoals.map { ladderGoalMapper.toViewData(it, isMandatory = true) }
             )
+                .filterNot { it.second.isEmpty() }
         )
     }
 
