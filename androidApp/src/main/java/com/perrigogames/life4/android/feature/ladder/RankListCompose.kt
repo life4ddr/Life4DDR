@@ -37,6 +37,7 @@ fun RankSelection(
             items(data.rankClasses) { category ->
                 RankCategoryImage(
                     category = category,
+
                     onClick = { onInput(category.tapInput) },
                 )
                 SizedSpacer(size = Paddings.LARGE)
@@ -190,6 +191,7 @@ private fun RankCategoryImage(
     RankImageWithTitle(
         rank = category.rankClass?.toLadderRank(),
         iconSize = 64.dp,
+        selected = category.selected,
         text = stringResource(category.text),
         style = MaterialTheme.typography.titleSmall,
         onClick = onClick
@@ -200,6 +202,7 @@ private fun RankCategoryImage(
 fun RankSelectionMini(
     modifier: Modifier = Modifier,
     ranks: List<LadderRank> = LadderRank.entries,
+    selectedRank: LadderRank?,
     showNone: Boolean = true,
     onRankSelected: (LadderRank?) -> Unit,
 ) {
@@ -212,12 +215,16 @@ fun RankSelectionMini(
         }
         if (showNone) {
             item {
-                RankImageWithTitle(rank = null)
+                RankImageWithTitle(
+                    rank = null,
+                    selected = selectedRank == null
+                )
             }
         }
         items(ranks) { rank ->
             RankImageWithTitle(
                 rank = rank,
+                selected = rank == selectedRank,
                 onClick = { onRankSelected(rank) }
             )
         }
@@ -243,6 +250,7 @@ fun RankSelectionMiniPreview() {
     LIFE4Theme {
         Surface {
             RankSelectionMini(
+                selectedRank = null,
                 onRankSelected = {}
             )
         }

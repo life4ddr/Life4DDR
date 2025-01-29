@@ -53,11 +53,14 @@ data class LadderRankData(
         }
     }
 
-    private fun mapIdsToGoals(ids: List<Int>): List<BaseRankGoal> {
+    private fun mapIdsToGoals(
+        ids: List<Int>,
+    ): List<BaseRankGoal> {
         return ids.map { id ->
-            wrappedGoals.firstOrNull { it.id == id } ?:
-            goals.firstOrNull { it.id == id } ?:
-            error("ID not found: $id")
+            wrappedGoals.firstOrNull { it.id == id }
+                ?: goals.firstOrNull { it.id == id }
+                ?: error("ID not found: $id")
+
         }
     }
 
@@ -79,9 +82,9 @@ data class LadderVersion(
 data class RankEntry(
     val rank: LadderRank,
     @SerialName("play_style") val playStyle: PlayStyle,
-    @SerialName("goal_ids") val goalIds: List<Int>? = null,
-    @SerialName("mandatory_goal_ids") val mandatoryGoalIds: List<Int>? = null,
-    val substitutions: List<Int>? = null,
+    @SerialName("goal_ids") val goalIds: List<Int> = emptyList(),
+    @SerialName("mandatory_goal_ids") val mandatoryGoalIds: List<Int> = emptyList(),
+    val substitutions: List<Int> = emptyList(),
     @SerialName("requirements") private val requirementsOpt: Int? = null,
 ) {
 

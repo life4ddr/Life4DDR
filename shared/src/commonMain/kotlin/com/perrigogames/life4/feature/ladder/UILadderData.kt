@@ -5,7 +5,7 @@ import com.perrigogames.life4.enums.colorRes
 import dev.icerock.moko.resources.ColorResource
 import dev.icerock.moko.resources.desc.StringDesc
 
-typealias CategorizedUILadderGoals = List<Pair<String, List<UILadderGoal>>>
+typealias CategorizedUILadderGoals = List<Pair<StringDesc, List<UILadderGoal>>>
 
 data class UILadderData(
     val goals: UILadderGoals,
@@ -40,7 +40,7 @@ sealed class UILadderGoals {
 
         override fun replaceGoal(id: Long, block: (UILadderGoal) -> UILadderGoal) = copy(
             items = items.map { currGoal ->
-                if (currGoal.id.toLong() == id) {
+                if (currGoal.id == id) {
                     block(currGoal)
                 } else {
                     currGoal
@@ -55,10 +55,10 @@ sealed class UILadderGoals {
 
         override fun replaceGoal(id: Long, block: (UILadderGoal) -> UILadderGoal) = copy(
             categories = categories.map { category ->
-                if (category.second.any { it.id.toLong() == id}) {
+                if (category.second.any { it.id == id}) {
                     category.copy(
                         second = category.second.map { currGoal ->
-                            if (currGoal.id.toLong() == id) {
+                            if (currGoal.id == id) {
                                 block(currGoal)
                             } else {
                                 currGoal
@@ -79,6 +79,7 @@ data class UILadderGoal(
     val completed: Boolean = false,
     val hidden: Boolean = false,
     val canHide: Boolean = true,
+    val isMandatory: Boolean = false,
     val progress: UILadderProgress? = null,
     val detailItems: List<UILadderDetailItem> = emptyList(),
 )

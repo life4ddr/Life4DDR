@@ -276,6 +276,7 @@
     <string name="clear_pfc">Perfect Full Combo</string>
     <string name="clear_pfc_short">PFC</string>
     <string name="clear_mfc">Marvelous Full Combo</string>
+    <string name="clear_mfc_caps">MARVELOUS FULL COMBO</string>
     <string name="clear_mfc_short">MFC</string>
 
     <string name="lamp_clear">Clear lamp</string>
@@ -330,9 +331,11 @@
     <string name="event_ends_past_format">Event ended on %s</string>
     <string name="event_ends_future_format">Event ends %s</string>
     <string name="level_header">Level %d</string>
+    <string name="perfects_count">%dP</string>
 
     <!-- Short/Common Strings -->
-    <string name="goals">Goals:</string>
+    <string name="goals">Goals</string>
+    <string name="mandatory_goals">Mandatory Goals</string>
     <string name="other_goals">Other Goals</string>
     <string name="are_you_sure">Are you sure?</string>
     <string name="finalize">Finalize</string>

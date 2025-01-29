@@ -17,11 +17,13 @@ class LadderGoalMapper : KoinComponent {
     fun toViewData(
         base: BaseRankGoal,
         goalState: GoalState = goalStateManager.getOrCreateGoalState(base),
+        isMandatory: Boolean
     ) = UILadderGoal(
         id = base.id.toLong(),
         goalText = base.goalString(),
         completed = goalState.status == GoalStatus.COMPLETE,
         hidden = goalState.status == GoalStatus.IGNORED,
-        canHide = !base.isMandatory
+        canHide = !isMandatory,
+        isMandatory = isMandatory,
     )
 }

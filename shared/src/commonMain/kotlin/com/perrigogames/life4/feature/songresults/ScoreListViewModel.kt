@@ -1,6 +1,8 @@
 package com.perrigogames.life4.feature.songresults
 
 import com.mohamedrejeb.ksoup.entities.KsoupEntities
+import com.perrigogames.life4.GameConstants
+import com.perrigogames.life4.MR
 import com.perrigogames.life4.enums.ClearType
 import com.perrigogames.life4.enums.clearResShort
 import com.perrigogames.life4.enums.colorRes
@@ -13,6 +15,7 @@ import dev.icerock.moko.mvvm.flow.cStateFlow
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
 import dev.icerock.moko.resources.ColorResource
 import dev.icerock.moko.resources.desc.Composition
+import dev.icerock.moko.resources.desc.ResourceFormatted
 import dev.icerock.moko.resources.desc.StringDesc
 import dev.icerock.moko.resources.desc.desc
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -85,14 +88,29 @@ fun ChartResultPair.toUIScore() = UIScore(
         ),
         separator = " - "
     ),
-    scoreText = StringDesc.Composition(
-        args = listOf(
-            (result?.clearType ?: ClearType.NO_PLAY).clearResShort.desc(),
-            (result?.score ?: 0).toString().desc()
-        ),
-        separator = " - "
-    ),
+    scoreText = scoreText(result?.clearType, result?.score),
     difficultyColor = chart.difficultyClass.colorRes,
     scoreColor = (result?.clearType ?: ClearType.NO_PLAY).colorRes,
     flareLevel = result?.flare?.toInt()
 )
+
+fun scoreText(clearType: ClearType?, score: Long?) = when (clearType) {
+    ClearType.MARVELOUS_FULL_COMBO -> MR.strings.clear_mfc_caps.desc()
+    ClearType.PERFECT_FULL_COMBO -> {
+        val perfects = (GameConstants.MAX_SCORE - (score ?: 0)) / 10
+        StringDesc.Composition(
+            args = listOf(
+                clearType.clearResShort.desc(),
+                StringDesc.ResourceFormatted(MR.strings.perfects_count, perfects)
+            ),
+            separator = " - "
+        )
+    }
+    else -> StringDesc.Composition(
+        args = listOf(
+            (clearType ?: ClearType.NO_PLAY).clearResShort.desc(),
+            (score ?: 0).toString().desc()
+        ),
+        separator = " - "
+    )
+}

@@ -26,8 +26,6 @@ import org.koin.core.component.KoinComponent
 @Serializable
 sealed class BaseRankGoal {
 
-    @Transient var isMandatory: Boolean = false
-
     abstract val id: Int
     @SerialName("s") open val playStyle: PlayStyle = PlayStyle.SINGLE
 

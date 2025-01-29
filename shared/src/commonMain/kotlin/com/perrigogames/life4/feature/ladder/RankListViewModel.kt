@@ -82,7 +82,7 @@ class RankListViewModel(
                     ladderData = goalEntry?.allGoals?.let { goals ->
                         UILadderData(
                             items = goals.map { goal ->
-                                ladderGoalMapper.toViewData(goal)
+                                ladderGoalMapper.toViewData(goal, isMandatory = goalEntry.mandatoryGoalIds.contains(goal.id))
                             },
                             allowCompleting = false,
                             allowHiding = false

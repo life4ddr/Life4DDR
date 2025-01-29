@@ -32,6 +32,7 @@ import com.perrigogames.life4.feature.ladder.*
 import com.perrigogames.life4.util.ViewState
 import dev.icerock.moko.mvvm.createViewModelFactory
 import dev.icerock.moko.resources.compose.colorResource
+import dev.icerock.moko.resources.desc.StringDesc
 
 @Composable
 fun LadderGoalsScreen(
@@ -61,27 +62,96 @@ fun LadderGoals(
 //    onExpandChanged: (Long) -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    when (val goals = data.goals) {
+        is UILadderGoals.SingleList -> {
+            SingleGoalList(
+                goals = goals,
+                allowCompleting = data.allowCompleting,
+                allowHiding = data.allowHiding,
+                onCompletedChanged = onCompletedChanged,
+                onHiddenChanged = onHiddenChanged,
+                modifier = modifier,
+            )
+        }
+        is UILadderGoals.CategorizedList -> {
+            CategorizedList(
+                goals = goals,
+                allowCompleting = data.allowCompleting,
+                allowHiding = data.allowHiding,
+                onCompletedChanged = onCompletedChanged,
+                onHiddenChanged = onHiddenChanged,
+                modifier = modifier,
+            )
+        }
+    }
+}
+
+@Composable
+fun SingleGoalList(
+    goals: UILadderGoals.SingleList,
+    allowCompleting: Boolean,
+    allowHiding: Boolean,
+    onCompletedChanged: (Long) -> Unit,
+    onHiddenChanged: (Long) -> Unit,
+    modifier: Modifier = Modifier,
+) {
     LazyColumn(
         modifier = modifier,
         contentPadding = PaddingValues(all = 8.dp),
     ) {
-        when (val goals = data.goals) {
-            is UILadderGoals.SingleList -> {
-                itemsIndexed(goals.items) { idx, goal ->
-                    if (idx > 0) {
-                        SizedSpacer(size = 4.dp)
-                    }
+        itemsIndexed(goals.items) { idx, goal ->
+            if (idx > 0) {
+                SizedSpacer(size = 4.dp)
+            }
+            LadderGoalItem(
+                goal = goal,
+                allowCompleting = allowCompleting,
+                allowHiding = allowHiding,
+                onCompletedChanged = onCompletedChanged,
+                onHiddenChanged = onHiddenChanged,
+                modifier = Modifier.fillParentMaxWidth(),
+            )
+        }
+    }
+}
+
+@Composable
+fun CategorizedList(
+    goals: UILadderGoals.CategorizedList,
+    allowCompleting: Boolean,
+    allowHiding: Boolean,
+    onCompletedChanged: (Long) -> Unit,
+    onHiddenChanged: (Long) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    val context = LocalContext.current
+    val aggregateItems = goals.categories
+        .flatMap { (title, goals) -> listOf(title) + goals }
+    LazyColumn(
+        modifier = modifier,
+        contentPadding = PaddingValues(all = 8.dp),
+    ) {
+        itemsIndexed(aggregateItems) { idx, item ->
+            if (idx > 0) {
+                SizedSpacer(size = 4.dp)
+            }
+            when(item) {
+                is StringDesc -> {
+                    Text(
+                        text = item.toString(context)
+                    )
+                }
+                is UILadderGoal -> {
                     LadderGoalItem(
-                        goal = goal,
-                        allowCompleting = data.allowCompleting,
-                        allowHiding = data.allowHiding,
+                        goal = item,
+                        allowCompleting = allowCompleting,
+                        allowHiding = allowHiding,
                         onCompletedChanged = onCompletedChanged,
                         onHiddenChanged = onHiddenChanged,
                         modifier = Modifier.fillParentMaxWidth(),
                     )
                 }
             }
-            is UILadderGoals.CategorizedList -> item { Text("FIXME") }
         }
     }
 }
@@ -184,7 +254,7 @@ private fun LadderGoalHeaderRow(
                 onCheckedChange = { onCompletedChanged(goal.id) },
             )
         }
-        if (allowHiding) { // FIXME these should be fixed so they have a state when we show these too
+        if (allowHiding && goal.canHide) { // FIXME these should be fixed so they have a state when we show these too
             Icon(
                 painter = painterResource(R.drawable.ic_eye),
                 tint = MaterialTheme.colorScheme.onSurface,

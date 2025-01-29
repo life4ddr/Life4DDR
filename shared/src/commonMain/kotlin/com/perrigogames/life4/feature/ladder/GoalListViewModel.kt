@@ -1,7 +1,10 @@
 package com.perrigogames.life4.feature.ladder
 
 import co.touchlab.kermit.Logger
+import com.perrigogames.life4.MR
+import com.perrigogames.life4.data.BaseRankGoal
 import com.perrigogames.life4.data.RankEntry
+import com.perrigogames.life4.data.SongsClearGoal
 import com.perrigogames.life4.enums.GoalStatus
 import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.feature.profile.UserRankManager
@@ -17,6 +20,9 @@ import dev.icerock.moko.mvvm.flow.CStateFlow
 import dev.icerock.moko.mvvm.flow.cMutableStateFlow
 import dev.icerock.moko.mvvm.flow.cStateFlow
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
+import dev.icerock.moko.resources.desc.ResourceFormatted
+import dev.icerock.moko.resources.desc.StringDesc
+import dev.icerock.moko.resources.desc.desc
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
@@ -56,16 +62,57 @@ class GoalListViewModel(private val config: GoalListConfig) : ViewModel(), KoinC
                 when {
                     targetRank == null -> ViewState.Error("No higher goals found...")
                     requirements == null -> ViewState.Error("No goals found for ${targetRank.name}")
+                    targetRank >= LadderRank.PLATINUM1 -> ViewState.Success(
+                        UILadderData(
+                            goals = generateDifficultyCategories(requirements)
+                        )
+                    )
                     else -> ViewState.Success(
                         UILadderData(
-                            goals = UILadderGoals.SingleList(
-                                items = requirements.goals.map(ladderGoalMapper::toViewData)
-                            )
+                            goals = generateCommonCategories(requirements)
                         )
                     )
                 }
             }.collect { _state.value = it }
         }
+    }
+
+    private fun generateCommonCategories(requirements: RankEntry) : UILadderGoals.CategorizedList {
+        return UILadderGoals.CategorizedList(
+            categories = listOf(
+                MR.strings.goals.desc() to
+                        requirements.goals.map { ladderGoalMapper.toViewData(it, isMandatory = false) },
+                MR.strings.mandatory_goals.desc() to
+                        requirements.mandatoryGoals.map { ladderGoalMapper.toViewData(it, isMandatory = true) }
+            )
+        )
+    }
+
+    private fun generateDifficultyCategories(requirements: RankEntry) : UILadderGoals.CategorizedList {
+        val songsClearGoals = requirements.allGoals.filterIsInstance<SongsClearGoal>()
+        val remainingGoals = requirements.allGoals.filterNot { it is SongsClearGoal }
+        val categories = (songsClearGoals.groupBy { it.diffNum }
+            .toList()
+            as List<Pair<Int?, List<BaseRankGoal>>>)
+            .sortedBy { it.first ?: Int.MAX_VALUE }
+            .toMutableList()
+        val otherIndex = categories.indexOfFirst { it.first == null }
+        if (categories.any { it.first == null }) {
+            val otherGoals = categories.removeAt(otherIndex).second
+            categories.add(otherIndex, null to (otherGoals + remainingGoals))
+        } else {
+            categories.add(null to remainingGoals)
+        }
+
+        return UILadderGoals.CategorizedList(
+            categories = categories.map { (level, goals) ->
+                val title = level?.let { StringDesc.ResourceFormatted(MR.strings.level_header, it) }
+                    ?: MR.strings.other_goals.desc()
+                title to goals.map {
+                    ladderGoalMapper.toViewData(it, isMandatory = requirements.mandatoryGoalIds.contains(it.id))
+                }
+            }
+        )
     }
 
     fun handleAction(action: RankListAction) = when(action) {
@@ -102,7 +149,7 @@ class GoalListViewModel(private val config: GoalListConfig) : ViewModel(), KoinC
     private fun updateGoal(id: Long) {
         val baseGoal = findGoal(id.toInt()).ifNull { return }
         modifyGoal(id) {
-            ladderGoalMapper.toViewData(baseGoal!!)
+            ladderGoalMapper.toViewData(baseGoal!!, isMandatory = it.isMandatory)
         }
     }
 
