@@ -17,17 +17,64 @@ struct LadderGoals: View {
     var body: some View {
         ScrollView(showsIndicators: false) {
             if data?.goals is UILadderGoals.SingleList {
-                ForEach(data!.goals.rawGoals, id: \.self) { goal in
-                    LadderGoalItem(
-                        goal: goal,
-                        allowCompleting: data!.allowCompleting,
-                        allowHiding: data!.allowHiding,
-                        onCompletedChanged: onCompletedChanged,
-                        onHiddenChanged: onHiddenChanged
-                    )
-                }
+                SingleGoalList(
+                    goals: data!.goals as! UILadderGoals.SingleList,
+                    allowCompleting: data!.allowCompleting,
+                    allowHiding: data!.allowHiding,
+                    onCompletedChanged: onCompletedChanged,
+                    onHiddenChanged: onHiddenChanged
+                )
             } else if data?.goals is UILadderGoals.CategorizedList {
-                Text("FIXME")
+                CategorizedList(
+                    goals: data!.goals as! UILadderGoals.CategorizedList,
+                    allowCompleting: data!.allowCompleting,
+                    allowHiding: data!.allowHiding,
+                    onCompletedChanged: onCompletedChanged,
+                    onHiddenChanged: onHiddenChanged
+                )
+            }
+        }
+    }
+}
+
+struct SingleGoalList: View {
+    var goals: UILadderGoals.SingleList
+    var allowCompleting: Bool = true
+    var allowHiding: Bool = true
+    var onCompletedChanged: (Int64) -> (Void)
+    var onHiddenChanged: (Int64) -> (Void)
+    
+    var body: some View {
+        ForEach(goals.items, id: \.self) { goal in
+            LadderGoalItem(
+                goal: goal,
+                allowCompleting: allowCompleting,
+                allowHiding: allowHiding,
+                onCompletedChanged: onCompletedChanged,
+                onHiddenChanged: onHiddenChanged
+            )
+        }
+    }
+}
+
+struct CategorizedList: View {
+    var goals: UILadderGoals.CategorizedList
+    var allowCompleting: Bool = true
+    var allowHiding: Bool = true
+    var onCompletedChanged: (Int64) -> (Void)
+    var onHiddenChanged: (Int64) -> (Void)
+    
+    var body: some View {
+        ForEach(goals.categories, id: \.self) { category in
+            Text((category.first?.localized())!).frame(maxWidth: .infinity, alignment: .leading)
+            ForEach((category.second as? [UILadderGoal])!, id: \.self) { goal in
+                LadderGoalItem(
+                    goal: goal,
+                    allowCompleting: allowCompleting,
+                    allowHiding: allowHiding,
+                    onCompletedChanged: onCompletedChanged,
+                    onHiddenChanged: onHiddenChanged
+                )
             }
         }
     }

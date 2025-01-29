@@ -15,10 +15,11 @@ struct iOSApp: App {
             appDeclaration: { _ in }
         )
         _ = LadderDataManager()
-        _ = MotdManager()
+        _ = DefaultMotdManager()
         _ = PlacementManager()
         _ = SongDataManager()
         _ = TrialManager()
+        _ = DefaultMotdSettings()
     }
     
     func goToView(nextStep: InitState?) {
@@ -189,7 +190,8 @@ var nativeModule: Koin_coreModule = KoinKt.makeNativeModule(
 )
 
 class IosAppInfo: AppInfo {
-  var appId: String = "LIFE4DDR"
+    var appId: String = "LIFE4DDR"
+    var isDebug: Bool = true
 }
 
 class DummyNotifications: Notifications {
