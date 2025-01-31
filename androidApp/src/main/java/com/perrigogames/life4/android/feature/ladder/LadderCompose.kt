@@ -320,7 +320,6 @@ fun LadderGoalItemPreview() {
             previewGoalItem(createUILadderGoal(goalText = "Clear any 10 L5's.", progress = UILadderProgress(count = 2, max = 10)))
             previewGoalItem(createUILadderGoal(goalText = "Clear any 10 L5's.", progress = UILadderProgress(progressPercent = 0.2f, progressText = "200 /\n1000")))
             previewGoalItem(createUILadderGoal(goalText = "Clear any 10 L5's.", progress = UILadderProgress(count = 7, max = 10)))
-            previewGoalItem(createUILadderGoal(goalText = "Perfect full combo clear any 3 songs by NAOKI, kors k, or dj TAKA in a single session between 9PM-5AM local time during a full moon."))
         } }
     }
 }
@@ -359,23 +358,6 @@ fun LadderGoalItemDetailVariantPreview() {
                 detailItems = detailItems.map {
                     it.copy(leftText = it.leftText.repeat(3))
                 }
-            ))
-        } }
-    }
-}
-
-@Composable
-@Preview(widthDp = 480)
-fun Why() {
-    val data by remember { mutableStateOf(why.shuffled()) }
-    LIFE4Theme {
-        Column(
-            verticalArrangement = Arrangement.spacedBy(8.dp)
-        ) { with(UILadderMocks) {
-            previewGoalItem(createUILadderGoal(
-                goalText = "Perfect full combo clear any 3 songs by NAOKI, kors k, or dj TAKA in a single session between 9PM-5AM local time during a full moon.",
-                detailItems = data,
-                completed = true,
             ))
         } }
     }
