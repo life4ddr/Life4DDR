@@ -3,8 +3,6 @@ package com.perrigogames.life4.android
 import android.app.Application
 import android.content.Context
 import com.perrigogames.life4.AppInfo
-import com.perrigogames.life4.MR
-import com.perrigogames.life4.android.util.AndroidNotifications
 import com.perrigogames.life4.android.util.setupNotifications
 import com.perrigogames.life4.feature.motd.MotdManager
 import com.perrigogames.life4.feature.placements.PlacementManager
@@ -50,7 +48,6 @@ class Life4Application: Application() {
                 ranksReader = AndroidDataReader(MR.files.ranks.rawResId, RANKS_FILE_NAME),
                 songsReader = AndroidDataReader(MR.files.songs.rawResId, SONGS_FILE_NAME),
                 trialsReader = AndroidDataReader(MR.files.trials.rawResId, TRIALS_FILE_NAME),
-                notifications = AndroidNotifications(),
             ) {
                 single<Context> { this@Life4Application }
 //                single {

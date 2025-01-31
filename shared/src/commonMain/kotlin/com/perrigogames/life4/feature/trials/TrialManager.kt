@@ -2,7 +2,6 @@ package com.perrigogames.life4.feature.trials
 
 import co.touchlab.kermit.Logger
 import com.perrigogames.life4.AppInfo
-import com.perrigogames.life4.Notifications
 import com.perrigogames.life4.api.TrialRemoteData
 import com.perrigogames.life4.api.base.CompositeData
 import com.perrigogames.life4.data.Trial

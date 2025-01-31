@@ -126,12 +126,10 @@ fun makeNativeModule(
     ranksReader: LocalDataReader,
     songsReader: LocalDataReader,
     trialsReader: LocalDataReader,
-    notifications: Notifications,
     additionalItems: Module.() -> Unit = {},
 ): Module {
     return module {
         single { appInfo }
-        single { notifications }
         single(named(GithubDataAPI.IGNORES_FILE_NAME)) { ignoresReader }
         single(named(GithubDataAPI.MOTD_FILE_NAME)) { motdReader }
         single(named(GithubDataAPI.PARTIAL_DIFFICULTY_FILE_NAME)) { partialDifficultyReader }
