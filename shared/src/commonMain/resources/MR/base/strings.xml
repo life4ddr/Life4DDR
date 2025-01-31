@@ -10,6 +10,7 @@
 
     <string name="ex_score">EX Score</string>
     <string name="ex_colon">EX:</string>
+    <string name="level_short_format">LV %d</string>
     <!--  endregion  -->
 
     <!--  region First Run  -->

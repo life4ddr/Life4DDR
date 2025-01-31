@@ -24,7 +24,6 @@ class TrialManager: BaseModel() {
 
     private val appInfo: AppInfo by inject()
     private val settings: Settings by inject()
-    private val notifications: Notifications by inject()
     private val dbHelper: TrialDatabaseHelper by inject()
     private val logger: Logger by injectLogger("TrialManager")
 

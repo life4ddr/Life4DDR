@@ -34,6 +34,9 @@ enum class TrialRank(override val stableId: Long, val parent: LadderRank): Stabl
     val andUp: Array<TrialRank>
         get() = entries.toTypedArray().let { it.copyOfRange(this.ordinal, it.size) }
 
+    val next: TrialRank?
+        get() = entries.getOrNull(this.ordinal + 1)
+
     companion object {
         fun parse(s: String?): TrialRank? = when (s) {
             null, "NONE" -> null

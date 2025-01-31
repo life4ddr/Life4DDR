@@ -1,5 +1,7 @@
 package com.perrigogames.life4.feature.trialsession
 
+import com.perrigogames.life4.enums.TrialRank
+import dev.icerock.moko.resources.desc.StringDesc
 import dev.icerock.moko.resources.desc.color.ColorDesc
 import dev.icerock.moko.resources.desc.image.ImageDesc
 
@@ -7,8 +9,8 @@ import dev.icerock.moko.resources.desc.image.ImageDesc
  * Describes the content of the Trial Session screen.
  */
 data class UITrialSession(
-    val trialTitle: String,
-    val trialLevel: String,
+    val trialTitle: StringDesc,
+    val trialLevel: StringDesc,
     val backgroundImage: ImageDesc,
     val exScoreBar: UIEXScoreBar,
     val targetRank: UITargetRank,
@@ -22,8 +24,8 @@ data class UITrialSession(
 data class UIEXScoreBar(
     val currentEx: Int,
     val maxEx: Int,
-    val currentExText: String,
-    val maxExText: String,
+    val currentExText: StringDesc,
+    val maxExText: StringDesc,
 )
 
 /**
@@ -32,8 +34,9 @@ data class UIEXScoreBar(
  */
 sealed class UITargetRank {
 
-    abstract val rankIcon: ImageDesc
-    abstract val title: String
+    abstract val rank: TrialRank
+//    abstract val rankIcon: ImageDesc
+    abstract val title: StringDesc
     abstract val titleColor: ColorDesc
 
     /**
@@ -41,10 +44,11 @@ sealed class UITargetRank {
      * still be visible.
      */
     data class InProgress(
-        override val rankIcon: ImageDesc,
-        override val title: String,
+        override val rank: TrialRank,
+//        override val rankIcon: ImageDesc,
+        override val title: StringDesc,
         override val titleColor: ColorDesc,
-        val rankGoalItems: List<String>
+        val rankGoalItems: List<StringDesc>
     ) : UITargetRank()
 
     /**
@@ -52,8 +56,9 @@ sealed class UITargetRank {
      * the goals.
      */
     data class Achieved(
-        override val rankIcon: ImageDesc,
-        override val title: String,
+        override val rank: TrialRank,
+//        override val rankIcon: ImageDesc,
+        override val title: StringDesc,
         override val titleColor: ColorDesc,
     ) : UITargetRank()
 }
@@ -69,15 +74,15 @@ sealed class UITrialSessionContent {
      */
     data class Summary(
         val items: List<Item>,
-        val buttonText: String,
+        val buttonText: StringDesc,
         val buttonAction: TrialSessionAction,
     ) : UITrialSessionContent() {
 
         data class Item(
-            val jacketUrl: String,
-            val difficultyClassText: String,
+            val jacketUrl: String?,
+            val difficultyClassText: StringDesc,
             val difficultyClassColor: ColorDesc,
-            val difficultyNumberText: String,
+            val difficultyNumberText: StringDesc,
             val summaryContent: SummaryContent? = null,
         )
 

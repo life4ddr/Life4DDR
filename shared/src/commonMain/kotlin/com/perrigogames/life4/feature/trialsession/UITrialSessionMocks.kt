@@ -1,58 +1,60 @@
 package com.perrigogames.life4.feature.trialsession
 
 import com.perrigogames.life4.MR
+import com.perrigogames.life4.enums.TrialRank
 import dev.icerock.moko.resources.desc.color.ColorDescResource
+import dev.icerock.moko.resources.desc.desc
 import dev.icerock.moko.resources.desc.image.ImageDescUrl
 
 object UITrialSessionMocks {
 
     val initial = UITrialSession(
-        trialTitle = "Sidequest",
-        trialLevel = "LV 14",
+        trialTitle = "Sidequest".desc(),
+        trialLevel = "LV 14".desc(),
         backgroundImage = ImageDescUrl("https://raw.githubusercontent.com/life4ddr/Life4DDR/develop/androidApp/src/main/res/drawable-xxhdpi/sidequest.webp"),
         exScoreBar = UIEXScoreBar(
             currentEx = 0,
             maxEx = 6762,
-            currentExText = "0",
-            maxExText = "/ 6762",
+            currentExText = "0".desc(),
+            maxExText = "/ 6762".desc(),
         ),
         targetRank = UITargetRank.InProgress(
-            rankIcon = ImageDescUrl("https://raw.githubusercontent.com/life4ddr/Life4DDR/develop/androidApp/src/main/res/drawable-mdpi/cobalt_5.webp"),
-            title = "COBALT",
+            rank = TrialRank.COBALT,
+            title = "COBALT".desc(),
             titleColor = ColorDescResource(MR.colors.cobalt),
             rankGoalItems = listOf(
-                "20 or fewer Greats, Goods, or Misses",
-                "230 missing EX or less (6532 EX)",
+                "20 or fewer Greats, Goods, or Misses".desc(),
+                "230 missing EX or less (6532 EX)".desc(),
             ),
         ),
         content = UITrialSessionContent.Summary(
             items = listOf(
                 UITrialSessionContent.Summary.Item(
                     jacketUrl = "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Be_a_Hero!.webp",
-                    difficultyClassText = "DIFFICULT",
+                    difficultyClassText = "DIFFICULT".desc(),
                     difficultyClassColor = ColorDescResource(MR.colors.difficultyDifficult),
-                    difficultyNumberText = "13",
+                    difficultyNumberText = "13".desc(),
                 ),
                 UITrialSessionContent.Summary.Item(
                     jacketUrl = "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Role-playing_game.webp",
-                    difficultyClassText = "EXPERT",
+                    difficultyClassText = "EXPERT".desc(),
                     difficultyClassColor = ColorDescResource(MR.colors.difficultyExpert),
-                    difficultyNumberText = "14",
+                    difficultyNumberText = "14".desc(),
                 ),
                 UITrialSessionContent.Summary.Item(
                     jacketUrl = "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Kanata_no_Reflesia.webp",
-                    difficultyClassText = "EXPERT",
+                    difficultyClassText = "EXPERT".desc(),
                     difficultyClassColor = ColorDescResource(MR.colors.difficultyExpert),
-                    difficultyNumberText = "15",
+                    difficultyNumberText = "15".desc(),
                 ),
                 UITrialSessionContent.Summary.Item(
                     jacketUrl = "https://life4-mobile.s3.us-west-1.amazonaws.com/images/jackets/songs/Boss+Rush-jacket.webp",
-                    difficultyClassText = "DIFFICULT",
+                    difficultyClassText = "DIFFICULT".desc(),
                     difficultyClassColor = ColorDescResource(MR.colors.difficultyDifficult),
-                    difficultyNumberText = "14",
+                    difficultyNumberText = "14".desc(),
                 ),
             ),
-            buttonText = "Start Trial",
+            buttonText = "Start Trial".desc(),
             buttonAction = TrialSessionAction.StartTrial,
         ),
     )

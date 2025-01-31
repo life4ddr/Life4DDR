@@ -3,7 +3,7 @@ package com.perrigogames.life4.android
 import android.app.Application
 import android.content.Context
 import com.perrigogames.life4.AppInfo
-import com.perrigogames.life4.android.util.setupNotifications
+import com.perrigogames.life4.MR
 import com.perrigogames.life4.feature.motd.MotdManager
 import com.perrigogames.life4.feature.placements.PlacementManager
 import com.perrigogames.life4.feature.songlist.SongDataManager
@@ -56,7 +56,6 @@ class Life4Application: Application() {
             }
         )
 
-        setupNotifications(this)
         ManagerContainer() // instantiate the managers so that remote data gets pulled properly
     }
 
