@@ -2,25 +2,4 @@
     <style name="ProgressBarStyle">
         <item name="colorAccent">@color/difficultyExpert</item>
     </style>
-
-    <!-- Buttons -->
-    <style name="BottomProgressButton">
-        <item name="android:background">@drawable/button_normal_x</item>
-        <item name="android:textColor">@drawable/button_text_color</item>
-        <item name="android:textSize">16sp</item>
-        <item name="android:padding">0dp</item>
-    </style>
-
-    <style name="BottomProgressButtonLeftBorder" parent="BottomProgressButton">
-        <item name="android:background">@drawable/button_div_l_x</item>
-    </style>
-
-    <style name="BottomProgressButtonRightBorder" parent="BottomProgressButton">
-        <item name="android:background">@drawable/button_div_r_x</item>
-    </style>
-
-    <style name="BottomProgressButtonLeftRightBorder" parent="BottomProgressButton">
-        <item name="android:background">@drawable/button_div_lr_x</item>
-    </style>
-
 </resources>

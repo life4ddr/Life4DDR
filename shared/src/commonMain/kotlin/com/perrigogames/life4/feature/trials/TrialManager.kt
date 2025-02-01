@@ -2,7 +2,6 @@ package com.perrigogames.life4.feature.trials
 
 import co.touchlab.kermit.Logger
 import com.perrigogames.life4.AppInfo
-import com.perrigogames.life4.Notifications
 import com.perrigogames.life4.api.TrialRemoteData
 import com.perrigogames.life4.api.base.CompositeData
 import com.perrigogames.life4.data.Trial
@@ -25,7 +24,6 @@ class TrialManager: BaseModel() {
 
     private val appInfo: AppInfo by inject()
     private val settings: Settings by inject()
-    private val notifications: Notifications by inject()
     private val dbHelper: TrialDatabaseHelper by inject()
     private val logger: Logger by injectLogger("TrialManager")
 

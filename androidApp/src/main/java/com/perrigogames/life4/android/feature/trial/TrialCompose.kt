@@ -15,19 +15,17 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.perrigogames.life4.MR
 import com.perrigogames.life4.android.compose.FontFamilies
 import com.perrigogames.life4.android.compose.FontSizes
 import com.perrigogames.life4.android.compose.Paddings
 import com.perrigogames.life4.android.stringResource
 import com.perrigogames.life4.android.util.SizedSpacer
-import com.perrigogames.life4.android.util.jacketResId
 import com.perrigogames.life4.android.view.compose.RankImage
 import com.perrigogames.life4.data.Trial
 import com.perrigogames.life4.feature.trials.TrialListViewModel
@@ -36,6 +34,8 @@ import com.perrigogames.life4.feature.trials.UITrialJacket
 import com.perrigogames.life4.feature.trials.UITrialList
 import dev.icerock.moko.mvvm.createViewModelFactory
 import dev.icerock.moko.resources.compose.localized
+import dev.icerock.moko.resources.compose.painterResource
+import dev.icerock.moko.resources.desc.image.ImageDescResource
 
 @Composable
 fun TrialListScreen(
@@ -147,7 +147,9 @@ fun TrialJacket(
     ) {
         val (image, difficulty) = createRefs()
         Image(
-            painter = painterResource(id = viewModel.trial.jacketResId(LocalContext.current)),
+            painter = (viewModel.trial.coverResource as? ImageDescResource)?.let {
+                painterResource(it.resource)
+            } ?: painterResource(MR.images.trial_default),
             contentDescription = null,
             modifier = Modifier.aspectRatio(1f)
                 .constrainAs(image) {

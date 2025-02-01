@@ -9,9 +9,12 @@
 
 package com.perrigogames.life4.data
 
+import com.perrigogames.life4.MR
 import com.perrigogames.life4.enums.*
 import com.perrigogames.life4.feature.songlist.Chart
 import com.perrigogames.life4.feature.trialsession.TrialGoalSet
+import dev.icerock.moko.resources.desc.image.asImageDesc
+import dev.icerock.moko.resources.getImageByFileName
 import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
@@ -54,6 +57,10 @@ data class Trial(
     @SerialName("cover_url") val coverUrl: String? = null,
     @SerialName("cover_override") val coverOverride: Boolean = false,
 ) {
+
+    val coverResource by lazy {
+        MR.images.getImageByFileName(id)?.asImageDesc()
+    }
 
     val isRetired: Boolean = state == TrialState.RETIRED
     val isEvent: Boolean = type == TrialType.EVENT && eventStart != null && eventEnd != null

@@ -10,6 +10,7 @@
 
     <string name="ex_score">EX Score</string>
     <string name="ex_colon">EX:</string>
+    <string name="level_short_format">LV %d</string>
     <!--  endregion  -->
 
     <!--  region First Run  -->
@@ -83,6 +84,7 @@
     <!-- region Play Style Strings -->
     <string name="play_style_single">Single</string>
     <string name="play_style_double">Double</string>
+    <!-- endregion -->
 
     <!-- region Difficulty Strings -->
     <string name="bgsp">bSP</string>
@@ -100,6 +102,7 @@
     <!-- region Filter strings -->
     <string name="label_difficulty_number">Difficulty</string>
     <string name="label_clear_type">Clear Type</string>
+    <!-- endregion -->
 
     <!-- region Rank Strings -->
     <string name="none">NONE</string>
@@ -315,8 +318,9 @@
     <string name="confirm_erase_trial_data">Are you sure you want to clear all saved rank data?</string>
     <string name="confirm_erase_result_data">Are you sure you want to clear all song result data?</string>
     <string name="confirm_refresh_song_db">Are you sure you want to refresh the local song database?\n\nYou will need to reimport your Score Manager data.</string>
+    <!-- endregion -->
 
-    <!-- Format Strings -->
+    <!-- region Format Strings -->
     <string name="goal_progress_format">%s / %s</string>
     <string name="goal_remaining_format">%d / %d left</string>
     <string name="ex_score_fraction_format">%d/%d EX</string>
@@ -332,8 +336,9 @@
     <string name="event_ends_future_format">Event ends %s</string>
     <string name="level_header">Level %d</string>
     <string name="perfects_count">%dP</string>
+    <!-- endregion -->
 
-    <!-- Short/Common Strings -->
+    <!-- region Short/Common Strings -->
     <string name="goals">Goals</string>
     <string name="mandatory_goals">Mandatory Goals</string>
     <string name="other_goals">Other Goals</string>
@@ -347,22 +352,25 @@
     <string name="arrow_left">←</string>
     <string name="arrow_right">→</string>
     <string name="error">Error</string>
+    <!-- endregion -->
 
-    <!-- Welcome/FTUE -->
+    <!-- region Welcome/FTUE -->
     <string name="welcome_to">WELCOME TO</string>
     <string name="life4_intro_info_greeting">To get started, please tell us a bit about yourself.</string>
     <string name="life4_trials_long_description">LIFE4 Trials are a new way for DDR players to participate in LIFE4 events outside of the core ranking system. We wanted to give players a chance to test their skills and compare their scores without having to complete full folders or grind out a ton of songs. In addition to consistency and stamina, Trials will also test players’ Marvelous Attack (MA) in order to achieve the highest ranks.\n\nEach Trial consists of 4 songs, grouped together by a common theme (title, skillset, etc), which will need to be played together in order in a single set (including extra stage). Trials will vary in difficulty, but the goals required for each will shift, allowing top-tier players to focus on MA on easier Trials to achieve higher rankings, while also letting newer players focus on passing more difficult songs on the more challenging Trials.\n\nPlayers can earn Trial Ranks by achieving a specific set of requirements for each Trial. The requirements for each Trial Rank are roughly aligned with the same skill goals at each respective level of the core LIFE4 ranking system. A Silver Trial Rank may be earned by simply clearing all of the songs in a Trial, for example, but a Cobalt Trial Rank may require the player to PFC every song, or score under a certain amount of total missing EX. (Some of the more difficult Trials may not include lower-tier Trial Ranks as there may not always be a comparable skill level.)\n\nAre you ready to take on the Trials?</string>
     <string name="life4_feedback_email_subject">LIFE4 Feedback</string>
+    <!-- endregion -->
 
-    <!-- URLs -->
+    <!-- region URLs -->
     <string name="url_trial">https://life4ddr.com/%s</string>
     <string name="url_new_user_submission_form">https://docs.google.com/forms/d/e/1FAIpQLSfewCjH2DmRe_gAfbzxpfJZ-g5AiR3kcV5fzE6q69aVT5pLNA/viewform</string>
     <string name="url_standard_submission_form">https://docs.google.com/forms/d/e/1FAIpQLScUe6q9nIlBBIiCULW7wwfvIvM9eGPS8fQFDSO8D4DmEQzJtQ/viewform</string>
     <string name="url_trial_submission_form">https://docs.google.com/forms/d/e/1FAIpQLScCIeCXSs-OCYQevGS8l_VQHS9WI1jofWg67KIPXYaC-hJLbA/viewform</string>
     <string name="url_a20_update">https://life4ddr.com/requirements/</string>
     <string name="url_player_profile">https://life4ddr.com/profile/%s</string>
+    <!-- endregion -->
 
-    <!-- Content descriptions -->
+    <!-- region Content descriptions -->
     <string name="jacket_artwork_for_trial">jacket artwork for trial</string>
     <string name="jacket_artwork_for_song">jacket artwork for song</string>
     <string name="rank_image">rank image</string>
@@ -371,11 +379,13 @@
     <string name="content_desc_photo_taken">Photo taken</string>
     <string name="content_desc_photo_not_taken">Photo not taken</string>
     <string name="life4_logo">Life4 logo</string>
+    <!--  endregion  -->
 
-    <!-- Activity Titles -->
+    <!-- region Activity Titles -->
     <string name="title_activity_settings">Settings</string>
+    <!--  endregion  -->
 
-    <!-- Preference Titles -->
+    <!-- region Preference Titles -->
     <string name="user_info">User Info</string>
     <string name="edit_user_info">Edit user info</string>
     <string name="trial_list">Trial List</string>
@@ -418,8 +428,9 @@
     <string name="trial_records">Trial Records</string>
     <string name="help">Help</string>
     <string name="help_and_feedback">Help &amp; Feedback</string>
+    <!--  endregion  -->
 
-    <!-- Sync Preferences -->
+    <!-- region Sync Preferences -->
     <string name="user_info_notifications">User Info Notifications</string>
     <string name="user_info_notifications_description">Notifications shown during song submission that can be copied to ease form entry.</string>
     <string name="title_activity_records">Trial Records</string>
@@ -435,6 +446,7 @@
     <string name="greats_less">Greats and Worse</string>
 
     <string name="breakdown_information_missing">One or more of your songs are missing step breakdowns.</string>
+    <!--  endregion  -->
 
     <!-- region Rank Strings -->
     <string name="none">NONE</string>
@@ -511,7 +523,33 @@
     <string name="roman_5">V</string>
     <!-- endregion -->
 
-    <!-- Trial Rank Strings -->
+    <!--  region Game Version Strings  -->
+    <string name="version_unknown">UNKNOWN VERSION</string>
+    <string name="version_1st_mix">DDR 1st MIX</string>
+    <string name="version_2nd_mix">DDR 2nd MIX</string>
+    <string name="version_3rd_mix">DDR 3rd MIX</string>
+    <string name="version_4th_mix">DDR 4th MIX</string>
+    <string name="version_5th_mix">DDR 5th MIX</string>
+    <string name="version_1st_5th_mix">DDR 1st-5th MIX</string>
+    <string name="version_max">DDR MAX</string>
+    <string name="version_max2">DDR MAX2</string>
+    <string name="version_extreme">DDR EXTREME</string>
+    <string name="version_max_extreme">DDR MAX-EXTREME</string>
+    <string name="version_supernova">DDR SUPERNOVA</string>
+    <string name="version_supermova_2">DDR SUPERNOVA 2</string>
+    <string name="version_x">DDR X</string>
+    <string name="version_x_2">DDR X2</string>
+    <string name="version_x_3">DDR X3</string>
+    <string name="version_2013">DDR 2013</string>
+    <string name="version_2014">DDR 2014</string>
+    <string name="version_a">DDR A</string>
+    <string name="version_a20">DDR A20</string>
+    <string name="version_a20_plus">DDR A20+</string>
+    <string name="version_a3">DDR A3</string>
+    <string name="version_world">DDR WORLD</string>
+    <!-- endregion -->
+
+    <!-- region Trial Rank Strings -->
     <string name="set_numbers_multiple_same_format">%d different L%d\'s</string>
     <string name="set_numbers_3_format">L%d, L%d, and L%d</string>
     <string name="make_sure_fields_filled">Make sure all fields are filled in.</string>
@@ -604,11 +642,13 @@
     <string name="select_a_rank">Select a Rank</string>
     <string name="available_ranks">Available Ranks</string>
     <string name="ignored_songs">Ignored Songs</string>
+    <!--  endregion  -->
 
-    <!-- Sanbai Strings -->
+    <!-- region Sanbai Strings -->
     <string name="sanbai_syncing_scores">Syncing scores...</string>
     <string name="sanbai_syncing_success">Score syncing completed!</string>
     <string name="sanbai_syncing_error">Score syncing failed</string>
+    <!-- endregion -->
 
     <array name="credits">
         <item>Camera, Cancel, Cogwheel, Eye, Folder, Scroll Left, Scroll Right, and Star icons by

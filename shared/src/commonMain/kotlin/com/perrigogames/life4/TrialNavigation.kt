@@ -11,7 +11,6 @@ abstract class TrialNavigation: KoinComponent {
 
     private val sessionManager: TrialSessionManager by inject()
     protected val settings: Settings by inject()
-    protected val notifications: Notifications by inject()
 
     open fun submitResult(onFinish: () -> Unit) {
         val session = sessionManager.currentSession!!
@@ -35,7 +34,7 @@ abstract class TrialNavigation: KoinComponent {
             showSessionSubmitConfirmation { submitOnline ->
                 if (submitOnline) {
                     if (settings.getBoolean(SettingsKeys.KEY_SUBMISSION_NOTIFICAION, false)) {
-                        notifications.showUserInfoNotifications(session.progress.currentExScore)
+//                        notifications.showUserInfoNotifications(session.progress.currentExScore)
                     }
                     showTrialSubmissionWeb()
                 }

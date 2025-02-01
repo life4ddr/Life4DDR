@@ -2,14 +2,12 @@ package com.perrigogames.life4.feature.songlist
 
 import co.touchlab.kermit.Logger
 import com.perrigogames.life4.api.SongListRemoteData
-import com.perrigogames.life4.api.base.LocalDataReader
 import com.perrigogames.life4.api.base.unwrapLoaded
 import com.perrigogames.life4.data.SongList
 import com.perrigogames.life4.enums.DifficultyClass
 import com.perrigogames.life4.enums.GameVersion
 import com.perrigogames.life4.enums.PlayStyle
 import com.perrigogames.life4.injectLogger
-import com.perrigogames.life4.ktor.GithubDataAPI.Companion.SONGS_FILE_NAME
 import com.perrigogames.life4.model.BaseModel
 import dev.icerock.moko.mvvm.flow.CStateFlow
 import dev.icerock.moko.mvvm.flow.cStateFlow
@@ -19,7 +17,6 @@ import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import org.koin.core.component.inject
-import org.koin.core.qualifier.named
 
 /**
  * A Manager class that keeps track of the available songs
@@ -45,6 +42,28 @@ class SongDataManager: BaseModel() {
         mainScope.launch {
             data.start()
         }
+    }
+
+    fun getSong(skillId: String): Song? {
+        return libraryFlow.value.songs.keys.firstOrNull { it.skillId == skillId }
+    }
+
+    fun getChart(
+        skillId: String,
+        playStyle: PlayStyle,
+        difficultyClass: DifficultyClass,
+    ): Chart? {
+        val song = getSong(skillId)
+        if (song == null) {
+            logger.e("Song not found: $skillId")
+            return null
+        }
+        val chart = libraryFlow.value.songs[song]!!
+            .firstOrNull { it.playStyle == playStyle && it.difficultyClass == difficultyClass }
+        if (chart == null) {
+            logger.e("Chart not found: $skillId / ${playStyle.name} / ${difficultyClass.name}")
+        }
+        return chart
     }
 
     private suspend fun parseDataFile(input: SongList) = try {
