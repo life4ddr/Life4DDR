@@ -20,6 +20,9 @@ struct iOSApp: App {
         _ = SongDataManager()
         _ = TrialManager()
         _ = DefaultMotdSettings()
+        _ = SanbaiAPIImpl()
+        _ = SanbaiAPISettings()
+        _ = SanbaiManager()
     }
     
     func goToView(nextStep: InitState?) {

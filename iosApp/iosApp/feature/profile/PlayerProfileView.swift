@@ -20,7 +20,7 @@ struct PlayerProfileView: View {
     var body: some View {
         VStack {
             PlayerProfileInfo(
-                state: playerInfoViewState ?? PlayerInfoViewState(username: "", rivalCode: "", socialNetworks: [:], rank: nil),
+                state: playerInfoViewState ?? PlayerInfoViewState(username: "", rivalCode: "", socialNetworks: [:], rank: nil, banner: nil),
                 onRankClicked: { onAction(PlayerProfileAction.ChangeRank()) }
             )
             if (goalData != nil) {
@@ -81,5 +81,5 @@ struct PlayerProfileInfo: View {
 }
 
 #Preview {
-    PlayerProfileView(playerInfoViewState: PlayerInfoViewState(username: "Andeh", rivalCode: "6164-4734", socialNetworks: [:], rank: nil), onAction: { _ in })
+    PlayerProfileView(playerInfoViewState: PlayerInfoViewState(username: "Andeh", rivalCode: "6164-4734", socialNetworks: [:], rank: nil, banner: nil), onAction: { _ in })
 }

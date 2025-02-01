@@ -66,7 +66,7 @@ struct CategorizedList: View {
     
     var body: some View {
         ForEach(goals.categories, id: \.self) { category in
-            Text((category.first?.localized())!).frame(maxWidth: .infinity, alignment: .leading)
+            Text((category.first?.title.localized())!).frame(maxWidth: .infinity, alignment: .leading)
             ForEach((category.second as? [UILadderGoal])!, id: \.self) { goal in
                 LadderGoalItem(
                     goal: goal,
