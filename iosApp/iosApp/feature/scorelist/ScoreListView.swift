@@ -39,6 +39,7 @@ struct ScoreListView: View {
                    }
                 )
             }
+            // TODO: turn this into a floating button
             Button {
                 withAnimation {
                     webViewShowing.toggle()
@@ -82,17 +83,31 @@ struct ScoreEntry: View {
                 }
             }
             if (data.flareLevel != nil) {
-                var flareInt = Int(truncating: data.flareLevel!)
+                let flareInt = Int(truncating: data.flareLevel!)
                 
-                Image("flare_\(flareInt < 10 ? String(flareInt) : "ex")")
+                Image(uiImage: (flareImageResource[flareInt]?.toUIImage())!)
                     .resizable()
-                    .frame(width: 40.6, height: 32.0)
+                    .scaledToFit()
+                    .frame(width: 32.0, height: 32.0)
             } else {
-                Spacer().frame(width: 40.6)
+                Spacer().frame(width: 40.0)
             }
-        }.padding(4)
+        }
     }
 }
+
+var flareImageResource = [
+    1: MR.images().flare_1,
+    2: MR.images().flare_2,
+    3: MR.images().flare_3,
+    4: MR.images().flare_4,
+    5: MR.images().flare_5,
+    6: MR.images().flare_6,
+    7: MR.images().flare_7,
+    8: MR.images().flare_8,
+    9: MR.images().flare_9,
+    10: MR.images().flare_ex
+]
 
 #Preview {
     ScoreListView()

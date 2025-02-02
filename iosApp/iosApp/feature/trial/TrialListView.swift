@@ -97,13 +97,24 @@ struct TrialJacket: View {
     var onClick: () -> (Void)
     
     var body: some View {
-        Image(trialData.trial.name)
-            .resizable()
-            .aspectRatio(contentMode: .fill)
-            .overlay(alignment: .topLeading) {
-                TrialDifficulty(difficulty: trialData.trial.difficulty as! Int)
-            }
-            .onTapGesture { onClick() }
+        // TODO: clean this trial image code up
+        if let imageResource = trialData.trial.coverResource as? ImageDescResource {
+            Image(uiImage: imageResource.resource.toUIImage()!)
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .overlay(alignment: .topLeading) {
+                    TrialDifficulty(difficulty: trialData.trial.difficulty as! Int)
+                }
+                .onTapGesture { onClick() }
+        } else {
+            Image(uiImage: MR.images().trial_default.toUIImage()!)
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .overlay(alignment: .topLeading) {
+                    TrialDifficulty(difficulty: trialData.trial.difficulty as! Int)
+                }
+                .onTapGesture { onClick() }
+        }
     }
 }
 

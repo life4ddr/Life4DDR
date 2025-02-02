@@ -188,15 +188,10 @@ var nativeModule: Koin_coreModule = KoinKt.makeNativeModule(
     fileResource: MR.files().trials,
     cachedFileName: GithubDataAPICompanion().TRIALS_FILE_NAME
   ),
-  notifications: DummyNotifications(),
   additionalItems: {_ in }
 )
 
 class IosAppInfo: AppInfo {
     var appId: String = "LIFE4DDR"
     var isDebug: Bool = true
-}
-
-class DummyNotifications: Notifications {
-  
 }

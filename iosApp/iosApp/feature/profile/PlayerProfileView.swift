@@ -34,6 +34,7 @@ struct PlayerProfileView: View {
                     }
                 )
             }
+            // TODO: there is a bug when switching to onyx 5 here
             if (goalError != nil) {
                 Text(goalError!).font(.system(size: 22, weight: .bold))
             }

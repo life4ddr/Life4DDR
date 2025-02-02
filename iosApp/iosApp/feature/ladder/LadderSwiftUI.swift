@@ -66,7 +66,13 @@ struct CategorizedList: View {
     
     var body: some View {
         ForEach(goals.categories, id: \.self) { category in
-            Text((category.first?.title.localized())!).frame(maxWidth: .infinity, alignment: .leading)
+            HStack {
+                Text((category.first?.title.localized())!)
+                Spacer()
+                if (category.first?.goalText != nil) {
+                    Text((category.first?.goalText?.localized())!)
+                }
+            }
             ForEach((category.second as? [UILadderGoal])!, id: \.self) { goal in
                 LadderGoalItem(
                     goal: goal,
@@ -76,6 +82,7 @@ struct CategorizedList: View {
                     onHiddenChanged: onHiddenChanged
                 )
             }
+            Spacer().frame(height: 16)
         }
     }
 }
@@ -125,7 +132,7 @@ struct LadderGoalHeaderRow: View {
                     Image(systemName: goal.completed ? "checkmark.square.fill" : "square")
                 }.buttonStyle(.plain)
             }
-            if allowHiding {
+            if allowHiding && goal.canHide {
                 Button {
                     withAnimation {
                         onHiddenChanged(goal.id)
