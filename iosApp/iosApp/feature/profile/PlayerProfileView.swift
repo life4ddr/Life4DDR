@@ -23,6 +23,7 @@ struct PlayerProfileView: View {
                 state: playerInfoViewState ?? PlayerInfoViewState(username: "", rivalCode: "", socialNetworks: [:], rank: nil, banner: nil),
                 onRankClicked: { onAction(PlayerProfileAction.ChangeRank()) }
             )
+            BannerContainer(data: playerInfoViewState?.banner)
             if (goalData != nil) {
                 LadderGoals(
                     data: goalData,

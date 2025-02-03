@@ -10,6 +10,7 @@ import SwiftUI
 import Shared
 import WebKit
 
+@available(iOS 16.0, *)
 struct ScoreListView: View {
     @ObservedObject var viewModel: ScoreListViewModel = ScoreListViewModel()
     @State var state: UIScoreList?
@@ -39,21 +40,28 @@ struct ScoreListView: View {
                    }
                 )
             }
-            // TODO: turn this into a floating button
-            Button {
-                withAnimation {
-                    webViewShowing.toggle()
+            BannerContainer(data: state?.banner)
+            ZStack(alignment: .bottomTrailing) {
+                List {
+                    ForEach(state?.scores ?? [], id: \.self) { score in
+                        ScoreEntry(data: score)
+                    }
+                }.listStyle(.plain)
+                Button {
+                    withAnimation {
+                        webViewShowing.toggle()
+                    }
+                } label: {
+                    Image(systemName: "plus")
+                        .padding()
+                        .background(Color(.accent))
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                }.sheet(isPresented: $webViewShowing) {
+                    WebView(url: URL(string: viewModel.getSanbaiUrl())!, webViewShowing: $webViewShowing)
                 }
-            } label: {
-                Text("Pull scores")
-            }.sheet(isPresented: $webViewShowing) {
-                WebView(url: URL(string: viewModel.getSanbaiUrl())!, webViewShowing: $webViewShowing)
             }
-            List {
-                ForEach(state?.scores ?? [], id: \.self) { score in
-                    ScoreEntry(data: score)
-                }
-            }.listStyle(.plain)
+            
         }
         .onAppear {
             viewModel.state.subscribe { state in
@@ -109,6 +117,7 @@ var flareImageResource = [
     10: MR.images().flare_ex
 ]
 
+@available(iOS 16.0, *)
 #Preview {
     ScoreListView()
 }
