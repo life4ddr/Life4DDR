@@ -34,7 +34,6 @@ struct FilterPane: View {
             }
             
             // Difficulty Toggles (e.g. bSP/BSP/DSP/ESP/CSP)
-            // TODO: figure out proper centering on difficulty toggles
             HStack {
                 ForEach(data.difficultyClassSelector, id: \.self) { item in
                     VStack {
@@ -44,6 +43,8 @@ struct FilterPane: View {
                                 onAction(item.action)
                             }
                         ))
+                        .frame(maxWidth: .infinity)
+                        .labelsHidden()
                         Text(item.text.localized())
                     }
                 }
@@ -92,7 +93,7 @@ struct FilterPane: View {
             Spacer().frame(height: 8)
             
             // Score Range
-            // TODO: make score range inputs functional, if Android version is functional
+            // TODO: (shared) make score range inputs functional, if Android version is functional
             HStack(spacing: 16) {
                 TextField(data.scoreRangeBottomHint.localized(), text: Binding(
                     get: { data.scoreRangeBottomValue != nil ? String(describing: data.scoreRangeBottomValue) : "" },

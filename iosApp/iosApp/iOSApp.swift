@@ -28,8 +28,6 @@ struct iOSApp: App {
     func goToView(nextStep: InitState?) {
         switch nextStep {
             case InitState.placements:
-                // TODO: add a destination from the TrialListView to Placements
-                // right now, there is only one Placements destination
                 path.append(nextStep!)
             case InitState.ranks:
                 path.append(FirstRunDestination.InitialRankList())

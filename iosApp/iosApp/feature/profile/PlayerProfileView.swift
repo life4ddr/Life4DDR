@@ -35,9 +35,9 @@ struct PlayerProfileView: View {
                     }
                 )
             }
-            // TODO: there is a bug when switching to onyx 5 here
             if (goalError != nil) {
                 Text(goalError!).font(.system(size: 22, weight: .bold))
+                Spacer()
             }
         }
         .onAppear {
@@ -51,11 +51,9 @@ struct PlayerProfileView: View {
             viewModel.goalListViewModel.state.subscribe { state in
                 if let currentGoalState = state {
                     goalListViewState = currentGoalState
-                    if let success = goalListViewState as? ViewStateSuccess<UILadderData> {
-                        goalData = success.data
-                    } else if let error = goalListViewState as? ViewStateError<NSString> {
-                        goalError = String(error.error!)
-                    }
+                    goalData = (goalListViewState as? ViewStateSuccess<UILadderData>)?.data
+                    let error = goalListViewState as? ViewStateError<NSString>
+                    goalError = error?.error as? String
                 }
             }
         }
