@@ -2,6 +2,7 @@
     <!--  region Common  -->
     <string name="app_name">LIFE4</string>
     <string name="username">Username</string>
+    <string name="password">Password</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="confirm">Confirm</string>

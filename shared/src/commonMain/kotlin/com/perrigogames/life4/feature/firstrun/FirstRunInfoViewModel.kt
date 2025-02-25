@@ -6,16 +6,8 @@ import com.perrigogames.life4.feature.firstrun.FirstRunError.RivalCodeError
 import com.perrigogames.life4.feature.firstrun.FirstRunError.UsernameError
 import com.perrigogames.life4.feature.firstrun.FirstRunStep.Landing
 import com.perrigogames.life4.feature.firstrun.FirstRunStep.PathStep
-import com.perrigogames.life4.feature.firstrun.FirstRunStep.PathStep.Completed
-import com.perrigogames.life4.feature.firstrun.FirstRunStep.PathStep.InitialRankSelection
-import com.perrigogames.life4.feature.firstrun.FirstRunStep.PathStep.Password
-import com.perrigogames.life4.feature.firstrun.FirstRunStep.PathStep.RivalCode
-import com.perrigogames.life4.feature.firstrun.FirstRunStep.PathStep.SocialHandles
-import com.perrigogames.life4.feature.firstrun.FirstRunStep.PathStep.Username
-import com.perrigogames.life4.feature.firstrun.FirstRunStep.PathStep.UsernamePassword
-import com.perrigogames.life4.feature.firstrun.InitState.DONE
-import com.perrigogames.life4.feature.firstrun.InitState.PLACEMENTS
-import com.perrigogames.life4.feature.firstrun.InitState.RANKS
+import com.perrigogames.life4.feature.firstrun.FirstRunStep.PathStep.*
+import com.perrigogames.life4.feature.firstrun.InitState.*
 import com.perrigogames.life4.feature.settings.UserInfoSettings
 import dev.icerock.moko.mvvm.flow.CFlow
 import dev.icerock.moko.mvvm.flow.cFlow
@@ -24,6 +16,7 @@ import dev.icerock.moko.mvvm.viewmodel.ViewModel
 import dev.icerock.moko.resources.desc.Resource
 import dev.icerock.moko.resources.desc.ResourceStringDesc
 import dev.icerock.moko.resources.desc.StringDesc
+import dev.icerock.moko.resources.desc.desc
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.map
@@ -38,6 +31,7 @@ class FirstRunInfoViewModel : ViewModel(), KoinComponent {
     private val firstRunSettings: FirstRunSettingsManager by inject()
 
     val username = MutableStateFlow("").cMutableStateFlow()
+    val password = MutableStateFlow("").cMutableStateFlow()
     val rivalCode = MutableStateFlow("").cMutableStateFlow()
     val socialNetworks = MutableStateFlow<MutableMap<SocialNetwork, String>>(mutableMapOf()).cMutableStateFlow()
 
@@ -197,10 +191,10 @@ sealed class FirstRunStep(
             override val path: FirstRunPath,
         ) : PathStep() {
 
-            val headerText: ResourceStringDesc = StringDesc.Resource(when (path.isNewUser) {
+            val headerText: ResourceStringDesc = when (path.isNewUser) {
                 true -> MR.strings.first_run_username_new_header
                 false -> MR.strings.first_run_username_existing_header
-            })
+            }.desc()
 
             val descriptionText: ResourceStringDesc? = when (path.isNewUser) {
                 true -> StringDesc.Resource(MR.strings.first_run_username_description)
