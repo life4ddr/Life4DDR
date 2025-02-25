@@ -140,5 +140,9 @@ data class SongLibrary(
     val charts: List<Chart> = emptyList(),
 )
 
-class ChartNotFoundException(songTitle: String, playStyle: PlayStyle, difficultyClass: DifficultyClass, difficultyNumber: Int): Exception(
-    "$songTitle (${playStyle.aggregateString(difficultyClass)} $difficultyNumber) does not exist in the song database")
+class ChartNotFoundException(
+    songTitle: String,
+    playStyle: PlayStyle,
+    difficultyClass: DifficultyClass,
+    difficultyNumber: Int
+): Exception("$songTitle (${playStyle.aggregateString(difficultyClass)} $difficultyNumber) does not exist in the song database")
