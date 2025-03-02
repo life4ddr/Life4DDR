@@ -126,7 +126,7 @@ fun FilterPane(
         ) {
             TextField(
                 value = data.scoreRangeBottomValue?.toString().orEmpty(),
-                onValueChange = { onAction(UIFilterAction.SetScoreRange(first = it.toInt())) },
+                onValueChange = { onAction(UIFilterAction.SetScoreRange(first = it.trim().toInt())) },
                 placeholder = { Text(text = data.scoreRangeBottomHint.localized()) },
                 modifier = Modifier.weight(1f)
             )

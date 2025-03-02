@@ -29,13 +29,13 @@ import com.perrigogames.life4.feature.settings.UserInfoSettings
 import com.perrigogames.life4.feature.settings.UserRankSettings
 import com.perrigogames.life4.feature.songlist.IgnoreListManager
 import com.perrigogames.life4.feature.songlist.SongDataManager
+import com.perrigogames.life4.feature.songresults.ChartResultOrganizer
 import com.perrigogames.life4.feature.songresults.SongResultsManager
 import com.perrigogames.life4.feature.trialrecords.TrialDatabaseHelper
 import com.perrigogames.life4.feature.trialrecords.TrialRecordsManager
 import com.perrigogames.life4.feature.trials.TrialManager
 import com.perrigogames.life4.feature.trialsession.TrialSessionManager
 import com.perrigogames.life4.ktor.*
-import com.perrigogames.life4.model.ChartResultOrganizer
 import com.perrigogames.life4.model.GoalStateManager
 import com.perrigogames.life4.model.LadderDataManager
 import com.perrigogames.life4.model.MajorUpdateManager

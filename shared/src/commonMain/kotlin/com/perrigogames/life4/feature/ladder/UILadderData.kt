@@ -2,6 +2,7 @@ package com.perrigogames.life4.feature.ladder
 
 import com.perrigogames.life4.enums.DifficultyClass
 import com.perrigogames.life4.enums.colorRes
+import com.perrigogames.life4.util.toStringWithoutDecimal
 import dev.icerock.moko.resources.ColorResource
 import dev.icerock.moko.resources.desc.StringDesc
 
@@ -99,6 +100,14 @@ data class UILadderProgress(
     ) : this(
         progressPercent = count.toFloat() / max.toFloat(),
         progressText = "$count / $max" // FIXME hardcoded
+    )
+
+    constructor(
+        count: Double,
+        max: Double,
+    ) : this(
+        progressPercent = (count / max).toFloat(),
+        progressText = "${count.toStringWithoutDecimal()} / ${max.toStringWithoutDecimal()}"
     )
 }
 

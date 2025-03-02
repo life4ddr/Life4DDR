@@ -11,7 +11,6 @@ import com.perrigogames.life4.feature.banners.BannerLocation
 import com.perrigogames.life4.feature.banners.IBannerManager
 import com.perrigogames.life4.feature.banners.UIBanner
 import com.perrigogames.life4.ktor.SanbaiAPI
-import com.perrigogames.life4.model.ChartResultOrganizer
 import dev.icerock.moko.mvvm.flow.CStateFlow
 import dev.icerock.moko.mvvm.flow.cMutableStateFlow
 import dev.icerock.moko.mvvm.flow.cStateFlow
@@ -49,7 +48,7 @@ class ScoreListViewModel: ViewModel(), KoinComponent {
                 bannerManager.getBannerFlow(BannerLocation.SCORES)
             ) { results, filterView, banner ->
                 UIScoreList(
-                    scores = results.map { it.toUIScore() },
+                    scores = results.resultsDone.map { it.toUIScore() },
                     filter = filterView,
                     banner = banner
                 )
