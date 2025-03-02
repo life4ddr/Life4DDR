@@ -9,7 +9,9 @@ import com.perrigogames.life4.feature.ladder.converter.TrialGoalProgressConverte
 import com.perrigogames.life4.injectLogger
 import com.perrigogames.life4.model.BaseModel
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.map
 import org.koin.core.component.KoinComponent
 import kotlin.reflect.KClass
 
@@ -19,6 +21,7 @@ class LadderGoalProgressManager : BaseModel(), KoinComponent {
 
     private val converters: Map<KClass<out BaseRankGoal>, GoalProgressConverter<out BaseRankGoal>> = mapOf(
         MFCPointsStackedGoal::class to MFCPointGoalProgressConverter(),
+        SongsClearGoal::class to SongsClearGoalProgressConverter(),
         TrialStackedGoal::class to TrialGoalProgressConverter(),
     )
 
@@ -36,5 +39,14 @@ class LadderGoalProgressManager : BaseModel(), KoinComponent {
             }
             else -> flowOf(null)
         }
+    }
+
+    fun getProgressMapFlow(goals: List<BaseRankGoal>): Flow<Map<BaseRankGoal, LadderGoalProgress?>> {
+        val flowMap = goals.associateWith { getGoalProgress(it) }
+        return combine(
+            flowMap.map { (goal, flow) ->
+                flow.map { goal to it }
+            }
+        ) { pairs -> pairs.toMap() }
     }
 }

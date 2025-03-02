@@ -10,10 +10,7 @@ import com.perrigogames.life4.model.LadderDataManager
 import com.perrigogames.life4.model.mapping.LadderGoalMapper
 import dev.icerock.moko.mvvm.flow.*
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -23,6 +20,7 @@ class RankListViewModel(
 ) : ViewModel(), KoinComponent {
 
     private val firstRunSettingsManager: FirstRunSettingsManager by inject()
+    private val ladderGoalProgressManager: LadderGoalProgressManager by inject()
     private val userInfoSettings: UserInfoSettings by inject()
     private val ladderDataManager: LadderDataManager by inject()
     private val ladderGoalMapper: LadderGoalMapper by inject()
@@ -49,7 +47,10 @@ class RankListViewModel(
             combine(
                 selectedRankClass,
                 selectedRankGoals,
-            ) { rankClass, goalEntry ->
+                selectedRankGoals.filterNotNull().flatMapLatest {
+                    ladderGoalProgressManager.getProgressMapFlow(it.allGoals)
+                }
+            ) { rankClass, goalEntry, progress ->
                 val rank = selectedRank.value // base for selectedRankGoals
                 UIRankList(
                     titleText = when {
@@ -82,7 +83,11 @@ class RankListViewModel(
                     ladderData = goalEntry?.allGoals?.let { goals ->
                         UILadderData(
                             items = goals.map { goal ->
-                                ladderGoalMapper.toViewData(goal, isMandatory = goalEntry.mandatoryGoalIds.contains(goal.id))
+                                ladderGoalMapper.toViewData(
+                                    base = goal,
+                                    isMandatory = goalEntry.mandatoryGoalIds.contains(goal.id),
+                                    progress = progress[goal]
+                                )
                             },
                             allowCompleting = false,
                             allowHiding = false
