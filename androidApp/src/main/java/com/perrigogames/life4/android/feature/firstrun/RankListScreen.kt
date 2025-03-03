@@ -90,7 +90,8 @@ fun RankListScreen(
                     data = ladderData,
                     modifier = Modifier.weight(1f),
                     onCompletedChanged = {},
-                    onHiddenChanged = {}
+                    onHiddenChanged = {},
+                    onExpandChanged = {}
                 )
             } else {
                 Spacer(modifier = Modifier.weight(1f))

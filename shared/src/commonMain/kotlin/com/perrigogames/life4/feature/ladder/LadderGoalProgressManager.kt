@@ -3,7 +3,7 @@ package com.perrigogames.life4.feature.ladder
 import co.touchlab.kermit.Logger
 import com.perrigogames.life4.data.*
 import com.perrigogames.life4.feature.ladder.converter.GoalProgressConverter
-import com.perrigogames.life4.feature.ladder.converter.MFCPointGoalProgressConverter
+import com.perrigogames.life4.feature.ladder.converter.MAPointGoalProgressConverter
 import com.perrigogames.life4.feature.ladder.converter.SongsClearGoalProgressConverter
 import com.perrigogames.life4.feature.ladder.converter.TrialGoalProgressConverter
 import com.perrigogames.life4.injectLogger
@@ -20,7 +20,7 @@ class LadderGoalProgressManager : BaseModel(), KoinComponent {
     private val logger: Logger by injectLogger("LadderGoalProgressManager")
 
     private val converters: Map<KClass<out BaseRankGoal>, GoalProgressConverter<out BaseRankGoal>> = mapOf(
-        MFCPointsStackedGoal::class to MFCPointGoalProgressConverter(),
+        MAPointsStackedGoal::class to MAPointGoalProgressConverter(),
         SongsClearGoal::class to SongsClearGoalProgressConverter(),
         TrialStackedGoal::class to TrialGoalProgressConverter(),
     )
@@ -33,7 +33,7 @@ class LadderGoalProgressManager : BaseModel(), KoinComponent {
             is StackedRankGoalWrapper -> when (goal.mainGoal) {
                 is TrialStackedGoal -> (converters[TrialStackedGoal::class] as TrialGoalProgressConverter)
                     .getGoalProgress(goal)
-                is MFCPointsStackedGoal -> (converters[MFCPointsStackedGoal::class] as MFCPointGoalProgressConverter)
+                is MAPointsStackedGoal -> (converters[MAPointsStackedGoal::class] as MAPointGoalProgressConverter)
                     .getGoalProgress(goal)
                 else -> flowOf(null)
             }

@@ -14,7 +14,6 @@ import com.perrigogames.life4.model.GoalStateManager
 import com.perrigogames.life4.model.LadderDataManager
 import com.perrigogames.life4.model.mapping.LadderGoalMapper
 import com.perrigogames.life4.util.ViewState
-import com.perrigogames.life4.util.ifNull
 import dev.icerock.moko.mvvm.flow.CStateFlow
 import dev.icerock.moko.mvvm.flow.cMutableStateFlow
 import dev.icerock.moko.mvvm.flow.cStateFlow
@@ -50,6 +49,8 @@ class GoalListViewModel(private val config: GoalListConfig) : ViewModel(), KoinC
     private val _state = MutableStateFlow<ViewState<UILadderData, String>>(ViewState.Loading).cMutableStateFlow()
     val state: CStateFlow<ViewState<UILadderData, String>> = _state.cStateFlow()
 
+    private val _expandedItems = MutableStateFlow<Set<Long>>(emptySet())
+
     init {
         viewModelScope.launch {
             combine(
@@ -59,18 +60,20 @@ class GoalListViewModel(private val config: GoalListConfig) : ViewModel(), KoinC
                     reqs?.let { ladderGoalProgressManager.getProgressMapFlow(it.allGoals) }
                         ?: flowOf(emptyMap())
                 },
-            ) { targetRank, requirements, progress ->
+                _expandedItems,
+                goalStateManager.updated,
+            ) { targetRank, requirements, progress, expanded, _ ->
                 when {
                     targetRank == null -> ViewState.Error("No higher goals found...")
                     requirements == null -> ViewState.Error("No goals found for ${targetRank.name}")
                     targetRank >= LadderRank.PLATINUM1 -> ViewState.Success(
                         UILadderData(
-                            goals = generateDifficultyCategories(requirements, progress)
+                            goals = generateDifficultyCategories(requirements, progress, expanded)
                         )
                     )
                     else -> ViewState.Success(
                         UILadderData(
-                            goals = generateCommonCategories(requirements, progress)
+                            goals = generateCommonCategories(requirements, progress, expanded)
                         )
                     )
                 }
@@ -81,6 +84,7 @@ class GoalListViewModel(private val config: GoalListConfig) : ViewModel(), KoinC
     private fun generateCommonCategories(
         requirements: RankEntry,
         progress: Map<BaseRankGoal, LadderGoalProgress?>,
+        expanded: Set<Long>,
     ) : UILadderGoals.CategorizedList {
         val goalStates = goalStateManager.getGoalStateList(requirements.goals)
         val finishedGoalCount = goalStates.count { it.status == GoalStatus.COMPLETE }
@@ -98,7 +102,8 @@ class GoalListViewModel(private val config: GoalListConfig) : ViewModel(), KoinC
                     ladderGoalMapper.toViewData(
                         base = it,
                         progress = progress[it],
-                        isMandatory = false
+                        isMandatory = false,
+                        isExpanded = expanded.contains(it.id.toLong()),
                     )
                 },
                 UILadderGoals.CategorizedList.Category(
@@ -107,7 +112,8 @@ class GoalListViewModel(private val config: GoalListConfig) : ViewModel(), KoinC
                     ladderGoalMapper.toViewData(
                         base = it,
                         progress = progress[it],
-                        isMandatory = true
+                        isMandatory = true,
+                        isExpanded = expanded.contains(it.id.toLong()),
                     )
                 }
             )
@@ -118,6 +124,7 @@ class GoalListViewModel(private val config: GoalListConfig) : ViewModel(), KoinC
     private fun generateDifficultyCategories(
         requirements: RankEntry,
         progress: Map<BaseRankGoal, LadderGoalProgress?>,
+        expanded: Set<Long>,
     ) : UILadderGoals.CategorizedList {
         val songsClearGoals = requirements.allGoals.filterIsInstance<SongsClearGoal>()
         val remainingGoals = requirements.allGoals.filterNot { it is SongsClearGoal }
@@ -141,8 +148,9 @@ class GoalListViewModel(private val config: GoalListConfig) : ViewModel(), KoinC
                 UILadderGoals.CategorizedList.Category(title) to goals.map {
                     ladderGoalMapper.toViewData(
                         base = it,
-                        isMandatory = requirements.mandatoryGoalIds.contains(it.id),
                         progress = progress[it],
+                        isMandatory = requirements.mandatoryGoalIds.contains(it.id),
+                        isExpanded = expanded.contains(it.id.toLong()),
                     )
                 }
             }
@@ -151,7 +159,6 @@ class GoalListViewModel(private val config: GoalListConfig) : ViewModel(), KoinC
 
     fun handleAction(action: RankListAction) = when(action) {
         is RankListAction.OnGoal -> {
-            val goal = requirementsStateFlow.value?.allGoals?.firstOrNull { it.id.toLong() == action.id }.ifNull { return }
             val state = goalStateManager.getOrCreateGoalState(action.id)
 
             when (action) {
@@ -164,7 +171,11 @@ class GoalListViewModel(private val config: GoalListConfig) : ViewModel(), KoinC
                     goalStateManager.setGoalState(action.id, newStatus)
                 }
                 is RankListAction.OnGoal.ToggleExpanded -> {
-
+                    if (_expandedItems.value.contains(action.id)) {
+                        _expandedItems.value -= action.id
+                    } else {
+                        _expandedItems.value += action.id
+                    }
                 }
                 is RankListAction.OnGoal.ToggleHidden -> {
                     val newStatus = if (state.status == GoalStatus.IGNORED) {

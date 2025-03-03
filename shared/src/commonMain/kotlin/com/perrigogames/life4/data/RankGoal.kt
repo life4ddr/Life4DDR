@@ -136,7 +136,7 @@ class TrialStackedGoal(
  */
 @Serializable
 @SerialName("mfc_points")
-class MFCPointsStackedGoal(
+class MAPointsStackedGoal(
     override val id: Int,
 ): StackedRankGoal() {
 

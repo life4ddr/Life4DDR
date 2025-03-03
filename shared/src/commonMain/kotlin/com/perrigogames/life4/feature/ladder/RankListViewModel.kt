@@ -86,7 +86,8 @@ class RankListViewModel(
                                 ladderGoalMapper.toViewData(
                                     base = goal,
                                     isMandatory = goalEntry.mandatoryGoalIds.contains(goal.id),
-                                    progress = progress[goal]
+                                    progress = progress[goal],
+                                    isExpanded = false
                                 )
                             },
                             allowCompleting = false,

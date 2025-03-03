@@ -54,6 +54,9 @@ fun PlayerProfileScreen(
                 onHiddenChanged = { id ->
                     profileViewModel.goalListViewModel.handleAction(RankListAction.OnGoal.ToggleHidden(id))
                 },
+                onExpandChanged = { id ->
+                    profileViewModel.goalListViewModel.handleAction(RankListAction.OnGoal.ToggleExpanded(id))
+                },
                 modifier = Modifier.fillMaxWidth()
                     .weight(1f)
             )

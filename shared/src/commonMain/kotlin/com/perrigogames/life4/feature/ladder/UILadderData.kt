@@ -97,27 +97,37 @@ data class UILadderProgress(
     constructor(
         count: Int,
         max: Int,
+        showMax: Boolean = true,
     ) : this(
         progressPercent = count.toFloat() / max.toFloat(),
-        progressText = "$count / $max" // FIXME hardcoded
+        progressText = if (showMax) {
+            "$count / $max"
+        } else {
+            "$count"
+        }
     )
 
     constructor(
         count: Double,
         max: Double,
+        showMax: Boolean = true,
     ) : this(
         progressPercent = (count / max).toFloat(),
-        progressText = "${count.toStringWithoutDecimal()} / ${max.toStringWithoutDecimal()}"
+        progressText = if (showMax) {
+            "${count.toStringWithoutDecimal()} / ${max.toStringWithoutDecimal()}"
+        } else {
+            max.toStringWithoutDecimal()
+        }
     )
 }
 
 data class UILadderDetailItem(
     val leftText: String,
     val leftColor: ColorResource? = null,
-    val leftWeight: Float = 0.75f,
+    val leftWeight: Float = 0.8f,
     val rightText: String? = null,
     val rightColor: ColorResource? = null,
-    val rightWeight: Float = 0.25f,
+    val rightWeight: Float = 0.2f,
 ) {
 
     constructor(

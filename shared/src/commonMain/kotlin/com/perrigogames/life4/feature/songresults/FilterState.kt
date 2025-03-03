@@ -48,16 +48,4 @@ data class ResultFilterState(
     val clearTypeRange: IntRange = DEFAULT_CLEAR_TYPE_RANGE,
     val scoreRange: IntRange = (0..GameConstants.MAX_SCORE),
     val filterIgnored: Boolean = false,
-) {
-
-    constructor(
-        clearTypeRange: IntRange = DEFAULT_CLEAR_TYPE_RANGE,
-        scoreRangeBottomValue: Int = 0,
-        scoreRangeTopValue: Int = GameConstants.MAX_SCORE,
-        filterIgnored: Boolean = false,
-    ) : this(
-        clearTypeRange = clearTypeRange,
-        scoreRange = scoreRangeBottomValue..scoreRangeTopValue,
-        filterIgnored = filterIgnored
-    )
-}
+)

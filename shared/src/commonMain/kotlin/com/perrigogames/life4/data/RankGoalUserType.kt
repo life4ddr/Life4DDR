@@ -45,7 +45,7 @@ fun BaseRankGoal.userType(rank: LadderRank): RankGoalUserType {
         is CaloriesStackedRankGoal -> RankGoalUserType.CALORIES
         is TrialStackedGoal -> RankGoalUserType.TRIALS
         is DifficultySetGoal -> RankGoalUserType.SET_CLEAR
-        is MFCPointsStackedGoal -> RankGoalUserType.MFC
+        is MAPointsStackedGoal -> RankGoalUserType.MFC
         is SongsClearGoal -> {
             if (this.userType != null) {
                 return this.userType

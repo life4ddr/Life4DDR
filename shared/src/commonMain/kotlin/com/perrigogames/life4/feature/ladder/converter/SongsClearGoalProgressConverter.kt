@@ -61,7 +61,6 @@ class SongsClearGoalProgressConverter : GoalProgressConverter<SongsClearGoal>, K
                         showMax = true,
                     )
                 }
-
             }
     }
 
@@ -94,7 +93,7 @@ class SongsClearGoalProgressConverter : GoalProgressConverter<SongsClearGoal>, K
             LadderGoalProgress(
                 progress = min(completed, goal.songCount!!),
                 max = goal.songCount,
-                showMax = false,
+                showMax = true,
                 results = match,
             )
         }
