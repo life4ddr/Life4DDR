@@ -53,7 +53,7 @@ object RankStrings {
     }
 
     /** Earn X MFC Points. */
-    fun getMFCPointString(count: Double): StringDesc = StringDesc.ResourceFormatted(MR.strings.rank_goal_mfc_points, count)
+    fun getMFCPointString(count: Double): StringDesc = StringDesc.ResourceFormatted(MR.strings.rank_goal_ma_points, count)
 
     // Song Set
     // any Mix or Letter folder / any 3 Mix or Letter folders

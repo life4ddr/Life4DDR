@@ -9,33 +9,20 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.Button
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.OutlinedTextFieldDefaults
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.input.key.onKeyEvent
 import androidx.compose.ui.layout.ContentScale
@@ -45,6 +32,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -55,17 +43,12 @@ import com.perrigogames.life4.android.compose.LIFE4Theme
 import com.perrigogames.life4.android.compose.primaryButtonColors
 import com.perrigogames.life4.android.view.compose.ErrorText
 import com.perrigogames.life4.data.SocialNetwork
-import com.perrigogames.life4.feature.firstrun.FirstRunError.RivalCodeError
-import com.perrigogames.life4.feature.firstrun.FirstRunError.UsernameError
+import com.perrigogames.life4.feature.firstrun.FirstRunError.*
 import com.perrigogames.life4.feature.firstrun.FirstRunInfoViewModel
 import com.perrigogames.life4.feature.firstrun.FirstRunPath
 import com.perrigogames.life4.feature.firstrun.FirstRunStep
 import com.perrigogames.life4.feature.firstrun.FirstRunStep.Landing
-import com.perrigogames.life4.feature.firstrun.FirstRunStep.PathStep.Completed
-import com.perrigogames.life4.feature.firstrun.FirstRunStep.PathStep.InitialRankSelection
-import com.perrigogames.life4.feature.firstrun.FirstRunStep.PathStep.RivalCode
-import com.perrigogames.life4.feature.firstrun.FirstRunStep.PathStep.SocialHandles
-import com.perrigogames.life4.feature.firstrun.FirstRunStep.PathStep.Username
+import com.perrigogames.life4.feature.firstrun.FirstRunStep.PathStep.*
 import com.perrigogames.life4.feature.firstrun.InitState
 import dev.icerock.moko.mvvm.createViewModelFactory
 import dev.icerock.moko.resources.compose.stringResource
@@ -115,6 +98,13 @@ fun FirstRunScreen(
                     }
                     is Username -> {
                         FirstRunUsername(
+                            viewModel = viewModel,
+                            step = step,
+                            modifier = contentModifier,
+                        )
+                    }
+                    is FirstRunStep.PathStep.UsernamePassword -> {
+                        FirstRunUsernamePassword(
                             viewModel = viewModel,
                             step = step,
                             modifier = contentModifier,
@@ -221,6 +211,86 @@ fun FirstRunNewUser(
                 modifier = Modifier.weight(1f, false)
             )
         }
+    }
+}
+
+@Composable
+fun FirstRunUsernamePassword(
+    modifier: Modifier = Modifier,
+    step: FirstRunStep.PathStep.UsernamePassword,
+    viewModel: FirstRunInfoViewModel = viewModel(
+        factory = createViewModelFactory { FirstRunInfoViewModel() }
+    ),
+) {
+    val username: String by viewModel.username.collectAsState()
+    val password: String by viewModel.password.collectAsState()
+    val usernameError: UsernameError? by viewModel.errorOfType<UsernameError>().collectAsState(null)
+    val passwordError: PasswordError? by viewModel.errorOfType<PasswordError>().collectAsState(null)
+    val focusManager = LocalFocusManager.current
+
+    Column(modifier = modifier) {
+        OutlinedTextField(
+            value = username,
+            colors = OutlinedTextFieldDefaults.colors(
+                unfocusedTextColor = MaterialTheme.colorScheme.onSurface,
+                focusedTextColor = MaterialTheme.colorScheme.onSurface,
+            ),
+            label = { Text(
+                text = stringResource(MR.strings.username),
+            ) },
+            singleLine = true,
+            keyboardOptions = KeyboardOptions(
+                imeAction = ImeAction.Next
+            ),
+            keyboardActions = KeyboardActions(
+                onNext = { focusManager.moveFocus(FocusDirection.Down) },
+                onDone = { focusManager.clearFocus() },
+            ),
+            supportingText = {
+                AnimatedVisibility(visible = usernameError != null) {
+                    ErrorText { usernameError?.errorText?.toString(LocalContext.current) }
+                }
+            },
+            onValueChange = { text: String -> viewModel.username.value = text },
+            modifier = Modifier.onKeyEvent {
+                return@onKeyEvent if (it.nativeKeyEvent.keyCode == KeyEvent.KEYCODE_ENTER) {
+                    focusManager.clearFocus()
+                    true
+                } else false
+            }
+                .fillMaxWidth()
+        )
+        OutlinedTextField(
+            value = password,
+            colors = OutlinedTextFieldDefaults.colors(
+                unfocusedTextColor = MaterialTheme.colorScheme.onSurface,
+                focusedTextColor = MaterialTheme.colorScheme.onSurface,
+            ),
+            label = { Text(
+                text = stringResource(MR.strings.password),
+            ) },
+            singleLine = true,
+            keyboardOptions = KeyboardOptions(
+                imeAction = ImeAction.Done
+            ),
+            visualTransformation = PasswordVisualTransformation(),
+            keyboardActions = KeyboardActions(
+                onDone = { focusManager.clearFocus() },
+            ),
+            supportingText = {
+                AnimatedVisibility(visible = passwordError != null) {
+                    ErrorText { passwordError?.errorText?.toString(LocalContext.current) }
+                }
+            },
+            onValueChange = { text: String -> viewModel.username.value = text },
+            modifier = Modifier.onKeyEvent {
+                return@onKeyEvent if (it.nativeKeyEvent.keyCode == KeyEvent.KEYCODE_ENTER) {
+                    focusManager.clearFocus()
+                    true
+                } else false
+            }
+                .fillMaxWidth()
+        )
     }
 }
 

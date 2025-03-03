@@ -20,7 +20,9 @@ class LadderGoalProgress(
         results: List<ChartResultPair>? = null,
     ) : this(progress.toDouble(), max.toDouble(), showMax, results)
 
-    fun isComplete() = progress == max && max > 0
+    val isComplete = progress == max && max > 0
+
+    val percent = progress / max
 
     override fun toString() = "$progress / $max (show=$showMax)${results?.count()?.let { ", $it" } ?: ""}"
 }

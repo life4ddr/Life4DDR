@@ -1,7 +1,6 @@
 package com.perrigogames.life4.feature.ladder
 
-import com.perrigogames.life4.enums.DifficultyClass
-import com.perrigogames.life4.enums.colorRes
+import com.perrigogames.life4.util.toStringWithoutDecimal
 import dev.icerock.moko.resources.ColorResource
 import dev.icerock.moko.resources.desc.StringDesc
 
@@ -96,28 +95,35 @@ data class UILadderProgress(
     constructor(
         count: Int,
         max: Int,
+        showMax: Boolean = true,
     ) : this(
         progressPercent = count.toFloat() / max.toFloat(),
-        progressText = "$count / $max" // FIXME hardcoded
+        progressText = if (showMax) {
+            "$count / $max"
+        } else {
+            "$count"
+        }
+    )
+
+    constructor(
+        count: Double,
+        max: Double,
+        showMax: Boolean = true,
+    ) : this(
+        progressPercent = (count / max).toFloat(),
+        progressText = if (showMax) {
+            "${count.toStringWithoutDecimal()} / ${max.toStringWithoutDecimal()}"
+        } else {
+            count.toStringWithoutDecimal()
+        }
     )
 }
 
 data class UILadderDetailItem(
     val leftText: String,
     val leftColor: ColorResource? = null,
-    val leftWeight: Float = 0.75f,
+    val leftWeight: Float = 0.8f,
     val rightText: String? = null,
     val rightColor: ColorResource? = null,
-    val rightWeight: Float = 0.25f,
-) {
-
-    constructor(
-        leftText: String,
-        difficultyClass: DifficultyClass? = null,
-        rightText: String? = null,
-    ) : this(
-        leftText = leftText,
-        leftColor = difficultyClass?.colorRes,
-        rightText = rightText,
-    )
-}
+    val rightWeight: Float = 0.2f,
+)

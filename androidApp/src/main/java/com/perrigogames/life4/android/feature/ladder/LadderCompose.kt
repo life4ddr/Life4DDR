@@ -7,7 +7,6 @@ import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -48,6 +47,7 @@ fun LadderGoalsScreen(
             data = data,
             onCompletedChanged = {},
             onHiddenChanged = {},
+            onExpandChanged = {},
             modifier = modifier,
         )
     }
@@ -58,7 +58,7 @@ fun LadderGoals(
     data: UILadderData,
     onCompletedChanged: (Long) -> Unit,
     onHiddenChanged: (Long) -> Unit,
-//    onExpandChanged: (Long) -> Unit,
+    onExpandChanged: (Long) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     when (val goals = data.goals) {
@@ -69,6 +69,7 @@ fun LadderGoals(
                 allowHiding = data.allowHiding,
                 onCompletedChanged = onCompletedChanged,
                 onHiddenChanged = onHiddenChanged,
+                onExpandChanged = onExpandChanged,
                 modifier = modifier,
             )
         }
@@ -79,6 +80,7 @@ fun LadderGoals(
                 allowHiding = data.allowHiding,
                 onCompletedChanged = onCompletedChanged,
                 onHiddenChanged = onHiddenChanged,
+                onExpandChanged = onExpandChanged,
                 modifier = modifier,
             )
         }
@@ -92,6 +94,7 @@ fun SingleGoalList(
     allowHiding: Boolean,
     onCompletedChanged: (Long) -> Unit,
     onHiddenChanged: (Long) -> Unit,
+    onExpandChanged: (Long) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(
@@ -108,6 +111,7 @@ fun SingleGoalList(
                 allowHiding = allowHiding,
                 onCompletedChanged = onCompletedChanged,
                 onHiddenChanged = onHiddenChanged,
+                onExpandChanged = onExpandChanged,
                 modifier = Modifier.fillParentMaxWidth(),
             )
         }
@@ -121,6 +125,7 @@ fun CategorizedList(
     allowHiding: Boolean,
     onCompletedChanged: (Long) -> Unit,
     onHiddenChanged: (Long) -> Unit,
+    onExpandChanged: (Long) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val context = LocalContext.current
@@ -153,10 +158,12 @@ fun CategorizedList(
                 is UILadderGoal -> {
                     LadderGoalItem(
                         goal = item,
+                        expanded = item.detailItems.isNotEmpty(),
                         allowCompleting = allowCompleting,
                         allowHiding = allowHiding,
                         onCompletedChanged = onCompletedChanged,
                         onHiddenChanged = onHiddenChanged,
+                        onExpandChanged = onExpandChanged,
                         modifier = Modifier.fillParentMaxWidth(),
                     )
                 }
@@ -173,9 +180,9 @@ fun LadderGoalItem(
     allowHiding: Boolean = true,
     onCompletedChanged: (Long) -> Unit,
     onHiddenChanged: (Long) -> Unit,
+    onExpandChanged: (Long) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    var isExpanded by remember { mutableStateOf(expanded) }
     val isHidden by remember { derivedStateOf { goal.hidden } }
 
     Surface(
@@ -194,10 +201,11 @@ fun LadderGoalItem(
                 allowHiding = allowHiding,
                 onCompletedChanged = onCompletedChanged,
                 onHiddenChanged = onHiddenChanged,
+                onExpandChanged = onExpandChanged,
             )
             if (goal.detailItems.isNotEmpty()) {
                 AnimatedVisibility(
-                    visible = isExpanded,
+                    visible = expanded,
                     enter = expandVertically(expandFrom = Alignment.Top),
                     exit = shrinkVertically(shrinkTowards = Alignment.Top),
                 ) {
@@ -216,8 +224,8 @@ fun LadderGoalItem(
             if (goal.progress != null) {
                 LinearProgressIndicator(
                     color = colorResource(MR.colors.colorAccent),
-                    trackColor = MaterialTheme.colorScheme.surface,
-                    progress = goal.progress!!.progressPercent,
+                    trackColor = MaterialTheme.colorScheme.surfaceDim.copy(alpha = 0.5f),
+                    progress = { goal.progress!!.progressPercent },
                     modifier = Modifier
                         .height(4.dp)
                         .fillMaxWidth(),
@@ -234,11 +242,13 @@ private fun LadderGoalHeaderRow(
     allowHiding: Boolean = true,
     onCompletedChanged: (Long) -> Unit,
     onHiddenChanged: (Long) -> Unit,
+    onExpandChanged: (Long) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        modifier = modifier,
+        modifier = modifier
+            .clickable { onExpandChanged(goal.id) },
     ) {
         Text(
             text = stringResource(goal.goalText),
@@ -282,12 +292,12 @@ private fun LadderGoalDetailShade(
     items: List<UILadderDetailItem>,
     modifier: Modifier = Modifier,
 ) {
-    LazyColumn(
+    Column(
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(4.dp)
     ) {
-        items(items) { item ->
-            Row(modifier = Modifier.fillParentMaxWidth()) {
+        items.forEach { item ->
+            Row(modifier = Modifier.fillMaxWidth()) {
                 Text(
                     text = item.leftText,
                     color = item.leftColor?.let { colorResource(it) } ?: MaterialTheme.colorScheme.onSurface,
@@ -298,6 +308,7 @@ private fun LadderGoalDetailShade(
                     Text(
                         text = item.rightText!!,
                         color = item.rightColor?.let { colorResource(it) } ?: MaterialTheme.colorScheme.onSurface,
+                        textAlign = TextAlign.End,
                         modifier = Modifier.weight(item.rightWeight)
                     )
                 }
@@ -388,6 +399,7 @@ private fun previewGoalItem(
         modifier = modifier,
         expanded = goal.detailItems.isNotEmpty(),
         onCompletedChanged = { Toast.makeText(context, "Completed changed: $it", Toast.LENGTH_SHORT).show() },
+        onExpandChanged = { Toast.makeText(context, "Expanded changed: $it", Toast.LENGTH_SHORT).show() },
         onHiddenChanged = { Toast.makeText(context, "Hidden changed: $it", Toast.LENGTH_SHORT).show() },
     )
 }

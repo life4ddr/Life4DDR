@@ -17,24 +17,23 @@ class FilterPanelViewModel : ViewModel() {
     fun handleAction(action: UIFilterAction) {
         when(action) {
             is UIFilterAction.SelectPlayStyle -> {
-                mutate { it.copy(selectedPlayStyle = action.playStyle) }
+                mutateChartFilter { it.copy(selectedPlayStyle = action.playStyle) }
             }
             is UIFilterAction.SetClearTypeRange -> {
-                mutate { it.copy(clearTypeRange = action.range) }
+                mutateResultFilter { it.copy(clearTypeRange = action.range) }
             }
             is UIFilterAction.SetDifficultyNumberRange -> {
-                mutate { it.copy(difficultyNumberRange = action.range) }
+                mutateChartFilter { it.copy(difficultyNumberRange = action.range) }
             }
             is UIFilterAction.SetScoreRange -> {
-                mutate {
-                    it.copy(
-                        scoreRangeBottomValue = action.first,
-                        scoreRangeTopValue = action.last
-                    )
+                mutateResultFilter {
+                    val first = action.first ?: it.scoreRange.first
+                    val last = action.last ?: it.scoreRange.last
+                    it.copy(scoreRange = (first .. last))
                 }
             }
             is UIFilterAction.ToggleDifficultyClass -> {
-                mutate {
+                mutateChartFilter {
                     val selection = it.difficultyClassSelection.toMutableSet()
                     if (action.selected) {
                         selection.add(action.difficultyClass)
@@ -52,5 +51,13 @@ class FilterPanelViewModel : ViewModel() {
             val newValue = block(_state.value)
             _state.emit(newValue)
         }
+    }
+
+    private fun mutateChartFilter(block: (ChartFilterState) -> ChartFilterState) {
+        mutate { it.copy(chartFilter = block(it.chartFilter)) }
+    }
+
+    private fun mutateResultFilter(block: (ResultFilterState) -> ResultFilterState) {
+        mutate { it.copy(resultFilter = block(it.resultFilter)) }
     }
 }
