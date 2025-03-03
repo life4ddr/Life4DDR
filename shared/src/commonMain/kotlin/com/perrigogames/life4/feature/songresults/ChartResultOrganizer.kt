@@ -1,6 +1,8 @@
 package com.perrigogames.life4.feature.songresults
 
 import co.touchlab.kermit.Logger
+import com.perrigogames.life4.data.BaseRankGoal
+import com.perrigogames.life4.data.MAPointsStackedGoal
 import com.perrigogames.life4.enums.ClearType
 import com.perrigogames.life4.enums.DifficultyClass
 import com.perrigogames.life4.enums.PlayStyle
@@ -61,7 +63,7 @@ class ChartResultOrganizer: BaseModel(), KoinComponent {
         }
     }
 
-    fun resultsForConfig(config: FilterState): Flow<ResultsBundle> {
+    fun resultsForConfig(base: BaseRankGoal?, config: FilterState): Flow<ResultsBundle> {
         return chartsForConfig(config.chartFilter)
             .map { ChartFilterer(it) }
             .map { filterer ->
@@ -69,8 +71,8 @@ class ChartResultOrganizer: BaseModel(), KoinComponent {
                 val results = filterer.filtered(config.resultFilter)
 //                val filterEnd = Clock.System.now()
                 results.copy(
-                    resultsDone = results.resultsDone.specialSorted(),
-                    resultsNotDone = results.resultsNotDone.specialSorted()
+                    resultsDone = results.resultsDone.specialSorted(base),
+                    resultsNotDone = results.resultsNotDone.specialSorted(base)
                 )
 //                ).also {
 //                    val sortEnd = Clock.System.now()
@@ -82,17 +84,25 @@ class ChartResultOrganizer: BaseModel(), KoinComponent {
             }
     }
 
-    private fun List<ChartResultPair>.specialSorted(): List<ChartResultPair> = sortedWith { a, b ->
-        // First, difficulty number, ascending
-        val diffCompare = a.chart.difficultyNumber - b.chart.difficultyNumber
-        if (diffCompare != 0) {
-            return@sortedWith diffCompare
-        }
+    private fun List<ChartResultPair>.specialSorted(base: BaseRankGoal?): List<ChartResultPair> = sortedWith { a, b ->
+        if (base is MAPointsStackedGoal) {
+            // First, MA points, descending
+            val maCompare = ((b.maPointsForDifficulty() - a.maPointsForDifficulty()) * 10000).toInt()
+            if (maCompare != 0) {
+                return@sortedWith maCompare
+            }
+        } else {
+            // First, difficulty number, ascending
+            val diffCompare = a.chart.difficultyNumber - b.chart.difficultyNumber
+            if (diffCompare != 0) {
+                return@sortedWith diffCompare
+            }
 
-        // Then, by score, descending
-        val scoreCompare = ((b.result?.score ?: 0) - (a.result?.score ?: 0)).toInt()
-        if (scoreCompare != 0) {
-            return@sortedWith scoreCompare
+            // Then, by score, descending
+            val scoreCompare = ((b.result?.score ?: 0) - (a.result?.score ?: 0)).toInt()
+            if (scoreCompare != 0) {
+                return@sortedWith scoreCompare
+            }
         }
 
         // Otherwise, by name, ascending

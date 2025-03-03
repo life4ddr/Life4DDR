@@ -1,7 +1,10 @@
 package com.perrigogames.life4.model.mapping
 
+import com.mohamedrejeb.ksoup.entities.KsoupEntities
 import com.perrigogames.life4.data.BaseRankGoal
 import com.perrigogames.life4.data.LadderGoalProgress
+import com.perrigogames.life4.data.MAPointsStackedGoal
+import com.perrigogames.life4.data.StackedRankGoalWrapper
 import com.perrigogames.life4.db.GoalState
 import com.perrigogames.life4.enums.GoalStatus
 import com.perrigogames.life4.feature.ladder.UILadderDetailItem
@@ -39,10 +42,15 @@ class LadderGoalMapper : KoinComponent {
         },
         detailItems = if (isExpanded && progress != null) {
             progress.results?.map { result ->
+                val rightText = if (base is StackedRankGoalWrapper && base.mainGoal is MAPointsStackedGoal) {
+                    "%.3f".format(result.maPointsForDifficulty())
+                } else {
+                    (result.result?.score ?: 0).toInt().longNumberString()
+                }
                 UILadderDetailItem(
-                    leftText = result.chart.song.title,
+                    leftText = KsoupEntities.decodeHtml(result.chart.song.title),
                     difficultyClass = result.chart.difficultyClass,
-                    rightText = (result.result?.score ?: 0).toInt().longNumberString()
+                    rightText = rightText
                 )
             } ?: emptyList()
         } else {

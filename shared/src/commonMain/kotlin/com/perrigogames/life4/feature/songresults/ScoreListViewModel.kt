@@ -42,7 +42,7 @@ class ScoreListViewModel: ViewModel(), KoinComponent {
         viewModelScope.launch {
             combine(
                 filterViewModel.dataState.flatMapLatest { config ->
-                    resultOrganizer.resultsForConfig(config)
+                    resultOrganizer.resultsForConfig(null, config)
                 },
                 filterViewModel.uiState,
                 bannerManager.getBannerFlow(BannerLocation.SCORES)
