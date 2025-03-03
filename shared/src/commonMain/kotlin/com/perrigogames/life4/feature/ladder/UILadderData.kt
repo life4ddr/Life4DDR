@@ -114,7 +114,7 @@ data class UILadderProgress(
         progressText = if (showMax) {
             "${count.toStringWithoutDecimal()} / ${max.toStringWithoutDecimal()}"
         } else {
-            max.toStringWithoutDecimal()
+            count.toStringWithoutDecimal()
         }
     )
 }
