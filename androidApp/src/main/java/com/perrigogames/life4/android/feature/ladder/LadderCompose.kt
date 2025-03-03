@@ -224,8 +224,8 @@ fun LadderGoalItem(
             if (goal.progress != null) {
                 LinearProgressIndicator(
                     color = colorResource(MR.colors.colorAccent),
-                    trackColor = MaterialTheme.colorScheme.surface,
-                    progress = goal.progress!!.progressPercent,
+                    trackColor = MaterialTheme.colorScheme.surfaceDim.copy(alpha = 0.5f),
+                    progress = { goal.progress!!.progressPercent },
                     modifier = Modifier
                         .height(4.dp)
                         .fillMaxWidth(),

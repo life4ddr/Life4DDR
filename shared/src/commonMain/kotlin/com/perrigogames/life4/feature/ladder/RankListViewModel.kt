@@ -47,8 +47,12 @@ class RankListViewModel(
             combine(
                 selectedRankClass,
                 selectedRankGoals,
-                selectedRankGoals.filterNotNull().flatMapLatest {
-                    ladderGoalProgressManager.getProgressMapFlow(it.allGoals)
+                selectedRankGoals.flatMapLatest { goals ->
+                    if (goals != null) {
+                        ladderGoalProgressManager.getProgressMapFlow(goals.allGoals)
+                    } else {
+                        flowOf(emptyMap())
+                    }
                 }
             ) { rankClass, goalEntry, progress ->
                 val rank = selectedRank.value // base for selectedRankGoals
