@@ -1,7 +1,5 @@
 package com.perrigogames.life4.feature.ladder
 
-import com.perrigogames.life4.enums.DifficultyClass
-import com.perrigogames.life4.enums.colorRes
 import com.perrigogames.life4.util.toStringWithoutDecimal
 import dev.icerock.moko.resources.ColorResource
 import dev.icerock.moko.resources.desc.StringDesc
@@ -128,15 +126,4 @@ data class UILadderDetailItem(
     val rightText: String? = null,
     val rightColor: ColorResource? = null,
     val rightWeight: Float = 0.2f,
-) {
-
-    constructor(
-        leftText: String,
-        difficultyClass: DifficultyClass? = null,
-        rightText: String? = null,
-    ) : this(
-        leftText = leftText,
-        leftColor = difficultyClass?.colorRes,
-        rightText = rightText,
-    )
-}
+)

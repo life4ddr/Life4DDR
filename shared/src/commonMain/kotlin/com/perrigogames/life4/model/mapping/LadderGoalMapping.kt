@@ -7,6 +7,7 @@ import com.perrigogames.life4.data.MAPointsStackedGoal
 import com.perrigogames.life4.data.StackedRankGoalWrapper
 import com.perrigogames.life4.db.GoalState
 import com.perrigogames.life4.enums.GoalStatus
+import com.perrigogames.life4.enums.colorRes
 import com.perrigogames.life4.feature.ladder.UILadderDetailItem
 import com.perrigogames.life4.feature.ladder.UILadderGoal
 import com.perrigogames.life4.feature.ladder.UILadderProgress
@@ -42,16 +43,28 @@ class LadderGoalMapper : KoinComponent {
         },
         detailItems = if (isExpanded && progress != null) {
             progress.results?.map { result ->
-                val rightText = if (base is StackedRankGoalWrapper && base.mainGoal is MAPointsStackedGoal) {
-                    "%.3f".format(result.maPointsForDifficulty())
+                val isMFC = base is StackedRankGoalWrapper && base.mainGoal is MAPointsStackedGoal
+                val rightText = if (isMFC) {
+                    "L%d > %.3f".format(result.chart.difficultyNumber, result.maPointsForDifficulty())
                 } else {
                     (result.result?.score ?: 0).toInt().longNumberString()
                 }
-                UILadderDetailItem(
-                    leftText = KsoupEntities.decodeHtml(result.chart.song.title),
-                    difficultyClass = result.chart.difficultyClass,
-                    rightText = rightText
-                )
+                if (isMFC) {
+                    UILadderDetailItem(
+                        leftText = KsoupEntities.decodeHtml(result.chart.song.title),
+                        leftColor = result.chart.difficultyClass.colorRes,
+                        leftWeight = 0.75f,
+                        rightText = rightText,
+                        rightColor = result.result!!.clearType.colorRes,
+                        rightWeight = 0.25f
+                    )
+                } else {
+                    UILadderDetailItem(
+                        leftText = KsoupEntities.decodeHtml(result.chart.song.title),
+                        leftColor = result.chart.difficultyClass.colorRes,
+                        rightText = rightText,
+                    )
+                }
             } ?: emptyList()
         } else {
             emptyList()

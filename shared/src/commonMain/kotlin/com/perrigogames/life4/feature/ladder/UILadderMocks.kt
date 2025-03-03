@@ -1,8 +1,8 @@
 package com.perrigogames.life4.feature.ladder
 
 import com.perrigogames.life4.enums.DifficultyClass
+import com.perrigogames.life4.enums.colorRes
 import com.perrigogames.life4.longNumberString
-import dev.icerock.moko.resources.ColorResource
 import dev.icerock.moko.resources.desc.Raw
 import dev.icerock.moko.resources.desc.StringDesc
 import kotlin.random.Random
@@ -27,25 +27,13 @@ object UILadderMocks {
         detailItems = detailItems,
     )
 
-    fun createUILadderDetailItem(
-        leftText: String = "A Song Name or Something",
-        leftColor: ColorResource? = null,
-        rightText: String? = null,
-        rightColor: ColorResource? = null,
-    ) = UILadderDetailItem(
-        leftText = leftText,
-        leftColor = leftColor,
-        rightText = rightText,
-        rightColor = rightColor,
-    )
-
     fun createSongDetailItem(
         songName: String,
         difficultyClass: DifficultyClass? = null,
         score: Int = 1_000_000 - Random.nextInt(100, 50000)
     ) = UILadderDetailItem(
         leftText = songName,
-        difficultyClass = difficultyClass,
+        leftColor = difficultyClass?.colorRes,
         rightText = score.longNumberString()
     )
 }
