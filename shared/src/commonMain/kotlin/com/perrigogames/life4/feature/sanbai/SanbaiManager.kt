@@ -37,12 +37,12 @@ class SanbaiManager : BaseModel(), ISanbaiManager {
 
     override fun refreshSongData(force: Boolean) {
         ktorScope.launch {
-            val data = sanbaiAPI.getSongData()
-            if (force || data.lastUpdated > sanbaiAPISettings.songDataUpdated) {
-                sanbaiAPISettings.songDataUpdated = data.lastUpdated
-                songDataManager.parseSanbaiSongData(data.songs)
+//            val data = sanbaiAPI.getSongData()
+//            if (force || data.lastUpdated > sanbaiAPISettings.songDataUpdated) {
+//                sanbaiAPISettings.songDataUpdated = data.lastUpdated
+//                songDataManager.parseSanbaiSongData(data.songs)
                 // FIXME actually cache the data to disk
-            }
+//            }
         }
     }
 
