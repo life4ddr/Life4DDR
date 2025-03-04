@@ -102,7 +102,8 @@ class GoalListViewModel(private val config: GoalListConfig) : ViewModel(), KoinC
                     ladderGoalMapper.toViewData(
                         base = it,
                         progress = progress[it],
-                        isMandatory = false,
+                        allowHiding = config.allowHiding,
+                        allowCompleting = config.allowCompleting,
                         isExpanded = expanded.contains(it.id.toLong()),
                     )
                 },
@@ -112,7 +113,8 @@ class GoalListViewModel(private val config: GoalListConfig) : ViewModel(), KoinC
                     ladderGoalMapper.toViewData(
                         base = it,
                         progress = progress[it],
-                        isMandatory = true,
+                        allowHiding = false,
+                        allowCompleting = config.allowCompleting,
                         isExpanded = expanded.contains(it.id.toLong()),
                     )
                 }
@@ -149,7 +151,8 @@ class GoalListViewModel(private val config: GoalListConfig) : ViewModel(), KoinC
                     ladderGoalMapper.toViewData(
                         base = it,
                         progress = progress[it],
-                        isMandatory = requirements.mandatoryGoalIds.contains(it.id),
+                        allowHiding = !requirements.mandatoryGoalIds.contains(it.id),
+                        allowCompleting = config.allowCompleting,
                         isExpanded = expanded.contains(it.id.toLong()),
                     )
                 }
@@ -157,12 +160,12 @@ class GoalListViewModel(private val config: GoalListConfig) : ViewModel(), KoinC
         )
     }
 
-    fun handleAction(action: RankListAction) = when(action) {
-        is RankListAction.OnGoal -> {
+    fun handleAction(action: RankListInput) = when(action) {
+        is RankListInput.OnGoal -> {
             val state = goalStateManager.getOrCreateGoalState(action.id)
 
             when (action) {
-                is RankListAction.OnGoal.ToggleComplete -> {
+                is RankListInput.OnGoal.ToggleComplete -> {
                     val newStatus = if (state.status == GoalStatus.COMPLETE) {
                         GoalStatus.INCOMPLETE
                     } else {
@@ -170,14 +173,14 @@ class GoalListViewModel(private val config: GoalListConfig) : ViewModel(), KoinC
                     }
                     goalStateManager.setGoalState(action.id, newStatus)
                 }
-                is RankListAction.OnGoal.ToggleExpanded -> {
+                is RankListInput.OnGoal.ToggleExpanded -> {
                     if (_expandedItems.value.contains(action.id)) {
                         _expandedItems.value -= action.id
                     } else {
                         _expandedItems.value += action.id
                     }
                 }
-                is RankListAction.OnGoal.ToggleHidden -> {
+                is RankListInput.OnGoal.ToggleHidden -> {
                     val newStatus = if (state.status == GoalStatus.IGNORED) {
                         GoalStatus.INCOMPLETE
                     } else {
@@ -187,21 +190,28 @@ class GoalListViewModel(private val config: GoalListConfig) : ViewModel(), KoinC
                 }
             }
         }
+        RankListInput.ShowSubstitutions -> {
+
+        }
     }
 }
 
 data class GoalListConfig(
-    val targetRank: LadderRank? = null
+    val targetRank: LadderRank? = null,
+    val allowCompleting: Boolean = true,
+    val allowHiding: Boolean = true,
 )
 
-sealed class RankListAction {
-    sealed class OnGoal : RankListAction() {
+sealed class RankListInput {
+    sealed class OnGoal : RankListInput() {
         abstract val id: Long
 
         data class ToggleComplete(override val id: Long) : OnGoal()
         data class ToggleHidden(override val id: Long) : OnGoal()
         data class ToggleExpanded(override val id: Long) : OnGoal()
     }
+
+    data object ShowSubstitutions : RankListInput()
 }
 
 // Taken from old LadderGoalsViewModel

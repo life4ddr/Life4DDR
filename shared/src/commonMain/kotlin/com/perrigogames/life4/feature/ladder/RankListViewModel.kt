@@ -7,7 +7,7 @@ import com.perrigogames.life4.feature.firstrun.FirstRunSettingsManager
 import com.perrigogames.life4.feature.firstrun.InitState
 import com.perrigogames.life4.feature.settings.UserInfoSettings
 import com.perrigogames.life4.model.LadderDataManager
-import com.perrigogames.life4.model.mapping.LadderGoalMapper
+import com.perrigogames.life4.util.ViewState
 import dev.icerock.moko.mvvm.flow.*
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
 import kotlinx.coroutines.flow.*
@@ -20,10 +20,8 @@ class RankListViewModel(
 ) : ViewModel(), KoinComponent {
 
     private val firstRunSettingsManager: FirstRunSettingsManager by inject()
-    private val ladderGoalProgressManager: LadderGoalProgressManager by inject()
     private val userInfoSettings: UserInfoSettings by inject()
     private val ladderDataManager: LadderDataManager by inject()
-    private val ladderGoalMapper: LadderGoalMapper by inject()
 
     private val selectedRankClass = MutableStateFlow<LadderRankClass?>(null)
     private val selectedRank = MutableStateFlow<LadderRank?>(null)
@@ -31,6 +29,21 @@ class RankListViewModel(
         .flatMapLatest { ladderDataManager.requirementsForRank(it) }
     private var startingRank: LadderRank? = null
     private var rankClassChanged: Boolean = !isFirstRun
+
+    private val goalListViewModel = selectedRank.map { rank ->
+        if (rank != null) {
+            GoalListViewModel(
+                GoalListConfig(
+                    targetRank = rank,
+                    allowCompleting = true,
+                    allowHiding = false,
+                )
+            )
+        } else {
+            null
+        }
+    }
+        .stateIn(viewModelScope, SharingStarted.Eagerly, null)
 
     private val _state = MutableStateFlow(UIRankList()).cMutableStateFlow()
     val state: CStateFlow<UIRankList> = _state.cStateFlow()
@@ -47,15 +60,10 @@ class RankListViewModel(
             combine(
                 selectedRankClass,
                 selectedRankGoals,
-                selectedRankGoals.flatMapLatest { goals ->
-                    if (goals != null) {
-                        ladderGoalProgressManager.getProgressMapFlow(goals.allGoals)
-                    } else {
-                        flowOf(emptyMap())
-                    }
-                }
-            ) { rankClass, goalEntry, progress ->
+                goalListViewModel.flatMapLatest { it?.state ?: flowOf(null) }
+            ) { rankClass, goalEntry, goalList ->
                 val rank = selectedRank.value // base for selectedRankGoals
+                val ladderData = (goalList as? ViewState.Success<UILadderData>)?.data
                 UIRankList(
                     titleText = when {
                         isFirstRun -> MR.strings.select_a_starting_rank
@@ -84,20 +92,7 @@ class RankListViewModel(
                         rank != null -> UIFooterData.changeSubmit(rank)
                         else -> null
                     },
-                    ladderData = goalEntry?.allGoals?.let { goals ->
-                        UILadderData(
-                            items = goals.map { goal ->
-                                ladderGoalMapper.toViewData(
-                                    base = goal,
-                                    isMandatory = goalEntry.mandatoryGoalIds.contains(goal.id),
-                                    progress = progress[goal],
-                                    isExpanded = false
-                                )
-                            },
-                            allowCompleting = false,
-                            allowHiding = false
-                        )
-                    }
+                    ladderData = ladderData
                 )
             }.collect(_state)
         }
@@ -127,6 +122,9 @@ class RankListViewModel(
                 userInfoSettings.setRank(null)
                 _actions.emit(Action.NavigateToMainScreen)
             }
+            is Input.GoalList -> {
+                goalListViewModel.value!!.handleAction(input.input)
+            }
         }
     }
 
@@ -145,6 +143,7 @@ class RankListViewModel(
         data class RankSelected(val rank: LadderRank) : Input()
         data object MoveToPlacements : Input()
         data object RankRejected : Input()
+        data class GoalList(val input: RankListInput) : Input()
     }
 
     sealed class Action {

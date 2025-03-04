@@ -16,7 +16,6 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
-import kotlin.math.min
 import kotlin.math.roundToLong
 
 class SongsClearGoalProgressConverter : GoalProgressConverter<SongsClearGoal>, KoinComponent {
@@ -83,16 +82,15 @@ class SongsClearGoalProgressConverter : GoalProgressConverter<SongsClearGoal>, K
         }
 
         return if (goal.songCount == 1) {
-            val currentScore = min(topValidScore, goal.score!!.toLong())
             LadderGoalProgress(
-                progress = currentScore.toInt(),
-                max = goal.score,
+                progress = topValidScore.toInt(),
+                max = goal.score!!,
                 showMax = false,
             )
         } else {
             LadderGoalProgress(
-                progress = min(completed, goal.songCount!!),
-                max = goal.songCount,
+                progress = completed,
+                max = goal.songCount!!,
                 showMax = true,
                 results = match,
             )
@@ -119,8 +117,8 @@ class SongsClearGoalProgressConverter : GoalProgressConverter<SongsClearGoal>, K
         }
 
         return LadderGoalProgress(
-            progress = min(completed, goal.songCount!!),
-            max = goal.songCount,
+            progress = completed,
+            max = goal.songCount!!,
             showMax = true,
             results = match,
         )
@@ -146,8 +144,8 @@ class SongsClearGoalProgressConverter : GoalProgressConverter<SongsClearGoal>, K
     ): LadderGoalProgress {
         val averageScore = (match + noMatch).averageScore()
         return LadderGoalProgress(
-            progress = min(averageScore.toInt(), goal.averageScore!!),
-            max = goal.averageScore,
+            progress = averageScore.toInt(),
+            max = goal.averageScore!!,
             showMax = false,
             results = noMatch,
         )

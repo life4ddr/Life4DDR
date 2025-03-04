@@ -89,9 +89,7 @@ fun RankListScreen(
                 LadderGoals(
                     data = ladderData,
                     modifier = Modifier.weight(1f),
-                    onCompletedChanged = {},
-                    onHiddenChanged = {},
-                    onExpandChanged = {}
+                    onInput = { onInput(RankListViewModel.Input.GoalList(it)) },
                 )
             } else {
                 Spacer(modifier = Modifier.weight(1f))

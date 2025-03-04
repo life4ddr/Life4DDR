@@ -18,7 +18,6 @@ import com.perrigogames.life4.android.feature.banners.BannerContainer
 import com.perrigogames.life4.android.feature.ladder.LadderGoals
 import com.perrigogames.life4.android.util.SizedSpacer
 import com.perrigogames.life4.android.view.compose.RankImage
-import com.perrigogames.life4.feature.ladder.RankListAction
 import com.perrigogames.life4.feature.profile.PlayerInfoViewState
 import com.perrigogames.life4.feature.profile.PlayerProfileAction
 import com.perrigogames.life4.feature.profile.PlayerProfileViewModel
@@ -48,15 +47,7 @@ fun PlayerProfileScreen(
         if (goalData != null) {
             LadderGoals(
                 data = goalData!!,
-                onCompletedChanged = { id ->
-                    profileViewModel.goalListViewModel.handleAction(RankListAction.OnGoal.ToggleComplete(id))
-                },
-                onHiddenChanged = { id ->
-                    profileViewModel.goalListViewModel.handleAction(RankListAction.OnGoal.ToggleHidden(id))
-                },
-                onExpandChanged = { id ->
-                    profileViewModel.goalListViewModel.handleAction(RankListAction.OnGoal.ToggleExpanded(id))
-                },
+                onInput = { profileViewModel.goalListViewModel.handleAction(it) },
                 modifier = Modifier.fillMaxWidth()
                     .weight(1f)
             )

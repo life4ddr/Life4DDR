@@ -45,9 +45,7 @@ fun LadderGoalsScreen(
     (state as? ViewState.Success)?.data?.let { data ->
         LadderGoals(
             data = data,
-            onCompletedChanged = {},
-            onHiddenChanged = {},
-            onExpandChanged = {},
+            onInput = {},
             modifier = modifier,
         )
     }
@@ -56,31 +54,21 @@ fun LadderGoalsScreen(
 @Composable
 fun LadderGoals(
     data: UILadderData,
-    onCompletedChanged: (Long) -> Unit,
-    onHiddenChanged: (Long) -> Unit,
-    onExpandChanged: (Long) -> Unit,
+    onInput: (RankListInput) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     when (val goals = data.goals) {
         is UILadderGoals.SingleList -> {
             SingleGoalList(
                 goals = goals,
-                allowCompleting = data.allowCompleting,
-                allowHiding = data.allowHiding,
-                onCompletedChanged = onCompletedChanged,
-                onHiddenChanged = onHiddenChanged,
-                onExpandChanged = onExpandChanged,
+                onInput = onInput,
                 modifier = modifier,
             )
         }
         is UILadderGoals.CategorizedList -> {
             CategorizedList(
                 goals = goals,
-                allowCompleting = data.allowCompleting,
-                allowHiding = data.allowHiding,
-                onCompletedChanged = onCompletedChanged,
-                onHiddenChanged = onHiddenChanged,
-                onExpandChanged = onExpandChanged,
+                onInput = onInput,
                 modifier = modifier,
             )
         }
@@ -90,11 +78,7 @@ fun LadderGoals(
 @Composable
 fun SingleGoalList(
     goals: UILadderGoals.SingleList,
-    allowCompleting: Boolean,
-    allowHiding: Boolean,
-    onCompletedChanged: (Long) -> Unit,
-    onHiddenChanged: (Long) -> Unit,
-    onExpandChanged: (Long) -> Unit,
+    onInput: (RankListInput) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(
@@ -107,11 +91,7 @@ fun SingleGoalList(
             }
             LadderGoalItem(
                 goal = goal,
-                allowCompleting = allowCompleting,
-                allowHiding = allowHiding,
-                onCompletedChanged = onCompletedChanged,
-                onHiddenChanged = onHiddenChanged,
-                onExpandChanged = onExpandChanged,
+                onInput = onInput,
                 modifier = Modifier.fillParentMaxWidth(),
             )
         }
@@ -121,11 +101,7 @@ fun SingleGoalList(
 @Composable
 fun CategorizedList(
     goals: UILadderGoals.CategorizedList,
-    allowCompleting: Boolean,
-    allowHiding: Boolean,
-    onCompletedChanged: (Long) -> Unit,
-    onHiddenChanged: (Long) -> Unit,
-    onExpandChanged: (Long) -> Unit,
+    onInput: (RankListInput) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val context = LocalContext.current
@@ -159,11 +135,7 @@ fun CategorizedList(
                     LadderGoalItem(
                         goal = item,
                         expanded = item.detailItems.isNotEmpty(),
-                        allowCompleting = allowCompleting,
-                        allowHiding = allowHiding,
-                        onCompletedChanged = onCompletedChanged,
-                        onHiddenChanged = onHiddenChanged,
-                        onExpandChanged = onExpandChanged,
+                        onInput = onInput,
                         modifier = Modifier.fillParentMaxWidth(),
                     )
                 }
@@ -176,11 +148,7 @@ fun CategorizedList(
 fun LadderGoalItem(
     goal: UILadderGoal,
     expanded: Boolean = false,
-    allowCompleting: Boolean = true,
-    allowHiding: Boolean = true,
-    onCompletedChanged: (Long) -> Unit,
-    onHiddenChanged: (Long) -> Unit,
-    onExpandChanged: (Long) -> Unit,
+    onInput: (RankListInput) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val isHidden by remember { derivedStateOf { goal.hidden } }
@@ -197,11 +165,7 @@ fun LadderGoalItem(
         ) {
             LadderGoalHeaderRow(
                 goal = goal,
-                allowCompleting = allowCompleting,
-                allowHiding = allowHiding,
-                onCompletedChanged = onCompletedChanged,
-                onHiddenChanged = onHiddenChanged,
-                onExpandChanged = onExpandChanged,
+                onInput = onInput,
             )
             if (goal.detailItems.isNotEmpty()) {
                 AnimatedVisibility(
@@ -238,17 +202,16 @@ fun LadderGoalItem(
 @Composable
 private fun LadderGoalHeaderRow(
     goal: UILadderGoal,
-    allowCompleting: Boolean = true,
-    allowHiding: Boolean = true,
-    onCompletedChanged: (Long) -> Unit,
-    onHiddenChanged: (Long) -> Unit,
-    onExpandChanged: (Long) -> Unit,
+    onInput: (RankListInput) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
-            .clickable { onExpandChanged(goal.id) },
+            .let { mod ->
+                goal.expandAction?.let { mod.clickable { onInput(it) } }
+                    ?: mod
+            },
     ) {
         Text(
             text = stringResource(goal.goalText),
@@ -267,19 +230,20 @@ private fun LadderGoalHeaderRow(
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
         }
-        if (allowCompleting) { // FIXME these should be fixed so they have a state when we show these too
+        if (goal.showCheckbox) { // FIXME these should be fixed so they have a state when we show these too
             Checkbox(
                 checked = goal.completed,
-                onCheckedChange = { onCompletedChanged(goal.id) },
+                enabled = goal.completeAction != null,
+                onCheckedChange = { goal.completeAction?.let(onInput) },
             )
         }
-        if (allowHiding && goal.canHide) { // FIXME these should be fixed so they have a state when we show these too
+        goal.hideAction?.let { action -> // FIXME these should be fixed so they have a state when we show these too
             Icon(
                 painter = painterResource(R.drawable.ic_eye),
                 tint = MaterialTheme.colorScheme.onSurface,
                 contentDescription = if (goal.hidden) "Hidden" else "Visible",
                 modifier = Modifier
-                    .clickable { onHiddenChanged(goal.id) }
+                    .clickable { onInput(action) }
                     .safeContentPadding()
                     .padding(end = HORIZONTAL_PADDING)
             )
@@ -398,9 +362,15 @@ private fun previewGoalItem(
         goal = goal,
         modifier = modifier,
         expanded = goal.detailItems.isNotEmpty(),
-        onCompletedChanged = { Toast.makeText(context, "Completed changed: $it", Toast.LENGTH_SHORT).show() },
-        onExpandChanged = { Toast.makeText(context, "Expanded changed: $it", Toast.LENGTH_SHORT).show() },
-        onHiddenChanged = { Toast.makeText(context, "Hidden changed: $it", Toast.LENGTH_SHORT).show() },
+        onInput = {
+            val text = when(it) {
+                is RankListInput.OnGoal.ToggleComplete -> "Completed changed: $it"
+                is RankListInput.OnGoal.ToggleExpanded -> "Expanded changed: $it"
+                is RankListInput.OnGoal.ToggleHidden -> "Hidden changed: $it"
+                RankListInput.ShowSubstitutions -> "Show substitutions"
+            }
+            Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
+        },
     )
 }
 

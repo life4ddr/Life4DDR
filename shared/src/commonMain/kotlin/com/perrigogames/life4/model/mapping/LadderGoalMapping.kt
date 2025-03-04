@@ -8,6 +8,7 @@ import com.perrigogames.life4.data.StackedRankGoalWrapper
 import com.perrigogames.life4.db.GoalState
 import com.perrigogames.life4.enums.GoalStatus
 import com.perrigogames.life4.enums.colorRes
+import com.perrigogames.life4.feature.ladder.RankListInput
 import com.perrigogames.life4.feature.ladder.UILadderDetailItem
 import com.perrigogames.life4.feature.ladder.UILadderGoal
 import com.perrigogames.life4.feature.ladder.UILadderProgress
@@ -24,15 +25,17 @@ class LadderGoalMapper : KoinComponent {
         base: BaseRankGoal,
         goalState: GoalState = goalStateManager.getOrCreateGoalState(base),
         progress: LadderGoalProgress?,
-        isMandatory: Boolean,
         isExpanded: Boolean,
+        allowCompleting: Boolean,
+        allowHiding: Boolean,
     ) = UILadderGoal(
         id = base.id.toLong(),
         goalText = base.goalString(),
-        completed = goalState.status == GoalStatus.COMPLETE,
+        completed = goalState.status == GoalStatus.COMPLETE || progress?.isComplete == true,
+        canComplete = allowCompleting && progress == null, // if we can't illustrate progress, it has to be user-driven
         hidden = goalState.status == GoalStatus.IGNORED,
-        canHide = !isMandatory,
-        isMandatory = isMandatory,
+        canHide = allowHiding,
+        showCheckbox = true,
         progress = progress?.let {
             if (it.max == 0.0) return@let null
             UILadderProgress(
@@ -40,6 +43,11 @@ class LadderGoalMapper : KoinComponent {
                 max = it.max,
                 showMax = it.showMax
             )
+        },
+        expandAction = if (progress?.results?.isNotEmpty() == true) {
+            RankListInput.OnGoal.ToggleExpanded(base.id.toLong())
+        } else {
+            null
         },
         detailItems = if (isExpanded && progress != null) {
             progress.results?.map { result ->
