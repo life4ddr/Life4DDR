@@ -14,7 +14,6 @@ import io.ktor.client.plugins.logging.*
 import io.ktor.client.request.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.datetime.Clock
-import kotlinx.datetime.Instant
 import kotlin.time.Duration.Companion.seconds
 
 fun sanbaiHttpClient(
@@ -60,7 +59,7 @@ fun sanbaiHttpClient(
                     )
                 }
                 val response = tokenResponse.body<SanbaiAuthTokenResponse>()
-                sanbaiSettings.setProperties(response)
+                sanbaiSettings.setUserProperties(response)
                 BearerTokens(
                     accessToken = response.accessToken,
                     refreshToken = response.refreshToken
@@ -70,9 +69,9 @@ fun sanbaiHttpClient(
     }
 }
 
-fun ISanbaiAPISettings.setProperties(
+fun ISanbaiAPISettings.setUserProperties(
     response: SanbaiAuthTokenResponse
-) = setProperties(
+) = setUserProperties(
     bearerToken = response.accessToken,
     refreshToken = response.refreshToken,
     refreshExpires = Clock.System.now().plus(response.expiresIn.seconds),

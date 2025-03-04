@@ -85,6 +85,7 @@ enum class SettingsPage(val nameDesc: StringDesc) {
     ROOT(StringDesc.Resource(MR.strings.action_settings)),
     EDIT_USER_INFO(StringDesc.Resource(MR.strings.edit_user_info)),
     TRIAL_SETTINGS(StringDesc.Resource(MR.strings.trial_settings)),
+    SANBAI_SETTINGS(StringDesc.Resource(MR.strings.sanbai_settings)),
     CLEAR_DATA(StringDesc.Resource(MR.strings.clear_data)),
     DEBUG(StringDesc.Raw("Debug"))
 }

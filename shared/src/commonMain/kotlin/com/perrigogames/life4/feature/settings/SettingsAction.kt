@@ -8,6 +8,10 @@ sealed class SettingsAction {
     data class WebLink(val url: String): SettingsAction()
     data class Navigate(val page: SettingsPage): SettingsAction()
     data object NavigateBack: SettingsAction()
+    sealed class Sanbai: SettingsAction() {
+        data object RefreshLibrary: Sanbai()
+        data object RefreshUserScores: Sanbai()
+    }
     data class Email(val email: String): SettingsAction()
     data class SetBoolean(val id: String, val newValue: Boolean): SettingsAction()
     data class Modal(val modal: SettingsPageModal): SettingsAction()
