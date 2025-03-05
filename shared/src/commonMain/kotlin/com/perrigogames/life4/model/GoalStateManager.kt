@@ -36,8 +36,8 @@ class GoalStateManager: BaseModel() {
         goalDBHelper.statesForIdList(goals.map { it.id.toLong() }).executeAsList()
 
     fun setGoalState(id: Long, status: GoalStatus) {
-        goalDBHelper.insertGoalState(id, status)
         mainScope.launch {
+            goalDBHelper.insertGoalState(id, status)
             _updated.emit(Unit)
         }
     }

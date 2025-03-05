@@ -86,9 +86,14 @@ class GoalListViewModel(private val config: GoalListConfig) : ViewModel(), KoinC
         progress: Map<BaseRankGoal, LadderGoalProgress?>,
         expanded: Set<Long>,
     ) : UILadderGoals.CategorizedList {
-        val goalStates = goalStateManager.getGoalStateList(requirements.goals)
-        val finishedGoalCount = goalStates.count { it.status == GoalStatus.COMPLETE }
+        val goalStates = goalStateManager.getGoalStateList(requirements.allGoals)
+        val finishedGoalCount = requirements.allGoals.count { goal ->
+            progress[goal]?.isComplete == true ||
+                    goalStates.firstOrNull { it.goalId == goal.id.toLong() }?.status == GoalStatus.COMPLETE
+        }
         val neededGoals = requirements.requirementsOpt ?: 0
+        val canHide = config.allowHiding
+                && goalStates.count { it.status == GoalStatus.IGNORED } < requirements.allowedIgnores
         return UILadderGoals.CategorizedList(
             categories = listOf(
                 UILadderGoals.CategorizedList.Category(
@@ -98,24 +103,26 @@ class GoalListViewModel(private val config: GoalListConfig) : ViewModel(), KoinC
                         finishedGoalCount,
                         neededGoals
                     ),
-                ) to requirements.goals.map {
+                ) to requirements.goals.map { goal ->
                     ladderGoalMapper.toViewData(
-                        base = it,
-                        progress = progress[it],
-                        allowHiding = config.allowHiding,
+                        base = goal,
+                        progress = progress[goal],
+                        allowHiding = canHide,
                         allowCompleting = config.allowCompleting,
-                        isExpanded = expanded.contains(it.id.toLong()),
+                        isExpanded = expanded.contains(goal.id.toLong()),
                     )
                 },
                 UILadderGoals.CategorizedList.Category(
                     title = MR.strings.mandatory_goals.desc()
-                ) to requirements.mandatoryGoals.map {
+                ) to requirements.mandatoryGoals.map { goal ->
                     ladderGoalMapper.toViewData(
-                        base = it,
-                        progress = progress[it],
+                        base = goal,
+                        goalStatus = goalStates.firstOrNull { it.goalId == goal.id.toLong() }?.status
+                            ?: GoalStatus.INCOMPLETE,
+                        progress = progress[goal],
                         allowHiding = false,
                         allowCompleting = config.allowCompleting,
-                        isExpanded = expanded.contains(it.id.toLong()),
+                        isExpanded = expanded.contains(goal.id.toLong()),
                     )
                 }
             )
@@ -128,6 +135,7 @@ class GoalListViewModel(private val config: GoalListConfig) : ViewModel(), KoinC
         progress: Map<BaseRankGoal, LadderGoalProgress?>,
         expanded: Set<Long>,
     ) : UILadderGoals.CategorizedList {
+        val goalStates = goalStateManager.getGoalStateList(requirements.allGoals)
         val songsClearGoals = requirements.allGoals.filterIsInstance<SongsClearGoal>()
         val remainingGoals = requirements.allGoals.filterNot { it is SongsClearGoal }
         val categories = (songsClearGoals.groupBy { it.diffNum }
@@ -147,13 +155,15 @@ class GoalListViewModel(private val config: GoalListConfig) : ViewModel(), KoinC
             categories = categories.map { (level, goals) ->
                 val title = level?.let { StringDesc.ResourceFormatted(MR.strings.level_header, it) }
                     ?: MR.strings.other_goals.desc()
-                UILadderGoals.CategorizedList.Category(title) to goals.map {
+                UILadderGoals.CategorizedList.Category(title) to goals.map { goal ->
                     ladderGoalMapper.toViewData(
-                        base = it,
-                        progress = progress[it],
-                        allowHiding = !requirements.mandatoryGoalIds.contains(it.id),
+                        base = goal,
+                        goalStatus = goalStates.firstOrNull { it.goalId == goal.id.toLong() }?.status
+                            ?: GoalStatus.INCOMPLETE,
+                        progress = progress[goal],
+                        allowHiding = !requirements.mandatoryGoalIds.contains(goal.id),
                         allowCompleting = config.allowCompleting,
-                        isExpanded = expanded.contains(it.id.toLong()),
+                        isExpanded = expanded.contains(goal.id.toLong()),
                     )
                 }
             }
