@@ -20,7 +20,7 @@ class LadderGoalProgress(
         results: List<ChartResultPair>? = null,
     ) : this(progress.toDouble(), max.toDouble(), showMax, results)
 
-    val isComplete = progress == max && max > 0
+    val isComplete = progress >= max && max > 0
 
     val percent = progress / max
 

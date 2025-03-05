@@ -1,6 +1,7 @@
 package com.perrigogames.life4.feature.settings
 
 import com.perrigogames.life4.AppInfo
+import com.perrigogames.life4.feature.sanbai.ISanbaiManager
 import com.perrigogames.life4.feature.songresults.SongResultsManager
 import dev.icerock.moko.mvvm.flow.CStateFlow
 import dev.icerock.moko.mvvm.flow.cMutableStateFlow
@@ -17,6 +18,7 @@ class SettingsViewModel(
 ) : ViewModel(), KoinComponent {
     private val appInfo: AppInfo by inject()
     private val resultsManager: SongResultsManager by inject()
+    private val sanbaiManager: ISanbaiManager by inject()
 
     private val pageStackState = MutableStateFlow(listOf(SettingsPage.ROOT)).cMutableStateFlow()
     private val pageFlow = pageStackState.map { it.last() }
@@ -50,6 +52,8 @@ class SettingsViewModel(
                 }
             }
             is SettingsAction.ShowCredits -> onNavigateToCredits()
+            is SettingsAction.Sanbai.RefreshLibrary -> sanbaiManager.refreshSongData(force = true)
+            is SettingsAction.Sanbai.RefreshUserScores -> TODO()
             is SettingsAction.Debug.SongData -> resultsManager.createDebugScores()
         }
     }
@@ -67,6 +71,7 @@ class SettingsViewModel(
             SettingsPage.ROOT -> UISettingsMocks.Root(isDebug = appInfo.isDebug).page
             SettingsPage.EDIT_USER_INFO -> UISettingsMocks.EditUser.page
             SettingsPage.TRIAL_SETTINGS -> UISettingsMocks.Trial.page
+            SettingsPage.SANBAI_SETTINGS -> UISettingsMocks.Sanbai.page
             SettingsPage.CLEAR_DATA -> UISettingsMocks.ClearData.page
             SettingsPage.DEBUG -> UISettingsMocks.Debug.page
         }

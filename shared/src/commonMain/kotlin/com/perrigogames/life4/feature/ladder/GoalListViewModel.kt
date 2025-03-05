@@ -86,9 +86,14 @@ class GoalListViewModel(private val config: GoalListConfig) : ViewModel(), KoinC
         progress: Map<BaseRankGoal, LadderGoalProgress?>,
         expanded: Set<Long>,
     ) : UILadderGoals.CategorizedList {
-        val goalStates = goalStateManager.getGoalStateList(requirements.goals)
-        val finishedGoalCount = goalStates.count { it.status == GoalStatus.COMPLETE }
+        val goalStates = goalStateManager.getGoalStateList(requirements.allGoals)
+        val finishedGoalCount = requirements.allGoals.count { goal ->
+            progress[goal]?.isComplete == true ||
+                    goalStates.firstOrNull { it.goalId == goal.id.toLong() }?.status == GoalStatus.COMPLETE
+        }
         val neededGoals = requirements.requirementsOpt ?: 0
+        val canHide = config.allowHiding
+                && goalStates.count { it.status == GoalStatus.IGNORED } < requirements.allowedIgnores
         return UILadderGoals.CategorizedList(
             categories = listOf(
                 UILadderGoals.CategorizedList.Category(
@@ -98,22 +103,26 @@ class GoalListViewModel(private val config: GoalListConfig) : ViewModel(), KoinC
                         finishedGoalCount,
                         neededGoals
                     ),
-                ) to requirements.goals.map {
+                ) to requirements.goals.map { goal ->
                     ladderGoalMapper.toViewData(
-                        base = it,
-                        progress = progress[it],
-                        isMandatory = false,
-                        isExpanded = expanded.contains(it.id.toLong()),
+                        base = goal,
+                        progress = progress[goal],
+                        allowHiding = canHide,
+                        allowCompleting = config.allowCompleting,
+                        isExpanded = expanded.contains(goal.id.toLong()),
                     )
                 },
                 UILadderGoals.CategorizedList.Category(
                     title = MR.strings.mandatory_goals.desc()
-                ) to requirements.mandatoryGoals.map {
+                ) to requirements.mandatoryGoals.map { goal ->
                     ladderGoalMapper.toViewData(
-                        base = it,
-                        progress = progress[it],
-                        isMandatory = true,
-                        isExpanded = expanded.contains(it.id.toLong()),
+                        base = goal,
+                        goalStatus = goalStates.firstOrNull { it.goalId == goal.id.toLong() }?.status
+                            ?: GoalStatus.INCOMPLETE,
+                        progress = progress[goal],
+                        allowHiding = false,
+                        allowCompleting = config.allowCompleting,
+                        isExpanded = expanded.contains(goal.id.toLong()),
                     )
                 }
             )
@@ -126,6 +135,7 @@ class GoalListViewModel(private val config: GoalListConfig) : ViewModel(), KoinC
         progress: Map<BaseRankGoal, LadderGoalProgress?>,
         expanded: Set<Long>,
     ) : UILadderGoals.CategorizedList {
+        val goalStates = goalStateManager.getGoalStateList(requirements.allGoals)
         val songsClearGoals = requirements.allGoals.filterIsInstance<SongsClearGoal>()
         val remainingGoals = requirements.allGoals.filterNot { it is SongsClearGoal }
         val categories = (songsClearGoals.groupBy { it.diffNum }
@@ -145,24 +155,27 @@ class GoalListViewModel(private val config: GoalListConfig) : ViewModel(), KoinC
             categories = categories.map { (level, goals) ->
                 val title = level?.let { StringDesc.ResourceFormatted(MR.strings.level_header, it) }
                     ?: MR.strings.other_goals.desc()
-                UILadderGoals.CategorizedList.Category(title) to goals.map {
+                UILadderGoals.CategorizedList.Category(title) to goals.map { goal ->
                     ladderGoalMapper.toViewData(
-                        base = it,
-                        progress = progress[it],
-                        isMandatory = requirements.mandatoryGoalIds.contains(it.id),
-                        isExpanded = expanded.contains(it.id.toLong()),
+                        base = goal,
+                        goalStatus = goalStates.firstOrNull { it.goalId == goal.id.toLong() }?.status
+                            ?: GoalStatus.INCOMPLETE,
+                        progress = progress[goal],
+                        allowHiding = !requirements.mandatoryGoalIds.contains(goal.id),
+                        allowCompleting = config.allowCompleting,
+                        isExpanded = expanded.contains(goal.id.toLong()),
                     )
                 }
             }
         )
     }
 
-    fun handleAction(action: RankListAction) = when(action) {
-        is RankListAction.OnGoal -> {
+    fun handleAction(action: RankListInput) = when(action) {
+        is RankListInput.OnGoal -> {
             val state = goalStateManager.getOrCreateGoalState(action.id)
 
             when (action) {
-                is RankListAction.OnGoal.ToggleComplete -> {
+                is RankListInput.OnGoal.ToggleComplete -> {
                     val newStatus = if (state.status == GoalStatus.COMPLETE) {
                         GoalStatus.INCOMPLETE
                     } else {
@@ -170,14 +183,14 @@ class GoalListViewModel(private val config: GoalListConfig) : ViewModel(), KoinC
                     }
                     goalStateManager.setGoalState(action.id, newStatus)
                 }
-                is RankListAction.OnGoal.ToggleExpanded -> {
+                is RankListInput.OnGoal.ToggleExpanded -> {
                     if (_expandedItems.value.contains(action.id)) {
                         _expandedItems.value -= action.id
                     } else {
                         _expandedItems.value += action.id
                     }
                 }
-                is RankListAction.OnGoal.ToggleHidden -> {
+                is RankListInput.OnGoal.ToggleHidden -> {
                     val newStatus = if (state.status == GoalStatus.IGNORED) {
                         GoalStatus.INCOMPLETE
                     } else {
@@ -187,21 +200,28 @@ class GoalListViewModel(private val config: GoalListConfig) : ViewModel(), KoinC
                 }
             }
         }
+        RankListInput.ShowSubstitutions -> {
+
+        }
     }
 }
 
 data class GoalListConfig(
-    val targetRank: LadderRank? = null
+    val targetRank: LadderRank? = null,
+    val allowCompleting: Boolean = true,
+    val allowHiding: Boolean = true,
 )
 
-sealed class RankListAction {
-    sealed class OnGoal : RankListAction() {
+sealed class RankListInput {
+    sealed class OnGoal : RankListInput() {
         abstract val id: Long
 
         data class ToggleComplete(override val id: Long) : OnGoal()
         data class ToggleHidden(override val id: Long) : OnGoal()
         data class ToggleExpanded(override val id: Long) : OnGoal()
     }
+
+    data object ShowSubstitutions : RankListInput()
 }
 
 // Taken from old LadderGoalsViewModel

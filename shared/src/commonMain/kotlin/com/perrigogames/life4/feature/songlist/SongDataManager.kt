@@ -8,6 +8,7 @@ import com.perrigogames.life4.enums.DifficultyClass
 import com.perrigogames.life4.enums.GameVersion
 import com.perrigogames.life4.enums.PlayStyle
 import com.perrigogames.life4.injectLogger
+import com.perrigogames.life4.ktor.SanbaiSongListResponseItem
 import com.perrigogames.life4.model.BaseModel
 import dev.icerock.moko.mvvm.flow.CStateFlow
 import dev.icerock.moko.mvvm.flow.cStateFlow
@@ -66,6 +67,56 @@ class SongDataManager: BaseModel() {
         return chart
     }
 
+    suspend fun parseSanbaiSongData(data: List<SanbaiSongListResponseItem>) = try {
+        val artists = _libraryFlow.value.songs.keys.map { it.skillId to it.artist }.toMap()
+
+        val songs = mutableMapOf<Song, List<Chart>>()
+        data.forEach { item ->
+            val song = Song(
+                id = -1,
+                skillId = item.songId,
+                title = item.songName,
+                artist = artists[item.songId] ?: "Unknown Artist",
+                version = GameVersion.entries[item.versionNum - 1],
+                preview = false, // FIXME
+            )
+            songs[song] = item.ratings
+                .zip(item.tiers) { rating, tier -> rating to tier }
+                .mapIndexedNotNull { idx, (rating, tier) ->
+                    if (rating != 0) {
+                        Chart(
+                            song = song,
+                            playStyle = when (idx) {
+                                in (0..4) -> PlayStyle.SINGLE
+                                else -> PlayStyle.DOUBLE
+                            },
+                            difficultyClass = when (idx) {
+                                0 -> DifficultyClass.BEGINNER
+                                1, 5 -> DifficultyClass.BASIC
+                                2, 6 -> DifficultyClass.DIFFICULT
+                                3, 7 -> DifficultyClass.EXPERT
+                                4, 8 -> DifficultyClass.CHALLENGE
+                                else -> throw Exception("Illegal idx $idx for song ${song.title}")
+                            },
+                            difficultyNumber = rating,
+                            difficultyNumberTier = tier
+                        )
+                    } else {
+                        null
+                    }
+                }
+        }
+
+        _libraryFlow.emit(
+            SongLibrary(
+                songs = songs,
+                charts = songs.values.flatten()
+            )
+        )
+    } catch (e: Exception) {
+        logger.e(e.stackTraceToString())
+    }
+
     private suspend fun parseDataFile(input: SongList) = try {
         val lines = input.songLines
         val songs = mutableMapOf<Song, List<Chart>>()
@@ -121,7 +172,7 @@ class SongDataManager: BaseModel() {
             }
 
             songs[song] = charts
-            logger.d("Importing $title / $artist (${data.joinToString()})")
+            // logger.d("Importing $title / $artist (${data.joinToString()})")
         }
 
         _libraryFlow.emit(

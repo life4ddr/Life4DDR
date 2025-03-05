@@ -76,6 +76,7 @@ val coreModule = module {
 
     single<GithubDataAPI> { GithubDataImpl() }
     single<Life4API> { Life4APIImpl(get(), get<AppInfo>().isDebug) }
+    single<SanbaiAPI> { SanbaiAPIImpl() }
     single { Json { classDiscriminator = "t" } }
 
     single { PlacementManager() }
@@ -99,7 +100,6 @@ val coreModule = module {
     single { LadderGoalMapper() }
     single<IDeeplinkManager> { DeeplinkManager() }
     single<ISanbaiAPISettings> { SanbaiAPISettings() }
-    single<SanbaiAPI> { SanbaiAPIImpl() }
     single<ISanbaiManager> { SanbaiManager() }
     single<MotdSettings> { DefaultMotdSettings() }
     single<IBannerManager> { BannerManager() }

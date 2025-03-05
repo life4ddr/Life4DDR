@@ -6,6 +6,7 @@ import com.perrigogames.life4.AppInfo
 import com.perrigogames.life4.MR
 import com.perrigogames.life4.feature.motd.MotdManager
 import com.perrigogames.life4.feature.placements.PlacementManager
+import com.perrigogames.life4.feature.sanbai.ISanbaiManager
 import com.perrigogames.life4.feature.songlist.SongDataManager
 import com.perrigogames.life4.feature.trials.TrialManager
 import com.perrigogames.life4.initKoin
@@ -64,6 +65,7 @@ class Life4Application: Application() {
         val motdManager: MotdManager = get()
         val placementManager: PlacementManager = get()
         val songDataManager: SongDataManager = get()
+        val sanbaiManager: ISanbaiManager = get()
         val trialManager: TrialManager = get()
     }
 }

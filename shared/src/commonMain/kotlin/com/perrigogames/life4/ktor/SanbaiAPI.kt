@@ -5,10 +5,13 @@ import com.perrigogames.life4.enums.ClearType
 import com.perrigogames.life4.enums.DifficultyClass
 import com.perrigogames.life4.enums.PlayStyle
 import com.perrigogames.life4.feature.partialdifficulty.PartialDifficultyResponse
+import kotlinx.datetime.Instant
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 interface SanbaiAPI {
+    suspend fun getSongData(): SanbaiSongListResponse
+
     fun getAuthorizeUrl(): String
     suspend fun getSessionToken(code: String): SanbaiAuthTokenResponse
     suspend fun getScores(): List<SanbaiScoreResult>?
@@ -20,6 +23,27 @@ interface SanbaiAPI {
         const val SANBAI_CLIENT_SECRET = "FIXME" // FIXME
     }
 }
+
+@Serializable
+data class SanbaiSongListResponse(
+    val lastUpdated: Instant,
+    val songs: List<SanbaiSongListResponseItem>
+)
+
+@Serializable
+data class SanbaiSongListResponseItem(
+    @SerialName("song_id") val songId: String,
+    @SerialName("song_name") val songName: String,
+    @SerialName("alternate_name") val alternateName: String? = null,
+    @SerialName("searchable_name") val searchableName: String? = null,
+    @SerialName("romanized_name") val romanizedName: String? = null,
+    val alphabet: String,
+    val deleted: Int? = null,
+    @SerialName("version_num") val versionNum: Int,
+    val ratings: List<Int>,
+    val tiers: List<Double>,
+    @SerialName("lock_types") val lockTypes: List<Int>? = null
+)
 
 @Serializable
 data class SanbaiScoreResult(

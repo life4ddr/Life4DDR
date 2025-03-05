@@ -7,24 +7,12 @@ import dev.icerock.moko.resources.desc.StringDesc
 typealias CategorizedUILadderGoals = List<Pair<UILadderGoals.CategorizedList.Category, List<UILadderGoal>>>
 
 data class UILadderData(
-    val goals: UILadderGoals,
-    val allowCompleting: Boolean = true,
-    val allowHiding: Boolean = true,
-    val showCompleted: Boolean = false,
-    val showHidden: Boolean = false,
+    val goals: UILadderGoals
 ) {
     constructor(
-        items: List<UILadderGoal>,
-        allowCompleting: Boolean = true,
-        allowHiding: Boolean = true,
-        showCompleted: Boolean = false,
-        showHidden: Boolean = false
+        items: List<UILadderGoal>
     ) : this(
-        goals = UILadderGoals.SingleList(items),
-        allowCompleting,
-        allowHiding,
-        showCompleted,
-        showHidden
+        goals = UILadderGoals.SingleList(items)
     )
 }
 
@@ -81,12 +69,44 @@ data class UILadderGoal(
     val id: Long,
     val goalText: StringDesc,
     val completed: Boolean = false,
+    val completeAction: RankListInput? = null,
+    val showCheckbox: Boolean = true,
     val hidden: Boolean = false,
-    val canHide: Boolean = true,
-    val isMandatory: Boolean = false,
+    val hideAction: RankListInput? = null,
     val progress: UILadderProgress? = null,
+    val expandAction: RankListInput? = null,
     val detailItems: List<UILadderDetailItem> = emptyList(),
-)
+) {
+    constructor(
+        id: Long,
+        goalText: StringDesc,
+        completed: Boolean = false,
+        canComplete: Boolean = true,
+        showCheckbox: Boolean = true,
+        hidden: Boolean = false,
+        canHide: Boolean = true,
+        progress: UILadderProgress? = null,
+        expandAction: RankListInput? = null,
+        detailItems: List<UILadderDetailItem> = emptyList(),
+    ) : this (
+        id = id,
+        goalText = goalText,
+        completed = completed,
+        completeAction = when (canComplete) {
+            true -> RankListInput.OnGoal.ToggleComplete(id)
+            false -> null
+        },
+        showCheckbox = showCheckbox,
+        hidden = hidden,
+        hideAction = when (canHide) {
+            true -> RankListInput.OnGoal.ToggleHidden(id)
+            false -> null
+        },
+        progress = progress,
+        expandAction = expandAction,
+        detailItems = detailItems,
+    )
+}
 
 data class UILadderProgress(
     val progressPercent: Float,

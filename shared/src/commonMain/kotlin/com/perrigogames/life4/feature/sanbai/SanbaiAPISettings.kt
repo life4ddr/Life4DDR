@@ -8,12 +8,14 @@ import kotlinx.datetime.Instant
  * Holds information that the Sanbai integration needs to retain.
  */
 interface ISanbaiAPISettings {
+    var songDataUpdated: Instant
+
     var bearerToken: String
     var refreshToken: String
     var refreshExpires: Instant
     var playerId: String?
 
-    fun setProperties(
+    fun setUserProperties(
         bearerToken: String,
         refreshToken: String,
         refreshExpires: Instant,
@@ -27,6 +29,14 @@ interface ISanbaiAPISettings {
 }
 
 class SanbaiAPISettings : SettingsManager(), ISanbaiAPISettings {
+
+    override var songDataUpdated: Instant
+        get() = basicSettings.getStringOrNull(SettingsKeys.KEY_SANBAI_DATA_REFRESHED)
+            ?.let { Instant.parse(it) }
+            ?: Instant.DISTANT_PAST
+        set(value) {
+            basicSettings.putString(SettingsKeys.KEY_SANBAI_DATA_REFRESHED, value.toString())
+        }
 
     override var bearerToken: String
         get() = basicSettings.getString(SettingsKeys.KEY_SANBAI_BEARER_TOKEN, defaultValue = "")

@@ -4,17 +4,20 @@ import com.perrigogames.life4.MR
 import com.perrigogames.life4.feature.banners.BannerLocation
 import com.perrigogames.life4.feature.banners.IBannerManager
 import com.perrigogames.life4.feature.banners.UIBanner
+import com.perrigogames.life4.feature.songlist.SongDataManager
 import com.perrigogames.life4.feature.songresults.SongResultsManager
 import com.perrigogames.life4.ktor.SanbaiAPI
 import com.perrigogames.life4.ktor.toChartResult
 import com.perrigogames.life4.model.BaseModel
 import dev.icerock.moko.resources.desc.color.asColorDesc
 import dev.icerock.moko.resources.desc.desc
+import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
 import org.koin.core.component.inject
 
 interface ISanbaiManager {
 
+    fun refreshSongData(force: Boolean = false)
     fun requiresAuthorization(): Boolean
     suspend fun completeLogin(authCode: String): Boolean
     suspend fun fetchScores(): Boolean
@@ -24,8 +27,24 @@ class SanbaiManager : BaseModel(), ISanbaiManager {
 
     private val sanbaiAPI: SanbaiAPI by inject()
     private val sanbaiAPISettings: ISanbaiAPISettings by inject()
+    private val songDataManager: SongDataManager by inject()
     private val songResultsManager: SongResultsManager by inject()
     private val bannersManager: IBannerManager by inject()
+
+    init {
+        refreshSongData()
+    }
+
+    override fun refreshSongData(force: Boolean) {
+        ktorScope.launch {
+            val data = sanbaiAPI.getSongData()
+//            if (force || data.lastUpdated > sanbaiAPISettings.songDataUpdated) {
+//                sanbaiAPISettings.songDataUpdated = data.lastUpdated
+                songDataManager.parseSanbaiSongData(data.songs)
+                // FIXME actually cache the data to disk
+//            }
+        }
+    }
 
     override fun requiresAuthorization(): Boolean {
         return sanbaiAPISettings.refreshExpires < Clock.System.now()
