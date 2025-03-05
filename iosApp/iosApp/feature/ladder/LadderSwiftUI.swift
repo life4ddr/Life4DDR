@@ -13,6 +13,7 @@ struct LadderGoals: View {
     var data: UILadderData?
     var onCompletedChanged: (Int64) -> (Void)
     var onHiddenChanged: (Int64) -> (Void)
+    var onExpandChanged: (Int64) -> (Void)
     
     var body: some View {
         ScrollView(showsIndicators: false) {
@@ -22,7 +23,8 @@ struct LadderGoals: View {
                     allowCompleting: data!.allowCompleting,
                     allowHiding: data!.allowHiding,
                     onCompletedChanged: onCompletedChanged,
-                    onHiddenChanged: onHiddenChanged
+                    onHiddenChanged: onHiddenChanged,
+                    onExpandChanged: onExpandChanged
                 )
             } else if data?.goals is UILadderGoals.CategorizedList {
                 CategorizedList(
@@ -30,7 +32,8 @@ struct LadderGoals: View {
                     allowCompleting: data!.allowCompleting,
                     allowHiding: data!.allowHiding,
                     onCompletedChanged: onCompletedChanged,
-                    onHiddenChanged: onHiddenChanged
+                    onHiddenChanged: onHiddenChanged,
+                    onExpandChanged: onExpandChanged
                 )
             }
         }
@@ -43,6 +46,7 @@ struct SingleGoalList: View {
     var allowHiding: Bool = true
     var onCompletedChanged: (Int64) -> (Void)
     var onHiddenChanged: (Int64) -> (Void)
+    var onExpandChanged: (Int64) -> (Void)
     
     var body: some View {
         ForEach(goals.items, id: \.self) { goal in
@@ -51,7 +55,8 @@ struct SingleGoalList: View {
                 allowCompleting: allowCompleting,
                 allowHiding: allowHiding,
                 onCompletedChanged: onCompletedChanged,
-                onHiddenChanged: onHiddenChanged
+                onHiddenChanged: onHiddenChanged,
+                onExpandChanged: onExpandChanged
             )
         }
     }
@@ -63,6 +68,7 @@ struct CategorizedList: View {
     var allowHiding: Bool = true
     var onCompletedChanged: (Int64) -> (Void)
     var onHiddenChanged: (Int64) -> (Void)
+    var onExpandChanged: (Int64) -> (Void)
     
     var body: some View {
         ForEach(goals.categories, id: \.self) { category in
@@ -79,7 +85,8 @@ struct CategorizedList: View {
                     allowCompleting: allowCompleting,
                     allowHiding: allowHiding,
                     onCompletedChanged: onCompletedChanged,
-                    onHiddenChanged: onHiddenChanged
+                    onHiddenChanged: onHiddenChanged,
+                    onExpandChanged: onExpandChanged
                 )
             }
             Spacer().frame(height: 16)
@@ -93,6 +100,7 @@ struct LadderGoalItem: View {
     var allowHiding: Bool = true
     var onCompletedChanged: (Int64) -> (Void)
     var onHiddenChanged: (Int64) -> (Void)
+    var onExpandChanged: (Int64) -> (Void)
     @State var isExpanded: Bool = false
     
     var body: some View {
@@ -102,7 +110,8 @@ struct LadderGoalItem: View {
                 allowCompleting: allowCompleting,
                 allowHiding: allowHiding,
                 onCompletedChanged: onCompletedChanged,
-                onHiddenChanged: onHiddenChanged
+                onHiddenChanged: onHiddenChanged,
+                onExpandChanged: onExpandChanged
             )
             if !goal.detailItems.isEmpty {
                 Divider().overlay(Color.primary)
@@ -127,6 +136,7 @@ struct LadderGoalHeaderRow: View {
     var allowHiding: Bool = true
     var onCompletedChanged: (Int64) -> (Void)
     var onHiddenChanged: (Int64) -> (Void)
+    var onExpandChanged: (Int64) -> (Void)
     
     var body: some View {
         HStack {
@@ -153,7 +163,13 @@ struct LadderGoalHeaderRow: View {
                     Image(systemName: "eye.fill")
                 }.buttonStyle(.plain)
             }
-        }.padding(12)
+        }
+        .padding(12)
+        .onTapGesture {
+            withAnimation {
+                onExpandChanged(goal.id)
+            }
+        }
     }
 }
 
@@ -177,39 +193,39 @@ struct LadderGoalDetailShade: View {
     }
 }
 
-func createSongDetailItem(songName: String, difficultyClass: DifficultyClass? = nil) -> UILadderDetailItem {
-    let score: Int = 1000000 - Int.random(in: 100...50000)
-    return UILadderDetailItem(leftText: songName, difficultyClass: difficultyClass, rightText: String(score))
-}
-
-func createUILadderGoal(goalText: String, completed: Bool = false, hidden: Bool = false, progress: UILadderProgress? = nil, detailItems: [UILadderDetailItem] = []) -> UILadderGoal {
-    return UILadderGoal(id: 0, goalText: RawStringDesc(string: goalText), completed: completed, hidden: hidden, canHide: true, isMandatory: false, progress: progress, detailItems: detailItems)
-}
-
-let detailItems = [
-    createSongDetailItem(songName: "L'amour et la libert&eacute;(DDR Ver.)", difficultyClass: DifficultyClass.beginner),
-    createSongDetailItem(songName: "LOVE&hearts;SHINE", difficultyClass: DifficultyClass.basic),
-    createSongDetailItem(songName: "Miracle Moon ～L.E.D.LIGHT STYLE MIX～", difficultyClass: DifficultyClass.difficult),
-    createSongDetailItem(songName: "PARANOIA survivor", difficultyClass: DifficultyClass.expert),
-    createSongDetailItem(songName: "PARANOIA survivor MAX", difficultyClass: DifficultyClass.challenge),
-    createSongDetailItem(songName: "Pink Rose", difficultyClass: DifficultyClass.beginner),
-    createSongDetailItem(songName: "SO IN LOVE", difficultyClass: DifficultyClass.basic),
-    createSongDetailItem(songName: "STAY (Organic house Version)", difficultyClass: DifficultyClass.difficult),
-    createSongDetailItem(songName: "stoic (EXTREME version)", difficultyClass: DifficultyClass.expert),
-    createSongDetailItem(songName: "sync (EXTREME version)", difficultyClass: DifficultyClass.challenge),
-    createSongDetailItem(songName: "TEARS")
-]
-
-struct PreviewGoalItem: View {
-    var goal: UILadderGoal
-    
-    var body: some View {
-        LadderGoalItem(goal: goal, onCompletedChanged: {_ in }, onHiddenChanged: {_ in })
-    }
-}
-
-struct LadderGoalItemDetail_Previews: PreviewProvider {
-    static var previews: some View {
-        PreviewGoalItem(goal: createUILadderGoal(goalText: "Clear any 10 L5's.", progress: UILadderProgress(count: 7, max: 10), detailItems: detailItems))
-    }
-}
+//func createSongDetailItem(songName: String, difficultyClass: DifficultyClass? = nil) -> UILadderDetailItem {
+//    let score: Int = 1000000 - Int.random(in: 100...50000)
+//    return UILadderDetailItem(leftText: songName, difficultyClass: difficultyClass, rightText: String(score))
+//}
+//
+//func createUILadderGoal(goalText: String, completed: Bool = false, hidden: Bool = false, progress: UILadderProgress? = nil, detailItems: [UILadderDetailItem] = []) -> UILadderGoal {
+//    return UILadderGoal(id: 0, goalText: RawStringDesc(string: goalText), completed: completed, hidden: hidden, canHide: true, isMandatory: false, progress: progress, detailItems: detailItems)
+//}
+//
+//let detailItems = [
+//    createSongDetailItem(songName: "L'amour et la libert&eacute;(DDR Ver.)", difficultyClass: DifficultyClass.beginner),
+//    createSongDetailItem(songName: "LOVE&hearts;SHINE", difficultyClass: DifficultyClass.basic),
+//    createSongDetailItem(songName: "Miracle Moon ～L.E.D.LIGHT STYLE MIX～", difficultyClass: DifficultyClass.difficult),
+//    createSongDetailItem(songName: "PARANOIA survivor", difficultyClass: DifficultyClass.expert),
+//    createSongDetailItem(songName: "PARANOIA survivor MAX", difficultyClass: DifficultyClass.challenge),
+//    createSongDetailItem(songName: "Pink Rose", difficultyClass: DifficultyClass.beginner),
+//    createSongDetailItem(songName: "SO IN LOVE", difficultyClass: DifficultyClass.basic),
+//    createSongDetailItem(songName: "STAY (Organic house Version)", difficultyClass: DifficultyClass.difficult),
+//    createSongDetailItem(songName: "stoic (EXTREME version)", difficultyClass: DifficultyClass.expert),
+//    createSongDetailItem(songName: "sync (EXTREME version)", difficultyClass: DifficultyClass.challenge),
+//    createSongDetailItem(songName: "TEARS")
+//]
+//
+//struct PreviewGoalItem: View {
+//    var goal: UILadderGoal
+//    
+//    var body: some View {
+//        LadderGoalItem(goal: goal, onCompletedChanged: {_ in }, onHiddenChanged: {_ in })
+//    }
+//}
+//
+//struct LadderGoalItemDetail_Previews: PreviewProvider {
+//    static var previews: some View {
+//        PreviewGoalItem(goal: createUILadderGoal(goalText: "Clear any 10 L5's.", progress: UILadderProgress(count: 7, max: 10), detailItems: detailItems))
+//    }
+//}

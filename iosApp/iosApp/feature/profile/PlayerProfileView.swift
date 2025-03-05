@@ -32,6 +32,9 @@ struct PlayerProfileView: View {
                     },
                     onHiddenChanged: { id in
                         viewModel.goalListViewModel.handleAction(action: RankListAction.OnGoalToggleHidden(id: id))
+                    },
+                    onExpandChanged: { id in
+                        viewModel.goalListViewModel.handleAction(action: RankListAction.OnGoalToggleExpanded(id: id))
                     }
                 )
             }
