@@ -31,6 +31,7 @@ import com.perrigogames.life4.feature.settings.UserRankSettings
 import com.perrigogames.life4.feature.songlist.IgnoreListManager
 import com.perrigogames.life4.feature.songlist.SongDataManager
 import com.perrigogames.life4.feature.songresults.ChartResultOrganizer
+import com.perrigogames.life4.feature.songresults.SongResultSettings
 import com.perrigogames.life4.feature.songresults.SongResultsManager
 import com.perrigogames.life4.feature.trialrecords.TrialDatabaseHelper
 import com.perrigogames.life4.feature.trialrecords.TrialRecordsManager
@@ -94,6 +95,7 @@ val coreModule = module {
     single { ChartResultOrganizer() }
     single { UserInfoSettings() }
     single { FirstRunSettingsManager() }
+    single { SongResultSettings() }
     single { UserRankSettings() }
     single { LadderListSelectionSettings() }
     single { SettingsPageProvider() }
