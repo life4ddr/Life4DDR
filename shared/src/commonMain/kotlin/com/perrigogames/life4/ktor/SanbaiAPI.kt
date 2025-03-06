@@ -4,7 +4,6 @@ import com.perrigogames.life4.db.ChartResult
 import com.perrigogames.life4.enums.ClearType
 import com.perrigogames.life4.enums.DifficultyClass
 import com.perrigogames.life4.enums.PlayStyle
-import com.perrigogames.life4.feature.partialdifficulty.PartialDifficultyResponse
 import kotlinx.datetime.Instant
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -16,7 +15,6 @@ interface SanbaiAPI {
     suspend fun getSessionToken(code: String): SanbaiAuthTokenResponse
     suspend fun getScores(): List<SanbaiScoreResult>?
     suspend fun getPlayerId(): String
-    suspend fun getPartialDifficulties(): PartialDifficultyResponse
 
     companion object {
         const val SANBAI_CLIENT_ID = "FIXME" // FIXME
