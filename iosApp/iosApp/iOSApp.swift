@@ -190,6 +190,7 @@ var nativeModule: Koin_coreModule = KoinKt.makeNativeModule(
 
 class IosAppInfo: AppInfo {
   var appId: String = "LIFE4DDR"
+  var version: String = "<not specified>"
 }
 
 class DummyNotifications: Notifications {

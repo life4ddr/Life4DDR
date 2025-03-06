@@ -3,6 +3,8 @@ package com.perrigogames.life4.feature.settings
 import com.perrigogames.life4.AppInfo
 import com.perrigogames.life4.feature.sanbai.ISanbaiManager
 import com.perrigogames.life4.feature.songresults.SongResultsManager
+import com.russhwolf.settings.ExperimentalSettingsApi
+import com.russhwolf.settings.coroutines.FlowSettings
 import dev.icerock.moko.mvvm.flow.CStateFlow
 import dev.icerock.moko.mvvm.flow.cMutableStateFlow
 import dev.icerock.moko.mvvm.flow.cStateFlow
@@ -12,6 +14,7 @@ import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
+@OptIn(ExperimentalSettingsApi::class)
 class SettingsViewModel(
     private val onClose: () -> Unit,
     private val onNavigateToCredits: () -> Unit,
@@ -19,11 +22,13 @@ class SettingsViewModel(
     private val appInfo: AppInfo by inject()
     private val resultsManager: SongResultsManager by inject()
     private val sanbaiManager: ISanbaiManager by inject()
+    private val settingsPageProvider: SettingsPageProvider by inject()
+    private val flowSettings: FlowSettings by inject() // FIXME need to figure out a way to make the action less generic
 
     private val pageStackState = MutableStateFlow(listOf(SettingsPage.ROOT)).cMutableStateFlow()
     private val pageFlow = pageStackState.map { it.last() }
 
-    val state: CStateFlow<UISettingsData?> = pageFlow.map { createPage(it) }
+    val state: CStateFlow<UISettingsData?> = pageFlow.flatMapLatest { createPage(it) }
         .stateIn(viewModelScope, started = SharingStarted.Lazily, initialValue = null).cStateFlow()
     private val _events = MutableSharedFlow<SettingsEvent>()
     val events: SharedFlow<SettingsEvent> = _events
@@ -40,7 +45,11 @@ class SettingsViewModel(
                     onClose()
                 }
             }
-            is SettingsAction.SetBoolean -> TODO()
+            is SettingsAction.SetBoolean -> {
+                viewModelScope.launch {
+                    flowSettings.putBoolean(action.id, action.newValue)
+                }
+            }
             is SettingsAction.Email -> {
                 viewModelScope.launch {
                     _events.emit(SettingsEvent.Email(action.email))
@@ -53,7 +62,11 @@ class SettingsViewModel(
             }
             is SettingsAction.ShowCredits -> onNavigateToCredits()
             is SettingsAction.Sanbai.RefreshLibrary -> sanbaiManager.refreshSongData(force = true)
-            is SettingsAction.Sanbai.RefreshUserScores -> TODO()
+            is SettingsAction.Sanbai.RefreshUserScores -> {
+                viewModelScope.launch {
+                    sanbaiManager.fetchScores()
+                }
+            }
             is SettingsAction.Debug.SongData -> resultsManager.createDebugScores()
         }
     }
@@ -66,14 +79,14 @@ class SettingsViewModel(
         pageStackState.value = pageStackState.value.dropLast(1)
     }
 
-    private fun createPage(page: SettingsPage): UISettingsData {
+    private fun createPage(page: SettingsPage): Flow<UISettingsData> {
         return when (page) {
-            SettingsPage.ROOT -> UISettingsMocks.Root(isDebug = appInfo.isDebug).page
-            SettingsPage.EDIT_USER_INFO -> UISettingsMocks.EditUser.page
-            SettingsPage.TRIAL_SETTINGS -> UISettingsMocks.Trial.page
-            SettingsPage.SANBAI_SETTINGS -> UISettingsMocks.Sanbai.page
-            SettingsPage.CLEAR_DATA -> UISettingsMocks.ClearData.page
-            SettingsPage.DEBUG -> UISettingsMocks.Debug.page
+            SettingsPage.ROOT -> settingsPageProvider.getRootPage(isDebug = appInfo.isDebug)
+            SettingsPage.EDIT_USER_INFO -> settingsPageProvider.getEditUserPage()
+            SettingsPage.TRIAL_SETTINGS -> settingsPageProvider.getTrialPage()
+            SettingsPage.SANBAI_SETTINGS -> settingsPageProvider.getSanbaiPage()
+            SettingsPage.CLEAR_DATA -> settingsPageProvider.getClearDataPage()
+            SettingsPage.DEBUG -> settingsPageProvider.getDebugPage()
         }
     }
 }

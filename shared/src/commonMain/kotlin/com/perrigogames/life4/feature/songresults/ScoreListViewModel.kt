@@ -10,6 +10,7 @@ import com.perrigogames.life4.enums.nameRes
 import com.perrigogames.life4.feature.banners.BannerLocation
 import com.perrigogames.life4.feature.banners.IBannerManager
 import com.perrigogames.life4.feature.banners.UIBanner
+import com.perrigogames.life4.feature.sanbai.ISanbaiManager
 import com.perrigogames.life4.ktor.SanbaiAPI
 import dev.icerock.moko.mvvm.flow.CStateFlow
 import dev.icerock.moko.mvvm.flow.cMutableStateFlow
@@ -31,6 +32,7 @@ class ScoreListViewModel: ViewModel(), KoinComponent {
 
     private val resultOrganizer: ChartResultOrganizer by inject()
     private val sanbaiAPI: SanbaiAPI by inject()
+    private val sanbaiManager: ISanbaiManager by inject()
     private val bannerManager: IBannerManager by inject()
 
     private val filterViewModel = FilterPanelViewModel()
@@ -59,6 +61,8 @@ class ScoreListViewModel: ViewModel(), KoinComponent {
     fun handleFilterAction(action: UIFilterAction) {
         filterViewModel.handleAction(action)
     }
+
+    fun requiresAuthorization() = sanbaiManager.requiresAuthorization()
 
     fun getSanbaiUrl() = sanbaiAPI.getAuthorizeUrl()
 }
