@@ -65,7 +65,7 @@ fun ScoreListScreen(
             if (filterShowing) {
                 FilterPane(
                     data = state.value.filter,
-                    modifier = Modifier.padding(horizontal = 16.dp),
+                    modifier = Modifier.padding(horizontal = 32.dp),
                     onAction = { viewModel.handleFilterAction(it) }
                 )
                 SizedSpacer(16.dp)

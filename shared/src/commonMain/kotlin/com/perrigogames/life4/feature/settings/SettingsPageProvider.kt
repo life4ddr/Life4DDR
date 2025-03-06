@@ -40,7 +40,7 @@ class SettingsPageProvider : BaseModel() {
                         UISettingsItem.Checkbox( // Enable Difficulty Tiers
                             title = MR.strings.enable_difficulty_tiers.desc(),
                             action = SettingsAction.SetBoolean(SettingsKeys.KEY_ENABLE_DIFFICULTY_TIERS, !diffTierEnabled),
-                            toggled = !diffTierEnabled
+                            toggled = diffTierEnabled
                         ),
                         UISettingsItem.Link( // Trial Settings
                             title = MR.strings.trial_settings.desc(),

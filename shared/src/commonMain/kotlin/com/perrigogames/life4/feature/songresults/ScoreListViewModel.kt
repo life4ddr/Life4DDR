@@ -34,6 +34,7 @@ class ScoreListViewModel: ViewModel(), KoinComponent {
     private val sanbaiAPI: SanbaiAPI by inject()
     private val sanbaiManager: ISanbaiManager by inject()
     private val bannerManager: IBannerManager by inject()
+    private val songResultSettings: SongResultSettings by inject()
 
     private val filterViewModel = FilterPanelViewModel()
 
@@ -43,14 +44,19 @@ class ScoreListViewModel: ViewModel(), KoinComponent {
     init {
         viewModelScope.launch {
             combine(
-                filterViewModel.dataState.flatMapLatest { config ->
-                    resultOrganizer.resultsForConfig(null, config)
-                },
+                combine(
+                    filterViewModel.dataState,
+                    songResultSettings.enableDifficultyTiers
+                ) { a, b -> a to b }
+                    .flatMapLatest { (config, enableDifficultyTiers) ->
+                        resultOrganizer.resultsForConfig(null, config, enableDifficultyTiers)
+                    },
                 filterViewModel.uiState,
-                bannerManager.getBannerFlow(BannerLocation.SCORES)
-            ) { results, filterView, banner ->
+                bannerManager.getBannerFlow(BannerLocation.SCORES),
+                songResultSettings.enableDifficultyTiers
+            ) { results, filterView, banner, enableDifficultyTiers ->
                 UIScoreList(
-                    scores = results.resultsDone.map { it.toUIScore() },
+                    scores = results.resultsDone.map { it.toUIScore(enableDifficultyTiers) },
                     filter = filterView,
                     banner = banner
                 )
@@ -82,12 +88,16 @@ data class UIScore(
     val flareLevel: Int? = null,
 )
 
-fun ChartResultPair.toUIScore() = UIScore(
+fun ChartResultPair.toUIScore(enableDifficultyTiers: Boolean) = UIScore(
     titleText = KsoupEntities.decodeHtml(chart.song.title),
     difficultyText = StringDesc.Composition(
         args = listOf(
             chart.difficultyClass.nameRes.desc(),
-            chart.difficultyNumber.toString().desc()
+            if (enableDifficultyTiers) {
+                chart.combinedDifficultyNumber.toString().desc()
+            } else {
+                chart.difficultyNumber.toString().desc()
+            }
         ),
         separator = " - "
     ),

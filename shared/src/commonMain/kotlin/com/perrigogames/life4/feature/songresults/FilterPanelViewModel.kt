@@ -3,8 +3,12 @@ package com.perrigogames.life4.feature.songresults
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
-class FilterPanelViewModel : ViewModel() {
+class FilterPanelViewModel : ViewModel(), KoinComponent {
+
+    private val songResultSettings: SongResultSettings by inject()
 
     private val _state = MutableStateFlow(FilterState())
     val dataState: StateFlow<FilterState> = _state.asStateFlow()
@@ -13,6 +17,12 @@ class FilterPanelViewModel : ViewModel() {
             it.toUIFilterView(showPlayStyleSelector = true)
         }
         .stateIn(viewModelScope, SharingStarted.Eagerly, UIFilterView())
+
+    init {
+        viewModelScope.launch {
+            songResultSettings.songListFilterState.collect(_state)
+        }
+    }
 
     fun handleAction(action: UIFilterAction) {
         when(action) {
@@ -49,7 +59,7 @@ class FilterPanelViewModel : ViewModel() {
     private fun mutate(block: (FilterState) -> FilterState) {
         viewModelScope.launch {
             val newValue = block(_state.value)
-            _state.emit(newValue)
+            songResultSettings.setSongListFilterState(newValue)
         }
     }
 
