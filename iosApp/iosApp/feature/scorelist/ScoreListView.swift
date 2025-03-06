@@ -92,11 +92,14 @@ struct ScoreEntry: View {
             }
             if (data.flareLevel != nil) {
                 let flareInt = Int(truncating: data.flareLevel!)
-                
-                Image(uiImage: (flareImageResource[flareInt]?.toUIImage())!)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 32.0, height: 32.0)
+                if 1...10 ~= flareInt {
+                    Image(uiImage: (flareImageResource[flareInt]?.toUIImage())!)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 32.0, height: 32.0)
+                } else {
+                    Spacer().frame(width: 40.0)
+                }
             } else {
                 Spacer().frame(width: 40.0)
             }

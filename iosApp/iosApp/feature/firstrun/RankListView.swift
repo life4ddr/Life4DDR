@@ -34,9 +34,7 @@ struct RankListView: View {
             if (state?.ladderData != nil) {
                 LadderGoals(
                     data: state?.ladderData,
-                    onCompletedChanged: {_ in },
-                    onHiddenChanged: {_ in },
-                    onExpandChanged: {_ in }
+                    onInput: {_ in }
                 )
             } else {
                 Spacer()

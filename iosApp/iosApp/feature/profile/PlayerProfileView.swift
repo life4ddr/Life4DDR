@@ -27,14 +27,8 @@ struct PlayerProfileView: View {
             if (goalData != nil) {
                 LadderGoals(
                     data: goalData,
-                    onCompletedChanged: { id in
-                        viewModel.goalListViewModel.handleAction(action: RankListAction.OnGoalToggleComplete(id: id))
-                    },
-                    onHiddenChanged: { id in
-                        viewModel.goalListViewModel.handleAction(action: RankListAction.OnGoalToggleHidden(id: id))
-                    },
-                    onExpandChanged: { id in
-                        viewModel.goalListViewModel.handleAction(action: RankListAction.OnGoalToggleExpanded(id: id))
+                    onInput: { input in
+                        viewModel.goalListViewModel.handleAction(action: input)
                     }
                 )
             }
