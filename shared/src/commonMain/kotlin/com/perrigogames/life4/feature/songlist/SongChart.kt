@@ -19,4 +19,6 @@ data class Chart(
     val difficultyClass: DifficultyClass,
     val difficultyNumber: Int,
     val difficultyNumberTier: Double? = null
-)
+) {
+    val combinedDifficultyNumber: Double = difficultyNumber + (difficultyNumberTier ?: 0.0)
+}

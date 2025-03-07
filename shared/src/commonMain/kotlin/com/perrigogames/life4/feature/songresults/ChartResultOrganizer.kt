@@ -26,6 +26,7 @@ class ChartResultOrganizer: BaseModel(), KoinComponent {
 
     private val ignoreListManager: IgnoreListManager by inject()
     private val songResultsManager: SongResultsManager by inject()
+    private val songResultSettings: SongResultSettings by inject()
     private val logger: Logger by injectLogger("ChartResultOrganizer")
 
     private val basicOrganizer = MutableStateFlow<OrganizerBase>(emptyMap()).cMutableStateFlow()
@@ -63,7 +64,11 @@ class ChartResultOrganizer: BaseModel(), KoinComponent {
         }
     }
 
-    fun resultsForConfig(base: BaseRankGoal?, config: FilterState): Flow<ResultsBundle> {
+    fun resultsForConfig(
+        base: BaseRankGoal?,
+        config: FilterState,
+        enableDifficultyTiers: Boolean
+    ): Flow<ResultsBundle> {
         return chartsForConfig(config.chartFilter)
             .map { ChartFilterer(it) }
             .map { filterer ->
@@ -71,8 +76,8 @@ class ChartResultOrganizer: BaseModel(), KoinComponent {
                 val results = filterer.filtered(config.resultFilter)
 //                val filterEnd = Clock.System.now()
                 results.copy(
-                    resultsDone = results.resultsDone.specialSorted(base),
-                    resultsNotDone = results.resultsNotDone.specialSorted(base)
+                    resultsDone = results.resultsDone.specialSorted(base, enableDifficultyTiers),
+                    resultsNotDone = results.resultsNotDone.specialSorted(base, enableDifficultyTiers)
                 )
 //                ).also {
 //                    val sortEnd = Clock.System.now()
@@ -84,7 +89,10 @@ class ChartResultOrganizer: BaseModel(), KoinComponent {
             }
     }
 
-    private fun List<ChartResultPair>.specialSorted(base: BaseRankGoal?): List<ChartResultPair> = sortedWith { a, b ->
+    private fun List<ChartResultPair>.specialSorted(
+        base: BaseRankGoal?,
+        enableDifficultyTiers: Boolean
+    ): List<ChartResultPair> = sortedWith { a, b ->
         if (base is MAPointsStackedGoal) {
             // First, MA points, descending
             val maCompare = ((b.maPointsForDifficulty() - a.maPointsForDifficulty()) * 10000).toInt()
@@ -93,7 +101,11 @@ class ChartResultOrganizer: BaseModel(), KoinComponent {
             }
         } else {
             // First, difficulty number, ascending
-            val diffCompare = a.chart.difficultyNumber - b.chart.difficultyNumber
+            val diffCompare = if (enableDifficultyTiers) {
+                ((a.chart.combinedDifficultyNumber - b.chart.combinedDifficultyNumber) * 1000).toInt()
+            } else {
+                a.chart.difficultyNumber - b.chart.difficultyNumber
+            }
             if (diffCompare != 0) {
                 return@sortedWith diffCompare
             }

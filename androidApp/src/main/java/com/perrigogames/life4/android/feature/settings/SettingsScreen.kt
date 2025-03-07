@@ -16,10 +16,9 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.alorma.compose.settings.ui.SettingsCheckbox
 import com.alorma.compose.settings.ui.SettingsMenuLink
-import com.perrigogames.life4.android.compose.LIFE4Theme
 import com.perrigogames.life4.android.compose.Paddings
 import com.perrigogames.life4.feature.settings.*
 import dev.icerock.moko.mvvm.createViewModelFactory
@@ -152,17 +151,10 @@ private fun SettingsCheckboxItem(
     onAction: (SettingsAction) -> Unit = {}
 ) {
     val context = LocalContext.current
-    SettingsMenuLink(
+    SettingsCheckbox(
         title = { Text(text = item.title.toString(context)) },
         subtitle = { item.subtitle?.let { Text(text = it.toString(context)) } },
-        enabled = item.enabled
+        enabled = item.enabled,
+        state = item.toggled
     ) { onAction(item.action) }
-}
-
-@Preview
-@Composable
-private fun SettingsScreenPreview() {
-    LIFE4Theme {
-        SettingsScreen(data = UISettingsMocks.Root(isDebug = false).page)
-    }
 }

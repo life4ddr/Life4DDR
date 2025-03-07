@@ -23,7 +23,7 @@ class MAPointGoalProgressConverter : StackedGoalProgressConverter<MAPointsStacke
             scoreRange = 999_910 .. GameConstants.MAX_SCORE,
         )
         val targetPoints = goal.getDoubleValue(stackIndex, MAPointsStackedGoal.KEY_MFC_POINTS)!!
-        return chartResultOrganizer.resultsForConfig(goal, config).map { (match, _) ->
+        return chartResultOrganizer.resultsForConfig(goal, config, enableDifficultyTiers = false).map { (match, _) ->
             val mfcPoints = match.sumOf { it.maPointsForDifficulty() }
             LadderGoalProgress(
                 progress = mfcPoints,

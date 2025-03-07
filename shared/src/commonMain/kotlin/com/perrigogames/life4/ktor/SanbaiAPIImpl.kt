@@ -2,7 +2,6 @@ package com.perrigogames.life4.ktor
 
 import co.touchlab.kermit.Logger
 import com.perrigogames.life4.feature.deeplink.IDeeplinkManager.Companion.SANBAI_AUTH_RETURN_PATH_FULL
-import com.perrigogames.life4.feature.partialdifficulty.PartialDifficultyResponse
 import com.perrigogames.life4.feature.sanbai.ISanbaiAPISettings
 import com.perrigogames.life4.feature.sanbai.sanbaiHttpClient
 import com.perrigogames.life4.feature.sanbai.setUserProperties
@@ -90,16 +89,5 @@ class SanbaiAPIImpl : SanbaiAPI, KoinComponent {
         }
 
         return response.body<String>()
-    }
-
-    override suspend fun getPartialDifficulties(): PartialDifficultyResponse {
-        val response: HttpResponse = client.get("https://3icecream.com/dev/api/v1/get_partial_difficulties") {
-        }
-
-        if (!response.status.isSuccess()) {
-            throw RuntimeException("Failed to fetch partial difficulties: ${response.status}")
-        }
-
-        return response.body<PartialDifficultyResponse>()
     }
 }

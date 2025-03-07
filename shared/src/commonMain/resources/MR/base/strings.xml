@@ -635,6 +635,7 @@
     <string name="remote_data_needs_update">This version of the LIFE4 app is not compatible with some of the newest updates.\n\nPlease update your LIFE4 app to get the most current experience!</string>
     <string name="question_mark">\?</string>
     <string name="motd_unavailable">The Message of the Day is unavailable.</string>
+    <string name="enable_difficulty_tiers">Enable difficulty tiers</string>
     <string name="trial_settings">Trial Settings</string>
     <string name="sanbai_settings">Sanbai Settings</string>
     <string name="refresh_sanbai_library_data">Refresh Sanbai library data</string>
