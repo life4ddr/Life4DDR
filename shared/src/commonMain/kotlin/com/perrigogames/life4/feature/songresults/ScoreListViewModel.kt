@@ -109,6 +109,7 @@ fun ChartResultPair.toUIScore(enableDifficultyTiers: Boolean) = UIScore(
 
 fun scoreText(clearType: ClearType?, score: Long?) = when (clearType) {
     ClearType.MARVELOUS_FULL_COMBO -> MR.strings.clear_mfc_caps.desc()
+    ClearType.SINGLE_DIGIT_PERFECTS,
     ClearType.PERFECT_FULL_COMBO -> {
         val perfects = (GameConstants.MAX_SCORE - (score ?: 0)) / 10
         StringDesc.Composition(
