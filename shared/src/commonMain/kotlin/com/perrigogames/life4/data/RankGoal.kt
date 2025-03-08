@@ -161,7 +161,7 @@ class SongsClearGoal(
     override val id: Int,
     @SerialName("user_type") val userType: RankGoalUserType? = null,
     @SerialName("d") val diffNum: Int? = null,
-    @SerialName("allow_higher") val allowsHigherDiffNum: Boolean = false,
+    @SerialName("higher_diff") val allowsHigherDiffNum: Boolean = false,
     @SerialName("diff_class") val diffClassSet: DifficultyClassSet? = null,
     val songs: List<String>? = null,
     private val folder: String? = null,
@@ -174,6 +174,7 @@ class SongsClearGoal(
     val score: Int? = null,
     @SerialName("average_score") val averageScore: Int? = null,
     @SerialName("clear_type") private val mClearType: ClearType? = null,
+    @SerialName("exception_score") val exceptionScore: Int? = null,
 ): BaseRankGoal(), KoinComponent {
 
     val safeExceptions: Int = exceptions ?: 0
@@ -277,7 +278,7 @@ data class SongsClearStackedGoal(
     override val id: Int,
     @SerialName("user_type") val userType: RankGoalUserType? = null,
     @SerialName("d") val diffNum: Int? = null,
-    @SerialName("allow_higher") val allowsHigherDiffNum: Boolean = false,
+    @SerialName("higher_diff") val allowsHigherDiffNum: Boolean = false,
     @SerialName("diff_class") val diffClassSet: DifficultyClassSet? = null,
     val songs: List<String>? = null,
     private val folder: String? = null,
@@ -290,6 +291,7 @@ data class SongsClearStackedGoal(
     val score: Int? = null,
     @SerialName("average_score") val averageScore: Int? = null,
     @SerialName("clear_type") private val mClearType: ClearType? = null,
+    @SerialName("exception_score") val exceptionScore: Int? = null,
 ) : StackedRankGoal() {
 
     override val expandedGoals: List<BaseRankGoal>
@@ -309,6 +311,7 @@ data class SongsClearStackedGoal(
                 score = getIntValue(idx, KEY_SCORE) ?: score,
                 averageScore = getIntValue(idx, KEY_AVERAGE_SCORE) ?: averageScore,
                 mClearType,
+                exceptionScore = getIntValue(idx, KEY_EXCEPTION_SCORE) ?: exceptionScore,
             )
         }
 
@@ -321,6 +324,7 @@ data class SongsClearStackedGoal(
         const val KEY_EXCEPTIONS = "exceptions"
         const val KEY_SCORE = "score"
         const val KEY_AVERAGE_SCORE = "average_score"
+        const val KEY_EXCEPTION_SCORE = "exception_score"
     }
 }
 

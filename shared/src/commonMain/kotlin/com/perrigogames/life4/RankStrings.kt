@@ -127,6 +127,7 @@ object RankStrings {
         ClearType.GOOD_FULL_COMBO -> MR.strings.clear_fc
         ClearType.GREAT_FULL_COMBO -> MR.strings.clear_gfc
         ClearType.PERFECT_FULL_COMBO -> MR.strings.clear_pfc
+        ClearType.SINGLE_DIGIT_PERFECTS -> MR.strings.clear_sdp
         ClearType.MARVELOUS_FULL_COMBO -> MR.strings.clear_mfc
         else -> throw IllegalArgumentException("Illegal clear lamp $clearType")
     })
