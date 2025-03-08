@@ -79,7 +79,10 @@ fun SanbaiScoreResult.toChartResult(): ChartResult {
             2 -> ClearType.LIFE4_CLEAR
             3 -> ClearType.GOOD_FULL_COMBO
             4 -> ClearType.GREAT_FULL_COMBO
-            5 -> ClearType.PERFECT_FULL_COMBO
+            5 -> when {
+                score >= 999_910 -> ClearType.SINGLE_DIGIT_PERFECTS
+                else -> ClearType.PERFECT_FULL_COMBO
+            }
             6 -> ClearType.MARVELOUS_FULL_COMBO
             else -> ClearType.NO_PLAY
         },
