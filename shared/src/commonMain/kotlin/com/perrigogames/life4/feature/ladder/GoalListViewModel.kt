@@ -13,6 +13,7 @@ import com.perrigogames.life4.injectLogger
 import com.perrigogames.life4.model.GoalStateManager
 import com.perrigogames.life4.model.LadderDataManager
 import com.perrigogames.life4.model.mapping.LadderGoalMapper
+import com.perrigogames.life4.model.mapping.toViewData
 import com.perrigogames.life4.util.ViewState
 import dev.icerock.moko.mvvm.flow.CStateFlow
 import dev.icerock.moko.mvvm.flow.cMutableStateFlow
@@ -57,7 +58,7 @@ class GoalListViewModel(private val config: GoalListConfig) : ViewModel(), KoinC
                 targetRankFlow,
                 requirementsStateFlow,
                 requirementsStateFlow.flatMapLatest { reqs ->
-                    reqs?.let { ladderGoalProgressManager.getProgressMapFlow(it.allGoals) }
+                    reqs?.let { ladderGoalProgressManager.getProgressMapFlow(it.allGoals + it.substitutionGoals) }
                         ?: flowOf(emptyMap())
                 },
                 _expandedItems,
@@ -138,6 +139,12 @@ class GoalListViewModel(private val config: GoalListConfig) : ViewModel(), KoinC
         val goalStates = goalStateManager.getGoalStateList(requirements.allGoals)
         val songsClearGoals = requirements.allGoals.filterIsInstance<SongsClearGoal>()
         val remainingGoals = requirements.allGoals.filterNot { it is SongsClearGoal }
+        val substitutionProgress = LadderGoalProgress(
+            progress = requirements.substitutionGoals
+                .mapNotNull { progress[it] }
+                .count { it.isComplete },
+            max = requirements.substitutionGoals.size,
+        )
         val categories = (songsClearGoals.groupBy { it.diffNum }
             .toList()
             as List<Pair<Int?, List<BaseRankGoal>>>)
@@ -166,9 +173,22 @@ class GoalListViewModel(private val config: GoalListConfig) : ViewModel(), KoinC
                         isExpanded = expanded.contains(goal.id.toLong()),
                     )
                 }
-            }
+            } + substitutionsItem(substitutionProgress)
         )
     }
+
+    private fun substitutionsItem(progress: LadderGoalProgress) = UILadderGoals.CategorizedList.Category() to listOf(
+        UILadderGoal(
+            id = 9999999,
+            goalText = MR.strings.substitutions.desc(),
+            completed = false,
+            canComplete = false,
+            showCheckbox = false,
+            canHide = false,
+            progress = progress.toViewData(),
+            expandAction = RankListInput.ShowSubstitutions,
+        )
+    )
 
     fun handleAction(action: RankListInput) = when(action) {
         is RankListInput.OnGoal -> {

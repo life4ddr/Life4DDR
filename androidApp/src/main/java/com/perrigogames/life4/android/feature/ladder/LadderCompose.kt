@@ -123,9 +123,11 @@ fun CategorizedList(
                         modifier = Modifier.fillParentMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween,
                     ) {
-                        Text(
-                            text = item.title.toString(context)
-                        )
+                        item.title?.let {
+                            Text(
+                                text = it.toString(context)
+                            )
+                        }
                         item.goalText?.let {
                             Text(
                                 text = it.toString(context)

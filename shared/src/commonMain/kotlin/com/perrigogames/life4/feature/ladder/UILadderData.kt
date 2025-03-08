@@ -59,7 +59,7 @@ sealed class UILadderGoals {
         )
 
         data class Category(
-            val title: StringDesc,
+            val title: StringDesc? = null,
             val goalText: StringDesc? = null
         )
     }
