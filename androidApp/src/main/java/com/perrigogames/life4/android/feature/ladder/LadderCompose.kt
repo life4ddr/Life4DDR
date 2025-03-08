@@ -62,7 +62,7 @@ fun LadderGoals(
     when (val goals = data.goals) {
         is UILadderGoals.SingleList -> {
             SingleGoalList(
-                goals = goals,
+                goals = goals.items,
                 onInput = onInput,
                 modifier = modifier,
             )
@@ -79,7 +79,7 @@ fun LadderGoals(
 
 @Composable
 fun SingleGoalList(
-    goals: UILadderGoals.SingleList,
+    goals: List<UILadderGoal>,
     onInput: (RankListInput) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -87,7 +87,7 @@ fun SingleGoalList(
         modifier = modifier,
         contentPadding = PaddingValues(all = 8.dp),
     ) {
-        itemsIndexed(goals.items) { idx, goal ->
+        itemsIndexed(goals) { idx, goal ->
             if (idx > 0) {
                 SizedSpacer(size = 4.dp)
             }

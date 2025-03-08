@@ -4,11 +4,13 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.material.BottomSheetValue
+import androidx.compose.material.rememberBottomSheetState
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -16,6 +18,7 @@ import com.perrigogames.life4.android.compose.LIFE4Theme
 import com.perrigogames.life4.android.compose.Typography
 import com.perrigogames.life4.android.feature.banners.BannerContainer
 import com.perrigogames.life4.android.feature.ladder.LadderGoals
+import com.perrigogames.life4.android.feature.ladder.SingleGoalList
 import com.perrigogames.life4.android.util.SizedSpacer
 import com.perrigogames.life4.android.view.compose.RankImage
 import com.perrigogames.life4.feature.profile.PlayerInfoViewState
@@ -24,6 +27,7 @@ import com.perrigogames.life4.feature.profile.PlayerProfileViewModel
 import com.perrigogames.life4.util.ViewState
 import dev.icerock.moko.mvvm.createViewModelFactory
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PlayerProfileScreen(
     profileViewModel: PlayerProfileViewModel = viewModel(
@@ -31,36 +35,73 @@ fun PlayerProfileScreen(
     ),
     onAction: (PlayerProfileAction) -> Unit,
 ) {
+    val density = LocalDensity.current
     val playerInfoViewState by profileViewModel.playerInfoViewState.collectAsState()
     val goalListViewState by profileViewModel.goalListViewModel.state.collectAsState()
+    val bottomSheetGoals by profileViewModel.goalListViewModel.substitutionsBottomSheetContent.collectAsState()
+    val bottomSheetState = remember {
+        SheetState(
+            initialValue = SheetValue.Hidden,
+            density = density,
+            skipPartiallyExpanded = false
+        )
+    }
     val goalData by remember { derivedStateOf { (goalListViewState as? ViewState.Success)?.data } }
     val goalError by remember { derivedStateOf { (goalListViewState as? ViewState.Error)?.error } }
 
-    Column {
-        PlayerProfileInfo(
-            state = playerInfoViewState,
-            modifier = Modifier.fillMaxWidth(),
-            onRankClicked = { onAction(PlayerProfileAction.ChangeRank) }
-        )
-        BannerContainer(playerInfoViewState.banner)
-
-        if (goalData != null) {
-            LadderGoals(
-                data = goalData!!,
-                onInput = { profileViewModel.goalListViewModel.handleAction(it) },
-                modifier = Modifier.fillMaxWidth()
-                    .weight(1f)
-            )
+    LaunchedEffect(bottomSheetGoals) {
+        if (bottomSheetGoals != null) {
+            bottomSheetState.expand()
+        } else {
+            bottomSheetState.hide()
         }
-        if (goalError != null) {
-            Text(
-                text = goalError!!,
-                style = MaterialTheme.typography.titleLarge,
-                color = MaterialTheme.colorScheme.onBackground,
-                modifier = Modifier.fillMaxWidth()
-                    .padding(horizontal = 16.dp)
-                    .weight(1f)
+    }
+
+    BottomSheetScaffold(
+        scaffoldState = rememberBottomSheetScaffoldState(
+            bottomSheetState = bottomSheetState
+        ),
+        sheetContent = {
+            bottomSheetGoals?.let {
+                SingleGoalList(
+                    goals = it,
+                    onInput = { profileViewModel.goalListViewModel.handleAction(it) },
+                    modifier = Modifier.fillMaxWidth()
+                        .padding(16.dp)
+                        .weight(1f)
+                )
+            }
+        },
+        sheetPeekHeight = 0.dp,
+    ) { paddingValues ->
+        Column(
+            modifier = Modifier.padding(paddingValues),
+        ) {
+            PlayerProfileInfo(
+                state = playerInfoViewState,
+                modifier = Modifier.fillMaxWidth(),
+                onRankClicked = { onAction(PlayerProfileAction.ChangeRank) }
             )
+            BannerContainer(playerInfoViewState.banner)
+
+            if (goalData != null) {
+                LadderGoals(
+                    data = goalData!!,
+                    onInput = { profileViewModel.goalListViewModel.handleAction(it) },
+                    modifier = Modifier.fillMaxWidth()
+                        .weight(1f)
+                )
+            }
+            if (goalError != null) {
+                Text(
+                    text = goalError!!,
+                    style = MaterialTheme.typography.titleLarge,
+                    color = MaterialTheme.colorScheme.onBackground,
+                    modifier = Modifier.fillMaxWidth()
+                        .padding(horizontal = 16.dp)
+                        .weight(1f)
+                )
+            }
         }
     }
 }

@@ -47,6 +47,10 @@ class GoalListViewModel(private val config: GoalListConfig) : ViewModel(), KoinC
         .onEach { logger.v { "requirementsFlow -> $it" } }
         .stateIn(viewModelScope, SharingStarted.Eagerly, null)
 
+    private val showSubstitutionState = MutableStateFlow(false)
+    private val _substitutionsBottomSheetContent = MutableStateFlow<List<UILadderGoal>?>(null)
+    val substitutionsBottomSheetContent: StateFlow<List<UILadderGoal>?> = _substitutionsBottomSheetContent.asStateFlow()
+
     private val _state = MutableStateFlow<ViewState<UILadderData, String>>(ViewState.Loading).cMutableStateFlow()
     val state: CStateFlow<ViewState<UILadderData, String>> = _state.cStateFlow()
 
@@ -61,9 +65,26 @@ class GoalListViewModel(private val config: GoalListConfig) : ViewModel(), KoinC
                     reqs?.let { ladderGoalProgressManager.getProgressMapFlow(it.allGoals + it.substitutionGoals) }
                         ?: flowOf(emptyMap())
                 },
-                _expandedItems,
+                combine(
+                    _expandedItems,
+                    showSubstitutionState
+                ) { a, b -> a to b },
                 goalStateManager.updated,
-            ) { targetRank, requirements, progress, expanded, _ ->
+            ) { targetRank, requirements, progress, (expanded, showSubstitution), _ ->
+                if (showSubstitution && requirements != null) {
+                    val goalStates = goalStateManager.getGoalStateList(requirements.substitutionGoals)
+                    _substitutionsBottomSheetContent.value = requirements.substitutionGoals.map { goal ->
+                        ladderGoalMapper.toViewData(
+                            base = goal,
+                            goalStatus = goalStates.firstOrNull { it.goalId == goal.id.toLong() }?.status
+                                ?: GoalStatus.INCOMPLETE,
+                            progress = progress[goal],
+                            allowHiding = false,
+                            allowCompleting = config.allowCompleting,
+                            isExpanded = expanded.contains(goal.id.toLong()),
+                        )
+                    }
+                }
                 when {
                     targetRank == null -> ViewState.Error("No higher goals found...")
                     requirements == null -> ViewState.Error("No goals found for ${targetRank.name}")
@@ -173,7 +194,7 @@ class GoalListViewModel(private val config: GoalListConfig) : ViewModel(), KoinC
                         isExpanded = expanded.contains(goal.id.toLong()),
                     )
                 }
-            } + substitutionsItem(substitutionProgress)
+            } + substitutionsItem(substitutionProgress),
         )
     }
 
@@ -190,38 +211,40 @@ class GoalListViewModel(private val config: GoalListConfig) : ViewModel(), KoinC
         )
     )
 
-    fun handleAction(action: RankListInput) = when(action) {
-        is RankListInput.OnGoal -> {
-            val state = goalStateManager.getOrCreateGoalState(action.id)
+    fun handleAction(action: RankListInput) {
+        when(action) {
+            is RankListInput.OnGoal -> {
+                val state = goalStateManager.getOrCreateGoalState(action.id)
 
-            when (action) {
-                is RankListInput.OnGoal.ToggleComplete -> {
-                    val newStatus = if (state.status == GoalStatus.COMPLETE) {
-                        GoalStatus.INCOMPLETE
-                    } else {
-                        GoalStatus.COMPLETE
+                when (action) {
+                    is RankListInput.OnGoal.ToggleComplete -> {
+                        val newStatus = if (state.status == GoalStatus.COMPLETE) {
+                            GoalStatus.INCOMPLETE
+                        } else {
+                            GoalStatus.COMPLETE
+                        }
+                        goalStateManager.setGoalState(action.id, newStatus)
                     }
-                    goalStateManager.setGoalState(action.id, newStatus)
-                }
-                is RankListInput.OnGoal.ToggleExpanded -> {
-                    if (_expandedItems.value.contains(action.id)) {
-                        _expandedItems.value -= action.id
-                    } else {
-                        _expandedItems.value += action.id
+                    is RankListInput.OnGoal.ToggleExpanded -> {
+                        if (_expandedItems.value.contains(action.id)) {
+                            _expandedItems.value -= action.id
+                        } else {
+                            _expandedItems.value += action.id
+                        }
                     }
-                }
-                is RankListInput.OnGoal.ToggleHidden -> {
-                    val newStatus = if (state.status == GoalStatus.IGNORED) {
-                        GoalStatus.INCOMPLETE
-                    } else {
-                        GoalStatus.IGNORED
+                    is RankListInput.OnGoal.ToggleHidden -> {
+                        val newStatus = if (state.status == GoalStatus.IGNORED) {
+                            GoalStatus.INCOMPLETE
+                        } else {
+                            GoalStatus.IGNORED
+                        }
+                        goalStateManager.setGoalState(action.id, newStatus)
                     }
-                    goalStateManager.setGoalState(action.id, newStatus)
                 }
             }
-        }
-        RankListInput.ShowSubstitutions -> {
-
+            RankListInput.ShowSubstitutions -> {
+                showSubstitutionState.value = true
+            }
         }
     }
 }
