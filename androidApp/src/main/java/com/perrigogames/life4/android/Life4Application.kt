@@ -70,7 +70,14 @@ class Life4Application: Application() {
     }
 }
 
+//object AndroidAppInfo : AppInfo {
+//    override val appId: String = BuildConfig.LIBRARY_PACKAGE_NAME // FIXME
+//    override val isDebug: Boolean = BuildConfig.DEBUG // FIXME
+//    override val version: String = BuildConfig.VERSION_NAME // FIXME
+//}
+
 object AndroidAppInfo : AppInfo {
     override val appId: String = "LIFE4DDR" // FIXME
     override val isDebug: Boolean = true // FIXME
+    override val version: String = "<not specified" // FIXME
 }

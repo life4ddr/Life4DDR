@@ -1,8 +1,8 @@
 package com.perrigogames.life4.feature.ladder.converter
 
-import com.perrigogames.life4.GameConstants
 import com.perrigogames.life4.data.LadderGoalProgress
 import com.perrigogames.life4.data.MAPointsStackedGoal
+import com.perrigogames.life4.enums.ClearType
 import com.perrigogames.life4.feature.songresults.ChartResultOrganizer
 import com.perrigogames.life4.feature.songresults.FilterState
 import kotlinx.coroutines.flow.Flow
@@ -20,10 +20,10 @@ class MAPointGoalProgressConverter : StackedGoalProgressConverter<MAPointsStacke
     ): Flow<LadderGoalProgress?> {
         val config = FilterState(
             selectedPlayStyle = goal.playStyle,
-            scoreRange = 999_910 .. GameConstants.MAX_SCORE,
+            clearTypeRange = ClearType.SINGLE_DIGIT_PERFECTS.ordinal .. ClearType.MARVELOUS_FULL_COMBO.ordinal,
         )
         val targetPoints = goal.getDoubleValue(stackIndex, MAPointsStackedGoal.KEY_MFC_POINTS)!!
-        return chartResultOrganizer.resultsForConfig(goal, config).map { (match, _) ->
+        return chartResultOrganizer.resultsForConfig(goal, config, enableDifficultyTiers = false).map { (match, _) ->
             val mfcPoints = match.sumOf { it.maPointsForDifficulty() }
             LadderGoalProgress(
                 progress = mfcPoints,

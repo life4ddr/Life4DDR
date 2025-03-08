@@ -24,12 +24,10 @@ data class ChartResultPair(
             16, 17, 18, 19, 20 -> 25.0 to 2.5
             else -> 0.0 to 0.0
         }
-        return if (result?.clearType == ClearType.MARVELOUS_FULL_COMBO) {
-            points.first
-        } else if (result?.isSdp() == true) {
-            points.second
-        } else {
-            0.0
+        return when (result?.clearType) {
+            ClearType.MARVELOUS_FULL_COMBO -> points.first
+            ClearType.SINGLE_DIGIT_PERFECTS -> points.second
+            else -> 0.0
         }
     }
 }
@@ -42,5 +40,3 @@ fun Chart.matches(other: ChartResult?) = when (other) {
 }
 
 fun ChartResult.matches(other: Chart?) = other?.matches(this) ?: false
-
-fun ChartResult.isSdp() = score > 999_900 // 10pts/Perfect, must be > 10 Perfects

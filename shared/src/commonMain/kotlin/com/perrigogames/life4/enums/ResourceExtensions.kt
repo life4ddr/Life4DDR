@@ -179,7 +179,8 @@ val ClearType.lampRes get() = when(this) {
     ClearType.LIFE4_CLEAR -> MR.strings.lamp_life4
     ClearType.GOOD_FULL_COMBO -> MR.strings.lamp_fc
     ClearType.GREAT_FULL_COMBO -> MR.strings.lamp_gfc
-    ClearType.PERFECT_FULL_COMBO -> MR.strings.lamp_pfc
+    ClearType.PERFECT_FULL_COMBO,
+    ClearType.SINGLE_DIGIT_PERFECTS -> MR.strings.lamp_pfc
     ClearType.MARVELOUS_FULL_COMBO -> MR.strings.lamp_mfc
 }
 
@@ -191,6 +192,7 @@ val ClearType.clearRes get() = when(this) {
     ClearType.GOOD_FULL_COMBO -> MR.strings.clear_fc
     ClearType.GREAT_FULL_COMBO -> MR.strings.clear_gfc
     ClearType.PERFECT_FULL_COMBO -> MR.strings.clear_pfc
+    ClearType.SINGLE_DIGIT_PERFECTS -> MR.strings.clear_sdp
     ClearType.MARVELOUS_FULL_COMBO -> MR.strings.clear_mfc
 }
 
@@ -198,6 +200,7 @@ val ClearType.clearResShort get() = when(this) {
     ClearType.GOOD_FULL_COMBO -> MR.strings.clear_fc_short
     ClearType.GREAT_FULL_COMBO -> MR.strings.clear_gfc_short
     ClearType.PERFECT_FULL_COMBO -> MR.strings.clear_pfc_short
+    ClearType.SINGLE_DIGIT_PERFECTS -> MR.strings.clear_sdp_short
     ClearType.MARVELOUS_FULL_COMBO -> MR.strings.clear_mfc_short
     else -> clearRes
 }
@@ -257,6 +260,7 @@ val ClearType.colorRes get() = when(this) {
     ClearType.LIFE4_CLEAR -> MR.colors.life4
     ClearType.GOOD_FULL_COMBO -> MR.colors.good
     ClearType.GREAT_FULL_COMBO -> MR.colors.great
-    ClearType.PERFECT_FULL_COMBO -> MR.colors.perfect
+    ClearType.PERFECT_FULL_COMBO,
+    ClearType.SINGLE_DIGIT_PERFECTS -> MR.colors.perfect
     ClearType.MARVELOUS_FULL_COMBO -> MR.colors.marvelous
 }

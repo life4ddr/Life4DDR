@@ -192,4 +192,5 @@ var nativeModule: Koin_coreModule = KoinKt.makeNativeModule(
 class IosAppInfo: AppInfo {
     var appId: String = "LIFE4DDR"
     var isDebug: Bool = true
+    var version: String = "<not specified>"
 }

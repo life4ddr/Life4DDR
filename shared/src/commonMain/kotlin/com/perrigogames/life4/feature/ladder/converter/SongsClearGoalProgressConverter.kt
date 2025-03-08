@@ -38,7 +38,7 @@ class SongsClearGoalProgressConverter : GoalProgressConverter<SongsClearGoal>, K
                 filterIgnored = true
             )
         )
-        return chartResultOrganizer.resultsForConfig(goal, config)
+        return chartResultOrganizer.resultsForConfig(goal, config, enableDifficultyTiers = false)
             .map { (match, noMatch) ->
                 if (goal.diffNum != null) {
                     when {

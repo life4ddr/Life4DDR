@@ -62,6 +62,9 @@ class SanbaiManager : BaseModel(), ISanbaiManager {
     }
 
     override suspend fun fetchScores(): Boolean {
+        if (requiresAuthorization()) {
+
+        }
         try {
             sanbaiAPI.getScores()?.let { scores ->
                 songResultsManager.addScores(scores.map { it.toChartResult() })
