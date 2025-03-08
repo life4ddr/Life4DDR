@@ -279,6 +279,8 @@
     <string name="clear_gfc_short">GFC</string>
     <string name="clear_pfc">Perfect Full Combo</string>
     <string name="clear_pfc_short">PFC</string>
+    <string name="clear_sdp">Single Digit Perfects</string>
+    <string name="clear_sdp_short">SDP</string>
     <string name="clear_mfc">Marvelous Full Combo</string>
     <string name="clear_mfc_caps">MARVELOUS FULL COMBO</string>
     <string name="clear_mfc_short">MFC</string>
