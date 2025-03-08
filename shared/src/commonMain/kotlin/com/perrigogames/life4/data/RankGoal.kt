@@ -170,6 +170,7 @@ class SongsClearGoal(
     @SerialName("song_count") val songCount: Int? = null,
     val exceptions: Int? = null,
     @SerialName("song_exceptions") val songExceptions: List<String>? = null,
+    @SerialName("exception_score") val exceptionScore: Int? = null,
 
     val score: Int? = null,
     @SerialName("average_score") val averageScore: Int? = null,
@@ -287,6 +288,7 @@ data class SongsClearStackedGoal(
     @SerialName("song_count") val songCount: Int? = null,
     val exceptions: Int? = null,
     @SerialName("song_exceptions") val songExceptions: List<String>? = null,
+    @SerialName("exception_score") val exceptionScore: Int? = null,
 
     val score: Int? = null,
     @SerialName("average_score") val averageScore: Int? = null,
@@ -308,6 +310,7 @@ data class SongsClearStackedGoal(
                 songCount = getIntValue(idx, KEY_SONG_COUNT) ?: songCount,
                 exceptions = getIntValue(idx, KEY_EXCEPTIONS) ?: exceptions,
                 songExceptions,
+                exceptionScore,
                 score = getIntValue(idx, KEY_SCORE) ?: score,
                 averageScore = getIntValue(idx, KEY_AVERAGE_SCORE) ?: averageScore,
                 mClearType,

@@ -16,6 +16,7 @@
 
     <domain-config>
         <domain includeSubdomains="true">raw.githubusercontent.com</domain>
+        <domain includeSubdomains="true">3icecream.com</domain>
         <trust-anchors>
             <certificates src="user"/>
             <certificates src="system"/>

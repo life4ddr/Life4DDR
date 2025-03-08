@@ -26,25 +26,32 @@ class GithubDataImpl: GithubDataAPI, KoinComponent {
     }
 
     override suspend fun getLadderRanks(): LadderRankData =
-        client.get { github(GithubDataAPI.RANKS_FILE_NAME) }.body()
+        client.get { webGithubithub(GithubDataAPI.RANKS_FILE_NAME) }.body()
 
     override suspend fun getSongList(): String =
-        client.get { github(GithubDataAPI.SONGS_FILE_NAME) }.body()
+        client.get { appGithub(GithubDataAPI.SONGS_FILE_NAME) }.body()
 
     override suspend fun getIgnoreLists(): IgnoreListData =
-        client.get { github(GithubDataAPI.IGNORES_FILE_NAME) }.body()
+        client.get { appGithub(GithubDataAPI.IGNORES_FILE_NAME) }.body()
 
     override suspend fun getTrials(): TrialData =
-        client.get { github(GithubDataAPI.TRIALS_FILE_NAME) }.body()
+        client.get { appGithub(GithubDataAPI.TRIALS_FILE_NAME) }.body()
 
     override suspend fun getMotd(): MessageOfTheDay =
-        client.get { github(GithubDataAPI.MOTD_FILE_NAME) }.body()
+        client.get { appGithub(GithubDataAPI.MOTD_FILE_NAME) }.body()
 
-    private fun HttpRequestBuilder.github(filename: String) {
+    private fun HttpRequestBuilder.appGithub(filename: String) {
         val githubTarget = if (appInfo.isDebug) "remote-data-test" else "remote-data"
         url {
             takeFrom("https://raw.githubusercontent.com/")
             encodedPath = "PerrigoGames/Life4DDR-Trials/$githubTarget/app/src/main/res/raw/$filename"
+        }
+    }
+
+    private fun HttpRequestBuilder.webGithubithub(filename: String) {
+        url {
+            takeFrom("https://raw.githubusercontent.com/") //https://github.com/life4ddr/life4ddr.com/blob/main/life4/json/ranks.json
+            encodedPath = "life4ddr/life4ddr.com/blob/main/life4/json/$filename"
         }
     }
 }
