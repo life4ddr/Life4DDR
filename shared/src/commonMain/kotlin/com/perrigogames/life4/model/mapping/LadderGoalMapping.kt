@@ -38,14 +38,7 @@ class LadderGoalMapper : KoinComponent {
             canHide = !isComplete && // don't allow hiding completed goals
                     (allowHiding || goalStatus == GoalStatus.IGNORED), // must be able to unhide
             showCheckbox = true,
-            progress = progress?.let {
-                if (it.max == 0.0) return@let null
-                UILadderProgress(
-                    count = it.progress,
-                    max = it.max,
-                    showMax = it.showMax
-                )
-            },
+            progress = progress?.toViewData(),
             expandAction = if (progress?.results?.isNotEmpty() == true) {
                 RankListInput.OnGoal.ToggleExpanded(base.id.toLong())
             } else {
@@ -81,4 +74,14 @@ class LadderGoalMapper : KoinComponent {
             }
         )
     }
+}
+
+fun LadderGoalProgress.toViewData(): UILadderProgress? {
+    if (max == 0.0) return null
+    return UILadderProgress(
+        count = progress,
+        max = max,
+        showMax = showMax,
+        showProgressBar = showProgressBar,
+    )
 }

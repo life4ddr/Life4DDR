@@ -344,6 +344,7 @@
     <!-- region Short/Common Strings -->
     <string name="goals">Goals</string>
     <string name="mandatory_goals">Mandatory Goals</string>
+    <string name="substitutions">Substitutions</string>
     <string name="other_goals">Other Goals</string>
     <string name="are_you_sure">Are you sure?</string>
     <string name="finalize">Finalize</string>

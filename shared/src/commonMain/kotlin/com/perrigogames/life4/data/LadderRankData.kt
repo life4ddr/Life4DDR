@@ -38,8 +38,9 @@ data class LadderRankData(
             .flatMap { it.rankRequirements }
             .forEach {  entry ->
                 try {
-                    entry.goalIds?.let { entry.goals = mapIdsToGoals(it) }
-                    entry.mandatoryGoalIds?.let { entry.mandatoryGoals = mapIdsToGoals(it) }
+                    entry.goals = mapIdsToGoals(entry.goalIds)
+                    entry.mandatoryGoals = mapIdsToGoals(entry.mandatoryGoalIds)
+                    entry.substitutionGoals = mapIdsToGoals(entry.substitutions)
                 } catch (e: IllegalStateException) {
                     logger.e(e) { "Error processing ladder rank data" }
                 }
@@ -93,6 +94,7 @@ data class RankEntry(
 
     @Transient var goals = emptyList<BaseRankGoal>()
     @Transient var mandatoryGoals = emptyList<BaseRankGoal>()
+    @Transient var substitutionGoals = emptyList<BaseRankGoal>()
 
     val allGoals: List<BaseRankGoal>
         get() = goals + mandatoryGoals

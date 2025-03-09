@@ -46,7 +46,7 @@ fun LadderGoalsScreen(
 
     (state as? ViewState.Success)?.data?.let { data ->
         LadderGoals(
-            data = data,
+            goals = data.goals,
             onInput = {},
             modifier = modifier,
         )
@@ -55,14 +55,14 @@ fun LadderGoalsScreen(
 
 @Composable
 fun LadderGoals(
-    data: UILadderData,
+    goals: UILadderGoals,
     onInput: (RankListInput) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    when (val goals = data.goals) {
+    when (goals) {
         is UILadderGoals.SingleList -> {
             SingleGoalList(
-                goals = goals,
+                goals = goals.items,
                 onInput = onInput,
                 modifier = modifier,
             )
@@ -79,7 +79,7 @@ fun LadderGoals(
 
 @Composable
 fun SingleGoalList(
-    goals: UILadderGoals.SingleList,
+    goals: List<UILadderGoal>,
     onInput: (RankListInput) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -87,7 +87,7 @@ fun SingleGoalList(
         modifier = modifier,
         contentPadding = PaddingValues(all = 8.dp),
     ) {
-        itemsIndexed(goals.items) { idx, goal ->
+        itemsIndexed(goals) { idx, goal ->
             if (idx > 0) {
                 SizedSpacer(size = 4.dp)
             }
@@ -119,19 +119,25 @@ fun CategorizedList(
             }
             when(item) {
                 is UILadderGoals.CategorizedList.Category -> {
+                    SizedSpacer(8.dp)
                     Row(
                         modifier = Modifier.fillParentMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween,
                     ) {
-                        Text(
-                            text = item.title.toString(context)
-                        )
+                        item.title?.let {
+                            Text(
+                                text = it.toString(context),
+                                style = MaterialTheme.typography.titleSmall,
+                            )
+                        }
                         item.goalText?.let {
                             Text(
-                                text = it.toString(context)
+                                text = it.toString(context),
+                                style = MaterialTheme.typography.titleSmall,
                             )
                         }
                     }
+                    SizedSpacer(8.dp)
                 }
                 is UILadderGoal -> {
                     LadderGoalItem(
@@ -185,7 +191,7 @@ fun LadderGoalItem(
                     }
                 }
             }
-            if (goal.progress != null) {
+            if (goal.progress?.showProgressBar == true) {
                 LinearProgressIndicator(
                     color = colorResource(MR.colors.colorAccent),
                     trackColor = MaterialTheme.colorScheme.surfaceDim.copy(alpha = 0.5f),
@@ -247,6 +253,10 @@ private fun LadderGoalHeaderRow(
                     .safeContentPadding()
                     .padding(end = HORIZONTAL_PADDING)
             )
+        }
+
+        if (!goal.showCheckbox && goal.hideAction == null) {
+            SizedSpacer(16.dp)
         }
     }
 }

@@ -7,13 +7,11 @@ import dev.icerock.moko.resources.desc.StringDesc
 typealias CategorizedUILadderGoals = List<Pair<UILadderGoals.CategorizedList.Category, List<UILadderGoal>>>
 
 data class UILadderData(
-    val goals: UILadderGoals
+    val goals: UILadderGoals,
+    val substitutions: UILadderGoals? = null
 ) {
-    constructor(
-        items: List<UILadderGoal>
-    ) : this(
-        goals = UILadderGoals.SingleList(items)
-    )
+
+    val hasSubstitutions get() = substitutions?.rawGoals?.isNotEmpty() == true
 }
 
 sealed class UILadderGoals {
@@ -59,7 +57,7 @@ sealed class UILadderGoals {
         )
 
         data class Category(
-            val title: StringDesc,
+            val title: StringDesc? = null,
             val goalText: StringDesc? = null
         )
     }
@@ -111,31 +109,36 @@ data class UILadderGoal(
 data class UILadderProgress(
     val progressPercent: Float,
     val progressText: String,
+    val showProgressBar: Boolean = true,
 ) {
     constructor(
         count: Int,
         max: Int,
         showMax: Boolean = true,
+        showProgressBar: Boolean = true,
     ) : this(
         progressPercent = count.toFloat() / max.toFloat(),
         progressText = if (showMax) {
             "$count / $max"
         } else {
             "$count"
-        }
+        },
+        showProgressBar = showProgressBar,
     )
 
     constructor(
         count: Double,
         max: Double,
         showMax: Boolean = true,
+        showProgressBar: Boolean = true,
     ) : this(
         progressPercent = (count / max).toFloat(),
         progressText = if (showMax) {
             "${count.toStringWithoutDecimal()} / ${max.toStringWithoutDecimal()}"
         } else {
             count.toStringWithoutDecimal()
-        }
+        },
+        showProgressBar = showProgressBar
     )
 }
 
