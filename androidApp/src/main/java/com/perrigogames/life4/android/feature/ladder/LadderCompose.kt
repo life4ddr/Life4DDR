@@ -191,7 +191,7 @@ fun LadderGoalItem(
                     }
                 }
             }
-            if (goal.progress != null) {
+            if (goal.progress?.showProgressBar == true) {
                 LinearProgressIndicator(
                     color = colorResource(MR.colors.colorAccent),
                     trackColor = MaterialTheme.colorScheme.surfaceDim.copy(alpha = 0.5f),

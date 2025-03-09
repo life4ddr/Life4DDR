@@ -171,6 +171,7 @@ class GoalListViewModel(private val config: GoalListConfig) : ViewModel(), KoinC
                 .mapNotNull { progress[it] }
                 .count { it.isComplete },
             max = requirements.substitutionGoals.size,
+            showProgressBar = false,
         )
         val categories = (songsClearGoals.groupBy { it.diffNum }
             .toList()

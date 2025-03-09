@@ -10,6 +10,7 @@ class LadderGoalProgress(
     val progress: Double,
     val max: Double,
     val showMax: Boolean = true,
+    val showProgressBar: Boolean = true,
     val results: List<ChartResultPair>? = null,
 ) {
 
@@ -17,8 +18,9 @@ class LadderGoalProgress(
         progress: Int,
         max: Int,
         showMax: Boolean = true,
+        showProgressBar: Boolean = true,
         results: List<ChartResultPair>? = null,
-    ) : this(progress.toDouble(), max.toDouble(), showMax, results)
+    ) : this(progress.toDouble(), max.toDouble(), showMax, showProgressBar, results)
 
     val isComplete = progress >= max && max > 0
 

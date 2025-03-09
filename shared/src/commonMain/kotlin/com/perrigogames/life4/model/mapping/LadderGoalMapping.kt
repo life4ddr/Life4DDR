@@ -81,6 +81,7 @@ fun LadderGoalProgress.toViewData(): UILadderProgress? {
     return UILadderProgress(
         count = progress,
         max = max,
-        showMax = showMax
+        showMax = showMax,
+        showProgressBar = showProgressBar,
     )
 }

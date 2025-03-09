@@ -109,31 +109,36 @@ data class UILadderGoal(
 data class UILadderProgress(
     val progressPercent: Float,
     val progressText: String,
+    val showProgressBar: Boolean = true,
 ) {
     constructor(
         count: Int,
         max: Int,
         showMax: Boolean = true,
+        showProgressBar: Boolean = true,
     ) : this(
         progressPercent = count.toFloat() / max.toFloat(),
         progressText = if (showMax) {
             "$count / $max"
         } else {
             "$count"
-        }
+        },
+        showProgressBar = showProgressBar,
     )
 
     constructor(
         count: Double,
         max: Double,
         showMax: Boolean = true,
+        showProgressBar: Boolean = true,
     ) : this(
         progressPercent = (count / max).toFloat(),
         progressText = if (showMax) {
             "${count.toStringWithoutDecimal()} / ${max.toStringWithoutDecimal()}"
         } else {
             count.toStringWithoutDecimal()
-        }
+        },
+        showProgressBar = showProgressBar
     )
 }
 
