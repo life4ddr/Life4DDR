@@ -79,6 +79,7 @@ class SongDataManager: BaseModel() {
                 artist = artists[item.songId] ?: "Unknown Artist",
                 version = GameVersion.entries[item.versionNum - 1],
                 preview = false, // FIXME
+                deleted = item.deleted == 1
             )
             songs[song] = item.ratings
                 .zip(item.tiers) { rating, tier -> rating to tier }

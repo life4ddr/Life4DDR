@@ -11,6 +11,7 @@ data class Song(
     val artist: String?,
     val version: GameVersion,
     val preview: Boolean?,
+    val deleted: Boolean = false,
 )
 
 data class Chart(

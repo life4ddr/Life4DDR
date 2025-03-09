@@ -59,10 +59,10 @@ class ChartResultOrganizer: BaseModel(), KoinComponent {
                     }
                     return@map when(config.ignoreFilterType) {
                         IgnoreFilterType.BASIC -> {
-                            result.filterNot { (it.chart.lockType ?: 0) in BASIC_LOCKS }
+                            result.filterNot { it.chart.song.deleted || (it.chart.lockType ?: 0) in BASIC_LOCKS }
                         }
                         IgnoreFilterType.EXPANDED -> {
-                            result.filterNot { (it.chart.lockType ?: 0) in EXPANDED_LOCKS }
+                            result.filterNot { it.chart.song.deleted || (it.chart.lockType ?: 0) in EXPANDED_LOCKS }
                         }
                         IgnoreFilterType.ALL -> result
                     }
