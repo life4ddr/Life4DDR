@@ -84,9 +84,6 @@ class SongsClearGoalProgressConverter : GoalProgressConverter<SongsClearGoal>, K
             }
 
             completed += match.size
-            if (completed >= goal.songCount!!) {
-                return@forEachDiffNum
-            }
         }
 
         return if (goal.songCount == 1) {
@@ -94,6 +91,7 @@ class SongsClearGoalProgressConverter : GoalProgressConverter<SongsClearGoal>, K
                 progress = topValidScore.toInt(),
                 max = goal.score!!,
                 showMax = false,
+                results = match,
             )
         } else {
             LadderGoalProgress(
@@ -116,9 +114,6 @@ class SongsClearGoalProgressConverter : GoalProgressConverter<SongsClearGoal>, K
                 results.forEach { (_, result) ->
                     if (result!!.clearType >= goal.clearType) {
                         completed++
-                    }
-                    if (completed >= goal.songCount!!) {
-                        return@forEachDiffNum
                     }
                 }
             }
