@@ -2,6 +2,7 @@ package com.perrigogames.life4.feature.ladder
 
 import co.touchlab.kermit.Logger
 import com.perrigogames.life4.data.*
+import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.feature.ladder.converter.GoalProgressConverter
 import com.perrigogames.life4.feature.ladder.converter.MAPointGoalProgressConverter
 import com.perrigogames.life4.feature.ladder.converter.SongsClearGoalProgressConverter
@@ -25,24 +26,24 @@ class LadderGoalProgressManager : BaseModel(), KoinComponent {
         TrialStackedGoal::class to TrialGoalProgressConverter(),
     )
 
-    fun getGoalProgress(goal: BaseRankGoal): Flow<LadderGoalProgress?> {
+    fun getGoalProgress(goal: BaseRankGoal, ladderRank: LadderRank?): Flow<LadderGoalProgress?> {
         println("Goal ${goal.id}: $goal")
         return when (goal) {
             is SongsClearGoal -> (converters[SongsClearGoal::class] as SongsClearGoalProgressConverter)
-                .getGoalProgress(goal)
+                .getGoalProgress(goal, ladderRank)
             is StackedRankGoalWrapper -> when (goal.mainGoal) {
                 is TrialStackedGoal -> (converters[TrialStackedGoal::class] as TrialGoalProgressConverter)
-                    .getGoalProgress(goal)
+                    .getGoalProgress(goal, ladderRank)
                 is MAPointsStackedGoal -> (converters[MAPointsStackedGoal::class] as MAPointGoalProgressConverter)
-                    .getGoalProgress(goal)
+                    .getGoalProgress(goal, ladderRank)
                 else -> flowOf(null)
             }
             else -> flowOf(null)
         }
     }
 
-    fun getProgressMapFlow(goals: List<BaseRankGoal>): Flow<Map<BaseRankGoal, LadderGoalProgress?>> {
-        val flowMap = goals.associateWith { getGoalProgress(it) }
+    fun getProgressMapFlow(goals: List<BaseRankGoal>, ladderRank: LadderRank?): Flow<Map<BaseRankGoal, LadderGoalProgress?>> {
+        val flowMap = goals.associateWith { getGoalProgress(it, ladderRank) }
         return combine(
             flowMap.map { (goal, flow) ->
                 flow.map { goal to it }

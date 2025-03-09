@@ -18,7 +18,8 @@ data class Chart(
     val playStyle: PlayStyle,
     val difficultyClass: DifficultyClass,
     val difficultyNumber: Int,
-    val difficultyNumberTier: Double? = null
+    val difficultyNumberTier: Double? = null,
+    val lockType: Int? = null,
 ) {
     val combinedDifficultyNumber: Double = difficultyNumber + (difficultyNumberTier ?: 0.0)
 }

@@ -56,8 +56,11 @@ class GoalListViewModel(private val config: GoalListConfig) : ViewModel(), KoinC
             combine(
                 targetRankFlow,
                 requirementsStateFlow,
-                requirementsStateFlow.flatMapLatest { reqs ->
-                    reqs?.let { ladderGoalProgressManager.getProgressMapFlow(it.allGoals) }
+                combine(
+                    targetRankFlow,
+                    requirementsStateFlow,
+                ) { target, reqs -> target to reqs }.flatMapLatest { (target, reqs) ->
+                    reqs?.let { ladderGoalProgressManager.getProgressMapFlow(it.allGoals, target) }
                         ?: flowOf(emptyMap())
                 },
                 _expandedItems,
