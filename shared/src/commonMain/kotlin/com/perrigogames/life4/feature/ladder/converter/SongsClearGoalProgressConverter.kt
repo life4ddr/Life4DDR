@@ -78,12 +78,14 @@ class SongsClearGoalProgressConverter : GoalProgressConverter<SongsClearGoal>, K
     ): LadderGoalProgress {
         var completed = 0
         var topValidScore = 0L
+        val sortedMatches = match.groupByDifficultyNumber()
         goal.forEachDiffNum { diff ->
-            if (match.firstOrNull()?.result.safeScore > topValidScore) {
+            val diffMatch = sortedMatches[diff] ?: emptyList()
+            if (diffMatch.firstOrNull()?.result.safeScore > topValidScore) {
                 topValidScore = match.first().result.safeScore
             }
 
-            completed += match.size
+            completed += diffMatch.size
         }
 
         return if (goal.songCount == 1) {
@@ -109,12 +111,11 @@ class SongsClearGoalProgressConverter : GoalProgressConverter<SongsClearGoal>, K
         noMatch: List<ChartResultPair>,
     ): LadderGoalProgress {
         var completed = 0
+        val sortedMatches = match.groupByDifficultyNumber()
         goal.forEachDiffNum { diff ->
-            match.byScoreInTenThousands().forEach { (_, results) ->
-                results.forEach { (_, result) ->
-                    if (result!!.clearType >= goal.clearType) {
-                        completed++
-                    }
+            (sortedMatches[diff] ?: emptyList()).forEach { result ->
+                if ((result.result?.clearType ?: ClearType.NO_PLAY) >= goal.clearType) {
+                    completed++
                 }
             }
         }
