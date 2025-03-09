@@ -87,7 +87,7 @@ fun RankListScreen(
             val ladderData = state.ladderData
             if (ladderData != null) {
                 LadderGoals(
-                    data = ladderData,
+                    goals = ladderData.goals,
                     modifier = Modifier.weight(1f),
                     onInput = { onInput(RankListViewModel.Input.GoalList(it)) },
                 )

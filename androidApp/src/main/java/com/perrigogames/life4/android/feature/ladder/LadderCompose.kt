@@ -46,7 +46,7 @@ fun LadderGoalsScreen(
 
     (state as? ViewState.Success)?.data?.let { data ->
         LadderGoals(
-            data = data,
+            goals = data.goals,
             onInput = {},
             modifier = modifier,
         )
@@ -55,11 +55,11 @@ fun LadderGoalsScreen(
 
 @Composable
 fun LadderGoals(
-    data: UILadderData,
+    goals: UILadderGoals,
     onInput: (RankListInput) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    when (val goals = data.goals) {
+    when (goals) {
         is UILadderGoals.SingleList -> {
             SingleGoalList(
                 goals = goals.items,
@@ -119,21 +119,25 @@ fun CategorizedList(
             }
             when(item) {
                 is UILadderGoals.CategorizedList.Category -> {
+                    SizedSpacer(8.dp)
                     Row(
                         modifier = Modifier.fillParentMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween,
                     ) {
                         item.title?.let {
                             Text(
-                                text = it.toString(context)
+                                text = it.toString(context),
+                                style = MaterialTheme.typography.titleSmall,
                             )
                         }
                         item.goalText?.let {
                             Text(
-                                text = it.toString(context)
+                                text = it.toString(context),
+                                style = MaterialTheme.typography.titleSmall,
                             )
                         }
                     }
+                    SizedSpacer(8.dp)
                 }
                 is UILadderGoal -> {
                     LadderGoalItem(
@@ -249,6 +253,10 @@ private fun LadderGoalHeaderRow(
                     .safeContentPadding()
                     .padding(end = HORIZONTAL_PADDING)
             )
+        }
+
+        if (!goal.showCheckbox && goal.hideAction == null) {
+            SizedSpacer(16.dp)
         }
     }
 }

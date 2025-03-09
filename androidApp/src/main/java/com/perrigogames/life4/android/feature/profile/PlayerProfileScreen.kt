@@ -1,11 +1,11 @@
 package com.perrigogames.life4.android.feature.profile
 
+import androidx.activity.compose.BackHandler
+import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.BottomSheetValue
-import androidx.compose.material.rememberBottomSheetState
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -18,7 +18,6 @@ import com.perrigogames.life4.android.compose.LIFE4Theme
 import com.perrigogames.life4.android.compose.Typography
 import com.perrigogames.life4.android.feature.banners.BannerContainer
 import com.perrigogames.life4.android.feature.ladder.LadderGoals
-import com.perrigogames.life4.android.feature.ladder.SingleGoalList
 import com.perrigogames.life4.android.util.SizedSpacer
 import com.perrigogames.life4.android.view.compose.RankImage
 import com.perrigogames.life4.feature.profile.PlayerInfoViewState
@@ -26,6 +25,7 @@ import com.perrigogames.life4.feature.profile.PlayerProfileAction
 import com.perrigogames.life4.feature.profile.PlayerProfileViewModel
 import com.perrigogames.life4.util.ViewState
 import dev.icerock.moko.mvvm.createViewModelFactory
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -35,10 +35,12 @@ fun PlayerProfileScreen(
     ),
     onAction: (PlayerProfileAction) -> Unit,
 ) {
+    val backDispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher
     val density = LocalDensity.current
+    val scope = rememberCoroutineScope()
+
     val playerInfoViewState by profileViewModel.playerInfoViewState.collectAsState()
     val goalListViewState by profileViewModel.goalListViewModel.state.collectAsState()
-    val bottomSheetGoals by profileViewModel.goalListViewModel.substitutionsBottomSheetContent.collectAsState()
     val bottomSheetState = remember {
         SheetState(
             initialValue = SheetValue.Hidden,
@@ -49,11 +51,17 @@ fun PlayerProfileScreen(
     val goalData by remember { derivedStateOf { (goalListViewState as? ViewState.Success)?.data } }
     val goalError by remember { derivedStateOf { (goalListViewState as? ViewState.Error)?.error } }
 
-    LaunchedEffect(bottomSheetGoals) {
-        if (bottomSheetGoals != null) {
-            bottomSheetState.expand()
+    BackHandler {
+        if (bottomSheetState.isVisible) {
+            scope.launch { bottomSheetState.hide() }
         } else {
-            bottomSheetState.hide()
+            backDispatcher?.onBackPressed()
+        }
+    }
+
+    LaunchedEffect(Unit) {
+        profileViewModel.goalListViewModel.showBottomSheet.collect {
+            bottomSheetState.expand()
         }
     }
 
@@ -62,12 +70,12 @@ fun PlayerProfileScreen(
             bottomSheetState = bottomSheetState
         ),
         sheetContent = {
-            bottomSheetGoals?.let {
-                SingleGoalList(
-                    goals = it,
+            if (goalData?.hasSubstitutions == true) {
+                LadderGoals(
+                    goals = goalData!!.substitutions!!,
                     onInput = { profileViewModel.goalListViewModel.handleAction(it) },
                     modifier = Modifier.fillMaxWidth()
-                        .padding(16.dp)
+                        .padding(8.dp)
                         .weight(1f)
                 )
             }
@@ -86,7 +94,7 @@ fun PlayerProfileScreen(
 
             if (goalData != null) {
                 LadderGoals(
-                    data = goalData!!,
+                    goals = goalData!!.goals,
                     onInput = { profileViewModel.goalListViewModel.handleAction(it) },
                     modifier = Modifier.fillMaxWidth()
                         .weight(1f)

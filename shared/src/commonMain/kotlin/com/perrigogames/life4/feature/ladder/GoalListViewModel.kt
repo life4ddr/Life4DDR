@@ -47,12 +47,11 @@ class GoalListViewModel(private val config: GoalListConfig) : ViewModel(), KoinC
         .onEach { logger.v { "requirementsFlow -> $it" } }
         .stateIn(viewModelScope, SharingStarted.Eagerly, null)
 
-    private val showSubstitutionState = MutableStateFlow(false)
-    private val _substitutionsBottomSheetContent = MutableStateFlow<List<UILadderGoal>?>(null)
-    val substitutionsBottomSheetContent: StateFlow<List<UILadderGoal>?> = _substitutionsBottomSheetContent.asStateFlow()
-
     private val _state = MutableStateFlow<ViewState<UILadderData, String>>(ViewState.Loading).cMutableStateFlow()
     val state: CStateFlow<ViewState<UILadderData, String>> = _state.cStateFlow()
+
+    private val _showBottomSheet = MutableSharedFlow<Unit>()
+    val showBottomSheet: SharedFlow<Unit> = _showBottomSheet.asSharedFlow()
 
     private val _expandedItems = MutableStateFlow<Set<Long>>(emptySet())
 
@@ -65,37 +64,44 @@ class GoalListViewModel(private val config: GoalListConfig) : ViewModel(), KoinC
                     reqs?.let { ladderGoalProgressManager.getProgressMapFlow(it.allGoals + it.substitutionGoals) }
                         ?: flowOf(emptyMap())
                 },
-                combine(
-                    _expandedItems,
-                    showSubstitutionState
-                ) { a, b -> a to b },
+                _expandedItems,
                 goalStateManager.updated,
-            ) { targetRank, requirements, progress, (expanded, showSubstitution), _ ->
-                if (showSubstitution && requirements != null) {
+            ) { targetRank, requirements, progress, expanded, _ ->
+                val substitutions = if (requirements != null && requirements.substitutionGoals.isNotEmpty()) {
                     val goalStates = goalStateManager.getGoalStateList(requirements.substitutionGoals)
-                    _substitutionsBottomSheetContent.value = requirements.substitutionGoals.map { goal ->
-                        ladderGoalMapper.toViewData(
-                            base = goal,
-                            goalStatus = goalStates.firstOrNull { it.goalId == goal.id.toLong() }?.status
-                                ?: GoalStatus.INCOMPLETE,
-                            progress = progress[goal],
-                            allowHiding = false,
-                            allowCompleting = config.allowCompleting,
-                            isExpanded = expanded.contains(goal.id.toLong()),
+                    UILadderGoals.CategorizedList(
+                        categories = listOf(
+                            UILadderGoals.CategorizedList.Category(
+                                title = MR.strings.substitutions.desc()
+                            ) to requirements.substitutionGoals.map { goal ->
+                                ladderGoalMapper.toViewData(
+                                    base = goal,
+                                    goalStatus = goalStates.firstOrNull { it.goalId == goal.id.toLong() }?.status
+                                        ?: GoalStatus.INCOMPLETE,
+                                    progress = progress[goal],
+                                    allowHiding = false,
+                                    allowCompleting = config.allowCompleting,
+                                    isExpanded = expanded.contains(goal.id.toLong()),
+                                )
+                            }
                         )
-                    }
+                    )
+                } else {
+                    null
                 }
                 when {
                     targetRank == null -> ViewState.Error("No higher goals found...")
                     requirements == null -> ViewState.Error("No goals found for ${targetRank.name}")
                     targetRank >= LadderRank.PLATINUM1 -> ViewState.Success(
                         UILadderData(
-                            goals = generateDifficultyCategories(requirements, progress, expanded)
+                            goals = generateDifficultyCategories(requirements, progress, expanded),
+                            substitutions = substitutions
                         )
                     )
                     else -> ViewState.Success(
                         UILadderData(
-                            goals = generateCommonCategories(requirements, progress, expanded)
+                            goals = generateCommonCategories(requirements, progress, expanded),
+                            substitutions = substitutions
                         )
                     )
                 }
@@ -243,7 +249,7 @@ class GoalListViewModel(private val config: GoalListConfig) : ViewModel(), KoinC
                 }
             }
             RankListInput.ShowSubstitutions -> {
-                showSubstitutionState.value = true
+                viewModelScope.launch { _showBottomSheet.emit(Unit) }
             }
         }
     }

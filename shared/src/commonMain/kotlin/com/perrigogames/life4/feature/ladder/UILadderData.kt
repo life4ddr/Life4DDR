@@ -7,13 +7,11 @@ import dev.icerock.moko.resources.desc.StringDesc
 typealias CategorizedUILadderGoals = List<Pair<UILadderGoals.CategorizedList.Category, List<UILadderGoal>>>
 
 data class UILadderData(
-    val goals: UILadderGoals
+    val goals: UILadderGoals,
+    val substitutions: UILadderGoals? = null
 ) {
-    constructor(
-        items: List<UILadderGoal>
-    ) : this(
-        goals = UILadderGoals.SingleList(items)
-    )
+
+    val hasSubstitutions get() = substitutions?.rawGoals?.isNotEmpty() == true
 }
 
 sealed class UILadderGoals {
