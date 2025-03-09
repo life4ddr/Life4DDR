@@ -75,7 +75,7 @@ struct LadderGoalItem: View {
     var onInput: (RankListInput) -> (Void)
     
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             LadderGoalHeaderRow(
                 goal: goal,
                 onInput: onInput
@@ -88,7 +88,6 @@ struct LadderGoalItem: View {
                 ProgressView(value: goal.progress?.progressPercent)
                     .frame(maxWidth: .infinity)
                     .accentColor(.green)
-                    .scaleEffect(x: 1, y: 4, anchor: .center)
             }
         }
         .background(Color("goalBackground"))

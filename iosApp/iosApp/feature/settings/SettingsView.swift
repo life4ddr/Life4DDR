@@ -40,38 +40,28 @@ struct SettingsViewContent: View {
     
     var body: some View {
         List {
-            Section {
-                ForEach(items?[0...3] ?? [], id: \.self) { item in
-                    var link = item as? UISettingsItem.Link
+            ForEach(items ?? [], id: \.self) { item in
+                if var link = item as? UISettingsItem.Link {
                     Button {
-//                        withAnimation {
-//                            onAction(link!.action)
-//                        }
-                    } label: {
-                        Text(link!.title.localized())
-                    }.buttonStyle(.plain)
-                    
-                }
-            }
-            Section {
-                ForEach(items?[6...] ?? [], id: \.self) { item in
-                    let link = item as? UISettingsItem.Link
-                    Button {
-//                        withAnimation {
-//                            onAction(link!.action)
-//                        }
-                    } label: {
-                        VStack(alignment: .leading) {
-                            Text(link?.title.localized() ?? "")
-                            if (link?.subtitle != nil) {
-                                Text(link?.subtitle?.localized() ?? "")
-                                    .font(.system(size: 13, weight: .bold))
-                            }
+                        withAnimation {
+                            onAction(link.action)
                         }
+                    } label: {
+                        Text(link.title.localized())
                     }.buttonStyle(.plain)
+                } else if var checkbox = item as? UISettingsItem.Checkbox {
+                    HStack {
+                        Text(checkbox.title.localized())
+                        Spacer()
+                        Toggle("", isOn: Binding(
+                            get: { checkbox.toggled },
+                            set: { _ in
+                                onAction(checkbox.action)
+                            }
+                        ))
+                        .labelsHidden()
+                    }
                 }
-            } header: {
-                Text((items?[5] as? UISettingsItem.Header)?.title.localized() ?? "")
             }
         }
     }
