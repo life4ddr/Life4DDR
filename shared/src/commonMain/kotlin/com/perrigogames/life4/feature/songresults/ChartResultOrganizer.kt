@@ -6,7 +6,6 @@ import com.perrigogames.life4.data.MAPointsStackedGoal
 import com.perrigogames.life4.enums.ClearType
 import com.perrigogames.life4.enums.DifficultyClass
 import com.perrigogames.life4.enums.PlayStyle
-import com.perrigogames.life4.feature.songlist.IgnoreListManager
 import com.perrigogames.life4.injectLogger
 import com.perrigogames.life4.model.BaseModel
 import com.perrigogames.life4.util.split
@@ -24,7 +23,6 @@ typealias DifficultyNumberMap = Map<Int, List<ChartResultPair>>
 
 class ChartResultOrganizer: BaseModel(), KoinComponent {
 
-    private val ignoreListManager: IgnoreListManager by inject()
     private val songResultsManager: SongResultsManager by inject()
     private val songResultSettings: SongResultSettings by inject()
     private val logger: Logger by injectLogger("ChartResultOrganizer")
