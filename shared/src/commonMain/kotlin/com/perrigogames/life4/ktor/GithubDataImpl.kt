@@ -4,7 +4,6 @@ import co.touchlab.kermit.Logger
 import co.touchlab.stately.ensureNeverFrozen
 import com.perrigogames.life4.AppInfo
 import com.perrigogames.life4.api.baseHttpClient
-import com.perrigogames.life4.data.IgnoreListData
 import com.perrigogames.life4.data.LadderRankData
 import com.perrigogames.life4.data.MessageOfTheDay
 import com.perrigogames.life4.data.TrialData
@@ -30,9 +29,6 @@ class GithubDataImpl: GithubDataAPI, KoinComponent {
 
     override suspend fun getSongList(): String =
         client.get { appGithub(GithubDataAPI.SONGS_FILE_NAME) }.body()
-
-    override suspend fun getIgnoreLists(): IgnoreListData =
-        client.get { appGithub(GithubDataAPI.IGNORES_FILE_NAME) }.body()
 
     override suspend fun getTrials(): TrialData =
         client.get { appGithub(GithubDataAPI.TRIALS_FILE_NAME) }.body()

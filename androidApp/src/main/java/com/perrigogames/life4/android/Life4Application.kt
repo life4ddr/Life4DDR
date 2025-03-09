@@ -10,7 +10,6 @@ import com.perrigogames.life4.feature.sanbai.ISanbaiManager
 import com.perrigogames.life4.feature.songlist.SongDataManager
 import com.perrigogames.life4.feature.trials.TrialManager
 import com.perrigogames.life4.initKoin
-import com.perrigogames.life4.ktor.GithubDataAPI.Companion.IGNORES_FILE_NAME
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.MOTD_FILE_NAME
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.PARTIAL_DIFFICULTY_FILE_NAME
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.RANKS_FILE_NAME
@@ -42,7 +41,6 @@ class Life4Application: Application() {
         initKoin(
             makeNativeModule(
                 appInfo = AndroidAppInfo,
-                ignoresReader = AndroidDataReader(MR.files.ignore_lists.rawResId, IGNORES_FILE_NAME),
                 motdReader = AndroidDataReader(MR.files.motd.rawResId, MOTD_FILE_NAME),
                 partialDifficultyReader = AndroidDataReader(MR.files.partial_difficulties.rawResId, PARTIAL_DIFFICULTY_FILE_NAME),
                 placementsReader = AndroidUncachedDataReader(MR.files.placements.rawResId),

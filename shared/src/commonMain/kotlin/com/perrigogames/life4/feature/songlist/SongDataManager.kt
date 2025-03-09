@@ -79,10 +79,12 @@ class SongDataManager: BaseModel() {
                 artist = artists[item.songId] ?: "Unknown Artist",
                 version = GameVersion.entries[item.versionNum - 1],
                 preview = false, // FIXME
+                deleted = item.deleted == 1
             )
             songs[song] = item.ratings
                 .zip(item.tiers) { rating, tier -> rating to tier }
-                .mapIndexedNotNull { idx, (rating, tier) ->
+                .zip(item.lockTypes ?: item.ratings.map { null }) { (r, t), lockTypes -> Triple(r, t, lockTypes) }
+                .mapIndexedNotNull { idx, (rating, tier, lockType) ->
                     if (rating != 0) {
                         Chart(
                             song = song,
@@ -99,7 +101,8 @@ class SongDataManager: BaseModel() {
                                 else -> throw Exception("Illegal idx $idx for song ${song.title}")
                             },
                             difficultyNumber = rating,
-                            difficultyNumberTier = tier
+                            difficultyNumberTier = tier,
+                            lockType = lockType
                         )
                     } else {
                         null

@@ -7,6 +7,7 @@ import com.perrigogames.life4.enums.DifficultyClass
 import com.perrigogames.life4.enums.PlayStyle
 import com.perrigogames.life4.feature.songresults.FilterState.Companion.DEFAULT_CLEAR_TYPE_RANGE
 import com.perrigogames.life4.feature.songresults.FilterState.Companion.DEFAULT_DIFFICULTY_NUMBER_RANGE
+import com.perrigogames.life4.feature.songresults.IgnoreFilterType.*
 
 data class FilterState(
     val chartFilter: ChartFilterState = ChartFilterState(),
@@ -42,7 +43,19 @@ data class ChartFilterState(
     val selectedPlayStyle: PlayStyle = PlayStyle.SINGLE,
     val difficultyClassSelection: List<DifficultyClass> = DifficultyClass.entries,
     val difficultyNumberRange: IntRange = DEFAULT_DIFFICULTY_NUMBER_RANGE,
+    val ignoreFilterType: IgnoreFilterType = IgnoreFilterType.ALL,
 )
+
+/**
+ * Describes the mode of song filtering based on supplied ignore codes.
+ * @property BASIC no unlockable songs will be shown
+ * @property EXPANDED easily unlockable songs will be shown, but others like
+ *  Asia-exclusives and Grand Prix paid songs will not be shown
+ * @property ALL all songs will be shown
+ */
+enum class IgnoreFilterType {
+    BASIC, EXPANDED, ALL
+}
 
 data class ResultFilterState(
     val clearTypeRange: IntRange = DEFAULT_CLEAR_TYPE_RANGE,

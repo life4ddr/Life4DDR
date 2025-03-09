@@ -22,7 +22,6 @@ fun VersionsDialog(
     val state by viewModel.state.collectAsState()
     VersionsDialog(
         appVersion = state.appVersion,
-        ignoreListVersion = state.ignoreListVersion,
         ladderDataVersion = state.ladderDataVersion,
         motdVersion = state.motdVersion,
         songListVersion = state.songListVersion,
@@ -34,7 +33,6 @@ fun VersionsDialog(
 @Composable
 fun VersionsDialog(
     appVersion: String,
-    ignoreListVersion: String,
     ladderDataVersion: String,
     motdVersion: String,
     songListVersion: String,
@@ -44,7 +42,6 @@ fun VersionsDialog(
     Dialog(onDismissRequest = onDismiss) {
         Column {
             Text(text = "App version: $appVersion")
-            Text(text = "Ignore list version: $ignoreListVersion")
             Text(text = "Ladder data version: $ladderDataVersion")
             Text(text = "MOTD version: $motdVersion")
             Text(text = "Song list version: $songListVersion")
@@ -59,7 +56,6 @@ fun VersionsDialogPreview() {
     LIFE4Theme {
         VersionsDialog(
             appVersion = "1.0.0",
-            ignoreListVersion = "1.0.0",
             ladderDataVersion = "1.0.0",
             motdVersion = "1.0.0",
             songListVersion = "1.0.0",

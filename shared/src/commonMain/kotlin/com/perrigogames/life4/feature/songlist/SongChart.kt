@@ -11,6 +11,7 @@ data class Song(
     val artist: String?,
     val version: GameVersion,
     val preview: Boolean?,
+    val deleted: Boolean = false,
 )
 
 data class Chart(
@@ -18,7 +19,8 @@ data class Chart(
     val playStyle: PlayStyle,
     val difficultyClass: DifficultyClass,
     val difficultyNumber: Int,
-    val difficultyNumberTier: Double? = null
+    val difficultyNumberTier: Double? = null,
+    val lockType: Int? = null,
 ) {
     val combinedDifficultyNumber: Double = difficultyNumber + (difficultyNumberTier ?: 0.0)
 }

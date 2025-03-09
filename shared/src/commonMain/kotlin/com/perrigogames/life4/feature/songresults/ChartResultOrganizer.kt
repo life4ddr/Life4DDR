@@ -6,7 +6,6 @@ import com.perrigogames.life4.data.MAPointsStackedGoal
 import com.perrigogames.life4.enums.ClearType
 import com.perrigogames.life4.enums.DifficultyClass
 import com.perrigogames.life4.enums.PlayStyle
-import com.perrigogames.life4.feature.songlist.IgnoreListManager
 import com.perrigogames.life4.injectLogger
 import com.perrigogames.life4.model.BaseModel
 import com.perrigogames.life4.util.split
@@ -24,7 +23,6 @@ typealias DifficultyNumberMap = Map<Int, List<ChartResultPair>>
 
 class ChartResultOrganizer: BaseModel(), KoinComponent {
 
-    private val ignoreListManager: IgnoreListManager by inject()
     private val songResultsManager: SongResultsManager by inject()
     private val songResultSettings: SongResultSettings by inject()
     private val logger: Logger by injectLogger("ChartResultOrganizer")
@@ -53,11 +51,20 @@ class ChartResultOrganizer: BaseModel(), KoinComponent {
             basicOrganizer
                 .map { it[config.selectedPlayStyle] ?: emptyMap() }
                 .map { diffClassMap: DifficultyClassMap ->
-                    config.difficultyClassSelection.flatMap { diffClass ->
+                    val result = config.difficultyClassSelection.flatMap { diffClass ->
                         val diffNumMap = diffClassMap[diffClass] ?: emptyMap()
                         config.difficultyNumberRange.flatMap { diffNum ->
                             diffNumMap[diffNum] ?: emptyList()
                         }
+                    }
+                    return@map when(config.ignoreFilterType) {
+                        IgnoreFilterType.BASIC -> {
+                            result.filterNot { it.chart.song.deleted || (it.chart.lockType ?: 0) in BASIC_LOCKS }
+                        }
+                        IgnoreFilterType.EXPANDED -> {
+                            result.filterNot { it.chart.song.deleted || (it.chart.lockType ?: 0) in EXPANDED_LOCKS }
+                        }
+                        IgnoreFilterType.ALL -> result
                     }
                 }
                 .also { chartListCache[config] = it }
@@ -119,6 +126,18 @@ class ChartResultOrganizer: BaseModel(), KoinComponent {
 
         // Otherwise, by name, ascending
         return@sortedWith a.chart.song.title.compareTo(b.chart.song.title)
+    }
+
+    companion object {
+        const val ASIA_EXCLUSIVE = 10
+        const val GOLD_CAB = 20
+        const val GRAND_PRIX = 190
+        const val FLARE_LOCKED = 250
+        const val TIME_EVENT_LOCKED = 260
+        const val EXTRA_SAVIOR = 280
+
+        val BASIC_LOCKS = listOf(ASIA_EXCLUSIVE, GOLD_CAB, GRAND_PRIX, FLARE_LOCKED, TIME_EVENT_LOCKED, EXTRA_SAVIOR)
+        val EXPANDED_LOCKS = listOf(ASIA_EXCLUSIVE, GOLD_CAB, GRAND_PRIX, TIME_EVENT_LOCKED)
     }
 }
 

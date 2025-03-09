@@ -3,6 +3,7 @@ package com.perrigogames.life4.feature.ladder.converter
 import com.perrigogames.life4.data.LadderGoalProgress
 import com.perrigogames.life4.data.MAPointsStackedGoal
 import com.perrigogames.life4.enums.ClearType
+import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.feature.songresults.ChartResultOrganizer
 import com.perrigogames.life4.feature.songresults.FilterState
 import kotlinx.coroutines.flow.Flow
@@ -17,6 +18,7 @@ class MAPointGoalProgressConverter : StackedGoalProgressConverter<MAPointsStacke
     override fun getGoalProgress(
         goal: MAPointsStackedGoal,
         stackIndex: Int,
+        ladderRank: LadderRank?,
     ): Flow<LadderGoalProgress?> {
         val config = FilterState(
             selectedPlayStyle = goal.playStyle,

@@ -7,6 +7,7 @@ import com.perrigogames.life4.data.SongsClearGoal
 import com.perrigogames.life4.data.SongsClearStackedGoal
 import com.perrigogames.life4.enums.ClearType
 import com.perrigogames.life4.enums.DifficultyClass
+import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.feature.songresults.*
 import com.perrigogames.life4.feature.songresults.FilterState.Companion.DEFAULT_DIFFICULTY_NUMBER_RANGE
 import com.perrigogames.life4.injectLogger
@@ -24,13 +25,20 @@ class SongsClearGoalProgressConverter : GoalProgressConverter<SongsClearGoal>, K
     private val logger: Logger by injectLogger("SongsClearGoalProgressConverter")
 
     override fun getGoalProgress(
-        goal: SongsClearGoal
+        goal: SongsClearGoal,
+        ladderRank: LadderRank?,
     ): Flow<LadderGoalProgress?> {
         val config = FilterState(
             chartFilter = ChartFilterState(
                 selectedPlayStyle = goal.playStyle,
                 difficultyClassSelection = goal.diffClassSet?.set ?: DifficultyClass.entries,
                 difficultyNumberRange = goal.diffNumRange ?: DEFAULT_DIFFICULTY_NUMBER_RANGE,
+                ignoreFilterType = when {
+                    goal.songCount != null -> IgnoreFilterType.ALL // working up, allow all songs
+                    ladderRank == null -> IgnoreFilterType.BASIC
+                    ladderRank < LadderRank.AMETHYST1 -> IgnoreFilterType.BASIC // FIXME use the JSON value
+                    else -> IgnoreFilterType.EXPANDED
+                }
             ),
             resultFilter = ResultFilterState(
                 clearTypeRange = goal.clearType.ordinal .. ClearType.entries.size,
@@ -76,9 +84,6 @@ class SongsClearGoalProgressConverter : GoalProgressConverter<SongsClearGoal>, K
             }
 
             completed += match.size
-            if (completed >= goal.songCount!!) {
-                return@forEachDiffNum
-            }
         }
 
         return if (goal.songCount == 1) {
@@ -86,6 +91,7 @@ class SongsClearGoalProgressConverter : GoalProgressConverter<SongsClearGoal>, K
                 progress = topValidScore.toInt(),
                 max = goal.score!!,
                 showMax = false,
+                results = match,
             )
         } else {
             LadderGoalProgress(
@@ -108,9 +114,6 @@ class SongsClearGoalProgressConverter : GoalProgressConverter<SongsClearGoal>, K
                 results.forEach { (_, result) ->
                     if (result!!.clearType >= goal.clearType) {
                         completed++
-                    }
-                    if (completed >= goal.songCount!!) {
-                        return@forEachDiffNum
                     }
                 }
             }
@@ -175,7 +178,8 @@ class SongsClearStackedGoalProgressConverter : StackedGoalProgressConverter<Song
 
     override fun getGoalProgress(
         goal: SongsClearStackedGoal,
-        stackIndex: Int
+        stackIndex: Int,
+        ladderRank: LadderRank?,
     ): Flow<LadderGoalProgress?> {
         return flowOf(null)
     }

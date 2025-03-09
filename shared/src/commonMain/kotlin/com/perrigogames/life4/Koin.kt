@@ -3,7 +3,6 @@ package com.perrigogames.life4
 import co.touchlab.kermit.Logger
 import co.touchlab.kermit.StaticConfig
 import co.touchlab.kermit.platformLogWriter
-import com.perrigogames.life4.api.IgnoreListRemoteData
 import com.perrigogames.life4.api.LadderRemoteData
 import com.perrigogames.life4.api.SongListRemoteData
 import com.perrigogames.life4.api.TrialRemoteData
@@ -28,7 +27,6 @@ import com.perrigogames.life4.feature.settings.LadderListSelectionSettings
 import com.perrigogames.life4.feature.settings.SettingsPageProvider
 import com.perrigogames.life4.feature.settings.UserInfoSettings
 import com.perrigogames.life4.feature.settings.UserRankSettings
-import com.perrigogames.life4.feature.songlist.IgnoreListManager
 import com.perrigogames.life4.feature.songlist.SongDataManager
 import com.perrigogames.life4.feature.songresults.ChartResultOrganizer
 import com.perrigogames.life4.feature.songresults.SongResultSettings
@@ -90,7 +88,6 @@ val coreModule = module {
     single { TrialManager() }
     single { TrialSessionManager() }
     single { TrialRecordsManager() }
-    single { IgnoreListManager() }
     single { SongDataManager() }
     single { ChartResultOrganizer() }
     single { UserInfoSettings() }
@@ -123,7 +120,6 @@ expect val platformModule: Module
 
 fun makeNativeModule(
     appInfo: AppInfo,
-    ignoresReader: LocalDataReader,
     motdReader: LocalDataReader,
     partialDifficultyReader: LocalDataReader,
     placementsReader: LocalUncachedDataReader,
@@ -134,14 +130,12 @@ fun makeNativeModule(
 ): Module {
     return module {
         single { appInfo }
-        single(named(GithubDataAPI.IGNORES_FILE_NAME)) { ignoresReader }
         single(named(GithubDataAPI.MOTD_FILE_NAME)) { motdReader }
         single(named(GithubDataAPI.PARTIAL_DIFFICULTY_FILE_NAME)) { partialDifficultyReader }
         single(named(GithubDataAPI.PLACEMENTS_FILE_NAME)) { placementsReader }
         single(named(GithubDataAPI.RANKS_FILE_NAME)) { ranksReader }
         single(named(GithubDataAPI.SONGS_FILE_NAME)) { songsReader }
         single(named(GithubDataAPI.TRIALS_FILE_NAME)) { trialsReader }
-        single { IgnoreListRemoteData() }
         single { LadderRemoteData() }
         single { MotdLocalRemoteData() }
         single { SongListRemoteData() }

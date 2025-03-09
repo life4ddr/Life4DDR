@@ -2,6 +2,7 @@ package com.perrigogames.life4.feature.ladder.converter
 
 import com.perrigogames.life4.data.LadderGoalProgress
 import com.perrigogames.life4.data.TrialStackedGoal
+import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.feature.trialrecords.TrialRecordsManager
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -15,6 +16,7 @@ class TrialGoalProgressConverter : StackedGoalProgressConverter<TrialStackedGoal
     override fun getGoalProgress(
         goal: TrialStackedGoal,
         stackIndex: Int,
+        ladderRank: LadderRank?,
     ): Flow<LadderGoalProgress?> {
         return trialRecordsManager.bestSessions.map { sessions -> // FIXME playstyle
             val count = sessions.count {
