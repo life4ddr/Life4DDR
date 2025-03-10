@@ -46,10 +46,19 @@ class ScoreListViewModel: ViewModel(), KoinComponent {
             combine(
                 combine(
                     filterViewModel.dataState,
-                    songResultSettings.enableDifficultyTiers
-                ) { a, b -> a to b }
-                    .flatMapLatest { (config, enableDifficultyTiers) ->
-                        resultOrganizer.resultsForConfig(null, config, enableDifficultyTiers)
+                    songResultSettings.enableDifficultyTiers,
+                    songResultSettings.showRemovedSongs,
+                ) { a, b, c -> Triple(a, b, c) }
+                    .flatMapLatest { (config, enableDifficultyTiers, showRemovedSongs) ->
+                        resultOrganizer.resultsForConfig(null, config.copy(
+                            chartFilter = config.chartFilter.copy(
+                                ignoreFilterType = if (showRemovedSongs) {
+                                    IgnoreFilterType.ALL
+                                } else {
+                                    IgnoreFilterType.ALL_ACTIVE
+                                }
+                            )
+                        ), enableDifficultyTiers)
                     },
                 filterViewModel.uiState,
                 bannerManager.getBannerFlow(BannerLocation.SCORES),
@@ -94,7 +103,7 @@ fun ChartResultPair.toUIScore(enableDifficultyTiers: Boolean) = UIScore(
         args = listOf(
             chart.difficultyClass.nameRes.desc(),
             if (enableDifficultyTiers) {
-                chart.combinedDifficultyNumber.toString().desc()
+                chart.combinedDifficultyNumberString.desc()
             } else {
                 chart.difficultyNumber.toString().desc()
             }

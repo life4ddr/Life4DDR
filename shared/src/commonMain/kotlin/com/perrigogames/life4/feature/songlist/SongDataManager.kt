@@ -101,7 +101,7 @@ class SongDataManager: BaseModel() {
                                 else -> throw Exception("Illegal idx $idx for song ${song.title}")
                             },
                             difficultyNumber = rating,
-                            difficultyNumberTier = tier,
+                            difficultyNumberTier = tier.let { if (it == 1.0) null else it },
                             lockType = lockType
                         )
                     } else {

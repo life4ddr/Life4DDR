@@ -64,6 +64,9 @@ class ChartResultOrganizer: BaseModel(), KoinComponent {
                         IgnoreFilterType.EXPANDED -> {
                             result.filterNot { it.chart.song.deleted || (it.chart.lockType ?: 0) in EXPANDED_LOCKS }
                         }
+                        IgnoreFilterType.ALL_ACTIVE -> {
+                            result.filterNot { it.chart.song.deleted }
+                        }
                         IgnoreFilterType.ALL -> result
                     }
                 }

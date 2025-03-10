@@ -22,5 +22,11 @@ data class Chart(
     val difficultyNumberTier: Double? = null,
     val lockType: Int? = null,
 ) {
-    val combinedDifficultyNumber: Double = difficultyNumber + (difficultyNumberTier ?: 0.0)
+    val combinedDifficultyNumber: Double = difficultyNumber + (difficultyNumberTier ?: -0.005)
+    val difficultyTierString: String = difficultyNumberTier?.let {
+        (it * 100).toInt().toString().let { text ->
+            if (text.length == 2) text else "0$text"
+        }
+    } ?: "??"
+    val combinedDifficultyNumberString: String = "$difficultyNumber.$difficultyTierString"
 }

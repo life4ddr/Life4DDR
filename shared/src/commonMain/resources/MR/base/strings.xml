@@ -639,6 +639,7 @@
     <string name="question_mark">\?</string>
     <string name="motd_unavailable">The Message of the Day is unavailable.</string>
     <string name="enable_difficulty_tiers">Enable difficulty tiers</string>
+    <string name="show_removed_songs">Show removed songs</string>
     <string name="trial_settings">Trial Settings</string>
     <string name="sanbai_settings">Sanbai Settings</string>
     <string name="refresh_sanbai_library_data">Refresh Sanbai library data</string>

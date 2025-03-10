@@ -54,7 +54,7 @@ data class ChartFilterState(
  * @property ALL all songs will be shown
  */
 enum class IgnoreFilterType {
-    BASIC, EXPANDED, ALL
+    BASIC, EXPANDED, ALL_ACTIVE, ALL
 }
 
 data class ResultFilterState(

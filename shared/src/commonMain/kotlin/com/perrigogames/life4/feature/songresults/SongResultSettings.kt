@@ -1,6 +1,7 @@
 package com.perrigogames.life4.feature.songresults
 
 import com.perrigogames.life4.SettingsKeys.KEY_ENABLE_DIFFICULTY_TIERS
+import com.perrigogames.life4.SettingsKeys.KEY_SHOW_REMOVED_SONGS
 import com.perrigogames.life4.SettingsKeys.KEY_SONG_LIST_FILTER_STATE
 import com.perrigogames.life4.enums.DifficultyClass
 import com.perrigogames.life4.enums.PlayStyle
@@ -37,6 +38,14 @@ class SongResultSettings : SettingsManager() {
             KEY_SONG_LIST_FILTER_STATE,
             Json.encodeToString(SerialFilterState.serializer(), state.toSerialFilterState())
         )
+    }
+
+    val showRemovedSongs: Flow<Boolean> =
+        settings.getBooleanFlow(KEY_SHOW_REMOVED_SONGS, false)
+            .distinctUntilChanged()
+
+    fun setShowRemovedSongs(enabled: Boolean) = mainScope.launch {
+        settings.putBoolean(KEY_SHOW_REMOVED_SONGS, enabled)
     }
 }
 

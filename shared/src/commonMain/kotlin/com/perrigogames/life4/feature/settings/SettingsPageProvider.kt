@@ -3,6 +3,7 @@ package com.perrigogames.life4.feature.settings
 import com.perrigogames.life4.AppInfo
 import com.perrigogames.life4.MR
 import com.perrigogames.life4.SettingsKeys
+import com.perrigogames.life4.feature.songresults.SongResultSettings
 import com.perrigogames.life4.model.BaseModel
 import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.coroutines.FlowSettings
@@ -10,8 +11,8 @@ import dev.icerock.moko.resources.desc.Raw
 import dev.icerock.moko.resources.desc.StringDesc
 import dev.icerock.moko.resources.desc.desc
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.flow.map
 import org.koin.core.component.inject
 
 @OptIn(ExperimentalSettingsApi::class)
@@ -19,13 +20,16 @@ class SettingsPageProvider : BaseModel() {
 
     private val appInfo: AppInfo by inject()
     private val flowSettings: FlowSettings by inject()
+    private val songResultSettings: SongResultSettings by inject()
 
-    private val difficultyTierFlow = flowSettings
-        .getBooleanOrNullFlow(SettingsKeys.KEY_ENABLE_DIFFICULTY_TIERS)
+    private val difficultyTierFlow = songResultSettings.enableDifficultyTiers
+    private val removedSongsFlow = songResultSettings.showRemovedSongs
 
     fun getRootPage(isDebug: Boolean): Flow<UISettingsData> =
-        difficultyTierFlow.map { it ?: false }
-            .map { diffTierEnabled ->
+        combine(
+            songResultSettings.enableDifficultyTiers,
+            songResultSettings.showRemovedSongs,
+        ) { diffTierEnabled, showRemovedSongs, ->
                 UISettingsData(
                     screenTitle = MR.strings.tab_settings.desc(),
                     settingsItems = listOfNotNull(
@@ -41,6 +45,11 @@ class SettingsPageProvider : BaseModel() {
                             title = MR.strings.enable_difficulty_tiers.desc(),
                             action = SettingsAction.SetBoolean(SettingsKeys.KEY_ENABLE_DIFFICULTY_TIERS, !diffTierEnabled),
                             toggled = diffTierEnabled
+                        ),
+                        UISettingsItem.Checkbox(
+                            title = MR.strings.show_removed_songs.desc(),
+                            action = SettingsAction.SetBoolean(SettingsKeys.KEY_SHOW_REMOVED_SONGS, !showRemovedSongs),
+                            toggled = showRemovedSongs
                         ),
                         UISettingsItem.Link( // Trial Settings
                             title = MR.strings.trial_settings.desc(),
