@@ -1,6 +1,8 @@
 package com.perrigogames.life4.android.navigation
 
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Text
+import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
@@ -12,7 +14,10 @@ fun NavGraphBuilder.trialNavigation(navController: NavController) {
         route = TrialDestination.TrialDetails.BASE_ROUTE
     ) { entry ->
         val trialId = entry.arguments?.getString("trialId") ?: "empty"
-        TrialSession(trialId = trialId)
+        TrialSession(
+            trialId = trialId,
+            modifier = Modifier.fillMaxSize()
+        )
     }
 
     composable(TrialDestination.TrialRecords.route) {

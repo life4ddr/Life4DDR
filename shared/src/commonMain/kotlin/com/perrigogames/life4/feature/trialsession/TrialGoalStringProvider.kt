@@ -4,6 +4,8 @@ import com.perrigogames.life4.GameConstants
 import com.perrigogames.life4.TrialStrings
 import com.perrigogames.life4.data.Trial
 import com.perrigogames.life4.enums.ClearType
+import dev.icerock.moko.resources.desc.StringDesc
+import dev.icerock.moko.resources.desc.desc
 
 object TrialGoalStrings {
 
@@ -13,7 +15,7 @@ object TrialGoalStrings {
         }
     }.toString()
 
-    fun generateGoalStrings(goalSet: TrialGoalSet, trial: Trial): List<String> = mutableListOf<String>().also { list ->
+    fun generateGoalStrings(goalSet: TrialGoalSet, trial: Trial): List<StringDesc> = mutableListOf<StringDesc>().also { list ->
         generateClearGoalStrings(goalSet, trial, list)
         generateSpecificScoreGoalStrings(goalSet, trial, list)
         generateScoreGoalStrings(goalSet, list)
@@ -27,11 +29,11 @@ object TrialGoalStrings {
     }
 
     @Suppress("UNUSED_PARAMETER")
-    private fun generateSpecificClearGoalStrings(goalSet: TrialGoalSet, trial: Trial, output: MutableList<String>) {
-        output.add("TODO: we don't need this right now") //TODO
+    private fun generateSpecificClearGoalStrings(goalSet: TrialGoalSet, trial: Trial, output: MutableList<StringDesc>) {
+        output.add("TODO: we don't need this right now".desc()) //TODO
     }
 
-    private fun generateClearGoalStrings(goalSet: TrialGoalSet, trial: Trial, output: MutableList<String>) {
+    private fun generateClearGoalStrings(goalSet: TrialGoalSet, trial: Trial, output: MutableList<StringDesc>) {
         goalSet.clearIndexed?.let { clears ->
             var setType: ClearType? = null
             var chainEnd: Int? = null
@@ -58,7 +60,7 @@ object TrialGoalStrings {
         }
     }
 
-    private fun generateSpecificScoreGoalStrings(goalSet: TrialGoalSet, trial: Trial, output: MutableList<String>) {
+    private fun generateSpecificScoreGoalStrings(goalSet: TrialGoalSet, trial: Trial, output: MutableList<StringDesc>) {
         goalSet.scoreIndexed?.let { scores ->
             val scoreGroups = HashMap<Int, MutableList<Int>>()
             scores.forEachIndexed { index, i ->
@@ -87,7 +89,7 @@ object TrialGoalStrings {
         }
     }
 
-    private fun generateScoreGoalStrings(goalSet: TrialGoalSet, output: MutableList<String>) {
+    private fun generateScoreGoalStrings(goalSet: TrialGoalSet, output: MutableList<StringDesc>) {
         goalSet.score?.sortedDescending()?.let { scoreSort ->
             val scoreCounts = HashMap<Int, Int>()
             scoreSort.forEach {

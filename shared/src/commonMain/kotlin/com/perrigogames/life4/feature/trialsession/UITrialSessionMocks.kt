@@ -13,6 +13,7 @@ object UITrialSessionMocks {
         trialLevel = "LV 14".desc(),
         backgroundImage = ImageDescUrl("https://raw.githubusercontent.com/life4ddr/Life4DDR/develop/androidApp/src/main/res/drawable-xxhdpi/sidequest.webp"),
         exScoreBar = UIEXScoreBar(
+            labelText = "EX".desc(),
             currentEx = 0,
             maxEx = 6762,
             currentExText = "0".desc(),

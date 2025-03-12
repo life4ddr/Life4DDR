@@ -22,6 +22,7 @@ data class UITrialSession(
  * Describes the content of the EX score bar.
  */
 data class UIEXScoreBar(
+    val labelText: StringDesc,
     val currentEx: Int,
     val maxEx: Int,
     val currentExText: StringDesc,
@@ -40,12 +41,23 @@ sealed class UITargetRank {
     abstract val titleColor: ColorDesc
 
     /**
+     * Specifies an open selector that can be changed by the
+     * user.
+     */
+    data class Selection(
+        override val rank: TrialRank,
+        override val title: StringDesc,
+        override val titleColor: ColorDesc,
+        val availableRanks: List<TrialRank>,
+        val rankGoalItems: List<StringDesc>
+    ) : UITargetRank()
+
+    /**
      * Specifies an in-progress Trial with goals that should
      * still be visible.
      */
     data class InProgress(
         override val rank: TrialRank,
-//        override val rankIcon: ImageDesc,
         override val title: StringDesc,
         override val titleColor: ColorDesc,
         val rankGoalItems: List<StringDesc>
