@@ -78,19 +78,19 @@
                 {
                     "rank": "pearl",
                     "judge": 2,
-                    "ex_missing": 75
+                    "ex_missing": 80
                 },
                 {
                     "rank": "amethyst",
-                    "ex_missing": 45
+                    "ex_missing": 60
                 },
                 {
                     "rank": "emerald",
-                    "ex_missing": 28
+                    "ex_missing": 50
                 },
                 {
                     "rank": "onyx",
-                    "ex_missing": 18
+                    "ex_missing": 30
                 }
             ],
             "total_ex": 3702
@@ -270,19 +270,19 @@
                 {
                     "rank": "pearl",
                     "judge": 3,
-                    "ex_missing": 80
+                    "ex_missing": 90
                 },
                 {
                     "rank": "amethyst",
-                    "ex_missing": 50
+                    "ex_missing": 70
                 },
                 {
                     "rank": "emerald",
-                    "ex_missing": 35
+                    "ex_missing": 55
                 },
                 {
                     "rank": "onyx",
-                    "ex_missing": 24
+                    "ex_missing": 40
                 }
             ],
             "total_ex": 4569
@@ -361,15 +361,15 @@
                 {
                     "rank": "pearl",
                     "judge": 4,
-                    "ex_missing": 100
+                    "ex_missing": 110
                 },
                 {
                     "rank": "amethyst",
-                    "ex_missing": 60
+                    "ex_missing": 80
                 },
                 {
                     "rank": "emerald",
-                    "ex_missing": 40
+                    "ex_missing": 44
                 },
                 {
                     "rank": "onyx",
@@ -451,19 +451,19 @@
                 {
                     "rank": "pearl",
                     "judge": 6,
-                    "ex_missing": 120
+                    "ex_missing": 135
                 },
                 {
                     "rank": "amethyst",
-                    "ex_missing": 70
+                    "ex_missing": 95
                 },
                 {
                     "rank": "emerald",
-                    "ex_missing": 48
+                    "ex_missing": 77
                 },
                 {
                     "rank": "onyx",
-                    "ex_missing": 30
+                    "ex_missing": 52
                 }
             ],
             "total_ex": 5169
@@ -541,19 +541,19 @@
                 {
                     "rank": "pearl",
                     "judge": 6,
-                    "ex_missing": 120
+                    "ex_missing": 135
                 },
                 {
                     "rank": "amethyst",
-                    "ex_missing": 65
+                    "ex_missing": 90
                 },
                 {
                     "rank": "emerald",
-                    "ex_missing": 40
+                    "ex_missing": 66
                 },
                 {
                     "rank": "onyx",
-                    "ex_missing": 25
+                    "ex_missing": 42
                 }
             ],
             "total_ex": 5280
@@ -631,19 +631,19 @@
                 {
                     "rank": "pearl",
                     "judge": 6,
-                    "ex_missing": 120
+                    "ex_missing": 135
                 },
                 {
                     "rank": "amethyst",
-                    "ex_missing": 70
+                    "ex_missing": 95
                 },
                 {
                     "rank": "emerald",
-                    "ex_missing": 50
+                    "ex_missing": 80
                 },
                 {
                     "rank": "onyx",
-                    "ex_missing": 32
+                    "ex_missing": 55
                 }
             ],
             "total_ex": 4428
@@ -816,19 +816,19 @@
                 {
                     "rank": "pearl",
                     "judge": 7,
-                    "ex_missing": 160
+                    "ex_missing": 180
                 },
                 {
                     "rank": "amethyst",
-                    "ex_missing": 90
+                    "ex_missing": 130
                 },
                 {
                     "rank": "emerald",
-                    "ex_missing": 65
+                    "ex_missing": 100
                 },
                 {
                     "rank": "onyx",
-                    "ex_missing": 40
+                    "ex_missing": 70
                 }
             ],
             "total_ex": 5073
@@ -907,19 +907,19 @@
                 {
                     "rank": "pearl",
                     "judge": 9,
-                    "ex_missing": 160
+                    "ex_missing": 180
                 },
                 {
                     "rank": "amethyst",
-                    "ex_missing": 100
+                    "ex_missing": 140
                 },
                 {
                     "rank": "emerald",
-                    "ex_missing": 75
+                    "ex_missing": 110
                 },
                 {
                     "rank": "onyx",
-                    "ex_missing": 45
+                    "ex_missing": 80
                 }
             ],
             "total_ex": 4974
@@ -998,19 +998,19 @@
                 {
                     "rank": "pearl",
                     "judge": 6,
-                    "ex_missing": 140
+                    "ex_missing": 150
                 },
                 {
                     "rank": "amethyst",
-                    "ex_missing": 85
+                    "ex_missing": 120
                 },
                 {
                     "rank": "emerald",
-                    "ex_missing": 60
+                    "ex_missing": 90
                 },
                 {
                     "rank": "onyx",
-                    "ex_missing": 38
+                    "ex_missing": 70
                 }
             ],
             "total_ex": 5361
@@ -1153,19 +1153,19 @@
                 {
                     "rank": "pearl",
                     "judge": 8,
-                    "ex_missing": 130
+                    "ex_missing": 145
                 },
                 {
                     "rank": "amethyst",
-                    "ex_missing": 80
+                    "ex_missing": 110
                 },
                 {
                     "rank": "emerald",
-                    "ex_missing": 55
+                    "ex_missing": 90
                 },
                 {
                     "rank": "onyx",
-                    "ex_missing": 36
+                    "ex_missing": 60
                 }
             ],
             "total_ex": 5463
@@ -1250,19 +1250,19 @@
                 {
                     "rank": "pearl",
                     "judge": 9,
-                    "ex_missing": 145
+                    "ex_missing": 160
                 },
                 {
                     "rank": "amethyst",
-                    "ex_missing": 85
+                    "ex_missing": 120
                 },
                 {
                     "rank": "emerald",
-                    "ex_missing": 60
+                    "ex_missing": 90
                 },
                 {
                     "rank": "onyx",
-                    "ex_missing": 40
+                    "ex_missing": 70
                 }
             ],
             "total_ex": 5544
@@ -1345,19 +1345,19 @@
                 {
                     "rank": "pearl",
                     "judge": 10,
-                    "ex_missing": 160
+                    "ex_missing": 180
                 },
                 {
                     "rank": "amethyst",
-                    "ex_missing": 100
+                    "ex_missing": 140
                 },
                 {
                     "rank": "emerald",
-                    "ex_missing": 70
+                    "ex_missing": 110
                 },
                 {
                     "rank": "onyx",
-                    "ex_missing": 45
+                    "ex_missing": 80
                 }
             ],
             "total_ex": 5451
@@ -1541,19 +1541,19 @@
                 {
                     "rank": "pearl",
                     "judge": 10,
-                    "ex_missing": 170
+                    "ex_missing": 195
                 },
                 {
                     "rank": "amethyst",
-                    "ex_missing": 100
+                    "ex_missing": 140
                 },
                 {
                     "rank": "emerald",
-                    "ex_missing": 70
+                    "ex_missing": 110
                 },
                 {
                     "rank": "onyx",
-                    "ex_missing": 45
+                    "ex_missing": 80
                 }
             ],
             "total_ex": 6762
@@ -1656,19 +1656,19 @@
                 {
                     "rank": "pearl",
                     "judge": 12,
-                    "ex_missing": 190
+                    "ex_missing": 220
                 },
                 {
                     "rank": "amethyst",
-                    "ex_missing": 120
+                    "ex_missing": 170
                 },
                 {
                     "rank": "emerald",
-                    "ex_missing": 85
+                    "ex_missing": 135
                 },
                 {
                     "rank": "onyx",
-                    "ex_missing": 55
+                    "ex_missing": 90
                 }
             ],
             "total_ex": 6615
@@ -1761,19 +1761,19 @@
                 {
                     "rank": "pearl",
                     "judge": 12,
-                    "ex_missing": 190
+                    "ex_missing": 220
                 },
                 {
                     "rank": "amethyst",
-                    "ex_missing": 115
+                    "ex_missing": 160
                 },
                 {
                     "rank": "emerald",
-                    "ex_missing": 85
+                    "ex_missing": 135
                 },
                 {
                     "rank": "onyx",
-                    "ex_missing": 58
+                    "ex_missing": 95
                 }
             ],
             "total_ex": 6270
@@ -1866,19 +1866,19 @@
                 {
                     "rank": "pearl",
                     "judge": 12,
-                    "ex_missing": 190
+                    "ex_missing": 220
                 },
                 {
                     "rank": "amethyst",
-                    "ex_missing": 100
+                    "ex_missing": 140
                 },
                 {
                     "rank": "emerald",
-                    "ex_missing": 70
+                    "ex_missing": 110
                 },
                 {
                     "rank": "onyx",
-                    "ex_missing": 42
+                    "ex_missing": 75
                 }
             ],
             "total_ex": 6735
@@ -1971,19 +1971,19 @@
                 {
                     "rank": "pearl",
                     "judge": 12,
-                    "ex_missing": 200
+                    "ex_missing": 230
                 },
                 {
                     "rank": "amethyst",
-                    "ex_missing": 120
+                    "ex_missing": 170
                 },
                 {
                     "rank": "emerald",
-                    "ex_missing": 85
+                    "ex_missing": 135
                 },
                 {
                     "rank": "onyx",
-                    "ex_missing": 48
+                    "ex_missing": 85
                 }
             ],
             "total_ex": 7446
@@ -2082,19 +2082,19 @@
                 {
                     "rank": "pearl",
                     "judge": 15,
-                    "ex_missing": 230
+                    "ex_missing": 270
                 },
                 {
                     "rank": "amethyst",
-                    "ex_missing": 160
+                    "ex_missing": 220
                 },
                 {
                     "rank": "emerald",
-                    "ex_missing": 110
+                    "ex_missing": 170
                 },
                 {
                     "rank": "onyx",
-                    "ex_missing": 70
+                    "ex_missing": 120
                 }
             ],
             "total_ex": 6471
@@ -2187,19 +2187,19 @@
                 {
                     "rank": "pearl",
                     "judge": 14,
-                    "ex_missing": 200
+                    "ex_missing": 230
                 },
                 {
                     "rank": "amethyst",
-                    "ex_missing": 135
+                    "ex_missing": 190
                 },
                 {
                     "rank": "emerald",
-                    "ex_missing": 95
+                    "ex_missing": 150
                 },
                 {
                     "rank": "onyx",
-                    "ex_missing": 65
+                    "ex_missing": 110
                 }
             ],
             "total_ex": 6870
@@ -2292,19 +2292,19 @@
                 {
                     "rank": "pearl",
                     "judge": 16,
-                    "ex_missing": 230
+                    "ex_missing": 270
                 },
                 {
                     "rank": "amethyst",
-                    "ex_missing": 145
+                    "ex_missing": 200
                 },
                 {
                     "rank": "emerald",
-                    "ex_missing": 100
+                    "ex_missing": 160
                 },
                 {
                     "rank": "onyx",
-                    "ex_missing": 70
+                    "ex_missing": 120
                 }
             ],
             "total_ex": 7236
@@ -2392,19 +2392,19 @@
                 {
                     "rank": "pearl",
                     "judge": 20,
-                    "ex_missing": 260
+                    "ex_missing": 300
                 },
                 {
                     "rank": "amethyst",
-                    "ex_missing": 175
+                    "ex_missing": 240
                 },
                 {
                     "rank": "emerald",
-                    "ex_missing": 120
+                    "ex_missing": 180
                 },
                 {
                     "rank": "onyx",
-                    "ex_missing": 80
+                    "ex_missing": 130
                 }
             ],
             "total_ex": 6957
@@ -2488,19 +2488,19 @@
                         990000,
                         990000
                     ],
-                    "ex_missing": 260
+                    "ex_missing": 300
                 },
                 {
                     "rank": "amethyst",
-                    "ex_missing": 160
+                    "ex_missing": 220
                 },
                 {
                     "rank": "emerald",
-                    "ex_missing": 100
+                    "ex_missing": 160
                 },
                 {
                     "rank": "onyx",
-                    "ex_missing": 60
+                    "ex_missing": 100
                 }
             ],
             "total_ex": 7116
@@ -2583,19 +2583,19 @@
                         990000,
                         990000
                     ],
-                    "ex_missing": 280
+                    "ex_missing": 340
                 },
                 {
                     "rank": "amethyst",
-                    "ex_missing": 180
+                    "ex_missing": 240
                 },
                 {
                     "rank": "emerald",
-                    "ex_missing": 120
+                    "ex_missing": 180
                 },
                 {
                     "rank": "onyx",
-                    "ex_missing": 80
+                    "ex_missing": 130
                 }
             ],
             "total_ex": 7161
@@ -2678,19 +2678,19 @@
                         990000,
                         990000
                     ],
-                    "ex_missing": 290
+                    "ex_missing": 360
                 },
                 {
                     "rank": "amethyst",
-                    "ex_missing": 190
+                    "ex_missing": 260
                 },
                 {
                     "rank": "emerald",
-                    "ex_missing": 130
+                    "ex_missing": 200
                 },
                 {
                     "rank": "onyx",
-                    "ex_missing": 80
+                    "ex_missing": 130
                 }
             ],
             "total_ex": 6951
@@ -2772,19 +2772,19 @@
                         990000,
                         975000
                     ],
-                    "ex_missing": 310
+                    "ex_missing": 400
                 },
                 {
                     "rank": "amethyst",
-                    "ex_missing": 200
+                    "ex_missing": 270
                 },
                 {
                     "rank": "emerald",
-                    "ex_missing": 140
+                    "ex_missing": 210
                 },
                 {
                     "rank": "onyx",
-                    "ex_missing": 90
+                    "ex_missing": 150
                 }
             ],
             "total_ex": 6750
@@ -2865,19 +2865,19 @@
                         990000,
                         990000
                     ],
-                    "ex_missing": 330
+                    "ex_missing": 440
                 },
                 {
                     "rank": "amethyst",
-                    "ex_missing": 220
+                    "ex_missing": 300
                 },
                 {
                     "rank": "emerald",
-                    "ex_missing": 140
+                    "ex_missing": 210
                 },
                 {
                     "rank": "onyx",
-                    "ex_missing": 90
+                    "ex_missing": 150
                 }
             ],
             "total_ex": 7311
@@ -2949,21 +2949,21 @@
                         970000,
                         970000
                     ],
-                    "ex_missing": 620
+                    "ex_missing": 750
                 },
                 {
                     "rank": "amethyst",
                     "judge": 28,
-                    "ex_missing": 420
+                    "ex_missing": 550
                 },
                 {
                     "rank": "emerald",
                     "judge": 20,
-                    "ex_missing": 280
+                    "ex_missing": 440
                 },
                 {
                     "rank": "onyx",
-                    "ex_missing": 190
+                    "ex_missing": 300
                 }
             ],
             "total_ex": 7749
