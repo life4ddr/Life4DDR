@@ -1,7 +1,11 @@
 package com.perrigogames.life4.feature.trialsession
 
 import com.perrigogames.life4.MR
-import com.perrigogames.life4.enums.*
+import com.perrigogames.life4.data.InProgressTrialSession
+import com.perrigogames.life4.enums.LadderRank
+import com.perrigogames.life4.enums.TrialRank
+import com.perrigogames.life4.enums.colorRes
+import com.perrigogames.life4.enums.nameRes
 import com.perrigogames.life4.feature.profile.UserRankManager
 import com.perrigogames.life4.feature.songlist.SongDataManager
 import com.perrigogames.life4.feature.trialrecords.TrialRecordsManager
@@ -29,17 +33,30 @@ class TrialSessionViewModel(trialId: String) : KoinComponent, ViewModel() {
     private val trialSessionManager: TrialSessionManager by inject()
     private val trialRecordsManager: TrialRecordsManager by inject()
 
-    private val trial = trialManager.trialsFlow.map { trials ->
-        trials.firstOrNull { it.id == trialId }
-    }.stateIn(viewModelScope, SharingStarted.Eagerly, null)
+    private val trial = trialManager.trialsFlow.value.firstOrNull { it.id == trialId }
+        ?: throw IllegalStateException("Can't find trial with id $trialId")
+
+    private val contentProvider = TrialContentProvider(trial = trial)
 
     private val targetRank = MutableStateFlow(TrialRank.BRONZE)
-    private val _state = MutableStateFlow<ViewState<UITrialSession, Unit>>(
-        ViewState.Loading
-    ).cMutableStateFlow()
+    private val _state = MutableStateFlow<ViewState<UITrialSession, Unit>>(ViewState.Loading)
+        .cMutableStateFlow()
     val state: StateFlow<ViewState<UITrialSession, Unit>> = _state.asStateFlow()
 
+    private val stage = MutableStateFlow<Int?>(null)
+    private val inProgressSessionFlow = MutableStateFlow<InProgressTrialSession?>(null)
+
+
     init {
+        viewModelScope.launch { // recreate the in progress session when necessary
+            targetRank.map { targetRank ->
+                InProgressTrialSession(
+                    trial = trial,
+                    targetRank = targetRank,
+                )
+            }.collect(inProgressSessionFlow)
+        }
+
         viewModelScope.launch {
             targetRank.collect { target ->
                 val trial = trialManager.trialsFlow.value
@@ -58,6 +75,23 @@ class TrialSessionViewModel(trialId: String) : KoinComponent, ViewModel() {
                     ).toViewState()
                 }
             }
+        }
+
+        viewModelScope.launch {
+            combine(
+                inProgressSessionFlow.filterNotNull(),
+                stage.filterNotNull(),
+            ) { session, stage ->
+                val current = (_state.value as? ViewState.Success)?.data ?: return@combine
+                _state.value = current.copy(
+                    targetRank = when (val target = current.targetRank) {
+                        is UITargetRank.Selection -> target.toInProgress()
+                        is UITargetRank.InProgress -> target
+                        is UITargetRank.Achieved -> throw IllegalStateException("Can't move from Achieved to In Progress")
+                    },
+                    content = contentProvider.provideMidSession(session, stage)
+                ).toViewState()
+            }.collect()
         }
 
         val trial = trialManager.trialsFlow.value
@@ -96,24 +130,7 @@ class TrialSessionViewModel(trialId: String) : KoinComponent, ViewModel() {
                         availableRanks = allowedRanks,
                         rankGoalItems = TrialGoalStrings.generateGoalStrings(trial.goalSet(rank)!!, trial),
                     ),
-                    content = UITrialSessionContent.Summary(
-                        items = trial.songs.map { song ->
-                            val songInfo = songDataManager.getChart(
-                                skillId = song.skillId,
-                                playStyle = PlayStyle.SINGLE,
-                                difficultyClass = song.difficultyClass,
-                            ) ?: throw IllegalStateException("Song info not found for ${song.skillId} / ${song.difficultyClass}")
-                            UITrialSessionContent.Summary.Item(
-                                jacketUrl = song.url,
-                                difficultyClassText = songInfo.difficultyClass.nameRes.desc(),
-                                difficultyClassColor = songInfo.difficultyClass.colorRes.asColorDesc(),
-                                difficultyNumberText = songInfo.difficultyNumber.toString().desc(),
-                                summaryContent = null,
-                            )
-                        },
-                        buttonText = MR.strings.placement_start.desc(),
-                        buttonAction = TrialSessionAction.StartTrial,
-                    ),
+                    content = contentProvider.provideSummary(),
                     songDetailsBottomSheet = null,
                 )
             )
@@ -125,9 +142,17 @@ class TrialSessionViewModel(trialId: String) : KoinComponent, ViewModel() {
         is TrialSessionAction.ChangeTargetRank -> {
             targetRank.value = action.target
         }
-        TrialSessionAction.StartTrial -> TODO()
+        TrialSessionAction.StartTrial -> {
+            stage.value = 0
+        }
         is TrialSessionAction.SubmitFields -> TODO()
         TrialSessionAction.TakePhoto -> TODO()
+        is TrialSessionAction.AdvanceStage -> {
+            inProgressSessionFlow.value?.let { session ->
+                inProgressSessionFlow.value = session.copy()
+            }
+            stage.value = (stage.value ?: 0) + 1
+        }
         is TrialSessionAction.UseShortcut -> TODO()
     }
 
@@ -153,14 +178,22 @@ class TrialSessionViewModel(trialId: String) : KoinComponent, ViewModel() {
 
 sealed class TrialSessionAction {
     data object StartTrial : TrialSessionAction()
+
     data class ChangeTargetRank(
         val target: TrialRank
     ) : TrialSessionAction()
+
     data object TakePhoto : TrialSessionAction()
+
+    data class AdvanceStage(
+        val photoUri: String
+    ) : TrialSessionAction()
+
     data class UseShortcut(
         val songId: String,
         val shortcut: ShortcutType,
     ) : TrialSessionAction()
+
     data class SubmitFields(
         val items: List<SubmitFieldsItem>
     ) : TrialSessionAction()

@@ -27,7 +27,7 @@ class TrialDatabaseHelper(sqlDriver: SqlDriver): DatabaseHelper(sqlDriver) {
         queries.insertSession(null,
             session.trial.id,
             (datetime ?: Clock.System.now()).toString(),
-            session.goalRank!!,
+            session.targetRank!!,
             session.goalObtained)
         val sId = queries.lastInsertRowId().executeAsOne()
         dbRef.transaction {

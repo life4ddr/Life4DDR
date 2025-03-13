@@ -189,7 +189,7 @@ class SongEntryViewModel(
         } else {
             result.also {
                 it.score = score.positiveOrNull
-                it.exScore = exScore.positiveOrNull
+                it.exScore = exScore.positiveOrNull ?: 0
                 it.misses = misses.positiveOrNull
                 it.goods = goods.positiveOrNull
                 it.greats = greats.positiveOrNull

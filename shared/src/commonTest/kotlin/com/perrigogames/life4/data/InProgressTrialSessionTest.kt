@@ -15,7 +15,7 @@ class InProgressTrialSessionTest {
         results: Array<SongResult?> = arrayOfNulls(4)
     ) = InProgressTrialSession(
         trial = trial,
-        goalRank = goalRank,
+        targetRank = goalRank,
         results = Array(4) { if (it < results.size) results[it] else null }
     )
 

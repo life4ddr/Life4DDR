@@ -1,6 +1,7 @@
 package com.perrigogames.life4.feature.trialsession
 
 import com.perrigogames.life4.enums.TrialRank
+import com.perrigogames.life4.feature.trialsession.UITargetRank.*
 import dev.icerock.moko.resources.desc.StringDesc
 import dev.icerock.moko.resources.desc.color.ColorDesc
 import dev.icerock.moko.resources.desc.image.ImageDesc
@@ -24,6 +25,7 @@ data class UITrialSession(
 data class UIEXScoreBar(
     val labelText: StringDesc,
     val currentEx: Int,
+    val hintCurrentEx: Int? = null,
     val maxEx: Int,
     val currentExText: StringDesc,
     val maxExText: StringDesc,
@@ -39,6 +41,7 @@ sealed class UITargetRank {
 //    abstract val rankIcon: ImageDesc
     abstract val title: StringDesc
     abstract val titleColor: ColorDesc
+    abstract val rankGoalItems: List<StringDesc>
 
     /**
      * Specifies an open selector that can be changed by the
@@ -48,8 +51,8 @@ sealed class UITargetRank {
         override val rank: TrialRank,
         override val title: StringDesc,
         override val titleColor: ColorDesc,
+        override val rankGoalItems: List<StringDesc>,
         val availableRanks: List<TrialRank>,
-        val rankGoalItems: List<StringDesc>
     ) : UITargetRank()
 
     /**
@@ -60,7 +63,7 @@ sealed class UITargetRank {
         override val rank: TrialRank,
         override val title: StringDesc,
         override val titleColor: ColorDesc,
-        val rankGoalItems: List<StringDesc>
+        override val rankGoalItems: List<StringDesc>
     ) : UITargetRank()
 
     /**
@@ -69,11 +72,16 @@ sealed class UITargetRank {
      */
     data class Achieved(
         override val rank: TrialRank,
-//        override val rankIcon: ImageDesc,
         override val title: StringDesc,
         override val titleColor: ColorDesc,
-    ) : UITargetRank()
+    ) : UITargetRank() {
+        override val rankGoalItems: List<StringDesc> = emptyList()
+    }
 }
+
+fun Selection.toInProgress() = InProgress(rank, title, titleColor, rankGoalItems)
+
+fun InProgress.toAchieved() = Achieved(rank, title, titleColor)
 
 /**
  * Describes the content of the bottom half of the screen.
@@ -113,19 +121,19 @@ sealed class UITrialSessionContent {
      */
     data class SongFocused(
         val items: List<Item>,
-        val focusedJacketUrl: String,
-        val songTitleText: String,
-        val difficultyClassText: String,
+        val focusedJacketUrl: String?,
+        val songTitleText: StringDesc,
+        val difficultyClassText: StringDesc,
         val difficultyClassColor: ColorDesc,
-        val difficultyNumberText: String,
-        val buttonText: String,
+        val difficultyNumberText: StringDesc,
+        val buttonText: StringDesc,
         val buttonAction: TrialSessionAction,
     ) : UITrialSessionContent() {
 
         data class Item(
-            val jacketUrl: String,
-            val topText: String,
-            val bottomBoldText: String,
+            val jacketUrl: String?,
+            val topText: StringDesc?,
+            val bottomBoldText: StringDesc?,
             val bottomTagColor: ColorDesc,
         )
     }

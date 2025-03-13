@@ -11,7 +11,7 @@ import kotlinx.serialization.Transient
 @Serializable
 data class InProgressTrialSession(
     val trial: Trial,
-    var goalRank: TrialRank? = null,
+    var targetRank: TrialRank? = null,
     val results: Array<SongResult?> = arrayOfNulls(trial.songs.size),
     var finalPhotoUriString: String? = null,
 ) {
@@ -51,7 +51,7 @@ data class InProgressTrialSession(
     }
 
     val trialGoalSet: TrialGoalSet?
-        get() = trial.goalSet(goalRank)
+        get() = trial.goalSet(targetRank)
 
     /**
      * Calculates the number of combined misses in the current session.
@@ -166,7 +166,7 @@ data class SongResult(
     val song: TrialSong,
     var photoUriString: String? = null,
     var score: Int? = null,
-    var exScore: Int? = null,
+    var exScore: Int,
     var misses: Int? = null,
     var goods: Int? = null,
     var greats: Int? = null,

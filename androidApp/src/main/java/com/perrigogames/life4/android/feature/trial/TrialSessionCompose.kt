@@ -3,13 +3,17 @@ package com.perrigogames.life4.android.feature.trial
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
@@ -17,9 +21,6 @@ import coil.request.ImageRequest
 import com.perrigogames.life4.MR
 import com.perrigogames.life4.android.util.MokoImage
 import com.perrigogames.life4.android.util.SizedSpacer
-import com.perrigogames.life4.android.view.compose.RankImage
-import com.perrigogames.life4.enums.TrialRank
-import com.perrigogames.life4.enums.nameRes
 import com.perrigogames.life4.feature.trialsession.*
 import com.perrigogames.life4.util.ViewState
 import dev.icerock.moko.mvvm.createViewModelFactory
@@ -57,7 +58,6 @@ fun TrialSessionContent(
     modifier: Modifier = Modifier,
     onAction: (TrialSessionAction) -> Unit = {},
 ) {
-    val context = LocalContext.current
     Box(
         modifier = modifier
     ) {
@@ -106,15 +106,10 @@ fun TrialSessionHeader(
         }
 
         SizedSpacer(16.dp)
-        when (val target = viewData.targetRank) {
-            is UITargetRank.Selection -> {
-                RankSelector(
-                    viewData = target,
-                    rankSelected = { onAction(TrialSessionAction.ChangeTargetRank(it)) }
-                )
-            }
-            else -> { TODO() }
-        }
+        RankSelector(
+            viewData = viewData.targetRank,
+            rankSelected = { onAction(TrialSessionAction.ChangeTargetRank(it)) }
+        )
         SizedSpacer(16.dp)
         EXScoreBar(
             viewData = viewData.exScoreBar
@@ -123,74 +118,17 @@ fun TrialSessionHeader(
 
         when (val content = viewData.content) {
             is UITrialSessionContent.Summary -> {
-                SummaryContent(viewData = content)
+                SummaryContent(
+                    viewData = content,
+                    onAction = onAction,
+                )
             }
-            is UITrialSessionContent.SongFocused -> TODO()
-        }
-    }
-}
-
-@Composable
-fun RankSelector(
-    viewData: UITargetRank.Selection,
-    rankSelected: (TrialRank) -> Unit = {},
-) {
-    val context = LocalContext.current
-    var dropdownExpanded: Boolean by remember { mutableStateOf(false) }
-
-    Column {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            Box {
-                Card(
-                    elevation = CardDefaults.cardElevation(),
-                    onClick = { dropdownExpanded = true }
-                ) {
-                    Row(
-                        modifier = Modifier.padding(8.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    ) {
-                        RankImage(
-                            rank = viewData.rank.parent,
-                            size = 32.dp,
-                        )
-                        Text(
-                            text = viewData.title.toString(context),
-                            color = Color(viewData.titleColor.getColor(context)),
-                            style = MaterialTheme.typography.titleLarge,
-                        )
-                    }
-                }
-                DropdownMenu(
-                    expanded = dropdownExpanded,
-                    onDismissRequest = { dropdownExpanded = false },
-                ) {
-                    viewData.availableRanks.forEach { rank ->
-                        DropdownMenuItem(
-                            text = { Text(rank.nameRes.getString(context)) },
-                            leadingIcon = {
-                                RankImage(
-                                    rank = rank.parent,
-                                    size = 32.dp
-                                )
-                            },
-                            onClick = {
-                                rankSelected(rank)
-                                dropdownExpanded = false
-                            },
-                        )
-                    }
-                }
+            is UITrialSessionContent.SongFocused -> {
+                SongFocusedContent(
+                    viewData = content,
+                    onAction = onAction,
+                )
             }
-        }
-
-        SizedSpacer(8.dp)
-        viewData.rankGoalItems.forEach { goal ->
-            Text(
-                text = goal.toString(context)
-            )
         }
     }
 }
@@ -211,42 +149,90 @@ fun SummaryContent(
                 horizontalArrangement = Arrangement.spacedBy(24.dp),
             ) {
                 viewData.items.getOrNull(0)?.let { item ->
-                    SummaryJacketItem(
-                        viewData = item,
-                        modifier = Modifier.weight(1f)
-                    )
+                    SummaryJacketItem(viewData = item, modifier = Modifier.weight(1f))
                 }
                 viewData.items.getOrNull(1)?.let { item ->
-                    SummaryJacketItem(
-                        viewData = item,
-                        modifier = Modifier.weight(1f)
-                    )
+                    SummaryJacketItem(viewData = item, modifier = Modifier.weight(1f))
                 }
             }
             Row(
                 horizontalArrangement = Arrangement.spacedBy(24.dp),
             ) {
                 viewData.items.getOrNull(2)?.let { item ->
-                    SummaryJacketItem(
-                        viewData = item,
-                        modifier = Modifier.weight(1f)
-                    )
+                    SummaryJacketItem(viewData = item, modifier = Modifier.weight(1f))
                 }
                 viewData.items.getOrNull(3)?.let { item ->
-                    SummaryJacketItem(
-                        viewData = item,
-                        modifier = Modifier.weight(1f)
-                    )
+                    SummaryJacketItem(viewData = item, modifier = Modifier.weight(1f))
                 }
             }
         }
-        Button(
-            elevation = ButtonDefaults.elevatedButtonElevation(),
-            modifier = Modifier.fillMaxWidth(),
+        CTAButton(
+            text = viewData.buttonText.toString(context),
             onClick = { onAction(viewData.buttonAction) }
+        )
+    }
+}
+
+@Composable
+fun SongFocusedContent(
+    viewData: UITrialSessionContent.SongFocused,
+    modifier: Modifier = Modifier,
+    onAction: (TrialSessionAction) -> Unit = {},
+) {
+    val context = LocalContext.current
+    Column(
+        modifier = modifier,
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(24.dp),
         ) {
-            Text(viewData.buttonText.toString(context))
+            viewData.items.forEach { item ->
+                InProgressJacketItem(
+                    viewData = item,
+                )
+            }
         }
+
+        SizedSpacer(32.dp)
+
+        AsyncImage(
+            model = ImageRequest.Builder(LocalContext.current)
+                .data(viewData.focusedJacketUrl)
+                .fallback(MR.images.trial_default.drawableResId)
+                .build(),
+            contentDescription = null,
+            modifier = Modifier
+                .weight(1f)
+                .aspectRatio(1f),
+            contentScale = ContentScale.Crop,
+        )
+
+        SizedSpacer(16.dp)
+        Text(
+            text = viewData.songTitleText.toString(context),
+            style = MaterialTheme.typography.headlineMedium,
+        )
+
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(16.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Text(
+                text = viewData.difficultyClassText.toString(context),
+                color = Color(viewData.difficultyClassColor.getColor(context)),
+                fontWeight = FontWeight.Bold,
+            )
+            Text(
+                text = viewData.difficultyNumberText.toString(context),
+                fontWeight = FontWeight.Bold,
+            )
+        }
+        SizedSpacer(32.dp)
+        CTAButton(
+            text = viewData.buttonText.toString(context),
+            onClick = { onAction(viewData.buttonAction) }
+        )
     }
 }
 
@@ -265,11 +251,21 @@ fun EXScoreBar(
             style = MaterialTheme.typography.titleLarge,
         )
         SizedSpacer(8.dp)
-        LinearProgressIndicator(
-            progress = { viewData.currentEx / viewData.maxEx.toFloat() },
-            modifier = Modifier.weight(1f)
-                .height(8.dp)
-        )
+        if (viewData.hintCurrentEx != null) {
+            Box(
+                modifier = Modifier.weight(1f)
+                    .height(8.dp)
+            ) {
+                LinearProgressIndicator(progress = { viewData.currentEx / viewData.maxEx.toFloat() })
+                LinearProgressIndicator(progress = { viewData.hintCurrentEx!! / viewData.maxEx.toFloat() })
+            }
+        } else {
+            LinearProgressIndicator(
+                progress = { viewData.currentEx / viewData.maxEx.toFloat() },
+                modifier = Modifier.weight(1f)
+                    .height(8.dp)
+            )
+        }
         SizedSpacer(8.dp)
         Text(
             text = viewData.currentExText.toString(context),
@@ -283,9 +279,9 @@ fun EXScoreBar(
 }
 
 @Composable
-fun SummaryJacketItem(
+fun RowScope.SummaryJacketItem(
     viewData: UITrialSessionContent.Summary.Item,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier.weight(1f)
 ) {
     val context = LocalContext.current
     Column(modifier = modifier) {
@@ -318,6 +314,50 @@ fun SummaryJacketItem(
     }
 }
 
+@Composable
+fun RowScope.InProgressJacketItem(
+    viewData: UITrialSessionContent.SongFocused.Item,
+    modifier: Modifier = Modifier.weight(1f)
+) {
+    val context = LocalContext.current
+
+    Column(modifier = modifier) {
+        AsyncImage(
+            model = ImageRequest.Builder(LocalContext.current)
+                .data(viewData.jacketUrl)
+                .fallback(MR.images.trial_default.drawableResId)
+                .build(),
+            contentDescription = null,
+            modifier = Modifier
+                .fillMaxWidth()
+                .aspectRatio(1f),
+            contentScale = ContentScale.Crop,
+        )
+        Column(
+            modifier = Modifier.fillMaxWidth()
+                .background(MaterialTheme.colorScheme.surface)
+                .padding(4.dp),
+            verticalArrangement = Arrangement.spacedBy(4.dp),
+        ) {
+            viewData.topText?.let { topText ->
+                Text(
+                    text = topText.toString(context),
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.fillMaxWidth(),
+                    textAlign = TextAlign.Center,
+                )
+            }
+            viewData.bottomBoldText?.let { bottomText ->
+                Text(
+                    text = bottomText.toString(context),
+                    modifier = Modifier.fillMaxWidth(),
+                    textAlign = TextAlign.Center,
+                )
+            }
+        }
+    }
+}
+
 private fun Modifier.backgroundGradientMask(): Modifier = this
     .graphicsLayer(compositingStrategy = CompositingStrategy.Offscreen)
     .drawWithContent {
@@ -332,3 +372,20 @@ private fun Modifier.backgroundGradientMask(): Modifier = this
             blendMode = BlendMode.DstIn // Multiplies alpha from the gradient with the underlying image
         )
     }
+
+@Composable
+private fun CTAButton(
+    text: String,
+    onClick: () -> Unit = {},
+) = Button(
+    elevation = ButtonDefaults.elevatedButtonElevation(),
+    colors = ButtonDefaults.elevatedButtonColors(),
+    modifier = Modifier.fillMaxWidth(),
+    onClick = onClick
+) {
+    Text(
+        text = text,
+        style = MaterialTheme.typography.titleLarge,
+        modifier = Modifier.padding(vertical = 8.dp)
+    )
+}

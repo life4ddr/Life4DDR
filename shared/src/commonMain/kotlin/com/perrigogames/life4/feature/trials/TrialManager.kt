@@ -5,6 +5,7 @@ import com.perrigogames.life4.AppInfo
 import com.perrigogames.life4.api.TrialRemoteData
 import com.perrigogames.life4.api.base.CompositeData
 import com.perrigogames.life4.data.Trial
+import com.perrigogames.life4.feature.songlist.SongDataManager
 import com.perrigogames.life4.feature.trialrecords.TrialDatabaseHelper
 import com.perrigogames.life4.injectLogger
 import com.perrigogames.life4.model.BaseModel
@@ -24,6 +25,7 @@ class TrialManager: BaseModel() {
 
     private val appInfo: AppInfo by inject()
     private val settings: Settings by inject()
+    private val songDataManager: SongDataManager by inject()
     private val dbHelper: TrialDatabaseHelper by inject()
     private val logger: Logger by injectLogger("TrialManager")
 
@@ -53,6 +55,17 @@ class TrialManager: BaseModel() {
         mainScope.launch {
             data.dataState
                 .mapNotNull { (it as? CompositeData.LoadingState.Loaded)?.data?.trials }
+                .onEach { trials ->
+                    trials.forEach { trial ->
+                        trial.songs.forEach { song ->
+                            song.chart = songDataManager.getChart(
+                                skillId = song.skillId,
+                                playStyle = song.playStyle,
+                                difficultyClass = song.difficultyClass,
+                            ) ?: throw IllegalStateException("Chart not found for ${song.skillId}, ${song.playStyle}, ${song.difficultyClass}")
+                        }
+                    }
+                }
                 .collect(_trialsFlow)
         }
         mainScope.launch {
