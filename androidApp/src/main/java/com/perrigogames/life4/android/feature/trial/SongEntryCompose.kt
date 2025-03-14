@@ -10,14 +10,10 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.perrigogames.life4.MR
-import com.perrigogames.life4.android.compose.LIFE4Theme
 import com.perrigogames.life4.android.compose.Paddings
 import com.perrigogames.life4.feature.trials.SongEntryViewModel
 import com.perrigogames.life4.feature.trials.SongEntryViewModel.InputFieldState
-import dev.icerock.moko.mvvm.createViewModelFactory
 import dev.icerock.moko.resources.StringResource
 import dev.icerock.moko.resources.compose.stringResource
 
@@ -175,17 +171,17 @@ enum class SongClearButtonType {
     CLEAR, FC, PFC, MFC
 }
 
-@Composable
-@Preview
-fun SongClearWidgetsPreview() {
-    LIFE4Theme {
-        Column {
-            SongClearButtons(modifier = Modifier.fillMaxWidth()) {}
-            SongEntryControls(viewModel(
-                factory = createViewModelFactory {
-                    SongEntryViewModel(0, SongEntryViewModel.EntryState.FULL, false)
-                }
-            ))
-        }
-    }
-}
+//@Composable
+//@Preview
+//fun SongClearWidgetsPreview() {
+//    LIFE4Theme {
+//        Column {
+//            SongClearButtons(modifier = Modifier.fillMaxWidth()) {}
+//            SongEntryControls(viewModel(
+//                factory = createViewModelFactory {
+//                    SongEntryViewModel(0, SongEntryViewModel.EntryState.FULL, false)
+//                }
+//            ))
+//        }
+//    }
+//}

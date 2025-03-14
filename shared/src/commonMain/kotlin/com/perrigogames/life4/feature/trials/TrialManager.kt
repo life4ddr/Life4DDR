@@ -4,6 +4,7 @@ import co.touchlab.kermit.Logger
 import com.perrigogames.life4.AppInfo
 import com.perrigogames.life4.api.TrialRemoteData
 import com.perrigogames.life4.api.base.CompositeData
+import com.perrigogames.life4.data.InProgressTrialSession
 import com.perrigogames.life4.data.Trial
 import com.perrigogames.life4.feature.songlist.SongDataManager
 import com.perrigogames.life4.feature.trialrecords.TrialDatabaseHelper
@@ -30,15 +31,6 @@ class TrialManager: BaseModel() {
     private val logger: Logger by injectLogger("TrialManager")
 
     private var data = TrialRemoteData()
-
-//    override fun onDataVersionChanged(data: TrialData) {
-//        notifications.showToast("${data.trials.size} Trials found!")
-//        _trialsFlow.value = trialData.data.trials
-//    }
-//
-//    override fun onMajorVersionBlock() {
-//        // FIXME eventBus.postSticky(DataRequiresAppUpdateEvent())
-//    }
 
     val dataVersionString: Flow<String> =
         data.versionState.map { it.versionString }
@@ -73,10 +65,6 @@ class TrialManager: BaseModel() {
         }
     }
 
-    val allRecords get() = dbHelper.allRecords().executeAsList()
-
-    fun getBestSession(trialId: String) = dbHelper.bestSession(trialId)
-
     private fun validateTrials() = trials.forEach { trial ->
         var sum = 0
         trial.songs.forEach { sum += it.ex }
@@ -89,23 +77,13 @@ class TrialManager: BaseModel() {
 
     fun findTrial(id: String) = trials.firstOrNull { it.id == id }
 
-    fun previousTrial(id: String) = previousTrial(trials.indexOfFirst { it.id == id })
-
-    fun previousTrial(index: Int) = trials.getOrNull(index - 1)
-
-    fun nextTrial(id: String) = nextTrial(trials.indexOfFirst { it.id == id })
-
-    fun nextTrial(index: Int) = trials.getOrNull(index + 1)
-
-//    fun createViewState() = UITrialList(
-//        trials = trials,
-////        sessions = bestSessions(), FIXME
-//        sessions = emptyList(),
-//        featureNew = settings.getBoolean(SettingsKeys.KEY_LIST_HIGHLIGHT_NEW, true),
-//        featureUnplayed = settings.getBoolean(SettingsKeys.KEY_LIST_HIGHLIGHT_UNPLAYED, true),
-//    )
-
-    companion object {
-        internal val RECORD_FETCH_TIMESTAMP_KEY = "TRIAL_FETCH_TIMESTAMP_KEY"
+    /**
+     * Commits the current session to internal storage.  [currentSession] is
+     * no longer usable after calling this.
+     */
+    fun saveSession(session: InProgressTrialSession) {
+        mainScope.launch {
+            dbHelper.insertSession(session)
+        }
     }
 }

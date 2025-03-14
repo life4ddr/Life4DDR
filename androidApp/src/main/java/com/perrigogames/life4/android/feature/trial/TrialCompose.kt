@@ -1,5 +1,9 @@
 package com.perrigogames.life4.android.feature.trial
 
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -15,10 +19,10 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.perrigogames.life4.MR
 import com.perrigogames.life4.android.compose.FontFamilies
@@ -26,6 +30,7 @@ import com.perrigogames.life4.android.compose.FontSizes
 import com.perrigogames.life4.android.compose.Paddings
 import com.perrigogames.life4.android.stringResource
 import com.perrigogames.life4.android.util.SizedSpacer
+import com.perrigogames.life4.android.view.compose.JacketCorner
 import com.perrigogames.life4.android.view.compose.RankImage
 import com.perrigogames.life4.data.Trial
 import com.perrigogames.life4.feature.trials.TrialListViewModel
@@ -125,7 +130,7 @@ fun TrialJacketList(
                 }
                 is UITrialList.Item.Trial -> item {
                     TrialJacket(
-                        viewModel = displayItem.data,
+                        viewData = displayItem.data,
                         onClick = { onTrialSelected(displayItem.data.trial) },
                     )
                 }
@@ -136,36 +141,37 @@ fun TrialJacketList(
 
 @Composable
 fun TrialJacket(
-    viewModel: UITrialJacket,
+    viewData: UITrialJacket,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    ConstraintLayout(
+    Box(
         modifier = Modifier
             .clickable(onClick = onClick)
             .then(modifier),
     ) {
-        val (image, difficulty) = createRefs()
         Image(
-            painter = (viewModel.trial.coverResource as? ImageDescResource)?.let {
+            painter = (viewData.trial.coverResource as? ImageDescResource)?.let {
                 painterResource(it.resource)
             } ?: painterResource(MR.images.trial_default),
             contentDescription = null,
             modifier = Modifier.aspectRatio(1f)
-                .constrainAs(image) {
-                    top.linkTo(parent.top)
-                    start.linkTo(parent.start)
-                    end.linkTo(parent.end)
-                    bottom.linkTo(parent.bottom)
-                }
+                .alpha(viewData.viewAlpha)
         )
-        viewModel.trial.difficulty?.let { diffNum ->
+        viewData.trial.difficulty?.let { diffNum ->
             TrialDifficulty(
                 difficulty = diffNum,
-                modifier = Modifier.constrainAs(difficulty) {
-                    top.linkTo(parent.top, margin = Paddings.SMALL)
-                    start.linkTo(parent.start, margin = Paddings.SMALL)
-                }
+                modifier = Modifier.align(Alignment.TopStart)
+                    .padding(Paddings.SMALL)
+            )
+        }
+        AnimatedContent(
+            targetState = viewData.cornerType,
+            transitionSpec = { fadeIn() togetherWith  fadeOut() },
+            modifier = Modifier.align(Alignment.TopEnd)
+        ) { type ->
+            JacketCorner(
+                corner = type,
             )
         }
     }
@@ -178,13 +184,12 @@ fun TrialDifficulty(
 ) {
     Box(
         contentAlignment = Alignment.Center,
-        modifier = Modifier
+        modifier = modifier
             .size(40.dp)
             .background(
                 color = MaterialTheme.colorScheme.primary.copy(alpha = 0.8f),
                 shape = CircleShape
-            )
-            .then(modifier),
+            ),
     ) {
         Text(
             text = difficulty.toString(),

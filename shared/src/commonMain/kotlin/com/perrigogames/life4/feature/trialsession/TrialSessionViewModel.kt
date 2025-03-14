@@ -8,7 +8,6 @@ import com.perrigogames.life4.enums.TrialRank
 import com.perrigogames.life4.enums.colorRes
 import com.perrigogames.life4.enums.nameRes
 import com.perrigogames.life4.feature.profile.UserRankManager
-import com.perrigogames.life4.feature.songlist.SongDataManager
 import com.perrigogames.life4.feature.trialrecords.TrialRecordsManager
 import com.perrigogames.life4.feature.trials.TrialManager
 import com.perrigogames.life4.util.ViewState
@@ -28,10 +27,8 @@ import org.koin.core.component.inject
 
 class TrialSessionViewModel(trialId: String) : KoinComponent, ViewModel() {
 
-    private val songDataManager: SongDataManager by inject()
     private val userRankManager: UserRankManager by inject()
     private val trialManager: TrialManager by inject()
-    private val trialSessionManager: TrialSessionManager by inject()
     private val trialRecordsManager: TrialRecordsManager by inject()
 
     private val trial = trialManager.trialsFlow.value.firstOrNull { it.id == trialId }
@@ -198,7 +195,7 @@ class TrialSessionViewModel(trialId: String) : KoinComponent, ViewModel() {
             is TrialSessionAction.ResultsPhotoTaken -> {
                 // TODO acquire the images and upload them to the API
                 inProgressSession.goalObtained = true
-                trialSessionManager.saveSession(inProgressSession)
+                trialManager.saveSession(inProgressSession)
                 viewModelScope.launch {
                     _events.emit(TrialSessionEvent.Close)
                 }

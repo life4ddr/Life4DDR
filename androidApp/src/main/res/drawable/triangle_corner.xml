@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+        android:width="200dp"
+        android:height="50dp"
+        android:viewportWidth="200"
+        android:viewportHeight="50">
+
+    <!-- Path representing the custom shape -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M0,0 L200,0 L200,50 L20,50 Z" />
+</vector>
