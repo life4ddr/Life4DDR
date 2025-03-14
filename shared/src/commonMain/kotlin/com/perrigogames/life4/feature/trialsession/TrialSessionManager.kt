@@ -29,7 +29,6 @@ class TrialSessionManager: BaseModel(), KoinComponent {
         session?.let { s ->
             mainScope.launch {
                 dbHelper.insertSession(s)
-                // FIXME eventBus.post(SavedRankUpdatedEvent(s.trial))
             }
         }
         if (session == currentSession) {

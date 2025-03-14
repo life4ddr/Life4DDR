@@ -55,8 +55,8 @@ object UITrialSessionMocks {
                     difficultyNumberText = "14".desc(),
                 ),
             ),
-            buttonText = "Start Trial".desc(),
-            buttonAction = TrialSessionAction.StartTrial,
         ),
+        buttonText = "Start Trial".desc(),
+        buttonAction = TrialSessionAction.StartTrial,
     )
 }

@@ -1,15 +1,22 @@
 package com.perrigogames.life4.android.feature.trial
 
+import androidx.activity.compose.BackHandler
+import androidx.compose.animation.*
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.drawWithContent
-import androidx.compose.ui.graphics.*
+import androidx.compose.ui.draw.BlurredEdgeTreatment
+import androidx.compose.ui.draw.blur
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
@@ -32,8 +39,11 @@ fun TrialSession(
     modifier: Modifier = Modifier,
     viewModel: TrialSessionViewModel = viewModel(
         factory = createViewModelFactory { TrialSessionViewModel(trialId) }
-    )
+    ),
+    onClose: () -> Unit,
 ) {
+    BackHandler { onClose() }
+
     val _viewData by viewModel.state.collectAsState()
     when (val viewData = _viewData) {
         ViewState.Loading -> {
@@ -50,6 +60,29 @@ fun TrialSession(
             Text("Error loading Trial with ID $trialId")
         }
     }
+
+    LaunchedEffect(Unit) {
+        viewModel.events.collect { event ->
+            when (event) {
+                is TrialSessionEvent.AcquirePhoto -> {
+                    // FIXME actually acquire a photo
+                    viewModel.handleAction(TrialSessionAction.PhotoTaken("", event.index))
+                }
+
+                is TrialSessionEvent.AcquireResultsPhoto -> {
+                    // FIXME actually acquire a photo
+                    viewModel.handleAction(TrialSessionAction.ResultsPhotoTaken(""))
+                }
+
+                is TrialSessionEvent.ShowBottomSheet -> {
+                    // FIXME actually show the bottom sheet
+                    viewModel.handleAction(TrialSessionAction.AdvanceStage(""))
+                }
+
+                TrialSessionEvent.Close -> onClose()
+            }
+        }
+    }
 }
 
 @Composable
@@ -58,15 +91,16 @@ fun TrialSessionContent(
     modifier: Modifier = Modifier,
     onAction: (TrialSessionAction) -> Unit = {},
 ) {
+    val context = LocalContext.current
     Box(
         modifier = modifier
     ) {
         MokoImage(
             desc = viewData.backgroundImage,
             modifier = Modifier.matchParentSize()
-                .backgroundGradientMask(),
+                .blur(radius = 12.dp, BlurredEdgeTreatment.Unbounded),
             alignment = Alignment.Center,
-            contentScale = ContentScale.Fit,
+            contentScale = ContentScale.FillHeight,
             alpha = 0.3f,
         )
         Column(
@@ -77,6 +111,38 @@ fun TrialSessionContent(
                 viewData = viewData,
                 onAction = onAction,
             )
+            SizedSpacer(16.dp)
+
+            AnimatedContent(
+                targetState = viewData.content, label = "content",
+                transitionSpec = {
+                    slideInHorizontally(initialOffsetX = { fullWidth -> fullWidth }) togetherWith
+                            slideOutHorizontally(targetOffsetX = { fullWidth -> -fullWidth })
+                },
+                modifier = Modifier.weight(1f)
+            ) { content ->
+                when (content) {
+                    is UITrialSessionContent.Summary -> {
+                        SummaryContent(content)
+                    }
+                    is UITrialSessionContent.SongFocused -> {
+                        SongFocusedContent(
+                            viewData = content,
+                            onAction = onAction,
+                        )
+                    }
+                }
+            }
+            SizedSpacer(32.dp)
+            AnimatedContent(
+                targetState = viewData.buttonText,
+                transitionSpec = { fadeIn() togetherWith fadeOut() }
+            ) {
+                CTAButton(
+                    text = it.toString(context),
+                    onClick = { onAction(viewData.buttonAction) }
+                )
+            }
         }
     }
 }
@@ -106,30 +172,26 @@ fun TrialSessionHeader(
         }
 
         SizedSpacer(16.dp)
-        RankSelector(
-            viewData = viewData.targetRank,
-            rankSelected = { onAction(TrialSessionAction.ChangeTargetRank(it)) }
-        )
+        AnimatedContent(targetState = viewData.targetRank is UITargetRank.Achieved) {
+            if (viewData.targetRank is UITargetRank.Achieved) {
+                RankDisplay(
+                    viewData = viewData.targetRank,
+                    showSelectorIcon = false,
+                    rankImageSize = 64.dp,
+                    textStyle = MaterialTheme.typography.headlineLarge,
+                    modifier = Modifier.align(Alignment.CenterHorizontally)
+                )
+            } else {
+                RankSelector(
+                    viewData = viewData.targetRank,
+                    rankSelected = { onAction(TrialSessionAction.ChangeTargetRank(it)) }
+                )
+            }
+        }
         SizedSpacer(16.dp)
         EXScoreBar(
             viewData = viewData.exScoreBar
         )
-        SizedSpacer(16.dp)
-
-        when (val content = viewData.content) {
-            is UITrialSessionContent.Summary -> {
-                SummaryContent(
-                    viewData = content,
-                    onAction = onAction,
-                )
-            }
-            is UITrialSessionContent.SongFocused -> {
-                SongFocusedContent(
-                    viewData = content,
-                    onAction = onAction,
-                )
-            }
-        }
     }
 }
 
@@ -137,9 +199,7 @@ fun TrialSessionHeader(
 fun SummaryContent(
     viewData: UITrialSessionContent.Summary,
     modifier: Modifier = Modifier,
-    onAction: (TrialSessionAction) -> Unit = {},
 ) {
-    val context = LocalContext.current
     Column(modifier = modifier) {
         Column(
             modifier = Modifier.weight(1f),
@@ -166,10 +226,6 @@ fun SummaryContent(
                 }
             }
         }
-        CTAButton(
-            text = viewData.buttonText.toString(context),
-            onClick = { onAction(viewData.buttonAction) }
-        )
     }
 }
 
@@ -187,9 +243,12 @@ fun SongFocusedContent(
         Row(
             horizontalArrangement = Arrangement.spacedBy(24.dp),
         ) {
-            viewData.items.forEach { item ->
+            viewData.items.forEachIndexed { index, item ->
                 InProgressJacketItem(
                     viewData = item,
+                    onClick = {
+                        onAction(TrialSessionAction.EditItem(index))
+                    }
                 )
             }
         }
@@ -212,6 +271,7 @@ fun SongFocusedContent(
         Text(
             text = viewData.songTitleText.toString(context),
             style = MaterialTheme.typography.headlineMedium,
+            textAlign = TextAlign.Center,
         )
 
         Row(
@@ -229,10 +289,6 @@ fun SongFocusedContent(
             )
         }
         SizedSpacer(32.dp)
-        CTAButton(
-            text = viewData.buttonText.toString(context),
-            onClick = { onAction(viewData.buttonAction) }
-        )
     }
 }
 
@@ -271,6 +327,7 @@ fun EXScoreBar(
             text = viewData.currentExText.toString(context),
             style = MaterialTheme.typography.titleLarge,
         )
+        SizedSpacer(4.dp)
         Text(
             text = viewData.maxExText.toString(context),
             style = MaterialTheme.typography.titleMedium,
@@ -296,19 +353,60 @@ fun RowScope.SummaryJacketItem(
                 .aspectRatio(1f),
             contentScale = ContentScale.Crop,
         )
-        Row(
+        Column(
+            verticalArrangement = Arrangement.spacedBy(8.dp),
             modifier = Modifier.fillMaxWidth()
                 .background(MaterialTheme.colorScheme.surface)
-                .padding(4.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
+                .padding(8.dp),
+        ) {
+            Row(
+                horizontalArrangement = Arrangement.SpaceBetween,
+            ) {
+                Text(
+                    text = viewData.difficultyClassText.toString(context),
+                    color = Color(viewData.difficultyClassColor.getColor(context)),
+                    modifier = Modifier.weight(1f)
+                )
+                Text(
+                    text = viewData.difficultyNumberText.toString(context)
+                )
+            }
+            viewData.summaryContent?.let { content ->
+                SummaryContent(content)
+            }
+        }
+    }
+}
+
+@Composable
+fun SummaryContent(
+    viewData: UITrialSessionContent.Summary.SummaryContent,
+    modifier: Modifier = Modifier,
+) {
+    val context = LocalContext.current
+    Column(
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+        modifier = modifier
+    ) {
+        viewData.topText?.let { topText ->
+            Text(
+                text = topText.toString(context),
+                textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.titleLarge,
+            )
+        }
+        Row(
+            verticalAlignment = Alignment.Bottom,
+            horizontalArrangement = Arrangement.spacedBy(4.dp),
+            modifier = Modifier.fillMaxWidth()
         ) {
             Text(
-                text = viewData.difficultyClassText.toString(context),
-                color = Color(viewData.difficultyClassColor.getColor(context)),
-                modifier = Modifier.weight(1f)
+                text = viewData.bottomMainText.toString(context),
+                style = MaterialTheme.typography.bodyLarge,
             )
             Text(
-                text = viewData.difficultyNumberText.toString(context)
+                text = viewData.bottomSubText.toString(context),
+                style = MaterialTheme.typography.bodyMedium,
             )
         }
     }
@@ -317,11 +415,14 @@ fun RowScope.SummaryJacketItem(
 @Composable
 fun RowScope.InProgressJacketItem(
     viewData: UITrialSessionContent.SongFocused.Item,
-    modifier: Modifier = Modifier.weight(1f)
+    modifier: Modifier = Modifier.weight(1f),
+    onClick: () -> Unit = {},
 ) {
     val context = LocalContext.current
-
-    Column(modifier = modifier) {
+    Column(
+        modifier = modifier
+            .clickable { onClick() }
+    ) {
         AsyncImage(
             model = ImageRequest.Builder(LocalContext.current)
                 .data(viewData.jacketUrl)
@@ -358,20 +459,46 @@ fun RowScope.InProgressJacketItem(
     }
 }
 
-private fun Modifier.backgroundGradientMask(): Modifier = this
-    .graphicsLayer(compositingStrategy = CompositingStrategy.Offscreen)
-    .drawWithContent {
-        drawContent()
-        drawRect(
-            brush = Brush.verticalGradient(
-                colors = listOf(Color.White, Color.Transparent, Color.White),
-                startY = 0f,
-                endY = size.height / 2,
-                tileMode = TileMode.Mirror
-            ),
-            blendMode = BlendMode.DstIn // Multiplies alpha from the gradient with the underlying image
-        )
+@Composable
+fun TrialSessionBottomSheet(
+    viewData: UISongDetailBottomSheet,
+    modifier: Modifier = Modifier,
+) {
+    Column(modifier = modifier) {
+        Box(
+            modifier = Modifier.fillMaxWidth()
+                .weight(1f)
+                .background(MaterialTheme.colorScheme.surface)
+        ) {}
+        Row {
+            viewData.fields
+
+            if (viewData.shortcuts.isNotEmpty()) {
+                IconButton(
+                    onClick = {  }
+                ) {
+                    Icon(Icons.Filled.Star, contentDescription = "shortcuts")
+                }
+            }
+        }
     }
+}
+
+// This can still be useful, but currently we don't use this here
+//private fun Modifier.backgroundGradientMask(): Modifier = this
+//    .graphicsLayer(compositingStrategy = CompositingStrategy.Offscreen)
+//    .drawWithContent {
+//        drawContent()
+//        drawRect(
+//            brush = Brush.verticalGradient(
+//                colors = listOf(Color.White, Color.Transparent, Color.White),
+//                startY = 0f,
+//                endY = size.height / 2,
+//                tileMode = TileMode.Mirror
+//            ),
+//            blendMode = BlendMode.DstIn // Multiplies alpha from the gradient with the underlying image
+//        )
+//    }
 
 @Composable
 private fun CTAButton(

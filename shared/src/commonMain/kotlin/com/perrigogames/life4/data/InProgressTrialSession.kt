@@ -166,7 +166,7 @@ data class SongResult(
     val song: TrialSong,
     var photoUriString: String? = null,
     var score: Int? = null,
-    var exScore: Int,
+    var exScore: Int? = null,
     var misses: Int? = null,
     var goods: Int? = null,
     var greats: Int? = null,

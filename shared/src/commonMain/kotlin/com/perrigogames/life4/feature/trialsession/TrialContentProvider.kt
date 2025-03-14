@@ -1,5 +1,6 @@
 package com.perrigogames.life4.feature.trialsession
 
+import com.mohamedrejeb.ksoup.entities.KsoupEntities
 import com.perrigogames.life4.MR
 import com.perrigogames.life4.data.InProgressTrialSession
 import com.perrigogames.life4.data.Trial
@@ -31,9 +32,7 @@ class TrialContentProvider(private val trial: Trial) : KoinComponent {
                     difficultyNumberText = chart.difficultyNumber.toString().desc(),
                     summaryContent = null,
                 )
-            },
-            buttonText = MR.strings.placement_start.desc(),
-            buttonAction = TrialSessionAction.StartTrial,
+            }
         )
     }
 
@@ -49,24 +48,36 @@ class TrialContentProvider(private val trial: Trial) : KoinComponent {
                     topText = result?.score?.longNumberString()?.desc(),
                     bottomBoldText = when {
                         index == stage -> MR.strings.next_caps.desc()
-                        result != null -> StringDesc.ResourceFormatted(MR.strings.ex_score_string_format, result.exScore)
+                        result != null -> StringDesc.ResourceFormatted(MR.strings.ex_score_string_format, result.exScore ?: 0)
                         else -> null
                     },
                     bottomTagColor = song.chart.difficultyClass.colorRes.asColorDesc(),
                 )
             },
             focusedJacketUrl = trial.songs[stage].url,
-            songTitleText = currentSong.chart.song.title.desc(),
+            songTitleText = KsoupEntities.decodeHtml(currentSong.chart.song.title).desc(),
             difficultyClassText = currentChart.difficultyClass.nameRes.desc(),
             difficultyClassColor = currentChart.difficultyClass.colorRes.asColorDesc(),
             difficultyNumberText = currentChart.difficultyNumber.toString().desc(),
-            buttonText = MR.strings.take_photo.desc(),
-            buttonAction = TrialSessionAction.TakePhoto,
         )
     }
 
-    fun provideFinalScreen() : UITrialSessionContent.Summary {
-        TODO()
+    fun provideFinalScreen(session: InProgressTrialSession) : UITrialSessionContent.Summary {
+        return UITrialSessionContent.Summary(
+            items = session.trial.songs.zip(session.results) { song, result ->
+                UITrialSessionContent.Summary.Item(
+                    jacketUrl = song.url,
+                    difficultyClassText = song.chart.difficultyClass.nameRes.desc(),
+                    difficultyClassColor = song.chart.difficultyClass.colorRes.asColorDesc(),
+                    difficultyNumberText = song.chart.difficultyNumber.toString().desc(),
+                    summaryContent = UITrialSessionContent.Summary.SummaryContent(
+                        topText = result!!.score?.longNumberString()?.desc(),
+                        bottomMainText = StringDesc.ResourceFormatted(MR.strings.ex_score_string_format, result.exScore ?: 0),
+                        bottomSubText = StringDesc.ResourceFormatted(MR.strings.ex_score_max_string_format, song.ex),
+                    ),
+                )
+            }
+        )
     }
 
     private fun List<TrialSong>.mapToSongInfoUrlPair() : List<Pair<Chart, String?>> = map { song ->

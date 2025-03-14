@@ -16,7 +16,8 @@ fun NavGraphBuilder.trialNavigation(navController: NavController) {
         val trialId = entry.arguments?.getString("trialId") ?: "empty"
         TrialSession(
             trialId = trialId,
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier.fillMaxSize(),
+            onClose = { navController.popBackStack() }
         )
     }
 

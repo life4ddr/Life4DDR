@@ -2,6 +2,7 @@ package com.perrigogames.life4.feature.trialsession
 
 import com.perrigogames.life4.MR
 import com.perrigogames.life4.data.InProgressTrialSession
+import com.perrigogames.life4.data.SongResult
 import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.enums.TrialRank
 import com.perrigogames.life4.enums.colorRes
@@ -43,9 +44,12 @@ class TrialSessionViewModel(trialId: String) : KoinComponent, ViewModel() {
         .cMutableStateFlow()
     val state: StateFlow<ViewState<UITrialSession, Unit>> = _state.asStateFlow()
 
+    private val _events = MutableSharedFlow<TrialSessionEvent>()
+    val events: SharedFlow<TrialSessionEvent> = _events.asSharedFlow()
+
     private val stage = MutableStateFlow<Int?>(null)
     private val inProgressSessionFlow = MutableStateFlow<InProgressTrialSession?>(null)
-
+    private val inProgressSession get() = inProgressSessionFlow.value!!
 
     init {
         viewModelScope.launch { // recreate the in progress session when necessary
@@ -82,15 +86,28 @@ class TrialSessionViewModel(trialId: String) : KoinComponent, ViewModel() {
                 inProgressSessionFlow.filterNotNull(),
                 stage.filterNotNull(),
             ) { session, stage ->
+                val complete = stage >= 4
                 val current = (_state.value as? ViewState.Success)?.data ?: return@combine
-                _state.value = current.copy(
-                    targetRank = when (val target = current.targetRank) {
-                        is UITargetRank.Selection -> target.toInProgress()
-                        is UITargetRank.InProgress -> target
-                        is UITargetRank.Achieved -> throw IllegalStateException("Can't move from Achieved to In Progress")
-                    },
-                    content = contentProvider.provideMidSession(session, stage)
-                ).toViewState()
+                val targetRank = when (val target = current.targetRank) {
+                    is UITargetRank.Selection -> target.toInProgress()
+                    is UITargetRank.InProgress -> target
+                    is UITargetRank.Achieved -> throw IllegalStateException("Can't move from Achieved to In Progress")
+                }
+                _state.value = if (complete) {
+                    current.copy(
+                        targetRank = targetRank.toAchieved(), // FIXME calculate the user's actual rank
+                        content = contentProvider.provideFinalScreen(session),
+                        buttonText = MR.strings.take_results_photo.desc(),
+                        buttonAction = TrialSessionAction.TakeResultsPhoto,
+                    )
+                } else {
+                    current.copy(
+                        targetRank = targetRank,
+                        content = contentProvider.provideMidSession(session, stage),
+                        buttonText = MR.strings.take_photo.desc(),
+                        buttonAction = TrialSessionAction.TakePhoto(stage),
+                    )
+                }.toViewState()
             }.collect()
         }
 
@@ -131,29 +148,89 @@ class TrialSessionViewModel(trialId: String) : KoinComponent, ViewModel() {
                         rankGoalItems = TrialGoalStrings.generateGoalStrings(trial.goalSet(rank)!!, trial),
                     ),
                     content = contentProvider.provideSummary(),
-                    songDetailsBottomSheet = null,
+                    buttonText = MR.strings.placement_start.desc(),
+                    buttonAction = TrialSessionAction.StartTrial,
                 )
             )
             targetRank.value = rank
         }
     }
 
-    fun handleAction(action: TrialSessionAction) = when (action) {
-        is TrialSessionAction.ChangeTargetRank -> {
-            targetRank.value = action.target
-        }
-        TrialSessionAction.StartTrial -> {
-            stage.value = 0
-        }
-        is TrialSessionAction.SubmitFields -> TODO()
-        TrialSessionAction.TakePhoto -> TODO()
-        is TrialSessionAction.AdvanceStage -> {
-            inProgressSessionFlow.value?.let { session ->
-                inProgressSessionFlow.value = session.copy()
+    fun handleAction(action: TrialSessionAction) {
+        when (action) {
+            is TrialSessionAction.ChangeTargetRank -> {
+                targetRank.value = action.target
             }
-            stage.value = (stage.value ?: 0) + 1
+
+            TrialSessionAction.StartTrial -> {
+                stage.value = 0
+            }
+
+            is TrialSessionAction.TakePhoto -> {
+                viewModelScope.launch {
+                    _events.emit(TrialSessionEvent.AcquirePhoto(action.index))
+                }
+            }
+
+            is TrialSessionAction.TakeResultsPhoto -> {
+                viewModelScope.launch {
+                    _events.emit(TrialSessionEvent.AcquireResultsPhoto)
+                }
+            }
+
+            is TrialSessionAction.PhotoTaken -> {
+                val song = inProgressSession.trial.songs[action.index]
+                val result = inProgressSession.results[action.index] ?: SongResult(song).also {
+                    inProgressSession.results[action.index] = it
+                }
+                result.photoUriString = action.photoUri
+                viewModelScope.launch {
+                    val bottomSheet = TrialBottomSheetProvider.provide(
+                        songResult = result,
+                        songId = song.skillId,
+                        imagePath = action.photoUri,
+                        shortcut = null,
+                    )
+                    _events.emit(TrialSessionEvent.ShowBottomSheet(bottomSheet))
+                }
+            }
+
+            is TrialSessionAction.ResultsPhotoTaken -> {
+                // TODO acquire the images and upload them to the API
+                inProgressSession.goalObtained = true
+                trialSessionManager.saveSession(inProgressSession)
+                viewModelScope.launch {
+                    _events.emit(TrialSessionEvent.Close)
+                }
+            }
+
+            is TrialSessionAction.EditItem -> {
+                val song = inProgressSession.trial.songs[action.index]
+                val result = inProgressSession.results[action.index] ?: SongResult(song).also {
+                    inProgressSession.results[action.index] = it
+                }
+                viewModelScope.launch {
+                    val bottomSheet = TrialBottomSheetProvider.provide(
+                        songResult = result,
+                        songId = song.skillId,
+                        imagePath = result.photoUriString ?: "",
+                        shortcut = null,
+                    )
+                    _events.emit(TrialSessionEvent.ShowBottomSheet(bottomSheet))
+                }
+            }
+
+            is TrialSessionAction.SubmitFields -> TODO()
+
+            is TrialSessionAction.AdvanceStage -> {
+                inProgressSessionFlow.value?.let { session ->
+                    inProgressSessionFlow.value = session.copy()
+                }
+                stage.value = (stage.value ?: 0) + 1
+            }
+
+            is TrialSessionAction.UseShortcut -> TODO()
         }
-        is TrialSessionAction.UseShortcut -> TODO()
     }
 
     private fun getStartingRank(
@@ -174,29 +251,6 @@ class TrialSessionViewModel(trialId: String) : KoinComponent, ViewModel() {
         }
         return bestRank ?: allowedRanks.first()
     }
-}
-
-sealed class TrialSessionAction {
-    data object StartTrial : TrialSessionAction()
-
-    data class ChangeTargetRank(
-        val target: TrialRank
-    ) : TrialSessionAction()
-
-    data object TakePhoto : TrialSessionAction()
-
-    data class AdvanceStage(
-        val photoUri: String
-    ) : TrialSessionAction()
-
-    data class UseShortcut(
-        val songId: String,
-        val shortcut: ShortcutType,
-    ) : TrialSessionAction()
-
-    data class SubmitFields(
-        val items: List<SubmitFieldsItem>
-    ) : TrialSessionAction()
 }
 
 enum class ShortcutType {

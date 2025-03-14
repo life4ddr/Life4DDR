@@ -302,6 +302,7 @@
     <!-- region Photo Selection Strings -->
     <string name="use_photo">Use Photo</string>
     <string name="take_photo">Take Photo</string>
+    <string name="take_results_photo">Take Results Photo</string>
     <string name="retake_photo">Retake Photo</string>
     <string name="add_gallery">Add from Gallery</string>
     <string name="replace_gallery">Replace from Gallery</string>
@@ -332,6 +333,7 @@
     <string name="difficulty_string_format">%s (%d)</string>
     <string name="score_string_format">%s (%d EX)</string>
     <string name="ex_score_string_format">%d EX</string>
+    <string name="ex_score_max_string_format">/ %d</string>
     <string name="ex_score_progress_format">%d / %d EX</string>
     <string name="ex_score_missing_string_format">%d EX (%d)</string>
     <string name="ex_score_missing_newline_string_format">%d EX\n(%d)</string>

@@ -11,6 +11,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.perrigogames.life4.android.util.SizedSpacer
 import com.perrigogames.life4.android.view.compose.RankImage
@@ -32,10 +34,12 @@ fun RankSelector(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Box {
-                RankDisplay(
+                CardRankDisplay(
                     viewData = viewData,
                     showSelectorIcon = viewData is UITargetRank.Selection,
-                    modifier = Modifier.clickable { dropdownExpanded = true }
+                    modifier = Modifier.clickable(
+                        enabled = viewData is UITargetRank.Selection,
+                    ) { dropdownExpanded = true }
                 )
                 if (viewData is UITargetRank.Selection) {
                     DropdownMenu(
@@ -63,11 +67,35 @@ fun RankSelector(
         }
 
         SizedSpacer(8.dp)
-        viewData.rankGoalItems.forEach { goal ->
-            Text(
-                text = goal.toString(context)
-            )
+        AnimatedContent(targetState = viewData.rankGoalItems) { items ->
+            Column {
+                items.forEach { goal ->
+                    Text(
+                        text = goal.toString(context)
+                    )
+                }
+            }
         }
+    }
+}
+
+@Composable
+fun CardRankDisplay(
+    viewData: UITargetRank,
+    showSelectorIcon: Boolean,
+    modifier: Modifier = Modifier,
+) {
+    Card(
+        elevation = CardDefaults.cardElevation(),
+        modifier = modifier,
+    ) {
+        RankDisplay(
+            viewData = viewData,
+            showSelectorIcon = showSelectorIcon,
+            rankImageSize = 32.dp,
+            textStyle = MaterialTheme.typography.titleLarge,
+            modifier = Modifier.padding(8.dp)
+        )
     }
 }
 
@@ -75,44 +103,41 @@ fun RankSelector(
 fun RankDisplay(
     viewData: UITargetRank,
     showSelectorIcon: Boolean,
+    rankImageSize: Dp,
+    textStyle: TextStyle,
     modifier: Modifier = Modifier,
 ) {
     val context = LocalContext.current
-    Card(
-        elevation = CardDefaults.cardElevation(),
+    Row(
         modifier = modifier,
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        Row(
-            modifier = Modifier.padding(8.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-        ) {
-            AnimatedContent(
-                targetState = viewData,
-                transitionSpec = {
-                    fadeIn() togetherWith fadeOut()
-                }
-            ) { viewData ->
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                ) {
-                    RankImage(
-                        rank = viewData.rank.parent,
-                        size = 32.dp,
-                    )
-                    Text(
-                        text = viewData.title.toString(context),
-                        color = Color(viewData.titleColor.getColor(context)),
-                        style = MaterialTheme.typography.titleLarge,
-                    )
-                }
+        AnimatedContent(
+            targetState = viewData,
+            transitionSpec = {
+                fadeIn() togetherWith fadeOut()
             }
-
-            AnimatedVisibility(visible = showSelectorIcon) {
-                Icon(Icons.Filled.ArrowDropDown, contentDescription = "Select rank")
+        ) { viewData ->
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
+                RankImage(
+                    rank = viewData.rank.parent,
+                    size = rankImageSize,
+                )
+                Text(
+                    text = viewData.title.toString(context),
+                    color = Color(viewData.titleColor.getColor(context)),
+                    style = textStyle,
+                )
             }
-            SizedSpacer(4.dp)
         }
+
+        AnimatedVisibility(visible = showSelectorIcon) {
+            Icon(Icons.Filled.ArrowDropDown, contentDescription = "Select rank")
+        }
+        SizedSpacer(4.dp)
     }
 }

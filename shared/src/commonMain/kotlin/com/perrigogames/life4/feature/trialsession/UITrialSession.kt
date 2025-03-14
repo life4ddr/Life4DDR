@@ -16,7 +16,8 @@ data class UITrialSession(
     val exScoreBar: UIEXScoreBar,
     val targetRank: UITargetRank,
     val content: UITrialSessionContent,
-    val songDetailsBottomSheet: UISongDetailBottomSheet? = null,
+    val buttonText: StringDesc,
+    val buttonAction: TrialSessionAction,
 )
 
 /**
@@ -94,8 +95,6 @@ sealed class UITrialSessionContent {
      */
     data class Summary(
         val items: List<Item>,
-        val buttonText: StringDesc,
-        val buttonAction: TrialSessionAction,
     ) : UITrialSessionContent() {
 
         data class Item(
@@ -107,9 +106,9 @@ sealed class UITrialSessionContent {
         )
 
         data class SummaryContent(
-            val topText: String?,
-            val bottomMainText: String,
-            val bottomSubText: String,
+            val topText: StringDesc?,
+            val bottomMainText: StringDesc,
+            val bottomSubText: StringDesc,
         )
     }
 
@@ -126,8 +125,6 @@ sealed class UITrialSessionContent {
         val difficultyClassText: StringDesc,
         val difficultyClassColor: ColorDesc,
         val difficultyNumberText: StringDesc,
-        val buttonText: StringDesc,
-        val buttonAction: TrialSessionAction,
     ) : UITrialSessionContent() {
 
         data class Item(
@@ -163,9 +160,10 @@ data class UISongDetailBottomSheet(
      */
     data class Field(
         val id: String,
-        val weight: Float = 1f,
         val initialText: String,
-        val placeholder: String,
+        val placeholder: StringDesc,
+        val enabled: Boolean = true,
+        val weight: Float = 1f,
     )
 
     /**
@@ -173,7 +171,7 @@ data class UISongDetailBottomSheet(
      * automatically, with the intent to cut down on redundant asks.
      */
     data class Shortcut(
-        val itemText: String,
+        val itemText: StringDesc,
         val action: TrialSessionAction,
     )
 
