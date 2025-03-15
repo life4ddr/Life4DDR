@@ -36,7 +36,8 @@
     <color name="emerald">#18CE09</color>
     <color name="onyx">#0A0A0A</color>
 
-    <color name="red_new">#FF4500</color>
+    <color name="corner_new">#FF4500</color>
+    <color name="corner_event">#DDDD55</color>
 
     <color name="no_play">#00000000</color>
     <color name="fail">#594D27</color>
