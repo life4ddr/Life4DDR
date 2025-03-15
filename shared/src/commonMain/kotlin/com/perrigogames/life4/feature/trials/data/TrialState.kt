@@ -1,4 +1,4 @@
-package com.perrigogames.life4.data
+package com.perrigogames.life4.feature.trials.data
 
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable

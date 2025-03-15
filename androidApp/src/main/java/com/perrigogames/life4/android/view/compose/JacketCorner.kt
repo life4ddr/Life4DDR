@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import com.perrigogames.life4.MR
 import com.perrigogames.life4.android.R
 import com.perrigogames.life4.android.compose.LIFE4Theme
-import com.perrigogames.life4.enums.TrialJacketCorner
+import com.perrigogames.life4.feature.trials.enums.TrialJacketCorner
 import dev.icerock.moko.resources.compose.stringResource
 
 @Composable

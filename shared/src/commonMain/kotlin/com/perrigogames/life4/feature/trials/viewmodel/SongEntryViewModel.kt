@@ -3,8 +3,8 @@ package com.perrigogames.life4.feature.trials.viewmodel
 import com.perrigogames.life4.SettingsKeys
 import com.perrigogames.life4.data.InProgressTrialSession
 import com.perrigogames.life4.data.SongResult
-import com.perrigogames.life4.data.TrialSong
 import com.perrigogames.life4.feature.settings.SettingsManager
+import com.perrigogames.life4.feature.trials.data.TrialSong
 import com.perrigogames.life4.util.mutate
 import dev.icerock.moko.mvvm.flow.CMutableStateFlow
 import dev.icerock.moko.mvvm.flow.CStateFlow

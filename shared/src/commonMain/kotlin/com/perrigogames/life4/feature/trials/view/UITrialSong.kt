@@ -1,9 +1,9 @@
-package com.perrigogames.life4.data.trials
+package com.perrigogames.life4.feature.trials.view
 
-import com.perrigogames.life4.data.TrialSong
 import com.perrigogames.life4.enums.DifficultyClass
 import com.perrigogames.life4.enums.PlayStyle
 import com.perrigogames.life4.enums.colorRes
+import com.perrigogames.life4.feature.trials.data.TrialSong
 import dev.icerock.moko.resources.ColorResource
 
 data class UITrialSong(

@@ -3,6 +3,7 @@ package com.perrigogames.life4.enums
 import com.perrigogames.life4.MR
 import com.perrigogames.life4.data.PlacementRank
 import com.perrigogames.life4.data.RankGoalUserType
+import com.perrigogames.life4.feature.trials.enums.TrialRank
 import dev.icerock.moko.resources.desc.ResourceFormatted
 import dev.icerock.moko.resources.desc.StringDesc
 

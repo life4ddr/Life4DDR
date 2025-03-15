@@ -2,6 +2,8 @@ package com.perrigogames.life4.data.trials
 
 import com.perrigogames.life4.MR
 import com.perrigogames.life4.enums.LadderRank
+import com.perrigogames.life4.feature.trials.view.UITrialSong
+import com.perrigogames.life4.feature.trials.view.bags
 import dev.icerock.moko.resources.desc.StringDesc
 import dev.icerock.moko.resources.desc.desc
 

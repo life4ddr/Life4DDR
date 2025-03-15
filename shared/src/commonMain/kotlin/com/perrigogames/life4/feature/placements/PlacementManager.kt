@@ -3,12 +3,12 @@ package com.perrigogames.life4.feature.placements
 import co.touchlab.kermit.Logger
 import com.perrigogames.life4.MR
 import com.perrigogames.life4.api.base.LocalUncachedDataReader
-import com.perrigogames.life4.data.Trial
-import com.perrigogames.life4.data.TrialData
 import com.perrigogames.life4.data.trials.UIPlacement
 import com.perrigogames.life4.data.trials.UIPlacementListScreen
-import com.perrigogames.life4.data.trials.toUITrialSong
 import com.perrigogames.life4.feature.songlist.SongDataManager
+import com.perrigogames.life4.feature.trials.data.Trial
+import com.perrigogames.life4.feature.trials.data.TrialData
+import com.perrigogames.life4.feature.trials.view.toUITrialSong
 import com.perrigogames.life4.injectLogger
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.PLACEMENTS_FILE_NAME
 import com.perrigogames.life4.model.BaseModel

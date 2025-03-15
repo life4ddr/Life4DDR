@@ -5,13 +5,13 @@ import com.perrigogames.life4.SettingsKeys.KEY_TRIAL_LIST_HIGHLIGHT_NEW
 import com.perrigogames.life4.SettingsKeys.KEY_TRIAL_LIST_HIGHLIGHT_UNPLAYED
 import com.perrigogames.life4.SettingsKeys.KEY_TRIAL_LIST_SHOW_EX
 import com.perrigogames.life4.SettingsKeys.KEY_TRIAL_LIST_TINT_COMPLETED
-import com.perrigogames.life4.data.Trial
-import com.perrigogames.life4.data.TrialState
 import com.perrigogames.life4.db.SelectBestSessions
-import com.perrigogames.life4.enums.TrialJacketCorner
 import com.perrigogames.life4.feature.settings.UserRankSettings
-import com.perrigogames.life4.feature.trials.manager.TrialRecordsManager
+import com.perrigogames.life4.feature.trials.data.Trial
+import com.perrigogames.life4.feature.trials.data.TrialState
+import com.perrigogames.life4.feature.trials.enums.TrialJacketCorner
 import com.perrigogames.life4.feature.trials.manager.TrialDataManager
+import com.perrigogames.life4.feature.trials.manager.TrialRecordsManager
 import com.perrigogames.life4.feature.trials.view.UIPlacementBanner
 import com.perrigogames.life4.feature.trials.view.UITrialList
 import com.perrigogames.life4.feature.trials.view.toUIJacket

@@ -1,6 +1,6 @@
 package com.perrigogames.life4.feature.trials.view
 
-import com.perrigogames.life4.enums.TrialRank
+import com.perrigogames.life4.feature.trials.enums.TrialRank
 import com.perrigogames.life4.feature.trials.viewmodel.TrialSessionAction
 import dev.icerock.moko.resources.desc.StringDesc
 import dev.icerock.moko.resources.desc.color.ColorDesc

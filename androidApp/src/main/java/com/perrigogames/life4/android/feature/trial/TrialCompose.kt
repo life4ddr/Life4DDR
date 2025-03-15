@@ -32,7 +32,7 @@ import com.perrigogames.life4.android.stringResource
 import com.perrigogames.life4.android.util.SizedSpacer
 import com.perrigogames.life4.android.view.compose.JacketCorner
 import com.perrigogames.life4.android.view.compose.RankImage
-import com.perrigogames.life4.data.Trial
+import com.perrigogames.life4.feature.trials.data.Trial
 import com.perrigogames.life4.feature.trials.view.UIPlacementBanner
 import com.perrigogames.life4.feature.trials.view.UITrialJacket
 import com.perrigogames.life4.feature.trials.view.UITrialList

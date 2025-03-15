@@ -2,7 +2,11 @@ package com.perrigogames.life4.db
 
 import com.perrigogames.life4.Life4Db
 import com.perrigogames.life4.data.StableIdColumnAdapter
-import com.perrigogames.life4.enums.*
+import com.perrigogames.life4.enums.ClearType
+import com.perrigogames.life4.enums.DifficultyClass
+import com.perrigogames.life4.enums.GoalStatus
+import com.perrigogames.life4.enums.PlayStyle
+import com.perrigogames.life4.feature.trials.enums.TrialRank
 import com.squareup.sqldelight.db.SqlDriver
 
 abstract class DatabaseHelper(private val sqlDriver: SqlDriver) {

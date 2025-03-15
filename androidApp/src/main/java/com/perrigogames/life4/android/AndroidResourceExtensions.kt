@@ -3,7 +3,7 @@ package com.perrigogames.life4.android
 
 import androidx.annotation.DrawableRes
 import com.perrigogames.life4.enums.LadderRank
-import com.perrigogames.life4.enums.TrialRank
+import com.perrigogames.life4.feature.trials.enums.TrialRank
 
 val LadderRank.drawableRes @DrawableRes get() = when(this) {
     LadderRank.COPPER1 -> R.drawable.copper_1

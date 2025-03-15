@@ -1,7 +1,7 @@
 package com.perrigogames.life4.api
 
 import com.perrigogames.life4.api.base.*
-import com.perrigogames.life4.data.TrialData
+import com.perrigogames.life4.feature.trials.data.TrialData
 import com.perrigogames.life4.ktor.GithubDataAPI
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.TRIALS_FILE_NAME
 import kotlinx.serialization.json.Json

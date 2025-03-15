@@ -2,10 +2,10 @@ package com.perrigogames.life4.feature.placements
 
 import co.touchlab.kermit.Logger
 import com.perrigogames.life4.data.PlacementRank
-import com.perrigogames.life4.data.trials.UITrialSong
-import com.perrigogames.life4.data.trials.toUITrialSong
 import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.feature.songlist.SongDataManager
+import com.perrigogames.life4.feature.trials.view.UITrialSong
+import com.perrigogames.life4.feature.trials.view.toUITrialSong
 import com.perrigogames.life4.injectLogger
 import dev.icerock.moko.mvvm.flow.CStateFlow
 import dev.icerock.moko.mvvm.flow.cMutableStateFlow
@@ -13,8 +13,6 @@ import dev.icerock.moko.mvvm.flow.cStateFlow
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
 import dev.icerock.moko.resources.desc.StringDesc
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject

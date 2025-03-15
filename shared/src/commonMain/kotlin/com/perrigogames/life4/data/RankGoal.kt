@@ -13,6 +13,8 @@ import co.touchlab.kermit.Logger
 import com.perrigogames.life4.*
 import com.perrigogames.life4.GameConstants.HIGHEST_DIFFICULTY
 import com.perrigogames.life4.enums.*
+import com.perrigogames.life4.feature.trials.enums.TrialRank
+import com.perrigogames.life4.feature.trials.enums.TrialRankSerializer
 import dev.icerock.moko.resources.desc.Composition
 import dev.icerock.moko.resources.desc.Raw
 import dev.icerock.moko.resources.desc.StringDesc

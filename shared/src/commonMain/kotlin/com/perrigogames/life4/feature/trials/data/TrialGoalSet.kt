@@ -7,8 +7,13 @@
 
 package com.perrigogames.life4.feature.trials.data
 
-import com.perrigogames.life4.data.Trial
-import com.perrigogames.life4.enums.*
+import com.perrigogames.life4.enums.ChartTypeSerializer
+import com.perrigogames.life4.enums.ClearType
+import com.perrigogames.life4.enums.ClearTypeSerializer
+import com.perrigogames.life4.enums.PlayStyleSerializer
+import com.perrigogames.life4.feature.trials.enums.TrialRank
+import com.perrigogames.life4.feature.trials.enums.TrialRankSerializer
+import com.perrigogames.life4.feature.trials.enums.TrialTypeSerializer
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers

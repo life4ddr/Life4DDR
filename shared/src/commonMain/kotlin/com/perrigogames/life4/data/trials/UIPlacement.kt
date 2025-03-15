@@ -3,6 +3,7 @@ package com.perrigogames.life4.data.trials
 import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.enums.colorRes
 import com.perrigogames.life4.enums.groupNameRes
+import com.perrigogames.life4.feature.trials.view.UITrialSong
 import dev.icerock.moko.resources.ColorResource
 import dev.icerock.moko.resources.StringResource
 import dev.icerock.moko.resources.desc.StringDesc

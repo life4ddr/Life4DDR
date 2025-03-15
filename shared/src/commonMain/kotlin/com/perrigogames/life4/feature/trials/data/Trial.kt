@@ -7,12 +7,21 @@
     InstantIso8601Serializer::class,
 )
 
-package com.perrigogames.life4.data
+package com.perrigogames.life4.feature.trials.data
 
 import com.perrigogames.life4.MR
-import com.perrigogames.life4.enums.*
+import com.perrigogames.life4.data.MajorVersioned
+import com.perrigogames.life4.data.PlacementRank
+import com.perrigogames.life4.data.PlacementRankSerializer
+import com.perrigogames.life4.enums.ChartTypeSerializer
+import com.perrigogames.life4.enums.DifficultyClass
+import com.perrigogames.life4.enums.PlayStyle
+import com.perrigogames.life4.enums.PlayStyleSerializer
 import com.perrigogames.life4.feature.songlist.Chart
-import com.perrigogames.life4.feature.trials.data.TrialGoalSet
+import com.perrigogames.life4.feature.trials.enums.TrialRank
+import com.perrigogames.life4.feature.trials.enums.TrialRankSerializer
+import com.perrigogames.life4.feature.trials.enums.TrialType
+import com.perrigogames.life4.feature.trials.enums.TrialTypeSerializer
 import dev.icerock.moko.resources.desc.image.asImageDesc
 import dev.icerock.moko.resources.getImageByFileName
 import kotlinx.datetime.Clock

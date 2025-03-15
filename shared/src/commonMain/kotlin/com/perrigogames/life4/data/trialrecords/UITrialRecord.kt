@@ -1,7 +1,7 @@
 package com.perrigogames.life4.data.trialrecords
 
 import com.perrigogames.life4.enums.DifficultyClass
-import com.perrigogames.life4.enums.TrialRank
+import com.perrigogames.life4.feature.trials.enums.TrialRank
 
 data class UITrialRecord(
     val trialTitleText: String,

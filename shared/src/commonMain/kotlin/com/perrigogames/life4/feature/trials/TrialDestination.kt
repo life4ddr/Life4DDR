@@ -1,6 +1,6 @@
 package com.perrigogames.life4.feature.trials
 
-import com.perrigogames.life4.data.Trial
+import com.perrigogames.life4.feature.trials.data.Trial
 import com.perrigogames.life4.util.Destination
 
 /**

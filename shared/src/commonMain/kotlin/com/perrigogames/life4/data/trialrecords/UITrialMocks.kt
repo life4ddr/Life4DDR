@@ -1,9 +1,9 @@
 package com.perrigogames.life4.data.trialrecords
 
-import com.perrigogames.life4.data.trials.UITrialSong
 import com.perrigogames.life4.enums.DifficultyClass
 import com.perrigogames.life4.enums.PlayStyle
-import com.perrigogames.life4.enums.TrialRank
+import com.perrigogames.life4.feature.trials.enums.TrialRank
+import com.perrigogames.life4.feature.trials.view.UITrialSong
 import com.perrigogames.life4.longNumberString
 import kotlin.random.Random
 

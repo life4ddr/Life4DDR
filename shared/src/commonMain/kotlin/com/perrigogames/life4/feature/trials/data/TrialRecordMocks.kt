@@ -2,7 +2,7 @@ package com.perrigogames.life4.feature.trials.data
 
 import com.perrigogames.life4.db.TrialSession
 import com.perrigogames.life4.db.TrialSong
-import com.perrigogames.life4.enums.TrialRank
+import com.perrigogames.life4.feature.trials.enums.TrialRank
 import kotlinx.datetime.Clock
 
 object TrialRecordMocks {

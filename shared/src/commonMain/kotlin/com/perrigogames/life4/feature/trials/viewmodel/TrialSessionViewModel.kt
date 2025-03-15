@@ -4,12 +4,12 @@ import com.perrigogames.life4.MR
 import com.perrigogames.life4.data.InProgressTrialSession
 import com.perrigogames.life4.data.SongResult
 import com.perrigogames.life4.enums.LadderRank
-import com.perrigogames.life4.enums.TrialRank
 import com.perrigogames.life4.enums.colorRes
 import com.perrigogames.life4.enums.nameRes
 import com.perrigogames.life4.feature.profile.UserRankManager
-import com.perrigogames.life4.feature.trials.manager.TrialRecordsManager
+import com.perrigogames.life4.feature.trials.enums.TrialRank
 import com.perrigogames.life4.feature.trials.manager.TrialDataManager
+import com.perrigogames.life4.feature.trials.manager.TrialRecordsManager
 import com.perrigogames.life4.feature.trials.provider.TrialBottomSheetProvider
 import com.perrigogames.life4.feature.trials.provider.TrialContentProvider
 import com.perrigogames.life4.feature.trials.provider.TrialGoalStrings

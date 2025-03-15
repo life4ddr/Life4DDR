@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.dp
 import com.google.accompanist.appcompattheme.AppCompatTheme
 import com.perrigogames.life4.MR
 import com.perrigogames.life4.android.R
-import com.perrigogames.life4.data.TrialEXProgress
+import com.perrigogames.life4.feature.trials.data.TrialEXProgress
 import dev.icerock.moko.resources.compose.colorResource
 import dev.icerock.moko.resources.compose.stringResource
 

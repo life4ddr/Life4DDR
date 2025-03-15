@@ -2,8 +2,11 @@ package com.perrigogames.life4.data
 
 import com.perrigogames.life4.enums.ClearType
 import com.perrigogames.life4.enums.ClearType.*
-import com.perrigogames.life4.enums.TrialRank
+import com.perrigogames.life4.feature.trials.data.Trial
+import com.perrigogames.life4.feature.trials.data.TrialEXProgress
 import com.perrigogames.life4.feature.trials.data.TrialGoalSet
+import com.perrigogames.life4.feature.trials.data.TrialSong
+import com.perrigogames.life4.feature.trials.enums.TrialRank
 import com.perrigogames.life4.util.hasCascade
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient

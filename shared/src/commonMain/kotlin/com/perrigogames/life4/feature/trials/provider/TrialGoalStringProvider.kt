@@ -2,8 +2,8 @@ package com.perrigogames.life4.feature.trials.provider
 
 import com.perrigogames.life4.GameConstants
 import com.perrigogames.life4.TrialStrings
-import com.perrigogames.life4.data.Trial
 import com.perrigogames.life4.enums.ClearType
+import com.perrigogames.life4.feature.trials.data.Trial
 import com.perrigogames.life4.feature.trials.data.TrialGoalSet
 import dev.icerock.moko.resources.desc.StringDesc
 import dev.icerock.moko.resources.desc.desc

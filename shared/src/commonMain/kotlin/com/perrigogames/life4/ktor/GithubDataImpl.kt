@@ -6,7 +6,7 @@ import com.perrigogames.life4.AppInfo
 import com.perrigogames.life4.api.baseHttpClient
 import com.perrigogames.life4.data.LadderRankData
 import com.perrigogames.life4.data.MessageOfTheDay
-import com.perrigogames.life4.data.TrialData
+import com.perrigogames.life4.feature.trials.data.TrialData
 import com.perrigogames.life4.injectLogger
 import io.ktor.client.call.*
 import io.ktor.client.request.*

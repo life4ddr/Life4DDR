@@ -1,4 +1,4 @@
-package com.perrigogames.life4.data.trials
+package com.perrigogames.life4.feature.trials.view
 
 import com.perrigogames.life4.enums.DifficultyClass
 import com.perrigogames.life4.enums.PlayStyle

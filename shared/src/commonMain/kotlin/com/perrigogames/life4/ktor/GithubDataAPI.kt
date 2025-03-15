@@ -2,7 +2,7 @@ package com.perrigogames.life4.ktor
 
 import com.perrigogames.life4.data.LadderRankData
 import com.perrigogames.life4.data.MessageOfTheDay
-import com.perrigogames.life4.data.TrialData
+import com.perrigogames.life4.feature.trials.data.TrialData
 
 /**
  * API interface for obtaining core application files from Github

@@ -4,8 +4,8 @@ import co.touchlab.kermit.Logger
 import com.perrigogames.life4.AppInfo
 import com.perrigogames.life4.api.TrialRemoteData
 import com.perrigogames.life4.api.base.CompositeData
-import com.perrigogames.life4.data.Trial
 import com.perrigogames.life4.feature.songlist.SongDataManager
+import com.perrigogames.life4.feature.trials.data.Trial
 import com.perrigogames.life4.injectLogger
 import com.perrigogames.life4.model.BaseModel
 import com.russhwolf.settings.Settings
