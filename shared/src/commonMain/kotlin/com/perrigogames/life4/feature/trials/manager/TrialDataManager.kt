@@ -1,13 +1,11 @@
-package com.perrigogames.life4.feature.trials
+package com.perrigogames.life4.feature.trials.manager
 
 import co.touchlab.kermit.Logger
 import com.perrigogames.life4.AppInfo
 import com.perrigogames.life4.api.TrialRemoteData
 import com.perrigogames.life4.api.base.CompositeData
-import com.perrigogames.life4.data.InProgressTrialSession
 import com.perrigogames.life4.data.Trial
 import com.perrigogames.life4.feature.songlist.SongDataManager
-import com.perrigogames.life4.feature.trialrecords.TrialDatabaseHelper
 import com.perrigogames.life4.injectLogger
 import com.perrigogames.life4.model.BaseModel
 import com.russhwolf.settings.Settings
@@ -22,12 +20,11 @@ import org.koin.core.component.inject
  * - the current Trial in progress (the 'session')
  * - records for Trials the player has previously completed ('records')
  */
-class TrialManager: BaseModel() {
+class TrialDataManager: BaseModel() {
 
     private val appInfo: AppInfo by inject()
     private val settings: Settings by inject()
     private val songDataManager: SongDataManager by inject()
-    private val dbHelper: TrialDatabaseHelper by inject()
     private val logger: Logger by injectLogger("TrialManager")
 
     private var data = TrialRemoteData()
@@ -76,14 +73,4 @@ class TrialManager: BaseModel() {
     }
 
     fun findTrial(id: String) = trials.firstOrNull { it.id == id }
-
-    /**
-     * Commits the current session to internal storage.  [currentSession] is
-     * no longer usable after calling this.
-     */
-    fun saveSession(session: InProgressTrialSession) {
-        mainScope.launch {
-            dbHelper.insertSession(session)
-        }
-    }
 }

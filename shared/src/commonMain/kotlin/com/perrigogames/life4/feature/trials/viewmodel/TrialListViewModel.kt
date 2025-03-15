@@ -1,4 +1,4 @@
-package com.perrigogames.life4.feature.trials
+package com.perrigogames.life4.feature.trials.viewmodel
 
 import com.perrigogames.life4.MR
 import com.perrigogames.life4.SettingsKeys.KEY_TRIAL_LIST_HIGHLIGHT_NEW
@@ -10,7 +10,11 @@ import com.perrigogames.life4.data.TrialState
 import com.perrigogames.life4.db.SelectBestSessions
 import com.perrigogames.life4.enums.TrialJacketCorner
 import com.perrigogames.life4.feature.settings.UserRankSettings
-import com.perrigogames.life4.feature.trialrecords.TrialRecordsManager
+import com.perrigogames.life4.feature.trials.manager.TrialRecordsManager
+import com.perrigogames.life4.feature.trials.manager.TrialDataManager
+import com.perrigogames.life4.feature.trials.view.UIPlacementBanner
+import com.perrigogames.life4.feature.trials.view.UITrialList
+import com.perrigogames.life4.feature.trials.view.toUIJacket
 import com.russhwolf.settings.Settings
 import dev.icerock.moko.mvvm.flow.CStateFlow
 import dev.icerock.moko.mvvm.flow.cMutableStateFlow
@@ -18,7 +22,6 @@ import dev.icerock.moko.mvvm.flow.cStateFlow
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
 import dev.icerock.moko.resources.desc.desc
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
@@ -26,7 +29,7 @@ import org.koin.core.component.inject
 
 class TrialListViewModel : ViewModel(), KoinComponent {
 
-    private val trialManager: TrialManager by inject()
+    private val trialDataManager: TrialDataManager by inject()
     private val userRankSettings: UserRankSettings by inject()
     private val trialRecordsManager: TrialRecordsManager by inject()
     private val settings: Settings by inject()
@@ -42,11 +45,11 @@ class TrialListViewModel : ViewModel(), KoinComponent {
 
         viewModelScope.launch {
             combine(
-                trialManager.trialsFlow,
+                trialDataManager.trialsFlow,
                 trialRecordsManager.bestSessions,
                 userRankSettings.rank,
             ) { trials, sessions, rank ->
-                _state.value = UITrialList(
+                UITrialList(
                     placementBanner = if (rank == null) {
                         UIPlacementBanner()
                     } else {
@@ -59,7 +62,7 @@ class TrialListViewModel : ViewModel(), KoinComponent {
                         featureUnplayed = highlightUnplayed,
                     ),
                 )
-            }.collect()
+            }.collect(_state)
         }
     }
 

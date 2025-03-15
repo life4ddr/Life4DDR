@@ -1,7 +1,11 @@
-package com.perrigogames.life4.feature.trialsession
+package com.perrigogames.life4.feature.trials.provider
 
 import com.perrigogames.life4.MR
 import com.perrigogames.life4.data.SongResult
+import com.perrigogames.life4.db.TrialSession
+import com.perrigogames.life4.feature.trials.view.UISongDetailBottomSheet
+import com.perrigogames.life4.feature.trials.viewmodel.ShortcutType
+import com.perrigogames.life4.feature.trials.viewmodel.TrialSessionAction
 import com.perrigogames.life4.longNumberString
 import dev.icerock.moko.resources.desc.desc
 

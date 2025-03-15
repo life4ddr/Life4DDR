@@ -18,7 +18,7 @@ import com.perrigogames.life4.android.util.SizedSpacer
 import com.perrigogames.life4.android.view.compose.RankImage
 import com.perrigogames.life4.enums.TrialRank
 import com.perrigogames.life4.enums.nameRes
-import com.perrigogames.life4.feature.trialsession.UITargetRank
+import com.perrigogames.life4.feature.trials.view.UITargetRank
 import dev.icerock.moko.resources.desc.color.getColor
 
 @Composable

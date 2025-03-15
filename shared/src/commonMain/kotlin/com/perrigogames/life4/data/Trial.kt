@@ -12,7 +12,7 @@ package com.perrigogames.life4.data
 import com.perrigogames.life4.MR
 import com.perrigogames.life4.enums.*
 import com.perrigogames.life4.feature.songlist.Chart
-import com.perrigogames.life4.feature.trialsession.TrialGoalSet
+import com.perrigogames.life4.feature.trials.data.TrialGoalSet
 import dev.icerock.moko.resources.desc.image.asImageDesc
 import dev.icerock.moko.resources.getImageByFileName
 import kotlinx.datetime.Clock

@@ -1,4 +1,4 @@
-package com.perrigogames.life4.feature.trials
+package com.perrigogames.life4.feature.trials.view
 
 import com.perrigogames.life4.MR
 import com.perrigogames.life4.enums.LadderRank

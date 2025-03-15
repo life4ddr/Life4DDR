@@ -1,4 +1,4 @@
-package com.perrigogames.life4.feature.trialsession
+package com.perrigogames.life4.feature.trials.provider
 
 import com.mohamedrejeb.ksoup.entities.KsoupEntities
 import com.perrigogames.life4.MR
@@ -10,6 +10,7 @@ import com.perrigogames.life4.enums.colorRes
 import com.perrigogames.life4.enums.nameRes
 import com.perrigogames.life4.feature.songlist.Chart
 import com.perrigogames.life4.feature.songlist.SongDataManager
+import com.perrigogames.life4.feature.trials.view.UITrialSessionContent
 import com.perrigogames.life4.longNumberString
 import dev.icerock.moko.resources.desc.ResourceFormatted
 import dev.icerock.moko.resources.desc.StringDesc

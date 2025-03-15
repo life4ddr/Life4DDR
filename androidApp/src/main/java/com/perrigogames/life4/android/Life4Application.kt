@@ -8,7 +8,7 @@ import com.perrigogames.life4.feature.motd.MotdManager
 import com.perrigogames.life4.feature.placements.PlacementManager
 import com.perrigogames.life4.feature.sanbai.ISanbaiManager
 import com.perrigogames.life4.feature.songlist.SongDataManager
-import com.perrigogames.life4.feature.trials.TrialManager
+import com.perrigogames.life4.feature.trials.manager.TrialDataManager
 import com.perrigogames.life4.initKoin
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.MOTD_FILE_NAME
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.PARTIAL_DIFFICULTY_FILE_NAME
@@ -32,7 +32,7 @@ class Life4Application: Application() {
                 ladderDataManager.onApplicationException()
                 placementManager.onApplicationException()
                 songDataManager.onApplicationException()
-                trialManager.onApplicationException()
+                trialDataManager.onApplicationException()
             }
 
             defaultHandler!!.uncaughtException(thread, exception)
@@ -64,7 +64,7 @@ class Life4Application: Application() {
         val placementManager: PlacementManager = get()
         val songDataManager: SongDataManager = get()
         val sanbaiManager: ISanbaiManager = get()
-        val trialManager: TrialManager = get()
+        val trialDataManager: TrialDataManager = get()
     }
 }
 

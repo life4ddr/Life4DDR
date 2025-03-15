@@ -28,7 +28,10 @@ import coil.request.ImageRequest
 import com.perrigogames.life4.MR
 import com.perrigogames.life4.android.util.MokoImage
 import com.perrigogames.life4.android.util.SizedSpacer
-import com.perrigogames.life4.feature.trialsession.*
+import com.perrigogames.life4.feature.trials.view.*
+import com.perrigogames.life4.feature.trials.viewmodel.TrialSessionAction
+import com.perrigogames.life4.feature.trials.viewmodel.TrialSessionEvent
+import com.perrigogames.life4.feature.trials.viewmodel.TrialSessionViewModel
 import com.perrigogames.life4.util.ViewState
 import dev.icerock.moko.mvvm.createViewModelFactory
 import dev.icerock.moko.resources.desc.color.getColor

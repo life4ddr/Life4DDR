@@ -2,7 +2,7 @@ package com.perrigogames.life4.data.trialrecords
 
 import com.perrigogames.life4.db.TrialSession
 import com.perrigogames.life4.db.TrialSong
-import com.perrigogames.life4.feature.trials.TrialManager
+import com.perrigogames.life4.feature.trials.manager.TrialDataManager
 import com.perrigogames.life4.feature.songlist.SongDataManager
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -10,7 +10,7 @@ import org.koin.core.component.inject
 class UITrialMaps : KoinComponent {
 
     private val songManager: SongDataManager by inject()
-    private val trialManager: TrialManager by inject()
+    private val trialDataManager: TrialDataManager by inject()
 
     /**
      * @throws Error if the associated Trial or Songs cannot be found
@@ -19,7 +19,7 @@ class UITrialMaps : KoinComponent {
         session: TrialSession,
         songs: List<TrialSong>,
     ): UITrialRecord {
-        val trial = trialManager.findTrial(session.trialId)
+        val trial = trialDataManager.findTrial(session.trialId)
             ?: throw Error("Trial ${session.trialId} not found")
         return UITrialRecord(
             trialTitleText = trial.name,

@@ -32,7 +32,7 @@ import com.perrigogames.life4.data.trialrecords.UITrialRecord
 import com.perrigogames.life4.data.trialrecords.UITrialRecordSong
 import com.perrigogames.life4.enums.DifficultyClass
 import com.perrigogames.life4.enums.colorRes
-import com.perrigogames.life4.feature.trialrecords.TrialRecordsViewModel
+import com.perrigogames.life4.feature.trials.viewmodel.TrialRecordsViewModel
 import dev.icerock.moko.resources.compose.colorResource
 
 @Composable

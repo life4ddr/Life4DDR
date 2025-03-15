@@ -33,10 +33,10 @@ import com.perrigogames.life4.android.util.SizedSpacer
 import com.perrigogames.life4.android.view.compose.JacketCorner
 import com.perrigogames.life4.android.view.compose.RankImage
 import com.perrigogames.life4.data.Trial
-import com.perrigogames.life4.feature.trials.TrialListViewModel
-import com.perrigogames.life4.feature.trials.UIPlacementBanner
-import com.perrigogames.life4.feature.trials.UITrialJacket
-import com.perrigogames.life4.feature.trials.UITrialList
+import com.perrigogames.life4.feature.trials.view.UIPlacementBanner
+import com.perrigogames.life4.feature.trials.view.UITrialJacket
+import com.perrigogames.life4.feature.trials.view.UITrialList
+import com.perrigogames.life4.feature.trials.viewmodel.TrialListViewModel
 import dev.icerock.moko.mvvm.createViewModelFactory
 import dev.icerock.moko.resources.compose.localized
 import dev.icerock.moko.resources.compose.painterResource

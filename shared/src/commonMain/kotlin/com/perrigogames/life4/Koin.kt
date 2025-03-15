@@ -31,9 +31,9 @@ import com.perrigogames.life4.feature.songlist.SongDataManager
 import com.perrigogames.life4.feature.songresults.ChartResultOrganizer
 import com.perrigogames.life4.feature.songresults.SongResultSettings
 import com.perrigogames.life4.feature.songresults.SongResultsManager
-import com.perrigogames.life4.feature.trialrecords.TrialDatabaseHelper
-import com.perrigogames.life4.feature.trialrecords.TrialRecordsManager
-import com.perrigogames.life4.feature.trials.TrialManager
+import com.perrigogames.life4.feature.trials.data.TrialDatabaseHelper
+import com.perrigogames.life4.feature.trials.manager.TrialRecordsManager
+import com.perrigogames.life4.feature.trials.manager.TrialDataManager
 import com.perrigogames.life4.ktor.*
 import com.perrigogames.life4.model.GoalStateManager
 import com.perrigogames.life4.model.LadderDataManager
@@ -84,7 +84,7 @@ val coreModule = module {
     single { LadderDataManager() }
     single { SongResultsManager() }
     single { LadderGoalProgressManager() }
-    single { TrialManager() }
+    single { TrialDataManager() }
     single { TrialRecordsManager() }
     single { SongDataManager() }
     single { ChartResultOrganizer() }

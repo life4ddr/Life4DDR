@@ -1,4 +1,4 @@
-package com.perrigogames.life4.feature.trialrecords
+package com.perrigogames.life4.feature.trials.data
 
 import com.perrigogames.life4.data.InProgressTrialSession
 import com.perrigogames.life4.db.DatabaseHelper

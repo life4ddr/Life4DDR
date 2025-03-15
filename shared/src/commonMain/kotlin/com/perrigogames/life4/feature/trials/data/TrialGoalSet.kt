@@ -5,7 +5,7 @@
     ChartTypeSerializer::class,
     ClearTypeSerializer::class)
 
-package com.perrigogames.life4.feature.trialsession
+package com.perrigogames.life4.feature.trials.data
 
 import com.perrigogames.life4.data.Trial
 import com.perrigogames.life4.enums.*

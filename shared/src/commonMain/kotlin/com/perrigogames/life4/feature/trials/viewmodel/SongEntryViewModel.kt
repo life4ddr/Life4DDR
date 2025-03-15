@@ -1,4 +1,4 @@
-package com.perrigogames.life4.feature.trials
+package com.perrigogames.life4.feature.trials.viewmodel
 
 import com.perrigogames.life4.SettingsKeys
 import com.perrigogames.life4.data.InProgressTrialSession

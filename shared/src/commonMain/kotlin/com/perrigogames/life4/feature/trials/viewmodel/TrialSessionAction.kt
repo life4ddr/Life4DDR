@@ -1,4 +1,4 @@
-package com.perrigogames.life4.feature.trialsession
+package com.perrigogames.life4.feature.trials.viewmodel
 
 import com.perrigogames.life4.enums.TrialRank
 

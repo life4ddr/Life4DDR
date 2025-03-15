@@ -12,8 +12,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.perrigogames.life4.MR
 import com.perrigogames.life4.android.compose.Paddings
-import com.perrigogames.life4.feature.trials.SongEntryViewModel
-import com.perrigogames.life4.feature.trials.SongEntryViewModel.InputFieldState
+import com.perrigogames.life4.feature.trials.viewmodel.SongEntryViewModel
+import com.perrigogames.life4.feature.trials.viewmodel.SongEntryViewModel.InputFieldState
 import dev.icerock.moko.resources.StringResource
 import dev.icerock.moko.resources.compose.stringResource
 

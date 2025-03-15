@@ -1,7 +1,8 @@
-package com.perrigogames.life4.feature.trialrecords
+package com.perrigogames.life4.feature.trials.manager
 
 import com.perrigogames.life4.data.InProgressTrialSession
 import com.perrigogames.life4.db.SelectBestSessions
+import com.perrigogames.life4.feature.trials.data.TrialDatabaseHelper
 import com.perrigogames.life4.model.BaseModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

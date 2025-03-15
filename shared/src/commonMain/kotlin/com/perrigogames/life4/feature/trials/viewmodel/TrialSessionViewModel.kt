@@ -1,4 +1,4 @@
-package com.perrigogames.life4.feature.trialsession
+package com.perrigogames.life4.feature.trials.viewmodel
 
 import com.perrigogames.life4.MR
 import com.perrigogames.life4.data.InProgressTrialSession
@@ -8,8 +8,12 @@ import com.perrigogames.life4.enums.TrialRank
 import com.perrigogames.life4.enums.colorRes
 import com.perrigogames.life4.enums.nameRes
 import com.perrigogames.life4.feature.profile.UserRankManager
-import com.perrigogames.life4.feature.trialrecords.TrialRecordsManager
-import com.perrigogames.life4.feature.trials.TrialManager
+import com.perrigogames.life4.feature.trials.manager.TrialRecordsManager
+import com.perrigogames.life4.feature.trials.manager.TrialDataManager
+import com.perrigogames.life4.feature.trials.provider.TrialBottomSheetProvider
+import com.perrigogames.life4.feature.trials.provider.TrialContentProvider
+import com.perrigogames.life4.feature.trials.provider.TrialGoalStrings
+import com.perrigogames.life4.feature.trials.view.*
 import com.perrigogames.life4.util.ViewState
 import com.perrigogames.life4.util.toViewState
 import dev.icerock.moko.mvvm.flow.cMutableStateFlow
@@ -28,10 +32,10 @@ import org.koin.core.component.inject
 class TrialSessionViewModel(trialId: String) : KoinComponent, ViewModel() {
 
     private val userRankManager: UserRankManager by inject()
-    private val trialManager: TrialManager by inject()
+    private val trialDataManager: TrialDataManager by inject()
     private val trialRecordsManager: TrialRecordsManager by inject()
 
-    private val trial = trialManager.trialsFlow.value.firstOrNull { it.id == trialId }
+    private val trial = trialDataManager.trialsFlow.value.firstOrNull { it.id == trialId }
         ?: throw IllegalStateException("Can't find trial with id $trialId")
 
     private val contentProvider = TrialContentProvider(trial = trial)
@@ -60,7 +64,7 @@ class TrialSessionViewModel(trialId: String) : KoinComponent, ViewModel() {
 
         viewModelScope.launch {
             targetRank.collect { target ->
-                val trial = trialManager.trialsFlow.value
+                val trial = trialDataManager.trialsFlow.value
                     .firstOrNull { it.id == trialId }
                     ?: return@collect
                 val current = (_state.value as? ViewState.Success)?.data ?: return@collect
@@ -108,7 +112,7 @@ class TrialSessionViewModel(trialId: String) : KoinComponent, ViewModel() {
             }.collect()
         }
 
-        val trial = trialManager.trialsFlow.value
+        val trial = trialDataManager.trialsFlow.value
             .firstOrNull { it.id == trialId }
         if (trial == null) {
             _state.value = ViewState.Error(Unit)
@@ -195,7 +199,7 @@ class TrialSessionViewModel(trialId: String) : KoinComponent, ViewModel() {
             is TrialSessionAction.ResultsPhotoTaken -> {
                 // TODO acquire the images and upload them to the API
                 inProgressSession.goalObtained = true
-                trialManager.saveSession(inProgressSession)
+                trialRecordsManager.saveSession(inProgressSession)
                 viewModelScope.launch {
                     _events.emit(TrialSessionEvent.Close)
                 }

@@ -1,7 +1,7 @@
-package com.perrigogames.life4.feature.trialsession
+package com.perrigogames.life4.feature.trials.view
 
 import com.perrigogames.life4.enums.TrialRank
-import com.perrigogames.life4.feature.trialsession.UITargetRank.*
+import com.perrigogames.life4.feature.trials.viewmodel.TrialSessionAction
 import dev.icerock.moko.resources.desc.StringDesc
 import dev.icerock.moko.resources.desc.color.ColorDesc
 import dev.icerock.moko.resources.desc.image.ImageDesc
@@ -80,9 +80,9 @@ sealed class UITargetRank {
     }
 }
 
-fun Selection.toInProgress() = InProgress(rank, title, titleColor, rankGoalItems)
+fun UITargetRank.Selection.toInProgress() = UITargetRank.InProgress(rank, title, titleColor, rankGoalItems)
 
-fun InProgress.toAchieved() = Achieved(rank, title, titleColor)
+fun UITargetRank.InProgress.toAchieved() = UITargetRank.Achieved(rank, title, titleColor)
 
 /**
  * Describes the content of the bottom half of the screen.
