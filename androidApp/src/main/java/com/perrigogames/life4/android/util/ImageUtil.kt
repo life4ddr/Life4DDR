@@ -1,5 +1,6 @@
 package com.perrigogames.life4.android.util
 
+import android.view.Surface
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
@@ -16,6 +17,7 @@ import coil.request.ImageRequest
 import dev.icerock.moko.resources.desc.image.ImageDesc
 import dev.icerock.moko.resources.desc.image.ImageDescResource
 import dev.icerock.moko.resources.desc.image.ImageDescUrl
+import kotlin.math.atan2
 
 @Composable
 fun MokoImage(
@@ -54,5 +56,15 @@ fun MokoImage(
                 modifier = Modifier.size(64.dp)
             )
         }
+    }
+}
+
+fun getSensorRotation(x: Float, y: Float): Int {
+    val angle = atan2(-x, y) * (180 / Math.PI).toFloat()
+    return when (angle) {
+        in 45f..135f -> Surface.ROTATION_270
+        in -45f..45f -> Surface.ROTATION_0
+        in -135f..-45f -> Surface.ROTATION_90
+        else -> Surface.ROTATION_180
     }
 }

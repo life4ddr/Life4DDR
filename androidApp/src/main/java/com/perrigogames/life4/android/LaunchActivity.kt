@@ -85,9 +85,9 @@ class LaunchActivity: AppCompatActivity(), KoinComponent {
         }
     }
 
-    override fun onNewIntent(intent: Intent?) {
+    override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
-        val uri = intent?.data
+        val uri = intent.data
         println(uri)
         // Extract the authorization code from the URI and exchange it for an access token
     }

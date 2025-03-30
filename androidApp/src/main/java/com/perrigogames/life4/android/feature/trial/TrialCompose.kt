@@ -20,6 +20,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -145,6 +146,7 @@ fun TrialJacket(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val context = LocalContext.current
     Box(
         modifier = Modifier
             .clickable(onClick = onClick)
@@ -170,9 +172,36 @@ fun TrialJacket(
             transitionSpec = { fadeIn() togetherWith  fadeOut() },
             modifier = Modifier.align(Alignment.TopEnd)
         ) { type ->
-            JacketCorner(
-                corner = type,
-            )
+            JacketCorner(type)
+        }
+
+        val rank = viewData.rank
+        val exScore = viewData.exScore
+        if (rank != null && exScore != null) {
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(Paddings.SMALL),
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .padding(bottom = Paddings.SMALL)
+                    .background(
+                        color = MaterialTheme.colorScheme.surface.copy(
+                            alpha = 0.8f
+                        ),
+                        shape = MaterialTheme.shapes.small,
+                    )
+                    .padding(Paddings.SMALL),
+            ) {
+                RankImage(
+                    rank = rank.parent,
+                    size = 32.dp,
+                )
+                Text(
+                    text = exScore.toString(context),
+                    style = MaterialTheme.typography.titleLarge,
+                    color = MaterialTheme.colorScheme.onSurface,
+                )
+            }
         }
     }
 }

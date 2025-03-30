@@ -6,13 +6,14 @@ import com.perrigogames.life4.feature.trials.data.TrialState
 import com.perrigogames.life4.feature.trials.enums.TrialJacketCorner
 import com.perrigogames.life4.feature.trials.enums.TrialRank
 import com.perrigogames.life4.feature.trials.enums.TrialType
+import dev.icerock.moko.resources.desc.StringDesc
 
 data class UITrialJacket(
     val trial: Trial,
     val session: SelectBestSessions? = null,
     val overrideCorner: TrialJacketCorner? = null,
     val rank: TrialRank? = null,
-    val exScore: Int? = null,
+    val exScore: StringDesc? = null,
     val tintOnRank: TrialRank? = null,
     val showExRemaining: Boolean = false,
 ) {

@@ -14,9 +14,9 @@ import kotlinx.serialization.Transient
 @Serializable
 data class InProgressTrialSession(
     val trial: Trial,
-    var targetRank: TrialRank? = null,
+    val targetRank: TrialRank,
     val results: Array<SongResult?> = arrayOfNulls(trial.songs.size),
-    var finalPhotoUriString: String? = null,
+    val finalPhotoUriString: String? = null,
 ) {
 
     @Transient var goalObtained: Boolean = false
@@ -52,6 +52,16 @@ data class InProgressTrialSession(
         result = 31 * result + results.contentHashCode()
         return result
     }
+
+    fun createOrUpdateSongResult(index: Int, photoUri: String) = copy(
+        results = results.copyOf().also {
+            it[index] = it[index]?.copy(photoUriString = photoUri)
+                ?: SongResult(
+                    song = trial.songs[index],
+                    photoUriString = photoUri,
+                )
+        }
+    )
 
     val trialGoalSet: TrialGoalSet?
         get() = trial.goalSet(targetRank)
@@ -167,14 +177,14 @@ data class InProgressTrialSession(
 @Serializable
 data class SongResult(
     val song: TrialSong,
-    var photoUriString: String? = null,
-    var score: Int? = null,
-    var exScore: Int? = null,
-    var misses: Int? = null,
-    var goods: Int? = null,
-    var greats: Int? = null,
-    var perfects: Int? = null,
-    var passed: Boolean = true,
+    val photoUriString: String? = null,
+    val score: Int? = null,
+    val exScore: Int? = null,
+    val misses: Int? = null,
+    val goods: Int? = null,
+    val greats: Int? = null,
+    val perfects: Int? = null,
+    val passed: Boolean = true,
 ) {
 
     val badJudges get() = if (hasAdvancedStats) misses!! + goods!! + greats!! else null
@@ -201,10 +211,5 @@ data class SongResult(
             else -> CLEAR
         }
         else -> CLEAR
-    }
-
-    fun randomize() {
-        score = (930000..1000000).random()
-        exScore = song.ex - (0..100).random()
     }
 }

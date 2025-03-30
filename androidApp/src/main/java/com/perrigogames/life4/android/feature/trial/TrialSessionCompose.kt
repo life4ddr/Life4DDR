@@ -8,10 +8,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.BlurredEdgeTreatment
@@ -36,6 +33,7 @@ import com.perrigogames.life4.util.ViewState
 import dev.icerock.moko.mvvm.createViewModelFactory
 import dev.icerock.moko.resources.desc.color.getColor
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TrialSession(
     trialId: String,
@@ -47,8 +45,15 @@ fun TrialSession(
 ) {
     BackHandler { onClose() }
 
-    val _viewData by viewModel.state.collectAsState()
-    when (val viewData = _viewData) {
+    val viewState by viewModel.state.collectAsState()
+    val bottomSheetState by viewModel.bottomSheetState.collectAsState()
+
+    val cameraBottomSheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+    var cameraBottomSheetCallback by remember { mutableStateOf<(String) -> Unit>({}) }
+
+    val songDetailBottomSheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+
+    when (val viewData = viewState) {
         ViewState.Loading -> {
             Text("Loading...")
         }
@@ -64,24 +69,47 @@ fun TrialSession(
         }
     }
 
+    // FIXME this should animate closed, but something else needs to be set to enable interaction
+    when (val state = bottomSheetState) {
+        is UITrialBottomSheet.ImageCapture -> {
+            CameraBottomSheet(
+                bottomSheetState = cameraBottomSheetState,
+                onPhotoTaken = { uri ->
+                    viewModel.handleAction(
+                        state.index?.let { index ->
+                            TrialSessionAction.PhotoTaken(uri.toString(), index)
+                        } ?: TrialSessionAction.ResultsPhotoTaken(uri.toString())
+                    )
+                    cameraBottomSheetCallback(uri.toString())
+                },
+                onDismiss = {
+                    viewModel.handleAction(TrialSessionAction.HideBottomSheet)
+                }
+            )
+        }
+        is UITrialBottomSheet.Details -> {
+//            TrialSessionBottomSheet(
+//                viewData = state,
+//                onAction = {  }
+//            )
+            SongEntryBottomSheet(
+                viewData = state,
+                bottomSheetState = songDetailBottomSheetState,
+                onAction = {
+                    viewModel.handleAction(it)
+                },
+                onDismiss = {
+                    viewModel.handleAction(TrialSessionAction.HideBottomSheet)
+                }
+            )
+        }
+        UITrialBottomSheet.DetailsPlaceholder,
+        null -> {}
+    }
+
     LaunchedEffect(Unit) {
         viewModel.events.collect { event ->
             when (event) {
-                is TrialSessionEvent.AcquirePhoto -> {
-                    // FIXME actually acquire a photo
-                    viewModel.handleAction(TrialSessionAction.PhotoTaken("", event.index))
-                }
-
-                is TrialSessionEvent.AcquireResultsPhoto -> {
-                    // FIXME actually acquire a photo
-                    viewModel.handleAction(TrialSessionAction.ResultsPhotoTaken(""))
-                }
-
-                is TrialSessionEvent.ShowBottomSheet -> {
-                    // FIXME actually show the bottom sheet
-                    viewModel.handleAction(TrialSessionAction.AdvanceStage(""))
-                }
-
                 TrialSessionEvent.Close -> onClose()
             }
         }
@@ -464,9 +492,10 @@ fun RowScope.InProgressJacketItem(
 
 @Composable
 fun TrialSessionBottomSheet(
-    viewData: UISongDetailBottomSheet,
+    viewData: UITrialBottomSheet.Details,
     modifier: Modifier = Modifier,
 ) {
+    val context = LocalContext.current
     Column(modifier = modifier) {
         Box(
             modifier = Modifier.fillMaxWidth()
@@ -474,7 +503,17 @@ fun TrialSessionBottomSheet(
                 .background(MaterialTheme.colorScheme.surface)
         ) {}
         Row {
-            viewData.fields
+            viewData.fields.forEach { field ->
+//                TextField(
+//                    value = field.text,
+//                    modifier = Modifier.weight(field.weight),
+//                    enabled = field.enabled,
+//                    placeholder = {
+//                        Text(field.placeholder.toString(context))
+//                    },
+//                     TODO handle error
+//                )
+            }
 
             if (viewData.shortcuts.isNotEmpty()) {
                 IconButton(

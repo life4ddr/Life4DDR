@@ -2,8 +2,7 @@ package com.perrigogames.life4.feature.trials.provider
 
 import com.perrigogames.life4.MR
 import com.perrigogames.life4.data.SongResult
-import com.perrigogames.life4.db.TrialSession
-import com.perrigogames.life4.feature.trials.view.UISongDetailBottomSheet
+import com.perrigogames.life4.feature.trials.view.UITrialBottomSheet
 import com.perrigogames.life4.feature.trials.viewmodel.ShortcutType
 import com.perrigogames.life4.feature.trials.viewmodel.TrialSessionAction
 import com.perrigogames.life4.longNumberString
@@ -14,14 +13,15 @@ object TrialBottomSheetProvider {
     const val ID_SCORE = "score"
     const val ID_EX_SCORE = "ex_score"
     const val ID_PERFECTS = "perfects"
+    const val ID_GREATS = "greats"
 
     fun provide(
         songResult: SongResult,
         songId: String,
         imagePath: String,
         shortcut: ShortcutType? = null,
-    ): UISongDetailBottomSheet {
-        return UISongDetailBottomSheet(
+    ): UITrialBottomSheet {
+        return UITrialBottomSheet.Details(
             imagePath = imagePath,
             fields = when (shortcut) {
                 ShortcutType.MFC -> listOf(
@@ -50,9 +50,9 @@ object TrialBottomSheetProvider {
     private fun scoreField(
         initialText: String,
         enabled: Boolean = true
-    ) = UISongDetailBottomSheet.Field(
+    ) = UITrialBottomSheet.Field(
         id = ID_SCORE,
-        initialText = initialText,
+        text = initialText,
         placeholder = MR.strings.score.desc(),
         enabled = enabled
     )
@@ -60,41 +60,41 @@ object TrialBottomSheetProvider {
     private fun exScoreField(
         initialText: String,
         enabled: Boolean = true
-    ) = UISongDetailBottomSheet.Field(
+    ) = UITrialBottomSheet.Field(
         id = ID_EX_SCORE,
-        initialText = initialText,
+        text = initialText,
         placeholder = MR.strings.ex_score.desc(),
         enabled = enabled
     )
 
     private fun perfectsField(
         initialText: String,
-    ) = UISongDetailBottomSheet.Field(
+    ) = UITrialBottomSheet.Field(
         id = ID_PERFECTS,
-        initialText = initialText,
+        text = initialText,
         placeholder = MR.strings.perfects.desc(),
         enabled = true
     )
 
     private fun greatsField(
         initialText: String,
-    ) = UISongDetailBottomSheet.Field(
-        id = ID_PERFECTS,
-        initialText = initialText,
+    ) = UITrialBottomSheet.Field(
+        id = ID_GREATS,
+        text = initialText,
         placeholder = MR.strings.perfects.desc(),
         enabled = true
     )
 
     fun shortcuts(songId: String) = listOf(
-        UISongDetailBottomSheet.Shortcut(
+        UITrialBottomSheet.Shortcut(
             MR.strings.clear_mfc.desc(),
             TrialSessionAction.UseShortcut(songId, ShortcutType.MFC)
         ),
-        UISongDetailBottomSheet.Shortcut(
+        UITrialBottomSheet.Shortcut(
             MR.strings.clear_pfc.desc(),
             TrialSessionAction.UseShortcut(songId, ShortcutType.PFC)
         ),
-        UISongDetailBottomSheet.Shortcut(
+        UITrialBottomSheet.Shortcut(
             MR.strings.clear_gfc.desc(),
             TrialSessionAction.UseShortcut(songId, ShortcutType.GFC)
         )

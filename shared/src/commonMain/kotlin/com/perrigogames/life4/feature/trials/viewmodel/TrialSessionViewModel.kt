@@ -2,7 +2,6 @@ package com.perrigogames.life4.feature.trials.viewmodel
 
 import com.perrigogames.life4.MR
 import com.perrigogames.life4.data.InProgressTrialSession
-import com.perrigogames.life4.data.SongResult
 import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.enums.colorRes
 import com.perrigogames.life4.enums.nameRes
@@ -10,7 +9,6 @@ import com.perrigogames.life4.feature.profile.UserRankManager
 import com.perrigogames.life4.feature.trials.enums.TrialRank
 import com.perrigogames.life4.feature.trials.manager.TrialDataManager
 import com.perrigogames.life4.feature.trials.manager.TrialRecordsManager
-import com.perrigogames.life4.feature.trials.provider.TrialBottomSheetProvider
 import com.perrigogames.life4.feature.trials.provider.TrialContentProvider
 import com.perrigogames.life4.feature.trials.provider.TrialGoalStrings
 import com.perrigogames.life4.feature.trials.view.*
@@ -45,12 +43,33 @@ class TrialSessionViewModel(trialId: String) : KoinComponent, ViewModel() {
         .cMutableStateFlow()
     val state: StateFlow<ViewState<UITrialSession, Unit>> = _state.asStateFlow()
 
+    private val _bottomSheetState = MutableStateFlow<UITrialBottomSheet?>(null)
+    val bottomSheetState: StateFlow<UITrialBottomSheet?> = _bottomSheetState
+        .flatMapLatest { state ->
+            if (state == UITrialBottomSheet.DetailsPlaceholder) {
+                songEntryViewModel.filterNotNull()
+                    .flatMapLatest { it.state }
+            } else flowOf(state)
+        }
+        .stateIn(viewModelScope, SharingStarted.Eagerly, null)
+    
+
     private val _events = MutableSharedFlow<TrialSessionEvent>()
     val events: SharedFlow<TrialSessionEvent> = _events.asSharedFlow()
 
     private val stage = MutableStateFlow<Int?>(null)
     private val inProgressSessionFlow = MutableStateFlow<InProgressTrialSession?>(null)
     private val inProgressSession get() = inProgressSessionFlow.value!!
+
+    private val songEntryViewModel = combine(
+        inProgressSessionFlow.filterNotNull(),
+        targetRank,
+    ) { inProgressSession, target ->
+        SongEntryViewModel(
+            session = inProgressSession,
+            targetRank = target, // Wrap target as MutableStateFlow
+        )
+    }.stateIn(viewModelScope, SharingStarted.Eagerly, null)
 
     init {
         viewModelScope.launch { // recreate the in progress session when necessary
@@ -169,59 +188,55 @@ class TrialSessionViewModel(trialId: String) : KoinComponent, ViewModel() {
 
             is TrialSessionAction.TakePhoto -> {
                 viewModelScope.launch {
-                    _events.emit(TrialSessionEvent.AcquirePhoto(action.index))
+                    _bottomSheetState.emit(UITrialBottomSheet.ImageCapture(action.index))
                 }
             }
 
             is TrialSessionAction.TakeResultsPhoto -> {
                 viewModelScope.launch {
-                    _events.emit(TrialSessionEvent.AcquireResultsPhoto)
+                    _bottomSheetState.emit(UITrialBottomSheet.ImageCapture(null))
                 }
             }
 
             is TrialSessionAction.PhotoTaken -> {
-                val song = inProgressSession.trial.songs[action.index]
-                val result = inProgressSession.results[action.index] ?: SongResult(song).also {
-                    inProgressSession.results[action.index] = it
-                }
-                result.photoUriString = action.photoUri
                 viewModelScope.launch {
-                    val bottomSheet = TrialBottomSheetProvider.provide(
-                        songResult = result,
-                        songId = song.skillId,
-                        imagePath = action.photoUri,
-                        shortcut = null,
-                    )
-                    _events.emit(TrialSessionEvent.ShowBottomSheet(bottomSheet))
+                    inProgressSessionFlow.update { session ->
+                        session?.createOrUpdateSongResult(action.index, action.photoUri)
+                    }
+                    songEntryViewModel.value?.updateViewState(index = action.index)
+                    _bottomSheetState.emit(UITrialBottomSheet.DetailsPlaceholder)
                 }
             }
 
             is TrialSessionAction.ResultsPhotoTaken -> {
-                // TODO acquire the images and upload them to the API
-                inProgressSession.goalObtained = true
-                trialRecordsManager.saveSession(inProgressSession)
                 viewModelScope.launch {
+                    inProgressSessionFlow.update { session ->
+                        session?.copy(
+                            finalPhotoUriString = action.photoUri
+                        )
+                    }
+                    // TODO acquire the images and upload them to the API
+                    inProgressSession.goalObtained = true // FIXME
+                    trialRecordsManager.saveSession(inProgressSession)
                     _events.emit(TrialSessionEvent.Close)
                 }
             }
 
-            is TrialSessionAction.EditItem -> {
-                val song = inProgressSession.trial.songs[action.index]
-                val result = inProgressSession.results[action.index] ?: SongResult(song).also {
-                    inProgressSession.results[action.index] = it
-                }
+            TrialSessionAction.HideBottomSheet -> {
                 viewModelScope.launch {
-                    val bottomSheet = TrialBottomSheetProvider.provide(
-                        songResult = result,
-                        songId = song.skillId,
-                        imagePath = result.photoUriString ?: "",
-                        shortcut = null,
-                    )
-                    _events.emit(TrialSessionEvent.ShowBottomSheet(bottomSheet))
+                    _bottomSheetState.emit(null)
                 }
             }
 
-            is TrialSessionAction.SubmitFields -> TODO()
+            is TrialSessionAction.EditItem -> {
+                viewModelScope.launch {
+                    _bottomSheetState.emit(songEntryViewModel.value!!.state.value)
+                }
+            }
+
+            is TrialSessionAction.ChangeText -> {
+                songEntryViewModel.value!!.changeText(action.id, action.text)
+            }
 
             is TrialSessionAction.AdvanceStage -> {
                 inProgressSessionFlow.value?.let { session ->

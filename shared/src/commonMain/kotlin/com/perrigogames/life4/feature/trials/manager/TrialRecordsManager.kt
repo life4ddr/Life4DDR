@@ -4,9 +4,7 @@ import com.perrigogames.life4.data.InProgressTrialSession
 import com.perrigogames.life4.db.SelectBestSessions
 import com.perrigogames.life4.feature.trials.data.TrialDatabaseHelper
 import com.perrigogames.life4.model.BaseModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -15,24 +13,28 @@ class TrialRecordsManager: BaseModel(), KoinComponent {
 
     private val dbHelper: TrialDatabaseHelper by inject()
 
+    private val _refresh = MutableSharedFlow<Unit>()
     private val _bestSessions : MutableStateFlow<List<SelectBestSessions>> = MutableStateFlow(emptyList())
     val bestSessions: StateFlow<List<SelectBestSessions>> get() = _bestSessions.asStateFlow()
 
     init {
         mainScope.launch {
-            fetchBestSessions()
+            _refresh.map { dbHelper.bestSessions() }
+                .collect(_bestSessions)
         }
+        refreshSessions()
     }
 
-    private fun fetchBestSessions() {
-        val sessions = dbHelper.bestSessions()
-        _bestSessions.value = sessions
+    private fun refreshSessions() {
+        mainScope.launch {
+            _refresh.emit(Unit)
+        }
     }
 
     fun saveSession(record: InProgressTrialSession) {
         mainScope.launch {
             dbHelper.insertSession(record)
-            fetchBestSessions()
+            refreshSessions()
         }
     }
 
@@ -41,21 +43,21 @@ class TrialRecordsManager: BaseModel(), KoinComponent {
             records.forEach {
                 dbHelper.insertSession(it)
             }
-            fetchBestSessions()
+            refreshSessions()
         }
     }
 
     fun deleteSession(sessionId: Long) {
         mainScope.launch {
             dbHelper.deleteSession(sessionId)
-            fetchBestSessions()
+            refreshSessions()
         }
     }
 
     fun clearSessions() {
         mainScope.launch {
             dbHelper.deleteAll()
-            fetchBestSessions()
+            refreshSessions()
         }
     }
 

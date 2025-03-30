@@ -41,7 +41,7 @@ class TrialListViewModel : ViewModel(), KoinComponent {
         val tintCompleted = settings.getBoolean(KEY_TRIAL_LIST_TINT_COMPLETED, true)
         val showEx = settings.getBoolean(KEY_TRIAL_LIST_SHOW_EX, true)
         val highlightNew = settings.getBoolean(KEY_TRIAL_LIST_HIGHLIGHT_NEW, true)
-        val highlightUnplayed = settings.getBoolean(KEY_TRIAL_LIST_HIGHLIGHT_UNPLAYED, true)
+        val highlightUnplayed = settings.getBoolean(KEY_TRIAL_LIST_HIGHLIGHT_UNPLAYED, false)
 
         viewModelScope.launch {
             combine(

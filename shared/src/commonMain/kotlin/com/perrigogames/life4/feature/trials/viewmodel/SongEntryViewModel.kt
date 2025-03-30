@@ -1,222 +1,157 @@
 package com.perrigogames.life4.feature.trials.viewmodel
 
-import com.perrigogames.life4.SettingsKeys
+import com.perrigogames.life4.MR
 import com.perrigogames.life4.data.InProgressTrialSession
-import com.perrigogames.life4.data.SongResult
 import com.perrigogames.life4.feature.settings.SettingsManager
-import com.perrigogames.life4.feature.trials.data.TrialSong
-import com.perrigogames.life4.util.mutate
+import com.perrigogames.life4.feature.trials.data.Trial
+import com.perrigogames.life4.feature.trials.data.TrialGoalSet.GoalType.*
+import com.perrigogames.life4.feature.trials.enums.TrialRank
+import com.perrigogames.life4.feature.trials.view.UITrialBottomSheet
 import dev.icerock.moko.mvvm.flow.CMutableStateFlow
 import dev.icerock.moko.mvvm.flow.CStateFlow
 import dev.icerock.moko.mvvm.flow.cMutableStateFlow
 import dev.icerock.moko.mvvm.flow.cStateFlow
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
-import kotlinx.coroutines.flow.*
+import dev.icerock.moko.resources.desc.desc
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.update
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
 class SongEntryViewModel(
     private val session: InProgressTrialSession,
-    private val songIndex: Int,
-    entryState: EntryState = EntryState.BASIC,
-    private val requireAllData: Boolean,
+    private val targetRank: TrialRank,
 ): ViewModel(), KoinComponent {
 
     private val settingsManager: SettingsManager by inject()
-    private val song: TrialSong get() = session.trial.songs[songIndex]
-    private val result: SongResult get() = session.results[songIndex]!!
-
-    val scoreText: CMutableStateFlow<String> = MutableStateFlow("").cMutableStateFlow()
-    val exScoreText: CMutableStateFlow<String> = MutableStateFlow("").cMutableStateFlow()
-    val missesText: CMutableStateFlow<String> = MutableStateFlow("").cMutableStateFlow()
-    val goodsText: CMutableStateFlow<String> = MutableStateFlow("").cMutableStateFlow()
-    val greatsText: CMutableStateFlow<String> = MutableStateFlow("").cMutableStateFlow()
-    val perfectsText: CMutableStateFlow<String> = MutableStateFlow("").cMutableStateFlow()
 
     val passedChecked: CMutableStateFlow<Boolean> = MutableStateFlow(true).cMutableStateFlow()
 
-    val score: CStateFlow<Int> = scoreText.map { it.toIntOrNull() ?: -1 }
-        .stateIn(viewModelScope, SharingStarted.Lazily, -1).cStateFlow()
-    val exScore: CStateFlow<Int> = exScoreText.map { it.toIntOrNull() ?: -1 }
-        .stateIn(viewModelScope, SharingStarted.Lazily, -1).cStateFlow()
-    val misses: CStateFlow<Int> = missesText.map { it.toIntOrNull() ?: -1 }
-        .stateIn(viewModelScope, SharingStarted.Lazily, -1).cStateFlow()
-    val goods: CStateFlow<Int> = goodsText.map { it.toIntOrNull() ?: -1 }
-        .stateIn(viewModelScope, SharingStarted.Lazily, -1).cStateFlow()
-    val greats: CStateFlow<Int> = greatsText.map { it.toIntOrNull() ?: -1 }
-        .stateIn(viewModelScope, SharingStarted.Lazily, -1).cStateFlow()
-    val perfects: CStateFlow<Int> = perfectsText.map { it.toIntOrNull() ?: -1 }
-        .stateIn(viewModelScope, SharingStarted.Lazily, -1).cStateFlow()
+    private val _numberMap = MutableStateFlow(mapOf(
+        ID_SCORE to 0,
+        ID_EX_SCORE to 0,
+        ID_MISSES to 0,
+        ID_GOODS to 0,
+        ID_GREATS to 0,
+        ID_PERFECTS to 0,
+        ID_PASSED to 0,
+    ))
+    private val _viewDataMap = MutableStateFlow(mapOf(
+        ID_SCORE to UITrialBottomSheet.Field(
+            id = ID_SCORE,
+            text = "",
+            weight = 2f,
+            placeholder = MR.strings.score.desc()
+        ),
+        ID_EX_SCORE to UITrialBottomSheet.Field(
+            id = ID_EX_SCORE,
+            text = "",
+            placeholder = MR.strings.ex_score.desc()
+        ),
+        ID_MISSES to UITrialBottomSheet.Field(
+            id = ID_MISSES,
+            text = "",
+            placeholder = MR.strings.misses.desc()
+        ),
+        ID_GOODS to UITrialBottomSheet.Field(
+            id = ID_GOODS,
+            text = "",
+            placeholder = MR.strings.goods.desc()
+        ),
+        ID_GREATS to UITrialBottomSheet.Field(
+            id = ID_GREATS,
+            text = "",
+            placeholder = MR.strings.greats.desc()
+        ),
+        ID_PERFECTS to UITrialBottomSheet.Field(
+            id = ID_PERFECTS,
+            text = "",
+            placeholder = MR.strings.perfects.desc()
+        ),
+    ))
 
-    private val _scoreState = MutableStateFlow(InputFieldState()).cMutableStateFlow()
-    private val _exScoreState = MutableStateFlow(InputFieldState()).cMutableStateFlow()
-    private val _missesState = MutableStateFlow(InputFieldState()).cMutableStateFlow()
-    private val _goodsState = MutableStateFlow(InputFieldState()).cMutableStateFlow()
-    private val _greatsState = MutableStateFlow(InputFieldState()).cMutableStateFlow()
-    private val _perfectsState = MutableStateFlow(InputFieldState()).cMutableStateFlow()
-    private val _clearControlsVisible = MutableStateFlow(false).cMutableStateFlow()
+    private val _state = MutableStateFlow(
+        UITrialBottomSheet.Details(
+            imagePath = "FIXME",
+            fields = emptyList(),
+            shortcuts = emptyList()
+        )
+    ).cMutableStateFlow()
+    val state: CStateFlow<UITrialBottomSheet.Details> = _state.cStateFlow()
 
-    val scoreState: CStateFlow<InputFieldState> = _scoreState.cStateFlow()
-    val exScoreState: CStateFlow<InputFieldState> = _exScoreState.cStateFlow()
-    val missesState: CStateFlow<InputFieldState> = _missesState.cStateFlow()
-    val goodsState: CStateFlow<InputFieldState> = _goodsState.cStateFlow()
-    val greatsState: CStateFlow<InputFieldState> = _greatsState.cStateFlow()
-    val perfectsState: CStateFlow<InputFieldState> = _perfectsState.cStateFlow()
-    val clearControlsVisible: CStateFlow<Boolean> = _clearControlsVisible.cStateFlow()
-
-    val imageUri = result.photoUriString
-
-    var entryState: EntryState = entryState
-        set(value) {
-            field = value
-            when(entryState) {
-                EntryState.EX_ONLY -> setInputAttributes(
-                    exScoreVisible = true,
-                )
-                EntryState.BASIC -> setInputAttributes(
-                    scoreVisible = true,
-                    exScoreVisible = true,
-                )
-                EntryState.BASIC_MISS -> setInputAttributes(
-                    scoreVisible = true,
-                    exScoreVisible = true,
-                    missVisible = true,
-                )
-                EntryState.FULL -> setInputAttributes(
-                    allVisible = true,
-                )
-                EntryState.FULL_FC -> setInputAttributes(
-                    allVisible = true,
-                    missEnabled = false,
-                )
-                EntryState.FULL_PFC -> setInputAttributes(
-                    allVisible = true,
-                    missEnabled = false,
-                    goodEnabled = false,
-                    greatEnabled = false,
-                )
-                EntryState.FULL_MFC -> setInputAttributes(
-                    allVisible = true,
-                    missEnabled = false,
-                    goodEnabled = false,
-                    greatEnabled = false,
-                    perfectEnabled = false,
-                )
-            }
-        }
-
-    init {
-        this.entryState = entryState
-    }
-
-    /**
-     * Sets visibility and enabled attributes on each of the inputs.
-     * If an input is determined to be visible, it will also be enabled unless specified otherwise.
-     */
-    private fun setInputAttributes(
-        allVisible: Boolean = false,
-        scoreVisible: Boolean = allVisible,
-        exScoreVisible: Boolean = allVisible,
-        missVisible: Boolean = allVisible,
-        goodVisible: Boolean = allVisible,
-        greatVisible: Boolean = allVisible,
-        perfectVisible: Boolean = allVisible,
-        scoreEnabled: Boolean = scoreVisible,
-        exScoreEnabled: Boolean = exScoreVisible,
-        missEnabled: Boolean = missVisible,
-        goodEnabled: Boolean = goodVisible,
-        greatEnabled: Boolean = greatVisible,
-        perfectEnabled: Boolean = perfectVisible,
+    fun updateViewState(
+        index: Int,
+        shortcut: ShortcutType? = null,
     ) {
-        _scoreState.mutate { copy(visible = scoreVisible, enabled = scoreEnabled) }
-        _exScoreState.mutate { copy(visible = exScoreVisible, enabled = exScoreEnabled) }
-        _missesState.mutate { copy(visible = missVisible, enabled = missEnabled) }
-        _goodsState.mutate { copy(visible = goodVisible, enabled = goodEnabled) }
-        _greatsState.mutate { copy(visible = greatVisible, enabled = greatEnabled) }
-        _perfectsState.mutate { copy(visible = perfectVisible, enabled = perfectEnabled) }
+        _state.value = generateViewState(
+            session,
+            targetRank,
+            index,
+            shortcut
+        )
     }
 
-    private fun updateErrorAttribute(
-        stateFlow: CMutableStateFlow<InputFieldState>,
-        validInputFlow: CStateFlow<Boolean>,
-    ) {
-        stateFlow.mutate { copy(hasError = !validInputFlow.value) }
+    fun generateViewState(
+        session: InProgressTrialSession,
+        targetRank: TrialRank,
+        index: Int,
+        shortcut: ShortcutType?,
+    ): UITrialBottomSheet.Details {
+        // TODO process shortcut
+        val requiredFields = requiredFields(session.trial, targetRank)
+        return UITrialBottomSheet.Details(
+            imagePath = session.results[index]?.photoUriString.orEmpty(),
+            fields = requiredFields.map { id ->
+                _viewDataMap.value[id]!!.copy(
+                    text = _numberMap.value[id].toString(),
+                )
+            },
+            shortcuts = emptyList(), // FIXME
+        )
     }
 
-    private val hasScore: CStateFlow<Boolean> = hasInputField(score, scoreState)
-    private val hasExScore: CStateFlow<Boolean> = hasInputField(exScore, exScoreState)
-    private val hasMisses: CStateFlow<Boolean> = hasInputField(misses, missesState)
-    private val hasGoods: CStateFlow<Boolean> = hasInputField(goods, goodsState)
-    private val hasGreats: CStateFlow<Boolean> = hasInputField(greats, greatsState)
-    private val hasPerfects: CStateFlow<Boolean> = hasInputField(perfects, perfectsState)
-
-    private fun hasInputField(
-        inputFlow: CStateFlow<Int>,
-        stateFlow: CStateFlow<InputFieldState>,
-    ): CStateFlow<Boolean> =
-        combine(inputFlow, stateFlow) { input, state ->
-            state.visible && input >= 0
-        }.stateIn(viewModelScope, SharingStarted.Lazily, false).cStateFlow()
-
-    private val hasExtraInfo: CStateFlow<Boolean> =
-        combine(hasGoods, hasGreats, hasPerfects) { hasGoods, hasGreats, hasPerfects ->
-            hasGoods && hasGreats && hasPerfects
-        }.stateIn(viewModelScope, SharingStarted.Lazily, false).cStateFlow()
-
-    private val hasCompleteInfo: CStateFlow<Boolean> =
-        combine(score, exScore, hasMisses, hasExtraInfo) { score, exScore, hasMisses, hasExtraInfo ->
-            score >= 0 && exScore >= 0 && hasMisses && hasExtraInfo
-        }.stateIn(viewModelScope, SharingStarted.Lazily, false).cStateFlow()
-
-    /**
-     * Attempts to submit the currently stored data to the manager
-     * @return whether the submission was successful
-     */
-    fun submit(): Boolean {
-        return if (
-            requireAllData &&
-            !hasCompleteInfo.value &&
-            !settingsManager.getDebugBoolean(SettingsKeys.KEY_DEBUG_ACCEPT_INVALID)
-        ) {
-            _scoreState.mutate { copy(hasError = !hasScore.value) }
-            _exScoreState.mutate { copy(hasError = !hasExScore.value) }
-            _missesState.mutate { copy(hasError = !hasMisses.value) }
-            _goodsState.mutate { copy(hasError = !hasGoods.value) }
-            _greatsState.mutate { copy(hasError = !hasGreats.value) }
-            _perfectsState.mutate { copy(hasError = !hasPerfects.value) }
-            false
-        } else {
-            result.also {
-                it.score = score.positiveOrNull
-                it.exScore = exScore.positiveOrNull ?: 0
-                it.misses = misses.positiveOrNull
-                it.goods = goods.positiveOrNull
-                it.greats = greats.positiveOrNull
-                it.perfects = perfects.positiveOrNull
-                it.passed = passedChecked.value
-            }
-            true
+    fun changeText(id: String, text: String) {
+        _state.update { state ->
+            state.copy(
+                fields = state.fields.map {
+                    if (it.id == id) {
+                        it.copy(text = text)
+                    } else {
+                        it
+                    }
+                }
+            )
         }
     }
 
-    private val CStateFlow<Int>.positiveOrNull get() = value.let {
-        if (it >= 0) it
-        else null
+    private fun requiredFields(trial: Trial, targetRank: TrialRank): List<String> {
+        val goalTypes = trial.goalSet(targetRank)
+            ?.goalTypes
+            ?.toMutableList()
+            ?: return emptyList()
+
+        val out = mutableListOf<String>()
+        if (goalTypes.contains(SCORE)) {
+            out += ID_SCORE
+        }
+        out += ID_EX_SCORE
+        if (goalTypes.contains(BAD_JUDGEMENT)) {
+            out += ID_GOODS
+            out += ID_GREATS
+        }
+        if (goalTypes.contains(MISS) || goalTypes.contains(BAD_JUDGEMENT)) {
+            out += ID_MISSES
+        }
+        return out.toList()
     }
 
-    data class InputFieldState(
-        val visible: Boolean = false,
-        val enabled: Boolean = false,
-        val hasError: Boolean = false,
-    )
-
-    enum class EntryState {
-        EX_ONLY,
-        BASIC,
-        BASIC_MISS,
-        FULL,
-        FULL_FC,
-        FULL_PFC,
-        FULL_MFC,
+    companion object {
+        const val ID_SCORE = "score"
+        const val ID_EX_SCORE = "ex_score"
+        const val ID_MISSES = "misses"
+        const val ID_GOODS = "goods"
+        const val ID_GREATS = "greats"
+        const val ID_PERFECTS = "perfects"
+        const val ID_PASSED = "passed"
     }
 }

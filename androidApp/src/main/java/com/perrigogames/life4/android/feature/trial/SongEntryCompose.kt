@@ -1,187 +1,94 @@
 package com.perrigogames.life4.android.feature.trial
 
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.Button
-import androidx.compose.material3.Checkbox
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
+import android.graphics.BitmapFactory
+import android.net.Uri
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import com.perrigogames.life4.MR
-import com.perrigogames.life4.android.compose.Paddings
-import com.perrigogames.life4.feature.trials.viewmodel.SongEntryViewModel
-import com.perrigogames.life4.feature.trials.viewmodel.SongEntryViewModel.InputFieldState
-import dev.icerock.moko.resources.StringResource
-import dev.icerock.moko.resources.compose.stringResource
+import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.platform.LocalContext
+import com.perrigogames.life4.feature.trials.view.UITrialBottomSheet
+import com.perrigogames.life4.feature.trials.viewmodel.TrialSessionAction
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SongEntryControls(
-    viewModel: SongEntryViewModel,
+fun SongEntryBottomSheet(
+    viewData: UITrialBottomSheet.Details,
+    bottomSheetState: SheetState,
+    onAction: (TrialSessionAction) -> Unit,
+    onDismiss: () -> Unit,
 ) {
-    val scoreText: String by viewModel.scoreText.collectAsState()
-    val exScoreText: String by viewModel.exScoreText.collectAsState()
-    val missesText: String by viewModel.missesText.collectAsState()
-    val goodsText: String by viewModel.goodsText.collectAsState()
-    val greatsText: String by viewModel.greatsText.collectAsState()
-    val perfectsText: String by viewModel.perfectsText.collectAsState()
-
-    val scoreState: InputFieldState by viewModel.scoreState.collectAsState()
-    val exScoreState: InputFieldState by viewModel.exScoreState.collectAsState()
-    val missesState: InputFieldState by viewModel.missesState.collectAsState()
-    val goodsState: InputFieldState by viewModel.goodsState.collectAsState()
-    val greatsState: InputFieldState by viewModel.greatsState.collectAsState()
-    val perfectsState: InputFieldState by viewModel.perfectsState.collectAsState()
-
-    val passedChecked: Boolean by viewModel.passedChecked.collectAsState()
-
-    Column {
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(Paddings.SMALL),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            SongTextInput(
-                text = scoreText,
-                state = scoreState,
-                placeholderRes = MR.strings.score,
-                modifier = Modifier.weight(0.4f),
-                onTextValueChange = { viewModel.scoreText.value = it }
-            )
-            SongTextInput(
-                text = exScoreText,
-                state = exScoreState,
-                placeholderRes = MR.strings.ex_score,
-                modifier = Modifier.weight(0.25f),
-                onTextValueChange = { viewModel.exScoreText.value = it }
-            )
-
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                Checkbox(
-                    checked = passedChecked,
-                    onCheckedChange = { viewModel.passedChecked.value = it },
-                )
-                Text(
-                    text = stringResource(MR.strings.passed),
-                    modifier = Modifier.padding(end = Paddings.MEDIUM)
-                )
-            }
-        }
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(Paddings.SMALL),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            SongTextInput(
-                text = missesText,
-                state = missesState,
-                placeholderRes = MR.strings.misses,
-                modifier = Modifier.weight(0.25f),
-                onTextValueChange = { viewModel.missesText.value = it }
-            )
-            SongTextInput(
-                text = goodsText,
-                state = goodsState,
-                placeholderRes = MR.strings.goods,
-                modifier = Modifier.weight(0.25f),
-                onTextValueChange = { viewModel.goodsText.value = it }
-            )
-            SongTextInput(
-                text = greatsText,
-                state = greatsState,
-                placeholderRes = MR.strings.greats,
-                modifier = Modifier.weight(0.25f),
-                onTextValueChange = { viewModel.greatsText.value = it }
-            )
-            SongTextInput(
-                text = perfectsText,
-                state = perfectsState,
-                placeholderRes = MR.strings.perfects,
-                modifier = Modifier.weight(0.25f),
-                onTextValueChange = { viewModel.perfectsText.value = it }
-            )
-        }
-    }
-}
-
-@Composable
-private fun SongTextInput(
-    text: String,
-    state: InputFieldState,
-    spaceInvisible: Boolean = true,
-    placeholderRes: StringResource,
-    modifier: Modifier = Modifier,
-    onTextValueChange: (String) -> Unit,
-) {
-    if (state.visible) {
-        TextField(
-            value = text,
-            enabled = state.enabled,
-            isError = state.hasError,
-            onValueChange = onTextValueChange,
-            modifier = modifier,
-            placeholder = {
-                Text(text = stringResource(placeholderRes))
-            }
-        )
-    } else if (spaceInvisible) {
-        Spacer(modifier = modifier)
-    }
-}
-
-@Composable
-fun SongClearButtons(
-    modifier: Modifier = Modifier,
-    onClick: (SongClearButtonType) -> Unit,
-) {
-    Row(
-        modifier = modifier.padding(horizontal = Paddings.SMALL),
-        horizontalArrangement = Arrangement.spacedBy(Paddings.SMALL),
+    val context = LocalContext.current
+    ModalBottomSheet(
+        sheetState = bottomSheetState,
+        onDismissRequest = { onDismiss() }
     ) {
-        Button(
-            modifier = Modifier.weight(1f),
-            onClick = { onClick(SongClearButtonType.CLEAR) }
-        ) {
-            Text(text = stringResource(MR.strings.clear))
+        val decodedBitmap = remember(viewData.imagePath) {
+            if (viewData.imagePath.isEmpty()) return@remember null
+            Uri.parse(viewData.imagePath)
+                ?.let { uri ->
+                    println(uri.toString())
+                    context.contentResolver.openInputStream(uri)
+                }
+                ?.use { BitmapFactory.decodeStream(it) }
         }
-        Button(
-            modifier = Modifier.weight(1f),
-            onClick = { onClick(SongClearButtonType.FC) }
+        
+        Column(
+            modifier = Modifier.fillMaxSize()
         ) {
-            Text(text = stringResource(MR.strings.clear_fc_short))
+            decodedBitmap?.let {
+                Image(
+                    bitmap = decodedBitmap.asImageBitmap(),
+                    contentDescription = null,
+                    modifier = Modifier.fillMaxSize()
+                )
+            }
+            SongEntryContent(
+                fields = viewData.fields,
+                shortcuts = viewData.shortcuts,
+                onAction = onAction,
+            )
         }
-        Button(
-            modifier = Modifier.weight(1f),
-            onClick = { onClick(SongClearButtonType.PFC) }
-        ) {
-            Text(text = stringResource(MR.strings.clear_pfc_short))
-        }
-        Button(
-            modifier = Modifier.weight(1f),
-            onClick = { onClick(SongClearButtonType.MFC) }
-        ) {
-            Text(text = stringResource(MR.strings.clear_mfc_short))
-        }
+    }
+
+    LaunchedEffect(Unit) {
+        bottomSheetState.expand()
     }
 }
 
-enum class SongClearButtonType {
-    CLEAR, FC, PFC, MFC
-}
+@Composable
+fun SongEntryContent(
+    fields: List<UITrialBottomSheet.Field>,
+    shortcuts: List<UITrialBottomSheet.Shortcut>,
+    modifier: Modifier = Modifier,
+    onAction: (TrialSessionAction) -> Unit,
+) {
+    val context = LocalContext.current
+    Row(modifier = modifier) {
+        fields.forEach { field ->
+            TextField(
+                value = field.text,
+                onValueChange = { newText ->
+                    onAction(TrialSessionAction.ChangeText(field.id, newText))
+                },
+                enabled = field.enabled,
+                placeholder = {
+                    Text(field.placeholder.toString(context))
+                },
+                modifier = Modifier.weight(field.weight),
+            )
+            // FIXME error state
+        }
 
-//@Composable
-//@Preview
-//fun SongClearWidgetsPreview() {
-//    LIFE4Theme {
-//        Column {
-//            SongClearButtons(modifier = Modifier.fillMaxWidth()) {}
-//            SongEntryControls(viewModel(
-//                factory = createViewModelFactory {
-//                    SongEntryViewModel(0, SongEntryViewModel.EntryState.FULL, false)
-//                }
-//            ))
-//        }
-//    }
-//}
+        if (shortcuts != null) {
+            // FIXME implement shortcuts
+        }
+
+    }
+}

@@ -34,8 +34,8 @@ class TrialDatabaseHelper(sqlDriver: SqlDriver): DatabaseHelper(sqlDriver) {
             session.results.forEachIndexed { idx, result ->
                 queries.insertSong(null, sId,
                     idx.toLong(),
-                    result!!.score!!.toLong(),
-                    result.exScore!!.toLong(),
+                    result!!.score?.toLong() ?: 0L,
+                    result.exScore?.toLong() ?: 0L,
                     result.misses?.toLong(),
                     result.goods?.toLong(),
                     result.greats?.toLong(),

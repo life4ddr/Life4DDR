@@ -140,11 +140,28 @@ sealed class UITrialSessionContent {
  * Describes the content of the song detail bottom sheet, shown
  * when a single song needs editing.
  */
-data class UISongDetailBottomSheet(
-    val imagePath: String,
-    val fields: List<Field>,
-    val shortcuts: List<Shortcut>,
-) {
+sealed class UITrialBottomSheet {
+
+    /**
+     * Describes the state where the bottom sheet should be used
+     * for image capture.
+     */
+    data class ImageCapture(val index: Int?) : UITrialBottomSheet()
+
+    /**
+     * Placeholder for details panel used only in KM.
+     */
+    data object DetailsPlaceholder : UITrialBottomSheet()
+
+    /**
+     * Describes the state where the bottom sheet should be used
+     * for entering score details.
+     */
+    data class Details(
+        val imagePath: String,
+        val fields: List<Field>,
+        val shortcuts: List<Shortcut>,
+    ) : UITrialBottomSheet()
 
     /**
      * Defines a single field on the sheet.
@@ -152,7 +169,7 @@ data class UISongDetailBottomSheet(
      *  back to KM when clicking Submit.
      * @param weight the amount of space this field should take up,
      *  relative to the other fields.
-     * @param initialText the initial text to show in the field. Any
+     * @param text the initial text to show in the field. Any
      *  changes to text should be tracked in the native code and
      *  submitted using [generateSubmitAction].
      * @param placeholder the text to show in the field when there's
@@ -160,10 +177,11 @@ data class UISongDetailBottomSheet(
      */
     data class Field(
         val id: String,
-        val initialText: String,
+        val text: String,
         val placeholder: StringDesc,
         val enabled: Boolean = true,
         val weight: Float = 1f,
+        val hasError: Boolean = false,
     )
 
     /**
@@ -173,19 +191,5 @@ data class UISongDetailBottomSheet(
     data class Shortcut(
         val itemText: StringDesc,
         val action: TrialSessionAction,
-    )
-
-    /**
-     * Generates the necessary Submit action to send to KM when
-     * the Next button is pressed.
-     * @param orderedTexts the contents of each of the shown fields
-     *  in the same order as the KM data
-     */
-    fun generateSubmitAction(
-        orderedTexts: List<String>
-    ) = TrialSessionAction.SubmitFields(
-        items = fields.zip(orderedTexts) { field, text ->
-            field.id to text
-        }
     )
 }

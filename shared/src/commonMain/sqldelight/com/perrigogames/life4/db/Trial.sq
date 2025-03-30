@@ -41,11 +41,16 @@ WHERE trialId = ? AND goalObtained != 0
 ORDER BY goalRank, TrialSessionExScore.exScore DESC LIMIT 1;
 
 selectBestSessions:
-SELECT * FROM TrialSession
-INNER JOIN TrialSessionExScore ON TrialSession.id = TrialSessionExScore.sessionId
-WHERE goalObtained != 0
-GROUP BY trialId
-ORDER BY goalRank, TrialSessionExScore.exScore DESC;
+SELECT ts.*, tses.exScore
+FROM TrialSession ts
+INNER JOIN TrialSessionExScore tses ON ts.id = tses.sessionId
+WHERE ts.goalObtained != 0
+  AND tses.exScore = (
+      SELECT MAX(t2ses.exScore)
+      FROM TrialSessionExScore t2ses
+      WHERE t2ses.sessionId = ts.id
+  )
+ORDER BY ts.goalRank, tses.exScore DESC;
 
 selectAllSongs:
 SELECT * FROM TrialSong AS TrialSongs;

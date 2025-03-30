@@ -24,20 +24,23 @@ sealed class TrialSessionAction {
         val photoUri: String,
     ) : TrialSessionAction()
 
+    data object HideBottomSheet : TrialSessionAction()
+
     data class AdvanceStage(
         val photoUri: String
     ) : TrialSessionAction()
 
     data class UseShortcut(
         val songId: String,
-        val shortcut: ShortcutType,
+        val shortcut: ShortcutType?,
     ) : TrialSessionAction()
 
     data class EditItem(
         val index: Int,
     ) : TrialSessionAction()
 
-    data class SubmitFields(
-        val items: List<SubmitFieldsItem>
+    data class ChangeText(
+        val id: String,
+        val text: String,
     ) : TrialSessionAction()
 }
