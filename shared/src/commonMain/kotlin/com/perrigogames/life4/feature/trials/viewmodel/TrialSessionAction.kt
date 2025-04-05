@@ -26,9 +26,7 @@ sealed class TrialSessionAction {
 
     data object HideBottomSheet : TrialSessionAction()
 
-    data class AdvanceStage(
-        val photoUri: String
-    ) : TrialSessionAction()
+    data object AdvanceStage : TrialSessionAction()
 
     data class UseShortcut(
         val songId: String,

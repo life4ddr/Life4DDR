@@ -39,19 +39,30 @@ import com.google.accompanist.permissions.rememberPermissionState
 import com.perrigogames.life4.MR
 import com.perrigogames.life4.android.util.SizedSpacer
 import com.perrigogames.life4.android.util.getSensorRotation
-import kotlinx.coroutines.launch
 import java.io.File
 import java.io.FileOutputStream
 import java.util.concurrent.Executors
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalPermissionsApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CameraBottomSheet(
     bottomSheetState: SheetState,
     onPhotoTaken: (Uri) -> Unit,
     onDismiss: () -> Unit
 ) {
-    val coroutineScope = rememberCoroutineScope()
+    ModalBottomSheet(
+        sheetState = bottomSheetState,
+        onDismissRequest = { onDismiss() }
+    ) {
+        CameraBottomSheetContent(onPhotoTaken = onPhotoTaken)
+    }
+}
+
+@OptIn(ExperimentalPermissionsApi::class)
+@Composable
+fun CameraBottomSheetContent(
+    onPhotoTaken: (Uri) -> Unit,
+) {
     var photoUri by remember { mutableStateOf<Uri?>(null) }
     val permissionState = rememberPermissionState(android.Manifest.permission.CAMERA)
 
@@ -67,26 +78,16 @@ fun CameraBottomSheet(
         }
     }
 
-    ModalBottomSheet(
-        sheetState = bottomSheetState,
-        onDismissRequest = { onDismiss() }
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
     ) {
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-        ) {
-            if (permissionState.status.isGranted) {
-                CameraPreview(
-                    onPhotoCaptured = { uri ->
-                        photoUri = uri
-                        coroutineScope.launch {
-                            bottomSheetState.hide()
-                        }
-                    }
-                )
-            } else {
-                PermissionReminder()
-            }
+        if (permissionState.status.isGranted) {
+            CameraPreview(
+                onPhotoCaptured = { uri -> photoUri = uri }
+            )
+        } else {
+            PermissionReminder()
         }
     }
 }

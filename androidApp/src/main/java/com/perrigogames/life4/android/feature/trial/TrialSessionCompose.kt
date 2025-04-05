@@ -5,8 +5,6 @@ import androidx.compose.animation.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -16,6 +14,7 @@ import androidx.compose.ui.draw.blur
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -32,6 +31,7 @@ import com.perrigogames.life4.feature.trials.viewmodel.TrialSessionViewModel
 import com.perrigogames.life4.util.ViewState
 import dev.icerock.moko.mvvm.createViewModelFactory
 import dev.icerock.moko.resources.desc.color.getColor
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -43,74 +43,89 @@ fun TrialSession(
     ),
     onClose: () -> Unit,
 ) {
-    BackHandler { onClose() }
+    val coroutineScope = rememberCoroutineScope()
+    val focusManager = LocalFocusManager.current
 
     val viewState by viewModel.state.collectAsState()
     val bottomSheetState by viewModel.bottomSheetState.collectAsState()
 
-    val cameraBottomSheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
-    var cameraBottomSheetCallback by remember { mutableStateOf<(String) -> Unit>({}) }
-
-    val songDetailBottomSheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+    val scaffoldState = rememberBottomSheetScaffoldState(
+        bottomSheetState = rememberStandardBottomSheetState(
+            skipHiddenState = false,
+        )
+    )
+    LaunchedEffect(bottomSheetState) {
+        if (bottomSheetState != null) {
+            scaffoldState.bottomSheetState.expand()
+        } else {
+            focusManager.clearFocus()
+            scaffoldState.bottomSheetState.hide()
+        }
+    }
 
     when (val viewData = viewState) {
         ViewState.Loading -> {
             Text("Loading...")
         }
         is ViewState.Success<UITrialSession> -> {
-            TrialSessionContent(
-                viewData = viewData.data,
+            BackHandler {
+                if (scaffoldState.bottomSheetState.currentValue != SheetValue.Hidden) {
+                    coroutineScope.launch {
+                        bottomSheetState?.onDismissAction?.let {
+                            viewModel.handleAction(it)
+                        }
+                    }
+                } else {
+                    onClose()
+                }
+            }
+
+            BottomSheetScaffold(
+                scaffoldState = scaffoldState,
                 modifier = modifier,
-                onAction = { viewModel.handleAction(it) }
-            )
+                sheetPeekHeight = 0.dp,
+                sheetContent = {
+                    when (val state = bottomSheetState) {
+                        is UITrialBottomSheet.ImageCapture -> {
+                            CameraBottomSheetContent(
+                                onPhotoTaken = { uri ->
+                                    viewModel.handleAction(state.createResultAction(uri.toString()))
+                                },
+                            )
+                        }
+                        is UITrialBottomSheet.Details -> {
+                            SongEntryBottomSheetContent(
+                                viewData = state,
+                                onAction = {
+                                    viewModel.handleAction(it)
+                                },
+                            )
+                        }
+                        is UITrialBottomSheet.DetailsPlaceholder,
+                        null -> {}
+                    }
+                },
+            ) { padding ->
+                TrialSessionContent(
+                    viewData = viewData.data,
+                    modifier = Modifier.padding(padding),
+                    onAction = { viewModel.handleAction(it) }
+                )
+            }
         }
         is ViewState.Error<Unit> -> {
             Text("Error loading Trial with ID $trialId")
         }
     }
 
-    // FIXME this should animate closed, but something else needs to be set to enable interaction
-    when (val state = bottomSheetState) {
-        is UITrialBottomSheet.ImageCapture -> {
-            CameraBottomSheet(
-                bottomSheetState = cameraBottomSheetState,
-                onPhotoTaken = { uri ->
-                    viewModel.handleAction(
-                        state.index?.let { index ->
-                            TrialSessionAction.PhotoTaken(uri.toString(), index)
-                        } ?: TrialSessionAction.ResultsPhotoTaken(uri.toString())
-                    )
-                    cameraBottomSheetCallback(uri.toString())
-                },
-                onDismiss = {
-                    viewModel.handleAction(TrialSessionAction.HideBottomSheet)
-                }
-            )
-        }
-        is UITrialBottomSheet.Details -> {
-//            TrialSessionBottomSheet(
-//                viewData = state,
-//                onAction = {  }
-//            )
-            SongEntryBottomSheet(
-                viewData = state,
-                bottomSheetState = songDetailBottomSheetState,
-                onAction = {
-                    viewModel.handleAction(it)
-                },
-                onDismiss = {
-                    viewModel.handleAction(TrialSessionAction.HideBottomSheet)
-                }
-            )
-        }
-        UITrialBottomSheet.DetailsPlaceholder,
-        null -> {}
-    }
-
     LaunchedEffect(Unit) {
         viewModel.events.collect { event ->
             when (event) {
                 TrialSessionEvent.Close -> onClose()
+                TrialSessionEvent.HideBottomSheet -> {
+                    focusManager.clearFocus()
+                    scaffoldState.bottomSheetState.hide()
+                }
             }
         }
     }
@@ -277,9 +292,7 @@ fun SongFocusedContent(
             viewData.items.forEachIndexed { index, item ->
                 InProgressJacketItem(
                     viewData = item,
-                    onClick = {
-                        onAction(TrialSessionAction.EditItem(index))
-                    }
+                    onClick = item.tapAction?.let { { onAction(it) } }
                 )
             }
         }
@@ -447,12 +460,12 @@ fun SummaryContent(
 fun RowScope.InProgressJacketItem(
     viewData: UITrialSessionContent.SongFocused.Item,
     modifier: Modifier = Modifier.weight(1f),
-    onClick: () -> Unit = {},
+    onClick: (() -> Unit)? = null,
 ) {
     val context = LocalContext.current
     Column(
         modifier = modifier
-            .clickable { onClick() }
+            .clickable(enabled = onClick != null) { onClick?.invoke() }
     ) {
         AsyncImage(
             model = ImageRequest.Builder(LocalContext.current)
@@ -485,42 +498,6 @@ fun RowScope.InProgressJacketItem(
                     modifier = Modifier.fillMaxWidth(),
                     textAlign = TextAlign.Center,
                 )
-            }
-        }
-    }
-}
-
-@Composable
-fun TrialSessionBottomSheet(
-    viewData: UITrialBottomSheet.Details,
-    modifier: Modifier = Modifier,
-) {
-    val context = LocalContext.current
-    Column(modifier = modifier) {
-        Box(
-            modifier = Modifier.fillMaxWidth()
-                .weight(1f)
-                .background(MaterialTheme.colorScheme.surface)
-        ) {}
-        Row {
-            viewData.fields.forEach { field ->
-//                TextField(
-//                    value = field.text,
-//                    modifier = Modifier.weight(field.weight),
-//                    enabled = field.enabled,
-//                    placeholder = {
-//                        Text(field.placeholder.toString(context))
-//                    },
-//                     TODO handle error
-//                )
-            }
-
-            if (viewData.shortcuts.isNotEmpty()) {
-                IconButton(
-                    onClick = {  }
-                ) {
-                    Icon(Icons.Filled.Star, contentDescription = "shortcuts")
-                }
             }
         }
     }

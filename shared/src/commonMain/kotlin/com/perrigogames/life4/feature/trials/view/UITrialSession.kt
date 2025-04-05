@@ -132,6 +132,7 @@ sealed class UITrialSessionContent {
             val topText: StringDesc?,
             val bottomBoldText: StringDesc?,
             val bottomTagColor: ColorDesc,
+            val tapAction: TrialSessionAction?,
         )
     }
 }
@@ -142,16 +143,25 @@ sealed class UITrialSessionContent {
  */
 sealed class UITrialBottomSheet {
 
+    open val onDismissAction: TrialSessionAction = TrialSessionAction.HideBottomSheet
+
     /**
      * Describes the state where the bottom sheet should be used
      * for image capture.
      */
-    data class ImageCapture(val index: Int?) : UITrialBottomSheet()
+    data class ImageCapture(val index: Int?) : UITrialBottomSheet() {
+
+        fun createResultAction(uri: String) =
+            index?.let { index -> TrialSessionAction.PhotoTaken(uri, index) }
+                ?: TrialSessionAction.ResultsPhotoTaken(uri)
+    }
 
     /**
      * Placeholder for details panel used only in KM.
      */
-    data object DetailsPlaceholder : UITrialBottomSheet()
+    data class DetailsPlaceholder(
+        override val onDismissAction: TrialSessionAction = TrialSessionAction.HideBottomSheet,
+    ) : UITrialBottomSheet()
 
     /**
      * Describes the state where the bottom sheet should be used
@@ -159,9 +169,12 @@ sealed class UITrialBottomSheet {
      */
     data class Details(
         val imagePath: String,
-        val fields: List<Field>,
+        val fields: List<List<Field>>,
+        val isEdit: Boolean,
         val shortcuts: List<Shortcut>,
-    ) : UITrialBottomSheet()
+        override val onDismissAction: TrialSessionAction = TrialSessionAction.HideBottomSheet,
+    ) : UITrialBottomSheet() {
+    }
 
     /**
      * Defines a single field on the sheet.
@@ -172,13 +185,12 @@ sealed class UITrialBottomSheet {
      * @param text the initial text to show in the field. Any
      *  changes to text should be tracked in the native code and
      *  submitted using [generateSubmitAction].
-     * @param placeholder the text to show in the field when there's
-     *  no user input.
+     * @param label the text to show by the field to identify it.
      */
     data class Field(
         val id: String,
         val text: String,
-        val placeholder: StringDesc,
+        val label: StringDesc,
         val enabled: Boolean = true,
         val weight: Float = 1f,
         val hasError: Boolean = false,

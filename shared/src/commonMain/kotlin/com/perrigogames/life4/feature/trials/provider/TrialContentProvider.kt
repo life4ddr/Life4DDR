@@ -11,6 +11,7 @@ import com.perrigogames.life4.feature.songlist.SongDataManager
 import com.perrigogames.life4.feature.trials.data.Trial
 import com.perrigogames.life4.feature.trials.data.TrialSong
 import com.perrigogames.life4.feature.trials.view.UITrialSessionContent
+import com.perrigogames.life4.feature.trials.viewmodel.TrialSessionAction
 import com.perrigogames.life4.longNumberString
 import dev.icerock.moko.resources.desc.ResourceFormatted
 import dev.icerock.moko.resources.desc.StringDesc
@@ -53,6 +54,11 @@ class TrialContentProvider(private val trial: Trial) : KoinComponent {
                         else -> null
                     },
                     bottomTagColor = song.chart.difficultyClass.colorRes.asColorDesc(),
+                    tapAction = if (session.hasResult(index)) {
+                        TrialSessionAction.EditItem(index)
+                    } else {
+                        null
+                    },
                 )
             },
             focusedJacketUrl = trial.songs[stage].url,

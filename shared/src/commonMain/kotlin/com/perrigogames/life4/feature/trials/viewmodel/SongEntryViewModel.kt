@@ -21,107 +21,127 @@ import org.koin.core.component.inject
 class SongEntryViewModel(
     private val session: InProgressTrialSession,
     private val targetRank: TrialRank,
+    private val index: Int,
+    shortcut: ShortcutType? = null,
+    private val isEdit: Boolean,
 ): ViewModel(), KoinComponent {
 
     private val settingsManager: SettingsManager by inject()
 
     val passedChecked: CMutableStateFlow<Boolean> = MutableStateFlow(true).cMutableStateFlow()
+    val result get() = session.results[index]!!
 
     private val _numberMap = MutableStateFlow(mapOf(
-        ID_SCORE to 0,
-        ID_EX_SCORE to 0,
-        ID_MISSES to 0,
-        ID_GOODS to 0,
-        ID_GREATS to 0,
-        ID_PERFECTS to 0,
-        ID_PASSED to 0,
+        ID_SCORE to result.score,
+        ID_EX_SCORE to result.exScore,
+        ID_MISSES to result.misses,
+        ID_GOODS to result.goods,
+        ID_GREATS to result.greats,
+        ID_PERFECTS to result.perfects,
+        ID_PASSED to if (result.passed) 1 else 0,
     ))
     private val _viewDataMap = MutableStateFlow(mapOf(
         ID_SCORE to UITrialBottomSheet.Field(
             id = ID_SCORE,
             text = "",
             weight = 2f,
-            placeholder = MR.strings.score.desc()
+            label = MR.strings.score.desc()
         ),
         ID_EX_SCORE to UITrialBottomSheet.Field(
             id = ID_EX_SCORE,
             text = "",
-            placeholder = MR.strings.ex_score.desc()
+            label = MR.strings.ex_score.desc()
         ),
         ID_MISSES to UITrialBottomSheet.Field(
             id = ID_MISSES,
             text = "",
-            placeholder = MR.strings.misses.desc()
+            label = MR.strings.misses.desc()
         ),
         ID_GOODS to UITrialBottomSheet.Field(
             id = ID_GOODS,
             text = "",
-            placeholder = MR.strings.goods.desc()
+            label = MR.strings.goods.desc()
         ),
         ID_GREATS to UITrialBottomSheet.Field(
             id = ID_GREATS,
             text = "",
-            placeholder = MR.strings.greats.desc()
+            label = MR.strings.greats.desc()
         ),
         ID_PERFECTS to UITrialBottomSheet.Field(
             id = ID_PERFECTS,
             text = "",
-            placeholder = MR.strings.perfects.desc()
+            label = MR.strings.perfects.desc()
         ),
     ))
 
-    private val _state = MutableStateFlow(
-        UITrialBottomSheet.Details(
-            imagePath = "FIXME",
-            fields = emptyList(),
-            shortcuts = emptyList()
-        )
-    ).cMutableStateFlow()
+    private val _state = MutableStateFlow(generateViewState(shortcut)).cMutableStateFlow()
     val state: CStateFlow<UITrialBottomSheet.Details> = _state.cStateFlow()
 
-    fun updateViewState(
-        index: Int,
-        shortcut: ShortcutType? = null,
-    ) {
-        _state.value = generateViewState(
-            session,
-            targetRank,
-            index,
-            shortcut
-        )
-    }
-
-    fun generateViewState(
-        session: InProgressTrialSession,
-        targetRank: TrialRank,
-        index: Int,
-        shortcut: ShortcutType?,
+    private fun generateViewState(
+        shortcut: ShortcutType?
     ): UITrialBottomSheet.Details {
         // TODO process shortcut
         val requiredFields = requiredFields(session.trial, targetRank)
         return UITrialBottomSheet.Details(
             imagePath = session.results[index]?.photoUriString.orEmpty(),
-            fields = requiredFields.map { id ->
-                _viewDataMap.value[id]!!.copy(
-                    text = _numberMap.value[id].toString(),
-                )
+            fields = requiredFields.fold(mutableListOf<MutableList<UITrialBottomSheet.Field>>()) { acc, id ->
+                if (id == NEWLINE) {
+                    acc.add(mutableListOf())
+                } else {
+                    val number = _numberMap.value[id]
+                    if (acc.isEmpty()) acc.add(mutableListOf())
+                    acc.last().add(
+                        _viewDataMap.value[id]!!.copy(
+                            text = if (number != null && number != 0) number.toString() else "",
+                        )
+                    )
+                }
+                acc
             },
+            isEdit = isEdit,
             shortcuts = emptyList(), // FIXME
         )
     }
 
+    fun setShortcutState(shortcut: ShortcutType?) {
+        _state.value = generateViewState(shortcut)
+    }
+
     fun changeText(id: String, text: String) {
+        _numberMap.update { map ->
+            val number = text.toIntOrNull()
+            map + (id to number)
+        }
         _state.update { state ->
             state.copy(
-                fields = state.fields.map {
-                    if (it.id == id) {
-                        it.copy(text = text)
-                    } else {
-                        it
+                fields = state.fields.map { row ->
+                    row.map { field ->
+                        if (field.id == id) {
+                            field.copy(text = text)
+                        } else {
+                            field
+                        }
                     }
                 }
             )
         }
+    }
+
+    fun commitChanges(): InProgressTrialSession {
+        val result = result.copy(
+            score = _numberMap.value[ID_SCORE],
+            exScore = _numberMap.value[ID_EX_SCORE],
+            misses = _numberMap.value[ID_MISSES],
+            goods = _numberMap.value[ID_GOODS],
+            greats = _numberMap.value[ID_GREATS],
+            perfects = _numberMap.value[ID_PERFECTS],
+            passed = passedChecked.value,
+        )
+        return session.copy(
+            results = session.results.copyOf().also {
+                it[index] = result
+            }
+        )
     }
 
     private fun requiredFields(trial: Trial, targetRank: TrialRank): List<String> {
@@ -136,11 +156,13 @@ class SongEntryViewModel(
         }
         out += ID_EX_SCORE
         if (goalTypes.contains(BAD_JUDGEMENT)) {
-            out += ID_GOODS
             out += ID_GREATS
+            out += ID_GOODS
         }
         if (goalTypes.contains(MISS) || goalTypes.contains(BAD_JUDGEMENT)) {
             out += ID_MISSES
+            val newlineIndex = out.indexOfFirst { it == ID_EX_SCORE } + 1
+            out.add(newlineIndex, NEWLINE)
         }
         return out.toList()
     }
@@ -153,5 +175,6 @@ class SongEntryViewModel(
         const val ID_GREATS = "greats"
         const val ID_PERFECTS = "perfects"
         const val ID_PASSED = "passed"
+        const val NEWLINE = "newline"
     }
 }

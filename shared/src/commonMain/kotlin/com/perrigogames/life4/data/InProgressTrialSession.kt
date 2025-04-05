@@ -24,6 +24,8 @@ data class InProgressTrialSession(
     val hasStarted: Boolean
         get() = results.filterNotNull().any { it.score != null }
 
+    fun hasResult(index: Int): Boolean = results[index] != null
+
     val hasFinalPhoto: Boolean
         get() = finalPhotoUriString != null
 

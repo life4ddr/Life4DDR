@@ -46,9 +46,12 @@ class TrialSessionViewModel(trialId: String) : KoinComponent, ViewModel() {
     private val _bottomSheetState = MutableStateFlow<UITrialBottomSheet?>(null)
     val bottomSheetState: StateFlow<UITrialBottomSheet?> = _bottomSheetState
         .flatMapLatest { state ->
-            if (state == UITrialBottomSheet.DetailsPlaceholder) {
+            if (state is UITrialBottomSheet.DetailsPlaceholder) {
                 songEntryViewModel.filterNotNull()
                     .flatMapLatest { it.state }
+                    .map { details ->
+                        details.copy(onDismissAction = state.onDismissAction)
+                    }
             } else flowOf(state)
         }
         .stateIn(viewModelScope, SharingStarted.Eagerly, null)
@@ -61,15 +64,7 @@ class TrialSessionViewModel(trialId: String) : KoinComponent, ViewModel() {
     private val inProgressSessionFlow = MutableStateFlow<InProgressTrialSession?>(null)
     private val inProgressSession get() = inProgressSessionFlow.value!!
 
-    private val songEntryViewModel = combine(
-        inProgressSessionFlow.filterNotNull(),
-        targetRank,
-    ) { inProgressSession, target ->
-        SongEntryViewModel(
-            session = inProgressSession,
-            targetRank = target, // Wrap target as MutableStateFlow
-        )
-    }.stateIn(viewModelScope, SharingStarted.Eagerly, null)
+    private val songEntryViewModel = MutableStateFlow<SongEntryViewModel?>(null)
 
     init {
         viewModelScope.launch { // recreate the in progress session when necessary
@@ -187,25 +182,22 @@ class TrialSessionViewModel(trialId: String) : KoinComponent, ViewModel() {
             }
 
             is TrialSessionAction.TakePhoto -> {
-                viewModelScope.launch {
-                    _bottomSheetState.emit(UITrialBottomSheet.ImageCapture(action.index))
-                }
+                _bottomSheetState.value = UITrialBottomSheet.ImageCapture(action.index)
             }
 
             is TrialSessionAction.TakeResultsPhoto -> {
-                viewModelScope.launch {
-                    _bottomSheetState.emit(UITrialBottomSheet.ImageCapture(null))
-                }
+                _bottomSheetState.value = UITrialBottomSheet.ImageCapture(null)
             }
 
             is TrialSessionAction.PhotoTaken -> {
-                viewModelScope.launch {
-                    inProgressSessionFlow.update { session ->
-                        session?.createOrUpdateSongResult(action.index, action.photoUri)
-                    }
-                    songEntryViewModel.value?.updateViewState(index = action.index)
-                    _bottomSheetState.emit(UITrialBottomSheet.DetailsPlaceholder)
+                inProgressSessionFlow.update { session ->
+                    session?.createOrUpdateSongResult(action.index, action.photoUri)
                 }
+                showSongEntry(
+                    index = action.index,
+                    isEdit = false,
+                    onDismissAction = TrialSessionAction.AdvanceStage
+                )
             }
 
             is TrialSessionAction.ResultsPhotoTaken -> {
@@ -223,14 +215,15 @@ class TrialSessionViewModel(trialId: String) : KoinComponent, ViewModel() {
             }
 
             TrialSessionAction.HideBottomSheet -> {
-                viewModelScope.launch {
-                    _bottomSheetState.emit(null)
-                }
+                hideSongEntry()
             }
 
             is TrialSessionAction.EditItem -> {
-                viewModelScope.launch {
-                    _bottomSheetState.emit(songEntryViewModel.value!!.state.value)
+                if (inProgressSession.results.getOrNull(action.index) != null) {
+                    showSongEntry(
+                        index = action.index,
+                        isEdit = true,
+                    )
                 }
             }
 
@@ -238,14 +231,14 @@ class TrialSessionViewModel(trialId: String) : KoinComponent, ViewModel() {
                 songEntryViewModel.value!!.changeText(action.id, action.text)
             }
 
-            is TrialSessionAction.AdvanceStage -> {
-                inProgressSessionFlow.value?.let { session ->
-                    inProgressSessionFlow.value = session.copy()
-                }
+            TrialSessionAction.AdvanceStage -> {
+                hideSongEntry()
                 stage.value = (stage.value ?: 0) + 1
             }
 
-            is TrialSessionAction.UseShortcut -> TODO()
+            is TrialSessionAction.UseShortcut -> {
+                songEntryViewModel.value!!.setShortcutState(action.shortcut)
+            }
         }
     }
 
@@ -266,6 +259,30 @@ class TrialSessionViewModel(trialId: String) : KoinComponent, ViewModel() {
             curr = curr.next
         }
         return bestRank ?: allowedRanks.first()
+    }
+
+    private fun showSongEntry(
+        index: Int,
+        shortcut: ShortcutType? = null,
+        isEdit: Boolean,
+        onDismissAction: TrialSessionAction = TrialSessionAction.HideBottomSheet,
+    ) {
+        songEntryViewModel.value = SongEntryViewModel(
+            session = inProgressSession,
+            targetRank = targetRank.value,
+            index = index,
+            shortcut = shortcut,
+            isEdit = isEdit,
+        )
+        _bottomSheetState.value = UITrialBottomSheet.DetailsPlaceholder(onDismissAction)
+    }
+
+    private fun hideSongEntry() {
+        songEntryViewModel.value?.commitChanges()?.let { inProgressSessionFlow.value = it }
+        songEntryViewModel.value = null
+        viewModelScope.launch {
+            _events.emit(TrialSessionEvent.HideBottomSheet)
+        }
     }
 }
 
