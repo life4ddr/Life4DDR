@@ -104,19 +104,18 @@ val LadderRank?.nullableNext: LadderRank?
 enum class LadderRankClass {
     COPPER, BRONZE, SILVER, GOLD, PLATINUM, DIAMOND, COBALT, PEARL, AMETHYST, EMERALD, ONYX;
 
-    fun toLadderRank() = when(this) {
-        COPPER -> LadderRank.COPPER5
-        BRONZE -> LadderRank.BRONZE5
-        SILVER -> LadderRank.SILVER5
-        GOLD -> LadderRank.GOLD5
-        PLATINUM -> LadderRank.PLATINUM5
-        DIAMOND -> LadderRank.DIAMOND5
-        COBALT -> LadderRank.COBALT5
-        PEARL -> LadderRank.PEARL5
-        AMETHYST -> LadderRank.AMETHYST5
-        EMERALD -> LadderRank.EMERALD5
-        ONYX -> LadderRank.ONYX5
+    val ranks by lazy {
+        LadderRank.entries
+            .filter { it.group == this }
+            .sortedBy { it.classPosition }
     }
+
+    /**
+     * @param index the index of the rank inside this group, indexed at 0 (index 0 = COPPER 1)
+     */
+    fun rankAtIndex(index: Int) = ranks[index]
+
+    fun toLadderRank() = ranks.last()
 }
 
 object LadderRankSerializer: KSerializer<LadderRank> {

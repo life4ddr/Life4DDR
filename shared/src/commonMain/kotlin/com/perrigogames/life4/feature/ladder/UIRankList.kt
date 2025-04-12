@@ -39,9 +39,10 @@ data class UILadderRankClass(
 
 data class UILadderRank(
     val rank: LadderRank,
+    val index: Int,
     val text: StringDesc = rank.categoryNameRes.desc(),
     val selected: Boolean = false,
-    val tapInput: RankListViewModel.Input = RankListViewModel.Input.RankTapped(rank),
+    val tapInput: RankListViewModel.Input = RankListViewModel.Input.RankTapped(index, rank),
 )
 
 data class UIFooterData(

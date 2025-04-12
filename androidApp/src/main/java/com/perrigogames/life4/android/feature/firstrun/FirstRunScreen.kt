@@ -17,9 +17,7 @@ import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
@@ -62,6 +60,7 @@ fun FirstRunScreen(
     onClose: () -> Unit,
 ) {
     val step: FirstRunStep by viewModel.state.collectAsState(Landing)
+    var completeHandled by remember { mutableStateOf(false) }
 
     BackHandler {
         if (!viewModel.navigateBack()) {
@@ -103,7 +102,7 @@ fun FirstRunScreen(
                             modifier = contentModifier,
                         )
                     }
-                    is FirstRunStep.PathStep.UsernamePassword -> {
+                    is UsernamePassword -> {
                         FirstRunUsernamePassword(
                             viewModel = viewModel,
                             step = step,
@@ -129,7 +128,12 @@ fun FirstRunScreen(
                             onRankMethodSelected = viewModel::rankMethodSelected
                         )
                     }
-                    is Completed -> { onComplete(step.rankSelection) }
+                    is Completed -> {
+                        if (!completeHandled) {
+                            onComplete(step.rankSelection)
+                            completeHandled = true
+                        }
+                    }
                     else -> error("Unsupported step $step")
                 }
             }

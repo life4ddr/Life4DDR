@@ -73,6 +73,7 @@ fun PlayerProfileScreen(
             if (goalData?.hasSubstitutions == true) {
                 LadderGoals(
                     goals = goalData!!.substitutions!!,
+                    rankClass = goalData!!.targetRankClass,
                     onInput = { profileViewModel.goalListViewModel.handleAction(it) },
                     modifier = Modifier.fillMaxWidth()
                         .padding(8.dp)
@@ -95,6 +96,7 @@ fun PlayerProfileScreen(
             if (goalData != null) {
                 LadderGoals(
                     goals = goalData!!.goals,
+                    rankClass = goalData!!.targetRankClass,
                     onInput = { profileViewModel.goalListViewModel.handleAction(it) },
                     modifier = Modifier.fillMaxWidth()
                         .weight(1f)

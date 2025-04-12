@@ -1,6 +1,7 @@
 package com.perrigogames.life4.feature.placements
 
 import co.touchlab.kermit.Logger
+import com.perrigogames.life4.MR
 import com.perrigogames.life4.data.PlacementRank
 import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.feature.songlist.SongDataManager
@@ -12,7 +13,10 @@ import dev.icerock.moko.mvvm.flow.cMutableStateFlow
 import dev.icerock.moko.mvvm.flow.cStateFlow
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
 import dev.icerock.moko.resources.desc.StringDesc
+import dev.icerock.moko.resources.desc.desc
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -28,6 +32,9 @@ class PlacementDetailsViewModel(
     private val _state = MutableStateFlow(UIPlacementDetails()).cMutableStateFlow()
     val state: CStateFlow<UIPlacementDetails> = _state.cStateFlow()
 
+    private val _events = MutableSharedFlow<PlacementDetailsEvent>(replay = 0)
+    val events = _events.asSharedFlow()
+
     init {
         viewModelScope.launch {
             placementManager.findPlacement(placementId)
@@ -37,6 +44,11 @@ class PlacementDetailsViewModel(
                     } else {
                         _state.value = _state.value.copy(
                             rankIcon = placement.placementRank!!.toLadderRank(),
+                            descriptionPoints = listOf(
+                                MR.strings.placement_detail_description_1.desc(),
+                                MR.strings.placement_detail_description_2.desc(),
+                                MR.strings.placement_detail_description_3.desc(),
+                            ),
                             songs = placement.songs.map { song ->
                                 song.toUITrialSong()
                             }
@@ -45,10 +57,27 @@ class PlacementDetailsViewModel(
                 }
         }
     }
+
+    fun handleAction(action: PlacementDetailsAction) {
+        when (action) {
+            PlacementDetailsAction.FinalizeClicked -> _events.tryEmit(PlacementDetailsEvent.ShowCamera)
+            PlacementDetailsAction.PictureTaken -> _events.tryEmit(
+                PlacementDetailsEvent.ShowTooltip(
+                    title = MR.strings.placement_complete_tooltip_title.desc(),
+                    message = MR.strings.placement_complete_tooltip_message.desc(),
+                    ctaText = MR.strings.okay.desc(),
+                    ctaAction = PlacementDetailsAction.TooltipDismissed
+                )
+            )
+            PlacementDetailsAction.TooltipDismissed -> _events.tryEmit(PlacementDetailsEvent.NavigateToMainScreen)
+        }
+    }
 }
 
 data class UIPlacementDetails(
     val rankIcon: LadderRank = PlacementRank.COPPER.toLadderRank(),
     val descriptionPoints: List<StringDesc> = emptyList(),
-    val songs: List<UITrialSong> = emptyList()
+    val songs: List<UITrialSong> = emptyList(),
+    val ctaText: StringDesc = MR.strings.finalize.desc(),
+    val ctaAction: PlacementDetailsAction = PlacementDetailsAction.FinalizeClicked,
 )

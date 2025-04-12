@@ -51,17 +51,18 @@ fun TrialSession(
 
     val scaffoldState = rememberBottomSheetScaffoldState(
         bottomSheetState = rememberStandardBottomSheetState(
+            initialValue = SheetValue.Hidden,
             skipHiddenState = false,
         )
     )
-    LaunchedEffect(bottomSheetState) {
-        if (bottomSheetState != null) {
-            scaffoldState.bottomSheetState.expand()
-        } else {
-            focusManager.clearFocus()
-            scaffoldState.bottomSheetState.hide()
-        }
-    }
+//    LaunchedEffect(bottomSheetState) {
+//        if (bottomSheetState != null) {
+//            scaffoldState.bottomSheetState.expand()
+//        } else {
+//            focusManager.clearFocus()
+//            scaffoldState.bottomSheetState.hide()
+//        }
+//    }
 
     when (val viewData = viewState) {
         ViewState.Loading -> {
@@ -184,7 +185,7 @@ fun TrialSessionContent(
                 targetState = viewData.buttonText,
                 transitionSpec = { fadeIn() togetherWith fadeOut() }
             ) {
-                CTAButton(
+                LargeCTAButton(
                     text = it.toString(context),
                     onClick = { onAction(viewData.buttonAction) }
                 )
@@ -520,12 +521,13 @@ fun RowScope.InProgressJacketItem(
 //    }
 
 @Composable
-private fun CTAButton(
+fun LargeCTAButton(
     text: String,
     onClick: () -> Unit = {},
+    colors: ButtonColors = ButtonDefaults.elevatedButtonColors()
 ) = Button(
     elevation = ButtonDefaults.elevatedButtonElevation(),
-    colors = ButtonDefaults.elevatedButtonColors(),
+    colors = colors,
     modifier = Modifier.fillMaxWidth(),
     onClick = onClick
 ) {

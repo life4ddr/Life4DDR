@@ -279,10 +279,21 @@ class TrialSessionViewModel(trialId: String) : KoinComponent, ViewModel() {
 
     private fun hideSongEntry() {
         songEntryViewModel.value?.commitChanges()?.let { inProgressSessionFlow.value = it }
+        updateTargetRank()
         songEntryViewModel.value = null
         viewModelScope.launch {
             _events.emit(TrialSessionEvent.HideBottomSheet)
         }
+    }
+
+    private fun updateTargetRank() {
+        var currIdx = (trial.goals?.size ?: return) - 1
+        fun currRank() = trial.goals[currIdx].rank
+
+        while (!inProgressSession.isRankSatisfied(currRank())) {
+            currIdx--
+        }
+        targetRank.value = currRank()
     }
 }
 

@@ -39,10 +39,14 @@
     <string name="play_placement">Play a Placement Set</string>
     <string name="play_placement_instead">Play a Placement Set instead</string>
     <string name="placement_list_description">Placement Sets are a quick way to get into the LIFE4 system or better learn where you should begin.\n\nWhen choosing a placement set, select which set you think will most accurately showcase your skill level.\n\nDon’t worry about choosing the wrong set; you will still be placed accordingly.</string>
-    <string name="placement_detail_description">• Complete all songs in a single set and in any order.\n• Extra Stage is optional. If you earn an Extra Stage, you can use it to improve a previous score.\n• The ONLY photo that is required is one of the final results screen, showing the scores for each song played. (Click &quot;Finalize&quot; to take this photo)</string>
+    <string name="placement_detail_description_1">• Complete all songs in a single set and in any order.</string>
+    <string name="placement_detail_description_2">• Extra Stage is optional. If you earn an Extra Stage, you can use it to improve a previous score.</string>
+    <string name="placement_detail_description_3">• The ONLY photo that is required is one of the final results screen, showing the scores for each song played. (Click &quot;Finalize&quot; to take this photo)</string>
     <string name="placement_start">Play Now</string>
     <string name="placement_close_confirm_title">Skip Placement?</string>
     <string name="placement_close_confirm_body">You can start without a Rank for now. You can revisit Placements until you earn a rank.</string>
+    <string name="placement_complete_tooltip_title">Placement Completed</string>
+    <string name="placement_complete_tooltip_message">Your image has been saved to your SD card\&apos;s Pictures/LIFE4 folder</string>
     <string name="select_a_starting_rank">Select a Starting Rank</string>
     <string name="select_a_new_rank">Select a New Rank</string>
     <string name="start_no_rank">Start Without a Rank</string>

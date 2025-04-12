@@ -1,5 +1,6 @@
 package com.perrigogames.life4.feature.ladder
 
+import com.perrigogames.life4.enums.LadderRankClass
 import com.perrigogames.life4.util.toStringWithoutDecimal
 import dev.icerock.moko.resources.ColorResource
 import dev.icerock.moko.resources.desc.StringDesc
@@ -7,6 +8,7 @@ import dev.icerock.moko.resources.desc.StringDesc
 typealias CategorizedUILadderGoals = List<Pair<UILadderGoals.CategorizedList.Category, List<UILadderGoal>>>
 
 data class UILadderData(
+    val targetRankClass: LadderRankClass,
     val goals: UILadderGoals,
     val substitutions: UILadderGoals? = null
 ) {

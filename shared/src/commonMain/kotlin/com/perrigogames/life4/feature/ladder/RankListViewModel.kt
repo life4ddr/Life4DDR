@@ -24,7 +24,17 @@ class RankListViewModel(
     private val ladderDataManager: LadderDataManager by inject()
 
     private val selectedRankClass = MutableStateFlow<LadderRankClass?>(null)
-    private val selectedRank = MutableStateFlow<LadderRank?>(null)
+    private val selectedRankIndex = MutableStateFlow<Int?>(null)
+    private val selectedRank = combine(
+        selectedRankClass,
+        selectedRankIndex,
+    ) { clazz, index ->
+        if (clazz == null || index == null) {
+            return@combine null
+        }
+        clazz.rankAtIndex(index)
+    }
+        .stateIn(viewModelScope, SharingStarted.Eagerly, null)
     private val selectedRankGoals = selectedRank
         .flatMapLatest { ladderDataManager.requirementsForRank(it) }
     private var startingRank: LadderRank? = null
@@ -55,7 +65,7 @@ class RankListViewModel(
         viewModelScope.launch {
             startingRank = userInfoSettings.userRank.value
             selectedRankClass.value = startingRank?.group
-            selectedRank.value = startingRank
+            selectedRankIndex.value = startingRank?.classPosition?.minus(1)
 
             combine(
                 selectedRankClass,
@@ -79,7 +89,7 @@ class RankListViewModel(
                     ranks = rankClass?.let {
                         LadderRank.entries.filter { it.group == rankClass }
                             .sortedBy { it.stableId }
-                            .map { UILadderRank(it, selected = it == rank) }
+                            .mapIndexed { index, r -> UILadderRank(r, index, selected = r == rank) }
                     } ?: emptyList(),
                     noRankInfo = when {
                         isFirstRun -> UINoRank.FIRST_RUN
@@ -102,11 +112,10 @@ class RankListViewModel(
         when (input) {
             is Input.RankClassTapped -> {
                 rankClassChanged = true
-                selectedRank.value = null
                 selectedRankClass.value = input.rankClass
             }
             is Input.RankTapped -> {
-                selectedRank.value = input.rank
+                selectedRankIndex.value = input.index
             }
             is Input.RankSelected -> {
                 firstRunSettingsManager.setInitState(InitState.DONE)
@@ -128,18 +137,9 @@ class RankListViewModel(
         }
     }
 
-    fun moveToPlacements() {
-        firstRunSettingsManager.setInitState(InitState.PLACEMENTS)
-    }
-
-    fun saveRank(ladderRank: LadderRank?) {
-        firstRunSettingsManager.setInitState(InitState.DONE)
-        userInfoSettings.setRank(ladderRank)
-    }
-
     sealed class Input {
         data class RankClassTapped(val rankClass: LadderRankClass?) : Input()
-        data class RankTapped(val rank: LadderRank) : Input()
+        data class RankTapped(val index: Int, val rank: LadderRank) : Input()
         data class RankSelected(val rank: LadderRank) : Input()
         data object MoveToPlacements : Input()
         data object RankRejected : Input()

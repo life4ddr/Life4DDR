@@ -88,6 +88,7 @@ fun RankListScreen(
             if (ladderData != null) {
                 LadderGoals(
                     goals = ladderData.goals,
+                    rankClass = ladderData.targetRankClass,
                     modifier = Modifier.weight(1f),
                     onInput = { onInput(RankListViewModel.Input.GoalList(it)) },
                 )

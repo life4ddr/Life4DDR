@@ -24,11 +24,13 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.perrigogames.life4.MR
 import com.perrigogames.life4.android.R
 import com.perrigogames.life4.android.compose.LIFE4Theme
+import com.perrigogames.life4.android.compose.LadderRankClassTheme
 import com.perrigogames.life4.android.stringResource
 import com.perrigogames.life4.android.util.SizedSpacer
 import com.perrigogames.life4.android.view.compose.Life4Divider
 import com.perrigogames.life4.enums.DifficultyClass
 import com.perrigogames.life4.enums.LadderRank
+import com.perrigogames.life4.enums.LadderRankClass
 import com.perrigogames.life4.feature.ladder.*
 import com.perrigogames.life4.util.ViewState
 import dev.icerock.moko.mvvm.createViewModelFactory
@@ -47,9 +49,26 @@ fun LadderGoalsScreen(
     (state as? ViewState.Success)?.data?.let { data ->
         LadderGoals(
             goals = data.goals,
+            rankClass = targetRank?.group,
             onInput = {},
             modifier = modifier,
         )
+    }
+}
+
+@Composable
+fun LadderGoals(
+    goals: UILadderGoals,
+    rankClass: LadderRankClass? = null,
+    onInput: (RankListInput) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    if (rankClass != null) {
+        LadderRankClassTheme(rankClass) {
+            LadderGoals(goals, onInput, modifier)
+        }
+    } else {
+        LadderGoals(goals, onInput, modifier)
     }
 }
 
@@ -160,7 +179,7 @@ fun LadderGoalItem(
     modifier: Modifier = Modifier,
 ) {
     Surface(
-        color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = if (goal.hidden) 0.5f else 1f),
+        color = MaterialTheme.colorScheme.primaryContainer.copy(alpha = if (goal.hidden) 0.5f else 1f),
         shape = MaterialTheme.shapes.medium,
         modifier = modifier,
     ) {

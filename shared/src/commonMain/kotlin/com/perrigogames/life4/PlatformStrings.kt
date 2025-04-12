@@ -1,6 +1,5 @@
 package com.perrigogames.life4
 
-import com.perrigogames.life4.enums.*
 import dev.icerock.moko.resources.desc.Raw
 import dev.icerock.moko.resources.desc.ResourceFormatted
 import dev.icerock.moko.resources.desc.StringDesc

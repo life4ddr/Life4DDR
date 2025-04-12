@@ -22,6 +22,7 @@ import com.perrigogames.life4.feature.deeplink.IDeeplinkManager
 import com.perrigogames.life4.feature.firstrun.InitState
 import com.perrigogames.life4.viewmodel.LaunchViewModel
 import dev.icerock.moko.mvvm.createViewModelFactory
+import kotlinx.coroutines.flow.first
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
@@ -52,15 +53,14 @@ class LaunchActivity: AppCompatActivity(), KoinComponent {
             )
 
             LaunchedEffect(Unit) {
-                viewModel.launchState.collect { launchState ->
-                    navController.popAndNavigate(when(launchState) {
-                        null -> "first_run"
-                        InitState.PLACEMENTS -> "placement_list"
-                        InitState.RANKS -> "initial_rank_list"
-                        InitState.DONE -> "main_screen"
-                    })
-                    loaded = true
-                }
+                val initialState = viewModel.launchState.first()
+                navController.popAndNavigate(when(initialState) {
+                    null -> "first_run"
+                    InitState.PLACEMENTS -> "placement_list"
+                    InitState.RANKS -> "initial_rank_list"
+                    InitState.DONE -> "main_screen"
+                })
+                loaded = true
             }
 
             LIFE4Theme {

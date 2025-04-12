@@ -23,6 +23,7 @@ import dev.icerock.moko.resources.compose.stringResource
 @Composable
 fun RankImageWithTitle(
     rank: LadderRank?,
+    modifier: Modifier = Modifier,
     iconSize: Dp = 84.dp,
     text: String = stringResource(rank?.nameRes ?: MR.strings.no_rank),
     style: TextStyle = MaterialTheme.typography.titleSmall,
@@ -44,11 +45,11 @@ fun RankImageWithTitle(
                     it
                 }
             }
+            .then(modifier)
     ) {
         RankImage(
             rank = rank,
             size = iconSize,
-            onClick = onClick,
         )
         RankText(
             rank = rank,

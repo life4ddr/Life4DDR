@@ -19,7 +19,10 @@ import com.perrigogames.life4.android.stringResource
 import com.perrigogames.life4.android.util.SizedSpacer
 import com.perrigogames.life4.android.view.compose.RankImageWithTitle
 import com.perrigogames.life4.enums.LadderRank
-import com.perrigogames.life4.feature.ladder.*
+import com.perrigogames.life4.feature.ladder.RankListViewModel
+import com.perrigogames.life4.feature.ladder.UILadderRank
+import com.perrigogames.life4.feature.ladder.UINoRank
+import com.perrigogames.life4.feature.ladder.UIRankList
 
 @Composable
 fun RankSelection(
@@ -30,19 +33,11 @@ fun RankSelection(
     Column(
         modifier = modifier,
     ) {
-        LazyRow(
-            modifier = Modifier.padding(vertical = Paddings.MEDIUM)
-        ) {
-            item { SizedSpacer(size = Paddings.LARGE) }
-            items(data.rankClasses) { category ->
-                RankCategoryImage(
-                    category = category,
-
-                    onClick = { onInput(category.tapInput) },
-                )
-                SizedSpacer(size = Paddings.LARGE)
-            }
-        }
+        RankCategorySelector(
+            data = data,
+            modifier = Modifier.padding(vertical = Paddings.MEDIUM),
+            onInput = onInput
+        )
         HorizontalDivider()
 
         AnimatedVisibility(visible = data.showRankSelector) {
@@ -100,7 +95,7 @@ fun RankDetailSelector(
                 onInput = onInput,
             )
         } else {
-            RankCategorySelector(
+            RankItemSelector(
                 availableRanks = availableRanks,
                 compressed = compress,
                 onInput = onInput,
@@ -142,6 +137,31 @@ fun NoRankDetails(
 
 @Composable
 fun RankCategorySelector(
+    data: UIRankList,
+    modifier: Modifier = Modifier,
+    onInput: (RankListViewModel.Input) -> Unit = {},
+) {
+    LazyRow(
+        modifier = modifier
+    ) {
+        items(data.rankClasses) { category ->
+            RankImageWithTitle(
+                rank = category.rankClass?.toLadderRank(),
+                modifier = Modifier
+                    .padding(horizontal = Paddings.MEDIUM)
+                    .padding(top = Paddings.MEDIUM),
+                iconSize = 64.dp,
+                selected = category.selected,
+                text = stringResource(category.text),
+                style = MaterialTheme.typography.titleSmall,
+                onClick = { onInput(category.tapInput) }
+            )
+        }
+    }
+}
+
+@Composable
+fun RankItemSelector(
     availableRanks: List<UILadderRank>,
     compressed: Boolean,
     modifier: Modifier = Modifier,
@@ -156,6 +176,10 @@ fun RankCategorySelector(
                 availableRanks.forEach { rank ->
                     RankImageWithTitle(
                         rank = rank.rank,
+                        modifier = Modifier
+                            .padding(horizontal = Paddings.MEDIUM)
+                            .padding(top = Paddings.MEDIUM),
+                        selected = rank.selected,
                         iconSize = 48.dp,
                         text = stringResource(rank.text)
                     ) { onInput(rank.tapInput) }
@@ -181,21 +205,6 @@ fun RankCategorySelector(
             }
         }
     }
-}
-
-@Composable
-private fun RankCategoryImage(
-    category: UILadderRankClass,
-    onClick: () -> Unit
-) {
-    RankImageWithTitle(
-        rank = category.rankClass?.toLadderRank(),
-        iconSize = 64.dp,
-        selected = category.selected,
-        text = stringResource(category.text),
-        style = MaterialTheme.typography.titleSmall,
-        onClick = onClick
-    )
 }
 
 @Composable

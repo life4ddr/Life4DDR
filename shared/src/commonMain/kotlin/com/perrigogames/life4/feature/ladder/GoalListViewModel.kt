@@ -97,12 +97,14 @@ class GoalListViewModel(private val config: GoalListConfig) : ViewModel(), KoinC
                     requirements == null -> ViewState.Error("No goals found for ${targetRank.name}")
                     targetRank >= LadderRank.PLATINUM1 -> ViewState.Success(
                         UILadderData(
+                            targetRankClass = targetRank.group,
                             goals = generateDifficultyCategories(requirements, progress, expanded),
                             substitutions = substitutions
                         )
                     )
                     else -> ViewState.Success(
                         UILadderData(
+                            targetRankClass = targetRank.group,
                             goals = generateCommonCategories(requirements, progress, expanded),
                             substitutions = substitutions
                         )

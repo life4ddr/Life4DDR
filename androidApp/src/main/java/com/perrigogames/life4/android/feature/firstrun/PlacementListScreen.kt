@@ -19,21 +19,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import coil.compose.AsyncImage
-import coil.request.ImageRequest
 import com.perrigogames.life4.MR
 import com.perrigogames.life4.android.compose.*
 import com.perrigogames.life4.android.util.SizedSpacer
-import com.perrigogames.life4.android.view.compose.AutoResizedText
 import com.perrigogames.life4.android.view.compose.RankImage
 import com.perrigogames.life4.data.trialrecords.UITrialMocks
 import com.perrigogames.life4.data.trials.UIPlacement
 import com.perrigogames.life4.data.trials.UIPlacementMocks
 import com.perrigogames.life4.enums.LadderRank
-import com.perrigogames.life4.enums.colorRes
 import com.perrigogames.life4.feature.firstrun.InitState
 import com.perrigogames.life4.feature.placements.PlacementListViewModel
-import com.perrigogames.life4.feature.trials.view.UITrialSong
 import dev.icerock.moko.mvvm.createViewModelFactory
 import dev.icerock.moko.resources.compose.colorResource
 import dev.icerock.moko.resources.compose.stringResource
@@ -248,65 +243,6 @@ fun PlacementItem(
                         color = MaterialTheme.colorScheme.onPrimaryContainer
                     )
                 }
-            }
-        }
-    }
-}
-
-@Composable
-fun PlacementSongItem(
-    data: UITrialSong,
-    modifier: Modifier = Modifier,
-) {
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = modifier
-    ) {
-        AsyncImage(
-            model = ImageRequest.Builder(LocalContext.current)
-                .data(data.jacketUrl)
-                .crossfade(true)
-                .build(),
-            contentDescription = null,
-            modifier = Modifier.size(64.dp)
-        )
-        SizedSpacer(16.dp)
-        Column(
-            modifier = Modifier.weight(1f)
-        ) {
-            AutoResizedText(
-                text = data.songNameText,
-                style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.onPrimaryContainer,
-                modifier = Modifier.fillMaxWidth()
-            )
-            Text(
-                text = data.subtitleText,
-                style = MaterialTheme.typography.titleSmall,
-                color = MaterialTheme.colorScheme.onPrimaryContainer,
-                maxLines = 1,
-                modifier = Modifier.fillMaxWidth()
-            )
-        }
-        SizedSpacer(16.dp)
-        Surface(
-            shape = MaterialTheme.shapes.small,
-            color = MaterialTheme.colorScheme.surface,
-            modifier = Modifier.width(50.dp),
-        ) {
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-            ) {
-                Text(
-                    text = data.chartString,
-                    style = MaterialTheme.typography.titleSmall,
-                    color = colorResource(data.difficultyClass.colorRes)
-                )
-                Text(
-                    text = data.difficultyText,
-                    style = MaterialTheme.typography.titleMedium,
-                    color = colorResource(data.difficultyClass.colorRes)
-                )
             }
         }
     }
