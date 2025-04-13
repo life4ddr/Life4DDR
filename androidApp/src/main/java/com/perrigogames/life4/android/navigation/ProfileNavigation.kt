@@ -23,13 +23,16 @@ fun NavGraphBuilder.profileNavigation(
     profileNavController: NavController
 ) {
     composable(ProfileDestination.Profile.route) {
-        PlayerProfileScreen { action ->
-            when (action) {
-                PlayerProfileAction.ChangeRank -> {
-                    mainNavController.navigate(LadderDestination.RankList.route)
+        PlayerProfileScreen(
+            onBackPressed = { mainNavController.popBackStack() },
+            onAction = { action ->
+                when (action) {
+                    PlayerProfileAction.ChangeRank -> {
+                        mainNavController.navigate(LadderDestination.RankList.route)
+                    }
                 }
-            }
-        }
+            },
+        )
     }
 
     composable(ProfileDestination.Scores.route) {
@@ -40,7 +43,8 @@ fun NavGraphBuilder.profileNavigation(
                     data = android.net.Uri.parse(url)
                 }
                 context.startActivity(intent)
-            }
+            },
+            onBackPressed = { profileNavController.navigate(ProfileDestination.Profile.route) }
         )
     }
 

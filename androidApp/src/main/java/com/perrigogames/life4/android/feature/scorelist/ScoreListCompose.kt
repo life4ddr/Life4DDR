@@ -1,12 +1,15 @@
 package com.perrigogames.life4.android.feature.scorelist
 
+import androidx.activity.compose.BackHandler
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material3.*
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -28,32 +31,69 @@ fun ScoreListScreen(
     viewModel: ScoreListViewModel = viewModel(
         factory = createViewModelFactory { ScoreListViewModel() }
     ),
+    onBackPressed: () -> Unit,
     showSanbaiLogin: (String) -> Unit = {},
 ) {
     val state = viewModel.state.collectAsState()
     var filterShowing by remember { mutableStateOf(false)}
+    
+    BackHandler { 
+        if (filterShowing) {
+            filterShowing = false
+        } else {
+            onBackPressed()
+        }
+    }
 
     Scaffold(
         modifier = modifier,
         floatingActionButton = {
-            FloatingActionButton(
-                onClick = {
-                    val authUrl = viewModel.getSanbaiUrl()
-                    showSanbaiLogin(authUrl)
-                },
-            ) {
-                Icon(Icons.Filled.Add, contentDescription = "Add")
+            var isFabExpanded by remember { mutableStateOf(false) }
+            
+            Column {
+                AnimatedVisibility(visible = isFabExpanded) {
+                    Column {
+                        FloatingActionButton(
+                            onClick = {
+                                filterShowing = true
+                                isFabExpanded = false
+                            },
+                        ) {
+                            Icon(
+                                painterResource(R.drawable.filter_list_24px),
+                                contentDescription = "Change Filters"
+                            )
+                        }
+                        SizedSpacer(8.dp)
+                        FloatingActionButton(
+                            onClick = {
+                                val authUrl = viewModel.getSanbaiUrl()
+                                showSanbaiLogin(authUrl)
+                                isFabExpanded = false
+                            },
+                        ) {
+                            Icon(
+                                painterResource(R.drawable.sync_24px),
+                                contentDescription = "Sync Sanbai Scores"
+                            )
+                        }
+                        SizedSpacer(24.dp)
+                    }
+                }
+
+                FloatingActionButton(
+                    onClick = { isFabExpanded = !isFabExpanded },
+                ) {
+                    Icon(
+                        painterResource(if (isFabExpanded) R.drawable.close_24px else R.drawable.more_vert_24px),
+                        contentDescription = if (isFabExpanded) "Close" else "Expand"
+                    )
+                }
             }
         },
         topBar = {
             Column(modifier = Modifier.fillMaxWidth()) {
                 BannerContainer(state.value.banner)
-                Button(
-                    modifier = Modifier.align(Alignment.End),
-                    onClick = { filterShowing = !filterShowing }
-                ) {
-                    Text(text = "Filter")
-                }
             }
         }
     ) { paddingValues ->

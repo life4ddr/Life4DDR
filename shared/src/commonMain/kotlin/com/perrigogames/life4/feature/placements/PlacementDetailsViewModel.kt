@@ -59,17 +59,23 @@ class PlacementDetailsViewModel(
     }
 
     fun handleAction(action: PlacementDetailsAction) {
-        when (action) {
-            PlacementDetailsAction.FinalizeClicked -> _events.tryEmit(PlacementDetailsEvent.ShowCamera)
-            PlacementDetailsAction.PictureTaken -> _events.tryEmit(
-                PlacementDetailsEvent.ShowTooltip(
-                    title = MR.strings.placement_complete_tooltip_title.desc(),
-                    message = MR.strings.placement_complete_tooltip_message.desc(),
-                    ctaText = MR.strings.okay.desc(),
-                    ctaAction = PlacementDetailsAction.TooltipDismissed
+        viewModelScope.launch {
+            when (action) {
+                PlacementDetailsAction.FinalizeClicked -> _events.emit(PlacementDetailsEvent.ShowCamera)
+                PlacementDetailsAction.PictureTaken -> _events.emit(
+                    PlacementDetailsEvent.ShowTooltip(
+                        title = MR.strings.placement_complete_tooltip_title.desc(),
+                        message = MR.strings.placement_complete_tooltip_message.desc(),
+                        ctaText = MR.strings.okay.desc(),
+                        ctaAction = PlacementDetailsAction.TooltipDismissed
+                    )
                 )
-            )
-            PlacementDetailsAction.TooltipDismissed -> _events.tryEmit(PlacementDetailsEvent.NavigateToMainScreen)
+                PlacementDetailsAction.TooltipDismissed -> {
+                    _events.emit(PlacementDetailsEvent.NavigateToMainScreen(
+                        submissionUrl = MR.strings.url_submission.desc()
+                    ))
+                }
+            }
         }
     }
 }

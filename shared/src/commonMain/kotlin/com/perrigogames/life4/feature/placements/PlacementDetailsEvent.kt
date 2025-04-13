@@ -13,5 +13,7 @@ sealed class PlacementDetailsEvent {
         val ctaAction: PlacementDetailsAction,
     ) : PlacementDetailsEvent()
 
-    data object NavigateToMainScreen : PlacementDetailsEvent()
+    data class NavigateToMainScreen(
+        val submissionUrl: StringDesc? = null,
+    ) : PlacementDetailsEvent()
 }

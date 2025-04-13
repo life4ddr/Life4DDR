@@ -19,6 +19,7 @@ import com.perrigogames.life4.android.feature.firstrun.PlacementListScreen
 import com.perrigogames.life4.android.feature.firstrun.RankListScreen
 import com.perrigogames.life4.android.feature.mainscreen.MainScreen
 import com.perrigogames.life4.android.popAndNavigate
+import com.perrigogames.life4.android.util.openWebUrl
 import com.perrigogames.life4.feature.firstrun.FirstRunDestination
 import com.perrigogames.life4.feature.firstrun.InitState
 import com.perrigogames.life4.feature.ladder.RankListViewModel
@@ -56,7 +57,16 @@ fun NavGraphBuilder.firstRunNavigation(
     ) { backStackEntry ->
         val placementId = backStackEntry.arguments?.getString(FirstRunDestination.PlacementDetails.PLACEMENT_ID)
         if (placementId != null) {
-            PlacementDetailsScreen(placementId = placementId)
+            PlacementDetailsScreen(
+                placementId = placementId,
+                onBackPressed = { navController.popBackStack() },
+                onNavigateToMainScreen = { url ->
+                    navController.popBackStack()
+                    navController.popAndNavigate("main_screen")
+                
+                    url?.let { navController.context.openWebUrl(it) }
+                }
+            )
         } else {
             Box(modifier = Modifier.fillMaxSize()) {
                 Text(

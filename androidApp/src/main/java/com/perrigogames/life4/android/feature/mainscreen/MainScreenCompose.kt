@@ -3,13 +3,16 @@ package com.perrigogames.life4.android.feature.mainscreen
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.automirrored.filled.List
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination.Companion.hierarchy
@@ -17,6 +20,7 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.perrigogames.life4.android.R
 import com.perrigogames.life4.android.navigation.profileNavigation
 import com.perrigogames.life4.feature.profile.MainScreenViewModel
 import com.perrigogames.life4.feature.profile.ProfileDestination
@@ -42,7 +46,14 @@ fun MainScreen(
                 val currentDestination = navBackStackEntry?.destination
                 profileState.tabs.forEach { screen ->
                     NavigationBarItem(
-                        icon = { Icon(Icons.Filled.Favorite, contentDescription = null) },
+                        icon = {
+                            when (screen) {
+                                ProfileDestination.Profile -> Icon(Icons.Filled.Home, contentDescription = null)
+                                ProfileDestination.Scores -> Icon(Icons.AutoMirrored.Filled.List, contentDescription = null)
+                                ProfileDestination.Settings -> Icon(Icons.Filled.Settings, contentDescription = null)
+                                ProfileDestination.Trials -> Icon(painterResource(R.drawable.baseline_emoji_events_24), contentDescription = null)
+                            }
+                        },
                         label = { Text(screen.title) },
                         selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
                         onClick = {

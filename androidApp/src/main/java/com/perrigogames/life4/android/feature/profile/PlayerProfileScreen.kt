@@ -1,7 +1,6 @@
 package com.perrigogames.life4.android.feature.profile
 
 import androidx.activity.compose.BackHandler
-import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -33,9 +32,9 @@ fun PlayerProfileScreen(
     profileViewModel: PlayerProfileViewModel = viewModel(
         factory = createViewModelFactory { PlayerProfileViewModel() }
     ),
-    onAction: (PlayerProfileAction) -> Unit,
+    onBackPressed: () -> Unit = {},
+    onAction: (PlayerProfileAction) -> Unit = {},
 ) {
-    val backDispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher
     val density = LocalDensity.current
     val scope = rememberCoroutineScope()
 
@@ -55,7 +54,7 @@ fun PlayerProfileScreen(
         if (bottomSheetState.isVisible) {
             scope.launch { bottomSheetState.hide() }
         } else {
-            backDispatcher?.onBackPressed()
+            onBackPressed()
         }
     }
 
