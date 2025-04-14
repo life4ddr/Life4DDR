@@ -14,7 +14,7 @@ class FilterPanelViewModel : ViewModel(), KoinComponent {
     val dataState: StateFlow<FilterState> = _state.asStateFlow()
     val uiState: StateFlow<UIFilterView> = _state
         .map {
-            it.toUIFilterView(showPlayStyleSelector = true)
+            it.toUIFilterView(showPlayStyleSelector = false)
         }
         .stateIn(viewModelScope, SharingStarted.Eagerly, UIFilterView())
 

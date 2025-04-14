@@ -63,8 +63,9 @@ class SanbaiManager : BaseModel(), ISanbaiManager {
 
     override suspend fun fetchScores(): Boolean {
         if (requiresAuthorization()) {
-
+            return false
         }
+        bannersManager.setBanner(BANNER_LOADING, BannerLocation.PROFILE, BannerLocation.SCORES)
         try {
             sanbaiAPI.getScores()?.let { scores ->
                 songResultsManager.addScores(scores.map { it.toChartResult() })

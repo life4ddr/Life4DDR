@@ -290,7 +290,6 @@
         {
             "id": "confectionary",
             "name": "Confectionary",
-            "state": "new",
             "type": "trial",
             "songs": [
                 {
@@ -927,7 +926,6 @@
         {
             "id": "storybook",
             "name": "Storybook",
-            "state": "new",
             "type": "trial",
             "songs": [
                 {
@@ -1465,7 +1463,6 @@
         {
             "id": "sidequest",
             "name": "Sidequest",
-            "state": "new",
             "type": "trial",
             "songs": [
                 {
@@ -3057,7 +3054,6 @@
         {
             "id": "dogfight",
             "name": "Dogfight",
-            "state": "new",
             "type": "trial",
             "songs": [
                 {

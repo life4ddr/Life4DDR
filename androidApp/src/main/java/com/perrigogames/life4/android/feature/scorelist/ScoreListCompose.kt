@@ -6,10 +6,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.FloatingActionButton
-import androidx.compose.material3.Icon
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -24,7 +21,9 @@ import com.perrigogames.life4.feature.songresults.ScoreListViewModel
 import com.perrigogames.life4.feature.songresults.UIScore
 import dev.icerock.moko.mvvm.createViewModelFactory
 import dev.icerock.moko.resources.compose.colorResource
+import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ScoreListScreen(
     modifier: Modifier = Modifier,
@@ -34,87 +33,127 @@ fun ScoreListScreen(
     onBackPressed: () -> Unit,
     showSanbaiLogin: (String) -> Unit = {},
 ) {
+    val scope = rememberCoroutineScope()
     val state = viewModel.state.collectAsState()
-    var filterShowing by remember { mutableStateOf(false)}
-    
+
     BackHandler { 
-        if (filterShowing) {
-            filterShowing = false
-        } else {
-            onBackPressed()
-        }
+        onBackPressed()
     }
 
-    Scaffold(
-        modifier = modifier,
-        floatingActionButton = {
-            var isFabExpanded by remember { mutableStateOf(false) }
-            
-            Column {
-                AnimatedVisibility(visible = isFabExpanded) {
-                    Column {
-                        FloatingActionButton(
-                            onClick = {
-                                filterShowing = true
-                                isFabExpanded = false
-                            },
-                        ) {
-                            Icon(
-                                painterResource(R.drawable.filter_list_24px),
-                                contentDescription = "Change Filters"
-                            )
-                        }
-                        SizedSpacer(8.dp)
-                        FloatingActionButton(
-                            onClick = {
-                                val authUrl = viewModel.getSanbaiUrl()
-                                showSanbaiLogin(authUrl)
-                                isFabExpanded = false
-                            },
-                        ) {
-                            Icon(
-                                painterResource(R.drawable.sync_24px),
-                                contentDescription = "Sync Sanbai Scores"
-                            )
-                        }
-                        SizedSpacer(24.dp)
+    val scaffoldState = rememberBottomSheetScaffoldState(
+        bottomSheetState = rememberStandardBottomSheetState(
+            initialValue = SheetValue.Hidden,
+            skipHiddenState = false,
+        )
+    )
+
+    BottomSheetScaffold(
+        scaffoldState = scaffoldState,
+        sheetPeekHeight = 0.dp,
+        sheetContent = {
+            if (scaffoldState.bottomSheetState.currentValue == SheetValue.Expanded) {
+                BackHandler {
+                    scope.launch {
+                        scaffoldState.bottomSheetState.hide()
                     }
                 }
-
-                FloatingActionButton(
-                    onClick = { isFabExpanded = !isFabExpanded },
-                ) {
-                    Icon(
-                        painterResource(if (isFabExpanded) R.drawable.close_24px else R.drawable.more_vert_24px),
-                        contentDescription = if (isFabExpanded) "Close" else "Expand"
-                    )
+            }
+            FilterPane(
+                data = state.value.filter,
+                modifier = Modifier
+                    .padding(horizontal = 32.dp)
+                    .padding(bottom = 32.dp),
+                onAction = { viewModel.handleFilterAction(it) }
+            )
+        },
+        modifier = modifier,
+    ) { outterPadding ->
+        Scaffold(
+            modifier = Modifier.padding(outterPadding),
+            floatingActionButton = {
+                SongListFloatingActionButtons(
+                    onFilterPressed = {
+                        scope.launch {
+                            scaffoldState.bottomSheetState.expand()
+                        }
+                    },
+                    onSyncScoresPressed = {
+                        scope.launch {
+                            if (!viewModel.refreshSanbaiScores()) {
+                                val authUrl = viewModel.getSanbaiUrl()
+                                showSanbaiLogin(authUrl)
+                            }
+                        }
+                    }
+                )
+            },
+            topBar = {
+                Column(modifier = Modifier.fillMaxWidth()) {
+                    BannerContainer(state.value.banner)
                 }
             }
-        },
-        topBar = {
-            Column(modifier = Modifier.fillMaxWidth()) {
-                BannerContainer(state.value.banner)
+        ) { paddingValues ->
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(paddingValues)
+            ) {
+                LazyColumn(modifier = Modifier.weight(1f)) {
+                    items(state.value.scores) {
+                        ScoreEntry(it)
+                    }
+                }
             }
         }
-    ) { paddingValues ->
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues)
-        ) {
-            if (filterShowing) {
-                FilterPane(
-                    data = state.value.filter,
-                    modifier = Modifier.padding(horizontal = 32.dp),
-                    onAction = { viewModel.handleFilterAction(it) }
-                )
-                SizedSpacer(16.dp)
-            }
-            LazyColumn(modifier = Modifier.weight(1f)) {
-                items(state.value.scores) {
-                    ScoreEntry(it)
+    }
+}
+
+@Composable
+private fun SongListFloatingActionButtons(
+    onFilterPressed: () -> Unit,
+    onSyncScoresPressed: () -> Unit,
+) {
+    var isFabExpanded by remember { mutableStateOf(false) }
+
+    Column(
+        horizontalAlignment = Alignment.End,
+    ) {
+        AnimatedVisibility(visible = isFabExpanded) {
+            Column {
+                SmallFloatingActionButton(
+                    onClick = {
+                        onFilterPressed()
+                        isFabExpanded = false
+                    },
+                ) {
+                    Icon(
+                        painterResource(R.drawable.filter_list_24px),
+                        contentDescription = "Change Filters"
+                    )
                 }
+                SizedSpacer(8.dp)
+                SmallFloatingActionButton(
+                    onClick = {
+                        onSyncScoresPressed()
+                        isFabExpanded = false
+                    },
+                ) {
+                    Icon(
+                        painterResource(R.drawable.sync_24px),
+                        contentDescription = "Sync Sanbai Scores"
+                    )
+                }
+                SizedSpacer(8.dp)
             }
+        }
+
+        FloatingActionButton(
+            onClick = { isFabExpanded = !isFabExpanded },
+        ) {
+            Icon(
+                painterResource(if (isFabExpanded) R.drawable.close_24px else R.drawable.more_vert_24px),
+                contentDescription = if (isFabExpanded) "Close" else "Expand"
+            )
         }
     }
 }

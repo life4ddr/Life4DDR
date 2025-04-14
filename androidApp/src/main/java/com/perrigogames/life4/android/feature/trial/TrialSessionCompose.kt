@@ -55,39 +55,39 @@ fun TrialSession(
             skipHiddenState = false,
         )
     )
-//    LaunchedEffect(bottomSheetState) {
-//        if (bottomSheetState != null) {
-//            scaffoldState.bottomSheetState.expand()
-//        } else {
-//            focusManager.clearFocus()
-//            scaffoldState.bottomSheetState.hide()
-//        }
-//    }
+    LaunchedEffect(bottomSheetState) {
+        if (bottomSheetState != null) {
+            scaffoldState.bottomSheetState.expand()
+        } else {
+            focusManager.clearFocus()
+            scaffoldState.bottomSheetState.hide()
+        }
+    }
+
+    BackHandler {
+        onClose()
+    }
 
     when (val viewData = viewState) {
         ViewState.Loading -> {
             Text("Loading...")
         }
         is ViewState.Success<UITrialSession> -> {
-            BackHandler {
-                if (scaffoldState.bottomSheetState.currentValue != SheetValue.Hidden) {
-                    coroutineScope.launch {
-                        bottomSheetState?.onDismissAction?.let {
-                            viewModel.handleAction(it)
-                        }
-                    }
-                } else {
-                    onClose()
-                }
-            }
-
             BottomSheetScaffold(
                 scaffoldState = scaffoldState,
                 modifier = modifier,
                 sheetPeekHeight = 0.dp,
                 sheetContent = {
+                    fun sendBottomSheetAction() {
+                        coroutineScope.launch {
+                            bottomSheetState?.onDismissAction?.let {
+                                viewModel.handleAction(it)
+                            }
+                        }
+                    }
                     when (val state = bottomSheetState) {
                         is UITrialBottomSheet.ImageCapture -> {
+                            BackHandler { sendBottomSheetAction() }
                             CameraBottomSheetContent(
                                 onPhotoTaken = { uri ->
                                     viewModel.handleAction(state.createResultAction(uri.toString()))
@@ -95,6 +95,7 @@ fun TrialSession(
                             )
                         }
                         is UITrialBottomSheet.Details -> {
+                            BackHandler { sendBottomSheetAction() }
                             SongEntryBottomSheetContent(
                                 viewData = state,
                                 onAction = {

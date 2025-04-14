@@ -80,6 +80,13 @@ class ScoreListViewModel: ViewModel(), KoinComponent {
     fun requiresAuthorization() = sanbaiManager.requiresAuthorization()
 
     fun getSanbaiUrl() = sanbaiAPI.getAuthorizeUrl()
+
+    /**
+     * @return [true] if the scores are able to be fetched, [false] if the user needs to reauth
+     */
+    suspend fun refreshSanbaiScores(): Boolean {
+        return sanbaiManager.fetchScores()
+    }
 }
 
 data class UIScoreList(
