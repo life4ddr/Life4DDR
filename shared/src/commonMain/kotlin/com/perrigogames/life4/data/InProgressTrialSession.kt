@@ -109,7 +109,7 @@ data class InProgressTrialSession(
 
     /** Calculates the current total EX the player has obtained for this session */
     private val currentTotalExScore: Int
-        get() = results.filterNotNull().sumOf { it.exScore!! }
+        get() = results.filterNotNull().sumOf { it.exScore ?: 0 }
 
     /** Calculates the highest EX that a player could obtain on the songs that have been currently completed */
     private val currentMaxExScore: Int

@@ -77,7 +77,7 @@ class SongDataManager: BaseModel() {
                 skillId = item.songId,
                 title = item.songName,
                 artist = artists[item.songId] ?: "Unknown Artist",
-                version = GameVersion.entries[item.versionNum - 1],
+                version = GameVersion.entries[item.versionNum],
                 preview = false, // FIXME
                 deleted = item.deleted == 1
             )

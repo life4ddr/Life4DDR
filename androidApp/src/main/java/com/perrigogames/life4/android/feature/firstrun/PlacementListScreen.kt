@@ -65,7 +65,7 @@ fun PlacementListScreen(
     val data by viewModel.screenData.collectAsState()
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = modifier
+        modifier = modifier.padding(horizontal = 16.dp)
     ) {
         Text(
             text = data.titleText.toString(context = context),
@@ -78,7 +78,7 @@ fun PlacementListScreen(
         SizedSpacer(16.dp)
         LazyColumn(
             horizontalAlignment = Alignment.CenterHorizontally,
-            contentPadding = PaddingValues(start = 16.dp, end = 16.dp, bottom = 16.dp),
+            contentPadding = PaddingValues(bottom = 16.dp),
             modifier = Modifier.weight(1f)
         ) {
             item {
@@ -114,6 +114,7 @@ fun PlacementListScreen(
         SizedSpacer(Paddings.LARGE)
 
         Button(
+            modifier = Modifier.fillMaxWidth(),
             onClick = {
                 viewModel.setFirstRunState(InitState.RANKS)
                 onRanksClicked()
