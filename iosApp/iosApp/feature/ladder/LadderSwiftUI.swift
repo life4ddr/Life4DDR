@@ -51,7 +51,7 @@ struct CategorizedList: View {
     var body: some View {
         ForEach(goals.categories, id: \.self) { category in
             HStack {
-                Text((category.first?.title.localized())!)
+                Text((category.first?.title?.localized())!)
                 Spacer()
                 if (category.first?.goalText != nil) {
                     Text((category.first?.goalText?.localized())!)
@@ -192,6 +192,6 @@ struct PreviewGoalItem: View {
 
 struct LadderGoalItemDetail_Previews: PreviewProvider {
     static var previews: some View {
-        PreviewGoalItem(goal: createUILadderGoal(goalText: "Clear any 10 L5's.", progress: UILadderProgress(count: 7, max: 10, showMax: true), detailItems: detailItems))
+        PreviewGoalItem(goal: createUILadderGoal(goalText: "Clear any 10 L5's.", progress: UILadderProgress(count: 7, max: 10, showMax: true, showProgressBar: true), detailItems: detailItems))
     }
 }

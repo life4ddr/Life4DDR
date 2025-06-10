@@ -18,7 +18,8 @@ struct iOSApp: App {
         _ = DefaultMotdManager()
         _ = PlacementManager()
         _ = SongDataManager()
-        _ = TrialManager()
+        _ = TrialRecordsManager()
+        _ = TrialDataManager()
         _ = DefaultMotdSettings()
         _ = SanbaiAPIImpl()
         _ = SanbaiAPISettings()
@@ -161,10 +162,6 @@ struct MainView: View {
 @available(iOS 16.0, *)
 var nativeModule: Koin_coreModule = KoinKt.makeNativeModule(
   appInfo: IosAppInfo(),
-  ignoresReader: iosDataReader(
-    fileResource: MR.files().ignore_lists,
-    cachedFileName: GithubDataAPICompanion().IGNORES_FILE_NAME
-  ),
   motdReader: iosDataReader(
     fileResource: MR.files().motd,
     cachedFileName: GithubDataAPICompanion().MOTD_FILE_NAME
