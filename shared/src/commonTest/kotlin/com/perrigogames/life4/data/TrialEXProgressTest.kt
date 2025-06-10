@@ -1,5 +1,6 @@
 package com.perrigogames.life4.data
 
+import com.perrigogames.life4.feature.trials.data.TrialEXProgress
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
