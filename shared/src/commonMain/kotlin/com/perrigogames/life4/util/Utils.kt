@@ -8,9 +8,10 @@ fun <T> List<T>.split(matchBlock: (T) -> Boolean): Pair<List<T>, List<T>> {
 }
 
 fun Double.toStringWithoutDecimal(): String {
+    val intString = this.toInt().toString()
     return if (this % 1.0 == 0.0) {
-        this.toInt().toString()
+        intString
     } else {
-        "%.3f".format(this)
+        this.toString().padEnd(intString.length + 4, '0')
     }
 }

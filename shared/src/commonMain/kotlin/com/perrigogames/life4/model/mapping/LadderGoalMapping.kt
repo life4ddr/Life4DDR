@@ -48,7 +48,7 @@ class LadderGoalMapper : KoinComponent {
                 progress.results?.map { result ->
                     val isMFC = base is StackedRankGoalWrapper && base.mainGoal is MAPointsStackedGoal
                     val rightText = if (isMFC) {
-                        "L%d > %.3f".format(result.chart.difficultyNumber, result.maPointsForDifficulty())
+                        "L${result.chart.difficultyNumber} > ${result.maPointsForDifficulty()}"
                     } else {
                         (result.result?.score ?: 0).toInt().longNumberString()
                     }
