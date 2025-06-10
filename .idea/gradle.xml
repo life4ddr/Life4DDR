@@ -14,15 +14,6 @@
           </set>
         </option>
       </GradleProjectSettings>
-      <GradleProjectSettings>
-        <option name="externalProjectPath" value="$PROJECT_DIR$/TrialsRelay" />
-        <option name="gradleJvm" value="jbr-17" />
-        <option name="modules">
-          <set>
-            <option value="$PROJECT_DIR$/TrialsRelay" />
-          </set>
-        </option>
-      </GradleProjectSettings>
     </option>
   </component>
 </project>
