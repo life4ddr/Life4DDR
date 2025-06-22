@@ -18,6 +18,7 @@ import com.perrigogames.life4.feature.firstrun.FirstRunSettingsManager
 import com.perrigogames.life4.feature.ladder.LadderGoalProgressManager
 import com.perrigogames.life4.feature.motd.*
 import com.perrigogames.life4.feature.placements.PlacementManager
+import com.perrigogames.life4.feature.profile.DefaultUserRankManager
 import com.perrigogames.life4.feature.profile.UserRankManager
 import com.perrigogames.life4.feature.sanbai.ISanbaiAPISettings
 import com.perrigogames.life4.feature.sanbai.ISanbaiManager
@@ -27,11 +28,14 @@ import com.perrigogames.life4.feature.settings.LadderListSelectionSettings
 import com.perrigogames.life4.feature.settings.SettingsPageProvider
 import com.perrigogames.life4.feature.settings.UserInfoSettings
 import com.perrigogames.life4.feature.settings.UserRankSettings
+import com.perrigogames.life4.feature.songlist.DefaultSongDataManager
 import com.perrigogames.life4.feature.songlist.SongDataManager
 import com.perrigogames.life4.feature.songresults.ChartResultOrganizer
 import com.perrigogames.life4.feature.songresults.SongResultSettings
 import com.perrigogames.life4.feature.songresults.SongResultsManager
 import com.perrigogames.life4.feature.trials.data.TrialDatabaseHelper
+import com.perrigogames.life4.feature.trials.manager.DefaultTrialDataManager
+import com.perrigogames.life4.feature.trials.manager.DefaultTrialRecordsManager
 import com.perrigogames.life4.feature.trials.manager.TrialRecordsManager
 import com.perrigogames.life4.feature.trials.manager.TrialDataManager
 import com.perrigogames.life4.ktor.*
@@ -84,9 +88,9 @@ val coreModule = module {
     single { LadderDataManager() }
     single { SongResultsManager() }
     single { LadderGoalProgressManager() }
-    single { TrialDataManager() }
-    single { TrialRecordsManager() }
-    single { SongDataManager() }
+    single<TrialDataManager> { DefaultTrialDataManager() }
+    single<TrialRecordsManager> { DefaultTrialRecordsManager() }
+    single<SongDataManager> { DefaultSongDataManager() }
     single { ChartResultOrganizer() }
     single { UserInfoSettings() }
     single { FirstRunSettingsManager() }
@@ -94,7 +98,7 @@ val coreModule = module {
     single { UserRankSettings() }
     single { LadderListSelectionSettings() }
     single { SettingsPageProvider() }
-    single { UserRankManager() }
+    single<UserRankManager> { DefaultUserRankManager() }
     single { GoalStateManager() }
     single { LadderGoalMapper() }
     single<IDeeplinkManager> { DeeplinkManager() }

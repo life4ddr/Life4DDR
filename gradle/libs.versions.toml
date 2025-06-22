@@ -31,6 +31,8 @@ androidx-camera = "1.4.1"
 androidx-datastore = "1.0.0"
 
 junit = "4.13.2"
+ksp = "2.1.21-2.0.1"
+mockmp = "2.0.2"
 
 coroutines = "1.7.3"
 kotlinx-datetime = "0.4.0"
@@ -170,6 +172,8 @@ kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", versio
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint-gradle" }
 sqlDelight = { id = "com.squareup.sqldelight", version.ref = "sqlDelight" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+mockmp = { id = "org.kodein.mock.mockmp", version.ref = "mockmp" }
 
 [bundles]
 app-ui = [

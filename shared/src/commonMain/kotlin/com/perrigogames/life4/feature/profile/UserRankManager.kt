@@ -12,25 +12,35 @@ import org.koin.core.component.inject
 /**
  * Manager class that deals with the current user's rank information.
  */
-class UserRankManager : BaseModel() {
+interface UserRankManager {
+    val rank: StateFlow<LadderRank?>
+
+    val targetRank: StateFlow<LadderRank?>
+
+    fun setUserRank(rank: LadderRank?)
+
+    fun setUserTargetRank(rank: LadderRank?)
+}
+
+class DefaultUserRankManager : BaseModel(), UserRankManager {
 
     private val ladderSettings: UserRankSettings by inject()
     private val logger: Logger by injectLogger("UserRankManager")
 
-    val rank: StateFlow<LadderRank?> = ladderSettings.rank
+    override val rank: StateFlow<LadderRank?> = ladderSettings.rank
         .onEach { logger.v { "RANK: $it" } }
         .stateIn(mainScope, started = SharingStarted.Lazily, initialValue = null)
 
-    val targetRank: StateFlow<LadderRank?> = ladderSettings.targetRank
+    override val targetRank: StateFlow<LadderRank?> = ladderSettings.targetRank
         .onEach { logger.v { "TARGET RANK: $it" } }
         .stateIn(mainScope, started = SharingStarted.Lazily, initialValue = null)
 
-    fun setUserRank(rank: LadderRank?) {
+    override fun setUserRank(rank: LadderRank?) {
         ladderSettings.setRank(rank)
         ladderSettings.setTargetRank(rank.nullableNext)
     }
 
-    fun setUserTargetRank(rank: LadderRank?) {
+    override fun setUserTargetRank(rank: LadderRank?) {
         ladderSettings.setTargetRank(rank)
     }
 }

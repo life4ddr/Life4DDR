@@ -61,37 +61,46 @@ class TrialSessionViewModel(trialId: String) : KoinComponent, ViewModel() {
     val events: SharedFlow<TrialSessionEvent> = _events.asSharedFlow()
 
     private val stage = MutableStateFlow<Int?>(null)
-    private val inProgressSessionFlow = MutableStateFlow<InProgressTrialSession?>(null)
-    private val inProgressSession get() = inProgressSessionFlow.value!!
+    private val inProgressSessionFlow = MutableStateFlow<InProgressTrialSession>(InProgressTrialSession(trial))
+    private val inProgressSession get() = inProgressSessionFlow.value
 
     private val songEntryViewModel = MutableStateFlow<SongEntryViewModel?>(null)
 
     init {
-        viewModelScope.launch { // recreate the in progress session when necessary
-            targetRank.map { targetRank ->
-                InProgressTrialSession(
-                    trial = trial,
-                    targetRank = targetRank,
-                )
-            }.collect(inProgressSessionFlow)
-        }
-
         viewModelScope.launch {
             targetRank.collect { target ->
                 val trial = trialDataManager.trialsFlow.value
                     .firstOrNull { it.id == trialId }
                     ?: return@collect
                 val current = (_state.value as? ViewState.Success)?.data ?: return@collect
-                if (current.targetRank is UITargetRank.Selection && current.targetRank.rank != target) {
-                    _state.value = current.copy(
-                        targetRank = current.targetRank.copy(
-                            rank = target,
-                            title = target.nameRes.desc(),
-                            titleColor = target.colorRes.asColorDesc(),
-                            availableRanks = current.targetRank.availableRanks,
-                            rankGoalItems = TrialGoalStrings.generateGoalStrings(trial.goalSet(target)!!, trial)
+                if (current.targetRank.rank != target) {
+                    _state.value = when (val curr = current.targetRank) {
+                        is UITargetRank.Selection -> current.copy(
+                            targetRank = curr.copy(
+                                rank = target,
+                                title = target.nameRes.desc(),
+                                titleColor = target.colorRes.asColorDesc(),
+                                availableRanks = curr.availableRanks,
+                                rankGoalItems = TrialGoalStrings.generateGoalStrings(trial.goalSet(target)!!, trial)
+                            )
                         )
-                    ).toViewState()
+                        is UITargetRank.InProgress -> current.copy(
+                            targetRank = curr.copy(
+                                rank = target,
+                                title = target.nameRes.desc(),
+                                titleColor = target.colorRes.asColorDesc(),
+                                rankGoalItems = TrialGoalStrings.generateGoalStrings(trial.goalSet(target)!!, trial)
+                            )
+                        )
+                        is UITargetRank.Achieved -> current.copy(
+                            targetRank = curr.copy(
+                                rank = target,
+                                title = target.nameRes.desc(),
+                                titleColor = target.colorRes.asColorDesc(),
+                            )
+                        )
+                        else -> throw Exception("Not allowed to change rank for state type ${curr::class.simpleName}")
+                    }.toViewState()
                 }
             }
         }
@@ -101,6 +110,7 @@ class TrialSessionViewModel(trialId: String) : KoinComponent, ViewModel() {
                 inProgressSessionFlow.filterNotNull(),
                 stage.filterNotNull(),
             ) { session, stage ->
+                println("Creating stage $stage")
                 val complete = stage >= 4
                 val current = (_state.value as? ViewState.Success)?.data ?: return@combine
                 val targetRank = when (val target = current.targetRank) {
@@ -191,7 +201,7 @@ class TrialSessionViewModel(trialId: String) : KoinComponent, ViewModel() {
 
             is TrialSessionAction.PhotoTaken -> {
                 inProgressSessionFlow.update { session ->
-                    session?.createOrUpdateSongResult(action.index, action.photoUri)
+                    session.createOrUpdateSongResult(action.index, action.photoUri)
                 }
                 showSongEntry(
                     index = action.index,
@@ -203,13 +213,13 @@ class TrialSessionViewModel(trialId: String) : KoinComponent, ViewModel() {
             is TrialSessionAction.ResultsPhotoTaken -> {
                 viewModelScope.launch {
                     inProgressSessionFlow.update { session ->
-                        session?.copy(
+                        session.copy(
                             finalPhotoUriString = action.photoUri
                         )
                     }
                     // TODO acquire the images and upload them to the API
                     inProgressSession.goalObtained = true // FIXME
-                    trialRecordsManager.saveSession(inProgressSession)
+                    trialRecordsManager.saveSession(inProgressSession, targetRank.value)
                     _events.emit(TrialSessionEvent.Close)
                 }
             }
@@ -290,9 +300,10 @@ class TrialSessionViewModel(trialId: String) : KoinComponent, ViewModel() {
         var currIdx = (trial.goals?.size ?: return) - 1
         fun currRank() = trial.goals[currIdx].rank
 
-        while (!inProgressSession.isRankSatisfied(currRank())) {
+        while (inProgressSession.isRankSatisfied(currRank()) == false) {
             currIdx--
         }
+        println("Rank changing from ${targetRank.value} to ${currRank()}")
         targetRank.value = currRank()
     }
 }

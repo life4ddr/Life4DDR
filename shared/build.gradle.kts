@@ -5,15 +5,18 @@ plugins {
     alias(libs.plugins.kotlinSerialization)
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.sqlDelight)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.mockmp)
     id("dev.icerock.mobile.multiplatform-resources")
     id("dev.icerock.moko.kswift")
 }
 
 kotlin {
+    jvmToolchain(17)
     androidTarget {
         compilations.all {
             kotlinOptions {
-                jvmTarget = "1.8"
+                jvmTarget = "17"
             }
         }
     }
@@ -62,6 +65,7 @@ kotlin {
         commonTest.dependencies {
             implementation(libs.kotlin.test)
             implementation(libs.moko.resources.test)
+            implementation(libs.bundles.shared.commonTest)
         }
         androidMain.dependencies {
             implementation(libs.androidx.lifecycle.viewmodel)
@@ -100,6 +104,12 @@ sqldelight {
     database("Life4Db") {
         packageName = "com.perrigogames.life4"
         dialect = "sqlite:3.24"
+    }
+}
+
+mockmp {
+    onTest {
+        withHelper()
     }
 }
 

@@ -14,7 +14,6 @@ import kotlinx.serialization.Transient
 @Serializable
 data class InProgressTrialSession(
     val trial: Trial,
-    val targetRank: TrialRank,
     val results: Array<SongResult?> = arrayOfNulls(trial.songs.size),
     val finalPhotoUriString: String? = null,
 ) {
@@ -25,16 +24,6 @@ data class InProgressTrialSession(
         get() = results.filterNotNull().any { it.score != null }
 
     fun hasResult(index: Int): Boolean = results[index] != null
-
-    val hasFinalPhoto: Boolean
-        get() = finalPhotoUriString != null
-
-    val availableRanks: Array<TrialRank>
-        get() = trial.goals?.map { it.rank }?.toTypedArray() ?: emptyArray()
-
-    val shouldShowAdvancedSongDetails: Boolean
-        get() = (if (!hasStarted) trial.highestGoal() else trialGoalSet)
-            ?.let { it.miss != null || it.judge != null } ?: false
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -64,9 +53,6 @@ data class InProgressTrialSession(
                 )
         }
     )
-
-    val trialGoalSet: TrialGoalSet?
-        get() = trial.goalSet(targetRank)
 
     /**
      * Calculates the number of combined misses in the current session.
@@ -119,61 +105,74 @@ data class InProgressTrialSession(
 
     /** Calculates the amount of EX that is missing, which only counts the songs that have been completed */
     private val missingExScore: Int
-        get() = currentMaxExScore - currentTotalExScore
-
-    val highestPossibleRank: TrialRank?
-        get() {
-            val availableRanks = trial.goals?.map { it.rank }?.sortedBy { it.stableId }
-            return availableRanks?.lastOrNull { isRankSatisfied(it) }
-        }
-
-    fun isRankSatisfied(rank: TrialRank): Boolean {
-        var satisfied = true
-        val goal = trial.goalSet(rank) ?: return false
-        if (goal.exMissing != null) {
-            satisfied = (missingExScore <= goal.exMissing)
-        }
-        if (satisfied && goal.judge != null) {
-            satisfied = currentBadJudgments <= goal.judge
-        }
-        if (satisfied && goal.miss != null) {
-            satisfied = currentMisses <= goal.miss
-        }
-        if (satisfied && goal.missEach != null) {
-            satisfied = currentMisses <= goal.missEach
-        }
-
-        val scores = results.map { it?.score }
-        if (satisfied && goal.score != null && !goal.score.hasCascade(scores.filterNotNull())) {
-            satisfied = false
-        }
-        if (satisfied && goal.scoreIndexed != null) {
-            scores.forEachIndexed { idx, score ->
-                if (score != null && score < goal.scoreIndexed[idx]) {
-                    return false
-                }
+        get() = results
+            .mapIndexed { idx, result -> idx to result }
+            .sumOf { (idx, result) ->
+                val songEx = trial.songs[idx].ex
+                result?.let { songEx - (it.exScore ?: 0) } ?: 0
             }
-        }
 
+    /**
+     * Checks to see if the specified [TrialRank] goals would be satisfied under the current conditions.
+     * Returns true or false if it can reliably be concluded that the requirements are or are not met, or
+     * null if there's not enough information to make the determination.
+     */
+    fun isRankSatisfied(rank: TrialRank): Boolean? {
+        val goal = trial.goalSet(rank) ?: return false
+        val scores = results.map { it?.score }
         val clears = results.map { it?.clearType?.stableId?.toInt() }
 
-        // No clear requirements, just make sure everything is a pass
-        if (satisfied && goal.clear == null && goal.clearIndexed == null) {
-            satisfied = clears.none { it == FAIL.stableId.toInt() }
-        }
+        fun exMissingSatisfied(): Boolean = goal.exMissing?.let { missingExScore <= it } ?: true
 
-        if (satisfied && goal.clear != null && !goal.clear.map { it.stableId.toInt() }.hasCascade(clears.filterNotNull())) {
-            satisfied = false
-        }
-        if (satisfied && goal.clearIndexed != null) {
-            clears.forEachIndexed { idx, clear ->
-                if (clear != null && clear < goal.clearIndexed[idx].stableId) {
-                    return false
-                }
+        fun judgeMissingSatisfied(): Boolean? = goal.judge?.let { currentBadJudgments <= it } ?: true
+
+        fun missTotalSatisfied(): Boolean? = goal.miss?.let { currentMisses <= it } ?: true
+
+        fun missEachSatisfied(): Boolean? = goal.missEach?.let { currentMisses <= it } ?: true // FIXME check individual songs
+
+        fun scoresSatisfied(): Boolean? = goal.score?.let { it.hasCascade(scores.filterNotNull()) } ?: true
+
+        fun scoresIndexedSatisfied(): Boolean? = goal.scoreIndexed?.let { target ->
+            scores.mapIndexed { idx, score ->
+                score?.let { it < target[idx] }
+            }.minimumResult()
+        } ?: true
+
+        fun clearsSatisfied(): Boolean? = goal.clear
+            ?.map { it.stableId.toInt() }
+            ?.let { it.hasCascade(clears.filterNotNull()) }
+            ?: true
+
+        fun clearsIndexedSatisfied(): Boolean? = goal.clearIndexed?.let { g ->
+            clears.mapIndexed { idx, clear ->
+                clear != null && clear < g[idx].stableId
+            }.minimumResult()
+        } ?: true
+
+        return listOf(
+            "EX Missing" to exMissingSatisfied(),
+            "Bad Judgments" to judgeMissingSatisfied(),
+            "Misses" to missTotalSatisfied(),
+            "Miss Each" to missEachSatisfied(),
+            "Scores" to scoresSatisfied(),
+            "Score Idx" to scoresIndexedSatisfied(),
+            "Clears" to clearsSatisfied(),
+            "Clear Idx" to clearsIndexedSatisfied(),
+        ).map { (name, result) ->
+            when (result) {
+                false -> println("$name not satisfied for ${rank.name}")
+                null -> println("$name unknown for ${rank.name}")
+                else -> {}
             }
-        }
-        return satisfied
+            result
+        }.minimumResult()
     }
+}
+
+fun List<Boolean?>.minimumResult(): Boolean? = when {
+    this.any { it == false } -> false
+    this.any { it == null } -> null
+    else -> true
 }
 
 @Serializable
@@ -202,14 +201,14 @@ data class SongResult(
             badJudges == 0 -> PERFECT_FULL_COMBO
             misses != null -> when {
                 misses == 0 -> GREAT_FULL_COMBO
-                misses!! < 4 -> LIFE4_CLEAR
+                misses < 4 -> LIFE4_CLEAR
                 else -> CLEAR
             }
             else -> CLEAR
         }
         misses != null -> when {
             misses == 0 -> GREAT_FULL_COMBO
-            misses!! < 4 -> LIFE4_CLEAR
+            misses < 4 -> LIFE4_CLEAR
             else -> CLEAR
         }
         else -> CLEAR

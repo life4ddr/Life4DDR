@@ -20,7 +20,15 @@ import org.koin.core.component.inject
  * - the current Trial in progress (the 'session')
  * - records for Trials the player has previously completed ('records')
  */
-class TrialDataManager: BaseModel() {
+interface TrialDataManager {
+    val trialsFlow: StateFlow<List<Trial>>
+    val dataVersionString: Flow<String>
+    val trials: List<Trial>
+    val hasEventTrial: Boolean
+    fun findTrial(id: String): Trial?
+}
+
+class DefaultTrialDataManager: BaseModel(), TrialDataManager {
 
     private val appInfo: AppInfo by inject()
     private val settings: Settings by inject()
@@ -29,14 +37,14 @@ class TrialDataManager: BaseModel() {
 
     private var data = TrialRemoteData()
 
-    val dataVersionString: Flow<String> =
+    override val dataVersionString: Flow<String> =
         data.versionState.map { it.versionString }
 
-    val trials get() = trialsFlow.value
-    val hasEventTrial get() = trials.count { it.isActiveEvent } > 0
+    override val trials get() = trialsFlow.value
+    override val hasEventTrial get() = trials.count { it.isActiveEvent } > 0
 
     private val _trialsFlow = MutableStateFlow<List<Trial>>(emptyList()).cMutableStateFlow()
-    val trialsFlow: StateFlow<List<Trial>> = _trialsFlow
+    override val trialsFlow: StateFlow<List<Trial>> = _trialsFlow
 
     init {
         validateTrials()
@@ -72,5 +80,5 @@ class TrialDataManager: BaseModel() {
         }
     }
 
-    fun findTrial(id: String) = trials.firstOrNull { it.id == id }
+    override fun findTrial(id: String) = trials.firstOrNull { it.id == id }
 }

@@ -22,16 +22,25 @@ import org.koin.core.component.inject
 /**
  * A Manager class that keeps track of the available songs
  */
-class SongDataManager: BaseModel() {
+interface SongDataManager {
+    val dataVersionString: Flow<String>
+    val libraryFlow: CStateFlow<SongLibrary>
+
+    fun getSong(skillId: String): Song?
+    fun getChart(skillId: String, playStyle: PlayStyle, difficultyClass: DifficultyClass): Chart?
+    suspend fun parseSanbaiSongData(data: List<SanbaiSongListResponseItem>)
+}
+
+class DefaultSongDataManager: BaseModel(), SongDataManager {
 
     private val data: SongListRemoteData by inject()
     private val logger: Logger by injectLogger("SongDataManager")
 
-    val dataVersionString: Flow<String> =
+    override val dataVersionString: Flow<String> =
         data.versionState.map { it.versionString }
 
     private val _libraryFlow = MutableStateFlow(SongLibrary())
-    val libraryFlow: CStateFlow<SongLibrary> = _libraryFlow.cStateFlow()
+    override val libraryFlow: CStateFlow<SongLibrary> = _libraryFlow.cStateFlow()
 
     init {
         mainScope.launch {
@@ -45,11 +54,11 @@ class SongDataManager: BaseModel() {
         }
     }
 
-    fun getSong(skillId: String): Song? {
+    override fun getSong(skillId: String): Song? {
         return libraryFlow.value.songs.keys.firstOrNull { it.skillId == skillId }
     }
 
-    fun getChart(
+    override fun getChart(
         skillId: String,
         playStyle: PlayStyle,
         difficultyClass: DifficultyClass,
@@ -67,7 +76,7 @@ class SongDataManager: BaseModel() {
         return chart
     }
 
-    suspend fun parseSanbaiSongData(data: List<SanbaiSongListResponseItem>) = try {
+    override suspend fun parseSanbaiSongData(data: List<SanbaiSongListResponseItem>) = try {
         val artists = _libraryFlow.value.songs.keys.map { it.skillId to it.artist }.toMap()
 
         val songs = mutableMapOf<Song, List<Chart>>()

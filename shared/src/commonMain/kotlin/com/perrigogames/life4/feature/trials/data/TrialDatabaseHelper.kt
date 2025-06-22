@@ -22,12 +22,13 @@ class TrialDatabaseHelper(sqlDriver: SqlDriver): DatabaseHelper(sqlDriver) {
 
     suspend fun insertSession(
         session: InProgressTrialSession,
+        targetRank: TrialRank,
         datetime: Instant? = null
     ) = withContext(Dispatchers.Default) {
         queries.insertSession(null,
             session.trial.id,
             (datetime ?: Clock.System.now()).toString(),
-            session.targetRank!!,
+            targetRank,
             session.goalObtained)
         val sId = queries.lastInsertRowId().executeAsOne()
         dbRef.transaction {
