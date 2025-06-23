@@ -96,8 +96,6 @@ class InProgressTrialSessionTest {
         var subject = createTestTrialSession(
             goal = TrialGoalSet(CONDITION_TEST_RANK, exMissing = 250),
         )
-
-        // Empty list
         assertEquals(true, subject.isRankSatisfied(CONDITION_TEST_RANK))
 
         // Perfect 1st song
@@ -122,8 +120,6 @@ class InProgressTrialSessionTest {
         var subject = createTestTrialSession(
             goal = TrialGoalSet(CONDITION_TEST_RANK, judge = 10, miss = 5),
         )
-
-        // Empty list
         assertEquals(true, subject.isRankSatisfied(CONDITION_TEST_RANK))
 
         // Perfect 1st song
@@ -154,8 +150,6 @@ class InProgressTrialSessionTest {
         var subject = createTestTrialSession(
             goal = TrialGoalSet(CONDITION_TEST_RANK, missEach = 5),
         )
-
-        // Empty list
         assertEquals(true, subject.isRankSatisfied(CONDITION_TEST_RANK))
 
         // Perfect 1st song
@@ -179,7 +173,135 @@ class InProgressTrialSessionTest {
         assertEquals(false, subject.isRankSatisfied(CONDITION_TEST_RANK))
     }
 
-    //            "Scores" to scoresSatisfied(),
+    @Test
+    fun `Satisfied Conditions - Scores, top down`() {
+        var subject = createTestTrialSession(
+            goal = TrialGoalSet(CONDITION_TEST_RANK, score = listOf(900, 900, 850, 800)),
+        )
+        assertEquals(true, subject.isRankSatisfied(CONDITION_TEST_RANK))
+
+        subject.setTestSongResult(0, score = 900)
+        assertEquals(true, subject.isRankSatisfied(CONDITION_TEST_RANK))
+        subject.setTestSongResult(1, score = 900)
+        assertEquals(true, subject.isRankSatisfied(CONDITION_TEST_RANK))
+        subject.setTestSongResult(2, score = 850)
+        assertEquals(true, subject.isRankSatisfied(CONDITION_TEST_RANK))
+        subject.setTestSongResult(3, score = 800)
+        assertEquals(true, subject.isRankSatisfied(CONDITION_TEST_RANK))
+    }
+
+    @Test
+    fun `Satisfied Conditions - Scores, bottom up`() {
+        var subject = createTestTrialSession(
+            goal = TrialGoalSet(CONDITION_TEST_RANK, score = listOf(900, 900, 850, 800)),
+        )
+        assertEquals(true, subject.isRankSatisfied(CONDITION_TEST_RANK))
+
+        subject.setTestSongResult(0, score = 800)
+        assertEquals(true, subject.isRankSatisfied(CONDITION_TEST_RANK))
+        subject.setTestSongResult(1, score = 850)
+        assertEquals(true, subject.isRankSatisfied(CONDITION_TEST_RANK))
+        subject.setTestSongResult(2, score = 900)
+        assertEquals(true, subject.isRankSatisfied(CONDITION_TEST_RANK))
+        subject.setTestSongResult(3, score = 900)
+        assertEquals(true, subject.isRankSatisfied(CONDITION_TEST_RANK))
+    }
+
+    @Test
+    fun `Satisfied Conditions - Scores, scattered`() {
+        var subject = createTestTrialSession(
+            goal = TrialGoalSet(CONDITION_TEST_RANK, score = listOf(900, 900, 850, 800)),
+        )
+        assertEquals(true, subject.isRankSatisfied(CONDITION_TEST_RANK))
+
+        subject.setTestSongResult(0, score = 850)
+        assertEquals(true, subject.isRankSatisfied(CONDITION_TEST_RANK))
+        subject.setTestSongResult(1, score = 900)
+        assertEquals(true, subject.isRankSatisfied(CONDITION_TEST_RANK))
+        subject.setTestSongResult(2, score = 800)
+        assertEquals(true, subject.isRankSatisfied(CONDITION_TEST_RANK))
+        subject.setTestSongResult(3, score = 900)
+        assertEquals(true, subject.isRankSatisfied(CONDITION_TEST_RANK))
+    }
+
+    @Test
+    fun `Satisfied Conditions - Scores, missing`() {
+        var subject = createTestTrialSession(
+            goal = TrialGoalSet(CONDITION_TEST_RANK, score = listOf(900, 900, 850, 800)),
+        )
+        assertEquals(true, subject.isRankSatisfied(CONDITION_TEST_RANK))
+
+        subject.setTestSongResult(0)
+        assertEquals(null, subject.isRankSatisfied(CONDITION_TEST_RANK))
+        subject.setTestSongResult(0, score = 900)
+        assertEquals(true, subject.isRankSatisfied(CONDITION_TEST_RANK))
+        subject.setTestSongResult(1)
+        assertEquals(null, subject.isRankSatisfied(CONDITION_TEST_RANK))
+        subject.setTestSongResult(1, score = 900)
+        assertEquals(true, subject.isRankSatisfied(CONDITION_TEST_RANK))
+        subject.setTestSongResult(2)
+        assertEquals(null, subject.isRankSatisfied(CONDITION_TEST_RANK))
+        subject.setTestSongResult(2, score = 900)
+        assertEquals(true, subject.isRankSatisfied(CONDITION_TEST_RANK))
+        subject.setTestSongResult(3)
+        assertEquals(null, subject.isRankSatisfied(CONDITION_TEST_RANK))
+        subject.setTestSongResult(3, score = 900)
+        assertEquals(true, subject.isRankSatisfied(CONDITION_TEST_RANK))
+    }
+
+    @Test
+    fun `Satisfied Conditions - Scores, fail to fill`() {
+        var subject = createTestTrialSession(
+            goal = TrialGoalSet(CONDITION_TEST_RANK, score = listOf(900, 900, 850, 800)),
+        )
+        assertEquals(true, subject.isRankSatisfied(CONDITION_TEST_RANK))
+
+        subject.setTestSongResult(0, score = 850)
+        assertEquals(true, subject.isRankSatisfied(CONDITION_TEST_RANK))
+        subject.setTestSongResult(1, score = 900)
+        assertEquals(true, subject.isRankSatisfied(CONDITION_TEST_RANK))
+        subject.setTestSongResult(2, score = 800)
+        assertEquals(true, subject.isRankSatisfied(CONDITION_TEST_RANK))
+        subject.setTestSongResult(3, score = 899)
+        assertEquals(false, subject.isRankSatisfied(CONDITION_TEST_RANK))
+    }
+
+    @Test
+    fun `Satisfied Conditions - Scores, fail to crack`() {
+        var subject = createTestTrialSession(
+            goal = TrialGoalSet(CONDITION_TEST_RANK, score = listOf(900, 900, 850, 800)),
+        )
+        assertEquals(true, subject.isRankSatisfied(CONDITION_TEST_RANK))
+
+        subject.setTestSongResult(0, score = 799)
+        assertEquals(false, subject.isRankSatisfied(CONDITION_TEST_RANK))
+    }
+
+    @Test
+    fun `Satisfied Conditions - Scores Indexed`() {
+        var subject = createTestTrialSession(
+            goal = TrialGoalSet(CONDITION_TEST_RANK, scoreIndexed = listOf(900, 900, 850, 800)),
+        )
+        assertEquals(true, subject.isRankSatisfied(CONDITION_TEST_RANK))
+
+        subject.setTestSongResult(0, score = 899)
+        assertEquals(false, subject.isRankSatisfied(CONDITION_TEST_RANK))
+        subject.setTestSongResult(0, score = 900)
+        assertEquals(true, subject.isRankSatisfied(CONDITION_TEST_RANK))
+        subject.setTestSongResult(1, score = 899)
+        assertEquals(false, subject.isRankSatisfied(CONDITION_TEST_RANK))
+        subject.setTestSongResult(1, score = 900)
+        assertEquals(true, subject.isRankSatisfied(CONDITION_TEST_RANK))
+        subject.setTestSongResult(2, score = 849)
+        assertEquals(false, subject.isRankSatisfied(CONDITION_TEST_RANK))
+        subject.setTestSongResult(2, score = 850)
+        assertEquals(true, subject.isRankSatisfied(CONDITION_TEST_RANK))
+        subject.setTestSongResult(3, score = 799)
+        assertEquals(false, subject.isRankSatisfied(CONDITION_TEST_RANK))
+        subject.setTestSongResult(3, score = 800)
+        assertEquals(true, subject.isRankSatisfied(CONDITION_TEST_RANK))
+    }
+
     //            "Score Idx" to scoresIndexedSatisfied(),
     //            "Clears" to clearsSatisfied(),
     //            "Clear Idx" to clearsIndexedSatisfied(),

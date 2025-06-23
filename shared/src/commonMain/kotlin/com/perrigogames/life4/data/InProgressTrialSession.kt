@@ -125,8 +125,8 @@ data class InProgressTrialSession(
     fun isRankSatisfied(rank: TrialRank): Boolean? {
         val goal = trial.goalSet(rank) ?: return false
         val presentResults = results.filterNotNull()
-        val scores = results.map { it?.score }
-        val clears = results.map { it?.clearType?.stableId?.toInt() }
+        val scores = results.mapNotNull { it?.score }
+        val clears = results.mapNotNull { it?.clearType?.stableId?.toInt() }
 
         fun exMissingSatisfied(): Boolean? = evaluateGoalCheck(goal.exMissing, missingExScore)
 
@@ -140,13 +140,21 @@ data class InProgressTrialSession(
             presentResults.map { (it.misses ?: return@map null) <= goal.missEach }.minimumResult()
         }
 
-        fun scoresSatisfied(): Boolean? = goal.score?.let { it.hasCascade(scores.filterNotNull()) } ?: true
+        fun scoresSatisfied(): Boolean? = when {
+            goal.score == null -> true
+            presentResults.any { it.score == null } -> null
+            else -> goal.score.hasCascade(scores)
+        }
 
-        fun scoresIndexedSatisfied(): Boolean? = goal.scoreIndexed?.let { target ->
-            scores.mapIndexed { idx, score ->
-                score?.let { it < target[idx] }
-            }.minimumResult()
-        } ?: true
+        fun scoresIndexedSatisfied(): Boolean? = when {
+            goal.scoreIndexed == null -> true
+            presentResults.any { it.score == null } -> null
+            else -> {
+                trial.songs.mapIndexed { idx, song ->
+                    (results[idx] ?: return@mapIndexed true).score!! == goal.scoreIndexed[idx]
+                }.minimumResult()
+            }
+        }
 
         fun clearsSatisfied(): Boolean? = goal.clear
             ?.map { it.stableId.toInt() }
