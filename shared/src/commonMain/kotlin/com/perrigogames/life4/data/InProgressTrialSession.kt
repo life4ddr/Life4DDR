@@ -104,13 +104,18 @@ data class InProgressTrialSession(
         }.sumOf { it }
 
     /** Calculates the amount of EX that is missing, which only counts the songs that have been completed */
-    private val missingExScore: Int
-        get() = results
-            .mapIndexed { idx, result -> idx to result }
-            .sumOf { (idx, result) ->
-                val songEx = trial.songs[idx].ex
-                result?.let { songEx - (it.exScore ?: 0) } ?: 0
+    private val missingExScore: Int?
+        get() = results.let { results ->
+            if (results.any { it != null && it.exScore == null }) {
+                null
+            } else {
+                results
+                    .mapIndexed { idx, result -> trial.songs[idx].ex to result }
+                    .sumOf { (songEx, result) ->
+                        result?.let { songEx - it.exScore!! } ?: 0
+                    }
             }
+        }
 
     /**
      * Checks to see if the specified [TrialRank] goals would be satisfied under the current conditions.
@@ -119,16 +124,21 @@ data class InProgressTrialSession(
      */
     fun isRankSatisfied(rank: TrialRank): Boolean? {
         val goal = trial.goalSet(rank) ?: return false
+        val presentResults = results.filterNotNull()
         val scores = results.map { it?.score }
         val clears = results.map { it?.clearType?.stableId?.toInt() }
 
-        fun exMissingSatisfied(): Boolean = goal.exMissing?.let { missingExScore <= it } ?: true
+        fun exMissingSatisfied(): Boolean? = evaluateGoalCheck(goal.exMissing, missingExScore)
 
-        fun judgeMissingSatisfied(): Boolean? = goal.judge?.let { currentBadJudgments <= it } ?: true
+        fun judgeMissingSatisfied(): Boolean? = evaluateGoalCheck(goal.judge, currentValidatedBadJudgments)
 
-        fun missTotalSatisfied(): Boolean? = goal.miss?.let { currentMisses <= it } ?: true
+        fun missTotalSatisfied(): Boolean? = evaluateGoalCheck(goal.miss, currentValidatedMisses)
 
-        fun missEachSatisfied(): Boolean? = goal.missEach?.let { currentMisses <= it } ?: true // FIXME check individual songs
+        fun missEachSatisfied(): Boolean? = if (goal.missEach == null) {
+            true
+        } else {
+            presentResults.map { (it.misses ?: return@map null) <= goal.missEach }.minimumResult()
+        }
 
         fun scoresSatisfied(): Boolean? = goal.score?.let { it.hasCascade(scores.filterNotNull()) } ?: true
 
@@ -167,6 +177,12 @@ data class InProgressTrialSession(
             result
         }.minimumResult()
     }
+
+    private fun evaluateGoalCheck(target: Int?, actual: Int?): Boolean? = when {
+        target == null -> true
+        actual == null -> null
+        else -> actual <= target
+    }
 }
 
 fun List<Boolean?>.minimumResult(): Boolean? = when {
@@ -188,9 +204,12 @@ data class SongResult(
     val passed: Boolean = true,
 ) {
 
-    val badJudges get() = if (hasAdvancedStats) misses!! + goods!! + greats!! else null
-
-    val hasAdvancedStats: Boolean get() = misses != null && goods != null && greats != null && perfects != null
+    val badJudges get() = when {
+        misses == null -> null
+        goods == null -> null
+        greats == null -> null
+        else -> misses + goods + greats
+    }
 
     val clearType: ClearType
         get() = when {

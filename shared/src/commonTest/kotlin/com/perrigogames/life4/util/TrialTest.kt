@@ -1,5 +1,6 @@
 package com.perrigogames.life4.util
 
+import com.perrigogames.life4.data.InProgressTrialSession
 import com.perrigogames.life4.data.SongResult
 import com.perrigogames.life4.enums.DifficultyClass
 import com.perrigogames.life4.feature.trials.data.Trial
@@ -63,6 +64,28 @@ fun testSongResult(
     perfects = perfects,
     passed = passed,
 )
+
+fun InProgressTrialSession.setTestSongResult(
+    index: Int,
+    score: Int? = null,
+    exScore: Int? = null,
+    misses: Int? = null,
+    goods: Int? = null,
+    greats: Int? = null,
+    perfects: Int? = null,
+    passed: Boolean = true,
+) {
+    results[index] = testSongResult(
+        song = trial.songs[index],
+        score = score,
+        exScore = exScore,
+        misses = misses,
+        goods = goods,
+        greats = greats,
+        perfects = perfects,
+        passed = passed,
+    )
+}
 
 val TRIAL_SONG_EX = listOf(240, 250, 250, 260)
 
