@@ -66,6 +66,7 @@ class TrialContentProvider(private val trial: Trial) : KoinComponent {
             difficultyClassText = currentChart.difficultyClass.nameRes.desc(),
             difficultyClassColor = currentChart.difficultyClass.colorRes.asColorDesc(),
             difficultyNumberText = currentChart.difficultyNumber.toString().desc(),
+            exScoreText = StringDesc.ResourceFormatted(MR.strings.ex_score_string_format, currentSong.ex)
         )
     }
 

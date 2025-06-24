@@ -112,21 +112,25 @@ class TrialSessionViewModelTest : TestsWithMocks() {
         subject.handleAction(TrialSessionAction.PhotoTaken("", 0))
         setStats(ex = 1712) // total -55
         advanceUntilIdle()
+        assertEquals(1712, session.exScoreBar.currentEx)
         assertEquals(TrialRank.ONYX, session.targetRank.rank)
 
         subject.handleAction(TrialSessionAction.PhotoTaken("", 1))
         setStats(ex = 1816) // total -177
         advanceUntilIdle()
+        assertEquals(3528, session.exScoreBar.currentEx)
         assertEquals(TrialRank.AMETHYST, session.targetRank.rank)
 
         subject.handleAction(TrialSessionAction.PhotoTaken("", 2))
         setStats(ex = 1917) // total -258
         advanceUntilIdle()
+        assertEquals(5445, session.exScoreBar.currentEx)
         assertEquals(TrialRank.PEARL, session.targetRank.rank)
 
         subject.handleAction(TrialSessionAction.PhotoTaken("", 3))
         setStats(ex = 1475) // total -316
         advanceUntilIdle()
+        assertEquals(6920, session.exScoreBar.currentEx)
         assertEquals(TrialRank.COBALT, session.targetRank.rank)
     }
 

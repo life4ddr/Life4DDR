@@ -63,6 +63,11 @@ fun TrialSession(
             scaffoldState.bottomSheetState.hide()
         }
     }
+    LaunchedEffect(scaffoldState.bottomSheetState.currentValue) {
+        if (scaffoldState.bottomSheetState.currentValue == SheetValue.PartiallyExpanded) {
+            viewModel.handleAction(TrialSessionAction.HideBottomSheet)
+        }
+    }
 
     BackHandler {
         onClose()
@@ -332,6 +337,9 @@ fun SongFocusedContent(
             Text(
                 text = viewData.difficultyNumberText.toString(context),
                 fontWeight = FontWeight.Bold,
+            )
+            Text(
+                text = viewData.exScoreText.toString(context),
             )
         }
         SizedSpacer(32.dp)

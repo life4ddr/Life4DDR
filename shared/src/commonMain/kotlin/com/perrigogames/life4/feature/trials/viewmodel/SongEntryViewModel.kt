@@ -112,19 +112,21 @@ class SongEntryViewModel(
             val number = text.toIntOrNull()
             map + (id to number)
         }
-        _state.update { state ->
-            state.copy(
-                fields = state.fields.map { row ->
-                    row.map { field ->
-                        if (field.id == id) {
-                            field.copy(text = text)
-                        } else {
-                            field
-                        }
-                    }
-                }
-            )
-        }
+        // we should only update if the value needs adjustment
+        // right now we aren't doing any of that
+//        _state.update { state ->
+//            state.copy(
+//                fields = state.fields.map { row ->
+//                    row.map { field ->
+//                        if (field.id == id) {
+//                            field.copy(text = text)
+//                        } else {
+//                            field
+//                        }
+//                    }
+//                }
+//            )
+//        }
     }
 
     fun commitChanges(): InProgressTrialSession {

@@ -5,13 +5,18 @@ import android.net.Uri
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.text.input.TextFieldState
+import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
@@ -20,6 +25,7 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import com.perrigogames.life4.android.util.InteractiveImage
 import com.perrigogames.life4.feature.trials.view.UITrialBottomSheet
@@ -114,11 +120,20 @@ fun SongEntryControls(
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     row.forEach { field ->
+                        var value by remember { mutableStateOf(TextFieldValue(field.text)) }
                         val isLast = field == row.last() && row == fields.last()
+
+                        LaunchedEffect(field.text) {
+                            if (value.text != field.text) {
+                                value = TextFieldValue(field.text)
+                            }
+                        }
+
                         TextField(
-                            value = field.text,
-                            onValueChange = { newText ->
-                                onAction(TrialSessionAction.ChangeText(field.id, newText))
+                            value = value,
+                            onValueChange = { newText: TextFieldValue ->
+                                value = newText
+                                onAction(TrialSessionAction.ChangeText(field.id, newText.text.toString()))
                             },
                             enabled = field.enabled,
                             label = {

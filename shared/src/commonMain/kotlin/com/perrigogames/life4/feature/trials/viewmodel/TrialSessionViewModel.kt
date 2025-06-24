@@ -113,6 +113,7 @@ class TrialSessionViewModel(trialId: String) : KoinComponent, ViewModel() {
                 println("Creating stage $stage")
                 val complete = stage >= 4
                 val current = (_state.value as? ViewState.Success)?.data ?: return@combine
+                val currentEx = session.results.sumOf { it?.exScore ?: 0 }
                 val targetRank = when (val target = current.targetRank) {
                     is UITargetRank.Selection -> target.toInProgress()
                     is UITargetRank.InProgress -> target
@@ -121,6 +122,10 @@ class TrialSessionViewModel(trialId: String) : KoinComponent, ViewModel() {
                 _state.value = if (complete) {
                     current.copy(
                         targetRank = targetRank.toAchieved(), // FIXME calculate the user's actual rank
+                        exScoreBar = current.exScoreBar.copy(
+                            currentEx = currentEx,
+                            currentExText = StringDesc.Raw(currentEx.toString())
+                        ),
                         content = contentProvider.provideFinalScreen(session),
                         buttonText = MR.strings.take_results_photo.desc(),
                         buttonAction = TrialSessionAction.TakeResultsPhoto,
@@ -128,6 +133,10 @@ class TrialSessionViewModel(trialId: String) : KoinComponent, ViewModel() {
                 } else {
                     current.copy(
                         targetRank = targetRank,
+                        exScoreBar = current.exScoreBar.copy(
+                            currentEx = currentEx,
+                            currentExText = StringDesc.Raw(currentEx.toString())
+                        ),
                         content = contentProvider.provideMidSession(session, stage),
                         buttonText = MR.strings.take_photo.desc(),
                         buttonAction = TrialSessionAction.TakePhoto(stage),
@@ -225,6 +234,7 @@ class TrialSessionViewModel(trialId: String) : KoinComponent, ViewModel() {
             }
 
             TrialSessionAction.HideBottomSheet -> {
+                _bottomSheetState.value = null
                 hideSongEntry()
             }
 
