@@ -161,11 +161,15 @@ data class InProgressTrialSession(
             ?.let { it.hasCascade(clears.filterNotNull()) }
             ?: true
 
-        fun clearsIndexedSatisfied(): Boolean? = goal.clearIndexed?.let { g ->
-            clears.mapIndexed { idx, clear ->
-                clear != null && clear < g[idx].stableId
-            }.minimumResult()
-        } ?: true
+        fun clearsIndexedSatisfied(): Boolean? = when {
+            goal.clearIndexed == null -> true
+            presentResults.any { it.clearType == null } -> null
+            else -> {
+                trial.songs.mapIndexed { idx, song ->
+                    (results[idx] ?: return@mapIndexed true).clearType.stableId == goal.clearIndexed[idx].stableId
+                }.minimumResult()
+            }
+        }
 
         return listOf(
             "EX Missing" to exMissingSatisfied(),
@@ -223,21 +227,23 @@ data class SongResult(
         get() = when {
         !passed -> FAIL
         exScore == song.ex -> MARVELOUS_FULL_COMBO
-        perfects != null && badJudges != null -> when {
-            perfects == 0 && badJudges == 0 -> MARVELOUS_FULL_COMBO
-            badJudges == 0 -> PERFECT_FULL_COMBO
-            misses != null -> when {
-                misses == 0 -> GREAT_FULL_COMBO
-                misses < 4 -> LIFE4_CLEAR
-                else -> CLEAR
+        else -> {
+            var highestClear = MARVELOUS_FULL_COMBO
+            if (perfects == null || perfects > 0) {
+                highestClear = PERFECT_FULL_COMBO
             }
-            else -> CLEAR
+            if (greats == null || greats > 0) {
+                highestClear = GREAT_FULL_COMBO
+            }
+            if (goods == null || goods > 0) {
+                highestClear = GOOD_FULL_COMBO
+            }
+            when {
+                misses == null -> highestClear = CLEAR
+                misses >= 4 -> highestClear = CLEAR
+                misses > 0 -> highestClear = LIFE4_CLEAR
+            }
+            highestClear
         }
-        misses != null -> when {
-            misses == 0 -> GREAT_FULL_COMBO
-            misses < 4 -> LIFE4_CLEAR
-            else -> CLEAR
-        }
-        else -> CLEAR
     }
 }

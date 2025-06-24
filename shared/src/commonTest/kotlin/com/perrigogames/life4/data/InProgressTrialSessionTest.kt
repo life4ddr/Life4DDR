@@ -1,5 +1,6 @@
 package com.perrigogames.life4.data
 
+import com.perrigogames.life4.enums.ClearType.*
 import com.perrigogames.life4.enums.DifficultyClass
 import com.perrigogames.life4.feature.trials.data.Trial
 import com.perrigogames.life4.feature.trials.data.TrialGoalSet
@@ -302,9 +303,121 @@ class InProgressTrialSessionTest {
         assertEquals(true, subject.isRankSatisfied(CONDITION_TEST_RANK))
     }
 
-    //            "Score Idx" to scoresIndexedSatisfied(),
-    //            "Clears" to clearsSatisfied(),
-    //            "Clear Idx" to clearsIndexedSatisfied(),
+    @Test
+    fun `Satisfied Conditions - Clears, top down`() {
+        var subject = createTestTrialSession(
+            goal = TrialGoalSet(CONDITION_TEST_RANK, clear = listOf(GREAT_FULL_COMBO, GOOD_FULL_COMBO, LIFE4_CLEAR, CLEAR)),
+        )
+        assertEquals(true, subject.isRankSatisfied(CONDITION_TEST_RANK))
+
+        subject.setTestSongResult(0, greats = 10, goods = 0, misses = 0)
+        assertEquals(true, subject.isRankSatisfied(CONDITION_TEST_RANK))
+        subject.setTestSongResult(1, greats = 10, goods = 1, misses = 0)
+        assertEquals(true, subject.isRankSatisfied(CONDITION_TEST_RANK))
+        subject.setTestSongResult(2, greats = 10, goods = 1, misses = 1)
+        assertEquals(true, subject.isRankSatisfied(CONDITION_TEST_RANK))
+        subject.setTestSongResult(3, greats = 10, goods = 1, misses = 5)
+        assertEquals(true, subject.isRankSatisfied(CONDITION_TEST_RANK))
+    }
+
+    @Test
+    fun `Satisfied Conditions - Clears, bottom up`() {
+        var subject = createTestTrialSession(
+            goal = TrialGoalSet(CONDITION_TEST_RANK, clear = listOf(GREAT_FULL_COMBO, GOOD_FULL_COMBO, LIFE4_CLEAR, CLEAR)),
+        )
+        assertEquals(true, subject.isRankSatisfied(CONDITION_TEST_RANK))
+
+        subject.setTestSongResult(0, greats = 10, goods = 1, misses = 5)
+        assertEquals(true, subject.isRankSatisfied(CONDITION_TEST_RANK))
+        subject.setTestSongResult(1, greats = 10, goods = 1, misses = 1)
+        assertEquals(true, subject.isRankSatisfied(CONDITION_TEST_RANK))
+        subject.setTestSongResult(2, greats = 10, goods = 1, misses = 0)
+        assertEquals(true, subject.isRankSatisfied(CONDITION_TEST_RANK))
+        subject.setTestSongResult(3, greats = 10, goods = 0, misses = 0)
+        assertEquals(true, subject.isRankSatisfied(CONDITION_TEST_RANK))
+    }
+
+    @Test
+    fun `Satisfied Conditions - Clears, scattered`() {
+        var subject = createTestTrialSession(
+            goal = TrialGoalSet(CONDITION_TEST_RANK, clear = listOf(GREAT_FULL_COMBO, GOOD_FULL_COMBO, LIFE4_CLEAR, CLEAR)),
+        )
+        assertEquals(true, subject.isRankSatisfied(CONDITION_TEST_RANK))
+
+        subject.setTestSongResult(0, greats = 10, goods = 1, misses = 0)
+        assertEquals(true, subject.isRankSatisfied(CONDITION_TEST_RANK))
+        subject.setTestSongResult(1, greats = 10, goods = 1, misses = 5)
+        assertEquals(true, subject.isRankSatisfied(CONDITION_TEST_RANK))
+        subject.setTestSongResult(2, greats = 10, goods = 0, misses = 0)
+        assertEquals(true, subject.isRankSatisfied(CONDITION_TEST_RANK))
+        subject.setTestSongResult(3, greats = 10, goods = 1, misses = 1)
+        assertEquals(true, subject.isRankSatisfied(CONDITION_TEST_RANK))
+    }
+
+    @Test
+    fun `Satisfied Conditions - Clears, fail to fill`() {
+        var subject = createTestTrialSession(
+            goal = TrialGoalSet(CONDITION_TEST_RANK, clear = listOf(GREAT_FULL_COMBO, GOOD_FULL_COMBO, LIFE4_CLEAR, CLEAR)),
+        )
+        assertEquals(true, subject.isRankSatisfied(CONDITION_TEST_RANK))
+
+        subject.setTestSongResult(0, greats = 10, goods = 0, misses = 0)
+        assertEquals(true, subject.isRankSatisfied(CONDITION_TEST_RANK))
+        subject.setTestSongResult(1, greats = 10, goods = 1, misses = 0)
+        assertEquals(true, subject.isRankSatisfied(CONDITION_TEST_RANK))
+        subject.setTestSongResult(2, greats = 10, goods = 1, misses = 5)
+        assertEquals(true, subject.isRankSatisfied(CONDITION_TEST_RANK))
+        subject.setTestSongResult(3, greats = 10, goods = 1, misses = 5)
+        assertEquals(false, subject.isRankSatisfied(CONDITION_TEST_RANK))
+    }
+
+    @Test
+    fun `Satisfied Conditions - Clears, fail to crack`() {
+        var subject = createTestTrialSession(
+            goal = TrialGoalSet(CONDITION_TEST_RANK, clear = listOf(GREAT_FULL_COMBO, GOOD_FULL_COMBO, LIFE4_CLEAR, CLEAR)),
+        )
+        assertEquals(true, subject.isRankSatisfied(CONDITION_TEST_RANK))
+
+        subject.setTestSongResult(0, greats = 10, goods = 0, misses = 20, passed = false)
+        assertEquals(false, subject.isRankSatisfied(CONDITION_TEST_RANK))
+    }
+
+    @Test
+    fun `Satisfied Conditions - Clears Indexed`() {
+        var subject = createTestTrialSession(
+            goal = TrialGoalSet(CONDITION_TEST_RANK, clearIndexed = listOf(GREAT_FULL_COMBO, GOOD_FULL_COMBO, LIFE4_CLEAR, CLEAR)),
+        )
+        assertEquals(true, subject.isRankSatisfied(CONDITION_TEST_RANK))
+
+        subject.setTestSongResult(0, greats = 10, goods = 0, misses = 1)
+        assertEquals(LIFE4_CLEAR, subject.results[0]!!.clearType)
+        assertEquals(false, subject.isRankSatisfied(CONDITION_TEST_RANK))
+        subject.setTestSongResult(0, greats = 10, goods = 0, misses = 0)
+        assertEquals(GREAT_FULL_COMBO, subject.results[0]!!.clearType)
+        assertEquals(true, subject.isRankSatisfied(CONDITION_TEST_RANK))
+
+        subject.setTestSongResult(1, greats = 10, goods = 0, misses = 1)
+        assertEquals(LIFE4_CLEAR, subject.results[1]!!.clearType)
+        assertEquals(false, subject.isRankSatisfied(CONDITION_TEST_RANK))
+        subject.setTestSongResult(1, greats = 10, goods = 1, misses = 0)
+        assertEquals(GOOD_FULL_COMBO, subject.results[1]!!.clearType)
+        assertEquals(true, subject.isRankSatisfied(CONDITION_TEST_RANK))
+
+        subject.setTestSongResult(2, greats = 10, goods = 0, misses = 4)
+        assertEquals(CLEAR, subject.results[2]!!.clearType)
+        assertEquals(false, subject.isRankSatisfied(CONDITION_TEST_RANK))
+        subject.setTestSongResult(2, greats = 10, goods = 0, misses = 3)
+        assertEquals(LIFE4_CLEAR, subject.results[2]!!.clearType)
+        assertEquals(true, subject.isRankSatisfied(CONDITION_TEST_RANK))
+
+        subject.setTestSongResult(3, greats = 10, goods = 0, misses = 4, passed = false)
+        assertEquals(FAIL, subject.results[3]!!.clearType)
+        assertEquals(false, subject.isRankSatisfied(CONDITION_TEST_RANK))
+        subject.setTestSongResult(3, greats = 10, goods = 0, misses = 4)
+        assertEquals(CLEAR, subject.results[3]!!.clearType)
+        assertEquals(true, subject.isRankSatisfied(CONDITION_TEST_RANK))
+    }
+
 
     private fun createTestTrialSession(
         goal: TrialGoalSet,
