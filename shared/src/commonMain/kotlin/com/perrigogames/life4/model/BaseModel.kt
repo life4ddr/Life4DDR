@@ -17,8 +17,6 @@ open class BaseModel : KoinComponent {
         mainScope.job.cancel()
         ktorScope.job.cancel()
     }
-
-    open fun onApplicationException() {}
 }
 
 //FIXME internal

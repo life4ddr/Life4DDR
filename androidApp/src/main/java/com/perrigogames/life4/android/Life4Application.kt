@@ -4,11 +4,6 @@ import android.app.Application
 import android.content.Context
 import com.perrigogames.life4.AppInfo
 import com.perrigogames.life4.MR
-import com.perrigogames.life4.feature.motd.MotdManager
-import com.perrigogames.life4.feature.placements.PlacementManager
-import com.perrigogames.life4.feature.sanbai.ISanbaiManager
-import com.perrigogames.life4.feature.songlist.SongDataManager
-import com.perrigogames.life4.feature.trials.manager.TrialDataManager
 import com.perrigogames.life4.initKoin
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.MOTD_FILE_NAME
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.PARTIAL_DIFFICULTY_FILE_NAME
@@ -16,25 +11,15 @@ import com.perrigogames.life4.ktor.GithubDataAPI.Companion.RANKS_FILE_NAME
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.SONGS_FILE_NAME
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.TRIALS_FILE_NAME
 import com.perrigogames.life4.makeNativeModule
-import com.perrigogames.life4.model.LadderDataManager
 import org.koin.core.component.KoinComponent
-import org.koin.core.component.get
 
-
-class Life4Application: Application() {
+class Life4Application: Application(), KoinComponent {
 
     override fun onCreate() {
         super.onCreate()
         val defaultHandler = Thread.getDefaultUncaughtExceptionHandler()
 
         Thread.setDefaultUncaughtExceptionHandler { thread, exception ->
-            ManagerContainer().apply {
-                ladderDataManager.onApplicationException()
-                placementManager.onApplicationException()
-                songDataManager.onApplicationException()
-                trialDataManager.onApplicationException()
-            }
-
             defaultHandler!!.uncaughtException(thread, exception)
         }
 
@@ -49,22 +34,8 @@ class Life4Application: Application() {
                 trialsReader = AndroidDataReader(MR.files.trials.rawResId, TRIALS_FILE_NAME),
             ) {
                 single<Context> { this@Life4Application }
-//                single {
-//                    { Log.i("Startup", "Hello from Android/Kotlin!") }
-//                }
             }
         )
-
-        ManagerContainer() // instantiate the managers so that remote data gets pulled properly
-    }
-
-    private inner class ManagerContainer: KoinComponent {
-        val ladderDataManager: LadderDataManager = get()
-        val motdManager: MotdManager = get()
-        val placementManager: PlacementManager = get()
-        val songDataManager: SongDataManager = get()
-        val sanbaiManager: ISanbaiManager = get()
-        val trialDataManager: TrialDataManager = get()
     }
 }
 
