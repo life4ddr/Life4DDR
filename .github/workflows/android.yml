@@ -24,3 +24,9 @@ jobs:
       run: chmod +x gradlew
     - name: Build with Gradle
       run: ./gradlew build
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v4.6.2
+      with:
+        name: Android KTlint Report
+        # A file, directory or wildcard pattern that describes what to upload
+        path: /home/runner/work/Life4DDR/Life4DDR/androidApp/build/reports/ktlint/ktlintKotlinScriptCheck/*
