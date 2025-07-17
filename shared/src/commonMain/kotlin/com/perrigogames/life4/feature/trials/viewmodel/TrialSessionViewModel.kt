@@ -1,5 +1,6 @@
 package com.perrigogames.life4.feature.trials.viewmodel
 
+import co.touchlab.kermit.Logger
 import com.perrigogames.life4.MR
 import com.perrigogames.life4.data.InProgressTrialSession
 import com.perrigogames.life4.enums.LadderRank
@@ -12,6 +13,7 @@ import com.perrigogames.life4.feature.trials.manager.TrialRecordsManager
 import com.perrigogames.life4.feature.trials.provider.TrialContentProvider
 import com.perrigogames.life4.feature.trials.provider.TrialGoalStrings
 import com.perrigogames.life4.feature.trials.view.*
+import com.perrigogames.life4.injectLogger
 import com.perrigogames.life4.util.ViewState
 import com.perrigogames.life4.util.toViewState
 import dev.icerock.moko.mvvm.flow.cMutableStateFlow
@@ -32,6 +34,7 @@ class TrialSessionViewModel(trialId: String) : KoinComponent, ViewModel() {
     private val userRankManager: UserRankManager by inject()
     private val trialDataManager: TrialDataManager by inject()
     private val trialRecordsManager: TrialRecordsManager by inject()
+    private val logger: Logger by injectLogger("TrialSessionViewModel")
 
     private val trial = trialDataManager.trialsFlow.value.firstOrNull { it.id == trialId }
         ?: throw IllegalStateException("Can't find trial with id $trialId")
@@ -110,7 +113,7 @@ class TrialSessionViewModel(trialId: String) : KoinComponent, ViewModel() {
                 inProgressSessionFlow.filterNotNull(),
                 stage.filterNotNull(),
             ) { session, stage ->
-                println("Creating stage $stage")
+                logger.d { "Creating stage $stage" }
                 val complete = stage >= 4
                 val current = (_state.value as? ViewState.Success)?.data ?: return@combine
                 val currentEx = session.results.sumOf { it?.exScore ?: 0 }
@@ -234,7 +237,6 @@ class TrialSessionViewModel(trialId: String) : KoinComponent, ViewModel() {
             }
 
             TrialSessionAction.HideBottomSheet -> {
-                _bottomSheetState.value = null
                 hideSongEntry()
             }
 
@@ -313,7 +315,7 @@ class TrialSessionViewModel(trialId: String) : KoinComponent, ViewModel() {
         while (inProgressSession.isRankSatisfied(currRank()) == false) {
             currIdx--
         }
-        println("Rank changing from ${targetRank.value} to ${currRank()}")
+        logger.d { "Rank changing from ${targetRank.value} to ${currRank()}" }
         targetRank.value = currRank()
     }
 }

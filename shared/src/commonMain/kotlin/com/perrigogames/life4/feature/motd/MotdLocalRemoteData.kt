@@ -1,5 +1,6 @@
 package com.perrigogames.life4.feature.motd
 
+import co.touchlab.kermit.Logger
 import com.perrigogames.life4.api.base.CachedData
 import com.perrigogames.life4.api.base.CompositeData
 import com.perrigogames.life4.api.base.Converter
@@ -24,6 +25,7 @@ class MotdLocalRemoteData: CompositeData<MessageOfTheDay>(), KoinComponent {
     override val rawData = LocalData(reader, converter)
     override val cacheData = CachedData(reader, converter, converter)
     override val remoteData = object: RemoteData<MessageOfTheDay>() {
+        override val logger: Logger = this@MotdLocalRemoteData.logger
         override suspend fun getRemoteResponse() = githubKtor.getMotd()
     }
 

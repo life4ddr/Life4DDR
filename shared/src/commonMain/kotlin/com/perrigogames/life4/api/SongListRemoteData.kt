@@ -1,5 +1,6 @@
 package com.perrigogames.life4.api
 
+import co.touchlab.kermit.Logger
 import com.perrigogames.life4.api.base.*
 import com.perrigogames.life4.data.SongList
 import com.perrigogames.life4.ktor.GithubDataAPI
@@ -18,6 +19,7 @@ class SongListRemoteData: CompositeData<SongList>(), KoinComponent {
     override val rawData = LocalData(reader, converter)
     override val cacheData = CachedData(reader, converter, converter)
     override val remoteData = object: RemoteData<SongList>() {
+        override val logger: Logger = this@SongListRemoteData.logger
         override suspend fun getRemoteResponse() = SongList.parse(githubKtor.getSongList())
     }
 

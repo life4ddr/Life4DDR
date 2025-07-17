@@ -1,5 +1,6 @@
 package com.perrigogames.life4.api
 
+import co.touchlab.kermit.Logger
 import com.perrigogames.life4.api.base.CachedData
 import com.perrigogames.life4.api.base.CompositeData
 import com.perrigogames.life4.api.base.Converter
@@ -7,6 +8,7 @@ import com.perrigogames.life4.api.base.LocalData
 import com.perrigogames.life4.api.base.LocalDataReader
 import com.perrigogames.life4.api.base.RemoteData
 import com.perrigogames.life4.data.LadderRankData
+import com.perrigogames.life4.injectLogger
 import com.perrigogames.life4.ktor.GithubDataAPI
 import com.perrigogames.life4.ktor.GithubDataAPI.Companion.RANKS_FILE_NAME
 import kotlinx.serialization.json.Json
@@ -25,6 +27,7 @@ class LadderRemoteData: CompositeData<LadderRankData>(), KoinComponent {
     override val rawData = LocalData(reader, converter)
     override val cacheData = CachedData(reader, converter, converter)
     override val remoteData = object: RemoteData<LadderRankData>() {
+        override val logger: Logger = this@LadderRemoteData.logger
         override suspend fun getRemoteResponse() = githubKtor.getLadderRanks()
     }
 

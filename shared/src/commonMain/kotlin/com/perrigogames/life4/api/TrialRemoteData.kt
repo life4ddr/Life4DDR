@@ -20,6 +20,7 @@ class TrialRemoteData: CompositeData<TrialData>(), KoinComponent {
     override val rawData = LocalData(reader, converter)
     override val cacheData = CachedData(reader, converter, converter)
     override val remoteData = object: RemoteData<TrialData>() {
+        override val logger = this@TrialRemoteData.logger
         override suspend fun getRemoteResponse() = githubKtor.getTrials()
     }
 

@@ -27,7 +27,6 @@ class LadderGoalProgressManager : BaseModel(), KoinComponent {
     )
 
     fun getGoalProgress(goal: BaseRankGoal, ladderRank: LadderRank?): Flow<LadderGoalProgress?> {
-        println("Goal ${goal.id}: $goal")
         return when (goal) {
             is SongsClearGoal -> (converters[SongsClearGoal::class] as SongsClearGoalProgressConverter)
                 .getGoalProgress(goal, ladderRank)

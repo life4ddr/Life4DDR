@@ -62,7 +62,7 @@ sealed class StackedRankGoal : BaseRankGoal() {
  * A wrapper around a [StackedRankGoal] to allow a single part of that stack to be utilized in
  * main app functions.
  */
-class StackedRankGoalWrapper(
+data class StackedRankGoalWrapper(
     val mainGoal: StackedRankGoal,
     val index: Int,
 ) : BaseRankGoal() {
@@ -81,7 +81,7 @@ class StackedRankGoalWrapper(
  */
 @Serializable
 @SerialName("calories")
-class CaloriesStackedRankGoal(
+data class CaloriesStackedRankGoal(
     override val id: Int,
 ): StackedRankGoal() {
 
@@ -99,7 +99,7 @@ class CaloriesStackedRankGoal(
  */
 @Serializable
 @SerialName("set")
-class DifficultySetGoal(
+data class DifficultySetGoal(
     override val id: Int,
     @SerialName("diff_nums") val difficulties: IntArray,
     @SerialName("clear_type") private val mClearType: ClearType? = null,
@@ -118,7 +118,7 @@ class DifficultySetGoal(
  */
 @Serializable
 @SerialName("trial")
-class TrialStackedGoal(
+data class TrialStackedGoal(
     override val id: Int,
     val rank: TrialRank,
     @SerialName("restrict") val restrictDifficulty: Boolean = false,
@@ -138,7 +138,7 @@ class TrialStackedGoal(
  */
 @Serializable
 @SerialName("mfc_points")
-class MAPointsStackedGoal(
+data class MAPointsStackedGoal(
     override val id: Int,
 ): StackedRankGoal() {
 
@@ -159,7 +159,7 @@ class MAPointsStackedGoal(
  */
 @Serializable
 @SerialName("songs")
-class SongsClearGoal(
+data class SongsClearGoal(
     override val id: Int,
     @SerialName("user_type") val userType: RankGoalUserType? = null,
     @SerialName("d") val diffNum: Int? = null,

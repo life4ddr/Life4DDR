@@ -104,7 +104,7 @@ fun SongEntryControls(
     val context = LocalContext.current
     val focusManager = LocalFocusManager.current
     val flatFields = remember(fields) { fields.flatten() }
-    val focusRequesters = remember(fields.size) { List(fields.sumOf { it.size }) { FocusRequester() } }
+    val focusRequesters = remember(flatFields.size) { List(flatFields.size) { FocusRequester() } }
     
     Row(
         modifier = modifier.padding(8.dp),
@@ -153,7 +153,7 @@ fun SongEntryControls(
                                     }
                                 },
                                 onDone = {
-                                    onAction(TrialSessionAction.AdvanceStage)
+                                    onAction(submitAction)
                                 }
                             ),
                             modifier = Modifier

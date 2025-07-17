@@ -92,6 +92,20 @@ data class UIBanner(
     val textColor: ColorDesc? = null,
 )
 
+object UIBannerTemplates {
+
+    fun success(text: StringDesc) = UIBanner(
+        text = text,
+        backgroundColor = MR.colors.perfect_transparent.asColorDesc(), // FIXME
+        textColor = MR.colors.white.asColorDesc() // FIXME
+    )
+
+    fun error(text: StringDesc) = UIBanner(
+        text = text,
+        backgroundColor = MR.colors.life4.asColorDesc(), // FIXME
+    )
+}
+
 /**
  * Represents the location where a banner can be displayed.
  */

@@ -7,16 +7,20 @@ import com.perrigogames.life4.feature.trials.data.TrialEXProgress
 import com.perrigogames.life4.feature.trials.data.TrialGoalSet
 import com.perrigogames.life4.feature.trials.data.TrialSong
 import com.perrigogames.life4.feature.trials.enums.TrialRank
+import com.perrigogames.life4.injectLogger
 import com.perrigogames.life4.util.hasCascade
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
+import org.koin.core.component.KoinComponent
 
 @Serializable
 data class InProgressTrialSession(
     val trial: Trial,
     val results: Array<SongResult?> = arrayOfNulls(trial.songs.size),
     val finalPhotoUriString: String? = null,
-) {
+) : KoinComponent {
+
+    private val logger by injectLogger(this::class.simpleName ?: "InProgressTrialSession")
 
     @Transient var goalObtained: Boolean = false
 
@@ -182,8 +186,8 @@ data class InProgressTrialSession(
             "Clear Idx" to clearsIndexedSatisfied(),
         ).map { (name, result) ->
             when (result) {
-                false -> println("$name not satisfied for ${rank.name}")
-                null -> println("$name unknown for ${rank.name}")
+                false -> logger.d { "$name not satisfied for ${rank.name}" }
+                null -> logger.d { "$name unknown for ${rank.name}" }
                 else -> {}
             }
             result

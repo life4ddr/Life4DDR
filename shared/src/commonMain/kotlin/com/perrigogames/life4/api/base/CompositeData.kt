@@ -1,6 +1,7 @@
 package com.perrigogames.life4.api.base
 
 import co.touchlab.kermit.Logger
+import com.perrigogames.life4.api.base.VersionChange
 import com.perrigogames.life4.data.MajorVersioned
 import com.perrigogames.life4.data.Versioned
 import com.perrigogames.life4.injectLogger
@@ -61,11 +62,11 @@ abstract class CompositeData<T: Versioned>: BaseModel() {
     private val _versionChangeFlow = MutableSharedFlow<VersionChange>(replay = 1)
     val versionChangeFlow: SharedFlow<VersionChange> = _versionChangeFlow
 
-    suspend fun start() {
+    suspend fun start(extraListener: FetchListener<T>? = null) {
         loadRawData()
         loadCachedData()
         ready.emit(true)
-        loadRemoteData()
+        loadRemoteData(extraListener)
     }
 
     private suspend fun loadRawData() {
@@ -84,7 +85,7 @@ abstract class CompositeData<T: Versioned>: BaseModel() {
         }
     }
 
-    private fun loadRemoteData() {
+    private fun loadRemoteData(extraListener: FetchListener<T>? = null) {
         remoteData?.fetch(object: FetchListener<T> {
             override suspend fun onFetchUpdated(newData: T) {
                 val currentMajorVersion = versionState.value.majorVersion
@@ -99,10 +100,13 @@ abstract class CompositeData<T: Versioned>: BaseModel() {
                     cacheData?.saveNewCache(newData)
                 }
                 // otherwise versions are the same
+
+                extraListener?.onFetchUpdated(newData)
             }
 
             override suspend fun onFetchFailed(e: Throwable) {
                 logger.e { e.message ?: "Undefined error" }
+                extraListener?.onFetchFailed(e)
             }
         })
     }

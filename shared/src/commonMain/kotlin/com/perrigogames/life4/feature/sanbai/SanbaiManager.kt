@@ -4,6 +4,7 @@ import com.perrigogames.life4.MR
 import com.perrigogames.life4.feature.banners.BannerLocation
 import com.perrigogames.life4.feature.banners.IBannerManager
 import com.perrigogames.life4.feature.banners.UIBanner
+import com.perrigogames.life4.feature.banners.UIBannerTemplates
 import com.perrigogames.life4.feature.songlist.SongDataManager
 import com.perrigogames.life4.feature.songresults.SongResultsManager
 import com.perrigogames.life4.ktor.SanbaiAPI
@@ -82,14 +83,7 @@ class SanbaiManager : BaseModel(), ISanbaiManager {
         val BANNER_LOADING = UIBanner(
             text = MR.strings.sanbai_syncing_scores.desc()
         )
-        val BANNER_SUCCESS = UIBanner(
-            text = MR.strings.sanbai_syncing_success.desc(),
-            backgroundColor = MR.colors.perfect_transparent.asColorDesc(), // FIXME
-            textColor = MR.colors.white.asColorDesc() // FIXME
-        )
-        val BANNER_ERROR = UIBanner(
-            text = MR.strings.sanbai_syncing_error.desc(),
-            backgroundColor = MR.colors.life4.asColorDesc(), // FIXME
-        )
+        val BANNER_SUCCESS = UIBannerTemplates.success(MR.strings.sanbai_syncing_success.desc())
+        val BANNER_ERROR = UIBannerTemplates.error(MR.strings.sanbai_syncing_error.desc())
     }
 }

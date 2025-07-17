@@ -1,5 +1,6 @@
 package com.perrigogames.life4.api.base
 
+import co.touchlab.kermit.Logger
 import com.perrigogames.life4.model.BaseModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -20,6 +21,8 @@ interface FetchListener<T> {
 
 abstract class RemoteData<T: Any>: BaseModel(), DelayedDataSource<T> {
 
+    abstract val logger: Logger
+
     override fun fetch(listener: FetchListener<T>) {
         ktorScope.launch {
             try {
@@ -32,7 +35,7 @@ abstract class RemoteData<T: Any>: BaseModel(), DelayedDataSource<T> {
                     }
                 }
             } catch (e: Exception){
-                println(e)
+                logger.e { e.toString() }
                 withContext(Dispatchers.Main) { listener.onFetchFailed(e) }
             }
         }

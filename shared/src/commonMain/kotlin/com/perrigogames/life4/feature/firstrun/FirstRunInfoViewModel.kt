@@ -9,6 +9,7 @@ import com.perrigogames.life4.feature.firstrun.FirstRunStep.PathStep
 import com.perrigogames.life4.feature.firstrun.FirstRunStep.PathStep.*
 import com.perrigogames.life4.feature.firstrun.InitState.*
 import com.perrigogames.life4.feature.settings.UserInfoSettings
+import com.perrigogames.life4.injectLogger
 import dev.icerock.moko.mvvm.flow.CFlow
 import dev.icerock.moko.mvvm.flow.cFlow
 import dev.icerock.moko.mvvm.flow.cMutableStateFlow
@@ -29,6 +30,7 @@ class FirstRunInfoViewModel : ViewModel(), KoinComponent {
 
     private val infoSettings: UserInfoSettings by inject()
     private val firstRunSettings: FirstRunSettingsManager by inject()
+    private val logger by injectLogger(this::class.simpleName ?: "FirstRunInfoViewModel")
 
     val username = MutableStateFlow("").cMutableStateFlow()
     val password = MutableStateFlow("").cMutableStateFlow()
@@ -122,7 +124,7 @@ class FirstRunInfoViewModel : ViewModel(), KoinComponent {
         }
         clearError()
         appendState(createStateClass(clazz = nextStep))
-        println("${_stateStack.value.size} / ${_stateStack.value.last()}")
+        logger.d { "${_stateStack.value.size} / ${_stateStack.value.last()}" }
     }
 
     private fun appendState(step: FirstRunStep) {

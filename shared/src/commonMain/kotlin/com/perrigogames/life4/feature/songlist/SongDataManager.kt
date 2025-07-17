@@ -1,17 +1,25 @@
 package com.perrigogames.life4.feature.songlist
 
 import co.touchlab.kermit.Logger
+import com.perrigogames.life4.MR
 import com.perrigogames.life4.api.SongListRemoteData
+import com.perrigogames.life4.api.base.FetchListener
 import com.perrigogames.life4.api.base.unwrapLoaded
 import com.perrigogames.life4.data.SongList
 import com.perrigogames.life4.enums.DifficultyClass
 import com.perrigogames.life4.enums.GameVersion
 import com.perrigogames.life4.enums.PlayStyle
+import com.perrigogames.life4.feature.banners.BannerLocation
+import com.perrigogames.life4.feature.banners.BannerManager
+import com.perrigogames.life4.feature.banners.IBannerManager
+import com.perrigogames.life4.feature.banners.UIBanner
+import com.perrigogames.life4.feature.banners.UIBannerTemplates
 import com.perrigogames.life4.injectLogger
 import com.perrigogames.life4.ktor.SanbaiSongListResponseItem
 import com.perrigogames.life4.model.BaseModel
 import dev.icerock.moko.mvvm.flow.CStateFlow
 import dev.icerock.moko.mvvm.flow.cStateFlow
+import dev.icerock.moko.resources.desc.desc
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.filterNotNull
@@ -34,6 +42,7 @@ interface SongDataManager {
 class DefaultSongDataManager: BaseModel(), SongDataManager {
 
     private val data: SongListRemoteData by inject()
+    private val bannerManager: IBannerManager by inject()
     private val logger: Logger by injectLogger("SongDataManager")
 
     override val dataVersionString: Flow<String> =
@@ -50,7 +59,15 @@ class DefaultSongDataManager: BaseModel(), SongDataManager {
                 .collect { parseDataFile(it) }
         }
         mainScope.launch {
-            data.start()
+            data.start(object : FetchListener<SongList> {
+                override suspend fun onFetchFailed(e: Throwable) {
+                    bannerManager.setBanner(
+                        banner = UIBannerTemplates.error(MR.strings.song_list_sync_error.desc()),
+                        BannerLocation.PROFILE, BannerLocation.SCORES,
+                        durationSeconds = 5L,
+                    )
+                }
+            })
         }
     }
 

@@ -660,6 +660,10 @@
     <string name="ignored_songs">Ignored Songs</string>
     <!--  endregion  -->
 
+    <!-- region Song List Sync -->
+    <string name="song_list_sync_error">Failed to sync the song list. Try again later.</string>
+    <string name="song_list_sync_error_cache">Failed to sync the song list. The previous data has been loaded.</string>
+
     <!-- region Sanbai Strings -->
     <string name="sanbai_syncing_scores">Syncing scores...</string>
     <string name="sanbai_syncing_success">Score syncing completed!</string>
