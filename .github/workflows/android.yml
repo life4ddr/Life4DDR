@@ -23,8 +23,10 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
     - name: Build with Gradle
+      id: build_app
       run: ./gradlew build
-    - name: Upload a Build Artifact
+    - name: Upload KTLint Report
+      if: steps.build_app.outcome == 'failure'
       uses: actions/upload-artifact@v4.6.2
       with:
         name: Android KTlint Report
