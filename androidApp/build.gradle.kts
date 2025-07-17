@@ -70,7 +70,7 @@ android {
             applicationIdSuffix = ".debug"
             addManifestPlaceholders(mapOf(Pair("providerName", "com.perrigogames.life4.fileprovider.debug")))
         }
-        getByName("release")  {
+        getByName("release") {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
             addManifestPlaceholders(mapOf(Pair("providerName", "com.perrigogames.life4.fileprovider")))
