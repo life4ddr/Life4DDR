@@ -20,7 +20,6 @@ val md_theme_light_onError = Color(0xFFFFFFFF)
 val md_theme_light_onErrorContainer = Color(0xFF410002)
 val md_theme_light_background = Color(0xFFFFFBFF)
 val md_theme_light_onBackground = Color(0xFF201A1B)
-//val md_theme_light_surface = Color(0xFFFFFBFF)
 val md_theme_light_surface = Color(0xFF008577)
 val md_theme_light_onSurface = Color(0xFF201A1B)
 val md_theme_light_surfaceVariant = Color(0xFFF3DDE0)
@@ -65,9 +64,7 @@ val md_theme_dark_surfaceTint = Color(0xFFFFB1C0)
 val md_theme_dark_outlineVariant = Color(0xFF524345)
 val md_theme_dark_scrim = Color(0xFF000000)
 
-
 val seed = Color(0xFFFF0971)
-
 
 val Marvelous = Color(0xFFEEEEEE)
 val Perfect = Color(0xFFDDDD55)
