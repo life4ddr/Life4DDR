@@ -72,7 +72,6 @@ kotlin {
             implementation(libs.sqlDelight.android)
             implementation(libs.ktor.client.okHttp)
             implementation(libs.moko.mvvm.android.livedata.compose)
-            implementation(libs.moko.mvvm.android.livedata.glide)
             implementation(libs.multiplatformSettings.datastore)
             implementation(libs.androidx.datastore)
             api(libs.moko.mvvm.core)

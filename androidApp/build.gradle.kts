@@ -114,6 +114,5 @@ dependencies {
 
     implementation(libs.lottie)
     implementation(libs.dexter)
-    implementation(libs.glide)
     implementation(libs.coil)
 }
