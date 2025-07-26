@@ -1,6 +1,10 @@
 package com.perrigogames.life4.feature.trials
 
+import co.touchlab.kermit.Logger
+import co.touchlab.kermit.LoggerConfig
+import com.perrigogames.life4.data.InProgressTrialSession
 import com.perrigogames.life4.db.SelectBestSessions
+import com.perrigogames.life4.db.TrialSession
 import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.feature.profile.UserRankManager
 import com.perrigogames.life4.feature.songlist.Chart
@@ -67,6 +71,7 @@ class TrialSessionViewModelTest : TestsWithMocks() {
                     single { trialDataManager }
                     single { trialRecordsManager }
                     single { userRankManager }
+                    single { Logger(config = LoggerConfig.default) }
                 }
             )
         }
@@ -132,6 +137,31 @@ class TrialSessionViewModelTest : TestsWithMocks() {
         advanceUntilIdle()
         assertEquals(6920, session.exScoreBar.currentEx)
         assertEquals(TrialRank.COBALT, session.targetRank.rank)
+    }
+
+    @Test
+    fun `test adding a trial manually`() = runTest {
+        customSetup()
+        subject = TrialSessionViewModel(TRIAL_ID)
+
+        val sessionCapture = mutableListOf<InProgressTrialSession>()
+        val rankCapture = mutableListOf<TrialRank>()
+        every { trialRecordsManager.saveSession(isAny(sessionCapture), isAny(rankCapture)) } runs {}
+
+        fun test(rank: TrialRank, totalEx: Int, vararg individualEx: Int) {
+            subject.handleAction(TrialSessionAction.ManualScoreEntry(rank = rank, ex = totalEx))
+            assertEquals(rank, rankCapture.last())
+            sessionCapture.last().let { session ->
+                assertEquals(totalEx, session.results.sumOf { it!!.exScore!! })
+                assertEquals(individualEx[0], session.results[0]!!.exScore)
+                assertEquals(individualEx[1], session.results[1]!!.exScore)
+                assertEquals(individualEx[2], session.results[2]!!.exScore)
+                assertEquals(individualEx[3], session.results[3]!!.exScore)
+            }
+        }
+
+        test(TrialRank.ONYX, totalEx = 7116, 1737, 1905, 1964, 1510)
+        test(TrialRank.COBALT, totalEx = 6116, 1493, 1638, 1688, 1297)
     }
 
     private fun setStats(

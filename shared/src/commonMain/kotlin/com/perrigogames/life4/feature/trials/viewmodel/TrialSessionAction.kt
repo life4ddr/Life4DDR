@@ -41,4 +41,9 @@ sealed class TrialSessionAction {
         val id: String,
         val text: String,
     ) : TrialSessionAction()
+
+    data class ManualScoreEntry(
+        val rank: TrialRank,
+        val ex: Int
+    ) : TrialSessionAction()
 }

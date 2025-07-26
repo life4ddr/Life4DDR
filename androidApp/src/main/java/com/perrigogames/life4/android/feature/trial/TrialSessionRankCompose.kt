@@ -1,7 +1,9 @@
 package com.perrigogames.life4.android.feature.trial
 
 import androidx.compose.animation.*
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
@@ -21,49 +23,19 @@ import com.perrigogames.life4.feature.trials.enums.TrialRank
 import com.perrigogames.life4.feature.trials.view.UITargetRank
 import dev.icerock.moko.resources.desc.color.getColor
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun RankSelector(
     viewData: UITargetRank,
     rankSelected: (TrialRank) -> Unit = {},
 ) {
     val context = LocalContext.current
-    var dropdownExpanded: Boolean by remember { mutableStateOf(false) }
 
     Column {
         Row(
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Box {
-                CardRankDisplay(
-                    viewData = viewData,
-                    showSelectorIcon = viewData is UITargetRank.Selection,
-                    modifier = Modifier.clickable(
-                        enabled = viewData is UITargetRank.Selection,
-                    ) { dropdownExpanded = true }
-                )
-                if (viewData is UITargetRank.Selection) {
-                    DropdownMenu(
-                        expanded = dropdownExpanded,
-                        onDismissRequest = { dropdownExpanded = false },
-                    ) {
-                        viewData.availableRanks.forEach { rank ->
-                            DropdownMenuItem(
-                                text = { Text(rank.nameRes.getString(context)) },
-                                leadingIcon = {
-                                    RankImage(
-                                        rank = rank.parent,
-                                        size = 32.dp
-                                    )
-                                },
-                                onClick = {
-                                    rankSelected(rank)
-                                    dropdownExpanded = false
-                                },
-                            )
-                        }
-                    }
-                }
-            }
+            RankDropdown(viewData, rankSelected)
         }
 
         SizedSpacer(8.dp)
@@ -72,6 +44,47 @@ fun RankSelector(
                 items.forEach { goal ->
                     Text(
                         text = goal.toString(context)
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun RankDropdown(
+    viewData: UITargetRank,
+    rankSelected: (TrialRank) -> Unit = {},
+) {
+    val context = LocalContext.current
+    var dropdownExpanded: Boolean by remember { mutableStateOf(false) }
+
+    Box {
+        CardRankDisplay(
+            viewData = viewData,
+            showSelectorIcon = viewData is UITargetRank.Selection,
+            modifier = Modifier.clickable(
+                enabled = viewData is UITargetRank.Selection,
+            ) { dropdownExpanded = true }
+        )
+        if (viewData is UITargetRank.Selection) {
+            DropdownMenu(
+                expanded = dropdownExpanded,
+                onDismissRequest = { dropdownExpanded = false },
+            ) {
+                viewData.availableRanks.forEach { rank ->
+                    DropdownMenuItem(
+                        text = { Text(rank.nameRes.getString(context)) },
+                        leadingIcon = {
+                            RankImage(
+                                rank = rank.parent,
+                                size = 32.dp
+                            )
+                        },
+                        onClick = {
+                            rankSelected(rank)
+                            dropdownExpanded = false
+                        },
                     )
                 }
             }

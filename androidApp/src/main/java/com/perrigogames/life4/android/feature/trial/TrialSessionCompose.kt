@@ -2,9 +2,13 @@ package com.perrigogames.life4.android.feature.trial
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.*
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.text.input.TextFieldState
+import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -16,21 +20,30 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.perrigogames.life4.MR
+import com.perrigogames.life4.android.compose.Shapes
 import com.perrigogames.life4.android.util.MokoImage
 import com.perrigogames.life4.android.util.SizedSpacer
+import com.perrigogames.life4.android.view.compose.ManualScoreInput
+import com.perrigogames.life4.enums.colorRes
+import com.perrigogames.life4.enums.nameRes
+import com.perrigogames.life4.feature.trials.enums.TrialRank
 import com.perrigogames.life4.feature.trials.view.*
 import com.perrigogames.life4.feature.trials.viewmodel.TrialSessionAction
 import com.perrigogames.life4.feature.trials.viewmodel.TrialSessionEvent
 import com.perrigogames.life4.feature.trials.viewmodel.TrialSessionViewModel
 import com.perrigogames.life4.util.ViewState
 import dev.icerock.moko.mvvm.createViewModelFactory
+import dev.icerock.moko.resources.desc.color.ColorDesc
+import dev.icerock.moko.resources.desc.color.asColorDesc
 import dev.icerock.moko.resources.desc.color.getColor
+import dev.icerock.moko.resources.desc.desc
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -200,6 +213,7 @@ fun TrialSessionContent(
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun TrialSessionHeader(
     viewData: UITrialSession,
@@ -207,6 +221,8 @@ fun TrialSessionHeader(
     onAction: (TrialSessionAction) -> Unit = {},
 ) {
     val context = LocalContext.current
+    var showManualScoreEntry by remember { mutableStateOf(false) }
+
     Column(modifier = modifier) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -221,12 +237,16 @@ fun TrialSessionHeader(
                 text = viewData.trialLevel.toString(context),
                 style = MaterialTheme.typography.titleLarge,
                 color = MaterialTheme.colorScheme.onBackground,
+                modifier = Modifier.combinedClickable(
+                    onClick = {},
+                    onLongClick = { showManualScoreEntry = true }
+                )
             )
         }
 
         SizedSpacer(16.dp)
-        AnimatedContent(targetState = viewData.targetRank is UITargetRank.Achieved) {
-            if (viewData.targetRank is UITargetRank.Achieved) {
+        AnimatedContent(targetState = viewData.targetRank is UITargetRank.Achieved) { achieved ->
+            if (achieved) {
                 RankDisplay(
                     viewData = viewData.targetRank,
                     showSelectorIcon = false,
@@ -245,6 +265,15 @@ fun TrialSessionHeader(
         EXScoreBar(
             viewData = viewData.exScoreBar
         )
+
+        val targetSelection = viewData.targetRank as? UITargetRank.Selection
+        if (showManualScoreEntry && targetSelection != null) {
+            ManualScoreEntry(
+                availableRanks = targetSelection.availableRanks,
+                onSubmit = { rank, ex -> onAction(TrialSessionAction.ManualScoreEntry(rank, ex)) },
+                onDismiss = { }
+            )
+        }
     }
 }
 
@@ -508,6 +537,53 @@ fun RowScope.InProgressJacketItem(
                     modifier = Modifier.fillMaxWidth(),
                     textAlign = TextAlign.Center,
                 )
+            }
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun ManualScoreEntry(
+    availableRanks: List<TrialRank>,
+    onSubmit: (TrialRank, Int) -> Unit,
+    onDismiss: () -> Unit
+) {
+    var trialRank by remember { mutableStateOf(TrialRank.ONYX) }
+    val uiTrialRank by remember {
+        derivedStateOf {
+            UITargetRank.Selection(
+                rank = trialRank,
+                title = trialRank.nameRes.desc(),
+                titleColor = trialRank.colorRes.asColorDesc(),
+                rankGoalItems = emptyList(),
+                availableRanks = availableRanks
+            )
+        }
+    }
+    var exScoreText by remember { mutableStateOf(TextFieldValue()) }
+    BasicAlertDialog(
+        onDismissRequest = onDismiss,
+    ) {
+        Card {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+                modifier = Modifier.padding(8.dp)
+            ) {
+                RankDropdown(
+                    viewData = uiTrialRank,
+                    rankSelected = { rank -> trialRank = rank }
+                )
+                TextField(
+                    value = exScoreText,
+                    onValueChange = { exScoreText = it },
+                    placeholder = { Text("EX Score") },
+                )
+                TextButton(
+                    onClick = { onSubmit(trialRank, exScoreText.text.toInt()) },
+                    modifier = Modifier.align(Alignment.End)
+                ) { Text("Submit") }
             }
         }
     }

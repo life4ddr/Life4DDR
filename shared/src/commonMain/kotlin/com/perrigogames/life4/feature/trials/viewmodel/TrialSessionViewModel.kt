@@ -3,6 +3,7 @@ package com.perrigogames.life4.feature.trials.viewmodel
 import co.touchlab.kermit.Logger
 import com.perrigogames.life4.MR
 import com.perrigogames.life4.data.InProgressTrialSession
+import com.perrigogames.life4.data.SongResult
 import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.enums.colorRes
 import com.perrigogames.life4.enums.nameRes
@@ -260,6 +261,34 @@ class TrialSessionViewModel(trialId: String) : KoinComponent, ViewModel() {
 
             is TrialSessionAction.UseShortcut -> {
                 songEntryViewModel.value!!.setShortcutState(action.shortcut)
+            }
+
+            is TrialSessionAction.ManualScoreEntry -> {
+                val songCount = trial.songs.size
+                val exRatio = action.ex / trial.totalEx.toDouble()
+                var remainingEx = action.ex
+
+                viewModelScope.launch {
+                    trialRecordsManager.saveSession(
+                        record = InProgressTrialSession(
+                            trial = trial,
+                            results = trial.songs.mapIndexed { idx, song ->
+                                val ex = if (idx == songCount - 1) {
+                                    remainingEx
+                                } else {
+                                    (song.ex * exRatio).toInt()
+                                }
+                                remainingEx -= ex
+                                SongResult(
+                                    song = song,
+                                    exScore = ex
+                                )
+                            }.toTypedArray()
+                        ).also { it.goalObtained = true },
+                        targetRank = action.rank
+                    )
+                    _events.emit(TrialSessionEvent.Close)
+                }
             }
         }
     }
