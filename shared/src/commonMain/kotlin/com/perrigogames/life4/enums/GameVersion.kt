@@ -27,15 +27,15 @@ enum class GameVersion(
     SUPERNOVA(9, MR.strings.version_supernova.desc()),
     SUPERNOVA2(10, MR.strings.version_supernova.desc()),
     X(11, MR.strings.version_x.desc()),
-    DDR_X2(12, MR.strings.version_x_2.desc()),
-    DDR_X3_VS_2ND_MIX(13, MR.strings.version_x_3.desc()),
+    X2(12, MR.strings.version_x_2.desc()),
+    X3_VS_2ND_MIX(13, MR.strings.version_x_3.desc()),
     DDR_2013(14, MR.strings.version_2013.desc()),
     DDR_2014(15, MR.strings.version_2014.desc()),
-    DDR_A(16, MR.strings.version_a.desc()),
-    DDR_A20(17, MR.strings.version_a20.desc()),
-    DDR_A20_PLUS(18, MR.strings.version_a20_plus.desc()),
-    DDR_A3(19, MR.strings.version_a3.desc()),
-    DDR_WORLD(20, MR.strings.version_world.desc());
+    A(16, MR.strings.version_a.desc()),
+    A20(17, MR.strings.version_a20.desc()),
+    A20_PLUS(18, MR.strings.version_a20_plus.desc()),
+    A3(19, MR.strings.version_a3.desc()),
+    WORLD(20, MR.strings.version_world.desc());
     
     val printName = name.replace("_", " ")
 
@@ -50,6 +50,7 @@ enum class GameVersion(
                 versionName.lowercase().replace(" ", "_") == it.name.lowercase()
             }
         }
+        val defaultVersion = entries.last()
     }
 }
 

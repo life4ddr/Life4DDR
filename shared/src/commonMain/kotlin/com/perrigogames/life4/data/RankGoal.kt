@@ -81,6 +81,20 @@ data class StackedRankGoalWrapper(
  */
 @Serializable
 @SerialName("calories")
+data class CaloriesRankGoal(
+    override val id: Int,
+    val count: Int,
+): BaseRankGoal() {
+
+    override fun goalString() = RankStrings.getCalorieCountString(count)
+}
+
+/**
+ * A specialized rank goal requiring the player to burn a number of calories in a single session.
+ * @param count the number of calories that need to be burned in a single session
+ */
+@Serializable
+@SerialName("calories_stack")
 data class CaloriesStackedRankGoal(
     override val id: Int,
 ): StackedRankGoal() {
@@ -118,6 +132,23 @@ data class DifficultySetGoal(
  */
 @Serializable
 @SerialName("trial")
+data class TrialGoal(
+    override val id: Int,
+    val rank: TrialRank,
+    val count: Int,
+    @SerialName("restrict") val restrictDifficulty: Boolean = false,
+): BaseRankGoal() {
+
+    override fun goalString() = RankStrings.getTrialCountString(rank, count)
+}
+
+/**
+ * A specialized rank goal requiring the player to clear a Trial with a certain rank.
+ * @param rank the [TrialRank] that the user needs to earn
+ * @param count the number of trials that need to be cleared with [rank]
+ */
+@Serializable
+@SerialName("trial_stack")
 data class TrialStackedGoal(
     override val id: Int,
     val rank: TrialRank,
@@ -137,7 +168,21 @@ data class TrialStackedGoal(
  * @param points the number of MFC Points the player is required to obtain
  */
 @Serializable
-@SerialName("mfc_points")
+@SerialName("ma_points")
+data class MAPointsGoal(
+    override val id: Int,
+    val points: Double,
+): BaseRankGoal() {
+
+    override fun goalString() = RankStrings.getMFCPointString(points)
+}
+
+/**
+ * A specialized goal requiring the user to obtain a certain number of "MFC Points"
+ * @param points the number of MFC Points the player is required to obtain
+ */
+@Serializable
+@SerialName("ma_points_stack")
 data class MAPointsStackedGoal(
     override val id: Int,
 ): StackedRankGoal() {
@@ -196,16 +241,21 @@ data class SongsClearGoal(
     val clearType: ClearType
         get() = mClearType ?: ClearType.CLEAR
 
-    fun validate(): Boolean {
+    fun validate(): String? {
         if (averageScore != null && allowsHigherDiffNum) {
-            return false // averages only supported for a single difficulty
+            return "averages only supported for a single difficulty"
         }
-
-        var count = 0
-        if (score != null) count += 1
-        if (averageScore != null) count += 1
-        if (mClearType != null) count += 1
-        return count <= 1
+        if (score != null && averageScore != null) {
+            return "cannot combine score and averageScore"
+        }
+        if (exceptions != null && songExceptions?.isEmpty() == false) {
+            return "cannot combine exceptions and songExceptions"
+        }
+        val hasExceptions = exceptions != null || songExceptions?.isEmpty() == false
+        if (!hasExceptions && exceptionScore != null) {
+            return "must specify exceptions or songExceptions with exceptionScore"
+        }
+        return null
     }
 
     val diffNumRange: IntRange? by lazy {

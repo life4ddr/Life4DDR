@@ -70,6 +70,7 @@ class GoalListViewModel(private val config: GoalListConfig) : ViewModel(), KoinC
                 _expandedItems,
                 goalStateManager.updated,
             ) { targetRank, requirements, progress, expanded, _ ->
+                logger.d { "Updating to $targetRank, requirements = $requirements" }
                 val substitutions = if (requirements != null && requirements.substitutionGoals.isNotEmpty()) {
                     val goalStates = goalStateManager.getGoalStateList(requirements.substitutionGoals)
                     UILadderGoals.CategorizedList(

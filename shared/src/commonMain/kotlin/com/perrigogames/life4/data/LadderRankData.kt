@@ -49,9 +49,9 @@ data class LadderRankData(
 
     private fun validate() {
         goals.forEach { goal ->
-            (goal as? SongsClearGoal)?.validate()?.let { valid ->
-                if (!valid) {
-                    logger.e { "Goal ${goal.id} is invalid" }
+            (goal as? SongsClearGoal)?.validate()?.let { error ->
+                if (error != null) {
+                    logger.e { "Goal ${goal.id} is invalid: $error" }
                 }
             }
         }
