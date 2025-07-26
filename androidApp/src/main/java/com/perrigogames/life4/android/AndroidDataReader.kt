@@ -67,9 +67,9 @@ fun Context.readFromFile(path: String): String? {
             }
         }
     } catch (e: FileNotFoundException) {
-        Log.e("DataUtil", "File not found: $e")
+        Log.w("AndroidDataReader", "File not found: $e")
     } catch (e: IOException) {
-        Log.e("DataUtil", "Can not read file: $e")
+        Log.e("AndroidDataReader", "Can not read file: $e")
     }
     return ret
 }
