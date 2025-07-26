@@ -15,10 +15,10 @@ class UserInfoSettings : SettingsManager() {
 
     private val logger: Logger by injectLogger("UserInfoSettings")
 
-    val userName: StateFlow<String> = settings.getStringFlow(SettingsKeys.KEY_INFO_NAME, "")
+    val userName: StateFlow<String> = settings.getStringFlow(KEY_INFO_NAME, "")
         .stateIn(mainScope, SharingStarted.Eagerly, "")
 
-    val rivalCode: StateFlow<String> = settings.getStringFlow(SettingsKeys.KEY_INFO_RIVAL_CODE, "")
+    val rivalCode: StateFlow<String> = settings.getStringFlow(KEY_INFO_RIVAL_CODE, "")
         .stateIn(mainScope, SharingStarted.Eagerly, "")
 
     val rivalCodeDisplay: Flow<String?> = rivalCode.map {
@@ -29,12 +29,8 @@ class UserInfoSettings : SettingsManager() {
         }
     }
 
-    val userRank: StateFlow<LadderRank?> = settings.getLongOrNullFlow(SettingsKeys.KEY_INFO_RANK)
-        .map { LadderRank.parse(it) }
-        .stateIn(mainScope, SharingStarted.Eagerly, null)
-
     val socialNetworks: StateFlow<Map<SocialNetwork, String>> =
-        settings.getStringFlow(SettingsKeys.KEY_INFO_SOCIAL_NETWORKS, "")
+        settings.getStringFlow(KEY_INFO_SOCIAL_NETWORKS, "")
             .map { settingsString ->
                 settingsString.split(SOCIAL_LINE_DELIM)
                     .map { it.split(SOCIAL_ENTRY_DELIM) }
@@ -54,20 +50,13 @@ class UserInfoSettings : SettingsManager() {
     }
 
     fun setUserName(name: String) = mainScope.launch {
-        settings.putString(SettingsKeys.KEY_INFO_NAME, name)
+        settings.putString(KEY_INFO_NAME, name)
     }
 
     fun setRivalCode(code: String) = mainScope.launch {
-        settings.putString(SettingsKeys.KEY_INFO_RIVAL_CODE, code)
+        settings.putString(KEY_INFO_RIVAL_CODE, code)
     }
 
-    fun setRank(rank: LadderRank?) = mainScope.launch {
-        if (rank != null) {
-            settings.putLong(SettingsKeys.KEY_INFO_RANK, rank.stableId)
-        } else {
-            settings.remove(SettingsKeys.KEY_INFO_RANK)
-        }
-    }
 
     fun setSocialNetworks(networks: Map<SocialNetwork, String>) {
         val networksString = networks.toList()
@@ -76,12 +65,16 @@ class UserInfoSettings : SettingsManager() {
             }
 
         mainScope.launch {
-            settings.putString(SettingsKeys.KEY_INFO_SOCIAL_NETWORKS, networksString)
+            settings.putString(KEY_INFO_SOCIAL_NETWORKS, networksString)
         }
     }
 
     companion object {
         const val SOCIAL_LINE_DELIM = '/'
         const val SOCIAL_ENTRY_DELIM = '"'
+
+        const val KEY_INFO_NAME = "KEY_INFO_NAME"
+        const val KEY_INFO_RIVAL_CODE = "KEY_INFO_RIVAL_CODE"
+        const val KEY_INFO_SOCIAL_NETWORKS = "KEY_INFO_SOCIAL_NETWORKS"
     }
 }

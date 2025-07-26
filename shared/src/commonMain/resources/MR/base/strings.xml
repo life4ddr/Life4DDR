@@ -61,6 +61,11 @@
     <string name="tab_settings">Settings</string>
 
     <string name="action_settings">Settings</string>
+    <string name="action_progress_matrix">Progress Matrix</string>
+    <string name="action_name">Set name</string>
+    <string name="action_rival_code">Set rival code</string>
+    <string name="action_game_version">Select game version</string>
+    <string name="action_view_blocklist">View ignored songs</string>
     <string name="action_clear_record_data">Clear Trial Records</string>
     <string name="action_refresh_song_db">Refresh Song Database</string>
     <string name="action_export">Export Ranks</string>
@@ -398,7 +403,8 @@
 
     <!-- region Preference Titles -->
     <string name="user_info">User Info</string>
-    <string name="edit_user_info">Edit user info</string>
+    <string name="edit_user_info">Edit User Info</string>
+    <string name="song_list_settings">Song List Settings</string>
     <string name="trial_list">Trial List</string>
     <string name="show_ex">Show EX Score</string>
     <string name="show_ex_remaining">Also show remaining EX Score</string>
@@ -591,9 +597,6 @@
     <string name="any_folder_plural">any %d Mix or Letter folders</string>
     <string name="song_count">any %d songs</string>
     <string name="choose_list">Choose 1: %s</string>
-    <string name="action_progress_matrix">Progress Matrix</string>
-    <string name="action_game_version">Game Version</string>
-    <string name="action_view_blocklist">View ignored songs</string>
 
     <string name="dont_show_again">Don\'t show this again</string>
     <string name="import_paste_copied_text">Paste the copied text into the box.</string>
@@ -651,6 +654,7 @@
     <string name="sanbai_settings">Sanbai Settings</string>
     <string name="refresh_sanbai_library_data">Refresh Sanbai library data</string>
     <string name="refresh_sanbai_user_scores">Refresh Sanbai user scores</string>
+    <string name="join_discord">Join our Discord</string>
     <string name="find_us_on_x">Find us on X</string>
     <string name="close">Close</string>
     <string name="manage_song_unlocks">Manage song unlocks</string>

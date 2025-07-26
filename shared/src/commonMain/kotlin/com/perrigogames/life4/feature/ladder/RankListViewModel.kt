@@ -6,6 +6,7 @@ import com.perrigogames.life4.enums.LadderRankClass
 import com.perrigogames.life4.feature.firstrun.FirstRunSettingsManager
 import com.perrigogames.life4.feature.firstrun.InitState
 import com.perrigogames.life4.feature.settings.UserInfoSettings
+import com.perrigogames.life4.feature.settings.UserRankSettings
 import com.perrigogames.life4.model.LadderDataManager
 import com.perrigogames.life4.util.ViewState
 import dev.icerock.moko.mvvm.flow.*
@@ -21,6 +22,7 @@ class RankListViewModel(
 
     private val firstRunSettingsManager: FirstRunSettingsManager by inject()
     private val userInfoSettings: UserInfoSettings by inject()
+    private val userRankSettings: UserRankSettings by inject()
     private val ladderDataManager: LadderDataManager by inject()
 
     private val selectedRankClass = MutableStateFlow<LadderRankClass?>(null)
@@ -63,7 +65,7 @@ class RankListViewModel(
 
     init {
         viewModelScope.launch {
-            startingRank = userInfoSettings.userRank.value
+            startingRank = userRankSettings.rank.value
             selectedRankClass.value = startingRank?.group
             selectedRankIndex.value = startingRank?.classPosition?.minus(1)
 
@@ -119,7 +121,7 @@ class RankListViewModel(
             }
             is Input.RankSelected -> {
                 firstRunSettingsManager.setInitState(InitState.DONE)
-                userInfoSettings.setRank(input.rank)
+                userRankSettings.setRank(input.rank)
                 _actions.emit(Action.NavigateToMainScreen)
             }
             Input.MoveToPlacements -> {
@@ -128,7 +130,7 @@ class RankListViewModel(
             }
             Input.RankRejected -> {
                 firstRunSettingsManager.setInitState(InitState.DONE)
-                userInfoSettings.setRank(null)
+                userRankSettings.setRank(null)
                 _actions.emit(Action.NavigateToMainScreen)
             }
             is Input.GoalList -> {

@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalSettingsApi::class)
-class LadderSettingsManager : SettingsManager() {
+class LadderSettings : SettingsManager() {
     val selectedGameVersion: StateFlow<GameVersion> =
         settings.getStringFlow(KEY_GAME_VERSION, "")
             .map { GameVersion.parse(it) ?: GameVersion.defaultVersion }

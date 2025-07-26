@@ -48,5 +48,5 @@ class Life4Application: Application(), KoinComponent {
 object AndroidAppInfo : AppInfo {
     override val appId: String = "LIFE4DDR" // FIXME
     override val isDebug: Boolean = true // FIXME
-    override val version: String = "<not specified" // FIXME
+    override val version: String = "<not specified>" // FIXME
 }

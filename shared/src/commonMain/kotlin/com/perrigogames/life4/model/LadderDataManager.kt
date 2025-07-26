@@ -6,9 +6,8 @@ import com.perrigogames.life4.api.base.unwrapLoaded
 import com.perrigogames.life4.data.LadderRankData
 import com.perrigogames.life4.data.LadderVersion
 import com.perrigogames.life4.data.RankEntry
-import com.perrigogames.life4.enums.GameVersion
 import com.perrigogames.life4.enums.LadderRank
-import com.perrigogames.life4.feature.settings.LadderSettingsManager
+import com.perrigogames.life4.feature.settings.LadderSettings
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.filterNotNull
@@ -22,7 +21,7 @@ import org.koin.core.component.inject
 class LadderDataManager: BaseModel() {
 
     private val ladderDialogs: LadderDialogs by inject()
-    private val ladderSettingsManager: LadderSettingsManager by inject()
+    private val ladderSettings: LadderSettings by inject()
 
     //
     // Ladder Data
@@ -38,7 +37,7 @@ class LadderDataManager: BaseModel() {
     private val _ladderDataForGameVersion: Flow<LadderVersion?> =
         combine(
             _ladderData.filterNotNull(),
-            ladderSettingsManager.selectedGameVersion
+            ladderSettings.selectedGameVersion
         ) { ladderData, selectedVersion ->
             ladderData.gameVersions[selectedVersion]
         }

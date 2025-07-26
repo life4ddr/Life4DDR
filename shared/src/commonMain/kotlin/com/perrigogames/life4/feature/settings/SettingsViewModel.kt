@@ -24,6 +24,8 @@ class SettingsViewModel(
     private val sanbaiManager: ISanbaiManager by inject()
     private val settingsPageProvider: SettingsPageProvider by inject()
     private val flowSettings: FlowSettings by inject() // FIXME need to figure out a way to make the action less generic
+    private val userInfoSettings: UserInfoSettings by inject()
+    private val ladderSettings: LadderSettings by inject()
 
     private val pageStackState = MutableStateFlow(listOf(SettingsPage.ROOT)).cMutableStateFlow()
     private val pageFlow = pageStackState.map { it.last() }
@@ -48,6 +50,16 @@ class SettingsViewModel(
             is SettingsAction.SetBoolean -> {
                 viewModelScope.launch {
                     flowSettings.putBoolean(action.id, action.newValue)
+                }
+            }
+            is SettingsAction.SetString -> {
+                viewModelScope.launch {
+                    flowSettings.putString(action.id, action.newValue)
+                }
+            }
+            is SettingsAction.SetGameVersion -> {
+                viewModelScope.launch {
+                    ladderSettings.setSelectedGameVersion(action.newValue)
                 }
             }
             is SettingsAction.Email -> {
@@ -83,6 +95,7 @@ class SettingsViewModel(
         return when (page) {
             SettingsPage.ROOT -> settingsPageProvider.getRootPage(isDebug = appInfo.isDebug)
             SettingsPage.EDIT_USER_INFO -> settingsPageProvider.getEditUserPage()
+            SettingsPage.SONG_LIST_SETTINGS -> settingsPageProvider.getSongListPage()
             SettingsPage.TRIAL_SETTINGS -> settingsPageProvider.getTrialPage()
             SettingsPage.SANBAI_SETTINGS -> settingsPageProvider.getSanbaiPage()
             SettingsPage.CLEAR_DATA -> settingsPageProvider.getClearDataPage()

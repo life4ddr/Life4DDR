@@ -24,7 +24,7 @@ import com.perrigogames.life4.feature.sanbai.ISanbaiAPISettings
 import com.perrigogames.life4.feature.sanbai.ISanbaiManager
 import com.perrigogames.life4.feature.sanbai.SanbaiAPISettings
 import com.perrigogames.life4.feature.sanbai.SanbaiManager
-import com.perrigogames.life4.feature.settings.LadderSettingsManager
+import com.perrigogames.life4.feature.settings.LadderSettings
 import com.perrigogames.life4.feature.settings.SettingsPageProvider
 import com.perrigogames.life4.feature.settings.UserInfoSettings
 import com.perrigogames.life4.feature.settings.UserRankSettings
@@ -96,7 +96,7 @@ val coreModule = module {
     single { FirstRunSettingsManager() }
     single { SongResultSettings() }
     single { UserRankSettings() }
-    single { LadderSettingsManager() }
+    single { LadderSettings() }
     single { SettingsPageProvider() }
     single<UserRankManager> { DefaultUserRankManager() }
     single { GoalStateManager() }
