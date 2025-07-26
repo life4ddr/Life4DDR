@@ -164,8 +164,8 @@ data class TrialStackedGoal(
 }
 
 /**
- * A specialized goal requiring the user to obtain a certain number of "MFC Points"
- * @param points the number of MFC Points the player is required to obtain
+ * A specialized goal requiring the user to obtain a certain number of "MA Points"
+ * @param points the number of MA Points the player is required to obtain
  */
 @Serializable
 @SerialName("ma_points")
@@ -174,12 +174,12 @@ data class MAPointsGoal(
     val points: Double,
 ): BaseRankGoal() {
 
-    override fun goalString() = RankStrings.getMFCPointString(points)
+    override fun goalString() = RankStrings.getMAPointString(points)
 }
 
 /**
- * A specialized goal requiring the user to obtain a certain number of "MFC Points"
- * @param points the number of MFC Points the player is required to obtain
+ * A specialized goal requiring the user to obtain a certain number of "MA Points"
+ * @param points the number of MA Points the player is required to obtain
  */
 @Serializable
 @SerialName("ma_points_stack")
@@ -188,10 +188,10 @@ data class MAPointsStackedGoal(
 ): StackedRankGoal() {
 
     override fun goalString(index: Int) =
-        RankStrings.getMFCPointString(getDoubleValue(index, KEY_MFC_POINTS)!!)
+        RankStrings.getMAPointString(getDoubleValue(index, KEY_MA_POINTS)!!)
 
     companion object {
-        const val KEY_MFC_POINTS = "mfc_points"
+        const val KEY_MA_POINTS = "mfc_points"
     }
 }
 

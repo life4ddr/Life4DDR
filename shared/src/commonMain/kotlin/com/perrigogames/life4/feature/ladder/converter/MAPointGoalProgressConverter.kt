@@ -1,6 +1,7 @@
 package com.perrigogames.life4.feature.ladder.converter
 
 import com.perrigogames.life4.data.LadderGoalProgress
+import com.perrigogames.life4.data.MAPointsGoal
 import com.perrigogames.life4.data.MAPointsStackedGoal
 import com.perrigogames.life4.enums.ClearType
 import com.perrigogames.life4.enums.LadderRank
@@ -11,7 +12,31 @@ import kotlinx.coroutines.flow.map
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-class MAPointGoalProgressConverter : StackedGoalProgressConverter<MAPointsStackedGoal>, KoinComponent {
+class MAPointGoalProgressConverter : GoalProgressConverter<MAPointsGoal>, KoinComponent {
+
+    private val chartResultOrganizer: ChartResultOrganizer by inject()
+
+    override fun getGoalProgress(
+        goal: MAPointsGoal,
+        ladderRank: LadderRank?,
+    ): Flow<LadderGoalProgress?> {
+        val config = FilterState(
+            selectedPlayStyle = goal.playStyle,
+            clearTypeRange = ClearType.SINGLE_DIGIT_PERFECTS.ordinal .. ClearType.MARVELOUS_FULL_COMBO.ordinal,
+        )
+        return chartResultOrganizer.resultsForConfig(goal, config, enableDifficultyTiers = false).map { (match, _) ->
+            val mfcPoints = match.sumOf { it.maPointsForDifficulty() }
+            LadderGoalProgress(
+                progress = mfcPoints,
+                max = goal.points,
+                showMax = true,
+                results = match
+            )
+        }
+    }
+}
+
+class MAPointStackedGoalProgressConverter : StackedGoalProgressConverter<MAPointsStackedGoal>, KoinComponent {
 
     private val chartResultOrganizer: ChartResultOrganizer by inject()
 
@@ -24,7 +49,7 @@ class MAPointGoalProgressConverter : StackedGoalProgressConverter<MAPointsStacke
             selectedPlayStyle = goal.playStyle,
             clearTypeRange = ClearType.SINGLE_DIGIT_PERFECTS.ordinal .. ClearType.MARVELOUS_FULL_COMBO.ordinal,
         )
-        val targetPoints = goal.getDoubleValue(stackIndex, MAPointsStackedGoal.KEY_MFC_POINTS)!!
+        val targetPoints = goal.getDoubleValue(stackIndex, MAPointsStackedGoal.KEY_MA_POINTS)!!
         return chartResultOrganizer.resultsForConfig(goal, config, enableDifficultyTiers = false).map { (match, _) ->
             val mfcPoints = match.sumOf { it.maPointsForDifficulty() }
             LadderGoalProgress(

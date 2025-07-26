@@ -2,6 +2,7 @@ package com.perrigogames.life4.feature.songresults
 
 import co.touchlab.kermit.Logger
 import com.perrigogames.life4.data.BaseRankGoal
+import com.perrigogames.life4.data.MAPointsGoal
 import com.perrigogames.life4.data.MAPointsStackedGoal
 import com.perrigogames.life4.enums.ClearType
 import com.perrigogames.life4.enums.DifficultyClass
@@ -103,7 +104,7 @@ class ChartResultOrganizer: BaseModel(), KoinComponent {
         base: BaseRankGoal?,
         enableDifficultyTiers: Boolean
     ): List<ChartResultPair> = sortedWith { a, b ->
-        if (base is MAPointsStackedGoal) {
+        if (base is MAPointsGoal || base is MAPointsStackedGoal) {
             // First, MA points, descending
             val maCompare = ((b.maPointsForDifficulty() - a.maPointsForDifficulty()) * 10000).toInt()
             if (maCompare != 0) {

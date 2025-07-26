@@ -3,6 +3,7 @@ package com.perrigogames.life4.model.mapping
 import com.mohamedrejeb.ksoup.entities.KsoupEntities
 import com.perrigogames.life4.data.BaseRankGoal
 import com.perrigogames.life4.data.LadderGoalProgress
+import com.perrigogames.life4.data.MAPointsGoal
 import com.perrigogames.life4.data.MAPointsStackedGoal
 import com.perrigogames.life4.data.StackedRankGoalWrapper
 import com.perrigogames.life4.enums.GoalStatus
@@ -46,7 +47,8 @@ class LadderGoalMapper : KoinComponent {
             },
             detailItems = if (isExpanded && progress != null) {
                 progress.results?.map { result ->
-                    val isMFC = base is StackedRankGoalWrapper && base.mainGoal is MAPointsStackedGoal
+                    val isMFC = base is MAPointsGoal ||
+                            (base is StackedRankGoalWrapper && base.mainGoal is MAPointsStackedGoal)
                     val rightText = if (isMFC) {
                         "L${result.chart.difficultyNumber} > ${result.maPointsForDifficulty()}"
                     } else {
