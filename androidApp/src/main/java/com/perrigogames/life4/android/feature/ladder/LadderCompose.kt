@@ -4,7 +4,9 @@ import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.shrinkVertically
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -12,6 +14,9 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -72,17 +77,21 @@ fun LadderGoals(
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LadderGoals(
     goals: UILadderGoals,
     onInput: (RankListInput) -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    var debugDialog by remember { mutableStateOf<String?>(null) }
+
     when (goals) {
         is UILadderGoals.SingleList -> {
             SingleGoalList(
                 goals = goals.items,
                 onInput = onInput,
+                onShowDebug = { debugDialog = it },
                 modifier = modifier,
             )
         }
@@ -90,9 +99,31 @@ fun LadderGoals(
             CategorizedList(
                 goals = goals,
                 onInput = onInput,
+                onShowDebug = { debugDialog = it },
                 modifier = modifier,
             )
         }
+    }
+
+    if (debugDialog != null) {
+        BasicAlertDialog(
+            onDismissRequest = { debugDialog = null },
+            content = {
+                Card {
+                    Column(
+                        horizontalAlignment = Alignment.End,
+                        modifier = Modifier
+                            .padding(horizontal = 16.dp)
+                            .padding(top = 16.dp)
+                    ) {
+                        Text(text = debugDialog!!)
+                        TextButton(
+                            onClick = { debugDialog = null }
+                        ) { Text("Close") }
+                    }
+                }
+            }
+        )
     }
 }
 
@@ -100,6 +131,7 @@ fun LadderGoals(
 fun SingleGoalList(
     goals: List<UILadderGoal>,
     onInput: (RankListInput) -> Unit,
+    onShowDebug: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(
@@ -113,6 +145,7 @@ fun SingleGoalList(
             LadderGoalItem(
                 goal = goal,
                 onInput = onInput,
+                onShowDebug = onShowDebug,
                 modifier = Modifier.fillParentMaxWidth(),
             )
         }
@@ -123,6 +156,7 @@ fun SingleGoalList(
 fun CategorizedList(
     goals: UILadderGoals.CategorizedList,
     onInput: (RankListInput) -> Unit,
+    onShowDebug: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val context = LocalContext.current
@@ -163,6 +197,7 @@ fun CategorizedList(
                         goal = item,
                         expanded = item.detailItems.isNotEmpty(),
                         onInput = onInput,
+                        onShowDebug = onShowDebug,
                         modifier = Modifier.fillParentMaxWidth(),
                     )
                 }
@@ -176,6 +211,7 @@ fun LadderGoalItem(
     goal: UILadderGoal,
     expanded: Boolean = false,
     onInput: (RankListInput) -> Unit,
+    onShowDebug: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Surface(
@@ -191,6 +227,7 @@ fun LadderGoalItem(
             LadderGoalHeaderRow(
                 goal = goal,
                 onInput = onInput,
+                onShowDebug = onShowDebug,
             )
             if (goal.detailItems.isNotEmpty()) {
                 AnimatedVisibility(
@@ -224,18 +261,26 @@ fun LadderGoalItem(
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun LadderGoalHeaderRow(
     goal: UILadderGoal,
     onInput: (RankListInput) -> Unit,
+    onShowDebug: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
             .let { mod ->
-                goal.expandAction?.let { mod.clickable { onInput(it) } }
-                    ?: mod
+                if (goal.expandAction != null || goal.debugText != null) {
+                    mod.combinedClickable(
+                        onClick = { goal.expandAction?.let { onInput(it) } },
+                        onLongClick = { goal.debugText?.let { onShowDebug(it) } }
+                    )
+                } else {
+                    mod
+                }
             },
     ) {
         Text(
@@ -400,6 +445,9 @@ private fun previewGoalItem(
             }
             Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
         },
+        onShowDebug = {
+            Toast.makeText(context, "Debug selected: $it", Toast.LENGTH_SHORT).show()
+        }
     )
 }
 

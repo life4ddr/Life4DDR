@@ -76,6 +76,7 @@ data class UILadderGoal(
     val progress: UILadderProgress? = null,
     val expandAction: RankListInput? = null,
     val detailItems: List<UILadderDetailItem> = emptyList(),
+    val debugText: String? = null,
 ) {
     constructor(
         id: Long,
@@ -88,6 +89,7 @@ data class UILadderGoal(
         progress: UILadderProgress? = null,
         expandAction: RankListInput? = null,
         detailItems: List<UILadderDetailItem> = emptyList(),
+        debugText: String? = null,
     ) : this (
         id = id,
         goalText = goalText,
@@ -105,6 +107,7 @@ data class UILadderGoal(
         progress = progress,
         expandAction = expandAction,
         detailItems = detailItems,
+        debugText = debugText,
     )
 }
 

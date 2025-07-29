@@ -73,7 +73,19 @@ class LadderGoalMapper : KoinComponent {
                 } ?: emptyList()
             } else {
                 emptyList()
-            }
+            },
+            debugText = base.toString().let { text ->
+                val mainSplit = text.split('(', ')')
+                val title = "${mainSplit[0]} (${base.id})"
+                val body = mainSplit[1].split(", ")
+                    .filterNot { it.contains("=null") }
+                    .filterNot { it.contains("allowsHigherDiffNum=false") }
+                    .filterNot { it.contains("id=") }
+                    .map { "\t$it" }
+                    .joinToString("\n")
+
+                listOf(title, body).joinToString("\n")
+            }, // FIXME don't show on release mode
         )
     }
 }
