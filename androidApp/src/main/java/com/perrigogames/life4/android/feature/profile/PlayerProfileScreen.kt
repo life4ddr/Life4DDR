@@ -9,6 +9,8 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -19,6 +21,8 @@ import com.perrigogames.life4.android.feature.banners.BannerContainer
 import com.perrigogames.life4.android.feature.ladder.LadderGoals
 import com.perrigogames.life4.android.util.SizedSpacer
 import com.perrigogames.life4.android.view.compose.RankImage
+import com.perrigogames.life4.enums.colorRes
+import com.perrigogames.life4.enums.nameRes
 import com.perrigogames.life4.feature.profile.PlayerInfoViewState
 import com.perrigogames.life4.feature.profile.PlayerProfileAction
 import com.perrigogames.life4.feature.profile.PlayerProfileViewModel
@@ -121,6 +125,8 @@ fun PlayerProfileInfo(
     modifier: Modifier = Modifier,
     onRankClicked: () -> Unit = {},
 ) {
+    val context = LocalContext.current
+
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
@@ -144,11 +150,20 @@ fun PlayerProfileInfo(
                 )
             }
         }
-        RankImage(
-            rank = state.rank,
-            size = 64.dp,
-            onClick = onRankClicked
-        )
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            RankImage(
+                rank = state.rank,
+                size = 64.dp,
+                onClick = onRankClicked
+            )
+            Text(
+                text = state.rank.nameRes.getString(context),
+                style = MaterialTheme.typography.labelMedium,
+                color = state.rank?.colorRes?.getColor(context)?.let { Color(it) } ?: Color.Unspecified
+            )
+        }
     }
 }
 
