@@ -4,6 +4,7 @@ import co.touchlab.kermit.Logger
 import com.perrigogames.life4.data.BaseRankGoal
 import com.perrigogames.life4.data.MAPointsGoal
 import com.perrigogames.life4.data.MAPointsStackedGoal
+import com.perrigogames.life4.data.SongsClearGoal
 import com.perrigogames.life4.enums.ClearType
 import com.perrigogames.life4.enums.DifficultyClass
 import com.perrigogames.life4.enums.PlayStyle
@@ -17,6 +18,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
+import org.koin.core.module.plus
 
 typealias OrganizerBase = Map<PlayStyle, DifficultyClassMap>
 typealias DifficultyClassMap = Map<DifficultyClass, DifficultyNumberMap>
@@ -86,9 +88,25 @@ class ChartResultOrganizer: BaseModel(), KoinComponent {
 //                val start = Clock.System.now()
                 val results = filterer.filtered(config.resultFilter)
 //                val filterEnd = Clock.System.now()
+
+                val goalExceptionScore = (base as? SongsClearGoal)?.exceptionScore
+                val (resultsDone, resultsNotDone) = if (goalExceptionScore != null) {
+                    val floorAchieved = mutableListOf<ChartResultPair>()
+                    val floorNotAchieved = mutableListOf<ChartResultPair>()
+                    results.resultsNotDone.forEach { pair ->
+                        if ((pair.result?.score ?: 0) >= goalExceptionScore) {
+                            floorAchieved.add(pair)
+                        } else {
+                            floorNotAchieved.add(pair)
+                        }
+                    }
+                    (results.resultsDone + floorAchieved) to floorNotAchieved
+                } else {
+                    results.resultsDone to results.resultsNotDone
+                }
                 results.copy(
-                    resultsDone = results.resultsDone.specialSorted(base, enableDifficultyTiers),
-                    resultsNotDone = results.resultsNotDone.specialSorted(base, enableDifficultyTiers)
+                    resultsDone = resultsDone.specialSorted(base, enableDifficultyTiers),
+                    resultsNotDone = resultsNotDone.specialSorted(base, enableDifficultyTiers)
                 )
 //                ).also {
 //                    val sortEnd = Clock.System.now()

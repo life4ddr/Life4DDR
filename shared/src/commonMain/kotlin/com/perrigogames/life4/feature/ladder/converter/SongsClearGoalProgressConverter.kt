@@ -133,9 +133,14 @@ class SongsClearGoalProgressConverter : GoalProgressConverter<SongsClearGoal>, K
         match: List<ChartResultPair>,
         noMatch: List<ChartResultPair>,
     ): LadderGoalProgress {
+        val freeExceptions = if (goal.exceptionScore != null) {
+            0
+        } else {
+            (goal.exceptions ?: 0)
+        }
         return LadderGoalProgress(
             progress = match.size,
-            max = (match.size + noMatch.size) - (goal.exceptions ?: 0),
+            max = (match.size + noMatch.size) - freeExceptions,
             showMax = true,
             results = noMatch,
         )

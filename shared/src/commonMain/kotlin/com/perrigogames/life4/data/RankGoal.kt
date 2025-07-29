@@ -224,7 +224,6 @@ data class SongsClearGoal(
     @SerialName("exception_score") val exceptionScore: Int? = null,
 ): BaseRankGoal(), KoinComponent {
 
-    val safeExceptions: Int = exceptions ?: 0
     private val logger: Logger by injectLogger("RankGoal")
 
     @Transient
@@ -250,6 +249,9 @@ data class SongsClearGoal(
         }
         if (exceptions != null && songExceptions?.isEmpty() == false) {
             return "cannot combine exceptions and songExceptions"
+        }
+        if (exceptions == null && exceptionScore != null) {
+            return "exceptionScore requires exceptions to be specified"
         }
         val hasExceptions = exceptions != null || songExceptions?.isEmpty() == false
         if (!hasExceptions && exceptionScore != null) {
@@ -303,6 +305,7 @@ data class SongsClearGoal(
     }
 
     private fun StringDesc.exceptionSection() = when {
+        exceptions != null && exceptionScore != null -> RankStrings.steppedExceptionsModifier(this, exceptions, exceptionScore)
         exceptions != null -> RankStrings.exceptionsModifier(this, exceptions)
         songExceptions != null -> RankStrings.songExceptionsModifier(this, songExceptions.toStringDescs())
         else -> this

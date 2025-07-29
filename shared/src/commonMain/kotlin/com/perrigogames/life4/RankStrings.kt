@@ -155,11 +155,23 @@ object RankStrings {
             .toListString(diffClassSet.requireAll, false),
     )
 
-    // (5E)
+    // (except 5)
     fun exceptionsModifier(groupString: StringDesc, exceptions: Int): StringDesc = StringDesc.ResourceFormatted(
         MR.strings.exceptions_num_modifier,
         groupString,
         exceptions,
+    )
+
+    // (except 5, which require 999,500)
+    fun steppedExceptionsModifier(
+        groupString: StringDesc,
+        exceptions: Int,
+        exceptionScore: Int
+    ): StringDesc = StringDesc.ResourceFormatted(
+        MR.strings.exceptions_num_score_modifier,
+        groupString,
+        exceptions,
+        exceptionScore.longNumberString(),
     )
 
     // (except SongA, SongB, and SongC)
