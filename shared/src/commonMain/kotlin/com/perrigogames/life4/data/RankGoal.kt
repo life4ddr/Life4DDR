@@ -250,8 +250,8 @@ data class SongsClearGoal(
         if (exceptions != null && songExceptions?.isEmpty() == false) {
             return "cannot combine exceptions and songExceptions"
         }
-        if (exceptions == null && exceptionScore != null) {
-            return "exceptionScore requires exceptions to be specified"
+        if (exceptionScore != null && (exceptions == null && songExceptions?.isEmpty() != false)) {
+            return "exceptionScore requires exceptions or songExceptions to be specified"
         }
         val hasExceptions = exceptions != null || songExceptions?.isEmpty() == false
         if (!hasExceptions && exceptionScore != null) {
