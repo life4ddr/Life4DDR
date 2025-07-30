@@ -22,6 +22,7 @@ import com.alorma.compose.settings.ui.SettingsMenuLink
 import com.perrigogames.life4.android.compose.Paddings
 import com.perrigogames.life4.feature.settings.*
 import dev.icerock.moko.mvvm.createViewModelFactory
+import androidx.core.net.toUri
 
 @Composable
 fun SettingsScreen(
@@ -52,10 +53,7 @@ fun SettingsScreen(
                 }
                 is SettingsEvent.Email -> {
                     Log.v("Settings", "Opening email client to ${event.email}")
-                    val emailUri = Uri.parse(
-//                        "mailto:${event.email}?subject=${Uri.encode(subject)}&body=${Uri.encode(body)}"
-                        "mailto:${event.email}"
-                    )
+                    val emailUri = "mailto:${event.email}".toUri()
                     val intent = Intent(Intent.ACTION_SENDTO, emailUri)
                     context.startActivity(intent)
                 }
