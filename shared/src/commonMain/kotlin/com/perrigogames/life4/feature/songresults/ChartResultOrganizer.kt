@@ -86,34 +86,15 @@ class ChartResultOrganizer: BaseModel(), KoinComponent {
             .map { ChartFilterer(it) }
             .map { filterer ->
 //                val start = Clock.System.now()
-                val results = filterer.filtered(config.resultFilter)
+                var results = filterer.filtered(config.resultFilter)
 //                val filterEnd = Clock.System.now()
 
-                val songsClearGoal = base as? SongsClearGoal
-                val goalExceptionScore = songsClearGoal?.exceptionScore
-                val exceptionCount = songsClearGoal?.exceptions
-                // TODO handle songExceptions
-                val (resultsDone, resultsNotDone) = if (goalExceptionScore != null && exceptionCount != null) {
-                    var floorAchieved = mutableListOf<ChartResultPair>()
-                    val floorNotAchieved = mutableListOf<ChartResultPair>()
-                    results.resultsNotDone.forEach { pair ->
-                        if ((pair.result?.score ?: 0) >= goalExceptionScore) {
-                            floorAchieved.add(pair)
-                        } else {
-                            floorNotAchieved.add(pair)
-                        }
-                    }
-                    floorAchieved = floorAchieved.sortedByDescending { it.result?.score ?: 0 }.toMutableList()
-                    while(floorAchieved.size > exceptionCount) {
-                        floorNotAchieved.add(floorAchieved.removeLast())
-                    }
-                    (results.resultsDone + floorAchieved) to floorNotAchieved
-                } else {
-                    results.resultsDone to results.resultsNotDone
+                (base as? SongsClearGoal)?.let { songClearGoal ->
+                    results = processExceptions(songClearGoal, results)
                 }
                 results.copy(
-                    resultsDone = resultsDone.specialSorted(base, enableDifficultyTiers),
-                    resultsNotDone = resultsNotDone.specialSorted(base, enableDifficultyTiers)
+                    resultsDone = results.resultsDone.specialSorted(base, enableDifficultyTiers),
+                    resultsNotDone = results.resultsNotDone.specialSorted(base, enableDifficultyTiers)
                 )
 //                ).also {
 //                    val sortEnd = Clock.System.now()
@@ -123,6 +104,51 @@ class ChartResultOrganizer: BaseModel(), KoinComponent {
 //                    logger.d { "Filter time: ${filterMillis}ms, Sort time: ${sortMillis}ms, Total time: ${totalMillis}ms" }
 //                }
             }
+    }
+
+    private fun processExceptions(
+        goal: SongsClearGoal,
+        results: ResultsBundle
+    ): ResultsBundle {
+        return when {
+            goal.exceptionScore == null -> results
+            goal.exceptions != null -> {
+                var floorAchieved = mutableListOf<ChartResultPair>()
+                val floorNotAchieved = mutableListOf<ChartResultPair>()
+                results.resultsNotDone.forEach { pair ->
+                    if ((pair.result?.score ?: 0) >= goal.exceptionScore) {
+                        floorAchieved.add(pair)
+                    } else {
+                        floorNotAchieved.add(pair)
+                    }
+                }
+                floorAchieved = floorAchieved.sortedByDescending { it.result?.score ?: 0 }.toMutableList()
+                while(floorAchieved.size > goal.exceptions) {
+                    floorNotAchieved.add(floorAchieved.removeLast())
+                }
+                ResultsBundle(
+                    resultsDone = (results.resultsDone + floorAchieved),
+                    resultsNotDone = floorNotAchieved
+                )
+            }
+            goal.songExceptions != null -> {
+                val floorAchieved = mutableListOf<ChartResultPair>()
+                val floorNotAchieved = mutableListOf<ChartResultPair>()
+                results.resultsNotDone.forEach { pair ->
+                    val isException = pair.chart.song.title in goal.songExceptions
+                    when {
+                        !isException -> { floorNotAchieved.add(pair) }
+                        (pair.result?.score ?: 0) >= goal.exceptionScore -> { floorAchieved.add(pair) }
+                        else -> { floorNotAchieved.add(pair) }
+                    }
+                }
+                ResultsBundle(
+                    resultsDone = (results.resultsDone + floorAchieved),
+                    resultsNotDone = floorNotAchieved
+                )
+            }
+            else -> results
+        }
     }
 
     private fun List<ChartResultPair>.specialSorted(
