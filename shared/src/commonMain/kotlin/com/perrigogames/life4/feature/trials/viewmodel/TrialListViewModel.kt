@@ -10,6 +10,7 @@ import com.perrigogames.life4.feature.settings.UserRankSettings
 import com.perrigogames.life4.feature.trials.data.Trial
 import com.perrigogames.life4.feature.trials.data.TrialState
 import com.perrigogames.life4.feature.trials.enums.TrialJacketCorner
+import com.perrigogames.life4.feature.trials.enums.TrialRank
 import com.perrigogames.life4.feature.trials.manager.TrialDataManager
 import com.perrigogames.life4.feature.trials.manager.TrialRecordsManager
 import com.perrigogames.life4.feature.trials.view.UIPlacementBanner
@@ -22,7 +23,9 @@ import dev.icerock.moko.mvvm.flow.cStateFlow
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
 import dev.icerock.moko.resources.desc.desc
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -33,6 +36,9 @@ class TrialListViewModel : ViewModel(), KoinComponent {
     private val userRankSettings: UserRankSettings by inject()
     private val trialRecordsManager: TrialRecordsManager by inject()
     private val settings: Settings by inject()
+
+    private val trialsStateFlow = trialDataManager.trialsFlow
+        .stateIn(viewModelScope, started = SharingStarted.Lazily, initialValue = emptyList())
 
     private val _state = MutableStateFlow(UITrialList()).cMutableStateFlow()
     val state: CStateFlow<UITrialList> = _state.cStateFlow()
@@ -45,7 +51,7 @@ class TrialListViewModel : ViewModel(), KoinComponent {
 
         viewModelScope.launch {
             combine(
-                trialDataManager.trialsFlow,
+                trialsStateFlow,
                 trialRecordsManager.bestSessions,
                 userRankSettings.rank,
             ) { trials, sessions, rank ->
@@ -64,6 +70,18 @@ class TrialListViewModel : ViewModel(), KoinComponent {
                 )
             }.collect(_state)
         }
+    }
+
+    fun addTrialPlay(trial: Trial, targetRank: TrialRank, exScore: Int) {
+        trialRecordsManager.saveFakeSession(
+            trial = trial,
+            targetRank = targetRank,
+            exScore = exScore
+        )
+    }
+
+    fun clearTrialData(trialId: String) {
+        trialRecordsManager.deleteSessions(trialId)
     }
 
     private fun matchTrials(trials: List<Trial>, sessions: List<SelectBestSessions>) = trials.associateWith { trial ->

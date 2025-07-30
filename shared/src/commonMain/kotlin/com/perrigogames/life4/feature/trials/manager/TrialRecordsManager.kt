@@ -1,8 +1,10 @@
 package com.perrigogames.life4.feature.trials.manager
 
 import com.perrigogames.life4.data.InProgressTrialSession
+import com.perrigogames.life4.data.SongResult
 import com.perrigogames.life4.db.SelectBestSessions
 import com.perrigogames.life4.db.TrialSong
+import com.perrigogames.life4.feature.trials.data.Trial
 import com.perrigogames.life4.feature.trials.data.TrialDatabaseHelper
 import com.perrigogames.life4.feature.trials.enums.TrialRank
 import com.perrigogames.life4.model.BaseModel
@@ -18,7 +20,15 @@ interface TrialRecordsManager {
 
     fun saveSessions(records: List<Pair<InProgressTrialSession, TrialRank>>)
 
+    fun saveFakeSession(
+        trial: Trial,
+        targetRank: TrialRank,
+        exScore: Int,
+    )
+
     fun deleteSession(sessionId: Long)
+
+    fun deleteSessions(trialId: String)
 
     fun clearSessions()
 
@@ -66,9 +76,45 @@ class DefaultTrialRecordsManager: BaseModel(), TrialRecordsManager {
         }
     }
 
+    override fun saveFakeSession(
+        trial: Trial,
+        targetRank: TrialRank,
+        exScore: Int,
+    ) {
+        val songCount = trial.songs.size
+        val exRatio = exScore / trial.totalEx.toDouble()
+        var remainingEx = exScore
+
+        saveSession(
+            record = InProgressTrialSession(
+                trial = trial,
+                results = trial.songs.mapIndexed { idx, song ->
+                    val ex = if (idx == songCount - 1) {
+                        remainingEx
+                    } else {
+                        (song.ex * exRatio).toInt()
+                    }
+                    remainingEx -= ex
+                    SongResult(
+                        song = song,
+                        exScore = ex
+                    )
+                }.toTypedArray()
+            ).also { it.goalObtained = true },
+            targetRank = targetRank
+        )
+    }
+
     override fun deleteSession(sessionId: Long) {
         mainScope.launch {
             dbHelper.deleteSession(sessionId)
+            refreshSessions()
+        }
+    }
+
+    override fun deleteSessions(trialId: String) {
+        mainScope.launch {
+            dbHelper.deleteSessions(trialId)
             refreshSessions()
         }
     }

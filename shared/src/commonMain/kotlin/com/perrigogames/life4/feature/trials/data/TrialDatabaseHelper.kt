@@ -50,6 +50,12 @@ class TrialDatabaseHelper(sqlDriver: SqlDriver): DatabaseHelper(sqlDriver) {
         queries.deleteSession(id)
     }
 
+    suspend fun deleteSessions(trialId: String) = withContext(Dispatchers.Default) {
+        sessionsForTrial(trialId).forEach { trial ->
+            queries.deleteSession(trial.id)
+        }
+    }
+
     suspend fun deleteAll() = withContext(Dispatchers.Default) {
         queries.deleteAllSongs()
         queries.deleteAllSessions()

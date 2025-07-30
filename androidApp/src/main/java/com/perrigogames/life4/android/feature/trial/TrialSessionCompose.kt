@@ -268,7 +268,7 @@ fun TrialSessionHeader(
 
         val targetSelection = viewData.targetRank as? UITargetRank.Selection
         if (showManualScoreEntry && targetSelection != null) {
-            ManualScoreEntry(
+            TrialQuickAddDialog(
                 availableRanks = targetSelection.availableRanks,
                 onSubmit = { rank, ex -> onAction(TrialSessionAction.ManualScoreEntry(rank, ex)) },
                 onDismiss = { }
@@ -537,53 +537,6 @@ fun RowScope.InProgressJacketItem(
                     modifier = Modifier.fillMaxWidth(),
                     textAlign = TextAlign.Center,
                 )
-            }
-        }
-    }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-private fun ManualScoreEntry(
-    availableRanks: List<TrialRank>,
-    onSubmit: (TrialRank, Int) -> Unit,
-    onDismiss: () -> Unit
-) {
-    var trialRank by remember { mutableStateOf(TrialRank.ONYX) }
-    val uiTrialRank by remember {
-        derivedStateOf {
-            UITargetRank.Selection(
-                rank = trialRank,
-                title = trialRank.nameRes.desc(),
-                titleColor = trialRank.colorRes.asColorDesc(),
-                rankGoalItems = emptyList(),
-                availableRanks = availableRanks
-            )
-        }
-    }
-    var exScoreText by remember { mutableStateOf(TextFieldValue()) }
-    BasicAlertDialog(
-        onDismissRequest = onDismiss,
-    ) {
-        Card {
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(8.dp),
-                modifier = Modifier.padding(8.dp)
-            ) {
-                RankDropdown(
-                    viewData = uiTrialRank,
-                    rankSelected = { rank -> trialRank = rank }
-                )
-                TextField(
-                    value = exScoreText,
-                    onValueChange = { exScoreText = it },
-                    placeholder = { Text("EX Score") },
-                )
-                TextButton(
-                    onClick = { onSubmit(trialRank, exScoreText.text.toInt()) },
-                    modifier = Modifier.align(Alignment.End)
-                ) { Text("Submit") }
             }
         }
     }
