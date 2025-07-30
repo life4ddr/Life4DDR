@@ -180,7 +180,7 @@ class SettingsPageProvider : BaseModel() {
 
     companion object {
         private const val URL_SHOP_LIFE4 = "https://life4.bigcartel.com/"
-        private const val URL_SHOP_DANGERSHARK = "https://www.dangershark.com/"
+        private const val URL_SHOP_DANGERSHARK = "https://www.etsy.com/shop/DangerShark/"
         private const val URL_FIND_US_ON_X = "https://x.com/life4ddr/"
         private const val URL_JOIN_DISCORD = "https://discord.gg/sTYjWNn"
     }
