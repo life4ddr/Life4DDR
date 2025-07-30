@@ -214,6 +214,10 @@
     <string name="trial_submit_retired_dialog_prompt_format">Photos are saved to your SD card\'s Pictures/LIFE4 folder.\n\nSince %s has been retired, your progress will not be saved and your scores cannot be submitted to earn a rank.</string>
     <string name="trial_not_saved">This Trial has not been saved!</string>
 
+    <string name="trial_reminder_score">You must score %s on this song!</string>
+    <string name="trial_reminder_clear_type">You must %s this song!</string>
+    <string name="trial_reminder_fail_allowed">You are not required to pass this song.</string>
+
     <string name="trial_clear_records_title">Clear Trial Records</string>
     <string name="trial_clear_records_body">Are you sure you want to delete all records for %s?</string>
     <!--  endregion  -->

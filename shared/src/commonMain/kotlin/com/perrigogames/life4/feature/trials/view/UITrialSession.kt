@@ -126,6 +126,7 @@ sealed class UITrialSessionContent {
         val difficultyClassColor: ColorDesc,
         val difficultyNumberText: StringDesc,
         val exScoreText: StringDesc,
+        val reminder: StringDesc? = null,
     ) : UITrialSessionContent() {
 
         data class Item(

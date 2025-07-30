@@ -141,7 +141,7 @@ class TrialSessionViewModel(trialId: String) : KoinComponent, ViewModel() {
                             currentEx = currentEx,
                             currentExText = StringDesc.Raw(currentEx.toString())
                         ),
-                        content = contentProvider.provideMidSession(session, stage),
+                        content = contentProvider.provideMidSession(session, stage, targetRank.rank),
                         buttonText = MR.strings.take_photo.desc(),
                         buttonAction = TrialSessionAction.TakePhoto(stage),
                     )

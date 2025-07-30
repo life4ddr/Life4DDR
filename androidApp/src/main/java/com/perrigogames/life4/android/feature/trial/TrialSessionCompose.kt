@@ -371,6 +371,12 @@ fun SongFocusedContent(
                 text = viewData.exScoreText.toString(context),
             )
         }
+        viewData.reminder?.let { reminder ->
+            Text(
+                text = reminder.toString(context),
+                fontWeight = FontWeight.Bold
+            )
+        }
         SizedSpacer(32.dp)
     }
 }

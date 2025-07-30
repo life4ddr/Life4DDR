@@ -3,6 +3,7 @@ package com.perrigogames.life4.feature.trials.provider
 import com.mohamedrejeb.ksoup.entities.KsoupEntities
 import com.perrigogames.life4.MR
 import com.perrigogames.life4.data.InProgressTrialSession
+import com.perrigogames.life4.enums.ClearType
 import com.perrigogames.life4.enums.PlayStyle
 import com.perrigogames.life4.enums.colorRes
 import com.perrigogames.life4.enums.nameRes
@@ -10,6 +11,7 @@ import com.perrigogames.life4.feature.songlist.Chart
 import com.perrigogames.life4.feature.songlist.SongDataManager
 import com.perrigogames.life4.feature.trials.data.Trial
 import com.perrigogames.life4.feature.trials.data.TrialSong
+import com.perrigogames.life4.feature.trials.enums.TrialRank
 import com.perrigogames.life4.feature.trials.view.UITrialSessionContent
 import com.perrigogames.life4.feature.trials.viewmodel.TrialSessionAction
 import com.perrigogames.life4.longNumberString
@@ -38,10 +40,14 @@ class TrialContentProvider(private val trial: Trial) : KoinComponent {
         )
     }
 
-    fun provideMidSession(session: InProgressTrialSession, stage: Int) : UITrialSessionContent.SongFocused {
+    fun provideMidSession(session: InProgressTrialSession, stage: Int, targetRank: TrialRank) : UITrialSessionContent.SongFocused {
         val currentSong = trial.songs[stage]
         val currentChart = findChart(currentSong)
             ?: throw IllegalStateException("Song info not found for ${currentSong.skillId} / ${currentSong.difficultyClass}")
+        val currentGoalSet = trial.goalSet(targetRank)
+        val requiredClear = currentGoalSet?.clearIndexed?.get(stage)
+        val requiredScore = currentGoalSet?.scoreIndexed?.get(stage) ?: 0
+
         return UITrialSessionContent.SongFocused(
             items = trial.songs.mapIndexed { index, song ->
                 val result = session.results[index]
@@ -66,7 +72,29 @@ class TrialContentProvider(private val trial: Trial) : KoinComponent {
             difficultyClassText = currentChart.difficultyClass.nameRes.desc(),
             difficultyClassColor = currentChart.difficultyClass.colorRes.asColorDesc(),
             difficultyNumberText = currentChart.difficultyNumber.toString().desc(),
-            exScoreText = StringDesc.ResourceFormatted(MR.strings.ex_score_string_format, currentSong.ex)
+            exScoreText = StringDesc.ResourceFormatted(MR.strings.ex_score_string_format, currentSong.ex),
+            reminder = when {
+                currentGoalSet == null -> null
+                requiredClear != ClearType.CLEAR -> {
+                    when (requiredClear) {
+                        null -> null
+                        ClearType.FAIL -> MR.strings.trial_reminder_fail_allowed.desc()
+                        else -> {
+                            StringDesc.ResourceFormatted(
+                                MR.strings.trial_reminder_clear_type,
+                                requiredClear.uiName
+                            )
+                        }
+                    }
+                }
+                requiredScore != 0 -> {
+                    StringDesc.ResourceFormatted(
+                        MR.strings.trial_reminder_score,
+                        requiredScore.longNumberString(),
+                    )
+                }
+                else -> null
+            }
         )
     }
 
