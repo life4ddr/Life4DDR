@@ -394,11 +394,10 @@ data class MultipleChoiceGoal(
     val options: List<BaseRankGoal>,
 ): BaseRankGoal() {
 
-    override fun goalString() = StringDesc.Composition(
+    override fun goalString() =
         options.map { it.goalString() } // FIXME period substitution
             .toListString(
                 useAnd = false,
                 caps = true
-            ) + StringDesc.Raw(".")
-    )
+            )
 }

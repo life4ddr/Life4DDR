@@ -79,7 +79,7 @@ object RankStrings {
 
     // New Century, Rising Fire Hawk, and Astrogazer
     fun songListString(songs: List<String>): StringDesc =
-        StringDesc.Composition(songs.toStringDescs().toListString(useAnd = true, caps = false))
+        songs.toStringDescs().toListString(useAnd = true, caps = false)
 
     // any 3 songs
     fun songCountString(songCount: Int): StringDesc = StringDesc.ResourceFormatted(
