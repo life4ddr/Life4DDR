@@ -89,9 +89,12 @@ class ChartResultOrganizer: BaseModel(), KoinComponent {
                 val results = filterer.filtered(config.resultFilter)
 //                val filterEnd = Clock.System.now()
 
-                val goalExceptionScore = (base as? SongsClearGoal)?.exceptionScore
-                val (resultsDone, resultsNotDone) = if (goalExceptionScore != null) {
-                    val floorAchieved = mutableListOf<ChartResultPair>()
+                val songsClearGoal = base as? SongsClearGoal
+                val goalExceptionScore = songsClearGoal?.exceptionScore
+                val exceptionCount = songsClearGoal?.exceptions
+                // TODO handle songExceptions
+                val (resultsDone, resultsNotDone) = if (goalExceptionScore != null && exceptionCount != null) {
+                    var floorAchieved = mutableListOf<ChartResultPair>()
                     val floorNotAchieved = mutableListOf<ChartResultPair>()
                     results.resultsNotDone.forEach { pair ->
                         if ((pair.result?.score ?: 0) >= goalExceptionScore) {
@@ -99,6 +102,10 @@ class ChartResultOrganizer: BaseModel(), KoinComponent {
                         } else {
                             floorNotAchieved.add(pair)
                         }
+                    }
+                    floorAchieved = floorAchieved.sortedByDescending { it.result?.score ?: 0 }.toMutableList()
+                    while(floorAchieved.size > exceptionCount) {
+                        floorNotAchieved.add(floorAchieved.removeLast())
                     }
                     (results.resultsDone + floorAchieved) to floorNotAchieved
                 } else {
