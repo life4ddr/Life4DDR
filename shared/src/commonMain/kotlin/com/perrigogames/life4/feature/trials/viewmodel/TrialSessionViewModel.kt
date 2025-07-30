@@ -264,28 +264,11 @@ class TrialSessionViewModel(trialId: String) : KoinComponent, ViewModel() {
             }
 
             is TrialSessionAction.ManualScoreEntry -> {
-                val songCount = trial.songs.size
-                val exRatio = action.ex / trial.totalEx.toDouble()
-                var remainingEx = action.ex
-
                 viewModelScope.launch {
-                    trialRecordsManager.saveSession(
-                        record = InProgressTrialSession(
-                            trial = trial,
-                            results = trial.songs.mapIndexed { idx, song ->
-                                val ex = if (idx == songCount - 1) {
-                                    remainingEx
-                                } else {
-                                    (song.ex * exRatio).toInt()
-                                }
-                                remainingEx -= ex
-                                SongResult(
-                                    song = song,
-                                    exScore = ex
-                                )
-                            }.toTypedArray()
-                        ).also { it.goalObtained = true },
-                        targetRank = action.rank
+                    trialRecordsManager.saveFakeSession(
+                        trial = trial,
+                        targetRank = action.rank,
+                        exScore = action.ex,
                     )
                     _events.emit(TrialSessionEvent.Close)
                 }
