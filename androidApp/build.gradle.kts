@@ -112,7 +112,5 @@ dependencies {
     implementation(libs.koin.android)
     testImplementation(libs.junit)
 
-    implementation(libs.lottie)
-    implementation(libs.dexter)
     implementation(libs.coil)
 }
