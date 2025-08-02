@@ -171,8 +171,8 @@ class SettingsPageProvider : BaseModel() {
             screenTitle = StringDesc.Raw("Debug"),
             settingsItems = listOf(
                 UISettingsItem.Link(
-                    title = StringDesc.Raw("Create debug scores"),
-                    action = SettingsAction.Debug.SongData
+                    title = MR.strings.debug_locked_songs.desc(),
+                    action = SettingsAction.Debug.SongLockPage
                 )
             )
         )

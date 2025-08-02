@@ -21,6 +21,6 @@ sealed class SettingsAction {
     data class Modal(val modal: SettingsPageModal): SettingsAction()
     data object ShowCredits: SettingsAction()
     sealed class Debug: SettingsAction() {
-        data object SongData: Debug()
+        data object SongLockPage: Debug()
     }
 }

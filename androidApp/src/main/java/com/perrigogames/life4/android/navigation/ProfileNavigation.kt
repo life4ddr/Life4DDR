@@ -64,7 +64,9 @@ fun NavGraphBuilder.profileNavigation(
         SettingsScreen(
             modifier = Modifier.fillMaxSize(),
             onClose = { mainNavController.popBackStack() },
-            onNavigateToCredits = { TODO() }
+            onNavigate = { destination ->
+                mainNavController.navigate(destination.route)
+            }
         )
     }
 }

@@ -187,14 +187,43 @@ class ChartResultOrganizer: BaseModel(), KoinComponent {
         const val ASIA_EXCLUSIVE = 10
         const val GOLD_CAB = 20
         const val GRAND_PRIX = 190
+        const val BEMANI_PRO_LEAGUE = 240
         const val FLARE_LOCKED = 250
         const val TIME_EVENT_LOCKED = 260
-        const val UNNAMED_2 = 270
+        const val GOLDEN_LEAGUE = 270
         const val EXTRA_SAVIOR = 280
-        const val UNNAMED_1 = 290
+        const val GALAXY_BRAVE = 290
+        const val PLATINUM_PASS = 300
 
-        val BASIC_LOCKS = listOf(ASIA_EXCLUSIVE, GOLD_CAB, GRAND_PRIX, FLARE_LOCKED, TIME_EVENT_LOCKED, EXTRA_SAVIOR, UNNAMED_1, UNNAMED_2)
-        val EXPANDED_LOCKS = listOf(ASIA_EXCLUSIVE, GOLD_CAB, GRAND_PRIX, TIME_EVENT_LOCKED, UNNAMED_1, UNNAMED_2)
+        val EXPANDED_LOCKS = listOf(
+            ASIA_EXCLUSIVE,
+            GOLD_CAB,
+            GRAND_PRIX,
+            TIME_EVENT_LOCKED,
+            GALAXY_BRAVE,
+            GOLDEN_LEAGUE,
+            PLATINUM_PASS,
+            BEMANI_PRO_LEAGUE
+        )
+
+        val BASIC_LOCKS = EXPANDED_LOCKS + listOf(
+            FLARE_LOCKED,
+            EXTRA_SAVIOR,
+        )
+
+        fun lockTypeName(lockType: Int?) = when(lockType) {
+            ASIA_EXCLUSIVE -> "Asia Exclusive ($lockType)"
+            BEMANI_PRO_LEAGUE -> "BEMANI Pro League ($lockType)"
+            EXTRA_SAVIOR -> "Extra Savior ($lockType)"
+            FLARE_LOCKED -> "Flare Locked ($lockType)"
+            GALAXY_BRAVE -> "Galaxy Brave ($lockType)"
+            GOLD_CAB -> "Gold Cab ($lockType)"
+            GOLDEN_LEAGUE -> "Golden League ($lockType)"
+            GRAND_PRIX -> "Grand Prix ($lockType)"
+            PLATINUM_PASS -> "DDR Platinum Pass ($lockType)"
+            TIME_EVENT_LOCKED -> "Time Event Locked ($lockType)"
+            else -> "Unspecified reason ($lockType)"
+        }
     }
 }
 

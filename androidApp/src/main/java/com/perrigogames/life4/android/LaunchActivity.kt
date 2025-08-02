@@ -17,6 +17,7 @@ import androidx.navigation.compose.rememberNavController
 import com.perrigogames.life4.android.compose.LIFE4Theme
 import com.perrigogames.life4.android.navigation.firstRunNavigation
 import com.perrigogames.life4.android.navigation.ladderNavigation
+import com.perrigogames.life4.android.navigation.settingsNavigation
 import com.perrigogames.life4.android.navigation.trialNavigation
 import com.perrigogames.life4.feature.deeplink.IDeeplinkManager
 import com.perrigogames.life4.feature.firstrun.InitState
@@ -79,6 +80,7 @@ class LaunchActivity: AppCompatActivity(), KoinComponent {
                         )
                         ladderNavigation(navController)
                         trialNavigation(navController)
+                        settingsNavigation(navController)
                     }
                 }
             }

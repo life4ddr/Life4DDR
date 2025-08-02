@@ -23,14 +23,15 @@ import com.perrigogames.life4.android.compose.Paddings
 import com.perrigogames.life4.feature.settings.*
 import dev.icerock.moko.mvvm.createViewModelFactory
 import androidx.core.net.toUri
+import com.perrigogames.life4.util.Destination
 
 @Composable
 fun SettingsScreen(
     modifier: Modifier = Modifier,
     onClose: () -> Unit,
-    onNavigateToCredits: () -> Unit,
+    onNavigate: (Destination) -> Unit,
     viewModel: SettingsViewModel = viewModel(
-        factory = createViewModelFactory { SettingsViewModel(onClose, onNavigateToCredits) }
+        factory = createViewModelFactory { SettingsViewModel(onClose, onNavigate) }
     ),
 ) {
     val context = LocalContext.current

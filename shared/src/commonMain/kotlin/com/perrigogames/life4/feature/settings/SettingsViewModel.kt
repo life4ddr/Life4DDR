@@ -3,6 +3,7 @@ package com.perrigogames.life4.feature.settings
 import com.perrigogames.life4.AppInfo
 import com.perrigogames.life4.feature.sanbai.ISanbaiManager
 import com.perrigogames.life4.feature.songresults.SongResultsManager
+import com.perrigogames.life4.util.Destination
 import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.coroutines.FlowSettings
 import dev.icerock.moko.mvvm.flow.CStateFlow
@@ -17,7 +18,7 @@ import org.koin.core.component.inject
 @OptIn(ExperimentalSettingsApi::class)
 class SettingsViewModel(
     private val onClose: () -> Unit,
-    private val onNavigateToCredits: () -> Unit,
+    private val onNavigate: (Destination) -> Unit,
 ) : ViewModel(), KoinComponent {
     private val appInfo: AppInfo by inject()
     private val resultsManager: SongResultsManager by inject()
@@ -72,14 +73,14 @@ class SettingsViewModel(
                     _events.emit(SettingsEvent.WebLink(action.url))
                 }
             }
-            is SettingsAction.ShowCredits -> onNavigateToCredits()
+            is SettingsAction.ShowCredits -> onNavigate(SettingsDestination.Credits)
             is SettingsAction.Sanbai.RefreshLibrary -> sanbaiManager.refreshSongData(force = true)
             is SettingsAction.Sanbai.RefreshUserScores -> {
                 viewModelScope.launch {
                     sanbaiManager.fetchScores()
                 }
             }
-            is SettingsAction.Debug.SongData -> resultsManager.createDebugScores()
+            is SettingsAction.Debug.SongLockPage -> onNavigate(SettingsDestination.SongLock)
         }
     }
 

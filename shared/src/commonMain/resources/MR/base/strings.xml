@@ -662,6 +662,7 @@
     <string name="sanbai_settings">Sanbai Settings</string>
     <string name="refresh_sanbai_library_data">Refresh Sanbai library data</string>
     <string name="refresh_sanbai_user_scores">Refresh Sanbai user scores</string>
+    <string name="debug_locked_songs">Locked songs</string>
     <string name="join_discord">Join our Discord</string>
     <string name="find_us_on_x">Find us on X</string>
     <string name="close">Close</string>
