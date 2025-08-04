@@ -103,7 +103,6 @@ class TrialSessionViewModel(trialId: String) : KoinComponent, ViewModel() {
                                 titleColor = target.colorRes.asColorDesc(),
                             )
                         )
-                        else -> throw Exception("Not allowed to change rank for state type ${curr::class.simpleName}")
                     }.toViewState()
                 }
             }

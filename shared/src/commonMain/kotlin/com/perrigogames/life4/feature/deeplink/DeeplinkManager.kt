@@ -41,7 +41,7 @@ class DeeplinkManager : BaseModel(), IDeeplinkManager {
         when (sections[0]) {
             SANBAI_AUTH_RETURN_PATH -> {
                 val authCode = queryParams["code"]
-                val playerId = queryParams["player_id"]
+//                val playerId = queryParams["player_id"]
                 authCode?.let {
                     ktorScope.launch {
                         if (sanbaiManager.completeLogin(it)) {

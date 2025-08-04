@@ -3,8 +3,6 @@ package com.perrigogames.life4.feature.trials.viewmodel
 import com.perrigogames.life4.MR
 import com.perrigogames.life4.SettingsKeys.KEY_TRIAL_LIST_HIGHLIGHT_NEW
 import com.perrigogames.life4.SettingsKeys.KEY_TRIAL_LIST_HIGHLIGHT_UNPLAYED
-import com.perrigogames.life4.SettingsKeys.KEY_TRIAL_LIST_SHOW_EX
-import com.perrigogames.life4.SettingsKeys.KEY_TRIAL_LIST_TINT_COMPLETED
 import com.perrigogames.life4.db.SelectBestSessions
 import com.perrigogames.life4.feature.settings.UserRankSettings
 import com.perrigogames.life4.feature.trials.data.Trial
@@ -44,8 +42,6 @@ class TrialListViewModel : ViewModel(), KoinComponent {
     val state: CStateFlow<UITrialList> = _state.cStateFlow()
 
     init {
-        val tintCompleted = settings.getBoolean(KEY_TRIAL_LIST_TINT_COMPLETED, true)
-        val showEx = settings.getBoolean(KEY_TRIAL_LIST_SHOW_EX, true)
         val highlightNew = settings.getBoolean(KEY_TRIAL_LIST_HIGHLIGHT_NEW, true)
         val highlightUnplayed = settings.getBoolean(KEY_TRIAL_LIST_HIGHLIGHT_UNPLAYED, false)
 
