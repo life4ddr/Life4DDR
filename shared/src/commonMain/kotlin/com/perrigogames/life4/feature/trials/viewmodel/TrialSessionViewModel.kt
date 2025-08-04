@@ -223,6 +223,7 @@ class TrialSessionViewModel(trialId: String) : KoinComponent, ViewModel() {
             }
 
             is TrialSessionAction.ResultsPhotoTaken -> {
+                updateTargetRank(allowIncrease = true)
                 viewModelScope.launch {
                     inProgressSessionFlow.update { session ->
                         session.copy(
@@ -319,8 +320,12 @@ class TrialSessionViewModel(trialId: String) : KoinComponent, ViewModel() {
         }
     }
 
-    private fun updateTargetRank() {
-        var currIdx = (trial.goals?.size ?: return) - 1
+    private fun updateTargetRank(allowIncrease: Boolean = false) {
+        var currIdx = if (allowIncrease) {
+            (trial.goals?.size ?: return) - 1
+        } else {
+            (trial.goals ?: return).map { it.rank }.indexOf(targetRank.value)
+        }
         fun currRank() = trial.goals[currIdx].rank
 
         while (inProgressSession.isRankSatisfied(currRank()) == false) {

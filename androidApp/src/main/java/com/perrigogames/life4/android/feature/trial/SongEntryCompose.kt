@@ -23,6 +23,7 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import com.perrigogames.life4.android.util.InteractiveImage
@@ -139,6 +140,7 @@ fun SongEntryControls(
                             },
                             maxLines = 1,
                             keyboardOptions = KeyboardOptions.Default.copy(
+                                keyboardType = KeyboardType.Number,
                                 imeAction = if (isLast) ImeAction.Done else ImeAction.Next
                             ),
                             keyboardActions = KeyboardActions(

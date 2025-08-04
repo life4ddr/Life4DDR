@@ -153,9 +153,7 @@ class SongEntryViewModel(
             ?: return emptyList()
 
         val out = mutableListOf<String>()
-        if (goalTypes.contains(SCORE)) {
-            out += ID_SCORE
-        }
+        out += ID_SCORE
         out += ID_EX_SCORE
         if (goalTypes.contains(BAD_JUDGEMENT)) {
             out += ID_GREATS

@@ -7,8 +7,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.text.input.TextFieldState
-import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -20,30 +18,21 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.perrigogames.life4.MR
-import com.perrigogames.life4.android.compose.Shapes
 import com.perrigogames.life4.android.util.MokoImage
 import com.perrigogames.life4.android.util.SizedSpacer
-import com.perrigogames.life4.android.view.compose.ManualScoreInput
-import com.perrigogames.life4.enums.colorRes
-import com.perrigogames.life4.enums.nameRes
-import com.perrigogames.life4.feature.trials.enums.TrialRank
 import com.perrigogames.life4.feature.trials.view.*
 import com.perrigogames.life4.feature.trials.viewmodel.TrialSessionAction
 import com.perrigogames.life4.feature.trials.viewmodel.TrialSessionEvent
 import com.perrigogames.life4.feature.trials.viewmodel.TrialSessionViewModel
 import com.perrigogames.life4.util.ViewState
 import dev.icerock.moko.mvvm.createViewModelFactory
-import dev.icerock.moko.resources.desc.color.ColorDesc
-import dev.icerock.moko.resources.desc.color.asColorDesc
 import dev.icerock.moko.resources.desc.color.getColor
-import dev.icerock.moko.resources.desc.desc
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
