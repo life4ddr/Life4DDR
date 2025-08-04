@@ -5,7 +5,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.google.accompanist.appcompattheme.AppCompatTheme
+import com.google.accompanist.themeadapter.appcompat.AppCompatTheme
 import com.perrigogames.life4.MR
 import com.perrigogames.life4.enums.DifficultyClass
 import com.perrigogames.life4.enums.DifficultyClass.*

@@ -68,7 +68,6 @@ kotlin {
             implementation(libs.bundles.shared.commonTest)
         }
         androidMain.dependencies {
-            implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.sqlDelight.android)
             implementation(libs.ktor.client.okHttp)
             implementation(libs.moko.mvvm.android.livedata.compose)

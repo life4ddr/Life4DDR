@@ -20,15 +20,8 @@ androidx-core = "1.12.0"
 androidx-test-junit = "1.1.5"
 androidx-activity-compose = "1.8.2"
 androidx-lifecycle = "2.7.0"
-androidx-recyclerview = "1.3.2"
-androidx-preference = "1.2.1"
-androidx-appcompat = "1.6.1"
 androidx-material3 = "1.1.2"
-androidx-activity = "1.8.2"
-androidx-fragment = "1.6.2"
-androidx-swiperefresh = "1.1.0"
 androidx-camera = "1.4.1"
-androidx-datastore = "1.0.0"
 
 junit = "4.13.2"
 ksp = "2.1.21-2.0.1"
@@ -41,13 +34,9 @@ ktor = "2.1.1"
 kermit = "1.2.2"
 stately = "1.2.3"
 
-accompanist-appcompat-theme = "0.16.0"
-accompanist-permissions = "0.37.2"
 koin = "3.2.0"
 multiplatformSettings = "1.0.0"
-turbine = "0.12.1"
 sqlDelight = "1.5.5"
-coil = "2.1.0"
 moko-mvvm = "0.16.1"
 moko-resources = "0.23.0"
 moko-kswift = "0.7.0"
@@ -56,20 +45,13 @@ composeSettings = "2.1.0"
 [libraries]
 android-desugaring = { module = "com.android.tools:desugar_jdk_libs", version.ref = "android-desugaring" }
 androidx-core = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
-androidx-lifecycle-runtime = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidx-lifecycle" }
 androidx-lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
-androidx-lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "androidx-lifecycle" }
 androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "androidx-lifecycle" }
-androidx-recyclerview = { module = "androidx.recyclerview:recyclerview", version.ref = "androidx-recyclerview" }
-androidx-preference = { module = "androidx.preference:preference", version.ref = "androidx-preference" }
-androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appcompat" }
+androidx-appcompat = { module = "androidx.appcompat:appcompat", version = "1.7.1" }
 androidx-material3 = { module = "androidx.compose.material3:material3", version.ref = "androidx-material3" }
 androidx-material3-windowsize = { module = "androidx.compose.material3:material3-window-size-class", version.ref = "androidx-material3" }
-androidx-activity = { module = "androidx.activity:activity-ktx", version.ref = "androidx-activity" }
-androidx-fragment = { module = "androidx.fragment:fragment-ktx", version.ref = "androidx-fragment" }
 androidx-test-junit = { module = "androidx.test.ext:junit-ktx", version.ref = "androidx-test-junit" }
-androidx-swiperefresh = { module = "androidx.swiperefreshlayout:swiperefreshlayout", version.ref = "androidx-swiperefresh" }
-androidx-datastore = { module = "androidx.datastore:datastore-preferences", version.ref = "androidx-datastore" }
+androidx-datastore = { module = "androidx.datastore:datastore-preferences", version = "1.0.0" }
 androidx-splashscreen = { module = "androidx.core:core-splashscreen", version = "1.0.1" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version = "2.8.5" }
 androidx-camera-core = { module = "androidx.camera:camera-core", version.ref = "androidx-camera" }
@@ -89,8 +71,8 @@ compose-activity = { module = "androidx.activity:activity-compose", version.ref 
 coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
 
-google-accompanist-appcompat-theme = { module = "com.google.accompanist:accompanist-appcompat-theme", version.ref = "accompanist-appcompat-theme" }
-google-accompanist-permissions = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanist-permissions" }
+google-accompanist-themeadapter-appcompat = { module = "com.google.accompanist:accompanist-themeadapter-appcompat", version = "0.36.0" }
+google-accompanist-permissions = { module = "com.google.accompanist:accompanist-permissions", version = "0.37.3" }
 
 junit = { module = "junit:junit", version.ref = "junit" }
 
@@ -122,8 +104,8 @@ sqlDelight-coroutinesExt = { module = "com.squareup.sqldelight:coroutines-extens
 sqlDelight-native = { module = "com.squareup.sqldelight:native-driver", version.ref = "sqlDelight" }
 sqlDelight-runtime = { module = "com.squareup.sqldelight:runtime", version.ref = "sqlDelight" }
 
-touchlab-kermit = { module = "co.touchlab:kermit", version.ref = "kermit" }
-touchlab-stately = { module = "co.touchlab:stately-common", version.ref = "stately" }
+touchlab-kermit = { module = "co.touchlab:kermit", version = "1.2.3" }
+touchlab-stately = { module = "co.touchlab:stately-common", version = "1.2.5" }
 
 moko-mvvm-core = { module = "dev.icerock.moko:mvvm-core", version.ref = "moko-mvvm" }
 moko-mvvm-flow = { module = "dev.icerock.moko:mvvm-flow", version.ref = "moko-mvvm" }
@@ -141,9 +123,9 @@ moko-resources-test = { module = "dev.icerock.moko:resources-test", version.ref 
 moko-kswift-gradle-plugin = { module = "dev.icerock.moko:kswift-gradle-plugin", version.ref = "moko-kswift" }
 moko-kswift-runtime = { module = "dev.icerock.moko:kswift-runtime", version.ref = "moko-kswift" }
 
-turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
+turbine = { module = "app.cash.turbine:turbine", version = "1.2.1" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
-coil = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
+coil = { module = "io.coil-kt:coil-compose", version = "2.7.0" }
 ksoup-entities = { module = "com.mohamedrejeb.ksoup:ksoup-entities", version = "0.3.1" }
 compose-settings = { module = "com.github.alorma.compose-settings:ui-tiles", version.ref = "composeSettings" }
 compose-settings-extended = { module = "com.github.alorma.compose-settings:ui-tiles-extended", version.ref = "composeSettings" }
@@ -165,17 +147,11 @@ mockmp = { id = "org.kodein.mock.mockmp", version.ref = "mockmp" }
 app-ui = [
     "compose-compiler",
     "androidx-core",
-    "androidx-lifecycle-runtime",
-    "androidx-lifecycle-viewmodel",
+    "androidx-lifecycle-runtime-compose",
     "androidx-lifecycle-viewmodel-compose",
-    "androidx-recyclerview",
-    "androidx-preference",
     "androidx-appcompat",
     "androidx-material3",
     "androidx-material3-windowsize",
-    "androidx-activity",
-    "androidx-fragment",
-    "androidx-swiperefresh",
     "androidx-datastore",
     "androidx-splashscreen",
     "androidx-navigation-compose",
@@ -190,7 +166,7 @@ app-ui = [
     "compose-foundation",
     "compose-activity",
     "compose-webview",
-    "google-accompanist-appcompat-theme",
+    "google-accompanist-themeadapter-appcompat",
     "google-accompanist-permissions",
     "compose-settings",
     "compose-settings-extended"

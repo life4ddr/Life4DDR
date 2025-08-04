@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.google.accompanist.appcompattheme.AppCompatTheme
+import com.google.accompanist.themeadapter.appcompat.AppCompatTheme
 import com.perrigogames.life4.MR
 import com.perrigogames.life4.android.R
 import com.perrigogames.life4.feature.trials.data.TrialEXProgress
