@@ -12,11 +12,11 @@ plugins {
 }
 
 kotlin {
-    jvmToolchain(17)
+    jvmToolchain(11)
     androidTarget {
         compilations.all {
             kotlinOptions {
-                jvmTarget = "17"
+                jvmTarget = "11"
             }
         }
     }
@@ -29,7 +29,7 @@ kotlin {
         iosTarget.binaries.framework {
             baseName = "Shared"
             isStatic = true
-            export("dev.icerock.moko:resources:0.23.0")
+            export("dev.icerock.moko:resources:0.25.0")
             export("dev.icerock.moko:graphics:0.9.0") // toUIColor here
             export("dev.icerock.moko:mvvm-core:0.16.1")
             export("dev.icerock.moko:mvvm-flow:0.16.1")
@@ -87,12 +87,15 @@ kotlin {
 }
 
 android {
-    compileSdk = libs.versions.compileSdk.get().toInt()
-    defaultConfig {
-        minSdk = libs.versions.minSdk.get().toInt()
-    }
     namespace = "com.perrigogames.life4"
-
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
+    }
+    defaultConfig {
+        minSdk = libs.versions.android.minSdk.get().toInt()
+    }
     sourceSets {
         getByName("main").java.srcDirs("build/generated/moko/androidMain/src")
     }
@@ -112,11 +115,12 @@ mockmp {
 }
 
 multiplatformResources {
-    multiplatformResourcesPackage = "com.perrigogames.life4"
-    multiplatformResourcesClassName = "MR"
-    multiplatformResourcesVisibility = MRVisibility.Public
-    iosBaseLocalizationRegion = "en"
-    multiplatformResourcesSourceSet = "commonMain"
+    resourcesPackage.set("com.perrigogames.life4")
+    resourcesClassName.set("MR")
+    resourcesVisibility.set(MRVisibility.Public)
+    iosBaseLocalizationRegion.set("en")
+    iosMinimalDeploymentTarget.set("9.0")
+    //    multiplatformResourcesSourceSet = "commonMain"
 }
 
 kswift {

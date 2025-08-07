@@ -1,33 +1,32 @@
 [versions]
-kotlin = "1.9.21"
-agp = "8.11.1"
+kotlin = "2.2.0"
 
-## SDK Versions
-minSdk = "26"
-targetSdk = "34"
-compileSdk = "34"
+agp = "8.10.0"
+android-minSdk = "26"
+android-targetSdk = "36"
+android-compileSdk = "36"
 
 # Dependencies
-compose = "1.6.0"
-compose-compiler = "1.5.8"
+compose = "1.8.3"
+compose-compiler = "1.5.15"
 compose-plugin = "1.5.11"
 
 android-desugaring = "2.1.5"
-androidx-core = "1.12.0"
-androidx-lifecycle = "2.7.0"
-androidx-material3 = "1.1.2"
+androidx-core = "1.16.0"
+androidx-lifecycle = "2.9.2"
+androidx-material3 = "1.3.2"
 androidx-camera = "1.4.2"
 
-coroutines = "1.7.3"
-ktor = "2.1.1"
+coroutines = "1.10.2"
+ktor = "3.2.3"
 
-koin = "4.0.4"
-multiplatformSettings = "1.0.0"
+koin = "4.1.0"
+multiplatformSettings = "1.3.0"
 sqlDelight = "1.5.5"
 moko-mvvm = "0.16.1"
-moko-resources = "0.23.0"
+moko-resources = "0.25.0"
 moko-kswift = "0.7.0"
-composeSettings = "2.5.0"
+composeSettings = "2.13.0"
 
 [libraries]
 android-desugaring = { module = "com.android.tools:desugar_jdk_libs", version.ref = "android-desugaring" }
@@ -38,9 +37,9 @@ androidx-appcompat = { module = "androidx.appcompat:appcompat", version = "1.7.1
 androidx-material3 = { module = "androidx.compose.material3:material3", version.ref = "androidx-material3" }
 androidx-material3-windowsize = { module = "androidx.compose.material3:material3-window-size-class", version.ref = "androidx-material3" }
 androidx-test-junit = { module = "androidx.test.ext:junit-ktx", version = "1.3.0" }
-androidx-datastore = { module = "androidx.datastore:datastore-preferences", version = "1.0.0" }
+androidx-datastore = { module = "androidx.datastore:datastore-preferences", version = "1.1.7" }
 androidx-splashscreen = { module = "androidx.core:core-splashscreen", version = "1.0.1" }
-androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version = "2.8.5" }
+androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version = "2.9.3" }
 androidx-camera-core = { module = "androidx.camera:camera-core", version.ref = "androidx-camera" }
 androidx-camera-camera2 = { module = "androidx.camera:camera-camera2", version.ref = "androidx-camera" }
 androidx-camera-view = { module = "androidx.camera:camera-view", version.ref = "androidx-camera" }
@@ -53,7 +52,7 @@ compose-ui-viewbinding = { module = "androidx.compose.ui:ui-viewbinding", versio
 compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
 compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
 compose-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "compose" }
-compose-activity = { module = "androidx.activity:activity-compose", version = "1.8.2" }
+compose-activity = { module = "androidx.activity:activity-compose", version = "1.10.1" }
 
 coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
@@ -67,7 +66,7 @@ koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 koin-test = { module = "io.insert-koin:koin-test", version.ref = "koin" }
 
-kotlinx-dateTime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version = "0.4.0" }
+kotlinx-dateTime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version = "0.7.1" }
 
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
 ktor-client-ios = { module = "io.ktor:ktor-client-ios", version.ref = "ktor" }
@@ -91,8 +90,8 @@ sqlDelight-coroutinesExt = { module = "com.squareup.sqldelight:coroutines-extens
 sqlDelight-native = { module = "com.squareup.sqldelight:native-driver", version.ref = "sqlDelight" }
 sqlDelight-runtime = { module = "com.squareup.sqldelight:runtime", version.ref = "sqlDelight" }
 
-touchlab-kermit = { module = "co.touchlab:kermit", version = "1.2.3" }
-touchlab-stately = { module = "co.touchlab:stately-common", version = "1.2.5" }
+touchlab-kermit = { module = "co.touchlab:kermit", version = "2.0.6" }
+touchlab-stately = { module = "co.touchlab:stately-common", version = "2.1.0" }
 
 moko-mvvm-core = { module = "dev.icerock.moko:mvvm-core", version.ref = "moko-mvvm" }
 moko-mvvm-flow = { module = "dev.icerock.moko:mvvm-flow", version.ref = "moko-mvvm" }
@@ -111,7 +110,7 @@ moko-kswift-runtime = { module = "dev.icerock.moko:kswift-runtime", version.ref 
 turbine = { module = "app.cash.turbine:turbine", version = "1.2.1" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 coil = { module = "io.coil-kt:coil-compose", version = "2.7.0" }
-ksoup-entities = { module = "com.mohamedrejeb.ksoup:ksoup-entities", version = "0.3.1" }
+ksoup-entities = { module = "com.mohamedrejeb.ksoup:ksoup-entities", version = "0.6.0" }
 compose-settings = { module = "com.github.alorma.compose-settings:ui-tiles", version.ref = "composeSettings" }
 compose-settings-extended = { module = "com.github.alorma.compose-settings:ui-tiles-extended", version.ref = "composeSettings" }
 compose-webview = { module = "io.github.kevinnzou:compose-webview", version = "0.33.6" }
@@ -119,13 +118,14 @@ compose-webview = { module = "io.github.kevinnzou:compose-webview", version = "0
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
-gradleVersions = { id = "com.github.ben-manes.versions", version = "0.42.0" }
-jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "compose" }
-kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+gradleVersions = { id = "com.github.ben-manes.versions", version = "0.52.0" }
+composeMultiplatform = { id = "org.jetbrains.compose", version = "1.8.2" }
+composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version = "13.0.0" }
 sqlDelight = { id = "com.squareup.sqldelight", version.ref = "sqlDelight" }
-ksp = { id = "com.google.devtools.ksp", version = "2.1.21-2.0.1" }
+ksp = { id = "com.google.devtools.ksp", version = "2.2.0-2.0.2" }
 mockmp = { id = "org.kodein.mock.mockmp", version = "2.0.2" }
 
 [bundles]

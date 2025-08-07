@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <bytecodeTargetLevel target="17">
+    <bytecodeTargetLevel target="11">
       <module name="LIFE4DDR.app" target="17" />
       <module name="LIFE4DDR.editor" target="14" />
       <module name="LIFE4DDR.editor.main" target="14" />
       <module name="LIFE4DDR.editor.test" target="14" />
-      <module name="LIFE4DDR.shared.commonMain" target="1.6" />
-      <module name="LIFE4DDR.shared.commonTest" target="1.6" />
     </bytecodeTargetLevel>
   </component>
 </project>

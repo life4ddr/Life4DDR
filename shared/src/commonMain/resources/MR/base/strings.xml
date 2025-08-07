@@ -337,8 +337,6 @@
     <!-- endregion -->
 
     <!--  region Legacy Strings  -->
-    <string name="file_provider_name">com.perrigogames.life4.fileprovider</string>
-
     <string name="confirm_erase_goal_data">Are you sure you want to clear all saved goal states?</string>
     <string name="confirm_erase_trial_data">Are you sure you want to clear all saved rank data?</string>
     <string name="confirm_erase_result_data">Are you sure you want to clear all song result data?</string>
