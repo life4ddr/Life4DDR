@@ -15,6 +15,7 @@ import com.perrigogames.life4.feature.banners.IBannerManager
 import com.perrigogames.life4.feature.banners.UIBanner
 import com.perrigogames.life4.feature.banners.UIBannerTemplates
 import com.perrigogames.life4.injectLogger
+import com.perrigogames.life4.ktor.SanbaiAPI
 import com.perrigogames.life4.ktor.SanbaiSongListResponseItem
 import com.perrigogames.life4.model.BaseModel
 import dev.icerock.moko.mvvm.flow.CStateFlow
@@ -36,13 +37,14 @@ interface SongDataManager {
 
     fun getSong(skillId: String): Song?
     fun getChart(skillId: String, playStyle: PlayStyle, difficultyClass: DifficultyClass): Chart?
-    suspend fun parseSanbaiSongData(data: List<SanbaiSongListResponseItem>)
+    fun refreshSanbaiData(force: Boolean = false)
 }
 
 class DefaultSongDataManager: BaseModel(), SongDataManager {
 
     private val data: SongListRemoteData by inject()
     private val bannerManager: IBannerManager by inject()
+    private val sanbaiAPI: SanbaiAPI by inject()
     private val logger: Logger by injectLogger("SongDataManager")
 
     override val dataVersionString: Flow<String> =
@@ -69,6 +71,18 @@ class DefaultSongDataManager: BaseModel(), SongDataManager {
                 }
             })
         }
+        refreshSanbaiData(force = false)
+    }
+
+    override fun refreshSanbaiData(force: Boolean) {
+        ktorScope.launch {
+            val data = sanbaiAPI.getSongData()
+//            if (force || data.lastUpdated > sanbaiAPISettings.songDataUpdated) {
+//                sanbaiAPISettings.songDataUpdated = data.lastUpdated
+            parseSanbaiSongData(data.songs)
+            // FIXME actually cache the data to disk
+//            }
+        }
     }
 
     override fun getSong(skillId: String): Song? {
@@ -93,7 +107,7 @@ class DefaultSongDataManager: BaseModel(), SongDataManager {
         return chart
     }
 
-    override suspend fun parseSanbaiSongData(data: List<SanbaiSongListResponseItem>) = try {
+    private suspend fun parseSanbaiSongData(data: List<SanbaiSongListResponseItem>) = try {
         val artists = _libraryFlow.value.songs.keys.map { it.skillId to it.artist }.toMap()
 
         val songs = mutableMapOf<Song, List<Chart>>()

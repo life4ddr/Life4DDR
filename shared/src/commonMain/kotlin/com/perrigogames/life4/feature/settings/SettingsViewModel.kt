@@ -2,6 +2,7 @@ package com.perrigogames.life4.feature.settings
 
 import com.perrigogames.life4.AppInfo
 import com.perrigogames.life4.feature.sanbai.ISanbaiManager
+import com.perrigogames.life4.feature.songlist.SongDataManager
 import com.perrigogames.life4.feature.songresults.SongResultsManager
 import com.perrigogames.life4.util.Destination
 import com.russhwolf.settings.ExperimentalSettingsApi
@@ -23,6 +24,7 @@ class SettingsViewModel(
     private val appInfo: AppInfo by inject()
     private val resultsManager: SongResultsManager by inject()
     private val sanbaiManager: ISanbaiManager by inject()
+    private val songDataManager: SongDataManager by inject()
     private val settingsPageProvider: SettingsPageProvider by inject()
     private val flowSettings: FlowSettings by inject() // FIXME need to figure out a way to make the action less generic
     private val userInfoSettings: UserInfoSettings by inject()
@@ -74,7 +76,7 @@ class SettingsViewModel(
                 }
             }
             is SettingsAction.ShowCredits -> onNavigate(SettingsDestination.Credits)
-            is SettingsAction.Sanbai.RefreshLibrary -> sanbaiManager.refreshSongData(force = true)
+            is SettingsAction.Sanbai.RefreshLibrary -> songDataManager.refreshSanbaiData(force = true)
             is SettingsAction.Sanbai.RefreshUserScores -> {
                 viewModelScope.launch {
                     sanbaiManager.fetchScores()

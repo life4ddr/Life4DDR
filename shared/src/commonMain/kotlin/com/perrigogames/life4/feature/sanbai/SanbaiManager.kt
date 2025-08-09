@@ -18,7 +18,6 @@ import org.koin.core.component.inject
 
 interface ISanbaiManager {
 
-    fun refreshSongData(force: Boolean = false)
     fun requiresAuthorization(): Boolean
     suspend fun completeLogin(authCode: String): Boolean
     suspend fun fetchScores(): Boolean
@@ -28,24 +27,8 @@ class SanbaiManager : BaseModel(), ISanbaiManager {
 
     private val sanbaiAPI: SanbaiAPI by inject()
     private val sanbaiAPISettings: ISanbaiAPISettings by inject()
-    private val songDataManager: SongDataManager by inject()
     private val songResultsManager: SongResultsManager by inject()
     private val bannersManager: IBannerManager by inject()
-
-    init {
-        refreshSongData()
-    }
-
-    override fun refreshSongData(force: Boolean) {
-        ktorScope.launch {
-            val data = sanbaiAPI.getSongData()
-//            if (force || data.lastUpdated > sanbaiAPISettings.songDataUpdated) {
-//                sanbaiAPISettings.songDataUpdated = data.lastUpdated
-                songDataManager.parseSanbaiSongData(data.songs)
-                // FIXME actually cache the data to disk
-//            }
-        }
-    }
 
     override fun requiresAuthorization(): Boolean {
         return sanbaiAPISettings.refreshExpires < Clock.System.now()
