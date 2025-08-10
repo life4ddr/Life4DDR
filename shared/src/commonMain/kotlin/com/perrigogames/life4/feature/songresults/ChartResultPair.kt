@@ -9,28 +9,32 @@ data class ChartResultPair(
     val result: ChartResult?,
 ) {
 
-    fun maPointsForDifficulty(): Double {
+    fun maPointsThousandths(): Int {
         val points = when (chart.difficultyNumber) { // first = MFC, 2nd = SDP
-            1 -> 0.1 to 0.01
-            2, 3 -> 0.25 to 0.025
-            4, 5, 6 -> 0.5 to 0.05
-            7, 8, 9 -> 1.0 to 0.1
-            10 -> 1.5 to 0.15
-            11 -> 2.0 to 0.2
-            12 -> 4.0 to 0.4
-            13 -> 6.0 to 0.6
-            14 -> 8.0 to 0.8
-            15 -> 15.0 to 1.5
-            16, 17, 18, 19, 20 -> 25.0 to 2.5
-            else -> 0.0 to 0.0
+            1 -> 100 to 10
+            2, 3 -> 250 to 25
+            4, 5, 6 -> 500 to 50
+            7, 8, 9 -> 1000 to 100
+            10 -> 1500 to 150
+            11 -> 2000 to 200
+            12 -> 4000 to 400
+            13 -> 6000 to 60
+            14 -> 8000 to 80
+            15 -> 15000 to 1500
+            16, 17, 18, 19, 20 -> 25000 to 2500
+            else -> 0 to 0
         }
         return when (result?.clearType) {
             ClearType.MARVELOUS_FULL_COMBO -> points.first
             ClearType.SINGLE_DIGIT_PERFECTS -> points.second
-            else -> 0.0
+            else -> 0
         }
     }
+
+    fun maPoints(): Double = maPointsThousandths().toMAPointsDouble()
 }
+
+fun Int.toMAPointsDouble(): Double = this / 1000.0
 
 fun Chart.matches(other: ChartResult?) = when (other) {
     null -> false

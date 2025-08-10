@@ -157,7 +157,7 @@ class ChartResultOrganizer: BaseModel(), KoinComponent {
     ): List<ChartResultPair> = sortedWith { a, b ->
         if (base is MAPointsGoal || base is MAPointsStackedGoal) {
             // First, MA points, descending
-            val maCompare = ((b.maPointsForDifficulty() - a.maPointsForDifficulty()) * 10000).toInt()
+            val maCompare = ((b.maPointsThousandths() - a.maPointsThousandths()) * 100).toInt()
             if (maCompare != 0) {
                 return@sortedWith maCompare
             }

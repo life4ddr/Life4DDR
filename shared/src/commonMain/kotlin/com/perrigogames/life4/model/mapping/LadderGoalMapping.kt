@@ -50,7 +50,7 @@ class LadderGoalMapper : KoinComponent {
                     val isMFC = base is MAPointsGoal ||
                             (base is StackedRankGoalWrapper && base.mainGoal is MAPointsStackedGoal)
                     val rightText = if (isMFC) {
-                        "L${result.chart.difficultyNumber} > ${result.maPointsForDifficulty()}"
+                        "L${result.chart.difficultyNumber} > ${result.maPointsThousandths()}"
                     } else {
                         (result.result?.score ?: 0).toInt().longNumberString()
                     }
