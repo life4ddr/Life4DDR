@@ -8,6 +8,7 @@ import com.perrigogames.life4.data.RankEntry
 import com.perrigogames.life4.data.SongsClearGoal
 import com.perrigogames.life4.enums.GoalStatus
 import com.perrigogames.life4.enums.LadderRank
+import com.perrigogames.life4.enums.LadderRankClass
 import com.perrigogames.life4.feature.profile.UserRankManager
 import com.perrigogames.life4.injectLogger
 import com.perrigogames.life4.model.GoalStateManager
@@ -171,7 +172,7 @@ class GoalListViewModel(private val config: GoalListConfig) : ViewModel(), KoinC
     ) : UILadderGoals.CategorizedList {
         val goalStates = goalStateManager.getGoalStateList(requirements.allGoals)
         val songsClearGoals = requirements.allGoals.filterIsInstance<SongsClearGoal>()
-        val remainingGoals = requirements.allGoals.filterNot { it is SongsClearGoal }
+        val remainingGoals = mutableListOf<BaseRankGoal>()
         val substitutionProgress = LadderGoalProgress(
             progress = requirements.substitutionGoals
                 .mapNotNull { progress[it] }
@@ -179,11 +180,26 @@ class GoalListViewModel(private val config: GoalListConfig) : ViewModel(), KoinC
             max = requirements.substitutionGoals.size,
             showProgressBar = false,
         )
+
         val categories = (songsClearGoals.groupBy { it.diffNum }
             .toList()
             as List<Pair<Int?, List<BaseRankGoal>>>)
             .sortedBy { it.first ?: Int.MAX_VALUE }
             .toMutableList()
+        val categoryIterator = categories.iterator()
+        while (categoryIterator.hasNext()) {
+            val (level, goals) = categoryIterator.next()
+            if (level == null || level < requirements.rank.group.minDiscreteDifficultyCategory) {
+                remainingGoals.addAll(goals)
+                categoryIterator.remove()
+            }
+        }
+        remainingGoals.addAll(
+            requirements.allGoals
+                .filterNot { it is SongsClearGoal }
+                .toMutableList()
+        )
+
         val otherIndex = categories.indexOfFirst { it.first == null }
         if (categories.any { it.first == null }) {
             val otherGoals = categories.removeAt(otherIndex).second
@@ -261,6 +277,21 @@ class GoalListViewModel(private val config: GoalListConfig) : ViewModel(), KoinC
         }
     }
 }
+
+val LadderRankClass.minDiscreteDifficultyCategory
+    get() = when (this) {
+        LadderRankClass.COPPER,
+        LadderRankClass.BRONZE,
+        LadderRankClass.SILVER,
+        LadderRankClass.GOLD -> 0 // These don't use categories anyway
+        LadderRankClass.PLATINUM -> 13
+        LadderRankClass.DIAMOND,
+        LadderRankClass.COBALT,
+        LadderRankClass.PEARL,
+        LadderRankClass.AMETHYST,
+        LadderRankClass.EMERALD,
+        LadderRankClass.ONYX -> 14
+    }
 
 data class GoalListConfig(
     val targetRank: LadderRank? = null,
