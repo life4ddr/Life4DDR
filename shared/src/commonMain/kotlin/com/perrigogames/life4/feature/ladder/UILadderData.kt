@@ -147,11 +147,16 @@ data class UILadderProgress(
     )
 }
 
-data class UILadderDetailItem(
-    val leftText: String,
-    val leftColor: ColorResource? = null,
-    val leftWeight: Float = 0.8f,
-    val rightText: String? = null,
-    val rightColor: ColorResource? = null,
-    val rightWeight: Float = 0.2f,
-)
+sealed class UILadderDetailItem {
+
+    data class Entry(
+        val leftText: String,
+        val leftColor: ColorResource? = null,
+        val leftWeight: Float = 0.8f,
+        val rightText: String? = null,
+        val rightColor: ColorResource? = null,
+        val rightWeight: Float = 0.2f,
+    ) : UILadderDetailItem()
+
+    data object Spacer : UILadderDetailItem()
+}

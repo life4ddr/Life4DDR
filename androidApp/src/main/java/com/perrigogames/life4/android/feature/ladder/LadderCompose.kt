@@ -10,6 +10,7 @@ import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.material.Divider
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -335,21 +336,26 @@ private fun LadderGoalDetailShade(
         verticalArrangement = Arrangement.spacedBy(4.dp)
     ) {
         items.forEach { item ->
-            Row(modifier = Modifier.fillMaxWidth()) {
-                Text(
-                    text = item.leftText,
-                    color = item.leftColor?.let { colorResource(it) } ?: MaterialTheme.colorScheme.onSurface,
-                    modifier = Modifier.weight(item.leftWeight)
-                )
-                if (item.rightText != null) {
-                    SizedSpacer(8.dp)
-                    Text(
-                        text = item.rightText!!,
-                        color = item.rightColor?.let { colorResource(it) } ?: MaterialTheme.colorScheme.onSurface,
-                        textAlign = TextAlign.End,
-                        modifier = Modifier.weight(item.rightWeight)
-                    )
+            when (item) {
+                is UILadderDetailItem.Entry -> {
+                    Row(modifier = Modifier.fillMaxWidth()) {
+                        Text(
+                            text = item.leftText,
+                            color = item.leftColor?.let { colorResource(it) } ?: MaterialTheme.colorScheme.onSurface,
+                            modifier = Modifier.weight(item.leftWeight)
+                        )
+                        if (item.rightText != null) {
+                            SizedSpacer(8.dp)
+                            Text(
+                                text = item.rightText!!,
+                                color = item.rightColor?.let { colorResource(it) } ?: MaterialTheme.colorScheme.onSurface,
+                                textAlign = TextAlign.End,
+                                modifier = Modifier.weight(item.rightWeight)
+                            )
+                        }
+                    }
                 }
+                UILadderDetailItem.Spacer -> Divider(modifier = Modifier.padding(vertical = 2.dp))
             }
         }
     }

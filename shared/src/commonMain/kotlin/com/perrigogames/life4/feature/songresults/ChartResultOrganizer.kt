@@ -94,6 +94,7 @@ class ChartResultOrganizer: BaseModel(), KoinComponent {
                 }
                 results.copy(
                     resultsDone = results.resultsDone.specialSorted(base, enableDifficultyTiers),
+                    resultsPartlyDone = results.resultsPartlyDone.specialSorted(base, enableDifficultyTiers),
                     resultsNotDone = results.resultsNotDone.specialSorted(base, enableDifficultyTiers)
                 )
 //                ).also {
@@ -127,7 +128,8 @@ class ChartResultOrganizer: BaseModel(), KoinComponent {
                     floorNotAchieved.add(floorAchieved.removeLast())
                 }
                 ResultsBundle(
-                    resultsDone = (results.resultsDone + floorAchieved),
+                    resultsDone = results.resultsDone,
+                    resultsPartlyDone = floorAchieved,
                     resultsNotDone = floorNotAchieved
                 )
             }
@@ -143,7 +145,8 @@ class ChartResultOrganizer: BaseModel(), KoinComponent {
                     }
                 }
                 ResultsBundle(
-                    resultsDone = (results.resultsDone + floorAchieved),
+                    resultsDone = results.resultsDone,
+                    resultsPartlyDone = floorAchieved,
                     resultsNotDone = floorNotAchieved
                 )
             }
@@ -240,12 +243,16 @@ class ChartFilterer(
                     && config.scoreRange.contains(chart.result?.score ?: 0)
         }
         // TODO implement some caching
-        return ResultsBundle(done, notDone)
+        return ResultsBundle(
+            resultsDone = done,
+            resultsNotDone = notDone
+        )
     }
 }
 
 data class ResultsBundle(
     val resultsDone: List<ChartResultPair> = emptyList(),
+    val resultsPartlyDone: List<ChartResultPair> = emptyList(),
     val resultsNotDone: List<ChartResultPair> = emptyList()
 )
 

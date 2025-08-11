@@ -31,7 +31,7 @@ object UILadderMocks {
         songName: String,
         difficultyClass: DifficultyClass? = null,
         score: Int = 1_000_000 - Random.nextInt(100, 50000)
-    ) = UILadderDetailItem(
+    ) = UILadderDetailItem.Entry(
         leftText = songName,
         leftColor = difficultyClass?.colorRes,
         rightText = score.longNumberString()

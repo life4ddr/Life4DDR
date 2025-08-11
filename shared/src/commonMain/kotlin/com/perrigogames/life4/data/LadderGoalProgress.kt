@@ -12,6 +12,7 @@ class LadderGoalProgress(
     val showMax: Boolean = true,
     val showProgressBar: Boolean = true,
     val results: List<ChartResultPair>? = null,
+    val resultsBottom: List<ChartResultPair>? = null,
 ) {
 
     constructor(
@@ -20,11 +21,14 @@ class LadderGoalProgress(
         showMax: Boolean = true,
         showProgressBar: Boolean = true,
         results: List<ChartResultPair>? = null,
-    ) : this(progress.toDouble(), max.toDouble(), showMax, showProgressBar, results)
+        resultsBottom: List<ChartResultPair>? = null,
+    ) : this(progress.toDouble(), max.toDouble(), showMax, showProgressBar, results, resultsBottom)
 
     val isComplete = progress >= max && max > 0
 
     val percent = progress / max
+
+    val hasResults = results?.isEmpty() == false || resultsBottom?.isEmpty() == false
 
     override fun toString() = "$progress / $max (show=$showMax)${results?.count()?.let { ", $it" } ?: ""}"
 }

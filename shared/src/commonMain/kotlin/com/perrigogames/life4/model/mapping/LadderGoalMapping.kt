@@ -12,6 +12,7 @@ import com.perrigogames.life4.feature.ladder.RankListInput
 import com.perrigogames.life4.feature.ladder.UILadderDetailItem
 import com.perrigogames.life4.feature.ladder.UILadderGoal
 import com.perrigogames.life4.feature.ladder.UILadderProgress
+import com.perrigogames.life4.feature.songresults.ChartResultPair
 import com.perrigogames.life4.longNumberString
 import com.perrigogames.life4.model.GoalStateManager
 import org.koin.core.component.KoinComponent
@@ -30,6 +31,38 @@ class LadderGoalMapper : KoinComponent {
         allowHiding: Boolean,
     ): UILadderGoal {
         val isComplete = goalStatus == GoalStatus.COMPLETE || progress?.isComplete == true
+        val isMFC = base is MAPointsGoal ||
+                (base is StackedRankGoalWrapper && base.mainGoal is MAPointsStackedGoal)
+
+        fun ChartResultPair.formatResultItem() : UILadderDetailItem.Entry {
+            val rightText = if (isMFC) {
+                "L${chart.difficultyNumber} > ${maPoints()}"
+            } else {
+                (result?.score ?: 0).toInt().longNumberString()
+            }
+            return if (isMFC) {
+                UILadderDetailItem.Entry(
+                    leftText = KsoupEntities.decodeHtml(chart.song.title),
+                    leftColor = chart.difficultyClass.colorRes,
+                    leftWeight = 0.75f,
+                    rightText = rightText,
+                    rightColor = result!!.clearType.colorRes,
+                    rightWeight = 0.25f
+                )
+            } else {
+                UILadderDetailItem.Entry(
+                    leftText = KsoupEntities.decodeHtml(chart.song.title),
+                    leftColor = chart.difficultyClass.colorRes,
+                    rightText = rightText,
+                )
+            }
+        }
+
+        val resultItems = progress?.results?.map { it.formatResultItem() }
+            ?: emptyList()
+        val resultBottomItems = progress?.resultsBottom?.map { it.formatResultItem() }
+            ?: emptyList()
+
         return UILadderGoal(
             id = base.id.toLong(),
             goalText = base.goalString(),
@@ -40,37 +73,17 @@ class LadderGoalMapper : KoinComponent {
                     (allowHiding || goalStatus == GoalStatus.IGNORED), // must be able to unhide
             showCheckbox = true,
             progress = progress?.toViewData(),
-            expandAction = if (progress?.results?.isNotEmpty() == true) {
+            expandAction = if (progress?.hasResults == true) {
                 RankListInput.OnGoal.ToggleExpanded(base.id.toLong())
             } else {
                 null
             },
             detailItems = if (isExpanded && progress != null) {
-                progress.results?.map { result ->
-                    val isMFC = base is MAPointsGoal ||
-                            (base is StackedRankGoalWrapper && base.mainGoal is MAPointsStackedGoal)
-                    val rightText = if (isMFC) {
-                        "L${result.chart.difficultyNumber} > ${result.maPointsThousandths()}"
-                    } else {
-                        (result.result?.score ?: 0).toInt().longNumberString()
-                    }
-                    if (isMFC) {
-                        UILadderDetailItem(
-                            leftText = KsoupEntities.decodeHtml(result.chart.song.title),
-                            leftColor = result.chart.difficultyClass.colorRes,
-                            leftWeight = 0.75f,
-                            rightText = rightText,
-                            rightColor = result.result!!.clearType.colorRes,
-                            rightWeight = 0.25f
-                        )
-                    } else {
-                        UILadderDetailItem(
-                            leftText = KsoupEntities.decodeHtml(result.chart.song.title),
-                            leftColor = result.chart.difficultyClass.colorRes,
-                            rightText = rightText,
-                        )
-                    }
-                } ?: emptyList()
+                if (!resultItems.isEmpty() && !resultBottomItems.isEmpty()) {
+                    resultItems + listOf(UILadderDetailItem.Spacer) + resultBottomItems
+                } else {
+                    resultItems + resultBottomItems
+                }
             } else {
                 emptyList()
             },

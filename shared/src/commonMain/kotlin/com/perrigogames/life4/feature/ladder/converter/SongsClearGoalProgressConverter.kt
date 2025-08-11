@@ -47,17 +47,17 @@ class SongsClearGoalProgressConverter : GoalProgressConverter<SongsClearGoal>, K
             )
         )
         return chartResultOrganizer.resultsForConfig(goal, config, enableDifficultyTiers = false)
-            .map { (match, noMatch) ->
+            .map { (match, partMatch, noMatch) ->
                 if (goal.diffNum != null) {
                     when {
                         goal.score != null -> when (goal.songCount) { // score-based goal
-                            null -> allSongsEasyProgress(goal, match, noMatch)
-                            else -> countSongsScoreProgress(goal, match, noMatch)
+                            null -> allSongsEasyProgress(goal, match, partMatch, noMatch)
+                            else -> countSongsScoreProgress(goal, match, partMatch, noMatch)
                         }
-                        goal.averageScore != null -> allSongsAverageScoreProgress(goal, match, noMatch)
+                        goal.averageScore != null -> allSongsAverageScoreProgress(goal, match, partMatch, noMatch)
                         else -> when { // clear type
                             goal.songCount != null -> countSongsClearProgress(goal, match, noMatch)
-                            else -> allSongsEasyProgress(goal, match, noMatch)
+                            else -> allSongsEasyProgress(goal, match, partMatch, noMatch)
                         }
                     }
                 } else {
@@ -74,23 +74,33 @@ class SongsClearGoalProgressConverter : GoalProgressConverter<SongsClearGoal>, K
     private fun countSongsScoreProgress(
         goal: SongsClearGoal,
         match: List<ChartResultPair>,
+        partMatch: List<ChartResultPair>,
         noMatch: List<ChartResultPair>,
     ): LadderGoalProgress {
         var completed = 0
-        var topValidScore = 0L
+        var topScore = 0L
         val sortedMatches = match.groupByDifficultyNumber()
+
+        fun List<ChartResultPair>.recordTopScore() {
+            firstOrNull()?.result?.let {
+                if (it.safeScore > topScore) {
+                    topScore = it.safeScore
+                }
+            }
+        }
+
         goal.forEachDiffNum { diff ->
             val diffMatch = sortedMatches[diff] ?: emptyList()
-            if (diffMatch.firstOrNull()?.result.safeScore > topValidScore) {
-                topValidScore = match.first().result.safeScore
-            }
-
+            diffMatch.recordTopScore()
             completed += diffMatch.size
         }
 
+        partMatch.recordTopScore()
+        noMatch.recordTopScore()
+
         return if (goal.songCount == 1) {
             LadderGoalProgress(
-                progress = topValidScore.toInt(),
+                progress = topScore.toInt(),
                 max = goal.score!!,
                 showMax = false,
                 results = match,
@@ -131,6 +141,7 @@ class SongsClearGoalProgressConverter : GoalProgressConverter<SongsClearGoal>, K
     private fun allSongsEasyProgress(
         goal: SongsClearGoal,
         match: List<ChartResultPair>,
+        partMatch: List<ChartResultPair>,
         noMatch: List<ChartResultPair>,
     ): LadderGoalProgress {
         val freeExceptions = if (goal.exceptionScore != null) {
@@ -142,16 +153,18 @@ class SongsClearGoalProgressConverter : GoalProgressConverter<SongsClearGoal>, K
             progress = match.size,
             max = (match.size + noMatch.size) - freeExceptions,
             showMax = true,
-            results = noMatch,
+            results = if (partMatch.isNotEmpty()) partMatch else noMatch,
+            resultsBottom = if (partMatch.isNotEmpty()) noMatch else null
         )
     }
 
     private fun allSongsAverageScoreProgress(
         goal: SongsClearGoal,
         match: List<ChartResultPair>,
+        partMatch: List<ChartResultPair>,
         noMatch: List<ChartResultPair>
     ): LadderGoalProgress {
-        val averageScore = (match + noMatch).averageScore()
+        val averageScore = (match + partMatch + noMatch).averageScore()
         return LadderGoalProgress(
             progress = averageScore.toInt(),
             max = goal.averageScore!!,
