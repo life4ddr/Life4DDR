@@ -11,22 +11,22 @@ data class ChartResultPair(
 
     fun maPointsThousandths(): Int {
         val points = when (chart.difficultyNumber) { // first = MFC, 2nd = SDP
-            1 -> 100 to 10
-            2, 3 -> 250 to 25
-            4, 5, 6 -> 500 to 50
-            7, 8, 9 -> 1000 to 100
-            10 -> 1500 to 150
-            11 -> 2000 to 200
-            12 -> 4000 to 400
-            13 -> 6000 to 60
-            14 -> 8000 to 80
-            15 -> 15000 to 1500
-            16, 17, 18, 19, 20 -> 25000 to 2500
-            else -> 0 to 0
+            1 -> 100
+            2, 3 -> 250
+            4, 5, 6 -> 500
+            7, 8, 9 -> 1000
+            10 -> 1500
+            11 -> 2000
+            12 -> 4000
+            13 -> 6000
+            14 -> 8000
+            15 -> 15000
+            16, 17, 18, 19, 20 -> 25000
+            else -> 0
         }
         return when (result?.clearType) {
-            ClearType.MARVELOUS_FULL_COMBO -> points.first
-            ClearType.SINGLE_DIGIT_PERFECTS -> points.second
+            ClearType.MARVELOUS_FULL_COMBO -> points
+            ClearType.SINGLE_DIGIT_PERFECTS -> points / 10
             else -> 0
         }
     }
