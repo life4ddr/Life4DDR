@@ -11,9 +11,11 @@ import com.perrigogames.life4.enums.LadderRank
 import com.perrigogames.life4.feature.songresults.*
 import com.perrigogames.life4.feature.songresults.FilterState.Companion.DEFAULT_DIFFICULTY_NUMBER_RANGE
 import com.perrigogames.life4.injectLogger
+import com.perrigogames.life4.model.LadderDataManager
 import com.perrigogames.life4.model.safeScore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.map
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -21,6 +23,7 @@ import kotlin.math.roundToLong
 
 class SongsClearGoalProgressConverter : GoalProgressConverter<SongsClearGoal>, KoinComponent {
 
+    private val ladderDataManager: LadderDataManager by inject()
     private val chartResultOrganizer: ChartResultOrganizer by inject()
     private val logger: Logger by injectLogger("SongsClearGoalProgressConverter")
 
@@ -28,46 +31,49 @@ class SongsClearGoalProgressConverter : GoalProgressConverter<SongsClearGoal>, K
         goal: SongsClearGoal,
         ladderRank: LadderRank?,
     ): Flow<LadderGoalProgress?> {
-        val config = FilterState(
-            chartFilter = ChartFilterState(
-                selectedPlayStyle = goal.playStyle,
-                difficultyClassSelection = goal.diffClassSet?.set ?: DifficultyClass.entries,
-                difficultyNumberRange = goal.diffNumRange ?: DEFAULT_DIFFICULTY_NUMBER_RANGE,
-                ignoreFilterType = when {
-                    goal.songCount != null -> IgnoreFilterType.ALL // working up, allow all songs
-                    ladderRank == null -> IgnoreFilterType.BASIC
-                    ladderRank < LadderRank.AMETHYST1 -> IgnoreFilterType.BASIC // FIXME use the JSON value
-                    else -> IgnoreFilterType.EXPANDED
-                }
-            ),
-            resultFilter = ResultFilterState(
-                clearTypeRange = goal.clearType.ordinal .. ClearType.entries.size,
-                scoreRange = ((goal.score ?: 0) .. GameConstants.MAX_SCORE),
-                filterIgnored = true
-            )
-        )
-        return chartResultOrganizer.resultsForConfig(goal, config, enableDifficultyTiers = false)
-            .map { (match, partMatch, noMatch) ->
-                if (goal.diffNum != null) {
-                    when {
-                        goal.score != null -> when (goal.songCount) { // score-based goal
-                            null -> allSongsEasyProgress(goal, match, partMatch, noMatch)
-                            else -> countSongsScoreProgress(goal, match, partMatch, noMatch)
+        return ladderDataManager.unlockRequirement
+            .flatMapConcat { unlockRequirement ->
+                val config = FilterState(
+                    chartFilter = ChartFilterState(
+                        selectedPlayStyle = goal.playStyle,
+                        difficultyClassSelection = goal.diffClassSet?.set ?: DifficultyClass.entries,
+                        difficultyNumberRange = goal.diffNumRange ?: DEFAULT_DIFFICULTY_NUMBER_RANGE,
+                        ignoreFilterType = when {
+                            goal.songCount != null -> IgnoreFilterType.ALL // working up, allow all songs
+                            ladderRank == null -> IgnoreFilterType.BASIC
+                            unlockRequirement?.let { ladderRank < it } == true -> IgnoreFilterType.BASIC // FIXME use the JSON value
+                            else -> IgnoreFilterType.EXPANDED
                         }
-                        goal.averageScore != null -> allSongsAverageScoreProgress(goal, match, partMatch, noMatch)
-                        else -> when { // clear type
-                            goal.songCount != null -> countSongsClearProgress(goal, match, noMatch)
-                            else -> allSongsEasyProgress(goal, match, partMatch, noMatch)
+                    ),
+                    resultFilter = ResultFilterState(
+                        clearTypeRange = goal.clearType.ordinal .. ClearType.entries.size,
+                        scoreRange = ((goal.score ?: 0) .. GameConstants.MAX_SCORE),
+                        filterIgnored = true
+                    )
+                )
+                return@flatMapConcat chartResultOrganizer.resultsForConfig(goal, config, enableDifficultyTiers = false)
+                    .map { (match, partMatch, noMatch) ->
+                        if (goal.diffNum != null) {
+                            when {
+                                goal.score != null -> when (goal.songCount) { // score-based goal
+                                    null -> allSongsEasyProgress(goal, match, partMatch, noMatch)
+                                    else -> countSongsScoreProgress(goal, match, partMatch, noMatch)
+                                }
+                                goal.averageScore != null -> allSongsAverageScoreProgress(goal, match, partMatch, noMatch)
+                                else -> when { // clear type
+                                    goal.songCount != null -> countSongsClearProgress(goal, match, noMatch)
+                                    else -> allSongsEasyProgress(goal, match, partMatch, noMatch)
+                                }
+                            }
+                        } else {
+                            logger.v("Goal ${goal.id}: ${goal.diffNum}, ${goal.score}, ${goal.clearType}")
+                            LadderGoalProgress(
+                                progress = 0,
+                                max = 0,
+                                showMax = true,
+                            )
                         }
                     }
-                } else {
-                    logger.v("Goal ${goal.id}: ${goal.diffNum}, ${goal.score}, ${goal.clearType}")
-                    LadderGoalProgress(
-                        progress = 0,
-                        max = 0,
-                        showMax = true,
-                    )
-                }
             }
     }
 

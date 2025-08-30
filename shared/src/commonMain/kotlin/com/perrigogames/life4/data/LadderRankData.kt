@@ -75,7 +75,7 @@ data class LadderRankData(
 
 @Serializable
 data class LadderVersion(
-    @SerialName("unlock_requirement") val unlockRequirement: LadderRank,
+    @SerialName("unlock_requirement") val unlockRequirement: LadderRank? = null,
     @SerialName("rank_requirements") val rankRequirements: List<RankEntry>,
 )
 
