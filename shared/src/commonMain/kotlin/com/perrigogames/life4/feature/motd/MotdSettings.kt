@@ -12,22 +12,22 @@ import org.koin.core.component.inject
  * currently saved.
  */
 interface MotdSettings {
-    fun shouldShowMotd(version: Int): Boolean
-    fun setLastVersion(version: Int)
+    fun shouldShowMotd(version: Long): Boolean
+    fun setLastVersion(version: Long)
 }
 
 class DefaultMotdSettings : MotdSettings, BaseModel() {
     private val settings: Settings by inject()
 
-    private var lastMotdId: Int
-        get() = settings.getInt(KEY_LAST_MOTD, defaultValue = -1)
-        set(value) = settings.putInt(KEY_LAST_MOTD, value)
+    private var lastMotdId: Long
+        get() = settings.getLong(KEY_LAST_MOTD, defaultValue = -1)
+        set(value) = settings.putLong(KEY_LAST_MOTD, value)
 
-    override fun shouldShowMotd(version: Int): Boolean {
+    override fun shouldShowMotd(version: Long): Boolean {
         return version < lastMotdId
     }
 
-    override fun setLastVersion(version: Int) {
+    override fun setLastVersion(version: Long) {
         lastMotdId = version
     }
 }

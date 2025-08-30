@@ -5,18 +5,16 @@ import com.perrigogames.life4.MR
 import com.perrigogames.life4.api.SongListRemoteData
 import com.perrigogames.life4.api.base.FetchListener
 import com.perrigogames.life4.api.base.unwrapLoaded
-import com.perrigogames.life4.data.SongList
 import com.perrigogames.life4.enums.DifficultyClass
 import com.perrigogames.life4.enums.GameVersion
 import com.perrigogames.life4.enums.PlayStyle
 import com.perrigogames.life4.feature.banners.BannerLocation
-import com.perrigogames.life4.feature.banners.BannerManager
 import com.perrigogames.life4.feature.banners.IBannerManager
-import com.perrigogames.life4.feature.banners.UIBanner
 import com.perrigogames.life4.feature.banners.UIBannerTemplates
 import com.perrigogames.life4.injectLogger
 import com.perrigogames.life4.ktor.SanbaiAPI
-import com.perrigogames.life4.ktor.SanbaiSongListResponseItem
+import com.perrigogames.life4.ktor.SongListResponse
+import com.perrigogames.life4.ktor.SongListResponseItem
 import com.perrigogames.life4.model.BaseModel
 import dev.icerock.moko.mvvm.flow.CStateFlow
 import dev.icerock.moko.mvvm.flow.cStateFlow
@@ -58,10 +56,10 @@ class DefaultSongDataManager: BaseModel(), SongDataManager {
             data.dataState
                 .unwrapLoaded()
                 .filterNotNull()
-                .collect { parseDataFile(it) }
+                .collect { parseSanbaiSongData(it.songs) }
         }
         mainScope.launch {
-            data.start(object : FetchListener<SongList> {
+            data.start(object : FetchListener<SongListResponse> {
                 override suspend fun onFetchFailed(e: Throwable) {
                     bannerManager.setBanner(
                         banner = UIBannerTemplates.error(MR.strings.song_list_sync_error.desc()),
@@ -71,10 +69,10 @@ class DefaultSongDataManager: BaseModel(), SongDataManager {
                 }
             })
         }
-        refreshSanbaiData(force = false)
     }
 
     override fun refreshSanbaiData(force: Boolean) {
+        // TODO move this into CompositeData
         ktorScope.launch {
             val data = sanbaiAPI.getSongData()
 //            if (force || data.lastUpdated > sanbaiAPISettings.songDataUpdated) {
@@ -107,7 +105,7 @@ class DefaultSongDataManager: BaseModel(), SongDataManager {
         return chart
     }
 
-    private suspend fun parseSanbaiSongData(data: List<SanbaiSongListResponseItem>) = try {
+    private suspend fun parseSanbaiSongData(data: List<SongListResponseItem>) = try {
         val artists = _libraryFlow.value.songs.keys.map { it.skillId to it.artist }.toMap()
 
         val songs = mutableMapOf<Song, List<Chart>>()
@@ -148,74 +146,6 @@ class DefaultSongDataManager: BaseModel(), SongDataManager {
                         null
                     }
                 }
-        }
-
-        _libraryFlow.emit(
-            SongLibrary(
-                songs = songs,
-                charts = songs.values.flatten()
-            )
-        )
-    } catch (e: Exception) {
-        logger.e(e.stackTraceToString())
-    }
-
-    private suspend fun parseDataFile(input: SongList) = try {
-        val lines = input.songLines
-        val songs = mutableMapOf<Song, List<Chart>>()
-
-        lines.forEach { line ->
-            if (line.isEmpty()) {
-                return@forEach
-            }
-            val data = line.split('\t')
-            val id = data[0].toLong()
-            val skillId = data[1]
-
-            var preview = false
-            val mixCode = data[2]
-            val gameVersion = GameVersion.parse(mixCode.let {
-                it.toLongOrNull() ?: it.substring(0, it.length - 1).let { seg ->
-                    preview = true
-                    seg.toLong()
-                }
-            }) ?: GameVersion.entries.last().also {
-                logger.e { "No game version found for mix code \"$mixCode\"" }
-            }
-
-            val title = data[12]
-            val artist = data[13]
-            val song = Song(
-                id = id,
-                skillId = skillId,
-                title = title,
-                artist = artist,
-                version = gameVersion,
-                preview = preview,
-            )
-
-            val charts = mutableListOf<Chart>()
-            var count = 3
-            PlayStyle.entries.forEach { style ->
-                DifficultyClass.entries.forEach { diff ->
-                    if (style != PlayStyle.DOUBLE || diff != DifficultyClass.BEGINNER) {
-                        val diffNum = data[count++].toInt()
-                        if (diffNum != -1) {
-                            charts.add(
-                                Chart(
-                                    song = song,
-                                    difficultyClass = diff,
-                                    playStyle = style,
-                                    difficultyNumber = diffNum,
-                                )
-                            )
-                        }
-                    }
-                }
-            }
-
-            songs[song] = charts
-            // logger.d("Importing $title / $artist (${data.joinToString()})")
         }
 
         _libraryFlow.emit(

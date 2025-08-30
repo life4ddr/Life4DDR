@@ -26,16 +26,16 @@ class SanbaiAPIImpl : SanbaiAPI, KoinComponent {
     private val sanbaiSettings: ISanbaiAPISettings by inject()
     private val client: HttpClient = sanbaiHttpClient(logger, sanbaiSettings)
 
-    override suspend fun getSongData(): SanbaiSongListResponse {
+    override suspend fun getSongData(): SongListResponse {
         val response = client.get("https://3icecream.com/js/songdata.js") {
             contentType(ContentType.Application.JavaScript)
         }
         val lines = response.bodyAsText().split(";")
         val songData = lines[0].let { it.substring(startIndex = it.indexOf('[')) }
-        val songs = json.decodeFromString<List<SanbaiSongListResponseItem>>(songData)
+        val songs = json.decodeFromString<List<SongListResponseItem>>(songData)
         val lastUpdatedLine = lines.subList(1, lines.size).find { it.contains("SONG_DATA_LAST_UPDATED") }!!
         val lastUpdated = lastUpdatedLine.substring(startIndex = lastUpdatedLine.indexOf('=') + 1).toLong()
-        return SanbaiSongListResponse(
+        return SongListResponse(
             songs = songs,
             lastUpdated = Instant.fromEpochMilliseconds(lastUpdated)
         )
@@ -77,7 +77,12 @@ class SanbaiAPIImpl : SanbaiAPI, KoinComponent {
             throw RuntimeException("Failed to fetch scores: ${response.status}")
         }
 
-        return response.body<List<SanbaiScoreResult>>()
+        return try {
+            response.body<List<SanbaiScoreResult>>()
+        } catch (e: Exception) {
+            logger.e("Failed to parse scores: serialization error", e)
+            throw e
+        }
     }
 
     override suspend fun getPlayerId(): String {

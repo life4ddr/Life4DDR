@@ -78,7 +78,6 @@ val coreModule = module {
     single { TrialDatabaseHelper(get()) }
 
     single<GithubDataAPI> { GithubDataImpl() }
-    single<Life4API> { Life4APIImpl(get(), get<AppInfo>().isDebug) }
     single<SanbaiAPI> { SanbaiAPIImpl() }
     single { Json { classDiscriminator = "t" } }
 

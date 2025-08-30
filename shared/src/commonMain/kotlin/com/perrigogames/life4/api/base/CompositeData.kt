@@ -8,7 +8,7 @@ import com.perrigogames.life4.injectLogger
 import com.perrigogames.life4.model.BaseModel
 import kotlinx.coroutines.flow.*
 
-typealias VersionChange = Pair<Int, Int>
+typealias VersionChange = Pair<Long, Long>
 
 /**
  * A structure to unify the processes of reading raw data files, reading volatile cache files, and retrieving
@@ -121,7 +121,7 @@ abstract class CompositeData<T: Versioned>: BaseModel() {
 }
 
 data class VersionInfo(
-    val version: Int = 0,
+    val version: Long = 0L,
     val majorVersion: Int? = null,
     val versionString: String = "0",
     val majorVersionBlocked: Boolean = false,

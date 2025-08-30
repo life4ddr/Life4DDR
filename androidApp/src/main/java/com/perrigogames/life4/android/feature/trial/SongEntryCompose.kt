@@ -2,6 +2,7 @@ package com.perrigogames.life4.android.feature.trial
 
 import android.graphics.BitmapFactory
 import android.net.Uri
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -55,6 +56,10 @@ fun SongEntryBottomSheetContent(
     viewData: UITrialBottomSheet.Details,
     onAction: (TrialSessionAction) -> Unit,
 ) {
+    BackHandler {
+        onAction(TrialSessionAction.HideBottomSheet)
+    }
+
     val context = LocalContext.current
     val decodedBitmap = remember(viewData.imagePath) {
         if (viewData.imagePath.isEmpty()) return@remember null

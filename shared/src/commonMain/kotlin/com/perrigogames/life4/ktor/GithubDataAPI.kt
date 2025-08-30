@@ -19,7 +19,7 @@ interface GithubDataAPI {
         const val PARTIAL_DIFFICULTY_FILE_NAME = "partial_difficulties.json"
         const val PLACEMENTS_FILE_NAME = "placements.json"
         const val RANKS_FILE_NAME = "ranks.json"
-        const val SONGS_FILE_NAME = "songs.csv"
+        const val SONGS_FILE_NAME = "songs.json"
         const val TRIALS_FILE_NAME = "trials.json"
     }
 }

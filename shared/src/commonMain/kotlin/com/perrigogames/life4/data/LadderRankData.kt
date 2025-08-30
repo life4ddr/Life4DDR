@@ -19,7 +19,7 @@ import org.koin.core.component.KoinComponent
  */
 @Serializable
 data class LadderRankData(
-    override val version: Int,
+    override val version: Long,
     @SerialName("major_version") override val majorVersion: Int,
     @SerialName("goals") val goals: List<BaseRankGoal>,
     @SerialName("game_versions") val gameVersions: Map<GameVersion, LadderVersion>,

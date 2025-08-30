@@ -5,7 +5,7 @@ package com.perrigogames.life4.data
  * override smaller version numbers in priority.
  */
 interface Versioned {
-    val version: Int
+    val version: Long
 }
 
 /**

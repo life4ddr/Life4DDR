@@ -1,5 +1,6 @@
 package com.perrigogames.life4.ktor
 
+import com.perrigogames.life4.data.Versioned
 import com.perrigogames.life4.db.ChartResult
 import com.perrigogames.life4.enums.ClearType
 import com.perrigogames.life4.enums.DifficultyClass
@@ -9,7 +10,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 interface SanbaiAPI {
-    suspend fun getSongData(): SanbaiSongListResponse
+    suspend fun getSongData(): SongListResponse
 
     fun getAuthorizeUrl(): String
     suspend fun getSessionToken(code: String): SanbaiAuthTokenResponse
@@ -23,13 +24,17 @@ interface SanbaiAPI {
 }
 
 @Serializable
-data class SanbaiSongListResponse(
+data class SongListResponse(
     val lastUpdated: Instant,
-    val songs: List<SanbaiSongListResponseItem>
-)
+    val songs: List<SongListResponseItem>
+) : Versioned {
+
+    override val version: Long
+        get() = lastUpdated.epochSeconds
+}
 
 @Serializable
-data class SanbaiSongListResponseItem(
+data class SongListResponseItem(
     @SerialName("song_id") val songId: String,
     @SerialName("song_name") val songName: String,
     @SerialName("alternate_name") val alternateName: String? = null,
@@ -48,6 +53,7 @@ data class SanbaiScoreResult(
     @SerialName("song_id") val songId: String,
     @SerialName("song_name") val songName: String,
     val difficulty: Int,
+    val rating: Int,
     val score: Int,
     val lamp: Int,
     val flare: Int? = null,

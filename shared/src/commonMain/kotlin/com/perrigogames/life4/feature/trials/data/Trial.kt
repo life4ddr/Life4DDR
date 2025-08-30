@@ -37,7 +37,7 @@ import kotlin.math.min
 
 @Serializable
 data class TrialData(
-    override val version: Int,
+    override val version: Long,
     @SerialName("major_version") override val majorVersion: Int,
     val trials: List<Trial>,
 ): MajorVersioned {

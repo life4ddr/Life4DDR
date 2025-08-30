@@ -301,6 +301,7 @@ class TrialSessionViewModel(trialId: String) : KoinComponent, ViewModel() {
         isEdit: Boolean,
         onDismissAction: TrialSessionAction = TrialSessionAction.HideBottomSheet,
     ) {
+        logger.d { "Showing song entry for index $index" }
         songEntryViewModel.value = SongEntryViewModel(
             session = inProgressSession,
             targetRank = targetRank.value,

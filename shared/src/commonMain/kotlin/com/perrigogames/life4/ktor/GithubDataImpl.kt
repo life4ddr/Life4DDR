@@ -25,7 +25,7 @@ class GithubDataImpl: GithubDataAPI, KoinComponent {
     }
 
     override suspend fun getLadderRanks(): LadderRankData =
-        client.get { webGithubithub(GithubDataAPI.RANKS_FILE_NAME) }.body()
+        client.get { appGithub(GithubDataAPI.RANKS_FILE_NAME) }.body()
 
     override suspend fun getSongList(): String =
         client.get { appGithub(GithubDataAPI.SONGS_FILE_NAME) }.body()
@@ -40,14 +40,7 @@ class GithubDataImpl: GithubDataAPI, KoinComponent {
         val githubTarget = if (appInfo.isDebug) "remote-data-test" else "remote-data"
         url {
             takeFrom("https://raw.githubusercontent.com/")
-            encodedPath = "PerrigoGames/Life4DDR-Trials/$githubTarget/app/src/main/res/raw/$filename"
-        }
-    }
-
-    private fun HttpRequestBuilder.webGithubithub(filename: String) {
-        url {
-            takeFrom("https://raw.githubusercontent.com/") //https://github.com/life4ddr/life4ddr.com/blob/main/life4/json/ranks.json
-            encodedPath = "life4ddr/life4ddr.com/refs/heads/main/life4/json/$filename"
+            encodedPath = "life4ddr/Life4DDR/refs/heads/$githubTarget/json/$filename"
         }
     }
 }
